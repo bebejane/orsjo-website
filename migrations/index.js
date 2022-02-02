@@ -179,10 +179,6 @@ const migrateTaxonomies = async () => {
         console.log(k, taxonomies[k].dato.id, item)
         await wait(300)
       }
-      
-      
-      
-    
     })
 
   }catch(err){
@@ -193,13 +189,15 @@ const migrateTaxonomies = async () => {
 const migrateImage = async (id, tags = []) => {
   const image = await wpapi.media().id(id)
   if(!image) return null
+
   console.log('uploading ' + image.source_url + '...')
   const path = await datoClient.createUploadPath(image.source_url);
   const upload = await datoClient.uploads.create({path, tags});
   return upload
 }
 
-migrateDesigners()
+
+//migrateDesigners()
 //migrateProducts()
 //migrateTaxonomies()
 //getTaxonomies()
