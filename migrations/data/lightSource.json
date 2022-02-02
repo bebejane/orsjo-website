@@ -1,0 +1,402 @@
+[
+    {
+        "id": 272,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/12w-led-e14-2700k-130lm-cri-80/?lang=en",
+        "name": "1,2W LED E14 2700K 130lm CRI",
+        "slug": "12w-led-e14-2700k-130lm-cri-80",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/272"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=272"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 273,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/14w-ledmodule-fixed/?lang=en",
+        "name": "1,4W LEDmodule fixed",
+        "slug": "14w-ledmodule-fixed",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/273"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=273"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 274,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/15w-led-g4-3000k-90lm-cri-80/?lang=en",
+        "name": "1,5W LED G4 3000K 90lm CRI",
+        "slug": "15w-led-g4-3000k-90lm-cri-80",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/274"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=274"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 296,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/10w-ledmodule-2700k-1200lm-cri90-en/?lang=en",
+        "name": "10W LEDmodule 2700K 1200lm CRI90",
+        "slug": "10w-ledmodule-2700k-1200lm-cri90-en",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/296"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=296"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 297,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/125w-led-e27-par38-2700k-1035lm-cri-80-30o/?lang=en",
+        "name": "12,5W LED E27 PAR38 2700K 1035lm CRI",
+        "slug": "125w-led-e27-par38-2700k-1035lm-cri-80-30o",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/297"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=297"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 298,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/12w-e14-fluorescent-lamp-2700k/?lang=en",
+        "name": "12W E14 fluorescent lamp 2700K",
+        "slug": "12w-e14-fluorescent-lamp-2700k",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/298"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=298"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 415,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/19w-t8-led-tube-120cm-g13-sockel-50hz-60hz-3100lm-125000h/?lang=en",
+        "name": "19W T8 LED tube 120cm G13-sockel 50Hz/60Hz 3100lm 125000h",
+        "slug": "19w-t8-led-tube-120cm-g13-sockel-50hz-60hz-3100lm-125000h",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/415"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=415"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 408,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/25w-led-2700k-300lm-dimmable-built-in/?lang=en",
+        "name": "2,5W LED 2700K 300lm dimmable (built in)",
+        "slug": "25w-led-2700k-300lm-dimmable-built-in",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/408"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=408"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 275,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/25w-led-g9-3000k-200lm-cri-80-dimmable/?lang=en",
+        "name": "2,5W LED G9 3000K 200lm CRI",
+        "slug": "25w-led-g9-3000k-200lm-cri-80-dimmable",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/275"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=275"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 299,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-lightsource/20w-ledmodule-3000k-2400lm-cri90/?lang=en",
+        "name": "20W LEDmodule 3000K 2400lm CRI90",
+        "slug": "20w-ledmodule-3000k-2400lm-cri90",
+        "taxonomy": "product-lightsource",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource/299"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-lightsource"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-lightsource"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-lightsource=299"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    }
+]

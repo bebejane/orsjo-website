@@ -1,0 +1,207 @@
+[
+    {
+        "id": 421,
+        "count": 1,
+        "description": "",
+        "link": "https://www.orsjo.com/product-category/accessory/?lang=en",
+        "name": "Accessory",
+        "slug": "accessory",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/421"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=421"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 70,
+        "count": 27,
+        "description": "Ceiling lamps",
+        "link": "https://www.orsjo.com/product-category/ceilinglamp/?lang=en",
+        "name": "Ceiling lamp",
+        "slug": "ceilinglamp",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/70"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=70"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 67,
+        "count": 16,
+        "description": "Floor lamps",
+        "link": "https://www.orsjo.com/product-category/floorlamp/?lang=en",
+        "name": "Floor lamp",
+        "slug": "floorlamp",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/67"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=67"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 65,
+        "count": 14,
+        "description": "Table lamps",
+        "link": "https://www.orsjo.com/product-category/tablelamp/?lang=en",
+        "name": "Table lamp",
+        "slug": "tablelamp",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/65"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=65"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 69,
+        "count": 26,
+        "description": "Wall lamps",
+        "link": "https://www.orsjo.com/product-category/walllamp/?lang=en",
+        "name": "Wall lamp",
+        "slug": "walllamp",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/69"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=69"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    }
+]

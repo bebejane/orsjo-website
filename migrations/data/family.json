@@ -1,0 +1,412 @@
+[
+    {
+        "id": 66,
+        "count": 2,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/aria-en/?lang=en",
+        "name": "Aria",
+        "slug": "aria-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/66"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=66"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 114,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/atom-en/?lang=en",
+        "name": "Atom",
+        "slug": "atom-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/114"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=114"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 76,
+        "count": 3,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/baklava-en/?lang=en",
+        "name": "Baklava",
+        "slug": "baklava-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/76"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=76"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 77,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/bell-en/?lang=en",
+        "name": "Bell",
+        "slug": "bell-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/77"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=77"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 122,
+        "count": 1,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/boa-en/?lang=en",
+        "name": "Boa",
+        "slug": "boa-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/122"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=122"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 78,
+        "count": 3,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/butler-en/?lang=en",
+        "name": "Butler",
+        "slug": "butler-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/78"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=78"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 79,
+        "count": 1,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/cirkus-en/?lang=en",
+        "name": "Cirkus",
+        "slug": "cirkus-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/79"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=79"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 80,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/cool-en/?lang=en",
+        "name": "Cool",
+        "slug": "cool-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/80"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=80"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 81,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/crane-en/?lang=en",
+        "name": "Crane",
+        "slug": "crane-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/81"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=81"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 82,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-family/crop-en/?lang=en",
+        "name": "Crop",
+        "slug": "crop-en",
+        "taxonomy": "product-family",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family/82"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-family"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-family"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-family=82"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    }
+]

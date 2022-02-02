@@ -1,0 +1,207 @@
+[
+    {
+        "id": 5,
+        "count": 14,
+        "description": "Bordslampor",
+        "link": "https://www.orsjo.com/product-category/bordslampa/",
+        "name": "Bordslampa",
+        "slug": "bordslampa",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/5"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=5"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "count": 16,
+        "description": "Golvlampor",
+        "link": "https://www.orsjo.com/product-category/golvlampa/",
+        "name": "Golvlampa",
+        "slug": "golvlampa",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/8"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=8"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "count": 26,
+        "description": "Taklampor",
+        "link": "https://www.orsjo.com/product-category/taklampa/",
+        "name": "Taklampa",
+        "slug": "taklampa",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/6"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=6"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 420,
+        "count": 1,
+        "description": "",
+        "link": "https://www.orsjo.com/product-category/tillbehor/",
+        "name": "Tillbehör",
+        "slug": "tillbehor",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/420"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=420"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 15,
+        "count": 26,
+        "description": "Vägglampor",
+        "link": "https://www.orsjo.com/product-category/vagglampa/",
+        "name": "Vägglampa",
+        "slug": "vagglampa",
+        "taxonomy": "product-category",
+        "parent": 0,
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category/15"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-category"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-category"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-category=15"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    }
+]

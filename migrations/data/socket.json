@@ -1,0 +1,282 @@
+[
+    {
+        "id": 307,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-socket/e14-en/?lang=en",
+        "name": "E14",
+        "slug": "e14-en",
+        "taxonomy": "product-socket",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket/307"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-socket"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-socket=307"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 308,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-socket/e27-en/?lang=en",
+        "name": "E27",
+        "slug": "e27-en",
+        "taxonomy": "product-socket",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket/308"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-socket"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-socket=308"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 409,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-socket/g13/",
+        "name": "G13",
+        "slug": "g13",
+        "taxonomy": "product-socket",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket/409"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-socket"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-socket=409"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 309,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-socket/g9-en/?lang=en",
+        "name": "G9",
+        "slug": "g9-en",
+        "taxonomy": "product-socket",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket/309"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-socket"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-socket=309"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 311,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-socket/gu10-en/?lang=en",
+        "name": "GU10",
+        "slug": "gu10-en",
+        "taxonomy": "product-socket",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket/311"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-socket"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-socket=311"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 310,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-socket/gu4-en/?lang=en",
+        "name": "GU4",
+        "slug": "gu4-en",
+        "taxonomy": "product-socket",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket/310"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-socket"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-socket=310"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 312,
+        "count": 0,
+        "description": "",
+        "link": "https://www.orsjo.com/product-socket/s14d-en/?lang=en",
+        "name": "S14d",
+        "slug": "s14d-en",
+        "taxonomy": "product-socket",
+        "meta": [],
+        "acf": [],
+        "_links": {
+            "self": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket/312"
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product-socket"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/taxonomies/product-socket"
+                }
+            ],
+            "wp:post_type": [
+                {
+                    "href": "https://www.orsjo.com/wp-json/wp/v2/product?product-socket=312"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    }
+]
