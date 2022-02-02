@@ -1,14 +1,17 @@
 require('dotenv').config({path:'./.env.local'})
+const argv = require('minimist')(process.argv.slice(2));
 const fs = require('fs')
 const stripTags = require('striptags');
+const TurndownService = require('turndown')
+const turndownService = new TurndownService()
+
 const wait = (ms = 0) => new Promise((resolve) => setTimeout(()=>resolve(), ms))
 const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.json`, JSON.stringify(obj, null, 4))
 
 const WP_ENDPOINT = 'http://orsjo.com/wp-json';
-const argv = require('minimist')(process.argv.slice(2));
+
 const { SiteClient } = require('datocms-client');
 const WPAPI = require( 'wpapi' );
-
 const wpapi = new WPAPI({ endpoint: WP_ENDPOINT });
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
@@ -77,18 +80,6 @@ const taxonomies = {
     }
   },
 }
-/*
-wpapi.productCategory = wpapi.registerRoute('wp/v2', '/product-category/(?P<id>)');
-wpapi.productFamily = wpapi.registerRoute('wp/v2', '/product-family/(?P<id>)');
-wpapi.productElectricalData = wpapi.registerRoute('wp/v2', '/product-electrical-data/(?P<id>)');
-wpapi.productConnection = wpapi.registerRoute('wp/v2', '/product-connection/(?P<id>)');
-wpapi.productMounting = wpapi.registerRoute('wp/v2', '/product-mounting/(?P<id>)');
-wpapi.productColor = wpapi.registerRoute('wp/v2', '/product-color/(?P<id>)');
-wpapi.productMaterial = wpapi.registerRoute('wp/v2', '/product-material/(?P<id>)');
-wpapi.productSocket = wpapi.registerRoute('wp/v2', '/product-socket/(?P<id>)');
-wpapi.productLightSource = wpapi.registerRoute('wp/v2', '/product-lightsource/(?P<id>)');
-wpapi.productDimmable = wpapi.registerRoute('wp/v2', '/product-dimmable/(?P<id>)');
-*/
 
 const parseProduct = (p) => {
   const { 
@@ -128,6 +119,38 @@ const migrateProducts = async () => {
     console.error(err)
   }
 }
+const migrateDesigners = async () => {
+  console.log('Migrating designers...')
+  wpapi.designer = wpapi.registerRoute('wp/v2', '/designer/(?P<id>)', {wpml_language:'en'});
+  const designers = await wpapi.designer().perPage(100).param(lang)
+  
+  console.log(`Migrating ${designers.length} items...`)
+
+  for (let i = 0; i < designers.length; i++) {
+    const element = designers[i];
+    
+    try{
+      const upload = await migrateImage(element.featured_media, ['designer'])
+      const item = {
+        itemType: '1765453',
+        slug:element.slug,
+        name:element.title.rendered,
+        description: turndownService.turndown(element.content.rendered),
+        image:{
+          upload_id:upload.id
+        }
+      }
+      console.log('Add ' + item.name)
+      const record = await datoClient.items.create(item); 
+
+    } catch(err){
+      console.log(err)
+      console.log('failed')
+    } 
+    await wait(300) 
+  }
+}
+
 const migrateTaxonomies = async () => {
   console.log('Get all taxonomies...') 
   try{
@@ -167,8 +190,16 @@ const migrateTaxonomies = async () => {
   }
 }
 
+const migrateImage = async (id, tags = []) => {
+  const image = await wpapi.media().id(id)
+  if(!image) return null
+  console.log('uploading ' + image.source_url + '...')
+  const path = await datoClient.createUploadPath(image.source_url);
+  const upload = await datoClient.uploads.create({path, tags});
+  return upload
+}
 
-
+migrateDesigners()
 //migrateProducts()
-migrateTaxonomies()
+//migrateTaxonomies()
 //getTaxonomies()
