@@ -1,5 +1,8 @@
 import { GetSiteSEO } from  "./seo.graphql";
+import { GetProduct, GetProducts } from  "./product.graphql";
 
 export {
-  GetSiteSEO
+  GetSiteSEO,
+  GetProduct,
+  GetProducts
 }

@@ -1,6 +1,7 @@
 require('dotenv').config({path:'./.env.local'})
 const fs = require('fs')
 const stripTags = require('striptags');
+const wait = (ms = 0) => new Promise((resolve) => setTimeout(()=>resolve(), ms))
 const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.json`, JSON.stringify(obj, null, 4))
 
 const WP_ENDPOINT = 'http://orsjo.com/wp-json';
@@ -48,7 +49,7 @@ const taxonomies = {
   'color':{
     name:'name',
     dato:{
-      id:1765134
+      id:1765140
     }
   },
   'material':{
@@ -142,7 +143,23 @@ const migrateTaxonomies = async () => {
         })
         return d;
       })
-      console.log(datoData)
+      for (let i = 0; i < datoData.length; i++) {
+        const item = datoData[i];
+        try{
+          const record = await datoClient.items.create({
+            itemType: '' + taxonomies[k].dato.id,
+            ...item
+          }); 
+        } catch(err){
+          
+        }
+        console.log(k, taxonomies[k].dato.id, item)
+        await wait(300)
+      }
+      
+      
+      
+    
     })
 
   }catch(err){

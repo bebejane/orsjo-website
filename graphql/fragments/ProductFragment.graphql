@@ -1,0 +1,86 @@
+#import "./ImageFragment.graphql"
+#import "./FileFragment.graphql"
+
+fragment ProductFragment on ProductRecord{
+  bimLink
+  description
+  id
+  presentation
+  slug
+  title
+  colorImages {
+    ...ImageFragment
+  }
+  connection {
+    id
+    name
+  }
+  designer {
+    id
+    name
+  }
+  dimmable {
+    id
+    name
+  }
+  electricityData {
+    id
+    name
+  }
+  images {
+    ...ImageFragment
+  }
+  lightFile {
+    ...FileFragment
+  }
+  models {
+    id
+    name
+    drawing {
+      ...ImageFragment
+    }
+    lightsources {
+      id
+      included
+      amount
+      lightsource {
+        id
+        name
+      }
+    }
+    variants {
+      color {
+        id
+        name
+      }
+      id
+      material {
+        id
+        name
+      }
+      price
+      vat
+      volume
+      weight
+      specificFeature
+      extraPercent
+      articleNo
+    }
+  }
+  mounting {
+    name
+    id
+  }
+  pdfFile {
+    ...FileFragment
+  }
+  sockets {
+    id
+    name
+  }
+  seo: _seoMetaTags {
+    attributes
+    content
+    tag
+  }
+}

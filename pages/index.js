@@ -1,19 +1,29 @@
 import styles from './index.module.scss'
+import { apiQuery } from "/lib/dato/api";
 import { withGlobalProps } from "/lib/utils";
-import Markdown from '/lib/dato/components/Markdown';
-import StructuredContent from '/lib/dato/components/structured-content';
+import { GetProducts } from "/graphql"
 
 export default function Home(props){
+	console.log(props)
+	const { products } = props
 	return (
 		<div className={styles.container}>
-			Örsjö site
+			Products
+			<ul>
+				{products.map(p => <li>{p.title}</li>)}			
+			</ul>
 		</div>
 	)
 }
 
 export const getStaticProps = withGlobalProps( async ({props, revalidate }) => {
-	return {
-		props,
+	const { products } = await apiQuery(GetProducts)
+
+	return { 
+		props:{
+			...props,
+			products
+		},
 		revalidate
 	};
 });
