@@ -1,17 +1,16 @@
-
 #import "./fragments/ProductFragment.graphql"
 
-query GetProduct {
-  product {
-    ...ProductFragment    
-  }
+query GetProduct($id: ItemId) {
+	product(filter: {id: {eq: $id } }) {
+		...ProductFragment
+	}
 }
 
-query GetProducts ($first : IntType = 100, $skip : IntType = 0) {
-  products: allProducts(first:$first, skip:$skip, orderBy:[title_ASC]){
-    ...ProductFragment
-  }
-  productsMeta: _allProductsMeta {
-    count
-  }
+query GetProducts($first: IntType = 100, $skip: IntType = 0) {
+	products: allProducts(first: $first, skip: $skip, orderBy: [title_ASC]) {
+		...ProductFragment
+	}
+	productsMeta: _allProductsMeta {
+		count
+	}
 }

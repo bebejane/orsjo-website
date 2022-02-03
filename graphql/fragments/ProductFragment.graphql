@@ -2,12 +2,12 @@
 #import "./FileFragment.graphql"
 
 fragment ProductFragment on ProductRecord{
-  bimLink
-  description
   id
-  presentation
-  slug
   title
+  description
+  slug
+  bimLink
+  presentation
   colorImages {
     ...ImageFragment
   }
