@@ -1,0 +1,47 @@
+query GetTaxonomy {
+  designer: allDesigners {
+    name
+    id
+    slug
+  }
+  category: allProductCategories {
+    id
+    name
+  }
+  color:allProductColors {
+    id
+    name
+  }
+  connection: allProductConnections {
+    id
+    name
+  }
+  dimmable: allProductDimmables {
+    id
+    name
+  }
+  electrical_data: allProductElectricals {
+    id
+    name
+  }
+  family: allProductFamilies {
+    id
+    name
+  }
+  lightsource: allProductLightsources {
+    id
+    name
+  }
+  material: allProductMaterials {
+    id
+    name
+  }
+  mounting: allProductMountings {
+    id
+    name
+  }
+  socket: allProductSockets {
+    id
+    name
+  }
+}

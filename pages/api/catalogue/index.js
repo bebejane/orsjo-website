@@ -2,8 +2,6 @@ import { apiQuery } from "/lib/dato/api";
 import { GetProduct, GetProducts } from "/graphql";
 import puppeteer from "puppeteer";
 
-
-
 export default async function catalogue(req, res) {
   console.time('generate pdf')
   const productId = req.query.id ? req.query.id[0] : null;

@@ -1,33 +1,33 @@
 import styles from './index.module.scss'
 import { apiQuery } from "/lib/dato/api";
-import { withGlobalProps } from "/lib/utils";
-import { GetProduct, GetProducts } from "/graphql"
+import { GetProduct} from "/graphql"
 
 export default function Home(props){
 	const { product } = props
+	console.log(product)
 	return (
 		<div className={styles.container}>
-			Product pdf<br/>
-      {product.name}
+      <h2>{product.title}</h2>
+			{product.description}
 		</div>
 	)
 }
 
-export const getStaticProps = withGlobalProps( async ({props, revalidate, context}) => {
+export const getServerSideProps = async (context) => {
   const id = context.params.id[0];
-	console.log(id)
-  const { product } = await apiQuery(GetProduct, {id})
-	if(!product) return {notFound:true}
-	//console.log(product)
+	const { product } = await apiQuery(GetProduct, {id});
+	
+	if(!product) 
+		return {notFound:true}
+	
 	return { 
 		props:{
-			...props,
 			product
-		},
-		revalidate
-	};
-});
+		}
+	}
+}
 
+/*
 export async function getStaticPaths() {
   const { products } = await apiQuery(GetProducts);
 	const paths = []
@@ -37,3 +37,4 @@ export async function getStaticPaths() {
 		fallback: 'blocking',
 	};
 }
+*/
