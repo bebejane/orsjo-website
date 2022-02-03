@@ -4,16 +4,13 @@ const fs = require('fs')
 const stripTags = require('striptags');
 const TurndownService = require('turndown')
 const turndownService = new TurndownService()
-
 const wait = (ms = 0) => new Promise((resolve) => setTimeout(()=>resolve(), ms))
-const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.json`, JSON.stringify(obj, null, 4))
-
-const WP_ENDPOINT = 'http://orsjo.com/wp-json';
+const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.json`, JSON.stringify(obj, null, 2))
 
 
-const { SiteClient } = require('datocms-client');
+const { SiteClient, buildModularBlock } = require('datocms-client');
 const WPAPI = require( 'wpapi' );
-const wpapi = new WPAPI({ endpoint: WP_ENDPOINT });
+const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD, auth:true});
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
 const lang = {wpml_language:'en'}
@@ -83,58 +80,63 @@ const taxonomies = {
   },
 }
 
-const parseProduct = (p, taxMap) => {
-  console.log(p)
+const parseProduct = async (p, taxMap) => {
+  
   const wpIdToDatoId = (taxonomy, wpId) => {
     if(!wpId) return undefined
     return taxMap[taxonomy][wpId]
   }
-  
-  const image = p.featured_image// await migrateImage(p.featured_image, ['product-image']).id
-  const gallery = p.acf.gallery.map((i) => {
-    return {
-      id: i.id//await migrateImage(c.id, ['product-gallery']).id
-    }
-  })
-  const colorImages = p.acf.colors.map((c) => {
-    return {
-      id: c.id//await migrateImage(c.id, ['product-color']).id
-    }
-  })
-  const connection = []
-  const electricalData = p.acf.electrical_data.map((el)=> ({id: wpIdToDatoId('electrical', el.term_taxonomy_id)}))
+  const uploadMedia = async (arr, key, tags) => {
+    const uploads = []
+    for (let i = 0; i < arr.length; i++) 
+      uploads.push(migrateMedia(arr[i][key], tags))
+    const res = await Promise.all(uploads)
+    return res.map( r => r ? ({upload_id:r.id}) : undefined);
+  }
+  console.time('parse')
+  console.log('Product: ' + p.title.rendered.trim())
+
+  const image = !p.featured_media ? undefined : await migrateMedia(p.featured_media, ['product-image'])
+  const environmentImage = !p.acf.product_environment ? undefined : await migrateMedia(p.acf.product_environment, ['product-enviroment-image'])
+  const gallery = await uploadMedia(p.acf.gallery, 'id', ['product-gallery'])
+  const colorImages = await uploadMedia(p.acf.colors, 'id', ['product-color'])
+  const drawings = await uploadMedia(p.acf.model.map(m => ({id:m.drawing})), 'id', ['product-drawing'])
+
+  const electricalData = p.acf.electrical_data.map((el)=> wpIdToDatoId('electrical', el.term_id))
   const sockets = p.acf.socket ? p.acf.socket.map(({id}) => ({id})) : undefined
+  const pdfFile = !p.acf.pdf ? undefined : await migrateMedia(p.acf.pdf, ['product-pdf'])
+  const lightFile = !p.acf.light_file ? undefined : await migrateMedia(p.acf.light_file, ['product-light-file']);
 
   const prod = {
     bimLink:p.acf.bim_link,
     colorImages,
-    environmentImage:p.product_environment,//await migrateImage(p.product_environment, ['product-enviroment-image']).id
-    description:stripTags(p.content.rendered).replace(/\n/g, '').trim(),
-    designer: {id:wpIdToDatoId('designer', p.acf.designer?.ID)},
-    connection:{id:wpIdToDatoId('connection', p.acf.connection?.term_taxonomy_id)},
-    dimmable: {id:wpIdToDatoId('dimmable', p.acf.dimmable?.term_taxonomy_id)},
-    mounting: {id:wpIdToDatoId('mounting', p.acf.mounting?.term_taxonomy_id)},
+    environmentImage: environmentImage ? {upload_id: environmentImage.id} : undefined,
+    description: stripTags(p.content.rendered).replace(/\n/g, '').trim(),
+    designer: wpIdToDatoId('designer', p.acf.designer?.ID),
+    connection:wpIdToDatoId('connection', p.acf.connection?.term_id),
+    dimmable: wpIdToDatoId('dimmable', p.acf.dimmable?.term_id),
+    mounting: wpIdToDatoId('mounting', p.acf.mounting?.term_id),
     electricalData,
-    image,
+    image: image ? {upload_id: image.id} : undefined,
     gallery,
-    lightFile:{id:p.light_file},//{id:await migrateFile(p.light_file, ['product-light-file']).id},
-    pdfFile:{id:p.pdf},//{id:await migrateFile(p.pdf, ['product-pdf']).id},
+    lightFile: lightFile ? {upload_id: lightFile.id} : undefined,
+    pdfFile: pdfFile ? {upload_id:pdfFile.id} : undefined,
     presentation:p.presentation,
     slug:p.slug,
     sockets,
     title:p.title.rendered.trim(),
-    models: p.acf.model.map((m)=> ({
+    models: p.acf.model.map((m, idx)=> ({
       name:m.name,
-      drawing:{id:m.drawing},//{id:await migrateFile(p.drawing, ['product-model-drawing']).id},
+      drawing: !m.drawing ? undefined : drawings[idx],
       lightsources:m.lightsources.map((el)=> ({
         amount:el.amount,
         included:el.included,
-        lightsource:{id:wpIdToDatoId('lightsource', el.lightsource.term_taxonomy_id)}
+        lightsource:wpIdToDatoId('lightsource', el.lightsource.term_id)
       })),
       variants: m.versions.map((v) => ({
         articleNo:v.art_no,
-        color:{id:wpIdToDatoId('color', v.color.term_taxonomy_id)},
-        material:{id:wpIdToDatoId('material', v.material.term_taxonomy_id)},
+        color:wpIdToDatoId('color', v.color.term_id),
+        material:wpIdToDatoId('material', v.material.term_id),
         extraPercent:v.extra,
         price:v.price,
         specificFeature:v.differance,
@@ -144,6 +146,9 @@ const parseProduct = (p, taxMap) => {
       }))
     }))
   }
+  console.timeEnd('parse')
+  console.log('')
+  //delete prod.models
   return prod
 }
 
@@ -160,15 +165,40 @@ const migrateProducts = async () => {
   try{
     console.log('Loading products...')
     const parsed = []
-    const products = await wpapi.product().perPage(1).param(lang)
+    const products = await wpapi.product().perPage(10).param(lang)
 
     for (let i = 0; i < products.length; i++) {
-      const p = parseProduct(products[i], taxMap);
+      const p = await parseProduct(products[i], taxMap);
       parsed.push(p)
-      writeToFile(p.slug, p)
-      writeToFile('_'+p.slug, products[i])
+      fs.writeFileSync(`./migrations/data/products/${p.slug}.json`, JSON.stringify(p, null, 2))
+      try{
+        const record = await datoClient.items.create({
+          itemType: '1765120',
+          ...{...p, models:undefined},
+          models: p.models.map((m)=> 
+            buildModularBlock({
+              itemType:'1765343',
+              name:m.name,
+              drawing:m.drawing,
+              lightsources:m.lightsources.map(l => buildModularBlock({
+                itemType:'1765346',
+                ...l
+              })),
+              variants:m.variants.map(v => buildModularBlock({
+                itemType:'1765356',
+                ...v
+              }))
+            })
+          )
+        }); 
+      }catch(err){
+        console.log(err)
+        break;
+      }
+
     }
-    console.log(parsed)
+    console.log(parsed.length)
+    //console.log(taxMap)
 
 
     //writeToFile('products', products)
@@ -187,7 +217,7 @@ const migrateDesigners = async () => {
     const element = designers[i];
     
     try{
-      const upload = await migrateImage(element.featured_media, ['designer'])
+      const upload = await migrateMedia(element.featured_media, ['designer'])
       const item = {
         itemType: '1765453',
         slug:element.slug,
@@ -243,14 +273,19 @@ const migrateTaxonomies = async () => {
   }
 }
 
-const migrateImage = async (id, tags = []) => {
-  const image = await wpapi.media().id(id)
-  if(!image) return null
-
-  console.log('uploading ' + image.source_url + '...')
-  const path = await datoClient.createUploadPath(image.source_url);
-  const upload = await datoClient.uploads.create({path, tags});
-  return upload
+const migrateMedia = async (id, tags = []) => {
+  
+  try{ 
+    const image = isNaN(id) ? { source_url:id } : await wpapi.media().id(id)
+    if(!image) return null
+    console.log('Uploading "' + image.source_url + '"...')
+    const path = await datoClient.createUploadPath(image.source_url);
+    const upload = await datoClient.uploads.create({path, tags});
+    return upload
+  }catch(err){
+    console.error('failed upload', id)
+    return null;
+  }
 }
 
 const getWPTaxonomies = async () => {
@@ -297,6 +332,16 @@ const generateTaxonomyMap = async () => {
 }
 
 //migrateDesigners()
-migrateProducts()
+//migrateProducts()
 //migrateTaxonomies()
 //getTaxonomies()
+const start = async () => {
+  const auth = {username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD}
+  console.log(auth)
+  try{
+  const upload = await wpapi.media().param(lang).auth(auth).id(16586)
+  }catch(err){
+    console.log(err)
+  }
+}
+start()
