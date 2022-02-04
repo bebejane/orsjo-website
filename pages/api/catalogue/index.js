@@ -6,10 +6,11 @@ import getConfig from 'next/config'
 const { serverRuntimeConfig } = getConfig()
 
 export default async function catalogue(req, res) {
-  console.log(req.query)
-  console.log(req.body)
-  return res.json({success:true})
-  const id = req.query.id ? req.query.id[0] : null;
+  
+  //const id = req.query.id ? req.query.id[0] : null;
+  const id = req.body.entity.id
+  //const uploadId = req.body.entity.pdfFile.upload_id;
+
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue${id ? `/${id}` : ''}`;
   const browser = await puppeteer.launch(process.env.NODE_ENV === 'production' ? { args: chrome.args, executablePath: await chrome.executablePath, headless: chrome.headless } : {});
   const pdfFilePath = `${serverRuntimeConfig.TEMP_DIR}/${id}.pdf`
