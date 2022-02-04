@@ -39,6 +39,16 @@ $padding: 80px;
         height: 100px;
       }
     }
+    .generatedAt{
+      position: absolute;
+      top: 0;
+      left:0;
+      z-index: 10;
+      color:gray;
+      font-size: 10px;
+      line-height: 1;
+      margin:5px;
+    }
     .intro{
       display: flex;
       flex-direction: column;

@@ -4,6 +4,8 @@ import Markdown from '/lib/dato/components/Markdown'
 
 export default function ProductSheet({product}){
   
+  const generatedAt = new Date().toISOString()
+
   const specs = [
     {label: 'Designer',value : product.designer?.name},
     {label: 'Electrical data', value : product.electricalData.map((el)=> el.name).join(', ')},
@@ -23,6 +25,7 @@ export default function ProductSheet({product}){
     <>
       <section className={cn(styles.page, styles.frontPage)}>
         <img className={styles.logo} src={'/images/orsjo-logo-2014.png'}/>
+        <span className={styles.generatedAt}>{generatedAt}</span>
         <div className={styles.intro}>
           <div className={styles.productImage}>
             <img src={product.image?.url} />
@@ -41,7 +44,7 @@ export default function ProductSheet({product}){
               <div className={styles.color} style={{maxWidth:`${maxWidth}%`}}>
                 <img 
                   className={styles.colorImage} 
-                  src={url} 
+                  src={`${url}?w=600`} 
                 />
                 <div className={styles.description}>{title || 'No description'}</div>
               </div>
@@ -76,6 +79,7 @@ export default function ProductSheet({product}){
           })}
         </table>
       </section>
+
       {drawings.length > 0 &&
         <section className={cn(styles.page, styles.dimensionsPage)}>
           <h1>Dimensions</h1>
@@ -86,6 +90,7 @@ export default function ProductSheet({product}){
           </div>
         </section>
       }
+
     </>
 	)
 }
