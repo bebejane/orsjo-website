@@ -23,11 +23,17 @@ export default function ProductSheet({product}){
     <>
       <section className={cn(styles.page, styles.frontPage)}>
         <img className={styles.logo} src={'/images/orsjo-logo-2014.png'}/>
-        <img className={styles.productImage} src={product.image?.url} />
-        <h1 className={styles.title}>{product.title}</h1>
-        <Markdown truncate={800} className={styles.description}>
-          {product.description}
-        </Markdown>
+        <div className={styles.intro}>
+          <div className={styles.productImage}>
+            <img src={product.image?.url} />
+          </div>
+          <div className={styles.productText}>
+            <h1 className={styles.title}>{product.title}</h1>
+            <Markdown truncate={650} className={styles.description}>
+              {product.description}
+            </Markdown>
+          </div>
+        </div>
         <div className={styles.colors}>
           {product.colorImages.map(({url}) => {
             const maxWidth = 100/product.colorImages.length;
@@ -37,7 +43,7 @@ export default function ProductSheet({product}){
                   className={styles.colorImage} 
                   src={url} 
                 />
-                <div className={styles.description}>product desc</div>
+                <div className={styles.description}>color desc</div>
               </div>
             )
           })}

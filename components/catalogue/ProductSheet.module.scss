@@ -22,6 +22,7 @@ $padding: 80px;
     font-family: "Big Caslon Reg";
     font-size: 46pt !important;
     margin-bottom: 10pt !important;
+    line-height: 1;
   }
   &.frontPage { 
     padding-top:0px;
@@ -38,29 +39,52 @@ $padding: 80px;
         height: 100px;
       }
     }
-    .productImage {
-      height: calc($pageHeight / 2.5) !important;
-      width: auto;
-    }
-    .title {
-      margin-bottom: 40px;
-    }
-    .description {
-      flex: 1 1 auto;
+    .intro{
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 80%;
+      .productImage {
+        position: relative;
+        flex: 0 0 50%;
+        width: 100%;
+        img{
+          position: absolute;
+          top:0;
+          left:0;
+          right:0;
+          height:100%;
+          width:auto;
+          margin: auto;
+        }
+      }
+      .productText {
+        position: relative;
+        flex: 1 1 100%;
+        width: 100%;
+        padding-top: $padding/2;
+        .title {
+          margin-bottom: 40px;
+        }
+        .description {
+          min-height: 200pt !important;
+        }
+      }
     }
     .colors {
       display: flex;
       flex-direction: row;
-      align-items: center;
+      align-items: flex-end;
       flex-wrap: wrap;
       justify-content: center;
+      flex: 0 0 20%;
       .color {
         display: flex;
         flex-direction: column;
         align-items: center;
+        
         img {
-          width: 100%;
           max-width: 250pt;
+          max-height: 100pt;
         }
         .description {
           text-align: center;
@@ -68,7 +92,6 @@ $padding: 80px;
           text-transform: uppercase;
           font-size: 10pt;
           line-height: 1;
-      
         }
       }
     }
@@ -76,8 +99,6 @@ $padding: 80px;
 
 	&.specPage{
 		padding-top: $padding;
-		h1 {
-		}
 		table {
 			margin-top: 20px;
 			width: 100%;
@@ -114,6 +135,7 @@ $padding: 80px;
         margin-top: math.div($padding,2);
         height:100%;
         flex: 1 1 auto;
+        //max-height: 80%;
       } 
     }
   }

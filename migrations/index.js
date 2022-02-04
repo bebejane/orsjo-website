@@ -173,17 +173,11 @@ const migrateProducts = async () => {
 
     let products = await wpapi.product().perPage(100).page(page).param(lang)
     
-    const wpIdToDatoId = (taxonomy, wpId) => {
-      if(!wpId) return undefined
-      return taxMap[taxonomy][wpId]
-    }
-
     while(products && products.length){
       for (let i = 0; i < products.length; i++) {
 
         const prod = await productExists(products[i].slug)
         const p = await parseProduct(products[i], taxMap);
-        
         
         try{
         
@@ -238,9 +232,19 @@ const migrateMedia = async (id, tags = []) => {
   if(!id) return undefined
   const image = isNaN(id) ? { source_url:id } : await wpapi.media().id(id)
   if(!image) return undefined
-  console.log('Uploading "' + image.source_url + '"...')
+  console.log(`Uploading ${image.source_url.split('/').pop()} - "${image.caption}"`)
+
   const path = await datoClient.createUploadPath(image.source_url);
-  const upload = await datoClient.uploads.create({path, tags});
+  const upload = await datoClient.uploads.create({
+    path, 
+    tags,
+    defaultFieldMetadata: {
+      en: {
+        alt: image.caption,
+        title: image.caption,
+      }
+    }
+  });
   return upload
 }
 
@@ -248,6 +252,7 @@ const migrateMedia = async (id, tags = []) => {
 const migrateDesigners = async () => {
   console.log('Migrating designers...')
   
+  wpapi.designer = wpapi.registerRoute('wp/v2', '/designer/(?P<id>)', {wpml_language:'en'});
   const designers = await wpapi.designer().perPage(100).param(lang)
   
   console.log(`Migrating ${designers.length} items...`)
@@ -371,8 +376,8 @@ const productExists = async (slug) => {
   return records.length ? records[0] : false
 }
 
-//migrateDesigners()
-migrateProducts()
+migrateDesigners()
+//migrateProducts()
 //migrateTaxonomies()
 //getTaxonomies()
 /*
