@@ -6,6 +6,9 @@ import getConfig from 'next/config'
 const { serverRuntimeConfig } = getConfig()
 
 export default async function catalogue(req, res) {
+  console.log(req.query)
+  console.log(req.body)
+  return res.json({success:true})
   const id = req.query.id ? req.query.id[0] : null;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue${id ? `/${id}` : ''}`;
   const browser = await puppeteer.launch(process.env.NODE_ENV === 'production' ? { args: chrome.args, executablePath: await chrome.executablePath, headless: chrome.headless } : {});
@@ -36,6 +39,7 @@ export default async function catalogue(req, res) {
   console.log('done')
   
 
-  res.setHeader('Content-Type', 'application/pdf'); //res.setHeader('Content-Disposition', `attachment; filename="Örsjö - Catalogue 2022.pdf"`)
-  res.send(pdfBuffer)
+  //res.setHeader('Content-Type', 'application/pdf'); //res.setHeader('Content-Disposition', `attachment; filename="Örsjö - Catalogue 2022.pdf"`)
+  //res.send(pdfBuffer)
+  res.json({success:true})
 }
