@@ -1,12 +1,21 @@
 import puppeteer from "puppeteer";
-import { sleep } from '/lib/utils'
+import chrome from 'chrome-aws-lambda';
 
 export default async function catalogue(req, res) {
   console.time('generate pdf')
   const productId = req.query.id ? req.query.id[0] : null;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue${productId ? `/${productId}` : ''}`;
   
-  const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch(
+    process.env.NODE_ENV === 'production'
+      ? {
+          args: chrome.args,
+          executablePath: await chrome.executablePath,
+          headless: chrome.headless,
+        }
+      : {}
+  );
+  
   const page = await browser.newPage(); 
   await page.goto(url, {waitUntil:'networkidle0'});
   
