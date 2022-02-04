@@ -19,7 +19,7 @@ const nextOptions = {
     scrollRestoration: true
   },
   serverRuntimeConfig: {
-    TEMP_DIR: `${__dirname}`
+    TEMP_DIR: `/tmp`
   }
 }
 
