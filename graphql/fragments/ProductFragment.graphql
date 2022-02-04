@@ -8,6 +8,12 @@ fragment ProductFragment on ProductRecord{
   slug
   bimLink
   presentation
+  image{
+    ...ImageFragment
+  }
+  colorImages {
+    ...ImageFragment
+  }
   family{
     id
     name
@@ -15,12 +21,6 @@ fragment ProductFragment on ProductRecord{
   categories{
     id
     name
-  }
-  image{
-    ...ImageFragment
-  }
-  colorImages {
-    ...ImageFragment
   }
   connection {
     id

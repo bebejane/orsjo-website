@@ -4,13 +4,28 @@ import Markdown from '/lib/dato/components/Markdown'
 
 export default function ProductSheet({product}){
   
-	return (
+  const specs = [
+    {label: 'Designer',value : product.designer?.name},
+    {label: 'Electrical data', value : product.electricalData.map((el)=> el.name).join(', ')},
+    {label: 'Description',value : product.presentation},
+    {label: 'Connection',value : product.connection?.name},
+    {label: 'Mounting',value : product.mounting?.name},
+    {label: 'Sockets',value : product.sockets.map((el)=> el.name).join(', ')},
+    {label: 'Lightsource',value : product.models?.[0].lightsources?.[0]?.lightsource.name},
+    {label: 'Weight',value : product.models?.[0].variants?.[0].weight},
+    {label: 'Volume',value : product.models?.[0].variants?.[0].volume},
+    {label: 'Care',value : null},
+    {label: 'Recycling',value : null}
+  ]
+  const drawings = product.models.map((m)=> m.drawing).filter(d => d);
+
+  return (
     <>
       <section className={cn(styles.page, styles.frontPage)}>
         <img className={styles.logo} src={'/images/orsjo-logo-2014.png'}/>
         <img className={styles.productImage} src={product.image?.url} />
         <h1 className={styles.title}>{product.title}</h1>
-        <Markdown className={styles.description}>
+        <Markdown truncate={800} className={styles.description}>
           {product.description}
         </Markdown>
         <div className={styles.colors}>
@@ -21,10 +36,6 @@ export default function ProductSheet({product}){
                 <img 
                   className={styles.colorImage} 
                   src={url} 
-                  style={{
-                    flex:`0 1 ${maxWidth}%`,
-                    maxWidth:`${maxWidth}%`
-                  }}
                 />
                 <div className={styles.description}>product desc</div>
               </div>
@@ -39,50 +50,11 @@ export default function ProductSheet({product}){
           <tr>
             <td colSpan={2}>Technical specification</td>
           </tr>
-          <tr>
-            <td>Design</td><td>{product.designer.name}</td>
-          </tr>
-          {product.electricalData &&
+          {specs.map(({label, value})=>
             <tr>
-              <td>Electrical data</td><td>{product.electricalData.map((el)=> el.name).join(', ')}</td>
+              <td>{label}</td><td>{value || '----'}</td>
             </tr>
-          }
-          {product.presentation &&
-            <tr>
-              <td>Description</td><td>{product.presentation}</td>
-            </tr>
-          }
-          {product.connection &&
-            <tr>
-              <td>Connection</td><td>{product.connection.name}</td>
-            </tr>
-          }
-          {product.mounting &&
-            <tr>
-              <td>Mounting</td><td>{product.mounting.name}</td>
-            </tr>
-          }
-          {product.sockets &&
-            <tr>
-              <td>Sockets</td><td>{product.sockets.map((el)=> el.name).join(', ')}</td>
-            </tr>
-          }
-          <tr>
-            <td>Lightsource</td><td>--</td>
-          </tr>
-          <tr>
-            <td>Weight</td><td>--</td>
-          </tr>
-          <tr>
-            <td>Volume</td><td>--</td>
-          </tr>
-          <tr>
-            <td>Care</td><td>--</td>
-          </tr>
-          <tr>
-            <td>Recycling</td><td>--</td>
-          </tr>
-          
+          )}
         </table>
         <table>
           <tr>
@@ -98,13 +70,16 @@ export default function ProductSheet({product}){
           })}
         </table>
       </section>
-
-      <section className={cn(styles.page, styles.dimensionsPage)}>
-        <h1 className={styles.title}>Dimensions</h1>
-        {product.models.filter(({drawing}) => drawing).map(({drawing})=>
-          <img className={styles.drawing} src={drawing.url} />
-        )}
-      </section>
+      {drawings.length > 0 &&
+        <section className={cn(styles.page, styles.dimensionsPage)}>
+          <h1>Dimensions</h1>
+          <div className={styles.drawings}>
+            {drawings.map((drawing)=>
+              <img className={styles.drawing} src={drawing.url} />
+            )}
+          </div>
+        </section>
+      }
     </>
 	)
 }
