@@ -35,7 +35,7 @@ export default function ProductSheet({product}){
           </div>
         </div>
         <div className={styles.colors}>
-          {product.colorImages.map(({url}) => {
+          {product.colorImages.map(({url, title}) => {
             const maxWidth = 100/product.colorImages.length;
             return (
               <div className={styles.color} style={{maxWidth:`${maxWidth}%`}}>
@@ -43,7 +43,7 @@ export default function ProductSheet({product}){
                   className={styles.colorImage} 
                   src={url} 
                 />
-                <div className={styles.description}>color desc</div>
+                <div className={styles.description}>{title || 'No description'}</div>
               </div>
             )
           })}

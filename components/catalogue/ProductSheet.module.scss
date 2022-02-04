@@ -29,6 +29,7 @@ $padding: 80px;
     .logo {
       position: absolute;
       top: 0;
+      z-index: 10;
       right: 40px;
       background-color: #000 !important;
       padding: 20px;
