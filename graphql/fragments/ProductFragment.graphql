@@ -8,6 +8,14 @@ fragment ProductFragment on ProductRecord{
   slug
   bimLink
   presentation
+  family{
+    id
+    name
+  }
+  categories{
+    id
+    name
+  }
   image{
     ...ImageFragment
   }

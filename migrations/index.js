@@ -7,7 +7,6 @@ const turndownService = new TurndownService()
 const wait = (ms = 0) => new Promise((resolve) => setTimeout(()=>resolve(), ms))
 const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.json`, JSON.stringify(obj, null, 2))
 
-
 const { SiteClient, buildModularBlock } = require('datocms-client');
 const WPAPI = require( 'wpapi' );
 const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD, auth:true});
@@ -108,10 +107,13 @@ const parseProduct = async (p, taxMap) => {
   const lightFile = !p.acf.light_file ? undefined : await migrateMedia(p.acf.light_file, ['product-light-file']);
   
   const prod = {
+    title:p.title.rendered.trim(),
     bimLink:p.acf.bim_link,
     colorImages,
     environmentImage: environmentImage ? {upload_id: environmentImage.id} : undefined,
     description: stripTags(p.content.rendered).replace(/\n/g, '').trim(),
+    family: !p['product-family'] ? undefined : wpIdToDatoId('family', p['product-family'][0]),
+    categories: !p['product-category'] ? undefined : p['product-category'].map((c)=>wpIdToDatoId('category', c)),
     designer: wpIdToDatoId('designer', p.acf.designer?.ID),
     connection:wpIdToDatoId('connection', p.acf.connection?.term_id),
     dimmable: wpIdToDatoId('dimmable', p.acf.dimmable?.term_id),
@@ -124,7 +126,6 @@ const parseProduct = async (p, taxMap) => {
     presentation:p.acf.desc,
     slug:p.slug,
     sockets,
-    title:p.title.rendered.trim(),
     models: p.acf.model.map((m, idx)=> ({
       name:m.name,
       drawing: !m.drawing ? undefined : drawings[idx],
@@ -172,9 +173,20 @@ const migrateProducts = async () => {
 
     let products = await wpapi.product().perPage(100).page(page).param(lang)
     
+    const wpIdToDatoId = (taxonomy, wpId) => {
+      if(!wpId) return undefined
+      return taxMap[taxonomy][wpId]
+    }
+
     while(products && products.length){
       for (let i = 0; i < products.length; i++) {
+
+        const prod = await productExists(products[i].slug)
+        const p = await parseProduct(products[i], taxMap);
+        
+        
         try{
+        
           const exist = await productExists(products[i].slug)
           if(exist) {
             console.log('Skip:', products[i].slug)
@@ -206,7 +218,7 @@ const migrateProducts = async () => {
                 }))
               })
             )
-          }); 
+          });
         }catch(err){
           console.log('failed')
           console.log(err)
@@ -356,7 +368,7 @@ const productExists = async (slug) => {
       }
     }
   });
-  return records.length > 0
+  return records.length ? records[0] : false
 }
 
 //migrateDesigners()
