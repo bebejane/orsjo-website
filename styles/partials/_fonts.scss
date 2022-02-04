@@ -1,12 +1,12 @@
 // FONT EMBEDDING & TYPO VARIABLES
 $body-font: "Helvetica";
-$headline-font: "";
+$headline-font: "Big Caslon Regular";
 $mono-font: "";
 $body-font-italic: "";
 
 @font-face {
     font-family: "Big Caslon Regular";
-    src: url("/fonts/BigCaslon Regular.woff2");
+    src: url("/fonts/Big Caslon Regular.woff2");
     font-weight: normal;
     font-style: normal;
 }
