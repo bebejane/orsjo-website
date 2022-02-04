@@ -4,7 +4,6 @@ import { withGlobalProps } from "/lib/utils";
 import { GetProducts } from "/graphql"
 
 export default function Home(props){
-	console.log(props)
 	const { products } = props
 	return (
 		<div className={styles.container}>
