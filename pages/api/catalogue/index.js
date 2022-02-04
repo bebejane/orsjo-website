@@ -1,6 +1,5 @@
-import { apiQuery } from "/lib/dato/api";
-import { GetProduct, GetProducts } from "/graphql";
 import puppeteer from "puppeteer";
+import { sleep } from '/lib/utils'
 
 export default async function catalogue(req, res) {
   console.time('generate pdf')
@@ -9,7 +8,7 @@ export default async function catalogue(req, res) {
   
   const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage(); 
-  await page.goto(url);
+  await page.goto(url, {waitUntil:'networkidle0'});
   
   const pdfBuffer = await page.pdf({
     format: 'A4',

@@ -8,6 +8,9 @@ fragment ProductFragment on ProductRecord{
   slug
   bimLink
   presentation
+  image{
+    ...ImageFragment
+  }
   colorImages {
     ...ImageFragment
   }
@@ -23,11 +26,15 @@ fragment ProductFragment on ProductRecord{
     id
     name
   }
-  electricityData {
+  electricalData {
     id
     name
   }
-  images {
+  electricalData {
+    id
+    name
+  }
+  gallery {
     ...ImageFragment
   }
   lightFile {

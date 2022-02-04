@@ -102,11 +102,11 @@ const parseProduct = async (p, taxMap) => {
   const colorImages = await uploadMedia(p.acf.colors, 'id', ['product-color'])
   const drawings = await uploadMedia(p.acf.model.map(m => ({id:m.drawing})), 'id', ['product-drawing'])
 
-  const electricalData = p.acf.electrical_data.map((el)=> wpIdToDatoId('electrical', el.term_id))
-  const sockets = p.acf.socket ? p.acf.socket.map(({id}) => ({id})) : undefined
+  const electricalData = !p.acf.electrical_data ? undefined : p.acf.electrical_data.map((el)=> wpIdToDatoId('electrical', el.term_id))
+  const sockets = p.acf.socket ? p.acf.socket.map(({term_id}) => wpIdToDatoId('socket', term_id)) : undefined
   const pdfFile = !p.acf.pdf ? undefined : await migrateMedia(p.acf.pdf, ['product-pdf'])
   const lightFile = !p.acf.light_file ? undefined : await migrateMedia(p.acf.light_file, ['product-light-file']);
-
+  
   const prod = {
     bimLink:p.acf.bim_link,
     colorImages,
@@ -121,19 +121,19 @@ const parseProduct = async (p, taxMap) => {
     gallery,
     lightFile: lightFile ? {upload_id: lightFile.id} : undefined,
     pdfFile: pdfFile ? {upload_id:pdfFile.id} : undefined,
-    presentation:p.presentation,
+    presentation:p.acf.desc,
     slug:p.slug,
     sockets,
     title:p.title.rendered.trim(),
     models: p.acf.model.map((m, idx)=> ({
       name:m.name,
       drawing: !m.drawing ? undefined : drawings[idx],
-      lightsources:m.lightsources.map((el)=> ({
+      lightsources:!m.lightsources ? undefined : m.lightsources.map((el)=> ({
         amount:el.amount,
         included:el.included,
         lightsource:wpIdToDatoId('lightsource', el.lightsource.term_id)
       })),
-      variants: m.versions.map((v) => ({
+      variants: !m.versions ? undefined : m.versions.map((v) => ({
         articleNo:v.art_no,
         color:wpIdToDatoId('color', v.color.term_id),
         material:wpIdToDatoId('material', v.material.term_id),
@@ -143,69 +143,96 @@ const parseProduct = async (p, taxMap) => {
         vat:v.exclude_price_factor,
         volume:v.volume,
         weight:v.weight
+      })),
+      accessories: !m.accessories ? undefined : m.accessories.map((a) => ({
+        product:a.product,
+        priceNoVat:a.amount,
+        articleNo:a.product_no
       }))
     }))
   }
   console.timeEnd('parse')
   console.log('')
-  //delete prod.models
   return prod
 }
 
 const migrateProducts = async () => {
-  console.log('Migrating product db...')
 
-  const findTaxonomy = (id) => {
-    return id;
-  }
+  console.log('Migrating product db...')
 
   wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', {wpml_language:'en'});
   const taxMap = await generateTaxonomyMap()
   
   try{
     console.log('Loading products...')
+
     const parsed = []
-    const products = await wpapi.product().perPage(10).param(lang)
+    const failed = []
+    let page = 1;
 
-    for (let i = 0; i < products.length; i++) {
-      const p = await parseProduct(products[i], taxMap);
-      parsed.push(p)
-      fs.writeFileSync(`./migrations/data/products/${p.slug}.json`, JSON.stringify(p, null, 2))
-      try{
-        const record = await datoClient.items.create({
-          itemType: '1765120',
-          ...{...p, models:undefined},
-          models: p.models.map((m)=> 
-            buildModularBlock({
-              itemType:'1765343',
-              name:m.name,
-              drawing:m.drawing,
-              lightsources:m.lightsources.map(l => buildModularBlock({
-                itemType:'1765346',
-                ...l
-              })),
-              variants:m.variants.map(v => buildModularBlock({
-                itemType:'1765356',
-                ...v
-              }))
-            })
-          )
-        }); 
-      }catch(err){
-        console.log(err)
-        break;
+    let products = await wpapi.product().perPage(100).page(page).param(lang)
+    
+    while(products && products.length){
+      for (let i = 0; i < products.length; i++) {
+        try{
+          const exist = await productExists(products[i].slug)
+          if(exist) {
+            console.log('Skip:', products[i].slug)
+            continue
+          }
+          const p = await parseProduct(products[i], taxMap);
+          parsed.push(p)
+          fs.writeFileSync(`./migrations/data/products/${p.slug}.json`, JSON.stringify(p, null, 2))      
+          fs.writeFileSync(`./migrations/data/products/${p.slug}_.json`, JSON.stringify(products[i], null, 2))      
+          const record = await datoClient.items.create({
+            itemType: '1765120',
+            ...{...p, models:undefined},
+            models: p.models?.map((m)=> 
+              buildModularBlock({
+                itemType:'1765343',
+                name:m.name,
+                drawing:m.drawing,
+                lightsources: m.lightsources?.map(l => buildModularBlock({
+                  itemType:'1765346',
+                  ...l
+                })),
+                variants: m.variants?.map(v => buildModularBlock({
+                  itemType:'1765356',
+                  ...v
+                })),
+                accessories: m.accessories?.map(a => buildModularBlock({
+                  itemType:'1765450',
+                  ...a
+                }))
+              })
+            )
+          }); 
+        }catch(err){
+          console.log('failed')
+          console.log(err)
+          failed.push({...products[i], error:err})
+        }
       }
-
+      products = await wpapi.product().perPage(100).page(++page).param(lang)
     }
-    console.log(parsed.length)
-    //console.log(taxMap)
-
-
-    //writeToFile('products', products)
+    writeToFile('passed', parsed)
+    writeToFile('failed', failed)
   }catch(err){
     console.error(err)
   }
 }
+const migrateMedia = async (id, tags = []) => {
+
+  if(!id) return undefined
+  const image = isNaN(id) ? { source_url:id } : await wpapi.media().id(id)
+  if(!image) return undefined
+  console.log('Uploading "' + image.source_url + '"...')
+  const path = await datoClient.createUploadPath(image.source_url);
+  const upload = await datoClient.uploads.create({path, tags});
+  return upload
+}
+
+
 const migrateDesigners = async () => {
   console.log('Migrating designers...')
   
@@ -273,20 +300,7 @@ const migrateTaxonomies = async () => {
   }
 }
 
-const migrateMedia = async (id, tags = []) => {
-  
-  try{ 
-    const image = isNaN(id) ? { source_url:id } : await wpapi.media().id(id)
-    if(!image) return null
-    console.log('Uploading "' + image.source_url + '"...')
-    const path = await datoClient.createUploadPath(image.source_url);
-    const upload = await datoClient.uploads.create({path, tags});
-    return upload
-  }catch(err){
-    console.error('failed upload', id)
-    return null;
-  }
-}
+
 
 const getWPTaxonomies = async () => {
   const t = {...taxonomies}
@@ -331,10 +345,25 @@ const generateTaxonomyMap = async () => {
   return taxMap
 }
 
+const productExists = async (slug) => {
+  const records = await datoClient.items.all({
+    filter: {
+      type: 'product',
+      fields: {
+        slug: {
+          eq: slug,
+        }
+      }
+    }
+  });
+  return records.length > 0
+}
+
 //migrateDesigners()
-//migrateProducts()
+migrateProducts()
 //migrateTaxonomies()
 //getTaxonomies()
+/*
 const start = async () => {
   const auth = {username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD}
   console.log(auth)
@@ -344,4 +373,5 @@ const start = async () => {
     console.log(err)
   }
 }
-start()
+*/
+//start()

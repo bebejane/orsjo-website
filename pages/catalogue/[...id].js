@@ -1,14 +1,13 @@
 import styles from './index.module.scss'
+import Catalogue from '/components/catalogue/Catalogue';
 import { apiQuery } from "/lib/dato/api";
-import { GetProduct} from "/graphql"
+import { GetProduct } from "/graphql"
 
 export default function Home(props){
 	const { product } = props
-	console.log(product)
 	return (
 		<div className={styles.container}>
-      <h2>{product.title}</h2>
-			{product.description}
+      <Catalogue product={product}/>
 		</div>
 	)
 }

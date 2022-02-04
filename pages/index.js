@@ -10,7 +10,9 @@ export default function Home(props){
 		<div className={styles.container}>
 			Products
 			<ul>
-				{products.map(p => <li>{p.title}</li>)}			
+				{products.map(p => 
+					<li>{p.title} - <a href={`/api/catalogue/${p.id}`}>pdf</a> - <a href={`/catalogue/${p.id}`}>page</a></li>
+				)}
 			</ul>
 		</div>
 	)
