@@ -5,17 +5,17 @@ import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }) {
   
-  
   if(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) usePagesViews(); // Google Analytics page view tracker
 
   const router = useRouter()
   const { asPath : pathname } = router
   const { site, seo } = pageProps;
+  const pageTitle = 'Örsjö'
   
   return (
     <>
       <GoogleAnalytics />
-      <DatoSEO seo={seo} site={site} pathname={pathname} key={pathname}/>
+      <DatoSEO title={pageTitle} seo={seo} site={site} pathname={pathname} key={pathname}/>
       <Component {...pageProps} />
     </>
   )
