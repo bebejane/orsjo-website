@@ -13,20 +13,18 @@ export default async function priceList(req, res) {
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue`;
   const {buffer, filePath} = await generatePDF(url, title);
 
-  if(isWebhook){
+  if(isWebhook || true){
     
     console.time('upload')
     const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
     const path = await datoClient.createUploadPath(filePath)
     const record = await datoClient.items.all({filter: { type: 'pricelist'}});
     
-    console.log(record[0])
-    if(record && record.length === 1) 
+    if(record && record.length === 1 && record[0]?.pdfFile) 
       await datoClient.uploads.update(record[0]?.pdfFile.id, {path});
     else{
       const upload = await datoClient.uploads.create({path});
-      await datoClient.items.update(record[0]?.id, {pdfFile:{upload_id:upload.id}});
-
+      await datoClient.items.update(record[0]?.id, {pdfFile:{upload_id:upload.id}})
     }
     res.json({success:true})
     console.timeEnd('upload')
