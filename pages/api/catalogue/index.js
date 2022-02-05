@@ -20,10 +20,9 @@ export default async function priceList(req, res) {
     const path = await datoClient.createUploadPath(filePath)
     const record = await datoClient.items.all({filter: { type: 'pricelist'}});
     
-    console.log('uploading pdf...')
-    console.log(record)
-    if(record && record.length === 1 && record[0].pdfFile) 
-      await datoClient.uploads.update(record[0].pdfFile.uploadId, {path});
+    console.log(record[0])
+    if(record && record.length === 1) 
+      await datoClient.uploads.update(record[0]?.pdfFile.upload_id, {path});
     res.json({success:true})
     console.timeEnd('upload')
   }
@@ -50,7 +49,7 @@ const generatePDF = async (url, title) => {
   console.time('loadpage')
   await page.goto(url, {waitUntil:'networkidle0'});
   console.timeEnd('loadpage')
-  console.time('generate')
+  console.time(`generate ${title}`)
   const buffer = await page.pdf({
     path: `/tmp/${title}.pdf`,
     format: 'A4',
