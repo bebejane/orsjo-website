@@ -25,7 +25,7 @@ export default async function catalogue(req, res) {
 
   const isWebhook = (req.body?.entity?.id)
 
-  if(!isAuthorized(req, res)) return
+  if(isWebhook && !isAuthorized(req, res)) return
 
   const id = isWebhook ? req.body.entity.id : req.query.id ? req.query.id[0] : null;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue${id ? `/${id}` : ''}`;
