@@ -74,7 +74,7 @@ export default async function catalogue(req, res) {
 
 
     const pathFull = await datoClient.createUploadPath(pdfFileFullPath)
-    const recordFull = await datoClient.items.all({filter: { type: 'price_list'}});
+    const recordFull = await datoClient.items.all({filter: { type: 'pricelist'}});
     
     console.log('uploading full pdf...')
 
