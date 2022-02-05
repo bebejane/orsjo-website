@@ -7,7 +7,7 @@ export default function Home(props){
 	const { product } = props
 	return (
 		<div className={styles.container}>
-      <Catalogue product={product}/>
+      <Catalogue products={[product]}/>
 		</div>
 	)
 }

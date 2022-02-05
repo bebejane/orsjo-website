@@ -1,7 +1,9 @@
 import ProductSheet from "./ProductSheet"
 
-export default function Catalogue({product, products}){
+export default function Catalogue({products}){
 	return (	
-		<ProductSheet product={product}/>
+		products.map((product, pageNo) => 
+			<ProductSheet product={product} pageNo={pageNo}/>
+		)
 	)
 }
