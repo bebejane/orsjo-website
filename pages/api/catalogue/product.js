@@ -2,7 +2,7 @@ import { SiteClient } from 'datocms-client';
 import { isAuthorized, generatePDF } from ".";
 
 export default async function productSheet(req, res) {
-
+  console.time('total')
   const isWebhook = (req.body?.entity)
 
   if(isWebhook && !isAuthorized(req, res)) return
@@ -33,4 +33,5 @@ export default async function productSheet(req, res) {
      //res.setHeader('Content-Disposition', `attachment; filename="Örsjö - Catalogue 2022.pdf"`)
     res.send(buffer)
   }
+  console.timeEnd('total')
 }

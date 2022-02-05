@@ -4,6 +4,7 @@ import { SiteClient } from 'datocms-client';
 
 export default async function priceList(req, res) {
 
+  console.time('total')
   const isWebhook = (req.body?.entity)
 
   if(isWebhook && !isAuthorized(req, res)) return
@@ -32,6 +33,7 @@ export default async function priceList(req, res) {
     res.send(buffer)
   }
   console.timeEnd(`generate pdf ${title}`)
+  console.timeEnd('total')
 }
 
 const generatePDF = async (url, title) => {
@@ -82,7 +84,9 @@ const isAuthorized = (req, res) => {
   const auth = new Buffer.from(authheader.split(' ')[1], 'base64').toString().split(':');
   const username = auth[0];
   const password = auth[1];
-  return username === process.env.DATOCMS_WEBHOOK_USERNAME && password === process.env.DATOCMS_WEBHOOK_PASSWORD
+  const isAuth = username === process.env.DATOCMS_WEBHOOK_USERNAME && password === process.env.DATOCMS_WEBHOOK_PASSWORD
+  console.log('authorize', isAuth)
+  return 
 }
 
 export { isAuthorized, generatePDF }
