@@ -1,5 +1,5 @@
 import { SiteClient } from 'datocms-client';
-import { isAuthorized, generatePDF } from "./";
+import { isAuthorized, generatePDF } from ".";
 
 export default async function productSheet(req, res) {
 
