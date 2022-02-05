@@ -14,7 +14,12 @@ export default async function catalogue(req, res) {
   console.log('generate pdf file', id)
   console.time('pupeteer')
   //const browser = await puppeteer.launch(process.env.NODE_ENV === 'production' ? { args: chrome.args, executablePath: await chrome.executablePath, headless: chrome.headless } : {});
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
+  });
   const page = await browser.newPage(); 
   console.timeEnd('pupeteer')
 
