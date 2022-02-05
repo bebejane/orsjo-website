@@ -3,7 +3,7 @@ import { isAuthorized, generatePDF } from ".";
 
 export default async function productSheet(req, res) {
 
-  const isWebhook = (req.body?.entity?.id)
+  const isWebhook = (req.body?.entity)
 
   if(isWebhook && !isAuthorized(req, res)) return
 
@@ -14,7 +14,7 @@ export default async function productSheet(req, res) {
 
   if(isWebhook && id){
     
-    console.time('upload')
+    console.time(`upload ${title}`)
     const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
     const path = await datoClient.createUploadPath(filePath)
     const record = await datoClient.items.all({filter: { type: 'product', fields: { id: {eq: id}}}});
@@ -26,13 +26,11 @@ export default async function productSheet(req, res) {
       await datoClient.items.update(id, {pdfFile:{upload_id:upload.id}})
     }
     res.json({success:true})
-    console.timeEnd('upload')
+    console.timeEnd(`upload ${title}`)
   }
   else {
     res.setHeader('Content-Type', 'application/pdf');
      //res.setHeader('Content-Disposition', `attachment; filename="Örsjö - Catalogue 2022.pdf"`)
     res.send(buffer)
   }
-  
-  console.timeEnd(`generate pdf ${title}`)
 }
