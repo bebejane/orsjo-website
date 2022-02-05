@@ -1,11 +1,32 @@
-import puppeteer from "puppeteer";
+import puppeteer, { ConsoleMessage } from "puppeteer";
 import chrome from 'chrome-aws-lambda';
 import { SiteClient } from 'datocms-client';
 
+const isAuthorized = (req, res) => {
+  
+  const authheader = req.headers.authorization;
+
+  if (!authheader) {
+      const err = new Error('You are not authenticated!');
+      res.setHeader('WWW-Authenticate', 'Basic');
+      res.status(401).send(err)
+      return false
+  }
+
+  const auth = new Buffer.from(authheader.split(' ')[1], 'base64').toString().split(':');
+  console.log(auth)
+  const username = auth[0];
+  const password = auth[1];
+
+  return username === 'bjorn' && password === 'pass'
+}
+
 export default async function catalogue(req, res) {
 
+  if(!isAuthorized(req, res)) return
+
   console.log(req.body)
-  console.log(req)
+  console.log(req.header)
 
   const isWebhook = (req.body?.entity?.id)
   const id = isWebhook ? req.body.entity.id : req.query.id ? req.query.id[0] : null;
