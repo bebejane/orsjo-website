@@ -16,8 +16,9 @@ export default async function catalogue(req, res) {
 
   const browser = await puppeteer.launch(process.env.NODE_ENV === 'production' ? { args: chrome.args, executablePath: await chrome.executablePath, headless: chrome.headless } : {});
   const page = await browser.newPage(); 
+  console.time('loadpage')
   await page.goto(url, {waitUntil:'networkidle0'});
-  
+  console.timeEnd('loadpage')
   const pdfBuffer = await page.pdf({
     path: isWebhook ? pdfFilePath : undefined,
     format: 'A4',
