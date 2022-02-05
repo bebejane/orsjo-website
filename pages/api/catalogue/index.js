@@ -78,15 +78,14 @@ const isAuthorized = (req, res) => {
       const err = new Error('You are not authenticated!');
       res.setHeader('WWW-Authenticate', 'Basic');
       res.status(401).send(err)
+      console.log('not authorize')
       return false
   }
 
   const auth = new Buffer.from(authheader.split(' ')[1], 'base64').toString().split(':');
   const username = auth[0];
   const password = auth[1];
-  const isAuth = username === process.env.DATOCMS_WEBHOOK_USERNAME && password === process.env.DATOCMS_WEBHOOK_PASSWORD
-  console.log('authorize', isAuth)
-  return 
+  return username === process.env.DATOCMS_WEBHOOK_USERNAME && password === process.env.DATOCMS_WEBHOOK_PASSWORD
 }
 
 export { isAuthorized, generatePDF }
