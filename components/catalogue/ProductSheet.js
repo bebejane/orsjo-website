@@ -38,10 +38,10 @@ export default function ProductSheet({product}){
           </div>
         </div>
         <div className={styles.colors}>
-          {product.colorImages.map(({url, title}) => {
+          {product.colorImages.map(({url, title}, idx) => {
             const maxWidth = 100/product.colorImages.length;
             return (
-              <div className={styles.color} style={{maxWidth:`${maxWidth}%`}}>
+              <div key={idx} className={styles.color} style={{maxWidth:`${maxWidth}%`}}>
                 <img 
                   className={styles.colorImage} 
                   src={`${url}?w=600`} 
@@ -59,8 +59,8 @@ export default function ProductSheet({product}){
           <tr>
             <td colSpan={2}>Technical specification</td>
           </tr>
-          {specs.map(({label, value})=>
-            <tr>
+          {specs.map(({label, value}, idx)=>
+            <tr key={idx}>
               <td>{label}</td><td>{value || '----'}</td>
             </tr>
           )}
@@ -70,8 +70,8 @@ export default function ProductSheet({product}){
             <td colSpan={2}>Article No. and Model</td>
           </tr>
           {product.models.map((m)=>{
-            return m.variants.map((v) => 
-              <tr>
+            return m.variants.map((v, idx) => 
+              <tr key={idx} >
                 <td>{v.articleNo}</td>
                 <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
               </tr>
@@ -84,13 +84,12 @@ export default function ProductSheet({product}){
         <section className={cn(styles.page, styles.dimensionsPage)}>
           <h1>Dimensions</h1>
           <div className={styles.drawings}>
-            {drawings.map((drawing)=>
-              <img className={styles.drawing} src={drawing.url} />
+            {drawings.map((drawing, idx)=>
+              <img key={idx}  className={styles.drawing} src={drawing.url} />
             )}
           </div>
         </section>
       }
-
     </>
 	)
 }
