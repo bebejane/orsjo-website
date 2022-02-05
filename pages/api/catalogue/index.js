@@ -1,16 +1,16 @@
 import puppeteer from "puppeteer";
 import chrome from 'chrome-aws-lambda';
 import { SiteClient } from 'datocms-client';
-import getConfig from 'next/config'
-const { serverRuntimeConfig } = getConfig()
 
 export default async function catalogue(req, res) {
 
-  
+  console.log(req.body)
+  console.log(req)
+
   const isWebhook = (req.body?.entity?.id)
   const id = isWebhook ? req.body.entity.id : req.query.id ? req.query.id[0] : null;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue${id ? `/${id}` : ''}`;
-  const pdfFilePath = `${serverRuntimeConfig.TEMP_DIR}/${id}.pdf`
+  const pdfFilePath = `/tmp/${id}.pdf`
 
   console.time(`generate pdf ${id}`)
   console.time('pupeteer')

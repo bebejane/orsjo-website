@@ -17,9 +17,6 @@ const nextOptions = {
   },
   experimental: {
     scrollRestoration: true
-  },
-  serverRuntimeConfig: {
-    TEMP_DIR: `/tmp`
   }
 }
 
