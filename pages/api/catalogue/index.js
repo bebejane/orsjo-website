@@ -1,25 +1,19 @@
 import puppeteer from "puppeteer";
-//import chrome from 'chrome-aws-lambda';
+import chrome from 'chrome-aws-lambda';
 import { SiteClient } from 'datocms-client';
 import getConfig from 'next/config'
 const { serverRuntimeConfig } = getConfig()
 
 export default async function catalogue(req, res) {
-  
+
+  console.time('generate pdf')
   const isWebhook = (req.body?.entity?.id)
   const id = isWebhook ? req.body.entity.id : req.query.id ? req.query.id[0] : null;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue${id ? `/${id}` : ''}`;
   const pdfFilePath = `${serverRuntimeConfig.TEMP_DIR}/${id}.pdf`
 
-  console.log('generate pdf file', id)
   console.time('pupeteer')
-  //const browser = await puppeteer.launch(process.env.NODE_ENV === 'production' ? { args: chrome.args, executablePath: await chrome.executablePath, headless: chrome.headless } : {});
-  const browser = await puppeteer.launch({
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-    ],
-  });
+  const browser = url.includes('heroku') ? await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']}) : await puppeteer.launch(process.env.NODE_ENV === 'production' ? { args: chrome.args, executablePath: await chrome.executablePath, headless: chrome.headless } : {});
   const page = await browser.newPage(); 
   console.timeEnd('pupeteer')
 
@@ -54,4 +48,5 @@ export default async function catalogue(req, res) {
     res.setHeader('Content-Type', 'application/pdf'); //res.setHeader('Content-Disposition', `attachment; filename="Örsjö - Catalogue 2022.pdf"`)
     res.send(pdfBuffer)
   }
+  console.timeEnd('generate pdf')
 }
