@@ -23,10 +23,6 @@ export default async function priceList(req, res) {
 
     if(record && record.length === 1 && record[0].pdfFile) 
       await datoClient.uploads.update(record[0].pdfFile.uploadId, {path});
-    else{
-      const upload = await datoClient.uploads.create({path, tags:['pricelist-pdf']})
-      await datoClient.items.update(id, {pdfFile:{upload_id:upload.id}})
-    }
     res.json({success:true})
     console.timeEnd('upload')
   }
