@@ -16,8 +16,7 @@ export const getServerSideProps = async (context) => {
   const id = context.params.id[0];
 	const { product } = await apiQuery(GetProduct, {id});
 	
-	if(!product) 
-		return {notFound:true}
+	if(!product) return {notFound:true}
 	
 	return { 
 		props:{

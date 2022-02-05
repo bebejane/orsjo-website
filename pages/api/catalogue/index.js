@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import chrome from 'chrome-aws-lambda';
+//import chrome from 'chrome-aws-lambda';
 import { SiteClient } from 'datocms-client';
 import getConfig from 'next/config'
 const { serverRuntimeConfig } = getConfig()
@@ -13,9 +13,11 @@ export default async function catalogue(req, res) {
 
   console.log('generate pdf file', id)
   console.time('pupeteer')
-
-  const browser = await puppeteer.launch(process.env.NODE_ENV === 'production' ? { args: chrome.args, executablePath: await chrome.executablePath, headless: chrome.headless } : {});
+  //const browser = await puppeteer.launch(process.env.NODE_ENV === 'production' ? { args: chrome.args, executablePath: await chrome.executablePath, headless: chrome.headless } : {});
+  const browser = await puppeteer.launch();
   const page = await browser.newPage(); 
+  console.timeEnd('pupeteer')
+
   console.time('loadpage')
   await page.goto(url, {waitUntil:'networkidle0'});
   console.timeEnd('loadpage')
@@ -34,8 +36,7 @@ export default async function catalogue(req, res) {
   
   await page.close();
   await browser.close();
-  console.timeEnd('pupeteer')
-
+  
   if(isWebhook){
     console.time('upload')
     const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
