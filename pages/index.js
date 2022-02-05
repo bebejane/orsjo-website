@@ -7,17 +7,18 @@ export default function Home(props){
 	const { products } = props
 	return (
 		<div className={styles.container}>
-			<p>Products</p>
+			<h1>Products</h1>
 			<ul>
 				{products.map(({id, title, pdfFile}) => 
 					<li>{title} - <a href={`/api/catalogue/product/${id}`}>generate pdf</a> - <a href={`/catalogue/${id}`}>html page</a> - <a href={pdfFile.url}>dato pdf</a></li>
 				)}
 			</ul>
 			
-			<p>Price list</p>
-			<a href={`/api/catalogue`}>generate pdf pricelist</a> <br/>
-			<a href={`/catalogue`}>pricelist html page</a><br/>
-			
+			<h1>Price list</h1>
+			<ul>
+				<li><a href={`/api/catalogue`}>generate pdf pricelist</a> <br/></li>
+				<li><a href={`/catalogue`}>pricelist html page</a></li>
+			</ul>
 		</div>
 	)
 }

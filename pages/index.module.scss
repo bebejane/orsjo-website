@@ -3,19 +3,22 @@
   flex-direction: column;
   padding: 40px;
   a{
-    color:rgb(204, 1, 86);
+    color:rgb(145, 233, 255);
+    background-color: rgb(7, 33, 39);
+    padding: 3px;
+    
   }
-  p{
+  h1{
     margin: 0;
+    text-align: left;
     
   }
   ul{
+    font-size: 11pt;
     margin-bottom: 20px;
     li{
       margin-left: 30px;
-      a{
-        color:rgb(204, 1, 86);
-      }
+     
     }
   }
   
