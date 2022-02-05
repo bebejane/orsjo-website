@@ -46,14 +46,16 @@ export default async function catalogue(req, res) {
     const path = await datoClient.createUploadPath(pdfFilePath)
     const record = await datoClient.items.all({filter: { type: 'product', fields: { id: {eq: id}}}});
     
+    console.log('uploading pdf...')
+
     if(record && record.length === 1 && record[0].pdfFile) 
       await datoClient.uploads.update(record[0].pdfFile.uploadId, {path});
-    else
-      await datoClient.uploads.create({path, tags:['product-pdf']})
-
+    else{
+      const upload = await datoClient.uploads.create({path, tags:['product-pdf']})
+      await datoClient.items.update(id, {pdfFile:{upload_id:upload.id}})
+    }
     res.json({success:true})
     console.timeEnd('upload')
-    
   }
   else {
     res.setHeader('Content-Type', 'application/pdf');
