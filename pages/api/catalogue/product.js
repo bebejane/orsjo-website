@@ -1,8 +1,9 @@
 import { SiteClient } from 'datocms-client';
-import { isAuthorized, generatePDF } from ".";
+import { isAuthorized, generatePDF } from "./index";
 
 export default async function productSheet(req, res) {
   console.time('total')
+  console.log('hello', req.query.id[0])
   const isWebhook = (req.body?.entity)
 
   if(isWebhook && !isAuthorized(req, res)) return
