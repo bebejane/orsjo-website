@@ -16,17 +16,24 @@ export default async function priceList(req, res) {
   if(isWebhook || true){
     
     console.time('upload')
+    console.log('Upload...')
     const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
     const path = await datoClient.createUploadPath(filePath)
     const record = await datoClient.items.all({filter: { type: 'pricelist'}});
     
-    if(record && record.length === 1 && record[0]?.pdfFile) 
-      await datoClient.uploads.update(record[0]?.pdfFile.id, {path});
-    else{
-      const upload = await datoClient.uploads.create({path});
-      await datoClient.items.update(record[0]?.id, {pdfFile:{upload_id:upload.id}})
+    try{  
+      if(record && record.length === 1 && record[0]?.pdfFile) {
+        console.log('update upload')
+        await datoClient.uploads.update(record[0].pdfFile.uploadId, {path});
+      }else{
+        console.log('new upload')
+        const upload = await datoClient.uploads.create({path});
+        await datoClient.items.update(record[0]?.id, {pdfFile:{upload_id:upload.id}})
+      }
+      res.json({success:true})
+    }catch(err){
+      console.log(err)
     }
-    res.json({success:true})
     console.timeEnd('upload')
   }
   else {
