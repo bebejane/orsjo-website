@@ -14,21 +14,19 @@ const isAuthorized = (req, res) => {
   }
 
   const auth = new Buffer.from(authheader.split(' ')[1], 'base64').toString().split(':');
-  console.log(auth)
+  
   const username = auth[0];
   const password = auth[1];
 
-  return username === 'bjorn' && password === 'pass'
+  return username === process.env.DATOCMS_WEBHOOK_USERNAME && password === process.env.DATOCMS_WEBHOOK_PASSWORD
 }
 
 export default async function catalogue(req, res) {
 
+  const isWebhook = (req.body?.entity?.id)
+
   if(!isAuthorized(req, res)) return
 
-  console.log(req.body)
-  console.log(req.header)
-
-  const isWebhook = (req.body?.entity?.id)
   const id = isWebhook ? req.body.entity.id : req.query.id ? req.query.id[0] : null;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue${id ? `/${id}` : ''}`;
   const pdfFilePath = `/tmp/${id}.pdf`
