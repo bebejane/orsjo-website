@@ -48,5 +48,6 @@ export default async function catalogue(req, res) {
     res.setHeader('Content-Type', 'application/pdf'); //res.setHeader('Content-Disposition', `attachment; filename="Örsjö - Catalogue 2022.pdf"`)
     res.send(pdfBuffer)
   }
+  
   console.timeEnd('generate pdf')
 }
