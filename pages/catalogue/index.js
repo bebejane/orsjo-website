@@ -17,7 +17,7 @@ export const getServerSideProps = async (context) => {
 	
 	if(!products) return {notFound:true}
 	
-	for (let i = 0; i < 5; i++) { products = products.concat(products)}
+	// for (let i = 0; i < 5; i++) { products = products.concat(products)} //TEst large catalogue
 
 	return { 
 		props:{
