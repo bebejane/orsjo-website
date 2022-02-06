@@ -13,10 +13,15 @@ export default function Home(props){
 }
 
 export const getServerSideProps = async (context) => {
-	const { products } = await apiQuery(GetProducts);
+	let { products } = await apiQuery(GetProducts);
 	
 	if(!products) return {notFound:true}
 	
+	for (let i = 0; i < 8; i++) {
+		products = products.concat(products)
+	}
+
+
 	return { 
 		props:{
 			products
