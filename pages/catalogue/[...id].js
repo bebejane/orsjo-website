@@ -14,7 +14,8 @@ export default function Home(props){
 
 export const getServerSideProps = async (context) => {
   const id = context.params.id[0];
-	const { product } = await apiQuery(GetProduct, {id});
+	const locale = context.query.locale || 'en';
+	const { product } = await apiQuery(GetProduct, {id, locale});
 	
 	if(!product) return {notFound:true}
 	

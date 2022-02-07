@@ -1,46 +1,46 @@
-query GetTaxonomy {
-  designer: allDesigners {
+query GetTaxonomy ($locale: SiteLocale = en) {
+  designer: allDesigners(locale: $locale) {
     name
     id
     slug
   }
-  category: allProductCategories {
+  category: allProductCategories(locale: $locale) {
     id
     name
   }
-  color:allProductColors {
+  color: allProductColors(locale: $locale) {
     id
     name
   }
-  connection: allProductConnections {
+  connection: allProductConnections(locale: $locale) {
     id
     name
   }
-  dimmable: allProductDimmables {
+  dimmable: allProductDimmables(locale: $locale) {
     id
     name
   }
-  electrical_data: allProductElectricals {
+  electricalData: allProductElectricals(locale: $locale) {
     id
     name
   }
-  family: allProductFamilies {
+  family: allProductFamilies(locale: $locale) {
     id
     name
   }
-  lightsource: allProductLightsources {
+  lightsource: allProductLightsources(locale: $locale) {
     id
     name
   }
-  material: allProductMaterials {
+  material: allProductMaterials(locale: $locale) {
     id
     name
   }
-  mounting: allProductMountings {
+  mounting: allProductMountings(locale: $locale) {
     id
     name
   }
-  socket: allProductSockets {
+  socket: allProductSockets(locale: $locale) {
     id
     name
   }

@@ -5,21 +5,8 @@ import Markdown from '/lib/dato/components/Markdown'
 export default function ProductSheet({product}){
   
   const generatedAt = new Date().toISOString()
+  const specs = parseSpecs(product)
 
-  const specs = [
-    {label: 'Designer',value : product.designer?.name},
-    {label: 'Electrical data', value : product.electricalData.map((el)=> el.name).join(', ')},
-    {label: 'Description',value : product.presentation},
-    {label: 'Connection',value : product.connection?.name},
-    {label: 'Mounting',value : product.mounting?.name},
-    {label: 'Sockets',value : product.sockets.map((el)=> el.name).join(', ')},
-    {label: 'Lightsource',value : product.models.length ? product.models?.[0].lightsources?.[0]?.lightsource.name : undefined},
-    {label: 'Weight',value : product.models.length ? product.models?.[0].variants?.[0].weight : undefined},
-    {label: 'Volume',value : product.models.length ? product.models?.[0].variants?.[0].volume : undefined},
-    {label: 'Care',value : null},
-    {label: 'Recycling',value : null}
-  ]
-  
   const drawings = product.models.map((m)=> m.drawing).filter(d => d);
 
   return (
@@ -29,7 +16,7 @@ export default function ProductSheet({product}){
         <span className={styles.generatedAt}>{generatedAt}</span>
         <div className={styles.intro}>
           <div className={styles.productImage}>
-            <img src={product.image?.url} />
+            {product.image && <img src={product.image?.url} /> }
           </div>
           <div className={styles.productText}>
             <h1 className={styles.title}>{product.title}</h1>
@@ -93,4 +80,20 @@ export default function ProductSheet({product}){
       }
     </>
 	)
+}
+
+const parseSpecs = (product) =>{
+  return [
+    {label: 'Designer',value : product.designer?.name},
+    {label: 'Electrical data', value : product.electricalData.map((el)=> el.name).join(', ')},
+    {label: 'Description',value : product.presentation},
+    {label: 'Connection',value : product.connection?.name},
+    {label: 'Mounting',value : product.mounting?.name},
+    {label: 'Sockets',value : product.sockets.map((el)=> el.name).join(', ')},
+    {label: 'Lightsource',value : product.models.length ? product.models?.[0].lightsources?.[0]?.lightsource.name : undefined},
+    {label: 'Weight',value : product.models.length ? product.models?.[0].variants?.[0].weight : undefined},
+    {label: 'Volume',value : product.models.length ? product.models?.[0].variants?.[0].volume : undefined},
+    {label: 'Care',value : null},
+    {label: 'Recycling',value : null}
+  ]
 }

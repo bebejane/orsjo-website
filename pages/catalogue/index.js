@@ -13,7 +13,8 @@ export default function Home(props){
 }
 
 export const getServerSideProps = async (context) => {
-	let { products } = await apiQuery(GetProducts);
+	const locale = context.query.locale || 'en';
+	let { products } = await apiQuery(GetProducts, {locale});
 	
 	if(!products) return {notFound:true}
 	

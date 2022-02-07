@@ -24,7 +24,7 @@ export default function Home(props){
 }
 
 export const getStaticProps = withGlobalProps( async ({props, revalidate }) => {
-	const { products } = await apiQuery(GetProducts, {locale:'en'})
+	const { products } = await apiQuery(GetProducts)
 
 	return { 
 		props:{
