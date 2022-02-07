@@ -8,7 +8,7 @@ fragment ProductFragment on ProductRecord{
   slug
   bimLink
   presentation
-  image{
+  environmentImage{
     ...ImageFragment
   }
   colorImages {
