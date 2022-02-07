@@ -13,12 +13,13 @@ export default function ProductSheet({product}){
     {label: 'Connection',value : product.connection?.name},
     {label: 'Mounting',value : product.mounting?.name},
     {label: 'Sockets',value : product.sockets.map((el)=> el.name).join(', ')},
-    {label: 'Lightsource',value : product.models?.[0].lightsources?.[0]?.lightsource.name},
-    {label: 'Weight',value : product.models?.[0].variants?.[0].weight},
-    {label: 'Volume',value : product.models?.[0].variants?.[0].volume},
+    {label: 'Lightsource',value : product.models.length ? product.models?.[0].lightsources?.[0]?.lightsource.name : undefined},
+    {label: 'Weight',value : product.models.length ? product.models?.[0].variants?.[0].weight : undefined},
+    {label: 'Volume',value : product.models.length ? product.models?.[0].variants?.[0].volume : undefined},
     {label: 'Care',value : null},
     {label: 'Recycling',value : null}
   ]
+  
   const drawings = product.models.map((m)=> m.drawing).filter(d => d);
 
   return (

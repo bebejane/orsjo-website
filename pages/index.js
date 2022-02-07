@@ -10,7 +10,7 @@ export default function Home(props){
 			<h1>Products</h1>
 			<ul>
 				{products.map(({id, title, pdfFile}) => 
-					<li>{title} - <a href={`/api/catalogue/product/${id}`}>generate pdf</a> - <a href={`/catalogue/${id}`}>html page</a> - <a href={pdfFile.url}>dato pdf</a></li>
+					<li>{title} - <a href={`/api/catalogue/product/${id}`}>generate pdf</a> - <a href={`/catalogue/${id}`}>html page</a> - {pdfFile && <a href={pdfFile.url}>dato pdf</a>}</li>
 				)}
 			</ul>
 			
@@ -24,7 +24,7 @@ export default function Home(props){
 }
 
 export const getStaticProps = withGlobalProps( async ({props, revalidate }) => {
-	const { products } = await apiQuery(GetProducts)
+	const { products } = await apiQuery(GetProducts, {locale:'en'})
 
 	return { 
 		props:{

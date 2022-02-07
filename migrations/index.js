@@ -13,6 +13,8 @@ const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.e
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
 const lang = {wpml_language:'en'}
+const english = {wpml_language:'en'}
+const swedish = {wpml_language:'se'}
 
 const taxonomies = {
   'category':{
@@ -93,7 +95,7 @@ const parseProduct = async (p, taxMap) => {
     return res.map( r => r ? ({upload_id:r.id}) : undefined);
   }
   console.time('parse')
-  console.log('Product: ' + p.title.rendered.trim())
+  console.log('Product: ' + p.title.rendered.trim(), p.status)
 
   const image = !p.featured_media ? undefined : await migrateMedia(p.featured_media, ['product-image'])
   const environmentImage = !p.acf.product_environment ? undefined : await migrateMedia(p.acf.product_environment, ['product-enviroment-image'])
@@ -171,11 +173,12 @@ const migrateProducts = async () => {
     const failed = []
     let page = 1;
 
-    let products = await wpapi.product().perPage(100).page(page).param(lang)
+    let products = await wpapi.product().perPage(100).page(page).param(english).param({status:'publish'})
+    //products = products.filter(({status}) => status === 'published')
     
     while(products && products.length){
       for (let i = 0; i < products.length; i++) {
-
+        
         const prod = await productExists(products[i].slug)
         const p = await parseProduct(products[i], taxMap);
         
@@ -230,21 +233,29 @@ const migrateProducts = async () => {
 const migrateMedia = async (id, tags = []) => {
 
   if(!id) return undefined
-  const image = isNaN(id) ? { source_url:id } : await wpapi.media().id(id)
-  if(!image) return undefined
-  console.log(`Uploading ${image.source_url.split('/').pop()} - "${image.caption}"`)
+  const media = isNaN(id) ? { source_url:id } : await wpapi.media().id(id)
+  if(!media) return undefined
 
-  const path = await datoClient.createUploadPath(image.source_url);
-  const upload = await datoClient.uploads.create({
-    path, 
-    tags,
-    defaultFieldMetadata: {
-      en: {
-        alt: image.caption,
-        title: image.caption,
-      }
+  const {caption, source_url : url} = media;
+  const title = caption?.rendered ? stripTags(caption.rendered).replace(/\n/g, '').trim() : undefined
+  console.log(`Uploading ${url.split('/').pop()} - "${title}"`)
+
+  const path = await datoClient.createUploadPath(url);
+  const defaultFieldMetadata = title ? {
+    en: {
+      alt: title,
+      title: title,
+      customData:{}
     }
-  });
+  } : null
+  
+  console.log(defaultFieldMetadata)
+  
+  let data = { path, tags}
+  if(defaultFieldMetadata)
+    data = {...data, defaultFieldMetadata}
+
+  const upload = await datoClient.uploads.create(data);
   return upload
 }
 
@@ -376,8 +387,8 @@ const productExists = async (slug) => {
   return records.length ? records[0] : false
 }
 
-migrateDesigners()
-//migrateProducts()
+//migrateDesigners()
+migrateProducts()
 //migrateTaxonomies()
 //getTaxonomies()
 /*
