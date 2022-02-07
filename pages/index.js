@@ -3,8 +3,7 @@ import { apiQuery } from "/lib/dato/api";
 import { withGlobalProps } from "/lib/utils";
 import { GetProducts, GetPricelist } from "/graphql"
 
-export default function Home(props){
-	const { products, pricelist } = props
+export default function Home({ products, pricelist }){
 	
 	return (
 		<div className={styles.container}>
@@ -23,7 +22,7 @@ export default function Home(props){
 			<ul>
 				<li><a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/catalogue`}>generate pdf pricelist</a> <br/></li>
 				<li><a href={`/catalogue`}>pricelist html page</a></li>
-				{pricelist.pdfFile && <li><a href={pricelist.pdfFile.url}>dato pricelist pdf</a></li>}
+				{pricelist?.pdfFile && <li><a href={pricelist.pdfFile.url}>dato pricelist pdf</a></li>}
 			</ul>
 		</div>
 	)

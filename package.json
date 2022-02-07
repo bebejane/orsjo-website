@@ -11,6 +11,7 @@
     "migrate": "node ./migrations/index",
     "migrate:products": "node ./migrations/index --products",
     "migrate:taxonomies": "node ./migrations/index --taxonomies"
+    
   },
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",

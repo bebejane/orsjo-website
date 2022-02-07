@@ -12,9 +12,9 @@ const WPAPI = require( 'wpapi' );
 const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD, auth:true});
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
-const lang = {wpml_language:'en'}
 const english = {wpml_language:'en'}
 const swedish = {wpml_language:'se'}
+const lang = english;
 
 const taxonomies = {
   'category':{
@@ -260,6 +260,44 @@ const migrateMedia = async (id, tags = []) => {
 }
 
 
+
+
+const migrateTaxonomies = async () => {
+  console.log('Get all taxonomies...') 
+  try{
+
+    Object.keys(taxonomies).forEach( async(k) => {
+      wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
+      const data = await wpapi['product'+k]().perPage(100).param(lang)
+      const datoData = data.map(t => {
+        const d = {}
+        Object.keys(taxonomies[k]).forEach((k2) => { 
+          if(k2 === '_dato') return
+          d[taxonomies[k][k2]] = t[k2]
+        })
+        return d;
+      })
+      for (let i = 0; i < datoData.length; i++) {
+        const item = datoData[i];
+        try{
+          const record = await datoClient.items.create({
+            itemType: '' + taxonomies[k]._dato.id,
+            ...item
+          }); 
+        } catch(err){
+          
+        }
+        console.log(k, taxonomies[k]._dato.id, item)
+        await wait(300)
+      }
+    })
+    await migrateDesigners()
+
+  }catch(err){
+    console.error('exist')
+  }
+}
+
 const migrateDesigners = async () => {
   console.log('Migrating designers...')
   
@@ -292,42 +330,6 @@ const migrateDesigners = async () => {
     await wait(300) 
   }
 }
-
-const migrateTaxonomies = async () => {
-  console.log('Get all taxonomies...') 
-  try{
-
-    Object.keys(taxonomies).forEach( async(k) => {
-      wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
-      const data = await wpapi['product'+k]().perPage(100).param(lang)
-      const datoData = data.map(t => {
-        const d = {}
-        Object.keys(taxonomies[k]).forEach( (k2) => { 
-          if(k2 === 'dato') return
-          d[taxonomies[k][k2]] = t[k2]
-        })
-        return d;
-      })
-      for (let i = 0; i < datoData.length; i++) {
-        const item = datoData[i];
-        try{
-          const record = await datoClient.items.create({
-            itemType: '' + taxonomies[k]._dato.id,
-            ...item
-          }); 
-        } catch(err){
-          
-        }
-        console.log(k, taxonomies[k]._dato.id, item)
-        await wait(300)
-      }
-    })
-
-  }catch(err){
-    console.error('exist')
-  }
-}
-
 
 
 const getWPTaxonomies = async () => {
@@ -387,19 +389,8 @@ const productExists = async (slug) => {
   return records.length ? records[0] : false
 }
 
-//migrateDesigners()
-migrateProducts()
-//migrateTaxonomies()
-//getTaxonomies()
-/*
-const start = async () => {
-  const auth = {username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD}
-  console.log(auth)
-  try{
-  const upload = await wpapi.media().param(lang).auth(auth).id(16586)
-  }catch(err){
-    console.log(err)
-  }
-}
-*/
-//start()
+if(argv.products)
+  migrateProducts()
+else if(argv.taxonomies)
+  migrateTaxonomies()
+
