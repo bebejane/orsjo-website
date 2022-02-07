@@ -10,13 +10,17 @@ export default function Home(props){
 			<h1>Products</h1>
 			<ul>
 				{products.map(({id, title, pdfFile}) => 
-					<li>{title} - <a href={`/api/catalogue/product/${id}`}>generate pdf</a> - <a href={`/catalogue/${id}`}>html page</a> - {pdfFile && <a href={pdfFile.url}>dato pdf</a>}</li>
+					<li>{title} 
+					- <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/product/${id}`}>generate pdf</a> 
+					- <a href={`/catalogue/${id}`}>html page</a> 
+					- {pdfFile && <a href={pdfFile.url}>dato pdf</a>}
+				</li>
 				)}
 			</ul>
 			
 			<h1>Price list</h1>
 			<ul>
-				<li><a href={`/api/catalogue`}>generate pdf pricelist</a> <br/></li>
+				<li><a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/catalogue`}>generate pdf pricelist</a> <br/></li>
 				<li><a href={`/catalogue`}>pricelist html page</a></li>
 			</ul>
 		</div>
