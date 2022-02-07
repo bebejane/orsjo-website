@@ -1,0 +1,9 @@
+#import "./fragments/FileFragment.graphql"
+
+query GetPricelist($locale: SiteLocale = en) {
+	pricelist (locale: $locale) {
+    pdfFile{
+      ...FileFragment
+    }
+  }
+}
