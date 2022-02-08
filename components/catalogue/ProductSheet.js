@@ -58,10 +58,13 @@ export default function ProductSheet({ product }) {
           </tr>
           {product.models.map((m) => {
             return m.variants.map((v, idx) =>
-              <tr key={idx} >
-                <td>{v.articleNo}</td>
-                <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
-              </tr>
+              <>
+                {product.models.length > 1 && idx == 0 && <tr><td></td><td>{m.name}</td></tr>}
+                <tr key={idx} >
+                  <td>{v.articleNo}</td>
+                  <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
+                </tr>
+              </>
             )
           })}
         </table>
