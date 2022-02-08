@@ -2,7 +2,6 @@ import styles from './ProductGrid.module.scss'
 import cn from 'classnames'
 
 export default function ProductGrid({ products }) {
-  
   return (
     <>
       <section className={cn(styles.page, styles.gridPageOne)}>
