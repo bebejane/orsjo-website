@@ -102,9 +102,7 @@ export default function ProductSheet({ product }) {
 
 const parseSpecs = (product) => {
   
-  let lightsources = [];
-  (product.models || []).map((m)=> m.lightsources.map((l) => l )).forEach( (l) => lightsources.push.apply(lightsources, l))
-  lightsources = lightsources.filter((obj, index, arr) => {return arr.map(mapObj => mapObj.id).indexOf(obj.id) === index;});
+  const lightsources = parseLightsources(product)
   
   return [
     { label: 'Designer', value: product.designer?.name },
@@ -113,10 +111,18 @@ const parseSpecs = (product) => {
     { label: 'Connection', value: product.connection?.name },
     { label: 'Mounting', value: product.mounting?.name },
     { label: 'Sockets', value: product.sockets.map((el) => el.name).join(', ') },
-    { label: 'Lightsource', value: lightsources.map(({amount, included, lightsource}) => `${amount} x ${lightsource.name} ${included ? '(Included)' : ''}`).join(', ')},
+    { label: 'Lightsource', value: lightsources.map(({amount, included, name}) => `${amount} x ${name} ${included ? '(Included)' : ''}`).join(', ')},
     { label: 'Weight', value: product.models.length ? product.models?.[0].variants?.[0].weight : undefined },
     { label: 'Volume', value: product.models.length ? product.models?.[0].variants?.[0].volume : undefined },
     { label: 'Care', value: null },
     { label: 'Recycling', value: null }
   ]
+}
+
+const parseLightsources = (product) => {
+  let lightsources = [];
+  (product.models || []).map((m)=> m.lightsources.map((l) => l )).forEach( (l) => lightsources.push.apply(lightsources, l))
+  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({amount, price, lightsource}) => ({...lightsource, amount, price}))
+  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
+  return lightsources
 }
