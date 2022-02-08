@@ -152,6 +152,11 @@ $padding: 20mm;
       tr > td {
         padding-bottom: 10px;
       }
+
+      .modelName:first-child {
+        background: green !important;
+        padding-top: 10px;
+      }
     }
   }
   &.dimensionsPage {
