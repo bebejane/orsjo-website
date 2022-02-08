@@ -12,6 +12,7 @@ const WPAPI = require( 'wpapi' );
 const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD, auth:true});
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
+const locales = ['en', 'sv']
 const english = {wpml_language:'en'}
 const swedish = {wpml_language:'se'}
 const lang = english;
@@ -69,6 +70,8 @@ const taxonomies = {
   },
   'lightsource':{
     name:'name',
+    lightsource_price:'price',
+    lightsource_art_no: 'article_no',
     _dato:{
       id:1765143
     }
@@ -268,7 +271,9 @@ const migrateTaxonomies = async () => {
 
     Object.keys(taxonomies).forEach( async(k) => {
       wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
-      const data = await wpapi['product'+k]().perPage(100).param(lang)
+      const data = await wpapi['product'+k]().perPage(100).param(swedish)
+      const dataEn = await wpapi['product'+k]().perPage(100).param(english)
+
       const datoData = data.map(t => {
         const d = {}
         Object.keys(taxonomies[k]).forEach((k2) => { 

@@ -55,7 +55,7 @@ export default function ProductSheet({ product }) {
         </table>
         <table>
           <tr>
-            <td colSpan={2}><h3><br />Article No. and Model</h3></td>
+            <td colSpan={3}><h3><br />Article No. and Model</h3></td>
           </tr>
           {product.models.map((m) => {
             const lightsources = m.lightsources.map(l => l).filter(({ included }) => !included)
@@ -75,6 +75,7 @@ export default function ProductSheet({ product }) {
                   <tr>
                     <td>{lightsource.articleNo || '---'}</td>
                     <td>{lightsource.name} (Needs {amount})</td>
+                    <td>{lightsource.price}</td>
                   </tr>
                 ))}
                 {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}

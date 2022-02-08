@@ -1,25 +1,18 @@
 import styles from './ProductGrid.module.scss'
 import cn from 'classnames'
 
-export default function ProductGrid({ product }) {
-
+export default function ProductGrid({ products }) {
+  
   return (
     <>
       <section className={cn(styles.page, styles.gridPageOne)}>
-        {product.colorImages.map(({ url, title }, idx) => {
-          const maxWidth = 100 / product.colorImages.length;
-          return (
-            <div key={idx} className={styles.color} style={{ maxWidth: `${maxWidth}%` }}>
-              <img
-                className={styles.colorImage}
-                src={`${url}?w=600`}
-              />
-              <div className={styles.description}><span className="small">{title || 'No description'}</span></div>
-            </div>
-          )
-        })}
+        {products.map(({image, title, slug})=>
+          <div>
+            {title} {slug}
+            {image && <img src={`${image?.url}?w=300`}/>}
+          </div>
+        )}
       </section>
-
     </>
   )
 }
