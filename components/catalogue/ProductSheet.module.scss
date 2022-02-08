@@ -15,6 +15,7 @@ $padding: 20mm;
   height: $pageHeight;
   max-height: $pageHeight;
   overflow: hidden;
+  page-break-after: always;
 
   h1 {
     text-transform: capitalize;
