@@ -6,13 +6,12 @@ export default function ProductSheet({ product }) {
 
   const generatedAt = new Date().toISOString()
   const specs = parseSpecs(product)
-
-  const drawings = product.models.map((m) => m.drawing).filter(d => d);
+  const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
 
   return (
     <>
       <section className={cn(styles.page, styles.frontPage)}>
-        <img className={styles.logo} src={'/images/orsjo-logo-2014.png'} />
+        <img className={styles.logo} src={'/images/logo.svg'} />
         <span className={styles.generatedAt}>{generatedAt}</span>
         <div className={styles.intro}>
           <div className={styles.productImage}>
@@ -34,7 +33,7 @@ export default function ProductSheet({ product }) {
                   className={styles.colorImage}
                   src={`${url}?w=600`}
                 />
-                <div className={styles.description}>{title || 'No description'}</div>
+                <div className={styles.description}><span className="small">{title || 'No description'}</span></div>
               </div>
             )
           })}
@@ -42,12 +41,12 @@ export default function ProductSheet({ product }) {
       </section>
 
       <section className={cn(styles.page, styles.specPage)}>
-        <h1>Specifications</h1>
+        <h2>Specifications</h2>
         <table>
           <tr>
-            <td colSpan={2}>Technical specification</td>
+            <td colSpan={2}><h3>Technical specification</h3></td>
           </tr>
-          {specs.map(({ label, value }, idx) =>
+          {specs.filter((s) => s.value).map(({ label, value }, idx) =>
             <tr key={idx}>
               <td>{label}</td><td>{value || '----'}</td>
             </tr>
@@ -55,7 +54,7 @@ export default function ProductSheet({ product }) {
         </table>
         <table>
           <tr>
-            <td colSpan={2}>Article No. and Model</td>
+            <td colSpan={2}><h3><br />Article No. and Model</h3></td>
           </tr>
           {product.models.map((m) => {
             return m.variants.map((v, idx) =>
@@ -68,14 +67,16 @@ export default function ProductSheet({ product }) {
         </table>
       </section>
 
-      {drawings.length > 0 &&
-        <section className={cn(styles.page, styles.dimensionsPage)}>
-          <h1>Dimensions</h1>
+      {
+        drawings.length > 0 &&
+        <section className={cn(styles.page, styles.dimensionsPage, drawings.length === 1 && styles.one)}>
+          <h2>Dimensions</h2>
           <div className={styles.drawings}>
-            {drawings.map((drawing, idx) =>
-              <img key={idx} className={styles.drawing} src={drawing.url} />
+            {drawings.map((item, idx) =>
+              <figure className={styles.drawing}><img key={idx} src={item.drawing.url} /><span className="small">{item.name}</span></figure>
             )}
           </div>
+          <footer>For more info, visit Örsjö website</footer>
         </section>
       }
     </>
