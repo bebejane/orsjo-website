@@ -152,6 +152,9 @@ $padding: 20mm;
       tr > td {
         padding-bottom: 10px;
       }
+      tr.space > td{
+        padding-top:10px;
+      }
     }
   }
   &.dimensionsPage {

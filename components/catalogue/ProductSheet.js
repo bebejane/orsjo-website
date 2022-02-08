@@ -48,7 +48,8 @@ export default function ProductSheet({ product }) {
           </tr>
           {specs.filter((s) => s.value).map(({ label, value }, idx) =>
             <tr key={idx}>
-              <td>{label}</td><td>{value || '----'}</td>
+              <td>{label}</td>
+              <td>{value}</td>
             </tr>
           )}
         </table>
@@ -57,13 +58,26 @@ export default function ProductSheet({ product }) {
             <td colSpan={2}><h3><br />Article No. and Model</h3></td>
           </tr>
           {product.models.map((m) => {
+            const lightsources = m.lightsources.map(l => l).filter(({included})=>!included)
             return m.variants.map((v, idx) =>
               <>
-                {product.models.length > 1 && idx == 0 && <tr><td></td><td>{m.name}</td></tr>}
+                {product.models.length > 1 && idx == 0 && 
+                  <tr>
+                    <td></td>
+                    <td>{m.name}</td>
+                  </tr>
+                }
                 <tr key={idx} >
                   <td>{v.articleNo}</td>
                   <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
                 </tr>
+                {m.variants.length == (idx+1) && (lightsources.map(({amount, lightsource}) => 
+                  <tr>
+                    <td>{lightsource.articleNo || '---' }</td>
+                    <td>{lightsource.name} (Needs {amount})</td>
+                  </tr>
+                ))}
+                {idx+1 === m.variants.length && <tr className={styles.space}><td></td></tr>}
               </>
             )
           })}
