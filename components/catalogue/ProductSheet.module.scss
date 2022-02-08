@@ -15,7 +15,6 @@ $padding: 20mm;
   height: $pageHeight;
   max-height: $pageHeight;
   overflow: hidden;
-  border: 1px solid #000;
 
   h1 {
     text-transform: capitalize;
@@ -185,6 +184,7 @@ $padding: 20mm;
     &.one {
       .drawing img {
         height: 180mm !important;
+        width: auto;
         max-width: 100%;
       }
     }
