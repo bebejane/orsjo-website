@@ -15,7 +15,7 @@ export default function ProductSheet({ product }) {
         <span className={styles.generatedAt}>{generatedAt}</span>
         <div className={styles.intro}>
           <div className={styles.productImage}>
-            {product.environmentImage && <img src={product.environmentImage?.url} />}
+            {product.environmentImage && <img src={`${product.environmentImage?.url}?w=1200`} />}
           </div>
           <div className={styles.productText}>
             <h1 className={styles.title}>{product.title}</h1>
