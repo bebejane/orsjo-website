@@ -84,6 +84,11 @@ export default function ProductSheet({ product }) {
 }
 
 const parseSpecs = (product) => {
+  
+  let lightsources = [];
+  (product.models || []).map((m)=> m.lightsources.map((l) => l )).forEach( (l) => lightsources.push.apply(lightsources, l))
+  lightsources = lightsources.filter((obj, index, arr) => {return arr.map(mapObj => mapObj.id).indexOf(obj.id) === index;});
+  
   return [
     { label: 'Designer', value: product.designer?.name },
     { label: 'Electrical data', value: product.electricalData.map((el) => el.name).join(', ') },
@@ -91,7 +96,7 @@ const parseSpecs = (product) => {
     { label: 'Connection', value: product.connection?.name },
     { label: 'Mounting', value: product.mounting?.name },
     { label: 'Sockets', value: product.sockets.map((el) => el.name).join(', ') },
-    { label: 'Lightsource', value: product.models.length ? product.models?.[0].lightsources?.[0]?.lightsource.name : undefined },
+    { label: 'Lightsource', value: lightsources.map(({amount, included, lightsource}) => `${amount} x ${lightsource.name} ${included ? '(Included)' : ''}`).join(', ')},
     { label: 'Weight', value: product.models.length ? product.models?.[0].variants?.[0].weight : undefined },
     { label: 'Volume', value: product.models.length ? product.models?.[0].variants?.[0].volume : undefined },
     { label: 'Care', value: null },
