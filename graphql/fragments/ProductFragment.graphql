@@ -61,6 +61,8 @@ fragment ProductFragment on ProductRecord{
       lightsource {
         id
         name
+        price
+        articleNo
       }
     }
     variants {

@@ -152,9 +152,7 @@ $padding: 20mm;
       tr > td {
         padding-bottom: 10px;
       }
-
-      .modelName:first-child {
-        background: green !important;
+      tr.space > td {
         padding-top: 10px;
       }
     }
