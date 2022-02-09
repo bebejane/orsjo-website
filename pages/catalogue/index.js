@@ -13,16 +13,14 @@ export default function Home({ products }){
 }
 
 export const getServerSideProps = async ({locale}) => {
+	const { products } = await apiQuery(GetProducts, {locale});
 	
-	const { products} = await apiQuery(GetProducts, {locale});
-	const messages = await intlQuery('Catalogue', locale)
-
 	if(!products) return {notFound:true}
 
 	return { 
 		props:{
 			products,
-			messages
+			messages : await intlQuery('Catalogue', locale)
 		}
 	}
 }
