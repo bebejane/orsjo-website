@@ -18,6 +18,8 @@ const english = {wpml_language:'en'}
 const swedish = {wpml_language:'sv'}
 const lang = english;
 
+let conn;
+
 const taxonomies = {
   'category':{
     name:'name',
@@ -272,17 +274,23 @@ const migrateMedia = async (id, tags = []) => {
 
 const migrateTaxonomies = async () => {
   console.log('Get all taxonomies...') 
-
+  const wpTaxMap = await importWpTaxMap()
+  console.log(wpTaxMap)
+  //return
   try {
     Object.keys(taxonomies).forEach( async (k) => {
       wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
-      
+
       const data = await wpapi['product'+k]().perPage(100).param(swedish)
       const dataEn = await wpapi['product'+k]().perPage(100).param(english)
       
+      console.log(data)
+      console.log(dataEn)
+      
+
       const datoData = data.map((t, idx) => {
         const en = dataEn.filter((et)=> et.id === t.id)[0]
-        console.log(en)
+        //console.log(en)
         //console.log(en?.name, ' - ', t.name)
         const d = {}
 
@@ -423,25 +431,35 @@ const connectDb = async () =>{
     password: process.env.WP_DB_PASSWORD,
     database:process.env.WP_DB_DATABASE
   }
-  console.log(auth)
-  const conn = mysql.createConnection(auth)
-  conn.connect()
+  
+  if(!conn){
+    conn = mysql.createConnection(auth)
+    conn.connect()
+  }
   return conn
 }
-const importData = async () =>{
-  
+const queryDb = async (sql) =>{
   const conn = await connectDb()
-  
-  conn.query(`SELECT * FROM wp_2_term_taxonomy`, (err, res, fields)=>{
-    console.log(res)
-  });
- 
+  return new Promise((resolve, reject)=>{
+    conn.query(sql, (err, res, fields)=>{
+      if(err) return reject(err)
+      resolve(res.map((obj)=>({...obj})))
+    });
+  })
+}
+const importWpTaxMap = async () =>{
+
+  const cats = Object.keys(taxonomies).map(k => 'tax_product-' + k)
+  let sql = `SELECT * FROM wp_icl_translations WHERE element_type='${cats.join('\' OR element_type=\'')}'`
+
+  console.log(sql)
+
+  const res = await queryDb(sql)
+  conn.end()
+  return res
 
 }
-
-
-//importData();
-return
+//return importWpTaxMap()
 
 if(argv.products)
   migrateProducts()

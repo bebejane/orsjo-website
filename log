@@ -1,0 +1,808 @@
+yarn run v1.22.11
+$ node ./migrations/index --taxonomies
+Get all taxonomies...
+SELECT * FROM wp_icl_translations WHERE element_type='tax_product-category' OR element_type='tax_product-family' OR element_type='tax_product-electrical-data' OR element_type='tax_product-connection' OR element_type='tax_product-mounting' OR element_type='tax_product-color' OR element_type='tax_product-material' OR element_type='tax_product-socket' OR element_type='tax_product-lightsource' OR element_type='tax_product-dimmable'
+[
+  {
+    translation_id: 2762,
+    element_type: 'tax_product-category',
+    element_id: 5,
+    trid: 5588,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 2763,
+    element_type: 'tax_product-category',
+    element_id: 6,
+    trid: 5589,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 2764,
+    element_type: 'tax_product-category',
+    element_id: 9,
+    trid: 5590,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 2765,
+    element_type: 'tax_product-category',
+    element_id: 16,
+    trid: 5591,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 2800,
+    element_type: 'tax_product-category',
+    element_id: 66,
+    trid: 5588,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 2803,
+    element_type: 'tax_product-category',
+    element_id: 68,
+    trid: 5590,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 2829,
+    element_type: 'tax_product-category',
+    element_id: 70,
+    trid: 5591,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 2831,
+    element_type: 'tax_product-category',
+    element_id: 71,
+    trid: 5589,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8548,
+    element_type: 'tax_product-category',
+    element_id: 421,
+    trid: 38008,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 8549,
+    element_type: 'tax_product-category',
+    element_id: 422,
+    trid: 38008,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 7720,
+    element_type: 'tax_product-color',
+    element_id: 126,
+    trid: 21535,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7721,
+    element_type: 'tax_product-color',
+    element_id: 137,
+    trid: 21536,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7722,
+    element_type: 'tax_product-color',
+    element_id: 149,
+    trid: 21537,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7723,
+    element_type: 'tax_product-color',
+    element_id: 161,
+    trid: 21538,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7724,
+    element_type: 'tax_product-color',
+    element_id: 178,
+    trid: 21539,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7725,
+    element_type: 'tax_product-color',
+    element_id: 179,
+    trid: 21540,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7876,
+    element_type: 'tax_product-color',
+    element_id: 251,
+    trid: 21616,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7877,
+    element_type: 'tax_product-color',
+    element_id: 252,
+    trid: 21617,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7879,
+    element_type: 'tax_product-color',
+    element_id: 253,
+    trid: 21619,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7881,
+    element_type: 'tax_product-color',
+    element_id: 255,
+    trid: 21621,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7888,
+    element_type: 'tax_product-color',
+    element_id: 262,
+    trid: 21628,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7895,
+    element_type: 'tax_product-color',
+    element_id: 267,
+    trid: 21635,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 8013,
+    element_type: 'tax_product-color',
+    element_id: 333,
+    trid: 21539,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8014,
+    element_type: 'tax_product-color',
+    element_id: 334,
+    trid: 21635,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8015,
+    element_type: 'tax_product-color',
+    element_id: 335,
+    trid: 21540,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8016,
+    element_type: 'tax_product-color',
+    element_id: 336,
+    trid: 21621,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8017,
+    element_type: 'tax_product-color',
+    element_id: 337,
+    trid: 21628,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8018,
+    element_type: 'tax_product-color',
+    element_id: 338,
+    trid: 21617,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8019,
+    element_type: 'tax_product-color',
+    element_id: 339,
+    trid: 21535,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8020,
+    element_type: 'tax_product-color',
+    element_id: 340,
+    trid: 21536,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8021,
+    element_type: 'tax_product-color',
+    element_id: 341,
+    trid: 21619,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8022,
+    element_type: 'tax_product-color',
+    element_id: 342,
+    trid: 21537,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8023,
+    element_type: 'tax_product-color',
+    element_id: 343,
+    trid: 21538,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8024,
+    element_type: 'tax_product-color',
+    element_id: 344,
+    trid: 21616,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 7692,
+    element_type: 'tax_product-connection',
+    element_id: 125,
+    trid: 21507,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7693,
+    element_type: 'tax_product-connection',
+    element_id: 130,
+    trid: 21508,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7694,
+    element_type: 'tax_product-connection',
+    element_id: 140,
+    trid: 21509,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7695,
+    element_type: 'tax_product-connection',
+    element_id: 145,
+    trid: 21510,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7696,
+    element_type: 'tax_product-connection',
+    element_id: 148,
+    trid: 21511,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7697,
+    element_type: 'tax_product-connection',
+    element_id: 152,
+    trid: 21512,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7698,
+    element_type: 'tax_product-connection',
+    element_id: 158,
+    trid: 21513,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7699,
+    element_type: 'tax_product-connection',
+    element_id: 164,
+    trid: 21514,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7700,
+    element_type: 'tax_product-connection',
+    element_id: 165,
+    trid: 21515,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7701,
+    element_type: 'tax_product-connection',
+    element_id: 171,
+    trid: 21516,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7702,
+    element_type: 'tax_product-connection',
+    element_id: 176,
+    trid: 21517,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7703,
+    element_type: 'tax_product-connection',
+    element_id: 177,
+    trid: 21518,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7704,
+    element_type: 'tax_product-connection',
+    element_id: 180,
+    trid: 21519,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7705,
+    element_type: 'tax_product-connection',
+    element_id: 183,
+    trid: 21520,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7706,
+    element_type: 'tax_product-connection',
+    element_id: 185,
+    trid: 21521,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7707,
+    element_type: 'tax_product-connection',
+    element_id: 186,
+    trid: 21522,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7708,
+    element_type: 'tax_product-connection',
+    element_id: 189,
+    trid: 21523,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7709,
+    element_type: 'tax_product-connection',
+    element_id: 192,
+    trid: 21524,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7710,
+    element_type: 'tax_product-connection',
+    element_id: 193,
+    trid: 21525,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7711,
+    element_type: 'tax_product-connection',
+    element_id: 194,
+    trid: 21526,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7712,
+    element_type: 'tax_product-connection',
+    element_id: 195,
+    trid: 21527,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7839,
+    element_type: 'tax_product-connection',
+    element_id: 214,
+    trid: 21579,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7840,
+    element_type: 'tax_product-connection',
+    element_id: 215,
+    trid: 21580,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7868,
+    element_type: 'tax_product-connection',
+    element_id: 243,
+    trid: 21608,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7869,
+    element_type: 'tax_product-connection',
+    element_id: 244,
+    trid: 21609,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7873,
+    element_type: 'tax_product-connection',
+    element_id: 248,
+    trid: 21613,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7874,
+    element_type: 'tax_product-connection',
+    element_id: 249,
+    trid: 21614,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7884,
+    element_type: 'tax_product-connection',
+    element_id: 258,
+    trid: 21624,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 7949,
+    element_type: 'tax_product-connection',
+    element_id: 269,
+    trid: 21663,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 8031,
+    element_type: 'tax_product-connection',
+    element_id: 351,
+    trid: 21624,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8032,
+    element_type: 'tax_product-connection',
+    element_id: 352,
+    trid: 21614,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8033,
+    element_type: 'tax_product-connection',
+    element_id: 353,
+    trid: 21512,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8034,
+    element_type: 'tax_product-connection',
+    element_id: 354,
+    trid: 21519,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8035,
+    element_type: 'tax_product-connection',
+    element_id: 355,
+    trid: 21609,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8036,
+    element_type: 'tax_product-connection',
+    element_id: 356,
+    trid: 21663,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8037,
+    element_type: 'tax_product-connection',
+    element_id: 357,
+    trid: 21522,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8038,
+    element_type: 'tax_product-connection',
+    element_id: 358,
+    trid: 21511,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8039,
+    element_type: 'tax_product-connection',
+    element_id: 359,
+    trid: 21517,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8040,
+    element_type: 'tax_product-connection',
+    element_id: 360,
+    trid: 21513,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8041,
+    element_type: 'tax_product-connection',
+    element_id: 361,
+    trid: 21608,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8042,
+    element_type: 'tax_product-connection',
+    element_id: 362,
+    trid: 21613,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8043,
+    element_type: 'tax_product-connection',
+    element_id: 363,
+    trid: 21525,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8044,
+    element_type: 'tax_product-connection',
+    element_id: 364,
+    trid: 21527,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8045,
+    element_type: 'tax_product-connection',
+    element_id: 365,
+    trid: 21507,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8046,
+    element_type: 'tax_product-connection',
+    element_id: 366,
+    trid: 21524,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8047,
+    element_type: 'tax_product-connection',
+    element_id: 367,
+    trid: 21523,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8048,
+    element_type: 'tax_product-connection',
+    element_id: 368,
+    trid: 21580,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8049,
+    element_type: 'tax_product-connection',
+    element_id: 369,
+    trid: 21579,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8050,
+    element_type: 'tax_product-connection',
+    element_id: 370,
+    trid: 21516,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8051,
+    element_type: 'tax_product-connection',
+    element_id: 371,
+    trid: 21520,
+    language_code: 'en',
+    source_language_code: 'sv'
+  },
+  {
+    translation_id: 8057,
+    element_type: 'tax_product-connection',
+    element_id: 377,
+    trid: 21664,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8058,
+    element_type: 'tax_product-connection',
+    element_id: 378,
+    trid: 21665,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8060,
+    element_type: 'tax_product-connection',
+    element_id: 380,
+    trid: 21667,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8064,
+    element_type: 'tax_product-connection',
+    element_id: 384,
+    trid: 21671,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8065,
+    element_type: 'tax_product-connection',
+    element_id: 385,
+    trid: 21672,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8066,
+    element_type: 'tax_product-connection',
+    element_id: 386,
+    trid: 21673,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 8067,
+    element_type: 'tax_product-connection',
+    element_id: 387,
+    trid: 21674,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8069,
+    element_type: 'tax_product-connection',
+    element_id: 389,
+    trid: 21676,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8083,
+    element_type: 'tax_product-connection',
+    element_id: 391,
+    trid: 21684,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8084,
+    element_type: 'tax_product-connection',
+    element_id: 392,
+    trid: 21685,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 8085,
+    element_type: 'tax_product-connection',
+    element_id: 393,
+    trid: 21686,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8086,
+    element_type: 'tax_product-connection',
+    element_id: 394,
+    trid: 21687,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8087,
+    element_type: 'tax_product-connection',
+    element_id: 395,
+    trid: 21688,
+    language_code: 'sv',
+    source_language_code: null
+  },
+  {
+    translation_id: 8088,
+    element_type: 'tax_product-connection',
+    element_id: 396,
+    trid: 21689,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8089,
+    element_type: 'tax_product-connection',
+    element_id: 397,
+    trid: 21690,
+    language_code: 'en',
+    source_language_code: null
+  },
+  {
+    translation_id: 8090,
+    element_type: 'tax_product-connection',
+    element_id: 398,
+    trid: 21691,
+    language_code: 'en',
+    source_language_code: null
+  },
+  ... 321 more items
+]
+Done in 1.72s.

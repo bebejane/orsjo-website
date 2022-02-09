@@ -3,7 +3,7 @@ import CatalogueLight from '/components/catalogue/CatalogueLight';
 import { apiQuery } from "/lib/dato/api";
 import { GetProducts } from "/graphql"
 
-export default function Home(props) {
+export default function catalogueLight(props) {
 	const { products } = props
 	return (
 		<div className={styles.container}>
@@ -12,17 +12,15 @@ export default function Home(props) {
 	)
 }
 
-export const getServerSideProps = async (context) => {
-	const locale = context.query.locale || 'en';
-	let { products } = await apiQuery(GetProducts, { locale });
-
+export const getServerSideProps = async ({locale}) => {
+	const { products } = await apiQuery(GetProducts, { locale });
+	const messages = await intlQuery('Catalogue', locale)
 	if (!products) return { notFound: true }
-
-	// for (let i = 0; i < 5; i++) { products = products.concat(products)} //TEst large catalogue
 
 	return {
 		props: {
-			products
+			products,
+			messages
 		}
 	}
 }

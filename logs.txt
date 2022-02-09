@@ -1,0 +1,4 @@
+yarn run v1.22.11
+$ node ./migrations/index --taxonomies
+Get all taxonomies...
+SELECT * FROM wp_icl_translations WHERE tax_product-category OR tax_product-family OR tax_product-electrical-data OR tax_product-connection OR tax_product-mounting OR tax_product-color OR tax_product-material OR tax_product-socket OR tax_product-lightsource OR tax_product-dimmable
