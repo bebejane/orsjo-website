@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 import ProductSheet from '/components/catalogue/ProductSheet';
-import { apiQuery } from "/lib/dato/api";
+import { apiQuery, intlQuery } from "/lib/dato/api";
 import { GetProduct } from "/graphql"
 
 export default function Home(props){
@@ -21,7 +21,8 @@ export const getServerSideProps = async ({locale, params}) => {
 	
 	return { 
 		props:{
-			product
+			product,
+			messages : await intlQuery('Catalogue', locale)
 		}
 	}
 }
