@@ -37,11 +37,11 @@ export default function ProductSheet({ product, withLightsource }) {
                   <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
                   <td>Price {withLightsource}</td>
                 </tr>
-                {m.variants.length == (idx + 1) && !withLightsource && (lightsources.map(({ amount, lightsource }) =>
+                {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                   <tr>
                     <td>{lightsource.articleNo || '---'}</td>
                     <td>{lightsource.name} ({t('needs')} {amount})</td>
-                    <td>{lightsource.price}</td>
+                    <td>{withLightsource ? "Inkluderad" : lightsource.price}</td>
                   </tr>
                 ))}
                 {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}

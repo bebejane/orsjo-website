@@ -2,7 +2,7 @@ import ProductRow from "./ProductRow"
 
 export default function CatalogueLight({ products, withLightsource }) {
 
-	//Todo: Filtrera bort fasta anslutningar
+	//Todo: Filtrera bort fasta anslutningar om withLightsource == true
 	return (
 		<>
 			{products.map((product, pageNo) =>
