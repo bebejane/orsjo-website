@@ -14,7 +14,7 @@ const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
 const locales = ['en', 'sv']
 const english = {wpml_language:'en'}
-const swedish = {wpml_language:'se'}
+const swedish = {wpml_language:'sv'}
 const lang = english;
 
 const taxonomies = {
@@ -82,6 +82,83 @@ const taxonomies = {
       id:1765144
     }
   },
+}
+
+
+const migrateProducts = async () => {
+
+  console.log('Migrating product db...')
+
+  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', {wpml_language:'en'});
+  const taxMap = await generateTaxonomyMap()
+  
+  try{
+    console.log('Loading products...')
+
+    const parsed = []
+    const failed = []
+    let page = 1;
+
+    let products = await wpapi.product().perPage(100).page(page).param(english).param({status:'publish'})
+    let productsSv = await wpapi.product().perPage(100).page(page).param(english).param({status:'publish'})
+    //products = products.filter(({status}) => status === 'published')
+    console.log(products)
+    console.log(productsSv)
+    return
+    
+    while(products && products.length){
+      for (let i = 0; i < products.length; i++) {
+        
+        const prod = await productExists(products[i].slug)
+        const p = await parseProduct(products[i], taxMap);
+        
+        try{
+        
+          const exist = await productExists(products[i].slug)
+          if(exist) {
+            console.log('Skip:', products[i].slug)
+            continue
+          }
+          const p = await parseProduct(products[i], taxMap);
+          parsed.push(p)
+          fs.writeFileSync(`./migrations/data/products/${p.slug}.json`, JSON.stringify(p, null, 2))      
+          fs.writeFileSync(`./migrations/data/products/${p.slug}_.json`, JSON.stringify(products[i], null, 2))      
+          const record = await datoClient.items.create({
+            itemType: '1765120',
+            ...{...p, models:undefined},
+            models: p.models?.map((m)=> 
+              buildModularBlock({
+                itemType:'1765343',
+                name:m.name,
+                drawing:m.drawing,
+                lightsources: m.lightsources?.map(l => buildModularBlock({
+                  itemType:'1765346',
+                  ...l
+                })),
+                variants: m.variants?.map(v => buildModularBlock({
+                  itemType:'1765356',
+                  ...v
+                })),
+                accessories: m.accessories?.map(a => buildModularBlock({
+                  itemType:'1765450',
+                  ...a
+                }))
+              })
+            )
+          });
+        }catch(err){
+          console.log('failed')
+          console.log(err)
+          failed.push({...products[i], error:err})
+        }
+      }
+      products = await wpapi.product().perPage(100).page(++page).param(lang)
+    }
+    writeToFile('passed', parsed)
+    writeToFile('failed', failed)
+  }catch(err){
+    console.error(err)
+  }
 }
 
 const parseProduct = async (p, taxMap) => {
@@ -162,77 +239,7 @@ const parseProduct = async (p, taxMap) => {
   return prod
 }
 
-const migrateProducts = async () => {
 
-  console.log('Migrating product db...')
-
-  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', {wpml_language:'en'});
-  const taxMap = await generateTaxonomyMap()
-  
-  try{
-    console.log('Loading products...')
-
-    const parsed = []
-    const failed = []
-    let page = 1;
-
-    let products = await wpapi.product().perPage(100).page(page).param(english).param({status:'publish'})
-    //products = products.filter(({status}) => status === 'published')
-    
-    while(products && products.length){
-      for (let i = 0; i < products.length; i++) {
-        
-        const prod = await productExists(products[i].slug)
-        const p = await parseProduct(products[i], taxMap);
-        
-        try{
-        
-          const exist = await productExists(products[i].slug)
-          if(exist) {
-            console.log('Skip:', products[i].slug)
-            continue
-          }
-          const p = await parseProduct(products[i], taxMap);
-          parsed.push(p)
-          fs.writeFileSync(`./migrations/data/products/${p.slug}.json`, JSON.stringify(p, null, 2))      
-          fs.writeFileSync(`./migrations/data/products/${p.slug}_.json`, JSON.stringify(products[i], null, 2))      
-          const record = await datoClient.items.create({
-            itemType: '1765120',
-            ...{...p, models:undefined},
-            models: p.models?.map((m)=> 
-              buildModularBlock({
-                itemType:'1765343',
-                name:m.name,
-                drawing:m.drawing,
-                lightsources: m.lightsources?.map(l => buildModularBlock({
-                  itemType:'1765346',
-                  ...l
-                })),
-                variants: m.variants?.map(v => buildModularBlock({
-                  itemType:'1765356',
-                  ...v
-                })),
-                accessories: m.accessories?.map(a => buildModularBlock({
-                  itemType:'1765450',
-                  ...a
-                }))
-              })
-            )
-          });
-        }catch(err){
-          console.log('failed')
-          console.log(err)
-          failed.push({...products[i], error:err})
-        }
-      }
-      products = await wpapi.product().perPage(100).page(++page).param(lang)
-    }
-    writeToFile('passed', parsed)
-    writeToFile('failed', failed)
-  }catch(err){
-    console.error(err)
-  }
-}
 const migrateMedia = async (id, tags = []) => {
 
   if(!id) return undefined
@@ -262,26 +269,30 @@ const migrateMedia = async (id, tags = []) => {
   return upload
 }
 
-
-
-
 const migrateTaxonomies = async () => {
   console.log('Get all taxonomies...') 
-  try{
 
-    Object.keys(taxonomies).forEach( async(k) => {
+  try {
+    Object.keys(taxonomies).forEach( async (k) => {
       wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
+      
       const data = await wpapi['product'+k]().perPage(100).param(swedish)
       const dataEn = await wpapi['product'+k]().perPage(100).param(english)
-
-      const datoData = data.map(t => {
+      
+      const datoData = data.map((t, idx) => {
+        const en = dataEn.filter((et)=> et.id === t.id)[0]
+        console.log(en)
+        //console.log(en?.name, ' - ', t.name)
         const d = {}
+
         Object.keys(taxonomies[k]).forEach((k2) => { 
           if(k2 === '_dato') return
           d[taxonomies[k][k2]] = t[k2]
         })
         return d;
       })
+      //console.log(datoData)
+      /*
       for (let i = 0; i < datoData.length; i++) {
         const item = datoData[i];
         try{
@@ -295,10 +306,12 @@ const migrateTaxonomies = async () => {
         console.log(k, taxonomies[k]._dato.id, item)
         await wait(300)
       }
+      */
     })
-    await migrateDesigners()
+    //await migrateDesigners()
 
   }catch(err){
+    console.log(err)
     console.error('exist')
   }
 }
@@ -307,12 +320,14 @@ const migrateDesigners = async () => {
   console.log('Migrating designers...')
   
   wpapi.designer = wpapi.registerRoute('wp/v2', '/designer/(?P<id>)', {wpml_language:'en'});
-  const designers = await wpapi.designer().perPage(100).param(lang)
+  const designers = await wpapi.designer().perPage(100).param(english)
+  const designersSv = await wpapi.designer().perPage(100).param(swedish)
   
   console.log(`Migrating ${designers.length} items...`)
 
   for (let i = 0; i < designers.length; i++) {
     const element = designers[i];
+    const elementSv = designersSv[i];
     
     try{
       const upload = await migrateMedia(element.featured_media, ['designer'])
@@ -320,7 +335,10 @@ const migrateDesigners = async () => {
         itemType: '1765453',
         slug:element.slug,
         name:element.title.rendered,
-        description: turndownService.turndown(element.content.rendered),
+        description: {
+          en: turndownService.turndown(element.content.rendered),
+          sv: turndownService.turndown(elementSv.content.rendered),
+        },
         image:{
           upload_id:upload.id
         }
@@ -394,8 +412,26 @@ const productExists = async (slug) => {
   return records.length ? records[0] : false
 }
 
+
+const connectDb = () =>{
+  const mysql = require('mysql');
+  const db = mysql.createConnection({
+      host: "213.132.114.90",
+      user: "o2r0s1j9_kodiak",
+      password: "+SK#4ZD=27NHzK3r",
+      database:"o2r0s1j9_db01",
+  })
+
+  db.connect((err) => {
+      if (err) throw err;
+      console.log("Connected!");
+  });
+}
+//connectDb()
+
 if(argv.products)
   migrateProducts()
 else if(argv.taxonomies)
   migrateTaxonomies()
+
 

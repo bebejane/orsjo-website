@@ -1,10 +1,12 @@
 import styles from './ProductSheet.module.scss'
 import cn from 'classnames'
+import { useTranslations } from 'next-intl'
 import Markdown from '/lib/dato/components/Markdown'
 import Page from "./Page"
 
-
 export default function ProductSheet({ product }) {
+
+  const t = useTranslations('Catalogue')
 
   const generatedAt = new Date().toISOString()
   const specs = parseSpecs(product)
@@ -47,7 +49,7 @@ export default function ProductSheet({ product }) {
 
       <Page>
         <section className={cn(styles.specPage)}>
-          <h2>Specifications</h2>
+          <h2>{t('specifications')}</h2>
           <table>
             <tr>
               <td colSpan={2}><h3>Technical specification</h3></td>
