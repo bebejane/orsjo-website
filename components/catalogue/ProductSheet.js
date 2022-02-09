@@ -114,6 +114,7 @@ export default function ProductSheet({ product }) {
 
 const parseSpecs = (product) => {
 
+  const t = useTranslations('Catalogue')
   const lightsources = parseLightsources(product)
 
   return [
