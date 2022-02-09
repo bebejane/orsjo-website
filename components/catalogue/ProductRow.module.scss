@@ -27,8 +27,11 @@
 
   td.name {
     color: gray !important;
-    padding-top: 0.5em;
     font-family: "FaktBold";
+  }
+
+  tr.space {
+    height: 10px;
   }
 
   strong {
