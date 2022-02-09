@@ -13,8 +13,8 @@ export default function Home({ products, pricelist, messages }) {
 
 			<h1>{t('pricelist')} HTLM</h1>
 			<ul>
-				<li>Prislista: <a href={`/catalogue`}>Euro</a> <a href={`sv/catalogue`}>SEK</a> <a href={`sv/catalogue`}>NOK</a></li>
-				<li>Enkel: <a href={`/catalogue/light`}>EURO</a> <a href={`sv/catalogue/light`}>SEK</a> <a href={`/catalogue/light`}>NOK</a></li>
+				<li>Prislista: <a href={`/catalogue`}>Euro</a> <a href={`/sv/catalogue`}>SEK</a> <a href={`/sv/catalogue`}>NOK</a></li>
+				<li>Enkel: <a href={`/catalogue/light`}>EURO</a> <a href={`/sv/catalogue/light`}>SEK</a> <a href={`/catalogue/light`}>NOK</a></li>
 				<li>Ink. ljuskälla: <a href={`sv/catalogue/withLightsource`}>SEK</a></li>
 			</ul>
 			<h1>Generera {t('pricelist')}</h1>
@@ -31,10 +31,10 @@ export default function Home({ products, pricelist, messages }) {
 			<h1>{t('products')}</h1>
 			<ul>
 				{products.map(({ id, title, pdfFile }) =>
-					<li>{title}
-						- <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/product/${id}`}>generate pdf</a>
-						- <a href={`/catalogue/${id}`}>html page</a>
-						- {pdfFile && <a href={pdfFile.url}>dato pdf</a>}
+					<li>{title} - <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/product/${id}`}>generate pdf</a>
+						- <a href={`/catalogue/${id}`}>html (en)</a>
+						- <a href={`/sv/catalogue/${id}`}>html (sv)</a>
+						- {pdfFile?.en && <a href={pdfFile.en.url}>dato pdf</a>}
 					</li>
 				)}
 			</ul>

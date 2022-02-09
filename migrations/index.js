@@ -10,6 +10,8 @@ const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.j
 const { SiteClient, buildModularBlock } = require('datocms-client');
 const WPAPI = require( 'wpapi' );
 const { resolveObjectURL } = require('buffer');
+const { KnownArgumentNamesOnDirectivesRule } = require('graphql/validation/rules/KnownArgumentNamesRule');
+const { Z_TEXT } = require('zlib');
 const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD, auth:true});
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
@@ -94,7 +96,7 @@ const migrateProducts = async () => {
 
   wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', {wpml_language:'en'});
   const taxMap = await generateTaxonomyMap()
-  
+  console.log(taxMap)
   try{
     console.log('Loading products...')
 
@@ -103,60 +105,53 @@ const migrateProducts = async () => {
     let page = 1;
 
     let products = await wpapi.product().perPage(100).page(page).param(english).param({status:'publish'})
-    let productsSv = await wpapi.product().perPage(100).page(page).param(english).param({status:'publish'})
-    //products = products.filter(({status}) => status === 'published')
-    console.log(products)
-    console.log(productsSv)
-    return
+    let productsSv = await wpapi.product().perPage(100).page(page).param(swedish).param({status:'publish'})
     
-    while(products && products.length){
-      for (let i = 0; i < products.length; i++) {
-        
-        const prod = await productExists(products[i].slug)
-        const p = await parseProduct(products[i], taxMap);
-        
-        try{
-        
-          const exist = await productExists(products[i].slug)
-          if(exist) {
-            console.log('Skip:', products[i].slug)
-            continue
-          }
-          const p = await parseProduct(products[i], taxMap);
-          parsed.push(p)
-          fs.writeFileSync(`./migrations/data/products/${p.slug}.json`, JSON.stringify(p, null, 2))      
-          fs.writeFileSync(`./migrations/data/products/${p.slug}_.json`, JSON.stringify(products[i], null, 2))      
-          const record = await datoClient.items.create({
-            itemType: '1765120',
-            ...{...p, models:undefined},
-            models: p.models?.map((m)=> 
-              buildModularBlock({
-                itemType:'1765343',
-                name:m.name,
-                drawing:m.drawing,
-                lightsources: m.lightsources?.map(l => buildModularBlock({
-                  itemType:'1765346',
-                  ...l
-                })),
-                variants: m.variants?.map(v => buildModularBlock({
-                  itemType:'1765356',
-                  ...v
-                })),
-                accessories: m.accessories?.map(a => buildModularBlock({
-                  itemType:'1765450',
-                  ...a
-                }))
-              })
-            )
-          });
-        }catch(err){
-          console.log('failed')
-          console.log(err)
-          failed.push({...products[i], error:err})
+    for (let i = 0; i < products.length; i++) {
+      
+      try{
+        const exist = await productExists(products[i].slug)
+        if(exist) {
+          console.log('Skip:', products[i].slug)
+          continue
         }
+        
+        const prodSv = productsSv.filter(p => p.slug === products[i].slug)[0]
+        const p = await parseProduct(products[i], taxMap, prodSv);
+        parsed.push(p)
+        fs.writeFileSync(`./migrations/data/products/${p.slug}.json`, JSON.stringify(p, null, 2))      
+        fs.writeFileSync(`./migrations/data/products/${p.slug}_.json`, JSON.stringify(products[i], null, 2))
+        const record = await datoClient.items.create({
+          itemType: '1765120',
+          ...{...p, models:undefined},
+          models: p.models?.map((m)=> 
+            buildModularBlock({
+              itemType:'1765343',
+              name:m.name,
+              drawing:m.drawing,
+              lightsources: m.lightsources?.map(l => buildModularBlock({
+                itemType:'1765346',
+                ...l
+              })),
+              variants: m.variants?.map(v => buildModularBlock({
+                itemType:'1765356',
+                ...v
+              })),
+              accessories: m.accessories?.map(a => buildModularBlock({
+                itemType:'1765450',
+                ...a
+              }))
+            })
+          )
+        });
+      }catch(err){
+        console.log('failed')
+        console.log(err)
+        failed.push({...products[i], error:err})
       }
-      products = await wpapi.product().perPage(100).page(++page).param(lang)
     }
+    products = await wpapi.product().perPage(100).page(++page).param(lang)
+    
     writeToFile('passed', parsed)
     writeToFile('failed', failed)
   }catch(err){
@@ -164,8 +159,10 @@ const migrateProducts = async () => {
   }
 }
 
-const parseProduct = async (p, taxMap) => {
+const parseProduct = async (p, taxMap, pSv) => {
   
+  if(!pSv) throw 'No swedish for ' + p.slug
+
   const wpIdToDatoId = (taxonomy, wpId) => {
     if(!wpId) return undefined
     return taxMap[taxonomy][wpId]
@@ -188,27 +185,34 @@ const parseProduct = async (p, taxMap) => {
 
   const electricalData = !p.acf.electrical_data ? undefined : p.acf.electrical_data.map((el)=> wpIdToDatoId('electrical', el.term_id))
   const sockets = p.acf.socket ? p.acf.socket.map(({term_id}) => wpIdToDatoId('socket', term_id)) : undefined
-  const pdfFile = !p.acf.pdf ? undefined : await migrateMedia(p.acf.pdf, ['product-pdf'])
+  //const pdfFile = !p.acf.pdf ? undefined : await migrateMedia(p.acf.pdf, ['product-pdf'])
   const lightFile = !p.acf.light_file ? undefined : await migrateMedia(p.acf.light_file, ['product-light-file']);
-  
+  const categories = !p['product-category'] ? null : p['product-category'].map((c)=>wpIdToDatoId('category', c))
+  console.log(categories, p['product-category'])
   const prod = {
     title:p.title.rendered.trim(),
     bimLink:p.acf.bim_link,
     colorImages,
     environmentImage: environmentImage ? {upload_id: environmentImage.id} : undefined,
-    description: stripTags(p.content.rendered).replace(/\n/g, '').trim(),
+    description: {
+      en: stripTags(p.content.rendered).replace(/\n/g, '').trim(),
+      sv: stripTags(pSv.content.rendered).replace(/\n/g, '').trim(),
+    },
     family: !p['product-family'] ? undefined : wpIdToDatoId('family', p['product-family'][0]),
-    categories: !p['product-category'] ? undefined : p['product-category'].map((c)=>wpIdToDatoId('category', c)),
+    categories,
     designer: wpIdToDatoId('designer', p.acf.designer?.ID),
-    connection:wpIdToDatoId('connection', p.acf.connection?.term_id),
+    connection: wpIdToDatoId('connection', p.acf.connection?.term_id),
     dimmable: wpIdToDatoId('dimmable', p.acf.dimmable?.term_id),
     mounting: wpIdToDatoId('mounting', p.acf.mounting?.term_id),
     electricalData,
     image: image ? {upload_id: image.id} : undefined,
     gallery,
     lightFile: lightFile ? {upload_id: lightFile.id} : undefined,
-    pdfFile: pdfFile ? {upload_id:pdfFile.id} : undefined,
-    presentation:p.acf.desc,
+    //pdfFile: pdfFile ? {upload_id:pdfFile.id} : undefined,
+    presentation: {
+      en: p.acf.desc,
+      sv: pSv.acf.desc
+    },
     slug:p.slug,
     sockets,
     models: p.acf.model.map((m, idx)=> ({
@@ -227,8 +231,8 @@ const parseProduct = async (p, taxMap) => {
         price:v.price,
         specificFeature:v.differance,
         vat:v.exclude_price_factor,
-        volume:v.volume,
-        weight:v.weight
+        volume: v.volume ? parseFloat(v.volume.replace(/\,/, '.')) : null,
+        weight: v.weight
       })),
       accessories: !m.accessories ? undefined : m.accessories.map((a) => ({
         product:a.product,
@@ -241,7 +245,6 @@ const parseProduct = async (p, taxMap) => {
   console.log('')
   return prod
 }
-
 
 const migrateMedia = async (id, tags = []) => {
 
@@ -262,8 +265,6 @@ const migrateMedia = async (id, tags = []) => {
     }
   } : null
   
-  console.log(defaultFieldMetadata)
-  
   let data = { path, tags}
   if(defaultFieldMetadata)
     data = {...data, defaultFieldMetadata}
@@ -274,32 +275,57 @@ const migrateMedia = async (id, tags = []) => {
 
 const migrateTaxonomies = async () => {
   console.log('Get all taxonomies...') 
-  const wpTaxMap = await importWpTaxMap()
-  console.log(wpTaxMap)
-  //return
+  
   try {
-    Object.keys(taxonomies).forEach( async (k) => {
-      wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
+    for (let i = 0; i < Object.keys(taxonomies).length; i++) {
+      const k = Object.keys(taxonomies)[i];      
+      //wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
+      const wpTaxMap = await importWpTaxMap(k)
+      const trids = Object.keys(wpTaxMap[k])
+      //const data = await wpapi['product'+k]().perPage(100).param(swedish)//.param({status:'publish'})
+      //const dataEn = await wpapi['product'+k]().perPage(100).param(english)//.param({status:'publish'})
 
-      const data = await wpapi['product'+k]().perPage(100).param(swedish)
-      const dataEn = await wpapi['product'+k]().perPage(100).param(english)
-      
-      console.log(data)
-      console.log(dataEn)
-      
+      console.log(wpTaxMap[k])
+      const tax = {}
+      for (let y = 0; y < trids.length; y++) {
+        const trid = trids[y]
+        const ids = wpTaxMap[k][trid]
 
-      const datoData = data.map((t, idx) => {
-        const en = dataEn.filter((et)=> et.id === t.id)[0]
+        tax[trid] = {
+          en: (await queryDb(`SELECT * from wp_terms where term_id = ${ids[0]}`))[0],
+          sv: ids[1] ? (await queryDb(`SELECT * from wp_terms where term_id = ${ids[1]}`))[0] : null
+        }
+
+      }
+      console.log(tax)
+      //console.log(data.length)
+      /*
+      for (let x  = 0; x < data.length; x++) {
+        const sv = data[x];
+        const en = dataEn[x];
+        
+        let trId;
+        for (let y = 0; y < trids.length; y++) {
+          if(wpTaxMap[k][trids[y]].includes(sv.id)){
+            trId = trids[y];
+            break
+          }
+        }
+         
+        if(!trId) console.log(sv)
+        //const en = dataEn.filter((et)=> et.id === t.id)[0]
         //console.log(en)
         //console.log(en?.name, ' - ', t.name)
         const d = {}
 
         Object.keys(taxonomies[k]).forEach((k2) => { 
-          if(k2 === '_dato') return
-          d[taxonomies[k][k2]] = t[k2]
+          if(k2 !== '_dato')
+            d[taxonomies[k][k2]] = sv[k2]
         })
-        return d;
-      })
+        data[x] =  d;
+      }
+      */
+      //return
       //console.log(datoData)
       /*
       for (let i = 0; i < datoData.length; i++) {
@@ -316,13 +342,14 @@ const migrateTaxonomies = async () => {
         await wait(300)
       }
       */
-    })
+    }
     //await migrateDesigners()
 
   }catch(err){
     console.log(err)
     console.error('exist')
   }
+  conn.end()
 }
 
 const migrateDesigners = async () => {
@@ -397,9 +424,10 @@ const generateTaxonomyMap = async () => {
 
   console.log('Creating taxonomy map...')
   Object.keys(wpTaxonomy).forEach(k => {  
+    console.log(wpTaxonomy[k].data)
     wpTaxonomy[k].data.forEach((item, idx) => {
       const wpId = wpTaxonomy[k].data[idx].id
-      const datoId = datoTaxonomy[k].filter((el)=> el.name === wpTaxonomy[k].data[idx].name ||  el.name === wpTaxonomy[k].data[idx].title?.rendered)[0]?.id
+      const datoId = datoTaxonomy[k].filter((el)=> el.name.en === wpTaxonomy[k].data[idx].name ||  el.name.en === wpTaxonomy[k].data[idx].title?.rendered)[0]?.id
       if(!taxMap[k]) taxMap[k] = {}
       taxMap[k][wpId] = datoId
     })
@@ -447,16 +475,27 @@ const queryDb = async (sql) =>{
     });
   })
 }
-const importWpTaxMap = async () =>{
+const importWpTaxMap = async (type) =>{
 
   const cats = Object.keys(taxonomies).map(k => 'tax_product-' + k)
-  let sql = `SELECT * FROM wp_icl_translations WHERE element_type='${cats.join('\' OR element_type=\'')}'`
+  let sql = `SELECT * FROM wp_icl_translations WHERE element_type='${type ? `tax_product-${type}` : cats.join('\' OR element_type=\'')}'`
+  //let sql = `SELECT * FROM wp_icl_translations`
 
   console.log(sql)
 
+  const taxMap = {}
   const res = await queryDb(sql)
-  conn.end()
-  return res
+  //conn.end()
+
+  for (let i = 0; i < res.length; i++) {
+    const el = res[i];
+    const k = el.element_type.replace('tax_product-', '')
+    if(!taxMap[k]) taxMap[k] = {}
+    if(!taxMap[k][el.trid]) taxMap[k][el.trid] = []
+    taxMap[k][el.trid].push(el.element_id)
+  }
+  console.log(taxMap)
+  return taxMap
 
 }
 //return importWpTaxMap()

@@ -1,6 +1,7 @@
 yarn run v1.22.11
 $ node ./migrations/index --taxonomies
 Get all taxonomies...
+SELECT * FROM wp_icl_translations
 {
   '5': 5588,
   '6': 5589,
@@ -67,6 +68,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '18': 5594,
   '19': 5595,
@@ -389,6 +391,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '124': 21505,
   '157': 21506,
@@ -469,6 +472,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '125': 21507,
   '130': 21508,
@@ -967,6 +971,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '141': 21528,
   '159': 21529,
@@ -1179,6 +1184,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '126': 21535,
   '137': 21536,
@@ -1358,6 +1364,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '127': 21541,
   '129': 21542,
@@ -1695,6 +1702,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '132': 21554,
   '133': 21555,
@@ -1813,6 +1821,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '147': 21564,
   '217': 21582,
@@ -2114,6 +2123,7 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
+SELECT * FROM wp_icl_translations
 {
   '134': 21574,
   '135': 21575,
@@ -2139,4 +2149,3 @@ Get all taxonomies...
     curies: [ [Object] ]
   }
 }
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
