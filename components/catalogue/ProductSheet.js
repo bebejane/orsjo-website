@@ -123,8 +123,8 @@ const parseSpecs = (product, t) => {
     { key: 'mounting', value: product.mounting?.name },
     { key: 'socket', value: product.sockets.map((el) => el.name).join(', ') },
     { key: 'lightsource', value: lightsources.map(({ amount, included, name }) => `${amount} x ${name} ${included ? `(${t('included')})` : ''}`).join(', ') }, //Funkar inte
-    { key: 'weight', value: product.models.length ? product.models?.[0].variants?.[0].weight : undefined },
-    { key: 'volume', value: product.models.length ? product.models?.[0].variants?.[0].volume : undefined },
+    { key: 'weight', value: product.models.length ? product.models?.[0].variants?.[0]?.weight : undefined },
+    { key: 'volume', value: product.models.length ? product.models?.[0].variants?.[0]?.volume : undefined },
     { key: 'care', value: null },
     { key: 'recycling', value: null }
   ]
