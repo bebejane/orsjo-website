@@ -1,25 +1,27 @@
-.container{
+.container {
   display: flex;
   flex-direction: column;
-  padding: 40px;
-  a{
-    color:rgb(145, 233, 255);
+  padding: 10vw;
+  font-size: 22px !important;
+  a {
+    color: rgb(145, 233, 255);
     background-color: rgb(7, 33, 39);
     padding: 3px;
-    
   }
-  h1{
+  h1 {
     margin: 0;
     text-align: left;
-    
+    padding-bottom: 1em;
+    padding-top: 1em;
+    font-family: "FaktBold";
+    font-size: 22px !important;
   }
-  ul{
-    font-size: 11pt;
+  ul {
     margin-bottom: 20px;
-    li{
+    li {
+      list-style: none;
       margin-left: 30px;
-     
+      padding-bottom: 1em;
     }
   }
-  
 }

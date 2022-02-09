@@ -2,7 +2,7 @@ import styles from './ProductRow.module.scss'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 
-export default function ProductSheet({ product }) {
+export default function ProductSheet({ product, withLightsource }) {
 
   const t = useTranslations('Catalogue')
   const generatedAt = new Date().toISOString()
@@ -35,9 +35,9 @@ export default function ProductSheet({ product }) {
                 < tr key={idx} >
                   <td>{v.articleNo}</td>
                   <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
-                  <td>Price</td>
+                  <td>Price {withLightsource}</td>
                 </tr>
-                {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
+                {m.variants.length == (idx + 1) && !withLightsource && (lightsources.map(({ amount, lightsource }) =>
                   <tr>
                     <td>{lightsource.articleNo || '---'}</td>
                     <td>{lightsource.name} ({t('needs')} {amount})</td>

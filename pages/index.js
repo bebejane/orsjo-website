@@ -9,6 +9,23 @@ export default function Home({ products, pricelist, messages }) {
 
 	return (
 		<div className={styles.container}>
+
+
+			<h1>{t('pricelist')}</h1>
+			<ul>
+				<li><a href={`/catalogue`}>pricelist en</a></li>
+				<li><a href={`sv/catalogue`}>pricelist sv</a></li>
+				<li><a href={`/catalogue/light`}>light en</a></li>
+				<li><a href={`sv/catalogue/light`}>light sv</a></li>
+				<li><a href={`catalogue/withLightsource`}>include lightsource en</a></li>
+				<li><a href={`sv/catalogue/withLightsource`}>include lightsource sv</a></li>
+
+				<li></li>
+				<li><a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/catalogue`}>generate pdf pricelist</a> <br /></li>
+				{pricelist?.pdfFile && <li><a href={pricelist.pdfFile.url}>dato pricelist pdf</a></li>}
+
+			</ul>
+
 			<h1>{t('products')}</h1>
 			<ul>
 				{products.map(({ id, title, pdfFile }) =>
@@ -19,20 +36,8 @@ export default function Home({ products, pricelist, messages }) {
 					</li>
 				)}
 			</ul>
-
-			<h1>{t('pricelist')}</h1>
-			<ul>
-				<li><a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/catalogue`}>generate pdf pricelist</a> <br /></li>
-				{pricelist?.pdfFile && <li><a href={pricelist.pdfFile.url}>dato pricelist pdf</a></li>}
-				<li><a href={`/catalogue`}>pricelist html page en</a></li>
-				<li><a href={`sv/catalogue`}>pricelist html page sv</a></li>
-				<li><a href={`/catalogue/light`}> light pricelist html page en</a></li>
-				<li><a href={`sv/catalogue/light`}> light pricelist html page sv</a></li>
-
-
-
-			</ul>
 		</div>
+
 	)
 }
 

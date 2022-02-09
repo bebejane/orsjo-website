@@ -7,7 +7,7 @@ export default function catalogueLight(props) {
 	const { products } = props
 	return (
 		<div className={styles.container}>
-			<CatalogueLight products={products} withLightsource={false} />
+			<CatalogueLight products={products} withLightsource={true} />
 		</div>
 	)
 }
