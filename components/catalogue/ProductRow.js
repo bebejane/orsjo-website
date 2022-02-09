@@ -1,11 +1,10 @@
 import styles from './ProductRow.module.scss'
 import cn from 'classnames'
-import Markdown from '/lib/dato/components/Markdown'
-import Page from "./Page"
-
+import { useTranslations } from 'next-intl'
 
 export default function ProductSheet({ product }) {
 
+  const t = useTranslations('Catalogue')
   const generatedAt = new Date().toISOString()
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
 
@@ -41,7 +40,7 @@ export default function ProductSheet({ product }) {
                 {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                   <tr>
                     <td>{lightsource.articleNo || '---'}</td>
-                    <td>{lightsource.name} (Needs {amount})</td>
+                    <td>{lightsource.name} ({t('needs')} {amount})</td>
                     <td>{lightsource.price}</td>
                   </tr>
                 ))}

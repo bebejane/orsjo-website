@@ -52,18 +52,18 @@ export default function ProductSheet({ product }) {
           <h2>{t('specifications')}</h2>
           <table>
             <tr>
-              <td colSpan={2}><h3>Technical specification</h3></td>
+              <td colSpan={2}><h3>{t('technicalSpec')}</h3></td>
             </tr>
-            {specs.filter((s) => s.value).map(({ label, value }, idx) =>
+            {specs.filter((s) => s.value).map(({ key, value }, idx) =>
               <tr key={idx}>
-                <td>{label}</td>
+                <td>{t(key)}</td>
                 <td>{value}</td>
               </tr>
             )}
           </table>
           <table>
             <tr>
-              <td colSpan={3}><h3><br />Article No. and Model</h3></td>
+              <td colSpan={3}><h3><br />{t('articleNoPrice')}</h3></td>
             </tr>
             {product.models.map((m) => {
               const lightsources = m.lightsources.map(l => l).filter(({ included }) => !included)
@@ -82,7 +82,7 @@ export default function ProductSheet({ product }) {
                   {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                     <tr>
                       <td>{lightsource.articleNo || '---'}</td>
-                      <td>{lightsource.name} (Needs {amount})</td>
+                      <td>{lightsource.name} ({t('needs')} {amount})</td>
                       <td>{lightsource.price}</td>
                     </tr>
                   ))}
@@ -98,13 +98,13 @@ export default function ProductSheet({ product }) {
         drawings.length > 0 &&
         <Page>
           <section className={cn(styles.page, styles.dimensionsPage, drawings.length === 1 && styles.one)}>
-            <h2>Dimensions</h2>
+            <h2>{t('dimmensions')}</h2>
             <div className={styles.drawings}>
               {drawings.map((item, idx) =>
                 <figure className={styles.drawing}><img key={idx} src={item.drawing.url} /><span className="small">{item.name}</span></figure>
               )}
             </div>
-            <footer>For more info, visit Örsjö website</footer>
+            <footer>{t('moreInfo')}</footer>
           </section>
         </Page>
       }
@@ -112,22 +112,21 @@ export default function ProductSheet({ product }) {
   )
 }
 
-const parseSpecs = (product) => {
-
+const parseSpecs = (product, t) => {
   const lightsources = parseLightsources(product)
 
   return [
-    { label: 'Designer', value: product.designer?.name },
-    { label: 'Electrical data', value: product.electricalData.map((el) => el.name).join(', ') },
-    { label: 'Description', value: product.presentation },
-    { label: 'Connection', value: product.connection?.name },
-    { label: 'Mounting', value: product.mounting?.name },
-    { label: 'Sockets', value: product.sockets.map((el) => el.name).join(', ') },
-    { label: 'Lightsource', value: lightsources.map(({ amount, included, name }) => `${amount} x ${name} ${included ? '(Included)' : ''}`).join(', ') },
-    { label: 'Weight', value: product.models.length ? product.models?.[0].variants?.[0].weight : undefined },
-    { label: 'Volume', value: product.models.length ? product.models?.[0].variants?.[0].volume : undefined },
-    { label: 'Care', value: null },
-    { label: 'Recycling', value: null }
+    { key: 'designer', value: product.designer?.name },
+    { key: 'electricalData', value: product.electricalData.map((el) => el.name).join(', ') },
+    { key: 'description', value: product.presentation },
+    { key: 'connection', value: product.connection?.name },
+    { key: 'mounting', value: product.mounting?.name },
+    { key: 'socket', value: product.sockets.map((el) => el.name).join(', ') },
+    { key: 'lightsource', value: lightsources.map(({ amount, included, name }) => `${amount} x ${name} ${included ? `(${t('included')})` : ''}`).join(', ') }, //Funkar inte
+    { key: 'weight', value: product.models.length ? product.models?.[0].variants?.[0].weight : undefined },
+    { key: 'volume', value: product.models.length ? product.models?.[0].variants?.[0].volume : undefined },
+    { key: 'care', value: null },
+    { key: 'recycling', value: null }
   ]
 }
 
