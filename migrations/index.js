@@ -9,6 +9,7 @@ const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.j
 
 const { SiteClient, buildModularBlock } = require('datocms-client');
 const WPAPI = require( 'wpapi' );
+const { resolveObjectURL } = require('buffer');
 const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD, auth:true});
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
@@ -413,21 +414,34 @@ const productExists = async (slug) => {
 }
 
 
-const connectDb = () =>{
+const connectDb = async () =>{
   const mysql = require('mysql');
-  const db = mysql.createConnection({
-      host: "213.132.114.90",
-      user: "o2r0s1j9_kodiak",
-      password: "+SK#4ZD=27NHzK3r",
-      database:"o2r0s1j9_db01",
-  })
-
-  db.connect((err) => {
-      if (err) throw err;
-      console.log("Connected!");
-  });
+  const auth = {
+    host:process.env.WP_DB_HOST,
+    port: 3306,
+    user: process.env.WP_DB_USERNAME,
+    password: process.env.WP_DB_PASSWORD,
+    database:process.env.WP_DB_DATABASE
+  }
+  console.log(auth)
+  const conn = mysql.createConnection(auth)
+  conn.connect()
+  return conn
 }
-//connectDb()
+const importData = async () =>{
+  
+  const conn = await connectDb()
+  
+  conn.query(`SELECT * FROM wp_2_term_taxonomy`, (err, res, fields)=>{
+    console.log(res)
+  });
+ 
+
+}
+
+
+//importData();
+return
 
 if(argv.products)
   migrateProducts()
