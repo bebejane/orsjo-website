@@ -1,8 +1,9 @@
 import styles from './Page.module.scss'
+import cn from 'classnames'
 
 
-export default function Page({ children }) {
+export default function Page({ children, autoHeight }) {
 	return (
-		<section className={styles.page}>{children}</section>
+		<section className={cn(styles.page, autoHeight && styles.autoHeight)}>{children}</section>
 	)
 }

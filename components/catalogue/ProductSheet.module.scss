@@ -69,6 +69,8 @@ $padding: 20mm;
     flex-wrap: wrap;
     justify-content: center;
     flex: 0 0 57mm;
+    padding-left: $padding;
+    padding-right: $padding;
     .color {
       display: flex;
       flex-direction: column;
@@ -81,6 +83,12 @@ $padding: 20mm;
       .description {
         text-align: center;
         margin-top: 10px;
+
+        span {
+          max-width: 110px;
+          display: block;
+          line-height: 1.2;
+        }
       }
     }
   }
@@ -90,6 +98,7 @@ $padding: 20mm;
   padding-top: $padding;
   padding-left: $padding * 1.5;
   padding-right: $padding * 1.5;
+  width: 100%;
   table {
     margin-top: 20px;
     width: 100%;
@@ -106,13 +115,13 @@ $padding: 20mm;
         font-size: 15px;
 
         &:first-child {
-          width: 32mm;
+          width: 36mm;
           text-overflow: ellipsis;
         }
       }
     }
     tr > td {
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
     tr.space > td {
       padding-top: 0px;
@@ -123,8 +132,10 @@ $padding: 20mm;
   padding-top: $padding;
   padding-left: $padding;
   padding-right: $padding;
+  width: 100%;
 
   .drawings {
+    padding-top: 10mm;
     display: flex;
     justify-content: space-around;
     width: 100%;
@@ -133,7 +144,7 @@ $padding: 20mm;
     padding-bottom: $padding;
 
     .drawing {
-      padding-bottom: $padding;
+      padding-bottom: $padding * 0.5;
       width: auto;
 
       span {
@@ -156,6 +167,12 @@ $padding: 20mm;
       height: 180mm !important;
       width: auto;
       max-width: 100%;
+    }
+
+    &.two {
+      .drawing img {
+        max-width: 460px;
+      }
     }
   }
 

@@ -3,6 +3,17 @@
   flex-wrap: wrap;
   padding-left: 20mm;
   padding-right: 20mm;
+  width: 100%;
+
+  &.gridPageOne {
+    page-break-after: always;
+  }
+
+  &.fullGrid {
+    page-break-before: always;
+    padding-top: 20mm;
+    padding-bottom: 20mm;
+  }
 
   header {
     padding-top: 20mm;
@@ -34,9 +45,19 @@
     border-top: 1px solid gray;
     flex-wrap: wrap;
 
+    img {
+      min-width: 100%;
+      max-height: 135px;
+      object-fit: contain;
+    }
+
     p {
       padding-top: 1em;
       width: 100%;
+      font-size: 15px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

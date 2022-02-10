@@ -19,6 +19,11 @@ section.page {
   border: 0.01mm solid black;
   align-items: flex-start;
 
+  &.autoHeight {
+    height: auto;
+    max-height: none;
+  }
+
   h1 {
     text-transform: capitalize;
     font-size: 52pt !important;
