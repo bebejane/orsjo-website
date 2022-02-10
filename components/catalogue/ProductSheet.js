@@ -10,7 +10,7 @@ export default function ProductSheet({ product }) {
 
   const generatedAt = new Date().toISOString()
   const specs = parseSpecs(product, t)
-  const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
+  const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name.value })).filter(d => d.drawing);
 
   return (
     <>
@@ -72,7 +72,7 @@ export default function ProductSheet({ product }) {
                   {product.models.length > 1 && idx == 0 &&
                     <tr>
                       <td></td>
-                      <td>{m.name}</td>
+                      <td>{m.name.value}</td>
                       <td></td>
                     </tr>
                   }
@@ -92,11 +92,7 @@ export default function ProductSheet({ product }) {
                 </>
               )
             }
-
             )}
-
-
-
           </table>
         </section>
       </Page>
