@@ -5,6 +5,7 @@ const stripTags = require('striptags');
 const TurndownService = require('turndown')
 const turndownService = new TurndownService()
 const {decode : decodeEntities} = require('html-entities');
+
 const wait = (ms = 0) => new Promise((resolve) => setTimeout(()=>resolve(), ms))
 const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.json`, JSON.stringify(obj, null, 2))
 
@@ -22,6 +23,33 @@ const swedish = {wpml_language:'sv'}
 const lang = english;
 
 let conn;
+
+const productExists = async (slug) => {
+  const records = await datoClient.items.all({
+    filter: {
+      type: 'product',
+      fields: {
+        slug: {
+          eq: slug,
+        }
+      }
+    }
+  });
+  return records.length ? records[0] : false
+}
+const findRecord = async (type, key, val) => {
+  const records = await datoClient.items.all({
+    filter: {
+      type,
+      fields: {
+        [key]: {
+          eq: val,
+        }
+      }
+    }
+  });
+  return records.length ? records[0] : false
+}
 
 const taxonomies = {
   'category':{
@@ -95,7 +123,7 @@ const migrateProducts = async () => {
 
   console.log('Migrating product db...')
 
-  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', {wpml_language:'en'});
+  
   const taxMap = await generateTaxonomyMap()
   console.log(taxMap)
   try{
@@ -105,19 +133,37 @@ const migrateProducts = async () => {
     const failed = []
     let page = 1;
 
+    wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', {wpml_language:'en'});
     let products = await wpapi.product().perPage(100).page(page).param(english).param({status:'publish'})
     let productsSv = await wpapi.product().perPage(100).page(page).param(swedish).param({status:'publish'})
     
     for (let i = 0; i < products.length; i++) {
       
       try{
+        
         const exist = await productExists(products[i].slug)
         if(exist) {
-          console.log('Skip:', products[i].slug)
+          console.log('update:', products[i].slug)
+          const prodSv = productsSv.filter(p => p.slug === products[i].slug)[0]
+          if(!prodSv) continue
+
+          const record = await datoClient.items.update(exist.id, {
+            description:{
+              en:cleanContent(products[i].content.rendered),
+              sv:cleanContent(prodSv.content.rendered)
+            }
+          })  
           continue
         }
+        continue
+
         
-        const prodSv = productsSv.filter(p => p.slug === products[i].slug)[0]
+
+        
+        console.log('---------------')
+
+        /*
+
         const p = await parseProduct(products[i], taxMap, prodSv);
         parsed.push(p)
         fs.writeFileSync(`./migrations/data/products/${p.slug}.json`, JSON.stringify(p, null, 2))      
@@ -145,19 +191,26 @@ const migrateProducts = async () => {
             })
           )
         });
+        */
+
       }catch(err){
         console.log('failed')
         console.log(err)
         failed.push({...products[i], error:err})
       }
     }
-    products = await wpapi.product().perPage(100).page(++page).param(lang)
-    
     writeToFile('passed', parsed)
     writeToFile('failed', failed)
   }catch(err){
     console.error(err)
   }
+}
+
+const cleanContent = (content) => { 
+  content = content.replace(/<p>/gi, '').replace(/<br \/>/gi, '').replace(/\<\!--more--\>/gi, '\n').replace(/<\/p>/gi, '\n')
+  content = content.replace(/\n\n\n/gi, '\n\n')
+  for (let i = content.length-1; i >= 0 && content[i] === '\n'; i--) content = content.slice(0,-1);
+  return content.trim()
 }
 
 const parseProduct = async (p, taxMap, pSv) => {
@@ -196,8 +249,8 @@ const parseProduct = async (p, taxMap, pSv) => {
     colorImages,
     environmentImage: environmentImage ? {upload_id: environmentImage.id} : undefined,
     description: {
-      en: decodeEntities(stripTags(p.content.rendered).replace(/\n/g, '').trim()),
-      sv: decodeEntities(stripTags(pSv.content.rendered).replace(/\n/g, '').trim()),
+      en: decodeEntities(cleanContent(p.content.rendered)),
+      sv: decodeEntities(cleanContent(pSv.content.rendered)),
     },
     family: !p['product-family'] ? undefined : wpIdToDatoId('family', p['product-family'][0]),
     categories,
@@ -230,7 +283,7 @@ const parseProduct = async (p, taxMap, pSv) => {
         material:wpIdToDatoId('material', v.material.term_id),
         extraPercent:v.extra,
         price:v.price,
-        specificFeature:v.differance,
+        specificFeature:v.difference,
         vat:v.exclude_price_factor,
         volume: v.volume ? parseFloat(v.volume.replace(/\,/, '.')) : null,
         weight: v.weight
@@ -274,61 +327,84 @@ const migrateMedia = async (id, tags = []) => {
   return upload
 }
 
+const migrateLightsources = async () => {
+  return
+  wpapi['productlightsource'] = wpapi.registerRoute('wp/v2', `/product-lightsource/(?P<id>)`);
+  const data = await wpapi['productlightsource']().perPage(100).param(english)//.param({status:'publish'})
+  const dataSv = await wpapi['productlightsource']().perPage(100).param(swedish)//.param({status:'publish'})
+  
+  //console.log(data)
+  //console.log(dataSv)
+  //return
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i]
+    const prod = await findRecord('product_lightsource', 'name',  data[i].name)
+    if(!prod) continue
+//    const itemSv = dataSv.filter((d) => d.acf.lightsource_art_no === )[0]
+
+    const record = await datoClient.items.update(prod.id, {
+      price:item.acf.lightsource_price ? parseFloat(item.acf.lightsource_price) : null,
+      articleNo:item.acf.lightsource_art_no || null
+    })    
+  }
+}
+
+//return migrateLightsources()
+
+const migrateSpecificFeature = async () => {
+  console.log('hej')
+  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', english);
+  let products = await wpapi.product().perPage(100).page(1).param(english).param({status:'publish'})
+  let productsSv = await wpapi.product().perPage(100).page(1).param(swedish).param({status:'publish'})
+  //console.log(products)
+  const featureMap = {}
+
+  products.forEach(p => {
+    //console.log(p)
+    p.acf.model.forEach((m)=>{
+      m.versions && m.versions.forEach(v => {
+        if(!featureMap[v.art_no]) 
+          featureMap[v.art_no] = {}
+          
+        featureMap[v.art_no] = {en:v.difference, sv:''}
+      })
+    })
+  })
+  productsSv.forEach(p => {
+    //console.log(p)
+    p.acf.model.forEach((m)=>{
+      m.versions && m.versions.forEach(v => {
+        featureMap[v.art_no] = {...featureMap[v.art_no], sv:v.difference}
+      })
+    })
+  })
+  const records = await datoClient.items.all({
+    filter:{ type: 1765356}
+  })
+  
+  for (let i = 0; i < records.length; i++) {
+    const item = records[i];
+    console.log(item)
+  }
+  console.log(records)
+
+}
+
+return migrateSpecificFeature()
+
 const migrateTaxonomies = async () => {
   console.log('Get all taxonomies...') 
   
   try {
     for (let i = 0; i < Object.keys(taxonomies).length; i++) {
       const k = Object.keys(taxonomies)[i];      
-      //wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
-      const wpTaxMap = await importWpTaxMap(k)
-      const trids = Object.keys(wpTaxMap[k])
-      //const data = await wpapi['product'+k]().perPage(100).param(swedish)//.param({status:'publish'})
-      //const dataEn = await wpapi['product'+k]().perPage(100).param(english)//.param({status:'publish'})
+      wpapi['product'+k] = wpapi.registerRoute('wp/v2', `/product-${k}/(?P<id>)`);
+      //const wpTaxMap = await importWpTaxMap(k)
+      //const trids = Object.keys(wpTaxMap[k])
+      const data = await wpapi['product'+k]().perPage(100).param(swedish)//.param({status:'publish'})
+      const dataEn = await wpapi['product'+k]().perPage(100).param(english)//.param({status:'publish'})
 
-      console.log(wpTaxMap[k])
-      const tax = {}
-      for (let y = 0; y < trids.length; y++) {
-        const trid = trids[y]
-        const ids = wpTaxMap[k][trid]
-
-        tax[trid] = {
-          en: (await queryDb(`SELECT * from wp_terms where term_id = ${ids[0]}`))[0],
-          sv: ids[1] ? (await queryDb(`SELECT * from wp_terms where term_id = ${ids[1]}`))[0] : null
-        }
-
-      }
-      console.log(tax)
-      //console.log(data.length)
-      /*
-      for (let x  = 0; x < data.length; x++) {
-        const sv = data[x];
-        const en = dataEn[x];
-        
-        let trId;
-        for (let y = 0; y < trids.length; y++) {
-          if(wpTaxMap[k][trids[y]].includes(sv.id)){
-            trId = trids[y];
-            break
-          }
-        }
-         
-        if(!trId) console.log(sv)
-        //const en = dataEn.filter((et)=> et.id === t.id)[0]
-        //console.log(en)
-        //console.log(en?.name, ' - ', t.name)
-        const d = {}
-
-        Object.keys(taxonomies[k]).forEach((k2) => { 
-          if(k2 !== '_dato')
-            d[taxonomies[k][k2]] = sv[k2]
-        })
-        data[x] =  d;
-      }
-      */
-      //return
-      //console.log(datoData)
-      /*
+      
       for (let i = 0; i < datoData.length; i++) {
         const item = datoData[i];
         try{
@@ -342,7 +418,7 @@ const migrateTaxonomies = async () => {
         console.log(k, taxonomies[k]._dato.id, item)
         await wait(300)
       }
-      */
+      
     }
     //await migrateDesigners()
 
@@ -436,19 +512,7 @@ const generateTaxonomyMap = async () => {
   return taxMap
 }
 
-const productExists = async (slug) => {
-  const records = await datoClient.items.all({
-    filter: {
-      type: 'product',
-      fields: {
-        slug: {
-          eq: slug,
-        }
-      }
-    }
-  });
-  return records.length ? records[0] : false
-}
+
 
 
 const connectDb = async () =>{

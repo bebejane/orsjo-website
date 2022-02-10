@@ -78,8 +78,9 @@ const taxonomies = {
 
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
-const cleanDato = async () => {
 
+const cleanDato = async () => {
+  return
   const records = await datoClient.items.all({
     filter: {
       type: 'product_connection'
@@ -91,14 +92,11 @@ const cleanDato = async () => {
     console.log(item.id)
     await datoClient.items.update(item.id, {
       name: decodeEntities(item.name)
-        
     });
   }
-
-
 }
 
-cleanDato()
+//cleanDato()
 
 const productExists = async (slug) => {
   const records = await datoClient.items.all({
