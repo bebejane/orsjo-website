@@ -86,6 +86,11 @@ fragment ProductFragment on ProductRecord{
       extraPercent
       articleNo
     }
+    accessories {
+       product 
+       price
+       articleNo
+    }
   }
   mounting {
     name

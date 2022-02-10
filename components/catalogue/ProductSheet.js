@@ -73,23 +73,30 @@ export default function ProductSheet({ product }) {
                     <tr>
                       <td></td>
                       <td>{m.name}</td>
+                      <td></td>
                     </tr>
                   }
                   <tr key={idx} >
                     <td>{v.articleNo}</td>
                     <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
+                    <td>Pris</td>
                   </tr>
                   {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                     <tr>
                       <td>{lightsource.articleNo || '---'}</td>
                       <td>{lightsource.name} ({t('needs')} {amount})</td>
-                      <td>{lightsource.price}</td>
+                      <td>{lightsource.price}Pris</td>
                     </tr>
                   ))}
                   {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}
                 </>
               )
-            })}
+            }
+
+            )}
+
+
+
           </table>
         </section>
       </Page>
@@ -104,7 +111,7 @@ export default function ProductSheet({ product }) {
                 <figure className={styles.drawing}><img key={idx} src={item.drawing.url} /><span className="small">{item.name}</span></figure>
               )}
             </div>
-            <footer>{t('moreInfo')}</footer>
+            <footer><a href="https://www.orsjo.com/">{t('moreInfo')} →</a></footer>
           </section>
         </Page>
       }
@@ -114,7 +121,7 @@ export default function ProductSheet({ product }) {
 
 const parseSpecs = (product, t) => {
   const lightsources = parseLightsources(product)
-  
+
   return [
     { key: 'designer', value: product.designer?.name },
     { key: 'electricalData', value: product.electricalData.map((el) => el.name).join(', ') },
@@ -123,8 +130,8 @@ const parseSpecs = (product, t) => {
     { key: 'mounting', value: product.mounting?.name },
     { key: 'socket', value: product.sockets.map((el) => el.name).join(', ') },
     { key: 'lightsource', value: lightsources.map(({ amount, included, name }) => `${amount} x ${name} ${included ? `(${t('included')})` : ''}`).join(', ') }, //Funkar inte
-    { key: 'weight', value: product.models.length ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined },
-    { key: 'volume', value: product.models.length ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined },
+    { key: 'weight', value: product.models.length && product.models?.[0].variants?.[0]?.weight ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined },
+    { key: 'volume', value: product.models.length && product.models?.[0].variants?.[0]?.volume ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined },
     { key: 'care', value: null },
     { key: 'recycling', value: null }
   ]
