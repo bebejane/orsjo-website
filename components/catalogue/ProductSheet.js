@@ -21,7 +21,7 @@ export default function ProductSheet({ product }) {
           <span className={styles.generatedAt}>{generatedAt}</span>
           <div className={styles.intro}>
             <div className={styles.productImage}>
-              {product.environmentImage && <img src={`${product.environmentImage?.url}?w=1200`} />}
+              {product.environmentImage && <img src={`${product.environmentImage?.url}?w=1200&fm=avif`} />}
             </div>
             <div className={styles.productText}>
               <h1 className={styles.title}>{product.title}</h1>
@@ -37,7 +37,7 @@ export default function ProductSheet({ product }) {
                 <div key={idx} className={styles.color} style={{ maxWidth: `${maxWidth}%` }}>
                   <img
                     className={styles.colorImage}
-                    src={`${url}?w=600`}
+                    src={`${url}?w=200&fm=avif`}
                   />
                   <div className={styles.description}><span className="small">{title || 'No description'}</span></div>
                 </div>
