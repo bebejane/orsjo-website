@@ -9,6 +9,7 @@
     "lint": "next lint",
     "serve": "npm run build && npm run start",
     "migrate": "node ./migrations/index",
+    "migrate:update": "node ./migrations/update",
     "migrate:products": "node ./migrations/index --products",
     "migrate:taxonomies": "node ./migrations/index --taxonomies"
   },
@@ -21,6 +22,7 @@
     "graphql": "^15.7.2",
     "graphql-request": "^3.7.0",
     "graphql-tag": "^2.12.6",
+    "html-entities": "^2.3.2",
     "markdown-truncate": "^1.0.4",
     "minimist": "^1.2.5",
     "mysql": "^2.18.1",

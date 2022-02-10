@@ -9,7 +9,7 @@ export default function ProductSheet({ product }) {
   const t = useTranslations('Catalogue')
 
   const generatedAt = new Date().toISOString()
-  const specs = parseSpecs(product)
+  const specs = parseSpecs(product, t)
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
 
   return (
@@ -114,7 +114,7 @@ export default function ProductSheet({ product }) {
 
 const parseSpecs = (product, t) => {
   const lightsources = parseLightsources(product)
-
+  
   return [
     { key: 'designer', value: product.designer?.name },
     { key: 'electricalData', value: product.electricalData.map((el) => el.name).join(', ') },
@@ -133,7 +133,7 @@ const parseSpecs = (product, t) => {
 const parseLightsources = (product) => {
   let lightsources = [];
   (product.models || []).map((m) => m.lightsources.map((l) => l)).forEach((l) => lightsources.push.apply(lightsources, l))
-  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, lightsource }) => ({ ...lightsource, amount, price }))
+  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, included, lightsource }) => ({ ...lightsource, included, amount, price }))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
   return lightsources
 }
