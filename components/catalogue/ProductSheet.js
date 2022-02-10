@@ -5,7 +5,7 @@ import Markdown from '/lib/dato/components/Markdown'
 import Page from "./Page"
 
 export default function ProductSheet({ product }) {
-
+  console.log(product)
   const t = useTranslations('Catalogue')
 
   const generatedAt = new Date().toISOString()

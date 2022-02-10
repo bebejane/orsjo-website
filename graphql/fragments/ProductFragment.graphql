@@ -81,13 +81,11 @@ fragment ProductFragment on ProductRecord{
         name
       }
       price
-      vat
       volume
       weight
       feature{
         name
       }
-      extraPercent
       articleNo
     }
     accessories {
