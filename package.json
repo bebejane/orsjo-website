@@ -9,6 +9,7 @@
     "lint": "next lint",
     "serve": "npm run build && npm run start",
     "migrate": "node ./migrations/index",
+    "migrate:price": "node ./migrations/price",
     "migrate:update": "node ./migrations/update",
     "migrate:products": "node ./migrations/index --products",
     "migrate:taxonomies": "node ./migrations/index --taxonomies"
@@ -44,7 +45,8 @@
     "sass": "^1.43.5",
     "striptags": "^3.2.0",
     "turndown": "^7.1.1",
-    "wpapi": "^1.2.2"
+    "wpapi": "^1.2.2",
+    "xlsx-stream-reader": "^1.1.1"
   },
   "devDependencies": {
     "eslint": "7.32.0",
