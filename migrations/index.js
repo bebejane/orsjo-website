@@ -4,6 +4,7 @@ const fs = require('fs')
 const stripTags = require('striptags');
 const TurndownService = require('turndown')
 const turndownService = new TurndownService()
+const {decode : decodeEntities} = require('html-entities');
 const wait = (ms = 0) => new Promise((resolve) => setTimeout(()=>resolve(), ms))
 const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.json`, JSON.stringify(obj, null, 2))
 
@@ -190,13 +191,13 @@ const parseProduct = async (p, taxMap, pSv) => {
   const categories = !p['product-category'] ? null : p['product-category'].map((c)=>wpIdToDatoId('category', c))
   console.log(categories, p['product-category'])
   const prod = {
-    title:p.title.rendered.trim(),
+    title: decodeEntities(p.title.rendered.trim()),
     bimLink:p.acf.bim_link,
     colorImages,
     environmentImage: environmentImage ? {upload_id: environmentImage.id} : undefined,
     description: {
-      en: stripTags(p.content.rendered).replace(/\n/g, '').trim(),
-      sv: stripTags(pSv.content.rendered).replace(/\n/g, '').trim(),
+      en: decodeEntities(stripTags(p.content.rendered).replace(/\n/g, '').trim()),
+      sv: decodeEntities(stripTags(pSv.content.rendered).replace(/\n/g, '').trim()),
     },
     family: !p['product-family'] ? undefined : wpIdToDatoId('family', p['product-family'][0]),
     categories,
@@ -210,13 +211,13 @@ const parseProduct = async (p, taxMap, pSv) => {
     lightFile: lightFile ? {upload_id: lightFile.id} : undefined,
     //pdfFile: pdfFile ? {upload_id:pdfFile.id} : undefined,
     presentation: {
-      en: p.acf.desc,
-      sv: pSv.acf.desc
+      en: decodeEntities(p.acf.desc),
+      sv: decodeEntities(pSv.acf.desc)
     },
     slug:p.slug,
     sockets,
     models: p.acf.model.map((m, idx)=> ({
-      name:m.name,
+      name:decodeEntities(m.name),
       drawing: !m.drawing ? undefined : drawings[idx],
       lightsources:!m.lightsources ? undefined : m.lightsources.map((el)=> ({
         amount:el.amount,
