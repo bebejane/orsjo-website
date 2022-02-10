@@ -85,7 +85,7 @@ export default function ProductSheet({ product }) {
                     <tr>
                       <td>{lightsource.articleNo || '---'}</td>
                       <td>{lightsource.name} ({t('needs')} {amount})</td>
-                      <td>{lightsource.price}Pris</td>
+                      <td>{lightsource.price}</td>
                     </tr>
                   ))}
                   {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}
