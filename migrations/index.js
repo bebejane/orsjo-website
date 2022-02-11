@@ -11,6 +11,7 @@ const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.j
 
 const { SiteClient, buildModularBlock } = require('datocms-client');
 const WPAPI = require( 'wpapi' );
+const { DatasetJsonLd } = require('next-seo');
 const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD, auth:true});
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
@@ -20,6 +21,20 @@ const swedish = {wpml_language:'sv'}
 const lang = english;
 
 let conn;
+
+const getAllRecords = async (query) =>{
+  const items = [];
+  
+  for(let offset = 0; true; offset+=30){
+    const records = await datoClient.items.all({...query, page:{offset, limit:30}});
+    if(records.length)
+      items.push.apply(items, records)
+    else
+      break;
+  }
+
+  return items;
+}
 
 const productExists = async (slug) => {
   const records = await datoClient.items.all({
@@ -353,15 +368,36 @@ const migrateLightsources = async () => {
 //return migrateLightsources()
 
 const migrateSpecificFeature = async () => {
-  console.log('hej')
-  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', english);
-  let products = await wpapi.product().perPage(100).page(1).param(english).param({status:'publish'})
-  let productsSv = await wpapi.product().perPage(100).page(1).param(swedish).param({status:'publish'})
-  //console.log(products)
+  console.log('migrate features...')
+
+  const variantBlockId = '1801308'
+  const modelBlockId = '1801307'
+  const featureBlockId = '1801299'
+  const lightsourceBlockId = '1801306'
+  const accessoryBlockId = '1801309'
+
+
+  
   const featureMap = {}
   const featureMapItems = {}
 
-  products.forEach(p => {
+  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', english);
+  let productsEn = await wpapi.product().perPage(100).page(1).param(english).param({status:'publish'})
+  let productsSv = await wpapi.product().perPage(100).page(1).param(swedish).param({status:'publish'})
+
+  const products = await getAllRecords({
+    nested:true,
+    filter:{
+      type: 'product'
+    }
+  });
+  
+
+
+  const records = await datoClient.items.all({filter: { type: variantBlockId}}, {allPages:true})
+
+
+  productsEn.forEach(p => {
     //console.log(p)
     p.acf.model.forEach((m)=>{
       m.versions && m.versions.forEach(v => {
@@ -380,10 +416,7 @@ const migrateSpecificFeature = async () => {
       })
     })
   })
-  const variantBlockId = '1765356'
-  const records = await datoClient.items.all({
-    filter: { type: variantBlockId}
-  }, {allPages:true})
+  
   
   for (let i = 0; i < records.length; i++) {
     const item = records[i];
@@ -398,70 +431,109 @@ const migrateSpecificFeature = async () => {
     featureMapItems[featureMap[k].en+featureMap[k].sv].items.push(featureMap[k].id)    
   })
 
-  return console.log(Object.keys(featureMapItems).length)
+  //return console.log(featureMapItems)
+  
   for (let i = 0; i < Object.keys(featureMapItems).length; i++) {
     const k = Object.keys(featureMapItems)[i];
-    const variants = featureMapItems[k].items;
+    const variantIds = featureMapItems[k].items;
     const feature = {
-      itemType:'1799442',
+      itemType:featureBlockId,
       name:{
         sv: featureMapItems[k].sv || null,
         en: featureMapItems[k].en || null
       }
     }
-    
-    //continue console.log(variants)
-    //console.log(feature.name?.en || feature.name?.sv)
-    console.log(feature)
-    const products = await datoClient.items.all({
-      nested:true,
-      filter:{
-        type: 'product'
-      }
-    });
+
+    //return console.log(JSON.stringify(products[0].models[0], null, 4));
+    //return console.log(products[0].models[0].attributes.lightsources.map(l => ({...l.attributes})))
 
     const f = await datoClient.items.create(feature);
-    
-    continue
-    for (let x = 0; x < variants.length; x++) {
-      const variantId = variants[x]
-      for (let y = 0; y < products.length; y++) {
-        const p = products[y];
-      }
-      await datoClient.items.update(variants[x], {feature:f.id});
+    const updates = []
+    for (let x = 0; x < variantIds.length; x++) {
+      const variantId = variantIds[x]
+      let product;
+       products.forEach(p => {
+          p.models?.forEach( async m => {
+            for(let z = 0;  m.attributes.variants && z < m.attributes.variants.length; z++){
+              const v = m.attributes.variants[z];
+              if(v.id !== variantId) continue
+              updates.push({
+                id:p.id, 
+                data: {
+                  models: p.models.map((model)=> buildModularBlock({
+                    itemType: modelBlockId,
+                    name:model.attributes.name,
+                    drawing:model.attributes.drawing,
+                    lightsources: model.attributes.lightsources.map(l => buildModularBlock({
+                      itemType: lightsourceBlockId,
+                      ...l.attributes,
+                    })),
+                    accessories: model.attributes.accessories.map(a => buildModularBlock({
+                      itemType: accessoryBlockId,
+                      ...a.attributes,
+                    })),
+                    variants: model.attributes.variants.map(v => buildModularBlock({
+                      itemType: variantBlockId,
+                      ...v.attributes,
+                      feature: v.id === variantId ? f.id : v.attributes.feature,
+                    }))
+                  }))
+                }
+              });
+            }
+          })
+       })
     }
-    
-    //return
-    const record = await datoClient.items.update({
-      itemType: '1765120',
-      ...{...p, models:undefined},
-      models: p.models?.map((m)=> 
-        buildModularBlock({
-          itemType:'1765343',
-          name:m.name,
-          drawing:m.drawing,
-          lightsources: m.lightsources?.map(l => buildModularBlock({
-            itemType:'1765346',
-            ...l
-          })),
-          variants: m.variants?.map(v => buildModularBlock({
-            itemType:'1765356',
-            ...v
-          })),
-          accessories: m.accessories?.map(a => buildModularBlock({
-            itemType:'1765450',
-            ...a
-          }))
-        })
-      )
-    });
+    for (let q  = 0; q < updates.length; q++) {
+      console.log(updates[q].id)
+      await datoClient.items.update(updates[q].id, updates[q].data)
+    }
   }
-
-  //console.log(records)
-  
 }
 
-return migrateSpecificFeature()
+
+
+//return migrateSpecificFeature()
+
+
+const migrateDesignersAgain = async () => {
+  return console.log('designers...')
+  wpapi.designer = wpapi.registerRoute('wp/v2', '/designer/(?P<id>)', english);
+  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', english);
+  
+  const productsEn = await wpapi.product().perPage(100).page(1).param(english).param({status:'publish'})
+  const products = await getAllRecords({
+    nested:true,
+    filter:{
+      type: 'product'
+    }
+  });
+  const designers = await wpapi.designer().perPage(100).param(english)
+  const datoDesigners = await getAllRecords({
+    filter:{
+      type: 'designer'
+    }
+  });
+  //console.log(productsEn[0])
+  for (let i = 0; i < products.length; i++) {
+    const p = products[i];
+    const wpP = productsEn.filter((prod) => prod.slug === p.slug)[0]
+    if(!wpP) continue
+    const designerSlug = wpP.acf.designer.post_name;
+    const datoDesigner = datoDesigners.filter(d => d.slug === designerSlug)[0]
+    console.log(datoDesigner.id)
+    await datoClient.items.update(p.id, {designer:datoDesigner.id})
+    
+
+  }
+  
+
+  //p.acf.designer.post_name
+  return
+  return console.log(productsEn.map((p)=>p.acf.designer.post_name))
+}
+
+return migrateDesignersAgain()
 
 const migrateTaxonomies = async () => {
   console.log('Get all taxonomies...') 
