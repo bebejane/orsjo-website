@@ -10,8 +10,8 @@ export default function ProductSheet({ product }) {
 
   const generatedAt = new Date().toISOString()
   const specs = parseSpecs(product, t)
-  const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name?.name})).filter(d => d.drawing);
-  
+  const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name?.name })).filter(d => d.drawing);
+
   return (
     <>
       <a name={product.slug}></a>
@@ -79,7 +79,7 @@ export default function ProductSheet({ product }) {
                   <tr key={idx} >
                     <td>{v.articleNo}</td>
                     <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
-                    <td>Pris</td>
+                    <td>{v.price}</td>
                   </tr>
                   {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                     <tr>
@@ -124,8 +124,8 @@ const parseSpecs = (product, t) => {
     { key: 'description', value: product.presentation },
     { key: 'connection', value: product.connection?.name },
     { key: 'mounting', value: product.mounting?.name },
-    { key: 'socket', value: product.sockets.map((el) => el.name).join(', ') },
     { key: 'lightsource', value: lightsources.map(({ amount, included, name }) => `${amount} x ${name} ${included ? `(${t('included')})` : ''}`).join(', ') }, //Funkar inte
+    { key: 'socket', value: product.sockets.map((el) => el.name).join(', ') },
     { key: 'weight', value: product.models.length && product.models?.[0].variants?.[0]?.weight ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined },
     { key: 'volume', value: product.models.length && product.models?.[0].variants?.[0]?.volume ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined },
     { key: 'care', value: null },
