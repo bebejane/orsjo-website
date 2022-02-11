@@ -4,7 +4,7 @@ const fs = require('fs')
 const wait = (ms = 0) => new Promise((resolve) => setTimeout(()=>resolve(), ms))
 const { SiteClient, buildModularBlock } = require('datocms-client');
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
-const excelFile = './migrations/data/Örsjö prislista nov 2021 Excel.xlsx'
+const excelFile = './migrations/data/Örsjö prislista nov 2021 Excel.xlsx'x
 
 const productLightSourceModelId = 1765143
 const lightsourceBlockId = 1765346
