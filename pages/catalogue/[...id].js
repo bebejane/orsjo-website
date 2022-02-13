@@ -3,11 +3,11 @@ import ProductSheet from '/components/catalogue/ProductSheet';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { GetProduct } from "/graphql"
 
-export default function Home(props){
-	const { product } = props
+export default function Home({product, locale}){
+	
 	return (
 		<div className={styles.container}>
-      <ProductSheet product={product}/>
+      <ProductSheet product={product} locale={locale}/>
 		</div>
 	)
 }
@@ -22,7 +22,8 @@ export const getServerSideProps = async ({locale, params}) => {
 	return { 
 		props:{
 			product,
-			messages : await intlQuery('Catalogue', locale)
+			messages : await intlQuery('Catalogue', locale),
+			locale
 		}
 	}
 }

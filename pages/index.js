@@ -15,7 +15,7 @@ export default function Home({ products, pricelist, messages }) {
 			<ul>
 				<li>Prislista: <a href={`/catalogue`}>Euro</a> <a href={`/sv/catalogue`}>SEK</a> <a href={`/sv/catalogue`}>NOK</a></li>
 				<li>Enkel: <a href={`/catalogue/light`}>EURO</a> <a href={`/sv/catalogue/light`}>SEK</a> <a href={`/catalogue/light`}>NOK</a></li>
-				<li>Ink. ljuskälla: <a href={`sv/catalogue/withLightsource`}>SEK</a></li>
+				<li>Ink. ljuskälla: <a href={`sv/catalogue/with-lightsource`}>SEK</a></li>
 			</ul>
 			<h1>Generera {t('pricelist')}</h1>
 			<ul>

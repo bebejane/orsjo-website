@@ -1,8 +1,9 @@
 import styles from './ProductRow.module.scss'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
+import { formatPrice }  from '/lib/utils'
 
-export default function ProductSheet({ product, withLightsource }) {
+export default function ProductRow({ product, withLightsource, locale }) {
 
   const t = useTranslations('Catalogue')
   const generatedAt = new Date().toISOString()
@@ -34,16 +35,23 @@ export default function ProductSheet({ product, withLightsource }) {
                     <td className={styles.name}>{m.name?.name.name}</td>
                   </tr>
                 }
-                < tr key={idx} >
+                <tr key={idx} >
                   <td>{v.articleNo}</td>
                   <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
-                  <td>{v.price} {withLightsource}</td>
+                  <td>{formatPrice(v.price, locale)} {withLightsource}</td>
                 </tr>
                 {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                   <tr>
                     <td>{lightsource.articleNo || '---'}</td>
                     <td>{lightsource.name} ({t('needs')} {amount})</td>
-                    <td>{withLightsource ? "Inkluderad" : lightsource.price}</td>
+                    <td>{withLightsource ? "Inkluderad" : formatPrice(lightsource.price, locale)}</td>
+                  </tr>
+                ))}
+                {m.accessories.length == (idx + 1) && (m.accessories.map(({ product, price, articleNo }) =>
+                  <tr>
+                    <td>{articleNo || '---'}</td>
+                    <td>{product}</td>
+                    <td>{formatPrice(price, locale)}</td>
                   </tr>
                 ))}
                 {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}
