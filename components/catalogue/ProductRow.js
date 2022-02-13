@@ -48,7 +48,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
                     <td>{withLightsource ? "Inkluderad" : formatPrice(lightsource.price, locale)}</td>
                   </tr>
                 ))}
-                {m.accessories.length == (idx + 1) && (m.accessories.map(({ product, price, articleNo }) =>
+                {m.variants.length == (idx + 1) && (m.accessories.map(({ product, price, articleNo }) =>
                   <tr>
                     <td>{articleNo || '---'}</td>
                     <td>{product}</td>

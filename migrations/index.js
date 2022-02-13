@@ -350,6 +350,13 @@ const migrateMedia = async (id, tags = []) => {
   return upload
 }
 
+const migrateSvMedia = () => {
+  //const colorImages = await uploadMedia(p.acf.colors, 'id', ['product-color'])
+}
+
+return migrateSvMedia()
+
+
 const migrateLightsources = async () => {
   return
   wpapi['productlightsource'] = wpapi.registerRoute('wp/v2', `/product-lightsource/(?P<id>)`);
@@ -531,7 +538,7 @@ const migrateDesignersAgain = async () => {
   return console.log(productsEn.map((p)=>p.acf.designer.post_name))
 }
 
-return migrateDesignersAgain()
+//return migrateDesignersAgain()
 
 const migrateTaxonomies = async () => {
   console.log('Get all taxonomies...') 
