@@ -22,6 +22,13 @@ const lang = english;
 
 let conn;
 
+const variantBlockId = '1801308'
+const modelBlockId = '1801307'
+const featureBlockId = '1801299'
+const lightsourceBlockId = '1801306'
+const accessoryBlockId = '1801309'
+
+
 const getAllRecords = async (query) =>{
   const items = [];
   
@@ -369,15 +376,6 @@ const migrateLightsources = async () => {
 
 const migrateSpecificFeature = async () => {
   console.log('migrate features...')
-
-  const variantBlockId = '1801308'
-  const modelBlockId = '1801307'
-  const featureBlockId = '1801299'
-  const lightsourceBlockId = '1801306'
-  const accessoryBlockId = '1801309'
-
-
-  
   const featureMap = {}
   const featureMapItems = {}
 

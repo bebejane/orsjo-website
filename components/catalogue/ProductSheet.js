@@ -78,10 +78,17 @@ export default function ProductSheet({ product }) {
                   }
                   <tr key={idx} >
                     <td>{v.articleNo}</td>
-                    <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
+                    <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
                     <td>{v.price}</td>
                   </tr>
                   {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
+                    <tr>
+                      <td>{lightsource.articleNo || '---'}</td>
+                      <td>{lightsource.name} ({t('needs')} {amount})</td>
+                      <td>{lightsource.price}</td>
+                    </tr>
+                  ))}
+                  {m.accessories.length == (idx + 1) && (m.accessories.map(({ amount, lightsource }) =>
                     <tr>
                       <td>{lightsource.articleNo || '---'}</td>
                       <td>{lightsource.name} ({t('needs')} {amount})</td>

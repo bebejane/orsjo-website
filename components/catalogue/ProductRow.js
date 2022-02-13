@@ -36,7 +36,7 @@ export default function ProductSheet({ product, withLightsource }) {
                 }
                 < tr key={idx} >
                   <td>{v.articleNo}</td>
-                  <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
+                  <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
                   <td>{v.price} {withLightsource}</td>
                 </tr>
                 {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
