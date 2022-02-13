@@ -21,9 +21,10 @@ export default function ProductSheet({ product, withLightsource }) {
                     <td>
                       <img src={`${product.image?.url}?w=1200`} />
                     </td>
-                    <td><strong>{product.title}<br />
-                      {product.categories.map((category) => category.name).join(", ")}
-                    </strong>
+                    <td className={styles.title}
+                    ><strong>{product.title}<br />
+                        {product.categories.map((category) => category.name).join(", ")}
+                      </strong>
                     </td>
                   </tr>
                 }
@@ -31,7 +32,7 @@ export default function ProductSheet({ product, withLightsource }) {
                   product.models.length > 1 && idx == 0 &&
                   <tr>
                     <td></td>
-                    <td className={styles.name}>{m.name?.name.name}</td>
+                    <td className={styles.name}>{m.name?.name}</td>
                   </tr>
                 }
                 < tr key={idx} >
