@@ -21,21 +21,23 @@ export default function ProductSheet({ product, withLightsource }) {
                     <td>
                       <img src={`${product.image?.url}?w=1200`} />
                     </td>
-                    <td><strong>{product.title}</strong><br />
-                      {product.categories.map((category) => category.name).join(", ")}</td>
+                    <td><strong>{product.title}<br />
+                      {product.categories.map((category) => category.name).join(", ")}
+                    </strong>
+                    </td>
                   </tr>
                 }
                 {
                   product.models.length > 1 && idx == 0 &&
                   <tr>
                     <td></td>
-                    <td className={styles.name}>{m.name}</td>
+                    <td className={styles.name}>{m.name?.name.name}</td>
                   </tr>
                 }
                 < tr key={idx} >
                   <td>{v.articleNo}</td>
                   <td>{[v.material?.name, v.color?.name, v.specificFeature].filter(el => el).join(', ')}</td>
-                  <td>Price {withLightsource}</td>
+                  <td>{v.price} {withLightsource}</td>
                 </tr>
                 {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                   <tr>
