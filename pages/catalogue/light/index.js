@@ -3,11 +3,11 @@ import CatalogueLight from '/components/catalogue/CatalogueLight';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { GetProducts } from "/graphql"
 
-export default function catalogueLight(props) {
+export default function catalogueLight(props, locale) {
 	const { products } = props
 	return (
 		<div className={styles.container}>
-			<CatalogueLight products={products} withLightsource={false} />
+			<CatalogueLight products={products} withLightsource={false} locale={locale} />
 		</div>
 	)
 }
@@ -18,7 +18,8 @@ export const getServerSideProps = async ({ locale }) => {
 	return {
 		props: {
 			products,
-			messages: await intlQuery('Catalogue', locale)
+			messages: await intlQuery('Catalogue', locale),
+			locale
 		}
 	}
 }

@@ -1,15 +1,13 @@
 import styles from './ProductSheet.module.scss'
 import { formatPrice } from '/lib/utils'
-
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Markdown from '/lib/dato/components/Markdown'
 import Page from "./Page"
 
 export default function ProductSheet({ product, locale }) {
-  
-  const t = useTranslations('Catalogue')
 
+  const t = useTranslations('Catalogue')
   const generatedAt = new Date().toISOString()
   const specs = parseSpecs(product, t)
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name?.name })).filter(d => d.drawing);
