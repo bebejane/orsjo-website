@@ -6,11 +6,11 @@ import { GetProducts } from "/graphql"
 const hardWiredModelNameId = 107174981
 const fixedMountingId = 107174756
 
-export default function catalogueLight({products}) {
+export default function catalogueLight({products, locale}) {
 	
 	return (
 		<div className={styles.container}>
-			<CatalogueLight products={products} withLightsource={true} />
+			<CatalogueLight products={products} withLightsource={true} locale={locale}/>
 		</div>
 	)
 }
@@ -26,7 +26,8 @@ export const getServerSideProps = async ({ locale }) => {
 	return {
 		props: {
 			products,
-			messages: await intlQuery('Catalogue', locale)
+			messages: await intlQuery('Catalogue', locale),
+			locale
 		}
 	}
 }
