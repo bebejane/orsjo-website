@@ -65,7 +65,7 @@ export default function ProductSheet({ product, locale }) {
               </tr>
             )}
           </table>
-         
+
           {!isSpecificationsSeparatePage && specificationsTable}
         </section>
       </Page>
@@ -126,7 +126,7 @@ const parseSpecifications = (product, locale) => {
 
   const t = useTranslations('Catalogue')
   const table = (
-    <table>
+    <table className={styles.priceTable}>
       <tr>
         <td colSpan={3}><h3><br />{t('articleNoPrice')}</h3></td>
       </tr>
