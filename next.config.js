@@ -19,7 +19,7 @@ const nextOptions = {
     scrollRestoration: true
   },
   i18n: {
-    locales: ['en', 'sv'],
+    locales: ['en', 'sv', 'no'],
     defaultLocale: 'en',
   }
 }

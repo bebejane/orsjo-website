@@ -1,3 +1,0 @@
-yarn run v1.22.11
-$ node ./migrations/index --products
-Migrating product db...

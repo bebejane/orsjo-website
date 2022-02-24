@@ -26,7 +26,7 @@ export const getServerSideProps = async ({ locale }) => {
 	return {
 		props: {
 			products,
-			messages: await intlQuery('Catalogue', locale),
+			messages: await intlQuery('Catalogue', locale, ['sv', 'en']),
 			locale
 		}
 	}

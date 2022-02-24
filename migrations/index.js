@@ -406,9 +406,6 @@ const migrateSvMedia = async () => {
 
 }
 
-return migrateSvMedia()
-
-
 const migrateLightsources = async () => {
   return
   wpapi['productlightsource'] = wpapi.registerRoute('wp/v2', `/product-lightsource/(?P<id>)`);
@@ -765,9 +762,64 @@ const importWpTaxMap = async (type) =>{
 }
 //return importWpTaxMap()
 
-if(argv.products)
-  migrateProducts()
-else if(argv.taxonomies)
-  migrateTaxonomies()
 
+const migrateAccessories = async () =>{
+  console.log('migrate access')
+  const products = await getAllRecords({
+    nested:true,
+    filter:{
+      type: 'product'
+    }
+  });
 
+  products.forEach(p => {
+    p.models.forEach(m => {
+      
+      m.attributes.accessories.forEach(a => a.attributes.product && console.log(a.attributes.product))
+    })
+  })
+  return
+  const f = await datoClient.items.create(feature);
+  const updates = []
+  for (let x = 0; x < variantIds.length; x++) {
+    const variantId = variantIds[x]
+    let product;
+      products.forEach(p => {
+        p.models?.forEach( async m => {
+          for(let z = 0;  m.attributes.variants && z < m.attributes.variants.length; z++){
+            const v = m.attributes.variants[z];
+            if(v.id !== variantId) continue
+            updates.push({
+              id:p.id, 
+              data: {
+                models: p.models.map((model)=> buildModularBlock({
+                  itemType: modelBlockId,
+                  name:model.attributes.name,
+                  drawing:model.attributes.drawing,
+                  lightsources: model.attributes.lightsources.map(l => buildModularBlock({
+                    itemType: lightsourceBlockId,
+                    ...l.attributes,
+                  })),
+                  accessories: model.attributes.accessories.map(a => buildModularBlock({
+                    itemType: accessoryBlockId,
+                    ...a.attributes,
+                    name: a.id === accessoryId ? a.id : a.attributes.name,
+                  })),
+                  variants: model.attributes.variants.map(v => buildModularBlock({
+                    itemType: variantBlockId,
+                    ...v.attributes,
+                  }))
+                }))
+              }
+            });
+          }
+        })
+      })
+  }
+  for (let q  = 0; q < updates.length; q++) {
+    console.log(updates[q].id)
+    await datoClient.items.update(updates[q].id, updates[q].data)
+  }
+}
+
+return migrateAccessories()

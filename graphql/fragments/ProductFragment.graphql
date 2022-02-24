@@ -94,6 +94,9 @@ fragment ProductFragment on ProductRecord{
        product 
        price
        articleNo
+       name {
+         name
+       }
     }
     
   }

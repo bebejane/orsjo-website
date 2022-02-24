@@ -31,21 +31,24 @@ export default function Home({ products, pricelist, messages }) {
 			<h1>{t('products')}</h1>
 			<ul>
 				{products.map(({ id, title, pdfFile }) =>
-					<li>{title} - <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/product/${id}`}>generate pdf</a>
-						- <a href={`/catalogue/${id}`}>html (en)</a>
-						- <a href={`/sv/catalogue/${id}`}>html (sv)</a>
-						- {pdfFile?.en && <a href={pdfFile.en.url}>dato pdf</a>}
+					<li>{title} 
+						<a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/product/${id}`}>generate pdf</a>
+						<a href={`/catalogue/${id}`}>html (en)</a>
+						<a href={`/sv/catalogue/${id}`}>html (sv)</a>
+						<a href={`/no/catalogue/${id}`}>html (no)</a>
+						{pdfFile?.en && <a href={pdfFile.en.url}>dato pdf (en)</a>}
 					</li>
 				)}
 			</ul>
-		</div >
+		</div>
 
 	)
 }
 
 export const getStaticProps = withGlobalProps(async ({ props, revalidate, context: { locale } }) => {
+
 	const { products, pricelist } = await apiQuery([GetProducts, GetPricelist], [{ locale }, { locale }])
-	const messages = await intlQuery('Home', locale)
+	const messages = await intlQuery('Home', locale, ['sv', 'en'])
 
 	return {
 		props: {
