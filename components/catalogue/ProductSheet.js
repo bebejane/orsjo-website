@@ -13,14 +13,14 @@ export default function ProductSheet({ product, locale }) {
 
   const maxArticlePriceRows = 13;
   const articlePriceSmallStyleCount = 26;
-  
+
   const specificationsRows = parseSpecifications(product, locale)
   const articlePriceRows = parseArticlePrices(product, locale)
   const specificationsRowCount = ReactDOMServer.renderToString(specificationsRows).split('<tr>').length
   const articlePriceRowCount = ReactDOMServer.renderToString(articlePriceRows).split('<tr>').length
 
   const isArticlePriceSeparatePage = articlePriceRowCount > maxArticlePriceRows
-  
+
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name?.name })).filter(d => d.drawing);
 
   return (
@@ -100,7 +100,7 @@ export default function ProductSheet({ product, locale }) {
 
 const parseSpecifications = (product) => {
   const t = useTranslations('Catalogue')
-  
+
   let lightsources = [];
   (product.models || []).map((m) => m.lightsources.map((l) => l)).forEach((l) => lightsources.push.apply(lightsources, l))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, included, lightsource }) => ({ ...lightsource, included, amount, price }))
