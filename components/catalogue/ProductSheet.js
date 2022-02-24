@@ -10,12 +10,16 @@ import Page from "./Page"
 export default function ProductSheet({ product, locale }) {
 
   const t = useTranslations('Catalogue')
-  const specs = parseSpecs(product, t)
-  const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name?.name })).filter(d => d.drawing);
 
-  const maxSpecificationsRows = 13;
+  const maxArticlePriceRows = 13;
   const specificationsTable = parseSpecifications(product, locale)
-  const isSpecificationsSeparatePage = ReactDOMServer.renderToString(specificationsTable).split('<tr>').length >= maxSpecificationsRows
+  const articlePriceTable = parseArticlePrices(product, locale)
+  const specificationsTableRows = ReactDOMServer.renderToString(specificationsTable).split('<tr>').length
+  const articlePriceTableRows = ReactDOMServer.renderToString(articlePriceTable).split('<tr>').length
+
+  const isArticlePriceSeparatePage = articlePriceTableRows > maxArticlePriceRows
+
+  const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name?.name })).filter(d => d.drawing);
 
   return (
     <>
@@ -54,26 +58,15 @@ export default function ProductSheet({ product, locale }) {
       <Page>
         <section className={cn(styles.specPage)}>
           <h2>{t('specifications')}</h2>
-          <table>
-            <tr>
-              <td colSpan={2}><h3>{t('technicalSpec')}</h3></td>
-            </tr>
-            {specs.filter((s) => s.value).map(({ key, value }, idx) =>
-              <tr key={idx}>
-                <td>{t(key)}</td>
-                <td>{value}</td>
-              </tr>
-            )}
-          </table>
-
-          {!isSpecificationsSeparatePage && specificationsTable}
+          {specificationsTable}
+          {!isArticlePriceSeparatePage && articlePriceTable}
         </section>
       </Page>
 
-      {isSpecificationsSeparatePage && ( // Separate page when too many rows
+      {isArticlePriceSeparatePage && ( // Separate page when too many rows
         <Page>
           <section className={cn(styles.specPage)}>
-            {specificationsTable}
+            {articlePriceTable}
           </section>
         </Page>
       )}
@@ -95,10 +88,15 @@ export default function ProductSheet({ product, locale }) {
   )
 }
 
-const parseSpecs = (product, t) => {
-  const lightsources = parseLightsources(product)
+const parseSpecifications = (product) => {
+  const t = useTranslations('Catalogue')
 
-  return [
+  let lightsources = [];
+  (product.models || []).map((m) => m.lightsources.map((l) => l)).forEach((l) => lightsources.push.apply(lightsources, l))
+  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, included, lightsource }) => ({ ...lightsource, included, amount, price }))
+  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
+
+  const specs = [
     { key: 'designer', value: product.designer?.name },
     { key: 'electricalData', value: product.electricalData.map((el) => el.name).join(', ') },
     { key: 'description', value: product.presentation },
@@ -111,18 +109,24 @@ const parseSpecs = (product, t) => {
     { key: 'care', value: null },
     { key: 'recycling', value: null }
   ]
+
+  return (
+    <table>
+      <tr>
+        <td colSpan={2}><h3>{t('technicalSpec')}</h3></td>
+      </tr>
+      {specs.filter((s) => s.value).map(({ key, value }, idx) =>
+        <tr key={idx}>
+          <td>{t(key)}</td>
+          <td>{value}</td>
+        </tr>
+      )}
+    </table>
+  )
 }
 
-const parseLightsources = (product) => {
-  let lightsources = [];
-  (product.models || []).map((m) => m.lightsources.map((l) => l)).forEach((l) => lightsources.push.apply(lightsources, l))
-  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, included, lightsource }) => ({ ...lightsource, included, amount, price }))
-  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
-  return lightsources
-}
 
-
-const parseSpecifications = (product, locale) => {
+const parseArticlePrices = (product, locale) => {
 
   const t = useTranslations('Catalogue')
   const table = (
