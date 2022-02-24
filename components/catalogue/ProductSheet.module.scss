@@ -138,6 +138,13 @@ $padding: 20mm;
   }
 }
 
+.sepArtNoPage {
+  //background: green;
+  table {
+    // margin-top: 0;
+  }
+}
+
 .dimensionsPage {
   padding-top: $padding;
   padding-left: $padding;

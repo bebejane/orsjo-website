@@ -65,7 +65,7 @@ export default function ProductSheet({ product, locale }) {
 
       {isArticlePriceSeparatePage && ( // Separate page when too many rows
         <Page>
-          <section className={cn(styles.specPage)}>
+          <section className={cn(styles.specPage, styles.sepArtNoPage)}>
             {articlePriceTable}
           </section>
         </Page>
@@ -132,7 +132,7 @@ const parseArticlePrices = (product, locale) => {
   const table = (
     <table className={styles.priceTable}>
       <tr>
-        <td colSpan={3}><h3><br />{t('articleNoPrice')}</h3></td>
+        <td colSpan={3}><h3>{t('articleNoPrice')}</h3></td>
       </tr>
       {product.models.map((m) => {
         const lightsources = m.lightsources.map(l => l).filter(({ included }) => !included)
