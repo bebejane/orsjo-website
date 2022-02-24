@@ -9,10 +9,7 @@ import { convertPrice } from '/lib/utils'
 
 export default function ProductRow({ product, withLightsource, locale }) {
 
-
-  console.log(locale);
-  const t = useTranslations('Catalogue')
-  const generatedAt = new Date().toISOString()
+  const t = useTranslations('Catalogue')  
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
 
   return (
@@ -20,6 +17,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
       <section className={cn(styles.table)}>
         <table>
           {product.models.map((m, idxm) => {
+            
             const lightsources = m.lightsources.map(l => l).filter(({ included }) => !included)
 
             return m.variants.map((v, idx) =>
