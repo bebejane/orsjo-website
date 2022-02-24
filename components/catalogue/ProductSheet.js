@@ -10,10 +10,14 @@ import Page from "./Page"
 export default function ProductSheet({ product, locale }) {
 
   const t = useTranslations('Catalogue')
-  const specificationsTable = parseSpecifications(product, locale)
+  
   const maxArticlePriceRows = 13;
+  const specificationsTable = parseSpecifications(product, locale)
   const articlePriceTable = parseArticlePrices(product, locale)
-  const isArticlePriceSeparatePage = ReactDOMServer.renderToString(articlePriceTable).split('<tr>').length > maxArticlePriceRows
+  const specificationsTableRows = ReactDOMServer.renderToString(specificationsTable).split('<tr>').length
+  const articlePriceTableRows = ReactDOMServer.renderToString(articlePriceTable).split('<tr>').length
+
+  const isArticlePriceSeparatePage =  articlePriceTableRows > maxArticlePriceRows
   
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name?.name })).filter(d => d.drawing);
 
