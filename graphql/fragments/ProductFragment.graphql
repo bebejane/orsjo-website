@@ -54,6 +54,7 @@ fragment ProductFragment on ProductRecord{
   models {
     id
     name {
+      id
       name
     }
     drawing {
@@ -97,8 +98,8 @@ fragment ProductFragment on ProductRecord{
     
   }
   mounting {
-    name
     id
+    name
   }
   pdfFile {
     ...FileFragment
