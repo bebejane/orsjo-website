@@ -350,8 +350,60 @@ const migrateMedia = async (id, tags = []) => {
   return upload
 }
 
-const migrateSvMedia = () => {
+const migrateSvMedia = async () => {
   //const colorImages = await uploadMedia(p.acf.colors, 'id', ['product-color'])
+
+  const images = await datoClient.uploads.all({
+    filter: {
+      fields: {
+        type: {
+          eq: 'image'
+        }
+      }
+    }
+  }, {allPages:true})
+  
+  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', {wpml_language:'en'});
+  //let productsSv = await wpapi.product().perPage(100).page(1).param(english).param({status:'publish'})
+  let productsSv = await wpapi.product().perPage(100).page(1).param(swedish).param({status:'publish'})
+
+  let count = 0
+  for (let i = 0; i < productsSv.length; i++) {
+    const p = productsSv[i];
+    for (let x = 0; x < p.acf.colors.length; x++) {
+      const color = p.acf.colors[x];
+      const caption = color.caption
+      const imgs = images.filter(img => img.filename.toLowerCase() == color.filename.toLowerCase())
+
+      if(imgs.length && caption) {
+          for (let y = 0; y < imgs.length; y++) {
+            await datoClient.uploads.update(imgs[y].id, {
+              defaultFieldMetadata:{
+                ...imgs[y].defaultFieldMetadata,
+                sv:{
+                  title:caption,
+                  alt:caption,
+                  customData:{}
+                }
+              }
+            })
+            console.log(imgs[y].filename, caption) 
+          }
+        }
+      }
+    }
+    
+
+    
+  
+  console.log(count)
+  //console.log(images)
+//  products.forEach(p => console.log(p.acf.colors))
+  console.log(images.map(i => i.filename))
+  
+  
+
+
 }
 
 return migrateSvMedia()
