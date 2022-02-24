@@ -1,5 +1,5 @@
 import styles from './ProductSheet.module.scss'
-import { formatPrice } from '/lib/utils'
+import { convertPrice } from '/lib/utils'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Markdown from '/lib/dato/components/Markdown'
@@ -61,7 +61,7 @@ export default function ProductSheet({ product, locale }) {
               </tr>
             )}
           </table>
-          <table>
+          <table className={styles.priceTable}>
             <tr>
               <td colSpan={3}><h3><br />{t('articleNoPrice')}</h3></td>
             </tr>
@@ -79,20 +79,20 @@ export default function ProductSheet({ product, locale }) {
                   <tr key={idx} >
                     <td>{v.articleNo}</td>
                     <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
-                    <td>{formatPrice(v.price, locale)}</td>
+                    <td>{convertPrice(v.price, locale)}</td>
                   </tr>
                   {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                     <tr>
                       <td>{lightsource.articleNo || '---'}</td>
                       <td>{lightsource.name} ({t('needs')} {amount})</td>
-                      <td>{formatPrice(lightsource.price, locale)}</td>
+                      <td>{convertPrice(lightsource.price, locale)}</td>
                     </tr>
                   ))}
                   {m.variants.length == (idx + 1) && (m.accessories.map(({ product, price, articleNo }) =>
                     <tr>
                       <td>{articleNo || '---'}</td>
                       <td>{product}</td>
-                      <td>{formatPrice(price, locale)}</td>
+                      <td>{convertPrice(price, locale)}</td>
                     </tr>
                   ))}
                   {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}

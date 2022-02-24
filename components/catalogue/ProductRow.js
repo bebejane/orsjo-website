@@ -8,9 +8,6 @@ import { convertPrice } from '/lib/utils'
 
 
 export default function ProductRow({ product, withLightsource, locale }) {
-
-
-  console.log(locale);
   const t = useTranslations('Catalogue')
   const generatedAt = new Date().toISOString()
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
@@ -45,7 +42,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
                 }
                 <tr key={idx} >
                   <td>{v.articleNo}</td>
-                  <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
+                  <td>{[v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')}</td>
                   <td>
                     {withLightsource && lightsources.length ? priceIncLight(v.price, lightsources[0].price, lightsources[0].amount) : convertPrice(v.price, locale)}</td>
                 </tr>
