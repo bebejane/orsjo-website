@@ -10,14 +10,16 @@ import Page from "./Page"
 export default function ProductSheet({ product, locale }) {
 
   const t = useTranslations('Catalogue')
-  
-  const maxArticlePriceRows = 13;
-  const specificationsTable = parseSpecifications(product, locale)
-  const articlePriceTable = parseArticlePrices(product, locale)
-  const specificationsTableRows = ReactDOMServer.renderToString(specificationsTable).split('<tr>').length
-  const articlePriceTableRows = ReactDOMServer.renderToString(articlePriceTable).split('<tr>').length
 
-  const isArticlePriceSeparatePage =  articlePriceTableRows > maxArticlePriceRows
+  const maxArticlePriceRows = 13;
+  const articlePriceSmallStyleCount = 26;
+  
+  const specificationsRows = parseSpecifications(product, locale)
+  const articlePriceRows = parseArticlePrices(product, locale)
+  const specificationsRowCount = ReactDOMServer.renderToString(specificationsRows).split('<tr>').length
+  const articlePriceRowCount = ReactDOMServer.renderToString(articlePriceRows).split('<tr>').length
+
+  const isArticlePriceSeparatePage = articlePriceRowCount > maxArticlePriceRows
   
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name?.name })).filter(d => d.drawing);
 
@@ -58,15 +60,23 @@ export default function ProductSheet({ product, locale }) {
       <Page>
         <section className={cn(styles.specPage)}>
           <h2>{t('specifications')}</h2>
-          {specificationsTable}
-          {!isArticlePriceSeparatePage && articlePriceTable}
+          <table>
+            {specificationsRows}
+          </table>
+          {!isArticlePriceSeparatePage && (
+            <table>
+              {articlePriceRows}
+            </table>
+          )}
         </section>
       </Page>
 
       {isArticlePriceSeparatePage && ( // Separate page when too many rows
         <Page>
           <section className={cn(styles.specPage)}>
-            {articlePriceTable}
+            <table className={cn(articlePriceRowCount > articlePriceSmallStyleCount && styles.small)}>
+              {articlePriceRows}
+            </table>
           </section>
         </Page>
       )}
@@ -111,7 +121,7 @@ const parseSpecifications = (product) => {
   ]
 
   return (
-    <table>
+    <>
       <tr>
         <td colSpan={2}><h3>{t('technicalSpec')}</h3></td>
       </tr>
@@ -121,7 +131,7 @@ const parseSpecifications = (product) => {
           <td>{value}</td>
         </tr>
       )}
-    </table>
+    </>
   )
 }
 
@@ -129,47 +139,47 @@ const parseSpecifications = (product) => {
 const parseArticlePrices = (product, locale) => {
 
   const t = useTranslations('Catalogue')
-  const table = (
-    <table>
-      <tr>
-        <td colSpan={3}><h3><br />{t('articleNoPrice')}</h3></td>
-      </tr>
-      {product.models.map((m) => {
-        const lightsources = m.lightsources.map(l => l).filter(({ included }) => !included)
-        return m.variants.map((v, idx) =>
-          <>
-            {product.models.length > 1 && idx == 0 &&
-              <tr>
-                <td></td>
-                <td>{m.name?.name}</td>
-                <td></td>
-              </tr>
-            }
-            <tr key={idx} >
-              <td>{v.articleNo}</td>
-              <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
-              <td>{convertPrice(v.price, locale)}</td>
+  const rows = (
+    <>
+    <tr>
+      <td colSpan={3}><h3><br />{t('articleNoPrice')}</h3></td>
+    </tr>
+    {product.models.map((m) => {
+      const lightsources = m.lightsources.map(l => l).filter(({ included }) => !included)
+      return m.variants.map((v, idx) =>
+        <>
+          {product.models.length > 1 && idx == 0 &&
+            <tr>
+              <td></td>
+              <td>{m.name?.name}</td>
+              <td></td>
             </tr>
-            {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
-              <tr>
-                <td>{lightsource.articleNo || '---'}</td>
-                <td>{lightsource.name} ({t('needs')} {amount})</td>
-                <td>{convertPrice(lightsource.price, locale)}</td>
-              </tr>
-            ))}
-            {m.variants.length == (idx + 1) && (m.accessories.map(({ product, price, articleNo }) =>
-              <tr>
-                <td>{articleNo || '---'}</td>
-                <td>{product}</td>
-                <td>{convertPrice(price, locale)}</td>
-              </tr>
-            ))}
-            {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}
-          </>
-        )
-      }
-      )}
-    </table>
+          }
+          <tr key={idx} >
+            <td>{v.articleNo}</td>
+            <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
+            <td>{convertPrice(v.price, locale)}</td>
+          </tr>
+          {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
+            <tr>
+              <td>{lightsource.articleNo || '---'}</td>
+              <td>{lightsource.name} ({t('needs')} {amount})</td>
+              <td>{convertPrice(lightsource.price, locale)}</td>
+            </tr>
+          ))}
+          {m.variants.length == (idx + 1) && (m.accessories.map(({ product, price, articleNo }) =>
+            <tr>
+              <td>{articleNo || '---'}</td>
+              <td>{product}</td>
+              <td>{convertPrice(price, locale)}</td>
+            </tr>
+          ))}
+          {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}
+        </>
+      )
+    }
+    )}
+    </>
   )
-  return table
+  return rows
 }
