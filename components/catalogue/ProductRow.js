@@ -5,7 +5,7 @@ import { priceIncLight } from '/lib/utils'
 import { convertPrice } from '/lib/utils'
 
 export default function ProductRow({ product, withLightsource, locale }) {
-  console.log(product)
+  
   const t = useTranslations('Catalogue')
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
 
