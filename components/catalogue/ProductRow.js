@@ -22,7 +22,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
                 {idxm === 0 && idx == 0 &&
                   <tr>
                     <td>
-                      <img src={`${product.image?.url}?w=300&fm=avif`} />
+                      <img src={`${product.image?.url}?w=200&fm=avif`} />
                     </td>
                     <td className={styles.title}
                     ><strong>{product.title}<br />
