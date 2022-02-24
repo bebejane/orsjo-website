@@ -23,8 +23,6 @@ export const getServerSideProps = async ({ locale }) => {
 	products.forEach((p, idx) => products[idx].models = p.models.filter(m => !(m.name?.id == hardWiredModelNameId)))
 	products = products.filter(p => p.models.length > 0 && !(p.mounting?.id == fixedMountingId))
 
-	//console.log(products.length, products.reduce((acc, p) => acc + p.models.length, 0))
-
 	return {
 		props: {
 			products,
