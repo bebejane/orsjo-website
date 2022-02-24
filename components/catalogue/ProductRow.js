@@ -42,7 +42,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
                   <td>{v.articleNo}</td>
                   <td>{[v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')}</td>
                   <td>
-                    {withLightsource && lightsources.length ? priceIncLight(v.price, lightsources[0].price, lightsources[0].amount) : convertPrice(v.price, locale)}</td>
+                    {withLightsource ? priceIncLight(v.price, lightsources) : convertPrice(v.price, locale)}</td>
                 </tr>
                 {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                   <tr>

@@ -107,8 +107,11 @@ $padding: 20mm;
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-    &.small{
-      color:lightsalmon;
+    &.small {
+      td {
+        padding-bottom: 1px !important;
+        font-size: 13px;
+      }
     }
     tr {
       &:first-child > td {
@@ -138,13 +141,6 @@ $padding: 20mm;
         padding-left: 1em;
       }
     }
-  }
-}
-
-.sepArtNoPage {
-  //background: green;
-  table {
-    // margin-top: 0;
   }
 }
 

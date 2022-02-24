@@ -63,6 +63,7 @@ fragment ProductFragment on ProductRecord{
       id
       included
       amount
+      optional
       lightsource {
         id
         name
