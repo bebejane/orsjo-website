@@ -1,11 +1,8 @@
 import styles from './ProductRow.module.scss'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
-import { formatPrice } from '/lib/utils'
 import { priceIncLight } from '/lib/utils'
 import { convertPrice } from '/lib/utils'
-
-
 
 export default function ProductRow({ product, withLightsource, locale }) {
 
@@ -66,7 +63,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
             )
           })}
         </table>
-      </section >
+      </section>
 
     </>
   )
