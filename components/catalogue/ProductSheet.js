@@ -1,10 +1,11 @@
 import ReactDOMServer from 'react-dom/server';
 import styles from './ProductSheet.module.scss'
-import { convertPrice } from '/lib/utils'
+import { convertPrice, formatPrice } from '/lib/utils'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Markdown from '/lib/dato/components/Markdown'
 import Page from "./Page"
+
 
 export default function ProductSheet({ product, locale }) {
 
