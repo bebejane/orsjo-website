@@ -1,10 +1,16 @@
 import styles from './ProductRow.module.scss'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
-import { formatPrice }  from '/lib/utils'
+import { formatPrice } from '/lib/utils'
+import { priceIncLight } from '/lib/utils'
+import { convertPrice } from '/lib/utils'
+
+
 
 export default function ProductRow({ product, withLightsource, locale }) {
 
+
+  console.log(locale);
   const t = useTranslations('Catalogue')
   const generatedAt = new Date().toISOString()
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
@@ -15,6 +21,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
         <table>
           {product.models.map((m, idxm) => {
             const lightsources = m.lightsources.map(l => l).filter(({ included }) => !included)
+
             return m.variants.map((v, idx) =>
               <>
                 {idxm === 0 && idx == 0 &&
@@ -39,20 +46,21 @@ export default function ProductRow({ product, withLightsource, locale }) {
                 <tr key={idx} >
                   <td>{v.articleNo}</td>
                   <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
-                  <td>{formatPrice(v.price, locale)} {withLightsource}</td>
+                  <td>
+                    {withLightsource && lightsources.length ? priceIncLight(v.price, lightsources[0].price, lightsources[0].amount) : convertPrice(v.price, locale)}</td>
                 </tr>
                 {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
                   <tr>
                     <td>{lightsource.articleNo || '---'}</td>
                     <td>{lightsource.name} ({t('needs')} {amount})</td>
-                    <td>{withLightsource ? "Inkluderad" : formatPrice(lightsource.price, locale)}</td>
+                    <td>{withLightsource ? "Inkluderad" : convertPrice(lightsource.price, locale)}</td>
                   </tr>
                 ))}
                 {m.variants.length == (idx + 1) && (m.accessories.map(({ product, price, articleNo }) =>
                   <tr>
                     <td>{articleNo || '---'}</td>
                     <td>{product}</td>
-                    <td>{formatPrice(price, locale)}</td>
+                    <td>{convertPrice(price, locale)}</td>
                   </tr>
                 ))}
                 {idx + 1 === m.variants.length && <tr className={styles.space}><td></td></tr>}
