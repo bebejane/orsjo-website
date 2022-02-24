@@ -33,7 +33,7 @@ export default function Home({ products, pricelist, messages }) {
 				{products.map(({ id, title, pdfFile }) =>
 					<li>{title} 
 						<a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/product/${id}`}>generate pdf</a>
-						<a href={`/catalogue/${id}`}>html (en)</a>
+						<a href={`/en/catalogue/${id}`}>html (en)</a>
 						<a href={`/sv/catalogue/${id}`}>html (sv)</a>
 						<a href={`/no/catalogue/${id}`}>html (no)</a>
 						{pdfFile?.en && <a href={pdfFile.en.url}>dato pdf (en)</a>}
