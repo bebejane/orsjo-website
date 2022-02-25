@@ -24,6 +24,7 @@ fragment ProductFragment on ProductRecord{
   categories{
     id
     name
+    position
   }
   connection {
     id

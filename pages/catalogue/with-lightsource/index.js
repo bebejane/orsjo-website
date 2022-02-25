@@ -1,6 +1,7 @@
 import styles from './index.module.scss'
 import CatalogueLight from '/components/catalogue/CatalogueLight';
 import { apiQuery, intlQuery } from "/lib/dato/api";
+import { sortProductsByCategory } from "/lib/utils";
 import { GetProducts } from "/graphql"
 
 const hardWiredModelNameId = 107174981
@@ -15,7 +16,8 @@ export default function catalogueLight({products, locale}) {
 	)
 }
 
-export const getServerSideProps = async ({ locale }) => {	
+export const getServerSideProps = async ({ locale }) => {
+	
 	let { products } = await apiQuery(GetProducts, { locale });
 	if (!products) return { notFound: true }
 
@@ -25,7 +27,7 @@ export const getServerSideProps = async ({ locale }) => {
 
 	return {
 		props: {
-			products,
+			products : sortProductsByCategory(products),
 			messages: await intlQuery('Catalogue', locale, ['sv', 'en']),
 			locale
 		}

@@ -1,10 +1,10 @@
 import styles from './index.module.scss'
 import Catalogue from '/components/catalogue/Catalogue';
 import { apiQuery, intlQuery } from "/lib/dato/api";
+import { sortProductsByCategory } from "/lib/utils";
 import { GetProducts } from "/graphql"
 
 export default function Home({ products, locale }) {
-
 	return (
 		<div className={styles.container}>
 			<Catalogue products={products} locale={locale} />
@@ -19,7 +19,7 @@ export const getServerSideProps = async ({ locale }) => {
 
 	return {
 		props: {
-			products,
+			products: sortProductsByCategory(products),
 			messages: await intlQuery('Catalogue', locale, ['sv', 'en']),
 			locale
 		}
