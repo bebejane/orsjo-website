@@ -13,9 +13,9 @@ export default function Home({ products, pricelist, messages }) {
 
 			<h1>{t('pricelist')} HTLM</h1>
 			<ul>
-				<li>Prislista: <a href={`/catalogue`}>Euro</a> <a href={`/sv/catalogue`}>SEK</a> <a href={`/sv/catalogue`}>NOK</a></li>
-				<li>Enkel: <a href={`/catalogue/light`}>EURO</a> <a href={`/sv/catalogue/light`}>SEK</a> <a href={`/catalogue/light`}>NOK</a></li>
-				<li>Ink. ljuskälla: <a href={`/sv/catalogue/with-lightsource`}>SEK</a></li>
+				<li>Prislista: <a href={`/en/catalogue`}>Euro</a> <a href={`/sv/catalogue`}>SEK</a> <a href={`/no/catalogue`}>NOK</a></li>
+				<li>Enkel: <a href={`/en/catalogue/light`}>EURO</a> <a href={`/sv/catalogue/light`}>SEK</a> <a href={`/no/catalogue/light`}>NOK</a></li>
+				<li>Ink. ljuskälla: <a href={`/en/catalogue/with-lightsource`}>EUR</a> <a href={`/sv/catalogue/with-lightsource`}>SEK</a> <a href={`/no/catalogue/with-lightsource`}>NOK</a></li>
 			</ul>
 			<h1>Generera {t('pricelist')}</h1>
 			<ul>
@@ -23,11 +23,6 @@ export default function Home({ products, pricelist, messages }) {
 				<li>Enkel: <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/en/catalogue/light`}>EURO</a> <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/sv/catalogue/light`}>SEK</a> <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/no/catalogue/light`}>NOK</a></li>
 				<li>Ink. ljuskälla: <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/en/catalogue/with-lightsource`}>EUR</a> <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/sv/catalogue/with-lightsource`}>SEK</a> <a href={`${process.env.DATOCMS_WEBHOOK_ENDPOINT}/no/catalogue/with-lightsource`}>NOK</a></li>
 			</ul>
-			<h1>Dato</h1>
-			<ul>
-				{pricelist?.pdfFile && <li><a href={pricelist.pdfFile.url}>dato pricelist pdf</a></li>}
-			</ul>
-
 			<h1>{t('products')}</h1>
 			<ul>
 				{products.map(({ id, title, pdfFile }) =>
