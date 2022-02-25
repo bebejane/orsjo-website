@@ -51,10 +51,10 @@ export default function ProductRow({ product, withLightsource, locale }) {
                     <td>{withLightsource ? "Inkluderad" : convertPrice(lightsource.price, locale)}</td>
                   </tr>
                 ))}
-                {m.variants.length == (idx + 1) && (m.accessories.map(({ product, price, articleNo }) =>
+                {m.variants.length == (idx + 1) && (m.accessories.map(({ price, articleNo, accessory }) =>
                   <tr>
                     <td>{articleNo || '---'}</td>
-                    <td>{product}</td>
+                    <td>{accessory?.name}</td>
                     <td>{convertPrice(price, locale)}</td>
                   </tr>
                 ))}

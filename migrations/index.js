@@ -11,7 +11,6 @@ const writeToFile = (name, obj) => fs.writeFileSync(`./migrations/data/${name}.j
 
 const { SiteClient, buildModularBlock } = require('datocms-client');
 const WPAPI = require( 'wpapi' );
-const { DatasetJsonLd } = require('next-seo');
 const wpapi = new WPAPI({ endpoint: process.env.WP_ENDPOINT, username: process.env.WP_USERNAME, password: process.env.WP_PASSWORD, auth:true});
 const datoClient = new SiteClient(process.env.CMS_API_TOKEN);
 
@@ -27,6 +26,7 @@ const modelBlockId = '1801307'
 const featureBlockId = '1801299'
 const lightsourceBlockId = '1801306'
 const accessoryBlockId = '1801309'
+const accessoryModelId = '1852419'
 
 
 const getAllRecords = async (query) =>{
@@ -763,63 +763,100 @@ const importWpTaxMap = async (type) =>{
 //return importWpTaxMap()
 
 
-const migrateAccessories = async () =>{
-  console.log('migrate access')
+const migrateAccessories = async () => {
+  console.log('migrate access...')
+  /*
+  const accessoryMap = {}
+  const accessoryMapItems = {}
+
+  wpapi.product = wpapi.registerRoute('wp/v2', '/product/(?P<id>)', english);
+  let productsEn = await wpapi.product().perPage(100).page(1).param(english).param({status:'publish'})
+  let productsSv = await wpapi.product().perPage(100).page(1).param(swedish).param({status:'publish'})
+
+  productsEn.forEach((p)=> p.acf.model.forEach( m => {
+    if(m.accessories){
+      m.accessories.forEach(a => {
+        if(!accessoryMap[a.product_no] && a.product_no)
+          accessoryMap[a.product_no] = { slug:p.slug, en: a.product }
+      })
+    }
+  }))
+  productsSv.forEach((p)=> p.acf.model.forEach( m => {
+    if(m.accessories){
+      m.accessories.forEach(a => {
+        if(!accessoryMap[a.product_no] && a.product_no)
+          accessoryMap[a.product_no] = { slug:p.slug, sv: a.product }
+        else if(accessoryMap[a.product_no] && a.product_no)
+          accessoryMap[a.product_no].sv = a.product
+      })
+    }
+  }))
+
+  for (let i = 0; i < Object.keys(accessoryMap).length; i++) {
+    const articleNo = Object.keys(accessoryMap)[i];
+    const accessory = {
+      itemType:accessoryModelId,
+      name:{
+        sv: accessoryMap[articleNo].sv || null,
+        en: accessoryMap[articleNo].en || null,
+        no:null
+      },
+      articleNo
+    }
+    console.log(accessory)
+    const f = await datoClient.items.create(accessory);  
+  }
+
+  */
+
+
+  const accessories = await getAllRecords({
+    nested:true,
+    filter:{
+      type: 'product_accessory'
+    }
+  });
+
   const products = await getAllRecords({
     nested:true,
     filter:{
       type: 'product'
     }
   });
-
+  
+  const updates = []
   products.forEach(p => {
-    p.models.forEach(m => {
-      
-      m.attributes.accessories.forEach(a => a.attributes.product && console.log(a.attributes.product))
+    p.models?.forEach( async m => {
+      if(!m.attributes.accessories.length) return 
+      updates.push({
+        id:p.id, 
+        data: {
+          models: p.models.map((model)=> buildModularBlock({
+            itemType: modelBlockId,
+            name:model.attributes.name,
+            drawing:model.attributes.drawing,
+            lightsources: model.attributes.lightsources.map(l => buildModularBlock({
+              itemType: lightsourceBlockId,
+              ...l.attributes,
+            })),
+            accessories: model.attributes.accessories.map(a => buildModularBlock({
+              itemType: accessoryBlockId,
+              ...a.attributes,
+              accessory: accessories.filter(el => a.attributes.articleNo && el.articleNo.trim() === a.attributes.articleNo.trim())[0]?.id || null
+            })),
+            variants: model.attributes.variants.map(v => buildModularBlock({
+              itemType: variantBlockId,
+              ...v.attributes
+            }))
+          }))
+        }
+      });
     })
   })
-  return
-  const f = await datoClient.items.create(feature);
-  const updates = []
-  for (let x = 0; x < variantIds.length; x++) {
-    const variantId = variantIds[x]
-    let product;
-      products.forEach(p => {
-        p.models?.forEach( async m => {
-          for(let z = 0;  m.attributes.variants && z < m.attributes.variants.length; z++){
-            const v = m.attributes.variants[z];
-            if(v.id !== variantId) continue
-            updates.push({
-              id:p.id, 
-              data: {
-                models: p.models.map((model)=> buildModularBlock({
-                  itemType: modelBlockId,
-                  name:model.attributes.name,
-                  drawing:model.attributes.drawing,
-                  lightsources: model.attributes.lightsources.map(l => buildModularBlock({
-                    itemType: lightsourceBlockId,
-                    ...l.attributes,
-                  })),
-                  accessories: model.attributes.accessories.map(a => buildModularBlock({
-                    itemType: accessoryBlockId,
-                    ...a.attributes,
-                    name: a.id === accessoryId ? a.id : a.attributes.name,
-                  })),
-                  variants: model.attributes.variants.map(v => buildModularBlock({
-                    itemType: variantBlockId,
-                    ...v.attributes,
-                  }))
-                }))
-              }
-            });
-          }
-        })
-      })
-  }
   for (let q  = 0; q < updates.length; q++) {
-    console.log(updates[q].id)
+    console.log(updates[q].data)
     await datoClient.items.update(updates[q].id, updates[q].data)
   }
 }
 
-return migrateAccessories()
+//return migrateAccessories()

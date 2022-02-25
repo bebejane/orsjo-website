@@ -92,14 +92,12 @@ fragment ProductFragment on ProductRecord{
       articleNo
     }
     accessories {
-       product 
-       price
-       articleNo
-       name {
-         name
-       }
-    }
-    
+      articleNo
+      price
+      accessory {
+        name
+      }
+    } 
   }
   mounting {
     id
