@@ -9,8 +9,6 @@ export default function Home({ products, pricelist, messages }) {
 
 	return (
 		<div className={styles.container}>
-
-
 			<h1>{t('pricelist')} HTLM</h1>
 			<ul>
 				<li>Prislista: <a href={`/en/catalogue`}>Euro</a> <a href={`/sv/catalogue`}>SEK</a> <a href={`/no/catalogue`}>NOK</a></li>

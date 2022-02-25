@@ -21,6 +21,7 @@ const nextOptions = {
   i18n: {
     locales: ['en', 'sv', 'no'],
     defaultLocale: 'en',
+    localeDetection: false
   }
 }
 
