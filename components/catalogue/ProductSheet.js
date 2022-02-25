@@ -163,7 +163,7 @@ const parseArticlePrices = (product, locale) => {
             {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
               <tr>
                 <td>{lightsource.articleNo || '---'}</td>
-                <td>{lightsource.name} ({t('needs')} {amount})</td>
+                <td>{lightsource.name} <span>({t('needs')} {amount})</span></td>
                 <td>{convertPrice(lightsource.price, locale)}</td>
               </tr>
             ))}

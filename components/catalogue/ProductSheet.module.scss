@@ -126,6 +126,11 @@ $padding: 20mm;
           width: 36mm;
           text-overflow: ellipsis;
         }
+
+        span {
+          white-space: nowrap;
+          font-size: inherit !important;
+        }
       }
     }
     tr > td {
@@ -137,7 +142,7 @@ $padding: 20mm;
 
     &.priceTable {
       td:last-child {
-        width: 20mm;
+        width: 29mm;
         padding-left: 1em;
       }
     }
