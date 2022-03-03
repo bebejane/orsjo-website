@@ -7,7 +7,7 @@
     color: rgb(145, 233, 255);
     background-color: rgb(7, 33, 39);
     padding: 3px;
-    margin:4px;
+    
   }
   h1 {
     margin: 0;
@@ -20,9 +20,108 @@
   ul {
     margin-bottom: 20px;
     li {
+    
       list-style: none;
-      margin-left: 30px;
+      margin-left: 0px;
       padding-bottom: 1em;
+      .htmlLinks{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 2px;
+        height: 40px;
+        a{
+          margin-right: 2px;
+          padding: 5px;
+        }
+      }
     }
+  }
+  input[type=file], button{
+    font-size: 14px;
+  }
+  input[type=file]{
+    margin-bottom: 10px;
+  }
+}
+
+.button{
+  position: relative;
+  appearance: none;
+  border: 0;
+  background-color: black;
+  color:#fff;
+  padding: 0;
+  margin-top:10px;
+  line-height: 1;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  padding: 0px 10px 0px 10px;
+  height: 40px;
+  cursor: pointer;
+ 
+  .loader{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    animation: loader 1s ease-in-out infinite;
+    background-color: transparent;
+  }
+  a{
+    background-color: #000;
+    color:#fff;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: center;
+    width: 40px;
+    &:hover{
+      background-color: rgb(78, 78, 78);
+    }
+  }
+  .close{
+    position: absolute;
+    z-index: 10;
+    top:0;
+    right: 0;
+    margin:4px;
+    margin-top:2px;
+    font-size: 20px; 
+    line-height: 1;
+    &:hover{
+      color:yellow;
+    }
+  }
+}
+.links{
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 2px;
+  a{
+    margin-right: 2px;
+  }
+} 
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  button{
+    margin-right: 2px;
+  }
+}
+
+@keyframes loader {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
   }
 }

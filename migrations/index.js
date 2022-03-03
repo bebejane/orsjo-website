@@ -765,6 +765,7 @@ const importWpTaxMap = async (type) =>{
 
 const migrateAccessories = async () => {
   console.log('migrate access...')
+  return
   /*
   const accessoryMap = {}
   const accessoryMapItems = {}

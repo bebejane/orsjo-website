@@ -1,0 +1,14 @@
+fragment ProductLightFragment on ProductRecord{
+  id
+  title
+  slug
+  family{
+    id
+    name
+  }
+  categories{
+    id
+    name
+    position
+  }
+}
