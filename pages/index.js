@@ -126,7 +126,9 @@ const Button = ({id, locale, type, label = 'GENERATE PDF', status, endpoint}) =>
 	const {username, password, url} = endpoint
 
 	const handleClick = async () =>{
-		const headers = new Headers(); headers.append('Authorization', `Basic ${base64.encode(username + ":" + password)}`);
+		const headers = new Headers(); 
+		headers.append('Authorization', `Basic ${base64.encode(username + ":" + password)}`);
+		console.log(headers)
 		const res = await fetch(`${url}/${locale}/${type}${id ? `/${id}` : ''}`, {
 			method: 'GET',
 			headers
