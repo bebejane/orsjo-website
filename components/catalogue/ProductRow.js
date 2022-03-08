@@ -15,7 +15,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
         <table>
           {product.models.map((m, idxm) => {
 
-            const lightsources = m.lightsources.map(l => l).filter(({ included }) => !included)
+            const lightsources = m.lightsources.filter(({ included }) => !included)
 
             return m.variants.map((v, idx) =>
               <>
@@ -44,7 +44,7 @@ export default function ProductRow({ product, withLightsource, locale }) {
                   <td>
                     {withLightsource ? priceIncLight(v.price, lightsources) : convertPrice(v.price, locale)}</td>
                 </tr>
-                {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
+                {m.variants.length == (idx + 1) && (lightsources.filter(({ optional }) => !withLightsource || !optional).map(({ amount, lightsource }) =>
                   <tr>
                     <td>{lightsource.articleNo || '---'}</td>
                     <td>{lightsource.name} ({t('needs')} {amount})</td>
