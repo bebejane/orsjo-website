@@ -28,7 +28,7 @@ export default function ProductSheet({ product, locale }) {
       <a name={product.slug}></a>
       <Page>
         <div className={cn(styles.frontPage)}>
-          <a href="#home"><img className={styles.logo} src={'/images/logo.svg'} /></a>
+          <a href="#home" className={styles.logo}><img src={'/images/logo.svg'} /></a>
           <div className={styles.intro}>
             <div className={styles.productImage}>
               {product.environmentImage && <img src={`${product.environmentImage?.url}?w=1200&fm=avif`} />}

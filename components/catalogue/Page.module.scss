@@ -16,7 +16,7 @@ section.page {
   max-height: $pageHeight;
   page-break-after: always;
   flex-wrap: wrap;
-  border: 0.01mm solid black;
+  //border: 0.01mm solid black;
   align-items: flex-start;
 
   &.autoHeight {
