@@ -1,0 +1,6 @@
+fragment EmployeeFragment on EmployeeRecord{
+  name
+  position
+  phone
+  email
+}

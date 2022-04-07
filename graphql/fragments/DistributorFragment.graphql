@@ -1,0 +1,13 @@
+fragment DistributorFragment on DistributorRecord{
+  name
+  address
+  postalCode
+  city
+  country {
+    name
+  }
+  contactName
+  phone
+  email
+  url
+}
