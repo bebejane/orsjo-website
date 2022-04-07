@@ -1,6 +1,7 @@
 import { GetSiteSEO } from  "./seo.graphql";
 import { GetProduct, GetProducts, GetProductsLight } from  "./product.graphql";
 import { GetPricelist } from  "./pricelist.graphql";
+import { GetReseller, GetResellers } from  "./reseller.graphql";
 import { GetIntl } from  "./intl.graphql";
 
 export {
@@ -9,5 +10,7 @@ export {
   GetProducts,
   GetProductsLight,
   GetPricelist,
+  GetReseller,
+  GetResellers,
   GetIntl
 }

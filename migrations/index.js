@@ -860,4 +860,54 @@ const migrateAccessories = async () => {
   }
 }
 
-//return migrateAccessories()
+
+const migrateResellers = async () =>{
+  console.log('migrate resellers...')
+  
+  wpapi.resellers = wpapi.registerRoute('wp/v2', '/reseller/(?P<id>)', {wpml_language:'en'});
+
+  try{
+    const resellers = (await wpapi.resellers().perPage(100).param(english).param({status:'publish'})).map(r =>{
+        
+        let address = r.content.rendered;
+        const name = r.title.rendered
+        const urlIdx = address.indexOf('<a href=\"');
+        const url = urlIdx > -1 ? address.substring(urlIdx+9, address.indexOf('"', urlIdx+9)).replace('http:', 'https:') : null
+        address = urlIdx > -1 ? (address.substring(0, urlIdx) + address.substring(address.indexOf('</a>')+4)) :  address
+        address = decodeEntities(stripTags(address)).replace("\n\n", '')
+
+        const country = '120915118'
+
+        return {
+          itemType: '1990290',
+          name,
+          address,
+          url,
+          country
+        }
+      
+    })
+    
+    for (let i = 0; i < resellers.length; i++) {
+      console.log('.')
+      try{
+        await datoClient.items.create(resellers[i]);  
+      }catch(err){
+        console.log(err)
+        console.log(resellers[i])
+        //break;
+      }
+    }
+    
+
+
+
+  }catch(err){
+    console.log(err)
+  }
+  
+
+
+}
+
+//migrateResellers();

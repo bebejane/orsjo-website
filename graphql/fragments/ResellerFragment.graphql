@@ -1,0 +1,9 @@
+fragment ResellerFragment on ResellerRecord{
+  name
+  address
+  postalCode
+  country {
+    name
+  }
+  url
+}

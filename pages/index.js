@@ -17,14 +17,24 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 	const [selectedFile, setSelectedFile] = useState();
 	
 	useEffect(()=>{
-		socketRef.current = io(endpoint.url);
+		socketRef.current = io(endpoint.url, {
+      transports: ['polling', 'websocket'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax : 5000,
+      reconnectionAttempts: 99999
+    });
+		
 		socketRef.current.on('status', data => {
 			if(data.type === 'import') return setImportStatus({...data})
 			status[data.id] = data;
 			setStatus({...status})
 		})
 		
-		socketRef.current.on("connect", ()=> console.log("connected ws"))
+		socketRef.current.on("connect", ()=> { 
+			console.log("connected ws")
+			//socketRef.current.emit("catalogue", {path:'/sv/catalogue', locale:'sv'})
+		})
     return () => socketRef.current.disconnect();
   }, [])
 
@@ -100,7 +110,7 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 				<input onChange={fileChangeHandler} type="file" name="pricelist" id="pricelist" accept=".xlsx, application/vnd.ms-excel"/>
 				<br/>
 				<button onClick={handleImportPricelist} disabled={!(selectedFile)}>Start import</button>
-				{importStatus && importStatus.data.total &&
+				{importStatus?.data?.total &&
 					<>
 						<br/>
 						<progress value={importStatus.data.item} max={importStatus.data.total} min={0}/>
@@ -108,13 +118,17 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 						{importStatus.data.item}/{importStatus.data.total}
 					</>
 				}
-				{importStatus && importStatus.status === 'END' && (
-					<span>Finished! Updated: {importStatus.updated} / Not found: {importStatus.notFound}</span>
-				)}
-				{importStatus && importStatus.status === 'ERROR' && (
-					<span>Error: {importStatus.data.error?.toString()}</span>
-				)}
 			</p>
+			{importStatus?.status === 'END' && (
+				<p>					
+					<span>
+						Updated: {importStatus.data.updated.length} / Not found: {importStatus.data.notFound.length} / Errors: {importStatus.data.errors.length}
+					</span>
+					<br/>
+					<div>Errors: {importStatus.data.errors.map(({product, error}) => <div>{product.id} - {error.message}</div>)}</div>
+					<div>Not Found: {importStatus.data.notFound.map(p => <div>{p.articleNo} {p.description}</div>)}</div>
+				</p>
+			)}
 		</div>
 
 	)
@@ -127,20 +141,19 @@ const Button = ({id, locale, type, label = 'GENERATE PDF', status, endpoint}) =>
 
 	const handleClick = async () =>{
 		const headers = new Headers(); 
-		headers.append('Authorization', `Basic ${base64.encode(username + ":" + password)}`);
-		console.log(headers)
-		const res = await fetch(`${url}/${locale}/${type}${id ? `/${id}` : ''}`, {
-			method: 'GET',
-			headers
-		})
+		const basicAuth = `Basic ${base64.encode(username + ":" + password)}`
+		headers.append('Authorization', basicAuth);
+		const res = await fetch(`${url}/${locale}/${type}${id ? `/${id}` : ''}`, {method: 'GET', headers})
 		const data = await res.json()
 		setRequestId(data.id)
 	}
+
 	const handleReset = (e) =>{
 		e.stopPropagation()
 		setRequestId(undefined)
 	}
-	const isGenerating = (status[requestId] && status[requestId].status !== 'END')
+
+	const isGenerating = (requestId && status[requestId]?.status !== 'END')
 	const isEnded = (status[requestId] && status[requestId].status === 'END')
 	const isError = (status[requestId] && status[requestId].status === 'ERROR')
 	
@@ -169,12 +182,11 @@ const Button = ({id, locale, type, label = 'GENERATE PDF', status, endpoint}) =>
 export const getServerSideProps = withGlobalProps(async ({ props, revalidate, context,  context: { locale } }) => {
 
 	const { products, pricelist } = await apiQuery([GetProductsLight, GetPricelist], [{ locale }, { locale }])
-	const messages = await intlQuery('Home', locale, ['sv', 'en'])
 	
 	return {
 		props: {
 			...props,
-			messages,
+			messages:await intlQuery('Home', locale, ['sv', 'en']),
 			products,
 			pricelist,
 			endpoint: {
