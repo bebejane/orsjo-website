@@ -1,5 +1,6 @@
 import '/styles/index.scss'
 import type { AppProps } from 'next/app'
+import { NextIntlProvider } from 'next-intl';
 import DatoSEO from '/lib/dato/components/DatoSEO';
 import { GoogleAnalytics, usePagesViews } from "nextjs-google-analytics";
 import { useRouter } from 'next/router';
@@ -16,7 +17,9 @@ function MyApp({ Component, pageProps } : AppProps) {
     <>
       <GoogleAnalytics />
       <DatoSEO seo={seo} site={site} pathname={pathname} key={pathname}/>
-      <Component {...pageProps} />
+      <NextIntlProvider messages={pageProps.messages}>
+        <Component {...pageProps} />
+      </NextIntlProvider>
     </>
   )
 }
