@@ -27,7 +27,7 @@ export const client = new ApolloClient({
 export type ApiQueryOptions = {variables : any | [any], preview?: boolean}
 
 export const apiQuery = async (query: DocumentNode | [DocumentNode], {variables, preview = false} : ApiQueryOptions) : Promise<any> => {
-  console.log(query)
+  
   if(query === null) 
     throw "Invalid Query!"
 
@@ -36,7 +36,6 @@ export const apiQuery = async (query: DocumentNode | [DocumentNode], {variables,
 
   const batch = (Array.isArray(query) ? query : [query]).map((q, idx) => {
     const vars = Array.isArray(variables) && variables.length > idx -1 ? variables[idx] : variables || {}
-    
     return client.query({query:q, variables:vars})
   })
   
@@ -65,7 +64,7 @@ type IntlMessage = { key:string, value:string }
 
 export const intlQuery = async (page : string, locale : string, fallbackLocales : [string] = ['en']) : Promise<any> => {
 
-  const res = await apiQuery(GetIntl, { variables: { page, locale, fallbackLocales }})
+  const res = await apiQuery(GetIntl, {variables: { page, locale, fallbackLocales }})
   const messages : [IntlMessage] = res.messages
   const dictionary : {[page:string]: any} = {[page]:{}}
   messages.forEach(({key, value}) => dictionary[page][key] = value)

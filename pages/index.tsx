@@ -201,8 +201,8 @@ const Button = React.forwardRef((props, ref) => {
 
 export const getServerSideProps = withGlobalProps({}, async ({ props, revalidate, context: { locale } }) => {
 
-	const { products, pricelist } = await apiQuery([GetProductsLight, GetPricelist], [{ locale }])
-
+	const { products, pricelist } = await apiQuery([GetProductsLight, GetPricelist], [{ locale }, {locale}])
+	
 	return {
 		props: {
 			...props,
