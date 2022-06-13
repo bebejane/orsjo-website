@@ -1,4 +1,5 @@
 import styles from './index.module.scss'
+import React from 'react';
 import base64 from 'base-64';
 import io from 'socket.io-client'
 import { apiQuery, intlQuery } from "/lib/dato/api";
@@ -8,16 +9,21 @@ import { useTranslations } from 'next-intl';
 import { useState, useEffect, useRef} from 'react'
 import { AiOutlineLoading, AiOutlineFilePdf } from 'react-icons/ai'
 
+const locales = ['en', 'sv', 'no']
+
 export default function Home({ products, pricelist, messages, endpoint }) {
 
 	const t = useTranslations('Home')
-	const socketRef = useRef();
-	const [status, setStatus] = useState({})
+	const ref = useRef(null);
+	const [socketRef, setSocketRef] = useState(null);
+	const [connected, setConnected] = useState(false)
 	const [importStatus, setImportStatus] = useState()
 	const [selectedFile, setSelectedFile] = useState();
 	
+	useEffect(()=>{ setConnected( ref !== null)}, [ref])
 	useEffect(()=>{
-		socketRef.current = io(endpoint.url, {
+		console.log(document.location.origin)
+		ref.current = io(process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://orsjo-pdf-generator.purplepurples.net', {
       transports: ['polling', 'websocket'],
       reconnection: true,
       reconnectionDelay: 1000,
@@ -25,18 +31,10 @@ export default function Home({ products, pricelist, messages, endpoint }) {
       reconnectionAttempts: 99999
     });
 		
-		socketRef.current.on('status', data => {
-			if(data.type === 'import') return setImportStatus({...data})
-			status[data.id] = data;
-			setStatus({...status})
-		})
-		
-		socketRef.current.on("connect", ()=> { 
-			console.log("connected ws")
-			//socketRef.current.emit("catalogue", {path:'/sv/catalogue', locale:'sv'})
-		})
-    return () => socketRef.current.disconnect();
+		ref.current.on("connect", ()=> setSocketRef(ref))
+    return () => ref.current.disconnect();
   }, [])
+
 
 	const fileChangeHandler = (event) => setSelectedFile(event.target.files[0]);
 
@@ -54,40 +52,40 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 				<li>
 					Prislista
 					<div className={styles.buttonRow}>
-						<Button locale={'en'} status={status} type="catalogue" label={'EN'} endpoint={endpoint}/>
-						<Button locale={'sv'} status={status} type="catalogue" label={'SV'} endpoint={endpoint}/>
-						<Button locale={'no'} status={status} type="catalogue" label={'NO'} endpoint={endpoint}/>
+						{locales.map(locale => 
+							<Button locale={locale} type="catalogue" path={"catalogue"} ref={socketRef}/>
+						)}
 					</div>
 					<div className={styles.links}>
-						<a href={`/en/catalogue`} target="_new">EN</a>
-						<a href={`/sv/catalogue`} target="_new">SV</a> 
-						<a href={`/no/catalogue`} target="_new">NO</a>
+						{locales.map(locale => 
+							<a href={`/${locale}/catalogue`} target="_new">{locale}</a>
+						)}
 					</div>
 				</li>
 				<li>
 					Enkel
 					<div className={styles.buttonRow}>
-						<Button locale={'en'} status={status} type="catalogue/light" label={'EN'} endpoint={endpoint}/>
-						<Button locale={'sv'} status={status} type="catalogue/light" label={'SV'} endpoint={endpoint}/>
-						<Button locale={'no'} status={status} type="catalogue/light" label={'NO'} endpoint={endpoint}/>
+						{locales.map(locale => 
+							<Button locale={locale} type="catalogue" path={"catalogue/light"} ref={socketRef}/>
+						)}
 					</div>
 					<div className={styles.links}>
-						<a href={`/en/catalogue/light`} target="_new">EN</a>
-						<a href={`/sv/catalogue/light`} target="_new">SV</a> 
-						<a href={`/no/catalogue/light`} target="_new">NO</a>
+						{locales.map(locale => 
+							<a href={`/${locale}/catalogue/light`} target="_new">{locale}</a>
+						)}
 					</div>
 				</li>
 				<li>
 					Ink. ljuskälla:
 					<div className={styles.buttonRow}>
-						<Button locale={'en'} status={status} type="catalogue/with-lightsource" label={'EN'} endpoint={endpoint}/>
-						<Button locale={'sv'} status={status} type="catalogue/with-lightsource" label={'SV'} endpoint={endpoint}/>
-						<Button locale={'no'} status={status} type="catalogue/with-lightsource" label={'NO'} endpoint={endpoint}/>
+						{locales.map(locale => 
+							<Button locale={locale} type="catalogue" path="catalogue/with-lightsource" label={locale} ref={socketRef}/>
+						)}
 					</div>
 					<div className={styles.links}>
-						<a href={`/en/catalogue/with-lightsource`} target="_new">EN</a>
-						<a href={`/sv/catalogue/with-lightsource`} target="_new">SV</a>
-						<a href={`/no/catalogue/with-lightsource`} target="_new">NO</a>
+					{locales.map(locale => 
+						<a href={`/${locale}/catalogue/with-lightsource`} target="_new">{locale}</a>
+					)}
 					</div>
 				</li>
 
@@ -96,11 +94,16 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 			<ul>
 				{products.map((p, idx) =>
 					<li key={idx}>{p.title} ({p.categories.map(c => c.name).join(', ')})
-						<Button id={p.id} locale={'en'} status={status} type="product" endpoint={endpoint}/>
+						<div className={styles.buttonRow}>
+							{locales.map(locale => 
+								<Button type="product" locale={locale} path={`catalogue/${p.id}`} productId={p.id} ref={socketRef}/>
+							)}
+							
+						</div>
 						<div className={styles.htmlLinks}>
-							<a href={`/en/catalogue/${p.id}`} target="_new">EN</a>
-							<a href={`/sv/catalogue/${p.id}`} target="_new">SV</a>
-							<a href={`/no/catalogue/${p.id}`} target="_new">NO</a>
+							{locales.map(locale => 
+								<a href={`/${locale}/catalogue/${p.id}`} target="_new">{locale}</a>
+							)}
 						</div>
 					</li>
 				)}
@@ -129,41 +132,58 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 					<div>Not Found: {importStatus.data.notFound.map(p => <div>{p.articleNo} {p.description}</div>)}</div>
 				</p>
 			)}
+			{!connected && <div className={styles.connecting}>Connecting...</div>}
 		</div>
 
 	)
 }
 
-const Button = ({id, locale, type, label = 'GENERATE PDF', status, endpoint}) => {
+const Button = React.forwardRef((props, ref) => {
 	
+	const {locale, type, path, productId, label} = props
+	const socket = ref
 	const [requestId, setRequestId] = useState()
-	const {username, password, url} = endpoint
+	const [status, setStatus] = useState({})
+	const [error, setError] = useState()
 
+	useEffect(()=>{
+		if(!socket) return
+		
+		socket.current.on('status', data => {
+			const { id, type, error } = data;
+			if(id !== requestId) return 
+			console.log(data)
+			error ? setError(error) : setStatus(data)
+		})
+		socket.current.on('error', (err)=> setError(err))
+
+	}, [socket, requestId])
+	
 	const handleClick = async () =>{
-		const headers = new Headers(); 
-		const basicAuth = `Basic ${base64.encode(username + ":" + password)}`
-		headers.append('Authorization', basicAuth);
-		const res = await fetch(`${url}/${locale}/${type}${id ? `/${id}` : ''}`, {method: 'GET', headers})
-		const data = await res.json()
-		setRequestId(data.id)
+		console.log('click', productId, type, locale, path)
+		socket.current.send(type, {locale, path, productId}, ({id})=>setRequestId(id))
 	}
 
 	const handleReset = (e) =>{
 		e.stopPropagation()
 		setRequestId(undefined)
+		setError(undefined)
+		setStatus(undefined)
 	}
 
-	const isGenerating = (requestId && status[requestId]?.status !== 'END')
-	const isEnded = (status[requestId] && status[requestId].status === 'END')
-	const isError = (status[requestId] && status[requestId].status === 'ERROR')
+	const isGenerating = (requestId && status?.type !== 'END')
+	const isEnded = status?.type === 'END'
+	const isError = error ? true : false
 	
 	return (
-		<div className={styles.button} onClick={handleClick} disabled={(status[requestId])}>
-			{ isGenerating ? 
+		<div className={styles.button} onClick={handleClick} disabled={(status !== undefined)} title={error ? `Error: ${error}` : undefined}>
+			{ isError ? 
+				<div className={styles.error}>Error!</div>
+			: isGenerating ? 
 				<div className={styles.loader}><AiOutlineLoading/></div>
 			: isEnded ? 
 				<div className={styles.links}>
-					{status[requestId].data.uploads.map((u,idx) => 
+					{status.uploads.map((u, idx) => 
 						<a href={u.url} key={idx} target="_new" onClick={(e) => e.stopPropagation()}>
 							<AiOutlineFilePdf/>
 							<br/>
@@ -172,28 +192,23 @@ const Button = ({id, locale, type, label = 'GENERATE PDF', status, endpoint}) =>
 					)}
 				</div>
 			:
-				label
+				label || locale
 			}
 			{(isGenerating || isEnded) && <div className={styles.close} onClick={handleReset}>×</div>} 
 		</div>
 	)
-}
+})
 
 export const getServerSideProps = withGlobalProps(async ({ props, revalidate, context,  context: { locale } }) => {
 
-	const { products, pricelist } = await apiQuery([GetProductsLight, GetPricelist], [{ locale }, { locale }])
+	const { products, pricelist } = await apiQuery([GetProductsLight, GetPricelist], [{ locale }])
 	
 	return {
 		props: {
 			...props,
 			messages:await intlQuery('Home', locale, ['sv', 'en']),
 			products,
-			pricelist,
-			endpoint: {
-				url:process.env.DATOCMS_WEBHOOK_ENDPOINT,
-				username:process.env.DATOCMS_WEBHOOK_USERNAME,
-				password:process.env.DATOCMS_WEBHOOK_PASSWORD
-			}
+			pricelist
 		}
 	};
 });

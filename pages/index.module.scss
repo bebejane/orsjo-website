@@ -1,8 +1,21 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 10vw;
+  padding: 40px;
   font-size: 22px !important;
+  .connecting { 
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    z-index: 10;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+
+  }
   a {
     color: rgb(145, 233, 255);
     background-color: rgb(7, 33, 39);
@@ -29,7 +42,7 @@
         flex-direction: row;
         align-items: center;
         margin-top: 2px;
-        height: 40px;
+        height: 60px;
         a{
           margin-right: 2px;
           padding: 5px;
@@ -52,17 +65,24 @@
   background-color: black;
   color:#fff;
   padding: 0;
+  margin:1px;
   margin-top:10px;
   line-height: 1;
   font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
-  padding: 0px 10px 0px 10px;
-  height: 40px;
+  width: 60px;
+  padding: 10px;
+  height: 60px;
+  text-transform: uppercase;
   cursor: pointer;
- 
+  .error{
+    color:red;
+  }
+  &.small{
+    width: 40px;
+  }
   .loader{
     position: absolute;
     display: flex;
@@ -80,9 +100,10 @@
     font-size: 11px;
     text-transform: uppercase;
     text-align: center;
-    width: 40px;
+    width: 60px;
+    padding: 10px;
     &:hover{
-      background-color: rgb(78, 78, 78);
+      //background-color: rgb(78, 78, 78);
     }
   }
   .close{
@@ -90,10 +111,11 @@
     z-index: 10;
     top:0;
     right: 0;
-    margin:4px;
-    margin-top:2px;
+    margin:2px;
+    
     font-size: 20px; 
-    line-height: 1;
+    line-height: 0.5;
+    color:gray;
     &:hover{
       color:yellow;
     }

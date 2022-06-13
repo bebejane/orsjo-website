@@ -15,6 +15,7 @@
     "migrate:taxonomies": "node ./migrations/index --taxonomies"
   },
   "dependencies": {
+    "@datocms/cma-client-node": "^1.0.0",
     "base-64": "^1.0.0",
     "chrome-aws-lambda": "^10.1.0",
     "classnames": "^2.3.1",
