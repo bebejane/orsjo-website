@@ -1,5 +1,3 @@
-#import "./fragments/ProductFragment.graphql"
-
 query GetIntl(
 	$locale: SiteLocale = en
 	$fallbackLocales: [SiteLocale!] = [en]
