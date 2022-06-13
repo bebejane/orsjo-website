@@ -1,0 +1,7 @@
+#import "./fragments/ResellerFragment.graphql"
+
+query GetReseller($id: ItemId, $locale: SiteLocale = en) {
+	reseller(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
+		...ResellerFragment
+	}
+}

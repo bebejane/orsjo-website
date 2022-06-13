@@ -9,7 +9,7 @@ import Image from './Image'
 import ImageGallery from './ImageGallery'
 import Video from './Video'
 
-export default function StructuredContent({ content }) {
+export default function StructuredContent({ content } : any) {
   
   if (!content) return null 
 
@@ -17,7 +17,7 @@ export default function StructuredContent({ content }) {
     <article className={styles.mainContent}>
       <StructuredText
         data={content}
-        renderBlock={({ record }) => {
+        renderBlock={({ record } : any) => {
           switch (record.__typename) {
             case 'ImageRecord':
               return <Image data={record.image} />;
@@ -33,21 +33,21 @@ export default function StructuredContent({ content }) {
               return null;
           }
         }}
-        renderInlineRecord={({ record }) => {
+        renderInlineRecord={({ record } : any) => {
           switch (record.__typename) {
-            case 'ParticipantRecord':
-              return <LinkButton href={`/${record.slug}`}>{record.title}</LinkButton>
+            //case 'Record':
+            //  return <LinkButton href={`/${record.slug}`}>{record.title}</LinkButton>
             default:
               return null;
           }
         }}
-        renderLinkToRecord={({ record, children, transformedMeta }) => {
+        renderLinkToRecord={({ record, children, transformedMeta }: any) => {
           switch (record.__typename) {
             default:
               return null;
           }
         }}
-        renderText={(text)=>{
+        renderText={(text: string)=>{
           // Replace nbsp
           return text?.replace(/\s/g, ' ');
         }}
@@ -57,26 +57,27 @@ export default function StructuredContent({ content }) {
             return <Link href={node.url}>{renderNode('a', {key}, children)}</Link>
           }),
           // Clenup paragraphs
-          renderNodeRule(isParagraph, ({ adapter: { renderNode }, node, children, key, ancestors }) => { 
-
+          renderNodeRule(isParagraph, ({ adapter: { renderNode }, node, children, key, ancestors } : any) => { 
+            
             // Remove trailing <br>
             if (isRoot(ancestors[0]) && node.children[node.children.length-1].value?.endsWith('\n')) {
               let index = node.children.length;
-              while(index >= 0  && node.children[0].value[index] === '\n') index--;
+              while(index >= 0 && node.children[0].value && node.children[0].value[index] === '\n') index--;
               //console.log('remove trailing br', index)
-              children = children.slice(0,index);
-            } 
+              Array.isArray(children[0].props.children) && children[0].props.children.splice(index)
+            }
 
             // Remove leading <br>
             if (isRoot(ancestors[0]) && node.children[0].value?.startsWith('\n')) {
               let index = 0;
               while(index < node.children[0].value.length && node.children[0].value[index] === '\n') index++;
               //console.log('remove leading br', index)
-              children = children.slice(index)
+              Array.isArray(children[0].props.children) &&  children[0].props.children?.splice(0, index+1)
+              
             }
 
             // Filter out empty paragraphs
-            children = children.filter(c => !(c.props.children.length === 1 && !c.props.children[0]))
+            children = children.filter((c: any) => !(c.props.children.length === 1 && !c.props.children[0]))
 
             // If no children remove tag completely
             if(!children.length) return null

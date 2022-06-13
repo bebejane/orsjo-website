@@ -3,7 +3,7 @@ import React from 'react';
 import base64 from 'base-64';
 import io from 'socket.io-client'
 import { apiQuery, intlQuery } from "/lib/dato/api";
-import { withGlobalProps } from "/lib/utils";
+import { withGlobalProps } from "/lib/hoc";
 import { GetProductsLight, GetPricelist } from "/graphql"
 import { useTranslations } from 'next-intl';
 import { useState, useEffect, useRef} from 'react'
@@ -199,14 +199,14 @@ const Button = React.forwardRef((props, ref) => {
 	)
 })
 
-export const getServerSideProps = withGlobalProps(async ({ props, revalidate, context,  context: { locale } }) => {
+export const getServerSideProps = withGlobalProps({}, async ({ props, revalidate, context,  context: { locale } }) => {
 
 	const { products, pricelist } = await apiQuery([GetProductsLight, GetPricelist], [{ locale }])
 	
 	return {
 		props: {
 			...props,
-			messages:await intlQuery('Home', locale, ['sv', 'en']),
+			messages: await intlQuery('Home', locale, ['sv', 'en']),
 			products,
 			pricelist
 		}

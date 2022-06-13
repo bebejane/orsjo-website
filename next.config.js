@@ -18,12 +18,18 @@ const nextOptions = {
   experimental: {
     scrollRestoration: true
   },
-  i18n: {
-    locales: ['en', 'sv', 'no'],
-    defaultLocale: 'en',
-    localeDetection: false
-  }
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    });
+    return config;
+  },
+  webpackDevMiddleware: (config) => {
+    return config;
+  },
 }
 
-const config = withPlugins([graphql], { sassOptions, ...nextOptions })
+const config = { sassOptions, ...nextOptions }//withPlugins([graphql], { sassOptions, ...nextOptions })
 module.exports = config

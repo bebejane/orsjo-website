@@ -1,15 +1,23 @@
 import { NextSeo, DefaultSeo } from 'next-seo';
 
-const DatoSEO = ({seo = {}, site = {}, pathname, title, description}) => {
+const DatoSEO = ({seo = {}, site = {}, pathname, title, description} : any) => {
   
-  const meta = parseDatoMetaTags({seo,site,pathname}) 
+  const meta = parseDatoMetaTags({seo, site, pathname}) 
   const { globalSeo, favicon } = site
   const favicons = favicon ? favicon.map(({ attributes }) => {return {...attributes} }) : [];
   const images = generateImages(meta["og:image"], meta["og:image:width"], meta["og:image:height"])
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}${pathname || ''}`
-  
-  title = title ? title : globalSeo ? `${globalSeo.siteName} ${globalSeo.titleSuffix}` : 'No Site Title';
-  description = description ? description : meta.description || globalSeo ? globalSeo?.fallbackSeo.description : 'Site description';;
+
+  title = title ? title : globalSeo ? `${globalSeo?.siteName} ${globalSeo?.titleSuffix}` : 'No Site Title';
+  description = description || meta.description || globalSeo ? globalSeo?.fallbackSeo.description : 'Site description';;
+
+  const twitterProps : any = {
+    title,
+    image: meta["og:image"],
+    handle: globalSeo?.twitterAccount,
+    site: globalSeo?.twitterAccount,
+    cardType: 'summary_large_image',
+  }
 
   return (
     <NextSeo
@@ -25,13 +33,7 @@ const DatoSEO = ({seo = {}, site = {}, pathname, title, description}) => {
         type:meta["og:type"],
         site_name:meta["og:site_name"],
       }}
-      twitter={ globalSeo && {
-        title,
-        image: meta["og:image"],
-        handle: globalSeo.twitterAccount,
-        site: globalSeo.twitterAccount,
-        cardType: 'summary_large_image',
-      }}
+      twitter={ twitterProps }
       additionalLinkTags={favicons} 
     />
   )
@@ -39,7 +41,7 @@ const DatoSEO = ({seo = {}, site = {}, pathname, title, description}) => {
 
 const DefaultDatoSEO = ({site, url}) => {
   const {globalSeo, favicon, globalSeo : {fallbackSeo}} = site
-  const twitterSite = globalSeo.twitterAccount ? `https://twitter.com/${globalSeo.twitterAccount.replace("@", "")}` : undefied
+  const twitterSite = globalSeo.twitterAccount ? `https://twitter.com/${globalSeo.twitterAccount.replace("@", "")}` : undefined
   return (
     <DefaultSeo
       openGraph={{
@@ -56,7 +58,7 @@ const DefaultDatoSEO = ({site, url}) => {
   )
 }
 
-const generateImages = (url, width, height) => {
+const generateImages = (url, width, height) : any => {
   if(!url) return undefined
   const baseURL  = url.split("?")[0]
   const images = [{
@@ -67,7 +69,7 @@ const generateImages = (url, width, height) => {
   return images
 }
 
-const parseDatoMetaTags = ({seo, site, pathname}) => {
+const parseDatoMetaTags = ({seo, site, pathname} : any) : any => {
 
 	if(!seo || !site) return []
 	
@@ -78,12 +80,13 @@ const parseDatoMetaTags = ({seo, site, pathname}) => {
 	let metaTags = tags || []
 	let titleTag = metaTags.filter(m=> m.tag === "title")[0]
   
-  if(titleTag){
+  if(titleTag && globalSeo){
     if(pathname === "/")
-      titleTag.content = globalSeo.siteName
-    else if(!titleTag.content.startsWith(globalSeo.siteName))
-      titleTag.content = `${globalSeo.siteName} – ${titleTag.content}`
+      titleTag = {...titleTag, content:globalSeo.siteName}
+    else if(globalSeo && titleTag.content.startsWith(globalSeo.siteName))
+      titleTag = {...titleTag, content:`${globalSeo.siteName} – ${titleTag.content}`}
   }
+
 	metaTags = metaTags.map(t => { return t.tag !== 'title' ? t : titleTag})
 
   const meta = {}

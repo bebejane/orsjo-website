@@ -1,10 +1,5 @@
 #import "./fragments/DistributorFragment.graphql"
 
-query GetDistributor($id: ItemId, $locale: SiteLocale = en) {
-	distributor(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
-		...DistributorFragment
-	}
-}
 query GetDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
 	distributors: allDistributors(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...DistributorFragment

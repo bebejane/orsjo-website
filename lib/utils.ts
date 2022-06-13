@@ -1,4 +1,3 @@
-import withGlobalProps from './withGlobalProps'
 import { format } from 'number-currency-format';
 
 const sleep = (ms) => new Promise((res) => setTimeout(() => res()), ms)
@@ -38,8 +37,9 @@ const sortProductsByCategory = (products) => {
   return sortedProducts;
 }
 
+export const isServer = typeof window === 'undefined';
+
 export {
-  withGlobalProps,
   sleep,
   formatPrice,
   convertPrice,
