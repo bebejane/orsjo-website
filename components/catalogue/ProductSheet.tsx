@@ -1,13 +1,15 @@
-import ReactDOMServer from 'react-dom/server';
 import styles from './ProductSheet.module.scss'
+import type { Product, Locale, Lightsource, LightsourceElement } from '/types';
+import ReactDOMServer from 'react-dom/server';
 import { convertPrice, formatPrice } from '/lib/utils'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Markdown from '/lib/dato/components/Markdown'
 import Page from "./Page"
 
+type ProductSheetProps = {product:Product, locale:Locale, pageNo:number}
 
-export default function ProductSheet({ product, locale }) {
+export default function ProductSheet({ product, locale } : ProductSheetProps) {
 
   const t = useTranslations('Catalogue')
 
@@ -45,10 +47,7 @@ export default function ProductSheet({ product, locale }) {
               const maxWidth = 100 / product.colorImages.length;
               return (
                 <div key={idx} className={styles.color} style={{ maxWidth: `${maxWidth}%` }}>
-                  <img
-                    className={styles.colorImage}
-                    src={`${url}?w=200&fm=avif`}
-                  />
+                  <img className={styles.colorImage} src={`${url}?w=200&fm=avif`}/>
                   <div className={styles.description}><span className="small">{title || 'No description'}</span></div>
                 </div>
               )
@@ -87,7 +86,10 @@ export default function ProductSheet({ product, locale }) {
             <h2>{t('dimmensions')}</h2>
             <div className={styles.drawings}>
               {drawings.map((item, idx) =>
-                <figure className={styles.drawing}><img key={idx} src={item.drawing.url} /><span className="small">{item.name}</span></figure>
+                <figure key={idx} className={styles.drawing}>
+                  <img key={idx} src={item.drawing.url} />
+                  <span className="small">{item.name}</span>
+                </figure>
               )}
             </div>
             <footer><a href="https://www.orsjo.com/">{t('moreInfo')} →</a></footer>
@@ -98,10 +100,10 @@ export default function ProductSheet({ product, locale }) {
   )
 }
 
-const parseSpecifications = (product) => {
+const parseSpecifications = (product : Product) => {
   const t = useTranslations('Catalogue')
 
-  let lightsources = [];
+  let lightsources: [LightsourceElement] = [];
   (product.models || []).map((m) => m.lightsources.map((l) => l)).forEach((l) => lightsources.push.apply(lightsources, l))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, included, lightsource }) => ({ ...lightsource, included, amount, price }))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
@@ -136,7 +138,7 @@ const parseSpecifications = (product) => {
 }
 
 
-const parseArticlePrices = (product, locale) => {
+const parseArticlePrices = (product: Product, locale : Locale) => {
 
   const t = useTranslations('Catalogue')
   const rows = (
@@ -160,15 +162,15 @@ const parseArticlePrices = (product, locale) => {
               <td>{[v.material?.name, v.color?.name, v.feature?.name].filter(el => el).join(', ')}</td>
               <td>{convertPrice(v.price, locale)}</td>
             </tr>
-            {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }) =>
-              <tr>
+            {m.variants.length == (idx + 1) && (lightsources.map(({ amount, lightsource }, idx) =>
+              <tr key={idx}>
                 <td>{lightsource.articleNo || '---'}</td>
                 <td>{lightsource.name} <span>({t('needs')} {amount})</span></td>
                 <td>{convertPrice(lightsource.price, locale)}</td>
               </tr>
             ))}
-            {m.variants.length == (idx + 1) && (m.accessories.map(({ price, articleNo, accessory }) =>
-              <tr>
+            {m.variants.length == (idx + 1) && (m.accessories.map(({ price, articleNo, accessory }, idx) =>
+              <tr key={idx}>
                 <td>{articleNo || '---'}</td>
                 <td>{accessory?.name}</td>
                 <td>{convertPrice(price, locale)}</td>

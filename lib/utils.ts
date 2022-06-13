@@ -27,8 +27,8 @@ const priceIncLight = (prodPrice, lightsources) => {
   return formatPrice(price, locale);
 }
 
-const sortProductsByCategory = (products) => {
-  const sortedProducts = products.sort((a, b) => {
+const sortProductsByCategory = (products : []) => {
+  const sortedProducts = [...products].sort((a, b) => {
     if(a.family?.id === b.family?.id)
       return a.categories[0].position < b.categories[0].position ? -1 : 1;
     else

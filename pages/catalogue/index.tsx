@@ -1,10 +1,13 @@
 import styles from './index.module.scss'
+import type { Product, Locale } from '/types';
 import Catalogue from '/components/catalogue/Catalogue';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
 import { GetProducts } from "/graphql"
 
-export default function Home({ products, locale }) {
+type CatalogueWrapperProps = { products: [Product], locale: Locale }
+
+export default function CatalogueWrapper({ products, locale } : CatalogueWrapperProps) {
 	return (
 		<div className={styles.container}>
 			<Catalogue products={products} locale={locale} />
@@ -12,9 +15,9 @@ export default function Home({ products, locale }) {
 	)
 }
 
-export const getServerSideProps = async ({ locale }) => {
-	const { products } = await apiQuery(GetProducts, { locale });
-
+export const getServerSideProps = async ({ locale  } : any) => {
+	const { products } = await apiQuery(GetProducts, { variables: locale });
+	
 	if (!products) return { notFound: true }
 
 	return {

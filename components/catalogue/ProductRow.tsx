@@ -3,8 +3,11 @@ import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import { priceIncLight } from '/lib/utils'
 import { convertPrice } from '/lib/utils'
+import type { Product, Locale, LightsourceElement, Lightsource } from '/types'
 
-export default function ProductRow({ product, withLightsource, locale }) {
+type ProductRowProps = {product: Product, withLightsource: boolean, locale : Locale}
+
+export default function ProductRow({ product, withLightsource, locale } : ProductRowProps) {
 
   const t = useTranslations('Catalogue')
   const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
@@ -44,15 +47,15 @@ export default function ProductRow({ product, withLightsource, locale }) {
                   <td>
                     {withLightsource ? priceIncLight(v.price, lightsources) : convertPrice(v.price, locale)}</td>
                 </tr>
-                {m.variants.length == (idx + 1) && (lightsources.filter(({ optional }) => !withLightsource || !optional).map(({ amount, lightsource }) =>
-                  <tr>
+                {m.variants.length == (idx + 1) && (lightsources.filter(({ optional }) => !withLightsource || !optional).map(({ amount, lightsource }, idx) =>
+                  <tr key={idx}>
                     <td>{lightsource.articleNo || '---'}</td>
                     <td>{lightsource.name} ({t('needs')} {amount})</td>
                     <td>{withLightsource ? "Inkluderad" : convertPrice(lightsource.price, locale)}</td>
                   </tr>
                 ))}
-                {m.variants.length == (idx + 1) && (m.accessories.map(({ price, articleNo, accessory }) =>
-                  <tr>
+                {m.variants.length == (idx + 1) && (m.accessories.map(({ price, articleNo, accessory }, idx) =>
+                  <tr key={idx}>
                     <td>{articleNo || '---'}</td>
                     <td>{accessory?.name}</td>
                     <td>{convertPrice(price, locale)}</td>
@@ -69,8 +72,8 @@ export default function ProductRow({ product, withLightsource, locale }) {
   )
 }
 
-const parseLightsources = (product) => {
-  let lightsources = [];
+const parseLightsources = (product : Product) => {
+  let lightsources : LightsourceElement[] = [];
   (product.models || []).map((m) => m.lightsources.map((l) => l)).forEach((l) => lightsources.push.apply(lightsources, l))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, lightsource }) => ({ ...lightsource, amount, price }))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)

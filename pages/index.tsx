@@ -1,7 +1,9 @@
 import styles from './index.module.scss'
+import type { Product, IntlMessage } from '/types';
 import React from 'react';
 import base64 from 'base-64';
 import io from 'socket.io-client'
+import type { Socket } from 'socket.io-client';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { withGlobalProps } from "/lib/hoc";
 import { GetProductsLight, GetPricelist } from "/graphql"
@@ -11,18 +13,19 @@ import { AiOutlineLoading, AiOutlineFilePdf } from 'react-icons/ai'
 
 const locales = ['en', 'sv', 'no']
 
-export default function Home({ products, pricelist, messages, endpoint }) {
+type HomeProps = { products : Product[], messages: [IntlMessage],  }
 
+export default function Home({ products, messages} : HomeProps) {
+	
 	const t = useTranslations('Home')
-	const ref = useRef(null);
-	const [socketRef, setSocketRef] = useState(null);
+	const ref = useRef<Socket | null>(null);
+	const [socketRef, setSocketRef] = useState<Socket | null>(null);
 	const [connected, setConnected] = useState(false)
 	const [importStatus, setImportStatus] = useState()
 	const [selectedFile, setSelectedFile] = useState();
 	
 	useEffect(()=>{ setConnected( ref !== null)}, [ref])
-	useEffect(()=>{
-		console.log(document.location.origin)
+	useEffect(() => {
 		ref.current = io(process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://orsjo-pdf-generator.purplepurples.net', {
       transports: ['polling', 'websocket'],
       reconnection: true,
@@ -31,8 +34,8 @@ export default function Home({ products, pricelist, messages, endpoint }) {
       reconnectionAttempts: 99999
     });
 		
-		ref.current.on("connect", ()=> setSocketRef(ref))
-    return () => ref.current.disconnect();
+		ref.current.on("connect", () => setSocketRef(ref))
+    return () => ref.current?.disconnect();
   }, [])
 
 
@@ -52,39 +55,39 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 				<li>
 					Prislista
 					<div className={styles.buttonRow}>
-						{locales.map(locale => 
-							<Button locale={locale} type="catalogue" path={"catalogue"} ref={socketRef}/>
+						{locales.map((locale, idx) =>
+							<Button key={idx} locale={locale} type="catalogue" path={"catalogue"} ref={socketRef}/>
 						)}
 					</div>
 					<div className={styles.links}>
-						{locales.map(locale => 
-							<a href={`/${locale}/catalogue`} target="_new">{locale}</a>
+						{locales.map((locale, idx) =>
+							<a key={idx} href= {`/${locale}/catalogue`} target="_new">{locale}</a>
 						)}
 					</div>
 				</li>
 				<li>
 					Enkel
 					<div className={styles.buttonRow}>
-						{locales.map(locale => 
-							<Button locale={locale} type="catalogue" path={"catalogue/light"} ref={socketRef}/>
+						{locales.map((locale, idx) =>
+							<Button key={idx} locale={locale} type="catalogue" path={"catalogue/light"} ref={socketRef}/>
 						)}
 					</div>
 					<div className={styles.links}>
-						{locales.map(locale => 
-							<a href={`/${locale}/catalogue/light`} target="_new">{locale}</a>
+						{locales.map((locale, idx) =>
+							<a key={idx} href= {`/${locale}/catalogue/light`} target="_new">{locale}</a>
 						)}
 					</div>
 				</li>
 				<li>
 					Ink. ljuskälla:
 					<div className={styles.buttonRow}>
-						{locales.map(locale => 
-							<Button locale={locale} type="catalogue" path="catalogue/with-lightsource" label={locale} ref={socketRef}/>
+						{locales.map((locale, idx) =>
+							<Button key={idx} locale={locale} type="catalogue" path="catalogue/with-lightsource" label={locale} ref={socketRef}/>
 						)}
 					</div>
 					<div className={styles.links}>
-					{locales.map(locale => 
-						<a href={`/${locale}/catalogue/with-lightsource`} target="_new">{locale}</a>
+					{locales.map((locale, idx) =>
+						<a key={idx} href= {`/${locale}/catalogue/with-lightsource`} target="_new">{locale}</a>
 					)}
 					</div>
 				</li>
@@ -95,14 +98,14 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 				{products.map((p, idx) =>
 					<li key={idx}>{p.title} ({p.categories.map(c => c.name).join(', ')})
 						<div className={styles.buttonRow}>
-							{locales.map(locale => 
-								<Button type="product" locale={locale} path={`catalogue/${p.id}`} productId={p.id} ref={socketRef}/>
+							{locales.map((locale, idx) =>
+								<Button key={idx} type="product" locale={locale} path={`catalogue/${p.id}`} productId={p.id} ref={socketRef}/>
 							)}
 							
 						</div>
 						<div className={styles.htmlLinks}>
-							{locales.map(locale => 
-								<a href={`/${locale}/catalogue/${p.id}`} target="_new">{locale}</a>
+							{locales.map((locale, idx) =>
+								<a key={idx} href= {`/${locale}/catalogue/${p.id}`} target="_new">{locale}</a>
 							)}
 						</div>
 					</li>
@@ -138,7 +141,11 @@ export default function Home({ products, pricelist, messages, endpoint }) {
 	)
 }
 
-const Button = React.forwardRef((props, ref) => {
+type Props = { children?: React.ReactNode; type: "button" };
+export type Ref = Socket;
+type ButtonProps = {props:Props, ref: Ref}
+
+const Button = React.forwardRef<Ref, Props>((props, ref) => {
 	
 	const {locale, type, path, productId, label} = props
 	const socket = ref
@@ -184,7 +191,7 @@ const Button = React.forwardRef((props, ref) => {
 			: isEnded ? 
 				<div className={styles.links}>
 					{status.uploads.map((u, idx) => 
-						<a href={u.url} key={idx} target="_new" onClick={(e) => e.stopPropagation()}>
+						<a key={idx} href= {u.url} key={idx} target="_new" onClick={(e) => e.stopPropagation()}>
 							<AiOutlineFilePdf/>
 							<br/>
 							{u.filename?.includes('en') ? 'EN' : u.filename?.includes('sv') ? 'sv' : 'no'}
@@ -201,14 +208,13 @@ const Button = React.forwardRef((props, ref) => {
 
 export const getServerSideProps = withGlobalProps({}, async ({ props, revalidate, context: { locale } }) => {
 
-	const { products, pricelist } = await apiQuery([GetProductsLight, GetPricelist], [{ locale }, {locale}])
+	const { products } = await apiQuery([GetProductsLight], [{ locale }])
 	
 	return {
 		props: {
 			...props,
 			messages: await intlQuery('Home', locale, ['sv', 'en']),
-			products,
-			pricelist
+			products
 		}
 	};
 });
