@@ -1,7 +1,7 @@
 import { DocumentNode } from 'graphql/language/ast';
 import gql from 'graphql-tag';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import GetIntl from '/graphql/GetIntl.graphql';
+import { GetIntl } from '/graphql';
 import { buildClient } from '@datocms/cma-client-node';
 import { buildClient as buildClientBrowser} from '@datocms/cma-client-browser';
 import { isServer } from '/lib/utils';
@@ -36,6 +36,7 @@ export const apiQuery = async (query: DocumentNode | [DocumentNode], {variables,
 
   const batch = (Array.isArray(query) ? query : [query]).map((q, idx) => {
     const vars = Array.isArray(variables) && variables.length > idx -1 ? variables[idx] : variables || {}
+    
     return client.query({query:q, variables:vars})
   })
   
