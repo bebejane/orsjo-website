@@ -36,6 +36,8 @@ export const apiQuery = async (query: DocumentNode | [DocumentNode], {variables,
 
   const batch = (Array.isArray(query) ? query : [query]).map((q, idx) => {
     const vars = Array.isArray(variables) && variables.length > idx -1 ? variables[idx] : variables || {}
+    console.log(q)
+    console.log(vars)
     return client.query({query:q, variables:vars})
   })
   

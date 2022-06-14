@@ -1,7 +1,7 @@
 #import "./fragments/ProductFragment.graphql"
 
-query GetProducts($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	products: allProducts(first: $first, skip: $skip, orderBy: [title_ASC], locale: $locale, fallbackLocales: [sv, en]) {
+query GetProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+	products: allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
 		...ProductFragment
 	}
 }

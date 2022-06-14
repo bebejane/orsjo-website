@@ -20,7 +20,7 @@ export default function CatalogueLightWrapper({ products, locale } : CatalogueLi
 
 export const getServerSideProps : GetServerSideProps = async ({ locale }) => {
 
-	let { products } = await apiQuery(GetProducts, { locale });
+	let { products } = await apiQuery(GetProducts, { variables: locale} });
 	if (!products) return { notFound: true }
 
 	// Filter out model name containing hard wired and products with mounting that is fixed
