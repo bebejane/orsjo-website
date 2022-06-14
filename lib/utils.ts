@@ -1,16 +1,20 @@
 import { format } from 'number-currency-format';
+
 import type { LightsourceElement, Product, Locale } from '/types';
 
-const sleep = (ms) => new Promise((res) => setTimeout(() => res()), ms)
+const sleep = (ms:number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
 
-const formatPrice = (price, locale) => {
-  const currency = locale === 'en' ? '\€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
+const formatPrice = (price :number, locale: Locale) => {
+  const currency = locale === 'en' ? '€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
   price = Math.round(price);
+  const nf = new Intl.NumberFormat(`${locale}-${locale.toUpperCase()}`);
+  return `${nf.format(price)} ${currency}`;
   return format(price, { currency, thousandSeparator: ' ', decimalsDigits: 0, decimalSeparator: '' })
 }
 
 const convertPrice = (price : number, locale: Locale) => {
-  if (locale === 'sv') { return formatPrice(price, locale) }
+  if (locale === 'sv') 
+    return formatPrice(price, locale)
   if (locale === 'en') {
     price = (price * 1.1 * 0.975) / (10.1449 * 0.95);
     return formatPrice(price, locale);
@@ -21,10 +25,9 @@ const convertPrice = (price : number, locale: Locale) => {
   }
 }
 
-const priceIncLight = (prodPrice : number, lightsources : LightsourceElement[]) => {
+const priceIncLight = (prodPrice : number, lightsources : LightsourceElement[], locale: Locale) => {
   let price = prodPrice;
-  const locale = 'sv';
-  lightsources.filter((l) => !l.optional && !l.included).forEach((l) => price += (l.lightsource.price * l.amount))
+  lightsources.filter((l) => !l.optional && !l.included).forEach((l) => price += (l.lightsource.price * (l.amount ? l.amount : 0)))
   return formatPrice(price, locale);
 }
 
@@ -38,10 +41,11 @@ const sortProductsByCategory = (products : Product[]) => {
   return sortedProducts;
 }
 
-export const isServer = typeof window === 'undefined';
+const isServer = typeof window === 'undefined';
 
 export {
   sleep,
+  isServer,
   formatPrice,
   convertPrice,
   priceIncLight,

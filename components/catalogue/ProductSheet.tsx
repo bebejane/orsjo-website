@@ -33,7 +33,7 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
           <a href="#home" className={styles.logo}><img src={'/images/logo.svg'} /></a>
           <div className={styles.intro}>
             <div className={styles.productImage}>
-              {product.environmentImage && <img src={`${product.environmentImage?.url}?w=1200&fm=avif`} />}
+              {product.environmentImage && <img src={`${product.environmentImage?.url}?w=1200&fm=jpg`} />}
             </div>
             <div className={styles.productText}>
               <h1 className={styles.title}>{product.title}</h1>
@@ -47,7 +47,7 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
               const maxWidth = 100 / product.colorImages.length;
               return (
                 <div key={idx} className={styles.color} style={{ maxWidth: `${maxWidth}%` }}>
-                  <img className={styles.colorImage} src={`${url}?w=200&fm=avif`}/>
+                  <img className={styles.colorImage} src={`${url}?w=200&fm=jpg`}/>
                   <div className={styles.description}><span className="small">{title || 'No description'}</span></div>
                 </div>
               )

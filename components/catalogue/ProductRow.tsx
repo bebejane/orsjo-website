@@ -21,7 +21,7 @@ export default function ProductRow({ product, withLightsource, locale } : Produc
           {isProductHeader &&
             <tr key={`cat-${idx}-${idxm}`}>
               <td>
-                <img src={`${product.image?.url}?w=200&fm=avif`} />
+                <img src={`${product.image?.url}?w=200&fm=jpg`} />
               </td>
               <td className={styles.title}>
                 <strong>
@@ -42,7 +42,7 @@ export default function ProductRow({ product, withLightsource, locale } : Produc
           <tr key={`price-${idx}-${idxm}`}>
             <td>{v.articleNo}</td>
             <td>{[v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')}</td>
-            <td>{withLightsource ? priceIncLight(v.price, lightsources) : convertPrice(v.price, locale)}</td>
+            <td>{withLightsource ? priceIncLight(v.price, lightsources, locale) : convertPrice(v.price, locale)}</td>
           </tr>
           {m.variants.length === (idx + 1) && (lightsources.filter(({ optional }) => !withLightsource || !optional).map(({ amount, lightsource }, idxl) =>
             <tr key={`light-${idx}-${idxl}-${idxm}`}>
