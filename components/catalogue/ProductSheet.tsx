@@ -17,7 +17,7 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
   const articlePriceSmallStyleCount = 26;
 
   const specificationsRows = parseSpecifications(product, locale, t)
-  const articlePriceRows = parseArticlePrices(product, locale)
+  const articlePriceRows = parseArticlePrices(product, locale, t)
   const specificationsRowCount = ReactDOMServer.renderToString(specificationsRows).split('<tr>').length
   const articlePriceRowCount = ReactDOMServer.renderToString(articlePriceRows).split('<tr>').length
 
@@ -27,7 +27,7 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
 
   return (
     <>
-      <a name={product.slug}></a>
+      <a id={product.slug}></a>
       <Page>
         <div className={cn(styles.frontPage)}>
           <a href="#home" className={styles.logo}><img src={'/images/logo.svg'} /></a>
@@ -137,9 +137,8 @@ const parseSpecifications = (product : Product, locale: Locale, t:any) => {
 }
 
 
-const parseArticlePrices = (product: Product, locale : Locale) => {
+const parseArticlePrices = (product: Product, locale : Locale, t: any) => {
 
-  const t = useTranslations('Catalogue')
   const rows = (
     <>
       <tr>

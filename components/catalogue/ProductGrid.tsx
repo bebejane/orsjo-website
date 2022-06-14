@@ -12,7 +12,7 @@ export default function ProductGrid({ products } : ProductGridProps) {
     <>
       <Page>
         <div className={cn(styles.gridPageOne, styles.productGrid)}>
-          {/*<a name="home"></a>*/}
+          <a id="home"></a>
           <header>
             <h1>{t('products')}</h1>
             <p>{t('tip')}</p>

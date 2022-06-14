@@ -17,7 +17,6 @@ type HomeProps = { products : Product[], messages: [IntlMessage],  }
 
 export default function Home({ products, messages} : HomeProps) {
 	
-	console.log(products)
 	const t = useTranslations('Home')
 	const ref = useRef<Socket | null>(null);
 	const [socketRef, setSocketRef] = useState<Socket | null>(null);
@@ -146,6 +145,7 @@ type Props = { children?: React.ReactNode; type: "button" };
 export type Ref = Socket;
 type ButtonProps = {props:Props, ref: Ref}
 
+// eslint-disable-next-line react/display-name
 const Button = React.forwardRef<Ref, Props>((props, ref) => {
 	
 	const {locale, type, path, productId, label} = props
@@ -158,7 +158,7 @@ const Button = React.forwardRef<Ref, Props>((props, ref) => {
 		if(!socket) return
 		
 		socket.current.on('status', data => {
-			const { id, type, error } = data;
+			const { id, error } = data;
 			if(id !== requestId) return 
 			console.log(data)
 			error ? setError(error) : setStatus(data)
