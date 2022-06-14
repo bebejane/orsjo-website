@@ -1,5 +1,5 @@
 import styles from './ProductSheet.module.scss'
-import type { Product, Locale, Lightsource, LightsourceElement } from '/types';
+import type { Product, Locale, LightsourceElement } from '/types';
 import ReactDOMServer from 'react-dom/server';
 import { convertPrice, formatPrice } from '/lib/utils'
 import cn from 'classnames'
