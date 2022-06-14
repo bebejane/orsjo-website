@@ -14,7 +14,7 @@ export default function catalogueLight(props) {
 }
 
 export const getServerSideProps = async ({ locale }) => {
-	const { products } = await apiQuery(GetProducts, {{ variables:locale }});
+	const { products } = await apiQuery(GetProducts, { variables: { locale }});
 	if (!products) return { notFound: true }
 	return {
 		props: {

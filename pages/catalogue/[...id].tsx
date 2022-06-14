@@ -22,7 +22,7 @@ export const getServerSideProps : GetServerSideProps = async ({locale, params}) 
 		return { notFound:true }
 
   const id = params?.id[0];
-	const { product } = await apiQuery(GetProduct, {variables:{id, locale}});
+	const { product } = await apiQuery(GetProduct, { variables: {id, locale}});
 	
 	if(!product) return {notFound:true}
 	
