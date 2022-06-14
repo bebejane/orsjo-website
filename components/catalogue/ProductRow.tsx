@@ -21,7 +21,7 @@ export default function ProductRow({ product, withLightsource, locale } : Produc
           {isProductHeader &&
             <tr key={`cat-${idx}-${idxm}`}>
               <td>
-                <img src={`${product.image?.url}?w=200&fm=jpg`} />
+                <img src={`${product.image?.url}?w=200&fm=jpg`}/>
               </td>
               <td className={styles.title}>
                 <strong>

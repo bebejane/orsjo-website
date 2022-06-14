@@ -1,6 +1,10 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "jsx-a11y/alt-text":"off"
+  },
+  "workbench.colorCustomizations": {
+    "editorError.foreground": "#00ff00"
   }
 }

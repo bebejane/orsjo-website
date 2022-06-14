@@ -141,7 +141,7 @@ export interface Model {
   drawing?: Drawing
   lightsources: LightsourceElement[]
   variants: Variant[]
-  accessories: Accessory[]
+  accessories: AccessoryElement[]
 }
 
 export interface Name {
