@@ -12,6 +12,7 @@ const sassOptions = {
   `
 }
 const nextOptions = {
+  strictMode: true,
   devIndicators: {
     buildActivity: false
   },

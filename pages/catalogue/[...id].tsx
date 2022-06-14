@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import ProductSheet from '/components/catalogue/ProductSheet';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { GetProduct } from "/graphql"
-import { Product, Locale } from '/types';
+import type { Product, Locale } from '/types';
 
 type ProductProps = {product:Product, locale:Locale}
 

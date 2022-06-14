@@ -40,6 +40,7 @@
     "rooks": "^5.8.0",
     "sass": "^1.43.5",
     "socket.io-client": "^4.5.1",
+    "socket.io-stream": "^0.9.1",
     "swiper": "^8.2.3",
     "zustand": "^4.0.0-rc.1"
   },

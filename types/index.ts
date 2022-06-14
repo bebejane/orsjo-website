@@ -139,7 +139,7 @@ export interface Model {
   id: string
   name?: Name
   drawing?: Drawing
-  lightsources: Lightsource[]
+  lightsources: LightsourceElement[]
   variants: Variant[]
   accessories: Accessory[]
 }

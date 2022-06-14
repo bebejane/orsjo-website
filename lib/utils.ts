@@ -1,14 +1,15 @@
 import { format } from 'number-currency-format';
+import type { LightsourceElement, Product, Locale } from '/types';
 
 const sleep = (ms) => new Promise((res) => setTimeout(() => res()), ms)
 
 const formatPrice = (price, locale) => {
-  const currency = locale === 'en' ? '€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
+  const currency = locale === 'en' ? '\€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
   price = Math.round(price);
   return format(price, { currency, thousandSeparator: ' ', decimalsDigits: 0, decimalSeparator: '' })
 }
 
-const convertPrice = (price, locale) => {
+const convertPrice = (price : number, locale: Locale) => {
   if (locale === 'sv') { return formatPrice(price, locale) }
   if (locale === 'en') {
     price = (price * 1.1 * 0.975) / (10.1449 * 0.95);
@@ -20,14 +21,14 @@ const convertPrice = (price, locale) => {
   }
 }
 
-const priceIncLight = (prodPrice, lightsources) => {
+const priceIncLight = (prodPrice : number, lightsources : LightsourceElement[]) => {
   let price = prodPrice;
   const locale = 'sv';
   lightsources.filter((l) => !l.optional && !l.included).forEach((l) => price += (l.lightsource.price * l.amount))
   return formatPrice(price, locale);
 }
 
-const sortProductsByCategory = (products : []) => {
+const sortProductsByCategory = (products : Product[]) => {
   const sortedProducts = [...products].sort((a, b) => {
     if(a.family?.id === b.family?.id)
       return a.categories[0].position < b.categories[0].position ? -1 : 1;

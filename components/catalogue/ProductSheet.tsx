@@ -60,11 +60,15 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
         <section className={cn(styles.specPage)}>
           <h2>{t('specifications')}</h2>
           <table>
-            {specificationsRows}
+            <tbody>
+              {specificationsRows}
+            </tbody>
           </table>
           {!isArticlePriceSeparatePage && (
             <table className={styles.priceTable}>
-              {articlePriceRows}
+              <tbody>
+                {articlePriceRows}
+              </tbody>
             </table>
           )}
         </section>
@@ -74,7 +78,9 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
         <Page>
           <section className={cn(styles.specPage)}>
             <table className={cn(articlePriceRowCount > articlePriceSmallStyleCount && styles.small, styles.priceTable)}>
-              {articlePriceRows}
+              <tbody>
+                {articlePriceRows}
+              </tbody>
             </table>
           </section>
         </Page>
