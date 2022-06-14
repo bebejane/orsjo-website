@@ -6,7 +6,7 @@ import io from 'socket.io-client'
 import type { Socket } from 'socket.io-client';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { withGlobalProps } from "/lib/hoc";
-import { GetProductsLight, GetPricelist } from "/graphql"
+import { GetProducts, GetProductsLight, GetPricelist } from "/graphql"
 import { useTranslations } from 'next-intl';
 import { useState, useEffect, useRef} from 'react'
 import { AiOutlineLoading, AiOutlineFilePdf } from 'react-icons/ai'
@@ -17,6 +17,7 @@ type HomeProps = { products : Product[], messages: [IntlMessage],  }
 
 export default function Home({ products, messages} : HomeProps) {
 	
+	console.log(products)
 	const t = useTranslations('Home')
 	const ref = useRef<Socket | null>(null);
 	const [socketRef, setSocketRef] = useState<Socket | null>(null);
@@ -208,7 +209,7 @@ const Button = React.forwardRef<Ref, Props>((props, ref) => {
 
 export const getServerSideProps = withGlobalProps({}, async ({ props, revalidate, context: { locale } }) => {
 
-	const { products } = await apiQuery([GetProductsLight], [{ locale }])
+	const { products } = await apiQuery([GetProductsLight], [{variables:{ locale }}])
 	
 	return {
 		props: {

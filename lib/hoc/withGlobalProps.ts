@@ -1,5 +1,5 @@
 import { apiQuery, SEOQuery } from "../dato/api";
-import { GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import { GetGlobal } from "/graphql";
 import { DocumentNode } from 'graphql/language/ast';
 

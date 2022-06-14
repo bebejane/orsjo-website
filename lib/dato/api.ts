@@ -67,7 +67,7 @@ export const SEOQuery = (schema: string) => {
 
 type IntlMessage = { key:string, value:string }
 
-export const intlQuery = async (page : string, locale: string, fallbackLocales: string[]) : Promise<any> => {
+export const intlQuery = async (page : string, locale: string = 'en', fallbackLocales: string[]) : Promise<any> => {
 
   const res = await apiQuery(GetIntl, {variables: { page, locale, fallbackLocales }})
   const messages : [IntlMessage] = res.messages

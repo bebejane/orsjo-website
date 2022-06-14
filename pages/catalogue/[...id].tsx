@@ -1,9 +1,13 @@
 import styles from './index.module.scss'
+import { GetServerSideProps } from 'next'
 import ProductSheet from '/components/catalogue/ProductSheet';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { GetProduct } from "/graphql"
+import { Product, Locale } from '/types';
 
-export default function Home({product, locale}){
+type ProductProps = {product:Product, locale:Locale}
+
+export default function Product({product, locale} : ProductProps){
 	
 	return (
 		<div className={styles.container}>
@@ -12,10 +16,13 @@ export default function Home({product, locale}){
 	)
 }
 
-export const getServerSideProps = async ({locale, params}) => {
+export const getServerSideProps : GetServerSideProps = async ({locale, params}) => {
 
-  const id = params.id[0];
-	const { product } = await apiQuery(GetProduct, {id, locale});
+	if(typeof params === 'undefined' || params.id === undefined) 
+		return { notFound:true }
+
+  const id = params?.id[0];
+	const { product } = await apiQuery(GetProduct, {variables:{id, locale}});
 	
 	if(!product) return {notFound:true}
 	

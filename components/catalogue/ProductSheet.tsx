@@ -7,16 +7,16 @@ import { useTranslations } from 'next-intl'
 import Markdown from '/lib/dato/components/Markdown'
 import Page from "./Page"
 
-type ProductSheetProps = {product:Product, locale:Locale, pageNo:number}
+type ProductSheetProps = { product:Product, locale:Locale, pageNo?:number }
 
-export default function ProductSheet({ product, locale } : ProductSheetProps) {
+export default function ProductSheet({ product, locale, pageNo } : ProductSheetProps) {
 
   const t = useTranslations('Catalogue')
 
   const maxArticlePriceRows = 13;
   const articlePriceSmallStyleCount = 26;
 
-  const specificationsRows = parseSpecifications(product, locale)
+  const specificationsRows = parseSpecifications(product, locale, t)
   const articlePriceRows = parseArticlePrices(product, locale)
   const specificationsRowCount = ReactDOMServer.renderToString(specificationsRows).split('<tr>').length
   const articlePriceRowCount = ReactDOMServer.renderToString(articlePriceRows).split('<tr>').length
@@ -100,10 +100,9 @@ export default function ProductSheet({ product, locale } : ProductSheetProps) {
   )
 }
 
-const parseSpecifications = (product : Product) => {
-  const t = useTranslations('Catalogue')
-
-  let lightsources: [LightsourceElement] = [];
+const parseSpecifications = (product : Product, locale: Locale, t:any) => {
+  
+  let lightsources: LightsourceElement[] = [];
   (product.models || []).map((m) => m.lightsources.map((l) => l)).forEach((l) => lightsources.push.apply(lightsources, l))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, included, lightsource }) => ({ ...lightsource, included, amount, price }))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)

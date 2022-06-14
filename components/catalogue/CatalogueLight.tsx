@@ -1,10 +1,14 @@
+import type { Product, Locale } from '/types'
 import ProductRow from "./ProductRow"
 
-export default function CatalogueLight({ products, withLightsource, locale }) {
+
+type CatalogueLightProps = { products: Product[], withLightsource:boolean, locale: Locale }
+
+export default function CatalogueLight({ products, withLightsource, locale } : CatalogueLightProps) {
 	return (
 		<>
-			{products.map((product, pageNo) =>
-				< ProductRow product={product} withLightsource={withLightsource} pageNo={pageNo + 1} locale={locale} />
+			{products.map((product, rowIdx) =>
+				<ProductRow key={rowIdx} product={product} withLightsource={withLightsource} locale={locale} />
 			)}
 		</>
 	)
