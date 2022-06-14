@@ -227,7 +227,7 @@ const Button = React.forwardRef<Ref, Props>((props, ref) => {
 })
 
 export const getServerSideProps = withGlobalProps({}, async ({ props, revalidate, context: { locale } }) => {
-
+	console.log(locale)
 	const { products } = await apiQuery(GetProductsLight, { variables:{ locale }})
 	
 	return {
