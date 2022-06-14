@@ -12,7 +12,9 @@ const sassOptions = {
   `
 }
 const nextOptions = {
-  strictMode: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   devIndicators: {
     buildActivity: false
   },
