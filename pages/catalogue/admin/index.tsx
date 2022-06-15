@@ -11,9 +11,9 @@ import { AiOutlineLoading, AiOutlineFilePdf } from 'react-icons/ai'
 
 const locales: Locale[] = ['en', 'sv', 'no']
 
-type HomeProps = { products : Product[], messages: [IntlMessage],  }
+type AdminProps = { products : Product[], messages: [IntlMessage],  }
 
-export default function Home({ products, messages} : HomeProps) {
+export default function Admin({ products, messages} : AdminProps) {
 	
 	const t = useTranslations('Home')
 	const ref = useRef<Socket | null>(null);
