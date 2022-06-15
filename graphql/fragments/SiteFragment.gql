@@ -1,4 +1,4 @@
-#import "./ImageFragment.graphql"
+#import "./ImageFragment.gql"
 
 fragment SiteFragment on Site {
   favicon: faviconMetaTags {

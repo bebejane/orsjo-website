@@ -1,4 +1,4 @@
-#import "./fragments/ProductFragment.graphql"
+#import "./fragments/ProductFragment.gql"
 
 query GetProduct($id: ItemId, $locale: SiteLocale = en) {
 	product(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {

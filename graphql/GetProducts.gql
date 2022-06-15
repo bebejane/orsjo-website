@@ -1,4 +1,4 @@
-#import "./fragments/ProductFragment.graphql"
+#import "./fragments/ProductFragment.gql"
 
 query GetProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
 	products: allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {

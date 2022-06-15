@@ -1,4 +1,4 @@
-#import "./fragments/EmployeeFragment.graphql"
+#import "./fragments/EmployeeFragment.gql"
 
 query GetEmployees($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
 	employees: allEmployees(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {

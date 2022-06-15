@@ -1,5 +1,5 @@
-#import "./ImageFragment.graphql"
-#import "./FileFragment.graphql"
+#import "./ImageFragment.gql"
+#import "./FileFragment.gql"
 
 fragment ProductFragment on ProductRecord{
   id

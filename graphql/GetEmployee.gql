@@ -1,4 +1,4 @@
-#import "./fragments/EmployeeFragment.graphql"
+#import "./fragments/EmployeeFragment.gql"
 
 query GetEmployee($id: ItemId, $locale: SiteLocale = en) {
 	employee(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
