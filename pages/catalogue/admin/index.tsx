@@ -1,4 +1,4 @@
-import styles from './admin.module.scss'
+import styles from './Admin.module.scss'
 import React from 'react';
 import io from 'socket.io-client'
 import type { Socket } from 'socket.io-client';
