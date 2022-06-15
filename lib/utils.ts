@@ -1,15 +1,10 @@
-import { format } from 'number-currency-format';
-
-import type { LightsourceElement, Product, Locale } from '/types';
-
 const sleep = (ms:number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
 
 const formatPrice = (price :number, locale: Locale) => {
-  const currency = locale === 'en' ? '€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
-  price = Math.round(price);
   const nf = new Intl.NumberFormat(`${locale}-${locale.toUpperCase()}`);
-  return `${nf.format(price)} ${currency}`;
-  return format(price, { currency, thousandSeparator: ' ', decimalsDigits: 0, decimalSeparator: '' })
+  const currency = locale === 'en' ? '€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
+  return `${nf.format(Math.round(price))} ${currency}`;
+  //return format(price, { currency, thousandSeparator: ' ', decimalsDigits: 0, decimalSeparator: '' })
 }
 
 const convertPrice = (price : number, locale: Locale) => {

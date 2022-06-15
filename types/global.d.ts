@@ -1,4 +1,4 @@
-export interface Product {
+interface Product {
   __typename: string
   id: string
   title: string
@@ -24,7 +24,7 @@ export interface Product {
   seo: Seo[]
 }
 
-export interface Image {
+interface Image {
   __typename: string
   alt?: string
   basename: string
@@ -39,7 +39,7 @@ export interface Image {
   responsiveImage: ResponsiveImage
 }
 
-export interface ResponsiveImage {
+interface ResponsiveImage {
   __typename: string
   alt?: string
   aspectRatio: number
@@ -54,7 +54,7 @@ export interface ResponsiveImage {
   width: number
 }
 
-export interface Image {
+interface Image {
   __typename: string
   alt?: string
   basename: string
@@ -69,44 +69,44 @@ export interface Image {
   responsiveImage: ResponsiveImage
 }
 
-export interface Family {
+interface Family {
   __typename: string
   id: string
   name: string
 }
 
-export interface Category {
+interface Category {
   __typename: string
   id: string
   name: string
   position: number
 }
 
-export interface Connection {
+interface Connection {
   __typename: string
   id: string
   name: string
 }
 
-export interface Designer {
+interface Designer {
   __typename: string
   id: string
   name: string
 }
 
-export interface Dimmable {
+interface Dimmable {
   __typename: string
   id: string
   name: string
 }
 
-export interface ElectricalDaum {
+interface ElectricalDaum {
   __typename: string
   id: string
   name: string
 }
 
-export interface Gallery {
+interface Gallery {
   __typename: string
   alt?: string
   basename: string
@@ -121,7 +121,7 @@ export interface Gallery {
   responsiveImage: ResponsiveImage
 }
 
-export interface LightFile {
+interface LightFile {
   __typename: string
   alt: any
   basename: string
@@ -134,7 +134,7 @@ export interface LightFile {
   url: string
 }
 
-export interface Model {
+interface Model {
   __typename: string
   id: string
   name?: Name
@@ -144,13 +144,13 @@ export interface Model {
   accessories: AccessoryElement[]
 }
 
-export interface Name {
+interface Name {
   __typename: string
   id: string
   name: string
 }
 
-export interface Drawing {
+interface Drawing {
   __typename: string
   alt: any
   basename: string
@@ -165,7 +165,7 @@ export interface Drawing {
   responsiveImage: any
 }
 
-export interface LightsourceElement {
+interface LightsourceElement {
   __typename: string
   id: string
   included: boolean
@@ -174,7 +174,7 @@ export interface LightsourceElement {
   lightsource: Lightsource
 }
 
-export interface Lightsource {
+interface Lightsource {
   __typename: string
   id: string
   name: string
@@ -182,7 +182,7 @@ export interface Lightsource {
   articleNo: string
 }
 
-export interface Variant {
+interface Variant {
   __typename: string
   color?: Color
   id: string
@@ -194,42 +194,42 @@ export interface Variant {
   articleNo: string
 }
 
-export interface Color {
+interface Color {
   __typename: string
   id: string
   name: string
 }
 
-export interface Material {
+interface Material {
   __typename: string
   id: string
   name: string
 }
 
-export interface Feature {
+interface Feature {
   __typename: string
   name: string
 }
 
-export interface AccessoryElement {
+interface AccessoryElement {
   __typename: string
   articleNo: string
   price: number
   accessory: Accessory
 }
 
-export interface Accessory {
+interface Accessory {
   __typename: string
   name: string
 }
 
-export interface Mounting {
+interface Mounting {
   __typename: string
   id: string
   name: string
 }
 
-export interface PdfFile {
+interface PdfFile {
   __typename: string
   alt: string
   basename: string
@@ -242,28 +242,28 @@ export interface PdfFile {
   url: string
 }
 
-export interface Socket {
+interface Socket {
   __typename: string
   id: string
   name: string
 }
 
-export interface Seo {
+interface Seo {
   __typename: string
   attributes?: Attributes
   content?: string
   tag: string
 }
 
-export interface Attributes {
+interface Attributes {
   name?: string
   content: string
   property?: string
 }
 
-export interface IntlMessage { 
+interface IntlMessage { 
   key:string, 
   value:string 
 }
 
-export type Locale = 'en' | 'sv' | 'no'
+type Locale = 'en' | 'sv' | 'no'

@@ -4,8 +4,6 @@ import CatalogueLight from '/components/catalogue/CatalogueLight';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
 import { GetProducts } from "/graphql"
-import { Product, Locale } from '/types';
-
 
 type CatalogueLightWrapperProps = { products: Product[], locale: Locale}
 

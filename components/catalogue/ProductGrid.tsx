@@ -1,5 +1,4 @@
 import styles from './ProductGrid.module.scss'
-import type { Product } from '/types'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Page from "./Page"

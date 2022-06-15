@@ -1,5 +1,4 @@
 import styles from './ProductSheet.module.scss'
-import type { Product, Locale, LightsourceElement } from '/types';
 import ReactDOMServer from 'react-dom/server';
 import { convertPrice, formatPrice } from '/lib/utils'
 import cn from 'classnames'
@@ -108,9 +107,11 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
 
 const parseSpecifications = (product : Product, locale: Locale, t:any) => {
   
-  let lightsources: LightsourceElement[] = [];
-  (product.models || []).map((m) => m.lightsources.map((l) => l)).forEach((l) => lightsources.push.apply(lightsources, l))
-  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, price, included, lightsource }) => ({ ...lightsource, included, amount, price }))
+  type LightsourcePick = { id:string, amount?:number, name:string, included:boolean}
+
+  let allLightsources: LightsourceElement[] = []
+  product.models.map((m) => m.lightsources.map((l) => l)).forEach((l) => allLightsources.push.apply(allLightsources, l))
+  let lightsources : LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, included, lightsource }) => ({ included, amount, name: lightsource.name, id:lightsource.id }))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
 
   const specs = [

@@ -1,6 +1,5 @@
 import ProductSheet from "./ProductSheet"
 import ProductGrid from "./ProductGrid"
-import { Product, Locale } from '/types'
 
 type CatalogueProps = { products : [Product], locale : Locale }
 

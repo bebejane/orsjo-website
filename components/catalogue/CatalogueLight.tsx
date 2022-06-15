@@ -1,4 +1,3 @@
-import type { Product, Locale } from '/types'
 import ProductRow from "./ProductRow"
 
 type CatalogueLightProps = { products: Product[], withLightsource:boolean, locale: Locale }

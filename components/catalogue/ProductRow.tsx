@@ -3,7 +3,6 @@ import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import { priceIncLight } from '/lib/utils'
 import { convertPrice } from '/lib/utils'
-import type { Product, Locale, LightsourceElement, Lightsource } from '/types'
 
 type ProductRowProps = {product: Product, withLightsource: boolean, locale : Locale}
 

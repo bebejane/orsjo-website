@@ -1,5 +1,4 @@
 import styles from './index.module.scss'
-import type { Product, Locale } from '/types';
 import { GetServerSideProps } from 'next'
 import Catalogue from '/components/catalogue/Catalogue';
 import { apiQuery, intlQuery } from "/lib/dato/api";

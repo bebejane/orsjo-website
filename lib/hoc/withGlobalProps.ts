@@ -3,7 +3,7 @@ import { GetServerSideProps, GetStaticProps } from 'next'
 import { GetGlobal } from "/graphql";
 import { DocumentNode } from 'graphql/language/ast';
 
-export default function withGlobalProps(opt: any , callback : Function) : GetStaticProps {
+export default function withGlobalProps(opt: any , callback : Function) : GetStaticProps | GetServerSideProps {
   
   const revalidate : number = parseInt(process.env.REVALIDATE_TIME)
   const queries: [DocumentNode] = [GetGlobal]
