@@ -29,6 +29,6 @@ export default function Footer() {
 					<div className={styles.copyright}>Copyright ©2022 Örsjö Belysning AB. All rights reserved.</div>
 				</nav>
 			</div>
-		</footer >
+		</footer>
 	)
 }

@@ -1,0 +1,12 @@
+#import "./fragments/ImageFragment.gql"
+#import "./fragments/ProductFragment.gql"
+
+query GetProductStart {
+  id
+  featured {
+    headline
+    items {
+      ...ProductFragment
+    }
+  }
+}
