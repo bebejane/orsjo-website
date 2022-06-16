@@ -1,0 +1,10 @@
+#import "./ImageFragment.gql"
+
+fragment DesignerFragment on DesignerRecord{
+  name
+  image{
+    ...ImageFragment
+  }
+  description
+  slug
+}

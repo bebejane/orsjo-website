@@ -1,0 +1,16 @@
+.imageGallery {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  min-height: 200px;
+  height: 200px;
+
+  figure {
+    position: relative;
+    flex: 1 1 auto;
+    height: 100%;
+    .image{
+      
+    }
+  }
+}
