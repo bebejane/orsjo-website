@@ -4,7 +4,7 @@
 fragment ProductFragment on ProductRecord{
   id
   title
-  description
+  description (markdown:false)
   slug
   bimLink
   presentation

@@ -1,5 +1,4 @@
 import styles from './index.module.scss'
-import { Content, Sidebar } from '/components';
 import { withGlobalProps } from "/lib/hoc";
 
 export default function Home(props : any) {
