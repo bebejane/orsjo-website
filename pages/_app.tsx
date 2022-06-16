@@ -4,6 +4,7 @@ import { NextIntlProvider } from 'next-intl';
 import DatoSEO from '/lib/dato/components/DatoSEO';
 import { GoogleAnalytics, usePagesViews } from "nextjs-google-analytics";
 import { useRouter } from 'next/router';
+import { Layout, Menu } from '/components'
 
 function MyApp({ Component, pageProps } : AppProps) {
   
@@ -18,7 +19,10 @@ function MyApp({ Component, pageProps } : AppProps) {
       <GoogleAnalytics />
       <DatoSEO seo={seo} site={site} pathname={pathname} key={pathname}/>
       <NextIntlProvider messages={pageProps.messages}>
-        <Component {...pageProps} />
+        <Layout>
+          <Menu/>
+          <Component {...pageProps} />
+        </Layout>
       </NextIntlProvider>
     </>
   )
