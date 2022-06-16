@@ -18,13 +18,17 @@
         height: 100%;
         .title {
           position: absolute;
-          top:0;
-          left:0;
+          top:.5em;
+          left:.5em;
+          @include h1Big();
+
         }
         .designer {
           position: absolute;
-          left:0px;
-          bottom:0px;
+          left:.5em;
+          bottom:.5em;
+          @include h1Big();
+
         }
         .type {
           position: absolute;

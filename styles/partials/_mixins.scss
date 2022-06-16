@@ -36,3 +36,9 @@ $gutter-nested: $gutter / $difference12; //Denna ska göras om
   $temp: 100% / spanGrid($container);
   @return $temp * $gutter;
 }
+
+//Typography
+@mixin h1Big() {
+  font-size: 3rem;
+  font-family: $body-font;
+}
