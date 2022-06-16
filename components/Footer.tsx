@@ -20,7 +20,7 @@ export default function Footer() {
 
 			<div className={styles.wrapper}>
 				<div className={styles.brand}>
-					<caption>Örsjö Belysning</caption>
+					Örsjö Belysning
 				</div>
 				<nav className={styles.lastRow}>
 					<div className={styles.social}>
