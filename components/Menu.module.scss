@@ -9,6 +9,9 @@ $navbarHeight: 60px;
   min-height: $navbarHeight;
   max-height: $navbarHeight;
   background-color: aqua;
+  @include mq($from: tablet) {
+    height: 100vh;
+  }
 .logo{
     flex: 1 1;
   }
