@@ -1,52 +1,18 @@
 // COLOR
 $black: #121212;
-$white: #fff;
-$gray: #bbb;
+$white: #FCFCFC;
+$gray:  #A7A7A7;
+$red:   #DF3600;
+$light-gray: #F2F2F2;
+$warm-gray:  #D2BD93;
+$copper:     #876058;
+$copper-light: #AF685A; 
 
 //BORDER
-$line: 3px solid $black;
-$radius: 20px;
+$line: 1px solid $black;
 
 // MARGINS & SPACES
-$outer-margin: 22%;
-$space: 80px;
-$small-space: 20px;
 $max-width: 1440px;
-
-// SET OUTER MARGINS ON SECTION
-@mixin outerMargins() {
-  padding-left: $outer-margin * 1.5;
-  padding-right: $outer-margin * 1.5;
-
-  @include mq($from: tablet) {
-    padding-left: $outer-margin;
-    padding-right: $outer-margin;
-  }
-}
-
-@mixin verticalMarginTop() {
-  padding-top: $space;
-
-  @include mq($from: tablet) {
-    padding-top: $scale-space * 2;
-  }
-
-  @include mq($from: wide) {
-    padding-top: $space * 1.8;
-  }
-}
-
-@mixin verticalMarginBottom() {
-  padding-bottom: $space;
-
-  @include mq($from: tablet) {
-    padding-bottom: $scale-space * 2;
-  }
-
-  @include mq($from: wide) {
-    padding-bottom: $space * 1.8;
-  }
-}
 
 @mixin maxWidth() {
   max-width: $max-width;

@@ -1,6 +1,6 @@
 // FONT EMBEDDING & TYPO VARIABLES
-$body-font: "Fakt";
-$headline-font: "Big Caslon Regular";
+$body-font: "Indivisible";
+$headline-font: "Indivisible";
 $mono-font: "";
 $body-font-italic: "";
 
@@ -23,3 +23,11 @@ $body-font-italic: "";
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: "Indivisible";
+    src: url("/fonts/IndivisibleWebVariableRoman.woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
