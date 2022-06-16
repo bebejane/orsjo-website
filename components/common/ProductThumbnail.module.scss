@@ -1,0 +1,26 @@
+.productThumbnail {
+  figure{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    .image {
+      position: relative !important;
+      flex: 1 1 auto;
+      
+    }
+    min-height: 150px;
+    max-height: 150px;
+  }
+  figcaption{
+    flex: 1 1 auto;
+    font-size: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    white-space: pre;
+    span{
+      font-weight: bold;
+    }
+  }
+}

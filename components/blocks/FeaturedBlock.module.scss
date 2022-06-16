@@ -1,0 +1,35 @@
+.featured {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  
+  .header{
+    display: flex;
+    flex-direction: row;
+    .headline{
+      flex: 1 1 100%;  
+    }
+    
+    .next{
+      flex: 0 0;
+    }
+  }
+
+  .gallery{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+
+    
+    figure {
+      position: relative;
+      flex: 1 1 auto;
+      height: 100%;
+      .image{
+        
+      }
+    }
+  }
+  
+}

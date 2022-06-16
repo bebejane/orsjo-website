@@ -2,11 +2,14 @@
 #import "./fragments/ProductFragment.gql"
 
 query GetProductStart {
-  id
-  featured {
-    headline
-    items {
-      ...ProductFragment
+  productStart {
+    id
+    featured {
+      headline
+      items {
+        ...ProductFragment
+      }
     }
   }
+  
 }
