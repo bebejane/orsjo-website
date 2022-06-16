@@ -9,7 +9,9 @@ import Markdown from '/lib/dato/components/Markdown'
 type ProductProps = { product: Product };
 
 export default function Product({product} : ProductProps){
-console.log(product)
+	console.log(product)
+	const galleryImages = product.productGallery.filter(record => record.__typename === 'ImageGalleryRecord')?.gallery || []
+
 	return (
 		<>
 			<section className={styles.product}>
@@ -30,12 +32,13 @@ console.log(product)
 					</div>
 				</div>
 				<Markdown>{product.description}</Markdown>
+
 			</section>
 			<section className={styles.details}>
 				<List initial={0}>
 					<ListItem title={'Colors'}>
 						<div className={styles.colorImages}>
-							{product.colorImages.map((image) =>
+							{galleryImages.map((image) =>
 								<Image data={image.responsiveImage} className={styles.image}/>
 							)}
 						</div>

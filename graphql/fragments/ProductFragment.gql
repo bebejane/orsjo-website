@@ -8,8 +8,43 @@ fragment ProductFragment on ProductRecord{
   slug
   bimLink
   presentation
-  image{
+  image {
     ...ImageFragment
+  }
+  productGallery {
+    ... on FullwidthImageRecord {
+      __typename
+      id
+    }
+    ... on ImageGalleryRecord {
+      __typename
+      id
+      gallery {
+        ...ImageFragment
+      }
+    }
+    ... on TextRecord {
+      __typename
+      id
+      text(markdown: false)
+    }
+    ... on TwoColumnImageRecord {
+      __typename
+      id
+      firstImage {
+        ...ImageFragment
+      }
+      lastImage {
+        ...ImageFragment
+      }
+    }
+    ... on VideoRecord {
+      __typename
+      id
+      video {
+        ...ImageFragment
+      }
+    }
   }
   environmentImage{
     ...ImageFragment
@@ -45,9 +80,6 @@ fragment ProductFragment on ProductRecord{
   electricalData {
     id
     name
-  }
-  gallery {
-    ...ImageFragment
   }
   lightFile {
     ...FileFragment

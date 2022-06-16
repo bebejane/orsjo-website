@@ -1869,7 +1869,6 @@ type ProductModelFilter = {
   electricalData?: InputMaybe<LinksFilter>;
   environmentImage?: InputMaybe<FileFilter>;
   family?: InputMaybe<LinkFilter>;
-  gallery?: InputMaybe<GalleryFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
   lightFile?: InputMaybe<FileFilter>;
@@ -2022,7 +2021,6 @@ type Product = Interface & {
   electricalData: Array<ProductElectrical>;
   environmentImage?: Maybe<FileField>;
   family?: Maybe<ProductFamily>;
-  gallery: Array<FileField>;
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
   lightFile?: Maybe<FileField>;
