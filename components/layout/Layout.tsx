@@ -1,17 +1,21 @@
 import styles from './Layout.module.scss'
 import React from 'react'
-import { Content, Sidebar} from '/components'
+import { Content, Sidebar, Footer } from '/components'
 
-type LayoutProps = {children:React.ReactNode}
+type LayoutProps = { children: React.ReactNode }
 
-export default function Layout({children} : LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
 
 	return (
-		<div className={styles.layout}>
-			<Sidebar/>
-			<Content>
-				{children}
-			</Content>
-    </div>
+		<>
+			<div className={styles.layout}>
+				<Sidebar />
+				<Content>
+					{children}
+				</Content>
+			</div>
+			<Footer />
+		</>
+
 	)
 }

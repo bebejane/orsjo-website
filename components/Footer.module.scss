@@ -1,0 +1,35 @@
+.footer {
+  background-color: $black;
+  color: $white;
+  margin-top: $margin;
+  padding-top: $small-margin;
+  padding-bottom: $small-margin;
+  
+  .wrapper {
+    margin-left: var(--outer-margin);
+    margin-right: var(--outer-margin);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  nav {
+    width: spanGrid(12);
+    margin-left: $gutter;
+
+    ul {
+      list-style: none;
+    }
+  }
+
+  .lastRow {
+    display: flex;
+    justify-content: space-between;
+
+    .copyright {
+      width: 100%;
+      text-align: right;
+    }
+
+  }
+
+}
