@@ -1,4 +1,6 @@
 .sidebar {
-  flex: 0 0 300px;
+  margin-left: var(--outer-margin);
+  flex: 0 0;
+  width: spanGrid(4);
   background-color: rgb(182, 144, 218);
 }
