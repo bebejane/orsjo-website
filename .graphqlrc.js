@@ -1,5 +1,5 @@
 require("@next/env").loadEnvConfig(".");
-
+console.log(process.env)
 module.exports = {
   schema: {
     "https://graphql.datocms.com": {
