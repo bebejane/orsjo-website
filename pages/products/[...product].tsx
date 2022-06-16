@@ -4,7 +4,6 @@ import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { List, ListItem } from '/components'
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown'
 import { FullWidthImageBlock, TextBlock, TwoColumnImageBlock, ImageGalleryBlock } from '/components'
 
 type ProductProps = { product: Product };

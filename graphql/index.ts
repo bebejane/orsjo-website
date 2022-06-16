@@ -6,6 +6,7 @@ export { default as GetProduct } from  "./GetProduct.gql";
 export { default as GetProducts } from  "./GetProducts.gql";
 export { default as GetProductsLight } from  "./GetProductsLight.gql";
 export { default as GetProductStart } from  "./GetProductStart.gql";
+export { default as GetProductCategories } from  "./GetProductCategories.gql";
 
 export { default as GetPricelist } from  "./GetPricelist.gql";
 export { default as GetReseller } from  "./GetReseller.gql";
