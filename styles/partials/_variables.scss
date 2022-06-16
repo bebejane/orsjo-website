@@ -15,6 +15,10 @@ $line: 1px solid $black;
 $max-width: 1440px;
 $navbarHeight: 4rem;
 
+$margin: 3rem;
+$small-margin: 2rem;
+
+
 
 @mixin maxWidth() {
   max-width: $max-width;

@@ -1,3 +1,22 @@
 .container{
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+a {
+  width: spanNestedGrid(12,3);
+  margin-bottom: $small-margin;
+  margin-right: nestedGridGutter(12);
+  aspect-ratio: 4/3;
+  background-color: $gray;
+
+  &:nth-child(4n){ 
+    margin-right: 0;
+  }
+
+}
   
 }

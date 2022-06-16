@@ -3,15 +3,16 @@ import { GetProducts } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 
-type ProductsProps = { products: Product[]}
+type ProductsProps = { products: Product[] }
 
-export default function Products({products} : ProductsProps) {
+export default function Products({ products }: ProductsProps) {
 	return (
 		<div className={styles.container}>
+			<h1>Products</h1>
 			<ul>
-				{products.map((product, idx)=>
+				{products.map((product, idx) =>
 					<Link key={idx} href={`/products/${product.slug}`} passHref>
-						<a><li>{product.title}</li></a>
+						<a><li><caption>{product.title}</caption></li></a>
 					</Link>
 				)}
 			</ul>
@@ -19,8 +20,8 @@ export default function Products({products} : ProductsProps) {
 	)
 }
 
-export const getStaticProps = withGlobalProps({queries:[GetProducts]}, async ({props, revalidate } : any) => {
-	
+export const getStaticProps = withGlobalProps({ queries: [GetProducts] }, async ({ props, revalidate }: any) => {
+
 	return {
 		props,
 		revalidate
