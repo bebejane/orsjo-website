@@ -15,6 +15,9 @@ fragment ProductFragment on ProductRecord{
     ... on FullwidthImageRecord {
       __typename
       id
+      image{
+        ...ImageFragment
+      }      
     }
     ... on ImageGalleryRecord {
       __typename
