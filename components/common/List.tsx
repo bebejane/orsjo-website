@@ -8,7 +8,7 @@ export default function List({ children, initial }: ListProps) {
 	const ref = useRef(null)
 	const [selected, setSelected] = useState<any>(initial !== undefined ? { [initial]: true } : {})
 
-	const handleSelect = (e: MouseEvent) => {
+	const handleSelect = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const idx = parseInt(e.target?.dataset.idx);
 		setSelected({ ...selected, [idx]: selected[idx] ? false : true })
 	}
@@ -28,7 +28,7 @@ export default function List({ children, initial }: ListProps) {
 	)
 }
 
-type ListItemProps = { title: string, children: React.ReactNode, idx?: number, selected?: boolean, parent?: HTMLUListElement, onToggle?: MouseEventHandler }
+type ListItemProps = { title: string, children: React.ReactNode, idx?: number, selected?: boolean, parent?: HTMLUListElement, onToggle?: React.MouseEvent<HTMLButtonElement> }
 
 export function ListItem({ children, title, parent, onToggle, idx, selected }: ListItemProps) {
 
@@ -42,9 +42,11 @@ export function ListItem({ children, title, parent, onToggle, idx, selected }: L
 					</h1>
 				</div>
 			</div>
-			<div className={styles.content}>
-				{selected && children}
-			</div>
+			{selected && 
+				<div className={styles.content}>
+					{children}
+				</div>
+			}
 		</li>
 	)
 }

@@ -10,7 +10,7 @@ type ProductProps = { product: Product };
 
 export default function Product({product} : ProductProps){
 	console.log(product)
-	const galleryImages = product.productGallery.filter(record => record.__typename === 'ImageGalleryRecord')?.gallery || []
+	const galleryImages = product.productGallery.filter(record => record.__typename === 'ImageGalleryRecord')[0]?.gallery || []
 
 	return (
 		<>
