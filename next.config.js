@@ -1,6 +1,3 @@
-const withPlugins = require('next-compose-plugins');
-const graphql = require('next-plugin-graphql')
-
 const sassOptions = {
   includePaths: ['./components', './pages'],
   prependData: `
@@ -42,5 +39,5 @@ const nextOptions = {
   },
 }
 
-const config = { sassOptions, ...nextOptions }//withPlugins([graphql], { sassOptions, ...nextOptions })
+const config = { sassOptions, ...nextOptions }
 module.exports = config

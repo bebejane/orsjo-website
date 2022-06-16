@@ -92,7 +92,7 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
             <div className={styles.drawings}>
               {drawings.map((item, idx) =>
                 <figure key={idx} className={styles.drawing}>
-                  <img key={idx} src={item.drawing.url} />
+                  <img key={idx} src={item.drawing?.url} />
                   <span className="small">{item.name}</span>
                 </figure>
               )}
@@ -109,9 +109,9 @@ const parseSpecifications = (product : Product, locale: Locale, t:any) => {
   
   type LightsourcePick = { id:string, amount?:number, name:string, included:boolean}
 
-  let allLightsources: LightsourceElement[] = []
+  let allLightsources: Lightsource[] = []
   product.models.map((m) => m.lightsources.map((l) => l)).forEach((l) => allLightsources.push.apply(allLightsources, l))
-  let lightsources : LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).map(({ amount, included, lightsource }) => ({ included, amount, name: lightsource.name, id:lightsource.id }))
+  let lightsources : LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({lightsource}) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource }) => ({ included, amount, name: lightsource?.name, id:lightsource?.id }))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
 
   const specs = [

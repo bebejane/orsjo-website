@@ -43,11 +43,11 @@ export default function ProductRow({ product, withLightsource, locale } : Produc
             <td>{[v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')}</td>
             <td>{withLightsource ? priceIncLight(v.price, lightsources, locale) : convertPrice(v.price, locale)}</td>
           </tr>
-          {m.variants.length === (idx + 1) && (lightsources.filter(({ optional }) => !withLightsource || !optional).map(({ amount, lightsource }, idxl) =>
+          {m.variants.length === (idx + 1) && (lightsources.filter(({ optional, lightsource }) => (!withLightsource || !optional)).map(({ amount, lightsource }, idxl) =>
             <tr key={`light-${idx}-${idxl}-${idxm}`}>
-              <td>{lightsource.articleNo || '---'}</td>
-              <td>{lightsource.name} ({t('needs')} {amount})</td>
-              <td>{withLightsource ? "Inkluderad" : convertPrice(lightsource.price, locale)}</td>
+              <td>{lightsource?.articleNo || '---'}</td>
+              <td>{lightsource?.name} ({t('needs')} {amount})</td>
+              <td>{withLightsource ? "Inkluderad" : convertPrice(lightsource?.price, locale)}</td>
             </tr>
           ))}
           {m.variants.length === (idx + 1) && (m.accessories.map(({ price, articleNo, accessory }, idxv) =>
