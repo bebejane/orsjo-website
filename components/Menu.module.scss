@@ -1,0 +1,24 @@
+$navbarHeight: 60px;
+.menu {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  top:0;
+  left:0;
+  min-height: $navbarHeight;
+  max-height: $navbarHeight;
+  background-color: aqua;
+.logo{
+    flex: 1 1;
+  }
+  ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: flex-end;
+    li{
+
+    }
+  }
+}

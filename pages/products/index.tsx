@@ -1,11 +1,10 @@
-import styles from './index.module.scss'
-import { Content, Sidebar } from '/components';
+import styles from './Products.module.scss'
 import { withGlobalProps } from "/lib/hoc";
 
 export default function Home(props : any) {
 	return (
-		<div>
-			Content
+		<div className={styles.container}>
+			Örsjö
 		</div>
 	)
 }
