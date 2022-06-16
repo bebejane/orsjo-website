@@ -1,92 +1,41 @@
-import styles from './Product.module.scss'
-import { GetProducts, GetProduct } from '/graphql'
+import styles from './Designer.module.scss'
+import { GetDesigners, GetDesigner } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
-import { List, ListItem} from '/components'
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown'
-import { FullWidthImageBlock, TextBlock, TwoColumnImageBlock } from '/components'
 
-type ProductProps = { product: Product };
+export type DesignerProps = { designer: Designer };
 
-export default function Product({product} : ProductProps){
+export default function Designer({designer} : DesignerProps){
 	
-	const galleryImages = product.productGallery.filter(record => record.__typename === 'ImageGalleryRecord')[0]?.gallery || []
-	const contentBlocks = product.productGallery.filter(record => record.__typename !== 'ImageGalleryRecord');
-	console.log(contentBlocks)
+	console.log(designer)
+
 	return (
-		<>
-			<section className={styles.product}>
-				<div className={styles.image}>
-					<Image data={product.image?.responsiveImage} layout={'fill'} objectFit={'contain'}/>
-					<div className={styles.overlay}>
-						<div className={styles.text}>
-							<h1 className={styles.title}>
-								{product.title}
-							</h1>
-							<h1 className={styles.designer}>
-								{product.designer?.name}
-							</h1>
-							<h3 className={styles.type}>
-								type
-							</h3>
-						</div>
-					</div>
-				</div>
-				<Markdown>{product.description}</Markdown>
-				{contentBlocks.map(block => {
-					switch (block.__typename) {
-						case 'FullwidthImageRecord':
-							return <FullWidthImageBlock data={block}/>
-						case 'TextRecord':
-							return <TextBlock data={block}/>
-						case 'TwoColumnImageRecord':
-							return <TwoColumnImageBlock data={block}/>
-						default:
-							return null
-					}
-				})}
-			</section>
-			<section className={styles.details}>
-				<List initial={0}>
-					<ListItem title={'Colors'}>
-						<div className={styles.colorImages}>
-							{galleryImages.map((image) =>
-								<Image data={image.responsiveImage} className={styles.image}/>
-							)}
-						</div>
-					</ListItem>
-					<ListItem title={'Specifications'}>
-						specs content
-					</ListItem>
-					<ListItem title={'Downloads'}>
-						downloads content
-					</ListItem>
-				</List>	
-			</section>
-		</>
+		<section className={styles.designer}>
+			{designer.name}
+		</section>
 	)
 }
 
 export async function getStaticPaths(context) {
-	const { products } = await apiQuery(GetProducts)
-	const paths = products.map(({ slug }) => ({ params: { product: [slug] } }))
+	const { designers } = await apiQuery(GetDesigners)
+	const paths = designers.map(({ slug }) => ({ params: { designer: [slug] } }))
 	return {
 		paths,
 		fallback: 'blocking'
 	}
 }
 
-export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
-	const { product } = await apiQuery(GetProduct, {variables: { slug: context.params.product[0] }})
+export const getStaticProps = withGlobalProps({ model: 'designer' }, async ({ props, context, revalidate }) => {
+	const { designer } = await apiQuery(GetDesigner, {variables: { slug: context.params.designer[0] }})
 
-	if (!product) 
+	if (!designer) 
 		return { notFound: true }
 
 	return {
 		props: {
 			...props,
-			product
+			designer
 		},
 		revalidate
 	};

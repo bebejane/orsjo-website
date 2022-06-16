@@ -4,7 +4,7 @@ import ProductSheet from '/components/catalogue/ProductSheet';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { GetProduct } from "/graphql"
 
-type ProductProps = {product:Product, locale:Locale}
+export type ProductProps = {product:Product, locale:Locale}
 
 export default function Product({product, locale} : ProductProps){
 	

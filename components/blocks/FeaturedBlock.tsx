@@ -8,7 +8,7 @@ type ImageGalleryBlockProps = { data: Featured }
 export default function FeaturedBlock({ data: { headline, items : products } }: ImageGalleryBlockProps) {
 	
 	return (
-		<section className={styles.featured}>
+		<section className={styles.featured} data-section={headline}>
 			<div className={styles.header}>
 				<h3 className={styles.headline}>
 					{headline}

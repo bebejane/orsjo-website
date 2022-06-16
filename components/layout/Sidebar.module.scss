@@ -7,6 +7,12 @@
 
   ul {
     list-style: none;
+    li{
+      &.active{
+        font-weight: bold;
+      }
+
+    }
   }
 
 }
