@@ -2,6 +2,7 @@ import styles from './Products.module.scss'
 import { GetProducts } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
+import { Image } from 'react-datocms'
 
 type ProductsProps = { products: Product[] }
 
@@ -12,7 +13,13 @@ export default function Products({ products }: ProductsProps) {
 			<ul>
 				{products.map((product, idx) =>
 					<Link key={idx} href={`/products/${product.slug}`} passHref>
-						<a><li><caption>{product.title}</caption></li></a>
+						<a>
+							<li>
+								<caption>{product.title}</caption>
+								
+							</li>
+							<Image data={product.image?.responsiveImage} layout={'fill'} objectFit={'contain'}/>
+						</a>
 					</Link>
 				)}
 			</ul>
