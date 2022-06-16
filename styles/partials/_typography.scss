@@ -5,9 +5,10 @@ html {
   font-size: 18px;
   line-height: $body-line-height;
   color: $black;
-  font-weight: normal;
+  font-weight: 570;
   -webkit-font-smoothing: antialiased;
   font-variant-numeric: oldstyle-nums;
+  font-family: $body-font;
 
   @include mq($from: tablet) {
     font-size: 26px;
