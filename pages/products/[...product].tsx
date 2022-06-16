@@ -21,7 +21,7 @@ export default function Product({ product }: ProductProps) {
 								{product.title}
 							</h1>
 							<h1 className={styles.designer}>
-								{product.designer?.name}
+								By {product.designer?.name}
 							</h1>
 							<h3 className={styles.type}>
 								type

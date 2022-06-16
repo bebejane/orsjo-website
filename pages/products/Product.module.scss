@@ -18,22 +18,22 @@
         height: 100%;
         .title {
           position: absolute;
-          top:.5em;
+          top:.4em;
           left:.5em;
           @include h1Big();
 
         }
         .designer {
           position: absolute;
-          left:.5em;
-          bottom:.5em;
+          right:.5em;
+          bottom:.4em;
           @include h1Big();
 
         }
         .type {
           position: absolute;
-          top:0;
-          right:0;
+          top:2rem;
+          right:2rem;
         }
       }
       
@@ -44,6 +44,8 @@
 }
 
 .details {
+  margin-top: $small-margin;
+  border-top: 1px solid $black;
 
   .colorImages{
     display: flex;
