@@ -26,7 +26,7 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
 
   return (
     <>
-      <a id={product.slug?}></a>
+      <a id={product.slug}></a>
       <Page>
         <div className={cn(styles.frontPage)}>
           <a href="#home" className={styles.logo}><img src={'/images/logo.svg'} /></a>
@@ -37,7 +37,7 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
             <div className={styles.productText}>
               <h1 className={styles.title}>{product.title}</h1>
               <Markdown truncate={400} className={styles.description}>
-                {product.description?}
+                {product.description}
               </Markdown>
             </div>
           </div>
