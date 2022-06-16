@@ -6,7 +6,7 @@ import remarkBreaks from 'remark-breaks'
 import type { UrlObject } from 'url';
 import classNames from "classnames";
 
-type MarkdownProps = {children: string, truncate?: number, className?:string}
+type MarkdownProps = {children?: string, truncate?: number, className?:string}
 type AnchorProp = {children:[any], href: UrlObject }
 
 const Markdown = ({ children , truncate, className } : MarkdownProps) => {
