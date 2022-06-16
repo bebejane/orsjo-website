@@ -7,8 +7,8 @@
   left:0;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  padding-left:var(--outer-margin);
-  padding-right: var(--outer-margin);
+  margin-left:var(--outer-margin);
+  margin-right: var(--outer-margin);
   min-height: $navbarHeight;
   max-height: $navbarHeight;
   @include mq($from: tablet) {
@@ -23,7 +23,7 @@
   ul{
     width: spanGrid(12);
     height: 100%;
-    padding-left: $gutter;
+    margin-left: $gutter;
     display: flex;
     flex-direction: row;
     align-items: center;
