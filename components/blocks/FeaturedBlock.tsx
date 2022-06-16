@@ -2,8 +2,9 @@ import styles from './FeaturedBlock.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 import { ProductThumbnail } from '/components'
+import Link from 'next/link'
 
-type ImageGalleryBlockProps = { data: Featured }
+export type ImageGalleryBlockProps = { data: Featured }
 
 export default function FeaturedBlock({ data: { headline, items : products } }: ImageGalleryBlockProps) {
 	
@@ -19,7 +20,11 @@ export default function FeaturedBlock({ data: { headline, items : products } }: 
 			</div>
 			<div className={styles.gallery}>
 				{products.map((product, idx) => 
-					<ProductThumbnail key={idx} product={product}/>
+					<Link key={idx} href={`/products/${product.slug}`}>
+						<a>
+							<ProductThumbnail key={idx} product={product}/>
+						</a>
+					</Link>
 				)}	
 			</div>
 		</section>
