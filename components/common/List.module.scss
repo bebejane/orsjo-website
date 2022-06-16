@@ -5,14 +5,19 @@
   .item{
     position: relative;
     border-bottom: 1px solid $black;
-    .toggle{
-      position: absolute;
-      top:0;
-      right:0;
+    .wrapper {
       cursor: pointer;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .toggle{
     }
     &.hide{
           
+    }
+    .content {
+      padding-bottom: 1rem;
     }
   }
 }
