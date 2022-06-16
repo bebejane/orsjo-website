@@ -23,7 +23,13 @@ export default function Content({} : MenuProps) {
 			</Link>
 			<ul className={styles.nav}>
 				{menu.map(({name, slug}, idx) => 
-					<li key={idx}>{name}</li>
+					<li key={idx}>
+						<Link href={slug}>
+							<a>
+								{name}
+							</a>
+						</Link>
+					</li>
 				)}
 			</ul>
     </nav>
