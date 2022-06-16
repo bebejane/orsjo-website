@@ -1,4 +1,10 @@
 .twoColumnImage {
   display: flex;
   flex-direction: row;
+  margin-top: $small-margin;
+  justify-content: space-between;
+  figure {
+    width: 48%;
+    //padding: var(--outer-margin);
+  }
 }
