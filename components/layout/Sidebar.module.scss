@@ -1,6 +1,6 @@
 .sidebar {
   margin-left: var(--outer-margin);
   flex: 0 0;
-  width: spanGrid(4);
+  min-width: spanGridWithGutter(4);
   background-color: rgb(182, 144, 218);
 }

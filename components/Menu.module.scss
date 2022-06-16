@@ -1,4 +1,3 @@
-$navbarHeight: 60px;
 .menu {
   position: fixed;
   display: flex;
@@ -6,21 +5,31 @@ $navbarHeight: 60px;
   width: 100%;
   top:0;
   left:0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left:var(--outer-margin);
+  padding-right: var(--outer-margin);
   min-height: $navbarHeight;
   max-height: $navbarHeight;
-  background-color: aqua;
   @include mq($from: tablet) {
     height: 100vh;
   }
 .logo{
     flex: 1 1;
+    img {
+      height: 2rem;
+    }
   }
   ul{
+    width: spanGrid(12);
+    height: 100%;
+    padding-left: $gutter;
     display: flex;
     flex-direction: row;
+    align-items: center;
     list-style: none;
-    justify-content: flex-end;
     li{
+      padding-right: 4em;
 
     }
   }

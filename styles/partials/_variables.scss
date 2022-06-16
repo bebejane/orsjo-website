@@ -13,6 +13,8 @@ $line: 1px solid $black;
 
 // MARGINS & SPACES
 $max-width: 1440px;
+$navbarHeight: 4rem;
+
 
 @mixin maxWidth() {
   max-width: $max-width;
