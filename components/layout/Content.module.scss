@@ -3,4 +3,6 @@
   background-color: pink;
   width: spanGrid(12);
   margin-right: var(--outer-margin);
+  margin-left: calc(#{spanGridWithGutter(4)} + var(--outer-margin));
+
 }
