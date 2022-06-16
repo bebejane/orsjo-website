@@ -1,5 +1,5 @@
 import styles from './FeaturedBlock.module.scss'
-import React from 'react'
+import { toSectionId } from '/lib/utils'
 import { Image } from 'react-datocms'
 import { ProductThumbnail } from '/components'
 import Link from 'next/link'
@@ -9,7 +9,7 @@ export type ImageGalleryBlockProps = { data: Featured }
 export default function FeaturedBlock({ data: { headline, items : products } }: ImageGalleryBlockProps) {
 	
 	return (
-		<section className={styles.featured} data-section={headline}>
+		<section className={styles.featured} id={toSectionId(headline)} title={headline}>
 			<div className={styles.header}>
 				<h3 className={styles.headline}>
 					{headline}

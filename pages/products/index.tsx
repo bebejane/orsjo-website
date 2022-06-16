@@ -4,6 +4,7 @@ import { GetProductStart, GetProducts, GetProductCategories } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { FeaturedBlock, ProductThumbnail } from '/components'
+import { toSectionId } from '/lib/utils'
 
 export type ProductsStartProps = { 
 	productStart: ProductStart, 
@@ -28,7 +29,7 @@ export default function Products({ productStart : { featured }, products, produc
 				const category = products[0].categories?.[0].name
 				
 				return (
-					<section key={idx} data-section={category}>
+					<section key={idx} id={toSectionId(category)} title={category}>
 						<h3>{category}</h3>
 						<ul >					
 							{products.map((product, idx) => 

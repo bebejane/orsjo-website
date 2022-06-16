@@ -7,12 +7,15 @@
 
   ul {
     list-style: none;
-    li{
-      &.active{
-        font-weight: bold;
+    a{
+      li{
+        &.active{
+          font-weight: bolder;
+          color:red;
+        }
       }
-
     }
+    
   }
 
 }

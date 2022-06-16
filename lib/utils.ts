@@ -38,11 +38,14 @@ const sortProductsByCategory = (products : Product[]) => {
 
 const isServer = typeof window === 'undefined';
 
+const toSectionId = (str : string) => str.replace(/\s/, '').toLowerCase();
+
 export {
   sleep,
   isServer,
   formatPrice,
   convertPrice,
   priceIncLight,
-  sortProductsByCategory
+  sortProductsByCategory,
+  toSectionId
 }
