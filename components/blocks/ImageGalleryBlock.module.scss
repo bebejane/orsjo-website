@@ -2,13 +2,23 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  min-height: 200px;
-  height: 200px;
+  padding-top: $small-margin;
+
 
   figure {
     position: relative;
-    flex: 1 1 auto;
-    height: 100%;
+    margin-right: 3.5%;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    div {
+      aspect-ratio: 4/3;
+      display: flex;
+    }
+    img {
+      object-fit: contain;
+    }
+    background-color: white;
     .image{
       
     }
