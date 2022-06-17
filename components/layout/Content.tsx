@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styles from './Content.module.scss'
+import cn from 'classnames'
 import { useStore, shallow } from '/lib/store'
-//import shallow from 'zustand/shallow'
 import { useRouter } from 'next/router'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 
-export type ContentProps = { children: React.ReactNode }
+export type ContentProps = { children: React.ReactNode, layout:string }
 
-export default function Content({ children }: ContentProps) {
+export default function Content({ children, layout }: ContentProps) {
 
 	const router = useRouter()
 	const [setCurrentSection, setSections, setShowMenu] = useStore((state) => [state.setCurrentSection, state.setSections, state.setShowMenu], shallow);
@@ -30,7 +30,7 @@ export default function Content({ children }: ContentProps) {
 	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu]);
 
 	return (
-		<main id="content" className={styles.content}>
+		<main id="content" className={cn(styles.content, styles[layout])}>
 			{children}
 		</main>
 	)

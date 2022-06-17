@@ -15,6 +15,7 @@ function MyApp({ Component, pageProps } : AppProps) {
   const { site, seo } = pageProps;
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
+  const layout = Component.layout || {}
   
   if(isError) return <Component {...pageProps} />
 
@@ -23,8 +24,7 @@ function MyApp({ Component, pageProps } : AppProps) {
       <GoogleAnalytics />
       <DatoSEO title={'Örsjö'} seo={seo} site={site} pathname={pathname} key={pathname}/>
       <NextIntlProvider messages={pageProps.messages}>
-        <Layout>
-          <Menu/>
+        <Layout {...layout}>
           <Component {...pageProps} />
         </Layout>
       </NextIntlProvider>

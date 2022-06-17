@@ -1,0 +1,55 @@
+#import "./ImageFragment.gql"
+
+fragment ProjectFragment on ProjectRecord{
+  id
+  projectType {
+    id
+    title
+  }
+  image {
+    ...ImageFragment
+  }
+  location
+  title
+  secondaryImage {
+    ...ImageFragment
+  }
+  gallery {
+    ... on FullwidthImageRecord {
+      __typename
+      id
+      image {
+        ...ImageFragment
+      }
+    }
+    ... on ImageGalleryRecord {
+      __typename
+      id
+      gallery {
+        ...ImageFragment
+      }
+    }
+    ... on TextRecord {
+      __typename
+      id
+      text(markdown: false)
+    }
+    ... on TwoColumnImageRecord {
+      __typename
+      id
+      firstImage {
+        ...ImageFragment
+      }
+      lastImage {
+        ...ImageFragment
+      }
+    }
+    ... on VideoRecord {
+      __typename
+      id
+      video {
+        ...ImageFragment
+      }
+    }
+  }
+}

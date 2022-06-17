@@ -1,10 +1,10 @@
 .sidebar {
   margin-left: var(--outer-margin);
-  margin-top: 1rem;
+  margin-top: calc(1rem + $navbarHeight);
   flex: 0 0;
   min-width: spanGridWithGutter(4);
   position: fixed;
-
+  
   ul {
     list-style: none;
     a{
@@ -17,7 +17,20 @@
         }
       }
     }
-    
   }
-
+  &.full{
+    display: none;
+  }
+  &.inverted{
+    ul{
+      a{
+        li{
+          color:lightgray;
+          &.active{
+            color: $white;
+          }
+        }
+      }
+    }
+  }
 }

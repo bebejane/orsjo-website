@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { sectionId } from '/lib/utils'
 import { useRouter } from 'next/router';
 
-export type SidebarProps = {}
+export type SidebarProps = {layout:string}
 
-export default function Sidebar() {
+export default function Sidebar({layout, menu} : SidebarProps) {
 
 	const router = useRouter()
 	const currentSection = useStore((state) => state.currentSection);
@@ -15,7 +15,7 @@ export default function Sidebar() {
 	const subHeader = router.pathname.substring(1).substring(0, router.pathname.indexOf('/', 1) === -1 ? router.pathname.length :  router.asPath.indexOf('/', 1)) || 'Home'
 	
 	return (
-		<aside className={styles.sidebar}>
+		<aside className={cn(styles.sidebar, styles[layout], styles[menu])}>
 			<h3>{subHeader}</h3>
 			<nav>
 				<ul>

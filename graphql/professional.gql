@@ -1,0 +1,82 @@
+#import "./fragments/ImageFragment.gql"
+#import "./fragments/ProjectFragment.gql"
+
+
+query GetProject($id: String) {
+	project (filter: {id: { eq: $id }}) {
+    ...ProjectFragment
+	}
+}
+
+query GetAllProjects {
+  projects : allProjects {
+    ...ProjectFragment
+  }
+}
+
+query GetProjectStart {
+	projectStart {
+		id
+		intro(markdown: false)
+		title
+	}
+}
+
+query GetAllProjectTypes {
+	projectTypes: allProjectTypes {
+		id
+		title
+	}
+}
+
+query GetBespoke {
+	bespoke {
+		examples {
+			id
+			summary(markdown: false)
+			project {
+				...ProjectFragment
+			}
+		}
+	}
+}
+
+query GetDownload($id: String) {
+	download (filter: {id: { eq: $id }}) {
+    id
+    title
+	  intro(markdown: false)
+	}
+}
+
+query GetAllDownloads {
+  download {
+    id
+    title
+	  intro(markdown: false)
+  }
+}
+
+query GetFactoryVisit($id: String) {
+	factoryVisit (filter: {id: { eq: $id }}) {
+    id
+    title
+	  intro(markdown: false)
+	}
+}
+
+query GetAllFactoryVisits {
+	factoryVisit {
+    id
+    title
+	  intro(markdown: false)
+	}
+}
+
+query GetAllDownloads {
+  download {
+    id
+    title
+	  intro(markdown: false)
+  }
+}

@@ -5,7 +5,7 @@ import { useStore, shallow } from '/lib/store'
 
 export type MenuProps = {}
 
-const menu = [
+const menuItems = [
 	{name:'Products', slug:'/products'},
 	{name:'Designers', slug:'/designers'},
 	{name:'Professionals', slug:'/professionals'},
@@ -14,19 +14,19 @@ const menu = [
 	{name:'Contact', slug:'/contact'},
 ]
 
-export default function Content({} : MenuProps) {
-
+export default function Menu({type, menu} : MenuProps) {
+	
 	const [showMenu] = useStore((state) => [state.showMenu], shallow);
 
 	return (
-		<nav className={cn(styles.menu, !showMenu && styles.hide)} id={'menu'}>
+		<nav className={cn(styles.menu, !showMenu && styles.hide, styles[type], styles[menu])} id={'menu'}>
 			<Link href={'/'}>
 				<a className={styles.logo}>
 					<img id={'logo'}  src={'/images/logo.svg'}/>
 				</a>
 			</Link>
 			<ul className={styles.nav}>
-				{menu.map(({name, slug}, idx) => 
+				{menuItems.map(({name, slug}, idx) => 
 					<li key={idx}>
 						<Link href={slug}>
 							<a>
