@@ -12,7 +12,7 @@ export default function Sidebar() {
 	const router = useRouter()
 	const currentSection = useStore((state) => state.currentSection);
 	const sections = useStore((state) => state.sections)
-	const subHeader = router.asPath.substring(1).substring(0, router.asPath.indexOf('/', 1) === -1 ? router.asPath.length :  router.asPath.indexOf('/', 1)) || 'Home'
+	const subHeader = router.pathname.substring(1).substring(0, router.pathname.indexOf('/', 1) === -1 ? router.pathname.length :  router.asPath.indexOf('/', 1)) || 'Home'
 	
 	return (
 		<aside className={styles.sidebar}>

@@ -10,6 +10,8 @@
     a{
       li{
         &.active{
+          transition: color 0s, font-weight 0s;
+          transition-delay: 0.1s; // Delay for not showing when scrolling
           font-weight: bolder;
           color:red;
         }

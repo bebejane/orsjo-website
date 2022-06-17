@@ -2,6 +2,7 @@ import styles from './Footer.module.scss'
 import Link from 'next/link'
 
 export default function Footer() {
+	console.log('render')
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.wrapper}>
