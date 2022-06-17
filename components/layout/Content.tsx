@@ -21,10 +21,9 @@ export default function Content({ children }: ContentProps) {
 	useEffect(()=>{
 		const sections = document.querySelectorAll('section[id]')
 		if(!sections.length) return
-		const section = Array.from(sections).sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)[0]
+		const section = (Array.from(sections) as HTMLElement[]).sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)[0]
 		setCurrentSection(section.id)
-		
-	}, [scrolledPosition, documentHeight])
+	}, [scrolledPosition, documentHeight, setCurrentSection])
 
 	return (
 		<main id="content" className={styles.content}>

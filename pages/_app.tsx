@@ -13,7 +13,11 @@ function MyApp({ Component, pageProps } : AppProps) {
   const router = useRouter()
   const { asPath : pathname } = router
   const { site, seo } = pageProps;
+  const errorCode = parseInt(router.pathname.replace('/', ''))
+  const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
   
+  if(isError) return <Component {...pageProps} />
+
   return (
     <>
       <GoogleAnalytics />
