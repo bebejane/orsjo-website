@@ -21,7 +21,7 @@ export default function Designer({designer} : DesignerProps){
 	)
 }
 
-Designer.layout = {type:'full', color:'designer'}
+Designer.layout = {type:'full'}
 
 export async function getStaticPaths(context) {
 	const { designers } = await apiQuery(GetAllDesigners)

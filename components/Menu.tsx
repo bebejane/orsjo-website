@@ -3,7 +3,7 @@ import cn from 'classnames'
 import Link from 'next/link'
 import { useStore, shallow } from '/lib/store'
 
-export type MenuProps = {}
+export type MenuProps = {type:string, menu:string}
 
 const menuItems = [
 	{name:'Products', slug:'/products'},

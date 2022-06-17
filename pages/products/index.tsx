@@ -21,7 +21,7 @@ export default function Products({ productStart: { featured }, products, product
 	
 	return (
 		<div className={styles.products}>
-			{featured.map((data, idx) =>
+			{featured.slice(0).map((data, idx) =>
 				<FeaturedBlock key={`featured-${idx}`} data={data} />
 			)}
 

@@ -1,4 +1,4 @@
-const filePath = './types/datocms.d.ts'
+const filePath = './@types/datocms.d.ts'
 const fs = require('fs')
 const includeMeta = [
 '__typename',

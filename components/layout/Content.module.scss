@@ -6,7 +6,7 @@
   margin-right: var(--outer-margin);
   margin-left: calc(#{spanGridWithGutter(4)} + var(--outer-margin));
   overflow-x: hidden;
-
+  
   &.full{
     margin: 0px;
     width: 100%;
