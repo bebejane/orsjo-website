@@ -1,26 +1,22 @@
 import styles from './index.module.scss'
-import { GetAllDesigners } from '/graphql';
+//import { GetAllSupports } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 
-type DesignerProps = { designers: Designer[] }
+type SupportProps = { designers: Support[] }
 
-export default function Designer({ designers }: DesignerProps) {
+export default function Support({ designers }: SupportProps) {
 //	console.log(designers)
 	return (
 		<div className={styles.designers}>
-			<h1>Designers</h1>
-			<ul>
-				{designers.map((designer, idx) => 
-					<Link key={idx} href={`/designers/${designer.slug}`}><a><li>{designer.name}</li></a></Link>
-				)}
-			</ul>
+			<h1>Support</h1>
+			
 		</div>
 	)
 }
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllDesigners] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,
