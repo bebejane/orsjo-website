@@ -9,11 +9,11 @@
     list-style: none;
     a{
       li{
+        color:$gray;
         &.active{
-          transition: color 0s, font-weight 0s;
+          transition: color 0s;
           transition-delay: 0.1s; // Delay for not showing when scrolling
-          font-weight: bolder;
-          color:red;
+          color:$black;
         }
       }
     }

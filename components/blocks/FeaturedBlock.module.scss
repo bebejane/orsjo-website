@@ -7,6 +7,7 @@
   .header{
     display: flex;
     flex-direction: row;
+    align-items: center;
     .headline{
       flex: 1 1 100%;  
     }
@@ -19,6 +20,9 @@
       background-color: transparent;
       border: 1px solid $gray;
       flex: 0 0 40px;
+      &.hide{
+        display: none;
+      }
     }
   }
 
@@ -33,6 +37,19 @@
       height: 100%;
       .image{
         
+      }
+    }
+    .fade{
+      position: absolute;
+      top:0;
+      right:0;
+      height: 100%;
+      min-width: 50px;
+      background: rgb(255,255,255);
+      background: linear-gradient(-90deg, rgba(255,255,255,1) 0%, rgba(9,9,121,0) 100%, rgba(255,255,255,1) 100%);
+      z-index: 2;
+      &.hide {
+        display: none;
       }
     }
   }

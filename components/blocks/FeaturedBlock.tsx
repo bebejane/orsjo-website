@@ -1,5 +1,6 @@
 import "swiper/css";
 import styles from './FeaturedBlock.module.scss'
+import cn from 'classnames'
 import { sectionId } from '/lib/utils'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
@@ -10,13 +11,18 @@ import { useRef, useState } from "react";
 export type ImageGalleryBlockProps = { data: Featured }
 
 export default function FeaturedBlock({ data: { headline, items: products, id } }: ImageGalleryBlockProps) {
-
+	
+	
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
+
 	const handleNext = () => {
 		if(swiperRef.current)
 			swiperRef.current.isEnd ? swiperRef.current.slideTo(0) : swiperRef.current.slideNext()
 	}
+
+	const slidesPerView = 4;
+	const isShortSlide = products.length <= slidesPerView
 	const arrow = swiperRef.current?.isEnd ? '‹' : '›'
 	
 	return (
@@ -25,16 +31,13 @@ export default function FeaturedBlock({ data: { headline, items: products, id } 
 				<h1 className={styles.headline}>
 					{headline}
 				</h1>
-				<button 
-					className={styles.next} 
-					onClick={handleNext}
-				>{arrow}</button>
+				<button  className={cn(styles.next, isShortSlide && styles.hide)} onClick={handleNext}>{arrow}</button>
 			</div>
 			<div className={styles.gallery} >
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
 					loop={false}
-					slidesPerView={products.length < 4 ? products.length : 4}
+					slidesPerView={isShortSlide ? products.length : slidesPerView}
 					spaceBetween={20}
 					initialSlide={index}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
@@ -50,7 +53,9 @@ export default function FeaturedBlock({ data: { headline, items: products, id } 
 						</SwiperSlide>
 					)}
 				</SwiperReact>
+				<div className={cn(styles.fade, isShortSlide && styles.hide)}></div>
 			</div>
+			
 		</section>
 	)
 }
