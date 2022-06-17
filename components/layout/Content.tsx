@@ -14,11 +14,11 @@ export default function Content({ children }: ContentProps) {
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition, documentHeight } = useScrollInfo()
 
 	useEffect(()=>{
-		const sections = document.querySelectorAll('section[id]') as HTML
+		const sections = document.querySelectorAll<HTMLElement>('section[id]')
 		setSections(sections.length ? Array.from(sections).map((s)  => s.title || s.id) : [])
-	}, [router.asPath])
+	}, [router.asPath, setSections])
 
-	useEffect(()=>{
+	useEffect(()=>{ //Highlight nav section on scroll
 		const sections = document.querySelectorAll<HTMLElement>('section[id]')
 		if(!sections.length) return
 		const section = (Array.from(sections)).sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)[0]
@@ -27,7 +27,7 @@ export default function Content({ children }: ContentProps) {
 
 	useEffect(() => { // Toggle menu bar on scroll
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
-	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp]);
+	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu]);
 
 	return (
 		<main id="content" className={styles.content}>

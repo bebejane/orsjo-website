@@ -10,9 +10,15 @@
     .headline{
       flex: 1 1 100%;  
     }
-    
     .next{
-      flex: 0 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      min-width: 40px;
+      min-height: 40px;
+      background-color: transparent;
+      border: 1px solid $gray;
+      flex: 0 0 40px;
     }
   }
 
@@ -20,7 +26,6 @@
     position: relative;
     display: flex;
     flex-direction: row;
-
     
     figure {
       position: relative;
@@ -31,5 +36,4 @@
       }
     }
   }
-  
 }

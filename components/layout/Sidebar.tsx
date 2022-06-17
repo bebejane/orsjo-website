@@ -2,7 +2,7 @@ import styles from './Sidebar.module.scss'
 import cn from 'classnames'
 import useStore from '/lib/store';
 import Link from 'next/link';
-import { toSectionId } from '/lib/utils'
+import { sectionId } from '/lib/utils'
 import { useRouter } from 'next/router';
 
 export type SidebarProps = {}
@@ -20,9 +20,9 @@ export default function Sidebar() {
 			<nav>
 				<ul>
 					{sections.map((section, idx) => 
-						<Link key={idx} href={`#${toSectionId(section)}`}>
+						<Link key={idx} href={`#${sectionId(section).id}`}>
 							<a>
-								<li className={cn(toSectionId(section) === currentSection && styles.active)}>
+								<li className={cn(sectionId(section).id === currentSection && styles.active)}>
 									{section}
 								</li>
 							</a>

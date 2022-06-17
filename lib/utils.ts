@@ -38,7 +38,7 @@ const sortProductsByCategory = (products : Product[]) => {
 
 const isServer = typeof window === 'undefined';
 
-const toSectionId = (str : string) => str.replace(/\s/, '').toLowerCase();
+const sectionId = (str : string) => ({id:str.replace(/\s/, '').toLowerCase(), title:str});
 
 export {
   sleep,
@@ -47,5 +47,5 @@ export {
   convertPrice,
   priceIncLight,
   sortProductsByCategory,
-  toSectionId
+  sectionId
 }

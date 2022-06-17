@@ -4,7 +4,7 @@ import { GetProductStart, GetAllProducts, GetProductCategories } from '/graphql'
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { FeaturedBlock, ProductThumbnail } from '/components'
-import { toSectionId } from '/lib/utils'
+import { sectionId } from '/lib/utils'
 
 export type ProductsStartProps = {
 	productStart: ProductStart,
@@ -18,18 +18,17 @@ export default function Products({ productStart: { featured }, products, product
 	productCategories.forEach(({ name }) => {
 		productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name)
 	})
-
+	
 	return (
 		<div className={styles.products}>
 			{featured.map((data, idx) =>
-				<FeaturedBlock key={idx} data={data} />
+				<FeaturedBlock key={`featured-${idx}`} data={data} />
 			)}
 
 			{Object.keys(productsByCategory).map(name => productsByCategory[name]).map((products, idx) => {
 				const category = products[0].categories?.[0].name
-
 				return (
-					<section key={idx} id={toSectionId(category)} title={category}>
+					<section key={idx} {...sectionId(category)}>
 						<h1>{category}</h1>
 						<ul >
 							{products.map((product, idx) =>

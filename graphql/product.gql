@@ -24,6 +24,7 @@ query GetProductStart {
   productStart {
     id
     featured {
+      id
       headline
       items {
         ...ProductFragment

@@ -1,7 +1,8 @@
 .content {
-  flex: 1 1;
+  position: relative;
+  flex: 1 1 auto;
   width: spanGrid(12);
   margin-right: var(--outer-margin);
   margin-left: calc(#{spanGridWithGutter(4)} + var(--outer-margin));
-
+  overflow-x: hidden;
 }
