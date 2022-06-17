@@ -1,7 +1,0 @@
-#import "./fragments/ProductLightFragment.gql"
-
-query GetProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	products: allProducts(first: $first, skip: $skip, orderBy: [title_ASC], locale: $locale, fallbackLocales: [sv, en]) {
-		...ProductLightFragment
-	}
-}

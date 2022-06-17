@@ -1,20 +1,18 @@
-export { default as GetIntl } from  "./GetIntl.gql";
-export { default as GetGlobal } from  "./GetGlobal.gql";
-export { default as GetSiteSEO } from  "./GetSiteSEO.gql";
+// @ts-nocheck
+export { GetIntl } from "./intl.gql";
+export { GetGlobal } from "./global.gql";
+export { GetSiteSEO } from "./seo.gql";
 
-export { default as GetProduct } from  "./GetProduct.gql";
-export { default as GetProducts } from  "./GetProducts.gql";
-export { default as GetProductsLight } from  "./GetProductsLight.gql";
-export { default as GetProductStart } from  "./GetProductStart.gql";
-export { default as GetProductCategories } from  "./GetProductCategories.gql";
+export { 
+  GetProduct, 
+  GetAllProducts, 
+  GetAllProductsLight, 
+  GetProductStart, 
+  GetProductCategories 
+} from "./product.gql";
 
-export { default as GetPricelist } from  "./GetPricelist.gql";
-export { default as GetReseller } from  "./GetReseller.gql";
-export { default as GetResellers } from  "./GetResellers.gql";
-export { default as GetDistributor } from  "./GetDistributor.gql";
-export { default as GetDistributors } from  "./GetDistributors.gql";
-export { default as GetEmployee } from  "./GetEmployee.gql";
-export { default as GetEmployees } from  "./GetEmployees.gql";
-export { default as GetDesigner } from  "./GetDesigner.gql";
-export { default as GetDesigners } from  "./GetDesigners.gql";
+export { GetReseller, GetAllResellers } from "./reseller.gql";
+export { GetDistributor, GetAllDistributors } from "./distributor.gql";
+export { GetEmployee, GetAllEmployees } from "./employee.gql";
+export { GetDesigner, GetAllDesigners } from "./designer.gql";
 

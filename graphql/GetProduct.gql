@@ -1,7 +1,0 @@
-#import "./fragments/ProductFragment.gql"
-
-query GetProduct($slug: String, $locale: SiteLocale = en) {
-	product(locale: $locale, fallbackLocales: [sv, en], filter: {slug: { eq: $slug }}) {
-		...ProductFragment
-	}
-}

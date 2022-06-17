@@ -1,7 +1,0 @@
-#import "./fragments/DesignerFragment.gql"
-
-query GetDesigners($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	designers: allDesigners(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
-		...DesignerFragment
-	}
-}

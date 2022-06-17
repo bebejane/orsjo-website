@@ -1,7 +1,0 @@
-query GetProductCategories {
-  productCategories : allProductCategories {
-    id
-    name
-    position
-  }
-}

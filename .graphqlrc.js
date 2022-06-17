@@ -16,6 +16,7 @@ module.exports = {
           plugins: [
             "typescript",
             "typescript-operations",
+            "typed-document-node"
           ],
           config: {
             dedupeFragments: true,

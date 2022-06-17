@@ -1,5 +1,5 @@
 import styles from './Designer.module.scss'
-import { GetDesigners, GetDesigner } from '/graphql'
+import { GetAllDesigners, GetDesigner } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { Image } from 'react-datocms'
@@ -7,8 +7,6 @@ import { Image } from 'react-datocms'
 export type DesignerProps = { designer: Designer };
 
 export default function Designer({designer} : DesignerProps){
-	
-	console.log(designer)
 
 	return (
 		<section className={styles.designer}>
@@ -18,7 +16,7 @@ export default function Designer({designer} : DesignerProps){
 }
 
 export async function getStaticPaths(context) {
-	const { designers } = await apiQuery(GetDesigners)
+	const { designers } = await apiQuery(GetAllDesigners)
 	const paths = designers.map(({ slug }) => ({ params: { designer: [slug] } }))
 	return {
 		paths,

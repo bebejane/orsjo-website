@@ -1,6 +1,6 @@
 
 import styles from './index.module.scss'
-import { GetProductStart, GetProducts, GetProductCategories } from '/graphql';
+import { GetProductStart, GetAllProducts, GetProductCategories } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { FeaturedBlock, ProductThumbnail } from '/components'
@@ -49,7 +49,7 @@ export default function Products({ productStart : { featured }, products, produc
 	)
 }
 
-export const getStaticProps = withGlobalProps({ queries: [GetProducts, GetProductStart, GetProductCategories] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetAllProducts, GetProductStart, GetProductCategories] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

@@ -1,7 +1,0 @@
-#import "./fragments/DesignerFragment.gql"
-
-query GetDesigner($slug: String, $locale: SiteLocale = en) {
-	designer(locale: $locale, fallbackLocales: [sv, en], filter: {slug: { eq: $slug }}) {
-		...DesignerFragment
-	}
-}

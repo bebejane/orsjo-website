@@ -1,7 +1,0 @@
-#import "./fragments/DistributorFragment.gql"
-
-query GetDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	distributors: allDistributors(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
-		...DistributorFragment
-	}
-}

@@ -1,7 +1,0 @@
-#import "./fragments/ResellerFragment.gql"
-
-query GetResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	resellers: allResellers(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
-		...ResellerFragment
-	}
-}

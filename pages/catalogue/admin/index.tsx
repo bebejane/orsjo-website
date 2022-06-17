@@ -190,7 +190,6 @@ const Button = (({locale, type, path, productId, label, socket}: ButtonProps) =>
 		socket.on('status', data => {
 			const { id, error } = data;
 			if(id !== requestId) return 
-			console.log(data)
 			error ? setError(error) : setStatus(data)
 		})
 		socket.on('error', (err)=> setError(err))

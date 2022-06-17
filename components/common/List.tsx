@@ -12,7 +12,7 @@ export default function List({ children, initial }: ListProps) {
 		const idx = parseInt(e.target?.dataset.idx);
 		setSelected({ ...selected, [idx]: selected[idx] ? false : true })
 	}
-	console.log(selected)
+	
 	return (
 		<ul className={styles.list} ref={ref}>
 			{React.Children.map(children, (child, idx) =>

@@ -1,0 +1,13 @@
+#import "./fragments/DesignerFragment.gql"
+
+query GetDesigner($slug: String, $locale: SiteLocale = en) {
+	designer(locale: $locale, fallbackLocales: [sv, en], filter: {slug: { eq: $slug }}) {
+		...DesignerFragment
+	}
+}
+
+query GetAllDesigners($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+	designers: allDesigners(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
+		...DesignerFragment
+	}
+}
