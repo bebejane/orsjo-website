@@ -10,7 +10,7 @@ export default function Sidebar() {
 
 	const currentSection = useStore((state) => state.currentSection);
 	const sections = useStore((state) => state.sections);
-	console.log(currentSection)
+	
 	return (
 		<aside className={styles.sidebar}>
 			<h3>Subheader</h3>
