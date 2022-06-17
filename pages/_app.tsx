@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps } : AppProps) {
   return (
     <>
       <GoogleAnalytics />
-      <DatoSEO seo={seo} site={site} pathname={pathname} key={pathname}/>
+      <DatoSEO title={'Örsjö'} seo={seo} site={site} pathname={pathname} key={pathname}/>
       <NextIntlProvider messages={pageProps.messages}>
         <Layout>
           <Menu/>

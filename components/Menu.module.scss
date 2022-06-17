@@ -11,15 +11,30 @@
   margin-right: var(--outer-margin);
   min-height: $navbarHeight;
   max-height: $navbarHeight;
+  transition: transform 0.3s ease;
+
   @include mq($from: tablet) {
     height: 100vh;
   }
-.logo{
+
+  &.hide{
+    @include mq($until: tablet) {
+      transform: translateY(-$navbarHeight);
+    }
+    @include mq($from: tablet) {
+      ul{
+        transform: translateY(-$navbarHeight);
+      }
+    }
+  }
+
+  .logo{
     flex: 1 1;
     img {
       height: 2rem;
     }
   }
+  
   ul{
     width: spanGrid(12);
     height: 100%;
@@ -28,9 +43,9 @@
     flex-direction: row;
     align-items: center;
     list-style: none;
+    transition: transform 0.3s ease;
     li{
       padding-right: 4em;
-
     }
   }
 }

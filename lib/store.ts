@@ -1,18 +1,28 @@
 import create from "zustand";
 import shallow from "zustand/shallow"
+import type { State } from "zustand";
 
-const useStore = create((set) => ({
+export interface StoreState {
+  showMenu: boolean,
+  currentSection: string,
+  sections: string[],
+  setSections: (sections: string[]) => void,
+  setShowMenu: (showMenu: boolean) => void,
+  setCurrentSection: (currentSection: string) => void
+}
+
+const useStore = create<StoreState>((set) => ({
 	showMenu: true,
   currentSection: undefined,
   sections:[],
-  setSections: (sections: any[]) =>  
+  setSections: (sections: string[]) =>  
     set((state) => ({
       sections
     })
   ),
-	setShowMenu: (show : boolean) =>  
+	setShowMenu: (showMenu : boolean) =>  
     set((state) => ({
-      showMenu: show
+      showMenu
     })
   ),
   setCurrentSection: (currentSection : string) =>  

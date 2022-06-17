@@ -1,7 +1,9 @@
 import styles from './Menu.module.scss'
+import cn from 'classnames'
 import Link from 'next/link'
+import { useStore, shallow } from '/lib/store'
 
-type MenuProps = {}
+export type MenuProps = {}
 
 const menu = [
 	{name:'Products', slug:'/products'},
@@ -14,8 +16,10 @@ const menu = [
 
 export default function Content({} : MenuProps) {
 
+	const [showMenu] = useStore((state) => [state.showMenu], shallow);
+
 	return (
-		<nav className={styles.menu} id={'menu'}>
+		<nav className={cn(styles.menu, !showMenu && styles.hide)} id={'menu'}>
 			<Link href={'/'}>
 				<a className={styles.logo}>
 					<img id={'logo'}  src={'/images/logo.svg'}/>
