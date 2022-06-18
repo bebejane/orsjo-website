@@ -1,8 +1,8 @@
-import styles from './ImageGalleryBlock.module.scss'
+import styles from './ImageGallery.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 
-type ImageGalleryBlockProps = { data: ImageGallery }
+type ImageGalleryBlockProps = { data: ImageGalleryRecord }
 
 export default function ImageGalleryBlock({ data: { gallery } }: ImageGalleryBlockProps) {
 

@@ -1,19 +1,47 @@
+#import "./fragments/ProductFragment.gql"
+#import "./fragments/ImageFragment.gql"
 
 query GetStart {
   start {
-    id
     content {
+      __typename
       ... on FeaturedRecord {
         id
+        headline
+        items {
+          ...ProductFragment
+        }
       }
       ... on FullscreenImageRecord {
         id
+        headline
+        image {
+          ...ImageFragment
+        }
       }
       ... on FullscreenVideoRecord {
         id
+        link
+        linkText
+        text
+        video {
+          ...ImageFragment
+        }
       }
       ... on ImageLinkRecord {
         id
+        firstImage{
+          ...ImageFragment
+        }
+        firstLink
+        firstLinkText
+        firstHeadline
+        secondImage {
+          ...ImageFragment
+        }
+        secondLink
+        secondLinkText
+        secondHeadline
       }
     }
   }

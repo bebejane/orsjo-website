@@ -1,8 +1,8 @@
-import styles from './TwoColumnImageBlock.module.scss'
+import styles from './TwoColumnImage.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 
-type TwoColumnImageBlockProps = { data: TwoColumnImage }
+type TwoColumnImageBlockProps = { data: TwoColumnImageRecord }
 
 export default function TwoColumnImageBlock({ data: { firstImage, lastImage } }: TwoColumnImageBlockProps) {
 

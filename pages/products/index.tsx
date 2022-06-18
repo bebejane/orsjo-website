@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { GetProductStart, GetAllProducts, GetProductCategories } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
-import { FeaturedBlock, ProductThumbnail } from '/components'
+import { Featured, ProductThumbnail } from '/components'
 import { sectionId } from '/lib/utils'
 
 export type ProductsStartProps = {
@@ -22,7 +22,7 @@ export default function Products({ productStart: { featured }, products, product
 	return (
 		<div className={styles.products}>
 			{featured.slice(0).map((data, idx) =>
-				<FeaturedBlock key={`featured-${idx}`} data={data} />
+				<Featured key={`featured-${idx}`} data={data} />
 			)}
 
 			{Object.keys(productsByCategory).map(name => productsByCategory[name]).map((products, idx) => {

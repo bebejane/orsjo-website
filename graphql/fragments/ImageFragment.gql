@@ -22,4 +22,10 @@ fragment ImageFragment on FileField {
     title
     width
   }
+  video {
+    thumbnailUrl
+    mp4Url
+    duration
+    streamingUrl
+  }
 }

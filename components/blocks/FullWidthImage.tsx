@@ -1,8 +1,8 @@
-import styles from './FullWidthImageBlock.module.scss'
+import styles from './FullWidthImage.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 
-type LayoutProps = { data: FullwidthImage }
+type LayoutProps = { data: FullwidthImageRecord }
 
 export default function FullWidthImageBlock({ data: { image }, data }: LayoutProps) {
 

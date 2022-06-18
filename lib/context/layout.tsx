@@ -4,7 +4,7 @@ import { useReducer, useContext, createContext } from "react";
 const initialState : PageLayoutProps = {
   layout: 'normal',
   menu: 'normal',
-  color: ''
+  color: '#ffffff'
 }
 
 export const LayoutContext = createContext(initialState);

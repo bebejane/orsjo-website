@@ -11,6 +11,7 @@ export {
   GetProductCategories
 } from "./product.gql";
 
+export { GetStart } from "./start.gql";
 export { GetReseller, GetAllResellers } from "./reseller.gql";
 export { GetDistributor, GetAllDistributors } from "./distributor.gql";
 export { GetEmployee, GetAllEmployees } from "./employee.gql";

@@ -8,8 +8,8 @@ export type LayoutProps = { children: React.ReactNode }
 
 export default function Layout({ children }: LayoutProps) {
 
-	const { layout, color} = useLayout()
-
+	const {color} = useLayout()
+	
 	return (
 		<>
 			<Menu/>

@@ -1,5 +1,5 @@
 import "swiper/css";
-import styles from './FeaturedBlock.module.scss'
+import styles from './Featured.module.scss'
 import cn from 'classnames'
 import { sectionId } from '/lib/utils'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
@@ -7,15 +7,16 @@ import type { Swiper } from 'swiper';
 import { ProductThumbnail } from '/components'
 import Link from 'next/link'
 import { useRef, useState } from "react";
+import { useLayout } from "/lib/context/layout";
 
-export type ImageGalleryBlockProps = { data: Featured }
+export type ImageGalleryProps = { data: FeaturedRecord }
 
-export default function FeaturedBlock({ data: { headline, items: products, id } }: ImageGalleryBlockProps) {
+export default function Featured({ data: { headline, items: products, id } }: ImageGalleryProps) {
 	
-	
+	const { layout, menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
-
+	console.log(layout, menu)
 	const handleNext = () => {
 		if(swiperRef.current)
 			swiperRef.current.isEnd ? swiperRef.current.slideTo(0) : swiperRef.current.slideNext()
@@ -26,12 +27,14 @@ export default function FeaturedBlock({ data: { headline, items: products, id } 
 	const arrow = swiperRef.current?.isEnd ? '‹' : '›'
 	
 	return (
-		<section className={styles.featured} {...sectionId(headline)}>
+		<section className={cn(styles.featured, styles[menu])} {...sectionId(headline)}>
 			<div className={styles.header}>
 				<h1 className={styles.headline}>
 					{headline}
 				</h1>
-				<button  className={cn(styles.next, isShortSlide && styles.hide)} onClick={handleNext}>{arrow}</button>
+				<button className={cn(styles.next, isShortSlide && styles.hide)} onClick={handleNext}>
+					<img src="/images/arrow.svg" className={cn(styles.arrow, swiperRef.current?.isEnd && styles.end)}/>
+				</button>
 			</div>
 			<div className={styles.gallery} >
 				<SwiperReact
@@ -55,7 +58,6 @@ export default function FeaturedBlock({ data: { headline, items: products, id } 
 				</SwiperReact>
 				<div className={cn(styles.fade, isShortSlide && styles.hide)}></div>
 			</div>
-			
 		</section>
 	)
 }

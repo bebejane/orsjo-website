@@ -26,7 +26,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
   const pageLayout = Component.layout || {layout:'normal', menu:'normal', color:''}
   
   if(isError) return <Component {...pageProps} />
-
+  
   return (
     <>
       <GoogleAnalytics />

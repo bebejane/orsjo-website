@@ -1,4 +1,4 @@
-import styles from './TextBlock.module.scss'
+import styles from './Text.module.scss'
 import React from 'react'
 import Markdown from '/lib/dato/components/Markdown'
 
