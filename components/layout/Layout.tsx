@@ -8,12 +8,12 @@ export type LayoutProps = { children: React.ReactNode }
 
 export default function Layout({ children }: LayoutProps) {
 
-	const layout = useLayout()
+	const { layout, color} = useLayout()
 
 	return (
 		<>
 			<Menu/>
-			<div className={styles.layout} style={{backgroundColor: layout.color}}>
+			<div className={styles.layout} style={{backgroundColor: color}}>
 				<Sidebar/>
 				<Content>
 					{children}

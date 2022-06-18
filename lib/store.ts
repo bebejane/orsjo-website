@@ -1,6 +1,5 @@
 import create from "zustand";
 import shallow from "zustand/shallow"
-import type { State } from "zustand";
 
 export interface StoreState {
   showMenu: boolean,

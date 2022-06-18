@@ -1,4 +1,4 @@
-import styles from './Designer.module.scss'
+import styles from './Professional.module.scss'
 import { GetAllDesigners, GetDesigner } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
