@@ -2,17 +2,20 @@ import styles from './Layout.module.scss'
 import React from 'react'
 import { Content, Sidebar, Footer } from '/components'
 import Menu from '../Menu'
+import { useLayout } from '/lib/context/layout'
 
-type LayoutProps = { children: React.ReactNode, type?: string, color?:string, menu?:string }
+export type LayoutProps = { children: React.ReactNode }
 
-export default function Layout({ children, type, color, menu }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
+
+	const layout = useLayout()
 
 	return (
 		<>
-			<Menu layout={type} menu={menu}/>
-			<div className={styles.layout} style={{backgroundColor:color}}>
-				<Sidebar layout={type} menu={menu}/>
-				<Content layout={type}>
+			<Menu/>
+			<div className={styles.layout} style={{backgroundColor: layout.color}}>
+				<Sidebar/>
+				<Content>
 					{children}
 				</Content>
 			</div>

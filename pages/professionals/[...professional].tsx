@@ -3,6 +3,7 @@ import { GetAllDesigners, GetDesigner } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { Image } from 'react-datocms'
+import { PageLayoutProps } from '/lib/context/layout'
 
 export type DesignerProps = { designer: Designer };
 
@@ -21,7 +22,7 @@ export default function Designer({designer} : DesignerProps){
 	)
 }
 
-Designer.layout = {type:'full', color:'designer'}
+Designer.layout = {layout:'full'} as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { designers } = await apiQuery(GetAllDesigners)

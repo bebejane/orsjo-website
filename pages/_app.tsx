@@ -5,8 +5,16 @@ import DatoSEO from '/lib/dato/components/DatoSEO';
 import { GoogleAnalytics, usePagesViews } from "nextjs-google-analytics";
 import { useRouter } from 'next/router';
 import { Layout } from '/components'
+import { LayoutProvider, PageLayoutProps } from '/lib/context/layout';
+import type { NextComponentType } from 'next';
 
-function MyApp({ Component, pageProps } : AppProps) {
+export type ApplicationProps = AppProps & {
+  Component: NextComponentType & {
+    layout?: PageLayoutProps
+  }
+}
+
+function Application({ Component, pageProps } : ApplicationProps) {
   
   //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
@@ -15,7 +23,7 @@ function MyApp({ Component, pageProps } : AppProps) {
   const { site, seo } = pageProps;
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
-  const layout = Component.layout || {}
+  const pageLayout = Component.layout || {layout:'normal', menu:'normal', color:''}
   
   if(isError) return <Component {...pageProps} />
 
@@ -24,12 +32,14 @@ function MyApp({ Component, pageProps } : AppProps) {
       <GoogleAnalytics />
       <DatoSEO title={'Örsjö'} seo={seo} site={site} pathname={pathname} key={pathname}/>
       <NextIntlProvider messages={pageProps.messages}>
-        <Layout {...layout}>
-          <Component {...pageProps} />
-        </Layout>
+        <LayoutProvider value={pageLayout}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </LayoutProvider>
       </NextIntlProvider>
     </>
   )
 }
 
-export default MyApp
+export default Application

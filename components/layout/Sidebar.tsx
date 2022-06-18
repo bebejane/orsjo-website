@@ -4,11 +4,13 @@ import useStore from '/lib/store';
 import Link from 'next/link';
 import { sectionId } from '/lib/utils'
 import { useRouter } from 'next/router';
+import { useLayout } from '/lib/context/layout'
 
-export type SidebarProps = {layout:string}
+export type SidebarProps = {}
 
-export default function Sidebar({layout, menu} : SidebarProps) {
+export default function Sidebar({} : SidebarProps) {
 
+	const { layout, menu } = useLayout()
 	const router = useRouter()
 	const currentSection = useStore((state) => state.currentSection);
 	const sections = useStore((state) => state.sections)

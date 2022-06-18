@@ -4,11 +4,14 @@ import cn from 'classnames'
 import { useStore, shallow } from '/lib/store'
 import { useRouter } from 'next/router'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
+import { useLayout } from '/lib/context/layout'
 
-export type ContentProps = { children: React.ReactNode, layout:string }
 
-export default function Content({ children, layout }: ContentProps) {
+export type ContentProps = { children: React.ReactNode }
 
+export default function Content({ children}: ContentProps) {
+
+	const { layout } = useLayout()
 	const router = useRouter()
 	const [setCurrentSection, setSections, setShowMenu] = useStore((state) => [state.setCurrentSection, state.setSections, state.setShowMenu], shallow);
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition, documentHeight } = useScrollInfo()
