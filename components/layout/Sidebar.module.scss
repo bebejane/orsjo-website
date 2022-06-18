@@ -7,16 +7,20 @@
   
   ul {
     list-style: none;
-    a{
-      li{
+    li{
+      a{
         color:$gray;
         &.active{
           transition: color 0s;
           transition-delay: 0.1s; // Delay for not showing when scrolling
           color:$black;
+        
         }
       }
+      
+      
     }
+  
   }
   &.full{
     display: none;

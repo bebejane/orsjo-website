@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useState, useRef, useEffect, MouseEventHandler, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
-import { useOutsideClick } from 'rooks'
+import { useOutsideClick, useWindowSize } from 'rooks'
 import { MenuProps } from './'
 
 export default function DesktopMenu({items} : MenuProps){
@@ -18,9 +18,14 @@ export default function DesktopMenu({items} : MenuProps){
 	const [open, setOpen] = useState(false)
 	const [hovering, setHovering] = useState(undefined)
 	const {layout, menu} = useLayout()
-	
+	const { innerWidth } = useWindowSize()
   //useOutsideClick(ref, ()=> setSelected(undefined));
 
+	useEffect(()=>{ 
+		if(!selected) return
+		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`)
+		setMenuMargin(el.offsetLeft)
+	}, [innerWidth, selected])
 	useEffect(()=>{
 		setSelected(undefined)
 		setOpen(false)

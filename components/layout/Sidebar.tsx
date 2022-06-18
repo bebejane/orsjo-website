@@ -22,13 +22,13 @@ export default function Sidebar({} : SidebarProps) {
 			<nav>
 				<ul>
 					{sections.map((section, idx) => 
-						<Link key={idx} href={`#${sectionId(section).id}`}>
-							<a>
-								<li className={cn(sectionId(section).id === currentSection && styles.active)}>
+						<li key={idx}>
+							<Link href={`#${sectionId(section).id}`}>
+								<a className={cn(sectionId(section).id === currentSection && styles.active)}>
 									{section}
-								</li>
-							</a>
-						</Link>
+								</a>
+							</Link>
+						</li>
 					)}
 				</ul>
 			</nav>
