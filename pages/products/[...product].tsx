@@ -6,7 +6,7 @@ import { List, ListItem } from '/components'
 import { Image } from 'react-datocms'
 import { FullWidthImageBlock, TextBlock, TwoColumnImageBlock, ImageGalleryBlock } from '/components'
 
-export type ProductProps = { product: Product };
+export type ProductProps = { product: ProductRecord };
 
 export default function Product({ product }: ProductProps) {
 	

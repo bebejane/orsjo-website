@@ -7,11 +7,11 @@ import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 
-export type ProfessionalProps = { projects: Project[], projectStart:ProjectStart, projectTypes: ProjectType[] }
+export type ProfessionalProps = { projects: ProjectRecord[], projectStart:ProjectStartRecord, projectTypes: ProjectTypeRecord[] }
 
 export default function Professionals({ projects, projectStart, projectTypes }: ProfessionalProps) {
 	
-	console.log(projectStart, projects)
+	//console.log(projectStart, projects)
 
 	return (
 		<div className={styles.designers}>

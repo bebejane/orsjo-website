@@ -19,29 +19,29 @@ type Scalars = {
   UploadId: any;
 };
 
-type About = Interface & {
-  __typename?: 'About';
+type AboutRecord = RecordInterface & {
+  __typename?: 'AboutRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   intro?: Maybe<Scalars['String']>;
-  sections: Array<AboutSection>;
+  sections: Array<AboutSectionRecord>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
-type About_seoMetaTagsArgs = {
+type AboutRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type AboutintroArgs = {
+type AboutRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type AboutSection = Interface & {
-  __typename?: 'AboutSection';
+type AboutSectionRecord = RecordInterface & {
+  __typename?: 'AboutSectionRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -52,19 +52,19 @@ type AboutSection = Interface & {
 };
 
 
-type AboutSection_seoMetaTagsArgs = {
+type AboutSectionRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type AboutSectiontextArgs = {
+type AboutSectionRecordtextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type Accessory = Interface & {
-  __typename?: 'Accessory';
+type AccessoryRecord = RecordInterface & {
+  __typename?: 'AccessoryRecord';
   _modelApiKey: Scalars['String'];
-  accessory?: Maybe<ProductAccessory>;
+  accessory?: Maybe<ProductAccessoryRecord>;
   articleNo?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -73,35 +73,35 @@ type Accessory = Interface & {
 };
 
 
-type Accessory_seoMetaTagsArgs = {
+type AccessoryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type BespokeProject = Interface & {
-  __typename?: 'BespokeProject';
+type BespokeProjectRecord = RecordInterface & {
+  __typename?: 'BespokeProjectRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  project?: Maybe<Project>;
+  project?: Maybe<ProjectRecord>;
   summary?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
-type BespokeProject_seoMetaTagsArgs = {
+type BespokeProjectRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type BespokeProjectsummaryArgs = {
+type BespokeProjectRecordsummaryArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type Bespoke = Interface & {
-  __typename?: 'Bespoke';
+type BespokeRecord = RecordInterface & {
+  __typename?: 'BespokeRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
-  examples: Array<BespokeProject>;
+  examples: Array<BespokeProjectRecord>;
   id: Scalars['ItemId'];
   intro?: Maybe<Scalars['String']>;
   outro?: Maybe<Scalars['String']>;
@@ -110,17 +110,17 @@ type Bespoke = Interface & {
 };
 
 
-type Bespoke_seoMetaTagsArgs = {
+type BespokeRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type BespokeintroArgs = {
+type BespokeRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type BespokeoutroArgs = {
+type BespokeRecordoutroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -185,8 +185,8 @@ enum ContactModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type Contact = Interface & {
-  __typename?: 'Contact';
+type ContactRecord = RecordInterface & {
+  __typename?: 'ContactRecord';
   _modelApiKey: Scalars['String'];
   address?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
@@ -200,22 +200,22 @@ type Contact = Interface & {
 };
 
 
-type Contact_seoMetaTagsArgs = {
+type ContactRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ContactaddressArgs = {
+type ContactRecordaddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type ContactintroArgs = {
+type ContactRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type ContactshowroomIntroArgs = {
+type ContactRecordshowroomIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -238,8 +238,8 @@ enum CountryModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type Country = Interface & {
-  __typename?: 'Country';
+type CountryRecord = RecordInterface & {
+  __typename?: 'CountryRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -248,18 +248,18 @@ type Country = Interface & {
 };
 
 
-type Country_allNameLocalesArgs = {
+type CountryRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type Country_seoMetaTagsArgs = {
+type CountryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type CountrynameArgs = {
+type CountryRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -296,8 +296,8 @@ enum DesignerModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type Designer = Interface & {
-  __typename?: 'Designer';
+type DesignerRecord = RecordInterface & {
+  __typename?: 'DesignerRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
@@ -309,18 +309,18 @@ type Designer = Interface & {
 };
 
 
-type Designer_allDescriptionLocalesArgs = {
+type DesignerRecord_allDescriptionLocalesArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type Designer_seoMetaTagsArgs = {
+type DesignerRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type DesignerdescriptionArgs = {
+type DesignerRecorddescriptionArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
@@ -364,13 +364,13 @@ enum DistributorModelOrderBy {
   url_DESC = 'url_DESC'
 }
 
-type Distributor = Interface & {
-  __typename?: 'Distributor';
+type DistributorRecord = RecordInterface & {
+  __typename?: 'DistributorRecord';
   _modelApiKey: Scalars['String'];
   address?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
   contactName?: Maybe<Scalars['String']>;
-  country?: Maybe<Country>;
+  country?: Maybe<CountryRecord>;
   createdAt: Scalars['DateTime'];
   email?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
@@ -382,17 +382,17 @@ type Distributor = Interface & {
 };
 
 
-type Distributor_seoMetaTagsArgs = {
+type DistributorRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type DistributoraddressArgs = {
+type DistributorRecordaddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type Download = Interface & {
-  __typename?: 'Download';
+type DownloadRecord = RecordInterface & {
+  __typename?: 'DownloadRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -402,7 +402,7 @@ type Download = Interface & {
 };
 
 
-type Download_seoMetaTagsArgs = {
+type DownloadRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -435,8 +435,8 @@ enum EmployeeModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type Employee = Interface & {
-  __typename?: 'Employee';
+type EmployeeRecord = RecordInterface & {
+  __typename?: 'EmployeeRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   email?: Maybe<Scalars['String']>;
@@ -449,12 +449,12 @@ type Employee = Interface & {
 };
 
 
-type Employee_seoMetaTagsArgs = {
+type EmployeeRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type FactoryVisit = Interface & {
-  __typename?: 'FactoryVisit';
+type FactoryVisitRecord = RecordInterface & {
+  __typename?: 'FactoryVisitRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -464,12 +464,12 @@ type FactoryVisit = Interface & {
 };
 
 
-type FactoryVisit_seoMetaTagsArgs = {
+type FactoryVisitRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FactoryVisitintroArgs = {
+type FactoryVisitRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -492,8 +492,8 @@ enum FaqCategoryModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type FaqCategory = Interface & {
-  __typename?: 'FaqCategory';
+type FaqCategoryRecord = RecordInterface & {
+  __typename?: 'FaqCategoryRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -502,7 +502,7 @@ type FaqCategory = Interface & {
 };
 
 
-type FaqCategory_seoMetaTagsArgs = {
+type FaqCategoryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -527,11 +527,11 @@ enum FaqModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type Faq = Interface & {
-  __typename?: 'Faq';
+type FaqRecord = RecordInterface & {
+  __typename?: 'FaqRecord';
   _modelApiKey: Scalars['String'];
   answer?: Maybe<Scalars['String']>;
-  category?: Maybe<FaqCategory>;
+  category?: Maybe<FaqCategoryRecord>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   question?: Maybe<Scalars['String']>;
@@ -539,17 +539,17 @@ type Faq = Interface & {
 };
 
 
-type Faq_seoMetaTagsArgs = {
+type FaqRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FaqanswerArgs = {
+type FaqRecordanswerArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type FaqStart = Interface & {
-  __typename?: 'FaqStart';
+type FaqStartRecord = RecordInterface & {
+  __typename?: 'FaqStartRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -559,12 +559,12 @@ type FaqStart = Interface & {
 };
 
 
-type FaqStart_seoMetaTagsArgs = {
+type FaqStartRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FaqStartintroArgs = {
+type FaqStartRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -574,18 +574,18 @@ enum FaviconType {
   msApplication = 'msApplication'
 }
 
-type Featured = Interface & {
-  __typename?: 'Featured';
+type FeaturedRecord = RecordInterface & {
+  __typename?: 'FeaturedRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   headline?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
-  items: Array<Product>;
+  items: Array<ProductRecord>;
   updatedAt: Scalars['DateTime'];
 };
 
 
-type Featured_seoMetaTagsArgs = {
+type FeaturedRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -760,10 +760,10 @@ type FloatFilter = {
   neq?: InputMaybe<Scalars['FloatType']>;
 };
 
-type FullscreenImageModelLinkField = Designer | Product;
+type FullscreenImageModelLinkField = DesignerRecord | ProductRecord;
 
-type FullscreenImage = Interface & {
-  __typename?: 'FullscreenImage';
+type FullscreenImageRecord = RecordInterface & {
+  __typename?: 'FullscreenImageRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   headline?: Maybe<Scalars['String']>;
@@ -775,12 +775,12 @@ type FullscreenImage = Interface & {
 };
 
 
-type FullscreenImage_seoMetaTagsArgs = {
+type FullscreenImageRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type FullscreenVideo = Interface & {
-  __typename?: 'FullscreenVideo';
+type FullscreenVideoRecord = RecordInterface & {
+  __typename?: 'FullscreenVideoRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -792,17 +792,17 @@ type FullscreenVideo = Interface & {
 };
 
 
-type FullscreenVideo_seoMetaTagsArgs = {
+type FullscreenVideoRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FullscreenVideotextArgs = {
+type FullscreenVideoRecordtextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type FullwidthImage = Interface & {
-  __typename?: 'FullwidthImage';
+type FullwidthImageRecord = RecordInterface & {
+  __typename?: 'FullwidthImageRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -811,7 +811,7 @@ type FullwidthImage = Interface & {
 };
 
 
-type FullwidthImage_seoMetaTagsArgs = {
+type FullwidthImageRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -832,8 +832,8 @@ type GlobalSeoField = {
   twitterAccount?: Maybe<Scalars['String']>;
 };
 
-type ImageGallery = Interface & {
-  __typename?: 'ImageGallery';
+type ImageGalleryRecord = RecordInterface & {
+  __typename?: 'ImageGalleryRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   gallery: Array<FileField>;
@@ -842,12 +842,12 @@ type ImageGallery = Interface & {
 };
 
 
-type ImageGallery_seoMetaTagsArgs = {
+type ImageGalleryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ImageLink = Interface & {
-  __typename?: 'ImageLink';
+type ImageLinkRecord = RecordInterface & {
+  __typename?: 'ImageLinkRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   firstHeadline?: Maybe<Scalars['String']>;
@@ -863,7 +863,7 @@ type ImageLink = Interface & {
 };
 
 
-type ImageLink_seoMetaTagsArgs = {
+type ImageLinkRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -1217,8 +1217,8 @@ enum JobModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type Job = Interface & {
-  __typename?: 'Job';
+type JobRecord = RecordInterface & {
+  __typename?: 'JobRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1229,34 +1229,34 @@ type Job = Interface & {
 };
 
 
-type Job_seoMetaTagsArgs = {
+type JobRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type JobsummaryArgs = {
+type JobRecordsummaryArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type JobtextArgs = {
+type JobRecordtextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type Lightsource = Interface & {
-  __typename?: 'Lightsource';
+type LightsourceRecord = RecordInterface & {
+  __typename?: 'LightsourceRecord';
   _modelApiKey: Scalars['String'];
   amount?: Maybe<Scalars['IntType']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   included?: Maybe<Scalars['BooleanType']>;
-  lightsource?: Maybe<ProductLightsource>;
+  lightsource?: Maybe<ProductLightsourceRecord>;
   optional?: Maybe<Scalars['BooleanType']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
-type Lightsource_seoMetaTagsArgs = {
+type LightsourceRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -1276,8 +1276,8 @@ type LinksFilter = {
   notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
 };
 
-type Manual = Interface & {
-  __typename?: 'Manual';
+type ManualRecord = RecordInterface & {
+  __typename?: 'ManualRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1287,12 +1287,12 @@ type Manual = Interface & {
 };
 
 
-type Manual_seoMetaTagsArgs = {
+type ManualRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ManualintroArgs = {
+type ManualRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -1329,8 +1329,8 @@ enum NewsModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type News = Interface & {
-  __typename?: 'News';
+type NewsRecord = RecordInterface & {
+  __typename?: 'NewsRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1343,12 +1343,12 @@ type News = Interface & {
 };
 
 
-type News_seoMetaTagsArgs = {
+type NewsRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type NewstextArgs = {
+type NewsRecordtextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -1366,8 +1366,8 @@ type PositionFilter = {
   neq?: InputMaybe<Scalars['IntType']>;
 };
 
-type Pricelist = Interface & {
-  __typename?: 'Pricelist';
+type PricelistRecord = RecordInterface & {
+  __typename?: 'PricelistRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1376,18 +1376,18 @@ type Pricelist = Interface & {
 };
 
 
-type Pricelist_allPdfFileLocalesArgs = {
+type PricelistRecord_allPdfFileLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type Pricelist_seoMetaTagsArgs = {
+type PricelistRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type PricelistpdfFileArgs = {
+type PricelistRecordpdfFileArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1411,8 +1411,8 @@ enum ProductAccessoryModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductAccessory = Interface & {
-  __typename?: 'ProductAccessory';
+type ProductAccessoryRecord = RecordInterface & {
+  __typename?: 'ProductAccessoryRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1421,18 +1421,18 @@ type ProductAccessory = Interface & {
 };
 
 
-type ProductAccessory_allNameLocalesArgs = {
+type ProductAccessoryRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductAccessory_seoMetaTagsArgs = {
+type ProductAccessoryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductAccessorynameArgs = {
+type ProductAccessoryRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1460,8 +1460,8 @@ enum ProductCategoryModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductCategory = Interface & {
-  __typename?: 'ProductCategory';
+type ProductCategoryRecord = RecordInterface & {
+  __typename?: 'ProductCategoryRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
@@ -1472,30 +1472,30 @@ type ProductCategory = Interface & {
 };
 
 
-type ProductCategory_allDescriptionLocalesArgs = {
+type ProductCategoryRecord_allDescriptionLocalesArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type ProductCategory_allNameLocalesArgs = {
+type ProductCategoryRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductCategory_seoMetaTagsArgs = {
+type ProductCategoryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductCategorydescriptionArgs = {
+type ProductCategoryRecorddescriptionArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type ProductCategorynameArgs = {
+type ProductCategoryRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1519,8 +1519,8 @@ enum ProductColorModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductColor = Interface & {
-  __typename?: 'ProductColor';
+type ProductColorRecord = RecordInterface & {
+  __typename?: 'ProductColorRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1529,18 +1529,18 @@ type ProductColor = Interface & {
 };
 
 
-type ProductColor_allNameLocalesArgs = {
+type ProductColorRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductColor_seoMetaTagsArgs = {
+type ProductColorRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductColornameArgs = {
+type ProductColorRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1564,8 +1564,8 @@ enum ProductConnectionModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductConnection = Interface & {
-  __typename?: 'ProductConnection';
+type ProductConnectionRecord = RecordInterface & {
+  __typename?: 'ProductConnectionRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1574,18 +1574,18 @@ type ProductConnection = Interface & {
 };
 
 
-type ProductConnection_allNameLocalesArgs = {
+type ProductConnectionRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductConnection_seoMetaTagsArgs = {
+type ProductConnectionRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductConnectionnameArgs = {
+type ProductConnectionRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1609,8 +1609,8 @@ enum ProductDimmableModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductDimmable = Interface & {
-  __typename?: 'ProductDimmable';
+type ProductDimmableRecord = RecordInterface & {
+  __typename?: 'ProductDimmableRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1619,18 +1619,18 @@ type ProductDimmable = Interface & {
 };
 
 
-type ProductDimmable_allNameLocalesArgs = {
+type ProductDimmableRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductDimmable_seoMetaTagsArgs = {
+type ProductDimmableRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductDimmablenameArgs = {
+type ProductDimmableRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1654,8 +1654,8 @@ enum ProductElectricalModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductElectrical = Interface & {
-  __typename?: 'ProductElectrical';
+type ProductElectricalRecord = RecordInterface & {
+  __typename?: 'ProductElectricalRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1664,18 +1664,18 @@ type ProductElectrical = Interface & {
 };
 
 
-type ProductElectrical_allNameLocalesArgs = {
+type ProductElectricalRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductElectrical_seoMetaTagsArgs = {
+type ProductElectricalRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductElectricalnameArgs = {
+type ProductElectricalRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1699,8 +1699,8 @@ enum ProductFamilyModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductFamily = Interface & {
-  __typename?: 'ProductFamily';
+type ProductFamilyRecord = RecordInterface & {
+  __typename?: 'ProductFamilyRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1709,7 +1709,7 @@ type ProductFamily = Interface & {
 };
 
 
-type ProductFamily_seoMetaTagsArgs = {
+type ProductFamilyRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -1732,8 +1732,8 @@ enum ProductFeatureModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductFeature = Interface & {
-  __typename?: 'ProductFeature';
+type ProductFeatureRecord = RecordInterface & {
+  __typename?: 'ProductFeatureRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1742,18 +1742,18 @@ type ProductFeature = Interface & {
 };
 
 
-type ProductFeature_allNameLocalesArgs = {
+type ProductFeatureRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductFeature_seoMetaTagsArgs = {
+type ProductFeatureRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductFeaturenameArgs = {
+type ProductFeatureRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1783,8 +1783,8 @@ enum ProductLightsourceModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductLightsource = Interface & {
-  __typename?: 'ProductLightsource';
+type ProductLightsourceRecord = RecordInterface & {
+  __typename?: 'ProductLightsourceRecord';
   _modelApiKey: Scalars['String'];
   articleNo?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
@@ -1795,18 +1795,18 @@ type ProductLightsource = Interface & {
 };
 
 
-type ProductLightsource_allNameLocalesArgs = {
+type ProductLightsourceRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductLightsource_seoMetaTagsArgs = {
+type ProductLightsourceRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductLightsourcenameArgs = {
+type ProductLightsourceRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1830,8 +1830,8 @@ enum ProductMaterialModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductMaterial = Interface & {
-  __typename?: 'ProductMaterial';
+type ProductMaterialRecord = RecordInterface & {
+  __typename?: 'ProductMaterialRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1840,18 +1840,18 @@ type ProductMaterial = Interface & {
 };
 
 
-type ProductMaterial_allNameLocalesArgs = {
+type ProductMaterialRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductMaterial_seoMetaTagsArgs = {
+type ProductMaterialRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductMaterialnameArgs = {
+type ProductMaterialRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1901,8 +1901,8 @@ enum ProductModelNameModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductModelName = Interface & {
-  __typename?: 'ProductModelName';
+type ProductModelNameRecord = RecordInterface & {
+  __typename?: 'ProductModelNameRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1911,18 +1911,18 @@ type ProductModelName = Interface & {
 };
 
 
-type ProductModelName_allNameLocalesArgs = {
+type ProductModelNameRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductModelName_seoMetaTagsArgs = {
+type ProductModelNameRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductModelNamenameArgs = {
+type ProductModelNameRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -1942,23 +1942,23 @@ enum ProductModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductModelProductGalleryField = FullwidthImage | ImageGallery | Text | TwoColumnImage | Video;
+type ProductModelProductGalleryField = FullwidthImageRecord | ImageGalleryRecord | TextRecord | TwoColumnImageRecord | VideoRecord;
 
-type ProductModel = Interface & {
-  __typename?: 'ProductModel';
+type ProductModelRecord = RecordInterface & {
+  __typename?: 'ProductModelRecord';
   _modelApiKey: Scalars['String'];
-  accessories: Array<Accessory>;
+  accessories: Array<AccessoryRecord>;
   createdAt: Scalars['DateTime'];
   drawing?: Maybe<FileField>;
   id: Scalars['ItemId'];
-  lightsources: Array<Lightsource>;
-  name?: Maybe<ProductModelName>;
+  lightsources: Array<LightsourceRecord>;
+  name?: Maybe<ProductModelNameRecord>;
   updatedAt: Scalars['DateTime'];
-  variants: Array<Variant>;
+  variants: Array<VariantRecord>;
 };
 
 
-type ProductModel_seoMetaTagsArgs = {
+type ProductModelRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -1981,8 +1981,8 @@ enum ProductMountingModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductMounting = Interface & {
-  __typename?: 'ProductMounting';
+type ProductMountingRecord = RecordInterface & {
+  __typename?: 'ProductMountingRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -1991,88 +1991,88 @@ type ProductMounting = Interface & {
 };
 
 
-type ProductMounting_allNameLocalesArgs = {
+type ProductMountingRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductMounting_seoMetaTagsArgs = {
+type ProductMountingRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductMountingnameArgs = {
+type ProductMountingRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type Product = Interface & {
-  __typename?: 'Product';
+type ProductRecord = RecordInterface & {
+  __typename?: 'ProductRecord';
   _modelApiKey: Scalars['String'];
   bimLink?: Maybe<Scalars['String']>;
-  categories: Array<ProductCategory>;
+  categories: Array<ProductCategoryRecord>;
   colorImages: Array<FileField>;
-  connection?: Maybe<ProductConnection>;
+  connection?: Maybe<ProductConnectionRecord>;
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
-  designer?: Maybe<Designer>;
-  dimmable?: Maybe<ProductDimmable>;
-  electricalData: Array<ProductElectrical>;
+  designer?: Maybe<DesignerRecord>;
+  dimmable?: Maybe<ProductDimmableRecord>;
+  electricalData: Array<ProductElectricalRecord>;
   environmentImage?: Maybe<FileField>;
-  family?: Maybe<ProductFamily>;
+  family?: Maybe<ProductFamilyRecord>;
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
   lightFile?: Maybe<FileField>;
-  models: Array<ProductModel>;
-  mounting?: Maybe<ProductMounting>;
+  models: Array<ProductModelRecord>;
+  mounting?: Maybe<ProductMountingRecord>;
   mountingInstructions?: Maybe<FileField>;
   pdfFile?: Maybe<FileField>;
   presentation?: Maybe<Scalars['String']>;
   productGallery: Array<ProductModelProductGalleryField>;
   slug?: Maybe<Scalars['String']>;
-  sockets: Array<ProductSocket>;
+  sockets: Array<ProductSocketRecord>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
-type Product_allDescriptionLocalesArgs = {
+type ProductRecord_allDescriptionLocalesArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type Product_allPdfFileLocalesArgs = {
+type ProductRecord_allPdfFileLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type Product_allPresentationLocalesArgs = {
+type ProductRecord_allPresentationLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type Product_seoMetaTagsArgs = {
+type ProductRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductdescriptionArgs = {
+type ProductRecorddescriptionArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type ProductpdfFileArgs = {
+type ProductRecordpdfFileArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProductpresentationArgs = {
+type ProductRecordpresentationArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -2096,8 +2096,8 @@ enum ProductSocketModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProductSocket = Interface & {
-  __typename?: 'ProductSocket';
+type ProductSocketRecord = RecordInterface & {
+  __typename?: 'ProductSocketRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -2106,21 +2106,21 @@ type ProductSocket = Interface & {
 };
 
 
-type ProductSocket_seoMetaTagsArgs = {
+type ProductSocketRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductStart = Interface & {
-  __typename?: 'ProductStart';
+type ProductStartRecord = RecordInterface & {
+  __typename?: 'ProductStartRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
-  featured: Array<Featured>;
+  featured: Array<FeaturedRecord>;
   id: Scalars['ItemId'];
   updatedAt: Scalars['DateTime'];
 };
 
 
-type ProductStart_seoMetaTagsArgs = {
+type ProductStartRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -2136,7 +2136,7 @@ type ProjectModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-type ProjectModelGalleryField = FullwidthImage | ImageGallery | Text | TwoColumnImage | Video;
+type ProjectModelGalleryField = FullwidthImageRecord | ImageGalleryRecord | TextRecord | TwoColumnImageRecord | VideoRecord;
 
 enum ProjectModelOrderBy {
   createdAt_ASC = 'createdAt_ASC',
@@ -2151,27 +2151,27 @@ enum ProjectModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type Project = Interface & {
-  __typename?: 'Project';
+type ProjectRecord = RecordInterface & {
+  __typename?: 'ProjectRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   gallery: Array<ProjectModelGalleryField>;
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
   location?: Maybe<Scalars['String']>;
-  projectType?: Maybe<ProjectType>;
+  projectType?: Maybe<ProjectTypeRecord>;
   secondaryImage?: Maybe<FileField>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
-type Project_seoMetaTagsArgs = {
+type ProjectRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProjectStart = Interface & {
-  __typename?: 'ProjectStart';
+type ProjectStartRecord = RecordInterface & {
+  __typename?: 'ProjectStartRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -2181,12 +2181,12 @@ type ProjectStart = Interface & {
 };
 
 
-type ProjectStart_seoMetaTagsArgs = {
+type ProjectStartRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ProjectStartintroArgs = {
+type ProjectStartRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -2209,8 +2209,8 @@ enum ProjectTypeModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type ProjectType = Interface & {
-  __typename?: 'ProjectType';
+type ProjectTypeRecord = RecordInterface & {
+  __typename?: 'ProjectTypeRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -2219,7 +2219,7 @@ type ProjectType = Interface & {
 };
 
 
-type ProjectType_seoMetaTagsArgs = {
+type ProjectTypeRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -2235,74 +2235,74 @@ type PublishedAtFilter = {
 
 type Query = {
   __typename?: 'Query';
-  about?: Maybe<About>;
-  allContacts: Array<Contact>;
-  allCountries: Array<Country>;
-  allDesigners: Array<Designer>;
-  allDistributors: Array<Distributor>;
-  allEmployees: Array<Employee>;
-  allFaqCategories: Array<FaqCategory>;
-  allFaqs: Array<Faq>;
-  allJobs: Array<Job>;
-  allNews: Array<News>;
-  allProductAccessories: Array<ProductAccessory>;
-  allProductCategories: Array<ProductCategory>;
-  allProductColors: Array<ProductColor>;
-  allProductConnections: Array<ProductConnection>;
-  allProductDimmables: Array<ProductDimmable>;
-  allProductElectricals: Array<ProductElectrical>;
-  allProductFamilies: Array<ProductFamily>;
-  allProductFeatures: Array<ProductFeature>;
-  allProductLightsources: Array<ProductLightsource>;
-  allProductMaterials: Array<ProductMaterial>;
-  allProductModelNames: Array<ProductModelName>;
-  allProductMountings: Array<ProductMounting>;
-  allProductSockets: Array<ProductSocket>;
-  allProducts: Array<Product>;
-  allProjectTypes: Array<ProjectType>;
-  allProjects: Array<Project>;
-  allResellers: Array<Reseller>;
-  allShowrooms: Array<Showroom>;
-  allTranslations: Array<Translation>;
+  about?: Maybe<AboutRecord>;
+  allContacts: Array<ContactRecord>;
+  allCountries: Array<CountryRecord>;
+  allDesigners: Array<DesignerRecord>;
+  allDistributors: Array<DistributorRecord>;
+  allEmployees: Array<EmployeeRecord>;
+  allFaqCategories: Array<FaqCategoryRecord>;
+  allFaqs: Array<FaqRecord>;
+  allJobs: Array<JobRecord>;
+  allNews: Array<NewsRecord>;
+  allProductAccessories: Array<ProductAccessoryRecord>;
+  allProductCategories: Array<ProductCategoryRecord>;
+  allProductColors: Array<ProductColorRecord>;
+  allProductConnections: Array<ProductConnectionRecord>;
+  allProductDimmables: Array<ProductDimmableRecord>;
+  allProductElectricals: Array<ProductElectricalRecord>;
+  allProductFamilies: Array<ProductFamilyRecord>;
+  allProductFeatures: Array<ProductFeatureRecord>;
+  allProductLightsources: Array<ProductLightsourceRecord>;
+  allProductMaterials: Array<ProductMaterialRecord>;
+  allProductModelNames: Array<ProductModelNameRecord>;
+  allProductMountings: Array<ProductMountingRecord>;
+  allProductSockets: Array<ProductSocketRecord>;
+  allProducts: Array<ProductRecord>;
+  allProjectTypes: Array<ProjectTypeRecord>;
+  allProjects: Array<ProjectRecord>;
+  allResellers: Array<ResellerRecord>;
+  allShowrooms: Array<ShowroomRecord>;
+  allTranslations: Array<TranslationRecord>;
   allUploads: Array<FileField>;
-  bespoke?: Maybe<Bespoke>;
-  contact?: Maybe<Contact>;
-  country?: Maybe<Country>;
-  designer?: Maybe<Designer>;
-  distributor?: Maybe<Distributor>;
-  download?: Maybe<Download>;
-  employee?: Maybe<Employee>;
-  factoryVisit?: Maybe<FactoryVisit>;
-  faq?: Maybe<Faq>;
-  faqCategory?: Maybe<FaqCategory>;
-  faqStart?: Maybe<FaqStart>;
-  job?: Maybe<Job>;
-  manual?: Maybe<Manual>;
-  news?: Maybe<News>;
-  pricelist?: Maybe<Pricelist>;
-  product?: Maybe<Product>;
-  productAccessory?: Maybe<ProductAccessory>;
-  productCategory?: Maybe<ProductCategory>;
-  productColor?: Maybe<ProductColor>;
-  productConnection?: Maybe<ProductConnection>;
-  productDimmable?: Maybe<ProductDimmable>;
-  productElectrical?: Maybe<ProductElectrical>;
-  productFamily?: Maybe<ProductFamily>;
-  productFeature?: Maybe<ProductFeature>;
-  productLightsource?: Maybe<ProductLightsource>;
-  productMaterial?: Maybe<ProductMaterial>;
-  productModelName?: Maybe<ProductModelName>;
-  productMounting?: Maybe<ProductMounting>;
-  productSocket?: Maybe<ProductSocket>;
-  productStart?: Maybe<ProductStart>;
-  project?: Maybe<Project>;
-  projectStart?: Maybe<ProjectStart>;
-  projectType?: Maybe<ProjectType>;
-  reseller?: Maybe<Reseller>;
-  showroom?: Maybe<Showroom>;
-  start?: Maybe<Start>;
-  sustainability?: Maybe<Sustainability>;
-  translation?: Maybe<Translation>;
+  bespoke?: Maybe<BespokeRecord>;
+  contact?: Maybe<ContactRecord>;
+  country?: Maybe<CountryRecord>;
+  designer?: Maybe<DesignerRecord>;
+  distributor?: Maybe<DistributorRecord>;
+  download?: Maybe<DownloadRecord>;
+  employee?: Maybe<EmployeeRecord>;
+  factoryVisit?: Maybe<FactoryVisitRecord>;
+  faq?: Maybe<FaqRecord>;
+  faqCategory?: Maybe<FaqCategoryRecord>;
+  faqStart?: Maybe<FaqStartRecord>;
+  job?: Maybe<JobRecord>;
+  manual?: Maybe<ManualRecord>;
+  news?: Maybe<NewsRecord>;
+  pricelist?: Maybe<PricelistRecord>;
+  product?: Maybe<ProductRecord>;
+  productAccessory?: Maybe<ProductAccessoryRecord>;
+  productCategory?: Maybe<ProductCategoryRecord>;
+  productColor?: Maybe<ProductColorRecord>;
+  productConnection?: Maybe<ProductConnectionRecord>;
+  productDimmable?: Maybe<ProductDimmableRecord>;
+  productElectrical?: Maybe<ProductElectricalRecord>;
+  productFamily?: Maybe<ProductFamilyRecord>;
+  productFeature?: Maybe<ProductFeatureRecord>;
+  productLightsource?: Maybe<ProductLightsourceRecord>;
+  productMaterial?: Maybe<ProductMaterialRecord>;
+  productModelName?: Maybe<ProductModelNameRecord>;
+  productMounting?: Maybe<ProductMountingRecord>;
+  productSocket?: Maybe<ProductSocketRecord>;
+  productStart?: Maybe<ProductStartRecord>;
+  project?: Maybe<ProjectRecord>;
+  projectStart?: Maybe<ProjectStartRecord>;
+  projectType?: Maybe<ProjectTypeRecord>;
+  reseller?: Maybe<ResellerRecord>;
+  showroom?: Maybe<ShowroomRecord>;
+  start?: Maybe<StartRecord>;
+  sustainability?: Maybe<SustainabilityRecord>;
+  translation?: Maybe<TranslationRecord>;
   upload?: Maybe<FileField>;
 };
 
@@ -3102,13 +3102,13 @@ type QueryuploadArgs = {
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
 };
 
-type Interface = {
+type RecordInterface = {
   _modelApiKey: Scalars['String'];
   id: Scalars['ItemId'];
 };
 
 
-type Interface_seoMetaTagsArgs = {
+type RecordInterface_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -3142,12 +3142,12 @@ enum ResellerModelOrderBy {
   url_DESC = 'url_DESC'
 }
 
-type Reseller = Interface & {
-  __typename?: 'Reseller';
+type ResellerRecord = RecordInterface & {
+  __typename?: 'ResellerRecord';
   _modelApiKey: Scalars['String'];
   address?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
-  country?: Maybe<Country>;
+  country?: Maybe<CountryRecord>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -3157,12 +3157,12 @@ type Reseller = Interface & {
 };
 
 
-type Reseller_seoMetaTagsArgs = {
+type ResellerRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ReselleraddressArgs = {
+type ResellerRecordaddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -3225,8 +3225,8 @@ enum ShowroomModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type Showroom = Interface & {
-  __typename?: 'Showroom';
+type ShowroomRecord = RecordInterface & {
+  __typename?: 'ShowroomRecord';
   _modelApiKey: Scalars['String'];
   additional?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
@@ -3238,17 +3238,17 @@ type Showroom = Interface & {
 };
 
 
-type Showroom_seoMetaTagsArgs = {
+type ShowroomRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type ShowroomadditionalArgs = {
+type ShowroomRecordadditionalArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
-type ShowroomaddressArgs = {
+type ShowroomRecordaddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -3284,10 +3284,10 @@ type SlugFilter = {
   notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-type StartModelContentField = Featured | FullscreenImage | FullscreenVideo | ImageLink;
+type StartModelContentField = FeaturedRecord | FullscreenImageRecord | FullscreenVideoRecord | ImageLinkRecord;
 
-type Start = Interface & {
-  __typename?: 'Start';
+type StartRecord = RecordInterface & {
+  __typename?: 'StartRecord';
   _modelApiKey: Scalars['String'];
   content: Array<StartModelContentField>;
   createdAt: Scalars['DateTime'];
@@ -3296,7 +3296,7 @@ type Start = Interface & {
 };
 
 
-type Start_seoMetaTagsArgs = {
+type StartRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -3330,8 +3330,8 @@ type StringMultiLocaleField = {
   value?: Maybe<Scalars['String']>;
 };
 
-type Sustainability = Interface & {
-  __typename?: 'Sustainability';
+type SustainabilityRecord = RecordInterface & {
+  __typename?: 'SustainabilityRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -3340,7 +3340,7 @@ type Sustainability = Interface & {
 };
 
 
-type Sustainability_seoMetaTagsArgs = {
+type SustainabilityRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -3358,8 +3358,8 @@ type TextFilter = {
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
-type Text = Interface & {
-  __typename?: 'Text';
+type TextRecord = RecordInterface & {
+  __typename?: 'TextRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -3368,12 +3368,12 @@ type Text = Interface & {
 };
 
 
-type Text_seoMetaTagsArgs = {
+type TextRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type TexttextArgs = {
+type TextRecordtextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -3402,8 +3402,8 @@ enum TranslationModelOrderBy {
   value_DESC = 'value_DESC'
 }
 
-type Translation = Interface & {
-  __typename?: 'Translation';
+type TranslationRecord = RecordInterface & {
+  __typename?: 'TranslationRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -3414,24 +3414,24 @@ type Translation = Interface & {
 };
 
 
-type Translation_allValueLocalesArgs = {
+type TranslationRecord_allValueLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type Translation_seoMetaTagsArgs = {
+type TranslationRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type TranslationvalueArgs = {
+type TranslationRecordvalueArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type TwoColumnImage = Interface & {
-  __typename?: 'TwoColumnImage';
+type TwoColumnImageRecord = RecordInterface & {
+  __typename?: 'TwoColumnImageRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   firstImage?: Maybe<FileField>;
@@ -3443,7 +3443,7 @@ type TwoColumnImage = Interface & {
 };
 
 
-type TwoColumnImage_seoMetaTagsArgs = {
+type TwoColumnImageRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -3684,15 +3684,15 @@ type UploadWidthFilter = {
   neq?: InputMaybe<Scalars['IntType']>;
 };
 
-type Variant = Interface & {
-  __typename?: 'Variant';
+type VariantRecord = RecordInterface & {
+  __typename?: 'VariantRecord';
   _modelApiKey: Scalars['String'];
   articleNo?: Maybe<Scalars['String']>;
-  color?: Maybe<ProductColor>;
+  color?: Maybe<ProductColorRecord>;
   createdAt: Scalars['DateTime'];
-  feature?: Maybe<ProductFeature>;
+  feature?: Maybe<ProductFeatureRecord>;
   id: Scalars['ItemId'];
-  material?: Maybe<ProductMaterial>;
+  material?: Maybe<ProductMaterialRecord>;
   price?: Maybe<Scalars['FloatType']>;
   updatedAt: Scalars['DateTime'];
   volume?: Maybe<Scalars['FloatType']>;
@@ -3700,7 +3700,7 @@ type Variant = Interface & {
 };
 
 
-type Variant_seoMetaTagsArgs = {
+type VariantRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -3710,8 +3710,8 @@ enum VideoMp4Res {
   medium = 'medium'
 }
 
-type Video = Interface & {
-  __typename?: 'Video';
+type VideoRecord = RecordInterface & {
+  __typename?: 'VideoRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -3720,7 +3720,7 @@ type Video = Interface & {
 };
 
 
-type Video_seoMetaTagsArgs = {
+type VideoRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 

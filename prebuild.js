@@ -6,8 +6,7 @@ const includeMeta = [
 ]
 
 const lines = fs.readFileSync(filePath, 'utf8')
-.replace(/export /g, '')
-.replace(/Record/g, '')
+.replace(/export /g, '') // Make type global
 .replace('type Maybe<T> = T | null;', 'type Maybe<T> = T;')
 .split('\n')
 
@@ -18,7 +17,7 @@ for (let i = 0; i < lines.length; i++) {
   if(line.includes('*')) continue // Remove comments
   if(line.startsWith('  _')){
     const prop = line.substring(2, line.indexOf(':')).replace(/\?/g, '')
-    if(includeMeta.indexOf(prop) === -1)
+    if(includeMeta.indexOf(prop) === -1) // Exclude meta tags
       continue;
   }
   content.push(line)
