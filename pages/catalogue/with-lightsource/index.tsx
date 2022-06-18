@@ -3,9 +3,9 @@ import { GetServerSideProps } from 'next'
 import CatalogueLight from '/components/catalogue/CatalogueLight';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
-import { GetProducts } from "/graphql"
+import { GetAllProducts } from "/graphql"
 
-type CatalogueLightWrapperProps = { products: Product[], locale: Locale}
+type CatalogueLightWrapperProps = { products: ProductRecord[], locale: Locale}
 
 export default function CatalogueLightWrapper({ products, locale } : CatalogueLightWrapperProps) {
 	
@@ -18,14 +18,14 @@ export default function CatalogueLightWrapper({ products, locale } : CatalogueLi
 
 export const getServerSideProps : GetServerSideProps = async ({ locale }) => {
 
-	let { products } = await apiQuery(GetProducts, { variables: { locale }});
+	let { products } = await apiQuery(GetAllProducts, { variables: { locale }});
 	if (!products) return { notFound: true }
 
 	// Filter out model name containing hard wired and products with mounting that is fixed
 	const hardWiredModelNameId = '107174981'
 	const fixedMountingId = '107174756'
 
-	let filteredProducts: Product[] = []
+	let filteredProducts: ProductRecord[] = []
 	products.forEach((p, idx) =>
 		filteredProducts.push({
 			...products[idx], models: p.models.filter(m =>

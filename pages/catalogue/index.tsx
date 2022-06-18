@@ -3,9 +3,9 @@ import { GetServerSideProps } from 'next'
 import Catalogue from '/components/catalogue/Catalogue';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
-import { GetProducts } from "/graphql"
+import { GetAllProducts } from "/graphql"
 
-type CatalogueWrapperProps = { products: [Product], locale: Locale }
+type CatalogueWrapperProps = { products: [ProductRecord], locale: Locale }
 
 export default function CatalogueWrapper({ products, locale } : CatalogueWrapperProps) {
 	//console.log(products)
@@ -18,7 +18,7 @@ export default function CatalogueWrapper({ products, locale } : CatalogueWrapper
 
 export const getServerSideProps : GetServerSideProps = async ({ locale  } : any ) => {
 	
-	const { products } = await apiQuery(GetProducts, { variables: {locale} });
+	const { products } = await apiQuery(GetAllProducts, { variables: {locale} });
 	
 	if (!products) return { notFound: true }
 

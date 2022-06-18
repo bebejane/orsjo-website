@@ -1,8 +1,8 @@
 const filePath = './@types/datocms.d.ts'
 const fs = require('fs')
 const includeMeta = [
-'__typename',
-'_modelApiKey'
+  '__typename',
+  '_modelApiKey'
 ]
 
 const lines = fs.readFileSync(filePath, 'utf8')
