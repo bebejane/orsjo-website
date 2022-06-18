@@ -4,7 +4,7 @@ import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { List, ListItem } from '/components'
 import { Image } from 'react-datocms'
-import { FullWidthImageBlock, TextBlock, TwoColumnImageBlock, ImageGalleryBlock } from '/components'
+import { FullWidthImage, Text, TwoColumnImage, ImageGallery } from '/components'
 
 export type ProductProps = { product: ProductRecord };
 
@@ -32,13 +32,13 @@ export default function Product({ product }: ProductProps) {
 				{product.productGallery.map(block => {
 					switch (block.__typename) {
 						case 'FullwidthImageRecord':
-							return <FullWidthImageBlock data={block} />
+							return <FullWidthImage data={block} />
 						case 'TextRecord':
-							return <TextBlock data={block} />
+							return <Text data={block} />
 						case 'TwoColumnImageRecord':
-							return <TwoColumnImageBlock data={block} />
+							return <TwoColumnImage data={block} />
 						case 'ImageGalleryRecord':
-							return <ImageGalleryBlock data={block} />
+							return <ImageGallery data={block} />
 						default:
 							return null
 					}

@@ -1,0 +1,35 @@
+{
+	"menu": [
+		{
+			"name": "Products",
+			"slug": "/products",
+			"sub": [
+				{
+					"name": "Ceiling",
+					"slug": "/products#ceilinglamp"
+				},
+				{
+					"name": "Wall",
+					"slug": "/products#walllamp"
+				},
+				{
+					"name": "Table",
+					"slug": "/products#tablelamp"
+				},
+				{
+					"name": "Floor",
+					"slug": "/products#floorlamp"
+				},
+				{
+					"name": "Accessories",
+					"slug": "/products#accessories"
+				}
+			]
+		},
+		{ "name": "Designers", "slug": "/designers", "sub":[]},
+		{ "name": "Professionals", "slug": "/professionals", "sub":[]},
+		{ "name": "Support", "slug": "/support", "sub":[]},
+		{ "name": "About", "slug": "/about", "sub":[]},
+		{ "name": "Contact", "slug": "/contact", "sub":[]}
+	]
+}

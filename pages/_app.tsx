@@ -33,7 +33,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
       <DatoSEO title={'Örsjö'} seo={seo} site={site} pathname={pathname} key={pathname}/>
       <NextIntlProvider messages={pageProps.messages}>
         <LayoutProvider value={pageLayout}>
-          <Layout>
+          <Layout menu={pageProps.menu}>
             <Component {...pageProps} />
           </Layout>
         </LayoutProvider>

@@ -1,35 +1,85 @@
 .footer {
-  background-color: $black;
-  color: $white;
-  //margin-top: $margin;
-  padding-top: $small-margin;
-  padding-bottom: $small-margin;
+	background-color: $black;
+	color: $white;
+	//margin-top: $margin;
+	padding-top: $small-margin;
+	padding-bottom: $small-margin;
+
+  @include mq($until: tablet) {
+    display: none;
+  }
+
+	.wrapperTop, .wrapperBottom {
+		margin-left: var(--outer-margin);
+		margin-right: var(--outer-margin);
+		display: flex;
+		justify-content: space-between;
+	}
   
-  .wrapper {
-    margin-left: var(--outer-margin);
-    margin-right: var(--outer-margin);
-    display: flex;
-    justify-content: space-between;
+  .wrapperTop{
+    .brand{
+      .tagline{
+        text-transform: uppercase !important;
+      }
+    }
   }
-
-  nav {
-    width: spanGrid(12);
-    margin-left: $gutter;
-
-    ul {
-      list-style: none;
+  .wrapperBottom{
+    display: flex;
+    flex-direction: row;
+    .brand{
+      flex: 0 0 spanGrid(4);
+    }
+    .lastRow {
+      flex: 1 1 auto;
+      width: spanGrid(8);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .social{
+        display: flex;
+        flex-direction: row;
+        
+        img{
+          margin-right: .5rem;
+        }
+      }
+      .copyright {
+        width: 100%;
+        text-align: right;
+      }
     }
   }
 
-  .lastRow {
+}
+
+.menu {
+  width: spanGrid(12);
+  margin-left: $gutter;
+  margin-bottom: $small-margin;
+  ul {
+    list-style: none;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    li{
+      padding-right: 2em;
+      ul{
+        display: flex;
+        list-style: none;
+        flex-direction: column;
+        a{
+          color: $gray;
+          &:first-child{
+            color:$white;
+          }
+          li{
+            white-space: pre;
+            max-width: 170px;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
-    .copyright {
-      width: 100%;
-      text-align: right;
+          }
+        }
+      }
     }
-
   }
-
 }

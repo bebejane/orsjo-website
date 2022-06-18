@@ -5,7 +5,7 @@ import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
 import { GetAllProducts } from "/graphql"
 
-type CatalogueWrapperProps = { products: [ProductRecord], locale: Locale }
+type CatalogueWrapperProps = { products: ProductRecord[], locale: Locale }
 
 export default function CatalogueWrapper({ products, locale } : CatalogueWrapperProps) {
 	//console.log(products)

@@ -16,6 +16,7 @@ export { GetReseller, GetAllResellers } from "./reseller.gql";
 export { GetDistributor, GetAllDistributors } from "./distributor.gql";
 export { GetEmployee, GetAllEmployees } from "./employee.gql";
 export { GetDesigner, GetAllDesigners } from "./designer.gql";
+export { GetNews, GetAllNews, GetLastNews } from "./news.gql"
 
 export { 
   GetProject,

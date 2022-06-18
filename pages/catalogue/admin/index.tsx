@@ -4,14 +4,14 @@ import io from 'socket.io-client'
 import type { Socket } from 'socket.io-client';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { withGlobalProps } from "/lib/hoc";
-import { GetProductsLight } from "/graphql"
+import { GetAllProductsLight } from "/graphql"
 import { useTranslations } from 'next-intl';
 import { useState, useEffect, useRef} from 'react'
 import { AiOutlineLoading, AiOutlineFilePdf } from 'react-icons/ai'
 
 const locales: Locale[] = ['en', 'sv', 'no']
 
-type AdminProps = { products : Product[], messages: [IntlMessage],  }
+type AdminProps = { products : ProductRecord[], messages: IntlMessage[] }
 
 export default function Admin({ products, messages} : AdminProps) {
 	
@@ -238,7 +238,7 @@ const Button = (({locale, type, path, productId, label, socket}: ButtonProps) =>
 
 export const getServerSideProps = withGlobalProps({}, async ({ props, context: { locale } } : any) => {
 
-	const { products } = await apiQuery(GetProductsLight, { variables:{ locale }})
+	const { products } = await apiQuery(GetAllProductsLight, { variables:{ locale }})
 	
 	return {
 		props: {

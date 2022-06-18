@@ -1,0 +1,32 @@
+#import "./fragments/ImageFragment.gql"
+
+fragment NewsFragment on NewsRecord{
+  __typename
+  id
+  image {
+    ...ImageFragment
+  }
+  link
+  linkText
+  text(markdown: false)
+  title
+  createdAt
+}
+
+query GetNews($id:String){
+  news(filter: {id: { eq: $id }}) {
+    ...NewsFragment
+  }
+}
+
+query GetLastNews {
+  lastNews: allNews(orderBy: [createdAt_ASC], first: 1) {
+    ...NewsFragment
+  }
+}
+
+query GetAllNews {
+  news: allNews {
+    ...NewsFragment
+  }
+}

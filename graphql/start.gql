@@ -1,4 +1,5 @@
 #import "./fragments/ProductFragment.gql"
+#import "./fragments/DesignerFragment.gql"
 #import "./fragments/ImageFragment.gql"
 
 query GetStart {
@@ -15,8 +16,17 @@ query GetStart {
       ... on FullscreenImageRecord {
         id
         headline
+        subHeadline
         image {
           ...ImageFragment
+        }
+        link{
+          ... on ProductRecord{
+            ...ProductFragment
+          }
+          ... on DesignerRecord{
+            ...DesignerFragment
+          }
         }
       }
       ... on FullscreenVideoRecord {

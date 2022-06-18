@@ -1,12 +1,15 @@
 import styles from './index.module.scss'
 import { withGlobalProps } from "/lib/hoc";
-import { GetStart } from '/graphql';
+import { GetLastNews, GetStart } from '/graphql';
 import { Featured, FullscreenImage, FullscreenVideo, ImageLink } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
+import Markdown from '/lib/dato/components/Markdown';
 
-export type StartProps = {start:StartRecord}
+export type StartProps = {start:StartRecord, lastNews: NewsRecord[]}
 
-export default function Start({start : { content }} : StartProps) {
+export default function Start({start : { content }, lastNews } : StartProps) {
+	
+	const news = lastNews[0]
 	
 	return (
 		<div className={styles.start}>
@@ -24,13 +27,22 @@ export default function Start({start : { content }} : StartProps) {
 						return null
 				}
 			})}
+			<section className={styles.news}>
+				<h1>News</h1>
+				<span className={styles.text}>
+					{news.title}
+					<div className={styles.more}>
+						Read more <img src="/images/arrow.svg" className={styles.arrow}/>
+					</div>
+				</span>
+			</section>
 		</div>
 	)
 }
 
 Start.layout = {layout:'full', color:'#121212', menu:'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({queries:[GetStart]}, async ({props, revalidate } : any) => {
+export const getStaticProps = withGlobalProps({queries:[GetStart, GetLastNews]}, async ({props, revalidate } : any) => {
 	
 	return {
 		props,

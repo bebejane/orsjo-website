@@ -5,4 +5,20 @@
   .image{
 
   }
+  .headline{
+    position: absolute;
+    bottom: $small-margin;
+    display: flex;
+    flex-direction: column;
+    color: $white;
+    left: 50%;
+    transform: translateX(-50%);
+    h1{
+
+    }
+    span{
+
+    }
+    
+  }
 }

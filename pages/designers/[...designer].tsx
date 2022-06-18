@@ -5,7 +5,7 @@ import { withGlobalProps } from '/lib/hoc'
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout'
 
-export type DesignerProps = { designer: Designer };
+export type DesignerProps = { designer: DesignerRecord };
 
 export default function Designer({designer} : DesignerProps){
 
