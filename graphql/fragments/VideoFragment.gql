@@ -1,0 +1,18 @@
+fragment VideoFragment on FileField {
+  id
+  alt
+  basename
+  format
+  mimeType
+  size
+  title
+  url
+  width
+  height
+  video {
+    thumbnailUrl
+    mp4Url
+    duration
+    streamingUrl
+  }
+}

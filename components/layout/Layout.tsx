@@ -13,13 +13,13 @@ export default function Layout({ children, menu }: LayoutProps) {
 	
 	return (
 		<>
-
+			<Menu items={menu}/>	
 			<div className={styles.layout} style={{backgroundColor: color}}>
-				<Menu items={menu}/>
 				<Sidebar/>
 				<Content>
 					{children}
 				</Content>
+				
 			</div>
 			<Footer menu={menu}/>
 		</>

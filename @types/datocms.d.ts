@@ -1366,29 +1366,40 @@ type PositionFilter = {
   neq?: InputMaybe<Scalars['IntType']>;
 };
 
-type PricelistRecord = RecordInterface & {
-  __typename?: 'PricelistRecord';
+type PressModelFilter = {
+  OR?: InputMaybe<Array<InputMaybe<PressModelFilter>>>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+enum PressModelOrderBy {
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC',
+  url_ASC = 'url_ASC',
+  url_DESC = 'url_DESC'
+}
+
+type PressRecord = RecordInterface & {
+  __typename?: 'PressRecord';
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  pdfFile?: Maybe<FileField>;
+  title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
+  url?: Maybe<Scalars['String']>;
 };
 
 
-type PricelistRecord_allPdfFileLocalesArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-type PricelistRecord_seoMetaTagsArgs = {
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-type PricelistRecordpdfFileArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+type PressRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -2245,6 +2256,7 @@ type Query = {
   allFaqs: Array<FaqRecord>;
   allJobs: Array<JobRecord>;
   allNews: Array<NewsRecord>;
+  allPresses: Array<PressRecord>;
   allProductAccessories: Array<ProductAccessoryRecord>;
   allProductCategories: Array<ProductCategoryRecord>;
   allProductColors: Array<ProductColorRecord>;
@@ -2279,7 +2291,7 @@ type Query = {
   job?: Maybe<JobRecord>;
   manual?: Maybe<ManualRecord>;
   news?: Maybe<NewsRecord>;
-  pricelist?: Maybe<PricelistRecord>;
+  press?: Maybe<PressRecord>;
   product?: Maybe<ProductRecord>;
   productAccessory?: Maybe<ProductAccessoryRecord>;
   productCategory?: Maybe<ProductCategoryRecord>;
@@ -2366,6 +2378,13 @@ type Query_allJobsMetaArgs = {
 type Query_allNewsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<NewsModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type Query_allPressesMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<PressModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -2607,6 +2626,16 @@ type QueryallNewsArgs = {
   first?: InputMaybe<Scalars['IntType']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<NewsModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+};
+
+
+type QueryallPressesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<PressModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<PressModelOrderBy>>>;
   skip?: InputMaybe<Scalars['IntType']>;
 };
 
@@ -2913,9 +2942,11 @@ type QuerynewsArgs = {
 };
 
 
-type QuerypricelistArgs = {
+type QuerypressArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<PressModelFilter>;
   locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<PressModelOrderBy>>>;
 };
 
 

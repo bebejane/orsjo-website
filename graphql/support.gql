@@ -1,0 +1,36 @@
+query GetFAQ {
+  faq {
+    updatedAt
+    createdAt
+    answer
+    id
+    question
+    category {
+      id
+      title
+    }
+  }
+}
+
+query GetAllFAQCategories {
+  faqCategories: allFaqCategories {
+    id
+    title
+  }
+}
+
+query GetFAQStart {
+  faqStart {
+    intro(markdown: false)
+    id
+    title
+  }
+}
+
+query GetManual {
+  manual {
+    id
+    intro(markdown: false)
+    title
+  }
+}

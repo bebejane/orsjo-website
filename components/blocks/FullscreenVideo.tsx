@@ -9,7 +9,7 @@ type LayoutProps = { data: FullscreenVideoRecord }
 export default function FullscreenVideo({ data: { video, text, link, linkText, } }: LayoutProps) {
 	
 	const videoRef = useRef<HTMLVideoElement | null>(null);
-	const [active, setActive] = useState(true)
+	const [active, setActive] = useState(false)
 
 	const play = ()=> {
 		videoRef.current.currentTime = 0;
@@ -19,10 +19,8 @@ export default function FullscreenVideo({ data: { video, text, link, linkText, }
 	useEffect(() => {
 		if (!videoRef.current ) return
 		if (active){
-			console.log('play')
 			videoRef.current.play().catch((err) => {})
 		} else {
-			console.log('pause')
 			videoRef.current.pause();
 		}
 	}, [active])

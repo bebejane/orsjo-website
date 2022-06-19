@@ -55,7 +55,7 @@ export default function Footer({menu} : FooterProps) {
 
 			<div className={styles.wrapperBottom}>
 				<div className={styles.brand}>
-					Örsjö Belysning
+					Örsjö Belysnings
 				</div>
 				<nav className={styles.lastRow}>
 					<div className={styles.social}>

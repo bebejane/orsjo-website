@@ -7,9 +7,9 @@ import { Featured, ProductThumbnail } from '/components'
 import { sectionId } from '/lib/utils'
 
 export type ProductsStartProps = {
-	productStart: ProductStart,
-	products: Product[],
-	productCategories: ProductCategory[]
+	productStart: ProductStartRecord,
+	products: ProductRecord[],
+	productCategories: ProductCategoryRecord[]
 }
 
 export default function Products({ productStart: { featured }, products, productCategories }: ProductsStartProps) {

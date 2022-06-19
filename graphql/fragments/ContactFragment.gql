@@ -1,0 +1,9 @@
+fragment ContactFragment on ContactRecord{
+  address(markdown: false)
+  email
+  id
+  intro(markdown: false)
+  phone
+  showroomIntro(markdown: false)
+  title
+}

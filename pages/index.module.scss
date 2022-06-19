@@ -7,7 +7,8 @@
     flex-direction: row;
     align-items: center;
     color: $white;
-
+    margin-left: var(--outer-margin);
+		margin-right: var(--outer-margin);
     h1{
       flex: 0 0 30%;
     }

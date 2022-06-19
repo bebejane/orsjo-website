@@ -18,38 +18,6 @@
   @include mq($until: tablet) {
     display: none;
   }
-
-  &.open{
-    min-height: 100vh;
-    pointer-events: none;
-    ul{
-      pointer-events: all;
-    }
-  }
-
-  &.hide{
-    @include mq($until: tablet) {
-      transform: translateY(-$navbarHeight);
-    }
-    @include mq($from: tablet) {
-      ul{
-        transform: translateY(-$navbarHeight);
-      }
-    }
-  }
-  
-  &.inverted{
-    ul li a {
-      color:$white;
-    } 
-  }
-  .logo{
-    flex: 1 1;
-    img {
-      height: 2rem;
-    }
-  }
-  
   ul{
     width: spanGrid(12);
     height: 100%;
@@ -80,6 +48,39 @@
       }
     }
   }
+
+  &.open{
+    min-height: 100vh;
+    pointer-events: none;
+    
+    ul{
+      pointer-events: all;
+      
+    }
+  }
+
+  &.hide{
+    @include mq($until: tablet) {
+      transform: translateY(-$navbarHeight);
+    }
+    @include mq($from: tablet) {
+      ul{
+        transform: translateY(-$navbarHeight);
+      }
+    }
+  }
+  
+  &.inverted{
+    ul li a {
+      color:$white;
+    } 
+  }
+  .logo{
+    flex: 1 1;
+    img {
+      height: 2rem;
+    }
+  }
 }
 
 .sub{
@@ -93,6 +94,7 @@
   transition: opacity .3s ease;
   opacity: 0;
   pointer-events: none;
+  
   @include mq($until: tablet) {
     display: none;
   }
@@ -102,32 +104,34 @@
     height: 100vh;
     opacity: 0.9;
   }
-  nav{
+  .subPad{ 
+    padding: 1rem;
+    padding-top: 3rem;
+    background-color: $white;
     max-height: 100vh;
     overflow-y: scroll;
     
-    ul{
-      margin-top:3rem;
-      margin-left:1.5rem;
-      margin-right:2rem;
-      padding-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      list-style: none;
-      border-top:1px solid $gray;
+    nav{
       
-      a{
-        line-height: 1rem;
-        li{
-          transition: color .3s;
-          color:$gray;
-          &:hover{
-            color:$black;
+      ul{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        list-style: none;
+        padding-top: 1rem;
+        border-top: 1px solid $gray;
+        a{
+          line-height: 1rem;
+          li{
+            transition: color .3s;
+            color:$gray;
+            &:hover{
+              color:$black;
+            }
           }
         }
       }
     }
   }
-  
 }
+

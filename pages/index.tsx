@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import { withGlobalProps } from "/lib/hoc";
 import { GetLastNews, GetStart } from '/graphql';
-import { Featured, FullscreenImage, FullscreenVideo, ImageLink } from '/components';
+import { FeaturedStart,Featured,  FullscreenImage, FullscreenVideo, ImageLink } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
 
 export type StartProps = {start:StartRecord, lastNews: NewsRecord[]}
@@ -12,16 +12,16 @@ export default function Start({start : { content }, lastNews } : StartProps) {
 	
 	return (
 		<div className={styles.start}>
-			{content.map(block => {
+			{content.map((block, idx) => {
 				switch (block.__typename) {
 					case 'FullscreenImageRecord':
-						return <FullscreenImage data={block} />
+						return <FullscreenImage key={idx} data={block} />
 					case 'FeaturedRecord':
-						return <Featured data={block} />
+						return <FeaturedStart key={idx} data={block} />
 					case 'FullscreenVideoRecord':
-						return <FullscreenVideo data={block} />
+						return <FullscreenVideo key={idx} data={block} />
 					case 'ImageLinkRecord':
-						return <ImageLink data={block} />
+						return <ImageLink key={idx} data={block} />
 					default:
 						return null
 				}

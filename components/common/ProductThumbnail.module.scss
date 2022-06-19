@@ -1,28 +1,44 @@
 .productThumbnail {
-  figure{
-    position: relative;
+  position: relative;
+  
+  a{ 
     display: flex;
+    position: relative;
     flex-direction: column;
     aspect-ratio: 4/3;
-    background-color:$light-gray;
-    &:hover {
-      background-color:white;
+    
+    figure{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color:$light-gray;
+      aspect-ratio: 4/3;
+      
+      &:hover {
+        background-color:white;
+      }
+      .image {
+        //display: none;
+        position: relative !important;
+        flex: 1 1 auto;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+      }
     }
-    .image {
-      position: relative !important;
+    figcaption{
       flex: 1 1 auto;
-      object-fit: contain;
-      mix-blend-mode: multiply;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre;
+      color: $gray;
+      span{
+        color: $black;
+      }
     }
   }
-  figcaption{
-    flex: 1 1 auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre;
-    color: $gray;
-    span{
-      color: $black;
+  &.inverted{
+    a figcaption span {
+      color: $white;
     }
   }
 }

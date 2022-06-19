@@ -1,0 +1,9 @@
+fragment ShowroomFragment on ShowroomRecord{
+  additional(markdown: false)
+  address(markdown: false)
+  city
+  id
+  image {
+    id
+  }
+}

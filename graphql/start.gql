@@ -1,6 +1,7 @@
 #import "./fragments/ProductFragment.gql"
 #import "./fragments/DesignerFragment.gql"
 #import "./fragments/ImageFragment.gql"
+#import "./fragments/VideoFragment.gql"
 
 query GetStart {
   start {
@@ -35,7 +36,7 @@ query GetStart {
         linkText
         text
         video {
-          ...ImageFragment
+          ...VideoFragment
         }
       }
       ... on ImageLinkRecord {

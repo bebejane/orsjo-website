@@ -1,0 +1,80 @@
+#import "./fragments/ImageFragment.gql"
+#import "./fragments/VideoFragment.gql"
+#import "./fragments/NewsFragment.gql"
+
+query GetSustainability {
+  sustainability {
+    id
+    title
+  }
+}
+
+query GetAbout {
+  about {
+    id
+    intro(markdown: false)
+    title
+    sections {
+      id
+      text
+      image {
+        ...ImageFragment
+      }
+      video {
+        ...VideoFragment
+      }
+    }
+  }
+}
+
+query GetNews($id:ItemId){
+  news(filter: {id: { eq: $id }}) {
+    ...NewsFragment
+  }
+}
+
+query GetLastNews {
+  lastNews: allNews(orderBy: [createdAt_ASC], first: 1) {
+    ...NewsFragment
+  }
+}
+
+query GetAllNews {
+  news: allNews {
+    ...NewsFragment
+  }
+}
+
+query GetJob($id:ItemId){
+  job(filter:{id:{eq:$id}}) {
+    id
+    summary(markdown: false)
+    text(markdown: false)
+    title
+  }
+}
+
+query GetAllJob {
+  jobs: allJobs {
+    id
+    summary(markdown: false)
+    text(markdown: false)
+    title
+  }
+}
+
+query GetPress($id:ItemId){
+  press(filter:{id:{eq:$id}}) {
+    id
+    title
+    url
+  }
+}
+
+query GetAllPress {
+  press: allPress {
+    id
+    title
+    url
+  }
+}

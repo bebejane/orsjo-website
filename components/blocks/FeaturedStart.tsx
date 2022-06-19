@@ -1,5 +1,5 @@
 import "swiper/css";
-import styles from './Featured.module.scss'
+import styles from './FeaturedStart.module.scss'
 import cn from 'classnames'
 import { sectionId } from '/lib/utils'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
@@ -11,7 +11,7 @@ import { useLayout } from "/lib/context/layout";
 
 export type ImageGalleryProps = { data: FeaturedRecord }
 
-export default function Featured({ data: { headline, items: products, id } }: ImageGalleryProps) {
+export default function FeaturedStart({ data: { headline, items: products, id } }: ImageGalleryProps) {
 	
 	const { layout, menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
@@ -26,22 +26,17 @@ export default function Featured({ data: { headline, items: products, id } }: Im
 	const isShortSlide = products.length <= slidesPerView
 	
 	return (
-		<section className={cn(styles.featured, styles[menu])} {...sectionId(headline)}>
+		<section className={cn(styles.featuredStart, styles[menu])} {...sectionId(headline)}>
 			<div className={styles.header}>
 				<h1 className={styles.headline}>
 					{headline}
 				</h1>
-				<ArrowButton 
-					className={cn(styles.next, isShortSlide && styles.hide)}
-					onClick={()=> swiperRef.current?.isEnd ? swiperRef.current?.slideTo(0) : swiperRef.current.slideNext()} 
-					reverse={swiperRef.current?.isEnd}
-				/>
 			</div>
 			<div className={styles.gallery} >
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
 					loop={false}
-					slidesPerView={isShortSlide ? products.length : slidesPerView}
+					slidesPerView={4}
 					spaceBetween={20}
 					initialSlide={index}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
@@ -49,11 +44,17 @@ export default function Featured({ data: { headline, items: products, id } }: Im
 				>
 					{products.map((product, idx) =>
 						<SwiperSlide key={`${id}-idx`}>
-							<ProductThumbnail key={idx} product={product} />
+							<ProductThumbnail key={idx} product={product} inverted={true}/>
 						</SwiperSlide>
 					)}
 				</SwiperReact>
 				<div className={cn(styles.fade, isShortSlide && styles.hide)}></div>
+				<ArrowButton 
+					className={styles.arrow} 
+					onClick={()=> swiperRef.current?.isEnd ? swiperRef.current?.slideTo(0) : swiperRef.current.slideNext()} 
+					inverted={true}
+					reverse={swiperRef.current?.isEnd}
+				/>
 			</div>
 		</section>
 	)

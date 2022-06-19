@@ -24,7 +24,11 @@ export default function DesktopMenu({items} : MenuProps){
 	useEffect(()=>{ // Re set margin on window resize
 		if(!selected) return
 		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`)
-		setMenuMargin(el.offsetLeft)
+		const pad = document.querySelector(`.${styles.subPad}`)
+		const padding = parseInt(getComputedStyle(pad, null).getPropertyValue("padding-left"))
+
+		const { x } = el.getBoundingClientRect();
+		setMenuMargin(x-padding)
 	}, [innerWidth, selected])
 
 	useEffect(()=>{ setSelected(undefined)}, [router.asPath])	// Reset on route change
@@ -67,22 +71,25 @@ export default function DesktopMenu({items} : MenuProps){
 						)})}
 				</ul>
 			</nav>
+			
 			<div 
 				ref={ref}
 				className={cn(styles.sub, selected && showMenu && styles.show)} 
-				style={{width:`calc(100vw - ${menuMargin}px)`}}
+				style={{width:`calc(100% - ${menuMargin}px)`}}
 			>
-				<nav>
-					<ul>
-						{sub?.map(({label, slug, type}, idx)=>
-							<Link key={idx} href={slug}>
-								<a>
-									<li>{label}</li>
-								</a>
-							</Link>
-						)}
-					</ul>
-				</nav>
+				<div className={styles.subPad}>
+					<nav>
+						<ul>
+							{sub?.map(({label, slug, type}, idx)=>
+								<Link key={idx} href={slug}>
+									<a>
+										<li>{label}</li>
+									</a>
+								</Link>
+							)}
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</>
 	)
