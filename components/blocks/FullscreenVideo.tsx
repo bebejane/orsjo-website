@@ -8,6 +8,7 @@ type LayoutProps = { data: FullscreenVideoRecord }
 
 export default function FullscreenVideo({ data: { video, text, link, linkText, } }: LayoutProps) {
 	
+	return null
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const [active, setActive] = useState(false)
 
