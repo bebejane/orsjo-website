@@ -1,7 +1,7 @@
 import styles from './List.module.scss'
-import React, { MouseEventHandler, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
-type ListProps = { children: React.ReactNode[], initial: number }
+export type ListProps = { children: React.ReactNode[], initial: number }
 
 export default function List({ children, initial }: ListProps) {
 
@@ -28,7 +28,7 @@ export default function List({ children, initial }: ListProps) {
 	)
 }
 
-type ListItemProps = { title: string, children: React.ReactNode, idx?: number, selected?: boolean, parent?: HTMLUListElement, onToggle?: React.MouseEvent<HTMLButtonElement> }
+export type ListItemProps = { title: string, children: React.ReactNode, idx?: number, selected?: boolean, parent?: HTMLUListElement, onToggle?: React.MouseEvent<HTMLButtonElement> }
 
 export function ListItem({ children, title, parent, onToggle, idx, selected }: ListItemProps) {
 

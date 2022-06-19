@@ -3,7 +3,6 @@ import { withGlobalProps } from "/lib/hoc";
 import { GetLastNews, GetStart } from '/graphql';
 import { Featured, FullscreenImage, FullscreenVideo, ImageLink } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
-import Markdown from '/lib/dato/components/Markdown';
 
 export type StartProps = {start:StartRecord, lastNews: NewsRecord[]}
 

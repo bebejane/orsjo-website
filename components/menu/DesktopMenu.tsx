@@ -2,7 +2,7 @@ import styles from './DesktopMenu.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useRef, useEffect, MouseEventHandler, MouseEvent} from 'react'
+import { useState, useRef, useEffect, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
 import { useOutsideClick, useWindowSize } from 'rooks'
@@ -15,25 +15,23 @@ export default function DesktopMenu({items} : MenuProps){
 	const [showMenu] = useStore((state) => [state.showMenu], shallow);
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState(0)
-	const [open, setOpen] = useState(false)
 	const [hovering, setHovering] = useState(undefined)
-	const {layout, menu} = useLayout()
+	const { layout, menu } = useLayout()
 	const { innerWidth } = useWindowSize()
+	
   //useOutsideClick(ref, ()=> setSelected(undefined));
 
-	useEffect(()=>{ 
+	useEffect(()=>{ // Re set margin on window resize
 		if(!selected) return
 		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`)
 		setMenuMargin(el.offsetLeft)
 	}, [innerWidth, selected])
-	useEffect(()=>{
-		setSelected(undefined)
-		setOpen(false)
-	}, [router.asPath])	
-	
-	useEffect(()=>{ !showMenu && setSelected(undefined) }, [showMenu])
 
-	const handleSelected = (e:MouseEvent<HTMLLIElement>) => {
+	useEffect(()=>{ setSelected(undefined)}, [router.asPath])	// Reset on route change
+	
+	useEffect(()=>{ !showMenu && setSelected(undefined) }, [showMenu]) // Hide menu if was closed on scroll
+
+	const handleSelected = (e: MouseEvent<HTMLLIElement>) => {
 		
 		const slug = e.currentTarget.getAttribute('data-slug')
 		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${slug}"]`)

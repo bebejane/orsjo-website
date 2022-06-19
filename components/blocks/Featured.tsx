@@ -16,7 +16,7 @@ export default function Featured({ data: { headline, items: products, id } }: Im
 	const { layout, menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
-	console.log(layout, menu)
+	
 	const handleNext = () => {
 		if(swiperRef.current)
 			swiperRef.current.isEnd ? swiperRef.current.slideTo(0) : swiperRef.current.slideNext()

@@ -8,7 +8,7 @@ import { GetAllProducts } from "/graphql"
 type CatalogueWrapperProps = { products: ProductRecord[], locale: Locale }
 
 export default function CatalogueWrapper({ products, locale } : CatalogueWrapperProps) {
-	//console.log(products)
+	
 	return (
 		<div className={styles.container}>
 			<Catalogue products={products} locale={locale} />

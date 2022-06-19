@@ -49,14 +49,6 @@ query GetDownload($id: String) {
 	}
 }
 
-query GetAllDownloads {
-  download {
-    id
-    title
-	  intro(markdown: false)
-  }
-}
-
 query GetFactoryVisit($id: String) {
 	factoryVisit (filter: {id: { eq: $id }}) {
     id

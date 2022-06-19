@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 type LayoutProps = { data: ImageLinkRecord }
 
-export default function ImageLinks({ data: { firstImage, firstHeadline, firstLink, firstLinkText, secondImage, secondHeadline, secondLink, secondLinkText,   }, data }: LayoutProps) {
+export default function ImageLink({ data: { firstImage, firstHeadline, firstLink, firstLinkText, secondImage, secondHeadline, secondLink, secondLinkText,   }, data }: LayoutProps) {
 	
 	return (
 		<section className={styles.imageLink}>

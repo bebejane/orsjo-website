@@ -1,19 +1,8 @@
 #import "./fragments/ImageFragment.gql"
+#import "./fragments/NewsFragment.gql"
 
-fragment NewsFragment on NewsRecord{
-  __typename
-  id
-  image {
-    ...ImageFragment
-  }
-  link
-  linkText
-  text(markdown: false)
-  title
-  createdAt
-}
 
-query GetNews($id:String){
+query GetNews($id:ItemId){
   news(filter: {id: { eq: $id }}) {
     ...NewsFragment
   }
