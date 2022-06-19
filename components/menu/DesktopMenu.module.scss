@@ -4,12 +4,12 @@
   align-items: flex-start;
   flex-direction: row;
   width: 100%;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   z-index: 100;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  margin-left:var(--outer-margin);
+  margin-left: var(--outer-margin);
   margin-right: var(--outer-margin);
   min-height: $navbarHeight;
   max-height: $navbarHeight;
@@ -18,7 +18,16 @@
   @include mq($until: tablet) {
     display: none;
   }
-  ul{
+
+  .logo {
+    flex: 1 1;
+
+    img {
+      height: 2rem;
+    }
+  }
+
+  ul {
     width: spanGrid(12);
     height: 100%;
     margin-left: $gutter;
@@ -27,66 +36,72 @@
     align-items: flex-start;
     list-style: none;
     transition: transform 0.3s ease;
-    li{
+
+    li {
       position: relative;
       cursor: pointer;
       user-select: none;
       padding-right: 4em;
       white-space: pre;
-      .arrow{
+
+      .arrow {
         display: inline-block;
         visibility: hidden;
         transition: transform .2s;
-        transform:rotate(0deg);
-        &.active{
+        transform: rotate(0deg);
+
+        &.active {
           visibility: visible;
           transform: rotate(90deg);
         }
-        &.hover{
+
+        &.hover {
           visibility: visible;
         }
       }
     }
   }
 
-  &.open{
+  &.open {
     min-height: 100vh;
     pointer-events: none;
-    
-    ul{
+
+    *>li {
+      color: $black  !important;
+    }
+
+    ul {
       pointer-events: all;
-      
     }
   }
 
-  &.hide{
+  &.inverted {
+    *>li {
+      color: $white;
+    }
+
+    .logo {
+      filter: invert(1);
+    }
+  }
+
+  &.hide {
     @include mq($until: tablet) {
       transform: translateY(-$navbarHeight);
     }
+
     @include mq($from: tablet) {
-      ul{
+      ul {
         transform: translateY(-$navbarHeight);
       }
     }
   }
-  
-  &.inverted{
-    ul li a {
-      color:$white;
-    } 
-  }
-  .logo{
-    flex: 1 1;
-    img {
-      height: 2rem;
-    }
-  }
 }
 
-.sub{
+.sub {
   position: fixed;
-  top:0;
-  right:0;
+  top: 0;
+  right: 0;
   width: 0;
   height: 100vh;
   z-index: 99;
@@ -94,7 +109,7 @@
   transition: opacity .3s ease;
   opacity: 0;
   pointer-events: none;
-  
+
   @include mq($until: tablet) {
     display: none;
   }
@@ -104,29 +119,39 @@
     height: 100vh;
     opacity: 0.9;
   }
-  .subPad{ 
+
+  .subPad {
     padding: 1rem;
     padding-top: 3rem;
     background-color: $white;
-    max-height: 100vh;
-    overflow-y: scroll;
     
-    nav{
-      
-      ul{
+
+    nav {
+
+      ul {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         list-style: none;
         padding-top: 1rem;
         border-top: 1px solid $gray;
-        a{
+        max-height: calc(100vh - 3rem);
+        overflow-y: scroll;
+        scrollbar-width: none;  
+        &::-webkit-scrollbar{
+          display: none;
+          -ms-overflow-style: none;
+          
+        }
+        a {
           line-height: 1rem;
-          li{
+
+          li {
             transition: color .3s;
-            color:$gray;
-            &:hover{
-              color:$black;
+            color: $gray;
+
+            &:hover {
+              color: $black;
             }
           }
         }
@@ -134,4 +159,3 @@
     }
   }
 }
-

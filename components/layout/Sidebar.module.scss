@@ -4,36 +4,34 @@
   flex: 0 0;
   min-width: spanGridWithGutter(4);
   position: fixed;
-  
+
   ul {
     list-style: none;
-    li{
-      a{
-        color:$gray;
-        &.active{
+
+    li {
+      a {
+        color: $gray;
+
+        &.active {
           transition: color 0s;
           transition-delay: 0.1s; // Delay for not showing when scrolling
-          color:$black;
-        
+          color: $black;
+
         }
       }
-      
-      
     }
-  
   }
-  &.full{
+
+  &.full {
     display: none;
   }
-  &.inverted{
-    ul{
-      a{
-        li{
-          color:lightgray;
-          &.active{
-            color: $white;
-          }
-        }
+
+  &.inverted {
+    nav ul li a {
+      color: lightgray;
+
+      &.active {
+        color: $white  !important;
       }
     }
   }

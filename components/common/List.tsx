@@ -28,21 +28,21 @@ export default function List({ children, initial }: ListProps) {
 	)
 }
 
-export type ListItemProps = { title: string, children: React.ReactNode, idx?: number, selected?: boolean, parent?: HTMLUListElement, onToggle?: React.MouseEvent<HTMLButtonElement> }
+export type ListItemProps = { title?: string, children: React.ReactNode, idx?: number, selected?: boolean, parent?: HTMLUListElement, onToggle?: React.MouseEvent<HTMLButtonElement> }
 
 export function ListItem({ children, title, parent, onToggle, idx, selected }: ListItemProps) {
 
 	return (
 		<li className={styles.item}>
 			<div className={styles.wrapper} onClick={onToggle} data-idx={idx}>
-				<h1>{title}</h1>
+				{title ? <h1>{title}</h1> : children}
 				<div className={styles.toggle} >
 					<h1>
 						{selected ? '-' : '+'}
 					</h1>
 				</div>
 			</div>
-			{selected && 
+			{selected && title &&
 				<div className={styles.content}>
 					{children}
 				</div>

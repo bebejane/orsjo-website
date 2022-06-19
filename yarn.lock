@@ -3417,6 +3417,11 @@
   "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz"
   "version" "1.30.1"
 
+"date-fns@^2.28.0":
+  "integrity" "sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
+  "version" "2.28.0"
+
 "datocms-client@^3.5.19":
   "integrity" "sha512-CnJn5xQKExSozf8lCZEWkebJ7bdNpjlGXBqYr9sLYtyjDEW6GBRQeqJq5XpwCOd84Q8146nbT8iVKqi2u8NtNQ=="
   "resolved" "https://registry.npmjs.org/datocms-client/-/datocms-client-3.5.21.tgz"

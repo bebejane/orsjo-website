@@ -31,6 +31,13 @@ query GetAllProjectTypes {
 
 query GetBespoke {
 	bespoke {
+		id
+    intro(markdown: false)
+    outro(markdown: false)
+    title
+		image{
+			...ImageFragment
+		}
 		examples {
 			id
 			summary(markdown: false)
@@ -49,15 +56,7 @@ query GetDownload($id: String) {
 	}
 }
 
-query GetFactoryVisit($id: String) {
-	factoryVisit (filter: {id: { eq: $id }}) {
-    id
-    title
-	  intro(markdown: false)
-	}
-}
-
-query GetAllFactoryVisits {
+query GetFactoryVisit {
 	factoryVisit {
     id
     title

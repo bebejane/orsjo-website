@@ -1,0 +1,11 @@
+#import "./ImageFragment.gql"
+
+fragment StaffFragment on StaffRecord{
+  name
+  image {
+    ...ImageFragment
+  }
+  role
+  phone 
+  email
+}

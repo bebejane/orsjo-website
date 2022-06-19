@@ -41,8 +41,8 @@ query GetProductCategories {
   }
 }
 
-query GetAllProductsByDesigner($designerId: ItemId, $locale: SiteLocale = en) {
-	product(filter: {designer: {id: { eq: $designerId }}}) {
+query GetAllProductsByDesigner($id: ItemId) {
+	products: allProducts(filter: {designer: { eq: $id }}) {
 		...ProductFragment
 	}
 }

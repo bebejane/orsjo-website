@@ -1,3 +1,165 @@
 .contact {
+  padding-top:4rem;
+  position: relative;
+  section {
+    display: flex;
+    flex: 0 0 100%;
+    margin-left: calc(spanGrid(4) +  var(--outer-margin));
+    margin-right: var(--outer-margin);
 
+  }
+  .informationSection{
+    flex-direction: row;
+    border-bottom: 1px solid $white;
+    .info{
+      flex: 0 0 50%;
+      h1{
+
+      }
+      .intro{
+  
+      }
+      .getintouch {
+        display: flex;
+        flex-direction: row;
+        .visit{
+          flex: 0 0 50%;
+        }
+        .reachout{
+          flex: 0 0 50%;
+        }
+      }
+      button{
+
+      }
+    }
+    .image{
+      flex: 0 0 50%;
+    }
+  }
+  .staffSection{
+    flex-direction: column;
+    .staff{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex: 1 1 100%;
+      .employee{
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 25%;
+        
+        .image{
+          //max-width: 25%;
+        }
+        .name{
+
+        }
+        .contact{
+
+        }
+      }
+    }
+  }
+  .showroomsSection{
+    flex-direction: column;
+    flex: 0 0 100%;
+    margin-left: 0rem;
+    padding-left: calc(spanGrid(4) +  var(--outer-margin));
+    padding-right: var(--outer-margin);
+    margin-right: 0;
+    background-color: $black;
+    h1{
+      color:$red;
+    }
+    .intro{
+      color: $white;
+    }
+    .showroom{
+      display: flex;
+      flex-direction: row;
+      flex: 0 0 100%;
+      position: relative;
+      .left{
+        position: relative;
+        flex: 0 0 60%;
+      }
+      .right{
+        position: relative;
+        flex: 0 0 40%;
+      }
+    }
+    .text{
+      color:$white;
+    }
+    h2{
+      color:$red;
+    }
+  }
+  .distributorSection{
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: calc(spanGrid(4) +  var(--outer-margin));
+    padding-right: var(--outer-margin);
+    background-color: $red;
+    h2{
+      color:$white;
+    }
+    .distributors{
+      display: flex;
+      position: relative;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex: 1 1 100%;
+      .distributor{
+        flex: 0 0 50%;
+      }
+    }
+  }
+
+  .resellerSection{
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: calc(spanGrid(4) +  var(--outer-margin));
+    padding-right: var(--outer-margin);
+    background-color: $black;
+    
+    h1{
+      color:$white;
+    }
+    .resellers{
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      font-size: 0.7rem;
+      flex: 1 1 100%;
+      .country{
+        display: flex;
+        flex-direction: column;
+        color:$white;
+        .wrap{
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          position: relative;
+          .reseller{
+            flex: 0 0 33.333%;
+            overflow: hidden;
+            .name{
+              color:$red;
+            }
+            a{
+              color:$white;
+            }
+          }
+        }
+      }
+      
+    }
+  }
+  
 }

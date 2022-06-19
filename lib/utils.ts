@@ -38,7 +38,15 @@ const sortProductsByCategory = (products : Product[]) => {
 
 const isServer = typeof window === 'undefined';
 
-const sectionId = (str : string) => ({id:str.replace(/\s/, '').toLowerCase(), title:str});
+const sectionId = (str : string) => ({id:str.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase(), title:str});
+
+const chunkArray = (array: any[], chunkSize: number) => {
+  const newArr = []
+  for (let i = 0; i < array.length; i += chunkSize)
+    newArr.push(array.slice(i, i + chunkSize));
+  return newArr
+}
+
 
 export {
   sleep,
@@ -47,5 +55,6 @@ export {
   convertPrice,
   priceIncLight,
   sortProductsByCategory,
-  sectionId
+  sectionId,
+  chunkArray
 }

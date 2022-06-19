@@ -24,7 +24,7 @@ export const client = new ApolloClient({
   }
 });
 
-export type ApiQueryOptions = {variables : any | [any], preview?: boolean}
+export type ApiQueryOptions = {variables : any | any[], preview?: boolean}
 
 export const apiQuery = async (query: DocumentNode | DocumentNode[], {variables, preview = false} : ApiQueryOptions = {}) : Promise<any> => {
   

@@ -103,6 +103,7 @@ type BespokeRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   examples: Array<BespokeProjectRecord>;
   id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
   intro?: Maybe<Scalars['String']>;
   outro?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
@@ -157,34 +158,6 @@ type ColorField = {
   red: Scalars['IntType'];
 };
 
-type ContactModelFilter = {
-  OR?: InputMaybe<Array<InputMaybe<ContactModelFilter>>>;
-  address?: InputMaybe<TextFilter>;
-  createdAt?: InputMaybe<CreatedAtFilter>;
-  email?: InputMaybe<StringFilter>;
-  id?: InputMaybe<ItemIdFilter>;
-  intro?: InputMaybe<TextFilter>;
-  phone?: InputMaybe<StringFilter>;
-  showroomIntro?: InputMaybe<TextFilter>;
-  title?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<UpdatedAtFilter>;
-};
-
-enum ContactModelOrderBy {
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  email_ASC = 'email_ASC',
-  email_DESC = 'email_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  phone_ASC = 'phone_ASC',
-  phone_DESC = 'phone_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
-}
-
 type ContactRecord = RecordInterface & {
   __typename?: 'ContactRecord';
   _modelApiKey: Scalars['String'];
@@ -192,6 +165,7 @@ type ContactRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   email?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
   intro?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   showroomIntro?: Maybe<Scalars['String']>;
@@ -403,53 +377,6 @@ type DownloadRecord = RecordInterface & {
 
 
 type DownloadRecord_seoMetaTagsArgs = {
-  locale?: InputMaybe<SiteLocale>;
-};
-
-type EmployeeModelFilter = {
-  OR?: InputMaybe<Array<InputMaybe<EmployeeModelFilter>>>;
-  createdAt?: InputMaybe<CreatedAtFilter>;
-  email?: InputMaybe<StringFilter>;
-  id?: InputMaybe<ItemIdFilter>;
-  image?: InputMaybe<FileFilter>;
-  name?: InputMaybe<StringFilter>;
-  phone?: InputMaybe<StringFilter>;
-  role?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<UpdatedAtFilter>;
-};
-
-enum EmployeeModelOrderBy {
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  email_ASC = 'email_ASC',
-  email_DESC = 'email_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  phone_ASC = 'phone_ASC',
-  phone_DESC = 'phone_DESC',
-  role_ASC = 'role_ASC',
-  role_DESC = 'role_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
-}
-
-type EmployeeRecord = RecordInterface & {
-  __typename?: 'EmployeeRecord';
-  _modelApiKey: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  email?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
-  image?: Maybe<FileField>;
-  name?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  role?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
-};
-
-
-type EmployeeRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -2143,6 +2070,7 @@ type ProjectModelFilter = {
   location?: InputMaybe<StringFilter>;
   projectType?: InputMaybe<LinkFilter>;
   secondaryImage?: InputMaybe<FileFilter>;
+  slug?: InputMaybe<SlugFilter>;
   title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
@@ -2172,6 +2100,7 @@ type ProjectRecord = RecordInterface & {
   location?: Maybe<Scalars['String']>;
   projectType?: Maybe<ProjectTypeRecord>;
   secondaryImage?: Maybe<FileField>;
+  slug?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -2247,11 +2176,9 @@ type PublishedAtFilter = {
 type Query = {
   __typename?: 'Query';
   about?: Maybe<AboutRecord>;
-  allContacts: Array<ContactRecord>;
   allCountries: Array<CountryRecord>;
   allDesigners: Array<DesignerRecord>;
   allDistributors: Array<DistributorRecord>;
-  allEmployees: Array<EmployeeRecord>;
   allFaqCategories: Array<FaqCategoryRecord>;
   allFaqs: Array<FaqRecord>;
   allJobs: Array<JobRecord>;
@@ -2275,6 +2202,7 @@ type Query = {
   allProjects: Array<ProjectRecord>;
   allResellers: Array<ResellerRecord>;
   allShowrooms: Array<ShowroomRecord>;
+  allStaffs: Array<StaffRecord>;
   allTranslations: Array<TranslationRecord>;
   allUploads: Array<FileField>;
   bespoke?: Maybe<BespokeRecord>;
@@ -2283,7 +2211,6 @@ type Query = {
   designer?: Maybe<DesignerRecord>;
   distributor?: Maybe<DistributorRecord>;
   download?: Maybe<DownloadRecord>;
-  employee?: Maybe<EmployeeRecord>;
   factoryVisit?: Maybe<FactoryVisitRecord>;
   faq?: Maybe<FaqRecord>;
   faqCategory?: Maybe<FaqCategoryRecord>;
@@ -2312,17 +2239,11 @@ type Query = {
   projectType?: Maybe<ProjectTypeRecord>;
   reseller?: Maybe<ResellerRecord>;
   showroom?: Maybe<ShowroomRecord>;
+  staff?: Maybe<StaffRecord>;
   start?: Maybe<StartRecord>;
   sustainability?: Maybe<SustainabilityRecord>;
   translation?: Maybe<TranslationRecord>;
   upload?: Maybe<FileField>;
-};
-
-
-type Query_allContactsMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<ContactModelFilter>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -2343,13 +2264,6 @@ type Query_allDesignersMetaArgs = {
 type Query_allDistributorsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DistributorModelFilter>;
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-type Query_allEmployeesMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<EmployeeModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -2515,6 +2429,13 @@ type Query_allShowroomsMetaArgs = {
 };
 
 
+type Query_allStaffsMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<StaffModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
 type Query_allTranslationsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<TranslationModelFilter>;
@@ -2537,16 +2458,6 @@ type Query_siteArgs = {
 type QueryaboutArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-};
-
-
-type QueryallContactsArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<ContactModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
-  locale?: InputMaybe<SiteLocale>;
-  orderBy?: InputMaybe<Array<InputMaybe<ContactModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
 };
 
 
@@ -2576,16 +2487,6 @@ type QueryallDistributorsArgs = {
   first?: InputMaybe<Scalars['IntType']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<DistributorModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
-};
-
-
-type QueryallEmployeesArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<EmployeeModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
-  locale?: InputMaybe<SiteLocale>;
-  orderBy?: InputMaybe<Array<InputMaybe<EmployeeModelOrderBy>>>;
   skip?: InputMaybe<Scalars['IntType']>;
 };
 
@@ -2820,6 +2721,16 @@ type QueryallShowroomsArgs = {
 };
 
 
+type QueryallStaffsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<StaffModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<StaffModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+};
+
+
 type QueryallTranslationsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<TranslationModelFilter>;
@@ -2848,9 +2759,7 @@ type QuerybespokeArgs = {
 
 type QuerycontactArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<ContactModelFilter>;
   locale?: InputMaybe<SiteLocale>;
-  orderBy?: InputMaybe<Array<InputMaybe<ContactModelOrderBy>>>;
 };
 
 
@@ -2881,14 +2790,6 @@ type QuerydistributorArgs = {
 type QuerydownloadArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-};
-
-
-type QueryemployeeArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<EmployeeModelFilter>;
-  locale?: InputMaybe<SiteLocale>;
-  orderBy?: InputMaybe<Array<InputMaybe<EmployeeModelOrderBy>>>;
 };
 
 
@@ -3106,6 +3007,14 @@ type QueryshowroomArgs = {
 };
 
 
+type QuerystaffArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<StaffModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<StaffModelOrderBy>>>;
+};
+
+
 type QuerystartArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
@@ -3313,6 +3222,53 @@ type SlugFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   neq?: InputMaybe<Scalars['String']>;
   notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+type StaffModelFilter = {
+  OR?: InputMaybe<Array<InputMaybe<StaffModelFilter>>>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  email?: InputMaybe<StringFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  image?: InputMaybe<FileFilter>;
+  name?: InputMaybe<StringFilter>;
+  phone?: InputMaybe<StringFilter>;
+  role?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum StaffModelOrderBy {
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  email_ASC = 'email_ASC',
+  email_DESC = 'email_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  name_ASC = 'name_ASC',
+  name_DESC = 'name_DESC',
+  phone_ASC = 'phone_ASC',
+  phone_DESC = 'phone_DESC',
+  role_ASC = 'role_ASC',
+  role_DESC = 'role_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+type StaffRecord = RecordInterface & {
+  __typename?: 'StaffRecord';
+  _modelApiKey: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  email?: Maybe<Scalars['String']>;
+  id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
+  name?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+type StaffRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
 };
 
 type StartModelContentField = FeaturedRecord | FullscreenImageRecord | FullscreenVideoRecord | ImageLinkRecord;

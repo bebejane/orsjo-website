@@ -1,0 +1,47 @@
+.thumbnail {
+  position: relative;
+  
+  a{ 
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    aspect-ratio: 4/3;
+    
+    figure{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color:$light-gray;
+      aspect-ratio: 4/3;
+      
+      &:hover {
+        background-color:white;
+      }
+      .image {
+        
+        position: relative !important;
+        flex: 1 1 auto;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+      }
+    }
+    figcaption{
+      flex: 1 1 auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre;
+      color: $gray;
+      .title{
+        color: $black;
+        .subtitle{
+          color: $white;
+        }
+      }
+    }
+  }
+  &.inverted{
+    a figcaption span {
+      color: $white;
+    }
+  }
+}

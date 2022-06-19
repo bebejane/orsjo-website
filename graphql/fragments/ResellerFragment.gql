@@ -1,8 +1,11 @@
 fragment ResellerFragment on ResellerRecord{
+  id
   name
   address
   postalCode
+  city
   country {
+    id
     name
   }
   url

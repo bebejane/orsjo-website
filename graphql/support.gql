@@ -1,4 +1,4 @@
-query GetFAQ {
+query GetFaq {
   faq {
     updatedAt
     createdAt
@@ -11,15 +11,28 @@ query GetFAQ {
     }
   }
 }
+query GetAllFaqs {
+  faqs : allFaqs {
+    updatedAt
+    createdAt
+    answer
+    id
+    question
+    category {
+      id
+      title
+    }
+  }
+}
 
-query GetAllFAQCategories {
+query GetAllFaqCategories {
   faqCategories: allFaqCategories {
     id
     title
   }
 }
 
-query GetFAQStart {
+query GetFaqStart {
   faqStart {
     intro(markdown: false)
     id
@@ -27,8 +40,8 @@ query GetFAQStart {
   }
 }
 
-query GetManual {
-  manual {
+query GetAllManuals {
+  manuals : allManuals{
     id
     intro(markdown: false)
     title

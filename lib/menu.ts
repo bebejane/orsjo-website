@@ -30,7 +30,7 @@ const base: Menu = [
   },
   {
     type: 'about', label: 'About', slug: '/about', sub: [
-      { type: 'about', label: 'About', slug: '/about/about-us' },
+      { type: 'about', label: 'About', slug: '/about' },
       { type: 'about', label: 'Sustainability', slug: '/about/sustainability' },
       { type: 'about', label: 'Press', slug: '/about/press' },
       { type: 'about', label: 'News', slug: '/about/news' },
@@ -45,11 +45,11 @@ const base: Menu = [
   },
   {
     type: 'contact', label: 'Contact', slug: '/contact', sub: [
-      { type: 'contact', label: 'Information', slug: '/contact/information' },
-      { type: 'contact', label: 'Showrooms', slug: '/contact/showrooms' },
-      { type: 'contact', label: 'Staff', slug: '/contact/staff' },
-      { type: 'contact', label: 'Retails', slug: '/contact/retailers' },
-      { type: 'contact', label: 'Suppliers', slug: '/contact/suppliers' },
+      { type: 'contact', label: 'Information', slug: '/contact#information' },
+      { type: 'contact', label: 'Showrooms', slug: '/contact#showrooms' },
+      { type: 'contact', label: 'Staff', slug: '/contact#staff' },
+      { type: 'contact', label: 'Resellers', slug: '/contact#resellers' },
+      { type: 'contact', label: 'Suppliers', slug: '/contact#suppliers' },
     ]
   },
 ]

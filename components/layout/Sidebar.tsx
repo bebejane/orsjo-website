@@ -15,9 +15,10 @@ export default function Sidebar({} : SidebarProps) {
 	const currentSection = useStore((state) => state.currentSection);
 	const sections = useStore((state) => state.sections)
 	const subHeader = router.pathname.substring(1).substring(0, router.pathname.indexOf('/', 1) === -1 ? router.pathname.length :  router.asPath.indexOf('/', 1)) || 'Home'
-	
+	if(!sections.length ) return null
+
 	return (
-		<aside className={cn(styles.sidebar, styles[layout], styles[menu])}>
+		<aside className={cn(styles.sidebar,  styles[menu])}>
 			<h3>{subHeader}</h3>
 			<nav>
 				<ul>

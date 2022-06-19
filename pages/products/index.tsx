@@ -33,11 +33,7 @@ export default function Products({ productStart: { featured }, products, product
 						<ul >
 							{products.map((product, idx) =>
 								<li key={idx}>
-									<Link href={`/products/${product.slug}`} passHref>
-										<a>
-											<ProductThumbnail product={product} />
-										</a>
-									</Link>
+									<ProductThumbnail product={product} />
 								</li>
 							)}
 						</ul>

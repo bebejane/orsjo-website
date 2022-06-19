@@ -2,13 +2,9 @@
 #import "./fragments/ContactFragment.gql"
 #import "./fragments/DistributorFragment.gql"
 #import "./fragments/ResellerFragment.gql"
-#import "./fragments/EmployeeFragment.gql"
+#import "./fragments/StaffFragment.gql"
+#import "./fragments/ImageFragment.gql"
 
-query GetContact($id:ItemId){
-  contact(filter:{id:{eq:$id}}){
-    ...ContactFragment
-  }
-}
 query GetAllContact {
   contacts : allContacts {
     ...ContactFragment
@@ -22,7 +18,7 @@ query GetShowroom {
 }
 
 query GetAllShowrooms {
-  showrooms: allShowRooms {
+  showrooms: allShowrooms {
     ...ShowroomFragment
   }
 }
@@ -51,14 +47,29 @@ query GetAllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLo
 	}
 }
 
-query GetEmployee($id: ItemId, $locale: SiteLocale = en) {
-	employee(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
-		...EmployeeFragment
+query GetStaff($id: ItemId, $locale: SiteLocale = en) {
+	staff(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
+		...StaffFragment
 	}
 }
 
-query GetAllEmployees($id: ItemId, $locale: SiteLocale = en) {
-	employee(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
-		...EmployeeFragment
+query GetAllStaffs($id: ItemId, $locale: SiteLocale = en) {
+	staffs : allStaffs(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
+		...StaffFragment
 	}
+}
+
+query GetContact{
+	contact {
+    id
+    email
+    intro(markdown: false)
+    phone
+    showroomIntro(markdown: false)
+    title
+    address
+		image{
+			...ImageFragment
+		}
+  }
 }

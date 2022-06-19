@@ -54,7 +54,7 @@ query GetJob($id:ItemId){
   }
 }
 
-query GetAllJob {
+query GetAllJobs {
   jobs: allJobs {
     id
     summary(markdown: false)
@@ -72,7 +72,7 @@ query GetPress($id:ItemId){
 }
 
 query GetAllPress {
-  press: allPress {
+  presses: allPresses {
     id
     title
     url
