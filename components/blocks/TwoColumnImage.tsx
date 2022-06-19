@@ -4,7 +4,7 @@ import { Image } from 'react-datocms'
 
 type TwoColumnImageBlockProps = { data: TwoColumnImageRecord }
 
-export default function TwoColumnImageBlock({ data: { firstImage, lastImage } }: TwoColumnImageBlockProps) {
+export default function TwoColumnImage({ data: { firstImage, lastImage } }: TwoColumnImageBlockProps) {
 
 	return (
 		<div className={styles.twoColumnImage}>

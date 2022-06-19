@@ -4,7 +4,7 @@ import { Image } from 'react-datocms'
 
 type LayoutProps = { data: FullwidthImageRecord }
 
-export default function FullWidthImageBlock({ data: { image }, data }: LayoutProps) {
+export default function FullWidthImage({ data: { image }, data }: LayoutProps) {
 
 	return (
 		<Image className={styles.image} data={image?.responsiveImage} />

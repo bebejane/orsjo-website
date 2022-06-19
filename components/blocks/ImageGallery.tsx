@@ -4,7 +4,7 @@ import { Image } from 'react-datocms'
 
 type ImageGalleryBlockProps = { data: ImageGalleryRecord }
 
-export default function ImageGalleryBlock({ data: { gallery } }: ImageGalleryBlockProps) {
+export default function ImageGallery({ data: { gallery } }: ImageGalleryBlockProps) {
 
 	return (
 		<div className={styles.imageGallery}>
