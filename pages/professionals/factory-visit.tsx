@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from './factory-visit.module.scss'
 import {  GetFactoryVisit } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'

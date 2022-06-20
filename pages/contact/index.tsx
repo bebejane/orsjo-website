@@ -95,7 +95,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					</div>
 				)}
 			</section>
-			<section {...sectionId('Agents & Distributors')} className={styles.distributorSection}>
+			<section {...sectionId('Agents & Distributors', 'suppliers')} className={styles.distributorSection}>
 				<h1>Agents & Distributors</h1>
 				<div className={styles.distributors}>
 					{distributors.map(({name, address, city, country, email, phone, postalCode, contactName, url}, idx) =>
@@ -113,7 +113,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 				</div>
 			</section>
 			<section {...sectionId('Retailers')} className={styles.resellerSection}>
-				<h1>Retailer</h1>
+				<h1>Retailers</h1>
 				<div className={styles.resellers}>
 					{Object.keys((resellesByCountry)).map((id, idx) => {
 						const {country} = resellesByCountry[id];

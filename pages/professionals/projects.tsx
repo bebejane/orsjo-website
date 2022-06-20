@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from './projects.module.scss'
 import { GetProjectStart, GetAllProjects, GetAllProjectTypes } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { sectionId } from '/lib/utils';

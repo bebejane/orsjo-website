@@ -1,4 +1,4 @@
-import styles from './Product.module.scss'
+import styles from './[...product].module.scss'
 import { GetAllProducts, GetProduct } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'

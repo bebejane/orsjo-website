@@ -1,4 +1,4 @@
-import styles from './Designer.module.scss'
+import styles from './[...designer].module.scss'
 import { GetAllDesigners, GetDesigner, GetAllProductsByDesigner } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
@@ -48,19 +48,6 @@ export default function Designer({designer, products} : DesignerProps){
 	)
 }
 
-/*
-{productRows.map((prods, ridx) => {
-	return(
-		<ul key={ridx}>
-			{prods.map((p, idx) => 
-				<li key={idx}>
-					<ProductThumbnail key={idx} product={p}/>
-				</li>
-			)}
-		</ul>
-	)
-})}
-*/
 Designer.layout = {layout:'full', color:'#d2bd93'} as PageLayoutProps
 
 export async function getStaticPaths(context) {

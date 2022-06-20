@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from './press.module.scss'
 import { GetAllPress } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'

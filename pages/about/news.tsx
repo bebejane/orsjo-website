@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from './news.module.scss'
 import { GetAllNews } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'

@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from './downloads.module.scss'
 import {  GetAllProducts } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
@@ -97,7 +97,7 @@ export default function Downloads({ products }: DownloadsProps) {
 	)
 }
 
-Downloads.layout = { layout:'normal', color:"#E5E5E5", menu:'inverted'} as PageLayoutProps
+Downloads.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllProducts] }, async ({ props, revalidate }: any) => {
 

@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from './sustainability.module.scss'
 import { GetSustainability } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
