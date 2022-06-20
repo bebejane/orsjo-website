@@ -1,44 +1,49 @@
 import styles from './FullscreenVideo.module.scss'
 import React from 'react'
-import { useEffect, useState, useRef } from 'react'
-import { Image } from 'react-datocms'
+import { useEffect, useState, useRef, useCallback } from 'react'
+import { useWindowSize } from 'rooks'
+import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
 
-type LayoutProps = { data: FullscreenVideoRecord }
+export type FullscreenVideoProps = { data: FullscreenVideoRecord }
 
-export default function FullscreenVideo({ data: { video, text, link, linkText, } }: LayoutProps) {
+export default function FullscreenVideo({ data: { video, text, link, linkText } }: FullscreenVideoProps) {
 	
-	return null
+	const [inViewRef, inView] = useInView();
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const [active, setActive] = useState(false)
-
-	const play = ()=> {
-		videoRef.current.currentTime = 0;
-		videoRef.current.play().catch((err) => {})
-	}
+	const [quality, setQuality] = useState<String | null>(null)
+	const { innerWidth } =  useWindowSize()
 	
+	const setRefs = useCallback((node) => {
+		videoRef.current = node;
+		inViewRef(node);
+	},[inViewRef]);
+
 	useEffect(() => {
 		if (!videoRef.current ) return
-		if (active){
+		if (active)
 			videoRef.current.play().catch((err) => {})
-		} else {
+		else
 			videoRef.current.pause();
-		}
-	}, [active])
+	}, [active, quality])
 
+	useEffect(()=>{ setActive(inView)}, [inView])
+	useEffect(()=>{ setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null)}, [innerWidth])
+	
 	return (
 		<section className={styles.fullScreenVideo}>
 			<Link href={link}>
 				<a>
 					<video
+						src={quality ? video.video[`mp4${quality}`] : undefined}
+						ref={setRefs}
 						playsInline
 						muted
 						loop={true}
-						src={video.url}
-						ref={videoRef}
-						autoPlay={true}
+						autoPlay={false}
 						disablePictureInPicture={true}
-						poster={video.video?.thumbnailUrl}
+						//poster={video.video?.thumbnailUrl}
 					/>
 					<div className={styles.textWrap}>
 						<div className={styles.text}>

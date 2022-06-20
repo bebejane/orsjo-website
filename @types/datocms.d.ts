@@ -48,7 +48,7 @@ type AboutSectionRecord = RecordInterface & {
   image?: Maybe<FileField>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
-  video?: Maybe<FileField>;
+  video?: Maybe<VideoFileField>;
 };
 
 
@@ -277,7 +277,7 @@ type DesignerRecord = RecordInterface & {
   description?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
-  name?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
   slug?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -715,7 +715,7 @@ type FullscreenVideoRecord = RecordInterface & {
   linkText?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
-  video?: Maybe<FileField>;
+  video?: Maybe<VideoFileField>;
 };
 
 
@@ -1320,9 +1320,9 @@ type PressRecord = RecordInterface & {
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
+  url: Scalars['String'];
 };
 
 
@@ -1724,11 +1724,11 @@ enum ProductLightsourceModelOrderBy {
 type ProductLightsourceRecord = RecordInterface & {
   __typename?: 'ProductLightsourceRecord';
   _modelApiKey: Scalars['String'];
-  articleNo?: Maybe<Scalars['String']>;
+  articleNo: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['FloatType']>;
+  price: Scalars['FloatType'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -2100,7 +2100,7 @@ type ProjectRecord = RecordInterface & {
   location?: Maybe<Scalars['String']>;
   projectType?: Maybe<ProjectTypeRecord>;
   secondaryImage?: Maybe<FileField>;
-  slug?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -3394,8 +3394,8 @@ type TranslationRecord = RecordInterface & {
   _modelApiKey: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  key?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['String']>;
+  key: Scalars['String'];
+  page: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   value?: Maybe<Scalars['String']>;
 };
@@ -3689,6 +3689,80 @@ type VariantRecord = RecordInterface & {
 
 type VariantRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
+};
+
+type VideoFileField = FileFieldInterface & {
+  __typename?: 'VideoFileField';
+  alt?: Maybe<Scalars['String']>;
+  author?: Maybe<Scalars['String']>;
+  basename: Scalars['String'];
+  blurUpThumb?: Maybe<Scalars['String']>;
+  blurhash?: Maybe<Scalars['String']>;
+  colors: Array<ColorField>;
+  copyright?: Maybe<Scalars['String']>;
+  customData: Scalars['CustomData'];
+  exifInfo: Scalars['CustomData'];
+  filename: Scalars['String'];
+  focalPoint?: Maybe<focalPoint>;
+  format: Scalars['String'];
+  height?: Maybe<Scalars['IntType']>;
+  id: Scalars['UploadId'];
+  md5: Scalars['String'];
+  mimeType: Scalars['String'];
+  notes?: Maybe<Scalars['String']>;
+  responsiveImage?: Maybe<ResponsiveImage>;
+  size: Scalars['IntType'];
+  smartTags: Array<Scalars['String']>;
+  tags: Array<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  url: Scalars['String'];
+  video: UploadVideoField;
+  width?: Maybe<Scalars['IntType']>;
+};
+
+
+type VideoFileFieldaltArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type VideoFileFieldblurUpThumbArgs = {
+  imgixParams?: InputMaybe<ImgixParams>;
+  punch?: InputMaybe<Scalars['Float']>;
+  quality?: InputMaybe<Scalars['Int']>;
+  size?: InputMaybe<Scalars['Int']>;
+};
+
+
+type VideoFileFieldcustomDataArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type VideoFileFieldfocalPointArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type VideoFileFieldresponsiveImageArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  imgixParams?: InputMaybe<ImgixParams>;
+  locale?: InputMaybe<SiteLocale>;
+  sizes?: InputMaybe<Scalars['String']>;
+};
+
+
+type VideoFileFieldtitleArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type VideoFileFieldurlArgs = {
+  imgixParams?: InputMaybe<ImgixParams>;
 };
 
 enum VideoMp4Res {
