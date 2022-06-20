@@ -42,7 +42,7 @@ export default function About({ about }: AboutProps) {
 	)
 }
 
-About.layout = { layout:'normal', color:"#E5E5E5", menu:'inverted'} as PageLayoutProps
+About.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAbout] }, async ({ props, revalidate }: any) => {
 

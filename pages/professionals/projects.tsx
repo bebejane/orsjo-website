@@ -12,7 +12,7 @@ export type ProfessionalProps = { projects: ProjectRecord[], projectStart:Projec
 
 export default function Professionals({ projects, projectStart, projectTypes }: ProfessionalProps) {
 	
-	console.log(projectStart, projects)
+	//console.log(projectStart, projects)
 
 	return (
 		<div className={styles.projects}>

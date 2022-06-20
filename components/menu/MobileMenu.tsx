@@ -68,7 +68,9 @@ export default function MobileMenu({items} : MenuProps){
 					{sub?.map(({label, slug, type}, idx)=>
 						<Link key={idx} href={slug}>
 							<a>
-								<li>{label}</li>
+								<li className={cn(slug === router.asPath && styles.active)}>
+									{label}
+								</li>
 							</a>
 						</Link>
 					)}

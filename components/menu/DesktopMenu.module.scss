@@ -153,6 +153,9 @@
             &:hover {
               color: $black;
             }
+            &.active{
+              color: $black !important;
+            }
           }
         }
       }

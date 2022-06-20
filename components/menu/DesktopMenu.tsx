@@ -46,7 +46,7 @@ export default function DesktopMenu({items} : MenuProps){
 	
 	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], styles[menu])
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
-
+	
 	return (
 		<>
 			<nav id={'menu'} className={menuStyles}>
@@ -80,10 +80,12 @@ export default function DesktopMenu({items} : MenuProps){
 				<div className={styles.subPad}>
 					<nav>
 						<ul>
-							{sub?.map(({label, slug, type}, idx)=>
+							{sub?.map(({label, slug}, idx)=>
 								<Link key={idx} href={slug}>
 									<a>
-										<li>{label}</li>
+										<li className={cn(slug === router.asPath && styles.active)}>
+											{label}
+										</li>
 									</a>
 								</Link>
 							)}

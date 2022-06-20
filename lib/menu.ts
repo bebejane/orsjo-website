@@ -66,7 +66,7 @@ export const generate = async () => {
         sub = productCategories.map(el => ({
           type: item.type,
           label: el.name,
-          slug: `/products/#${sectionId(el.name).id}`
+          slug: `/products#${sectionId(el.name).id}`
         }))
         break;
       case 'designer':
