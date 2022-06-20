@@ -76,7 +76,7 @@
   }
 
   &.inverted {
-    *>li {
+    *>li, *>a {
       color: $white;
     }
 

@@ -7,7 +7,8 @@ export type MenuItem = {
   type: string,
   label: string,
   slug: string,
-  sub?: MenuItem[]
+  sub?: MenuItem[],
+  index?:boolean
 }
 
 export type Menu = MenuItem[]
@@ -18,7 +19,7 @@ export type MenuQuery = {
 }
 
 const base: Menu = [
-  { type: 'product', label: 'Products', slug: '/products', sub: [] },
+  { type: 'product', label: 'Products', slug: '/products', sub: [], index:true},
   { type: 'designer', label: 'Designers', slug: '/designers', sub: [] },
   {
     type: 'professional', label: 'Professionals', slug: '/professionals', sub: [
@@ -44,7 +45,7 @@ const base: Menu = [
     ]
   },
   {
-    type: 'contact', label: 'Contact', slug: '/contact', sub: [
+    type: 'contact', label: 'Contact', slug: '/contact', index:true, sub: [
       { type: 'contact', label: 'Information', slug: '/contact#information' },
       { type: 'contact', label: 'Staff', slug: '/contact#staff' },
       { type: 'contact', label: 'Showrooms', slug: '/contact#showrooms' },

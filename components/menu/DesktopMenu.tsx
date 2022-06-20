@@ -56,17 +56,23 @@ export default function DesktopMenu({items} : MenuProps){
 					</a>
 				</Link>
 				<ul className={styles.nav}>
-					{items.map(({label, slug}, idx) => {
+					{items.map(({label, slug, index}, idx) => {
 						const arrowStyle = cn(styles.arrow, slug === hovering && styles.hover, slug === selected && styles.active)
 						return(
 							<li 
 								data-slug={slug}
 								key={idx} 
-								onClick={handleSelected}
+								onClick={(e)=> !index && handleSelected(e)}
 								onMouseEnter={()=>setHovering(slug)}
 								onMouseLeave={()=>setHovering(undefined)}
-							>
-								{label} <span className={arrowStyle}>›</span>
+							>	
+								{index === true ? // Direct links
+									<Link href={slug}>
+										<a>{label}</a>
+									</Link>
+								:
+									<>{label} <span className={arrowStyle}>›</span></>
+								}
 							</li>
 						)})}
 				</ul>
