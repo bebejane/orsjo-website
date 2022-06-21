@@ -39,7 +39,7 @@ export default function Start({start : { content }, lastNews } : StartProps) {
 	)
 }
 
-Start.layout = {layout:'full', color:'#121212', menu:'inverted'} as PageLayoutProps
+Start.layout = {layout:'full', color:'#121212', menu:'inverted', sidebar:false} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({queries:[GetStart, GetLastNews]}, async ({props, revalidate } : any) => {
 	

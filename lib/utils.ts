@@ -38,7 +38,11 @@ const sortProductsByCategory = (products : Product[]) => {
 
 const isServer = typeof window === 'undefined';
 
-const sectionId = (str : string, id?:string) => ({id: id || str.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase(), title:str});
+const sectionId = (str : string, id?:string) => ({
+  id: id || str.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase(), 
+  'data-section-id': id || str.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase(),
+  title:str
+});
 
 const chunkArray = (array: any[], chunkSize: number) => {
   const newArr = []

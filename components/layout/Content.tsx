@@ -17,7 +17,7 @@ export default function Content({ children}: ContentProps) {
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition, documentHeight } = useScrollInfo()
 
 	useEffect(()=>{
-		const sections = document.querySelectorAll<HTMLElement>('section[id]')
+		const sections = document.querySelectorAll<HTMLElement>('section[data-section-id]')
 		setSections(sections.length ? Array.from(sections).map((s)  => s.title || s.id) : [])
 	}, [router.asPath, setSections])
 
