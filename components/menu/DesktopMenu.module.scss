@@ -20,6 +20,7 @@
   }
 
   .logo {
+    transition:filter 0.3s ease;
     flex: 1 1;
 
     img {
@@ -35,7 +36,9 @@
     flex-direction: row;
     align-items: flex-start;
     list-style: none;
-    transition: transform 0.3s ease;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    
 
     li {
       position: relative;
@@ -86,13 +89,14 @@
   }
 
   &.hide {
+    
     @include mq($until: tablet) {
       transform: translateY(-$navbarHeight);
     }
 
     @include mq($from: tablet) {
       ul {
-        transform: translateY(-$navbarHeight);
+        opacity: 0;
       }
     }
   }

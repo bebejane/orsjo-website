@@ -12,7 +12,7 @@ export default function DesktopMenu({items} : MenuProps){
 	
 	const ref = useRef();
 	const router = useRouter()
-	const [showMenu] = useStore((state) => [state.showMenu], shallow);
+	const [showMenu, invertMenu] = useStore((state) => [state.showMenu,state.invertMenu], shallow);
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState(0)
 	const [hovering, setHovering] = useState(undefined)
@@ -44,7 +44,7 @@ export default function DesktopMenu({items} : MenuProps){
 		setSelected(sel)
 	}
 	
-	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], styles[menu])
+	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], menu === 'inverted' || invertMenu && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
 	
 	return (

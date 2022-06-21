@@ -4,12 +4,15 @@
   flex: 0 0;
   min-width: spanGridWithGutter(4);
   position: fixed;
+  z-index: 103;
+  
 
   ul {
     list-style: none;
 
     li {
       a {
+        transition: color .3s ease;
         color: $gray;
 
         &.active {
@@ -27,6 +30,9 @@
   }
 
   &.inverted {
+    h3{
+      color: lightgray; 
+    }
     nav ul li a {
       color: lightgray;
 
