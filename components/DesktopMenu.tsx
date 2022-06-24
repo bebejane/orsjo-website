@@ -6,9 +6,11 @@ import { useState, useRef, useEffect, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
 import { useOutsideClick, useWindowSize } from 'rooks'
-import { MenuProps } from './'
+import type { Menu } from '/lib/menu'
 
-export default function DesktopMenu({items} : MenuProps){
+export type DesktopMenuProps = {items : Menu}
+
+export default function DesktopMenu({items} : DesktopMenuProps){
 	
 	const ref = useRef();
 	const router = useRouter()
@@ -43,8 +45,8 @@ export default function DesktopMenu({items} : MenuProps){
 		if(sel) setMenuMargin(el.offsetLeft)
 		setSelected(sel)
 	}
-	
-	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], menu === 'inverted' || invertMenu && styles.inverted)
+	console.log(menu)
+	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], (menu === 'inverted' || invertMenu) && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
 	
 	return (

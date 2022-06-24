@@ -1,4 +1,11 @@
 require("@next/env").loadEnvConfig(".");
+const config =  {
+	dedupeOperationSuffix:true,
+	dedupeFragments: true,
+	pureMagicComment: false,
+	exportFragmentSpreadSubTypes: true,
+	namingConvention: "keep",
+}
 
 module.exports = {
 	schema: {
@@ -19,32 +26,17 @@ module.exports = {
 						"typescript",
 						"typescript-operations",
 					],
-					config: {
-						dedupeFragments: true,
-						pureMagicComment: false,
-						exportFragmentSpreadSubTypes: true,
-						namingConvention: "keep",
-					},
+					config
 				},
         "graphql/documents.ts": {
           plugins: ["typed-document-node"],
-          config: {
-            dedupeFragments: true,
-            pureMagicComment: false,
-            exportFragmentSpreadSubTypes: true,
-            namingConvention: "keep",
-          },
+					config
         },
         "@types/document-modules.d.ts": {
           plugins: ["typescript-graphql-files-modules"],
-          config: {
-            dedupeFragments: true,
-            pureMagicComment: false,
-            exportFragmentSpreadSubTypes: true,
-            namingConvention: "keep",
-          },
+					config
         },
 			},
-		},
+		}
 	},
 };

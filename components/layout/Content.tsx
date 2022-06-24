@@ -18,7 +18,7 @@ export default function Content({ children}: ContentProps) {
 
 	useEffect(()=>{
 		const sections = document.querySelectorAll<HTMLElement>('section[data-section-id]')
-		setSections(sections.length ? Array.from(sections).map((s)  => s.title || s.id) : [])
+		setSections(sections.length ? Array.from(sections).map((s)  => ({title:s.title, id:s.id})) : [])
 	}, [router.asPath, setSections])
 
 	useEffect(()=>{ // Highlight nav section on scroll
@@ -29,7 +29,6 @@ export default function Content({ children}: ContentProps) {
 		
 		if(!sections.length || !sidebar || !menu) return
 
-		
 		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
 		const menuBottomOffset = menu.getBoundingClientRect().bottom
 		const {id} = sections.sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)[0]
@@ -48,7 +47,7 @@ export default function Content({ children}: ContentProps) {
 		setInvertMenu(invertSidebar)
 		setInvertSidebar(invertSidebar)
 
-	}, [scrolledPosition, documentHeight, setCurrentSection])
+	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu])
 
 	useEffect(()=>{ //Highlight nav section on scroll
 		const sections = document.querySelectorAll<HTMLElement>('section[id]')

@@ -1,4 +1,6 @@
 const filePath = './@types/datocms.d.ts'
+const filePathDocument = './graphql/documents.ts'
+
 const fs = require('fs')
 const includeMeta = [
   '__typename',
@@ -23,4 +25,6 @@ for (let i = 0; i < lines.length; i++) {
   content.push(line)
 }
 fs.writeFileSync(filePath, content.join('\n'))
+fs.writeFileSync(filePathDocument, '// @ts-nocheck\n' + fs.readFileSync(filePathDocument, 'utf8'))
 
+// @ts-nocheck

@@ -1,13 +1,17 @@
 import create from "zustand";
 import shallow from "zustand/shallow"
 
+export type SectionId = {
+  title:string, id:string
+}
+
 export interface StoreState {
   showMenu: boolean,
   currentSection: string,
   invertSidebar: boolean,
   invertMenu: boolean,
-  sections: string[],
-  setSections: (sections: string[]) => void,
+  sections: SectionId[],
+  setSections: (sections: SectionId[]) => void,
   setShowMenu: (showMenu: boolean) => void,
   setCurrentSection: (currentSection: string) => void,
   setInvertSidebar: (invertSidebar: boolean) => void,
@@ -20,7 +24,7 @@ const useStore = create<StoreState>((set) => ({
   invertSidebar:false,
   invertMenu:false,
   sections:[],
-  setSections: (sections: string[]) =>  
+  setSections: (sections: SectionId[]) =>  
     set((state) => ({
       sections
     })

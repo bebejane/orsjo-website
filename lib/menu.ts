@@ -31,7 +31,7 @@ const base: Menu = [
   },
   {
     type: 'about', label: 'About', slug: '/about', sub: [
-      { type: 'about', label: 'About', slug: '/about' },
+      { type: 'about', label: 'About Us', slug: '/about' },
       { type: 'about', label: 'Sustainability', slug: '/about/sustainability' },
       { type: 'about', label: 'Press', slug: '/about/press' },
       { type: 'about', label: 'News', slug: '/about/news' },

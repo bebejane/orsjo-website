@@ -1,3 +1,4 @@
+// @ts-nocheck
 export { GetSustainability, GetAbout, GetNews, GetLastNews, GetAllNews, GetJob, GetAllJobs, GetPress, GetAllPress } from './about.gql'
 export { GetShowroom, GetAllShowrooms, GetDistributor, GetAllDistributors, GetReseller, GetAllResellers, GetStaff, GetAllStaffs, GetContact } from './contact.gql'
 export { GetDesigner, GetAllDesigners } from './designer.gql'

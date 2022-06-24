@@ -1,7 +1,8 @@
 import styles from './Layout.module.scss'
 import React from 'react'
 import { Content, Sidebar, Footer } from '/components'
-import Menu from '../menu'
+import DesktopMenu from '/components/DesktopMenu'
+import MobileMenu from '/components/MobileMenu'
 import { useLayout } from '/lib/context/layout'
 import type { MenuItem } from '/lib/menu'
 
@@ -14,7 +15,8 @@ export default function Layout({ children, menu }: LayoutProps) {
 	return (
 		<>
 			<div className={styles.layout} style={{backgroundColor: color}}>
-				<Menu items={menu}/>	
+				<DesktopMenu items={menu}/>
+				<MobileMenu items={menu}/>
 				<Sidebar/>
 				<Content>
 					{children}

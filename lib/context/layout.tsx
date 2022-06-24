@@ -1,6 +1,13 @@
 import { LayoutProps } from "framer-motion";
 import { useReducer, useContext, createContext } from "react";
 
+export type PageLayoutProps = {
+  layout: 'normal' | 'full',
+  menu: 'normal' | 'inverted',
+  color: string,
+  sidebar:boolean
+}
+
 const initialState : PageLayoutProps = {
   layout: 'normal',
   menu: 'normal',
@@ -9,13 +16,6 @@ const initialState : PageLayoutProps = {
 }
 
 export const LayoutContext = createContext(initialState);
-
-export type PageLayoutProps = {
-  layout: string,
-  menu: string,
-  color: string,
-  sidebar:boolean
-}
 
 export type LayoutProviderProps = {
   children: React.ReactElement,

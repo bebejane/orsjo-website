@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import { withGlobalProps } from "/lib/hoc";
 import { GetLastNews, GetStart } from '/graphql';
-import { FeaturedStart,Featured,  FullscreenImage, FullscreenVideo, ImageLink } from '/components';
+import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
 
 export type StartProps = {start:StartRecord, lastNews: NewsRecord[]}
