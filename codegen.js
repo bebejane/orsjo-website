@@ -14,7 +14,7 @@ const content = []
 
 for (let i = 0; i < lines.length; i++) {
   let line = lines[i];
-  if(line.includes('*')) continue // Remove comments
+  //if(line.includes('*')) continue // Remove comments
   if(line.startsWith('  _')){
     const prop = line.substring(2, line.indexOf(':')).replace(/\?/g, '')
     if(includeMeta.indexOf(prop) === -1) // Exclude meta tags

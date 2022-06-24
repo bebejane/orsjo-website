@@ -12,14 +12,15 @@ module.exports = {
   extensions: {
     codegen: {
       overwrite: true,
-      documents:'./graphql/**/*.gql',
+      documents:'graphql/*.gql',
       generates: {
         "@types/datocms.d.ts": {
           plugins: [
             "typescript",
             "typescript-operations",
             "typed-document-node",
-            //"typescript-graphql-files-modules"
+            //"typescript-document-nodes"
+            ///"typescript-graphql-files-modules"
           ],
           config: {
             dedupeFragments: true,
