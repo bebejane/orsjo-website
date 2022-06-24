@@ -1,5 +1,4 @@
 import styles from './manuals.module.scss'
-import { GetAllManuals } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'

@@ -5,12 +5,6 @@
 #import "./fragments/StaffFragment.gql"
 #import "./fragments/ImageFragment.gql"
 
-query GetAllContact {
-  contacts : allContacts {
-    ...ContactFragment
-  }
-}
-
 query GetShowroom {
   showroom {
     ...ShowroomFragment
