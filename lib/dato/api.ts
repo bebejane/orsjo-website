@@ -30,7 +30,6 @@ export type ApiQueryOptions = {variables?: any | any[], preview?: boolean}
 export const apiQuery = async (query: TypedDocumentNode | TypedDocumentNode[], options? : ApiQueryOptions) : Promise<any> => {
   
   const { variables, preview = false} = options || {}
-  console.log(query)
   if(query === null) 
     throw "Invalid Query!"
 
