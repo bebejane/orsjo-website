@@ -1,5 +1,5 @@
 import styles from './news.module.scss'
-import { GetAllNews } from '/graphql';
+import { GetAllNewsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -29,7 +29,7 @@ export default function News({ news }: NewsProps) {
 
 News.layout = { layout:'normal', color:"#141414", menu: 'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllNews] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetAllNewsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

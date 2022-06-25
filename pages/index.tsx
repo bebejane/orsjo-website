@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 import { withGlobalProps } from "/lib/hoc";
-import { GetLastNews, GetStart } from '/graphql';
+import { GetLastNewsDocument, GetStartDocument } from '/graphql';
 import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
 
@@ -41,7 +41,7 @@ export default function Start({start : { content }, lastNews } : StartProps) {
 
 Start.layout = {layout:'full', color:'#121212', menu:'inverted', sidebar:false} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({queries:[GetStart, GetLastNews]}, async ({props, revalidate } : any) => {
+export const getStaticProps = withGlobalProps({queries:[GetStartDocument, GetLastNewsDocument]}, async ({props, revalidate } : any) => {
 	
 	return {
 		props,

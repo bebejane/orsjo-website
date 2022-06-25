@@ -1,5 +1,11 @@
 import styles from './index.module.scss'
-import { GetContact, GetAllResellers, GetAllStaffs, GetAllShowrooms, GetAllDistributors } from '/graphql';
+import { 
+	GetContactDocument, 
+	GetAllResellersDocument, 
+	GetAllStaffsDocument, 
+	GetAllShowroomsDocument, 
+	GetAllDistributorsDocument 
+} from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
@@ -147,7 +153,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 
 Contact.layout = { layout: 'full', color: "#DF3600", menu: 'normal' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetContact, GetAllResellers, GetAllStaffs, GetAllShowrooms, GetAllDistributors] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetContactDocument, GetAllResellersDocument, GetAllStaffsDocument, GetAllShowroomsDocument, GetAllDistributorsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

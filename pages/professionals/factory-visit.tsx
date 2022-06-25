@@ -1,5 +1,5 @@
 import styles from './factory-visit.module.scss'
-import {  GetFactoryVisit } from '/graphql';
+import {  GetFactoryVisitDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
@@ -23,7 +23,7 @@ export default function FactoryVisit({ factoryVisit }: DownloadsProps) {
 
 FactoryVisit.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetFactoryVisit] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetFactoryVisitDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

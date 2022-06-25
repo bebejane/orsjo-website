@@ -1,5 +1,5 @@
 import styles from './jobs.module.scss'
-import { GetAllJobs } from '/graphql';
+import { GetAllJobsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -26,7 +26,7 @@ export default function Jobs({ jobs }: JobsProps) {
 
 Jobs.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllJobs] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetAllJobsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

@@ -2,7 +2,7 @@ import styles from './index.module.scss'
 import CatalogueLight from '/components/catalogue/CatalogueLight';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
-import { GetAllProducts } from "/graphql"
+import { GetAllProductsDocument } from "/graphql"
 
 export default function catalogueLight(props) {
 	const { products, locale } = props
@@ -14,7 +14,7 @@ export default function catalogueLight(props) {
 }
 
 export const getServerSideProps = async ({ locale }) => {
-	const { products } = await apiQuery(GetAllProducts, { variables: { locale }});
+	const { products } = await apiQuery(GetAllProductsDocument, { variables: { locale }});
 	if (!products) return { notFound: true }
 	return {
 		props: {

@@ -1,10 +1,10 @@
 import styles from './index.module.scss'
-import { GetAllDesigners } from '/graphql';
+import { GetAllDesignersDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 
-type DesignerProps = { designers: Designer[] }
+export type DesignerProps = { designers: DesignerRecord[] }
 
 export default function Designer({ designers }: DesignerProps) {
 //	console.log(designers)
@@ -20,7 +20,7 @@ export default function Designer({ designers }: DesignerProps) {
 	)
 }
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllDesigners] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetAllDesignersDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

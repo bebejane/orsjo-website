@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import Catalogue from '/components/catalogue/Catalogue';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
-import { GetAllProducts } from "/graphql"
+import { GetAllProductsDocument } from "/graphql"
 
 type CatalogueWrapperProps = { products: ProductRecord[], locale: Locale }
 
@@ -18,7 +18,7 @@ export default function CatalogueWrapper({ products, locale } : CatalogueWrapper
 
 export const getServerSideProps : GetServerSideProps = async ({ locale  } : any ) => {
 	
-	const { products } = await apiQuery(GetAllProducts, { variables: {locale} });
+	const { products } = await apiQuery(GetAllProductsDocument, { variables: {locale} });
 	
 	if (!products) return { notFound: true }
 

@@ -1,7 +1,7 @@
 import { apiQuery } from './dato/api';
-import { GetProductCategories, GetAllDesigners } from '/graphql';
+import { GetProductCategoriesDocument, GetAllDesignersDocument } from '/graphql';
 import { sectionId } from './utils';
-import type { DocumentNode } from 'graphql/language/ast';
+import type { TypedDocumentNode } from '@apollo/client';
 
 export type MenuItem = {
   type: string,
@@ -57,7 +57,7 @@ const base: Menu = [
 
 export const generate = async () => {
 
-  const queries: DocumentNode[] = [GetProductCategories, GetAllDesigners];
+  const queries: TypedDocumentNode[] = [GetProductCategoriesDocument, GetAllDesignersDocument];
   const { designers, productCategories } = await apiQuery(queries) as MenuQuery
 
   const menu = base.map(item => {

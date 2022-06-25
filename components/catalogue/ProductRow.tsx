@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { priceIncLight } from '/lib/utils'
 import { convertPrice } from '/lib/utils'
 
-type ProductRowProps = {product: Product, withLightsource: boolean, locale : Locale}
+export type ProductRowProps = {product: ProductRecord, withLightsource: boolean, locale : Locale}
 
 export default function ProductRow({ product, withLightsource, locale } : ProductRowProps) {
 

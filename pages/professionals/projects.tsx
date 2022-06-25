@@ -1,5 +1,5 @@
 import styles from './projects.module.scss'
-import { GetProjectStart, GetAllProjects, GetAllProjectTypes } from '/graphql';
+import { GetProjectStartDocument, GetAllProjectsDocument, GetAllProjectTypesDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { sectionId } from '/lib/utils';
 import Link from 'next/link'
@@ -45,7 +45,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 
 Professionals.layout = { layout:'normal', color:"#A7A7A7", menu:'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetProjectStart, GetAllProjects, GetAllProjectTypes] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetProjectStartDocument, GetAllProjectsDocument, GetAllProjectTypesDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,
