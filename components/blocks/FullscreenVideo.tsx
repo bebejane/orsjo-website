@@ -21,6 +21,7 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 	},[inViewRef]);
 
 	useEffect(() => {
+		return console.log('video disabled')
 		if (!videoRef.current ) return
 		if (active)
 			videoRef.current.play().catch((err) => {})
@@ -43,7 +44,7 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 						loop={true}
 						autoPlay={false}
 						disablePictureInPicture={true}
-						//poster={video.video?.thumbnailUrl}
+						poster={video.video?.thumbnailUrl}
 					/>
 					<div className={styles.textWrap}>
 						<div className={styles.text}>
