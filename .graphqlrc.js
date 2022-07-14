@@ -5,6 +5,7 @@ const config =  {
 	pureMagicComment: false,
 	exportFragmentSpreadSubTypes: true,
 	namingConvention: "keep",
+	maybeValue: "T"
 }
 
 module.exports = {
@@ -26,7 +27,7 @@ module.exports = {
 						"typescript",
 						"typescript-operations",
 					],
-					config
+					config:{...config, noExport: true}
 				},
         "graphql/index.ts": {
           plugins: ["typed-document-node"],
