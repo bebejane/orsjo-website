@@ -10,12 +10,14 @@ export interface StoreState {
   currentSection: string,
   invertSidebar: boolean,
   invertMenu: boolean,
+  searchProducts: string,
   sections: SectionId[],
   setSections: (sections: SectionId[]) => void,
   setShowMenu: (showMenu: boolean) => void,
   setCurrentSection: (currentSection: string) => void,
   setInvertSidebar: (invertSidebar: boolean) => void,
-  setInvertMenu: (invertMenu: boolean) => void
+  setInvertMenu: (invertMenu: boolean) => void,
+  setSearchProducts: (searchProducts : string) => void
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -24,6 +26,7 @@ const useStore = create<StoreState>((set) => ({
   invertSidebar:false,
   invertMenu:false,
   sections:[],
+  searchProducts:undefined,
   setSections: (sections: SectionId[]) =>  
     set((state) => ({
       sections
@@ -47,6 +50,11 @@ const useStore = create<StoreState>((set) => ({
   setInvertMenu: (invertMenu : boolean) =>  
     set((state) => ({
       invertMenu
+    })
+  ),
+  setSearchProducts: (searchProducts : string) =>  
+    set((state) => ({
+      searchProducts
     })
   ),
 }));

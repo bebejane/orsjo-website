@@ -52,7 +52,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 	)
 }
 
-Bespoke.layout = { layout:'full', color:"#E5E5E5", menu:'inverted'} as PageLayoutProps
+Bespoke.layout = { layout:'full', color:"--lightgrey", menu:'inverted'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetBespokeDocument] }, async ({ props, revalidate }: any) => {
 

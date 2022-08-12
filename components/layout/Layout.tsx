@@ -14,7 +14,7 @@ export default function Layout({ children, menu }: LayoutProps) {
 
 	return (
 		<>
-			<div className={styles.layout} style={{backgroundColor: color}}>
+			<div className={styles.layout} style={{backgroundColor: color ? `var(${color})` : undefined}}>
 				<DesktopMenu items={menu}/>
 				<MobileMenu items={menu}/>
 				<Sidebar/>

@@ -12,7 +12,7 @@ export default function Sidebar({} : SidebarProps) {
 
 	const { menu, sidebar } = useLayout()
 	const router = useRouter()
-	const [currentSection, invertSidebar] = useStore((state) => [state.currentSection, state.invertSidebar], shallow);
+	const [currentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
 	const sections = useStore((state) => state.sections)
 	const subHeader = router.pathname.substring(1).substring(0, router.pathname.indexOf('/', 1) === -1 ? router.pathname.length :  router.asPath.indexOf('/', 1)) || 'Home'
 	const isInverted = menu === 'inverted' || invertSidebar
@@ -34,7 +34,12 @@ export default function Sidebar({} : SidebarProps) {
 						</li>
 					)}
 					<li className={styles.search}>
-						<input type="text" placeholder='Search'/>
+						<input 
+							type="text" 
+							placeholder='Search' 
+							value={searchProducts} 
+							onChange={(e) => setSearchProducts(e.target.value)}
+						/>
 					</li>
 				</ul>
 			</nav>

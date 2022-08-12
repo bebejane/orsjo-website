@@ -18,7 +18,7 @@ export default function Sustainability({ sustainability }: SustainabilityProps) 
 	)
 }
 
-Sustainability.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
+Sustainability.layout = { layout:'normal', color:"--lightgrey", menu:'normal'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetSustainabilityDocument] }, async ({ props, revalidate }: any) => {
 
