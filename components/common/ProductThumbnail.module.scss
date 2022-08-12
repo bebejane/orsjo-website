@@ -6,6 +6,12 @@
     position: relative;
     flex-direction: column;
     aspect-ratio: 4/3;
+
+    &:hover {
+      figcaption {
+        color: $black !important;
+      }
+    }
     
     figure{
       position: relative;
@@ -16,6 +22,8 @@
       
       &:hover {
         background-color:white;
+
+
       }
       .image {
         
@@ -31,6 +39,7 @@
       text-overflow: ellipsis;
       white-space: pre;
       color: $gray;
+      padding-top: .5em;
       span{
         color: $black;
       }
