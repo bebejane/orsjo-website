@@ -45,7 +45,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 		if(sel) setMenuMargin(el.offsetLeft)
 		setSelected(sel)
 	}
-	console.log(menu)
+	
 	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], (menu === 'inverted' || invertMenu) && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
 	

@@ -33,6 +33,9 @@ export default function Sidebar({} : SidebarProps) {
 							</Link>
 						</li>
 					)}
+					<li className={styles.search}>
+						<input type="text" placeholder='Search'/>
+					</li>
 				</ul>
 			</nav>
 		</aside>

@@ -19,7 +19,7 @@ export const client = new ApolloClient({
   ssrMode: isServer,
   defaultOptions: {
     query: {
-      fetchPolicy: process.env.DEV_CACHE ? 'cache-first' : 'no-cache',
+      fetchPolicy: process.env.DEV_CACHE ? 'no-cache' : 'no-cache',
       errorPolicy: 'all',
     }
   }

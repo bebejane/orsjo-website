@@ -24,7 +24,7 @@ export default function Product({ product }: ProductProps) {
 								By {product.designer?.name}
 							</h1>
 							<h3 className={styles.type}>
-								type
+								{product.categories.map(({name}) => name).join(', ')}
 							</h3>
 						</div>
 					</div>

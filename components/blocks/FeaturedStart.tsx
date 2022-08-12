@@ -35,7 +35,7 @@ export default function FeaturedStart({ data: { headline, items: products, id } 
 			<div className={styles.gallery} >
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
-					loop={false}
+					loop={true}
 					slidesPerView={4}
 					spaceBetween={20}
 					initialSlide={index}
@@ -51,9 +51,8 @@ export default function FeaturedStart({ data: { headline, items: products, id } 
 				<div className={cn(styles.fade, isShortSlide && styles.hide)}></div>
 				<ArrowButton 
 					className={styles.arrow} 
-					onClick={()=> swiperRef.current?.isEnd ? swiperRef.current?.slideTo(0) : swiperRef.current.slideNext()} 
+					onClick={()=> swiperRef.current.slideNext()} 
 					inverted={true}
-					reverse={swiperRef.current?.isEnd}
 				/>
 			</div>
 		</section>

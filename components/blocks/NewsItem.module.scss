@@ -1,0 +1,25 @@
+.news{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  color: $white;
+  margin-left: var(--outer-margin);
+  margin-right: var(--outer-margin);
+  h1{
+    flex: 0 0 30%;
+    margin:0;
+    padding: 0;
+  }
+  .text{
+    flex: 1 1 auto;
+    .more{
+      font-weight: bold;
+      a{
+        color: $white;
+        .arrow{
+          filter:invert(1);
+        }
+      }
+    }  
+  }
+}

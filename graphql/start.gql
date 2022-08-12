@@ -54,6 +54,16 @@ query GetStart {
         secondLinkText
         secondHeadline
       }
+      ... on NewsItemRecord {
+        news{
+          id
+          title
+          link
+          linkText
+          slug
+        }
+      }
     }
+    
   }
 }

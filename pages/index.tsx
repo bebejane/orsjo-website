@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import { withGlobalProps } from "/lib/hoc";
 import { GetLastNewsDocument, GetStartDocument } from '/graphql';
-import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink } from '/components';
+import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink, NewsItem } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
 
 export type StartProps = {start:StartRecord, lastNews: NewsRecord[]}
@@ -22,19 +22,13 @@ export default function Start({start : { content }, lastNews } : StartProps) {
 						return <FullscreenVideo key={idx} data={block} />
 					case 'ImageLinkRecord':
 						return <ImageLink key={idx} data={block} />
+					case 'NewsItemRecord':
+						return <NewsItem key={idx} data={block} />
 					default:
 						return null
 				}
 			})}
-			<section className={styles.news}>
-				<h1>News</h1>
-				<span className={styles.text}>
-					{news.title}
-					<div className={styles.more}>
-						Read more <img src="/images/arrow.svg" className={styles.arrow}/>
-					</div>
-				</span>
-			</section>
+			
 		</div>
 	)
 }
