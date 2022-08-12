@@ -41,4 +41,5 @@ $gutter-nested: $gutter / $difference12; //Denna ska göras om
 @mixin h1Big() {
   font-size: 3rem;
   font-family: $body-font;
+  line-height: 1em;
 }
