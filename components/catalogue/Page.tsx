@@ -1,7 +1,7 @@
 import styles from './Page.module.scss'
 import cn from 'classnames'
 
-type PageProps = { children: React.ReactNode, autoHeight?: boolean }
+export type PageProps = { children: React.ReactNode, autoHeight?: boolean }
 
 export default function Page({ children, autoHeight } : PageProps) {
 	return (

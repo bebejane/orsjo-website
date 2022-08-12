@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import Markdown from '/lib/dato/components/Markdown'
 import Page from "./Page"
 
-type ProductSheetProps = { product:Product, locale:Locale, pageNo?:number }
+export type ProductSheetProps = { product:ProductRecord, locale:Locale, pageNo?:number }
 
 export default function ProductSheet({ product, locale, pageNo } : ProductSheetProps) {
 
@@ -105,11 +105,11 @@ export default function ProductSheet({ product, locale, pageNo } : ProductSheetP
   )
 }
 
-const parseSpecifications = (product : Product, locale: Locale, t:any) => {
+const parseSpecifications = (product : ProductRecord, locale: Locale, t:any) => {
   
   type LightsourcePick = { id:string, amount?:number, name:string, included:boolean}
 
-  let allLightsources: Lightsource[] = []
+  let allLightsources: LightsourceRecord[] = []
   product.models.map((m) => m.lightsources.map((l) => l)).forEach((l) => allLightsources.push.apply(allLightsources, l))
   let lightsources : LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({lightsource}) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource }) => ({ included, amount, name: lightsource?.name, id:lightsource?.id }))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
@@ -144,7 +144,7 @@ const parseSpecifications = (product : Product, locale: Locale, t:any) => {
 }
 
 
-const parseArticlePrices = (product: Product, locale : Locale, t: any) => {
+const parseArticlePrices = (product: ProductRecord, locale : Locale, t: any) => {
 
   const rows = (
     <>

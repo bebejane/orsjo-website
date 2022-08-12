@@ -1,6 +1,6 @@
 import ProductRow from "./ProductRow"
 
-type CatalogueLightProps = { products: Product[], withLightsource:boolean, locale: Locale }
+type CatalogueLightProps = { products: ProductRecord[], withLightsource:boolean, locale: Locale }
 
 export default function CatalogueLight({ products, withLightsource, locale } : CatalogueLightProps) {
 	return (

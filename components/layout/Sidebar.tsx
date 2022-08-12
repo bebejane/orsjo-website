@@ -1,6 +1,6 @@
 import styles from './Sidebar.module.scss'
 import cn from 'classnames'
-import useStore from '/lib/store';
+import { useStore, shallow } from '/lib/store';
 import Link from 'next/link';
 import { sectionId } from '/lib/utils'
 import { useRouter } from 'next/router';
@@ -10,23 +10,25 @@ export type SidebarProps = {}
 
 export default function Sidebar({} : SidebarProps) {
 
-	const { layout, menu } = useLayout()
+	const { menu, sidebar } = useLayout()
 	const router = useRouter()
-	const currentSection = useStore((state) => state.currentSection);
+	const [currentSection, invertSidebar] = useStore((state) => [state.currentSection, state.invertSidebar], shallow);
 	const sections = useStore((state) => state.sections)
 	const subHeader = router.pathname.substring(1).substring(0, router.pathname.indexOf('/', 1) === -1 ? router.pathname.length :  router.asPath.indexOf('/', 1)) || 'Home'
-	if(!sections.length ) return null
-
+	const isInverted = menu === 'inverted' || invertSidebar
+	
+	if(!sections.length || !sidebar) return null
+	
 	return (
-		<aside className={cn(styles.sidebar,  styles[menu])}>
+		<aside id="sidebar" className={cn(styles.sidebar, isInverted && styles.inverted)}>
 			<h3>{subHeader}</h3>
 			<nav>
 				<ul>
 					{sections.map((section, idx) => 
 						<li key={idx}>
-							<Link href={`#${sectionId(section).id}`}>
-								<a className={cn(sectionId(section).id === currentSection && styles.active)}>
-									{section}
+							<Link href={`#${section.id}`}>
+								<a className={cn(section.id === currentSection && styles.active)}>
+									{section.title}
 								</a>
 							</Link>
 						</li>

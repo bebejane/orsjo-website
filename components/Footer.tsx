@@ -1,6 +1,5 @@
 import styles from './Footer.module.scss'
 import Link from 'next/link'
-import { menu as menuItems } from '/lib/menu.json'
 import type { MenuItem } from '/lib/menu'
 
 export type FooterProps = { menu: MenuItem[] }

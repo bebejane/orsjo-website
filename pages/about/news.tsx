@@ -1,5 +1,5 @@
 import styles from './news.module.scss'
-import { GetAllNews } from '/graphql';
+import { GetAllNewsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -12,13 +12,11 @@ export type NewsProps = { news: NewsRecord[] }
 
 export default function News({ news }: NewsProps) {
 
-	
-
 	return (
 		<div className={styles.news}>
 			<h1>News</h1>
-			{news.map(({title, image, link, linkText, text, createdAt}, idx) =>
-				<section key={idx} className={styles.newsItem} {...sectionId(format(new Date(createdAt), 'MMM do, yyyy'))}>
+			{news.map(({title, image, link, linkText, text, createdAt, id}, idx) =>
+				<section key={idx} className={styles.newsItem} {...sectionId(format(new Date(createdAt), 'MMM do, yyyy'),id)}>
 					<h1>{title}</h1>
 					{image && <Image data={image.responsiveImage}/>}
 					<Markdown className={styles.text}>{text}</Markdown>
@@ -29,9 +27,9 @@ export default function News({ news }: NewsProps) {
 	)
 }
 
-News.layout = { layout:'normal', color:"#141414", menu:'inverted'} as PageLayoutProps
+News.layout = { layout:'normal', color:"#141414", menu: 'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllNews] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetAllNewsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

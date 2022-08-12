@@ -2,7 +2,7 @@
 #import "./fragments/ProjectFragment.gql"
 
 
-query GetProject($id: String) {
+query GetProject($id: ItemId) {
 	project (filter: {id: { eq: $id }}) {
     ...ProjectFragment
 	}
@@ -48,26 +48,10 @@ query GetBespoke {
 	}
 }
 
-query GetDownload($id: String) {
-	download (filter: {id: { eq: $id }}) {
-    id
-    title
-	  intro(markdown: false)
-	}
-}
-
 query GetFactoryVisit {
 	factoryVisit {
     id
     title
 	  intro(markdown: false)
 	}
-}
-
-query GetAllDownloads {
-  download {
-    id
-    title
-	  intro(markdown: false)
-  }
 }

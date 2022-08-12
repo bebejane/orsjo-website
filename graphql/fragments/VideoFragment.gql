@@ -11,8 +11,12 @@ fragment VideoFragment on FileField {
   height
   video {
     thumbnailUrl
-    mp4Url
-    duration
     streamingUrl
+    mp4high: mp4Url(res: high)
+    mp4med: mp4Url(res: medium)
+    mp4low: mp4Url(res: low)
+    framerate
+    duration
+    
   }
 }

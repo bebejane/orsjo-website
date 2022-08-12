@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Page from "./Page"
 
-type ProductGridProps = { products : Product[]}
+export type ProductGridProps = { products : ProductRecord[]}
 
 export default function ProductGrid({ products } : ProductGridProps) {
   const t = useTranslations('Catalogue')

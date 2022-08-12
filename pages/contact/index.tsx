@@ -1,7 +1,12 @@
 import styles from './index.module.scss'
-import { GetContact, GetAllResellers, GetAllStaffs, GetAllShowrooms, GetAllDistributors } from '/graphql';
+import { 
+	GetContactDocument, 
+	GetAllResellersDocument, 
+	GetAllStaffsDocument, 
+	GetAllShowroomsDocument, 
+	GetAllDistributorsDocument 
+} from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
-import Link from 'next/link'
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
 import { sectionId } from '/lib/utils'
@@ -70,7 +75,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 				)}
 				</div>
 			</section>
-			<section {...sectionId('Showrooms')} className={styles.showroomsSection}>
+			<section {...sectionId('Showrooms')} data-dark="1" className={styles.showroomsSection}>
 				<h1>Showrooms</h1>
 				<Markdown className={styles.intro}>
 					The best way to experience our products is to see them in real life, so just reach out and book an appointment.
@@ -95,7 +100,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					</div>
 				)}
 			</section>
-			<section {...sectionId('Agents & Distributors', 'suppliers')} className={styles.distributorSection}>
+			<section {...sectionId('Agents & Distributors')} className={styles.distributorSection}>
 				<h1>Agents & Distributors</h1>
 				<div className={styles.distributors}>
 					{distributors.map(({name, address, city, country, email, phone, postalCode, contactName, url}, idx) =>
@@ -112,7 +117,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					)}
 				</div>
 			</section>
-			<section {...sectionId('Retailers')} className={styles.resellerSection}>
+			<section {...sectionId('Retailers')} data-dark="1" className={styles.resellerSection}>
 				<h1>Retailers</h1>
 				<div className={styles.resellers}>
 					{Object.keys((resellesByCountry)).map((id, idx) => {
@@ -148,7 +153,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 
 Contact.layout = { layout: 'full', color: "#DF3600", menu: 'normal' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetContact, GetAllResellers, GetAllStaffs, GetAllShowrooms, GetAllDistributors] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetContactDocument, GetAllResellersDocument, GetAllStaffsDocument, GetAllShowroomsDocument, GetAllDistributorsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

@@ -6,13 +6,15 @@ import { useState, useRef, useEffect, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
 import { useOutsideClick, useWindowSize } from 'rooks'
-import { MenuProps } from './'
+import type { Menu } from '/lib/menu'
 
-export default function DesktopMenu({items} : MenuProps){
+export type DesktopMenuProps = {items : Menu}
+
+export default function DesktopMenu({items} : DesktopMenuProps){
 	
 	const ref = useRef();
 	const router = useRouter()
-	const [showMenu] = useStore((state) => [state.showMenu], shallow);
+	const [showMenu, invertMenu] = useStore((state) => [state.showMenu,state.invertMenu], shallow);
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState(0)
 	const [hovering, setHovering] = useState(undefined)
@@ -43,8 +45,8 @@ export default function DesktopMenu({items} : MenuProps){
 		if(sel) setMenuMargin(el.offsetLeft)
 		setSelected(sel)
 	}
-	
-	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], styles[menu])
+	console.log(menu)
+	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], (menu === 'inverted' || invertMenu) && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
 	
 	return (
@@ -56,17 +58,23 @@ export default function DesktopMenu({items} : MenuProps){
 					</a>
 				</Link>
 				<ul className={styles.nav}>
-					{items.map(({label, slug}, idx) => {
+					{items.map(({label, slug, index}, idx) => {
 						const arrowStyle = cn(styles.arrow, slug === hovering && styles.hover, slug === selected && styles.active)
 						return(
 							<li 
 								data-slug={slug}
 								key={idx} 
-								onClick={handleSelected}
+								onClick={(e)=> !index && handleSelected(e)}
 								onMouseEnter={()=>setHovering(slug)}
 								onMouseLeave={()=>setHovering(undefined)}
-							>
-								{label} <span className={arrowStyle}>›</span>
+							>	
+								{index === true ? // Direct links
+									<Link href={slug}>
+										<a>{label}</a>
+									</Link>
+								:
+									<>{label} <span className={arrowStyle}>›</span></>
+								}
 							</li>
 						)})}
 				</ul>

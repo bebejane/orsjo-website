@@ -23,8 +23,8 @@ function Application({ Component, pageProps } : ApplicationProps) {
   const { site, seo } = pageProps;
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
-  const pageLayout = Component.layout || {layout:'normal', menu:'normal', color:''}
-  
+  const layout = (Component.layout || {layout:'normal', menu:'normal', color:''}) as PageLayoutProps
+
   if(isError) return <Component {...pageProps} />
   
   return (
@@ -32,7 +32,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
       <GoogleAnalytics />
       <DatoSEO title={'Örsjö'} seo={seo} site={site} pathname={pathname} key={pathname}/>
       <NextIntlProvider messages={pageProps.messages}>
-        <LayoutProvider value={pageLayout}>
+        <LayoutProvider value={layout}>
           <Layout menu={pageProps.menu}>
             <Component {...pageProps} />
           </Layout>

@@ -1,5 +1,5 @@
 import styles from './[...product].module.scss'
-import { GetAllProducts, GetProduct } from '/graphql'
+import { GetAllProductsDocument, GetProductDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { List, ListItem } from '/components'
@@ -59,7 +59,7 @@ export default function Product({ product }: ProductProps) {
 }
 
 export async function getStaticPaths(context) {
-	const { products } = await apiQuery(GetAllProducts)
+	const { products } = await apiQuery(GetAllProductsDocument, {})
 	const paths = products.map(({ slug }) => ({ params: { product: [slug] } }))
 	return {
 		paths,
@@ -68,7 +68,7 @@ export async function getStaticPaths(context) {
 }
 
 export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
-	const { product } = await apiQuery(GetProduct, { variables: { slug: context.params.product[0] } })
+	const { product } = await apiQuery(GetProductDocument, { variables: { slug: context.params.product[0] } })
 
 	if (!product)
 		return { notFound: true }

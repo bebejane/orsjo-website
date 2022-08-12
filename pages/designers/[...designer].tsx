@@ -1,5 +1,5 @@
 import styles from './[...designer].module.scss'
-import { GetAllDesigners, GetDesigner, GetAllProductsByDesigner } from '/graphql'
+import { GetAllDesignersDocument, GetDesignerDocument, GetAllProductsByDesignerDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { Image } from 'react-datocms'
@@ -51,7 +51,7 @@ export default function Designer({designer, products} : DesignerProps){
 Designer.layout = {layout:'full', color:'#d2bd93'} as PageLayoutProps
 
 export async function getStaticPaths(context) {
-	const { designers } = await apiQuery(GetAllDesigners)
+	const { designers } = await apiQuery(GetAllDesignersDocument)
 	const paths = designers.map(({ slug }) => ({ params: { designer: [slug] } }))
 	return {
 		paths,
@@ -61,8 +61,8 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({ model: 'designer' }, async ({ props, context, revalidate }) => {
 
-	const { designer } = await apiQuery(GetDesigner, {variables: { slug: context.params.designer[0] }})
-	const { products } = await apiQuery(GetAllProductsByDesigner, {variables: { id: designer.id }})
+	const { designer } = await apiQuery(GetDesignerDocument, {variables: { slug: context.params.designer[0] }})
+	const { products } = await apiQuery(GetAllProductsByDesignerDocument, {variables: { id: designer.id }})
 	
 	if (!designer) 
 		return { notFound: true }

@@ -1,5 +1,5 @@
 import styles from './sustainability.module.scss'
-import { GetSustainability } from '/graphql';
+import { GetSustainabilityDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -20,7 +20,7 @@ export default function Sustainability({ sustainability }: SustainabilityProps) 
 
 Sustainability.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetSustainability] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetSustainabilityDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

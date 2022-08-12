@@ -1,5 +1,5 @@
 import styles from './bespoke.module.scss'
-import {  GetBespoke } from '/graphql';
+import {  GetBespokeDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -54,7 +54,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 
 Bespoke.layout = { layout:'full', color:"#E5E5E5", menu:'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetBespoke] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetBespokeDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

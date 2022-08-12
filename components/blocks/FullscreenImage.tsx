@@ -5,12 +5,12 @@ import Link from 'next/link'
 
 type LayoutProps = { data: FullscreenImageRecord }
 
-export default function FullscreenImage({ data: { image, headline, link, subHeadline }, data }: LayoutProps) {
+export default function FullscreenImage({ data: { image, headline, linkRecord, subHeadline }, data }: LayoutProps) {
 	
-	const slugBase = link.__typename === 'DesignerRecord' ? '/designers' : '/products'
+	const slugBase = linkRecord.__typename === 'DesignerRecord' ? '/designers' : '/products'
 	
 	return (
-		<Link href={`${slugBase}/${link.slug}`}>
+		<Link href={`${slugBase}/${linkRecord.slug}`}>
 			<a className={styles.fullScreenImage}>
 				<Image 
 					className={styles.image} 

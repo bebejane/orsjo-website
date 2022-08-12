@@ -5,10 +5,11 @@ import { useRouter } from 'next/router'
 import { useState, useRef, useEffect} from 'react'
 import { useLayout } from '/lib/context/layout'
 import { Twirl as Hamburger } from "hamburger-react";
-import type { MenuItem } from '/lib/menu'
-import type { MenuProps} from './'
+import type { Menu } from '/lib/menu'
 
-export default function MobileMenu({items} : MenuProps){
+export type MobileMenuProps = {items : Menu}
+
+export default function MobileMenu({items} : MobileMenuProps){
 
 	const router = useRouter()
 	const {layout, menu} = useLayout()

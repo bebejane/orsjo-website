@@ -20,13 +20,13 @@ const convertPrice = (price : number, locale: Locale) => {
   }
 }
 
-const priceIncLight = (prodPrice : number, lightsources : LightsourceElement[], locale: Locale) => {
+const priceIncLight = (prodPrice : number, lightsources : LightsourceRecord[], locale: Locale) => {
   let price = prodPrice;
   lightsources.filter((l) => !l.optional && !l.included).forEach((l) => price += (l.lightsource.price * (l.amount ? l.amount : 0)))
   return formatPrice(price, locale);
 }
 
-const sortProductsByCategory = (products : Product[]) => {
+const sortProductsByCategory = (products : ProductRecord[]) => {
   const sortedProducts = [...products].sort((a, b) => {
     if(a.family?.id === b.family?.id)
       return a.categories[0].position < b.categories[0].position ? -1 : 1;
@@ -38,7 +38,14 @@ const sortProductsByCategory = (products : Product[]) => {
 
 const isServer = typeof window === 'undefined';
 
-const sectionId = (str : string, id?:string) => ({id: id || str.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase(), title:str});
+const sectionId = (title : string, id?:string) => {
+  id = id || title.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase()
+  return {
+    id,
+    'data-section-id': id,
+    title
+  }
+}
 
 const chunkArray = (array: any[], chunkSize: number) => {
   const newArr = []

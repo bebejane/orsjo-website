@@ -1,5 +1,5 @@
 import styles from './press.module.scss'
-import { GetAllPress } from '/graphql';
+import { GetAllPressDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -22,7 +22,7 @@ export default function Press({ presses }: PressProps) {
 
 Press.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllPress] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetAllPressDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

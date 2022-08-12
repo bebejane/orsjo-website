@@ -1,7 +1,7 @@
 import ProductSheet from "./ProductSheet"
 import ProductGrid from "./ProductGrid"
 
-type CatalogueProps = { products : Product[], locale : Locale }
+export type CatalogueProps = { products : ProductRecord[], locale : Locale }
 
 export default function Catalogue({ products, locale } : CatalogueProps) {
 

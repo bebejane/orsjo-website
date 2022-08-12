@@ -11,7 +11,6 @@ export default function Support({  }: SupportProps) {
 	return (
 		<div className={styles.designers}>
 			<h1>Support</h1>
-			
 		</div>
 	)
 }

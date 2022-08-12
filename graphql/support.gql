@@ -39,11 +39,3 @@ query GetFaqStart {
     title
   }
 }
-
-query GetAllManuals {
-  manuals : allManuals{
-    id
-    intro(markdown: false)
-    title
-  }
-}

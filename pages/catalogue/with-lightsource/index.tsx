@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import CatalogueLight from '/components/catalogue/CatalogueLight';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
-import { GetAllProducts } from "/graphql"
+import { GetAllProductsDocument } from "/graphql"
 
 type CatalogueLightWrapperProps = { products: ProductRecord[], locale: Locale}
 
@@ -18,7 +18,7 @@ export default function CatalogueLightWrapper({ products, locale } : CatalogueLi
 
 export const getServerSideProps : GetServerSideProps = async ({ locale }) => {
 
-	let { products } = await apiQuery(GetAllProducts, { variables: { locale }});
+	let { products } = await apiQuery(GetAllProductsDocument, { variables: { locale }});
 	if (!products) return { notFound: true }
 
 	// Filter out model name containing hard wired and products with mounting that is fixed

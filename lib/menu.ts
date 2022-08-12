@@ -1,13 +1,14 @@
 import { apiQuery } from './dato/api';
-import { GetProductCategories, GetAllDesigners } from '/graphql';
+import { GetProductCategoriesDocument, GetAllDesignersDocument } from '/graphql';
 import { sectionId } from './utils';
-import type { DocumentNode } from 'graphql/language/ast';
+import type { TypedDocumentNode } from '@apollo/client';
 
 export type MenuItem = {
   type: string,
   label: string,
   slug: string,
-  sub?: MenuItem[]
+  sub?: MenuItem[],
+  index?:boolean
 }
 
 export type Menu = MenuItem[]
@@ -18,7 +19,7 @@ export type MenuQuery = {
 }
 
 const base: Menu = [
-  { type: 'product', label: 'Products', slug: '/products', sub: [] },
+  { type: 'product', label: 'Products', slug: '/products', sub: [], index:true},
   { type: 'designer', label: 'Designers', slug: '/designers', sub: [] },
   {
     type: 'professional', label: 'Professionals', slug: '/professionals', sub: [
@@ -30,7 +31,7 @@ const base: Menu = [
   },
   {
     type: 'about', label: 'About', slug: '/about', sub: [
-      { type: 'about', label: 'About', slug: '/about' },
+      { type: 'about', label: 'About Us', slug: '/about' },
       { type: 'about', label: 'Sustainability', slug: '/about/sustainability' },
       { type: 'about', label: 'Press', slug: '/about/press' },
       { type: 'about', label: 'News', slug: '/about/news' },
@@ -44,11 +45,11 @@ const base: Menu = [
     ]
   },
   {
-    type: 'contact', label: 'Contact', slug: '/contact', sub: [
+    type: 'contact', label: 'Contact', slug: '/contact', index:true, sub: [
       { type: 'contact', label: 'Information', slug: '/contact#information' },
       { type: 'contact', label: 'Staff', slug: '/contact#staff' },
       { type: 'contact', label: 'Showrooms', slug: '/contact#showrooms' },
-      { type: 'contact', label: 'Suppliers', slug: '/contact#suppliers' },
+      { type: 'contact', label: 'Suppliers', slug: '/contact#agentsdistributors' },
       { type: 'contact', label: 'Retailers', slug: '/contact#retailers' },
     ]
   },
@@ -56,7 +57,7 @@ const base: Menu = [
 
 export const generate = async () => {
 
-  const queries: DocumentNode[] = [GetProductCategories, GetAllDesigners];
+  const queries: TypedDocumentNode[] = [GetProductCategoriesDocument, GetAllDesignersDocument];
   const { designers, productCategories } = await apiQuery(queries) as MenuQuery
 
   const menu = base.map(item => {
