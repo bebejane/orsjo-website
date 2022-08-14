@@ -25,6 +25,19 @@ export default function Products({ productStart: { featured }, products, product
 		productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name)
 	})
 	
+	const search = (str: string, value: string) => {
+		const s = str.toLowerCase().split(' ');
+		const v = value.toLowerCase().split(' ');
+		
+		for (let i = 0; i < s.length; i++) {
+			for (let x = 0; x < v.length; x++) {
+				if(v[x].startsWith(s[i]))
+					return true
+			}		
+		}
+		return false
+	}
+
 	useEffect(()=>{
 		if(!searchProducts) 
 			return setProductsByCategorySearch(undefined)
@@ -35,10 +48,7 @@ export default function Products({ productStart: { featured }, products, product
 			
 			const res = products
 			.filter(({ categories }) => categories[0].name === k)
-			.filter(({ title, designer: { name }}) => 
-				title.toLowerCase().startsWith(searchProducts.toLowerCase()) || 
-				name?.toLowerCase().startsWith(searchProducts.toLowerCase())
-			)
+			.filter(({ title, designer: { name }}) => search(searchProducts, title) || search(searchProducts, name))
 			
 			if(res.length)
 				searchCategories[k] = res
@@ -49,6 +59,17 @@ export default function Products({ productStart: { featured }, products, product
 	}, [searchProducts, productCategories])
 	
 	const prodsByCat = productsByCategorySearch || productsByCategory
+	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0
+
+	if(isEmptySearch){
+		return (
+			<div className={styles.products}>
+				<div className={styles.emptySearch}>
+					No products matching "{searchProducts}"...
+				</div>
+			</div>
+		)
+	}
 
 	return (
 		<div className={styles.products}>
