@@ -8,10 +8,18 @@
   flex: 0 0 40px;
   border: 1px solid $gray;
   color: $black;
+  padding: 0 !important;
+  cursor: pointer;
+ 
+  &:hover {
+    border-color: $black !important;
+  }
+
 
   .arrow{
     width: 12px;
     height: 12px;
+    margin-top: 5px;
     transform: rotate(0deg);
     transition: transform .3s;
     &.reverse{

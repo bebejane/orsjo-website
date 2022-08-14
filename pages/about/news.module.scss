@@ -2,9 +2,12 @@
   position: relative;
   color:$white;
   .newsItem{
+    margin-bottom: $margin;
 
     .image{
-
+      max-width: 50% !important;
+      margin-bottom: 1.5em;
+      margin-top: .4em;
     }
     .text{
 

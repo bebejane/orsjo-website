@@ -4,33 +4,63 @@
   flex-direction: column;
   min-height: 100vh;
 
+  .intro {
+    @include mq($from: tablet) { 
+      width: 80%;
+    }
+  }
+
   table {
+    margin-bottom: $margin;
     tbody {
       tr {
+        margin-top: .2em;
+        padding-bottom: 2em;
+
+        &:hover {
+          background-color: $white !important;
+        }
 
         &.active {
           td {
             background-color: $white  !important;
+            //padding-top: .0em;
+            padding-bottom: 0em;
           }
         }
 
         th {
           text-align: left;
           color: $white;
+          padding-bottom: .6em;
+          &:nth-child(2) {
+            padding-left: 1em;
+          }
         }
 
         td {
           padding: 0;
+          padding-top: .8em;
+          padding-bottom: .8em;
           border-top: 1px solid $white;
           white-space: pre;
           cursor: pointer;
           vertical-align: middle;
 
+       
+
           &:first-child {
-            width: 60px;
-            max-width: 60px;
-            min-width: 60px;
+            width: 2em;
+            max-width: 2em;
+            min-width: 2em;
+            padding-left: 1em;
           }
+
+          &:nth-child(2) {
+            padding-left: 1em;
+            width: 20%;
+          }
+
         }
 
         td.toggle {
@@ -46,22 +76,36 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
+            margin-bottom: 1.8em;
+            border-top: 1px solid $black;
+            //border-bottom: 1px solid $black;
+
 
             .item {
               display: flex;
               flex-direction: row;
               align-items: center;
               flex: 0 0 50%;
+              padding-top: .5em;
+              padding-bottom: .5em;
+                border-bottom: 1px solid $black;
+              &:hover {
+                .icon {
+                  background-color:$gray;
+                }
+              }
+
 
               .icon {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 60px;
-                height: 60px;
-                flex: 0 0 60px;
-                background-color: $gray;
+                width: 1.6em;
+                height: 2em;
+                flex: 0 0 1.6em;
+                background-color: $light-gray;
                 color: $black;
+                margin-right: 1em;
               }
 
               .title {
@@ -75,10 +119,14 @@
 
     *>.image {
       position: relative !important;
-      background-color: $white;
-      max-height: 60px;
-      max-width: 60px;
       margin: 0 !important;
+      aspect-ratio: 1,1;
+      height: 2em;
+      mix-blend-mode: multiply;
+      display: flex;
+      img {
+        object-fit: contain;
+      }
     }
   }
 

@@ -60,7 +60,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 				</div>
 			</section>
 			<section {...sectionId('Staff')} className={styles.staffSection}>
-				<h1>Staff</h1>
+				<h1 className="bottomMargin">Staff</h1>
 				<div className={styles.staff}>
 					{staffs.map(({ name, role, phone, email, image }, idx) =>
 						<div key={idx} className={styles.employee}>

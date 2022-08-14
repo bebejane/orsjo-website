@@ -6,14 +6,14 @@ import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 
-export type JobsProps = {  jobs: JobRecord[]}
+export type JobsProps = { jobs: JobRecord[] }
 
 export default function Jobs({ jobs }: JobsProps) {
 
 	return (
 		<section className={styles.jobs}>
 			<h1>Jobs</h1>
-			{jobs.map(({title, summary, text})=>
+			{jobs.map(({ title, summary, text }) =>
 				<>
 					<h1>{title}</h1>
 					<Markdown>{summary}</Markdown>
@@ -24,7 +24,7 @@ export default function Jobs({ jobs }: JobsProps) {
 	)
 }
 
-Jobs.layout = { layout:'normal', color:"--lightgrey", menu:'normal'} as PageLayoutProps
+Jobs.layout = { layout: 'normal', color: "--lightblack", menu: 'normal' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllJobsDocument] }, async ({ props, revalidate }: any) => {
 

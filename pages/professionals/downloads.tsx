@@ -1,5 +1,5 @@
 import styles from './downloads.module.scss'
-import {  GetAllProductsDocument } from '/graphql';
+import { GetAllProductsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
@@ -9,38 +9,44 @@ import { useState } from 'react';
 export type DownloadsProps = { products: ProductRecord[] }
 
 export default function Downloads({ products }: DownloadsProps) {
-	
+
 	const [list, setList] = useState({})
 
 	return (
 		<section className={styles.downloads}>
-			<h1>Downloadcenter</h1>
-			<Markdown>
-				Looking for BIM-files? Need a CAD-file for a mock-up? Lightfiles? 
+			<h1 className="white topMargin">Download center</h1>
+			<div className={styles.intro}>			<Markdown>
+				Looking for BIM-files? Need a CAD-file for a mock-up? Lightfiles?
 				Product sheets too? No worries, we got you covered.
 			</Markdown>
+			</div>
+
+			<h1 className="white topMargin">Product related files</h1>
+
 			<table>
 				<tbody>
 					<tr>
-						<th>Image</th>
-						<th>Product</th>
-						<th>Type</th>
+						<th><span className="small">Image</span></th>
+						<th><span className="small">Product</span></th>
+						<th><span className="small">Type</span></th>
 						<th></th>
 					</tr>
-					{products.map(({image, title, categories, bimLink, pdfFile, mountingInstructions, lightFile}, idx) => {
+					{products.map(({ image, title, categories, bimLink, pdfFile, mountingInstructions, lightFile }, idx) => {
 						return (
 							<>
-								<tr key={idx} className={list[idx] ? styles.active : undefined} onClick={()=> setList({...list, [idx]: list[idx] ? false: true})}>
+								<tr key={idx} className={list[idx] ? styles.active : undefined} onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}>
 									<td>
-										<Image data={image.responsiveImage}  className={styles.image} />
+										<Image data={image.responsiveImage} className={styles.image} />
 									</td>
 									<td>
-										{title}
+										<h2 className="noMargin">{title}</h2>
 									</td>
 									<td>
-										{categories.map(c => c.name).join(', ')}
+										<span className="medium">
+											{categories.map(c => c.name).join(', ')}
+										</span>
 									</td>
-									<td className={styles.toggle}>{list[idx] ? '-' : '+'}</td>
+									<td className={styles.toggle}>{list[idx] ? '–' : '+'}</td>
 								</tr>
 								{list[idx] &&
 									<tr className={list[idx] ? styles.active : undefined}>
@@ -49,39 +55,31 @@ export default function Downloads({ products }: DownloadsProps) {
 											<div className={styles.list}>
 												{pdfFile &&
 													<div className={styles.item}>
-														<div className={styles.icon}>PDF</div>
-														<h3 className={styles.title}>
-															<a href={pdfFile.url} download>Productsheet (SE)</a>
-														</h3>
+														<div className={styles.icon}><span className="small">PDF</span></div>
+														<a href={pdfFile.url} download><span className="small">Productsheet (SE)</span></a>
 													</div>
 												}
 												{pdfFile &&
 													<div className={styles.item}>
-														<div className={styles.icon}>PDF</div>
-														<h3 className={styles.title}>
-															<a href={pdfFile?.url} download>Productsheet (EN)</a>
-														</h3>
+														<div className={styles.icon}><span className="small">PDF</span></div>
+														<a href={pdfFile?.url} download><span className="small">Productsheet (EN)</span></a>
 													</div>
 												}
-												{mountingInstructions && 
+												{mountingInstructions &&
 													<div className={styles.item}>
-														<div className={styles.icon}>PDF</div>
-														<h3 className={styles.title}>
-															<a href={mountingInstructions.url} download>Mounting instructions</a>
-														</h3>
+														<div className={styles.icon}><span className="small">PDF</span></div>
+														<a href={mountingInstructions.url} download><span className="small">Mounting instructions</span></a>
 													</div>
 												}
 												{bimLink &&
 													<div className={styles.item}>
-														<div className={styles.icon}>BIM</div>
-														<h3 className={styles.title}>
-															<a href={bimLink} download>Productsheet (SE)</a>
-														</h3>
+														<div className={styles.icon}><span className="small">BIM</span></div>
+														<a href={bimLink} download><span className="small">BIM files</span></a>
 													</div>
 												}
 												<div className={styles.item}>
-													<div className={styles.icon}>CAD</div>
-													<h3 className={styles.title}>CAD file, size S</h3>
+													<div className={styles.icon}><span className="small">CAD</span></div>
+													<span className="small">CAD file, size S</span>
 												</div>
 											</div>
 										</td>
@@ -89,7 +87,8 @@ export default function Downloads({ products }: DownloadsProps) {
 									</tr>
 								}
 							</>
-						)}
+						)
+					}
 					)}
 				</tbody>
 			</table>
@@ -97,7 +96,7 @@ export default function Downloads({ products }: DownloadsProps) {
 	)
 }
 
-Downloads.layout = { layout:'normal', color:"--lightgrey", menu:'normal'} as PageLayoutProps
+Downloads.layout = { layout: 'normal', color: "--grey", menu: 'inverted' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllProductsDocument] }, async ({ props, revalidate }: any) => {
 

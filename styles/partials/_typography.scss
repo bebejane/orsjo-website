@@ -27,7 +27,7 @@ h1 {
   padding-bottom: 1rem;
 
   &.topMargin {
-    padding-top: 1rem;
+    padding-top: .5rem;
   }
 
   &.bottomMargin {
@@ -41,7 +41,9 @@ h2 {
   font-size: .8em;
   //letter-spacing: .1em;
   padding-bottom: 1em;
-  
+  font-weight: normal;
+  font-family: $headline-font;
+
   &.topMargin {
     padding-top: .5em;
   }
@@ -54,9 +56,10 @@ h3 {
   padding-bottom: .5em;
 }
 
-nav, p.medium, .medium p {
+nav, p.medium, .medium p, button, span.medium {
   font-size: .65rem;
   font-family: "IndivisibleMedium";
+  font-weight: normal;
   line-height: $body-line-height;
 }
 
@@ -65,11 +68,12 @@ nav {
 }
 
 
-figcaption, p.small {
+figcaption, p.small, span.small {
   line-height: $body-line-height;
   font-size: .6rem;
-  font-family: "IndivisibleMedium";
   line-height: 1.4;
+  font-weight: normal;
+  font-family: "IndivisibleMedium";
 }
 
 .bodyWeight {
@@ -78,4 +82,5 @@ figcaption, p.small {
 
 .noMargin {
   margin-bottom: 0;
+  padding-bottom: 0;
 }

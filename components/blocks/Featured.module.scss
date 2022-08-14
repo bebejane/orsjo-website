@@ -18,8 +18,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-bottom: 1em;
+    padding-top: .5em;
     .headline{
       flex: 1 1 100%;  
+      padding: 0;
+
     }
     .next{
       width: 40px;
