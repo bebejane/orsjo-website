@@ -24,8 +24,11 @@ h1 {
   font-size: 1rem;
   font-weight: normal;
   font-family: $headline-font;
-  //padding-top: 1rem;
   padding-bottom: 1rem;
+
+  &.topMargin {
+    padding-top: 1rem;
+  }
 
   &.bottomMargin {
     padding-bottom: 1.5em;
