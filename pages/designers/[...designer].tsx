@@ -11,7 +11,7 @@ import { chunkArray } from '/lib/utils'
 export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[] };
 
 export default function Designer({designer, products} : DesignerProps){
-
+	console.log(designer, products)
 	const { color } = useLayout()
 	const productRows = chunkArray(products, 3)
 	
@@ -63,7 +63,7 @@ export const getStaticProps = withGlobalProps({ model: 'designer' }, async ({ pr
 
 	const { designer } = await apiQuery(GetDesignerDocument, {variables: { slug: context.params.designer[0] }})
 	const { products } = await apiQuery(GetAllProductsByDesignerDocument, {variables: { id: designer.id }})
-	
+
 	if (!designer) 
 		return { notFound: true }
 

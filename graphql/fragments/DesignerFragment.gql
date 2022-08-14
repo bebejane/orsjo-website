@@ -1,6 +1,7 @@
 #import "./ImageFragment.gql"
 
 fragment DesignerFragment on DesignerRecord{
+  id
   name
   image{
     ...ImageFragment
