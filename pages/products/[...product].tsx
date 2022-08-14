@@ -5,7 +5,7 @@ import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { List, ListItem } from '/components'
 import { Image } from 'react-datocms'
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery } from '/components'
+import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Featured, ProductThumbnail } from '/components'
 import { Gallery } from '/components'
 import { useState } from 'react'
 import { chunkArray, parseSpecifications } from '/lib/utils'
@@ -33,7 +33,7 @@ const allDrawings = (product :ProductRecord) => {
 }
 export default function Product({ product, related, relatedByCategory }: ProductProps) {
 	
-	console.log(relatedByCategory)
+	console.log(related)
 	const [galleryIndex, setGalleryIndex] = useState<number>(-1)
 	const [drawingGalleryIndex, setDrawingGalleryIndex] = useState<number>(-1)
 
@@ -161,7 +161,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 										<strong onClick={()=>setDrawingGalleryIndex(0)}>
 											View drawing +
 										</strong>
-										</td>
+									</td>
 									<td></td>
 									<td></td>
 								</tr>
@@ -191,7 +191,8 @@ export default function Product({ product, related, relatedByCategory }: Product
 				</List>
 			</section>
 			<section className={styles.related}>
-				
+				<Featured data={{headline:'Related', items: related, id:'related'}}/>
+				<Featured data={{headline:`Other ${product.categories[0].name} lamps`, items: relatedByCategory, id:'relatedbycategory'}}/>
 			</section>
 			{galleryIndex > -1 && 
 				<Gallery 
@@ -211,6 +212,8 @@ export default function Product({ product, related, relatedByCategory }: Product
 	)
 }
 
+Product.layout = { layout: 'full', menu: 'normal' } as PageLayoutProps
+
 export async function getStaticPaths(context) {
 	const { products } = await apiQuery(GetAllProductsDocument, {})
 	const paths = products.map(({ slug }) => ({ params: { product: [slug] } }))
@@ -224,7 +227,7 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 	const { product } : { product : ProductRecord} = await apiQuery(GetProductDocument, { variables: { slug: context.params.product[0] } })
 	const { products : related } = await apiQuery(GetRelatedProductsDocument, { variables: { designerId: product.designer.id, familyId: product.family.id } })
 	const { products : relatedByCategory } = await apiQuery(GetAllProductsByCategoryDocument, { variables: { categoryId: product.categories[0]?.id}})
-	
+	console.log({ variables: { designerId: product.designer.id, familyId: product.family.id } })
 	if (!product)
 		return { notFound: true }
 

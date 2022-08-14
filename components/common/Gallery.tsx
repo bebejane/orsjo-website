@@ -14,7 +14,7 @@ export default function Gallery({ images, onClose, index = 0 } : GalleryProps) {
   const [realIndex, setRealIndex] = useState(index)
   const [title, setTitle] = useState()
 
-  useEffect(() => setTitle(images[realIndex].title), [realIndex])
+  useEffect(() => setTitle(images[realIndex]?.title), [realIndex])
 
   if (!images) return null
   
@@ -41,7 +41,9 @@ export default function Gallery({ images, onClose, index = 0 } : GalleryProps) {
                   usePlaceholder={false}
                 />
               :
-                <img src={image.url} className={styles.image} />
+                <div className={styles.svg}>
+                  <img src={image.url} className={styles.image} />
+                </div>
               }
             </SwiperSlide>
           )}

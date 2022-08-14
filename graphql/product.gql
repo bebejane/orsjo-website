@@ -50,10 +50,10 @@ query GetAllProductsByDesigner($id: ItemId) {
 query GetRelatedProducts($designerId: ItemId, $familyId: ItemId) {
 	products: allProducts(
     filter: { 
-      OR:{ 
-        designer: { eq: $designerId }, 
-        family: { eq: $familyId}
-      }
+      OR:[
+        {designer: { eq: $designerId }}, 
+        {family: { eq: $familyId }}
+      ]
     }) {
 		...ProductFragment
 	}
