@@ -2,11 +2,13 @@ import styles from './FullWidthImage.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 
-type LayoutProps = { data: FullwidthImageRecord }
+export type LayoutProps = { data: FullwidthImageRecord, onClick:Function }
 
-export default function FullWidthImage({ data: { image }, data }: LayoutProps) {
+export default function FullWidthImage({ data: { image }, data, onClick }: LayoutProps) {
 
 	return (
-		<Image className={styles.image} data={image?.responsiveImage} />
+		<div onClick={()=>onClick(image.id)}>
+			<Image className={styles.image} data={image?.responsiveImage}/>
+		</div>
 	)
 }

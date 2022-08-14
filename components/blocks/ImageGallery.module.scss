@@ -4,8 +4,8 @@
   flex-direction: row;
   padding-top: $small-margin;
 
-
   figure {
+    cursor: pointer;
     position: relative;
     margin-right: 3.5%;
     &:last-of-type {

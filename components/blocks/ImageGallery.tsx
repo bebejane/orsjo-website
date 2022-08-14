@@ -2,16 +2,16 @@ import styles from './ImageGallery.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 
-type ImageGalleryBlockProps = { data: ImageGalleryRecord }
+type ImageGalleryBlockProps = { data: ImageGalleryRecord , onClick:Function}
 
-export default function ImageGallery({ data: { gallery } }: ImageGalleryBlockProps) {
+export default function ImageGallery({ data: { gallery }, onClick }: ImageGalleryBlockProps) {
 
 	return (
 		<div className={styles.imageGallery}>
-			{gallery.map(({ responsiveImage }, idx) =>
-				<figure key={idx}>
+			{gallery.map((image, idx) =>
+				<figure key={idx} onClick={()=>onClick(image.id)}>
 					<Image
-						data={responsiveImage}
+						data={image.responsiveImage}
 						className={styles.image}
 					/>
 				</figure>
