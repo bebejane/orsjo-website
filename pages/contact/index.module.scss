@@ -11,11 +11,10 @@
   .informationSection{
     flex-direction: row;
     border-bottom: 1px solid $white;
+    padding-bottom: $small-margin;
     .info{
       flex: 0 0 50%;
-      h1{
-
-      }
+      padding-right: 5%;
       .intro{
   
       }
@@ -39,6 +38,9 @@
   }
   .staffSection{
     flex-direction: column;
+    padding-top: $small-margin;
+    padding-bottom: $margin;
+
     .staff{
       display: flex;
       flex-direction: row;
@@ -48,9 +50,11 @@
         display: flex;
         flex-direction: column;
         flex: 0 0 25%;
+        padding-right: 1em;
         
         .image{
-          //max-width: 25%;
+          aspect-ratio: 16,9;
+          margin-bottom: 1em;
         }
         .name{
 
@@ -68,25 +72,49 @@
     padding-left: calc(spanGrid(4) +  var(--outer-margin));
     padding-right: var(--outer-margin);
     margin-right: 0;
+    padding-top: $margin;
+    padding-bottom: $margin;
     background-color: $black;
     h1{
       color:$red;
     }
     .intro{
       color: $white;
+      width: 70%;
+      padding-bottom: 1.5em;
     }
     .showroom{
       display: flex;
       flex-direction: row;
       flex: 0 0 100%;
       position: relative;
+
+      &:nth-child(2) {
+        flex-direction: row-reverse;
+
+        .left  {
+          padding-right: 0em;
+        }
+        .right {
+          padding-right: 1em;
+          padding-left: 0;
+          padding-top: 1em;
+        }
+      }
+
       .left{
         position: relative;
-        flex: 0 0 60%;
+        flex: 0 0 50%;
+        padding-left: 0em;
+        
       }
       .right{
         position: relative;
-        flex: 0 0 40%;
+        flex: 0 0 50%;
+        padding-left: 1em;
+        padding-top: 1em;
+
+
       }
     }
     .text{
@@ -101,6 +129,8 @@
     flex-direction: column;
     margin-left: 0;
     margin-right: 0;
+    padding-top: $margin;
+    padding-bottom: $margin;
     padding-left: calc(spanGrid(4) +  var(--outer-margin));
     padding-right: var(--outer-margin);
     background-color: $red;
@@ -114,7 +144,8 @@
       flex-wrap: wrap;
       flex: 1 1 100%;
       .distributor{
-        flex: 0 0 50%;
+        flex: 0 0 33%;
+        margin-bottom: 1em;
       }
     }
   }
@@ -122,6 +153,8 @@
   .resellerSection{
     display: flex;
     flex-direction: column;
+    padding-top: $margin;
+    padding-bottom: $margin;
     margin-left: 0;
     margin-right: 0;
     padding-left: calc(spanGrid(4) +  var(--outer-margin));
@@ -135,8 +168,8 @@
       display: flex;
       position: relative;
       flex-direction: column;
-      font-size: 0.7rem;
       flex: 1 1 100%;
+
       .country{
         display: flex;
         flex-direction: column;
@@ -148,6 +181,7 @@
           position: relative;
           .reseller{
             flex: 0 0 33.333%;
+            padding-bottom: .5em;
             overflow: hidden;
             .name{
               color:$red;

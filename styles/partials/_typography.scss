@@ -1,9 +1,10 @@
-$body-line-height: 1.25em;
+$body-line-height: 1.35em;
+$headline-line-height: 1.25;
 
 body,
-html {
+html{
   font-size: 18px;
-  line-height: $body-line-height;
+  line-height: $headline-line-height;
   color: $black;
   font-weight: 570;
   -webkit-font-smoothing: antialiased;
@@ -23,30 +24,55 @@ h1 {
   font-size: 1rem;
   font-weight: normal;
   font-family: $headline-font;
-  padding-top: 1rem;
+  //padding-top: 1rem;
   padding-bottom: 1rem;
+
+  &.bottomMargin {
+    padding-bottom: 1.5em;
+  }
 }
 
 //Big h1, see mixins
 
 h2 {
   font-size: .8em;
-  letter-spacing: .1em;
+  //letter-spacing: .1em;
+  padding-bottom: 1em;
   
+  &.topMargin {
+    padding-top: .5em;
+  }
 }
 
 h3 {
   font-size: .45em;
   letter-spacing: .1em;
   text-transform: uppercase;
+  padding-bottom: .5em;
+}
+
+nav, p.medium, .medium p {
+  font-size: .65rem;
+  font-family: "IndivisibleMedium";
+  line-height: $body-line-height;
 }
 
 nav {
-  font-size: .65rem;
-  font-family: "IndivisibleMedium";
+  line-height: 2em !important;
 }
 
-figcaption {
-  font-size: .55rem;
+
+figcaption, p.small {
+  line-height: $body-line-height;
+  font-size: .6rem;
   font-family: "IndivisibleMedium";
+  line-height: 1.4;
+}
+
+.bodyWeight {
+  font-family: $body-font !important;
+}
+
+.noMargin {
+  margin-bottom: 0;
 }

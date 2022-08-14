@@ -1,12 +1,20 @@
 // COLOR
 $black: #121212;
 $white: #FCFCFC;
-$gray:  #A7A7A7;
+$gray:  #969696;
 $red:   #DF3600;
 $light-gray: #F2F2F2;
 $warm-gray:  #D2BD93;
 $copper:     #876058;
 $copper-light: #AF685A; 
+
+.white {
+  color: $white;
+}
+
+.red {
+  color: $red !important;
+}
 
 //BORDER
 $line: 1px solid $black;
@@ -17,8 +25,6 @@ $navbarHeight: 4rem;
 
 $margin: 3rem;
 $small-margin: 2rem;
-
-
 
 @mixin maxWidth() {
   max-width: $max-width;
