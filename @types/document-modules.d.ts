@@ -205,6 +205,8 @@ export const GetAllProductsLight: DocumentNode;
 export const GetProductStart: DocumentNode;
 export const GetProductCategories: DocumentNode;
 export const GetAllProductsByDesigner: DocumentNode;
+export const GetRelatedProducts: DocumentNode;
+export const GetAllProductsByCategory: DocumentNode;
 
   export default defaultDocument;
 }

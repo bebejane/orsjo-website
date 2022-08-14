@@ -53,4 +53,71 @@
 			flex: 1 1 auto;
 		}
 	}
+	.listItemContent{
+		display: flex;
+		flex-direction: column;
+		font-size: 18px;
+		table{
+			
+			tr{
+				width: 100%;
+				td:nth-child(1), td:nth-child(3){
+					width: spanGrid(2);
+				}
+				td:nth-child(2), td:nth-child(4){
+					width: spanGrid(4);
+				}
+				th{
+					color: $gray;
+					width: spanGrid(2);
+				}
+			}
+
+			border-bottom: 1px solid $gray;
+			&:last-child{
+				border-bottom: 0;
+			}
+		}
+		.specifications{
+			tr{
+				td:nth-child(1), td:nth-child(3){
+					color: $gray;
+				}
+			}
+		}
+		.articles{
+			
+		}
+		.downloads{
+			list-style: none;
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			li{
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				width: 100%;
+				.fileIcon{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					height: 50px;
+					width: 40px;
+					background-color: $light-gray;
+					font-size: 10px;
+					margin-right: calc($gutter * 2);
+				}
+				.label{
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}
+
+.related{
+	background-color: $gray;
+	width: 100%;
+	
 }

@@ -46,3 +46,25 @@ query GetAllProductsByDesigner($id: ItemId) {
 		...ProductFragment
 	}
 }
+
+query GetRelatedProducts($designerId: ItemId, $familyId: ItemId) {
+	products: allProducts(
+    filter: { 
+      OR:{ 
+        designer: { eq: $designerId }, 
+        family: { eq: $familyId}
+      }
+    }) {
+		...ProductFragment
+	}
+}
+
+query GetAllProductsByCategory($categoryId: ItemId) {
+	products: allProducts(
+    filter: { 
+      categories: { eq: [$categoryId]}
+    }) {
+		...ProductFragment
+	}
+}
+

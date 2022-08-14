@@ -5,7 +5,7 @@
     "dev": "next dev",
     "predev": "yarn codegen",
     "dev:cache": "DEV_CACHE=true next dev",
-    "dev:watch": "npm run dev & npm run barrel:watch",
+    "dev:watch": "npm run dev & npm run barrel:watch & graphql-codegen --watch",
     "build": "next build",
     "codegen": "graphql-codegen && node codegen",
     "start": "next start",

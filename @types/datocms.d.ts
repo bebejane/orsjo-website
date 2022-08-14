@@ -27,8 +27,17 @@ type Scalars = {
 /** Record of type About us (about) */
 type AboutRecord = RecordInterface & {
   __typename?: 'AboutRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   intro?: Maybe<Scalars['String']>;
@@ -52,8 +61,17 @@ type AboutRecordintroArgs = {
 /** Block of type About section (about_section) */
 type AboutSectionRecord = RecordInterface & {
   __typename?: 'AboutSectionRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
@@ -77,8 +95,17 @@ type AboutSectionRecordtextArgs = {
 /** Block of type Accessory (accessory) */
 type AccessoryRecord = RecordInterface & {
   __typename?: 'AccessoryRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   accessory?: Maybe<ProductAccessoryRecord>;
   articleNo?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
@@ -96,8 +123,17 @@ type AccessoryRecord_seoMetaTagsArgs = {
 /** Block of type Bespoke project (bespoke_project) */
 type BespokeProjectRecord = RecordInterface & {
   __typename?: 'BespokeProjectRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   project?: Maybe<ProjectRecord>;
@@ -120,8 +156,17 @@ type BespokeProjectRecordsummaryArgs = {
 /** Record of type Bespoke (bespoke) */
 type BespokeRecord = RecordInterface & {
   __typename?: 'BespokeRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   examples: Array<BespokeProjectRecord>;
   id: Scalars['ItemId'];
@@ -188,8 +233,17 @@ type ColorField = {
 /** Record of type Contact (contact) */
 type ContactRecord = RecordInterface & {
   __typename?: 'ContactRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   address?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   email?: Maybe<Scalars['String']>;
@@ -228,6 +282,14 @@ type ContactRecordshowroomIntroArgs = {
 
 type CountryModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<CountryModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -235,6 +297,22 @@ type CountryModelFilter = {
 };
 
 enum CountryModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -248,8 +326,18 @@ enum CountryModelOrderBy {
 /** Record of type Country (country) */
 type CountryRecord = RecordInterface & {
   __typename?: 'CountryRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -296,6 +384,14 @@ type CreatedAtFilter = {
 
 type DesignerModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   description?: InputMaybe<TextFilter>;
   id?: InputMaybe<ItemIdFilter>;
@@ -306,6 +402,22 @@ type DesignerModelFilter = {
 };
 
 enum DesignerModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -319,8 +431,18 @@ enum DesignerModelOrderBy {
 /** Record of type Designer (designer) */
 type DesignerRecord = RecordInterface & {
   __typename?: 'DesignerRecord';
+  _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
@@ -352,6 +474,14 @@ type DesignerRecorddescriptionArgs = {
 
 type DistributorModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<DistributorModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   address?: InputMaybe<TextFilter>;
   city?: InputMaybe<StringFilter>;
   contactName?: InputMaybe<StringFilter>;
@@ -367,6 +497,22 @@ type DistributorModelFilter = {
 };
 
 enum DistributorModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   city_ASC = 'city_ASC',
   city_DESC = 'city_DESC',
   contactName_ASC = 'contactName_ASC',
@@ -392,8 +538,17 @@ enum DistributorModelOrderBy {
 /** Record of type Distributor (distributor) */
 type DistributorRecord = RecordInterface & {
   __typename?: 'DistributorRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   address?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
   contactName?: Maybe<Scalars['String']>;
@@ -423,8 +578,17 @@ type DistributorRecordaddressArgs = {
 /** Record of type Download (download) */
 type DownloadRecord = RecordInterface & {
   __typename?: 'DownloadRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   intro?: Maybe<Scalars['String']>;
@@ -441,8 +605,17 @@ type DownloadRecord_seoMetaTagsArgs = {
 /** Record of type Factory visit (factory_visit) */
 type FactoryVisitRecord = RecordInterface & {
   __typename?: 'FactoryVisitRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   intro?: Maybe<Scalars['String']>;
@@ -464,6 +637,14 @@ type FactoryVisitRecordintroArgs = {
 
 type FaqCategoryModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<FaqCategoryModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   title?: InputMaybe<StringFilter>;
@@ -471,6 +652,22 @@ type FaqCategoryModelFilter = {
 };
 
 enum FaqCategoryModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -484,8 +681,17 @@ enum FaqCategoryModelOrderBy {
 /** Record of type FAQ Category (faq_category) */
 type FaqCategoryRecord = RecordInterface & {
   __typename?: 'FaqCategoryRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   title?: Maybe<Scalars['String']>;
@@ -500,6 +706,14 @@ type FaqCategoryRecord_seoMetaTagsArgs = {
 
 type FaqModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<FaqModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   answer?: InputMaybe<TextFilter>;
   category?: InputMaybe<LinkFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
@@ -509,6 +723,22 @@ type FaqModelFilter = {
 };
 
 enum FaqModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -522,8 +752,17 @@ enum FaqModelOrderBy {
 /** Record of type FAQ (faq) */
 type FaqRecord = RecordInterface & {
   __typename?: 'FaqRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   answer?: Maybe<Scalars['String']>;
   category?: Maybe<FaqCategoryRecord>;
   createdAt: Scalars['DateTime'];
@@ -547,8 +786,17 @@ type FaqRecordanswerArgs = {
 /** Record of type FAQ start (faq_start) */
 type FaqStartRecord = RecordInterface & {
   __typename?: 'FaqStartRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   intro?: Maybe<Scalars['String']>;
@@ -579,8 +827,17 @@ type FeaturedModelItemsField = ProductRecord | ProjectRecord;
 /** Block of type Featured (featured) */
 type FeaturedRecord = RecordInterface & {
   __typename?: 'FeaturedRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   headline?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
@@ -596,6 +853,8 @@ type FeaturedRecord_seoMetaTagsArgs = {
 
 type FileField = FileFieldInterface & {
   __typename?: 'FileField';
+  _createdAt: Scalars['DateTime'];
+  _updatedAt: Scalars['DateTime'];
   alt?: Maybe<Scalars['String']>;
   author?: Maybe<Scalars['String']>;
   basename: Scalars['String'];
@@ -669,6 +928,8 @@ type FileFieldurlArgs = {
 };
 
 type FileFieldInterface = {
+  _createdAt: Scalars['DateTime'];
+  _updatedAt: Scalars['DateTime'];
   alt?: Maybe<Scalars['String']>;
   author?: Maybe<Scalars['String']>;
   basename: Scalars['String'];
@@ -784,8 +1045,17 @@ type FullscreenImageModelLinkRecordField = DesignerRecord | ProductRecord;
 /** Block of type Fullscreen image (fullscreen_image) */
 type FullscreenImageRecord = RecordInterface & {
   __typename?: 'FullscreenImageRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   headline?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
@@ -804,8 +1074,17 @@ type FullscreenImageRecord_seoMetaTagsArgs = {
 /** Block of type Fullscreen video (fullscreen_video) */
 type FullscreenVideoRecord = RecordInterface & {
   __typename?: 'FullscreenVideoRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   link?: Maybe<Scalars['String']>;
@@ -830,8 +1109,17 @@ type FullscreenVideoRecordtextArgs = {
 /** Block of type Fullwidth image (fullwidth_image) */
 type FullwidthImageRecord = RecordInterface & {
   __typename?: 'FullwidthImageRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
@@ -870,8 +1158,17 @@ type GlobalSeoField = {
 /** Block of type Image gallery (image_gallery) */
 type ImageGalleryRecord = RecordInterface & {
   __typename?: 'ImageGalleryRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   gallery: Array<FileField>;
   id: Scalars['ItemId'];
@@ -887,8 +1184,17 @@ type ImageGalleryRecord_seoMetaTagsArgs = {
 /** Block of type Image links (image_link) */
 type ImageLinkRecord = RecordInterface & {
   __typename?: 'ImageLinkRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   firstHeadline?: Maybe<Scalars['String']>;
   firstImage?: Maybe<FileField>;
@@ -2298,6 +2604,14 @@ enum ItemStatus {
 
 type JobModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<JobModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   summary?: InputMaybe<TextFilter>;
@@ -2307,6 +2621,22 @@ type JobModelFilter = {
 };
 
 enum JobModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2320,8 +2650,17 @@ enum JobModelOrderBy {
 /** Record of type Jobs (job) */
 type JobRecord = RecordInterface & {
   __typename?: 'JobRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   summary?: Maybe<Scalars['String']>;
@@ -2351,8 +2690,17 @@ type JobRecordtextArgs = {
 /** Block of type Lightsource (lightsource) */
 type LightsourceRecord = RecordInterface & {
   __typename?: 'LightsourceRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   amount?: Maybe<Scalars['IntType']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -2399,8 +2747,17 @@ type LinksFilter = {
 /** Record of type Manuals (manual) */
 type ManualRecord = RecordInterface & {
   __typename?: 'ManualRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   intro?: Maybe<Scalars['String']>;
@@ -2429,8 +2786,17 @@ enum MuxThumbnailFormatType {
 /** Block of type News item (news_item) */
 type NewsItemRecord = RecordInterface & {
   __typename?: 'NewsItemRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   news: NewsRecord;
@@ -2445,6 +2811,14 @@ type NewsItemRecord_seoMetaTagsArgs = {
 
 type NewsModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<NewsModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
@@ -2457,6 +2831,22 @@ type NewsModelFilter = {
 };
 
 enum NewsModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2474,8 +2864,17 @@ enum NewsModelOrderBy {
 /** Record of type News (news) */
 type NewsRecord = RecordInterface & {
   __typename?: 'NewsRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
@@ -2525,6 +2924,14 @@ type PositionFilter = {
 
 type PressModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<PressModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   title?: InputMaybe<StringFilter>;
@@ -2533,6 +2940,22 @@ type PressModelFilter = {
 };
 
 enum PressModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2548,8 +2971,17 @@ enum PressModelOrderBy {
 /** Record of type Press (press) */
 type PressRecord = RecordInterface & {
   __typename?: 'PressRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   title: Scalars['String'];
@@ -2565,6 +2997,14 @@ type PressRecord_seoMetaTagsArgs = {
 
 type ProductAccessoryModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductAccessoryModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -2572,6 +3012,22 @@ type ProductAccessoryModelFilter = {
 };
 
 enum ProductAccessoryModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2585,8 +3041,18 @@ enum ProductAccessoryModelOrderBy {
 /** Record of type Product accessory (product_accessory) */
 type ProductAccessoryRecord = RecordInterface & {
   __typename?: 'ProductAccessoryRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -2615,6 +3081,14 @@ type ProductAccessoryRecordnameArgs = {
 
 type ProductCategoryModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductCategoryModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   description?: InputMaybe<TextFilter>;
   id?: InputMaybe<ItemIdFilter>;
@@ -2624,6 +3098,22 @@ type ProductCategoryModelFilter = {
 };
 
 enum ProductCategoryModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2639,8 +3129,19 @@ enum ProductCategoryModelOrderBy {
 /** Record of type Product category (product_category) */
 type ProductCategoryRecord = RecordInterface & {
   __typename?: 'ProductCategoryRecord';
+  _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
@@ -2685,6 +3186,14 @@ type ProductCategoryRecordnameArgs = {
 
 type ProductColorModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductColorModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -2692,6 +3201,22 @@ type ProductColorModelFilter = {
 };
 
 enum ProductColorModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2705,8 +3230,18 @@ enum ProductColorModelOrderBy {
 /** Record of type Product color (product_color) */
 type ProductColorRecord = RecordInterface & {
   __typename?: 'ProductColorRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -2735,6 +3270,14 @@ type ProductColorRecordnameArgs = {
 
 type ProductConnectionModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductConnectionModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -2742,6 +3285,22 @@ type ProductConnectionModelFilter = {
 };
 
 enum ProductConnectionModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2755,8 +3314,18 @@ enum ProductConnectionModelOrderBy {
 /** Record of type Product connection (product_connection) */
 type ProductConnectionRecord = RecordInterface & {
   __typename?: 'ProductConnectionRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -2785,6 +3354,14 @@ type ProductConnectionRecordnameArgs = {
 
 type ProductDimmableModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductDimmableModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -2792,6 +3369,22 @@ type ProductDimmableModelFilter = {
 };
 
 enum ProductDimmableModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2805,8 +3398,18 @@ enum ProductDimmableModelOrderBy {
 /** Record of type Product dimmable (product_dimmable) */
 type ProductDimmableRecord = RecordInterface & {
   __typename?: 'ProductDimmableRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -2835,6 +3438,14 @@ type ProductDimmableRecordnameArgs = {
 
 type ProductElectricalModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductElectricalModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -2842,6 +3453,22 @@ type ProductElectricalModelFilter = {
 };
 
 enum ProductElectricalModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2855,8 +3482,18 @@ enum ProductElectricalModelOrderBy {
 /** Record of type Product Electrical Data (product_electrical) */
 type ProductElectricalRecord = RecordInterface & {
   __typename?: 'ProductElectricalRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -2885,6 +3522,14 @@ type ProductElectricalRecordnameArgs = {
 
 type ProductFamilyModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductFamilyModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -2892,6 +3537,22 @@ type ProductFamilyModelFilter = {
 };
 
 enum ProductFamilyModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2905,8 +3566,17 @@ enum ProductFamilyModelOrderBy {
 /** Record of type Product family (product_family) */
 type ProductFamilyRecord = RecordInterface & {
   __typename?: 'ProductFamilyRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -2921,6 +3591,14 @@ type ProductFamilyRecord_seoMetaTagsArgs = {
 
 type ProductFeatureModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductFeatureModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -2928,6 +3606,22 @@ type ProductFeatureModelFilter = {
 };
 
 enum ProductFeatureModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -2941,8 +3635,18 @@ enum ProductFeatureModelOrderBy {
 /** Record of type Product feature (product_feature) */
 type ProductFeatureRecord = RecordInterface & {
   __typename?: 'ProductFeatureRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -2971,6 +3675,14 @@ type ProductFeatureRecordnameArgs = {
 
 type ProductLightsourceModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductLightsourceModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   articleNo?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
@@ -2980,6 +3692,22 @@ type ProductLightsourceModelFilter = {
 };
 
 enum ProductLightsourceModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   articleNo_ASC = 'articleNo_ASC',
   articleNo_DESC = 'articleNo_DESC',
   createdAt_ASC = 'createdAt_ASC',
@@ -2997,8 +3725,18 @@ enum ProductLightsourceModelOrderBy {
 /** Record of type Product lightsource (product_lightsource) */
 type ProductLightsourceRecord = RecordInterface & {
   __typename?: 'ProductLightsourceRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   articleNo: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -3029,6 +3767,14 @@ type ProductLightsourceRecordnameArgs = {
 
 type ProductMaterialModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductMaterialModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -3036,6 +3782,22 @@ type ProductMaterialModelFilter = {
 };
 
 enum ProductMaterialModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -3049,8 +3811,18 @@ enum ProductMaterialModelOrderBy {
 /** Record of type Product material (product_material) */
 type ProductMaterialRecord = RecordInterface & {
   __typename?: 'ProductMaterialRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -3079,6 +3851,14 @@ type ProductMaterialRecordnameArgs = {
 
 type ProductModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   bimLink?: InputMaybe<StringFilter>;
   categories?: InputMaybe<LinksFilter>;
   colorImages?: InputMaybe<GalleryFilter>;
@@ -3106,6 +3886,14 @@ type ProductModelFilter = {
 
 type ProductModelNameModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductModelNameModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -3113,6 +3901,22 @@ type ProductModelNameModelFilter = {
 };
 
 enum ProductModelNameModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -3126,8 +3930,18 @@ enum ProductModelNameModelOrderBy {
 /** Record of type Product model name (product_model_name) */
 type ProductModelNameRecord = RecordInterface & {
   __typename?: 'ProductModelNameRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -3155,6 +3969,22 @@ type ProductModelNameRecordnameArgs = {
 };
 
 enum ProductModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   bimLink_ASC = 'bimLink_ASC',
   bimLink_DESC = 'bimLink_DESC',
   createdAt_ASC = 'createdAt_ASC',
@@ -3176,8 +4006,17 @@ type ProductModelProductGalleryField = FullwidthImageRecord | ImageGalleryRecord
 /** Block of type Model (product_model) */
 type ProductModelRecord = RecordInterface & {
   __typename?: 'ProductModelRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   accessories: Array<AccessoryRecord>;
   createdAt: Scalars['DateTime'];
   drawing?: Maybe<FileField>;
@@ -3196,6 +4035,14 @@ type ProductModelRecord_seoMetaTagsArgs = {
 
 type ProductMountingModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductMountingModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -3203,6 +4050,22 @@ type ProductMountingModelFilter = {
 };
 
 enum ProductMountingModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -3216,8 +4079,18 @@ enum ProductMountingModelOrderBy {
 /** Record of type Product mounting (product_mounting) */
 type ProductMountingRecord = RecordInterface & {
   __typename?: 'ProductMountingRecord';
+  _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -3247,8 +4120,20 @@ type ProductMountingRecordnameArgs = {
 /** Record of type Product (product) */
 type ProductRecord = RecordInterface & {
   __typename?: 'ProductRecord';
+  _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _allPdfFileLocales?: Maybe<Array<FileFieldMultiLocaleField>>;
+  _allPresentationLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   bimLink?: Maybe<Scalars['String']>;
   categories: Array<ProductCategoryRecord>;
   colorImages: Array<FileField>;
@@ -3326,6 +4211,14 @@ type ProductRecordpresentationArgs = {
 
 type ProductSocketModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductSocketModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -3333,6 +4226,22 @@ type ProductSocketModelFilter = {
 };
 
 enum ProductSocketModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -3346,8 +4255,17 @@ enum ProductSocketModelOrderBy {
 /** Record of type Product socket (product_socket) */
 type ProductSocketRecord = RecordInterface & {
   __typename?: 'ProductSocketRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
@@ -3363,8 +4281,17 @@ type ProductSocketRecord_seoMetaTagsArgs = {
 /** Record of type Product start (product_start) */
 type ProductStartRecord = RecordInterface & {
   __typename?: 'ProductStartRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   featured: Array<FeaturedRecord>;
   id: Scalars['ItemId'];
@@ -3379,6 +4306,14 @@ type ProductStartRecord_seoMetaTagsArgs = {
 
 type ProjectModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProjectModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
@@ -3393,6 +4328,22 @@ type ProjectModelFilter = {
 type ProjectModelGalleryField = FullwidthImageRecord | ImageGalleryRecord | TextRecord | TwoColumnImageRecord | VideoRecord;
 
 enum ProjectModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -3408,8 +4359,17 @@ enum ProjectModelOrderBy {
 /** Record of type Project (project) */
 type ProjectRecord = RecordInterface & {
   __typename?: 'ProjectRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   gallery: Array<ProjectModelGalleryField>;
   id: Scalars['ItemId'];
@@ -3431,8 +4391,17 @@ type ProjectRecord_seoMetaTagsArgs = {
 /** Record of type Project start (project_start) */
 type ProjectStartRecord = RecordInterface & {
   __typename?: 'ProjectStartRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   intro?: Maybe<Scalars['String']>;
@@ -3454,6 +4423,14 @@ type ProjectStartRecordintroArgs = {
 
 type ProjectTypeModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProjectTypeModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   title?: InputMaybe<StringFilter>;
@@ -3461,6 +4438,22 @@ type ProjectTypeModelFilter = {
 };
 
 enum ProjectTypeModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -3474,8 +4467,17 @@ enum ProjectTypeModelOrderBy {
 /** Record of type Project type (project_type) */
 type ProjectTypeRecord = RecordInterface & {
   __typename?: 'ProjectTypeRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   title?: Maybe<Scalars['String']>;
@@ -3510,35 +4512,65 @@ type PublishedAtFilter = {
 type Query = {
   __typename?: 'Query';
   /** Returns meta information regarding a record collection */
+  _allCountriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allDesignersMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allDistributorsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allFaqCategoriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allFaqsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allJobsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allNewsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allPressesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductAccessoriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductCategoriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductColorsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductConnectionsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductDimmablesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductElectricalsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductFamiliesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductFeaturesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductLightsourcesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductMaterialsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductModelNamesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductMountingsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductSocketsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProductsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProjectTypesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allProjectsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allResellersMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allShowroomsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allStaffsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allTranslationsMeta: CollectionMetadata;
   /** Returns meta information regarding an assets collection */
+  _allUploadsMeta?: Maybe<CollectionMetadata>;
   /** Returns the single instance record */
+  _site: Site;
   /** Returns the single instance record */
   about?: Maybe<AboutRecord>;
   /** Returns a collection of records */
@@ -4575,8 +5607,17 @@ type QueryuploadArgs = {
 };
 
 type RecordInterface = {
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
 };
 
@@ -4587,6 +5628,14 @@ type RecordInterface_seoMetaTagsArgs = {
 
 type ResellerModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ResellerModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   address?: InputMaybe<TextFilter>;
   city?: InputMaybe<StringFilter>;
   country?: InputMaybe<LinkFilter>;
@@ -4599,6 +5648,22 @@ type ResellerModelFilter = {
 };
 
 enum ResellerModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   city_ASC = 'city_ASC',
   city_DESC = 'city_DESC',
   createdAt_ASC = 'createdAt_ASC',
@@ -4618,8 +5683,17 @@ enum ResellerModelOrderBy {
 /** Record of type Reseller (reseller) */
 type ResellerRecord = RecordInterface & {
   __typename?: 'ResellerRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   address?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
   country?: Maybe<CountryRecord>;
@@ -4687,6 +5761,14 @@ type SeoField = {
 
 type ShowroomModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ShowroomModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   additional?: InputMaybe<TextFilter>;
   address?: InputMaybe<TextFilter>;
   city?: InputMaybe<StringFilter>;
@@ -4697,6 +5779,22 @@ type ShowroomModelFilter = {
 };
 
 enum ShowroomModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   city_ASC = 'city_ASC',
   city_DESC = 'city_DESC',
   createdAt_ASC = 'createdAt_ASC',
@@ -4710,8 +5808,17 @@ enum ShowroomModelOrderBy {
 /** Record of type Showroom (showroom) */
 type ShowroomRecord = RecordInterface & {
   __typename?: 'ShowroomRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   additional?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
@@ -4778,6 +5885,14 @@ type SlugFilter = {
 
 type StaffModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<StaffModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   email?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
@@ -4789,6 +5904,22 @@ type StaffModelFilter = {
 };
 
 enum StaffModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   email_ASC = 'email_ASC',
@@ -4808,8 +5939,17 @@ enum StaffModelOrderBy {
 /** Record of type Staff (staff) */
 type StaffRecord = RecordInterface & {
   __typename?: 'StaffRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   email?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
@@ -4831,8 +5971,17 @@ type StartModelContentField = FeaturedRecord | FullscreenImageRecord | Fullscree
 /** Record of type Start (start) */
 type StartRecord = RecordInterface & {
   __typename?: 'StartRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   content: Array<StartModelContentField>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
@@ -4892,8 +6041,17 @@ type StringMultiLocaleField = {
 /** Record of type Sustainability (sustainability) */
 type SustainabilityRecord = RecordInterface & {
   __typename?: 'SustainabilityRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   title?: Maybe<Scalars['String']>;
@@ -4928,8 +6086,17 @@ type TextFilter = {
 /** Block of type Text (text) */
 type TextRecord = RecordInterface & {
   __typename?: 'TextRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   text?: Maybe<Scalars['String']>;
@@ -4950,6 +6117,14 @@ type TextRecordtextArgs = {
 
 type TranslationModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<TranslationModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   key?: InputMaybe<StringFilter>;
@@ -4959,6 +6134,22 @@ type TranslationModelFilter = {
 };
 
 enum TranslationModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -4976,8 +6167,18 @@ enum TranslationModelOrderBy {
 /** Record of type Translation (translation) */
 type TranslationRecord = RecordInterface & {
   __typename?: 'TranslationRecord';
+  _allValueLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   key: Scalars['String'];
@@ -5009,8 +6210,17 @@ type TranslationRecordvalueArgs = {
 /** Block of type Two column images (two_column_image) */
 type TwoColumnImageRecord = RecordInterface & {
   __typename?: 'TwoColumnImageRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   firstImage?: Maybe<FileField>;
   id: Scalars['ItemId'];
@@ -5142,6 +6352,8 @@ type UploadFilenameFilter = {
 
 type UploadFilter = {
   OR?: InputMaybe<Array<InputMaybe<UploadFilter>>>;
+  _createdAt?: InputMaybe<UploadCreatedAtFilter>;
+  _updatedAt?: InputMaybe<UploadUpdatedAtFilter>;
   alt?: InputMaybe<UploadAltFilter>;
   author?: InputMaybe<UploadAuthorFilter>;
   basename?: InputMaybe<UploadBasenameFilter>;
@@ -5244,6 +6456,10 @@ type UploadNotesFilter = {
 };
 
 enum UploadOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
   basename_ASC = 'basename_ASC',
   basename_DESC = 'basename_DESC',
   filename_ASC = 'filename_ASC',
@@ -5382,8 +6598,17 @@ type UploadWidthFilter = {
 /** Block of type Variant (variant) */
 type VariantRecord = RecordInterface & {
   __typename?: 'VariantRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   articleNo?: Maybe<Scalars['String']>;
   color?: Maybe<ProductColorRecord>;
   createdAt: Scalars['DateTime'];
@@ -5411,8 +6636,17 @@ enum VideoMp4Res {
 /** Block of type Video (video) */
 type VideoRecord = RecordInterface & {
   __typename?: 'VideoRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
   /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   updatedAt: Scalars['DateTime'];
@@ -5651,6 +6885,21 @@ type GetAllProductsByDesignerQueryVariables = Exact<{
 
 
 type GetAllProductsByDesignerQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }> } | { __typename: 'TextRecord', id: any, text?: string } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, lastImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } }>, environmentImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, colorImages: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
+
+type GetRelatedProductsQueryVariables = Exact<{
+  designerId?: InputMaybe<Scalars['ItemId']>;
+  familyId?: InputMaybe<Scalars['ItemId']>;
+}>;
+
+
+type GetRelatedProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }> } | { __typename: 'TextRecord', id: any, text?: string } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, lastImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } }>, environmentImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, colorImages: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
+
+type GetAllProductsByCategoryQueryVariables = Exact<{
+  categoryId?: InputMaybe<Scalars['ItemId']>;
+}>;
+
+
+type GetAllProductsByCategoryQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }> } | { __typename: 'TextRecord', id: any, text?: string } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, lastImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } } }>, environmentImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, colorImages: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
 
 type GetProjectQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;

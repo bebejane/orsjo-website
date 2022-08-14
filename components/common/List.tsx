@@ -1,4 +1,5 @@
 import styles from './List.module.scss'
+import cn from 'classnames'
 import React, { useRef, useState } from 'react'
 
 export type ListProps = { children: React.ReactNode[], initial: number }
@@ -28,12 +29,20 @@ export default function List({ children, initial }: ListProps) {
 	)
 }
 
-export type ListItemProps = { title?: string, children: React.ReactNode, idx?: number, selected?: boolean, parent?: HTMLUListElement, onToggle?: React.MouseEvent<HTMLButtonElement> }
+export type ListItemProps = { 
+	title?: string, 
+	children: React.ReactNode, 
+	idx?: number, 
+	selected?: boolean, 
+	parent?: HTMLUListElement, 
+	onToggle?: React.MouseEvent<HTMLButtonElement> 
+	className: string
+}
 
-export function ListItem({ children, title, parent, onToggle, idx, selected }: ListItemProps) {
+export function ListItem({ children, title, parent, onToggle, idx, selected, className }: ListItemProps) {
 
 	return (
-		<li className={styles.item}>
+		<li className={cn(styles.item, className)}>
 			<div className={styles.wrapper} onClick={onToggle} data-idx={idx}>
 				{title ? <h1>{title}</h1> : children}
 				<div className={styles.toggle} >
