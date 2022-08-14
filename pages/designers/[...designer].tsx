@@ -48,7 +48,7 @@ export default function Designer({designer, products} : DesignerProps){
 	)
 }
 
-Designer.layout = {layout:'full', color:'#d2bd93'} as PageLayoutProps
+Designer.layout = {layout:'full', color:'--beige'} as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { designers } = await apiQuery(GetAllDesignersDocument)

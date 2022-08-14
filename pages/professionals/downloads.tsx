@@ -97,7 +97,7 @@ export default function Downloads({ products }: DownloadsProps) {
 	)
 }
 
-Downloads.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
+Downloads.layout = { layout:'normal', color:"--lightgrey", menu:'normal'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllProductsDocument] }, async ({ props, revalidate }: any) => {
 
