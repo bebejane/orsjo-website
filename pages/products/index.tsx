@@ -7,7 +7,6 @@ import { Featured, ProductThumbnail } from '/components'
 import { sectionId } from '/lib/utils'
 import { useStore } from '/lib/store';
 import { useEffect, useState } from 'react';
-import { useSessionstorageState } from 'rooks';
 
 export type ProductsStartProps = {
 	productStart: ProductStartRecord,

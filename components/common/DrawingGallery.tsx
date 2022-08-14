@@ -1,25 +1,23 @@
 import "swiper/css";
-import styles from './Gallery.module.scss'
-import cn from 'classnames'
+import styles from './DrawingGallery.module.scss'
 import { Image } from "react-datocms"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef, useEffect } from 'react';
 
-export type GalleryProps = {images: FileField[], onClose: Function, index:number}
+export type DrawingGalleryProps = {images: FileField[], onClose: Function, index:number}
 
-export default function Gallery({ images, onClose, index = 0 } : GalleryProps) {
-  
+export default function DrawingGallery({ images, onClose, index = 0 } : DrawingGalleryProps) {
   
   const swiperRef = useRef()
   const [realIndex, setRealIndex] = useState(index)
   const [title, setTitle] = useState()
 
-  useEffect(() => setTitle(images[realIndex]?.title), [realIndex])
+  useEffect(() => setTitle(images[realIndex].title), [realIndex])
 
   if (!images) return null
-  
+
   return (
-    <div className={cn(styles.gallery, images.length <= 1 && styles.noArrows)}>
+    <div className={styles.gallery}>
       <div className={styles.back} onClick={() => swiperRef.current.slidePrev()}>❮</div>
       <div className={styles.images} onClick={() => swiperRef?.current?.slideNext()}>
         <Swiper
@@ -32,19 +30,13 @@ export default function Gallery({ images, onClose, index = 0 } : GalleryProps) {
         >
           {images.map((image, idx) =>
             <SwiperSlide key={idx} className={styles.slide}>
-              {image.responsiveImage ? 
-                <Image
-                  className={styles.image}
-                  pictureClassName={styles.picture}
-                  data={image.responsiveImage}
-                  lazyLoad={false}
-                  usePlaceholder={false}
-                />
-              :
-                <div className={styles.svg}>
-                  <img src={image.url} className={styles.image} />
-                </div>
-              }
+              {<Image
+                className={styles.image}
+                pictureClassName={styles.picture}
+                data={image.responsiveImage}
+                lazyLoad={false}
+                usePlaceholder={false}
+              />}
             </SwiperSlide>
           )}
         </Swiper>
