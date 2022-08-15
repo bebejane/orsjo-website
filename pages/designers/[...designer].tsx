@@ -34,7 +34,7 @@ export default function Designer({designer, products} : DesignerProps){
 					<div className={styles.overlay} style={{backgroundColor: color}}></div>
 				</header>
 			</Section>
-			<Section type="full" className={styles.products}>
+			<Section type="margin" className={styles.products}>
 				<h1>Products by<br/>{designer.name}</h1>	
 				<div className={styles.gallery}>	
 					{productRows.map((prods, ridx) => {

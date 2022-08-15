@@ -1,5 +1,6 @@
 .designer {
 	width: 100%;
+
 	header {
 		display: flex;
 		flex-direction: row;
@@ -7,9 +8,11 @@
 		justify-content: flex-end;
 		height: 100vh;
 		width: 100%;
-		.artist{
+
+		.artist {
 			position: relative;
 			flex: 0 0 50%;
+
 			h1 {
 				position: absolute;
 				top: 50%;
@@ -18,28 +21,30 @@
 				z-index: 2;
 				@include h1Big();
 				animation: fade 1s ease 1s reverse forwards;
-				
+
 			}
-			.description{
+
+			.description {
 				position: absolute;
 				top: 50%;
-  			left: 50%;
-  			transform: translate(-50%, -50%);
+				left: 50%;
+				transform: translate(-50%, -50%);
 				z-index: 2;
 				opacity: 0;
 				animation: fade 1s ease 1s forwards;
-				span{
-					color:$white;
+
+				span {
+					color: $white;
 				}
 			}
 		}
-		
+
 		figure {
 			position: relative;
 			flex: 0 0 50%;
 			height: 100%;
 
-			div > img[role="presentation"] {
+			div>img[role="presentation"] {
 				height: 100vh;
 			}
 		}
@@ -56,39 +61,42 @@
 }
 
 @keyframes fade {
-	from{
+	from {
 		opacity: 0;
 	}
-	to{
+
+	to {
 		opacity: 1;
 	}
 }
 
 .products {
-  display: flex;
-  flex-direction: row;
-  border-top: 1px solid $black;
-  h1{
-		
-    flex: 0 0 50%;
-  } 
-  .gallery{
-		
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex: 0 0 50%;
-    
-		
-    ul{
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      list-style: none;
-      li{
-        flex: 0 0 33%;
-        overflow: hidden;
-      }
-    }
-  }
+	display: flex;
+	flex-direction: row;
+
+	h1 {
+
+		flex: 0 0 50%;
+	}
+
+	.gallery {
+
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex: 0 0 50%;
+
+
+		ul {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			list-style: none;
+
+			li {
+				flex: 0 0 33%;
+				overflow: hidden;
+			}
+		}
+	}
 }
