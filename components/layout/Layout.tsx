@@ -5,12 +5,23 @@ import DesktopMenu from '/components/DesktopMenu'
 import MobileMenu from '/components/MobileMenu'
 import { useLayout } from '/lib/context/layout'
 import type { MenuItem } from '/lib/menu'
+import { useState, useEffect } from 'react'
 
 export type LayoutProps = { children: React.ReactNode, menu: MenuItem[] }
 
 export default function Layout({ children, menu }: LayoutProps) {
 
 	const { color } = useLayout()
+	const [showGrid, setShowGrid] = useState(true)
+
+	useEffect(()=>{
+
+		const toggleGrid = ({key}) => key === 'g' && setShowGrid(!showGrid) 
+
+		document.addEventListener('keydown', toggleGrid)
+		return ()=> document.removeEventListener('keydown', toggleGrid)
+
+	}, [showGrid, setShowGrid])
 
 	return (
 		<>
@@ -21,29 +32,38 @@ export default function Layout({ children, menu }: LayoutProps) {
 				<Content>
 					{children}
 				</Content>
-				<div className={styles.grid}>
-					<div className={styles.gridWrapper}>
-
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-						<div className={styles.gridItem}></div>
-					</div>
-				</div>
+				<Grid show={showGrid}/>	
 			</div>
+				
 			<Footer menu={menu} />
 
 		</>
+	)
+}
+
+const Grid = ({show}) => {
+
+	if(!show) return null
+
+	return (
+		<div className={styles.grid}>
+			<div className={styles.gridWrapper}>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+				<div className={styles.gridItem}></div>
+			</div>
+		</div>
 	)
 }
