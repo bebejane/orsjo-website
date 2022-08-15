@@ -14,15 +14,36 @@ export default function Layout({ children, menu }: LayoutProps) {
 
 	return (
 		<>
-			<div className={styles.layout} style={{backgroundColor: color ? `var(${color})` : undefined}}>
-				<DesktopMenu items={menu}/>
-				<MobileMenu items={menu}/>
-				<Sidebar/>
+			<div className={styles.layout} style={{ backgroundColor: color ? `var(${color})` : undefined }}>
+				<DesktopMenu items={menu} />
+				<MobileMenu items={menu} />
+				<Sidebar />
 				<Content>
 					{children}
 				</Content>
+				<div className={styles.grid}>
+					<div className={styles.gridWrapper}>
+
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+						<div className={styles.gridItem}></div>
+					</div>
+				</div>
 			</div>
-			<Footer menu={menu}/>
+			<Footer menu={menu} />
+
 		</>
 	)
 }

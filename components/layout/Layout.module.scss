@@ -2,4 +2,32 @@
   display: flex;
   flex-direction: row;
   min-height: 100vh;
+
+  .grid{
+      padding-left: var(--outer-margin);
+		  padding-right: var(--outer-margin);
+      position: fixed;
+      top: 100px;
+      width: 100%;
+    
+    .gridWrapper {
+      background: rgba(9, 255, 0, 0.296);
+      display: flex;
+      justify-content: space-evenly;
+      z-index: 100000;
+      width: 100%;
+      height: 70vh;
+
+    }
+
+    .gridItem {
+      padding-left: $gutter;
+      background: rgba(9, 255, 0, 0.417);
+
+      &:last-of-type(){
+        padding-left: 0;
+      }
+    }
+  }
+
 }
