@@ -20,6 +20,7 @@ export default function Products({ productStart: { featured }, products, product
 
 	const searchProducts = useStore((state) => state.searchProducts);
 	const productsByCategory = {}
+
 	productCategories.forEach(({ name }) => {
 		productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name)
 	})
@@ -44,7 +45,6 @@ export default function Products({ productStart: { featured }, products, product
 		const searchCategories = {}
 
 		Object.keys(productsByCategory).forEach(k => {
-
 			const res = products
 				.filter(({ categories }) => categories[0].name === k)
 				.filter(({ title, designer: { name } }) => search(searchProducts, title) || search(searchProducts, name))
@@ -54,6 +54,7 @@ export default function Products({ productStart: { featured }, products, product
 		})
 
 		setProductsByCategorySearch(searchCategories);
+		window.scrollTo(0,0)
 
 	}, [searchProducts, productCategories, products, productsByCategory])
 
@@ -62,7 +63,7 @@ export default function Products({ productStart: { featured }, products, product
 
 	if (isEmptySearch) {
 		return (
-			<Section className={styles.products} top={true} key={idx}>
+			<Section className={styles.products} top={true}>
 				<div className={styles.emptySearch}>
 					No products matching "{searchProducts}"...
 				</div>
@@ -96,6 +97,8 @@ export default function Products({ productStart: { featured }, products, product
 		</>
 	)
 }
+
+Products.layout = { layout: 'full', menu: 'normal', color:'--white' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllProductsDocument, GetProductStartDocument, GetProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
 

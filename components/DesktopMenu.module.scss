@@ -134,10 +134,12 @@
     padding: 1rem;
     padding-top: 4rem;
     background-color: $white;
-    
-
+    &.inverted{
+      * {
+        color:$white !important;
+      }
+    }
     nav {
-
       ul {
         display: flex;
         flex-direction: column;

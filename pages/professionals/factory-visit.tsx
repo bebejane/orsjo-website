@@ -20,7 +20,7 @@ export default function FactoryVisit({ factoryVisit }: DownloadsProps) {
 	)
 }
 
-FactoryVisit.layout = { layout: 'normal', color: "--grey", menu: 'inverted' } as PageLayoutProps
+FactoryVisit.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetFactoryVisitDocument] }, async ({ props, revalidate }: any) => {
 

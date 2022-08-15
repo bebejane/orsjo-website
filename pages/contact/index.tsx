@@ -163,7 +163,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 	)
 }
 
-Contact.layout = { layout: 'full', color: "--red", menu: 'normal' } as PageLayoutProps
+Contact.layout = { layout: 'full', color: "--red", menu: 'inverted' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetContactDocument, GetAllResellersDocument, GetAllStaffsDocument, GetAllShowroomsDocument, GetAllDistributorsDocument] }, async ({ props, revalidate }: any) => {
 

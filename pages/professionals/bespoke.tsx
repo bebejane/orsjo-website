@@ -21,13 +21,13 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					className={styles.image}
 				/>
 			</Section>
-			<Section name="Intro" className={styles.intro} type="margin" bgColor={'--grey'}>
+			<Section name="Intro" className={styles.intro} type="margin" bgColor={'--gray'}>
 				<h1>{bespoke.title}</h1>
 				<Markdown className={styles.intro}>
 					{bespoke.intro}
 				</Markdown>
 			</Section>
-			<Section className={styles.projects} type="margin" bgColor={'--grey'}>
+			<Section className={styles.projects} type="margin" bgColor={'--gray'}>
 				{bespoke.examples.map(({project, summary}, idx) => {
 					return (
 						<>
@@ -54,7 +54,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 	)
 }
 
-Bespoke.layout = { layout:'full', color:"--lightgrey", menu:'inverted', sidebar:false} as PageLayoutProps
+Bespoke.layout = { layout:'full', color:"--gray", menu:'inverted', sidebar:false} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetBespokeDocument] }, async ({ props, revalidate }: any) => {
 

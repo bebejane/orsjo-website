@@ -24,7 +24,7 @@ export default function Faqs({ faqs }: FaqsProps) {
 	)
 }
 
-Faqs.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
+Faqs.layout = { layout:'normal', color:'--copper', menu:'normal'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllFaqsDocument] }, async ({ props, revalidate }: any) => {
 

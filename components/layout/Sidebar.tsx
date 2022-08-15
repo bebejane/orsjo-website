@@ -2,9 +2,9 @@ import styles from './Sidebar.module.scss'
 import cn from 'classnames'
 import { useStore, shallow } from '/lib/store';
 import Link from 'next/link';
-import { sectionId } from '/lib/utils'
 import { useRouter } from 'next/router';
 import { useLayout } from '/lib/context/layout'
+import { useState } from 'react'
 
 export type SidebarProps = {}
 
@@ -17,6 +17,8 @@ export default function Sidebar({} : SidebarProps) {
 	const isInverted = menu === 'inverted' || invertSidebar
 	const subHeader = router.asPath.substring(router.asPath.lastIndexOf('/')+1, router.asPath.indexOf('#') > -1 ? router.asPath.indexOf('#') : undefined) || 'Home'
 	const isProductsPage = router.pathname.toLowerCase() === '/products'
+	const [searchFocus, setSearchFocus] = useState(false);
+	const resetSearch = (e) => {setSearchProducts('')}
 
 	if(!sections.length || !sidebar) return null
 	
@@ -41,7 +43,10 @@ export default function Sidebar({} : SidebarProps) {
 								placeholder='Search' 
 								value={searchProducts} 
 								onChange={(e) => setSearchProducts(e.target.value)}
+								onFocus={()=> setSearchFocus(true)}
+								onBlur={()=> setSearchFocus(false)}
 							/>
+							{searchFocus && <button onClick={resetSearch} className={styles.close}>×</button>}
 						</li>
 					}
 				</ul>

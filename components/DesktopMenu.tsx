@@ -86,7 +86,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 				className={cn(styles.sub, selected && showMenu && styles.show)} 
 				style={{width:`calc(100% - ${menuMargin}px)`, backgroundColor: `var(${color})`}}
 			>
-				<div className={styles.subPad} style={{ backgroundColor: `var(${color})`}}>
+				<div className={cn(styles.subPad, styles[menu])} style={{ backgroundColor: `var(${color})`}}>
 					<nav>
 						<ul>
 							{sub?.map(({label, slug}, idx)=>

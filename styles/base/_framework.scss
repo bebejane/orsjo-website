@@ -5,12 +5,15 @@ $small-margin: 2rem;
 
 :root {
   --outer-margin: 1.5rem;
-  --grey: #{$gray};
-  --lightgrey: #E5E5E5;
-  --beige: #d2bd93;
-  --black: #121212;
-  --lightblack: #141414;
-  --red: #DF3600;
 
+  --black: #{$black};
+  --white: #{$white};
+  --gray: #{$gray};
+  --light-gray: #{$light-gray};
+  --mid-gray: #{$mid-gray};
+  --warm-gray: #{$warm-gray};
+  --red: #{$red};
+  --copper: #{$copper};
+  --copper-light: #{$copper-light};
 }
 

@@ -100,7 +100,7 @@ export default function Downloads({ products }: DownloadsProps) {
 	)
 }
 
-Downloads.layout = { layout: 'normal', color: "--grey", menu: 'inverted' } as PageLayoutProps
+Downloads.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllProductsDocument] }, async ({ props, revalidate }: any) => {
 

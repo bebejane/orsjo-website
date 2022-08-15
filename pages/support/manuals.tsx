@@ -17,7 +17,7 @@ export default function Manuals({  }: ManualsProps) {
 	)
 }
 
-Manuals.layout = { layout:'normal', color:"#E5E5E5", menu:'normal'} as PageLayoutProps
+Manuals.layout = { layout:'normal', color:'--copper', menu:'normal'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [] }, async ({ props, revalidate }: any) => {
 

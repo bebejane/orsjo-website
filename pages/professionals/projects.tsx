@@ -43,7 +43,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 	)
 }
 
-Professionals.layout = { layout: 'normal', color: "--grey", menu: 'inverted' } as PageLayoutProps
+Professionals.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetProjectStartDocument, GetAllProjectsDocument, GetAllProjectTypesDocument] }, async ({ props, revalidate }: any) => {
 
