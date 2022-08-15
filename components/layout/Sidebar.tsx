@@ -18,7 +18,10 @@ export default function Sidebar({} : SidebarProps) {
 	const subHeader = router.asPath.substring(router.asPath.lastIndexOf('/')+1, router.asPath.indexOf('#') > -1 ? router.asPath.indexOf('#') : undefined) || 'Home'
 	const isProductsPage = router.pathname.toLowerCase() === '/products'
 	const [searchFocus, setSearchFocus] = useState(false);
-	const resetSearch = (e) => {setSearchProducts('')}
+	const resetSearch = (e) => {
+		console.log('reset')
+		setSearchProducts('')
+	}
 
 	if(!sections.length || !sidebar) return null
 	
@@ -44,9 +47,14 @@ export default function Sidebar({} : SidebarProps) {
 								value={searchProducts} 
 								onChange={(e) => setSearchProducts(e.target.value)}
 								onFocus={()=> setSearchFocus(true)}
-								onBlur={()=> setSearchFocus(false)}
+								onBlur={()=> setTimeout(()=>setSearchFocus(false), 50)}
 							/>
-							{searchFocus && <button onClick={resetSearch} className={styles.close}>×</button>}
+							<button 
+								onClick={resetSearch} 
+								className={cn(styles.close, searchFocus && styles.show)}
+							>
+								×
+							</button>
 						</li>
 					}
 				</ul>
