@@ -26,7 +26,7 @@
         position: relative;
         width: 200px;
         input{
-          position: relative;
+          position: absolute;
           border: 0px;
           padding-left: 0;
           padding-top:0;
@@ -36,6 +36,7 @@
           border-radius: 20px;
           margin-left: -10px;
           width: 200px;
+          z-index: 1;
           &:focus{
             background-color: $light-gray; 
           }
@@ -51,11 +52,12 @@
           top:2px;
           height: 30px;
           width: 30px;
-          z-index: 1;
+          z-index: 2;
           background-color: $white;
           color:$black;
+          visibility: hidden;
           &.show{
-            display: flex;
+            visibility: visible;
           }
         }
         input::placeholder{

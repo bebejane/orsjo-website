@@ -1,35 +1,31 @@
-import styles from './index.module.scss'
 import { withGlobalProps } from "/lib/hoc";
 import { GetLastNewsDocument, GetStartDocument } from '/graphql';
-import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink, NewsItem } from '/components';
+import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink, NewsItem, Section } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
 
 export type StartProps = {start:StartRecord, lastNews: NewsRecord[]}
 
 export default function Start({start : { content }, lastNews } : StartProps) {
 	
-	const news = lastNews[0]
-	
 	return (
-		<div className={styles.start}>
+		<>
 			{content.map((block, idx) => {
 				switch (block.__typename) {
 					case 'FullscreenImageRecord':
-						return <FullscreenImage key={idx} data={block} />
+						return <Section type="full"><FullscreenImage key={idx} data={block}/></Section>
 					case 'FeaturedRecord':
-						return <FeaturedStart key={idx} data={block} />
+						return <Section type="full"><FeaturedStart key={idx} data={block} /></Section>
 					case 'FullscreenVideoRecord':
-						return <FullscreenVideo key={idx} data={block} />
+						return <Section type="full"><FullscreenVideo key={idx} data={block} /></Section>
 					case 'ImageLinkRecord':
-						return <ImageLink key={idx} data={block} />
+						return <Section type="full"><ImageLink key={idx} data={block} /></Section>
 					case 'NewsItemRecord':
-						return <NewsItem key={idx} data={block} />
+						return <Section type="full"><NewsItem key={idx} data={block} /></Section>
 					default:
 						return null
 				}
 			})}
-			
-		</div>
+		</>
 	)
 }
 

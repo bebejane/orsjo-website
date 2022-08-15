@@ -21,7 +21,7 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 	}, [inViewRef]);
 
 	useEffect(() => {
-		//return console.log('video disabled')
+		return console.log('video disabled')
 		if (!videoRef.current) return
 		if (active)
 			videoRef.current.play().catch((err) => { })
