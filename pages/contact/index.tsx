@@ -7,11 +7,9 @@ import {
 	GetAllDistributorsDocument
 } from '/graphql';
 import { Section } from '/components'
-
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
-import { SectionId } from '/lib/utils'
 import Markdown from '/lib/dato/components/Markdown';
 
 export type ContactProps = {
@@ -32,9 +30,8 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 	})
 
 	return (
-		<div className={styles.contact}>
-			<Section name="Information" className={styles.informationSection}>
-
+		<>
+			<Section name="Information" top={true} className={styles.informationSection} bgColor='--red'>
 				<div className={styles.info}>
 					<h1>{contact.title}</h1>
 					<p className="white bodyWeight">
@@ -57,11 +54,11 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					</div>
 					<button>Contact Us</button>
 				</div>
-				<div className={styles.image}>
-					<Image data={contact.image.responsiveImage} />
+				<div className={styles.imageWrap}>
+					<Image data={contact.image.responsiveImage} className={styles.image}/>
 				</div>
 			</Section>
-			<Section name="Staff" className={styles.staffSection}>
+			<Section name="Staff" className={styles.staffSection} bgColor='--red'>
 				<h1 className="bottomMargin">Staff</h1>
 				<div className={styles.staff}>
 					{staffs.map(({ name, role, phone, email, image }, idx) =>
@@ -83,7 +80,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					)}
 				</div>
 			</Section>
-			<Section name="Showrooms" data-dark="1" className={styles.showroomsSection}>
+			<Section name="Showrooms" data-dark="1" className={styles.showroomsSection} bgColor='--black'>
 				<h1>Showrooms</h1>
 				<Markdown className={styles.intro}>
 					The best way to experience our products is to see them in real life, so just reach out and book an appointment.
@@ -112,7 +109,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					)}
 				</ul>
 			</Section>
-			<Section name="Agents & Distributors" className={styles.distributorSection}>
+			<Section name="Agents & Distributors" className={styles.distributorSection} bgColor='--red'>
 				<h1 className="white bottomMargin">Agents & Distributors</h1>
 				<div className={styles.distributors}>
 					{distributors.map(({ name, address, city, country, email, phone, postalCode, contactName, url }, idx) =>
@@ -131,7 +128,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					)}
 				</div>
 			</Section>
-			<Section name="Retailers" data-dark="1" className={styles.resellerSection}>
+			<Section name="Retailers" data-dark="1" className={styles.resellerSection} bgColor='--black'>
 				<h1 className="red bottomMargin">Retailers</h1>
 				<div className={styles.resellers}>
 					{Object.keys((resellesByCountry)).map((id, idx) => {
@@ -161,8 +158,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					})}
 				</div>
 			</Section>
-
-		</div>
+		</>
 	)
 }
 

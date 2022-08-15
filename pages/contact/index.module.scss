@@ -1,204 +1,199 @@
-.contact {
-  padding-top: 4rem;
-  position: relative;
+.informationSection {
+  display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid $white;
+	padding-bottom: $small-margin;
 
-  .informationSection {
-    flex-direction: row;
-    border-bottom: 1px solid $white;
-    padding-bottom: $small-margin;
+	.info {
+    flex: 0 0 spanNestedGrid(12, 6);
+		.intro {
+		}
 
-    .info {
-      flex: 0 0 50%;
-      padding-right: 5%;
+		.getintouch {
+			display: flex;
+			flex-direction: row;
 
-      .intro {}
+			.visit {
+				flex: 0 0 50%;
+			}
 
-      .getintouch {
-        display: flex;
-        flex-direction: row;
+			.reachout {
+				flex: 0 0 50%;
+			}
+		}
 
-        .visit {
-          flex: 0 0 50%;
-        }
+		button {
+			margin-top: 1em;
+		}
+	}
 
-        .reachout {
-          flex: 0 0 50%;
-        }
-      }
-
-      button {
-        margin-top: 1em;
-
-      }
+	.imageWrap {
+		flex: 1 1 100%;
+    width: 100%;
+    .image{
+      max-width: 100% !important;
     }
+	}
+}
 
-    .image {
-      flex: 0 0 50%;
-    }
-  }
+.staffSection {
+	flex-direction: column;
+	padding-top: $small-margin;
+	padding-bottom: $margin;
 
-  .staffSection {
-    flex-direction: column;
-    padding-top: $small-margin;
-    padding-bottom: $margin;
+	.staff {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex: 1 1 100%;
 
-    .staff {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      flex: 1 1 100%;
+		.employee {
+			display: flex;
+			flex-direction: column;
+			flex: 0 0 25%;
+			padding-right: 1em;
 
-      .employee {
-        display: flex;
-        flex-direction: column;
-        flex: 0 0 25%;
-        padding-right: 1em;
+			.image {
+				aspect-ratio: 16, 9;
+				margin-bottom: 1em;
+			}
 
-        .image {
-          aspect-ratio: 16, 9;
-          margin-bottom: 1em;
-        }
+			.name {
+			}
 
-        .name {}
+			.contact {
+			}
+		}
+	}
+}
 
-        .contact {}
-      }
-    }
-  }
+.showroomsSection {
+	flex-direction: column;
+	flex: 0 0 100%;
+	padding-top: $margin;
+	padding-bottom: $margin;
+	background-color: $black;
 
-  .showroomsSection {
-    flex-direction: column;
-    flex: 0 0 100%;
-    padding-top: $margin;
-    padding-bottom: $margin;
-    background-color: $black;
+	h1 {
+		color: $red;
+	}
 
-    h1 {
-      color: $red;
-    }
+	.intro {
+		color: $white;
+		width: 70%;
+		padding-bottom: 1.5em;
+	}
 
-    .intro {
-      color: $white;
-      width: 70%;
-      padding-bottom: 1.5em;
-    }
+	.showroom {
+		display: flex;
+		flex-direction: row;
+		flex: 0 0 100%;
+		position: relative;
 
-    .showroom {
-      display: flex;
-      flex-direction: row;
-      flex: 0 0 100%;
-      position: relative;
+		&:nth-child(2) {
+			flex-direction: row-reverse;
 
-      &:nth-child(2) {
-        flex-direction: row-reverse;
+			.left {
+				padding-right: 0em;
+			}
 
-        .left {
-          padding-right: 0em;
-        }
+			.right {
+				padding-right: 1em;
+				padding-left: 0;
+				padding-top: 1em;
+			}
+		}
 
-        .right {
-          padding-right: 1em;
-          padding-left: 0;
-          padding-top: 1em;
-        }
-      }
+		.left {
+			position: relative;
+			flex: 0 0 50%;
+			padding-left: 0em;
+		}
 
-      .left {
-        position: relative;
-        flex: 0 0 50%;
-        padding-left: 0em;
+		.right {
+			position: relative;
+			flex: 0 0 50%;
+			padding-left: 1em;
+			padding-top: 1em;
+		}
+	}
 
-      }
+	.text {
+		color: $white;
+	}
 
-      .right {
-        position: relative;
-        flex: 0 0 50%;
-        padding-left: 1em;
-        padding-top: 1em;
+	h2 {
+		color: $red;
+	}
+}
 
+.distributorSection {
+	display: flex;
+	flex-direction: column;
+	padding-top: $margin;
+	padding-bottom: $margin;
+	background-color: $red;
 
-      }
-    }
+	h2 {
+		color: $white;
+	}
 
-    .text {
-      color: $white;
-    }
+	.distributors {
+		display: flex;
+		position: relative;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex: 1 1 100%;
 
-    h2 {
-      color: $red;
-    }
-  }
+		.distributor {
+			flex: 0 0 33%;
+			margin-bottom: 1em;
+		}
+	}
+}
 
-  .distributorSection {
-    display: flex;
-    flex-direction: column;
-    padding-top: $margin;
-    padding-bottom: $margin;
-    background-color: $red;
+.resellerSection {
+	display: flex;
+	flex-direction: column;
+	padding-top: $margin;
+	padding-bottom: $margin;
+	background-color: $black;
 
-    h2 {
-      color: $white;
-    }
+	h1 {
+		color: $white;
+	}
 
-    .distributors {
-      display: flex;
-      position: relative;
-      flex-direction: row;
-      flex-wrap: wrap;
-      flex: 1 1 100%;
+	.resellers {
+		display: flex;
+		position: relative;
+		flex-direction: column;
+		flex: 1 1 100%;
 
-      .distributor {
-        flex: 0 0 33%;
-        margin-bottom: 1em;
-      }
-    }
-  }
+		.country {
+			display: flex;
+			flex-direction: column;
+			color: $white;
 
-  .resellerSection {
-    display: flex;
-    flex-direction: column;
-    padding-top: $margin;
-    padding-bottom: $margin;
-    background-color: $black;
+			.wrap {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				position: relative;
 
-    h1 {
-      color: $white;
-    }
+				.reseller {
+					flex: 0 0 33.333%;
+					padding-bottom: 0.5em;
+					overflow: hidden;
 
-    .resellers {
-      display: flex;
-      position: relative;
-      flex-direction: column;
-      flex: 1 1 100%;
+					.name {
+						color: $red;
+					}
 
-      .country {
-        display: flex;
-        flex-direction: column;
-        color: $white;
-
-        .wrap {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          position: relative;
-
-          .reseller {
-            flex: 0 0 33.333%;
-            padding-bottom: .5em;
-            overflow: hidden;
-
-            .name {
-              color: $red;
-            }
-
-            a {
-              color: $white;
-            }
-          }
-        }
-      }
-
-    }
-  }
-
+					a {
+						color: $white;
+					}
+				}
+			}
+		}
+	}
 }
