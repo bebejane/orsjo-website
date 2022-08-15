@@ -13,7 +13,7 @@ export default function List({ children, initial }: ListProps) {
 		const idx = parseInt(e.target?.dataset.idx);
 		setSelected({ ...selected, [idx]: selected[idx] ? false : true })
 	}
-	
+
 	return (
 		<ul className={styles.list} ref={ref}>
 			{React.Children.map(children, (child, idx) =>
@@ -29,13 +29,13 @@ export default function List({ children, initial }: ListProps) {
 	)
 }
 
-export type ListItemProps = { 
-	title?: string, 
-	children: React.ReactNode, 
-	idx?: number, 
-	selected?: boolean, 
-	parent?: HTMLUListElement, 
-	onToggle?: React.MouseEvent<HTMLButtonElement> 
+export type ListItemProps = {
+	title?: string,
+	children: React.ReactNode,
+	idx?: number,
+	selected?: boolean,
+	parent?: HTMLUListElement,
+	onToggle?: React.MouseEvent<HTMLButtonElement>
 	className: string
 }
 
@@ -52,7 +52,7 @@ export function ListItem({ children, title, parent, onToggle, idx, selected, cla
 				</div>
 			</div>
 			{selected && title &&
-				<div className={styles.content}>
+				<div className={cn(styles.content, 'tableList')}>
 					{children}
 				</div>
 			}

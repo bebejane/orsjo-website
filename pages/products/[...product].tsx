@@ -12,7 +12,7 @@ import { chunkArray, parseSpecifications } from '/lib/utils'
 
 export type ProductProps = { product: ProductRecord, related: ProductRecord[] };
 
-const allProductImages = (product :ProductRecord) => {
+const allProductImages = (product: ProductRecord) => {
 	const images = [product.image]
 	product.productGallery.forEach(block => {
 		switch (block.__typename) {
@@ -26,13 +26,13 @@ const allProductImages = (product :ProductRecord) => {
 	})
 	return images.filter(img => img);
 }
-const allDrawings = (product :ProductRecord) => {
+const allDrawings = (product: ProductRecord) => {
 	const drawings = []
 	product.models.forEach(m => m.drawing && drawings.push(m.drawing))
 	return drawings;
 }
 export default function Product({ product, related, relatedByCategory }: ProductProps) {
-	
+
 	console.log(related)
 	const [galleryIndex, setGalleryIndex] = useState<number>(-1)
 	const [drawingGalleryIndex, setDrawingGalleryIndex] = useState<number>(-1)
@@ -41,18 +41,18 @@ export default function Product({ product, related, relatedByCategory }: Product
 	const images = allProductImages(product)
 	const drawings = allDrawings(product)
 
-	const handleImageClick = (id :string) => {
-		const index = images.findIndex((i)=> i.id === id)
+	const handleImageClick = (id: string) => {
+		const index = images.findIndex((i) => i.id === id)
 		setGalleryIndex(index >= 0 ? index : -1)
 	}
-	
+
 	return (
 		<>
 			<section className={styles.product}>
 				<div className={styles.image}>
-					<Image 
-						data={product.image?.responsiveImage} 
-						layout={'fill'} 
+					<Image
+						data={product.image?.responsiveImage}
+						layout={'fill'}
 						objectFit={'contain'}
 					/>
 					<div className={styles.overlay}>
@@ -64,7 +64,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 								By {product.designer?.name}
 							</h1>
 							<h3 className={styles.type}>
-								{product.categories.map(({name}) => name).join(', ')}
+								{product.categories.map(({ name }) => name).join(', ')}
 							</h3>
 						</div>
 					</div>
@@ -72,13 +72,13 @@ export default function Product({ product, related, relatedByCategory }: Product
 				{product.productGallery.map(block => {
 					switch (block.__typename) {
 						case 'FullwidthImageRecord':
-							return <FullWidthImage data={block} onClick={handleImageClick}/>
+							return <FullWidthImage data={block} onClick={handleImageClick} />
 						case 'TextRecord':
 							return <Text data={block} />
 						case 'TwoColumnImageRecord':
-							return <TwoColumnImage data={block} onClick={handleImageClick}/>
+							return <TwoColumnImage data={block} onClick={handleImageClick} />
 						case 'ImageGalleryRecord':
-							return <ImageGallery data={block} onClick={handleImageClick}/>
+							return <ImageGallery data={block} onClick={handleImageClick} />
 						default:
 							return null
 					}
@@ -96,16 +96,16 @@ export default function Product({ product, related, relatedByCategory }: Product
 									<td>{specs.connection}</td>
 								</tr>
 								<tr>
-									<td>Electrical Data</td>
-									<td>{specs.electricalData}</td>
-									<td>Lightsource</td>
-									<td>{specs.lightsource}</td>
-								</tr>
-								<tr>
 									<td>Mounting</td>
 									<td>{specs.mounting}</td>
 									<td>Socket</td>
 									<td>{specs.socket}</td>
+								</tr>
+								<tr>
+									<td>Electrical Data</td>
+									<td>{specs.electricalData}</td>
+									<td>Lightsource</td>
+									<td>{specs.lightsource}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -117,9 +117,9 @@ export default function Product({ product, related, relatedByCategory }: Product
 									<th>Art no</th>
 									<th>Model</th>
 								</tr>
-								{product.models.map(({variants, lightsources, accessories}, idx)=> {
+								{product.models.map(({ variants, lightsources, accessories }, idx) => {
 									const art = variants.map(v => ({
-										articleNo: v.articleNo, 
+										articleNo: v.articleNo,
 										label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
 									}))
 
@@ -136,31 +136,31 @@ export default function Product({ product, related, relatedByCategory }: Product
 									}))
 
 									const cols = art.concat(access).concat(light)
-									const rows = chunkArray(cols, cols.length > 2 ? cols.length/2 : 2)
-									
-									return(
-										rows.map((row, idx) => 
+									const rows = chunkArray(cols, cols.length > 2 ? cols.length / 2 : 2)
+
+									return (
+										rows.map((row, idx) =>
 											<tr key={idx}>
 												<td>{row[0].articleNo}</td>
 												<td>{row[0].label}</td>
 												<td>{row[1]?.articleNo}</td>
 												<td>{row[1]?.label}</td>
-											</tr>	
+											</tr>
 										)
 									)
 								})}
 							</tbody>
 						</table>
-						<table className={styles.specifications}>
+						<table className={styles.dimensions}>
 							<tbody>
 								<tr>
 									<td>
-										Dimensions		
+										Dimensions
 									</td>
 									<td>
-										<strong onClick={()=>setDrawingGalleryIndex(0)}>
+										<span onClick={() => setDrawingGalleryIndex(0)}>
 											View drawing +
-										</strong>
+										</span>
 									</td>
 									<td></td>
 									<td></td>
@@ -191,21 +191,21 @@ export default function Product({ product, related, relatedByCategory }: Product
 				</List>
 			</section>
 			<section className={styles.related}>
-				<Featured data={{headline:'Related', items: related, id:'related'}}/>
-				<Featured data={{headline:`Other ${product.categories[0].name} lamps`, items: relatedByCategory, id:'relatedbycategory'}}/>
+				<Featured data={{ headline: 'Related', items: related, id: 'related' }} />
+				<Featured data={{ headline: `Other ${product.categories[0].name} lamps`, items: relatedByCategory, id: 'relatedbycategory' }} />
 			</section>
-			{galleryIndex > -1 && 
-				<Gallery 
-					images={images} 
-					index={galleryIndex} 
-					onClose={()=>setGalleryIndex(-1)}
+			{galleryIndex > -1 &&
+				<Gallery
+					images={images}
+					index={galleryIndex}
+					onClose={() => setGalleryIndex(-1)}
 				/>
 			}
-			{drawingGalleryIndex > -1 && 
-				<Gallery 
-					images={drawings} 
-					index={drawingGalleryIndex} 
-					onClose={()=>setDrawingGalleryIndex(-1)}
+			{drawingGalleryIndex > -1 &&
+				<Gallery
+					images={drawings}
+					index={drawingGalleryIndex}
+					onClose={() => setDrawingGalleryIndex(-1)}
 				/>
 			}
 		</>
@@ -224,9 +224,9 @@ export async function getStaticPaths(context) {
 }
 
 export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
-	const { product } : { product : ProductRecord} = await apiQuery(GetProductDocument, { variables: { slug: context.params.product[0] } })
-	const { products : related } = await apiQuery(GetRelatedProductsDocument, { variables: { designerId: product.designer.id, familyId: product.family.id } })
-	const { products : relatedByCategory } = await apiQuery(GetAllProductsByCategoryDocument, { variables: { categoryId: product.categories[0]?.id}})
+	const { product }: { product: ProductRecord } = await apiQuery(GetProductDocument, { variables: { slug: context.params.product[0] } })
+	const { products: related } = await apiQuery(GetRelatedProductsDocument, { variables: { designerId: product.designer.id, familyId: product.family.id } })
+	const { products: relatedByCategory } = await apiQuery(GetAllProductsByCategoryDocument, { variables: { categoryId: product.categories[0]?.id } })
 	console.log({ variables: { designerId: product.designer.id, familyId: product.family.id } })
 	if (!product)
 		return { notFound: true }
