@@ -1,4 +1,3 @@
-import styles from './index.module.scss'
 import { withGlobalProps } from "/lib/hoc";
 import { GetLastNewsDocument, GetStartDocument } from '/graphql';
 import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink, NewsItem, Section } from '/components';
@@ -27,7 +26,6 @@ export default function Start({start : { content }, lastNews } : StartProps) {
 				}
 			})}
 		</>
-		
 	)
 }
 
