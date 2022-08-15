@@ -1,7 +1,4 @@
-.product, .details, .related{
-	padding-left: spanGridWithGutter(4);
-	padding-right: var(--outer-margin);
-}
+
 .product {
 	position: relative;
 	background-color: $white;
@@ -49,7 +46,6 @@
 .details {
 	margin-top: $margin;
 	margin-bottom: $margin;
-	border-top: 1px solid $gray;
 	.colorImages {
 		display: flex;
 		flex-direction: row;
@@ -57,7 +53,6 @@
 			flex: 1 1 auto;
 		}
 	}
-
 	h1 {
 		padding-top: 1em;
 	}
@@ -84,6 +79,8 @@
 		}
 		table{
 			width: 100%;
+			border-top: 1px solid $mid-gray;
+
 			tr{
 				
 				td, th {
@@ -108,13 +105,18 @@
 				}
 			}
 
-			border-bottom: 1px solid $gray;
 			&:last-child{
 				border-bottom: 0;
 			}
 		}
 		.specifications{
 			padding-bottom: 1em;
+			padding-top: 1.5em;
+			border-top: 1px solid $mid-gray;
+
+			li {
+				padding-bottom: .5em;
+			}
 			tr{
 				td:nth-child(1), td:nth-child(3){
 					color: $gray;
@@ -159,5 +161,11 @@
 }
 
 .related{
+	padding-top: $small-margin;
+	padding-bottom: $margin;
 	background-color: $gray;
+
+	section:first-of-type {
+		padding-bottom: $small-margin;
+	}
 }

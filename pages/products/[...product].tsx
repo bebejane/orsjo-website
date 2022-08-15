@@ -38,7 +38,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 
 	const specsOrder = ['designer', 'mounting', 'electricalData', 'socket', 'connection', 'lightsource']
 	const specs = parseSpecifications(product, 'en', null)
-	const specsCols = specsOrder.map(k => ({value:specs[k], label:k}))
+	const specsCols = specsOrder.map(k => ({ value: specs[k], label: k }))
 
 	const images = allProductImages(product)
 	const drawings = allDrawings(product)
@@ -90,7 +90,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 				<List initial={0}>
 					<ListItem title={'Specifications'} className={styles.listItemContent}>
 						<ul className={styles.specifications}>
-							{specsCols.map(({label, value}, idx) => 
+							{specsCols.map(({ label, value }, idx) =>
 								<li key={idx}>
 									<span>{label}</span>
 									<span>{value}</span>
@@ -178,9 +178,9 @@ export default function Product({ product, related, relatedByCategory }: Product
 					</ListItem>
 				</List>
 			</Section>
-			<Section name="Related" className={styles.related}>
+			<Section name="Related" className={styles.related} bgColor='--grey'>
 				<FeaturedGallery headline="Related" products={related} id="related" />
-				<FeaturedGallery headline={`Other ${product.categories[0].name} lamps`} products={relatedByCategory} id="relatedbycategory"/>
+				<FeaturedGallery headline={`Other ${product.categories[0].name} lamps`} products={relatedByCategory} id="relatedbycategory" />
 			</Section>
 			{galleryIndex > -1 &&
 				<Gallery
@@ -212,15 +212,15 @@ export async function getStaticPaths(context) {
 }
 
 export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
-	
+
 	const { product }: { product: ProductRecord } = await apiQuery(GetProductDocument, { variables: { slug: context.params.product[0] } })
-	
+
 	if (!product)
 		return { notFound: true }
 
 	const { products: related } = await apiQuery(GetRelatedProductsDocument, { variables: { designerId: product.designer.id, familyId: product.family.id } })
 	const { products: relatedByCategory } = await apiQuery(GetAllProductsByCategoryDocument, { variables: { categoryId: product.categories[0]?.id } })
-	
+
 
 	return {
 		props: {
