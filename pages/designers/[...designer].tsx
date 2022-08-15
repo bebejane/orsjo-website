@@ -5,21 +5,27 @@ import { withGlobalProps } from '/lib/hoc'
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout'
 import { useLayout } from '/lib/context/layout'
-import { ProductThumbnail } from '/components'
+import { ProductThumbnail, Section } from '/components'
 import { chunkArray } from '/lib/utils'
+import { useEffect } from 'react'
 
 export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[] };
 
 export default function Designer({designer, products} : DesignerProps){
-	console.log(designer, products)
+	
 	const { color } = useLayout()
 	const productRows = chunkArray(products, 3)
-	
+
 	return (
 		<>
-			<section className={styles.designer}>
+			<Section type="full" className={styles.designer}>
 				<header>
-					<h1>{designer.name}</h1>
+					<div className={styles.artist} key={designer.id}>
+						<h1>{designer.name}</h1>
+						<span className={styles.description}>
+							<span>{designer.description.split(' ')[0]}</span> {designer.description.split(' ').slice(1).join(' ')}
+						</span>
+					</div>
 					<figure>
 						{designer.image && 
 							<Image data={designer.image.responsiveImage} layout={'fill'} objectFit={'cover'} />
@@ -27,23 +33,23 @@ export default function Designer({designer, products} : DesignerProps){
 					</figure>
 					<div className={styles.overlay} style={{backgroundColor: color}}></div>
 				</header>
-			</section>
-			<section className={styles.products}>
+			</Section>
+			<Section type="margin" className={styles.products}>
 				<h1>Products by<br/>{designer.name}</h1>	
 				<div className={styles.gallery}>	
-				{productRows.map((prods, ridx) => {
-					return(
-						<ul key={ridx}>
-							{prods.map((p, idx) => 
-								<li key={idx}>
-									<ProductThumbnail key={idx} product={p}/>
-								</li>
-							)}
-						</ul>
-					)
-				})}
+					{productRows.map((prods, ridx) => {
+						return(
+							<ul key={ridx}>
+								{prods.map((p, idx) => 
+									<li key={idx}>
+										<ProductThumbnail key={idx} product={p}/>
+									</li>
+								)}
+							</ul>
+						)
+					})}
 				</div>
-			</section>
+			</Section>
 		</>
 	)
 }

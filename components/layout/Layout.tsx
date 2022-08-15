@@ -12,16 +12,6 @@ export type LayoutProps = { children: React.ReactNode, menu: MenuItem[] }
 export default function Layout({ children, menu }: LayoutProps) {
 
 	const { color } = useLayout()
-	const [showGrid, setShowGrid] = useState(true)
-
-	useEffect(() => {
-
-		const toggleGrid = ({ key }) => key === 'g' && setShowGrid(!showGrid)
-
-		document.addEventListener('keydown', toggleGrid)
-		return () => document.removeEventListener('keydown', toggleGrid)
-
-	}, [showGrid, setShowGrid])
 
 	return (
 		<>
@@ -32,7 +22,7 @@ export default function Layout({ children, menu }: LayoutProps) {
 				<Content>
 					{children}
 				</Content>
-				<Grid show={showGrid} />
+				<Grid />
 			</div>
 			<Footer menu={menu} />
 		</>
@@ -41,7 +31,16 @@ export default function Layout({ children, menu }: LayoutProps) {
 
 const Grid = ({ show }) => {
 
-	if (!show) return null
+	const [showGrid, setShowGrid] = useState(false)
+
+	useEffect(() => {
+		const toggleGrid = ({ key }) => key === 'g' && setShowGrid(!showGrid)
+		document.addEventListener('keydown', toggleGrid)
+		return () => document.removeEventListener('keydown', toggleGrid)
+	}, [showGrid, setShowGrid])
+
+	
+	if (!showGrid) return null
 
 	return (
 		<div className={styles.grid}>

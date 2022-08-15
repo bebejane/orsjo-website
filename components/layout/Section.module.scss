@@ -1,4 +1,5 @@
 .section{
+  width: 100%;
   padding-left: var(--outer-margin);
   padding-right: var(--outer-margin);
   .wrap{ 
@@ -8,7 +9,16 @@
   &[data-type="full"]{
     padding-left: 0;
     padding-right: 0;
-    
+    .wrap{
+      padding-left: 0;
+    }    
+  }
+  &[data-type="margin"]{
+    padding-left: var(--outer-margin);
+    padding-right: var(--outer-margin);
+    .wrap{
+      padding-left: 0;
+    }    
   }
   &[data-top='true']{
     margin-top:4rem;
