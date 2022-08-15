@@ -33,7 +33,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 		<>
 			<Section name="Information" top={true} className={styles.informationSection} bgColor='--red'>
 				<div className={styles.info}>
-					<h1>{contact.title}</h1>
+					<h1 className="topMargin">{contact.title}</h1>
 					<p className="white bodyWeight">
 						{contact.intro}
 					</p>
@@ -55,9 +55,10 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					<button>Contact Us</button>
 				</div>
 				<div className={styles.imageWrap}>
-					<Image data={contact.image.responsiveImage} className={styles.image}/>
+					<Image data={contact.image.responsiveImage} className={styles.image} />
 				</div>
 			</Section>
+
 			<Section name="Staff" className={styles.staffSection} bgColor='--red'>
 				<h1 className="bottomMargin">Staff</h1>
 				<div className={styles.staff}>
