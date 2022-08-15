@@ -1,0 +1,10 @@
+.section{
+  display: flex;
+  flex-direction: column;
+  padding-left: calc(spanGrid(4) + var(--outer-margin));
+  padding-right: var(--outer-margin);
+  &[data-type="full"]{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
