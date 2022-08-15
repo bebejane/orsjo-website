@@ -3,13 +3,13 @@
   flex-direction: row;
   min-height: 100vh;
 
-  .grid{
-      padding-left: var(--outer-margin);
-		  padding-right: var(--outer-margin);
-      position: fixed;
-      top: 100px;
-      width: 100%;
-    
+  .grid {
+    padding-left: var(--outer-margin);
+    padding-right: var(--outer-margin);
+    position: fixed;
+    top: 100px;
+    width: 100%;
+    pointer-events: none;
     .gridWrapper {
       background: rgba(9, 255, 0, 0.296);
       display: flex;
@@ -24,7 +24,7 @@
       padding-left: $gutter;
       background: rgba(9, 255, 0, 0.417);
 
-      &:last-of-type(){
+      &:last-of-type() {
         padding-left: 0;
       }
     }

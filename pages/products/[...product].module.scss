@@ -1,8 +1,11 @@
+.product, .details, .related{
+	padding-left: spanGridWithGutter(4);
+	padding-right: var(--outer-margin);
+}
 .product {
 	position: relative;
-	background-color: white;
-	margin-left: spanGrid(4);
-	padding-top:4rem;
+	background-color: $white;
+	padding-top: 4rem;
 	.image {
 		position: relative;
 		width: 100%;
@@ -47,7 +50,6 @@
 	margin-top: $margin;
 	margin-bottom: $margin;
 	border-top: 1px solid $gray;
-	margin-left: spanGrid(4);
 	.colorImages {
 		display: flex;
 		flex-direction: row;
@@ -63,6 +65,23 @@
 	.listItemContent{
 		display: flex;
 		flex-direction: column;
+		ul{
+			list-style: none;
+			width:100%;
+			column-count: 2;
+			li{
+				display: flex;
+				flex-direction: row;
+				break-inside: avoid-column;
+				span:nth-child(1){
+					color: $gray;
+					width: spanGridWithGutter(6);
+				}
+				span:nth-child(2){
+					width: spanGrid(10);	
+				}
+			}
+		}
 		table{
 			width: 100%;
 			tr{
@@ -141,7 +160,4 @@
 
 .related{
 	background-color: $gray;
-	width: 100%;
-	padding-left: spanGrid(4);
-	
 }

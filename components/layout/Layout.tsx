@@ -34,9 +34,7 @@ export default function Layout({ children, menu }: LayoutProps) {
 				</Content>
 				<Grid show={showGrid} />
 			</div>
-
 			<Footer menu={menu} />
-
 		</>
 	)
 }

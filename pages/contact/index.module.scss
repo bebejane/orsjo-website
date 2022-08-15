@@ -1,90 +1,89 @@
 .contact {
-  padding-top:4rem;
+  padding-top: 4rem;
   position: relative;
-  section {
-    display: flex;
-    flex: 0 0 100%;
-    margin-left: calc(spanGrid(4) +  var(--outer-margin));
-    margin-right: var(--outer-margin);
 
-  }
-  .informationSection{
+  .informationSection {
     flex-direction: row;
     border-bottom: 1px solid $white;
     padding-bottom: $small-margin;
-    .info{
+
+    .info {
       flex: 0 0 50%;
       padding-right: 5%;
-      .intro{
-  
-      }
+
+      .intro {}
+
       .getintouch {
         display: flex;
         flex-direction: row;
-        .visit{
+
+        .visit {
           flex: 0 0 50%;
         }
-        .reachout{
+
+        .reachout {
           flex: 0 0 50%;
         }
       }
-      button{
+
+      button {
         margin-top: 1em;
 
       }
     }
-    .image{
+
+    .image {
       flex: 0 0 50%;
     }
   }
-  .staffSection{
+
+  .staffSection {
     flex-direction: column;
     padding-top: $small-margin;
     padding-bottom: $margin;
 
-    .staff{
+    .staff {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       flex: 1 1 100%;
-      .employee{
+
+      .employee {
         display: flex;
         flex-direction: column;
         flex: 0 0 25%;
         padding-right: 1em;
-        
-        .image{
-          aspect-ratio: 16,9;
+
+        .image {
+          aspect-ratio: 16, 9;
           margin-bottom: 1em;
         }
-        .name{
 
-        }
-        .contact{
+        .name {}
 
-        }
+        .contact {}
       }
     }
   }
-  .showroomsSection{
+
+  .showroomsSection {
     flex-direction: column;
     flex: 0 0 100%;
-    margin-left: 0rem;
-    padding-left: calc(spanGrid(4) +  var(--outer-margin));
-    padding-right: var(--outer-margin);
-    margin-right: 0;
     padding-top: $margin;
     padding-bottom: $margin;
     background-color: $black;
-    h1{
-      color:$red;
+
+    h1 {
+      color: $red;
     }
-    .intro{
+
+    .intro {
       color: $white;
       width: 70%;
       padding-bottom: 1.5em;
     }
-    .showroom{
+
+    .showroom {
       display: flex;
       flex-direction: row;
       flex: 0 0 100%;
@@ -93,9 +92,10 @@
       &:nth-child(2) {
         flex-direction: row-reverse;
 
-        .left  {
+        .left {
           padding-right: 0em;
         }
+
         .right {
           padding-right: 1em;
           padding-left: 0;
@@ -103,13 +103,14 @@
         }
       }
 
-      .left{
+      .left {
         position: relative;
         flex: 0 0 50%;
         padding-left: 0em;
-        
+
       }
-      .right{
+
+      .right {
         position: relative;
         flex: 0 0 50%;
         padding-left: 1em;
@@ -118,83 +119,86 @@
 
       }
     }
-    .text{
-      color:$white;
+
+    .text {
+      color: $white;
     }
-    h2{
-      color:$red;
+
+    h2 {
+      color: $red;
     }
   }
-  .distributorSection{
+
+  .distributorSection {
     display: flex;
     flex-direction: column;
-    margin-left: 0;
-    margin-right: 0;
     padding-top: $margin;
     padding-bottom: $margin;
-    padding-left: calc(spanGrid(4) +  var(--outer-margin));
-    padding-right: var(--outer-margin);
     background-color: $red;
-    h2{
-      color:$white;
+
+    h2 {
+      color: $white;
     }
-    .distributors{
+
+    .distributors {
       display: flex;
       position: relative;
       flex-direction: row;
       flex-wrap: wrap;
       flex: 1 1 100%;
-      .distributor{
+
+      .distributor {
         flex: 0 0 33%;
         margin-bottom: 1em;
       }
     }
   }
 
-  .resellerSection{
+  .resellerSection {
     display: flex;
     flex-direction: column;
     padding-top: $margin;
     padding-bottom: $margin;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: calc(spanGrid(4) +  var(--outer-margin));
-    padding-right: var(--outer-margin);
     background-color: $black;
-    
-    h1{
-      color:$white;
+
+    h1 {
+      color: $white;
     }
-    .resellers{
+
+    .resellers {
       display: flex;
       position: relative;
       flex-direction: column;
       flex: 1 1 100%;
 
-      .country{
+      .country {
         display: flex;
         flex-direction: column;
-        color:$white;
-        .wrap{
+        color: $white;
+
+        .wrap {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
           position: relative;
-          .reseller{
+
+          .reseller {
             flex: 0 0 33.333%;
             padding-bottom: .5em;
             overflow: hidden;
-            .name{
-              color:$red;
+
+            .name {
+              color: $red;
             }
-            a{
-              color:$white;
+
+            a {
+              color: $white;
             }
           }
         }
       }
-      
+
     }
   }
-  
+
 }
