@@ -22,14 +22,19 @@
       
       &:hover {
         background-color:white;
-
-
       }
+      
       .image {   
         position: relative !important;
         flex: 1 1 auto;
         object-fit: contain;
         mix-blend-mode: multiply;
+        img[role="presentation"]{
+          height: 100%; 
+          width: 100% !important; 
+          object-fit: fill;
+          background-color: transparent !important;
+        }
       }
       .environmentImage{
         position: absolute;
