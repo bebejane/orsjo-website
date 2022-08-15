@@ -33,7 +33,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 
 	return (
 		<div className={styles.contact}>
-			<Section name="Information" className={styles.informationSection} type="full">
+			<Section name="Information" className={styles.informationSection}>
 
 				<div className={styles.info}>
 					<h1>{contact.title}</h1>
