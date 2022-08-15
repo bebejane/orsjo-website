@@ -1,7 +1,6 @@
-import styles from './projects.module.scss'
+import styles from './index.module.scss'
 import { GetProjectStartDocument, GetAllProjectsDocument, GetAllProjectTypesDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
-
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';

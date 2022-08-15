@@ -1,11 +1,9 @@
 import styles from './news.module.scss'
 import { GetAllNewsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
-import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
-import { sectionId } from '/lib/utils';
 import { format } from 'date-fns'
 import { Section } from '/components'
 
@@ -43,7 +41,7 @@ export default function News({ news }: NewsProps) {
 	)
 }
 
-News.layout = { layout: 'full', color: "--lightblack", menu: 'inverted', sidebar:false} as PageLayoutProps
+News.layout = { layout: 'full', color: "--black", menu: 'inverted', sidebar:false} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllNewsDocument] }, async ({ props, revalidate }: any) => {
 

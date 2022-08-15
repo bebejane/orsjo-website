@@ -1,0 +1,32 @@
+.intro{
+  position: relative;
+  
+  width: 100%;
+  .wrap{
+    position: relative;
+    min-height: calc(100vh - 4rem);
+    
+    .image{
+      opacity: 0.2;
+      filter: grayscale(1);
+      
+    }
+    .title, .location{
+      position: absolute;
+      @include h1Big();
+      color: $black;
+      margin: 0.5em;
+    }
+    .title{
+      top:0;
+      left:0;
+    }
+    .location{
+      bottom:0;
+      right:0;
+    }
+    .text{
+      
+    }
+  }
+}

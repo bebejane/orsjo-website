@@ -8,9 +8,9 @@ import { ProductThumbnail, ArrowButton } from '/components'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
-export type FeaturedGalleryProps = { products: ProductRecord[], headline?: string, id: string }
+export type FeaturedGalleryProps = { products: ProductRecord[], headline?: string, id: string, bgColor?: string }
 
-export default function FeaturedGallery({ headline, products, id } : FeaturedGalleryProps ) {
+export default function FeaturedGallery({ headline, products, id, bgColor } : FeaturedGalleryProps ) {
 	
 	const {  menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
