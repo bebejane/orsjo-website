@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export type NewsItemProps = { data: NewsItemRecord }
 
-export default function NewsItem({ data : { news }}: NewsItemProps) {
+export default function NewsItem({ data: { news } }: NewsItemProps) {
 	const { title, link, linkText, slug } = news
 
 	return (
@@ -15,8 +15,8 @@ export default function NewsItem({ data : { news }}: NewsItemProps) {
 				{title}
 				<div className={styles.more}>
 					<Link href={`/about/news/${slug}`}>
-						<a>
-							Read more <img src="/images/arrow.svg" className={styles.arrow}/>
+						<a className="medium white">
+							Read more <img src="/images/arrow.svg" className={styles.arrow} />
 						</a>
 					</Link>
 				</div>

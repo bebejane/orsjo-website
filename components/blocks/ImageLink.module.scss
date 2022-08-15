@@ -8,6 +8,9 @@
     color: $white;
     flex: 0 0 50%;
     min-height: 70vh;
+    h1 {
+      padding-bottom: .2em;
+    }
     figure{
       position: relative;
       height: 100%;
@@ -17,6 +20,9 @@
         bottom: 0px;
         left: 0px;
         margin: $small-margin;
+        .arrow {
+          filter: invert(1);
+        }
       }
     }
   }

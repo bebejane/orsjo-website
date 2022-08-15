@@ -5,17 +5,17 @@ import Link from 'next/link'
 
 type LayoutProps = { data: ImageLinkRecord }
 
-export default function ImageLink({ data: { firstImage, firstHeadline, firstLink, firstLinkText, secondImage, secondHeadline, secondLink, secondLinkText,   }, data }: LayoutProps) {
-	
+export default function ImageLink({ data: { firstImage, firstHeadline, firstLink, firstLinkText, secondImage, secondHeadline, secondLink, secondLinkText, }, data }: LayoutProps) {
+
 	return (
 		<section className={styles.imageLink}>
 			<Link href={firstLink}>
 				<a>
 					<figure>
-						<Image className={styles.image} data={firstImage?.responsiveImage} layout="fill" objectFit="cover"/>
+						<Image className={styles.image} data={firstImage?.responsiveImage} layout="fill" objectFit="cover" />
 						<figcaption>
 							<h1>{firstHeadline}</h1>
-								{firstLinkText}
+							{firstLinkText}  <img src="/images/arrow.svg" className={styles.arrow} />
 						</figcaption>
 					</figure>
 				</a>
@@ -23,10 +23,10 @@ export default function ImageLink({ data: { firstImage, firstHeadline, firstLink
 			<Link href={secondLink}>
 				<a>
 					<figure>
-						<Image className={styles.image} data={secondImage?.responsiveImage} layout="fill" objectFit="cover"/>
+						<Image className={styles.image} data={secondImage?.responsiveImage} layout="fill" objectFit="cover" />
 						<figcaption>
 							<h1>{secondHeadline}</h1>
-							{secondLinkText}
+							{secondLinkText}  <img src="/images/arrow.svg" className={styles.arrow} />
 						</figcaption>
 					</figure>
 				</a>

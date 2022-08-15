@@ -17,16 +17,17 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
-      font-size: 0.7rem;
-      line-height: 1rem;
-      bottom: $small-margin;
+      bottom: $margin;
       left:auto;
       color:$white;
+      padding-left: var(--outer-margin);
+      padding-right: var(--outer-margin);
       width: 100%;
       
       .text{
-        flex: 0 0 50%;
-        max-width: 50%;
+        flex: 0 0 100%;
+        padding-left: spanGridWithGutter(4);
+        padding-right: 20%;
         .link{
           font-weight: bold;
           .arrow{

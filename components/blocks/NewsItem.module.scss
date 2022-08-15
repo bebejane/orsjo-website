@@ -5,8 +5,10 @@
   color: $white;
   margin-left: var(--outer-margin);
   margin-right: var(--outer-margin);
+  padding-top: $margin;
+  padding-bottom: $margin;
   h1{
-    flex: 0 0 30%;
+    flex: 0 0 spanGridWithGutter(4);
     margin:0;
     padding: 0;
   }

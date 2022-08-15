@@ -33,6 +33,14 @@ h1 {
   &.bottomMargin {
     padding-bottom: 1.5em;
   }
+
+  &.start {
+    font-size: 1.5rem;
+    font-family: $body-font;
+    padding-bottom: .2em;
+    padding-top: .2em;
+
+  }
 }
 
 //Big h1, see mixins
@@ -56,7 +64,7 @@ h3 {
   padding-bottom: .5em;
 }
 
-nav, p.medium, .medium p, button, span.medium {
+nav, .medium, .medium p, button, span.medium {
   font-size: .65rem;
   font-family: "IndivisibleMedium";
   font-weight: normal;
