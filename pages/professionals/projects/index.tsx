@@ -15,29 +15,29 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 
 	return (
 		<>
-		<Section className={styles.projects} top={true}>
-			<h1>{projectStart.title}</h1>
-			<Markdown className={styles.intro}>
-				{projectStart.intro}
-			</Markdown>
-		</Section>
-		{projectTypes.map(({ title, id }, idx) => {
-			return (
-				<Section name={title} className={styles.project} key={idx} >
-					<h1>{title}</h1>
-					{projects.filter(({ projectType }) => projectType.id === id).map(({ title, location, image, slug }, idx) =>
-						<Thumbnail
-							key={idx}
-							title={title}
-							subtitle={location}
-							image={image}
-							className={styles.project}
-							slug={`/professionals/projects/${slug}`}
-						/>
-					)}
-				</Section>
-			)
-		})}
+			<Section className={styles.intro} top={true}>
+				<h1 className="topMargin">{projectStart.title}</h1>
+				<Markdown className={styles.intro}>
+					{projectStart.intro}
+				</Markdown>
+			</Section>
+			{projectTypes.map(({ title, id }, idx) => {
+				return (
+					<Section name={title} className={styles.projects} key={idx} >
+						<h1>{title}</h1>
+						{projects.filter(({ projectType }) => projectType.id === id).map(({ title, location, image, slug }, idx) =>
+							<Thumbnail
+								key={idx}
+								title={title}
+								subtitle={location}
+								image={image}
+								className={styles.project}
+								slug={`/professionals/projects/${slug}`}
+							/>
+						)}
+					</Section>
+				)
+			})}
 		</>
 	)
 }
