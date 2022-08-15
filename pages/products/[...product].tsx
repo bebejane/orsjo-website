@@ -10,10 +10,10 @@ import { Gallery } from '/components'
 import { useState } from 'react'
 import { chunkArray, parseSpecifications } from '/lib/utils'
 
-export type ProductProps = { product: ProductRecord, related: ProductRecord[] };
 
 const allProductImages = (product: ProductRecord) => {
 	const images = [product.image]
+	
 	product.productGallery.forEach(block => {
 		switch (block.__typename) {
 			case 'FullwidthImageRecord':
@@ -26,20 +26,31 @@ const allProductImages = (product: ProductRecord) => {
 	})
 	return images.filter(img => img);
 }
+
 const allDrawings = (product: ProductRecord) => {
 	const drawings = []
 	product.models.forEach(m => m.drawing && drawings.push(m.drawing))
 	return drawings;
 }
+
+export type ProductProps = { product: ProductRecord, related: ProductRecord[], relatedByCategory: ProductRecord[] };
+
 export default function Product({ product, related, relatedByCategory }: ProductProps) {
 
 	const [galleryIndex, setGalleryIndex] = useState<number>(-1)
 	const [drawingGalleryIndex, setDrawingGalleryIndex] = useState<number>(-1)
-
-	const specsOrder = ['designer', 'mounting', 'electricalData', 'socket', 'connection', 'lightsource']
+	
 	const specs = parseSpecifications(product, 'en', null)
-	const specsCols = specsOrder.map(k => ({ value: specs[k], label: k }))
+	const specsCols = [
+		{ label: 'Designer', value: specs.designer},
+		{ label: 'Mounting', value: specs.mounting},
+		{ label: 'Electrical Data', value: specs.electricalData},
+		{ label: 'Socket', value: specs.socket},
+		{ label: 'Connection', value: specs.connection},
+		{ label: 'Lightsource', value: specs.lightsource}
+	].filter(el => el.value)
 
+	
 	const images = allProductImages(product)
 	const drawings = allDrawings(product)
 
@@ -105,7 +116,9 @@ export default function Product({ product, related, relatedByCategory }: Product
 									<th>Art no</th>
 									<th>Model</th>
 								</tr>
-								{product.models.map(({ variants, lightsources, accessories }, idx) => {
+
+								{product.models.map(({ name, variants, lightsources, accessories }, idx) => {
+
 									const art = variants.map(v => ({
 										articleNo: v.articleNo,
 										label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
@@ -120,21 +133,32 @@ export default function Product({ product, related, relatedByCategory }: Product
 										articleNo: l.lightsource.articleNo,
 										label: l.lightsource.name,
 										included: l.included,
-										opttional: l.optional,
+										optional: l.optional,
+										amount: l.amount
 									}))
 
 									const cols = art.concat(access).concat(light)
 									const rows = chunkArray(cols, cols.length > 2 ? cols.length / 2 : 2)
 
 									return (
-										rows.map((row, idx) =>
-											<tr key={idx}>
-												<td>{row[0].articleNo}</td>
-												<td>{row[0].label}</td>
-												<td>{row[1]?.articleNo}</td>
-												<td>{row[1]?.label}</td>
+										<>
+											<tr className={styles.subheader}>
+												<td></td>
+												<td>{name.name}</td>
 											</tr>
-										)
+											{rows.map((row, idx) =>
+												<>
+													<tr key={idx}>
+														<td>{row[0].articleNo}</td>
+														<td>{row[0].label}</td>
+													</tr>
+													<tr key={idx}>
+														<td>{row[1]?.articleNo}</td>
+														<td>{row[1]?.label}</td>
+													</tr>
+												</>
+											)}
+										</>
 									)
 								})}
 							</tbody>
@@ -147,7 +171,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 									</td>
 									<td>
 										<span onClick={() => setDrawingGalleryIndex(0)}>
-											View drawing +
+											View drawing{drawings.length > 1 && 's'} +
 										</span>
 									</td>
 									<td></td>

@@ -103,6 +103,9 @@
 				th{
 					color: $gray;
 				}
+				&.subheader{
+					color: $gray;
+				}
 			}
 
 			&:last-child{
@@ -126,6 +129,7 @@
 		.articles{
 			padding-bottom: 1em;
 			padding-top: 1.5em;
+			
 		}
 
 		.dimensions {
