@@ -5,27 +5,29 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery } from '/components';
+import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section } from '/components';
 
 export type BespokeProps = { bespoke:BespokeRecord }
 
 export default function Bespoke({ bespoke }: BespokeProps) {
 	
 	return (
-		<section className={styles.bespoke}>
-			<Image 
-				data={bespoke.image.responsiveImage} 
-				layout='fill' 
-				objectFit='cover' 
-				className={styles.image}
-			/>
-			<div className={styles.intro}>
+		<>
+			<Section className={styles.bespoke} type={'full'}>
+				<Image 
+					data={bespoke.image.responsiveImage} 
+					layout='fill' 
+					objectFit='cover' 
+					className={styles.image}
+				/>
+			</Section>
+			<Section name="Intro" className={styles.intro} type="margin" bgColor={'--grey'}>
 				<h1>{bespoke.title}</h1>
 				<Markdown className={styles.intro}>
 					{bespoke.intro}
 				</Markdown>
-			</div>
-			<div className={styles.projects}>
+			</Section>
+			<Section className={styles.projects} type="margin" bgColor={'--grey'}>
 				{bespoke.examples.map(({project, summary}, idx) => {
 					return (
 						<>
@@ -47,12 +49,12 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 						</>
 					)
 				})}
-			</div>
-		</section>
+			</Section>
+		</>
 	)
 }
 
-Bespoke.layout = { layout:'full', color:"--lightgrey", menu:'inverted'} as PageLayoutProps
+Bespoke.layout = { layout:'full', color:"--lightgrey", menu:'inverted', sidebar:false} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetBespokeDocument] }, async ({ props, revalidate }: any) => {
 

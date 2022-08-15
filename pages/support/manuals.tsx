@@ -4,15 +4,16 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
+import { Section } from '/components'
 
 export type ManualsProps = {  }
 
 export default function Manuals({  }: ManualsProps) {
 
 	return (
-		<section className={styles.jobs}>
+		<Section className={styles.jobs} top={true}>
 			<h1>Manuals</h1>
-		</section>
+		</Section>
 	)
 }
 

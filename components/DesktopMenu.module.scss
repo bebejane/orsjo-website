@@ -47,7 +47,9 @@
       user-select: none;
       padding-right: 4em;
       white-space: pre;
-
+      &.selected{
+        font-weight: bold;
+      }
       .arrow {
         display: inline-block;
         visibility: hidden;
@@ -72,7 +74,7 @@
 
 
     *>li {
-      color: $black  !important;
+      //color: $black  !important;
     }
 
     ul {

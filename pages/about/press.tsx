@@ -5,18 +5,19 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
+import { Section } from '/components'
 
 export type PressProps = { presses: PressRecord[]}
 
 export default function Press({ presses }: PressProps) {
 
 	return (
-		<section className={styles.press}>
+		<Section className={styles.press} top={true}>
 			<h1>Press</h1>
 			{presses.map(({title, url}, idx)=>
 				<a key={idx} href={url}>{title}</a>
 			)}
-		</section>
+		</Section>
 	)
 }
 

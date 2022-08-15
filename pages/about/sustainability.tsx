@@ -5,16 +5,16 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
+import { Section } from '/components'
 
 export type SustainabilityProps = {  sustainability: SustainabilityRecord}
 
 export default function Sustainability({ sustainability }: SustainabilityProps) {
 	const { title } = sustainability
 	return (
-		<section className={styles.sustainability}>
+		<Section className={styles.sustainability} top={true}>
 			<h1>{title}</h1>
-		
-		</section>
+		</Section>
 	)
 }
 

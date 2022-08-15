@@ -18,7 +18,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState(0)
 	const [hovering, setHovering] = useState(undefined)
-	const { layout, menu } = useLayout()
+	const { layout, menu, color } = useLayout()
 	const { innerWidth } = useWindowSize()
 	
   //useOutsideClick(ref, ()=> setSelected(undefined));
@@ -57,7 +57,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 						<img id={'logo'}  src={'/images/logo.svg'}/>
 					</a>
 				</Link>
-				<ul className={styles.nav}>
+				<ul className={styles.nav} >
 					{items.map(({label, slug, index}, idx) => {
 						const arrowStyle = cn(styles.arrow, slug === hovering && styles.hover, slug === selected && styles.active)
 						return(
@@ -67,6 +67,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 								onClick={(e)=> !index && handleSelected(e)}
 								onMouseEnter={()=>setHovering(slug)}
 								onMouseLeave={()=>setHovering(undefined)}
+								className={router.pathname.startsWith(`${slug}`) && styles.selected}
 							>	
 								{index === true ? // Direct links
 									<Link href={slug}>
@@ -83,9 +84,9 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 			<div 
 				ref={ref}
 				className={cn(styles.sub, selected && showMenu && styles.show)} 
-				style={{width:`calc(100% - ${menuMargin}px)`}}
+				style={{width:`calc(100% - ${menuMargin}px)`, backgroundColor: `var(${color})`}}
 			>
-				<div className={styles.subPad}>
+				<div className={styles.subPad} style={{ backgroundColor: `var(${color})`}}>
 					<nav>
 						<ul>
 							{sub?.map(({label, slug}, idx)=>

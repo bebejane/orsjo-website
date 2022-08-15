@@ -4,20 +4,19 @@ import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
-import { useState } from 'react';
+import { Section } from '/components';
 
 export type DownloadsProps = { factoryVisit: FactoryVisitRecord }
 
 export default function FactoryVisit({ factoryVisit }: DownloadsProps) {
 
-	console.log(factoryVisit)
 	return (
-		<section className={styles.downloads}>
+		<Section className={styles.downloads} top={true}>
 			<h1>{factoryVisit.title}</h1>
 			<Markdown>
 				{factoryVisit.intro}
 			</Markdown>
-		</section>
+		</Section>
 	)
 }
 

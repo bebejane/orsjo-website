@@ -5,13 +5,14 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
+import { Section } from '/components'
 
 export type FaqsProps = { faqs: FaqRecord[]}
 
 export default function Faqs({ faqs }: FaqsProps) {
 
 	return (
-		<section className={styles.faq}>
+		<Section className={styles.faq} top={true}>
 			<h1>Faq</h1>
 			{faqs.map(({question, answer, category: {title}})=>
 				<>
@@ -19,7 +20,7 @@ export default function Faqs({ faqs }: FaqsProps) {
 					<Markdown>{answer}</Markdown>
 				</>
 			)}
-		</section>
+		</Section>
 	)
 }
 

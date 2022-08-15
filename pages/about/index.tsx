@@ -5,13 +5,14 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import type {  PageLayoutProps } from '/lib/context/layout';
+import { Section } from '/components'
 
 export type AboutProps = {  about: AboutRecord}
 
 export default function About({ about }: AboutProps) {
 	
 	return (
-		<section className={styles.about}>
+		<Section className={styles.about} top={true}>
 			<h1>{about.title}</h1>
 			<Markdown className={styles.intro}>
 				{about.intro}
@@ -38,7 +39,7 @@ export default function About({ about }: AboutProps) {
 					}
 				</>
 			)}
-		</section>
+		</Section>
 	)
 }
 

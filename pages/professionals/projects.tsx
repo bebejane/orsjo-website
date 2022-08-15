@@ -1,12 +1,12 @@
 import styles from './projects.module.scss'
 import { GetProjectStartDocument, GetAllProjectsDocument, GetAllProjectTypesDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
-import { sectionId } from '/lib/utils';
+
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
-import { Thumbnail } from '/components';
+import { Thumbnail, Section } from '/components';
 
 export type ProfessionalProps = { projects: ProjectRecord[], projectStart: ProjectStartRecord, projectTypes: ProjectTypeRecord[] }
 
@@ -15,31 +15,31 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 	//console.log(projectStart, projects)
 
 	return (
-		<div className={styles.projects}>
+		<>
+		<Section className={styles.projects} top={true}>
 			<h1>{projectStart.title}</h1>
-
 			<Markdown className={styles.intro}>
 				{projectStart.intro}
 			</Markdown>
-
-			{projectTypes.map(({ title, id }, idx) => {
-				return (
-					<section key={idx} {...sectionId(title)}>
-						<h1>{title}</h1>
-						{projects.filter(({ projectType }) => projectType.id === id).map(({ title, location, image, slug }, idx) =>
-							<Thumbnail
-								key={idx}
-								title={title}
-								subtitle={location}
-								image={image}
-								className={styles.project}
-								slug={`/professionals/projects/${slug}`}
-							/>
-						)}
-					</section>
-				)
-			})}
-		</div>
+		</Section>
+		{projectTypes.map(({ title, id }, idx) => {
+			return (
+				<Section name={title} className={styles.project} key={idx} >
+					<h1>{title}</h1>
+					{projects.filter(({ projectType }) => projectType.id === id).map(({ title, location, image, slug }, idx) =>
+						<Thumbnail
+							key={idx}
+							title={title}
+							subtitle={location}
+							image={image}
+							className={styles.project}
+							slug={`/professionals/projects/${slug}`}
+						/>
+					)}
+				</Section>
+			)
+		})}
+		</>
 	)
 }
 

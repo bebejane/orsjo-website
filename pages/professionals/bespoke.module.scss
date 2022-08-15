@@ -6,19 +6,19 @@
   .image{
     position: relative !important;
     min-height: 100vh;
-    widh: 100vw;
+    width: 100vw;
   }
-  .intro{
-    display: flex;
-    flex-direction: row;
-    h1{
-      color:$black;  
-    }
-    color:$white;
-  }
-  section{
-    .project{
-      max-width: 25%;
-    }
-  }
+}
+
+.intro{
+  display: flex;
+  flex-direction: row;
+  color:$white !important;
+  h1{
+    color:$black;  
+  }    
+}
+
+.projects{
+
 }
