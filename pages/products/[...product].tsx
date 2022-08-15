@@ -5,7 +5,7 @@ import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { List, ListItem } from '/components'
 import { Image } from 'react-datocms'
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Featured, ProductThumbnail } from '/components'
+import { FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery, ProductThumbnail, Section } from '/components'
 import { Gallery } from '/components'
 import { useState } from 'react'
 import { chunkArray, parseSpecifications } from '/lib/utils'
@@ -50,7 +50,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 
 	return (
 		<>
-			<section className={styles.product}>
+			<Section name="Introduction" className={styles.product}>
 				<div className={styles.image}>
 					<Image
 						data={product.image?.responsiveImage}
@@ -85,40 +85,17 @@ export default function Product({ product, related, relatedByCategory }: Product
 							return null
 					}
 				})}
-			</section>
-			<section className={styles.details}>
+			</Section>
+			<Section name="Specifications" className={styles.details}>
 				<List initial={0}>
 					<ListItem title={'Specifications'} className={styles.listItemContent}>
 						<ul className={styles.specifications}>
-								{specsCols.map(({label, value}, idx) => 
-									<li key={idx}>
-										<span>{label}</span>
-										<span>{value}</span>
-									</li>
-								)}
-								
-								{/*
-								<tr>
-									<td>Designer</td>
-									<td>{specs.designer}</td>
-									<td>Connection</td>
-									<td>{specs.connection}</td>
-								</tr>
-								<tr>
-									<td>Mounting</td>
-									<td>{specs.mounting}</td>
-									<td>Socket</td>
-									<td>{specs.socket}</td>
-								</tr>
-								<tr>
-									<td>Electrical Data</td>
-									<td>{specs.electricalData}</td>
-									<td>Lightsource</td>
-									<td>{specs.lightsource}</td>
-								</tr>
-								*/}
-							
-							
+							{specsCols.map(({label, value}, idx) => 
+								<li key={idx}>
+									<span>{label}</span>
+									<span>{value}</span>
+								</li>
+							)}
 						</ul>
 						<table className={styles.articles}>
 							<tbody>
@@ -200,11 +177,11 @@ export default function Product({ product, related, relatedByCategory }: Product
 						</ul>
 					</ListItem>
 				</List>
-			</section>
-			<section className={styles.related}>
-				<Featured data={{ headline: 'Related', items: related, id: 'related' }} />
-				<Featured data={{ headline: `Other ${product.categories[0].name} lamps`, items: relatedByCategory, id: 'relatedbycategory' }} />
-			</section>
+			</Section>
+			<Section name="Related" className={styles.related}>
+				<FeaturedGallery headline="Related" products={related} id="related" />
+				<FeaturedGallery headline={`Other ${product.categories[0].name} lamps`} products={relatedByCategory} id="relatedbycategory"/>
+			</Section>
 			{galleryIndex > -1 &&
 				<Gallery
 					images={images}

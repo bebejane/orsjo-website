@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { GetProductStartDocument, GetAllProductsDocument, GetProductCategoriesDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
-import { Featured, ProductThumbnail, Section } from '/components'
+import { FeaturedGallery, ProductThumbnail, Section } from '/components'
 import { sectionId } from '/lib/utils'
 import { useStore } from '/lib/store';
 import { useEffect, useState } from 'react';
@@ -55,7 +55,7 @@ export default function Products({ productStart: { featured }, products, product
 
 		setProductsByCategorySearch(searchCategories);
 
-	}, [searchProducts, productCategories])
+	}, [searchProducts, productCategories, products, productsByCategory])
 
 	const prodsByCat = productsByCategorySearch || productsByCategory
 	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0
@@ -74,7 +74,7 @@ export default function Products({ productStart: { featured }, products, product
 		<>
 			{!productsByCategorySearch && featured.slice(0).map((data, idx) =>
 				<Section className={styles.products} top={idx === 0 } key={idx}>
-					<Featured key={`featured-${idx}`} data={data} />
+					<FeaturedGallery key={`featured-${idx}`} headline={data.headline} id={data.id} products={data.items}/>
 				</Section>
 			)}
 
