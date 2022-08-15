@@ -34,7 +34,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
       <NextIntlProvider messages={pageProps.messages}>
         <LayoutProvider value={layout}>
           <Layout menu={pageProps.menu}>
-            <Component {...pageProps} />
+            <Component {...pageProps} key={router.asPath}/>
           </Layout>
         </LayoutProvider>
       </NextIntlProvider>
