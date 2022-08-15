@@ -5,25 +5,28 @@ import { sectionId } from '/lib/utils'
 
 export type SectionProps = { 
 	children: React.ReactNode, 
-	className: string, 
+	className?: string, 
 	type?: string, 
-	name: string, 
+	name?: string, 
 	top?: boolean,
 	bgColor?: string 
 }
 
 export default function Section({ children, className, type, name, top, bgColor }: SectionProps) {
 
-	const color = bgColor?.startsWith('--') ? `var(${bgColor})` : bgColor ? bgColor : undefined
+	const color = bgColor?.startsWith('--') ? `var(${bgColor})` : bgColor ? bgColor : undefined;
+
 	return (
 		<section 
-			className={cn(styles.section)}
+			className={styles.section}
 			style={{backgroundColor: color}}
 			data-type={type}
 			data-top={top}
 			{...sectionId(name)}
 		>
-			<div className={cn(styles.wrap, className)}>{children}</div>
+			<div className={cn(styles.wrap, className)}>
+				{children}
+			</div>
 		</section>
 	)
 }

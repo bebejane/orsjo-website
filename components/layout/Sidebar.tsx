@@ -16,7 +16,7 @@ export default function Sidebar({} : SidebarProps) {
 	const sections = useStore((state) => state.sections)
 	const isInverted = menu === 'inverted' || invertSidebar
 	const subHeader = router.asPath.substring(router.asPath.lastIndexOf('/')+1, router.asPath.indexOf('#') > -1 ? router.asPath.indexOf('#') : undefined) || 'Home'
-	const isProductsPage = router.asPath.toLowerCase() === '/products'
+	const isProductsPage = router.pathname.toLowerCase() === '/products'
 
 	if(!sections.length || !sidebar) return null
 	
