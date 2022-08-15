@@ -39,6 +39,7 @@ const sortProductsByCategory = (products : ProductRecord[]) => {
 const isServer = typeof window === 'undefined';
 
 const sectionId = (title : string, id?:string) => {
+  if(!title) return {}
   id = id || title.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase()
   return {
     id,

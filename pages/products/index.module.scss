@@ -16,10 +16,8 @@
     }
 	}
   .emptySearch{
-    color:$gray;
+    color: $gray;
   }
-  section:not(:first-child) {
-    padding-top: 1em;
-  }
-
+  padding-bottom: 2rem;
+  
 }

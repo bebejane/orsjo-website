@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { GetProductStartDocument, GetAllProductsDocument, GetProductCategoriesDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
-import { Featured, ProductThumbnail } from '/components'
+import { Featured, ProductThumbnail, Section } from '/components'
 import { sectionId } from '/lib/utils'
 import { useStore } from '/lib/store';
 import { useEffect, useState } from 'react';
@@ -62,40 +62,38 @@ export default function Products({ productStart: { featured }, products, product
 
 	if (isEmptySearch) {
 		return (
-			<div className={styles.products}>
+			<Section className={styles.products} top={true} key={idx}>
 				<div className={styles.emptySearch}>
 					No products matching "{searchProducts}"...
 				</div>
-			</div>
+			</Section>
 		)
 	}
 
 	return (
-		<div className="outerMargin">
-
-			<div className={styles.products}>
-
-				{!productsByCategorySearch && featured.slice(0).map((data, idx) =>
+		<>
+			{!productsByCategorySearch && featured.slice(0).map((data, idx) =>
+				<Section className={styles.products} top={idx === 0 } key={idx}>
 					<Featured key={`featured-${idx}`} data={data} />
-				)}
+				</Section>
+			)}
 
-				{Object.keys(prodsByCat).map(name => prodsByCat[name]).map((products, idx) => {
-					const category = products[0].categories?.[0].name
-					return (
-						<section key={idx} {...sectionId(category)}>
-							<h1>{category}</h1>
-							<ul >
-								{products.map((product, idx) =>
-									<li key={idx}>
-										<ProductThumbnail product={product} />
-									</li>
-								)}
-							</ul>
-						</section>
-					)
-				})}
-			</div>
-		</div>
+			{Object.keys(prodsByCat).map(name => prodsByCat[name]).map((products, idx) => {
+				const category = products[0].categories?.[0].name
+				return (
+					<Section className={styles.products} key={idx} name={category} top={productsByCategorySearch && idx === 0}>
+						<h1>{category}</h1>
+						<ul >
+							{products.map((product, idx) =>
+								<li key={idx}>
+									<ProductThumbnail product={product} />
+								</li>
+							)}
+						</ul>
+					</Section>
+				)
+			})}
+		</>
 	)
 }
 
