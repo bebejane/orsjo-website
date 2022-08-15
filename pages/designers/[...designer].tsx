@@ -11,8 +11,8 @@ import { useEffect } from 'react'
 
 export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[] };
 
-export default function Designer({designer, products} : DesignerProps){
-	
+export default function Designer({ designer, products }: DesignerProps) {
+
 	const { color } = useLayout()
 	const productRows = chunkArray(products, 3)
 
@@ -22,39 +22,37 @@ export default function Designer({designer, products} : DesignerProps){
 				<header>
 					<div className={styles.artist} key={designer.id}>
 						<h1>{designer.name}</h1>
-						<span className={styles.description}>
-							<span>{designer.description.split(' ')[0]}</span> {designer.description.split(' ').slice(1).join(' ')}
-						</span>
+						<p className={styles.description}>
+							{designer.description}
+						</p>
 					</div>
 					<figure>
-						{designer.image && 
+						{designer.image &&
 							<Image data={designer.image.responsiveImage} layout={'fill'} objectFit={'cover'} />
 						}
 					</figure>
-					<div className={styles.overlay} style={{backgroundColor: color}}></div>
+					<div className={styles.overlay} style={{ backgroundColor: color }}></div>
 				</header>
 			</Section>
-			<Section type="margin" className={styles.products}>
-				<h1>Products by<br/>{designer.name}</h1>	
-				<div className={styles.gallery}>	
-					{productRows.map((prods, ridx) => {
-						return(
-							<ul key={ridx}>
-								{prods.map((p, idx) => 
-									<li key={idx}>
-										<ProductThumbnail key={idx} product={p}/>
-									</li>
-								)}
-							</ul>
-						)
-					})}
+			<Section type="margin" className={styles.products} bgColor='--mid-gray'>
+				<h1>Products by<br />{designer.name}</h1>
+				<div className={styles.gallery}>
+					<ul>
+						{products.map((p, idx) => {
+							return (
+								<li key={idx}>
+									<ProductThumbnail key={idx} product={p} />
+								</li>
+							)
+						})}
+					</ul>
 				</div>
 			</Section>
 		</>
 	)
 }
 
-Designer.layout = {layout:'full', color:'--warm-gray'} as PageLayoutProps
+Designer.layout = { layout: 'full', color: '--warm-gray', menu: 'inverted' } as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { designers } = await apiQuery(GetAllDesignersDocument)
@@ -67,10 +65,10 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({ model: 'designer' }, async ({ props, context, revalidate }) => {
 
-	const { designer } = await apiQuery(GetDesignerDocument, {variables: { slug: context.params.designer[0] }})
-	const { products } = await apiQuery(GetAllProductsByDesignerDocument, {variables: { id: designer.id }})
+	const { designer } = await apiQuery(GetDesignerDocument, { variables: { slug: context.params.designer[0] } })
+	const { products } = await apiQuery(GetAllProductsByDesignerDocument, { variables: { id: designer.id } })
 
-	if (!designer) 
+	if (!designer)
 		return { notFound: true }
 
 	return {

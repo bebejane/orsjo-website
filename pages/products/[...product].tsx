@@ -178,7 +178,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 					</ListItem>
 				</List>
 			</Section>
-			<Section name="Related" className={styles.related} bgColor='--gray'>
+			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
 				<FeaturedGallery headline="Related" products={related} id="related" />
 				<FeaturedGallery headline={`Other ${product.categories[0].name} lamps`} products={relatedByCategory} id="relatedbycategory" />
 			</Section>
@@ -200,7 +200,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 	)
 }
 
-Product.layout = { layout: 'full', color:'--white', menu: 'normal' } as PageLayoutProps
+Product.layout = { layout: 'full', color: '--white', menu: 'normal' } as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { products } = await apiQuery(GetAllProductsDocument, {})
