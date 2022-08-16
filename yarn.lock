@@ -643,6 +643,11 @@
   resolved "https://registry.npmjs.org/@contentful/rich-text-types/-/rich-text-types-14.1.2.tgz"
   integrity sha512-XbgZ7op5uyYYszipgQg/bYobF4b+llXyTwS8hISRniQY9xKESz544eP2OGmRc4J3MHx29M7Vmx7TVA/IK65giQ==
 
+"@corex/deepmerge@^4.0.29":
+  version "4.0.29"
+  resolved "https://registry.yarnpkg.com/@corex/deepmerge/-/deepmerge-4.0.29.tgz#af9debf07d7f6b0d2a9d04a266abf2c1418ed2f6"
+  integrity sha512-q/yVUnqckA8Do+EvAfpy7RLdumnBy9ZsducMUtZTvpdbJC7azEf1hGtnYYxm0QfphYxjwggv6XtH64prvS1W+A==
+
 "@datocms/cma-client-browser@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@datocms/cma-client-browser/-/cma-client-browser-1.0.1.tgz#95e3b8257274263720883e6289c897bf20d3ec02"
@@ -6437,6 +6442,14 @@ next-seo@^4.28.1:
   version "4.29.0"
   resolved "https://registry.npmjs.org/next-seo/-/next-seo-4.29.0.tgz"
   integrity sha512-xmwzcz4uHaYJ8glbuhs6FSBQ7z3irmdPYdJJ5saWm72Uy3o+mPKGaPCXQetTCE6/xxVnpoDV4yFtFlEjUcljSg==
+
+next-sitemap@^3.1.18:
+  version "3.1.18"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-3.1.18.tgz#1eaecbf88697f6825f7f0b397fe508ecf9a93cb8"
+  integrity sha512-kt0I8Aeepd8NrsExUnexFwQy8ln8Bx4+cBLfcxflyLyVhlTwchDZ/XA/VzqUbhEAqPDfWkNiezPSP9U9+JblJA==
+  dependencies:
+    "@corex/deepmerge" "^4.0.29"
+    minimist "^1.2.6"
 
 next-tick@1, next-tick@^1.1.0:
   version "1.1.0"
