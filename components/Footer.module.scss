@@ -71,10 +71,15 @@
         list-style: none;
         flex-direction: column;
         a{
-          color: $gray;
+          color: $white-menu;
           &:first-child{
             color:$white;
           }
+
+          &:hover{
+            color: $white;
+          }
+
           li{
             white-space: pre;
             max-width: 170px;
