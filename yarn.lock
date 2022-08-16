@@ -3242,6 +3242,18 @@ datocms-listen@^0.1.9:
   resolved "https://registry.npmjs.org/datocms-listen/-/datocms-listen-0.1.9.tgz"
   integrity sha512-DfHnl89eMw0KiHpAGnzcZmzOwitEIQgJgPdt4NVUwo82Smh7MhZzAbBTkbsG2qinB545xSX5XLPxYEs2gQ5m4Q==
 
+datocms-search@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/datocms-search/-/datocms-search-0.1.10.tgz#3ade4590a2498e0999aa97c7c40c99faf5a15959"
+  integrity sha512-pBoN3k3IZCjMR44Sx+jwn0PuCKZIwDYeS0Vmu7WKoJJxaYOjkqEZ8fetS2V0WxpvlTS9fJFKmWMCbPnx2VlYoA==
+  dependencies:
+    inferno "^3.9.0"
+    inferno-component "^3.9.0"
+    inferno-create-element "^3.9.0"
+    nanoajax "^0.4.3"
+    object-assign "^4.1.1"
+    promise-polyfill "^6.0.2"
+
 datocms-structured-text-generic-html-renderer@^2.0.1, datocms-structured-text-generic-html-renderer@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npmjs.org/datocms-structured-text-generic-html-renderer/-/datocms-structured-text-generic-html-renderer-2.0.4.tgz"
@@ -4893,6 +4905,43 @@ indent-string@^4.0.0:
   resolved "https://registry.npmjs.org/indent-string/-/indent-string-4.0.0.tgz"
   integrity sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==
 
+inferno-component@3.10.1, inferno-component@^3.9.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/inferno-component/-/inferno-component-3.10.1.tgz#2242409dab4c1f165f3af7c89e4945bcb359b1b3"
+  integrity sha512-8tXc4XXx7U2P22NLd21g4TLR+jJ0X+KyeznodlGjWYzQ6A6uy5AXsDyfStZl8GxeNzq3otTrrSV5n5yPcVZI2Q==
+  dependencies:
+    inferno "3.10.1"
+    inferno-shared "3.10.1"
+    inferno-vnode-flags "3.10.1"
+
+inferno-create-element@^3.9.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/inferno-create-element/-/inferno-create-element-3.10.1.tgz#acb921e6c0cc9b0f3d90516062375247c0273df9"
+  integrity sha512-1Sn6d+FknSIZSEyEeRqwT6E2DMZUhRBBZCW2c4IHYXECozLXMwR7IgIHkVDQwWBoyJABRFeZE2UbfQ/nyJDuqw==
+  dependencies:
+    inferno "3.10.1"
+    inferno-component "3.10.1"
+    inferno-shared "3.10.1"
+    inferno-vnode-flags "3.10.1"
+
+inferno-shared@3.10.1:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/inferno-shared/-/inferno-shared-3.10.1.tgz#6ad59d64ca03c0fdcc8495d4864410cafee81332"
+  integrity sha512-mzh4qmnQb23W5sdfsR6W93vSqNll7etLSMG4JhlzYXYn1e4zVcAqJRbeVISI3mTkU6nS4gJBHueZtSb1ORuuBw==
+
+inferno-vnode-flags@3.10.1:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/inferno-vnode-flags/-/inferno-vnode-flags-3.10.1.tgz#88a4528a3b4df0f33a3ace68dc45f05b651c0e41"
+  integrity sha512-jqc6yiFy9ZcpDW+6I6cWQUrSXHjpfm2Fut5qLuuXxLwKdfLQUh68sWBHd+y9J+7gIm+0V1QZn4x5Jx4G3m1hPA==
+
+inferno@3.10.1, inferno@^3.9.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/inferno/-/inferno-3.10.1.tgz#5d292e6b1e848ef7f09e3e1b6b2029b703b2baf2"
+  integrity sha512-Sm+Wi9TI9REIHsuUlWyCNVZMlk7vMRs2QFjMEfKPsj7p8be8wB+sl8T8jBU2T+2S3oKzbJdKmKNTxWeMjHdypA==
+  dependencies:
+    inferno-shared "3.10.1"
+    inferno-vnode-flags "3.10.1"
+
 inflected@^2.0.3, inflected@^2.0.4:
   version "2.1.0"
   resolved "https://registry.npmjs.org/inflected/-/inflected-2.1.0.tgz"
@@ -6352,6 +6401,11 @@ mute-stream@0.0.8:
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.8.tgz"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
+nanoajax@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/nanoajax/-/nanoajax-0.4.3.tgz#af7abec108d724fb97f6f75f11c2a63cf315a298"
+  integrity sha512-UJAKXmvQjrsZmqvGOidE3sEJ8Qsf8WDMtzlt4aXq5fFc9Ek7VrEeidH+DniHXMtoHhY+vzV6MNa2rbFX403Fjg==
+
 nanoid@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
@@ -6988,6 +7042,11 @@ promise-limit@^2.7.0:
   version "2.7.0"
   resolved "https://registry.npmjs.org/promise-limit/-/promise-limit-2.7.0.tgz"
   integrity sha512-7nJ6v5lnJsXwGprnGXga4wx6d1POjvi5Qmf1ivTRxTjH4Z/9Czja/UCMLVmB9N93GeWOU93XaFaEt6jbuoagNw==
+
+promise-polyfill@^6.0.2:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-6.1.0.tgz#dfa96943ea9c121fca4de9b5868cb39d3472e057"
+  integrity sha512-g0LWaH0gFsxovsU7R5LrrhHhWAWiHRnh1GPrhXnPgYsDkIqjRYUYSZEsej/wtleDrz5xVSIDbeKfidztp2XHFQ==
 
 promise@^7.1.1:
   version "7.3.1"

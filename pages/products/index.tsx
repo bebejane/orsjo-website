@@ -57,14 +57,11 @@ export default function Products({ productStart: { featured }, products, product
 		window.scrollTo(0, 0)
 
 	}, [searchProducts, productCategories, products, productsByCategory])
-<<<<<<< HEAD
-=======
 
 	useEffect(()=>{
 		console.log('hej')
 		window.scrollTo(0,0)
 	}, [searchProducts])
->>>>>>> 1bbc34b58a03a54c95d4e84785f4f10d66bde6fc
 
 	const prodsByCat = productsByCategorySearch || productsByCategory
 	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0
