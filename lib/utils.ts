@@ -70,7 +70,7 @@ const parseSpecifications = (product : ProductRecord, locale: Locale, t:any) => 
     description:  product.presentation,
     connection:  product.connection?.name,
     mounting:  product.mounting?.name,
-    lightsource:  lightsources.map(({ amount, included, name }) => `${amount} x ${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
+    lightsource:  lightsources.map(({ amount, included, name }) => `${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
     socket:  product.sockets.map((el) => el.name).join(', '),
     weight:  product.models.length && product.models?.[0].variants?.[0]?.weight ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined,
     volume:  product.models.length && product.models?.[0].variants?.[0]?.volume ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined,
@@ -80,42 +80,6 @@ const parseSpecifications = (product : ProductRecord, locale: Locale, t:any) => 
 
   return specs
 }
-/*
-const parseProductModels = (product: ProductRecord) => {
-
-  //const t = useTranslations('Catalogue')
-  const drawings = product.models.map((m) => ({ drawing: m.drawing, name: m.name })).filter(d => d.drawing);
-  const specs = {}
-
-  product.models.forEach((m, idxm) => {
-    const lightsources = m.lightsources.filter(({ included }) => !included)
-    return m.variants.map((v, idx) => {
-      
-          <tr key={`price-${idx}-${idxm}`}>
-            <td>{v.articleNo}</td>
-            <td>{[v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')}</td>
-            <td>{withLightsource ? priceIncLight(v.price, lightsources, locale) : convertPrice(v.price, locale)}</td>
-          </tr>
-          {m.variants.length === (idx + 1) && (lightsources.filter(({ optional, lightsource }) => (!withLightsource || !optional)).map(({ amount, lightsource }, idxl) =>
-            <tr key={`light-${idx}-${idxl}-${idxm}`}>
-              <td>{lightsource?.articleNo || '---'}</td>
-              <td>{lightsource?.name} ({t('needs')} {amount})</td>
-              <td>{withLightsource ? "Inkluderad" : convertPrice(lightsource?.price, locale)}</td>
-            </tr>
-          ))}
-          {m.variants.length === (idx + 1) && (m.accessories.map(({ price, articleNo, accessory }, idxv) =>
-            <tr key={`acc-${idx}-${idxv}-${idxm}`}>
-              <td>{articleNo || '---'}</td>
-              <td>{accessory?.name}</td>
-              <td>{convertPrice(price, locale)}</td>
-            </tr>
-          ))}
-          {idx + 1 === m.variants.length && <tr key={`space-${idx}-${idxm}`} className={styles.space}><td></td></tr>}
-        </>
-      )
-    })
-}
-*/
 
 export {
   sleep,

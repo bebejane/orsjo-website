@@ -14,10 +14,8 @@ export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
 export default function Project({ project, related }: ProjectProps) {
 	
 	const { color } = useLayout()
-	const handleClick = (id) => {
-		console.log(id);	
-	}
-	console.log(related)
+	const handleClick = (id) => console.log(id);	
+	
 	return (
 		<>
 			<Section className={styles.intro} name="Introduction" top={true}>
@@ -42,7 +40,11 @@ export default function Project({ project, related }: ProjectProps) {
 				}
 			})}
 			<Section className={styles.related} name={`Other ${project.projectType.title}s`} type="margin" bgColor={'--mid-gray'}>
-				<FeaturedGallery headline={`Other ${project.projectType.title}s`} projects={related}/>
+				<FeaturedGallery 
+					headline={`Other ${project.projectType.title}s`} 
+					projects={related} 
+					id="relatedProjects"
+				/>
 			</Section>
 		</>
 	)
@@ -62,9 +64,9 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({ queries:[GetAllRelatedProjectsDocument], model: 'product' }, async ({ props, context, revalidate }) => {
 
+	const { project } : { project: ProjectRecord } = await apiQuery(GetProjectDocument, { variables: { slug: context.params.project[1] } })
 	const { projects : related } : { projects: ProjectRecord[] } = props;
-	const { project } : { project: ProjectRecord } = await apiQuery(GetProjectDocument, { variables: { slug: context.params.project[0] } })
-
+	
 	if (!project)
 		return { notFound: true }
 

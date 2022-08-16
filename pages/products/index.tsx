@@ -52,11 +52,11 @@ export default function Products({ productStart: { featured }, products, product
 			if (res.length)
 				searchCategories[k] = res
 		})
-
 		setProductsByCategorySearch(searchCategories);
-		window.scrollTo(0,0)
-
+		
 	}, [searchProducts, productCategories, products, productsByCategory])
+	
+	useEffect(()=>{ window.scrollTo(0,0) }, [searchProducts])
 
 	const prodsByCat = productsByCategorySearch || productsByCategory
 	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0
