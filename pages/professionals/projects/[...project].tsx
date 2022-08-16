@@ -64,7 +64,7 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({ queries:[GetAllRelatedProjectsDocument], model: 'product' }, async ({ props, context, revalidate }) => {
 
-	const { project } : { project: ProjectRecord } = await apiQuery(GetProjectDocument, { variables: { slug: context.params.project[1] } })
+	const { project } : { project: ProjectRecord } = await apiQuery(GetProjectDocument, { variables: { slug: context.params.project[0] } })
 	const { projects : related } : { projects: ProjectRecord[] } = props;
 	
 	if (!project)
