@@ -90,7 +90,7 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark', className 
 	
 	return (
     <Thumbnail  
-      slug={`/project/${project.slug}`} 
+      slug={`/projects/${project.slug}`} 
       image={project.image}
       imageHover={project.secondaryImage} 
       title={project.title}
