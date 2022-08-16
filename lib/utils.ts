@@ -83,7 +83,7 @@ const parseSpecifications = (product : ProductRecord, locale: Locale, t:any) => 
 
 const siteSearch = async (q:string, opt: {offset?:number, limit?:number} = {}) => {
 
-  let url = `https://site-api.datocms.com/search-results?q=${encodeURIComponent(query)}'&build_trigger_id=${18902}&locale=en`
+  let url = `https://site-api.datocms.com/search-results?q=${encodeURIComponent(q)}'&build_trigger_id=${18902}&locale=en`
   
   if (opt.offset)
     url += '&offset=' + encodeURIComponent(opt.offset);

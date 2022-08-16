@@ -59,7 +59,7 @@ const siteSubtitle = ({product, designer, project} : { product: ProductRecord, d
   
   let subtitle = product?.title || designer?.name || project?.title || pathTotitle[router.asPath]  
   //console.log(subtitle)
-  return ` - ${subtitle}`
+  return !subtitle ? undefined : ` - ${subtitle}`
 }
 
 export default Application
