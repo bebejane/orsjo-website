@@ -58,11 +58,12 @@ export default function Thumbnail({ image, imageHover, slug, inverted, title, su
 
 export type ProductThumbnailProps = { 
   product: ProductRecord, 
-  inverted?:boolean, 
+  inverted?:boolean,
+  className?: string,
   theme: 'dark' | 'light'
 }
 
-export function ProductThumbnail({ product, inverted, theme = 'dark' }: ProductThumbnailProps) {
+export function ProductThumbnail({ product, inverted, theme = 'dark', className }: ProductThumbnailProps) {
 	
 	return (
     <Thumbnail  
@@ -71,6 +72,7 @@ export function ProductThumbnail({ product, inverted, theme = 'dark' }: ProductT
       imageHover={product.environmentImage} 
       title={product.title}
       subtitle={`by ${product.designer?.name}`}
+      className={className}
       inverted={inverted}
       theme={theme}
       type="product"
@@ -81,9 +83,10 @@ export function ProductThumbnail({ product, inverted, theme = 'dark' }: ProductT
 export type ProjectThumbnailProps = { 
   project: ProjectRecord, 
   inverted?: boolean, 
+  className?: string,
   theme: 'dark' | 'light'
 }
-export function ProjectThumbnail({ project, inverted, theme = 'dark' }: ProjectThumbnailProps) {
+export function ProjectThumbnail({ project, inverted, theme = 'dark', className }: ProjectThumbnailProps) {
 	
 	return (
     <Thumbnail  
@@ -93,6 +96,7 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark' }: ProjectT
       title={project.title}
       subtitle={project.location}
       inverted={inverted}
+      className={className}
       theme={theme}
       type="project"
     />
