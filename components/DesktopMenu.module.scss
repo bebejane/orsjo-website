@@ -47,8 +47,18 @@
       user-select: none;
       padding-right: 4em;
       white-space: pre;
+      color: $black-menu;
+
       &.selected{
-        font-weight: bold;
+        color: $black;
+      }
+      a:visited {
+        color: $black-menu;
+      }
+
+      &:hover {
+        color: $black;
+
       }
       .arrow {
         display: inline-block;
@@ -84,6 +94,19 @@
 
   &.inverted {
     *>li, *>a {
+      color: $white-menu;
+    }
+
+    li:hover, a:hover {
+      color: $white !important;
+    }
+
+    a:visited {
+      color: $white-menu;
+
+    }
+
+    .selected {
       color: $white;
     }
 
@@ -118,6 +141,7 @@
   opacity: 0;
   pointer-events: none;
   box-shadow: -1px 0px 10px rgba(gray, 0.1);
+  color: $black-menu;
 
 
   @include mq($until: tablet) {
@@ -136,8 +160,22 @@
     background-color: $white;
     &.inverted{
       * {
-        color:$white !important;
+        color:$white-menu !important;
+
+        &.active{
+          color: $white !important;
+        }
+
+        &:hover {
+          color: $white !important;
+        }
+
       }
+
+      nav ul {
+        border-top: 1px solid $light-gray;
+      }
+
     }
     nav {
       ul {
