@@ -4,17 +4,24 @@ import cn from 'classnames'
 import { sectionId } from '/lib/utils'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
-import { ProductThumbnail, ArrowButton } from '/components'
+import { Thumbnail, ArrowButton } from '/components'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
-export type FeaturedGalleryProps = { products: ProductRecord[], headline?: string, id: string, bgColor?: string }
+export type FeaturedGalleryProps = { products?: ProductRecord[], projects: ProjectRecord[], headline?: string, id: string, bgColor?: string }
 
-export default function FeaturedGallery({ headline, products, id, bgColor } : FeaturedGalleryProps ) {
+export default function FeaturedGallery({ headline, products, projects, id, bgColor } : FeaturedGalleryProps ) {
 	
 	const {  menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
+	const items = (products || projects).map((el) => ({
+		image: el.image,
+		imageHover: el.environmentImage || el.secodaryImage, 
+		slug: `${products ? 'products' : 'projects'}/${el.slug}`,
+		title: el.title,
+		subtitle: el.designer?.name || el.location
+	}))
 	
 	const handleNext = () => {
 		if(swiperRef.current)
@@ -22,7 +29,7 @@ export default function FeaturedGallery({ headline, products, id, bgColor } : Fe
 	}
 
 	const slidesPerView = 4;
-	const isShortSlide = products.length <= slidesPerView
+	const isShortSlide = items.length <= slidesPerView
 	
 	return (
 		<section className={cn(styles.featuredGallery, styles[menu])} {...sectionId(headline)}>
@@ -40,15 +47,15 @@ export default function FeaturedGallery({ headline, products, id, bgColor } : Fe
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
 					loop={false}
-					slidesPerView={isShortSlide ? products.length : slidesPerView}
+					slidesPerView={isShortSlide ? items.length : slidesPerView}
 					spaceBetween={20}
 					initialSlide={index}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => swiperRef.current = swiper}
 				>
-					{products.map((product, idx) =>
+					{items.map((item, idx) =>
 						<SwiperSlide key={`${id}-idx`}>
-							<ProductThumbnail key={idx} product={product} />
+							<Thumbnail key={idx} {...item}/>
 						</SwiperSlide>
 					)}
 				</SwiperReact>

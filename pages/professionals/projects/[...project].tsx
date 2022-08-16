@@ -1,23 +1,23 @@
 import styles from './[...project].module.scss'
 import { apiQuery } from '/lib/dato/api';
-import { GetProjectDocument, GetAllProjectsDocument } from '/graphql';
+import { GetProjectDocument, GetAllProjectsDocument, GetAllRelatedProjectsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 import { useLayout } from '/lib/context/layout';
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section } from '/components';
+import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section, FeaturedGallery } from '/components';
 
-export type ProjectProps = { project: ProjectRecord }
+export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
 
-export default function Project({ project }: ProjectProps) {
+export default function Project({ project, related }: ProjectProps) {
 	
 	const { color } = useLayout()
 	const handleClick = (id) => {
 		console.log(id);	
 	}
-
+	console.log(related)
 	return (
 		<>
 			<Section className={styles.intro} name="Introduction" top={true}>
@@ -41,6 +41,9 @@ export default function Project({ project }: ProjectProps) {
 						return null
 				}
 			})}
+			<Section className={styles.related} name={`Other ${project.projectType.title}s`} type="margin" bgColor={'--mid-gray'}>
+				<FeaturedGallery headline={`Other ${project.projectType.title}s`} projects={related}/>
+			</Section>
 		</>
 	)
 }
@@ -57,8 +60,9 @@ export async function getStaticPaths(context) {
 	}
 }
 
-export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
+export const getStaticProps = withGlobalProps({ queries:[GetAllRelatedProjectsDocument], model: 'product' }, async ({ props, context, revalidate }) => {
 
+	const { projects : related } : { projects: ProjectRecord[] } = props;
 	const { project } : { project: ProjectRecord } = await apiQuery(GetProjectDocument, { variables: { slug: context.params.project[0] } })
 
 	if (!project)
@@ -67,7 +71,8 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 	return {
 		props: {
 			...props,
-			project
+			project,
+			related : related.filter(p => p.id !== project.id)
 		},
 		revalidate
 	};

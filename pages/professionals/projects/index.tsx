@@ -25,12 +25,13 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 				return (
 					<Section name={title} className={styles.projects} key={idx} >
 						<h1>{title}</h1>
-						{projects.filter(({ projectType }) => projectType.id === id).map(({ title, location, image, slug }, idx) =>
+						{projects.filter(({ projectType }) => projectType.id === id).map(({ title, location, image, secondaryImage, slug }, idx) =>
 							<Thumbnail
 								key={idx}
 								title={title}
 								subtitle={location}
 								image={image}
+								imageHover={secondaryImage}
 								className={styles.project}
 								slug={`/professionals/projects/${slug}`}
 							/>
