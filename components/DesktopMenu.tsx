@@ -6,6 +6,7 @@ import { useState, useRef, useEffect, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
 import { useOutsideClick, useWindowSize } from 'rooks'
+import { siteSearch } from '/lib/utils'
 import type { Menu } from '/lib/menu'
 
 export type DesktopMenuProps = {items : Menu}
@@ -18,6 +19,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState(0)
 	const [hovering, setHovering] = useState(undefined)
+	const [showSearch, setShowSearch] = useState(false)
 	const { layout, menu, color } = useLayout()
 	const { innerWidth } = useWindowSize()
 	
@@ -78,6 +80,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 								}
 							</li>
 						)})}
+						<li onClick={()=>setShowSearch(true)}>🔍</li>
 				</ul>
 			</nav>
 			
@@ -102,9 +105,49 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 					</nav>
 				</div>
 			</div>
+			<Search show={showSearch} setShowSearch={setShowSearch}/>
 		</>
 	)
 }
 
+export type SearchResult = {
+	q: string,
+	data : [{
+		attributes:{
+			title:string,
+			url: string
+		}
+	}]
+}
+
+const Search = ({show, setShowSearch}) => {
+	
+	const [query, setQuery] = useState('')
+	const [results, setResults] = useState<SearchResult>()
+
+	useEffect(()=>{
+		if(!query) return setResults({})
+		siteSearch(query).then((res) => setResults(res as SearchResult))
+	}, [query, setResults])	
+
+	if(!show) return null
+
+	return (
+		<div className={styles.search}>
+			<div className={styles.query}>
+				<input autoFocus={true} placeholder="Search..." type="text" value={query} onChange={(e) => setQuery(e.target.value)}/>
+				<button className={styles.close} onClick={()=>setShowSearch(false)}>×</button>
+			</div>
+			<div className={styles.results}>
+			{results?.data?.map(({attributes}, idx) => 
+				<div key={idx}>
+					Title: {attributes.title}<br/>
+					<Link href={process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', '') : attributes.url}><a>{process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', 'http://localhost:3000') : attributes.url}</a></Link>
+				</div>
+			)}
+			</div>
+		</div>
+	)
+}
 
 

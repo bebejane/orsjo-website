@@ -81,6 +81,25 @@ const parseSpecifications = (product : ProductRecord, locale: Locale, t:any) => 
   return specs
 }
 
+const siteSearch = async (query, opt = {}) => {
+
+  let url = `https://site-api.datocms.com/search-results?q=${encodeURIComponent(query)}'&build_trigger_id=${18902}&locale=en`
+  
+  if (opt.offset)
+    url += '&offset=' + encodeURIComponent(opt.offset);
+  
+  if (opt.limit)
+    url += '&limit=' + encodeURIComponent(opt.limit);
+
+  const res = await fetch(url, {
+    headers: {
+      'Authorization': 'API-Token ' + process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN,
+      'Accept': 'application/json',
+    },
+  })
+
+  return await res.json()
+}
 export {
   sleep,
   isServer,
@@ -90,5 +109,6 @@ export {
   sortProductsByCategory,
   sectionId,
   chunkArray,
-  parseSpecifications
+  parseSpecifications,
+  siteSearch
 }
