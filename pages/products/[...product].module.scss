@@ -70,41 +70,73 @@
 				break-inside: avoid-column;
 				span:nth-child(1){
 					color: $gray;
-					width: spanGridWithGutter(6);
+					width: spanNestedGrid(12, 4);
 				}
 				span:nth-child(2){
-					width: spanGrid(10);	
+					width: spanNestedGrid(12, 8);	
 				}
 			}
 		}
-		table{
+		.articles{
 			width: 100%;
 			border-top: 1px solid $mid-gray;
-
-			tr{
-				
-				td, th {
-					font-weight: normal;
-					padding-bottom: .5em;
-
+			column-count: 2;
+			header{
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				span{
 					&:nth-child(1){
-						width: spanGrid(3);
+						flex: 0 0 spanNestedGrid(12,2);
 					}
 					&:nth-child(2){
-						width: spanGrid(5);
+						flex: 0 0 spanNestedGrid(12,4);
 					}
 					&:nth-child(3){
-						width: spanGrid(3);
+						flex: 0 0 spanNestedGrid(12,2);
 					}
 					&:nth-child(4){
-						width: spanGrid(5);
+						flex: 0 0 spanNestedGrid(12,4);
 					}
-				}
-				th{
 					color: $gray;
+					
+				}
+			}
+			ul{
+				list-style: none;
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				&.multi{
+					flex-direction: column;
 				}
 				&.subheader{
 					color: $gray;
+				}
+				li {
+					display: flex;
+					flex-direction: row;
+					font-weight: normal;
+					padding-bottom: .5em;
+					flex: 0 0 100%;
+					break-inside: avoid-column;
+					span{
+						&:nth-child(1){
+							flex: 0 0 spanNestedGrid(12,2);
+						}
+						&:nth-child(2){
+							flex: 0 0 spanNestedGrid(12,4);
+						}
+						&:nth-child(3){
+							flex: 0 0 spanNestedGrid(12,2);
+						}
+						&:nth-child(4){
+							flex: 0 0 spanNestedGrid(12,4);
+						}
+						&.header{
+							color: $gray;
+						}
+					}
 				}
 			}
 

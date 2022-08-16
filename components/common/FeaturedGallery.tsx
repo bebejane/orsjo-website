@@ -8,16 +8,17 @@ import { Thumbnail, ArrowButton } from '/components'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
-export type FeaturedGalleryProps = { products?: ProductRecord[], projects: ProjectRecord[], headline?: string, id: string, bgColor?: string }
+export type FeaturedGalleryProps = { products?: ProductRecord[], projects?: ProjectRecord[], headline?: string, id: string, bgColor?: string }
 
 export default function FeaturedGallery({ headline, products, projects, id, bgColor } : FeaturedGalleryProps ) {
 	
 	const {  menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
+	
 	const items = (products || projects).map((el) => ({
 		image: el.image,
-		imageHover: el.environmentImage || el.secodaryImage, 
+		imageHover: el.environmentImage || el.secondaryImage, 
 		slug: `${products ? 'products' : 'projects'}/${el.slug}`,
 		title: el.title,
 		subtitle: el.designer?.name || el.location
@@ -52,9 +53,11 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 					initialSlide={index}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => swiperRef.current = swiper}
+					
+
 				>
 					{items.map((item, idx) =>
-						<SwiperSlide key={`${id}-idx`}>
+						<SwiperSlide key={`${id}-idx`} className={styles.slide}>
 							<Thumbnail key={idx} {...item}/>
 						</SwiperSlide>
 					)}

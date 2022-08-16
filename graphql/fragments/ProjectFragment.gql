@@ -2,6 +2,9 @@
 
 fragment ProjectFragment on ProjectRecord{
   id
+  location
+  title
+  slug
   projectType {
     id
     title
@@ -9,9 +12,6 @@ fragment ProjectFragment on ProjectRecord{
   image {
     ...ImageFragment
   }
-  location
-  title
-  slug
   secondaryImage {
     ...ImageFragment
   }

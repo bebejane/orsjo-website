@@ -108,61 +108,77 @@ export default function Product({ product, related, relatedByCategory }: Product
 								</li>
 							)}
 						</ul>
-						<table className={styles.articles}>
-							<tbody>
-								<tr>
-									<th>Art no</th>
-									<th>Model</th>
-									<th>Art no</th>
-									<th>Model</th>
-								</tr>
+						<div className={styles.articles}>
+							<header>
+								<span className={styles.header}>Art no</span>
+								<span className={styles.header}>Model</span>
+								<span className={styles.header}>Art no</span>
+								<span className={styles.header}>Model</span>
+							</header>
 
-								{product.models.map(({ name, variants, lightsources, accessories }, idx) => {
+							{product.models.map(({ name, variants, lightsources, accessories }, idx) => {
 
-									const art = variants.map(v => ({
-										articleNo: v.articleNo,
-										label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
-									}))
+								const art = variants.map(v => ({
+									articleNo: v.articleNo,
+									label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
+								}))
 
-									const access = accessories.map(a => ({
-										articleNo: a.articleNo,
-										label: a.accessory.name
-									}))
+								const access = accessories.map(a => ({
+									articleNo: a.articleNo,
+									label: a.accessory.name
+								}))
 
-									const light = lightsources.map(l => ({
-										articleNo: l.lightsource.articleNo,
-										label: l.lightsource.name,
-										included: l.included,
-										optional: l.optional,
-										amount: l.amount
-									}))
+								const light = lightsources.map(l => ({
+									articleNo: l.lightsource.articleNo,
+									label: l.lightsource.name,
+									included: l.included,
+									optional: l.optional,
+									amount: l.amount
+								}))
 
-									const cols = art.concat(access).concat(light)
-									const rows = chunkArray(cols, cols.length > 2 ? cols.length / 2 : 2)
-
-									return (
+								const cols = art.concat(access).concat(light)
+								const rows = chunkArray(cols, cols.length > 2 ? cols.length / 2 : 2)
+								
+								if(product.models.length === 1){
+									return(
 										<>
-											<tr className={styles.subheader}>
-												<td></td>
-												<td>{name.name}</td>
-											</tr>
 											{rows.map((row, idx) =>
-												<>
-													<tr key={idx}>
-														<td>{row[0].articleNo}</td>
-														<td>{row[0].label}</td>
-													</tr>
-													<tr key={idx}>
-														<td>{row[1]?.articleNo}</td>
-														<td>{row[1]?.label}</td>
-													</tr>
-												</>
+												<ul key={idx}>
+													<li>
+														<span>{row[0].articleNo}</span>
+														<span>{row[0].label}</span>
+														<span>{row[1].articleNo}</span>
+														<span>{row[1].label}</span>
+													</li>
+												</ul>
 											)}
 										</>
 									)
-								})}
-							</tbody>
-						</table>
+								}
+								
+								return (
+									<>
+										<ul className={styles.subheader}>
+											<li><span></span><span>{name?.name}</span></li>
+										</ul>
+										<ul className={styles.multi}>
+											{rows.map((row, idx) =>
+												<>
+													<li>
+														<span>{row[0].articleNo}</span>
+														<span>{row[0].label}</span>		
+													</li>											
+													<li>
+														<span>{row[1]?.articleNo}</span>
+														<span>{row[1]?.label}</span>
+													</li>
+												</>
+											)}
+										</ul>
+									</>
+								)
+							})}
+						</div>
 						<table className={styles.dimensions}>
 							<tbody>
 								<tr>
@@ -203,8 +219,16 @@ export default function Product({ product, related, relatedByCategory }: Product
 				</List>
 			</Section>
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
-				<FeaturedGallery headline="Related" products={related} id="related" />
-				<FeaturedGallery headline={`Other ${product.categories[0].name} lamps`} products={relatedByCategory} id="relatedbycategory" />
+				<FeaturedGallery 
+					headline="Related" 
+					products={related} 
+					id="related"
+				/>
+				<FeaturedGallery 
+					headline={`Other ${product.categories[0].name} lamps`} 
+					products={relatedByCategory} 
+					id="relatedbycategory" 
+				/>
 			</Section>
 			{galleryIndex > -1 &&
 				<Gallery

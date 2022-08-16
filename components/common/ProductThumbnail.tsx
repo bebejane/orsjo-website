@@ -10,7 +10,7 @@ export default function ProductThumbnail({ product, inverted }: ProductThumbnail
       image={product.image} 
       imageHover={product.environmentImage} 
       title={product.title}
-      subtitle={product.designer.name}
+      subtitle={product.designer?.name}
       inverted={inverted}
     />
 	)

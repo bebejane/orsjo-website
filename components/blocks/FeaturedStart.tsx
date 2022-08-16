@@ -4,14 +4,14 @@ import cn from 'classnames'
 import { sectionId } from '/lib/utils'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
-import { ProductThumbnail, ArrowButton } from '/components'
+import { Thumbnail, ArrowButton } from '/components'
 import Link from 'next/link'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
 export type ImageGalleryProps = { data: FeaturedRecord }
 
-export default function FeaturedStart({ data: { headline, items: products, id } }: ImageGalleryProps) {
+export default function FeaturedStart({ data: { headline, items: productsOrProjects, id } }: ImageGalleryProps) {
 
 	const { layout, menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
@@ -22,9 +22,17 @@ export default function FeaturedStart({ data: { headline, items: products, id } 
 			swiperRef.current.isEnd ? swiperRef.current.slideTo(0) : swiperRef.current.slideNext()
 	}
 
-	const slidesPerView = 4;
-	const isShortSlide = products.length <= slidesPerView
+	const items = productsOrProjects.map((el) => ({
+		image: el.image,
+		imageHover: el.environmentImage || el.secondaryImage, 
+		slug: `${el.__typename === 'ProductRecord' ? 'products' : 'projects'}/${el.slug}`,
+		title: el.title,
+		subtitle: el.designer?.name || el.location
+	}))
 
+	const slidesPerView = 4;
+	const isShortSlide = items.length <= slidesPerView
+	
 	return (
 		<section className={cn(styles.featuredStart, styles[menu])} {...sectionId(headline)}>
 			<div className={styles.wrapper}>
@@ -43,9 +51,13 @@ export default function FeaturedStart({ data: { headline, items: products, id } 
 						onSlideChange={({ realIndex }) => setIndex(realIndex)}
 						onSwiper={(swiper) => swiperRef.current = swiper}
 					>
-						{products.map((product, idx) =>
+						{items.map((item, idx) =>
 							<SwiperSlide key={`${id}-idx`}>
-								<ProductThumbnail key={idx} product={product} inverted={true} />
+								<Thumbnail 
+									key={idx} 
+									{...item}
+									inverted={true} 
+								/>
 							</SwiperSlide>
 						)}
 					</SwiperReact>
