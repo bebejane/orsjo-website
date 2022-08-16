@@ -10,7 +10,6 @@ import { Gallery } from '/components'
 import { useState } from 'react'
 import { chunkArray, parseSpecifications } from '/lib/utils'
 
-
 const allProductImages = (product: ProductRecord) => {
 	const images = [product.image]
 	
@@ -50,7 +49,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 		{ label: 'Lightsource', value: specs.lightsource}
 	].filter(el => el.value)
 
-	
+	const singleModel = product.models.length === 1
 	const images = allProductImages(product)
 	const drawings = allDrawings(product)
 
@@ -110,91 +109,82 @@ export default function Product({ product, related, relatedByCategory }: Product
 						</ul>
 						<div className={styles.articles}>
 							<header>
-								<span className={styles.header}>Art no</span>
-								<span className={styles.header}>Model</span>
-								<span className={styles.header}>Art no</span>
-								<span className={styles.header}>Model</span>
+								<span>Art no</span>
+								<span>Model</span>
+								<span>Art no</span>
+								<span>Model</span>
 							</header>
+							<div className={cn(styles.content, !singleModel && styles.multi)}>
+								{product.models.map(({ name, variants, lightsources, accessories }, idx) => {
 
-							{product.models.map(({ name, variants, lightsources, accessories }, idx) => {
+									const art = variants.map(v => ({
+										articleNo: v.articleNo,
+										label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
+									}))
 
-								const art = variants.map(v => ({
-									articleNo: v.articleNo,
-									label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
-								}))
+									const access = accessories.map(a => ({
+										articleNo: a.articleNo,
+										label: a.accessory.name
+									}))
 
-								const access = accessories.map(a => ({
-									articleNo: a.articleNo,
-									label: a.accessory.name
-								}))
+									const light = lightsources.map(l => ({
+										articleNo: l.lightsource.articleNo,
+										label: `${l.lightsource.name} (need ${l.amount})`,
+										included: l.included,
+										optional: l.optional,
+										amount: l.amount
+									}))
 
-								const light = lightsources.map(l => ({
-									articleNo: l.lightsource.articleNo,
-									label: l.lightsource.name,
-									included: l.included,
-									optional: l.optional,
-									amount: l.amount
-								}))
-
-								const cols = art.concat(access).concat(light)
-								const rows = chunkArray(cols, cols.length > 2 ? cols.length / 2 : 2)
-								
-								if(product.models.length === 1){
-									return(
+									const cols = art.concat(access).concat(light)
+									const rows = chunkArray(cols, cols.length > 2 ? Math.ceil(cols.length / 2) : 2)
+									
+									if(singleModel){
+										return(
+											<>
+												{rows.map((row, idx) =>
+													<ul key={idx}>
+														<li>
+															<span>{row[0].articleNo}</span>
+															<span>{row[0].label}</span>
+															<span>{row[1]?.articleNo}</span>
+															<span>{row[1]?.label}</span>
+														</li>
+													</ul>
+												)}
+											</>
+										)
+									}
+									
+									return (
 										<>
-											{rows.map((row, idx) =>
-												<ul key={idx}>
-													<li>
-														<span>{row[0].articleNo}</span>
-														<span>{row[0].label}</span>
-														<span>{row[1].articleNo}</span>
-														<span>{row[1].label}</span>
-													</li>
-												</ul>
-											)}
+											<ul>
+												<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
+												{rows.map((row, idx) =>
+													<>
+														<li>
+															<span>{row[0].articleNo}</span>
+															<span>{row[0].label}</span>		
+														</li>									
+														<li>
+															<span>{row[1]?.articleNo}</span>
+															<span>{row[1]?.label}</span>
+														</li>
+													</>
+												)}
+											</ul>
 										</>
 									)
-								}
-								
-								return (
-									<>
-										<ul className={styles.subheader}>
-											<li><span></span><span>{name?.name}</span></li>
-										</ul>
-										<ul className={styles.multi}>
-											{rows.map((row, idx) =>
-												<>
-													<li>
-														<span>{row[0].articleNo}</span>
-														<span>{row[0].label}</span>		
-													</li>											
-													<li>
-														<span>{row[1]?.articleNo}</span>
-														<span>{row[1]?.label}</span>
-													</li>
-												</>
-											)}
-										</ul>
-									</>
-								)
-							})}
+								})}
+							</div>
 						</div>
-						<table className={styles.dimensions}>
-							<tbody>
-								<tr>
-									<td>
-										Dimensions
-									</td>
-									<td>
-										<span onClick={() => setDrawingGalleryIndex(0)}>
-											View drawing{drawings.length > 1 && 's'} +
-										</span>
-									</td>
-									<td></td>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
+						<ul className={styles.dimensions}>
+							<li>
+								<span>Dimensions</span>
+								<button  onClick={() => setDrawingGalleryIndex(0)}>
+									View drawing{drawings.length > 1 && 's'} +
+								</button>
+							</li>
+						</ul>
 					</ListItem>
 					<ListItem title={'Downloads'} className={styles.listItemContent}>
 						<ul className={styles.downloads}>
@@ -222,11 +212,13 @@ export default function Product({ product, related, relatedByCategory }: Product
 				<FeaturedGallery 
 					headline="Related" 
 					products={related} 
+					theme={'light'}
 					id="related"
 				/>
 				<FeaturedGallery 
 					headline={`Other ${product.categories[0].name} lamps`} 
 					products={relatedByCategory} 
+					theme={'light'}
 					id="relatedbycategory" 
 				/>
 			</Section>

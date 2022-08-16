@@ -11,16 +11,22 @@ export type ThumbnailProps = {
   inverted?: boolean,
   title: string,
   subtitle: string,
-  className?: string
+  className?: string,
+  theme?: 'dark' | 'light',
+  type?: 'product' | 'project'
 }
 
-export default function Thumbnail({ image, imageHover, slug, inverted, title, subtitle, className }: ThumbnailProps) {
+export default function Thumbnail({ image, imageHover, slug, inverted, title, subtitle, className, theme = 'light', type = 'product' }: ThumbnailProps) {
 
   const [hovering, setHovering] = useState(false);
   const handleMouseOver = ({type}) => setHovering(type === 'mouseenter')
   
   return (
-    <div className={cn(styles.thumbnail, className, inverted && styles.inverted)} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOver}>
+    <div 
+      className={cn(styles.thumbnail, className, inverted && styles.inverted, styles[theme], styles[type])} 
+      onMouseEnter={handleMouseOver} 
+      onMouseLeave={handleMouseOver}
+    >
       <Link href={slug}>
         <a>
           <figure>
@@ -49,3 +55,47 @@ export default function Thumbnail({ image, imageHover, slug, inverted, title, su
     </div>
   )
 }
+
+export type ProductThumbnailProps = { 
+  product: ProductRecord, 
+  inverted?:boolean, 
+  theme: 'dark' | 'light'
+}
+
+export function ProductThumbnail({ product, inverted, theme = 'dark' }: ProductThumbnailProps) {
+	
+	return (
+    <Thumbnail  
+      slug={`/products/${product.slug}`} 
+      image={product.image}
+      imageHover={product.environmentImage} 
+      title={product.title}
+      subtitle={`by ${product.designer?.name}`}
+      inverted={inverted}
+      theme={theme}
+      type="product"
+    />
+	)
+}
+
+export type ProjectThumbnailProps = { 
+  project: ProjectRecord, 
+  inverted?: boolean, 
+  theme: 'dark' | 'light'
+}
+export function ProjectThumbnail({ project, inverted, theme = 'dark' }: ProjectThumbnailProps) {
+	
+	return (
+    <Thumbnail  
+      slug={`/project/${project.slug}`} 
+      image={project.image}
+      imageHover={project.secondaryImage} 
+      title={project.title}
+      subtitle={project.location}
+      inverted={inverted}
+      theme={theme}
+      type="project"
+    />
+	)
+}
+

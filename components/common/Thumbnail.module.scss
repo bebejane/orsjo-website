@@ -3,7 +3,7 @@
   
   &:hover {
     .subtitle {
-      color: $black !important;
+      
     }
     .image {
       mix-blend-mode: normal;
@@ -58,12 +58,9 @@
       color: $gray;
       padding-top: 1em;
 
-      
-
       .title{
         color: $black;
         .subtitle{
-          color: $white;
           transition: color .2s ease;
         }
       }
@@ -72,6 +69,33 @@
   &.inverted{
     a figcaption span {
       color: $white;
+    }
+  }
+
+  &.dark{
+    a > figcaption > .title{
+      color: $white;
+      .subtitle{
+        color: $gray;
+      }
+    }
+  }
+  &.light{
+    a > figcaption > .title{
+      color: $black;
+      .subtitle{
+        color: $gray;
+      }
+    }
+  }
+  &.project{
+    a > figure > .image {
+
+    }
+  }
+  &.product{
+    a > figure > .image {
+      
     }
   }
 }

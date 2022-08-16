@@ -2,8 +2,8 @@
 #import "./fragments/ProjectFragment.gql"
 
 
-query GetProject($id: ItemId) {
-	project (filter: {id: { eq: $id }}) {
+query GetProject($slug: String) {
+	project (filter: {slug: { eq: $slug }}) {
     ...ProjectFragment
 	}
 }

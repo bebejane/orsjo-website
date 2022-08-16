@@ -25,11 +25,16 @@ $gutter-nested: $gutter / $difference12; //Denna ska göras om
   @return $column-width * $amount + $gutter * $amount;
 }
 
-@function spanNestedGrid($container, $element) {
+@function spanNestedGrid($container, $element, $withGutter: false) {
   $totalWidth: spanGrid($container);
   $nestedWidth: (($totalWidth - (($container - 1) * $gutter)) / $container);
   $difference: $totalWidth / 100%;
-  @return ($nestedWidth * $element + $gutter * ($element - 1)) / $difference;
+  $width: ($nestedWidth * $element + $gutter * ($element - 1)) / $difference;
+  
+  @if $withGutter{
+    $width: $width + nestedGridGutter($container)
+  }
+  @return $width;
 }
 
 @function nestedGridGutter($container) {
