@@ -11,8 +11,6 @@ export type ProfessionalProps = { projects: ProjectRecord[], projectStart: Proje
 
 export default function Professionals({ projects, projectStart, projectTypes }: ProfessionalProps) {
 
-	//console.log(projectStart, projects)
-
 	return (
 		<>
 			<Section className={styles.introduction} top={true}>
