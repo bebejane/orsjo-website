@@ -53,9 +53,11 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 					initialSlide={index}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => swiperRef.current = swiper}
+					
+
 				>
 					{items.map((item, idx) =>
-						<SwiperSlide key={`${id}-idx`}>
+						<SwiperSlide key={`${id}-idx`} className={styles.slide}>
 							<Thumbnail key={idx} {...item}/>
 						</SwiperSlide>
 					)}
