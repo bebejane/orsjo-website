@@ -217,6 +217,7 @@ declare module '*/professional.gql' {
   const defaultDocument: DocumentNode;
   export const GetProject: DocumentNode;
 export const GetAllProjects: DocumentNode;
+export const GetAllRelatedProjects: DocumentNode;
 export const GetProjectStart: DocumentNode;
 export const GetAllProjectTypes: DocumentNode;
 export const GetBespoke: DocumentNode;

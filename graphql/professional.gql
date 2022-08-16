@@ -14,6 +14,13 @@ query GetAllProjects {
   }
 }
 
+query GetAllRelatedProjects($projectType: ItemId) {
+  projects : allProjects(
+    filter: { projectType: { eq: $projectType}}){
+    ...ProjectFragment
+  }
+}
+
 query GetProjectStart {
 	projectStart {
 		id
