@@ -15,9 +15,10 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 	const {  menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
+	
 	const items = (products || projects).map((el) => ({
 		image: el.image,
-		imageHover: el.environmentImage || el.secodaryImage, 
+		imageHover: el.environmentImage || el.secondaryImage, 
 		slug: `${products ? 'products' : 'projects'}/${el.slug}`,
 		title: el.title,
 		subtitle: el.designer?.name || el.location

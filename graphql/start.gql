@@ -1,4 +1,5 @@
 #import "./fragments/ProductFragment.gql"
+#import "./fragments/ProjectFragment.gql"
 #import "./fragments/DesignerFragment.gql"
 #import "./fragments/ImageFragment.gql"
 #import "./fragments/VideoFragment.gql"
@@ -11,7 +12,12 @@ query GetStart {
         id
         headline
         items {
-          ...ProductFragment
+          ... on ProductRecord{
+            ...ProductFragment
+          }
+          ... on ProjectRecord{
+            ...ProjectFragment
+          }
         }
       }
       ... on FullscreenImageRecord {
@@ -64,6 +70,5 @@ query GetStart {
         }
       }
     }
-    
   }
 }
