@@ -54,7 +54,7 @@
     flex-direction: row;
     
     .slide{
-      max-width: spanGrid(4);
+      max-width: spanNestedGrid(12,3);
     }
     figure {
       position: relative;
