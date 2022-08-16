@@ -8,7 +8,7 @@ import { Thumbnail, ArrowButton } from '/components'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
-export type FeaturedGalleryProps = { products?: ProductRecord[], projects: ProjectRecord[], headline?: string, id: string, bgColor?: string }
+export type FeaturedGalleryProps = { products?: ProductRecord[], projects?: ProjectRecord[], headline?: string, id: string, bgColor?: string }
 
 export default function FeaturedGallery({ headline, products, projects, id, bgColor } : FeaturedGalleryProps ) {
 	
