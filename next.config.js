@@ -34,9 +34,7 @@ const nextOptions = {
     });
     return config;
   },
-  webpackDevMiddleware: (config) => {
-    return config;
-  },
+  //webpackDevMiddleware: (config) => {return config;},
 }
 
 const config = { sassOptions, ...nextOptions }

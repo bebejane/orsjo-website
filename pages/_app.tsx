@@ -30,7 +30,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
   return (
     <>
       <GoogleAnalytics />
-      <DatoSEO title={'Örsjö'} seo={seo} site={site} pathname={pathname} key={pathname}/>
+      <DatoSEO title="Örsjö Belysning" subtitle={siteSubtitle(pageProps, router)} seo={seo} site={site} pathname={pathname} key={pathname}/>
       <NextIntlProvider messages={pageProps.messages}>
         <LayoutProvider value={layout}>
           <Layout menu={pageProps.menu}>
@@ -40,6 +40,26 @@ function Application({ Component, pageProps } : ApplicationProps) {
       </NextIntlProvider>
     </>
   )
+}
+
+const pathTotitle = {
+  '/products': 'Products',
+  '/professionals/projects' : 'Projects',
+  '/professionals/bespoke': 'Bespoke',
+  '/professionals/downloads': 'Downloads',
+  '/professionals/factory-visit' : 'Factory Visit',
+  '/about/jobs': 'Jobs',
+  '/support/faq': 'FAQ',
+  '/support/manuals': 'Manuals',
+  '/contact': 'Contact',
+
+}
+
+const siteSubtitle = ({product, designer, project} : { product: ProductRecord, designer: DesignerRecord, project: ProjectRecord}, router) => {
+  
+  let subtitle = product?.title || designer?.name || project?.title || pathTotitle[router.asPath]  
+  //console.log(subtitle)
+  return ` - ${subtitle}`
 }
 
 export default Application

@@ -43,7 +43,7 @@ export default function News({ news }: NewsProps) {
 
 News.layout = { layout: 'full', color: "--black", menu: 'inverted', sidebar: false } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllNewsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetAllNewsDocument], model:'news' }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

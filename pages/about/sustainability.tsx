@@ -20,7 +20,7 @@ export default function Sustainability({ sustainability }: SustainabilityProps) 
 
 Sustainability.layout = { layout:'normal', color:"--black", menu:'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetSustainabilityDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetSustainabilityDocument], model:'sustainability' }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,
