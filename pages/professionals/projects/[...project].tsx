@@ -44,6 +44,7 @@ export default function Project({ project, related }: ProjectProps) {
 					headline={`Other ${project.projectType.title}s`} 
 					projects={related} 
 					id="relatedProjects"
+					theme="light"
 				/>
 			</Section>
 		</>
@@ -62,10 +63,10 @@ export async function getStaticPaths(context) {
 	}
 }
 
-export const getStaticProps = withGlobalProps({ queries:[GetAllRelatedProjectsDocument], model: 'product' }, async ({ props, context, revalidate }) => {
+export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
 
 	const { project } : { project: ProjectRecord } = await apiQuery(GetProjectDocument, { variables: { slug: context.params.project[0] } })
-	const { projects : related } : { projects: ProjectRecord[] } = props;
+	const { projects : related } : { projects: ProjectRecord[] } = await apiQuery(GetAllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
 	
 	if (!project)
 		return { notFound: true }
