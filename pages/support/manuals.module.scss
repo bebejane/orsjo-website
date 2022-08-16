@@ -1,4 +1,37 @@
-.jobs{
+.manuals{
   position: relative;
+  p{
+    color:$white;
+  }
+  .result{
+    list-style: none;
+    a{
+      li{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        padding: $gutter;
+        &:nth-child(odd){
+          background-color: $white;
+        }
+        &:nth-child(even){
+          background-color: $light-gray;
+        }
+        .fileIcon{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-transform: uppercase;
+          background-color: $gray;
+          height: 40px;
+          width: 40px;
+          font-size: 10px;
+        }
+        .label{
   
+        }
+      }
+    }
+  }
 }

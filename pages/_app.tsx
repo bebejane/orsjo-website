@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { Layout } from '/components'
 import { LayoutProvider, PageLayoutProps } from '/lib/context/layout';
 import type { NextComponentType } from 'next';
+import { useEffect } from 'react';
 
 export type ApplicationProps = AppProps & {
   Component: NextComponentType & {
@@ -27,6 +28,12 @@ function Application({ Component, pageProps } : ApplicationProps) {
 
   if(isError) return <Component {...pageProps} />
   
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => document.body.scrollIntoView({behavior:'instant'})
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => router.events.off('routeChangeComplete', handleRouteChange)
+  }, [])
+
   return (
     <>
       <GoogleAnalytics />
@@ -34,7 +41,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
       <NextIntlProvider messages={pageProps.messages}>
         <LayoutProvider value={layout}>
           <Layout menu={pageProps.menu}>
-            <Component {...pageProps} key={router.asPath}/>
+            <Component {...pageProps}/>
           </Layout>
         </LayoutProvider>
       </NextIntlProvider>
@@ -52,7 +59,6 @@ const pathTotitle = {
   '/support/faq': 'FAQ',
   '/support/manuals': 'Manuals',
   '/contact': 'Contact',
-
 }
 
 const siteSubtitle = ({product, designer, project} : { product: ProductRecord, designer: DesignerRecord, project: ProjectRecord}, router) => {

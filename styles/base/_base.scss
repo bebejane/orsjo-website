@@ -13,13 +13,16 @@ body {
 	
 	margin: 0;
 	padding: 0;
+	
+
 }
 
 html {
 	box-sizing: border-box;
-	scroll-behavior:smooth;
 	margin: 0;
 	padding: 0;
+	scroll-behavior: smooth;
+	
 }
 
 ::-webkit-scrollbar {

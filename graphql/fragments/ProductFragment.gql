@@ -139,6 +139,9 @@ fragment ProductFragment on ProductRecord{
     id
     name
   }
+  mountingInstructions {
+    ...FileFragment
+  }
   pdfFile {
     ...FileFragment
   }

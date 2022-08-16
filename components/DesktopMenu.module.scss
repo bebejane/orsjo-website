@@ -40,7 +40,6 @@
     opacity: 1;
     transition: opacity 0.3s ease;
     
-
     li {
       position: relative;
       cursor: pointer;
@@ -50,15 +49,17 @@
       color: $black-menu;
 
       &.selected{
-        color: $black;
+        color: $black !important;  
+        a{
+          color: $black !important;  
+        }
       }
-      a:visited {
+      a, a:visited {
         color: $black-menu;
       }
 
-      &:hover {
+      &:hover, a:hover {
         color: $black;
-
       }
       .arrow {
         display: inline-block;
@@ -96,7 +97,7 @@
     *>li, *>a {
       color: $white-menu;
     }
-
+     
     li:hover, a:hover {
       color: $white !important;
     }
@@ -105,9 +106,9 @@
       color: $white-menu;
 
     }
-
-    .selected {
-      color: $white;
+    
+    ul > li.selected, ul > li.selected > a {
+      color: $white !important;
     }
 
     .logo {
