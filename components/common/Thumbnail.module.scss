@@ -74,7 +74,7 @@
 
   &.dark{
     a > figcaption > .title{
-      color: $white;
+      color: $black;
       .subtitle{
         color: $gray;
       }
@@ -84,11 +84,14 @@
     a > figcaption > .title{
       color: $black;
       .subtitle{
-        color: $gray;
+        color: $white;
       }
     }
   }
   &.project{
+    a > figure > .image {
+    mix-blend-mode: normal;
+    }
     a > figure img{
       object-fit: cover !important;
     }

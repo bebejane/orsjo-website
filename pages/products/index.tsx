@@ -52,11 +52,11 @@ export default function Products({ productStart: { featured }, products, product
 			if (res.length)
 				searchCategories[k] = res
 		})
+
 		setProductsByCategorySearch(searchCategories);
-		
+		window.scrollTo(0, 0)
+
 	}, [searchProducts, productCategories, products, productsByCategory])
-	
-	useEffect(()=>{ window.scrollTo(0,0) }, [searchProducts])
 
 	const prodsByCat = productsByCategorySearch || productsByCategory
 	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0
@@ -74,14 +74,8 @@ export default function Products({ productStart: { featured }, products, product
 	return (
 		<>
 			{!productsByCategorySearch && featured.slice(0).map((data, idx) =>
-				<Section className={styles.products} top={idx === 0 } key={idx}>
-					<FeaturedGallery 
-						key={`featured-${idx}`} 
-						headline={data.headline} 
-						id={data.id} 
-						products={data.items as ProductRecord[]}
-						theme="light"
-					/>
+				<Section className={styles.products} top={idx === 0} key={idx}>
+					<FeaturedGallery key={`featured-${idx}`} headline={data.headline} id={data.id} products={data.items} />
 				</Section>
 			)}
 
@@ -93,7 +87,7 @@ export default function Products({ productStart: { featured }, products, product
 						<ul >
 							{products.map((product, idx) =>
 								<li key={idx}>
-									<ProductThumbnail product={product} theme="light"/>
+									<ProductThumbnail product={product} />
 								</li>
 							)}
 						</ul>
@@ -104,7 +98,7 @@ export default function Products({ productStart: { featured }, products, product
 	)
 }
 
-Products.layout = { layout: 'full', menu: 'normal', color:'--white' } as PageLayoutProps
+Products.layout = { layout: 'full', menu: 'normal', color: '--white' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllProductsDocument, GetProductStartDocument, GetProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
 

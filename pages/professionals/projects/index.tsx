@@ -30,7 +30,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 								key={idx}
 								project={p}
 								theme='light'
-								className=
+								className={styles.project}
 							/>
 						)}
 					</Section>
