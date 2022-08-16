@@ -15,7 +15,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 
 	return (
 		<>
-			<Section className={styles.intro} top={true}>
+			<Section className={styles.introduction} top={true}>
 				<h1 className="topMargin">{projectStart.title}</h1>
 				<Markdown className={styles.intro}>
 					{projectStart.intro}
