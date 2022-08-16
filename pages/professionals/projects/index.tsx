@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
-import { Thumbnail, Section } from '/components';
+import { ProjectThumbnail, Section } from '/components';
 
 export type ProfessionalProps = { projects: ProjectRecord[], projectStart: ProjectStartRecord, projectTypes: ProjectTypeRecord[] }
 
@@ -25,15 +25,12 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 				return (
 					<Section name={title} className={styles.projects} key={idx} >
 						<h1>{title}</h1>
-						{projects.filter(({ projectType }) => projectType.id === id).map(({ title, location, image, secondaryImage, slug }, idx) =>
-							<Thumbnail
+						{projects.filter(({ projectType }) => projectType.id === id).map((p, idx) =>
+							<ProjectThumbnail
 								key={idx}
-								title={title}
-								subtitle={location}
-								image={image}
-								imageHover={secondaryImage}
-								className={styles.project}
-								slug={`/professionals/projects/${slug}`}
+								project={p}
+								theme='light'
+								className=
 							/>
 						)}
 					</Section>

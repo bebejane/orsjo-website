@@ -89,8 +89,8 @@
     }
   }
   &.project{
-    a > figure > .image {
-
+    a > figure img{
+      object-fit: cover !important;
     }
   }
   &.product{
