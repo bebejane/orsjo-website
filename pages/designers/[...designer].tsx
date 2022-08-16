@@ -41,7 +41,7 @@ export default function Designer({ designer, products }: DesignerProps) {
 						{products.map((p, idx) => {
 							return (
 								<li key={idx}>
-									<ProductThumbnail key={idx} product={p} />
+									<ProductThumbnail key={idx} product={p} theme="light"/>
 								</li>
 							)
 						})}

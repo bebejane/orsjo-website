@@ -10,7 +10,6 @@ import { Gallery } from '/components'
 import { useState } from 'react'
 import { chunkArray, parseSpecifications } from '/lib/utils'
 
-
 const allProductImages = (product: ProductRecord) => {
 	const images = [product.image]
 	
@@ -213,11 +212,13 @@ export default function Product({ product, related, relatedByCategory }: Product
 				<FeaturedGallery 
 					headline="Related" 
 					products={related} 
+					theme={'light'}
 					id="related"
 				/>
 				<FeaturedGallery 
 					headline={`Other ${product.categories[0].name} lamps`} 
 					products={relatedByCategory} 
+					theme={'light'}
 					id="relatedbycategory" 
 				/>
 			</Section>

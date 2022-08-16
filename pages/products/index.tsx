@@ -75,7 +75,13 @@ export default function Products({ productStart: { featured }, products, product
 		<>
 			{!productsByCategorySearch && featured.slice(0).map((data, idx) =>
 				<Section className={styles.products} top={idx === 0 } key={idx}>
-					<FeaturedGallery key={`featured-${idx}`} headline={data.headline} id={data.id} products={data.items}/>
+					<FeaturedGallery 
+						key={`featured-${idx}`} 
+						headline={data.headline} 
+						id={data.id} 
+						products={data.items as ProductRecord[]}
+						theme="light"
+					/>
 				</Section>
 			)}
 
@@ -87,7 +93,7 @@ export default function Products({ productStart: { featured }, products, product
 						<ul >
 							{products.map((product, idx) =>
 								<li key={idx}>
-									<ProductThumbnail product={product} />
+									<ProductThumbnail product={product} theme="light"/>
 								</li>
 							)}
 						</ul>

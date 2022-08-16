@@ -22,6 +22,7 @@
     margin-top: 5px;
     transform: rotate(0deg);
     transition: transform .3s;
+    
     &.reverse{
       transform: rotate(180deg);
     }
@@ -32,6 +33,10 @@
   }
   &.inverted{
     filter: invert(1);
+    img{
+      filter: invert(1);
+    }
+    
   }
   &:disabled{
     color: $gray;

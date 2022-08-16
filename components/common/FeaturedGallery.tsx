@@ -4,18 +4,26 @@ import cn from 'classnames'
 import { sectionId } from '/lib/utils'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
-import { Thumbnail, ArrowButton } from '/components'
+import { Thumbnail,ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
-export type FeaturedGalleryProps = { products?: ProductRecord[], projects?: ProjectRecord[], headline?: string, id: string, bgColor?: string }
+export type FeaturedGalleryProps = { 
+	products?: ProductRecord[], 
+	projects?: ProjectRecord[], 
+	headline?: string, 
+	id: string, 
+	bgColor?: string,
+	theme: 'dark' | 'light',
+}
 
-export default function FeaturedGallery({ headline, products, projects, id, bgColor } : FeaturedGalleryProps ) {
+export default function FeaturedGallery({ headline, products, projects, id, bgColor, theme } : FeaturedGalleryProps ) {
 	
 	const {  menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
-	
+	const isProjects = projects != undefined
+
 	const items = (products || projects).map((el) => ({
 		image: el.image,
 		imageHover: el.environmentImage || el.secondaryImage, 
@@ -53,14 +61,27 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 					initialSlide={index}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => swiperRef.current = swiper}
-					
-
 				>
-					{items.map((item, idx) =>
+					{products?.map((p, idx) =>
 						<SwiperSlide key={`${id}-idx`} className={styles.slide}>
-							<Thumbnail key={idx} {...item}/>
+							<ProductThumbnail 
+								key={idx}
+								product={p} 
+								theme={theme}
+							/>
 						</SwiperSlide>
 					)}
+
+					{projects?.map((p, idx) =>
+						<SwiperSlide key={`${id}-idx`} className={styles.slide}>
+							<ProjectThumbnail 
+								key={idx}
+								project={p} 
+								theme={theme}
+							/>
+						</SwiperSlide>
+					)}
+
 				</SwiperReact>
 				<div className={cn(styles.fade, isShortSlide && styles.hide)}></div>
 			</div>
