@@ -56,7 +56,10 @@ export default function Products({ productStart: { featured }, products, product
 		
 	}, [searchProducts, productCategories, products, productsByCategory])
 	
-	useEffect(()=>{ window.scrollTo(0,0) }, [searchProducts])
+	useEffect(()=>{ 
+		console.log('hej')
+		window.scrollTo(0,0)
+	}, [searchProducts])
 
 	const prodsByCat = productsByCategorySearch || productsByCategory
 	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0
@@ -74,7 +77,7 @@ export default function Products({ productStart: { featured }, products, product
 	return (
 		<>
 			{!productsByCategorySearch && featured.slice(0).map((data, idx) =>
-				<Section className={styles.products} top={idx === 0 } key={idx}>
+				<Section name={data.headline} className={styles.products} top={idx === 0 } key={idx}>
 					<FeaturedGallery 
 						key={`featured-${idx}`} 
 						headline={data.headline} 

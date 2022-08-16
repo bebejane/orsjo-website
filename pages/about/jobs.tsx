@@ -25,7 +25,7 @@ export default function Jobs({ jobs }: JobsProps) {
 	)
 }
 
-Jobs.layout = { layout: 'normal', color: "--lightblack", menu: 'inverted' } as PageLayoutProps
+Jobs.layout = { layout: 'normal', color:"--black", menu: 'inverted' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllJobsDocument] }, async ({ props, revalidate }: any) => {
 

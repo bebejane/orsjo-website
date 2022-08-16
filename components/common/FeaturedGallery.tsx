@@ -41,7 +41,7 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 	const isShortSlide = items.length <= slidesPerView
 	
 	return (
-		<section className={cn(styles.featuredGallery, styles[menu])} {...sectionId(headline)}>
+		<div className={cn(styles.featuredGallery, styles[menu])}>
 			<div className={styles.header}>
 				<h1 className={styles.headline}>
 					{headline}
@@ -81,10 +81,9 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 							/>
 						</SwiperSlide>
 					)}
-
 				</SwiperReact>
 				<div className={cn(styles.fade, isShortSlide && styles.hide)}></div>
 			</div>
-		</section>
+		</div>
 	)
 }

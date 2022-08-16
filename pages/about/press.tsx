@@ -21,7 +21,7 @@ export default function Press({ presses }: PressProps) {
 	)
 }
 
-Press.layout = { layout:'normal', color:"--lightgrey", menu:'normal'} as PageLayoutProps
+Press.layout = { layout:'normal', color:"--black", menu:'inverted'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [GetAllPressDocument] }, async ({ props, revalidate }: any) => {
 

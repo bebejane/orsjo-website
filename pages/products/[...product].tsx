@@ -216,7 +216,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 					id="related"
 				/>
 				<FeaturedGallery 
-					headline={`Other ${product.categories[0].name} lamps`} 
+					headline={`Other ${product.categories[0].name}s`} 
 					products={relatedByCategory} 
 					theme={'light'}
 					id="relatedbycategory" 
