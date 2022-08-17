@@ -1,4 +1,41 @@
-.jobs{
+.faq{
   position: relative;
-  
+  ul{
+    list-style: none;
+    li{
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      cursor: pointer;
+      border-bottom: 1px solid $white;
+      &.selected{
+        padding: $gutter;
+        background-color: $white;
+        
+        .answer{
+          display: block;
+        }
+      }
+      .header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        
+        .question{
+          flex: 1 1 100%;
+          padding:0;
+        }
+        .indicator{
+          margin-right: $gutter;
+        }
+      }
+      
+      .answer{
+        display: none;
+        p{
+          margin:0;
+        }
+      }
+    } 
+  }  
 }

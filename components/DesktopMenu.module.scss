@@ -128,6 +128,8 @@
 
   &.hide {
     
+    pointer-events: none;
+    
     @include mq($until: tablet) {
       transform: translateY(-$navbarHeight);
     }
@@ -135,6 +137,7 @@
     @include mq($from: tablet) {
       ul {
         opacity: 0;
+        
       }
     }
   }
