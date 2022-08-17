@@ -11,4 +11,7 @@ fragment ProductLightFragment on ProductRecord{
     name
     position
   }
+  designer{
+    id
+  }
 }

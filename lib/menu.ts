@@ -1,5 +1,5 @@
 import { apiQuery } from './dato/api';
-import { GetProductCategoriesDocument, GetAllDesignersDocument } from '/graphql';
+import { GetProductCategoriesDocument, GetAllDesignersDocument, GetAllProductsLightDocument } from '/graphql';
 import { sectionId } from './utils';
 import type { TypedDocumentNode } from '@apollo/client';
 
@@ -15,7 +15,8 @@ export type Menu = MenuItem[]
 
 export type MenuQuery = {
   designers: DesignerRecord[],
-  productCategories: ProductCategoryRecord[]
+  productCategories: ProductCategoryRecord[],
+  products: ProductRecord[]
 }
 
 const base: Menu = [
@@ -57,8 +58,8 @@ const base: Menu = [
 
 export const generate = async () => {
 
-  const queries: TypedDocumentNode[] = [GetProductCategoriesDocument, GetAllDesignersDocument];
-  const { designers, productCategories } = await apiQuery(queries) as MenuQuery
+  const queries: TypedDocumentNode[] = [GetProductCategoriesDocument, GetAllDesignersDocument, GetAllProductsLightDocument];
+  const { designers, productCategories, products } = await apiQuery(queries) as MenuQuery
 
   const menu = base.map(item => {
     let sub: MenuItem[];
@@ -71,7 +72,7 @@ export const generate = async () => {
         }))
         break;
       case 'designer':
-        sub = designers.map(el => ({
+        sub = designers.filter(({id})=> products.find((p) => p.designer?.id === id)).map(el => ({
           type: item.type,
           label: el.name,
           slug: `/designers/${el.slug}`

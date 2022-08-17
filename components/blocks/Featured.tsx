@@ -1,4 +1,3 @@
-
 import styles from './Featured.module.scss'
 import cn from 'classnames'
 import { useRef, useState } from "react";
