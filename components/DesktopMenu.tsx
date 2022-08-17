@@ -80,7 +80,9 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 								}
 							</li>
 						)})}
-						<li onClick={()=>setShowSearch(true)}>🔍</li>
+						<li className={styles.searchIcon} onClick={()=>setShowSearch(true)}>
+							<img src={'/images/search.svg'}/>
+						</li>
 				</ul>
 			</nav>
 			
@@ -115,7 +117,10 @@ export type SearchResult = {
 	data : [{
 		attributes:{
 			title:string,
-			url: string
+			url: string,
+			highlight:{
+				body: string[]
+			}
 		}
 	}]
 }
@@ -123,26 +128,40 @@ export type SearchResult = {
 const Search = ({show, setShowSearch}) => {
 	
 	const [query, setQuery] = useState('')
-	const [results, setResults] = useState<SearchResult>()
+	const [results, setResults] = useState()
 
 	useEffect(()=>{
 		if(!query) return setResults({})
-		siteSearch(query).then((res) => setResults(res as SearchResult))
+		siteSearch(query).then((res : SearchResult) => setResults(res))
+			
 	}, [query, setResults])	
 
 	if(!show) return null
-
+	console.log(results)
 	return (
 		<div className={styles.search}>
 			<div className={styles.query}>
-				<input autoFocus={true} placeholder="Search..." type="text" value={query} onChange={(e) => setQuery(e.target.value)}/>
+				<input 
+					autoFocus={true} 
+					placeholder="Search..." 
+					type="text" 
+					value={query} 
+					onChange={(e) => setQuery(e.target.value)}
+				/>
 				<button className={styles.close} onClick={()=>setShowSearch(false)}>×</button>
 			</div>
 			<div className={styles.results}>
 			{results?.data?.map(({attributes}, idx) => 
 				<div key={idx}>
-					Title: {attributes.title}<br/>
-					<Link href={process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', '') : attributes.url}><a>{process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', 'http://localhost:3000') : attributes.url}</a></Link>
+					
+					<Link href={process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', '') : attributes.url}>
+						{attributes.title}
+					</Link>
+					<p>
+						{attributes.highlight.body.map(line => 
+							<>{line}</>
+						)}
+					</p>
 				</div>
 			)}
 			</div>

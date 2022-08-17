@@ -78,7 +78,17 @@
       }
     }
   }
-
+  li.searchIcon{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0;
+    flex: 1 1 100%;
+    
+    img{
+      width: 18px;
+      max-width: 18px;
+    }
+  }
   &.open {
     min-height: 100vh;
     pointer-events: none;
@@ -225,9 +235,11 @@
   background-color: $white;
   display: flex;
   flex-direction: column;
-  padding: $gutter;
-  padding-top: 1rem;
+  padding-left: var(--outer-margin);
+  padding-right: var(--outer-margin);
+  padding-top: 1.3rem;
   font-size: 18px;
+  
   .query{
     position: relative;
     input{
