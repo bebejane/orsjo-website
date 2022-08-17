@@ -2,9 +2,10 @@
   position: relative;
   
   &:hover {
-    .subtitle {
-      
+    figcaption > .title > .subtitle {
+      color: $black;
     }
+    
     .image {
       mix-blend-mode: normal;
     }
@@ -73,18 +74,28 @@
   }
 
   &.dark{
+    &:hover {
+      figcaption > .title > .subtitle {
+        color: $white;
+      }
+    }
     a > figcaption > .title{
-      color: $black;
+      color: $white;
       .subtitle{
         color: $gray;
       }
     }
   }
   &.light{
+    &:hover {
+      figcaption > .title > .subtitle {
+        color: $black;
+      }
+    }
     a > figcaption > .title{
       color: $black;
       .subtitle{
-        color: $white;
+        color: $gray;
       }
     }
   }

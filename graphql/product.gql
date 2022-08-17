@@ -20,6 +20,32 @@ query GetAllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: Si
 	}
 }
 
+query GetAllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+	products: allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
+		id
+    title
+    image {
+      ...ImageFragment
+    }
+    family{
+      id
+      name
+    }
+    categories{
+      id
+      name
+      position
+    }
+    mountingInstructions {
+      ...FileFragment
+    }
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+	}
+}
 query GetProductStart {
   productStart {
     id

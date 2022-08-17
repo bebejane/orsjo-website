@@ -94,7 +94,7 @@ export default function Products({ productStart: { featured }, products, product
 						<ul >
 							{products.map((product, idx) =>
 								<li key={idx}>
-									<ProductThumbnail product={product} />
+									<ProductThumbnail product={product} theme="light"/>
 								</li>
 							)}
 						</ul>

@@ -13,7 +13,7 @@ export type ImageGalleryProps = { data: FeaturedRecord }
 
 export default function FeaturedStart({ data: { headline, items, id } }: ImageGalleryProps) {
 
-	const {  menu } = useLayout()
+	const { menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
 

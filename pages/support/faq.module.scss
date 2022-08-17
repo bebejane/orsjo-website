@@ -7,9 +7,10 @@
       position: relative;
       flex-direction: column;
       cursor: pointer;
+      padding: .8em .8em .8em 0em;
       border-bottom: 1px solid $white;
       &.selected{
-        padding: $gutter;
+        padding: .8em .8em .8em .8em;
         background-color: $white;
         
         .answer{

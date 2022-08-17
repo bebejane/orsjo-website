@@ -1,7 +1,7 @@
 import styles from './manuals.module.scss'
 import { withGlobalProps } from "/lib/hoc";
 import cn from 'classnames'
-import { GetAllProductsDocument } from '/graphql';
+import { GetAllProductManualsDocument } from '/graphql';
 import { PageLayoutProps } from '/lib/context/layout';
 import { Section } from '/components'
 import { useEffect, useState } from 'react'
@@ -13,6 +13,7 @@ export default function Manuals({ products }: ManualsProps) {
 	const[search, setSeatch] = useState<string>();
 	const[results, setResults] = useState<ProductRecord[]>();
 
+
 	useEffect(()=>{
 		if(!search || !products) return setResults(undefined)
 		const res = products.filter(({title})=> title.toLowerCase().startsWith(search.toLowerCase()))
@@ -22,9 +23,12 @@ export default function Manuals({ products }: ManualsProps) {
 	useEffect(()=>{document.getElementById('search').focus()},[])
 
 	return (
-		<Section className={styles.manuals} top={true}>
+		<>
+		<Section name="Introduction" className={styles.intro} top={true}>
 			<h1>Manuals</h1>
 			<p>Search by product name to find assemly instructions for your Örsjö lighting product.</p>
+		</Section>
+		<Section className={styles.manuals}>
 			<div className={styles.search}>
 				<img src={'/images/search.svg'}/>
 				<input 
@@ -53,12 +57,13 @@ export default function Manuals({ products }: ManualsProps) {
 				)}
 			</ul>
 		</Section>
+		</>
 	)
 }
 
-Manuals.layout = { layout:'normal', color:'--copper', menu:'normal'} as PageLayoutProps
+Manuals.layout = { layout:'normal', color:'--copper', menu:'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllProductsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [GetAllProductManualsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props: {

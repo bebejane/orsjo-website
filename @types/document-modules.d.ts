@@ -202,6 +202,7 @@ declare module '*/product.gql' {
   export const GetProduct: DocumentNode;
 export const GetAllProducts: DocumentNode;
 export const GetAllProductsLight: DocumentNode;
+export const GetAllProductManuals: DocumentNode;
 export const GetProductStart: DocumentNode;
 export const GetProductCategories: DocumentNode;
 export const GetAllProductsByDesigner: DocumentNode;

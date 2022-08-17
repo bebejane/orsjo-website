@@ -1,9 +1,16 @@
+.intro{
+  position: relative;
+  p{
+    color:$white;
+  }
+}
 .manuals{
   position: relative;
   p{
     color:$white;
   }
   .search{
+
     border-top: 1px solid $white;
     display: flex;
     flex-direction: row;

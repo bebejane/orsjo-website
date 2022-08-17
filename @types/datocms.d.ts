@@ -6871,6 +6871,15 @@ type GetAllProductsLightQueryVariables = Exact<{
 
 type GetAllProductsLightQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug: string, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }> }> };
 
+type GetAllProductManualsQueryVariables = Exact<{
+  locale?: InputMaybe<SiteLocale>;
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
+
+
+type GetAllProductManualsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, mp4Url?: string, duration?: number, streamingUrl: string } }, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }>, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
+
 type GetProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
