@@ -36,7 +36,7 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 
 	return (
 		<section className={styles.fullScreenVideo}>
-			<Link href={link}>
+			<Link scroll={false} href={link}>
 				<a>
 					<Video data={video}/>
 					<div className={styles.textWrap}>

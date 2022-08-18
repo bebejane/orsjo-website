@@ -17,7 +17,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	const router = useRouter()
 	const [showMenu, invertMenu] = useStore((state) => [state.showMenu,state.invertMenu], shallow);
 	const [selected, setSelected] = useState(undefined)
-	const [menuMargin, setMenuMargin] = useState(0)
+	const [menuMargin, setMenuMargin] = useState({position:0, padding:0})
 	const [hovering, setHovering] = useState(undefined)
 	const [showSearch, setShowSearch] = useState(false)
 	const { layout, menu, color } = useLayout()
@@ -27,17 +27,26 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 
 	useEffect(()=>{ // Re set margin on window resize
 		if(!selected) return
+		
 		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`)
-		const pad = document.querySelector(`.${styles.subPad}`)
-		const padding = parseInt(getComputedStyle(pad, null).getPropertyValue("padding-left"))
-
-		const { x } = el.getBoundingClientRect();
-		setMenuMargin(x-padding)
+		const nav = document.querySelectorAll<HTMLLIElement>(`li[data-slug]`)
+		const idx = parseInt(el.dataset.index);
+		const left = idx > 0 ? nav[idx-1] : undefined
+		
+		const bl = left?.getBoundingClientRect()
+		const elPad = parseInt(getComputedStyle(el, null).getPropertyValue("padding-left"))
+		const blPad = parseInt(getComputedStyle(left, null).getPropertyValue("padding-right"))
+		const lm = (bl.left+bl.width-blPad-10)
+		const rm = el.getBoundingClientRect().left;
+		
+		const position =  bl ? (lm + ((rm-lm)/2)) : el.getBoundingClientRect().x + elPad
+		const padding = (el.getBoundingClientRect().x - position)
+		
+		setMenuMargin({position, padding})
 
 	}, [innerWidth, selected])
 
 	useEffect(()=>{ setSelected(undefined)}, [router.asPath])	// Reset on route change
-	
 	useEffect(()=>{ !showMenu && setSelected(undefined) }, [showMenu]) // Hide menu if was closed on scroll
 
 	const handleSelected = (e: MouseEvent<HTMLLIElement>) => {
@@ -51,7 +60,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	
 	return (
 		<>
-			<Link href={'/'}>
+			<Link scroll={false} href={'/'}>
 				<a className={cn(styles.logo, (menu === 'inverted' || invertMenu) && styles.inverted)}>
 					<img id={'logo'} src={'/images/logo.svg'}/>
 				</a>
@@ -63,6 +72,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 						return(
 							<li 
 								data-slug={slug}
+								data-index={idx}
 								key={idx} 
 								onClick={(e)=> !index && handleSelected(e)}
 								onMouseEnter={()=>setHovering(slug)}
@@ -70,7 +80,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
 							>	
 								{index === true ? // Direct links
-									<Link href={slug}>
+									<Link scroll={false} href={slug}>
 										<a>{label}</a>
 									</Link>
 								:
@@ -87,13 +97,19 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 			<div 
 				ref={ref}
 				className={cn(styles.sub, selected && showMenu && styles.show)} 
-				style={{width:`calc(100% - ${menuMargin}px)`, backgroundColor: color}}
+				style={{
+					width:`calc(100% - ${menuMargin.position}px)`, 
+					backgroundColor: color
+				}}
 			>
-				<div className={cn(styles.subPad, styles[menu])} style={{ backgroundColor: color}}>
+				<div 
+					className={cn(styles.subPad, styles[menu])} 
+					style={{ backgroundColor: color, paddingLeft:`${menuMargin.padding}px`, }}
+				>
 					<nav>
 						<ul>
 							{sub?.map(({label, slug}, idx)=>
-								<Link key={idx} href={slug}>
+								<Link scroll={false} key={idx} href={slug}>
 									<a>
 										<li className={cn(slug === router.asPath && styles.active)}>
 											{label}
@@ -167,7 +183,7 @@ const Search = ({show, setShowSearch}) => {
 			{results?.data?.map(({attributes}, idx) => 
 				<div key={idx}>
 					<h2>
-					<Link href={process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', '') : attributes.url}>
+					<Link scroll={false} href={process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', '') : attributes.url}>
 						{attributes.title}
 					</Link>
 					</h2>

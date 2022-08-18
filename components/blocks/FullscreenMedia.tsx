@@ -11,7 +11,7 @@ export default function FullscreenMedia({ data: { media, headline, linkRecord, s
 	const slugBase = linkRecord.__typename === 'DesignerRecord' ? '/designers' : '/products'
 
 	return (
-		<Link href={`${slugBase}/${linkRecord.slug}`}>
+		<Link scroll={false} href={`${slugBase}/${linkRecord.slug}`}>
 			<a className={styles.fullScreenImage}>
 				{!media.video ? 
 					<Image

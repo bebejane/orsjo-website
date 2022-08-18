@@ -14,7 +14,7 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 			<span className={styles.text}>
 				{title}
 				<div className={styles.more}>
-					<Link href={`/about/news/${slug}`}>
+					<Link scroll={false} href={`/about/news/${slug}`}>
 						<a className="medium white">
 							Read more <img src="/images/arrow.svg" className={styles.arrow} />
 						</a>

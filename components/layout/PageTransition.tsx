@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import usePreviousRoute from '/lib/hooks/usePreviousRoute';
 import { useEffect, useState } from 'react';
 
-const duration = .4;
+const duration = .5;
 const pageTransition = {
 	initial: {
 		height: '100vh',
@@ -77,13 +77,24 @@ export default function PageTransition(){
 		const isExiting = variant.startsWith('exit') && type === 'start'
 		const didExit = variant.startsWith('exit') && type === 'complete'
 		//console.log('comp: ', isComplete, 'ex:', isExiting)
+		if(didExit)
+			document.body.scrollIntoView({behavior:'instant'})
 	}
+
 	useEffect(() => { 
 		const handleRouteChange = (url, { shallow }) => setColor(pathToColor(url));
 		router.events.on("routeChangeStart", handleRouteChange);
 		return () => router.events.off("routeChangeStart", handleRouteChange)
 	}, []);
 	
+	/*
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => document.body.scrollIntoView({behavior:'instant'})
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => router.events.off('routeChangeComplete', handleRouteChange)
+  }, [])
+  */
+
 	//const enterAnimation = isHome ? !prevRoute ? "homeIntro" : "home" : prevRoute ? "enter" : "enter"
 	const enterAnimation = !prevRoute ? "enterInstant" : "enter"
 	const exitAnimation = !prevRoute ? "exitInstant" : "exit" 

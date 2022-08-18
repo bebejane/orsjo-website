@@ -54,7 +54,7 @@ export default function StructuredContent({ content } : any) {
         customNodeRules={[
           // Wrap <a> with nextjs Link
           renderNodeRule(isLink, ({ adapter: { renderNode }, node, children, key, ancestors }) => {
-            return <Link href={node.url}>{renderNode('a', {key}, children)}</Link>
+            return <Link scroll={false} href={node.url}>{renderNode('a', {key}, children)}</Link>
           }),
           // Clenup paragraphs
           renderNodeRule(isParagraph, ({ adapter: { renderNode }, node, children, key, ancestors } : any) => { 

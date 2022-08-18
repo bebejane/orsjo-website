@@ -23,7 +23,7 @@ const Markdown = ({ children , truncate, className } : MarkdownProps) => {
       components={{
         // @ts-ignore
         a: ({ children, href } : AnchorProp) => 
-          <Link 
+          <Link scroll={false} 
             href={href} 
             prefetch={false}
             scroll={false}

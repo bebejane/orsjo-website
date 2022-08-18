@@ -26,7 +26,7 @@ export default function MobileMenu({items} : MobileMenuProps){
 	return (
 		<nav className={cn(styles.mobileMenu, open && styles.open)}>
 			<div className={styles.navbar}>
-				<Link href={'/'}>
+				<Link scroll={false} href={'/'}>
 					<a>
 						<img 
 							id={'logo-mobile'} 
@@ -67,7 +67,7 @@ export default function MobileMenu({items} : MobileMenuProps){
 				</header>
 				<ul>
 					{sub?.map(({label, slug, type}, idx)=>
-						<Link key={idx} href={slug}>
+						<Link scroll={false} key={idx} href={slug}>
 							<a>
 								<li className={cn(slug === router.asPath && styles.active)}>
 									{label}

@@ -27,7 +27,7 @@ export default function Footer({ menu }: FooterProps) {
 								<li key={idx}>
 									<ul className={styles.category}>
 										<>
-											<Link href={item.slug}>
+											<Link scroll={false} href={item.slug}>
 												<a>
 													<li>{item.label}</li>
 												</a>
@@ -35,7 +35,7 @@ export default function Footer({ menu }: FooterProps) {
 											{item.sub?.map((subItem, subidx) => {
 												const endReached = subidx === maxLength;
 												return (
-													<Link key={subidx} href={subItem.slug}>
+													<Link scroll={false} key={subidx} href={subItem.slug}>
 														<a>
 															<li>{subItem.label}</li>
 														</a>

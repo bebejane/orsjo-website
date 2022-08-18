@@ -32,7 +32,7 @@ export default function Sidebar({title} : SidebarProps) {
 				<ul>
 					{sections.map((section, idx) => 
 						<li key={idx}>
-							<Link href={`#${section.id}`}>
+							<Link scroll={false} href={`#${section.id}`}>
 								<a className={cn(section.id === currentSection && styles.active)}>
 									{section.title}
 								</a>
@@ -60,8 +60,8 @@ export default function Sidebar({title} : SidebarProps) {
 				</ul>
 			</nav>
 			<div className={cn(styles.footer, 'medium')}>
-				{isProductPage &&<Link href="/products">All Products</Link>}
-				{isProjectPage &&<Link href="/professionals/projects/">All Projects</Link>}
+				{isProductPage &&<Link scroll={false} href="/products">All Products</Link>}
+				{isProjectPage &&<Link scroll={false} href="/professionals/projects/">All Projects</Link>}
 			</div>
 		</aside>
 	)

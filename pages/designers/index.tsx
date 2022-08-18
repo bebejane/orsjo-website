@@ -13,7 +13,7 @@ export default function Designer({ designers }: DesignerProps) {
 			<h1>Designers</h1>
 			<ul>
 				{designers.map((designer, idx) => 
-					<Link key={idx} href={`/designers/${designer.slug}`}><a><li>{designer.name}</li></a></Link>
+					<Link scroll={false} key={idx} href={`/designers/${designer.slug}`}><a><li>{designer.name}</li></a></Link>
 				)}
 			</ul>
 		</div>

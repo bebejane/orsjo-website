@@ -23,7 +23,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
 
   const router = useRouter()
   const transitionFix = useTransitionFix()
-  const { asPath : pathname } = router
+  const pathname =  router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const { site, seo } = pageProps;
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
@@ -32,12 +32,6 @@ function Application({ Component, pageProps } : ApplicationProps) {
 
   if(isError) return <Component {...pageProps} />
   
-  useEffect(() => {
-    const handleRouteChange = (url, { shallow }) => document.body.scrollIntoView({behavior:'instant'})
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => router.events.off('routeChangeComplete', handleRouteChange)
-  }, [])
-
   return (
     <>
       <GoogleAnalytics />

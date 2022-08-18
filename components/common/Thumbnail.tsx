@@ -27,7 +27,7 @@ export default function Thumbnail({ image, imageHover, slug, inverted, title, su
       onMouseEnter={handleMouseOver} 
       onMouseLeave={handleMouseOver}
     >
-      <Link href={slug}>
+      <Link scroll={false} href={slug}>
         <a>
           <figure>
             <Image
