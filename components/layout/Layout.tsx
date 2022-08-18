@@ -23,9 +23,10 @@ export default function Layout({ children, menu }: LayoutProps) {
 				<Content>
 					{children}
 				</Content>
-				<Grid />
+				
 			</div>
 			<Footer menu={menu} />
+			<Grid />
 		</>
 	)
 }

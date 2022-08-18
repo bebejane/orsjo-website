@@ -35,7 +35,7 @@
     margin-left: $gutter;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     list-style: none;
     opacity: 1;
     transition: opacity 0.3s ease;
@@ -228,30 +228,33 @@
 }
 
 .search{
-  position: absolute;
+  position: fixed;
   top:0;
   right:0;
   height: 100vh;
   min-height: 100vh;
-  width: 80vw;
   z-index: 100;
   background-color: $white;
   display: flex;
   flex-direction: column;
+  width: spanGridWithGutter(12);
+  margin-left: calc(var(--outer-margin) + spanGrid(4));
   padding-left: var(--outer-margin);
   padding-right: var(--outer-margin);
-  padding-top: 1.3rem;
+  padding-top: 1.5rem;
   font-size: 18px;
+  box-shadow: -1px 0px 10px rgba(128, 128, 128, 0.1);
   
   .query{
     position: relative;
+    width: 100%;
     input{
       border: 0px;
       padding: .5em;
       background-color: $light-gray;
       outline: none;
       width: 100%;
-      border-radius: 10px;
+      
     }
     button{
       position: absolute;

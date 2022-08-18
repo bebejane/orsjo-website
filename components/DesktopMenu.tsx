@@ -126,16 +126,31 @@ export type SearchResult = {
 const Search = ({show, setShowSearch}) => {
 	
 	const [query, setQuery] = useState('')
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState<string | undefined>()
 	const [results, setResults] = useState()
+	const noMatches = results?.data?.length === 0
 
 	useEffect(()=>{
-		if(!query) return setResults({})
-		siteSearch(query).then((res : SearchResult) => setResults(res))
+		setResults(undefined)
+		if(!query) return 
+		setLoading(true)
+		siteSearch(query)
+		.then((res : SearchResult) => {
+			//const dedupe = {}
+			//res = res.map((el) => )
+			setResults(res)
+		})
+		.catch(err => {
+			setError(err.toString())
+			setResults(undefined)
+		})
+		.finally(() => setLoading(false))
 			
 	}, [query, setResults])	
 
 	if(!show) return null
-	console.log(results)
+	
 	return (
 		<div className={styles.search}>
 			<div className={styles.query}>
@@ -151,10 +166,11 @@ const Search = ({show, setShowSearch}) => {
 			<div className={styles.results}>
 			{results?.data?.map(({attributes}, idx) => 
 				<div key={idx}>
-					
+					<h2>
 					<Link href={process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', '') : attributes.url}>
 						{attributes.title}
 					</Link>
+					</h2>
 					<p>
 						{attributes.highlight.body.map(line => 
 							<>{line}</>
@@ -162,6 +178,9 @@ const Search = ({show, setShowSearch}) => {
 					</p>
 				</div>
 			)}
+			{loading && <span>...</span>}
+			{noMatches && <span>no matches for "{query}"</span> }
+			{error && <span>Error: {error}</span>}
 			</div>
 		</div>
 	)
