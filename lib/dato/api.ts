@@ -54,8 +54,6 @@ export const apiQuery = async (query: TypedDocumentNode | TypedDocumentNode[], o
     return result
 
   }catch(err){
-    console.log(err)
-    console.log(JSON.stringify(query, null, 4))
     throw err
   }
 }

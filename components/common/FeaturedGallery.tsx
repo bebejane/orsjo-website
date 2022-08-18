@@ -15,9 +15,10 @@ export type FeaturedGalleryProps = {
 	id: string, 
 	bgColor?: string,
 	theme: 'dark' | 'light',
+	fadeColor?: number[]
 }
 
-export default function FeaturedGallery({ headline, products, projects, id, bgColor, theme } : FeaturedGalleryProps ) {
+export default function FeaturedGallery({ headline, products, projects, id, bgColor, theme, fadeColor = [255,255,255] } : FeaturedGalleryProps ) {
 	
 	const {  menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
@@ -82,7 +83,12 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 						</SwiperSlide>
 					)}
 				</SwiperReact>
-				<div className={cn(styles.fade, isShortSlide && styles.hide)}></div>
+				<div 
+					className={cn(styles.fade, isShortSlide && styles.hide)}
+					style={{
+						background: `linear-gradient(-90deg, rgba(${fadeColor.join(',')},1) 0%, rgba(${fadeColor.join(',')},0) 100%, rgba(${fadeColor.join(',')},1) 100%)`
+					}}
+				></div>
 			</div>
 		</div>
 	)

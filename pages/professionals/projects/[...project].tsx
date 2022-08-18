@@ -45,6 +45,7 @@ export default function Project({ project, related }: ProjectProps) {
 					projects={related} 
 					id="relatedProjects"
 					theme="light"
+					fadeColor={[212, 212, 212]}
 				/>
 			</Section>
 		</>

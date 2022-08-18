@@ -216,6 +216,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 						products={related} 
 						theme={'light'}
 						id="related"
+						fadeColor={[212, 212, 212]}
 					/>
 				}
 				<FeaturedGallery 
@@ -223,6 +224,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 					products={relatedByCategory} 
 					theme={'light'}
 					id="relatedbycategory" 
+					fadeColor={[212, 212, 212]}
 				/>
 			</Section>
 			{galleryIndex > -1 &&
