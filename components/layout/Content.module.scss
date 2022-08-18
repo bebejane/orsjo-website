@@ -4,8 +4,5 @@
   flex-direction: column;
   flex: 1 1 auto;
   width: 100%;
-  
-  //margin-right: var(--outer-margin);
-  //margin-left: calc(#{spanGridWithGutter(4)} + var(--outer-margin));
- 
+  //section:last-child { padding-bottom: var(--outer-margin); }
 }

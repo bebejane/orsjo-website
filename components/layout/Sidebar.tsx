@@ -4,7 +4,7 @@ import { useStore, shallow } from '/lib/store';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useLayout } from '/lib/context/layout'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export type SidebarProps = {}
 
@@ -19,6 +19,10 @@ export default function Sidebar({} : SidebarProps) {
 	const isProductsPage = router.pathname.toLowerCase() === '/products'
 	const [searchFocus, setSearchFocus] = useState(false);
 	const resetSearch = (e) => setSearchProducts('')
+
+	useEffect(()=>{
+		setSearchProducts('')
+	}, [router.asPath])
 
 	if(!sections.length || !sidebar) return null
 	

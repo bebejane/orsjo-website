@@ -55,7 +55,7 @@ export default function Products({ productStart: { featured }, products, product
 
 		setProductsByCategorySearch(searchCategories);
 		
-	}, [searchProducts, productCategories, products, productsByCategory])
+	}, [searchProducts, productCategories])
 
 	useEffect(()=>{ window.scrollTo(0,0)}, [searchProducts])
 

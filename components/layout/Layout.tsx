@@ -14,6 +14,7 @@ export default function Layout({ children, menu }: LayoutProps) {
 
 	const { color } = useLayout()
 	const router = useRouter()
+	console.log('render')
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color ? `var(${color})` : undefined }}>
