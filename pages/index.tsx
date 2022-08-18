@@ -1,6 +1,6 @@
 import { withGlobalProps } from "/lib/hoc";
 import { LastNewsDocument, StartDocument } from '/graphql';
-import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink, NewsItem, Section } from '/components';
+import { FeaturedStart, FullscreenMedia, FullscreenVideo, ImageLink, NewsItem, Section } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
 
 export type StartProps = {start:StartRecord, lastNews: NewsRecord[]}
@@ -11,8 +11,8 @@ export default function Start({start : { content }, lastNews } : StartProps) {
 		<>
 			{content.map((block, idx) => {
 				switch (block.__typename) {
-					case 'FullscreenImageRecord':
-						return <Section type="full"><FullscreenImage key={idx} data={block}/></Section>
+					case 'FullscreenMediaBlockRecord':
+						return <Section type="full"><FullscreenMedia key={idx} data={block}/></Section>
 					case 'FeaturedRecord':
 						return <Section type="full"><FeaturedStart key={idx} data={block} /></Section>
 					case 'FullscreenVideoRecord':

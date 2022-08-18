@@ -39,6 +39,11 @@ fragment ProductFragment on ProductRecord{
             title
             slug
           }
+          ... on ProjectRecord{
+            id
+            title
+            slug
+          }
           ... on DesignerRecord{
             id
             name

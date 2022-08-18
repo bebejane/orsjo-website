@@ -81,7 +81,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					)}
 				</div>
 			</Section>
-			<Section name="Showrooms" data-dark="1" className={styles.showroomsSection} bgColor='--black'>
+			<Section name="Showrooms"  className={styles.showroomsSection} bgColor='--black'>
 				<h1>Showrooms</h1>
 				<Markdown className={styles.intro}>
 					The best way to experience our products is to see them in real life, so just reach out and book an appointment.

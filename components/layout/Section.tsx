@@ -14,7 +14,7 @@ export type SectionProps = {
 
 export default function Section({ children, className, type, name, top, bgColor }: SectionProps) {
 
-	const color = bgColor?.startsWith('--') ? `var(${bgColor})` : bgColor ? bgColor : undefined;
+	const color = bgColor?.startsWith('--') ? `rgba(var(${bgColor}))` : bgColor ? bgColor : undefined;
 
 	return (
 		<section 

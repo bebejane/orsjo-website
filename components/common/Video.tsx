@@ -1,14 +1,11 @@
-import styles from './FullscreenVideo.module.scss'
-import React from 'react'
+import styles from './Video.module.scss'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useWindowSize } from 'rooks'
 import { useInView } from 'react-intersection-observer'
-import { Video } from '/components'
-import Link from 'next/link'
 
-export type FullscreenVideoProps = { data: FullscreenVideoRecord }
+export type VideoProps = { data: FileField }
 
-export default function FullscreenVideo({ data: { video, text, link, linkText } }: FullscreenVideoProps) {
+export default function Video({ data }: VideoProps) {
 
 	const [inViewRef, inView] = useInView();
 	const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -35,22 +32,16 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 	useEffect(() => { setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null) }, [innerWidth])
 
 	return (
-		<section className={styles.fullScreenVideo}>
-			<Link href={link}>
-				<a>
-					<Video data={video}/>
-					<div className={styles.textWrap}>
-						<div className={styles.text}>
-							<div>{text}</div>
-							<div className={styles.link}>
-								<span className="medium white">
-									{linkText} <img src="/images/arrow.svg" className={styles.arrow} />
-								</span>
-							</div>
-						</div>
-					</div>
-				</a>
-			</Link>
-		</section>
+    <video
+      className={styles.video}
+      src={quality ? data.video[`mp4${quality}`] : undefined}
+      ref={setRefs}
+      playsInline
+      muted
+      loop={true}
+      autoPlay={false}
+      disablePictureInPicture={true}
+      poster={data.video?.thumbnailUrl}
+    />
 	)
 }

@@ -47,6 +47,11 @@ fragment ProjectFragment on ProjectRecord{
             name
             slug
           }
+          ... on ProjectRecord{
+            id
+            title
+            slug
+          }
         }
       }
     }

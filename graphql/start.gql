@@ -20,11 +20,11 @@ query Start {
           }
         }
       }
-      ... on FullscreenImageRecord {
+      ... on FullscreenMediaBlockRecord {
         id
         headline
         subHeadline
-        image {
+        media {
           ...ImageFragment
         }
         linkRecord{

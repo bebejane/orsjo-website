@@ -1,23 +1,28 @@
-import styles from './FullscreenImage.module.scss'
+import styles from './FullscreenMedia.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 import Link from 'next/link'
+import { Video } from '/components'
 
-type LayoutProps = { data: FullscreenImageRecord }
+export type LayoutProps = { data:  FullscreenMediaBlockRecord }
 
-export default function FullscreenImage({ data: { image, headline, linkRecord, subHeadline }, data }: LayoutProps) {
+export default function FullscreenMedia({ data: { media, headline, linkRecord, subHeadline }, data }: LayoutProps) {
 
 	const slugBase = linkRecord.__typename === 'DesignerRecord' ? '/designers' : '/products'
 
 	return (
 		<Link href={`${slugBase}/${linkRecord.slug}`}>
 			<a className={styles.fullScreenImage}>
-				<Image
-					className={styles.image}
-					data={image?.responsiveImage}
-					layout="fill"
-					objectFit="cover"
-				/>
+				{!media.video ? 
+					<Image
+						className={styles.image}
+						data={media?.responsiveImage}
+						layout="fill"
+						objectFit="cover"
+					/>
+				:
+					<Video data={media}/>
+				}
 				<div className={styles.wrapper}>
 					<div className={styles.headline}>
 						<span className="medium">{subHeadline}</span>

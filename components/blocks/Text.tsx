@@ -16,8 +16,11 @@ export default function Text({ data: { text }} : TextBlockProps) {
             case 'ProductRecord':
 							return <Link href={`/products/${record.slug}`}>{record.title}</Link>
 							break;
+            case 'ProjectRecord':
+              return <Link href={`/professionals/projects/${record.slug}`}>{record.title}</Link>
+              break;
 						case 'DesignerRecord':
-							return <Link href={`/designer/${record.slug}`}>{record.name}</Link>
+							return <Link href={`/designers/${record.slug}`}>{record.name}</Link>
 							break;
             default:
               return null;
@@ -26,10 +29,13 @@ export default function Text({ data: { text }} : TextBlockProps) {
         renderLinkToRecord={({ record, children, transformedMeta }) => {
           switch (record.__typename) {
             case 'ProductRecord':
-							return <Link href={`/products/${record.slug}`}>{record.title}</Link>
+							return <Link href={`/products/${record.slug}`}><a>{children}</a></Link>
 							break;
+            case 'ProjectRecord':
+              return <Link href={`/professionals/projects/${record.slug}`}><a>{children}</a></Link>
+              break;
 						case 'DesignerRecord':
-							return <Link href={`/designer/${record.slug}`}>{record.name}</Link>
+							return <Link href={`/designers/${record.slug}`}><a>{children}</a></Link>
 							break;
             default:
               return null;
