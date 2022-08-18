@@ -2,8 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.6em;
-  height: 2em;
+  width: 1.6rem;
+  min-width: 1.6rem;
+  height: 2rem;
+  min-height: 2rem;
   flex: 0 0 1.6em;
   background-color: $light-gray;
   color: $black;
