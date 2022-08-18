@@ -1,10 +1,10 @@
 import styles from './index.module.scss'
 import {
-	GetContactDocument,
-	GetAllResellersDocument,
-	GetAllStaffsDocument,
-	GetAllShowroomsDocument,
-	GetAllDistributorsDocument
+	ContactDocument,
+	AllResellersDocument,
+	AllStaffsDocument,
+	AllShowroomsDocument,
+	AllDistributorsDocument
 } from '/graphql';
 import { Section } from '/components'
 import { withGlobalProps } from "/lib/hoc";
@@ -165,7 +165,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 
 Contact.layout = { layout: 'full', color: "--red", menu: 'inverted' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetContactDocument, GetAllResellersDocument, GetAllStaffsDocument, GetAllShowroomsDocument, GetAllDistributorsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [ContactDocument, AllResellersDocument, AllStaffsDocument, AllShowroomsDocument, AllDistributorsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

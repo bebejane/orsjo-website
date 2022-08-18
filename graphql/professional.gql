@@ -2,26 +2,26 @@
 #import "./fragments/ProjectFragment.gql"
 
 
-query GetProject($slug: String) {
+query Project($slug: String) {
 	project (filter: {slug: { eq: $slug }}) {
     ...ProjectFragment
 	}
 }
 
-query GetAllProjects {
+query AllProjects {
   projects : allProjects {
     ...ProjectFragment
   }
 }
 
-query GetAllRelatedProjects($projectType: ItemId) {
+query AllRelatedProjects($projectType: ItemId) {
   projects : allProjects(
     filter: { projectType: { eq: $projectType}}){
     ...ProjectFragment
   }
 }
 
-query GetProjectStart {
+query ProjectStart {
 	projectStart {
 		id
 		intro(markdown: false)
@@ -29,14 +29,14 @@ query GetProjectStart {
 	}
 }
 
-query GetAllProjectTypes {
+query AllProjectTypes {
 	projectTypes: allProjectTypes {
 		id
 		title
 	}
 }
 
-query GetBespoke {
+query Bespoke {
 	bespoke {
 		id
     intro(markdown: false)
@@ -55,7 +55,7 @@ query GetBespoke {
 	}
 }
 
-query GetFactoryVisit {
+query FactoryVisit {
 	factoryVisit {
     id
     title

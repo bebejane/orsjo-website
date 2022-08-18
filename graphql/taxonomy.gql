@@ -1,4 +1,4 @@
-query GetTaxonomy ($locale: SiteLocale = en) {
+query Taxonomy ($locale: SiteLocale = en) {
   designer: allDesigners(locale: $locale) {
     name
     id

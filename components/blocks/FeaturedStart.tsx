@@ -9,9 +9,9 @@ import Link from 'next/link'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
-export type ImageGalleryProps = { data: FeaturedRecord }
+export type ImageGalleryProps = { data: FeaturedRecord, fadeColor?: number[] }
 
-export default function FeaturedStart({ data: { headline, items, id } }: ImageGalleryProps) {
+export default function FeaturedStart({ data: { headline, items, id }, fadeColor = [0,0,0] }: ImageGalleryProps) {
 
 	const { menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
@@ -61,11 +61,17 @@ export default function FeaturedStart({ data: { headline, items, id } }: ImageGa
 							</SwiperSlide>
 						)}
 					</SwiperReact>
-					<div className={cn(styles.fade, isShortSlide && styles.hide)}></div>
+					<div 
+						className={cn(styles.fade, isShortSlide && styles.hide)}
+						style={{
+							background: `linear-gradient(-90deg, rgba(${fadeColor.join(',')},1) 0%, rgba(${fadeColor.join(',')},0) 100%, rgba(${fadeColor.join(',')},1) 100%)`
+						}}
+						></div>
 					<ArrowButton
 						className={styles.arrow}
 						onClick={() => swiperRef.current.slideNext()}
 						inverted={true}
+						hide={isShortSlide}
 					/>
 				</div>
 			</div>

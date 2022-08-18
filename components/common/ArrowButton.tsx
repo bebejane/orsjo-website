@@ -2,9 +2,17 @@ import styles from './ArrowButton.module.scss'
 import cn from 'classnames'
 import type { MouseEventHandler } from 'react'
 
-export type ArrowButtonProps = { inverted?:boolean, reverse?:boolean, onClick?: MouseEventHandler<HTMLButtonElement>, className?:string }
+export type ArrowButtonProps = { 
+  inverted?:boolean, 
+  reverse?:boolean, 
+  onClick?: MouseEventHandler<HTMLButtonElement>, 
+  className?:string 
+  hide?:boolean
+}
 
-export default function ArrowButton({ className, inverted, reverse, onClick }: ArrowButtonProps) {
+export default function ArrowButton({ className, inverted, reverse, onClick, hide }: ArrowButtonProps) {
+  
+  if(hide) return null
   
   const buttonStyles = cn(styles.arrowButton, className, inverted && styles.inverted)
 

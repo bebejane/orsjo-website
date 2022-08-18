@@ -1,4 +1,4 @@
-query GetFaq {
+query Faq {
   faq {
     updatedAt
     createdAt
@@ -11,7 +11,7 @@ query GetFaq {
     }
   }
 }
-query GetAllFaqs {
+query AllFaqs {
   faqs : allFaqs {
     updatedAt
     createdAt
@@ -25,14 +25,14 @@ query GetAllFaqs {
   }
 }
 
-query GetAllFaqCategories {
+query AllFaqCategories {
   faqCategories: allFaqCategories {
     id
     title
   }
 }
 
-query GetFaqStart {
+query FaqStart {
   faqStart {
     intro(markdown: false)
     id

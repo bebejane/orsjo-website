@@ -1,5 +1,5 @@
 import styles from './downloads.module.scss'
-import { GetAllProductsDocument } from '/graphql';
+import { AllProductsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
@@ -102,7 +102,7 @@ export default function Downloads({ products }: DownloadsProps) {
 
 Downloads.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllProductsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllProductsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

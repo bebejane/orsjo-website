@@ -1,7 +1,7 @@
 import styles from './manuals.module.scss'
 import { withGlobalProps } from "/lib/hoc";
 import cn from 'classnames'
-import { GetAllProductManualsDocument } from '/graphql';
+import { AllProductManualsDocument } from '/graphql';
 import { PageLayoutProps } from '/lib/context/layout';
 import { Section } from '/components'
 import { useEffect, useState } from 'react'
@@ -63,7 +63,7 @@ export default function Manuals({ products }: ManualsProps) {
 
 Manuals.layout = { layout:'normal', color:'--copper', menu:'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllProductManualsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllProductManualsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props: {

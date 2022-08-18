@@ -1,6 +1,6 @@
 import styles from './[...project].module.scss'
 import { apiQuery } from '/lib/dato/api';
-import { GetProjectDocument, GetAllProjectsDocument, GetAllRelatedProjectsDocument } from '/graphql';
+import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -54,7 +54,7 @@ export default function Project({ project, related }: ProjectProps) {
 Project.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
 
 export async function getStaticPaths(context) {
-	const { projects } = await apiQuery(GetAllProjectsDocument, {})
+	const { projects } = await apiQuery(AllProjectsDocument, {})
 	const paths = projects.map(({ slug }) => ({ params: { project: [slug] } }))
 	
 	return {
@@ -65,8 +65,8 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({ }, async ({ props, context, revalidate }) => {
 
-	const { project } : { project: ProjectRecord } = await apiQuery(GetProjectDocument, { variables: { slug: context.params.project[0] } })
-	const { projects : related } : { projects: ProjectRecord[] } = await apiQuery(GetAllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
+	const { project } : { project: ProjectRecord } = await apiQuery(ProjectDocument, { variables: { slug: context.params.project[0] } })
+	const { projects : related } : { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
 	
 	if (!project)
 		return { notFound: true }

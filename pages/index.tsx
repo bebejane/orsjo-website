@@ -1,5 +1,5 @@
 import { withGlobalProps } from "/lib/hoc";
-import { GetLastNewsDocument, GetStartDocument } from '/graphql';
+import { LastNewsDocument, StartDocument } from '/graphql';
 import { FeaturedStart, FullscreenImage, FullscreenVideo, ImageLink, NewsItem, Section } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';
 
@@ -31,7 +31,7 @@ export default function Start({start : { content }, lastNews } : StartProps) {
 
 Start.layout = {layout:'full', color:'--black', menu:'inverted', sidebar:false} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({queries:[GetStartDocument, GetLastNewsDocument]}, async ({props, revalidate } : any) => {
+export const getStaticProps = withGlobalProps({queries:[StartDocument, LastNewsDocument]}, async ({props, revalidate } : any) => {
 	
 	return {
 		props,

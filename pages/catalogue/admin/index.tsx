@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 import type { Socket } from 'socket.io-client';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { withGlobalProps } from "/lib/hoc";
-import { GetAllProductsLightDocument } from "/graphql"
+import { AllProductsLightDocument } from "/graphql"
 import { useTranslations } from 'next-intl';
 import { useState, useEffect, useRef} from 'react'
 import { AiOutlineLoading, AiOutlineFilePdf } from 'react-icons/ai'
@@ -238,7 +238,7 @@ const Button = (({locale, type, path, productId, label, socket}: ButtonProps) =>
 
 export const getServerSideProps = withGlobalProps({}, async ({ props, context: { locale } } : any) => {
 
-	const { products } = await apiQuery(GetAllProductsLightDocument, { variables:{ locale }})
+	const { products } = await apiQuery(AllProductsLightDocument, { variables:{ locale }})
 	
 	return {
 		props: {

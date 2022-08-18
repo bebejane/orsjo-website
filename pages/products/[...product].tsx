@@ -1,6 +1,6 @@
 import styles from './[...product].module.scss'
 import cn from 'classnames'
-import { GetAllProductsDocument, GetProductDocument, GetRelatedProductsDocument, GetAllProductsByCategoryDocument } from '/graphql'
+import { AllProductsDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { List, ListItem } from '/components'
@@ -52,6 +52,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 	const singleModel = product.models.length === 1
 	const images = allProductImages(product)
 	const drawings = allDrawings(product)
+	const productCategories = product.categories.map(({ name }, idx) => name).join(', ')
 
 	const handleImageClick = (id: string) => {
 		const index = images.findIndex((i) => i.id === id)
@@ -76,7 +77,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 								By {product.designer?.name}
 							</h1>
 							<h3 className={styles.type}>
-								{product.categories.map(({ name }) => name).join(', ')}
+								{productCategories}
 							</h3>
 						</div>
 					</div>
@@ -161,7 +162,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 												<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
 												{rows.map((row, idx) =>
 													<>
-														<li>
+														<li key={idx}>
 															<span>{row[0].articleNo}</span>
 															<span>{row[0].label}</span>		
 														</li>									
@@ -209,12 +210,14 @@ export default function Product({ product, related, relatedByCategory }: Product
 				</List>
 			</Section>
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
-				<FeaturedGallery 
-					headline="Related" 
-					products={related} 
-					theme={'light'}
-					id="related"
-				/>
+				{related.length > 0 && 
+					<FeaturedGallery 
+						headline="Related" 
+						products={related} 
+						theme={'light'}
+						id="related"
+					/>
+				}
 				<FeaturedGallery 
 					headline={`Other ${product.categories[0].name}s`} 
 					products={relatedByCategory} 
@@ -243,7 +246,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 Product.layout = { layout: 'full', color: '--white', menu: 'normal' } as PageLayoutProps
 
 export async function getStaticPaths(context) {
-	const { products } = await apiQuery(GetAllProductsDocument, {})
+	const { products } = await apiQuery(AllProductsDocument, {})
 	const paths = products.map(({ slug }) => ({ params: { product: [slug] } }))
 	return {
 		paths,
@@ -253,15 +256,13 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({ }, async ({ props, context, revalidate }) => {
 
-	const { product }: { product: ProductRecord } = await apiQuery(GetProductDocument, { variables: { slug: context.params.product[0] } })
+	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug: context.params.product[0] } })
 
 	if (!product)
 		return { notFound: true }
 
-	const { products: related } = await apiQuery(GetRelatedProductsDocument, { variables: { designerId: product.designer.id, familyId: product.family.id } })
-	const { products: relatedByCategory } = await apiQuery(GetAllProductsByCategoryDocument, { variables: { categoryId: product.categories[0]?.id } })
-
-
+	const { products: related } = await apiQuery(RelatedProductsDocument, { variables: { designerId: product.designer.id, familyId: product.family.id } })
+	const { products: relatedByCategory } = await apiQuery(AllProductsByCategoryDocument, { variables: { categoryId: product.categories[0]?.id } })
 	return {
 		props: {
 			...props,

@@ -2,14 +2,14 @@
 #import "./fragments/VideoFragment.gql"
 #import "./fragments/NewsFragment.gql"
 
-query GetSustainability {
+query Sustainability {
   sustainability {
     id
     title
   }
 }
 
-query GetAbout {
+query About {
   about {
     id
     intro(markdown: false)
@@ -27,25 +27,25 @@ query GetAbout {
   }
 }
 
-query GetNews($id:ItemId){
+query News($id:ItemId){
   news(filter: {id: { eq: $id }}) {
     ...NewsFragment
   }
 }
 
-query GetLastNews {
+query LastNews {
   lastNews: allNews(orderBy: [createdAt_ASC], first: 1) {
     ...NewsFragment
   }
 }
 
-query GetAllNews {
+query AllNews {
   news: allNews {
     ...NewsFragment
   }
 }
 
-query GetJob($id:ItemId){
+query Job($id:ItemId){
   job(filter:{id:{eq:$id}}) {
     id
     summary(markdown: false)
@@ -54,7 +54,7 @@ query GetJob($id:ItemId){
   }
 }
 
-query GetAllJobs {
+query AllJobs {
   jobs: allJobs {
     id
     summary(markdown: false)
@@ -63,7 +63,7 @@ query GetAllJobs {
   }
 }
 
-query GetPress($id:ItemId){
+query Press($id:ItemId){
   press(filter:{id:{eq:$id}}) {
     id
     title
@@ -71,7 +71,7 @@ query GetPress($id:ItemId){
   }
 }
 
-query GetAllPress {
+query AllPress {
   presses: allPresses {
     id
     title

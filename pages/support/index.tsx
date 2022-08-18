@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-//import { GetAllSupports } from '/graphql';
+//import { AllSupports } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'

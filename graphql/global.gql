@@ -1,6 +1,6 @@
 #import "./fragments/SiteFragment.gql"
 
-query GetGlobal {
+query Global {
   site: _site {
 		...SiteFragment
 	} 

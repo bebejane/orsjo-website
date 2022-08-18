@@ -1,8 +1,8 @@
 import styles from './index.module.scss'
-import { GetServerSideProps } from 'next'
+import { ServerSideProps } from 'next'
 import ProductSheet from '/components/catalogue/ProductSheet';
 import { apiQuery, intlQuery } from "/lib/dato/api";
-import { GetProductDocument } from "/graphql"
+import { ProductDocument } from "/graphql"
 
 export type ProductProps = {product:ProductRecord, locale:Locale}
 
@@ -15,13 +15,13 @@ export default function Product({product, locale} : ProductProps){
 	)
 }
 
-export const getServerSideProps : GetServerSideProps = async ({locale, params}) => {
+export const getServerSideProps : ServerSideProps = async ({locale, params}) => {
 
 	if(typeof params === 'undefined' || params.id === undefined) 
 		return { notFound:true }
 
   const id = params?.id[0];
-	const { product } = await apiQuery(GetProductDocument, { variables: {id, locale}});
+	const { product } = await apiQuery(ProductDocument, { variables: {id, locale}});
 	
 	if(!product) return {notFound:true}
 	

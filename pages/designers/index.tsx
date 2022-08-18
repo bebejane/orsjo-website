@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import { GetAllDesignersDocument } from '/graphql';
+import { AllDesignersDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -20,7 +20,7 @@ export default function Designer({ designers }: DesignerProps) {
 	)
 }
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllDesignersDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllDesignersDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

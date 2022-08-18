@@ -2,15 +2,15 @@
 declare module '*/about.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetSustainability: DocumentNode;
-export const GetAbout: DocumentNode;
-export const GetNews: DocumentNode;
-export const GetLastNews: DocumentNode;
-export const GetAllNews: DocumentNode;
-export const GetJob: DocumentNode;
-export const GetAllJobs: DocumentNode;
-export const GetPress: DocumentNode;
-export const GetAllPress: DocumentNode;
+  export const Sustainability: DocumentNode;
+export const About: DocumentNode;
+export const News: DocumentNode;
+export const LastNews: DocumentNode;
+export const AllNews: DocumentNode;
+export const Job: DocumentNode;
+export const AllJobs: DocumentNode;
+export const Press: DocumentNode;
+export const AllPress: DocumentNode;
 
   export default defaultDocument;
 }
@@ -19,15 +19,15 @@ export const GetAllPress: DocumentNode;
 declare module '*/contact.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetShowroom: DocumentNode;
-export const GetAllShowrooms: DocumentNode;
-export const GetDistributor: DocumentNode;
-export const GetAllDistributors: DocumentNode;
-export const GetReseller: DocumentNode;
-export const GetAllResellers: DocumentNode;
-export const GetStaff: DocumentNode;
-export const GetAllStaffs: DocumentNode;
-export const GetContact: DocumentNode;
+  export const Showroom: DocumentNode;
+export const AllShowrooms: DocumentNode;
+export const Distributor: DocumentNode;
+export const AllDistributors: DocumentNode;
+export const Reseller: DocumentNode;
+export const AllResellers: DocumentNode;
+export const Staff: DocumentNode;
+export const AllStaffs: DocumentNode;
+export const Contact: DocumentNode;
 
   export default defaultDocument;
 }
@@ -36,8 +36,8 @@ export const GetContact: DocumentNode;
 declare module '*/designer.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetDesigner: DocumentNode;
-export const GetAllDesigners: DocumentNode;
+  export const Designer: DocumentNode;
+export const AllDesigners: DocumentNode;
 
   export default defaultDocument;
 }
@@ -181,7 +181,7 @@ declare module '*/VideoFragment.gql' {
 declare module '*/global.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetGlobal: DocumentNode;
+  export const Global: DocumentNode;
 
   export default defaultDocument;
 }
@@ -190,7 +190,16 @@ declare module '*/global.gql' {
 declare module '*/intl.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetIntl: DocumentNode;
+  export const Intl: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/menu.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Menu: DocumentNode;
 
   export default defaultDocument;
 }
@@ -199,15 +208,15 @@ declare module '*/intl.gql' {
 declare module '*/product.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetProduct: DocumentNode;
-export const GetAllProducts: DocumentNode;
-export const GetAllProductsLight: DocumentNode;
-export const GetAllProductManuals: DocumentNode;
-export const GetProductStart: DocumentNode;
-export const GetProductCategories: DocumentNode;
-export const GetAllProductsByDesigner: DocumentNode;
-export const GetRelatedProducts: DocumentNode;
-export const GetAllProductsByCategory: DocumentNode;
+  export const Product: DocumentNode;
+export const AllProducts: DocumentNode;
+export const AllProductsLight: DocumentNode;
+export const AllProductManuals: DocumentNode;
+export const ProductStart: DocumentNode;
+export const ProductCategories: DocumentNode;
+export const AllProductsByDesigner: DocumentNode;
+export const RelatedProducts: DocumentNode;
+export const AllProductsByCategory: DocumentNode;
 
   export default defaultDocument;
 }
@@ -216,13 +225,13 @@ export const GetAllProductsByCategory: DocumentNode;
 declare module '*/professional.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetProject: DocumentNode;
-export const GetAllProjects: DocumentNode;
-export const GetAllRelatedProjects: DocumentNode;
-export const GetProjectStart: DocumentNode;
-export const GetAllProjectTypes: DocumentNode;
-export const GetBespoke: DocumentNode;
-export const GetFactoryVisit: DocumentNode;
+  export const Project: DocumentNode;
+export const AllProjects: DocumentNode;
+export const AllRelatedProjects: DocumentNode;
+export const ProjectStart: DocumentNode;
+export const AllProjectTypes: DocumentNode;
+export const Bespoke: DocumentNode;
+export const FactoryVisit: DocumentNode;
 
   export default defaultDocument;
 }
@@ -231,7 +240,7 @@ export const GetFactoryVisit: DocumentNode;
 declare module '*/seo.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetSiteSEO: DocumentNode;
+  export const SiteSEO: DocumentNode;
 
   export default defaultDocument;
 }
@@ -240,7 +249,7 @@ declare module '*/seo.gql' {
 declare module '*/start.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetStart: DocumentNode;
+  export const Start: DocumentNode;
 
   export default defaultDocument;
 }
@@ -249,10 +258,10 @@ declare module '*/start.gql' {
 declare module '*/support.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetFaq: DocumentNode;
-export const GetAllFaqs: DocumentNode;
-export const GetAllFaqCategories: DocumentNode;
-export const GetFaqStart: DocumentNode;
+  export const Faq: DocumentNode;
+export const AllFaqs: DocumentNode;
+export const AllFaqCategories: DocumentNode;
+export const FaqStart: DocumentNode;
 
   export default defaultDocument;
 }
@@ -261,7 +270,7 @@ export const GetFaqStart: DocumentNode;
 declare module '*/taxonomy.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const GetTaxonomy: DocumentNode;
+  export const Taxonomy: DocumentNode;
 
   export default defaultDocument;
 }

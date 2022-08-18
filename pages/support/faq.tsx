@@ -1,5 +1,5 @@
 import styles from './faq.module.scss'
-import { GetAllFaqsDocument } from '/graphql';
+import { AllFaqsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import cn from 'classnames'
 import Markdown from '/lib/dato/components/Markdown';
@@ -48,7 +48,7 @@ export default function Faqs({ faqs }: FaqsProps) {
 
 Faqs.layout = { layout: 'normal', color: '--copper', menu: 'inverted' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllFaqsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllFaqsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

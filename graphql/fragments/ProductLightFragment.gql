@@ -14,4 +14,15 @@ fragment ProductLightFragment on ProductRecord{
   designer{
     id
   }
+  image{
+    ...ImageFragment
+  }
+  environmentImage{
+    ...ImageFragment
+  }
+  designer{
+    id
+    name
+    slug
+  }
 }

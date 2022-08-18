@@ -33,6 +33,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 
 		const { x } = el.getBoundingClientRect();
 		setMenuMargin(x-padding)
+
 	}, [innerWidth, selected])
 
 	useEffect(()=>{ setSelected(undefined)}, [router.asPath])	// Reset on route change
@@ -40,11 +41,8 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	useEffect(()=>{ !showMenu && setSelected(undefined) }, [showMenu]) // Hide menu if was closed on scroll
 
 	const handleSelected = (e: MouseEvent<HTMLLIElement>) => {
-		
 		const slug = e.currentTarget.getAttribute('data-slug')
-		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${slug}"]`)
 		const sel = selected === slug ? undefined : slug
-		if(sel) setMenuMargin(el.offsetLeft)
 		setSelected(sel)
 	}
 	

@@ -1,4 +1,4 @@
-query GetIntl(
+query Intl(
 	$locale: SiteLocale = en
 	$fallbackLocales: [SiteLocale!] = [en]
 	$first: IntType = 100

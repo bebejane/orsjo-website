@@ -35,21 +35,29 @@ export const apiQuery = async (query: TypedDocumentNode | TypedDocumentNode[], o
 
   if(!GRAPHQL_API_TOKEN) 
     throw "No api token in .env.local"
-
-  const batch = (Array.isArray(query) ? query : [query]).map((q, idx) => {
-    const vars = Array.isArray(variables) && variables.length > idx -1 ? variables[idx] : variables || {}
-    return client.query({query:q, variables:vars})
-  })
+  try{
+    const batch = (Array.isArray(query) ? query : [query]).map((q, idx) => {
+      const vars = Array.isArray(variables) && variables.length > idx -1 ? variables[idx] : variables || {}
+      return client.query({query:q, variables:vars})
+    })
   
-  const data = await Promise.all(batch)
-  const errors = data.filter(({errors}) => errors).map(({errors})=> errors?.reduce((curr, acc) => curr + '. ' + acc.message, ''))
-
-  if(errors.length)
-    throw new Error(errors.join('. '))
   
-  let result = {}
-  data.forEach((res) => result = {...result, ...res?.data})
-  return result
+    const data = await Promise.all(batch)
+
+    const errors = data.filter(({errors}) => errors).map(({errors})=> errors?.reduce((curr, acc) => curr + '. ' + acc.message, ''))
+
+    if(errors.length)
+      throw new Error(errors.join('. '))
+    
+    let result = {}
+    data.forEach((res) => result = {...result, ...res?.data})
+    return result
+
+  }catch(err){
+    console.log(err)
+    console.log(JSON.stringify(query, null, 4))
+    throw err
+  }
 }
 
 export const SEOQuery = (schema: string) : TypedDocumentNode => {

@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import { GetProjectStartDocument, GetAllProjectsDocument, GetAllProjectTypesDocument } from '/graphql';
+import { ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -40,7 +40,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 
 Professionals.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetProjectStartDocument, GetAllProjectsDocument, GetAllProjectTypesDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

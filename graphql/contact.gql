@@ -5,55 +5,55 @@
 #import "./fragments/StaffFragment.gql"
 #import "./fragments/ImageFragment.gql"
 
-query GetShowroom {
+query Showroom {
   showroom {
     ...ShowroomFragment
   }
 }
 
-query GetAllShowrooms {
+query AllShowrooms {
   showrooms: allShowrooms {
     ...ShowroomFragment
   }
 }
 
-query GetDistributor($id: ItemId, $locale: SiteLocale = en) {
+query Distributor($id: ItemId, $locale: SiteLocale = en) {
 	distributor(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
 		...DistributorFragment
 	}
 }
 
-query GetAllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
 	distributors: allDistributors(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...DistributorFragment
 	}
 }
 
-query GetReseller($id: ItemId, $locale: SiteLocale = en) {
+query Reseller($id: ItemId, $locale: SiteLocale = en) {
 	reseller(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
 		...ResellerFragment
 	}
 }
 
-query GetAllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
 	resellers: allResellers(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...ResellerFragment
 	}
 }
 
-query GetStaff($id: ItemId, $locale: SiteLocale = en) {
+query Staff($id: ItemId, $locale: SiteLocale = en) {
 	staff(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
 		...StaffFragment
 	}
 }
 
-query GetAllStaffs($id: ItemId, $locale: SiteLocale = en) {
+query AllStaffs($id: ItemId, $locale: SiteLocale = en) {
 	staffs : allStaffs(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
 		...StaffFragment
 	}
 }
 
-query GetContact{
+query Contact{
 	contact {
     id
     email

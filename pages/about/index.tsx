@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import { GetAboutDocument } from '/graphql';
+import { AboutDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -45,7 +45,7 @@ export default function About({ about }: AboutProps) {
 
 About.layout = { layout:'normal', color:"--black", menu:'inverted'} as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAboutDocument], model:'about' }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AboutDocument], model:'about' }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

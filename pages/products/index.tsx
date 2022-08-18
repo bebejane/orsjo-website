@@ -1,6 +1,6 @@
 
 import styles from './index.module.scss'
-import { GetProductStartDocument, GetAllProductsDocument, GetProductCategoriesDocument } from '/graphql';
+import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { FeaturedGallery, ProductThumbnail, Section } from '/components'
@@ -107,7 +107,7 @@ export default function Products({ productStart: { featured }, products, product
 
 Products.layout = { layout: 'full', menu: 'normal', color: '--white' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [GetAllProductsDocument, GetProductStartDocument, GetProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllProductsLightDocument, ProductStartDocument, ProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

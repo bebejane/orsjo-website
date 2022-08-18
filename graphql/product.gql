@@ -2,25 +2,25 @@
 #import "./fragments/ProductLightFragment.gql"
 #import "./fragments/ImageFragment.gql"
 
-query GetProduct($slug: String, $locale: SiteLocale = en) {
+query Product($slug: String, $locale: SiteLocale = en) {
 	product(locale: $locale, fallbackLocales: [sv, en], filter: {slug: { eq: $slug }}) {
 		...ProductFragment
 	}
 }
 
-query GetAllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
 	products: allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
 		...ProductFragment
 	}
 }
 
-query GetAllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
 	products: allProducts(first: $first, skip: $skip, orderBy: [title_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...ProductLightFragment
 	}
 }
 
-query GetAllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
 	products: allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
 		id
     title
@@ -46,20 +46,20 @@ query GetAllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $ski
     }
 	}
 }
-query GetProductStart {
+query ProductStart {
   productStart {
     id
     featured {
       id
       headline
       items {
-        ...ProductFragment
+        ...ProductLightFragment
       }
     }
   } 
 }
 
-query GetProductCategories {
+query ProductCategories {
   productCategories : allProductCategories {
     id
     name
@@ -67,13 +67,13 @@ query GetProductCategories {
   }
 }
 
-query GetAllProductsByDesigner($id: ItemId) {
+query AllProductsByDesigner($id: ItemId) {
 	products: allProducts(filter: {designer: { eq: $id }}) {
 		...ProductFragment
 	}
 }
 
-query GetRelatedProducts($designerId: ItemId, $familyId: ItemId) {
+query RelatedProducts($designerId: ItemId, $familyId: ItemId) {
 	products: allProducts(
     filter: { 
       OR:[
@@ -85,7 +85,7 @@ query GetRelatedProducts($designerId: ItemId, $familyId: ItemId) {
 	}
 }
 
-query GetAllProductsByCategory($categoryId: ItemId) {
+query AllProductsByCategory($categoryId: ItemId) {
 	products: allProducts(
     filter: { 
       categories: { eq: [$categoryId]}

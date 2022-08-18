@@ -1,9 +1,9 @@
 import styles from './index.module.scss'
-import { GetServerSideProps } from 'next'
+import { ServerSideProps } from 'next'
 import CatalogueLight from '/components/catalogue/CatalogueLight';
 import { apiQuery, intlQuery } from "/lib/dato/api";
 import { sortProductsByCategory } from "/lib/utils";
-import { GetAllProductsDocument } from "/graphql"
+import { AllProductsDocument } from "/graphql"
 
 type CatalogueLightWrapperProps = { products: ProductRecord[], locale: Locale}
 
@@ -16,9 +16,9 @@ export default function CatalogueLightWrapper({ products, locale } : CatalogueLi
 	)
 }
 
-export const getServerSideProps : GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps : ServerSideProps = async ({ locale }) => {
 
-	let { products } = await apiQuery(GetAllProductsDocument, { variables: { locale }});
+	let { products } = await apiQuery(AllProductsDocument, { variables: { locale }});
 	if (!products) return { notFound: true }
 
 	// Filter out model name containing hard wired and products with mounting that is fixed
