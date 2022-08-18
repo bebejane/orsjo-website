@@ -20,7 +20,7 @@ export type ProductProps = { product: ProductRecord, related: ProductRecord[], r
 
 export default function Product({ product, related, relatedByCategory }: ProductProps) {
 
-	const [setGallery] = useStore((state) => [state.setGallery])
+	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
 	
 	const specs = parseSpecifications(product, 'en', null)
 	
@@ -39,7 +39,11 @@ export default function Product({ product, related, relatedByCategory }: Product
 	const images = recordImages(product)
 	const drawings = allDrawings(product)
 	
-	const handleGalleryClick = (type: string, id:string) =>setGallery({images : type === 'product' ? images : drawings, index:0})
+	const handleGalleryClick = (type: string, id:string) => {
+		console.log(id, drawings)
+		setGallery({images : type === 'product' ? images : drawings, index:0})
+		setGalleryIndex(id)
+	}
 	useEffect(()=>setGallery({images}), [])
 
 	return (
@@ -164,7 +168,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 						<ul className={styles.dimensions}>
 							<li>
 								<span>Dimensions</span>
-								<button onClick={() => handleGalleryClick('drawing', drawings[0].id)} >
+								<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} >
 									View drawing{drawings.length > 1 && 's'} +
 								</button>
 							</li>

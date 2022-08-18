@@ -108,7 +108,13 @@ const recordImages = (obj, images = []) => {
     if (typeof obj[key] === 'object' && obj[key] !== null)
       recordImages(obj[key], images)
   })
-  return images;
+
+
+  return images.reduce((unique, o) => {
+    if(!unique.some(obj => obj.id === o.id))
+      unique.push(o);
+    return unique;
+    },[]);
 }
 
 

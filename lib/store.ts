@@ -79,7 +79,7 @@ const useStore = create<StoreState>((set) => ({
     set((state) => ({
       gallery:{
         ...state.gallery,
-        index: state.gallery?.images?.findIndex((i) => i.id === id) || undefined
+        index: state.gallery?.images?.findIndex((i) => i.id === id) ?? state.gallery?.index
       }
     })
   ),

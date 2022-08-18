@@ -16,7 +16,7 @@ export default function Project({ project, related }: ProjectProps) {
 	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
 
 	useEffect(()=> setGallery({images:recordImages(project)}), [])
-
+	
 	return (
 		<>
 			<Section className={styles.intro} name="Introduction" top={true}>

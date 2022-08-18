@@ -13,13 +13,14 @@ export default function Gallery({ images, onClose, index = 0 } : GalleryProps) {
   const [realIndex, setRealIndex] = useState(index)
   const [title, setTitle] = useState()
   const isSingleSlide = images?.length === 1
-
+  
   useEffect(() => images && setTitle(images[realIndex]?.title), [realIndex])
 
   useEffect(()=> { // handle arrow keys
     const handleKeys = ({key}) => {
       if(key === 'ArrowRight') swiperRef?.current?.slideNext()
       if(key === 'ArrowLeft') swiperRef?.current?.slidePrev()
+      if(key === 'Escape') onClose()
     }
     document.addEventListener('keydown', handleKeys)
     return () => document.removeEventListener('keydown', handleKeys)
@@ -32,6 +33,7 @@ export default function Gallery({ images, onClose, index = 0 } : GalleryProps) {
       <div className={styles.back} onClick={() => swiperRef.current.slidePrev()}>❮</div>
       <div className={styles.images} onClick={() => !isSingleSlide && swiperRef?.current?.slideNext()}>
         <Swiper
+          id={`main-gallery`} 
           loop={true}
           spaceBetween={500}
           slidesPerView={1}
