@@ -17,6 +17,7 @@
     "@apollo/client": "^3.6.2",
     "@datocms/cma-client-browser": "^1.0.0",
     "@datocms/cma-client-node": "^1.0.0",
+    "@next/bundle-analyzer": "^12.2.5",
     "base-64": "^1.0.0",
     "classnames": "^2.3.1",
     "date-fns": "^2.28.0",

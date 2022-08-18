@@ -1,3 +1,7 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 const sassOptions = {
   includePaths: ['./components', './pages'],
   prependData: `
@@ -38,4 +42,4 @@ const nextOptions = {
 }
 
 const config = { sassOptions, ...nextOptions }
-module.exports = config
+module.exports = withBundleAnalyzer(config)
