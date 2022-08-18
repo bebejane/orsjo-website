@@ -1,5 +1,5 @@
-#import "./fragments/ProductFragment.gql"
-#import "./fragments/ProjectFragment.gql"
+#import "./fragments/ProductLightFragment.gql"
+#import "./fragments/ProjectLightFragment.gql"
 #import "./fragments/DesignerFragment.gql"
 #import "./fragments/ImageFragment.gql"
 #import "./fragments/VideoFragment.gql"
@@ -13,10 +13,10 @@ query Start {
         headline
         items {
           ... on ProductRecord{
-            ...ProductFragment
+            ...ProductLightFragment
           }
           ... on ProjectRecord{
-            ...ProjectFragment
+            ...ProjectLightFragment
           }
         }
       }

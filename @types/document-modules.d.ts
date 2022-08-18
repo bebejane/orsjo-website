@@ -124,6 +124,15 @@ declare module '*/ProjectFragment.gql' {
 }
     
 
+declare module '*/ProjectLightFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const ProjectLightFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/ResellerFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

@@ -27,10 +27,25 @@ fragment ProductFragment on ProductRecord{
         ...ImageFragment
       }
     }
-    ... on TextRecord {
+   ... on TextRecord {
       __typename
       id
-      text(markdown: false)
+      text {
+        value
+        links {
+          __typename  
+          ... on ProductRecord{
+            id
+            title
+            slug
+          }
+          ... on DesignerRecord{
+            id
+            name
+            slug
+          }
+        }
+      }
     }
     ... on TwoColumnImageRecord {
       __typename

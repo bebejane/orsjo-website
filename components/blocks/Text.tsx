@@ -1,16 +1,46 @@
 import styles from './Text.module.scss'
 import React from 'react'
 import Markdown from '/lib/dato/components/Markdown'
+import { StructuredText, renderNodeRule, renderMarkRule } from 'react-datocms';
+import Link from 'next/link';
+export type TextBlockProps = { data: TextRecord }
 
-type TextBlockProps = { data: TextRecord }
-
-export default function Text({ data: { text } }: TextBlockProps) {
-
+export default function Text({ data: { text }} : TextBlockProps) {
+	
 	return (
 		<section className={styles.text}>
-			<Markdown>
-				{text}
-			</Markdown>
+			<StructuredText 
+				data={text}
+        renderInlineRecord={({ record }) => {
+          switch (record.__typename) {
+            case 'ProductRecord':
+							return <Link href={`/products/${record.slug}`}>{record.title}</Link>
+							break;
+						case 'DesignerRecord':
+							return <Link href={`/designer/${record.slug}`}>{record.name}</Link>
+							break;
+            default:
+              return null;
+          }
+        }}
+        renderLinkToRecord={({ record, children, transformedMeta }) => {
+          switch (record.__typename) {
+            case 'ProductRecord':
+							return <Link href={`/products/${record.slug}`}>{record.title}</Link>
+							break;
+						case 'DesignerRecord':
+							return <Link href={`/designer/${record.slug}`}>{record.name}</Link>
+							break;
+            default:
+              return null;
+          }
+        }}
+        renderText={(text)=>{
+          // Replace nbsp
+          return text?.replace(/\s/g, ' ');
+        }}
+			>
+			</StructuredText>
 		</section>
 
 	)

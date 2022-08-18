@@ -1,0 +1,18 @@
+#import "./ImageFragment.gql"
+
+fragment ProjectLightFragment on ProjectRecord{
+  id
+  location
+  title
+  slug
+  projectType {
+    id
+    title
+  }
+  image {
+    ...ImageFragment
+  }
+  secondaryImage {
+    ...ImageFragment
+  }
+}
