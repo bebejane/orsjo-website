@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import usePreviousRoute from '/lib/hooks/usePreviousRoute';
 import { useEffect, useState } from 'react';
 
-const duration = .5;
+const duration = 1;
 const pageTransition = {
 	initial: {
 		height: '100vh',
@@ -20,7 +20,7 @@ const pageTransition = {
 	},
 	exit: {
 		height: ['0vh', '100vh'],
-		transition:{ duration, ease:'easeOut'},
+		transition:{ duration:duration/2, ease:'easeOut'},
 		transitionEnd :{
 			height:'100vh',
 			opacity:1
@@ -34,20 +34,11 @@ const pageTransition = {
 	},
 	enterInstant: {
 		transition:{ duration:0 },
-		height:'0vh'
-	},
-	home:{
-		transition:{ duration:0 },
 		transitionEnd:{
-			height:'0vh'
+			height:'0vh',
+			opacity:0
 		}
 	},
-	homeInstant:{
-		transition:{ duration:0 },
-		transitionEnd:{
-			height:'0vh'
-		}
-	}
 }
 
 const pathToColor = (path) => {
