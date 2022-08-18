@@ -51,12 +51,12 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	
 	return (
 		<>
+			<Link href={'/'}>
+				<a className={cn(styles.logo, (menu === 'inverted' || invertMenu) && styles.inverted)}>
+					<img id={'logo'} src={'/images/logo.svg'}/>
+				</a>
+			</Link>
 			<nav id={'menu'} className={menuStyles}>
-				<Link href={'/'}>
-					<a className={styles.logo}>
-						<img id={'logo'}  src={'/images/logo.svg'}/>
-					</a>
-				</Link>
 				<ul className={styles.nav} >
 					{items.map(({label, slug, index}, idx) => {
 						const arrowStyle = cn(styles.arrow, slug === hovering && styles.hover, slug === selected && styles.active)
@@ -87,9 +87,9 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 			<div 
 				ref={ref}
 				className={cn(styles.sub, selected && showMenu && styles.show)} 
-				style={{width:`calc(100% - ${menuMargin}px)`, backgroundColor: `var(${color})`}}
+				style={{width:`calc(100% - ${menuMargin}px)`, backgroundColor: color}}
 			>
-				<div className={cn(styles.subPad, styles[menu])} style={{ backgroundColor: `var(${color})`}}>
+				<div className={cn(styles.subPad, styles[menu])} style={{ backgroundColor: color}}>
 					<nav>
 						<ul>
 							{sub?.map(({label, slug}, idx)=>

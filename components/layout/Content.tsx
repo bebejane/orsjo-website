@@ -55,11 +55,6 @@ export default function Content({ children}: ContentProps) {
 
 		if(!sections.length || !sidebar) return
 		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
-		//console.log(sidebar.offsetTop+sidebar.clientHeight, sidebarBottomOffset)
-		
-		//const sec = (Array.from(sections)).sort((a, b) => Math.abs(a.offsetTop-scrolledPosition-sidebarBottomOffset) > Math.abs(b.offsetTop-scrolledPosition-sidebarBottomOffset) ? 1 : -1)[0]
-		//console.log(sec.id)
-		//setCurrentSection(section.id)
 	}, [scrolledPosition, documentHeight, setCurrentSection])
 
 	useEffect(() => { // Toggle menu bar on scroll

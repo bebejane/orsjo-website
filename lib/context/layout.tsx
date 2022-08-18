@@ -11,7 +11,7 @@ export type PageLayoutProps = {
 const initialState : PageLayoutProps = {
   layout: 'normal',
   menu: 'normal',
-  color: '#ffffff',
+  color: '--white',
   sidebar: true
 }
 
@@ -24,8 +24,9 @@ export type LayoutProviderProps = {
 
 // Context provider
 export const LayoutProvider = ({ children, value } : LayoutProviderProps) => {
+  
   return (
-    <LayoutContext.Provider value={{...initialState, ...value}}>
+    <LayoutContext.Provider value={{...initialState, ...value, color:`rgba(var(${value.color}),1)`}}>
       {children}
     </LayoutContext.Provider>
   )

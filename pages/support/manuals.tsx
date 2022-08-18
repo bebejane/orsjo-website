@@ -11,11 +11,11 @@ export type ManualsProps = {  products: ProductRecord[]}
 export default function Manuals({ products }: ManualsProps) {
 
 	const[search, setSeatch] = useState<string>();
-	const[results, setResults] = useState<ProductRecord[]>();
+	const[results, setResults] = useState<ProductRecord[]>(products);
 
 
 	useEffect(()=>{
-		if(!search || !products) return setResults(undefined)
+		if(!search || !products) return setResults(products)
 		const res = products.filter(({title})=> title.toLowerCase().startsWith(search.toLowerCase()))
 		setResults(res)
 	}, [search, products, setResults])

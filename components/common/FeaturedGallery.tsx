@@ -15,10 +15,10 @@ export type FeaturedGalleryProps = {
 	id: string, 
 	bgColor?: string,
 	theme: 'dark' | 'light',
-	fadeColor?: number[]
+	fadeColor?: string
 }
 
-export default function FeaturedGallery({ headline, products, projects, id, bgColor, theme, fadeColor = [255,255,255] } : FeaturedGalleryProps ) {
+export default function FeaturedGallery({ headline, products, projects, id, bgColor, theme, fadeColor = '--white2' } : FeaturedGalleryProps ) {
 	
 	const {  menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
@@ -49,14 +49,13 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 				</h1>
 				<ArrowButton 
 					className={cn(styles.next, isShortSlide && styles.hide)}
-					onClick={()=> swiperRef.current?.isEnd ? swiperRef.current?.slideTo(0) : swiperRef.current.slideNext()} 
-					reverse={swiperRef.current?.isEnd}
+					onClick={()=>swiperRef.current.slideNext()} 
 				/>
 			</div>
 			<div className={styles.gallery} >
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
-					loop={false}
+					loop={true}
 					slidesPerView={isShortSlide ? items.length : slidesPerView}
 					spaceBetween={20}
 					initialSlide={index}
@@ -86,7 +85,7 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 				<div 
 					className={cn(styles.fade, isShortSlide && styles.hide)}
 					style={{
-						background: `linear-gradient(-90deg, rgba(${fadeColor.join(',')},1) 0%, rgba(${fadeColor.join(',')},0) 100%, rgba(${fadeColor.join(',')},1) 100%)`
+						background: `linear-gradient(-90deg, rgba(var(${fadeColor}),1) 0%, rgba(var(${fadeColor}),0) 100%, rgba(var(${fadeColor}),1) 100%)`
 					}}
 				></div>
 			</div>

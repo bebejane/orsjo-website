@@ -6,29 +6,28 @@ import { useRouter } from 'next/router';
 import { useLayout } from '/lib/context/layout'
 import { useEffect, useState } from 'react'
 
-export type SidebarProps = {}
+export type SidebarProps = {title:string}
 
-export default function Sidebar({} : SidebarProps) {
+export default function Sidebar({title} : SidebarProps) {
 
 	const { menu, sidebar } = useLayout()
 	const router = useRouter()
 	const [currentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
 	const sections = useStore((state) => state.sections)
 	const isInverted = menu === 'inverted' || invertSidebar
-	const subHeader = router.asPath.substring(router.asPath.lastIndexOf('/')+1, router.asPath.indexOf('#') > -1 ? router.asPath.indexOf('#') : undefined) || 'Home'
 	const isProductsPage = router.pathname.toLowerCase() === '/products'
+	const isProductPage = router.pathname.startsWith('/products/')
+	const isProjectPage = router.pathname.startsWith('/professionals/projects/')
 	const [searchFocus, setSearchFocus] = useState(false);
 	const resetSearch = (e) => setSearchProducts('')
 
-	useEffect(()=>{
-		setSearchProducts('')
-	}, [router.asPath])
+	useEffect(()=>{ setSearchProducts('')}, [router.asPath])
 
 	if(!sections.length || !sidebar) return null
 	
 	return (
 		<aside id="sidebar" className={cn(styles.sidebar, isInverted && styles.inverted)}>
-			<h3>{subHeader}</h3>
+			<h3>{title}</h3>
 			<nav>
 				<ul>
 					{sections.map((section, idx) => 
@@ -60,6 +59,10 @@ export default function Sidebar({} : SidebarProps) {
 					}
 				</ul>
 			</nav>
+			<div className={cn(styles.footer, 'medium')}>
+				{isProductPage &&<Link href="/products">All Products</Link>}
+				{isProjectPage &&<Link href="/professionals/projects/">All Projects</Link>}
+			</div>
 		</aside>
 	)
 }

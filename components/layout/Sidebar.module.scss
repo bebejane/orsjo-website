@@ -3,10 +3,10 @@
   margin-top: calc(1rem + $navbarHeight);
   flex: 0 0;
   min-width: spanGridWithGutter(4);
+  min-height: calc(100vh - calc(1rem + $navbarHeight));
   position: fixed;
   z-index: 103;
   
-
   ul {
     list-style: none;
 
@@ -86,5 +86,21 @@
         color: $white  !important;
       }
     }
+    .footer a{
+      color: lightgray !important; 
+    }
+  }
+
+  .footer{
+    position: absolute;
+    margin-bottom: var(--outer-margin);
+    bottom:0;
+    a{
+      color: $black-menu;
+      &:hover {
+        color: $black;
+      }
+    }
+    
   }
 }

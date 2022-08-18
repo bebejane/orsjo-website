@@ -43,6 +43,7 @@ export default function Thumbnail({ image, imageHover, slug, inverted, title, su
                   className={styles.image}
                   layout={'fill'} 
                   objectFit={'cover'}
+                  
                 />
               </div>
             }
