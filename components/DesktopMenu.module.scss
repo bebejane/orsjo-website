@@ -85,8 +85,12 @@
     flex: 1 1 100%;
     
     img{
-      width: 18px;
-      max-width: 18px;
+      opacity: 0.6;
+      width: 16px;
+      max-width: 16px;
+      &:hover{
+        opacity: 1;
+      }
     }
   }
   &.open {
@@ -122,6 +126,9 @@
     }
 
     .logo {
+      filter: invert(1);
+    }
+    li.searchIcon{
       filter: invert(1);
     }
   }
