@@ -1,12 +1,13 @@
 import styles from './Layout.module.scss'
 import React from 'react'
-import { Content, Sidebar, Footer } from '/components'
+import { Content, Sidebar, Footer, Gallery} from '/components'
 import DesktopMenu from '/components/DesktopMenu'
 import MobileMenu from '/components/MobileMenu'
 import { useLayout } from '/lib/context/layout'
 import type { MenuItem } from '/lib/menu'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useStore } from '/lib/store'
 
 export type LayoutProps = { children: React.ReactNode, menu: MenuItem[] }
 
@@ -14,7 +15,8 @@ export default function Layout({ children, menu }: LayoutProps) {
 
 	const { color } = useLayout()
 	const router = useRouter()
-	console.log('render')
+	const [gallery, setGallery] = useStore((state) => [state.gallery, state.setGallery])
+
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color ? `var(${color})` : undefined }}>
@@ -24,7 +26,14 @@ export default function Layout({ children, menu }: LayoutProps) {
 				<Content>
 					{children}
 				</Content>
-				
+
+				{gallery?.index > -1 &&
+					<Gallery
+						images={gallery.images}
+						index={gallery.index}
+						onClose={() => setGallery({...gallery, index:-1})}
+					/>
+				}
 			</div>
 			<Footer menu={menu} />
 			<Grid />

@@ -3,28 +3,12 @@ import cn from 'classnames'
 import { AllProductsDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
+import { useStore } from '/lib/store'
 import { List, ListItem } from '/components'
 import { Image } from 'react-datocms'
 import { FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery, ProductThumbnail, Section, Icon } from '/components'
-import { Gallery } from '/components'
-import { useState } from 'react'
-import { chunkArray, parseSpecifications } from '/lib/utils'
-
-const allProductImages = (product: ProductRecord) => {
-	const images = [product.image]
-	
-	product.productGallery.forEach(block => {
-		switch (block.__typename) {
-			case 'FullwidthImageRecord':
-				images.push(block.image);
-			case 'TwoColumnImageRecord':
-				images.push.apply(images, [block.firstImage, block.lastImage]);
-			case 'ImageGalleryRecord':
-				images.push.apply(images, block.gallery);
-		}
-	})
-	return images.filter(img => img);
-}
+import { useState, useEffect } from 'react'
+import { chunkArray, parseSpecifications, recordImages } from '/lib/utils'
 
 const allDrawings = (product: ProductRecord) => {
 	const drawings = []
@@ -36,10 +20,10 @@ export type ProductProps = { product: ProductRecord, related: ProductRecord[], r
 
 export default function Product({ product, related, relatedByCategory }: ProductProps) {
 
-	const [galleryIndex, setGalleryIndex] = useState<number>(-1)
-	const [drawingGalleryIndex, setDrawingGalleryIndex] = useState<number>(-1)
+	const [setGallery] = useStore((state) => [state.setGallery])
 	
 	const specs = parseSpecifications(product, 'en', null)
+	
 	const specsCols = [
 		{ label: 'Designer', value: specs.designer},
 		{ label: 'Mounting', value: specs.mounting},
@@ -50,14 +34,13 @@ export default function Product({ product, related, relatedByCategory }: Product
 	].filter(el => el.value)
 
 	const singleModel = product.models.length === 1
-	const images = allProductImages(product)
-	const drawings = allDrawings(product)
 	const productCategories = product.categories.map(({ name }, idx) => name).join(', ')
-
-	const handleImageClick = (id: string) => {
-		const index = images.findIndex((i) => i.id === id)
-		setGalleryIndex(index >= 0 ? index : -1)
-	}
+	
+	const images = recordImages(product)
+	const drawings = allDrawings(product)
+	
+	const handleGalleryClick = (type: string, id:string) =>setGallery({images : type === 'product' ? images : drawings, index:0})
+	useEffect(()=>setGallery({images}), [])
 
 	return (
 		<>
@@ -85,13 +68,13 @@ export default function Product({ product, related, relatedByCategory }: Product
 				{product.productGallery.map(block => {
 					switch (block.__typename) {
 						case 'FullwidthImageRecord':
-							return <FullWidthImage data={block} onClick={handleImageClick} />
+							return <FullWidthImage data={block} onClick={(id)=> handleGalleryClick('product', id)} />
 						case 'TextRecord':
 							return <Text data={block} />
 						case 'TwoColumnImageRecord':
-							return <TwoColumnImage data={block} onClick={handleImageClick} />
+							return <TwoColumnImage data={block} onClick={(id)=> handleGalleryClick('product', id)} />
 						case 'ImageGalleryRecord':
-							return <ImageGallery data={block} onClick={handleImageClick} />
+							return <ImageGallery data={block} onClick={(id)=> handleGalleryClick('product', id)} />
 						default:
 							return null
 					}
@@ -181,7 +164,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 						<ul className={styles.dimensions}>
 							<li>
 								<span>Dimensions</span>
-								<button  onClick={() => setDrawingGalleryIndex(0)}>
+								<button onClick={() => handleGalleryClick('drawing', drawings[0].id)} >
 									View drawing{drawings.length > 1 && 's'} +
 								</button>
 							</li>
@@ -227,20 +210,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 					fadeColor={[212, 212, 212]}
 				/>
 			</Section>
-			{galleryIndex > -1 &&
-				<Gallery
-					images={images}
-					index={galleryIndex}
-					onClose={() => setGalleryIndex(-1)}
-				/>
-			}
-			{drawingGalleryIndex > -1 &&
-				<Gallery
-					images={drawings}
-					index={drawingGalleryIndex}
-					onClose={() => setDrawingGalleryIndex(-1)}
-				/>
-			}
+			
 		</>
 	)
 }

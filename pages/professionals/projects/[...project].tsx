@@ -2,20 +2,21 @@ import styles from './[...project].module.scss'
 import { apiQuery } from '/lib/dato/api';
 import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
-import Link from 'next/link'
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
-import { useLayout } from '/lib/context/layout';
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section, FeaturedGallery } from '/components';
+import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section, FeaturedGallery, Gallery } from '/components';
+import { useEffect } from 'react'
+import { useStore } from '/lib/store';
+import { recordImages } from '/lib/utils';
 
 export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
 
 export default function Project({ project, related }: ProjectProps) {
 	
-	const { color } = useLayout()
-	const handleClick = (id) => console.log(id);	
-	
+	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
+
+	useEffect(()=> setGallery({images:recordImages(project)}), [])
+
 	return (
 		<>
 			<Section className={styles.intro} name="Introduction" top={true}>
@@ -28,13 +29,13 @@ export default function Project({ project, related }: ProjectProps) {
 			{project.gallery.map((block, idx) => {
 				switch (block.__typename) {
 					case 'FullwidthImageRecord':
-						return <Section><FullWidthImage data={block} onClick={handleClick}/></Section>
+						return <Section><FullWidthImage data={block} onClick={setGalleryIndex}/></Section>
 					case 'TextRecord':
 						return <Section><Text data={block}/></Section>
 					case 'TwoColumnImageRecord':
-						return <Section><TwoColumnImage data={block} onClick={handleClick}/></Section>
+						return <Section><TwoColumnImage data={block} onClick={setGalleryIndex}/></Section>
 					case 'ImageGalleryRecord':
-						return <Section><ImageGallery data={block} onClick={handleClick}/></Section>
+						return <Section><ImageGallery data={block} onClick={setGalleryIndex}/></Section>
 					default:
 						return null
 				}

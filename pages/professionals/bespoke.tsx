@@ -6,11 +6,16 @@ import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section } from '/components';
-
+import { recordImages } from '/lib/utils'
+import { useStore } from 'lib/store';
+import { useEffect } from 'react';
 export type BespokeProps = { bespoke:BespokeRecord }
 
 export default function Bespoke({ bespoke }: BespokeProps) {
 	
+	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
+	useEffect(()=>setGallery({images:recordImages(bespoke)}), [bespoke])
+
 	return (
 		<>
 			<Section className={styles.bespoke} type={'full'}>
@@ -35,13 +40,13 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 							{project.gallery.map((block, idx) => {
 								switch (block.__typename) {
 									case 'FullwidthImageRecord':
-										return <FullWidthImage data={block} />
+										return <FullWidthImage data={block} onClick={setGalleryIndex}/>
 									case 'TextRecord':
-										return <Text data={block} />
+										return <Text data={block}/>
 									case 'TwoColumnImageRecord':
-										return <TwoColumnImage data={block} />
+										return <TwoColumnImage data={block} onClick={setGalleryIndex}/>
 									case 'ImageGalleryRecord':
-										return <ImageGallery data={block} />
+										return <ImageGallery data={block} onClick={setGalleryIndex}/>
 									default:
 										return null
 								}

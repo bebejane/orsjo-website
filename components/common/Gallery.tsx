@@ -14,7 +14,16 @@ export default function Gallery({ images, onClose, index = 0 } : GalleryProps) {
   const [title, setTitle] = useState()
   const isSingleSlide = images?.length === 1
 
-  useEffect(() => setTitle(images[realIndex]?.title), [realIndex])
+  useEffect(() => images && setTitle(images[realIndex]?.title), [realIndex])
+
+  useEffect(()=> { // handle arrow keys
+    const handleKeys = ({key}) => {
+      if(key === 'ArrowRight') swiperRef?.current?.slideNext()
+      if(key === 'ArrowLeft') swiperRef?.current?.slidePrev()
+    }
+    document.addEventListener('keydown', handleKeys)
+    return () => document.removeEventListener('keydown', handleKeys)
+  }, [])
 
   if (!images) return null
   

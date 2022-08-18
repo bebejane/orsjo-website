@@ -100,6 +100,18 @@ const siteSearch = async (q:string, opt: {offset?:number, limit?:number} = {}) =
 
   return await res.json()
 }
+
+const recordImages = (obj, images = []) => {
+  Object.keys(obj).forEach(key => {
+    if(obj[key]?.responsiveImage !== undefined)
+      images.push(obj[key])
+    if (typeof obj[key] === 'object' && obj[key] !== null)
+      recordImages(obj[key], images)
+  })
+  return images;
+}
+
+
 export {
   sleep,
   isServer,
@@ -110,5 +122,6 @@ export {
   sectionId,
   chunkArray,
   parseSpecifications,
-  siteSearch
+  siteSearch,
+  recordImages
 }
