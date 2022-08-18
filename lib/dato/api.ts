@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { BatchHttpLink } from "@apollo/client/link/batch-http"; 
 import { GetIntlDocument } from '/graphql';
 import { buildClient } from '@datocms/cma-client-node';
 import { buildClient as buildClientBrowser} from '@datocms/cma-client-browser';
@@ -12,10 +13,16 @@ export const GRAPHQL_PREVIEW_API_ENDPOINT = `https://graphql.datocms.com/preview
 export const GRAPHQL_API_TOKEN = (isServer ? process.env.GRAPHQL_API_TOKEN : process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN) || null
 export const Dato = (isServer ? buildClient : buildClientBrowser)({apiToken:GRAPHQL_API_TOKEN})
 
-export const client = new ApolloClient({
+const link = new BatchHttpLink({ 
   uri: GRAPHQL_API_ENDPOINT,
+  batchMax: 10, 
+  batchInterval: 20,
+  headers: { Authorization: `Bearer ${GRAPHQL_API_TOKEN}` }
+});
+
+export const client = new ApolloClient({
+  link,
   cache: new InMemoryCache(),
-  headers: { Authorization: `Bearer ${GRAPHQL_API_TOKEN}` },
   ssrMode: isServer,
   defaultOptions: {
     query: {

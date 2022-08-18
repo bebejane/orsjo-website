@@ -36,6 +36,9 @@
     list-style: none;
       
       li{
+        display: flex;
+        flex-direction: row;
+        padding: .8em;
         &:nth-child(odd){
           background-color: $white;
         }

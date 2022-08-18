@@ -67,7 +67,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 								onClick={(e)=> !index && handleSelected(e)}
 								onMouseEnter={()=>setHovering(slug)}
 								onMouseLeave={()=>setHovering(undefined)}
-								className={router.pathname.startsWith(`${slug}`) && styles.selected}
+								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
 							>	
 								{index === true ? // Direct links
 									<Link href={slug}>

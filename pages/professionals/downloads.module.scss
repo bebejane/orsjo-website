@@ -94,22 +94,8 @@
                   background-color:$gray;
                 }
               }
-
-
-              .icon {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 1.6em;
-                height: 2em;
-                flex: 0 0 1.6em;
-                background-color: $light-gray;
-                color: $black;
-                margin-right: 1em;
-              }
-
               .title {
-                fles: 1 1 100%;
+                flex: 1 1 100%;
               }
             }
           }

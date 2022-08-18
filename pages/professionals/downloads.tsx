@@ -5,7 +5,7 @@ import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 import { useState } from 'react';
-import { Section } from '/components'
+import { Section, Icon } from '/components'
 
 export type DownloadsProps = { products: ProductRecord[] }
 
@@ -58,30 +58,30 @@ export default function Downloads({ products }: DownloadsProps) {
 												<div className={styles.list}>
 													{pdfFile &&
 														<div className={styles.item}>
-															<div className={styles.icon}><span className="small">PDF</span></div>
+															<Icon>PDF</Icon>
 															<a href={pdfFile.url} download><span className="small">Productsheet (SE)</span></a>
 														</div>
 													}
 													{pdfFile &&
 														<div className={styles.item}>
-															<div className={styles.icon}><span className="small">PDF</span></div>
+															<Icon>PDF</Icon>
 															<a href={pdfFile?.url} download><span className="small">Productsheet (EN)</span></a>
 														</div>
 													}
 													{mountingInstructions &&
 														<div className={styles.item}>
-															<div className={styles.icon}><span className="small">PDF</span></div>
+															<Icon>PDF</Icon>
 															<a href={mountingInstructions.url} download><span className="small">Mounting instructions</span></a>
 														</div>
 													}
 													{bimLink &&
 														<div className={styles.item}>
-															<div className={styles.icon}><span className="small">BIM</span></div>
+															<Icon>BIM</Icon>
 															<a href={bimLink} download><span className="small">BIM files</span></a>
 														</div>
 													}
 													<div className={styles.item}>
-														<div className={styles.icon}><span className="small">CAD</span></div>
+														<Icon>CAD</Icon>
 														<span className="small">CAD file, size S</span>
 													</div>
 												</div>

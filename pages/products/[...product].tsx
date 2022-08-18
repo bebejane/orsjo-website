@@ -5,7 +5,7 @@ import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { List, ListItem } from '/components'
 import { Image } from 'react-datocms'
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery, ProductThumbnail, Section } from '/components'
+import { FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery, ProductThumbnail, Section, Icon } from '/components'
 import { Gallery } from '/components'
 import { useState } from 'react'
 import { chunkArray, parseSpecifications } from '/lib/utils'
@@ -190,19 +190,19 @@ export default function Product({ product, related, relatedByCategory }: Product
 					<ListItem title={'Downloads'} className={styles.listItemContent}>
 						<ul className={styles.downloads}>
 							<li>
-								<div className={styles.fileIcon}>PDF</div>
+								<Icon>PDF</Icon>
 								<div className={styles.label}>Product Sheet (SE)</div>
 							</li>
 							<li>
-								<div className={styles.fileIcon}>PDF</div>
+								<Icon>PDF</Icon>
 								<div className={styles.label}>Product Sheet (EN)</div>
 							</li>
 							<li>
-								<div className={styles.fileIcon}>BIM</div>
+								<Icon>BIM</Icon>
 								<div className={styles.label}>Bim files</div>
 							</li>
 							<li>
-								<div className={styles.fileIcon}>CAD</div>
+								<Icon>CAD</Icon>
 								<div className={styles.label}>Cad Files</div>
 							</li>
 						</ul>
