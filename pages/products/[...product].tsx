@@ -20,7 +20,7 @@ const allDrawings = (product: ProductRecord) => {
 export type ProductProps = { product: ProductRecord, related: ProductRecord[], relatedByCategory: ProductRecord[] };
 
 export default function Product({ product, related, relatedByCategory }: ProductProps) {
-	console.log(product)
+	
 	const [setGallery, setGalleryIndex, setProduct] = useStore((state) => [state.setGallery, state.setGalleryIndex, state.setProduct])
 	
 	const { color } = useLayout()
