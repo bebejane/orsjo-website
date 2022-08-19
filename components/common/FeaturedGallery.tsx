@@ -50,7 +50,7 @@ export default function FeaturedGallery({ headline, products, projects, designer
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
 					loop={true}
-					slidesPerView={isShortSlide ? items.length : slidesPerView}
+					slidesPerView={isShortSlide ? numSlides : slidesPerView}
 					spaceBetween={20}
 					initialSlide={index}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
