@@ -9,6 +9,7 @@ fragment ProductLightFragment on ProductRecord{
   categories{
     id
     name
+    namePlural
     position
   }
   designer{

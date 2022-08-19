@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 import { useLayout } from '/lib/context/layout'
 import { useEffect, useState } from 'react'
 
-export type SidebarProps = {title:string}
+export type SidebarProps = {title:string, product?:ProductRecord}
 
-export default function Sidebar({title} : SidebarProps) {
+export default function Sidebar({title, product} : SidebarProps) {
 
 	const { menu, sidebar } = useLayout()
 	const router = useRouter()
@@ -39,6 +39,7 @@ export default function Sidebar({title} : SidebarProps) {
 							</Link>
 						</li>
 					)}
+
 					{isProductsPage && 
 						<li className={styles.search}>
 							<input 
@@ -55,6 +56,13 @@ export default function Sidebar({title} : SidebarProps) {
 							>
 								×
 							</button>
+						</li>
+					}
+					{product && 
+						<li className={styles.download}>
+							<a href={product.pdfFile.url}>
+								Download
+							</a>
 						</li>
 					}
 				</ul>

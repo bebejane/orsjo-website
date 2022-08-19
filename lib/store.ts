@@ -19,6 +19,7 @@ export interface StoreState {
   searchProducts: string,
   sections: SectionId[],
   gallery: GalleryProps,
+  product: ProductRecord,
   setSections: (sections: SectionId[]) => void,
   setShowMenu: (showMenu: boolean) => void,
   setCurrentSection: (currentSection: string) => void,
@@ -26,7 +27,8 @@ export interface StoreState {
   setInvertMenu: (invertMenu: boolean) => void,
   setSearchProducts: (searchProducts : string) => void,
   setGallery: (gallery : GalleryProps)  => void,
-  setGalleryIndex: (id : string)  => void
+  setGalleryIndex: (id : string)  => void,
+  setProduct: (product : ProductRecord)  => void,
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -37,6 +39,7 @@ const useStore = create<StoreState>((set) => ({
   sections:[],
   searchProducts:undefined,
   gallery:undefined,
+  product:undefined,
   setSections: (sections: SectionId[]) =>  
     set((state) => ({
       sections
@@ -81,6 +84,11 @@ const useStore = create<StoreState>((set) => ({
         ...state.gallery,
         index: state.gallery?.images?.findIndex((i) => i.id === id) ?? state.gallery?.index
       }
+    })
+  ),
+  setProduct: (product) =>  
+    set((state) => ({
+      product
     })
   ),
 }));

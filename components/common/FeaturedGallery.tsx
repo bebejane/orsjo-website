@@ -16,8 +16,8 @@ export type FeaturedGalleryProps = {
 	id: string, 
 	bgColor?: string,
 	theme: 'dark' | 'light',
-	arrowAlign: 'top' | 'middle',
-	inverted: boolean,
+	arrowAlign?: 'top' | 'middle',
+	inverted?: boolean,
 	fadeColor?: string
 }
 

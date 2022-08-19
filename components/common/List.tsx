@@ -2,7 +2,7 @@ import styles from './List.module.scss'
 import cn from 'classnames'
 import React, { useRef, useState } from 'react'
 
-export type ListProps = { children: React.ReactNode[], initial: number }
+export type ListProps = { children: React.ReactNode[], initial?: number }
 
 export default function List({ children, initial }: ListProps) {
 

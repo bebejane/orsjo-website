@@ -17,14 +17,14 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 	const { color } = useLayout()
 
 	const router = useRouter()
-	const [gallery, setGallery] = useStore((state) => [state.gallery, state.setGallery])
+	const [gallery, setGallery, product] = useStore((state) => [state.gallery, state.setGallery, state.product])
 	
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>
 				<DesktopMenu items={menu} key={router.asPath}/>
 				<MobileMenu items={menu} />
-				<Sidebar title={title}/>
+				<Sidebar title={title} product={product}/>
 				<Content>
 					{children}
 				</Content>

@@ -9,6 +9,7 @@ import { Image } from 'react-datocms'
 import { FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery, ProductThumbnail, Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages } from '/lib/utils'
+import { useLayout } from '/lib/context/layout'
 
 const allDrawings = (product: ProductRecord) => {
 	const drawings = []
@@ -19,9 +20,10 @@ const allDrawings = (product: ProductRecord) => {
 export type ProductProps = { product: ProductRecord, related: ProductRecord[], relatedByCategory: ProductRecord[] };
 
 export default function Product({ product, related, relatedByCategory }: ProductProps) {
-
-	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
+	console.log(product)
+	const [setGallery, setGalleryIndex, setProduct] = useStore((state) => [state.setGallery, state.setGalleryIndex, state.setProduct])
 	
+	const { color } = useLayout()
 	const specs = parseSpecifications(product, 'en', null)
 	
 	const specsCols = [
@@ -45,6 +47,10 @@ export default function Product({ product, related, relatedByCategory }: Product
 		setGalleryIndex(id)
 	}
 	useEffect(()=>setGallery({images}), [])
+	useEffect(()=>{
+		setProduct(product)
+		return () => setProduct(undefined)
+	}, [product])
 
 	return (
 		<>
@@ -85,7 +91,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 				})}
 			</Section>
 			<Section name="Specifications" className={styles.details}>
-				<List initial={0}>
+				<List>
 					<ListItem title={'Specifications'} className={styles.listItemContent}>
 						<ul className={styles.specifications}>
 							{specsCols.map(({ label, value }, idx) =>
@@ -176,43 +182,55 @@ export default function Product({ product, related, relatedByCategory }: Product
 					</ListItem>
 					<ListItem title={'Downloads'} className={styles.listItemContent}>
 						<ul className={styles.downloads}>
-							<li>
-								<Icon>PDF</Icon>
-								<div className={styles.label}>Product Sheet (SE)</div>
-							</li>
-							<li>
-								<Icon>PDF</Icon>
-								<div className={styles.label}>Product Sheet (EN)</div>
-							</li>
-							<li>
-								<Icon>BIM</Icon>
-								<div className={styles.label}>Bim files</div>
-							</li>
-							<li>
-								<Icon>CAD</Icon>
-								<div className={styles.label}>Cad Files</div>
-							</li>
+								<li>
+									<a href={`${product.pdfFiles.find(({locale}) => locale ==='sv')?.value.url}`} download>
+										<Icon>PDF</Icon>
+										<div className={styles.label}>Product Sheet (SE)</div>
+									</a>
+								</li>
+								<li>
+									<a href={`${product.pdfFiles.find(({locale}) => locale ==='en')?.value.url}`} download>
+										<Icon>PDF</Icon>
+										<div className={styles.label}>Product Sheet (EN)</div>
+									</a>
+								</li>
+								<li>
+									<a href={product.bimLink || undefined}>
+										<Icon>BIM</Icon>
+										<div className={styles.label}>Bim files</div>
+									</a>
+								</li>
+								<li>
+									<a href={product.lightFile?.url}>
+										<Icon>CAD</Icon>
+										<div className={styles.label}>Cad Files</div>
+									</a>
+								</li>
 						</ul>
 					</ListItem>
 				</List>
 			</Section>
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
+				
+				{relatedByCategory.length > 0 &&
+					<FeaturedGallery 
+						headline={`Other ${product.categories[0].namePlural}`} 
+						products={relatedByCategory} 
+						theme={'light'}
+						id="relatedbycategory" 
+						fadeColor={color}
+					/>
+				}
+
 				{related.length > 0 && 
 					<FeaturedGallery 
-						headline="Related" 
+						headline={`Related`} 
 						products={related} 
 						theme={'light'}
 						id="related"
-						fadeColor={[212, 212, 212]}
+						fadeColor={color}
 					/>
 				}
-				<FeaturedGallery 
-					headline={`Other ${product.categories[0].name}s`} 
-					products={relatedByCategory} 
-					theme={'light'}
-					id="relatedbycategory" 
-					fadeColor={[212, 212, 212]}
-				/>
 			</Section>
 			
 		</>
@@ -239,12 +257,13 @@ export const getStaticProps = withGlobalProps({ }, async ({ props, context, reva
 
 	const { products: related } = await apiQuery(RelatedProductsDocument, { variables: { designerId: product.designer.id, familyId: product.family.id } })
 	const { products: relatedByCategory } = await apiQuery(AllProductsByCategoryDocument, { variables: { categoryId: product.categories[0]?.id } })
+
 	return {
 		props: {
 			...props,
 			product,
 			related: related.filter(p => p.id !== product.id),
-			relatedByCategory
+			relatedByCategory: relatedByCategory.filter(p => p.id !== product.id),
 		},
 		revalidate
 	};

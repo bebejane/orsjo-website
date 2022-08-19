@@ -83,6 +83,7 @@ fragment ProductFragment on ProductRecord{
   categories{
     id
     name
+    namePlural
     position
   }
   connection {
@@ -164,6 +165,12 @@ fragment ProductFragment on ProductRecord{
   }
   pdfFile {
     ...FileFragment
+  }
+  pdfFiles :_allPdfFileLocales {
+    locale
+    value {
+      ...FileFragment
+    }
   }
   sockets {
     id
