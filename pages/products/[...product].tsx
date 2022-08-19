@@ -219,7 +219,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 	)
 }
 
-Product.layout = { layout: 'full', color: '--white', menu: 'normal' } as PageLayoutProps
+Product.layout = { layout: 'normal', color: '--white', menu: 'normal' } as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { products } = await apiQuery(AllProductsDocument, {})

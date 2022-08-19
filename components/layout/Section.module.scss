@@ -1,7 +1,9 @@
 .section{
   width: 100%;
+  
   padding-left: var(--outer-margin);
   padding-right: var(--outer-margin);
+  
   .wrap{ 
     position: relative;
     padding-left: spanGridWithGutter(4);

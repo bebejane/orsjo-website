@@ -67,6 +67,7 @@ export default function PageTransition(){
 		const isComplete = ['home', 'homeIntro', 'enter'].includes(variant) && type === 'complete'
 		const isExiting = variant.startsWith('exit') && type === 'start'
 		const didExit = variant.startsWith('exit') && type === 'complete'
+		console.log(didExit)
 		if(didExit)
 			document.body.scrollIntoView({behavior:'instant'})
 	}

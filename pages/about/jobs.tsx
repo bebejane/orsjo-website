@@ -12,7 +12,7 @@ export type JobsProps = { jobs: JobRecord[] }
 export default function Jobs({ jobs }: JobsProps) {
 
 	return (
-		<Section className={styles.jobs} top={true}>
+		<Section className={styles.jobs} top={true} name="Introduction">
 			<h1>Jobs</h1>
 			{jobs.map(({ title, summary, text }) =>
 				<>

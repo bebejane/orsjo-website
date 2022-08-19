@@ -105,7 +105,7 @@ export default function Products({ productStart: { featured }, products, product
 	)
 }
 
-Products.layout = { layout: 'full', menu: 'normal', color: '--white' } as PageLayoutProps
+Products.layout = { layout: 'normal', menu: 'normal', color: '--white' } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllProductsLightDocument, ProductStartDocument, ProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
 

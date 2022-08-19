@@ -12,7 +12,7 @@ export type PressProps = { presses: PressRecord[]}
 export default function Press({ presses }: PressProps) {
 
 	return (
-		<Section className={styles.press} top={true}>
+		<Section className={styles.press} top={true} name="Introduction">
 			<h1>Press</h1>
 			{presses.map(({title, url}, idx)=>
 				<a key={idx} href={url}>{title}</a>
