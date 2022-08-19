@@ -22,7 +22,7 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>
-				<DesktopMenu items={menu} key={router.asPath}/>
+				<DesktopMenu items={menu}/>
 				<MobileMenu items={menu} />
 				<Sidebar title={title} product={product}/>
 				<Content>
@@ -38,7 +38,6 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 				}
 			</div>
 			<Footer menu={menu} />
-			<PageTransition/>
 			<Grid />
 		</>
 	)

@@ -10,6 +10,8 @@ import { FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery, Pr
 import { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages } from '/lib/utils'
 import { useLayout } from '/lib/context/layout'
+import useScrollInfo from '/lib/hooks/useScrollInfo'
+import { useRouter } from 'next/router'
 
 const allDrawings = (product: ProductRecord) => {
 	const drawings = []
@@ -21,9 +23,11 @@ export type ProductProps = { product: ProductRecord, related: ProductRecord[], r
 
 export default function Product({ product, related, relatedByCategory }: ProductProps) {
 	
-	const [setGallery, setGalleryIndex, setProduct] = useStore((state) => [state.setGallery, state.setGalleryIndex, state.setProduct])
-	
+	const router = useRouter()
+	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
+	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const { color } = useLayout()
+	const [listIndex, setListIndex] = useState()
 	const specs = parseSpecifications(product, 'en', null)
 	
 	const specsCols = [
@@ -46,22 +50,31 @@ export default function Product({ product, related, relatedByCategory }: Product
 		setGallery({images : type === 'product' ? images : drawings, index:0})
 		setGalleryIndex(id)
 	}
-	useEffect(()=>setGallery({images}), [])
-	useEffect(()=>{
-		setProduct(product)
-		return () => setProduct(undefined)
-	}, [product])
 
+	useEffect(()=>{
+		console.log(router.asPath)
+		if(router.asPath.endsWith('specifications'))
+			setListIndex(0)
+		if(router.asPath.endsWith('downloads'))
+			setListIndex(1)
+
+	}, [router])
+
+	useEffect(()=>setGallery({images}), [])
+	
+	const overlayOpacity = Math.max(0, ((viewportHeight-(scrolledPosition*2)) / viewportHeight));
+	
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
-				<div className={styles.image}>
+				<div className={styles.intro}>
 					<Image
+						className={styles.image}
 						data={product.image?.responsiveImage}
 						layout={'fill'}
 						objectFit={'contain'}
 					/>
-					<div className={styles.overlay}>
+					<div className={styles.overlay} style={{opacity: overlayOpacity}}>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
 								{product.title}
@@ -75,23 +88,23 @@ export default function Product({ product, related, relatedByCategory }: Product
 						</div>
 					</div>
 				</div>
-				{product.productGallery.map(block => {
+				{product.productGallery.map((block, idx) => {
 					switch (block.__typename) {
 						case 'FullwidthImageRecord':
-							return <FullWidthImage data={block} onClick={(id)=> handleGalleryClick('product', id)} />
+							return <FullWidthImage key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
 						case 'TextRecord':
-							return <Text data={block} />
+							return <Text key={idx} data={block} />
 						case 'TwoColumnImageRecord':
-							return <TwoColumnImage data={block} onClick={(id)=> handleGalleryClick('product', id)} />
+							return <TwoColumnImage key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
 						case 'ImageGalleryRecord':
-							return <ImageGallery data={block} onClick={(id)=> handleGalleryClick('product', id)} />
+							return <ImageGallery key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
 						default:
 							return null
 					}
 				})}
 			</Section>
-			<Section name="Specifications" className={styles.details}>
-				<List>
+			<Section className={styles.details}>
+				<List index={listIndex}>
 					<ListItem title={'Specifications'} className={styles.listItemContent}>
 						<ul className={styles.specifications}>
 							{specsCols.map(({ label, value }, idx) =>

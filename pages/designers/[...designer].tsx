@@ -30,7 +30,6 @@ export default function Designer({ designer, products, designers }: DesignerProp
 							<Image data={designer.image.responsiveImage} layout={'fill'} objectFit={'cover'} />
 						}
 					</figure>
-					<div className={styles.overlay} style={{ backgroundColor: color }}></div>
 				</header>
 			</Section>
 			<Section type="margin" className={styles.products} bgColor='--mid-gray'>

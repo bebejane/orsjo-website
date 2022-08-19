@@ -9,22 +9,29 @@ import { Section } from '/components'
 
 export type AboutProps = {  about: AboutRecord}
 
-export default function About({ about }: AboutProps) {
+export default function About({ about : {title, image, intro, sections} }: AboutProps) {
 	
 	return (
-		<Section className={styles.about} top={true} type="full">
-			<h1>{about.title}</h1>
+		<Section className={styles.about} type="full">
+			<div className={styles.hero}>
+				<Image 
+					data={image.responsiveImage} 
+					className={styles.heroImage}
+					objectFit="cover"
+				/>
+				<h1>{title}</h1>
+			</div>
 			<Markdown className={styles.intro}>
-				{about.intro}
+				{intro}
 			</Markdown>
-			{about.sections.map(({text, image, video}) => 
+			{sections.map(({text, image, video}) => 
 				<>
-					<Markdown className={styles.text}>
-						{text}
-					</Markdown>
 					{image && 
 						<Image data={image.responsiveImage} className={styles.image}/>
 					}
+					<Markdown className={styles.text}>
+						{text}
+					</Markdown>
 					{video && 
 						<video
 							className={styles.video}

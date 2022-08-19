@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import usePreviousRoute from '/lib/hooks/usePreviousRoute';
 import { useEffect, useState } from 'react';
 
-const duration = .4;
+const duration = .5;
 const pageTransition = {
 	initial: {
 		height: '100vh',
@@ -12,7 +12,7 @@ const pageTransition = {
 	},
 	enter: {
 		opacity: [1,0],
-		transition:{ duration:duration*1, ease:'easeOut'},
+		transition:{ duration:duration*2, ease:'easeOut'},
 		transitionEnd :{
 			opacity:1,
 			height:'0vh'
@@ -26,14 +26,22 @@ const pageTransition = {
 			opacity:1
 		}
 	},
+	none:{
+		transition:{ duration:0},
+		opacity:0,
+		height:'0vh'
+	},
 	exitInstant:{
-		transition:{ duration:0 },
+		transition:{ duration },
+		opacity:[0,1],
 		transitionEnd:{
-			height:'0vh'
+			height:'0vh',
+			opacity:1
 		}
 	},
 	enterInstant: {
-		transition:{ duration:0 },
+		opacity:[0,1],
+		transition:{ duration , delay:0.2},
 		transitionEnd:{
 			height:'0vh',
 			opacity:0
@@ -66,20 +74,19 @@ export default function PageTransition(){
 		const didExit = variant.startsWith('exit') && type === 'complete'
 		
 		if(didExit)
-			document.body.scrollIntoView({behavior:'instant'})
+			window.scrollTo({ top: 0, behavior: 'instant' });
 	}
 
 	useEffect(() => { 
 		const handleRouteChange = (url, { shallow }) => {
 			const isSameSection = document.location.pathname.split('/')[1] === url.split('/')[1]
-			
 			setColor(!isSameSection ? pathToColor(url) : undefined)
 		};
 		router.events.on("routeChangeStart", handleRouteChange);
 		return () => router.events.off("routeChangeStart", handleRouteChange)
 	}, []);
 	
-	const enterAnimation = !prevRoute  ? "enterInstant" : "enter"
+	const enterAnimation = !prevRoute ? "none" : !color ? "enterInstant" : "enter"
 	const exitAnimation = !color ? "exitInstant" : "exit" 
 
 	//console.log(enterAnimation, exitAnimation, prevRoute)
@@ -94,7 +101,7 @@ export default function PageTransition(){
       onAnimationComplete={ (variant) => handleAnimationEvent('complete', variant)}
       onAnimationStart={(variant) => handleAnimationEvent('start', variant)}
 			style={{backgroundColor:color ? `rgba(var(${color}))` : undefined}}
-    >	
+    >
     </motion.div>
 	)
 }

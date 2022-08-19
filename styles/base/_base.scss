@@ -6,7 +6,7 @@ body {
 	width: 100%;
 	color: $black;
 	background-color: $white;
-	font-family: $body-font;
+	font-family: $body-font, 'Helvetica', 'Arial';
 	//-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-feature-settings: "liga", "kern";
@@ -22,7 +22,6 @@ html {
 	margin: 0;
 	padding: 0;
 	scroll-behavior: smooth;
-	
 }
 
 ::-webkit-scrollbar {

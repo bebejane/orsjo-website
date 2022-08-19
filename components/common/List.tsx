@@ -1,18 +1,24 @@
 import styles from './List.module.scss'
 import cn from 'classnames'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { sectionId } from '/lib/utils'
 
-export type ListProps = { children: React.ReactNode[], initial?: number }
+export type ListProps = { children: React.ReactNode[], index?: number }
 
-export default function List({ children, initial }: ListProps) {
+export default function List({ children, index }: ListProps) {
 
 	const ref = useRef(null)
-	const [selected, setSelected] = useState<any>(initial !== undefined ? { [initial]: true } : {})
+	const [selected, setSelected] = useState<any>(index !== undefined ? { [index]: true } : {})
 
 	const handleSelect = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const idx = parseInt(e.target?.dataset.idx);
-		setSelected({ ...selected, [idx]: selected[idx] ? false : true })
+		const sel = { ...selected, [idx]: selected[idx] ? false : true }
+		setSelected(sel)
 	}
+	useEffect(() => {
+		const sel = { [index]: selected[index] ? false : true }
+		setSelected(sel)
+	}, [index])
 
 	return (
 		<ul className={styles.list} ref={ref}>
@@ -43,14 +49,14 @@ export function ListItem({ children, title, parent, onToggle, idx, selected, cla
 
 	return (
 		<li className={cn(styles.item, className)}>
-			<div className={styles.wrapper} onClick={onToggle} data-idx={idx}>
+			<section className={styles.wrapper} onClick={onToggle} data-idx={idx} {...sectionId(title)}>
 				{title ? <h1>{title}</h1> : children}
 				<div className={styles.toggle} >
 					<h1>
 						{selected ? '-' : '+'}
 					</h1>
 				</div>
-			</div>
+			</section>
 			{selected && title &&
 				<div className={cn(styles.content, 'tableList')}>
 					{children}

@@ -70,7 +70,7 @@ export default function FeaturedGallery({
 					onSwiper={(swiper) => swiperRef.current = swiper}
 				>
 					{products?.map((p, idx) =>
-						<SwiperSlide key={`${id}-idx`} className={styles.slide}>
+						<SwiperSlide key={`${id}-${idx}`} className={styles.slide}>
 							<ProductThumbnail 
 								key={idx}
 								product={p} 
@@ -80,7 +80,7 @@ export default function FeaturedGallery({
 					)}
 
 					{projects?.map((p, idx) =>
-						<SwiperSlide key={`${id}-idx`} className={styles.slide}>
+						<SwiperSlide key={`${id}-${idx}`} className={styles.slide}>
 							<ProjectThumbnail 
 								key={idx}
 								project={p} 
@@ -89,7 +89,7 @@ export default function FeaturedGallery({
 						</SwiperSlide>
 					)}
 					{designers?.map((d, idx) =>
-						<SwiperSlide key={`${id}-idx`} className={styles.slide}>
+						<SwiperSlide key={`${id}-${idx}`} className={styles.slide}>
 							<DesignerThumbnail 
 								key={idx}
 								designer={d} 

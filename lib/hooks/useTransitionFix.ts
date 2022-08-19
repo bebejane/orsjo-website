@@ -1,6 +1,8 @@
 import Router from "next/router";
 import { useCallback, useEffect, useRef } from "react";
 
+// Bugfix for framer-motion page transition - https://github.com/vercel/next.js/issues/17464
+
 const useTransitionFix = () => {
 
 	const cleanupRef = useRef(() => {});
@@ -12,7 +14,7 @@ const useTransitionFix = () => {
 			// ourselves later on when the transition finishes.
 			const nodes = document.querySelectorAll("link[rel=stylesheet], style:not([media=x])");
 			const copies = Array.from(nodes).map((el) => el.cloneNode(true) as HTMLElement)
-
+			console.log(copies)
 			for (let copy of copies) {
 				// Remove Next.js' data attributes so the copies are not removed from the DOM in the route
 				// change process.
@@ -112,9 +114,9 @@ const useTransitionFix2 = () => useEffect(() => {
 
 
 const useTransitionFix3 = () => useEffect(() => {
-	Array.from(
-			document.querySelectorAll('head > link[rel="stylesheet"][data-n-p]')
-	).forEach(node => {
+	const nodes = document.querySelectorAll('head > link[rel="stylesheet"][data-n-p]')
+	
+	Array.from(nodes).forEach(node => {
 			node.removeAttribute('data-n-p');
 	});
 	const mutationHandler = mutations => {
@@ -127,14 +129,11 @@ const useTransitionFix3 = () => useEffect(() => {
 			});
 	};
 	const observer = new MutationObserver(mutationHandler);
-	observer.observe(document.head, {
-			subtree: true,
-			attributeFilter: ['media'],
-	});
+	observer.observe(document.head, {subtree: true, attributeFilter: ['media']});
 	return () => {
 			observer.disconnect();
 	};
 }, []);
 
-
 export default useTransitionFix3
+export { useTransitionFix, useTransitionFix2, useTransitionFix3}

@@ -7,6 +7,9 @@
   .item{
     position: relative;
     border-bottom: 1px solid $gray;
+    h1{
+      pointer-events: none;
+    }
     .wrapper {
       cursor: pointer;
       display: flex;
