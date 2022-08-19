@@ -154,8 +154,6 @@
 			}
 		}
 		.dimensions{
-				
-			
 			button{
 				padding:0;
 				margin: 0;
@@ -210,7 +208,8 @@
 	padding-top: $small-margin;
 	padding-bottom: $margin;
 
-	section:first-of-type {
+	& > div:first-child {
 		padding-bottom: $small-margin;
 	}
+
 }
