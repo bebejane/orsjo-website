@@ -15,10 +15,6 @@
     button{
       color:$white;
     }
-    .gallery > .fade {
-      background: rgb(0, 0, 0);
-      background: linear-gradient(-90deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%, rgb(0, 0, 0) 100%);
-    }
   }
   
   .header{
@@ -31,7 +27,6 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    //flex: 0 0 75%;
     max-width: spanGrid(12);
     figure {
       position: relative;

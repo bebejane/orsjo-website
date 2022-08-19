@@ -16,12 +16,24 @@ export type FeaturedGalleryProps = {
 	id: string, 
 	bgColor?: string,
 	theme: 'dark' | 'light',
+	arrowAlign: 'top' | 'middle',
+	inverted: boolean,
 	fadeColor?: string
 }
 
-export default function FeaturedGallery({ headline, products, projects, designers, id, bgColor, theme, fadeColor = '--white2' } : FeaturedGalleryProps ) {
+export default function FeaturedGallery({ 
+	headline, 
+	products, 
+	projects, 
+	designers, 
+	id, 
+	theme, 
+	fadeColor = '--white',
+	arrowAlign = 'top',
+	inverted = false
+} : FeaturedGalleryProps ) {
 	
-	const {  menu } = useLayout()
+	const { menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
 	const isProjects = projects != undefined
@@ -37,15 +49,16 @@ export default function FeaturedGallery({ headline, products, projects, designer
 	
 	return (
 		<div className={cn(styles.featuredGallery, styles[menu])}>
-			<div className={styles.header}>
-				<h1 className={styles.headline}>
-					{headline}
-				</h1>
-				<ArrowButton 
-					className={cn(styles.next, isShortSlide && styles.hide)}
-					onClick={()=>swiperRef.current.slideNext()} 
-				/>
-			</div>
+			{headline && arrowAlign === 'top' && 
+				<div className={styles.header}>
+					<h1 className={styles.headline}>{headline}</h1>
+					<ArrowButton 
+						className={cn(styles.next, isShortSlide && styles.hide)}
+						inverted={inverted}
+						onClick={()=>swiperRef.current.slideNext()} 
+					/>
+				</div>
+			}
 			<div className={styles.gallery} >
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
@@ -91,6 +104,15 @@ export default function FeaturedGallery({ headline, products, projects, designer
 						background: `linear-gradient(-90deg, rgba(var(${fadeColor}),1) 0%, rgba(var(${fadeColor}),0) 100%, rgba(var(${fadeColor}),1) 100%)`
 					}}
 				></div>
+				{arrowAlign === 'middle' && !isShortSlide &&
+					<div className={cn(styles.arrowMiddle)}>
+						<ArrowButton 
+							className={cn(styles.next, isShortSlide && styles.hide)}
+							inverted={inverted}
+							onClick={()=>swiperRef.current.slideNext()} 
+						/>
+					</div>
+				}
 			</div>
 		</div>
 	)
