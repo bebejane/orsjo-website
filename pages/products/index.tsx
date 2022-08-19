@@ -87,7 +87,7 @@ export default function Products({ productStart: { featured }, products, product
 			)}
 
 			{Object.keys(prodsByCat).map(name => prodsByCat[name]).map((products, idx) => {
-				const category = products[0].categories?.[0].namePlural
+				const category = products[0].categories?.[0].name
 				return (
 					<Section className={styles.products} key={idx} name={category} top={productsByCategorySearch && idx === 0}>
 						<h1>{category}</h1>
