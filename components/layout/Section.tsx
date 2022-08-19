@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import styles from './Section.module.scss'
 import cn from 'classnames'
 import { sectionId } from '/lib/utils'
+import { useLayout } from '/lib/context/layout'
 
 export type SectionProps = { 
 	children: React.ReactNode, 
@@ -13,7 +14,6 @@ export type SectionProps = {
 }
 
 export default function Section({ children, className, type, name, top, bgColor }: SectionProps) {
-
 	const color = bgColor?.startsWith('--') ? `rgba(var(${bgColor}))` : bgColor ? bgColor : undefined;
 
 	return (

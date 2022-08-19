@@ -12,7 +12,7 @@ export type AboutProps = {  about: AboutRecord}
 export default function About({ about }: AboutProps) {
 	
 	return (
-		<Section className={styles.about} top={true}>
+		<Section className={styles.about} top={true} type="full">
 			<h1>{about.title}</h1>
 			<Markdown className={styles.intro}>
 				{about.intro}
@@ -43,7 +43,7 @@ export default function About({ about }: AboutProps) {
 	)
 }
 
-About.layout = { layout:'normal', color:"--black", menu:'inverted'} as PageLayoutProps
+About.layout = { layout:'full', color:"--black", menu: 'inverted'} as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [AboutDocument], model:'about' }, async ({ props, revalidate }: any) => {
 

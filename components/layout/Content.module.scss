@@ -4,5 +4,9 @@
   flex-direction: column;
   flex: 1 1 auto;
   width: 100%;
-  //section:last-child { padding-bottom: var(--outer-margin); }
+  margin-left: calc(-#{spanGrid(4)} - var(--outer-margin));
+  
+  &[data-type='full']{
+    margin-left: 0 !important;
+  }
 }

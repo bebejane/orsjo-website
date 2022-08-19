@@ -60,9 +60,9 @@ export default function Content({ children}: ContentProps) {
 	useEffect(() => { // Toggle menu bar on scroll
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
 	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu]);
-
+	console.log(layout)
 	return (
-		<main id="content" className={cn(styles.content, styles[layout])}>
+		<main id="content" className={styles.content} data-type={layout}>
 			{children}
 		</main>
 	)

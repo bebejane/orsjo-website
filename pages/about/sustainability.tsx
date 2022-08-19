@@ -12,7 +12,7 @@ export type SustainabilityProps = {  sustainability: SustainabilityRecord}
 export default function Sustainability({ sustainability }: SustainabilityProps) {
 	const { title } = sustainability
 	return (
-		<Section className={styles.sustainability} top={true}>
+		<Section className={styles.sustainability} top={true} name="Introduction">
 			<h1>{title}</h1>
 		</Section>
 	)
