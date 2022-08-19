@@ -1,25 +1,12 @@
 // FONT EMBEDDING & TYPO VARIABLES
 $body-font: "IndivisibleRegular", Arial, Helvetica, Sans-serif;
-$headline-font: "IndivisibleMedium";
+$headline-font: "IndivisibleMedium", Arial, Helvetica, Sans-serif;
 $mono-font: "";
 $body-font-italic: "";
 
 @font-face {
     font-family: "Big Caslon Regular";
     src: url("/fonts/Big Caslon Regular.woff2");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Fakt";
-    src: url("/fonts/Fakt-Normal.otf");
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: "FaktBold";
-    src: url("/fonts/Fakt-Bold.otf");
     font-weight: normal;
     font-style: normal;
 }
