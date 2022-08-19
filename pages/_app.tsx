@@ -54,16 +54,15 @@ function Application({ Component, pageProps } : ApplicationProps) {
         key={pathname}
       />
       <NextIntlProvider messages={pageProps.messages}>
-        <AnimatePresence mode="wait" initial={true}>
-          <div key={pathname}>
+        {/*<AnimatePresence mode="wait" initial={true}><div key={pathname}>*/}
             <LayoutProvider value={layout} >
               <Layout menu={pageProps.menu} title={pageTitle}>
                 <Component {...pageProps}/>
               </Layout>
             </LayoutProvider>
             <PageTransition key={pathname}/>
-          </div>
-        </AnimatePresence>
+          
+        {/*</div></AnimatePresence>*/}
       </NextIntlProvider>
     </>
   )
