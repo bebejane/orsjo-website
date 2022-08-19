@@ -4,9 +4,8 @@ import { AllProductsDocument, ProductDocument, RelatedProductsDocument, AllProdu
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { useStore } from '/lib/store'
-import { List, ListItem } from '/components'
 import { Image } from 'react-datocms'
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery, ProductThumbnail, Section, Icon } from '/components'
+import { SectionListItem, FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery,  Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages } from '/lib/utils'
 import { useLayout } from '/lib/context/layout'
@@ -27,7 +26,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const { color } = useLayout()
-	const [listIndex, setListIndex] = useState()
+	const [list, setList] = useState({specifications:false, downloads:false})
 	const specs = parseSpecifications(product, 'en', null)
 	
 	const specsCols = [
@@ -54,9 +53,9 @@ export default function Product({ product, related, relatedByCategory }: Product
 	useEffect(()=>{
 		console.log(router.asPath)
 		if(router.asPath.endsWith('specifications'))
-			setListIndex(0)
+			setList({...list, specifications:true})
 		if(router.asPath.endsWith('downloads'))
-			setListIndex(1)
+			setList({...list, downloads:true})
 
 	}, [router])
 
@@ -103,128 +102,138 @@ export default function Product({ product, related, relatedByCategory }: Product
 					}
 				})}
 			</Section>
-			<Section className={styles.details}>
-				<List index={listIndex}>
-					<ListItem title={'Specifications'} className={styles.listItemContent}>
-						<ul className={styles.specifications}>
-							{specsCols.map(({ label, value }, idx) =>
-								<li key={idx}>
-									<span>{label}</span>
-									<span>{value}</span>
-								</li>
-							)}
-						</ul>
-						<div className={styles.articles}>
-							<header>
-								<span>Art no</span>
-								<span>Model</span>
-								<span>Art no</span>
-								<span>Model</span>
-							</header>
-							<div className={cn(styles.content, !singleModel && styles.multi)}>
-								{product.models.map(({ name, variants, lightsources, accessories }, idx) => {
+			<SectionListItem 
+				title={'Specifications'} 
+				className={cn(styles.listItemContent, styles.top)} 
+				selected={list.specifications === true}
+				idx={0}
+				total={2}
+				onToggle={()=>setList({...list, specifications: !list.specifications})}
+			>
+				<ul className={styles.specifications}>
+					{specsCols.map(({ label, value }, idx) =>
+						<li key={idx}>
+							<span>{label}</span>
+							<span>{value}</span>
+						</li>
+					)}
+				</ul>
+				<div className={styles.articles}>
+					<header>
+						<span>Art no</span>
+						<span>Model</span>
+						<span>Art no</span>
+						<span>Model</span>
+					</header>
+					<div className={cn(styles.content, !singleModel && styles.multi)}>
+						{product.models.map(({ name, variants, lightsources, accessories }, idx) => {
 
-									const art = variants.map(v => ({
-										articleNo: v.articleNo,
-										label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
-									}))
+							const art = variants.map(v => ({
+								articleNo: v.articleNo,
+								label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
+							}))
 
-									const access = accessories.map(a => ({
-										articleNo: a.articleNo,
-										label: a.accessory.name
-									}))
+							const access = accessories.map(a => ({
+								articleNo: a.articleNo,
+								label: a.accessory.name
+							}))
 
-									const light = lightsources.map(l => ({
-										articleNo: l.lightsource.articleNo,
-										label: `${l.lightsource.name} (need ${l.amount})`,
-										included: l.included,
-										optional: l.optional,
-										amount: l.amount
-									}))
+							const light = lightsources.map(l => ({
+								articleNo: l.lightsource.articleNo,
+								label: `${l.lightsource.name} (need ${l.amount})`,
+								included: l.included,
+								optional: l.optional,
+								amount: l.amount
+							}))
 
-									const cols = art.concat(access).concat(light)
-									const rows = chunkArray(cols, cols.length > 2 ? Math.ceil(cols.length / 2) : 2)
-									
-									if(singleModel){
-										return(
-											<>
-												{rows.map((row, idx) =>
-													<ul key={idx}>
-														<li>
-															<span>{row[0].articleNo}</span>
-															<span>{row[0].label}</span>
-															<span>{row[1]?.articleNo}</span>
-															<span>{row[1]?.label}</span>
-														</li>
-													</ul>
-												)}
-											</>
-										)
-									}
-									
-									return (
-										<>
-											<ul>
-												<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
-												{rows.map((row, idx) =>
-													<>
-														<li key={idx}>
-															<span>{row[0].articleNo}</span>
-															<span>{row[0].label}</span>		
-														</li>									
-														<li>
-															<span>{row[1]?.articleNo}</span>
-															<span>{row[1]?.label}</span>
-														</li>
-													</>
-												)}
+							const cols = art.concat(access).concat(light)
+							const rows = chunkArray(cols, cols.length > 2 ? Math.ceil(cols.length / 2) : 2)
+							
+							if(singleModel){
+								return(
+									<>
+										{rows.map((row, idx) =>
+											<ul key={idx}>
+												<li>
+													<span>{row[0].articleNo}</span>
+													<span>{row[0].label}</span>
+													<span>{row[1]?.articleNo}</span>
+													<span>{row[1]?.label}</span>
+												</li>
 											</ul>
-										</>
-									)
-								})}
-							</div>
-						</div>
-						<ul className={styles.dimensions}>
-							<li>
-								<span>Dimensions</span>
-								<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} >
-									View drawing{drawings.length > 1 && 's'} +
-								</button>
-							</li>
-						</ul>
-					</ListItem>
-					<ListItem title={'Downloads'} className={styles.listItemContent}>
-						<ul className={styles.downloads}>
-								<li>
-									<a href={`${product.pdfFiles.find(({locale}) => locale ==='sv')?.value.url}`} download>
-										<Icon>PDF</Icon>
-										<div className={styles.label}>Product Sheet (SE)</div>
-									</a>
-								</li>
-								<li>
-									<a href={`${product.pdfFiles.find(({locale}) => locale ==='en')?.value.url}`} download>
-										<Icon>PDF</Icon>
-										<div className={styles.label}>Product Sheet (EN)</div>
-									</a>
-								</li>
-								<li>
-									<a href={product.bimLink || undefined}>
-										<Icon>BIM</Icon>
-										<div className={styles.label}>Bim files</div>
-									</a>
-								</li>
-								<li>
-									<a href={product.lightFile?.url}>
-										<Icon>CAD</Icon>
-										<div className={styles.label}>Cad Files</div>
-									</a>
-								</li>
-						</ul>
-					</ListItem>
-				</List>
-			</Section>
+										)}
+									</>
+								)
+							}
+							
+							return (
+								<>
+									<ul>
+										<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
+										{rows.map((row, idx) =>
+											<>
+												<li key={idx}>
+													<span>{row[0].articleNo}</span>
+													<span>{row[0].label}</span>		
+												</li>									
+												<li>
+													<span>{row[1]?.articleNo}</span>
+													<span>{row[1]?.label}</span>
+												</li>
+											</>
+										)}
+									</ul>
+								</>
+							)
+						})}
+					</div>
+				</div>
+				<ul className={styles.dimensions}>
+					<li>
+						<span>Dimensions</span>
+						<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} >
+							View drawing{drawings.length > 1 && 's'} +
+						</button>
+					</li>
+				</ul>
+			</SectionListItem>
+			<SectionListItem 
+				title={'Downloads'} 
+				className={cn(styles.listItemContent, styles.bottom)} 
+				selected={list.downloads === true}
+				idx={1}
+				total={2}
+				onToggle={()=>setList({...list, downloads: !list.downloads})}
+			>
+				<ul className={styles.downloads}>
+						<li>
+							<a href={`${product.pdfFiles.find(({locale}) => locale ==='sv')?.value.url}`} download>
+								<Icon>PDF</Icon>
+								<div className={styles.label}>Product Sheet (SE)</div>
+							</a>
+						</li>
+						<li>
+							<a href={`${product.pdfFiles.find(({locale}) => locale ==='en')?.value.url}`} download>
+								<Icon>PDF</Icon>
+								<div className={styles.label}>Product Sheet (EN)</div>
+							</a>
+						</li>
+						<li>
+							<a href={product.bimLink || undefined}>
+								<Icon>BIM</Icon>
+								<div className={styles.label}>Bim files</div>
+							</a>
+						</li>
+						<li>
+							<a href={product.lightFile?.url}>
+								<Icon>CAD</Icon>
+								<div className={styles.label}>Cad Files</div>
+							</a>
+						</li>
+				</ul>
+			</SectionListItem>
+
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
-				
 				{relatedByCategory.length > 0 &&
 					<FeaturedGallery 
 						headline={`Other ${product.categories[0].namePlural}`} 

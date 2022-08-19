@@ -10,10 +10,11 @@ export type SectionProps = {
 	type?: string, 
 	name?: string, 
 	top?: boolean,
+	bottom?: boolean,
 	bgColor?: string 
 }
 
-export default function Section({ children, className, type, name, top, bgColor }: SectionProps) {
+export default function Section({ children, className, type, name, top, bottom, bgColor }: SectionProps) {
 	const color = bgColor?.startsWith('--') ? `rgba(var(${bgColor}))` : bgColor ? bgColor : undefined;
 
 	return (
@@ -22,6 +23,7 @@ export default function Section({ children, className, type, name, top, bgColor 
 			style={{backgroundColor: color}}
 			data-type={type}
 			data-top={top}
+			data-bottom={bottom}
 			{...sectionId(name)}
 		>
 			<div className={cn(styles.wrap, className)}>

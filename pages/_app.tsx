@@ -33,6 +33,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
 
   useEffect(() => { 
     const handleRouteChange = (url, { shallow }) => {
+      console.log(shallow)
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
     router.events.on("routeChangeComplete", handleRouteChange);
@@ -53,19 +54,16 @@ function Application({ Component, pageProps } : ApplicationProps) {
         key={pathname}
       />
       <NextIntlProvider messages={pageProps.messages}>
-        {/*<AnimatePresence mode="wait" initial={true}>
+        <AnimatePresence mode="wait" initial={true}>
           <div key={pathname}>
-        */}
             <LayoutProvider value={layout} >
               <Layout menu={pageProps.menu} title={pageTitle}>
                 <Component {...pageProps}/>
               </Layout>
             </LayoutProvider>
-          
-          {/*  <PageTransition key={pathname}/>
+            <PageTransition key={pathname}/>
           </div>
-          </AnimatePresence>
-        */}
+        </AnimatePresence>
       </NextIntlProvider>
     </>
   )

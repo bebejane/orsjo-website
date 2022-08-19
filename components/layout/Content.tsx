@@ -24,6 +24,7 @@ export default function Content({ children}: ContentProps) {
 	useEffect(()=>{ // Highlight nav section on scroll
 
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[id]'))
+		console.log(sections)
 		const sidebar = document.getElementById('sidebar')
 		const menu = document.getElementById('menu')
 		
@@ -31,7 +32,8 @@ export default function Content({ children}: ContentProps) {
 
 		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
 		const menuBottomOffset = menu.getBoundingClientRect().bottom
-		const {id} = sections.sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)[0]
+		const sorted = sections.sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)
+		const { id } = sorted[0]
 
 		let invertSidebar = false;
 		for (let i = 0; i < sections.length; i++) {

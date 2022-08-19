@@ -1,0 +1,26 @@
+.item{
+  position: relative;
+  h1{
+    pointer-events: none;
+    padding:0;  
+  }
+  .wrapper {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid $gray; 
+  }
+  .content {
+    &.selected{
+      padding-bottom: 1rem;
+    }
+    &.last{ 
+      border-bottom: 1px solid $gray;
+    }
+  }
+}

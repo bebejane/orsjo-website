@@ -45,165 +45,157 @@
 	}
 }
 
-.details {
-	margin-top: $margin;
-	margin-bottom: $margin;
-	.colorImages {
-		display: flex;
-		flex-direction: row;
-		.image {
-			flex: 1 1 auto;
+.listItemContent{
+	display: flex;
+	flex-direction: column;
+	&.top{
+		margin-top:2em;
+	}
+	&.bottom{
+		margin-bottom:2em;
+	}
+	ul{
+		list-style: none;
+		width: 100%;
+		column-count: 2;
+		li{
+			display: flex;
+			flex-direction: row;
+			break-inside: avoid-column;
+			width: 100%;
+			span:nth-child(odd){
+				color: $gray;
+				flex: 0 0 spanNestedGrid(12, 4, true);
+			}
+			span:nth-child(even){
+				flex: 0 0 spanNestedGrid(12, 8, true);	
+			}
 		}
 	}
-	h1 {
-		padding-top: 1em;
-	}
-
-	.listItemContent{
-		display: flex;
-		flex-direction: column;
-		ul{
-			list-style: none;
+	.articles{
+		width: 100%;
+		border-top: 1px solid $mid-gray;
+		header{
+			display: flex;
+			flex-direction: row;
 			width: 100%;
-			column-count: 2;
-			li{
-				display: flex;
-				flex-direction: row;
-				break-inside: avoid-column;
-				width: 100%;
-				span:nth-child(odd){
-					color: $gray;
+			color: $gray;
+			margin-bottom: .5em;
+			span{
+									
+				&:nth-child(odd){
+					flex: 0 0 spanNestedGrid(12, 2, true);
+				}
+				&:nth-child(even){
 					flex: 0 0 spanNestedGrid(12, 4, true);
 				}
-				span:nth-child(even){
-					flex: 0 0 spanNestedGrid(12, 8, true);	
-				}
 			}
 		}
-		.articles{
+		.content{
 			width: 100%;
-			border-top: 1px solid $mid-gray;
-			header{
+			ul{
+				list-style: none;
 				display: flex;
 				flex-direction: row;
 				width: 100%;
-				color: $gray;
-				margin-bottom: .5em;
-				span{
-										
-					&:nth-child(odd){
-						flex: 0 0 spanNestedGrid(12, 2, true);
-					}
-					&:nth-child(even){
-						flex: 0 0 spanNestedGrid(12, 4, true);
-					}
-				}
-			}
-			.content{
-				width: 100%;
-				ul{
-					list-style: none;
+				break-inside: avoid-column;
+				li {
 					display: flex;
 					flex-direction: row;
-					width: 100%;
-					break-inside: avoid-column;
-					li {
-						display: flex;
-						flex-direction: row;
-						font-weight: normal;
-						padding-bottom: .5em;
-						flex: 0 0 100%;
+					font-weight: normal;
+					padding-bottom: .5em;
+					flex: 0 0 100%;
+					span{
+						//padding-right: 2em;
+						&:nth-child(odd){
+							flex: 0 0 spanNestedGrid(12, 2, true);
+						}
+						&:nth-child(even){
+							flex: 0 0 spanNestedGrid(12, 4, true);
+						}
+						&.header{
+							color: $gray;
+						}
+					}
+					&.subheader{
+						color: $gray;
+					}
+					
+				}
+			}
+			&.multi{
+				column-count: 2;
+				ul{
+					flex-direction: column;
+					li{
 						span{
-							//padding-right: 2em;
 							&:nth-child(odd){
-								flex: 0 0 spanNestedGrid(12, 2, true);
+								flex: 0 0 spanNestedGrid(6, 2, true);
 							}
 							&:nth-child(even){
-								flex: 0 0 spanNestedGrid(12, 4, true);
+								flex: 0 0 spanNestedGrid(6, 4, true);
 							}
 							&.header{
 								color: $gray;
 							}
 						}
-						&.subheader{
-							color: $gray;
-						}
-						
 					}
-				}
-				&.multi{
-					column-count: 2;
-					ul{
-						flex-direction: column;
-						li{
-							span{
-								&:nth-child(odd){
-									flex: 0 0 spanNestedGrid(6, 2, true);
-								}
-								&:nth-child(even){
-									flex: 0 0 spanNestedGrid(6, 4, true);
-								}
-								&.header{
-									color: $gray;
-								}
-							}
-						}
-					}	
-				}
-			}
-			&:last-child{
-				border-bottom: 0;
+				}	
 			}
 		}
-		.dimensions{
-			button{
-				padding:0;
-				margin: 0;
-				font-size: inherit;
-				cursor: pointer;
-			}
+		&:last-child{
+			border-bottom: 0;
 		}
-		.specifications{
-			padding-bottom: 1em;
-			padding-top: 1.5em;
-			border-top: 1px solid $mid-gray;
+	}
+	
+	.dimensions{
+		button{
+			padding:0;
+			margin: 0;
+			font-size: inherit;
+			cursor: pointer;
+		}
+	}
+	.specifications{
+		padding-bottom: 1em;
+		padding-top: 1.5em;
+		border-top: 1px solid $mid-gray;
 
-			li {
-				padding-bottom: .5em;
+		li {
+			padding-bottom: .5em;
+		}
+		tr{
+			td:nth-child(1), td:nth-child(3){
+				color: $gray;
 			}
-			tr{
-				td:nth-child(1), td:nth-child(3){
-					color: $gray;
+		}
+	}
+	.articles{
+		padding-bottom: 1em;
+		padding-top: 1.5em;
+		
+	}
+
+	.dimensions {
+		padding-top: 1.5em;
+	}
+
+	.downloads{
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		li{
+			a{
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				width: 100%;
+				.label{
+					font-weight: bold;
 				}
-			}
-		}
-		.articles{
-			padding-bottom: 1em;
-			padding-top: 1.5em;
-			
-		}
-
-		.dimensions {
-			padding-top: 1.5em;
-		}
-
-		.downloads{
-			list-style: none;
-			display: flex;
-			flex-direction: row;
-			width: 100%;
-			li{
-				a{
-					display: flex;
-					flex-direction: row;
-					align-items: center;
-					width: 100%;
-					.label{
-						font-weight: bold;
-					}
-					&:not([href]){
-						opacity: 0.4;
-					}
+				&:not([href]){
+					opacity: 0.4;
 				}
 			}
 		}
