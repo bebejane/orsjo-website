@@ -81,7 +81,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 							>	
 								{index === true ? // Direct links
 									<Link scroll={false} href={slug}>
-										<a>{label}</a>
+										{label}
 									</Link>
 								:
 									<>{label} <span className={arrowStyle}>›</span></>
@@ -107,7 +107,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 					style={{ backgroundColor: color, paddingLeft:`${menuMargin.padding}px`, }}
 				>
 					<nav>
-						<ul>
+						<ul className={cn(sub?.length > 10 && styles.columns)}>
 							{sub?.map(({label, slug}, idx)=>
 								<Link scroll={false} key={idx} href={slug}>
 									<a>
