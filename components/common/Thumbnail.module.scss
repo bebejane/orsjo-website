@@ -107,6 +107,14 @@
       object-fit: cover !important;
     }
   }
+  &.designer{
+    a > figure > .image {
+      mix-blend-mode: normal;
+    }
+    a > figure img{
+      object-fit: cover !important;
+    }
+  }
   &.product{
     a > figure > .image {
       

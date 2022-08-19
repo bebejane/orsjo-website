@@ -13,7 +13,7 @@ export type ThumbnailProps = {
   subtitle: string,
   className?: string,
   theme?: 'dark' | 'light',
-  type?: 'product' | 'project'
+  type?: 'product' | 'project' | 'designer'
 }
 
 export default function Thumbnail({ image, imageHover, slug, inverted, title, subtitle, className, theme = 'light', type = 'product' }: ThumbnailProps) {
@@ -30,12 +30,14 @@ export default function Thumbnail({ image, imageHover, slug, inverted, title, su
       <Link scroll={false} href={slug}>
         <a>
           <figure>
-            <Image
-              data={image.responsiveImage}
-              className={styles.image}
-              layout={'fill'}
-              objectFit={'contain'}
-            />
+            {image &&
+              <Image
+                data={image.responsiveImage}
+                className={styles.image}
+                layout={'fill'}
+                objectFit={'contain'}
+              />
+            }
             {imageHover && 
               <div className={cn(styles.imageHover, hovering && styles.show)}>
                 <Image 
@@ -104,3 +106,25 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark', className 
 	)
 }
 
+export type DesignerThumbnailProps = { 
+  designer: DesignerRecord, 
+  inverted?: boolean, 
+  className?: string,
+  theme: 'dark' | 'light'
+}
+export function DesignerThumbnail({ designer, inverted, theme = 'dark', className }: DesignerThumbnailProps) {
+	
+	return (
+    <Thumbnail  
+      slug={`/designers/${designer.slug}`} 
+      image={designer.image}
+      //imageHover={project.secondaryImage} 
+      title={designer.name}
+      //subtitle={project.location}
+      inverted={inverted}
+      className={className}
+      theme={theme}
+      type="designer"
+    />
+	)
+}

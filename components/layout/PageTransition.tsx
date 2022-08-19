@@ -55,10 +55,7 @@ export default function PageTransition(){
 	
 	const router = useRouter()
 	const [color, setColor] = useState(pathToColor(router.asPath))
-
-	
 	const prevRoute = usePreviousRoute()
-	const isHome = router.pathname === '/';
 	
 	const handleAnimationEvent = async (type, variant) => {
 		
@@ -67,7 +64,7 @@ export default function PageTransition(){
 		const isComplete = ['home', 'homeIntro', 'enter'].includes(variant) && type === 'complete'
 		const isExiting = variant.startsWith('exit') && type === 'start'
 		const didExit = variant.startsWith('exit') && type === 'complete'
-		console.log(didExit)
+		
 		if(didExit)
 			document.body.scrollIntoView({behavior:'instant'})
 	}
@@ -85,7 +82,7 @@ export default function PageTransition(){
 	const enterAnimation = !prevRoute  ? "enterInstant" : "enter"
 	const exitAnimation = !color ? "exitInstant" : "exit" 
 
-	console.log(enterAnimation, exitAnimation, prevRoute)
+	//console.log(enterAnimation, exitAnimation, prevRoute)
 	
 	return (
     <motion.div
