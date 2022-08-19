@@ -1,17 +1,16 @@
 import styles from './[...designer].module.scss'
-import { AllDesignersDocument, DesignerDocument, AllProductsByDesignerDocument } from '/graphql'
+import { AllDesignersDocument, DesignerDocument, AllProductsByDesignerDocument, AllProductsLightDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout'
 import { useLayout } from '/lib/context/layout'
-import { ProductThumbnail, Section } from '/components'
+import { ProductThumbnail, DesignerThumbnail, Section, FeaturedGallery } from '/components'
 import { chunkArray } from '/lib/utils'
-import { useEffect } from 'react'
 
-export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[] };
+export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[], designers:DesignerRecord[] };
 
-export default function Designer({ designer, products }: DesignerProps) {
+export default function Designer({ designer, products, designers }: DesignerProps) {
 
 	const { color } = useLayout()
 	const productRows = chunkArray(products, 3)
@@ -48,6 +47,20 @@ export default function Designer({ designer, products }: DesignerProps) {
 					</ul>
 				</div>
 			</Section>
+			<Section type="margin" className={styles.products} bgColor='--mid-gray'>
+				<h1>Other designers<br />{designer.name}</h1>
+				<div className={styles.gallery}>
+					<ul>
+						{designers.map((d, idx) => {
+							return (
+								<li key={idx}>
+									<DesignerThumbnail key={idx} designer={d} theme="light"/>
+								</li>
+							)
+						})}
+					</ul>
+				</div>
+			</Section>
 		</>
 	)
 }
@@ -63,8 +76,8 @@ export async function getStaticPaths(context) {
 	}
 }
 
-export const getStaticProps = withGlobalProps({ }, async ({ props, context, revalidate }) => {
-
+export const getStaticProps = withGlobalProps({ queries:[AllDesignersDocument, AllProductsLightDocument]}, async ({ props, context, revalidate }) => {
+	const { designers, products : allProducts } = props;
 	const { designer } = await apiQuery(DesignerDocument, { variables: { slug: context.params.designer[0] } })
 	const { products } = await apiQuery(AllProductsByDesignerDocument, { variables: { id: designer.id } })
 
@@ -75,6 +88,7 @@ export const getStaticProps = withGlobalProps({ }, async ({ props, context, reva
 		props: {
 			...props,
 			designer,
+			designers: designers.filter(({id})=> allProducts.find((p) => p.designer?.id === id)).sort(() => Math.random() > 0.5 ? 1 : -1),
 			products
 		},
 		revalidate
