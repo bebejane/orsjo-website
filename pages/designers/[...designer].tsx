@@ -48,7 +48,7 @@ export default function Designer({ designer, products, designers }: DesignerProp
 				</div>
 			</Section>
 			<Section type="margin" className={styles.products} bgColor='--mid-gray'>
-				<h1>Other designers<br />{designer.name}</h1>
+				<h1>Other designers</h1>
 				<div className={styles.gallery}>
 					<ul>
 						{designers.map((d, idx) => {

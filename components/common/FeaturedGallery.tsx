@@ -4,13 +4,14 @@ import cn from 'classnames'
 import { sectionId } from '/lib/utils'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
-import { Thumbnail,ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
+import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
 export type FeaturedGalleryProps = { 
 	products?: ProductRecord[], 
 	projects?: ProjectRecord[], 
+	designers?: DesignerRecord[], 
 	headline?: string, 
 	id: string, 
 	bgColor?: string,
@@ -18,20 +19,13 @@ export type FeaturedGalleryProps = {
 	fadeColor?: string
 }
 
-export default function FeaturedGallery({ headline, products, projects, id, bgColor, theme, fadeColor = '--white2' } : FeaturedGalleryProps ) {
+export default function FeaturedGallery({ headline, products, projects, designers, id, bgColor, theme, fadeColor = '--white2' } : FeaturedGalleryProps ) {
 	
 	const {  menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
 	const isProjects = projects != undefined
-
-	const items = (products || projects).map((el) => ({
-		image: el.image,
-		imageHover: el.environmentImage || el.secondaryImage, 
-		slug: `${products ? 'products' : 'projects'}/${el.slug}`,
-		title: el.title,
-		subtitle: el.designer?.name || el.location
-	}))
+	const numSlides = (products || projects || designers).length
 	
 	const handleNext = () => {
 		if(swiperRef.current)
@@ -39,7 +33,7 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 	}
 
 	const slidesPerView = 4;
-	const isShortSlide = items.length <= slidesPerView
+	const isShortSlide = numSlides <= slidesPerView
 	
 	return (
 		<div className={cn(styles.featuredGallery, styles[menu])}>
@@ -77,6 +71,15 @@ export default function FeaturedGallery({ headline, products, projects, id, bgCo
 							<ProjectThumbnail 
 								key={idx}
 								project={p} 
+								theme={theme}
+							/>
+						</SwiperSlide>
+					)}
+					{designers?.map((d, idx) =>
+						<SwiperSlide key={`${id}-idx`} className={styles.slide}>
+							<DesignerThumbnail 
+								key={idx}
+								designer={d} 
 								theme={theme}
 							/>
 						</SwiperSlide>
