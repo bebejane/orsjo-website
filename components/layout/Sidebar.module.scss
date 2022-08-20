@@ -1,15 +1,16 @@
 .sidebar {
   position: sticky;
-  top: calc(1rem + $navbarHeight);
+  top:0;
+  padding-top: calc(1rem + $navbarHeight);
   margin-left: var(--outer-margin);
-  margin-top: calc(1rem + $navbarHeight);
   flex: 0 0;
   min-width: spanGrid(4);
   max-width: spanGrid(4);
-  min-height: calc(100vh - calc(1rem + $navbarHeight));
-  max-height: calc(100vh - calc(1rem + $navbarHeight));
+  max-height: calc(100vh);
   z-index: 103;
-  
+  &.short{
+    max-height: calc(50vh);
+  }
   ul {
     list-style: none;
 

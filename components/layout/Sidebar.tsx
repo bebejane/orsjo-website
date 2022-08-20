@@ -26,7 +26,7 @@ export default function Sidebar({title} : SidebarProps) {
 	if(!sections.length || !sidebar) return null
 	
 	return (
-		<aside id="sidebar" className={cn(styles.sidebar, isInverted && styles.inverted)}>
+		<aside id="sidebar" className={cn(styles.sidebar, isInverted && styles.inverted, !isProductsPage && styles.short)}>
 			<h3>{title}</h3>
 			<nav>
 				<ul>

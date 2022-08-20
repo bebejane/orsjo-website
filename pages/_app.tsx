@@ -29,7 +29,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
   const layout = (Component.layout || {layout:'normal', menu:'normal', color:''}) as PageLayoutProps
-  const pageTitle = siteSubtitle(pageProps, router);
+  const pageTitle = siteSubtitle(pageProps, pathname);
 
   useEffect(() => { 
     const handleRouteChange = (url, { shallow }) => {
@@ -52,7 +52,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
         pathname={pathname} 
         key={pathname}
       />
-        {/*<AnimatePresence exitBeforeEnter initial={true}><div id="app" key={pathname}>*/}
+        {/*<AnimatePresence presenceAffectsLayout initial={false}><div id="app" key={pathname}>*/}
           <LayoutProvider value={layout}>
             <Layout menu={pageProps.menu} title={pageTitle}>
               <Component {...pageProps}/>
@@ -79,9 +79,8 @@ const pathTotitle = {
   '/contact': 'Contact',
 }
 
-const siteSubtitle = ({product, designer, project} : { product: ProductRecord, designer: DesignerRecord, project: ProjectRecord}, router) => {
-  
-  return product?.title || designer?.name || project?.title || pathTotitle[router.asPath]
+const siteSubtitle = ({product, designer, project} : { product: ProductRecord, designer: DesignerRecord, project: ProjectRecord}, pathname) => {
+  return product?.title || designer?.name || project?.title || pathTotitle[pathname]
 }
 
 export default Application

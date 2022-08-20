@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import usePreviousRoute from '/lib/hooks/usePreviousRoute';
 import { useEffect, useState } from 'react';
 
-const duration = .5;
+const duration = .6;
 const pageTransition = {
 	initial: {
 		height: '100vh',
@@ -68,7 +68,7 @@ export default function PageTransition(){
 	const handleAnimationEvent = async (type, variant) => {
 		
 		if(typeof variant !== 'string') return 
-
+		//console.log(variant, type)
 		const isComplete = ['home', 'homeIntro', 'enter'].includes(variant) && type === 'complete'
 		const isExiting = variant.startsWith('exit') && type === 'start'
 		const didExit = variant.startsWith('exit') && type === 'complete'
