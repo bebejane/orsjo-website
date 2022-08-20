@@ -233,7 +233,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 				{relatedByCategory.length > 0 &&
 					<FeaturedGallery 
 						headline={`Other ${product.categories[0].namePlural}`} 
-						products={relatedByCategory} 
+						items={relatedByCategory} 
 						theme={'light'}
 						id="relatedbycategory" 
 						fadeColor={color}
@@ -243,7 +243,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 				{related.length > 0 && 
 					<FeaturedGallery 
 						headline={`Related`} 
-						products={related} 
+						items={related} 
 						theme={'light'}
 						id="related"
 						fadeColor={color}

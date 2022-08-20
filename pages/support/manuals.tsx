@@ -13,14 +13,11 @@ export default function Manuals({ products }: ManualsProps) {
 	const[search, setSeatch] = useState<string>();
 	const[results, setResults] = useState<ProductRecord[]>(products);
 
-
 	useEffect(()=>{
 		if(!search || !products) return setResults(products)
 		const res = products.filter(({title})=> title.toLowerCase().startsWith(search.toLowerCase()))
 		setResults(res)
 	}, [search, products, setResults])
-
-	useEffect(()=>{document.getElementById('search').focus()},[])
 
 	return (
 		<>
@@ -36,7 +33,6 @@ export default function Manuals({ products }: ManualsProps) {
 					type="text" 
 					value={search} 
 					onChange={({target}) => setSeatch(target.value)}
-					autoFocus={true}
 				/>
 			</div>
 			

@@ -80,7 +80,7 @@ export default function Products({ productStart: { featured }, products, product
 						key={`featured-${idx}`}
 						headline={data.headline}
 						id={data.id}
-						products={data.items as ProductRecord[]}
+						items={data.items as ProductRecord[]}
 						theme="light"
 					/>
 				</Section>

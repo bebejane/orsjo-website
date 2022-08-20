@@ -43,10 +43,10 @@ export default function Project({ project, related }: ProjectProps) {
 			<Section className={styles.related} name={`Other ${project.projectType.title}s`} type="margin" bgColor={'--mid-gray'}>
 				<FeaturedGallery 
 					headline={`Other ${project.projectType.title}s`} 
-					projects={related} 
+					items={related} 
 					id="relatedProjects"
 					theme="light"
-					fadeColor={[212, 212, 212]}
+					fadeColor={'--mid-gray'}
 				/>
 			</Section>
 		</>

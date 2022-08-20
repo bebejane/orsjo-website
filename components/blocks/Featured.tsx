@@ -13,7 +13,7 @@ export default function Featured({ data: { headline, items: products, id } }: Fe
 	
 	return (
 		<div className={cn(styles.featured, styles[menu])}>
-			<FeaturedGallery products={products as ProductRecord[]} headline={headline} id={id} theme="dark"/>
+			<FeaturedGallery items={products as ProductRecord[]} headline={headline} id={id} theme="dark"/>
 		</div>
 	)
 }

@@ -11,7 +11,8 @@ import { useLayout } from "/lib/context/layout";
 export type FeaturedGalleryProps = { 
 	products?: ProductRecord[], 
 	projects?: ProjectRecord[], 
-	designers?: DesignerRecord[], 
+	designers?: DesignerRecord[],
+	items: ProductRecord[] | ProjectRecord[] | DesignerRecord[]
 	headline?: string, 
 	id: string, 
 	bgColor?: string,
@@ -23,9 +24,7 @@ export type FeaturedGalleryProps = {
 
 export default function FeaturedGallery({ 
 	headline, 
-	products, 
-	projects, 
-	designers, 
+	items,
 	id, 
 	theme, 
 	fadeColor = '--white',
@@ -36,14 +35,7 @@ export default function FeaturedGallery({
 	const { menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
-	const isProjects = projects != undefined
-	const numSlides = (products || projects || designers).length
-	
-	const handleNext = () => {
-		if(swiperRef.current)
-			swiperRef.current.isEnd ? swiperRef.current.slideTo(0) : swiperRef.current.slideNext()
-	}
-
+	const numSlides = items.length
 	const slidesPerView = 4;
 	const isShortSlide = numSlides <= slidesPerView
 	
@@ -70,32 +62,29 @@ export default function FeaturedGallery({
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => swiperRef.current = swiper}
 				>
-					{products?.map((p, idx) =>
+					{items?.map((item, idx) =>
 						<SwiperSlide key={`${id}-${idx}`} className={styles.slide}>
-							<ProductThumbnail 
-								key={idx}
-								product={p} 
-								theme={theme}
-							/>
-						</SwiperSlide>
-					)}
-
-					{projects?.map((p, idx) =>
-						<SwiperSlide key={`${id}-${idx}`} className={styles.slide}>
-							<ProjectThumbnail 
-								key={idx}
-								project={p} 
-								theme={theme}
-							/>
-						</SwiperSlide>
-					)}
-					{designers?.map((d, idx) =>
-						<SwiperSlide key={`${id}-${idx}`} className={styles.slide}>
-							<DesignerThumbnail 
-								key={idx}
-								designer={d} 
-								theme={theme}
-							/>
+							{item.__typename === 'ProductRecord' ? 
+								<ProductThumbnail 
+									key={idx}
+									product={item as ProductRecord} 
+									theme={theme}
+								/>
+							: item.__typename === 'ProjectRecord' ?								
+								<ProjectThumbnail 
+									key={idx}
+									project={item as ProjectRecord} 
+									theme={theme}
+								/>
+							: item.__typename === 'ProjectRecord' ?
+								<DesignerThumbnail 
+									key={idx}
+									designer={item as DesignerRecord} 
+									theme={theme}
+								/>
+							: 
+								null
+							}
 						</SwiperSlide>
 					)}
 				</SwiperReact>
