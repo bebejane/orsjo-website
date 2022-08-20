@@ -32,16 +32,52 @@
       @include h1Big();
     }
   }
-  .intro{
+}
 
-  }
+.intro{
+  padding-top: 2rem;
+  color: $white;
   .text{
-
+    margin-right: spanGrid(4);
+    margin-left: spanGrid(4);
   }
-  .image{
+  
+}
 
-  }
-  .video{
+.blocks{
+  .block{
+    color: $white;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
     
+    .left, .right{
+      flex: 0 0 spanGrid(8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    &:nth-child(even){
+      flex-direction: row-reverse;
+      .right{
+        padding-left: 0;
+        justify-content: flex-start;
+      }
+    }
+    .text{
+      
+    }
+    .image, .video{
+      
+    }
+    .image{
+
+    }
+    .video{
+      
+    }
   }
 }

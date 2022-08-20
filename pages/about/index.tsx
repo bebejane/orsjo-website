@@ -5,48 +5,53 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import type {  PageLayoutProps } from '/lib/context/layout';
-import { Section } from '/components'
+import { Section, Video } from '/components'
 
 export type AboutProps = {  about: AboutRecord}
 
 export default function About({ about : {title, image, intro, sections} }: AboutProps) {
 	
 	return (
-		<Section className={styles.about} type="full">
-			<div className={styles.hero}>
-				<Image 
-					data={image.responsiveImage} 
-					className={styles.heroImage}
-					objectFit="cover"
-				/>
-				<h1>{title}</h1>
-			</div>
-			<Markdown className={styles.intro}>
-				{intro}
-			</Markdown>
-			{sections.map(({text, image, video}) => 
-				<>
-					{image && 
-						<Image data={image.responsiveImage} className={styles.image}/>
-					}
-					<Markdown className={styles.text}>
-						{text}
-					</Markdown>
-					{video && 
-						<video
-							className={styles.video}
-							playsInline
-							muted
-							loop={true}
-							src={video.url}
-							autoPlay={true}
-							disablePictureInPicture={true}
-							poster={video.video?.thumbnailUrl}
-						/>
-					}
-				</>
-			)}
-		</Section>
+		<>
+			<Section className={styles.about} type="full">
+				<div className={styles.hero}>
+					<Image 
+						data={image.responsiveImage} 
+						className={styles.heroImage}
+						objectFit="cover"
+					/>
+					<h1>{title}</h1>
+				</div>
+			</Section>
+			<Section className={styles.intro} type="full">
+				<Markdown className={styles.text}>
+					{intro}
+				</Markdown>
+			</Section>
+			<Section className={styles.blocks} type="full">
+				{sections.map(({text, image, video}, idx) => 
+					<div className={styles.block} key={idx}>
+						<div className={styles.left}>
+							<Markdown className={styles.text}>
+								{text}
+							</Markdown>
+						</div>
+						<div className={styles.right}>
+							{image ? 
+								<Image data={image.responsiveImage} className={styles.image}/>
+							: video ?
+								<Video
+									className={styles.video}
+									data={image}
+								/>
+							: 
+								null 
+							}
+						</div>
+					</div>
+				)}
+			</Section>
+		</>
 	)
 }
 

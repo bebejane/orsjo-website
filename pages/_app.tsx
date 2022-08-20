@@ -22,7 +22,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
   
   //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
-  //useTransitionFix()
+  useTransitionFix()
   const router = useRouter()
   const pathname =  router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const { site, seo } = pageProps;
@@ -33,8 +33,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
 
   useEffect(() => { 
     const handleRouteChange = (url, { shallow }) => {
-      console.log(shallow)
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      //window.scrollTo({ top: 0, behavior: 'instant' });
     };
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => router.events.off("routeChangeComplete", handleRouteChange)
@@ -53,17 +52,14 @@ function Application({ Component, pageProps } : ApplicationProps) {
         pathname={pathname} 
         key={pathname}
       />
-      <NextIntlProvider messages={pageProps.messages}>
-        {/*<AnimatePresence mode="wait" initial={true}><div key={pathname}>*/}
-            <LayoutProvider value={layout} >
-              <Layout menu={pageProps.menu} title={pageTitle}>
-                <Component {...pageProps}/>
-              </Layout>
-            </LayoutProvider>
-            <PageTransition key={pathname}/>
-          
-        {/*</div></AnimatePresence>*/}
-      </NextIntlProvider>
+        {/*<AnimatePresence exitBeforeEnter initial={true}><div id="app" key={pathname}>*/}
+          <LayoutProvider value={layout}>
+            <Layout menu={pageProps.menu} title={pageTitle}>
+              <Component {...pageProps}/>
+            </Layout>
+          </LayoutProvider>
+        <PageTransition key={pathname}/>
+      {/*</div></AnimatePresence>*/}
     </>
   )
 }

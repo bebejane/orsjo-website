@@ -126,7 +126,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 						<span>Model</span>
 					</header>
 					<div className={cn(styles.content, !singleModel && styles.multi)}>
-						{product.models.map(({ name, variants, lightsources, accessories }, idx) => {
+						{product.models.map(({ id, name, variants, lightsources, accessories }, midx) => {
 
 							const art = variants.map(v => ({
 								articleNo: v.articleNo,
@@ -151,39 +151,35 @@ export default function Product({ product, related, relatedByCategory }: Product
 							
 							if(singleModel){
 								return(
-									<>
-										{rows.map((row, idx) =>
-											<ul key={idx}>
-												<li>
-													<span>{row[0].articleNo}</span>
-													<span>{row[0].label}</span>
-													<span>{row[1]?.articleNo}</span>
-													<span>{row[1]?.label}</span>
-												</li>
-											</ul>
-										)}
-									</>
+									rows.map((row, idx) =>
+										<ul key={`${id}-${idx}`}>
+											<li>
+												<span>{row[0].articleNo}</span>
+												<span>{row[0].label}</span>
+												<span>{row[1]?.articleNo}</span>
+												<span>{row[1]?.label}</span>
+											</li>
+										</ul>
+									)
 								)
 							}
 							
 							return (
-								<>
-									<ul>
-										<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
-										{rows.map((row, idx) =>
-											<>
-												<li key={idx}>
-													<span>{row[0].articleNo}</span>
-													<span>{row[0].label}</span>		
-												</li>									
-												<li>
-													<span>{row[1]?.articleNo}</span>
-													<span>{row[1]?.label}</span>
-												</li>
-											</>
-										)}
-									</ul>
-								</>
+								<ul key={id}>
+									<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
+									{rows.map((row, idx) =>
+										<>
+											<li key={`${idx}-0`}>
+												<span>{row[0].articleNo}</span>
+												<span>{row[0].label}</span>		
+											</li>									
+											<li key={`${idx}-1`}>
+												<span>{row[1]?.articleNo}</span>
+												<span>{row[1]?.label}</span>
+											</li>
+										</>
+									)}
+								</ul>
 							)
 						})}
 					</div>

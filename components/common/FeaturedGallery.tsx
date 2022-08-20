@@ -62,7 +62,8 @@ export default function FeaturedGallery({
 			<div className={styles.gallery} >
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
-					loop={true}
+					loop={!isShortSlide}
+					noSwiping={isShortSlide}
 					slidesPerView={isShortSlide ? numSlides : slidesPerView}
 					spaceBetween={20}
 					initialSlide={index}

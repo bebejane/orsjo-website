@@ -24,7 +24,6 @@ export default function Content({ children}: ContentProps) {
 	useEffect(()=>{ // Highlight nav section on scroll
 
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[id]'))
-		console.log(sections)
 		const sidebar = document.getElementById('sidebar')
 		const menu = document.getElementById('menu')
 		

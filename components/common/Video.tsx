@@ -1,11 +1,12 @@
 import styles from './Video.module.scss'
+import cn from 'classnames'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useWindowSize } from 'rooks'
 import { useInView } from 'react-intersection-observer'
 
-export type VideoProps = { data: FileField }
+export type VideoProps = { data: FileField, className?: string }
 
-export default function Video({ data }: VideoProps) {
+export default function Video({ data, className }: VideoProps) {
 
 	const [inViewRef, inView] = useInView();
 	const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -33,7 +34,7 @@ export default function Video({ data }: VideoProps) {
 
 	return (
     <video
-      className={styles.video}
+      className={cn(styles.video, className)}
       src={quality ? data.video[`mp4${quality}`] : undefined}
       ref={setRefs}
       playsInline

@@ -12,15 +12,15 @@ export default function Start({start : { content }, lastNews } : StartProps) {
 			{content.map((block, idx) => {
 				switch (block.__typename) {
 					case 'FullscreenMediaBlockRecord':
-						return <Section type="full"><FullscreenMedia key={idx} data={block}/></Section>
+						return <Section key={idx} type="full"><FullscreenMedia data={block}/></Section>
 					case 'FeaturedRecord':
-						return <Section type="full"><FeaturedStart key={idx} data={block} /></Section>
+						return <Section key={idx} type="full"><FeaturedStart data={block} /></Section>
 					case 'FullscreenVideoRecord':
-						return <Section type="full"><FullscreenVideo key={idx} data={block} /></Section>
+						return <Section key={idx} type="full"><FullscreenVideo data={block} /></Section>
 					case 'ImageLinkRecord':
-						return <Section type="full"><ImageLink key={idx} data={block} /></Section>
+						return <Section key={idx} type="full"><ImageLink data={block} /></Section>
 					case 'NewsItemRecord':
-						return <Section type="full"><NewsItem key={idx} data={block} /></Section>
+						return <Section key={idx} type="full"><NewsItem data={block} /></Section>
 					default:
 						return null
 				}
