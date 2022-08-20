@@ -10,14 +10,10 @@ type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Represents `true` or `false` values. */
   BooleanType: any;
   CustomData: any;
-  /** A ISO 8601 compliant datetime value */
   DateTime: any;
-  /** Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). */
   FloatType: any;
-  /** Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
   IntType: any;
   ItemId: any;
   JsonField: any;
@@ -6078,6 +6074,9 @@ type SustainabilityRecord = RecordInterface & {
   _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
+  intro?: Maybe<Scalars['String']>;
+  steps: Array<SustainabilityStepRecord>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -6086,6 +6085,47 @@ type SustainabilityRecord = RecordInterface & {
 /** Record of type Sustainability (sustainability) */
 type SustainabilityRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Sustainability (sustainability) */
+type SustainabilityRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Block of type Sustainability step (sustainability_step) */
+type SustainabilityStepRecord = RecordInterface & {
+  __typename?: 'SustainabilityStepRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  fullWidthImage?: Maybe<Scalars['BooleanType']>;
+  id: Scalars['ItemId'];
+  image: FileField;
+  text: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Block of type Sustainability step (sustainability_step) */
+type SustainabilityStepRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Block of type Sustainability step (sustainability_step) */
+type SustainabilityStepRecordtextArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 type Tag = {
@@ -6695,7 +6735,7 @@ type focalPoint = {
 type SustainabilityQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type SustainabilityQuery = { __typename?: 'Query', sustainability?: { __typename?: 'SustainabilityRecord', id: any, title?: string } };
+type SustainabilityQuery = { __typename?: 'Query', sustainability?: { __typename?: 'SustainabilityRecord', id: any, title?: string, intro?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, steps: Array<{ __typename?: 'SustainabilityStepRecord', title: string, text: string, fullWidthImage?: any, image: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> } };
 
 type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 

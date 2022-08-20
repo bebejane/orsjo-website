@@ -1,16 +1,134 @@
-.sustainability{
+.sustainability {
   position: relative;
   color: $white;
-  .intro{
 
-  }
-  .text{
+  .hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100vw;
+    min-height: 100vh;
+    max-height: 100vh;
 
-  }
-  .image{
+    .heroImage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-height: 100vh;
+      max-height: 100vh;
+      min-width: 100vh;
+      max-widtht: 100vh;
+    }
 
+    h1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 100%;
+      min-height: 100%;
+      @include h1Big();
+    }
   }
-  .video{
+}
+
+.intro {
+  padding-top: 2rem;
+  color: $white;
+
+  .text {
+    margin-right: spanGrid(4);
+    margin-left: spanGrid(4);
+  }
+
+}
+
+.blocks {
+  .block {
+    position: relative;
+    color: $white;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .left,
+    .right {
+      flex: 0 0 spanGrid(8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    .left{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .header{
+        position: relative;
+        h2{
+          position: absolute;
+          white-space: pre;
+          left: 0;
+          z-index: 0;
+          top: 50%;
+          margin: 0;
+          padding: 0;
+          transform: translateY(-50%);
+          font-weight: bold;
+        }
+        span{
+          @include h1Big();
+          white-space: pre;
+          color: rgba(var(--copper));
+          opacity: 0.5;
+          margin-left: 10px;
+        }
+      }
+    }
+    .right{
+
+    }
+    &.fullWidth{
+      .left{
+        position: absolute;
+        width:spanGrid(8);
+        margin-left: spanGrid(8);
+        height: 100%;
+        top:0;
+        left:0;
+        flex: 1 1 100%;
+        z-index: 2;
+      }
+      .right{
+        padding-left:0;
+        padding-right:0;
+        flex: 1 1 auto;
+      }
+    }
     
+    &:nth-child(odd) {
+      flex-direction: row-reverse;
+
+      .right {
+        padding-left: 0;
+        justify-content: flex-start;
+      }
+    }
+
+    .text {}
+
+    .image,
+    .video {}
+
+    .image {}
+
+    .video {}
   }
 }

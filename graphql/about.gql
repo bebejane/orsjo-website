@@ -6,6 +6,20 @@ query Sustainability {
   sustainability {
     id
     title
+    intro(markdown:false)
+    image{
+      ...ImageFragment
+    }
+    steps{
+      ... on SustainabilityStepRecord{
+        title
+        text(markdown:false)
+        image{
+          ...ImageFragment
+        }
+        fullWidthImage
+      }
+    }
   }
 }
 
