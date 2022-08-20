@@ -33,7 +33,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
 
   useEffect(() => { 
     const handleRouteChange = (url, { shallow }) => {
-      //window.scrollTo({ top: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     };
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => router.events.off("routeChangeComplete", handleRouteChange)
