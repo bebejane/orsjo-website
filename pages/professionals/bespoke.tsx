@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section } from '/components';
+import { ProjectThumbnail, Section } from '/components';
 import { recordImages } from '/lib/utils'
 import { useStore } from 'lib/store';
 import { useEffect } from 'react';
@@ -27,34 +27,39 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 				/>
 			</Section>
 			<Section name="Intro" className={styles.intro} type="margin" bgColor={'--gray'}>
-				<h1>{bespoke.title}</h1>
-				<Markdown className={styles.intro}>
+				<h3>{bespoke.title}</h3>
+				<Markdown className={styles.text}>
 					{bespoke.intro}
 				</Markdown>
 			</Section>
 			<Section className={styles.projects} type="margin" bgColor={'--gray'}>
 				{bespoke.examples.map(({project, summary}, idx) => {
 					return (
-						<>
-							<Markdown>{summary}</Markdown>
-							{project.gallery.map((block, idx) => {
-								switch (block.__typename) {
-									case 'FullwidthImageRecord':
-										return <FullWidthImage data={block} onClick={setGalleryIndex}/>
-									case 'TextRecord':
-										return <Text data={block}/>
-									case 'TwoColumnImageRecord':
-										return <TwoColumnImage data={block} onClick={setGalleryIndex}/>
-									case 'ImageGalleryRecord':
-										return <ImageGallery data={block} onClick={setGalleryIndex}/>
-									default:
-										return null
-								}
-							})}
-						</>
+						<div className={styles.project} key={idx}>
+							<div className={styles.image}>
+								<Image className={styles.big} data={project.image.responsiveImage}/>
+							</div>
+							<div className={styles.description}>
+								<Markdown className={styles.text}>{summary}</Markdown>
+								<ProjectThumbnail project={project} theme="dark" className={styles.thumbnail}/>
+							</div>
+						</div>
 					)
 				})}
 			</Section>
+			<Section name="Outro" className={styles.outro} type="full" bgColor={'--gray'}>
+				<Markdown className={styles.text}>
+					{bespoke.outro}
+				</Markdown>
+			</Section>
+			<Section name="More" className={styles.more} type="full" bgColor={'--gray'}>
+				<Link href="/professionals/projects">
+					<button>
+						Show more commercial projects
+					</button>
+				</Link>
+			</Section>
+			
 		</>
 	)
 }
