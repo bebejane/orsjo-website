@@ -59,7 +59,7 @@ export default function Downloads({ products }: DownloadsProps) {
 													{pdfFiles.find(({locale}) => locale ==='sv') &&
 														<div className={styles.item}>
 															<Icon>PDF</Icon>
-															<a href={`${pdfFiles.find(({locale}) => locale ==='sv')?.value.url}`} download>
+															<a href={`${pdfFiles.find(({locale}) => locale ==='sv')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='sv')?.value.title}`} download>
 																<span className="small">Productsheet (SE)</span>
 															</a>
 														</div>
@@ -67,7 +67,7 @@ export default function Downloads({ products }: DownloadsProps) {
 													{pdfFiles.find(({locale}) => locale ==='en') &&
 														<div className={styles.item}>
 															<Icon>PDF</Icon>
-															<a href={`${pdfFiles.find(({locale}) => locale ==='en')?.value.url}`} download>
+															<a href={`${pdfFiles.find(({locale}) => locale ==='en')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='en')?.value.title}`} download>
 																<span className="small">Productsheet (EN)</span>
 															</a>
 														</div>
