@@ -22,7 +22,7 @@ export default function Sustainability({ sustainability : { image, intro, title,
 					<h1>{title}</h1>
 				</div>
 			</Section>
-			<Section className={styles.intro} type="full">
+			<Section className={styles.intro} type="margin">
 				<Markdown className={styles.text}>
 					{intro}
 				</Markdown>

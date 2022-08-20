@@ -38,10 +38,9 @@
   padding-top: 2rem;
   color: $white;
   .text{
-    margin-right: spanGrid(4);
-    margin-left: spanGrid(4);
-  }
-  
+    margin-right: spanGridWithGutter(4);
+    margin-left: spanGridWithGutter(4);
+  }  
 }
 
 .blocks{
@@ -52,7 +51,7 @@
     width: 100%;
     
     .left, .right{
-      flex: 0 0 spanGrid(8);
+      flex: 0 0 50%;
       display: flex;
       justify-content: center;
       align-items: center;

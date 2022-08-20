@@ -23,13 +23,13 @@ export default function About({ about : {title, image, intro, sections} }: About
 					<h1>{title}</h1>
 				</div>
 			</Section>
-			<Section className={styles.intro} type="full">
+			<Section className={styles.intro} type="margin">
 				<Markdown className={styles.text}>
 					{intro}
 				</Markdown>
 			</Section>
 			<Section className={styles.blocks} type="full">
-				{sections.map(({text, image, video}, idx) => 
+				{sections.map(({text, image, video}, idx) =>
 					<div className={styles.block} key={idx}>
 						<div className={styles.left}>
 							<Markdown className={styles.text}>

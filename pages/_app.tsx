@@ -58,7 +58,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
               <Component {...pageProps}/>
             </Layout>
           </LayoutProvider>
-        <PageTransition key={pathname}/>
+          <PageTransition key={pathname}/>
       {/*</div></AnimatePresence>*/}
     </>
   )

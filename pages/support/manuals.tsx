@@ -25,7 +25,7 @@ export default function Manuals({ products }: ManualsProps) {
 			<h1>Manuals</h1>
 			<p>Search by product name to find assemly instructions for your Örsjö lighting product.</p>
 		</Section>
-		<Section className={styles.manuals}>
+		<Section className={styles.manuals} bottom={true}>
 			<div className={styles.search}>
 				<img src={'/images/search.svg'}/>
 				<input 

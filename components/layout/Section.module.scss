@@ -27,6 +27,6 @@
     margin-top:4rem;
   }
   &[data-bottom='true']{
-    margin-bottom:1rem;
+    margin-bottom:$margin;
   }
 }

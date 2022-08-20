@@ -24,7 +24,7 @@ export default function Downloads({ products }: DownloadsProps) {
 					</Markdown>
 				</div>
 			</Section>
-			<Section className={styles.related} name="Product Files">
+			<Section className={styles.related} name="Product Files" bottom={true}>
 				<h1 className="white topMargin">Product related files</h1>
 				<table>
 					<tbody>

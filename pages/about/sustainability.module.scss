@@ -42,8 +42,8 @@
   color: $white;
 
   .text {
-    margin-right: spanGrid(4);
-    margin-left: spanGrid(4);
+    margin-right: spanGridWithGutter(4);
+    margin-left: spanGridWithGutter(4);
   }
 
 }
@@ -58,7 +58,7 @@
 
     .left,
     .right {
-      flex: 0 0 spanGrid(8);
+      flex: 0 0 50%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -98,8 +98,7 @@
     &.fullWidth{
       .left{
         position: absolute;
-        width:spanGrid(8);
-        margin-left: spanGrid(8);
+        margin-left: 50%;
         height: 100%;
         top:0;
         left:0;
@@ -109,7 +108,7 @@
       .right{
         padding-left:0;
         padding-right:0;
-        flex: 1 1 auto;
+        flex: 1 1 100%;
       }
     }
     

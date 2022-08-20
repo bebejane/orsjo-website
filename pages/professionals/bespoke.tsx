@@ -52,7 +52,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					{bespoke.outro}
 				</Markdown>
 			</Section>
-			<Section name="More" className={styles.more} type="full" bgColor={'--gray'}>
+			<Section name="More" className={styles.more} type="full" bgColor={'--gray'} bottom={true}>
 				<Link href="/professionals/projects">
 					<button>
 						Show more commercial projects
