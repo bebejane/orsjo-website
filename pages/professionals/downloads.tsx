@@ -1,5 +1,5 @@
 import styles from './downloads.module.scss'
-import { AllProductsDocument } from '/graphql';
+import { AllProductDownloadsDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
@@ -34,7 +34,7 @@ export default function Downloads({ products }: DownloadsProps) {
 							<th><span className="small">Type</span></th>
 							<th></th>
 						</tr>
-						{products.map(({ image, title, categories, bimLink, pdfFile, mountingInstructions, lightFile }, idx) => {
+						{products.map(({ id, image, title, categories, bimLink, pdfFiles, mountingInstructions, lightFile }, idx) => {
 							return (
 								<>
 									<tr key={idx} className={list[idx] ? styles.active : undefined} onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}>
@@ -56,28 +56,36 @@ export default function Downloads({ products }: DownloadsProps) {
 											<td></td>
 											<td colSpan={2} className={styles.content}>
 												<div className={styles.list}>
-													{pdfFile &&
+													{pdfFiles.find(({locale}) => locale ==='sv') &&
 														<div className={styles.item}>
 															<Icon>PDF</Icon>
-															<a href={pdfFile.url} download><span className="small">Productsheet (SE)</span></a>
+															<a href={`${pdfFiles.find(({locale}) => locale ==='sv')?.value.url}`} download>
+																<span className="small">Productsheet (SE)</span>
+															</a>
 														</div>
 													}
-													{pdfFile &&
+													{pdfFiles.find(({locale}) => locale ==='en') &&
 														<div className={styles.item}>
 															<Icon>PDF</Icon>
-															<a href={pdfFile?.url} download><span className="small">Productsheet (EN)</span></a>
+															<a href={`${pdfFiles.find(({locale}) => locale ==='en')?.value.url}`} download>
+																<span className="small">Productsheet (EN)</span>
+															</a>
 														</div>
 													}
 													{mountingInstructions &&
 														<div className={styles.item}>
 															<Icon>PDF</Icon>
-															<a href={mountingInstructions.url} download><span className="small">Mounting instructions</span></a>
+															<a href={mountingInstructions.url} download>
+																<span className="small">Mounting instructions</span>
+															</a>
 														</div>
 													}
 													{bimLink &&
 														<div className={styles.item}>
 															<Icon>BIM</Icon>
-															<a href={bimLink} download><span className="small">BIM files</span></a>
+															<a href={bimLink} download>
+																<span className="small">BIM files</span>
+															</a>
 														</div>
 													}
 													<div className={styles.item}>
@@ -102,7 +110,7 @@ export default function Downloads({ products }: DownloadsProps) {
 
 Downloads.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllProductsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllProductDownloadsDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

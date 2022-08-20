@@ -39,6 +39,30 @@ query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: 
     mountingInstructions {
       ...FileFragment
     }
+
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+	}
+}
+query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+	products: allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
+		...ProductLightFragment
+    mountingInstructions {
+      ...FileFragment
+    }
+    pdfFile {
+      ...FileFragment
+    }
+    pdfFiles :_allPdfFileLocales {
+      locale
+      value {
+        ...FileFragment
+      }
+    }
+    bimLink
     seo: _seoMetaTags {
       attributes
       content
