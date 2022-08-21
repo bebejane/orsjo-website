@@ -40,6 +40,7 @@ export default function Project({ project, related }: ProjectProps) {
 						return null
 				}
 			})}
+			<Section bottom={true}/>
 			<Section 
 				className={styles.related} 
 				name={`Other ${project.projectType.title}s`} 

@@ -16,15 +16,15 @@ export default function Sidebar({title} : SidebarProps) {
 	const [currentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
 	const [sections, setSections] = useState([])
 	const isInverted = menu === 'inverted' || invertSidebar
+	const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
 	const isProductsPage = router.pathname.toLowerCase() === '/products'
 	const isProductPage = router.pathname.startsWith('/products/')
 	const isProjectPage = router.pathname.startsWith('/professionals/projects/')
 	const [searchFocus, setSearchFocus] = useState(false);
-	
 	const [setCurrentSection, setInvertSidebar, setInvertMenu] = useStore((state) => [state.setCurrentSection, state.setInvertSidebar, state.setInvertMenu, state.setSections, state.setShowMenu], shallow);
 	const {scrolledPosition, documentHeight } = useScrollInfo()
-	const resetSearch = useCallback(() => {setSearchProducts('')},[setSearchProducts]);
 	
+	const resetSearch = useCallback(() => {setSearchProducts('')},[setSearchProducts]);
 	
 	useEffect(()=>{ 
 		console.log('update sections sidebar')
@@ -69,7 +69,7 @@ export default function Sidebar({title} : SidebarProps) {
 				<ul>
 					{sections?.map((section, idx) => 
 						<li key={idx}>
-							<a href={`#${section.id}`} className={cn(section.id === currentSection && styles.active)}>
+							<a href={`${pathname}#${section.id}`} className={cn(section.id === currentSection && styles.active)}>
 								{section.title}
 							</a>
 						</li>

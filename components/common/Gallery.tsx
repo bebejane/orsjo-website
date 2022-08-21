@@ -9,16 +9,16 @@ export type GalleryProps = {images: FileField[], onClose: Function, index:number
 
 export default function Gallery({ images, onClose, index = 0, show } : GalleryProps) {
   
-  if(!show) return null
+  
   
   const swiperRef = useRef()
   const [realIndex, setRealIndex] = useState(index)
-  const [title, setTitle] = useState()
+  const [title, setTitle] = useState<string>()
   const isSingleSlide = images?.length === 1
   
-  useEffect(() => images && setTitle(images[realIndex]?.title), [realIndex])
+  useEffect(() => images && setTitle(images[realIndex]?.title), [realIndex, images])
 
-  useEffect(()=> { // handle arrow keys
+  useEffect(()=> { // handle  keys
     const handleKeys = ({key}) => {
       if(key === 'ArrowRight') swiperRef?.current?.slideNext()
       if(key === 'ArrowLeft') swiperRef?.current?.slidePrev()
@@ -28,7 +28,7 @@ export default function Gallery({ images, onClose, index = 0, show } : GalleryPr
     return () => document.removeEventListener('keydown', handleKeys)
   }, [])
 
-  if (!images) return null
+  if (!images || !show) return null
   
   return (
     <div className={cn(styles.gallery, images.length <= 1 && styles.noArrows)}>

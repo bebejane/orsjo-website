@@ -5,7 +5,7 @@ import { sectionId } from '/lib/utils'
 import { useLayout } from '/lib/context/layout'
 
 export type SectionProps = { 
-	children: React.ReactNode, 
+	children?: React.ReactNode, 
 	className?: string, 
 	type?: string, 
 	name?: string, 

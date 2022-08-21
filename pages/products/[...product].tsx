@@ -56,19 +56,20 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	}
 
 	useEffect(()=>{
-		console.log(router.asPath)
-		if(router.asPath.endsWith('specifications'))
-			setList({...list, specifications:true})
-		if(router.asPath.endsWith('downloads'))
-			setList({...list, downloads:true})
-
-	}, [router])
+		const handleHashChange = (e) => {
+			if(e.newURL.endsWith('specifications'))
+				setList({...list, specifications:true})
+			else if(e.newURL.endsWith('downloads'))
+				setList({...list, downloads:true})
+		}
+		window.addEventListener('hashchange', handleHashChange);
+		return ()=> window.removeEventListener('hashchange', handleHashChange);
+	}, [])
 
 	useEffect(()=>setGallery({images}), [])
 	
 	const overlayOpacity = Math.max(0, ((viewportHeight-(scrolledPosition*2)) / viewportHeight));
 	
-
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
@@ -114,7 +115,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 				selected={list.specifications === true}
 				idx={0}
 				total={2}
-				onToggle={()=>setList({...list, specifications: !list.specifications})}
+				onToggle={()=> setList({...list, specifications: !list.specifications})}
 			>
 				<ul className={styles.specifications}>
 					{specsCols.map(({ label, value }, idx) =>
