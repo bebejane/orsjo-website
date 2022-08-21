@@ -37,10 +37,13 @@ export default function Downloads({ products }: DownloadsProps) {
 						</tr>
 						{products.map(({ id, image, title, categories }, idx) => {
 							const files = productDownloads(products[idx])
-
 							return (
 								<>
-									<tr key={idx} className={list[idx] ? styles.active : undefined} onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}>
+									<tr 
+										key={idx} 
+										className={list[idx] ? styles.active : undefined} 
+										onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })
+									}>
 										<td>
 											<Image data={image.responsiveImage} className={styles.image} />
 										</td>
@@ -55,18 +58,18 @@ export default function Downloads({ products }: DownloadsProps) {
 										<td className={styles.toggle}>{list[idx] ? '–' : '+'}</td>
 									</tr>
 									{list[idx] &&
-										<tr className={list[idx] ? styles.active : undefined}>
+										<tr key={`l-${idx}`} className={list[idx] ? styles.active : undefined}>
 											<td></td>
 											<td colSpan={2} className={styles.content}>
 												<div className={styles.list}>
 													{files.map(({type, label, href}, idx) =>
 														<>
-															<div key={idx} className={styles.item}>
+															<div key={`f-${idx}`} className={styles.item}>
 																<a href={href} download>
 																	<Icon type={type} label={label}/>
 																</a>
 															</div>
-															{idx % 2 === 1 && <hr/>}
+															{idx % 2 === 1 && <hr key={`hr-${idx}`}/>}
 														</>
 													)}
 												</div>

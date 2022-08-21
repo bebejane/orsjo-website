@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import usePreviousRoute from '/lib/hooks/usePreviousRoute';
 import { useEffect, useState } from 'react';
+import { useStore } from '/lib/store';
 
 const duration = {
 	enter: 0.5,
@@ -67,17 +68,22 @@ export default function PageTransition(){
 	
 	const router = useRouter()
 	const [color, setColor] = useState(pathToColor(router.asPath))
-	const prevRoute = usePreviousRoute()
+	const prevRoute = usePreviousRoute();
+
+	const [transitioning, setTransitioning] = useStore((state)=> [state.transitioning, state.setTransitioning])
 	
 	const handleAnimationEvent = async (type, variant) => {
 		
 		if(typeof variant !== 'string') return 
-
-		const isComplete = ['home', 'homeIntro', 'enter'].includes(variant) && type === 'complete'
+		
+		const isComplete = ['enter'].includes(variant) && type === 'complete'
 		const isExiting = variant.startsWith('exit') && type === 'start'
 		const didExit = variant.startsWith('exit') && type === 'complete'
+		
 		if(didExit) 
 			setTimeout(()=>window.scrollTo({ top: 0, behavior: 'instant' }), 100);
+		if(variant === 'exit') 
+			setTransitioning(type === 'start')
 	}
 
 	useEffect(() => { 

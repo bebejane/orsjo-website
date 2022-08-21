@@ -1,6 +1,5 @@
 import create from "zustand";
 import shallow from "zustand/shallow"
-import { Gallery } from "/components";
 
 export type SectionId = {
   title:string, id:string
@@ -17,18 +16,16 @@ export interface StoreState {
   invertSidebar: boolean,
   invertMenu: boolean,
   searchProducts: string,
-  sections: SectionId[],
   gallery: GalleryProps,
-  product: ProductRecord,
-  setSections: (sections: SectionId[]) => void,
+  transitioning: boolean,
   setShowMenu: (showMenu: boolean) => void,
-  setCurrentSection: (currentSection: string) => void,
   setInvertSidebar: (invertSidebar: boolean) => void,
   setInvertMenu: (invertMenu: boolean) => void,
   setSearchProducts: (searchProducts : string) => void,
   setGallery: (gallery : GalleryProps)  => void,
   setGalleryIndex: (id : string)  => void,
-  setProduct: (product : ProductRecord)  => void,
+  setTransitioning: (transitioning : boolean)  => void,
+
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -40,11 +37,7 @@ const useStore = create<StoreState>((set) => ({
   searchProducts:undefined,
   gallery:undefined,
   product:undefined,
-  setSections: (sections: SectionId[]) =>  
-    set((state) => ({
-      sections
-    })
-  ),
+  transitioning: false,
 	setShowMenu: (showMenu : boolean) =>  
     set((state) => ({
       showMenu
@@ -86,9 +79,9 @@ const useStore = create<StoreState>((set) => ({
       }
     })
   ),
-  setProduct: (product) =>  
+  setTransitioning: (transitioning) =>  
     set((state) => ({
-      product
+      transitioning
     })
   ),
 }));

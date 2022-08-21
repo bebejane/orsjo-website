@@ -25,7 +25,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 						<h1>{title}</h1>
 						{projects.filter(({ projectType }) => projectType.id === id).map((p, idx) =>
 							<ProjectThumbnail
-								key={idx}
+								key={`t-${idx}`}
 								project={p}
 								theme='light'
 								className={styles.project}

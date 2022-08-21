@@ -17,6 +17,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	const ref = useRef();
 	const router = useRouter()
 	const [showMenu, setShowMenu, invertMenu] = useStore((state) => [state.showMenu, state.setShowMenu, state.invertMenu], shallow);
+	const [transitioning] = useStore((state)=> [state.transitioning])
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState({position:0, padding:0})
 	const [hovering, setHovering] = useState(undefined)
@@ -24,10 +25,15 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	const { layout, menu, color } = useLayout()
 	const { innerWidth } = useWindowSize()
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
+	const isInverted = (menu === 'inverted' || invertMenu)
 
-  //useOutsideClick(ref, ()=> setSelected(undefined));
+	const resetSelected = () => !transitioning && setSelected(undefined)
 
-	useEffect(() => { // Toggle menu bar on scroll
+	useEffect(()=>{ // Hide menu if was closed on scroll
+		!showMenu && resetSelected() 
+	}, [showMenu]) 
+
+  useEffect(() => { // Toggle menu bar on scroll
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
 	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu]);
 
@@ -52,26 +58,23 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 
 	}, [innerWidth, selected])
 
-	useEffect(()=>{ setSelected(undefined)}, [router.asPath])	// Reset on route change
-	useEffect(()=>{ !showMenu && setSelected(undefined) }, [showMenu]) // Hide menu if was closed on scroll
-
 	const handleSelected = (e: MouseEvent<HTMLLIElement>) => {
 		const slug = e.currentTarget.getAttribute('data-slug')
 		const sel = selected === slug ? undefined : slug
 		setSelected(sel)
 	}
 	
-	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], (menu === 'inverted' || invertMenu) && styles.inverted)
+	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && !transitioning && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
 	
 	return (
 		<>
 			<Link scroll={false} href={'/'}>
-				<a className={cn(styles.logo, (menu === 'inverted' || invertMenu) && styles.inverted)}>
+				<a className={cn(styles.logo, isInverted && styles.inverted)}>
 					<img id={'logo'} src={'/images/logo.svg'}/>
 				</a>
 			</Link>
-			<nav id={'menu'} className={menuStyles}>
+			<nav id={'menu'} ref={ref} className={menuStyles}>
 				<ul className={styles.nav} >
 					{items.map(({label, slug, index}, idx) => {
 						const arrowStyle = cn(styles.arrow, slug === hovering && styles.hover, slug === selected && styles.active)
@@ -101,12 +104,9 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 			</nav>
 			
 			<div 
-				ref={ref}
 				className={cn(styles.sub, selected && showMenu && styles.show)} 
-				style={{
-					width:`calc(100% - ${menuMargin.position}px)`, 
-					backgroundColor: color
-				}}
+				style={{width:`calc(100% - ${menuMargin.position}px)`, backgroundColor: color}}
+				onMouseLeave={resetSelected}
 			>
 				<div 
 					className={cn(styles.subPad, styles[menu])} 
