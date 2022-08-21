@@ -24,7 +24,7 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>
 				<DesktopMenu items={menu}/>
 				<MobileMenu items={menu} />
-				<Sidebar title={title} product={product}/>
+				<Sidebar title={title}/>
 				<Content>
 					{children}
 				</Content>

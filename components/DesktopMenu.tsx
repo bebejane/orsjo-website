@@ -6,6 +6,7 @@ import { useState, useRef, useEffect, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
 import { useOutsideClick, useWindowSize } from 'rooks'
+import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { siteSearch } from '/lib/utils'
 import type { Menu } from '/lib/menu'
 
@@ -15,15 +16,20 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	
 	const ref = useRef();
 	const router = useRouter()
-	const [showMenu, invertMenu] = useStore((state) => [state.showMenu,state.invertMenu], shallow);
+	const [showMenu, setShowMenu, invertMenu] = useStore((state) => [state.showMenu, state.setShowMenu, state.invertMenu], shallow);
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState({position:0, padding:0})
 	const [hovering, setHovering] = useState(undefined)
 	const [showSearch, setShowSearch] = useState(false)
 	const { layout, menu, color } = useLayout()
 	const { innerWidth } = useWindowSize()
-	
+	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
+
   //useOutsideClick(ref, ()=> setSelected(undefined));
+
+	useEffect(() => { // Toggle menu bar on scroll
+		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
+	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu]);
 
 	useEffect(()=>{ // Re set margin on window resize
 		if(!selected) return

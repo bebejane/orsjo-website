@@ -78,8 +78,6 @@
             flex-wrap: wrap;
             margin-bottom: 1.8em;
             border-top: 1px solid $black;
-            //border-bottom: 1px solid $black;
-
 
             .item {
               display: flex;
@@ -88,15 +86,19 @@
               flex: 0 0 50%;
               padding-top: .5em;
               padding-bottom: .5em;
-                border-bottom: 1px solid $black;
-              &:hover {
-                .icon {
-                  background-color:$gray;
-                }
+              a{
+                flex: 1 1 auto;
+                padding-right: 1em;
               }
-              .title {
-                flex: 1 1 100%;
-              }
+            }
+            hr{
+              min-height: 1px;
+              max-height: 1px;
+              margin:0;
+              width: 100%;
+              background-color: $black;
+              border:0;
+              
             }
           }
         }

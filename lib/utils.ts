@@ -117,6 +117,40 @@ const recordImages = (obj, images = []) => {
     },[]);
 }
 
+type ProductDownload = { 
+  href:string,
+  label:string,
+  type:string
+}
+const productDownloads = (product : ProductRecord) : ProductDownload[] => {
+
+  const { pdfFiles, mountingInstructions, bimLink} = product;
+
+  const files = [{
+    href: pdfFiles.find(({locale}) => locale ==='sv') && `${pdfFiles.find(({locale}) => locale ==='sv')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='sv')?.value.title}`,
+    label: 'Productsheet (SE)',
+    type:'pdf'
+  },{
+    href: pdfFiles.find(({locale}) => locale ==='en') && `${pdfFiles.find(({locale}) => locale ==='en')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='en')?.value.title}`,
+    label: 'Productsheet (EN)',
+    type:'pdf'
+  },{
+    href: mountingInstructions?.url,
+    label: 'Mounting instructions',
+    type: 'pdf'
+  },{
+    href: bimLink,
+    label: 'BIM files',
+    type:'bim'
+  },{
+    href: undefined,
+    label: 'CAD file, size S',
+    type: 'cad'
+  }]
+
+  return files;
+}
+
 
 export {
   sleep,
@@ -129,5 +163,6 @@ export {
   chunkArray,
   parseSpecifications,
   siteSearch,
-  recordImages
+  recordImages,
+  productDownloads
 }

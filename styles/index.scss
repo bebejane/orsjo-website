@@ -20,11 +20,6 @@
 	@import "partials/print";
 }
 
-#__next{
-	position: relative;
-	display: flex;
-  flex-direction: column;
-}
 
 #error-404, #error-505 {
 	position: absolute;

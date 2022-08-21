@@ -9,7 +9,7 @@ import { LayoutProvider, PageLayoutProps } from '/lib/context/layout';
 import type { NextComponentType } from 'next';
 import { AnimatePresence } from "framer-motion";
 import {PageTransition} from '/components'
-import useTransitionFix from '/lib/hooks/useTransitionFix';
+import { useTransitionFix2  as useTransitionFix} from '/lib/hooks/useTransitionFix';
 import { useEffect } from 'react';
 
 export type ApplicationProps = AppProps & {
@@ -22,7 +22,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
   
   //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
-  useTransitionFix()
+  //useTransitionFix()
   const router = useRouter()
   const pathname =  router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const { site, seo } = pageProps;
@@ -58,7 +58,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
               <Component {...pageProps}/>
             </Layout>
           </LayoutProvider>
-          <PageTransition key={pathname}/>
+          <PageTransition key={`t-${pathname}`}/>
       {/*</div></AnimatePresence>*/}
     </>
   )

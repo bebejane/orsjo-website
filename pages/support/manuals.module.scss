@@ -45,39 +45,12 @@
         &:nth-child(even){
           background-color: $light-gray;
         }
-        .disabled{
-          pointer-events: none;
-          opacity: 0.6;
-        }
         a{
           display: flex;
           flex-direction: row;
           align-items: center;
           width: 100%;
           font-size: 18px;
-          
-          .fileIcon{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-transform: uppercase;
-            background-color: $gray;
-            height: 40px;
-            width: 40px;
-            font-size: 10px;
-          }
-          .label{
-            flex: 1 1 auto;
-          }
-          .arrow{
-            opacity: 0;
-            transform: rotate(90deg);
-          }
-          &:hover{
-            .arrow{
-              opacity: 1;
-            }
-          }
         }
       }
   }

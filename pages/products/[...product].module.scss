@@ -65,10 +65,10 @@
 			width: 100%;
 			span:nth-child(odd){
 				color: $gray;
-				flex: 0 0 spanNestedGrid(12, 4, true);
+				flex: 1 1 spanNestedGrid(12, 4, true);
 			}
 			span:nth-child(even){
-				flex: 0 0 spanNestedGrid(12, 8, true);	
+				flex: 1 1 spanNestedGrid(12, 8, true);	
 			}
 		}
 	}
@@ -184,19 +184,15 @@
 		list-style: none;
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		width: 100%;
 		li{
+			flex: 0 0 50%;
+			margin-bottom: 1em;
 			a{
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				width: 100%;
-				.label{
-					font-weight: bold;
-				}
-				&:not([href]){
-					opacity: 0.4;
-				}
 			}
 		}
 	}

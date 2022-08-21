@@ -7,7 +7,7 @@ import { useStore } from '/lib/store'
 import { Image } from 'react-datocms'
 import { SectionListItem, FullWidthImage, Text, TwoColumnImage, ImageGallery, FeaturedGallery,  Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
-import { chunkArray, parseSpecifications, recordImages } from '/lib/utils'
+import { chunkArray, parseSpecifications, recordImages, productDownloads } from '/lib/utils'
 import { useLayout } from '/lib/context/layout'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
@@ -43,6 +43,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 	
 	const images = recordImages(product)
 	const drawings = allDrawings(product)
+	const files = productDownloads(product)
 	
 	const handleGalleryClick = (type: string, id:string) => {
 		console.log(id, drawings)
@@ -63,6 +64,7 @@ export default function Product({ product, related, relatedByCategory }: Product
 	
 	const overlayOpacity = Math.max(0, ((viewportHeight-(scrolledPosition*2)) / viewportHeight));
 	
+
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
@@ -202,30 +204,13 @@ export default function Product({ product, related, relatedByCategory }: Product
 				onToggle={()=>setList({...list, downloads: !list.downloads})}
 			>
 				<ul className={styles.downloads}>
-						<li>
-							<a href={`${product.pdfFiles.find(({locale}) => locale ==='sv')?.value.url}`} download>
-								<Icon>PDF</Icon>
-								<div className={styles.label}>Product Sheet (SE)</div>
+					{files.map(({href, type, label}, idx) => 
+						<li key={idx}>
+							<a href={href} download>
+								<Icon type={type} label={label} disabled={!href}/>
 							</a>
 						</li>
-						<li>
-							<a href={`${product.pdfFiles.find(({locale}) => locale ==='en')?.value.url}`} download>
-								<Icon>PDF</Icon>
-								<div className={styles.label}>Product Sheet (EN)</div>
-							</a>
-						</li>
-						<li>
-							<a href={product.bimLink || undefined}>
-								<Icon>BIM</Icon>
-								<div className={styles.label}>Bim files</div>
-							</a>
-						</li>
-						<li>
-							<a href={product.lightFile?.url}>
-								<Icon>CAD</Icon>
-								<div className={styles.label}>Cad Files</div>
-							</a>
-						</li>
+					)}
 				</ul>
 			</SectionListItem>
 

@@ -62,7 +62,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: $margin;
       padding-top: 2rem;
       padding-bottom: 2rem;
     }
@@ -76,11 +76,12 @@
           position: absolute;
           white-space: pre;
           left: 0;
-          z-index: 0;
+          z-index: 1;
           top: 50%;
           margin: 0;
           padding: 0;
           transform: translateY(-50%);
+          line-height: 1;
           font-weight: bold;
         }
         span{
@@ -89,6 +90,8 @@
           color: rgba(var(--copper));
           opacity: 0.5;
           margin-left: 10px;
+          margin: 0;
+          padding: 0;
         }
       }
     }

@@ -10,7 +10,8 @@ const sassOptions = {
     @import "./styles/partials/mixins"; 
     @import "./styles/partials/styles";
     @import "./styles/partials/variables";
-    @import "./styles/partials/fonts";  `
+    @import "./styles/partials/fonts";  
+  `
 }
 const nextOptions = {
   typescript: {

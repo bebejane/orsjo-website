@@ -6,6 +6,7 @@ import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 import { useState } from 'react';
 import { Section, Icon } from '/components'
+import { productDownloads } from '/lib/utils';
 
 export type DownloadsProps = { products: ProductRecord[] }
 
@@ -34,7 +35,9 @@ export default function Downloads({ products }: DownloadsProps) {
 							<th><span className="small">Type</span></th>
 							<th></th>
 						</tr>
-						{products.map(({ id, image, title, categories, bimLink, pdfFiles, mountingInstructions, lightFile }, idx) => {
+						{products.map(({ id, image, title, categories }, idx) => {
+							const files = productDownloads(products[idx])
+
 							return (
 								<>
 									<tr key={idx} className={list[idx] ? styles.active : undefined} onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}>
@@ -56,42 +59,16 @@ export default function Downloads({ products }: DownloadsProps) {
 											<td></td>
 											<td colSpan={2} className={styles.content}>
 												<div className={styles.list}>
-													{pdfFiles.find(({locale}) => locale ==='sv') &&
-														<div className={styles.item}>
-															<Icon>PDF</Icon>
-															<a href={`${pdfFiles.find(({locale}) => locale ==='sv')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='sv')?.value.title}`} download>
-																<span className="small">Productsheet (SE)</span>
-															</a>
-														</div>
-													}
-													{pdfFiles.find(({locale}) => locale ==='en') &&
-														<div className={styles.item}>
-															<Icon>PDF</Icon>
-															<a href={`${pdfFiles.find(({locale}) => locale ==='en')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='en')?.value.title}`} download>
-																<span className="small">Productsheet (EN)</span>
-															</a>
-														</div>
-													}
-													{mountingInstructions &&
-														<div className={styles.item}>
-															<Icon>PDF</Icon>
-															<a href={mountingInstructions.url} download>
-																<span className="small">Mounting instructions</span>
-															</a>
-														</div>
-													}
-													{bimLink &&
-														<div className={styles.item}>
-															<Icon>BIM</Icon>
-															<a href={bimLink} download>
-																<span className="small">BIM files</span>
-															</a>
-														</div>
-													}
-													<div className={styles.item}>
-														<Icon>CAD</Icon>
-														<span className="small">CAD file, size S</span>
-													</div>
+													{files.map(({type, label, href}, idx) =>
+														<>
+															<div key={idx} className={styles.item}>
+																<a href={href} download>
+																	<Icon type={type} label={label}/>
+																</a>
+															</div>
+															{idx % 2 === 1 && <hr/>}
+														</>
+													)}
 												</div>
 											</td>
 											<td></td>

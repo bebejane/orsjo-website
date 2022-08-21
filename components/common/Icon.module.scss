@@ -1,13 +1,56 @@
 .icon {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 1.6rem;
-  min-width: 1.6rem;
-  height: 2rem;
-  min-height: 2rem;
-  flex: 0 0 1.6em;
-  background-color: $light-gray;
+  flex: 1 1 auto;
   color: $black;
-  margin-right: 1em;
+  &.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  &:hover{
+    span{
+      &.type{
+        color:$white;
+        background-color: $gray;
+      }
+    }
+    .arrow{
+      opacity: 1;
+    }
+  }
+  span{
+    display: block;
+    &.type{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      max-width: 1.6rem;
+      min-width: 1.6rem;
+      height: 2rem;
+      min-height: 2rem;
+      flex: 0 0 1.6em;
+      margin-right: 1em;    
+      background-color: $light-gray;
+      text-transform: uppercase;
+    }
+    &.label{
+      flex: 0 1 auto;
+      white-space: pre;
+    }
+  }
+  .arrow{
+    display: flex;
+    justify-content: flex-start;
+    transform: opacity .2 ease;
+    opacity: 0;
+    flex: 1 1 auto;
+    color:$black;
+    margin-left: .5em;
+    div{
+      transform: rotate(90deg);
+    }
+  }
 }

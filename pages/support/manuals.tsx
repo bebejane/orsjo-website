@@ -39,15 +39,17 @@ export default function Manuals({ products }: ManualsProps) {
 			<ul className={styles.result}>
 				{results?.map(({title, categories, mountingInstructions : file}, idx)=>
 					<li key={idx}>
-						<Icon>PDF</Icon>
-						<a 
+						<a
 							key={idx} 
 							href={file?.url ? `${file?.url}?dl=${title} ${categories[0].name}, Assembly Instructions.pdf` : undefined} 
 							className={cn(!file && styles.disabled)} 
 							download={true}
 						>
-							<div className={styles.label}>{title} {categories[0].name}, Assembly Instructions.pdf</div>
-							<div className={styles.arrow}>→</div>
+							<Icon 
+								type="pdf" 
+								label={`${title} ${categories[0].name}, Assembly Instructions.pdf`} 
+								disabled={file?.url === undefined}
+							/>
 						</a>
 					</li>
 				)}

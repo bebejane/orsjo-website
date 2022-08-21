@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useLayout } from '/lib/context/layout'
 import { useEffect, useState } from 'react'
+import useScrollInfo from '/lib/hooks/useScrollInfo';
 
 export type SidebarProps = {title:string}
 
@@ -19,9 +20,53 @@ export default function Sidebar({title} : SidebarProps) {
 	const isProductPage = router.pathname.startsWith('/products/')
 	const isProjectPage = router.pathname.startsWith('/professionals/projects/')
 	const [searchFocus, setSearchFocus] = useState(false);
-	const resetSearch = (e) => setSearchProducts('')
+	
+	const [setCurrentSection, setInvertSidebar, setInvertMenu, setSections] = useStore((state) => [state.setCurrentSection, state.setInvertSidebar, state.setInvertMenu, state.setSections, state.setShowMenu], shallow);
+	const {scrolledPosition, documentHeight } = useScrollInfo()
+	const resetSearch = () => setSearchProducts('')
 
-	useEffect(()=>{ setSearchProducts('')}, [router.asPath])
+	useEffect(()=>{ 
+		const sections = document.querySelectorAll<HTMLElement>('section[data-section-id]')
+		setSections(sections.length ? Array.from(sections).map((s)  => ({title:s.title, id:s.id})) : [])
+	}, [router.asPath, setSections])
+
+	useEffect(()=>{ // Highlight nav section on scroll
+
+		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[id]'))
+		const sidebar = document.getElementById('sidebar')
+		const menu = document.getElementById('menu')
+		
+		if(!sections.length || !sidebar || !menu) return
+
+		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
+		const sorted = sections.sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)
+		const { id } = sorted[0]
+
+		let invertSidebar = false;
+		for (let i = 0; i < sections.length; i++) {
+			const s = sections[i];
+			const isIntersecting = (scrolledPosition > (s.offsetTop - sidebarBottomOffset + (sidebar.clientHeight))) && scrolledPosition < (s.offsetTop - sidebarBottomOffset + s.clientHeight)
+			if(s.dataset.dark && isIntersecting && s.id === id){
+				invertSidebar = true
+				break;
+			}
+		}
+
+		setCurrentSection(id)
+		setInvertMenu(invertSidebar)
+		setInvertSidebar(invertSidebar)
+
+	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu])
+
+	useEffect(()=>{ //Highlight nav section on scroll
+		const sections = document.querySelectorAll<HTMLElement>('section[id]')
+		const sidebar = document.getElementById('sidebar')
+
+		if(!sections.length || !sidebar) return
+		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
+	}, [scrolledPosition, documentHeight, setCurrentSection])
+
+	useEffect(()=>{ resetSearch()}, [router.asPath])
 
 	if(!sections.length || !sidebar) return null
 	

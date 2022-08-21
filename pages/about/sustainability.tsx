@@ -33,7 +33,7 @@ export default function Sustainability({ sustainability : { image, intro, title,
 						<div className={styles.left}>
 							<div className={styles.header}>
 								<h2>{title}</h2>
-								<span>N° {idx+1}</span>
+								<span>N°{idx+1}</span>
 							</div>
 							<Markdown className={styles.text}>
 								{text}
