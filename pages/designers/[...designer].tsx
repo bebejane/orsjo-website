@@ -76,6 +76,7 @@ export async function getStaticPaths(context) {
 }
 
 export const getStaticProps = withGlobalProps({ queries:[AllDesignersDocument, AllProductsLightDocument]}, async ({ props, context, revalidate }) => {
+	
 	const { designers, products : allProducts } = props;
 	const { designer } = await apiQuery(DesignerDocument, { variables: { slug: context.params.designer[0] } })
 	const { products } = await apiQuery(AllProductsByDesignerDocument, { variables: { id: designer.id } })

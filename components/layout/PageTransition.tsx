@@ -5,8 +5,8 @@ import usePreviousRoute from '/lib/hooks/usePreviousRoute';
 import { useEffect, useState } from 'react';
 
 const duration = {
-	enter: 0.8,
-	exit: 0.6,
+	enter: 0.5,
+	exit: 0.3,
 	instant: 0
 }
 

@@ -13,10 +13,27 @@ export const GRAPHQL_PREVIEW_API_ENDPOINT = `https://graphql.datocms.com/preview
 export const GRAPHQL_API_TOKEN = (isServer ? process.env.GRAPHQL_API_TOKEN : process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN) || null
 export const Dato = (isServer ? buildClient : buildClientBrowser)({apiToken:GRAPHQL_API_TOKEN})
 
+const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Response>  => {
+  
+  const operations = init.body ? (JSON.parse(init.body)).map(({operationName})=> operationName) : []
+  const requestName = `${operations.join(', ')} (${operations.length})`
+  console.log(`# Sending ${requestName}`)
+  
+  const response = await fetch(input, init)
+  return {
+    ...response,
+    async text () {
+      const result = await response.text()
+      return result
+    }
+  }
+}
+
 const link = new BatchHttpLink({ 
   uri: GRAPHQL_API_ENDPOINT,
+  fetch: process.env.LOG_GRAPHQL ? loggingFetch : undefined,
   batchMax: 10, 
-  batchInterval: 20,
+  batchInterval: 50,
   headers: { Authorization: `Bearer ${GRAPHQL_API_TOKEN}` }
 });
 
@@ -48,9 +65,7 @@ export const apiQuery = async (query: TypedDocumentNode | TypedDocumentNode[], o
       return client.query({query:q, variables:vars})
     })
   
-  
     const data = await Promise.all(batch)
-
     const errors = data.filter(({errors}) => errors).map(({errors})=> errors?.reduce((curr, acc) => curr + '. ' + acc.message, ''))
 
     if(errors.length)

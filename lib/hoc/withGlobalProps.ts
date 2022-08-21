@@ -8,7 +8,7 @@ export default function withGlobalProps(opt: any , callback : Function) : GetSta
   
   const revalidate : number = parseInt(process.env.REVALIDATE_TIME)
   const queries: TypedDocumentNode[] = [GlobalDocument]
-  
+
   if(opt.query) 
     queries.push(opt.query)
   if(opt.queries) 
@@ -18,7 +18,7 @@ export default function withGlobalProps(opt: any , callback : Function) : GetSta
   
   return async (context) => {
     const props = await apiQuery(queries, { variables:{}, preview: context.preview ? true : false});
-    const menu = await generate();
+    const menu =  generate(props);
 
     if(callback)
       return await callback({context, props: {...props, menu}, revalidate});

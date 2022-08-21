@@ -93,12 +93,12 @@ query ProductCategories {
 
 query AllProductsByDesigner($id: ItemId) {
 	products: allProducts(filter: {designer: { eq: $id }}) {
-		...ProductFragment
+		...ProductLightFragment
 	}
 }
 
 query RelatedProducts($designerId: ItemId, $familyId: ItemId) {
-	products: allProducts(
+	relatedProducts: allProducts(
     filter: { 
       OR:[
         {designer: { eq: $designerId }}, 
@@ -110,7 +110,7 @@ query RelatedProducts($designerId: ItemId, $familyId: ItemId) {
 }
 
 query AllProductsByCategory($categoryId: ItemId) {
-	products: allProducts(
+	productsByCategory: allProducts(
     filter: { 
       categories: { eq: [$categoryId]}
     }) {
