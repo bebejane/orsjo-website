@@ -4,15 +4,20 @@ import { useRouter } from 'next/router';
 import usePreviousRoute from '/lib/hooks/usePreviousRoute';
 import { useEffect, useState } from 'react';
 
-const duration = .6;
+const duration = {
+	enter: 0.8,
+	exit: 0.6,
+	instant: 0
+}
+
 const pageTransition = {
 	initial: {
 		height: '100vh',
-		opacity:1,
+		opacity: 1
 	},
 	enter: {
 		opacity: [1,0],
-		transition:{ duration:duration*2, ease:'easeOut'},
+		transition:{ duration:duration.enter, ease:'easeIn'},
 		transitionEnd :{
 			opacity:1,
 			height:'0vh'
@@ -20,19 +25,18 @@ const pageTransition = {
 	},
 	exit: {
 		height: ['0vh', '100vh'],
-		transition:{ duration:duration, ease:'easeOut'},
+		transition:{ duration:duration.exit, ease:'easeOut'},
 		transitionEnd :{
-			height:'100vh',
-			opacity:1
+			
 		}
 	},
 	none:{
-		transition:{ duration:0},
-		opacity:0,
+		transition:{ duration:duration.instant},
+		opacity:1,
 		height:'0vh'
 	},
 	exitInstant:{
-		transition:{ duration },
+		transition:{ duration:duration.instant },
 		opacity:[0,1],
 		transitionEnd:{
 			height:'0vh',
@@ -41,7 +45,7 @@ const pageTransition = {
 	},
 	enterInstant: {
 		opacity:[0,1],
-		transition:{ duration , delay:0.2},
+		transition:{ duration:duration.instant},
 		transitionEnd:{
 			height:'0vh',
 			opacity:0
@@ -68,13 +72,12 @@ export default function PageTransition(){
 	const handleAnimationEvent = async (type, variant) => {
 		
 		if(typeof variant !== 'string') return 
-		//console.log(variant, type)
+
 		const isComplete = ['home', 'homeIntro', 'enter'].includes(variant) && type === 'complete'
 		const isExiting = variant.startsWith('exit') && type === 'start'
 		const didExit = variant.startsWith('exit') && type === 'complete'
-		
-		if(didExit)
-			window.scrollTo({ top: 0, behavior: 'instant' });
+		if(didExit) 
+			setTimeout(()=>window.scrollTo({ top: 0, behavior: 'instant' }), 100);
 	}
 
 	useEffect(() => { 
@@ -88,16 +91,15 @@ export default function PageTransition(){
 	
 	const enterAnimation = !prevRoute ? "none" : !color ? "enterInstant" : "enter"
 	const exitAnimation = !color ? "exitInstant" : "exit" 
-
 	//console.log(enterAnimation, exitAnimation, prevRoute)
 	
 	return (
     <motion.div
 			className={styles.pageTransition} 
+			variants={pageTransition} 
 			initial="initial" 
       animate={enterAnimation}
       exit={exitAnimation}
-      variants={pageTransition} 
       onAnimationComplete={ (variant) => handleAnimationEvent('complete', variant)}
       onAnimationStart={(variant) => handleAnimationEvent('start', variant)}
 			style={{backgroundColor:color ? `rgba(var(${color}))` : undefined}}

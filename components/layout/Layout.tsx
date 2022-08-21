@@ -14,28 +14,25 @@ export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: 
 
 export default function Layout({ children, menu, title }: LayoutProps) {
 
-	const { color } = useLayout()
-
-	const router = useRouter()
+	const { color, layout } = useLayout()
 	const [gallery, setGallery, product] = useStore((state) => [state.gallery, state.setGallery, state.product])
 	
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>
+				
 				<DesktopMenu items={menu}/>
-				<MobileMenu items={menu} />
-				<Sidebar title={title}/>
+				<MobileMenu items={menu}/>
+				{layout !== 'full' && <Sidebar title={title}/>}
 				<Content>
 					{children}
 				</Content>
-
-				{gallery?.index > -1 &&
-					<Gallery
-						images={gallery.images}
-						index={gallery.index}
-						onClose={() => setGallery({...gallery, index:-1})}
-					/>
-				}
+				<Gallery
+					show={gallery?.index > -1}
+					images={gallery?.images}
+					index={gallery?.index}
+					onClose={() => setGallery({...gallery, index:-1})}
+				/>
 			</div>
 			<Footer menu={menu} />
 			<Grid />
@@ -43,7 +40,7 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 	)
 }
 
-const Grid = ({ show }) => {
+const Grid = () => {
 
 	const [showGrid, setShowGrid] = useState(false)
 
@@ -53,7 +50,6 @@ const Grid = ({ show }) => {
 		return () => document.removeEventListener('keydown', toggleGrid)
 	}, [showGrid, setShowGrid])
 
-	
 	if (!showGrid) return null
 
 	return (

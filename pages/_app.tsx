@@ -1,8 +1,7 @@
 import '/styles/index.scss'
 import type { AppProps } from 'next/app'
-import { NextIntlProvider } from 'next-intl';
 import DatoSEO from '/lib/dato/components/DatoSEO';
-import { GoogleAnalytics, usePagesViews } from "nextjs-google-analytics";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 import { useRouter } from 'next/router';
 import { Layout } from '/components'
 import { LayoutProvider, PageLayoutProps } from '/lib/context/layout';
@@ -22,7 +21,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
   
   //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
-  //useTransitionFix()
+  useTransitionFix()
   const router = useRouter()
   const pathname =  router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const { site, seo } = pageProps;
@@ -32,9 +31,8 @@ function Application({ Component, pageProps } : ApplicationProps) {
   const pageTitle = siteSubtitle(pageProps, pathname);
 
   useEffect(() => { 
-    const handleRouteChange = (url, { shallow }) => {
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    };
+    return
+    const handleRouteChange = (url, { shallow }) => window.scrollTo({ top: 0, behavior: 'instant' });
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => router.events.off("routeChangeComplete", handleRouteChange)
   }, []);
@@ -43,7 +41,7 @@ function Application({ Component, pageProps } : ApplicationProps) {
   
   return (
     <>
-      <GoogleAnalytics />
+      <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }}/>
       <DatoSEO 
         title="Örsjö Belysning" 
         subtitle={pageTitle ?  ` - ${pageTitle}` : ''} 
@@ -52,16 +50,20 @@ function Application({ Component, pageProps } : ApplicationProps) {
         pathname={pathname} 
         key={pathname}
       />
-        {/*<AnimatePresence presenceAffectsLayout initial={false}><div id="app" key={pathname}>*/}
+        <AnimatePresence exitBeforeEnter initial={false}><div id="app" key={pathname}>
           <LayoutProvider value={layout}>
             <Layout menu={pageProps.menu} title={pageTitle}>
-              <Component {...pageProps}/>
+              <Component {...pageProps}/>  
+              <PageTransition key={`t-${pathname}`}/>
             </Layout>
           </LayoutProvider>
-          <PageTransition key={`t-${pathname}`}/>
-      {/*</div></AnimatePresence>*/}
+      </div></AnimatePresence>
     </>
   )
+}
+
+const siteSubtitle = ({product, designer, project} : { product: ProductRecord, designer: DesignerRecord, project: ProjectRecord}, pathname) => {
+  return product?.title || designer?.name || project?.title || pathTotitle[pathname]
 }
 
 const pathTotitle = {
@@ -79,8 +81,5 @@ const pathTotitle = {
   '/contact': 'Contact',
 }
 
-const siteSubtitle = ({product, designer, project} : { product: ProductRecord, designer: DesignerRecord, project: ProjectRecord}, pathname) => {
-  return product?.title || designer?.name || project?.title || pathTotitle[pathname]
-}
 
 export default Application

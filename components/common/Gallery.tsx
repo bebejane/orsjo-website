@@ -5,9 +5,11 @@ import { Image } from "react-datocms"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef, useEffect } from 'react';
 
-export type GalleryProps = {images: FileField[], onClose: Function, index:number}
+export type GalleryProps = {images: FileField[], onClose: Function, index:number, show:boolean}
 
-export default function Gallery({ images, onClose, index = 0 } : GalleryProps) {
+export default function Gallery({ images, onClose, index = 0, show } : GalleryProps) {
+  
+  if(!show) return null
   
   const swiperRef = useRef()
   const [realIndex, setRealIndex] = useState(index)

@@ -4,39 +4,41 @@ import { useStore, shallow } from '/lib/store';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useLayout } from '/lib/context/layout'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import useScrollInfo from '/lib/hooks/useScrollInfo';
 
-export type SidebarProps = {title:string}
+export type SidebarProps = {title: string}
 
 export default function Sidebar({title} : SidebarProps) {
 
-	const { menu, sidebar } = useLayout()
+	const { menu, sidebar, layout } = useLayout()
 	const router = useRouter()
 	const [currentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
-	const sections = useStore((state) => state.sections)
+	const [sections, setSections] = useState([])
 	const isInverted = menu === 'inverted' || invertSidebar
 	const isProductsPage = router.pathname.toLowerCase() === '/products'
 	const isProductPage = router.pathname.startsWith('/products/')
 	const isProjectPage = router.pathname.startsWith('/professionals/projects/')
 	const [searchFocus, setSearchFocus] = useState(false);
 	
-	const [setCurrentSection, setInvertSidebar, setInvertMenu, setSections] = useStore((state) => [state.setCurrentSection, state.setInvertSidebar, state.setInvertMenu, state.setSections, state.setShowMenu], shallow);
+	const [setCurrentSection, setInvertSidebar, setInvertMenu] = useStore((state) => [state.setCurrentSection, state.setInvertSidebar, state.setInvertMenu, state.setSections, state.setShowMenu], shallow);
 	const {scrolledPosition, documentHeight } = useScrollInfo()
-	const resetSearch = () => setSearchProducts('')
-
+	const resetSearch = useCallback(() => {setSearchProducts('')},[setSearchProducts]);
+	
+	
 	useEffect(()=>{ 
-		const sections = document.querySelectorAll<HTMLElement>('section[data-section-id]')
-		setSections(sections.length ? Array.from(sections).map((s)  => ({title:s.title, id:s.id})) : [])
-	}, [router.asPath, setSections])
+		console.log('update sections sidebar')
+		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]')
+		const sections = items.length ? Array.from(items).map((s)  => ({title:s.title, id:s.id})) : []
+		setSections(sections)
+	}, [])
 
-	useEffect(()=>{ // Highlight nav section on scroll
-
-		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[id]'))
-		const sidebar = document.getElementById('sidebar')
-		const menu = document.getElementById('menu')
+	useEffect(()=>{ // Highlight nav section on scroll\
 		
-		if(!sections.length || !sidebar || !menu) return
+		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-section-id]'))
+		const sidebar = document.getElementById('sidebar')
+		
+		if(!sections.length) return
 
 		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
 		const sorted = sections.sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)
@@ -53,38 +55,25 @@ export default function Sidebar({title} : SidebarProps) {
 		}
 
 		setCurrentSection(id)
-		setInvertMenu(invertSidebar)
-		setInvertSidebar(invertSidebar)
+		//setInvertMenu(invertSidebar)
+		//setInvertSidebar(invertSidebar)
 
-	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu])
-
-	useEffect(()=>{ //Highlight nav section on scroll
-		const sections = document.querySelectorAll<HTMLElement>('section[id]')
-		const sidebar = document.getElementById('sidebar')
-
-		if(!sections.length || !sidebar) return
-		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
-	}, [scrolledPosition, documentHeight, setCurrentSection])
-
-	useEffect(()=>{ resetSearch()}, [router.asPath])
-
-	if(!sections.length || !sidebar) return null
+	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu, layout])
+	
+	useEffect(()=>{ resetSearch()}, [router.asPath, resetSearch])
 	
 	return (
 		<aside id="sidebar" className={cn(styles.sidebar, isInverted && styles.inverted, !isProductsPage && styles.short)}>
 			<h3>{title}</h3>
 			<nav>
 				<ul>
-					{sections.map((section, idx) => 
+					{sections?.map((section, idx) => 
 						<li key={idx}>
-							<Link scroll={false} href={`#${section.id}`}>
-								<a className={cn(section.id === currentSection && styles.active)}>
-									{section.title}
-								</a>
-							</Link>
+							<a href={`#${section.id}`} className={cn(section.id === currentSection && styles.active)}>
+								{section.title}
+							</a>
 						</li>
 					)}
-
 					{isProductsPage && 
 						<li className={styles.search}>
 							<input 

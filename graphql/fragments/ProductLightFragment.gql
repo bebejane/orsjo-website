@@ -12,9 +12,6 @@ fragment ProductLightFragment on ProductRecord{
     namePlural
     position
   }
-  designer{
-    id
-  }
   image{
     ...ImageFragment
   }
