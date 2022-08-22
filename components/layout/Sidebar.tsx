@@ -96,8 +96,8 @@ export default function Sidebar({title} : SidebarProps) {
 			</nav>
 			
 			<div className={cn(styles.footer, 'medium')}>
-				{isProductPage && <a href="/products">All Products</a>}
-				{isProjectPage && <a href="/professionals/projects/">All Projects</a>}
+				{isProductPage && <span onClick={()=> router.push("/products")}>All Products</span>}
+				{isProjectPage && <span onClick={()=> router.push("/professionals/projects")}>All Projects</span>}
 			</div>
 			
 		</aside>
