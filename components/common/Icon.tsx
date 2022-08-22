@@ -12,11 +12,11 @@ export default function Icon({ type, label, children, disabled = false }: IconPr
 
   return (
     <div className={cn(styles.icon, disabled && styles.disabled)}>
-      <span className={cn(styles.type, "small")}>
+      <span className={cn(styles.type, "icon")}>
         {type || children}
       </span>
-      {label && 
-        <span className={cn(styles.label, "medium")}>
+      {label &&
+        <span className={cn(styles.label, "small")}>
           {label}
         </span>
       }
