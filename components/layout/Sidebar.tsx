@@ -94,10 +94,12 @@ export default function Sidebar({title} : SidebarProps) {
 					}
 				</ul>
 			</nav>
+			
 			<div className={cn(styles.footer, 'medium')}>
-				{isProductPage &&<Link scroll={false} href="/products">All Products</Link>}
-				{isProjectPage &&<Link scroll={false} href="/professionals/projects/">All Projects</Link>}
+				{isProductPage && <a href="/products">All Products</a>}
+				{isProjectPage && <a href="/professionals/projects/">All Projects</a>}
 			</div>
+			
 		</aside>
 	)
 }
