@@ -70,7 +70,8 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	useEffect(()=>setGallery({images}), [])
 	
 	const overlayOpacity = Math.max(0, ((viewportHeight-(scrolledPosition*4)) / viewportHeight));
-	
+	const scale = Math.min(1.2, 2-(Math.max(0, (viewportHeight-(scrolledPosition/4)) / viewportHeight)))
+	//console.log(scale)
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
@@ -80,8 +81,16 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						data={product.image?.responsiveImage}
 						layout={'fill'}
 						objectFit={'contain'}
+						pictureStyle={{
+							transform:`scale(${scale})`
+						}}
 					/>
-					<div className={styles.overlay} style={{opacity: overlayOpacity}}>
+					<div 
+						className={styles.overlay} 
+						style={{
+							opacity: overlayOpacity,
+							transform:`scale(${2.1-scale})`
+						}}>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
 								{product.title}

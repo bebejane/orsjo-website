@@ -190,15 +190,17 @@ const Search = ({show, setShowSearch}) => {
 				<button className={styles.close} onClick={()=>setShowSearch(false)}>×</button>
 			</div>
 			<div className={styles.results}>
-			{results?.data?.map(({attributes}, idx) => 
+			{results?.data?.filter(({attributes}) => attributes?.url).map(({attributes}, idx) => 
 				<div key={idx}>
 					<h2>
-					<Link scroll={false} href={process.env.NODE_ENV === 'development' ?  attributes.url.replace('https://orsjo.vercel.app', '') : attributes.url}>
+					<Link 
+						scroll={false} 
+						href={process.env.NODE_ENV === 'development' ?  attributes.url?.replace('https://orsjo.vercel.app', '') : attributes.url}>
 						{attributes.title}
 					</Link>
 					</h2>
 					<p>
-						{attributes.highlight.body.map(line => 
+						{attributes.highlight?.body.map(line => 
 							<>{line}</>
 						)}
 					</p>
