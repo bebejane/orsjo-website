@@ -45,7 +45,8 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	const singleModel = product.models.length === 1
 	const productCategories = product.categories.map(({ name }, idx) => name).join(', ')
 	
-	const images = recordImages(product)
+	const images = recordImages(product)//?.filter(({mimeType})=> !mimeType.includes('video'))
+	
 	const drawings = allDrawings(product)
 	const files = productDownloads(product)
 	
