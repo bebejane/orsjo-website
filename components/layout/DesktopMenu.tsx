@@ -90,8 +90,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 								data-slug={slug}
 								data-index={idx}
 								key={idx} 
-								onClick={(e)=> !index && handleSelected(e)}
-								onMouseEnter={()=>!index && setHovering(slug)}
+								onMouseEnter={()=> setHovering(!index ? slug : undefined)}
 								onMouseLeave={()=>!index && !showMenu && setHovering(undefined)}
 								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
 							>	
@@ -100,7 +99,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 										{label}
 									</Link>
 								:
-									<>{label} <span className={arrowStyle}>›</span></>
+									<>{label}{/*<span className={arrowStyle}>›</span>*/}</>
 								}
 							</li>
 						)})}
@@ -122,13 +121,11 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 					<nav>
 						<ul className={cn(sub?.length > 10 && styles.columns)}>
 							{sub?.map(({label, slug}, idx)=>
-								<Link scroll={false} key={idx} href={slug}>
-									<a>
-										<li className={cn(slug === router.asPath && styles.active)}>
-											{label}
-										</li>
-									</a>
-								</Link>
+								<li key={idx} className={cn(slug === router.asPath && styles.active)}>
+									<Link scroll={false}  href={slug}>
+										{label}
+									</Link>
+								</li>
 							)}
 						</ul>
 					</nav>

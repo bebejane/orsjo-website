@@ -69,18 +69,21 @@ export default function FeaturedGallery({
 									key={idx}
 									product={item as ProductRecord} 
 									theme={theme}
+									className={styles.thumbnail}
 								/>
 							: item.__typename === 'ProjectRecord' ?								
 								<ProjectThumbnail 
 									key={idx}
 									project={item as ProjectRecord} 
 									theme={theme}
+									className={styles.thumbnail}
 								/>
 							: item.__typename === 'DesignerRecord' ?
 								<DesignerThumbnail 
 									key={idx}
 									designer={item as DesignerRecord} 
 									theme={theme}
+									className={styles.thumbnail}
 								/>
 							: 
 								null

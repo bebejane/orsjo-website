@@ -1,13 +1,11 @@
 import styles from './Layout.module.scss'
 import React from 'react'
 import { Content, Sidebar, Footer, Gallery} from '/components'
-import PageTransition from './PageTransition'
-import DesktopMenu from '/components/DesktopMenu'
-import MobileMenu from '/components/MobileMenu'
+import DesktopMenu from './DesktopMenu'
+import MobileMenu from './MobileMenu'
 import { useLayout } from '/lib/context/layout'
 import type { MenuItem } from '/lib/menu'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { useStore } from '/lib/store'
 
 export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: string }
@@ -19,8 +17,7 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 	
 	return (
 		<>
-			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>
-				
+			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>	
 				<DesktopMenu items={menu}/>
 				<MobileMenu items={menu}/>
 				{layout !== 'full' && <Sidebar title={title}/>}
