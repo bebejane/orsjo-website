@@ -8,7 +8,7 @@ import { useLayout } from '/lib/context/layout'
 import { ProductThumbnail, DesignerThumbnail, Section, FeaturedGallery } from '/components'
 import { chunkArray } from '/lib/utils'
 
-export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[], designers:DesignerRecord[] };
+export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[], designers: DesignerRecord[] };
 
 export default function Designer({ designer, products, designers }: DesignerProps) {
 
@@ -39,17 +39,17 @@ export default function Designer({ designer, products, designers }: DesignerProp
 						{products.map((p, idx) => {
 							return (
 								<li key={idx}>
-									<ProductThumbnail key={idx} product={p} theme="light"/>
+									<ProductThumbnail key={idx} product={p} theme="light" />
 								</li>
 							)
 						})}
 					</ul>
 				</div>
 			</Section>
-			<Section type="margin" className={styles.products} bgColor='--mid-gray'>
+			<Section type="margin" className={styles.otherDesigners} bgColor='--warm-gray'>
 				<h1>Other designers</h1>
 				<div className={styles.gallery}>
-					<FeaturedGallery items={designers} id="all-designers" theme='light' arrowAlign='middle' fadeColor={'--mid-gray'}/>
+					<FeaturedGallery items={designers} id="all-designers" theme='light' arrowAlign='middle' fadeColor={'--mid-gray'} />
 				</div>
 			</Section>
 		</>
@@ -67,9 +67,9 @@ export async function getStaticPaths(context) {
 	}
 }
 
-export const getStaticProps = withGlobalProps({ queries:[AllDesignersDocument, AllProductsLightDocument]}, async ({ props, context, revalidate }) => {
-	
-	const { designers, products : allProducts } = props;
+export const getStaticProps = withGlobalProps({ queries: [AllDesignersDocument, AllProductsLightDocument] }, async ({ props, context, revalidate }) => {
+
+	const { designers, products: allProducts } = props;
 	const { designer } = await apiQuery(DesignerDocument, { variables: { slug: context.params.designer[0] } })
 	const { products } = await apiQuery(AllProductsByDesignerDocument, { variables: { id: designer.id } })
 
@@ -80,7 +80,7 @@ export const getStaticProps = withGlobalProps({ queries:[AllDesignersDocument, A
 		props: {
 			...props,
 			designer,
-			designers: designers.filter(({id})=> allProducts.find((p) => p.designer?.id === id)).sort(() => Math.random() > 0.5 ? 1 : -1),
+			designers: designers.filter(({ id }) => allProducts.find((p) => p.designer?.id === id)).sort(() => Math.random() > 0.5 ? 1 : -1),
 			products
 		},
 		revalidate

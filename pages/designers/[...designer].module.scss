@@ -60,7 +60,7 @@
 	}
 }
 
-.products {
+.products, .otherDesigners {
 	padding-top: $margin;
 	padding-bottom: $small-margin;
 	display: flex;
@@ -93,4 +93,9 @@
 			}
 		}
 	}
+}
+
+.otherDesigners {
+	//padding-top: 0;
+	padding-bottom: $margin;
 }

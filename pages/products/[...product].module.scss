@@ -49,14 +49,14 @@
 	display: flex;
 	flex-direction: column;
 	&.top{
-		margin-top:2em;
+		margin-top: $margin;
 	}
 	&.bottom{
-		margin-bottom:2em;
+		margin-bottom: $margin;
 	}
 	ul{
 		list-style: none;
-		width: 100%;
+		width: 100%; 
 		column-count: 2;
 		li{
 			display: flex;
@@ -149,11 +149,24 @@
 	}
 	
 	.dimensions{
+		column-count: 1 !important !important;
+		border-top: 1px solid $mid-gray;
+	
+		li {
+			width: 100%;
+		}
+
+		span {
+			width: spanNestedGrid(12,2,1);
+			flex-basis: auto;
+		}
 		button{
 			padding:0;
 			margin: 0;
 			font-size: inherit;
 			cursor: pointer;
+			width: spanNestedGrid(12,10);
+
 		}
 	}
 	.specifications{
