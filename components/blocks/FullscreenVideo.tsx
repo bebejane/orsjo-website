@@ -3,7 +3,7 @@ import React from 'react'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useWindowSize } from 'rooks'
 import { useInView } from 'react-intersection-observer'
-import { Video } from '/components'
+import { VideoPlayer } from '/components'
 import Link from 'next/link'
 
 export type FullscreenVideoProps = { data: FullscreenVideoRecord }
@@ -38,7 +38,7 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 		<section className={styles.fullScreenVideo}>
 			<Link scroll={false} href={link}>
 				<a>
-					<Video data={video}/>
+					<VideoPlayer data={video}/>
 					<div className={styles.textWrap}>
 						<div className={styles.text}>
 							<div>{text}</div>

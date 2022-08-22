@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import type {  PageLayoutProps } from '/lib/context/layout';
-import { Section, Video } from '/components'
+import { Section, VideoPlayer } from '/components'
 
 export type AboutProps = {  about: AboutRecord}
 
@@ -40,7 +40,7 @@ export default function About({ about : {title, image, intro, sections} }: About
 							{image ? 
 								<Image data={image.responsiveImage} className={styles.image}/>
 							: video ?
-								<Video
+								<VideoPlayer
 									className={styles.video}
 									data={image}
 								/>
