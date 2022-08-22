@@ -27,11 +27,18 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
 	const isInverted = (menu === 'inverted' || invertMenu)
 
-	const resetSelected = () => !transitioning && setSelected(undefined)
+	const resetSelected = () => {
+		if(transitioning) return
+		setSelected(undefined)
+		setHovering(undefined)
+	}
 
 	useEffect(()=>{ // Hide menu if was closed on scroll
 		!showMenu && resetSelected() 
 	}, [showMenu]) 
+	useEffect(()=>{ // Hide menu if was closed on scroll
+		setSelected(hovering)
+	}, [hovering]) 
 
   useEffect(() => { // Toggle menu bar on scroll
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
@@ -84,8 +91,8 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 								data-index={idx}
 								key={idx} 
 								onClick={(e)=> !index && handleSelected(e)}
-								onMouseEnter={()=>setHovering(slug)}
-								onMouseLeave={()=>setHovering(undefined)}
+								onMouseEnter={()=>!index && setHovering(slug)}
+								onMouseLeave={()=>!index && !showMenu && setHovering(undefined)}
 								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
 							>	
 								{index === true ? // Direct links

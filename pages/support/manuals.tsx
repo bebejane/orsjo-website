@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 export type ManualsProps = {  products: ProductRecord[]}
 
 export default function Manuals({ products }: ManualsProps) {
-
+	
 	const[search, setSeatch] = useState<string>();
 	const[results, setResults] = useState<ProductRecord[]>(products);
 
@@ -65,7 +65,8 @@ export const getStaticProps = withGlobalProps({ queries: [AllProductManualsDocum
 
 	return {
 		props: {
-			...props
+			...props,
+			products: props.products.filter(({mountingInstructions}) => mountingInstructions)
 		},
 		revalidate
 	};

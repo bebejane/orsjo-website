@@ -76,7 +76,7 @@ export default function FeaturedGallery({
 									project={item as ProjectRecord} 
 									theme={theme}
 								/>
-							: item.__typename === 'ProjectRecord' ?
+							: item.__typename === 'DesignerRecord' ?
 								<DesignerThumbnail 
 									key={idx}
 									designer={item as DesignerRecord} 

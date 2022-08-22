@@ -7,9 +7,9 @@
     min-height: calc(100vh - 4rem);
     
     .image{
-      opacity: 0.5;
+      opacity: 0.2;
       filter: grayscale(1);
-      mix-blend-mode: screen;
+      //mix-blend-mode: screen;
     }
     .title, .location{
       position: absolute;

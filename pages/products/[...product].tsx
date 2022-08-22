@@ -68,7 +68,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 
 	useEffect(()=>setGallery({images}), [])
 	
-	const overlayOpacity = Math.max(0, ((viewportHeight-(scrolledPosition*2)) / viewportHeight));
+	const overlayOpacity = Math.max(0, ((viewportHeight-(scrolledPosition*4)) / viewportHeight));
 	
 	return (
 		<>

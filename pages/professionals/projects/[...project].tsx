@@ -7,23 +7,38 @@ import { PageLayoutProps } from '/lib/context/layout';
 import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section, FeaturedGallery, Gallery } from '/components';
 import { useEffect } from 'react'
 import { useStore } from '/lib/store';
-import { recordImages } from '/lib/utils';
+import { recordImages } from '/lib/utils'
+import useScrollInfo from '/lib/hooks/useScrollInfo';
 
 export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
 
 export default function Project({ project, related }: ProjectProps) {
 	
 	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
+	const { scrolledPosition, viewportHeight } = useScrollInfo()
+
 
 	useEffect(()=> setGallery({images:recordImages(project)}), [])
-	
+	const viewportScrollRatio = 1-((viewportHeight-(scrolledPosition)) / viewportHeight)
+	const opacity = Math.max(0, ((viewportHeight-(scrolledPosition*4)) / viewportHeight));
+	const headerStyle = {opacity}
+	const imageStyle = {
+		opacity: 0.2 + viewportScrollRatio,
+		filter:`grayscale(${1-(viewportScrollRatio*4)})`
+	}
+	console.log(imageStyle, viewportScrollRatio)
 	return (
 		<>
 			<Section className={styles.intro} name="Introduction" top={true}>
 				<div className={styles.wrap}>
-					<h1 className={styles.title}>{project.title}</h1>
-					<h1 className={styles.location}>{project.location}</h1>
-					<Image data={project.image.responsiveImage} objectFit="contain" className={styles.image}/>
+					<h1 className={styles.title} style={headerStyle}>{project.title}</h1>
+					<h1 className={styles.location} style={headerStyle}>{project.location}</h1>
+					<Image 
+						data={project.image.responsiveImage} 
+						objectFit="contain" 
+						style={imageStyle}
+						className={styles.image}
+					/>
 				</div>
 			</Section>
 			{project.gallery.map((block, idx) => {

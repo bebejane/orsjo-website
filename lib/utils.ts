@@ -148,7 +148,7 @@ const productDownloads = (product : ProductRecord) : ProductDownload[] => {
     type: 'cad'
   }]
 
-  return files;
+  return files.filter(({href}) => href);
 }
 
 
