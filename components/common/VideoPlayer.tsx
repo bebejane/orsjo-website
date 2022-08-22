@@ -1,12 +1,12 @@
-import styles from './Video.module.scss'
+import styles from './VideoPlayer.module.scss'
 import cn from 'classnames'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useWindowSize } from 'rooks'
 import { useInView } from 'react-intersection-observer'
 
-export type VideoProps = { data: FileField, className?: string }
+export type VideoPlayerProps = { data: FileField, className?: string }
 
-export default function Video({ data, className }: VideoProps) {
+export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 
 	const [inViewRef, inView] = useInView();
 	const videoRef = useRef<HTMLVideoElement | null>(null);

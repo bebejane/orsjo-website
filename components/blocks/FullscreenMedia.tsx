@@ -2,7 +2,7 @@ import styles from './FullscreenMedia.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 import Link from 'next/link'
-import { Video } from '/components'
+import { VideoPlayer } from '/components'
 
 export type LayoutProps = { data:  FullscreenMediaBlockRecord }
 
@@ -21,7 +21,7 @@ export default function FullscreenMedia({ data: { media, headline, linkRecord, s
 						objectFit="cover"
 					/>
 				:
-					<Video data={media}/>
+					<VideoPlayer data={media}/>
 				}
 				<div className={styles.wrapper}>
 					<div className={styles.headline}>

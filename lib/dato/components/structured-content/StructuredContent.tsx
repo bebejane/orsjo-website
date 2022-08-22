@@ -7,7 +7,7 @@ import Sound from './Sound'
 import ExternalLink from './ExternalLink'
 import Image from './Image'
 import ImageGallery from './ImageGallery'
-import Video from './Video'
+import VideoPlayer from './VideoPlayer'
 
 export default function StructuredContent({ content } : any) {
   
@@ -28,7 +28,7 @@ export default function StructuredContent({ content } : any) {
             case 'SoundRecord':
               return <Sound {...record} />;
             case 'VideoRecord':
-              return <Video {...record.url} />;
+              return <VideoPlayer {...record.url} />;
             default:
               return null;
           }
