@@ -47,14 +47,18 @@
     position: relative;
     display: flex;
     flex-direction: row;
+    width: 100%;
+
     .slide{
-      max-width: spanNestedGrid(12,3);
+      //flex: 0 0 25%;
+      //box-shadow:inset 0px 0px 0px 1px #f00;
+      
+      .thumbnail{
+      
+        
+      }
     }
-    figure {
-      position: relative;
-      flex: 1 1 auto;
-      height: 100%;
-    }
+    
     .fade{
       position: absolute;
       top:0;

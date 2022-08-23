@@ -217,10 +217,9 @@
           display: none;
           -ms-overflow-style: none;
         }
-        a {
+        li {
           line-height: 1.25rem;
-
-          li {
+          a {
             transition: color .3s;
             color: $black-menu;
 

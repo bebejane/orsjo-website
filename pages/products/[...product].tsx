@@ -80,37 +80,46 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						data={product.image?.responsiveImage}
 						layout={'fill'}
 						objectFit={'contain'}
+						pictureStyle={{
+							transform: `scale(${scale})`
+						}}
 					/>
 					<div className={styles.overlay} style={{ opacity: overlayOpacity }}>
-						<div className={styles.text}>
-							<h1 className={styles.title}>
-								{product.title}
-							</h1>
-							<h1 className={styles.designer}>
-								By {product.designer?.name}
-							</h1>
-							<h3 className={styles.type}>
-								{productCategories}
-							</h3>
+						<div
+							className={styles.overlay}
+							style={{
+								opacity: overlayOpacity,
+								transform: `scale(${2.1 - scale})`
+							}}>
+							<div className={styles.text}>
+								<h1 className={styles.title}>
+									{product.title}
+								</h1>
+								<h1 className={styles.designer}>
+									By {product.designer?.name}
+								</h1>
+								<h3 className={styles.type}>
+									{productCategories}
+								</h3>
+							</div>
 						</div>
 					</div>
-				</div>
-				{product.productGallery.map((block, idx) => {
-					switch (block.__typename) {
-						case 'FullwidthImageRecord':
-							return <FullWidthImage key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
-						case 'TextRecord':
-							return <Text key={idx} data={block} />
-						case 'TwoColumnImageRecord':
-							return <TwoColumnImage key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
-						case 'ImageGalleryRecord':
-							return <ImageGallery key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
-						case 'VideoRecord':
-							return <Video key={idx} data={block.video} />
-						default:
-							return null
-					}
-				})}
+					{product.productGallery.map((block, idx) => {
+						switch (block.__typename) {
+							case 'FullwidthImageRecord':
+								return <FullWidthImage key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
+							case 'TextRecord':
+								return <Text key={idx} data={block} />
+							case 'TwoColumnImageRecord':
+								return <TwoColumnImage key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
+							case 'ImageGalleryRecord':
+								return <ImageGallery key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
+							case 'VideoRecord':
+								return <Video key={idx} data={block.video} />
+							default:
+								return null
+						}
+					})}
 			</Section>
 			<SectionListItem
 				title={'Specifications'}

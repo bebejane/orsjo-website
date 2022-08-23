@@ -86,7 +86,8 @@
   .footer{
     flex: 0 0 auto;
     padding-bottom: var(--outer-margin);
-    a{
+    cursor: pointer;
+    span{
       color: $black-menu;
       &:hover {
         color: $black;
