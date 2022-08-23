@@ -1,53 +1,59 @@
 .thumbnail {
   position: relative;
-  
+
   &:hover {
-    figcaption > .title > .subtitle {
+    figcaption>.title>.subtitle {
       color: $black;
     }
   }
-  
-  a{ 
+
+  a {
     display: flex;
     position: relative;
     flex-direction: column;
     aspect-ratio: 4/3;
-    
-    figure{
+
+    figure {
       position: relative;
       display: flex;
       flex-direction: column;
-      background-color:$light-gray;
+      background-color: $light-gray;
       aspect-ratio: 4/3;
-      .image {   
+
+      .image {
         position: relative !important;
         flex: 1 1 auto;
         mix-blend-mode: multiply;
-        img[role="presentation"]{
-          height: 100%; 
-          width: 100% !important; 
+
+        img[role="presentation"] {
+          height: 100%;
+          width: 100% !important;
           object-fit: fill;
           background-color: transparent !important;
         }
       }
+
       img {
         aspect-ratio: 4/3;
       }
-      .imageHover{
+
+      .imageHover {
         position: absolute;
         opacity: 0;
-        top:0;
-        left:0;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         transition: opacity .0s ease;
         z-index: 2;
-        &.show{
+
+        &.show {
           opacity: 1;
         }
       }
     }
-    figcaption{
+
+    figcaption {
       flex: 1 1 auto;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -55,15 +61,17 @@
       color: $gray;
       padding-top: 1em;
 
-      .title{
+      .title {
         color: $black;
-        .subtitle{
+
+        .subtitle {
           transition: color .2s ease;
         }
       }
     }
   }
-  &.inverted{
+
+  &.inverted {
     a figcaption span {
       color: $white;
     }
@@ -71,79 +79,108 @@
 
   &.mid {
     &:hover {
-      figcaption > .title > .subtitle {
+      figcaption>.title>.subtitle {
         color: $white;
       }
     }
   }
-  a > figcaption > .title{
+
+  a>figcaption>.title {
     color: $white;
-    .subtitle{
+
+    .subtitle {
       color: $black;
     }
   }
 
-  &.dark{
+  &.dark {
     &:hover {
-      figcaption > .title > .subtitle {
+      figcaption>.title>.subtitle {
         color: $black;
       }
     }
-    a > figcaption > .title{
+
+    a>figcaption>.title {
       color: $black;
-      .subtitle{
-        color: $gray;
-      }
-    }
-  }
-  &.light{
-    &:hover {
-      figcaption > .title > .subtitle {
-        color: $black;
-      }
-    }
-    a > figcaption > .title{
-      color: $black;
-      .subtitle{
+
+      .subtitle {
         color: $gray;
       }
     }
   }
 
-  &.black{
+  &.light {
     &:hover {
-      figcaption > .title > .subtitle {
+      figcaption>.title>.subtitle {
+        color: $black;
+      }
+    }
+
+    a>figcaption>.title {
+      color: $black;
+
+      .subtitle {
+        color: $gray;
+      }
+    }
+  }
+
+  &.black {
+    &:hover {
+      figcaption>.title>.subtitle {
         color: $white;
       }
     }
-    a > figcaption > .title{
+
+    a>figcaption>.title {
       color: $white;
-      .subtitle{
+
+      .subtitle {
         color: $gray;
       }
     }
   }
 
 
-  &.project{
-    a > figure > .image {
-    mix-blend-mode: normal;
-    }
-    a > figure img{
-      object-fit: cover !important;
-    }
-  }
-  &.designer{
-    a > figure > .image {
+  &.project {
+    a>figure>.image {
       mix-blend-mode: normal;
     }
-    a > figure img{
+
+    a>figure img {
       object-fit: cover !important;
     }
   }
-  &.product{
-    a > figure > .image {
-      
+
+  &.designer {
+    a>figure>.image {
+      mix-blend-mode: normal;
     }
+
+    a>figure img {
+      object-fit: cover !important;
+    }
+  }
+
+  &.product {
+    a>figure>.image {}
+  }
+
+  .markAsNew {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    background-color: #DF3600;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 9px;
+    color: $white;
+    text-transform: uppercase;
+    font-weight: bold;
   }
 }

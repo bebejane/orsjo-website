@@ -2,6 +2,7 @@ fragment ProductLightFragment on ProductRecord{
   id
   title
   slug
+  markAsNew
   family{
     id
     name

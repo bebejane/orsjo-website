@@ -12,19 +12,31 @@ export type ThumbnailProps = {
   title: string,
   subtitle: string,
   className?: string,
-  theme?: 'dark' | 'light',
+  markAsNew: boolean,
+  theme?: 'dark' | 'light' | 'mid',
   type?: 'product' | 'project' | 'designer'
 }
 
-export default function Thumbnail({ image, imageHover, slug, inverted, title, subtitle, className, theme = 'light', type = 'product' }: ThumbnailProps) {
+export default function Thumbnail({ 
+  image, 
+  imageHover, 
+  slug, 
+  inverted, 
+  title, 
+  subtitle, 
+  markAsNew = false, 
+  className, 
+  theme = 'light', 
+  type = 'product' 
+}: ThumbnailProps) {
 
   const [hovering, setHovering] = useState(false);
-  const handleMouseOver = ({type}) => setHovering(type === 'mouseenter')
-  
+  const handleMouseOver = ({ type }) => setHovering(type === 'mouseenter')
+
   return (
-    <div 
-      className={cn(styles.thumbnail, className, inverted && styles.inverted, styles[theme], styles[type])} 
-      onMouseEnter={handleMouseOver} 
+    <div
+      className={cn(styles.thumbnail, className, inverted && styles.inverted, styles[theme], styles[type])}
+      onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOver}
     >
       <Link scroll={false} href={slug}>
@@ -38,12 +50,12 @@ export default function Thumbnail({ image, imageHover, slug, inverted, title, su
                 objectFit={'contain'}
               />
             }
-            {imageHover && 
+            {imageHover &&
               <div className={cn(styles.imageHover, hovering && styles.show)}>
-                <Image 
-                  data={imageHover.responsiveImage} 
+                <Image
+                  data={imageHover.responsiveImage}
                   className={styles.image}
-                  layout={'fill'} 
+                  layout={'fill'}
                   objectFit={'cover'}
                 />
               </div>
@@ -54,47 +66,51 @@ export default function Thumbnail({ image, imageHover, slug, inverted, title, su
           </figcaption>
         </a>
       </Link>
+      {markAsNew && 
+        <div className={cn(styles.markAsNew)}>New</div>
+      }
     </div>
   )
 }
 
-export type ProductThumbnailProps = { 
-  product: ProductRecord, 
-  inverted?:boolean,
+export type ProductThumbnailProps = {
+  product: ProductRecord,
+  inverted?: boolean,
   className?: string,
-  theme: 'dark' | 'light'
+  theme: 'dark' | 'light' | 'mid'
 }
 
 export function ProductThumbnail({ product, inverted, theme = 'dark', className }: ProductThumbnailProps) {
-	
-	return (
-    <Thumbnail  
-      slug={`/products/${product.slug}`} 
+
+  return (
+    <Thumbnail
+      slug={`/products/${product.slug}`}
       image={product.image}
-      imageHover={product.environmentImage} 
+      imageHover={product.environmentImage}
       title={product.title}
       subtitle={`by ${product.designer?.name}`}
       className={className}
       inverted={inverted}
       theme={theme}
+      markAsNew={product.markAsNew}
       type="product"
     />
-	)
+  )
 }
 
-export type ProjectThumbnailProps = { 
-  project: ProjectRecord, 
-  inverted?: boolean, 
+export type ProjectThumbnailProps = {
+  project: ProjectRecord,
+  inverted?: boolean,
   className?: string,
-  theme: 'dark' | 'light'
+  theme: 'dark' | 'light' | 'mid'
 }
 export function ProjectThumbnail({ project, inverted, theme = 'dark', className }: ProjectThumbnailProps) {
-	
-	return (
-    <Thumbnail  
-      slug={`/professionals/projects/${project.slug}`} 
+
+  return (
+    <Thumbnail
+      slug={`/professionals/projects/${project.slug}`}
       image={project.image}
-      imageHover={project.secondaryImage} 
+      imageHover={project.secondaryImage}
       title={project.title}
       subtitle={project.location}
       inverted={inverted}
@@ -102,20 +118,20 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark', className 
       theme={theme}
       type="project"
     />
-	)
+  )
 }
 
-export type DesignerThumbnailProps = { 
-  designer: DesignerRecord, 
-  inverted?: boolean, 
+export type DesignerThumbnailProps = {
+  designer: DesignerRecord,
+  inverted?: boolean,
   className?: string,
   theme: 'dark' | 'light'
 }
 export function DesignerThumbnail({ designer, inverted, theme = 'dark', className }: DesignerThumbnailProps) {
-	
-	return (
-    <Thumbnail  
-      slug={`/designers/${designer.slug}`} 
+
+  return (
+    <Thumbnail
+      slug={`/designers/${designer.slug}`}
       image={designer.image}
       //imageHover={project.secondaryImage} 
       title={designer.name}
@@ -125,5 +141,5 @@ export function DesignerThumbnail({ designer, inverted, theme = 'dark', classNam
       theme={theme}
       type="designer"
     />
-	)
+  )
 }
