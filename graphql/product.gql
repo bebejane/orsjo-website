@@ -63,6 +63,9 @@ query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip
       }
     }
     bimLink
+    lightFile{
+      ...FileFragment
+    }
     seo: _seoMetaTags {
       attributes
       content

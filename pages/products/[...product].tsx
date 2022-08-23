@@ -59,9 +59,9 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	useEffect(()=>{
 		const handleHashChange = (e) => {
 			if(e.newURL.endsWith('specifications'))
-				setList({...list, specifications:true})
+				setList((l)=> ({...l, specifications:true}))
 			else if(e.newURL.endsWith('downloads'))
-				setList({...list, downloads:true})
+				setList((l)=> ({...l, downloads:true}))
 		}
 		window.addEventListener('hashchange', handleHashChange);
 		return ()=> window.removeEventListener('hashchange', handleHashChange);
@@ -75,7 +75,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
-				<div className={styles.intro}>
+				<div className={styles.intro} onClick={()=>handleGalleryClick('product', product.image?.id)}>
 					<Image
 						className={styles.image}
 						data={product.image?.responsiveImage}
