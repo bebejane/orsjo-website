@@ -109,6 +109,22 @@
       }
     }
   }
+
+  &.black{
+    &:hover {
+      figcaption > .title > .subtitle {
+        color: $white;
+      }
+    }
+    a > figcaption > .title{
+      color: $white;
+      .subtitle{
+        color: $gray;
+      }
+    }
+  }
+
+
   &.project{
     a > figure > .image {
     mix-blend-mode: normal;
