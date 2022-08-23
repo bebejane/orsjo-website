@@ -13,18 +13,18 @@ import useScrollInfo from '/lib/hooks/useScrollInfo';
 export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
 
 export default function Project({ project, related }: ProjectProps) {
-	
+
 	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 
 
-	useEffect(()=> setGallery({images:recordImages(project)}), [])
-	const viewportScrollRatio = 1-((viewportHeight-(scrolledPosition)) / viewportHeight)
-	const opacity = Math.max(0, ((viewportHeight-(scrolledPosition*4)) / viewportHeight));
-	const headerStyle = {opacity}
+	useEffect(() => setGallery({ images: recordImages(project) }), [])
+	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
+	const opacity = Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
+	const headerStyle = { opacity }
 	const imageStyle = {
 		opacity: 0.2 + viewportScrollRatio,
-		filter:`grayscale(${1-(viewportScrollRatio*4)})`
+		filter: `grayscale(${1 - (viewportScrollRatio * 4)})`
 	}
 	console.log(imageStyle, viewportScrollRatio)
 	return (
@@ -33,9 +33,9 @@ export default function Project({ project, related }: ProjectProps) {
 				<div className={styles.wrap}>
 					<h1 className={styles.title} style={headerStyle}>{project.title}</h1>
 					<h1 className={styles.location} style={headerStyle}>{project.location}</h1>
-					<Image 
-						data={project.image.responsiveImage} 
-						objectFit="contain" 
+					<Image
+						data={project.image.responsiveImage}
+						objectFit="contain"
 						style={imageStyle}
 						className={styles.image}
 					/>
@@ -44,29 +44,29 @@ export default function Project({ project, related }: ProjectProps) {
 			{project.gallery.map((block, idx) => {
 				switch (block.__typename) {
 					case 'FullwidthImageRecord':
-						return <Section><FullWidthImage data={block} onClick={setGalleryIndex}/></Section>
+						return <Section><FullWidthImage data={block} onClick={setGalleryIndex} /></Section>
 					case 'TextRecord':
-						return <Section><Text data={block}/></Section>
+						return <Section><Text data={block} /></Section>
 					case 'TwoColumnImageRecord':
-						return <Section><TwoColumnImage data={block} onClick={setGalleryIndex}/></Section>
+						return <Section><TwoColumnImage data={block} onClick={setGalleryIndex} /></Section>
 					case 'ImageGalleryRecord':
-						return <Section><ImageGallery data={block} onClick={setGalleryIndex}/></Section>
+						return <Section><ImageGallery data={block} onClick={setGalleryIndex} /></Section>
 					default:
 						return null
 				}
 			})}
-			<Section bottom={true}/>
-			<Section 
-				className={styles.related} 
-				name={`Other ${project.projectType.title}s`} 
-				type="margin" 
+			<Section bottom={true} />
+			<Section
+				className={styles.related}
+				name={`Other ${project.projectType.title}s`}
+				type="margin"
 				bgColor={'--mid-gray'}
 			>
-				<FeaturedGallery 
-					headline={`Other ${project.projectType.title}s`} 
-					items={related} 
+				<FeaturedGallery
+					headline={`Other ${project.projectType.title}s`}
+					items={related}
 					id="relatedProjects"
-					theme="light"
+					theme="dark"
 					fadeColor={'--mid-gray'}
 				/>
 			</Section>
@@ -79,18 +79,18 @@ Project.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as Page
 export async function getStaticPaths(context) {
 	const { projects } = await apiQuery(AllProjectsDocument, {})
 	const paths = projects.map(({ slug }) => ({ params: { project: [slug] } }))
-	
+
 	return {
 		paths,
 		fallback: 'blocking'
 	}
 }
 
-export const getStaticProps = withGlobalProps({ }, async ({ props, context, revalidate }) => {
+export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
-	const { project } : { project: ProjectRecord } = await apiQuery(ProjectDocument, { variables: { slug: context.params.project[0] } })
-	const { projects : related } : { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
-	
+	const { project }: { project: ProjectRecord } = await apiQuery(ProjectDocument, { variables: { slug: context.params.project[0] } })
+	const { projects: related }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
+
 	if (!project)
 		return { notFound: true }
 
@@ -98,7 +98,7 @@ export const getStaticProps = withGlobalProps({ }, async ({ props, context, reva
 		props: {
 			...props,
 			project,
-			related : related.filter(p => p.id !== project.id)
+			related: related.filter(p => p.id !== project.id)
 		},
 		revalidate
 	};

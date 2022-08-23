@@ -72,11 +72,11 @@
   &.dark{
     &:hover {
       figcaption > .title > .subtitle {
-        color: $white;
+        color: $black;
       }
     }
     a > figcaption > .title{
-      color: $white;
+      color: $black;
       .subtitle{
         color: $gray;
       }
@@ -85,13 +85,13 @@
   &.light{
     &:hover {
       figcaption > .title > .subtitle {
-        color: $black;
+        color: $light-gray;
       }
     }
     a > figcaption > .title{
-      color: $black;
+      color: $light-gray;
       .subtitle{
-        color: $gray;
+        color: $black;
       }
     }
   }
