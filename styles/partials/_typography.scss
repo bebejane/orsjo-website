@@ -39,11 +39,15 @@ h1 {
     font-family: $body-font;
     padding-bottom: .2em;
     padding-top: .2em;
-
   }
+
 }
 
 //Big h1, see mixins
+
+p.large, .large p {
+    font-size: .85rem;
+  }
 
 h2 {
   font-size: .8em;
