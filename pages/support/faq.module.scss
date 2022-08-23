@@ -2,7 +2,7 @@
   p{
     color:$white;
     padding-bottom: 1em;
-    border-bottom: 1px solid $white;
+    padding-right: 20%;
   }
   
 }
@@ -16,6 +16,7 @@
   }
   ul{
     list-style: none;
+    border-top: 1px solid $white;
     li{
       display: flex;
       position: relative;

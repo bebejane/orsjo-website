@@ -29,7 +29,7 @@ export default function Faqs({ faqs, faqStart }: FaqsProps) {
 			{Object.keys(categories).map(k => categories[k]).map(({ items, title }, i) => {
 				return (
 					<Section className={styles.faq} name={title} key={i}>
-						<h2 className={styles.category}>{title}</h2>
+						<h1 className={styles.category}>{title}</h1>
 						<ul>
 							{items.map(({ question, answer, id }, idx) =>
 								<li key={idx} className={cn(list[id] && styles.selected)} onClick={() => setList({ ...list, [id]: list[id] ? false : true })}>

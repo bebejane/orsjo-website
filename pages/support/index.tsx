@@ -4,9 +4,9 @@ import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 
-type SupportProps = {  }
+type SupportProps = {}
 
-export default function Support({  }: SupportProps) {
+export default function Support({ }: SupportProps) {
 
 	return (
 		<div className={styles.designers}>
