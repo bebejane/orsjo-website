@@ -10,6 +10,29 @@
   flex-direction: column;
   min-height: 100vh;
 
+  .search{
+
+    border-top: 1px solid $white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: $gutter 0 $gutter 0;
+
+    img{
+      max-width: 18px;
+      margin-right: .5rem;
+    }
+    input{
+      margin:0;
+      margin-bottom: $gutter;
+      background-color: transparent;
+      border:0;
+      outline: none;
+      margin:0;
+      width: 100%;
+    }
+  }
+  
   table {
     
     tbody {

@@ -4,7 +4,7 @@ import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Section, Icon } from '/components'
 import { productDownloads } from '/lib/utils';
 
@@ -12,7 +12,15 @@ export type DownloadsProps = { products: ProductRecord[] }
 
 export default function Downloads({ products }: DownloadsProps) {
 
+	const[search, setSeatch] = useState<string>();
+	const[results, setResults] = useState<ProductRecord[]>(products);
 	const [list, setList] = useState({})
+
+	useEffect(()=>{
+		if(!search || !products) return setResults(products)
+		const res = products.filter(({title})=> title.toLowerCase().startsWith(search.toLowerCase()))
+		setResults(res)
+	}, [search, products, setResults])
 
 	return (
 		<>
@@ -27,6 +35,15 @@ export default function Downloads({ products }: DownloadsProps) {
 			</Section>
 			<Section className={styles.related} name="Product Files" bottom={true}>
 				<h1 className="white topMargin">Product related files</h1>
+				<div className={styles.search}>
+					<img src={'/images/search.svg'}/>
+					<input 
+						id="search"
+						type="text" 
+						value={search} 
+						onChange={({target}) => setSeatch(target.value)}
+					/>
+				</div>
 				<table>
 					<tbody>
 						<tr>
@@ -35,7 +52,7 @@ export default function Downloads({ products }: DownloadsProps) {
 							<th><span className="small">Type</span></th>
 							<th></th>
 						</tr>
-						{products.map(({ id, image, title, categories }, idx) => {
+						{(results || products).map(({ id, image, title, categories }, idx) => {
 							const files = productDownloads(products[idx])
 							return (
 								<>
