@@ -123,8 +123,8 @@ type ProductDownload = {
 }
 const productDownloads = (product : ProductRecord) : ProductDownload[] => {
 
-  const { pdfFiles, mountingInstructions, bimLink} = product;
-
+  const { pdfFiles, mountingInstructions, bimLink, lightFile} = product;
+  
   const files = [{
     href: pdfFiles.find(({locale}) => locale ==='sv') && `${pdfFiles.find(({locale}) => locale ==='sv')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='sv')?.value.title}`,
     label: 'Productsheet (SE)',
@@ -137,6 +137,10 @@ const productDownloads = (product : ProductRecord) : ProductDownload[] => {
     href: mountingInstructions?.url,
     label: 'Mounting instructions',
     type: 'pdf'
+  },{
+    href: lightFile?.url,
+    label: 'Light file',
+    type: 'zip'
   },{
     href: bimLink,
     label: 'BIM files',

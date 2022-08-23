@@ -1,5 +1,19 @@
+.intro{
+  p{
+    color:$white;
+    padding-bottom: 1em;
+    border-bottom: 1px solid $white;
+  }
+  
+}
 .faq{
   position: relative;
+  margin-bottom: 2em;
+  h2.category{
+    margin:0;
+    padding: 0;
+    border-bottom: 1px solid $black;
+  }
   ul{
     list-style: none;
     li{

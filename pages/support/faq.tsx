@@ -1,5 +1,5 @@
 import styles from './faq.module.scss'
-import { AllFaqsDocument } from '/graphql';
+import { FaqStartDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import cn from 'classnames'
 import Markdown from '/lib/dato/components/Markdown';
@@ -7,9 +7,9 @@ import { PageLayoutProps } from '/lib/context/layout';
 import { Section } from '/components'
 import { useState } from 'react';
 
-export type FaqsProps = { faqs: FaqRecord[] }
+export type FaqsProps = { faqs: FaqRecord[], faqStart: FaqStartRecord }
 
-export default function Faqs({ faqs }: FaqsProps) {
+export default function Faqs({ faqs, faqStart }: FaqsProps) {
 
 	const [list, setList] = useState({})
 	const categories = {}
@@ -19,15 +19,17 @@ export default function Faqs({ faqs }: FaqsProps) {
 			categories[f.category.id] = { id: f.category.id, title: f.category.title, items: [] }
 		categories[f.category.id].items.push(f)
 	})
-
+	console.log(categories)
 	return (
 		<>
-			<Section className={styles.faq} top={true}>
-				<h1 className="topMargin">Faq</h1>
+			<Section className={styles.intro} top={true}>
+				<h1 className="topMargin">{faqStart.title}</h1>
+				<p>{faqStart.intro}</p>
 			</Section>
 			{Object.keys(categories).map(k => categories[k]).map(({ items, title }, i) => {
 				return (
 					<Section className={styles.faq} name={title} key={i}>
+						<h2 className={styles.category}>{title}</h2>
 						<ul>
 							{items.map(({ question, answer, id }, idx) =>
 								<li key={idx} className={cn(list[id] && styles.selected)} onClick={() => setList({ ...list, [id]: list[id] ? false : true })}>
@@ -48,7 +50,7 @@ export default function Faqs({ faqs }: FaqsProps) {
 
 Faqs.layout = { layout: 'normal', color: '--copper', menu: 'inverted' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllFaqsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [FaqStartDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

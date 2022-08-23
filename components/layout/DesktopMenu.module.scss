@@ -182,7 +182,7 @@
   }
 
   .subPad {
-    padding: 1rem;
+    padding-right: var(--outer-margin);
     padding-top: 4rem;
     background-color: $white;
     &.inverted{

@@ -59,9 +59,9 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	useEffect(()=>{
 		const handleHashChange = (e) => {
 			if(e.newURL.endsWith('specifications'))
-				setList({...list, specifications:true})
+				setList((l)=> ({...l, specifications:true}))
 			else if(e.newURL.endsWith('downloads'))
-				setList({...list, downloads:true})
+				setList((l)=> ({...l, downloads:true}))
 		}
 		window.addEventListener('hashchange', handleHashChange);
 		return ()=> window.removeEventListener('hashchange', handleHashChange);
@@ -75,7 +75,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
-				<div className={styles.intro}>
+				<div className={styles.intro} onClick={()=>handleGalleryClick('product', product.image?.id)}>
 					<Image
 						className={styles.image}
 						data={product.image?.responsiveImage}
@@ -230,22 +230,21 @@ export default function Product({ product, relatedProducts, productsByCategory }
 			</SectionListItem>
 
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
-				{productsByCategory.length > 0 &&
-					<FeaturedGallery 
-						headline={`Other ${product.categories[0].namePlural}`} 
-						items={productsByCategory} 
-						theme={'light'}
-						id="relatedbycategory" 
-						fadeColor={color}
-					/>
-				}
-
 				{relatedProducts.length > 0 && 
 					<FeaturedGallery 
 						headline={`Related`} 
 						items={relatedProducts} 
 						theme={'light'}
 						id="related"
+						fadeColor={color}
+					/>
+				}
+				{productsByCategory.length > 0 &&
+					<FeaturedGallery 
+						headline={`Other ${product.categories[0].namePlural}`} 
+						items={productsByCategory} 
+						theme={'light'}
+						id="relatedbycategory" 
 						fadeColor={color}
 					/>
 				}
@@ -279,14 +278,14 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 			{ designerId: product.designer.id, familyId: product.family.id },
 			{ categoryId: product.categories[0]?.id }
 		]
-	})
-
+	}) as { productsByCategory: ProductRecord[], relatedProduct: ProductRecord[]}
+	
 	return {
 		props: {
 			...props,
 			product,
-			relatedProducts: relatedProducts.filter(p => p.id !== product.id),
-			productsByCategory: productsByCategory.filter(p => p.id !== product.id),
+			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort((a, b) => a.family.id === b.family.id ? 1 : -1)	,
+			productsByCategory: productsByCategory.filter(p => p.id !== product.id)
 		},
 		revalidate
 	};
