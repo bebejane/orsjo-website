@@ -23,7 +23,7 @@ export default function Faqs({ faqs }: FaqsProps) {
 	return (
 		<>
 			<Section className={styles.faq} top={true}>
-				<h1>Faq</h1>
+				<h1 className="topMargin">Faq</h1>
 			</Section>
 			{Object.keys(categories).map(k => categories[k]).map(({ items, title }, i) => {
 				return (
@@ -35,7 +35,7 @@ export default function Faqs({ faqs }: FaqsProps) {
 										<h2 className={styles.question}>{question}</h2>
 										<div className={styles.indicator}>+</div>
 									</div>
-									<Markdown className={styles.answer}>{answer}</Markdown>
+									<Markdown className={cn(styles.answer, "medium")}>{answer}</Markdown>
 								</li>
 							)}
 						</ul>
