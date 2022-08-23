@@ -16,6 +16,10 @@
   color:$white !important;
   padding-top: 2rem;
 
+  p {
+    margin-bottom: 0;
+  }
+
   h3{
     color:$black;
     flex: 0 0 spanGridWithGutter(4);
