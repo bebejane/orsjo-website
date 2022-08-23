@@ -27,7 +27,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 							<ProjectThumbnail
 								key={`t-${idx}`}
 								project={p}
-								theme='light'
+								theme='mid'
 								className={styles.project}
 							/>
 						)}

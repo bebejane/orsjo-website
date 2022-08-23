@@ -1,5 +1,5 @@
 import styles from './bespoke.module.scss'
-import {  BespokeDocument } from '/graphql';
+import { BespokeDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
@@ -9,20 +9,20 @@ import { ProjectThumbnail, Section } from '/components';
 import { recordImages } from '/lib/utils'
 import { useStore } from 'lib/store';
 import { useEffect } from 'react';
-export type BespokeProps = { bespoke:BespokeRecord }
+export type BespokeProps = { bespoke: BespokeRecord }
 
 export default function Bespoke({ bespoke }: BespokeProps) {
-	
+
 	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
-	useEffect(()=>setGallery({images:recordImages(bespoke)}), [bespoke])
+	useEffect(() => setGallery({ images: recordImages(bespoke) }), [bespoke])
 
 	return (
 		<>
 			<Section className={styles.bespoke} type={'full'}>
-				<Image 
-					data={bespoke.image.responsiveImage} 
-					layout='fill' 
-					objectFit='cover' 
+				<Image
+					data={bespoke.image.responsiveImage}
+					layout='fill'
+					objectFit='cover'
 					className={styles.image}
 				/>
 			</Section>
@@ -33,15 +33,15 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 				</Markdown>
 			</Section>
 			<Section className={styles.projects} type="margin" bgColor={'--gray'}>
-				{bespoke.examples.map(({project, summary}, idx) => {
+				{bespoke.examples.map(({ project, summary }, idx) => {
 					return (
 						<div className={styles.project} key={idx}>
 							<div className={styles.image}>
-								<Image className={styles.big} data={project.image.responsiveImage}/>
+								<Image className={styles.big} data={project.image.responsiveImage} />
 							</div>
 							<div className={styles.description}>
 								<Markdown className={styles.text}>{summary}</Markdown>
-								<ProjectThumbnail project={project} theme="dark" className={styles.thumbnail}/>
+								<ProjectThumbnail project={project} theme="light" className={styles.thumbnail} />
 							</div>
 						</div>
 					)
@@ -59,12 +59,12 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					</button>
 				</Link>
 			</Section>
-			
+
 		</>
 	)
 }
 
-Bespoke.layout = { layout:'full', color:"--gray", menu:'inverted', sidebar:false} as PageLayoutProps
+Bespoke.layout = { layout: 'full', color: "--gray", menu: 'inverted', sidebar: false } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [BespokeDocument] }, async ({ props, revalidate }: any) => {
 

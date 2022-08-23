@@ -69,6 +69,20 @@
     }
   }
 
+  &.mid {
+    &:hover {
+      figcaption > .title > .subtitle {
+        color: $white;
+      }
+    }
+  }
+  a > figcaption > .title{
+    color: $white;
+    .subtitle{
+      color: $black;
+    }
+  }
+
   &.dark{
     &:hover {
       figcaption > .title > .subtitle {
@@ -85,13 +99,13 @@
   &.light{
     &:hover {
       figcaption > .title > .subtitle {
-        color: $light-gray;
+        color: $black;
       }
     }
     a > figcaption > .title{
-      color: $light-gray;
+      color: $black;
       .subtitle{
-        color: $black;
+        color: $gray;
       }
     }
   }
