@@ -5,7 +5,7 @@ import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { useStore } from '/lib/store'
 import { Image } from 'react-datocms'
-import { SectionListItem, FullWidthImage, Text, Video, TwoColumnImage, ImageGallery, FeaturedGallery,  Section, Icon } from '/components'
+import { SectionListItem, FullWidthImage, Text, Video, TwoColumnImage, ImageGallery, FeaturedGallery, Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages, productDownloads } from '/lib/utils'
 import { useLayout } from '/lib/context/layout'
@@ -18,59 +18,59 @@ const allDrawings = (product: ProductRecord) => {
 	return drawings;
 }
 
-export type ProductProps = { 
-	product: ProductRecord, 
-	relatedProducts: ProductRecord[], 
-	productsByCategory: ProductRecord[] 
+export type ProductProps = {
+	product: ProductRecord,
+	relatedProducts: ProductRecord[],
+	productsByCategory: ProductRecord[]
 };
 
 export default function Product({ product, relatedProducts, productsByCategory }: ProductProps) {
-	
+
 	const router = useRouter()
 	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const { color } = useLayout()
-	const [list, setList] = useState({specifications:false, downloads:false})
+	const [list, setList] = useState({ specifications: false, downloads: false })
 	const specs = parseSpecifications(product, 'en', null)
-	
+
 	const specsCols = [
-		{ label: 'Designer', value: specs.designer},
-		{ label: 'Mounting', value: specs.mounting},
-		{ label: 'Electrical Data', value: specs.electricalData},
-		{ label: 'Socket', value: specs.socket},
-		{ label: 'Connection', value: specs.connection},
-		{ label: 'Lightsource', value: specs.lightsource}
+		{ label: 'Designer', value: specs.designer },
+		{ label: 'Mounting', value: specs.mounting },
+		{ label: 'Electrical Data', value: specs.electricalData },
+		{ label: 'Socket', value: specs.socket },
+		{ label: 'Connection', value: specs.connection },
+		{ label: 'Lightsource', value: specs.lightsource }
 	].filter(el => el.value)
 
 	const singleModel = product.models.length === 1
 	const productCategories = product.categories.map(({ name }, idx) => name).join(', ')
-	
+
 	const images = recordImages(product)//?.filter(({mimeType})=> !mimeType.includes('video'))
-	
+
 	const drawings = allDrawings(product)
 	const files = productDownloads(product)
-	
-	const handleGalleryClick = (type: string, id:string) => {
+
+	const handleGalleryClick = (type: string, id: string) => {
 		console.log(id, drawings)
-		setGallery({images : type === 'product' ? images : drawings, index:0})
+		setGallery({ images: type === 'product' ? images : drawings, index: 0 })
 		setGalleryIndex(id)
 	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		const handleHashChange = (e) => {
-			if(e.newURL.endsWith('specifications'))
-				setList({...list, specifications:true})
-			else if(e.newURL.endsWith('downloads'))
-				setList({...list, downloads:true})
+			if (e.newURL.endsWith('specifications'))
+				setList({ ...list, specifications: true })
+			else if (e.newURL.endsWith('downloads'))
+				setList({ ...list, downloads: true })
 		}
 		window.addEventListener('hashchange', handleHashChange);
-		return ()=> window.removeEventListener('hashchange', handleHashChange);
+		return () => window.removeEventListener('hashchange', handleHashChange);
 	}, [])
 
-	useEffect(()=>setGallery({images}), [])
-	
-	const overlayOpacity = Math.max(0, ((viewportHeight-(scrolledPosition*4)) / viewportHeight));
-	
+	useEffect(() => setGallery({ images }), [])
+
+	const overlayOpacity = Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
+
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
@@ -81,7 +81,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						layout={'fill'}
 						objectFit={'contain'}
 					/>
-					<div className={styles.overlay} style={{opacity: overlayOpacity}}>
+					<div className={styles.overlay} style={{ opacity: overlayOpacity }}>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
 								{product.title}
@@ -98,27 +98,27 @@ export default function Product({ product, relatedProducts, productsByCategory }
 				{product.productGallery.map((block, idx) => {
 					switch (block.__typename) {
 						case 'FullwidthImageRecord':
-							return <FullWidthImage key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
+							return <FullWidthImage key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
 						case 'TextRecord':
 							return <Text key={idx} data={block} />
 						case 'TwoColumnImageRecord':
-							return <TwoColumnImage key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
+							return <TwoColumnImage key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
 						case 'ImageGalleryRecord':
-							return <ImageGallery key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
+							return <ImageGallery key={idx} data={block} onClick={(id) => handleGalleryClick('product', id)} />
 						case 'VideoRecord':
-							return <Video key={idx} data={block.video}/>
+							return <Video key={idx} data={block.video} />
 						default:
 							return null
 					}
 				})}
 			</Section>
-			<SectionListItem 
-				title={'Specifications'} 
-				className={cn(styles.listItemContent, styles.top)} 
+			<SectionListItem
+				title={'Specifications'}
+				className={cn(styles.listItemContent, styles.top)}
 				selected={list.specifications === true}
 				idx={0}
 				total={2}
-				onToggle={()=> setList({...list, specifications: !list.specifications})}
+				onToggle={() => setList({ ...list, specifications: !list.specifications })}
 			>
 				<ul className={styles.specifications}>
 					{specsCols.map(({ label, value }, idx) =>
@@ -158,9 +158,9 @@ export default function Product({ product, relatedProducts, productsByCategory }
 
 							const cols = art.concat(access).concat(light)
 							const rows = chunkArray(cols, cols.length > 2 ? Math.ceil(cols.length / 2) : 2)
-							
-							if(singleModel){
-								return(
+
+							if (singleModel) {
+								return (
 									rows.map((row, idx) =>
 										<ul key={`${id}-${idx}`}>
 											<li>
@@ -173,7 +173,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 									)
 								)
 							}
-							
+
 							return (
 								<ul key={id}>
 									<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
@@ -181,8 +181,8 @@ export default function Product({ product, relatedProducts, productsByCategory }
 										<>
 											<li key={`${idx}-0`}>
 												<span>{row[0].articleNo}</span>
-												<span>{row[0].label}</span>		
-											</li>									
+												<span>{row[0].label}</span>
+											</li>
 											<li key={`${idx}-1`}>
 												<span>{row[1]?.articleNo}</span>
 												<span>{row[1]?.label}</span>
@@ -194,28 +194,27 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						})}
 					</div>
 				</div>
-				<ul className={styles.dimensions}>
-					<li>
-						<span>Dimensions</span>
-						<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} >
-							View drawing{drawings.length > 1 && 's'} +
-						</button>
-					</li>
-				</ul>
+				<div className={styles.dimensions}>
+
+					<span>Dimensions</span>
+					<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} >
+						View drawing{drawings.length > 1 && 's'} +
+					</button>
+				</div>
 			</SectionListItem>
-			<SectionListItem 
-				title={'Downloads'} 
-				className={cn(styles.listItemContent, styles.bottom)} 
+			<SectionListItem
+				title={'Downloads'}
+				className={cn(styles.listItemContent, styles.bottom)}
 				selected={list.downloads === true}
 				idx={1}
 				total={2}
-				onToggle={()=>setList({...list, downloads: !list.downloads})}
+				onToggle={() => setList({ ...list, downloads: !list.downloads })}
 			>
 				<ul className={styles.downloads}>
-					{files.map(({href, type, label}, idx) => 
+					{files.map(({ href, type, label }, idx) =>
 						<li key={idx}>
 							<a href={href} download>
-								<Icon type={type} label={label} disabled={!href}/>
+								<Icon type={type} label={label} disabled={!href} />
 							</a>
 						</li>
 					)}
@@ -224,26 +223,26 @@ export default function Product({ product, relatedProducts, productsByCategory }
 
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
 				{productsByCategory.length > 0 &&
-					<FeaturedGallery 
-						headline={`Other ${product.categories[0].namePlural}`} 
-						items={productsByCategory} 
+					<FeaturedGallery
+						headline={`Other ${product.categories[0].namePlural}`}
+						items={productsByCategory}
 						theme={'light'}
-						id="relatedbycategory" 
+						id="relatedbycategory"
 						fadeColor={color}
 					/>
 				}
 
-				{relatedProducts.length > 0 && 
-					<FeaturedGallery 
-						headline={`Related`} 
-						items={relatedProducts} 
+				{relatedProducts.length > 0 &&
+					<FeaturedGallery
+						headline={`Related`}
+						items={relatedProducts}
 						theme={'light'}
 						id="related"
 						fadeColor={color}
 					/>
 				}
 			</Section>
-			
+
 		</>
 	)
 }
@@ -267,7 +266,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 
 	const { productsByCategory, relatedProducts } = await apiQuery([
 		RelatedProductsDocument, AllProductsByCategoryDocument
-	], { 
+	], {
 		variables: [
 			{ designerId: product.designer.id, familyId: product.family.id },
 			{ categoryId: product.categories[0]?.id }
