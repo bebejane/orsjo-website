@@ -39,7 +39,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					return (
 						<div className={styles.project} key={idx}>
 							<div className={styles.image}>
-								<Image className={styles.big} data={project.image.responsiveImage} />
+								<Image className={styles.big} data={project.secondaryImage?.responsiveImage || project.image.responsiveImage} />
 							</div>
 							<div className={styles.description}>
 								<Markdown className={cn(styles.text, "large")}>{summary}</Markdown>
