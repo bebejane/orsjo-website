@@ -9,6 +9,8 @@ import { ProjectThumbnail, Section } from '/components';
 import { recordImages } from '/lib/utils'
 import { useStore } from 'lib/store';
 import { useEffect } from 'react';
+import cn from 'classnames'
+
 export type BespokeProps = { bespoke: BespokeRecord }
 
 export default function Bespoke({ bespoke }: BespokeProps) {
@@ -40,8 +42,8 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 								<Image className={styles.big} data={project.image.responsiveImage} />
 							</div>
 							<div className={styles.description}>
-								<Markdown className={styles.text}>{summary}</Markdown>
-								<ProjectThumbnail project={project} theme="light" className={styles.thumbnail} />
+								<Markdown className={cn(styles.text, "large")}>{summary}</Markdown>
+								<ProjectThumbnail project={project} theme="mid" className={styles.thumbnail} />
 							</div>
 						</div>
 					)
