@@ -10,8 +10,8 @@ const DatoSEO = ({seo = {}, site = {}, pathname, title, subtitle, description} :
 
   title = title ? title : globalSeo ? globalSeo?.siteName : 'Site title'
   title = `${title} ${globalSeo?.titleSuffix ? ` ${globalSeo?.titleSuffix}` : ''}${subtitle ? ` ${subtitle}` : ''}`
-  description = description || meta.description || globalSeo ? globalSeo?.fallbackSeo.description : 'Site description';;
-
+  description = description ? description : meta.description ? meta.description : globalSeo ? globalSeo?.fallbackSeo.description : 'Site description';
+  
   const twitterProps : any = {
     title,
     image: meta["og:image"],
@@ -19,7 +19,7 @@ const DatoSEO = ({seo = {}, site = {}, pathname, title, subtitle, description} :
     site: globalSeo?.twitterAccount,
     cardType: 'summary_large_image',
   }
-
+  
   return (
     <NextSeo
       title={title}
