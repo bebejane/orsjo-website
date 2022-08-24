@@ -5,7 +5,7 @@ import { apiQuery } from '/lib/dato/api'
 import { withGlobalProps } from '/lib/hoc'
 import { useStore } from '/lib/store'
 import { Image } from 'react-datocms'
-import { SectionListItem, FullWidthImage, Text, Video, TwoColumnImage, ImageGallery, FeaturedGallery,  Section, Icon } from '/components'
+import { SectionListItem,FeaturedGallery, Block,  Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages, productDownloads } from '/lib/utils'
 import { useLayout } from '/lib/context/layout'
@@ -103,22 +103,9 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						</div>
 					</div>
 				</div>
-				{product.productGallery.map((block, idx) => {
-					switch (block.__typename) {
-						case 'FullwidthImageRecord':
-							return <FullWidthImage key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
-						case 'TextRecord':
-							return <Text key={idx} data={block} />
-						case 'TwoColumnImageRecord':
-							return <TwoColumnImage key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
-						case 'ImageGalleryRecord':
-							return <ImageGallery key={idx} data={block} onClick={(id)=> handleGalleryClick('product', id)} />
-						case 'VideoRecord':
-							return <Video key={idx} data={block.video}/>
-						default:
-							return null
-					}
-				})}
+				{product.productGallery.map((block, idx) => 
+					<Block key={idx} data={block} onClick={(id) => handleGalleryClick('product', id) }/>
+				)}
 			</Section>
 			<SectionListItem 
 				title={'Specifications'} 

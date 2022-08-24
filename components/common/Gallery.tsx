@@ -9,8 +9,6 @@ export type GalleryProps = {images: FileField[], onClose: Function, index:number
 
 export default function Gallery({ images, onClose, index = 0, show } : GalleryProps) {
   
-  
-  
   const swiperRef = useRef()
   const [realIndex, setRealIndex] = useState(index)
   const [title, setTitle] = useState<string>()
@@ -31,7 +29,7 @@ export default function Gallery({ images, onClose, index = 0, show } : GalleryPr
   if (!images || !show) return null
   
   return (
-    <div className={cn(styles.gallery, images.length <= 1 && styles.noArrows)}>
+    <div className={cn(styles.gallery, images.length <= 1 && styles.noArrows, isSingleSlide && styles.noArrows)}>
       <div className={styles.back} onClick={() => swiperRef.current.slidePrev()}>❮</div>
       <div className={styles.images} onClick={() => !isSingleSlide && swiperRef?.current?.slideNext()}>
         <Swiper

@@ -63,7 +63,7 @@ export const generate = (data) => {
       case 'product':
         sub = allProductCategories.map(el => ({
           type: item.type,
-          label: el.name,
+          label: el.namePlural,
           slug: `/products#${sectionId(el.name).id}`
         }))
         break;

@@ -1,14 +1,14 @@
-const sleep = (ms:number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
+const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
 
-const formatPrice = (price :number, locale: Locale) => {
+const formatPrice = (price: number, locale: Locale) => {
   const nf = new Intl.NumberFormat(`${locale}-${locale.toUpperCase()}`);
   const currency = locale === 'en' ? '€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
   return `${nf.format(Math.round(price))} ${currency}`;
   //return format(price, { currency, thousandSeparator: ' ', decimalsDigits: 0, decimalSeparator: '' })
 }
 
-const convertPrice = (price : number, locale: Locale) => {
-  if (locale === 'sv') 
+const convertPrice = (price: number, locale: Locale) => {
+  if (locale === 'sv')
     return formatPrice(price, locale)
   if (locale === 'en') {
     price = (price * 1.1 * 0.975) / (10.1449 * 0.95);
@@ -20,15 +20,15 @@ const convertPrice = (price : number, locale: Locale) => {
   }
 }
 
-const priceIncLight = (prodPrice : number, lightsources : LightsourceRecord[], locale: Locale) => {
+const priceIncLight = (prodPrice: number, lightsources: LightsourceRecord[], locale: Locale) => {
   let price = prodPrice;
   lightsources.filter((l) => !l.optional && !l.included).forEach((l) => price += (l.lightsource.price * (l.amount ? l.amount : 0)))
   return formatPrice(price, locale);
 }
 
-const sortProductsByCategory = (products : ProductRecord[]) => {
+const sortProductsByCategory = (products: ProductRecord[]) => {
   const sortedProducts = [...products].sort((a, b) => {
-    if(a.family?.id === b.family?.id)
+    if (a.family?.id === b.family?.id)
       return a.categories[0].position < b.categories[0].position ? -1 : 1;
     else
       return 0
@@ -38,8 +38,8 @@ const sortProductsByCategory = (products : ProductRecord[]) => {
 
 const isServer = typeof window === 'undefined';
 
-const sectionId = (title : string, id?:string) => {
-  if(!title) return {}
+const sectionId = (title: string, id?: string) => {
+  if (!title) return {}
   id = id || title.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase()
   return {
     id,
@@ -55,39 +55,39 @@ const chunkArray = (array: any[], chunkSize: number) => {
   return newArr
 }
 
-const parseSpecifications = (product : ProductRecord, locale: Locale, t:any) => {
-  
-  type LightsourcePick = { id:string, amount?:number, name:string, included:boolean}
+const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => {
+
+  type LightsourcePick = { id: string, amount?: number, name: string, included: boolean }
 
   let allLightsources: LightsourceRecord[] = []
   product.models.map((m) => m.lightsources.map((l) => l)).forEach((l) => allLightsources.push.apply(allLightsources, l))
-  let lightsources : LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({lightsource}) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource }) => ({ included, amount, name: lightsource?.name, id:lightsource?.id }))
+  let lightsources: LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({ lightsource }) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource }) => ({ included, amount, name: lightsource?.name, id: lightsource?.id }))
   lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
 
   const specs = {
-    designer:  product.designer?.name,
-    electricalData:  product.electricalData.map((el) => el.name).join(', '),
-    description:  product.presentation,
-    connection:  product.connection?.name,
-    mounting:  product.mounting?.name,
-    lightsource:  lightsources.map(({ amount, included, name }) => `${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
-    socket:  product.sockets.map((el) => el.name).join(', '),
-    weight:  product.models.length && product.models?.[0].variants?.[0]?.weight ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined,
-    volume:  product.models.length && product.models?.[0].variants?.[0]?.volume ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined,
-    care:  null,
-    recycling:  null
+    designer: product.designer?.name,
+    electricalData: product.electricalData.map((el) => el.name).join(', '),
+    description: product.presentation,
+    connection: product.connection?.name,
+    mounting: product.mounting?.name,
+    lightsource: lightsources.map(({ amount, included, name }) => `${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
+    socket: product.sockets.map((el) => el.name).join(', '),
+    weight: product.models.length && product.models?.[0].variants?.[0]?.weight ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined,
+    volume: product.models.length && product.models?.[0].variants?.[0]?.volume ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined,
+    care: null,
+    recycling: null
   }
 
   return specs
 }
 
-const siteSearch = async (q:string, opt: {offset?:number, limit?:number} = {}) => {
+const siteSearch = async (q: string, opt: { offset?: number, limit?: number } = {}) => {
 
   let url = `https://site-api.datocms.com/search-results?q=${encodeURIComponent(q)}'&build_trigger_id=${18902}&locale=en`
-  
+
   if (opt.offset)
     url += '&offset=' + encodeURIComponent(opt.offset);
-  
+
   if (opt.limit)
     url += '&limit=' + encodeURIComponent(opt.limit);
 
@@ -101,57 +101,57 @@ const siteSearch = async (q:string, opt: {offset?:number, limit?:number} = {}) =
   return await res.json()
 }
 
-const recordImages = (obj, exclude : string[] = [], images: FileField[] = []) : FileField[] => {
+const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): FileField[] => {
   Object.keys(obj).forEach(key => {
-    if(obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video'))
-      images.push({...obj[key], _key:key})
+    if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video'))
+      images.push({ ...obj[key], _key: key })
     if (typeof obj[key] === 'object' && obj[key] !== null)
       recordImages(obj[key], exclude, images)
   })
 
   return images.reduce((unique, o) => {
-    if(!unique.some(obj => obj.id === o.id))
+    if (!unique.some(obj => obj.id === o.id))
       unique.push(o);
     return unique;
-    },[]);
+  }, []);
 }
 
-type ProductDownload = { 
-  href:string,
-  label:string,
-  type:string
+type ProductDownload = {
+  href: string,
+  label: string,
+  type: string
 }
-const productDownloads = (product : ProductRecord) : ProductDownload[] => {
+const productDownloads = (product: ProductRecord): ProductDownload[] => {
 
-  const { pdfFiles, mountingInstructions, bimLink, lightFile} = product;
-  
+  const { pdfFiles, mountingInstructions, bimLink, lightFile } = product;
+
   const files = [{
-    href: pdfFiles.find(({locale}) => locale ==='sv') && `${pdfFiles.find(({locale}) => locale ==='sv')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='sv')?.value.title}`,
+    href: pdfFiles.find(({ locale }) => locale === 'sv') && `${pdfFiles.find(({ locale }) => locale === 'sv')?.value.url}?dl=${pdfFiles.find(({ locale }) => locale === 'sv')?.value.title}.pdf`,
     label: 'Productsheet (SE)',
-    type:'pdf'
-  },{
-    href: pdfFiles.find(({locale}) => locale ==='en') && `${pdfFiles.find(({locale}) => locale ==='en')?.value.url}?dl=${pdfFiles.find(({locale}) => locale ==='en')?.value.title}`,
+    type: 'pdf'
+  }, {
+    href: pdfFiles.find(({ locale }) => locale === 'en') && `${pdfFiles.find(({ locale }) => locale === 'en')?.value.url}?dl=${pdfFiles.find(({ locale }) => locale === 'en')?.value.title}.pdf`,
     label: 'Productsheet (EN)',
-    type:'pdf'
-  },{
+    type: 'pdf'
+  }, {
     href: mountingInstructions?.url,
     label: 'Mounting instructions',
     type: 'pdf'
-  },{
+  }, {
     href: lightFile?.url,
     label: 'Light file',
     type: 'zip'
-  },{
+  }, {
     href: bimLink,
     label: 'BIM files',
-    type:'bim'
-  },{
+    type: 'bim'
+  }, {
     href: undefined,
     label: 'CAD file, size S',
     type: 'cad'
   }]
 
-  return files.filter(({href}) => href);
+  return files.filter(({ href }) => href);
 }
 
 

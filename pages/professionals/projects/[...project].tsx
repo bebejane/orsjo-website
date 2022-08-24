@@ -4,7 +4,7 @@ import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument } from
 import { withGlobalProps } from "/lib/hoc";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
-import { FullWidthImage, Text, TwoColumnImage, ImageGallery, Section, FeaturedGallery, Gallery } from '/components';
+import {  Block, Section, FeaturedGallery} from '/components';
 import { useEffect } from 'react'
 import { useStore } from '/lib/store';
 import { recordImages } from '/lib/utils'
@@ -41,20 +41,11 @@ export default function Project({ project, related }: ProjectProps) {
 					/>
 				</div>
 			</Section>
-			{project.gallery.map((block, idx) => {
-				switch (block.__typename) {
-					case 'FullwidthImageRecord':
-						return <Section><FullWidthImage data={block} onClick={setGalleryIndex} /></Section>
-					case 'TextRecord':
-						return <Section><Text data={block} /></Section>
-					case 'TwoColumnImageRecord':
-						return <Section><TwoColumnImage data={block} onClick={setGalleryIndex} /></Section>
-					case 'ImageGalleryRecord':
-						return <Section><ImageGallery data={block} onClick={setGalleryIndex} /></Section>
-					default:
-						return null
-				}
-			})}
+			{project.gallery.map((block, idx) => 
+				<Section key={idx}>
+					<Block data={block} onClick={setGalleryIndex}/>
+				</Section>
+			)}
 			<Section bottom={true} />
 			<Section
 				className={styles.related}

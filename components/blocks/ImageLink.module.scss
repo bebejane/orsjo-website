@@ -15,6 +15,14 @@
       position: relative;
       height: 100%;
       width: 100%;
+      .image{
+        img[role="presentation"]{
+          height: 100%; 
+          width: 100% !important; 
+          object-fit: fill;
+          background-color: transparent !important;
+        }
+      }
       figcaption{
         position: absolute;
         bottom: 0px;

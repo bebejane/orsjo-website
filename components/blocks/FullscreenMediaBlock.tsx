@@ -1,4 +1,4 @@
-import styles from './FullscreenMedia.module.scss'
+import styles from './FullscreenMediaBlock.module.scss'
 import React from 'react'
 import { Image } from 'react-datocms'
 import Link from 'next/link'
@@ -6,7 +6,7 @@ import { VideoPlayer } from '/components'
 
 export type LayoutProps = { data:  FullscreenMediaBlockRecord }
 
-export default function FullscreenMedia({ data: { media, headline, linkRecord, subHeadline }, data }: LayoutProps) {
+export default function FullscreenMediaBlock({ data: { media, headline, linkRecord, subHeadline }, data }: LayoutProps) {
 
 	const slugBase = linkRecord.__typename === 'DesignerRecord' ? '/designers' : '/products'
 

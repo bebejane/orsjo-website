@@ -1,8 +1,6 @@
 import styles from './index.module.scss'
 import { ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument } from '/graphql';
 import { withGlobalProps } from "/lib/hoc";
-import Link from 'next/link'
-import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 import { ProjectThumbnail, Section } from '/components';
@@ -19,7 +17,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 					{projectStart.intro}
 				</Markdown>
 			</Section>
-			{projectTypes.map(({ title, id }, idx) => {
+			{projectTypes.filter(({id}) => projects.find(({projectType}) => projectType.id === id)).map(({ title, id }, idx) => {
 				return (
 					<Section name={title} className={styles.projects} key={idx} >
 						<h1>{title}</h1>

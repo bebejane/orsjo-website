@@ -17,6 +17,6 @@ query Global {
   }
   allProductCategories{
     id
-    name
+    namePlural
   }
 }

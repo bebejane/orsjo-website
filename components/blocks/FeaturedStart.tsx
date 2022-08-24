@@ -7,7 +7,7 @@ import { useLayout } from "/lib/context/layout";
 
 export type ImageGalleryProps = { data: FeaturedRecord, fadeColor?: number[] }
 
-export default function FeaturedStart({ data: { headline, items, id }, fadeColor = [0, 0, 0] }: ImageGalleryProps) {
+export default function FeaturedStart({ data: { headline, items, id } }: ImageGalleryProps) {
 
 	const { menu } = useLayout()
 	const isProducts = items[0].__typename === 'ProductRecord'
@@ -25,7 +25,7 @@ export default function FeaturedStart({ data: { headline, items, id }, fadeColor
 						id={id}
 						arrowAlign="middle"
 						inverted={true}
-						theme="black"
+						theme="dark"
 						fadeColor="--black"
 						items={isProducts ? items as ProductRecord[] : items as ProjectRecord[]}
 					/>
