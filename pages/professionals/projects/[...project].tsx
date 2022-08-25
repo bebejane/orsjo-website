@@ -16,9 +16,6 @@ export default function Project({ project, related }: ProjectProps) {
 
 	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
-
-
-	useEffect(() => setGallery({ images: recordImages(project) }), [])
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
 	const opacity = Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
 	const headerStyle = { opacity }
@@ -26,7 +23,10 @@ export default function Project({ project, related }: ProjectProps) {
 		opacity: 0.2 + viewportScrollRatio,
 		filter: `grayscale(${1 - (viewportScrollRatio * 4)})`
 	}
-	console.log(imageStyle, viewportScrollRatio)
+	
+	useEffect(() => setGallery({ images: recordImages(project) }), [setGallery, project])
+
+	//console.log(imageStyle, viewportScrollRatio)
 	return (
 		<>
 			<Section className={styles.intro} name="Introduction" top={true}>
