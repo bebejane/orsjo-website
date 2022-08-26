@@ -1,7 +1,6 @@
 import "swiper/css";
 import styles from './FeaturedGallery.module.scss'
 import cn from 'classnames'
-import { sectionId } from '/lib/utils'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'

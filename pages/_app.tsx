@@ -44,14 +44,16 @@ function Application({ Component, pageProps } : ApplicationProps) {
         pathname={pathname} 
         key={pathname}
       />
-        <AnimatePresence exitBeforeEnter initial={false}><div id="app" key={pathname}>
-          <LayoutProvider value={layout}>
-            <Layout menu={pageProps.menu} title={title}>
-              <Component {...pageProps}/>  
-              <PageTransition key={`t-${pathname}`}/>
-            </Layout>
-          </LayoutProvider>
-      </div></AnimatePresence>
+        <AnimatePresence exitBeforeEnter initial={false}>
+          <div id="app" key={pathname}>
+            <LayoutProvider value={layout}>
+              <Layout menu={pageProps.menu} title={title}>
+                <Component {...pageProps}/>  
+                <PageTransition key={`t-${pathname}`}/>
+              </Layout>
+            </LayoutProvider>
+          </div>
+      </AnimatePresence>
     </>
   )
 }
