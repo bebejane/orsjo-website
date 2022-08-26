@@ -7120,15 +7120,16 @@ rc@1.2.8, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-datocms@^3.0.12:
-  version "3.0.15"
-  resolved "https://registry.npmjs.org/react-datocms/-/react-datocms-3.0.15.tgz"
-  integrity sha512-2i/5UGTSdN8dRj91RVpSDF4sR26c4I4HAmzdx6HL/GQXCMNWKLm18rPfFsQ3JfNYWWpOyzKSQzbd53BJYvgNJA==
+react-datocms@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-datocms/-/react-datocms-3.1.0.tgz#2c4d9ff84c653e42ec1e6c639b309d1db667ce99"
+  integrity sha512-a+sAfhsuBTuC0+E2YtJzxOBa7QxXRI+7sdHNJKBKPQIB9DA5Yc/atbspOjZw6DlWnTtEouAE37wHQBJW6616Aw==
   dependencies:
     datocms-listen "^0.1.9"
     datocms-structured-text-generic-html-renderer "^2.0.1"
     datocms-structured-text-utils "^2.0.1"
     react-intersection-observer "^8.33.1"
+    react-string-replace "^1.1.0"
     universal-base64 "^2.1.0"
     use-deep-compare-effect "^1.6.1"
 
@@ -7196,6 +7197,11 @@ react-responsive-carousel@^3.2.22:
     classnames "^2.2.5"
     prop-types "^15.5.8"
     react-easy-swipe "^0.0.21"
+
+react-string-replace@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-string-replace/-/react-string-replace-1.1.0.tgz#a3f7b458e697e77d70b0ea663caf38ab38f7cc17"
+  integrity sha512-N6RalSDFGbOHs0IJi1H611WbZsvk3ZT47Jl2JEXFbiS3kTwsdCYij70Keo/tWtLy7sfhDsYm7CwNM/WmjXIaMw==
 
 react@^17.0.2:
   version "17.0.2"

@@ -29,7 +29,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 				/>
 			</Section>
 			<Section name="Intro" className={styles.intro} type="margin" bgColor={'--gray'}>
-				<h3>{bespoke.title}</h3>
+				<h1>{bespoke.title}</h1>
 				<Markdown className={styles.text}>
 					{bespoke.intro}
 				</Markdown>

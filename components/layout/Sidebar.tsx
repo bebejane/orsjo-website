@@ -1,7 +1,6 @@
 import styles from './Sidebar.module.scss'
 import cn from 'classnames'
 import { useStore, shallow } from '/lib/store';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useLayout } from '/lib/context/layout'
 import { useEffect, useState, useCallback } from 'react'
@@ -11,7 +10,7 @@ export type SidebarProps = {title: string}
 
 export default function Sidebar({title} : SidebarProps) {
 
-	const { menu, sidebar, layout } = useLayout()
+	const { menu, layout } = useLayout()
 	const router = useRouter()
 	const [currentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
 	const [sections, setSections] = useState([])
@@ -43,7 +42,7 @@ export default function Sidebar({title} : SidebarProps) {
 		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
 		const sorted = sections.sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)
 		const { id } = sorted[0]
-
+		/*
 		let invertSidebar = false;
 		for (let i = 0; i < sections.length; i++) {
 			const s = sections[i];
@@ -53,10 +52,11 @@ export default function Sidebar({title} : SidebarProps) {
 				break;
 			}
 		}
-
-		setCurrentSection(id)
 		//setInvertMenu(invertSidebar)
 		//setInvertSidebar(invertSidebar)
+		*/
+
+		setCurrentSection(id)
 
 	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu, layout])
 	

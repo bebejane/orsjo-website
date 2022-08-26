@@ -20,9 +20,10 @@
     margin-bottom: 0;
   }
 
-  h3{
+  h1{
     color:$black;
     flex: 0 0 spanGridWithGutter(4);
+    @include h1Small();
   }
   .text{
     padding-right: 20%;

@@ -10,6 +10,9 @@
   max-width: spanGrid(4);
   max-height: calc(100vh);
   z-index: 103;
+  @include mq($until: tablet) {
+    display: none;
+  }
   &.short{
     //max-height: calc(50vh);
   }

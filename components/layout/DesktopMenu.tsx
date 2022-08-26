@@ -5,9 +5,10 @@ import { useRouter } from 'next/router'
 import { useState, useRef, useEffect, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
-import { useOutsideClick, useWindowSize } from 'rooks'
+import { useWindowSize } from 'rooks'
+import { useSiteSearch } from 'react-datocms'
+import { buildClient } from '@datocms/cma-client-browser';
 import useScrollInfo from '/lib/hooks/useScrollInfo'
-import { siteSearch } from '/lib/utils'
 import type { Menu } from '/lib/menu'
 
 export type DesktopMenuProps = {items : Menu}
@@ -149,32 +150,31 @@ export type SearchResult = {
 	}]
 }
 
+
+
+
+const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN });
+
 const Search = ({show, setShowSearch}) => {
 	
 	const [query, setQuery] = useState('')
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | undefined>()
-	const [results, setResults] = useState()
-	const noMatches = results?.data?.length === 0
-
-	useEffect(()=>{
-		setResults(undefined)
-		if(!query) return 
-		setLoading(true)
-		siteSearch(query)
-		.then((res : SearchResult) => {
-			//const dedupe = {}
-			//res = res.map((el) => )
-			setResults(res)
-		})
-		.catch(err => {
-			setError(err.toString())
-			setResults(undefined)
-		})
-		.finally(() => setLoading(false))
-			
-	}, [query, setResults])	
-
+	const { state, error, data } = useSiteSearch({
+		client,
+		buildTriggerId: '18902',
+		initialState: { locale: 'en' },
+		/*
+		highlightMatch: (text, key, context) =>
+			context === 'title' ? (
+				<strong key={key}>{text}</strong>
+			) : (
+				<mark key={key}>{text}</mark>
+			),
+			*/
+		resultsPerPage: 20,
+	});
+	
+	useEffect(()=>{state.setQuery(query)}, [query])
+	
 	if(!show) return null
 	
 	return (
@@ -190,28 +190,27 @@ const Search = ({show, setShowSearch}) => {
 				<button className={styles.close} onClick={()=>setShowSearch(false)}>×</button>
 			</div>
 			<div className={styles.results}>
-			{results?.data?.filter(({attributes}) => attributes?.url).map(({attributes}, idx) => 
-				<div key={idx}>
-					<h2>
-					<Link 
-						scroll={false} 
-						href={process.env.NODE_ENV === 'development' ?  attributes.url?.replace('https://orsjo.vercel.app', '') : attributes.url}>
-						{attributes.title}
-					</Link>
-					</h2>
-					<p>
-						{attributes.highlight?.body.map(line => 
-							<>{line}</>
-						)}
-					</p>
-				</div>
-			)}
-			{loading && <span>...</span>}
-			{noMatches && <span>no matches for "{query}"</span> }
-			{error && <span>Error: {error}</span>}
+				{data?.pageResults.map(({title, url, bodyExcerpt}, idx) => 
+					<div key={idx}>
+						<h2>
+							<Link 
+								scroll={false} 
+								href={process.env.NODE_ENV === 'development' ?  url?.replace('https://orsjo.vercel.app', '') : url}
+							>
+								{title}
+							</Link>
+						</h2>
+						<p>
+							{bodyExcerpt}
+						</p>
+					</div>
+				)}
+			</div>
+			<div className={styles.status}>
+				{!data && !error && <span>...</span>}
+				{data?.pageResults.length === 0 && query && <span>no matches for "{query}"</span> }
+				{error && <span>Error: {error}</span>}
 			</div>
 		</div>
 	)
 }
-
-

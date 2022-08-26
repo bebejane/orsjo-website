@@ -48,3 +48,9 @@ $gutter-nested: $gutter / $difference12; //Denna ska göras om
   font-family: $body-font;
   line-height: 1em;
 }
+@mixin h1Small() {
+  font-size: .45em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding-bottom: .5em;
+}

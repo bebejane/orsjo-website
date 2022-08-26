@@ -19,7 +19,7 @@ export default function Faqs({ faqs, faqStart }: FaqsProps) {
 			categories[f.category.id] = { id: f.category.id, title: f.category.title, items: [] }
 		categories[f.category.id].items.push(f)
 	})
-	console.log(categories)
+	
 	return (
 		<>
 			<Section className={styles.intro} top={true}>

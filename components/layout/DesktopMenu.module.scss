@@ -12,6 +12,9 @@
   &.inverted {  
     filter:invert(1);
   }
+  @include mq($until: tablet) {
+    display: none;
+  }
 }
 
 .desktopMenu {
@@ -34,8 +37,6 @@
   @include mq($until: tablet) {
     display: none;
   }
-
-  
 
   ul {
     width: spanGrid(12);

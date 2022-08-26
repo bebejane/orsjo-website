@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useRef, useEffect} from 'react'
 import { useLayout } from '/lib/context/layout'
+import { useStore } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
 import type { Menu } from '/lib/menu'
 
@@ -12,15 +13,16 @@ export type MobileMenuProps = {items : Menu}
 export default function MobileMenu({items} : MobileMenuProps){
 
 	const router = useRouter()
-	const {layout, menu} = useLayout()
+	const {menu} = useLayout()
 	const [open, setOpen] = useState(false)
+	const [transitioning] = useStore((state)=> [state.transitioning])
 	const [selected, setSelected] = useState(undefined)
 	const sub = items.find((item)=> item.type === selected)?.sub
 	const subHeader = selected ? items.find(i => i.type === selected).label : null
 
-	useEffect(()=>{
+	useEffect(()=>{ 
 		setSelected(undefined)
-		setOpen(false)
+		//setOpen(false)
 	}, [router.asPath])
 
 	return (
@@ -60,7 +62,7 @@ export default function MobileMenu({items} : MobileMenuProps){
 					)}
 				</ul>
 			</nav>
-			<nav className={cn(styles.sub, !selected && styles.hide)}>
+			<nav className={cn(styles.sub, !selected && !transitioning && styles.hide)}>
 				<header>
 					<h2 className={styles.subHeader}>{subHeader}</h2>
 					<span className={styles.back} onClick={()=>setSelected(undefined)}>❮</span>

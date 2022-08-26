@@ -21,6 +21,7 @@ export default function News({ news }: NewsProps) {
 					className={styles.newsItem}
 					type={'margin'}
 					name={format(new Date(createdAt), 'MMM do, yyyy')}
+					id={id}
 					key={idx}
 				>
 					<div className={styles.date}>

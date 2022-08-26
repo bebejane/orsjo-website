@@ -75,6 +75,7 @@ const pathTotitle = {
   '/about/jobs': 'Jobs',
   '/about/news': 'News',
   '/about/press': 'Press',
+  '/about/sustainability': 'Sustainability', 
   '/support/faq': 'FAQ',
   '/support/manuals': 'Manuals',
   '/contact': 'Contact',
