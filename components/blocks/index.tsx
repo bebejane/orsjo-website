@@ -3,7 +3,6 @@ import * as Components from '/components'
 export type BlockProps = { data: any, onClick?: Function }
 
 export default function Block({ data, onClick }: BlockProps) {
-  console.log(data)
   const type = data.__typename.replace('Record', '');
   const BlockComponent = Components[type]
 
