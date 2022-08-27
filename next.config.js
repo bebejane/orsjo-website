@@ -32,6 +32,11 @@ const nextOptions = {
       exclude: /node_modules/,
       loader: 'graphql-tag/loader',
     });
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
     return config;
   }
 }

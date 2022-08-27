@@ -1,5 +1,6 @@
 import styles from './ArrowButton.module.scss'
 import cn from 'classnames'
+import Arrow from '/public/images/arrow.svg'
 import type { MouseEventHandler } from 'react'
 
 export type ArrowButtonProps = { 
@@ -18,7 +19,7 @@ export default function ArrowButton({ className, inverted, reverse, onClick, hid
 
 	return (
 		<button className={buttonStyles} onClick={onClick}>
-      <img src="/images/arrow.svg" className={cn(styles.arrow, reverse && styles.reverse)}/>
+      <Arrow className={cn(styles.arrow, reverse && styles.reverse)}/>
     </button>
 	)
 }

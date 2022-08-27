@@ -10,12 +10,13 @@
   color: $black;
   padding: 0 !important;
   cursor: pointer;
- 
+  
   &:hover {
     border-color: $black !important;
     .arrow{
-      opacity: 1;
-      fill:$gray;
+      path{
+        fill:$black;
+      }
     }
   }
   .arrow{
@@ -24,7 +25,10 @@
     margin-top: 5px;
     transform: rotate(0deg);
     transition: transform .3s;
-    opacity: 0.5;
+    path{
+      
+      fill:$gray;
+    }
     &.reverse{
       transform: rotate(180deg);
     }
@@ -34,7 +38,19 @@
     display: none;
   }
   &.inverted{
-    filter: invert(1);
+    &:hover {
+      border-color: $white !important;
+      .arrow{
+        path{
+          fill:$white;
+        }
+      }
+    }
+    .arrow{
+      path{
+        fill:$gray;
+      }
+    }
   }
   &:disabled{
     color: $gray;
@@ -42,6 +58,5 @@
     .arrow{
       color:$gray;
     }
-  } 
-  
+  }
 }

@@ -18,10 +18,10 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>	
-				<header>
-					<DesktopMenu items={menu}/>
-					<MobileMenu items={menu}/>
-				</header>
+			
+				<DesktopMenu items={menu}/>
+				<MobileMenu items={menu}/>
+			
 				{layout !== 'full' && 
 					<Sidebar title={title}/>
 				}
