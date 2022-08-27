@@ -125,7 +125,7 @@ export type DesignerThumbnailProps = {
   designer: DesignerRecord,
   inverted?: boolean,
   className?: string,
-  theme: 'dark' | 'light'
+  theme: 'dark' | 'light' | 'mid'
 }
 export function DesignerThumbnail({ designer, inverted, theme = 'dark', className }: DesignerThumbnailProps) {
 

@@ -77,9 +77,11 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 	
 	return (
 		<>
-			<Link scroll={false} href={'/'}>
+			<Link scroll={false} href="/">
 				<a className={cn(styles.logo, isInverted && styles.inverted)}>
-					<img id={'logo'} src={'/images/logo.svg'}/>
+					<figure>
+						<img id="logo" src={'/images/logo.svg'}/>
+					</figure>
 				</a>
 			</Link>
 			<nav id={'menu'} ref={ref} className={menuStyles}>

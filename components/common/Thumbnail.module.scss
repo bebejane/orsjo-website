@@ -96,12 +96,12 @@
   &.dark {
     &:hover {
       figcaption>.title>.subtitle {
-        color: $black;
+        color: $white;
       }
     }
 
     a>figcaption>.title {
-      color: $black;
+      color: $white;
 
       .subtitle {
         color: $gray;
@@ -179,6 +179,7 @@
     height: 32px;
     border-radius: 50%;
     font-size: 9px;
+    z-index: 3;
     color: $white;
     text-transform: uppercase;
     font-weight: bold;

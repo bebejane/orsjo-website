@@ -33,8 +33,7 @@ const nextOptions = {
       loader: 'graphql-tag/loader',
     });
     return config;
-  },
-  //webpackDevMiddleware: (config) => {return config;},
+  }
 }
 
 const config = { sassOptions, ...nextOptions }
