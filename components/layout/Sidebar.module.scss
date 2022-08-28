@@ -156,6 +156,7 @@
       justify-content: center;
       height: $navbarHeightMobile;
       padding: 0;
+      cursor: pointer;
       .arrow{
         display: inline;
         transition: transform .3s ease;

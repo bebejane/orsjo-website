@@ -29,6 +29,12 @@
       
     }
   }
+  @include mq($until: tablet) {
+    .wrap{
+      min-height: auto;
+    }
+    
+  }
 }
 
 .related{

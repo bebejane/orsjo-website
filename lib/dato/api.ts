@@ -17,7 +17,8 @@ const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Res
   
   const operations = init.body ? (JSON.parse(init.body)).map(({operationName})=> operationName) : []
   const requestName = `${operations.join(', ')} (${operations.length})`
-  console.log(`# Sending ${requestName}`)
+  
+  console.log(`- graphql req(${requestName})`)
   
   const response = await fetch(input, init)
   return {

@@ -7,6 +7,7 @@ import { useLayout } from '/lib/context/layout'
 import { useStore } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
 import type { Menu } from '/lib/menu'
+import social from '/lib/social'
 
 export type MobileMenuProps = { items: Menu }
 
@@ -60,10 +61,9 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 						<input type="text" placeholder='Search'/>
 					</div>
 					<div className={styles.social}>
-						<img src="/images/facebook.svg" />
-						<img src="/images/instagram.svg" />
-						<img src="/images/linkedin.svg" />
-						<img src="/images/pinterest.svg" />
+						{social.map(({name, icon, url}, idx) =>
+							<a key={idx} href={url}><img src={icon} alt={name}/></a>
+						)}
 					</div>
 				</div>
 			</nav>

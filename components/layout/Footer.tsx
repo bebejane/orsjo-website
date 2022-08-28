@@ -2,6 +2,7 @@ import styles from './Footer.module.scss'
 import Logo from '/public/images/logo.svg'
 import Link from 'next/link'
 import type { MenuItem } from '/lib/menu'
+import social from '/lib/social'
 
 export type FooterProps = { menu: MenuItem[] }
 
@@ -12,13 +13,6 @@ export default function Footer({ menu }: FooterProps) {
 		...item,
 		sub: item.type === 'designer' ? item.sub.slice(0, maxLength) : item.sub
 	}))
-
-	const social = [
-		{name:'Facebook', icon:'/images/facebook.svg', url:'https://www.facebook.com/orsjobelysning'},
-		{name:'Instagram', icon:'/images/instagram.svg',url:'https://www.instagram.com/orsjo_belysning'},
-		{name:'LinkedIn', icon:'/images/linkedin.svg', url:'https://www.linkedin.com/company/orsjo-belysning-ab'},
-		{name:'Pinterest', icon:'/images/Pinterest.svg', url:'https://www.pinterest.se/orsjoab'},
-	]
 
 	return (
 		<>
@@ -76,7 +70,9 @@ export default function Footer({ menu }: FooterProps) {
 				</div>
 			</footer>
 			<footer className={styles.footerMobile}>
-				<img src={'/images/logo.svg'} className={styles.logo}/>
+				<figure className={styles.logo}>
+					<img src={'/images/logo.svg'} />
+				</figure>
 				<span className={styles.tagline}>Locally<br/>crafted<br/>lighting</span>
 				<div className={styles.social}>
 					{social.map(({name, icon, url}, idx) =>
