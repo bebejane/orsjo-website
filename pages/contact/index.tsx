@@ -7,7 +7,7 @@ import {
 	AllDistributorsDocument
 } from '/graphql';
 import { Section } from '/components'
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
 import Markdown from '/lib/dato/components/Markdown';

@@ -11,9 +11,6 @@
   &.inverted {  
     filter:invert(1);
   }
-  @include mq($until: tablet) {
-    display: none;
-  }
 }
 
 .desktopMenu {
@@ -32,11 +29,6 @@
   min-height: $navbarHeight;
   max-height: $navbarHeight;
   transition: transform 0.3s ease;
-
-  @include mq($until: tablet) {
-    display: none;
-  }
-
   ul {
     width: spanGrid(12);
     padding-top: 1em;
@@ -150,7 +142,6 @@
     @include mq($from: tablet) {
       ul {
         opacity: 0;
-        
       }
     }
   }
@@ -169,11 +160,6 @@
   pointer-events: none;
   box-shadow: -1px 0px 10px rgba(gray, 0.1);
   color: $black-menu;
-
-
-  @include mq($until: tablet) {
-    display: none;
-  }
 
   &.show {
     pointer-events: all;
@@ -293,5 +279,10 @@
     div{
       margin-bottom: .5em;
     }
+  }
+}
+@include mq($until: tablet) {
+  .logo, .desktopMenu, .sub{
+    display: none;
   }
 }

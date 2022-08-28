@@ -9,5 +9,7 @@
   &[data-type='full']{
     margin-left: 0 !important;
   } 
-  
+  @include mq($until: tablet) {
+    margin-left: 0;
+  }
 }

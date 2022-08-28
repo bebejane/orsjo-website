@@ -1,6 +1,6 @@
 import styles from './sustainability.module.scss'
 import { SustainabilityDocument } from '/graphql';
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';

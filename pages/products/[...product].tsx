@@ -2,7 +2,7 @@ import styles from './[...product].module.scss'
 import cn from 'classnames'
 import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
-import { withGlobalProps } from '/lib/hoc'
+import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
 import { Image } from 'react-datocms'
 import { SectionListItem,FeaturedGallery, Block,  Section, Icon } from '/components'

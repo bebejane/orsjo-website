@@ -1,4 +1,4 @@
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import { LastNewsDocument, StartDocument } from '/graphql';
 import { Block, Section } from '/components';
 import { PageLayoutProps } from '/lib/context/layout';

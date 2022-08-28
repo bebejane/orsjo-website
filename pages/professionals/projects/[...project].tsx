@@ -1,7 +1,7 @@
 import styles from './[...project].module.scss'
 import { apiQuery } from '/lib/dato/api';
 import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument } from '/graphql';
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
 import {  Block, Section, FeaturedGallery} from '/components';

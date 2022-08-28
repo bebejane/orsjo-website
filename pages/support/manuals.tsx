@@ -1,5 +1,5 @@
 import styles from './manuals.module.scss'
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
 import { AllProductManualsDocument } from '/graphql';
 import { PageLayoutProps } from '/lib/context/layout';

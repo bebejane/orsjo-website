@@ -45,4 +45,10 @@
     margin-bottom: $margin;
   }
 
+  @include mq($until: tablet) {
+    .wrap{
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 
 import styles from './index.module.scss'
 import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocument } from '/graphql';
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
 import { FeaturedGallery, ProductThumbnail, Section } from '/components'
 import { sectionId } from '/lib/utils'

@@ -1,6 +1,6 @@
 import styles from './faq.module.scss'
 import { FaqStartDocument } from '/graphql';
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';

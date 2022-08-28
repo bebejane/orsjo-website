@@ -1,6 +1,6 @@
 import styles from './news.module.scss'
 import { AllNewsDocument } from '/graphql';
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';

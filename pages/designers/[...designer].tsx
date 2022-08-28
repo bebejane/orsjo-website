@@ -1,12 +1,10 @@
 import styles from './[...designer].module.scss'
+import withGlobalProps from "/lib/withGlobalProps";
 import { AllDesignersDocument, DesignerDocument, AllProductsByDesignerDocument, AllProductsLightDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
-import { withGlobalProps } from '/lib/hoc'
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout'
-import { useLayout } from '/lib/context/layout'
-import { ProductThumbnail, DesignerThumbnail, Section, FeaturedGallery } from '/components'
-import { chunkArray } from '/lib/utils'
+import { ProductThumbnail, Section, FeaturedGallery } from '/components'
 
 export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[], designers: DesignerRecord[] };
 

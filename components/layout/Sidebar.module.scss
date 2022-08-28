@@ -10,14 +10,16 @@
   max-width: spanGrid(4);
   max-height: calc(100vh);
   z-index: 103;
-
+  @include mq($from: tablet) {
+    background-color: transparent !important;
+  }
   &.short {
     //max-height: calc(50vh);
   }
 
   h3 {
     flex: 0 0 auto;
-    padding: 0;
+    
     .arrow{
       display: none;
     }
@@ -153,6 +155,7 @@
       align-items: center;
       justify-content: center;
       height: $navbarHeightMobile;
+      padding: 0;
       .arrow{
         display: inline;
         transition: transform .3s ease;

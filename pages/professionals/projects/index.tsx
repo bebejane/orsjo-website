@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 import { ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument } from '/graphql';
-import { withGlobalProps } from "/lib/hoc";
+import withGlobalProps from "/lib/withGlobalProps";
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 import { ProjectThumbnail, Section } from '/components';
