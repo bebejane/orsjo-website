@@ -7,11 +7,11 @@
   figure {
     cursor: pointer;
     width: 48%;
-    //padding: var(--outer-margin);
-    .image{
-      img[role="presentation"]{
-        height: 100%; 
-        width: 100% !important; 
+
+    .image {
+      img[role="presentation"] {
+        height: 100%;
+        width: 100% !important;
         object-fit: fill;
         background-color: transparent !important;
       }

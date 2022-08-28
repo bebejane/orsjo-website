@@ -7,4 +7,7 @@
   * > a {
     border-bottom: 1px solid;
   }
+  @include mq($until: tablet) {
+    padding-right: 0;
+  }
 }

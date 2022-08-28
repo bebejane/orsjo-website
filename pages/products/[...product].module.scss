@@ -146,6 +146,7 @@
 					}
 				}	
 			}
+
 		}
 		&:last-child{
 			border-bottom: 0;
@@ -212,6 +213,11 @@
 				flex-direction: row;
 				align-items: center;
 			}
+		}
+	}
+	@include mq($until: tablet) {
+		ul{
+			column-count: 1;
 		}
 	}
 }

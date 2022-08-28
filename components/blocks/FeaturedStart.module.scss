@@ -20,7 +20,7 @@
     .header{
       width: spanGridWithGutter(4);
       .headline{
-      color: white; 
+        color: white; 
       }
     }
     .gallery{
@@ -60,6 +60,22 @@
       margin-top:-.5rem;
       z-index: 10;
       color:$black;
+    }
+  }
+  @include mq($until: tablet) {
+    padding-top: 2rem;
+    padding-bottom: 0rem;
+    .wrapper{
+      flex-direction: column;
+      .header{
+        width: 100%;
+        .headline{
+          color: $gray;  
+        }
+      }
+      .gallery{
+        max-width: spanGrid(16);
+      }
     }
   }
 }

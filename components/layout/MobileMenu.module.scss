@@ -9,8 +9,8 @@
   min-height: $navbarHeightMobile;
   
   img{
-    min-height: 38px;
-    max-height: 38px;
+    min-height: 36  px;
+    max-height: 36px;
   }
   &.inverted {
     filter: invert(1);
@@ -25,7 +25,8 @@
   display: flex;
   align-items: center;
   top: 0;
-  right: calc(var(--outer-margin) - 8px);
+  right: 0;
+  margin-right: calc(var(--outer-margin) - 12px);
   max-height: $navbarHeightMobile;
   min-height: $navbarHeightMobile;
   color: #000;
@@ -63,8 +64,8 @@
     display: none;
   }
   .main {
-    padding-left: $small-margin;
-    margin-top: $small-margin;
+    padding-left: var(--outer-margin);
+    margin-top: var(--outer-margin);
     flex: 1 1 auto;
     &.hide {
       display: none;
@@ -94,7 +95,7 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-    padding: $small-margin;
+    padding: var(--outer-margin);
     .search{
       display: flex;
       flex-direction: row;
@@ -143,7 +144,7 @@
   transform: translateX(0vw);
   padding-left: 2rem;
   font-size: 18px;
-
+  
   &.hide {
     transform: translateX(100%);
   }
@@ -161,18 +162,24 @@
       flex: 1 1 auto;
     }
     .back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      min-height:48px;
+
       cursor: pointer;
       font-size: 1rem;
       color: $white;
-      margin-right: $small-margin;
+      margin-right: calc(var(--outer-margin) - 10px);
     }
   }
 
   ul {
-    margin-top: $small-margin;
+    margin-top: var(--outer-margin);
     list-style: none;
-    min-height: calc(100vh - calc($small-margin * 4));
-    max-height: calc(100vh  - calc($small-margin * 4));
+    min-height: calc(100vh - calc(var(--outer-margin) * 4));
+    max-height: calc(100vh  - calc(var(--outer-margin) * 4));
     overflow-y: auto;
 
     a {

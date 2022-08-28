@@ -12,9 +12,6 @@ export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[
 
 export default function Designer({ designer, products, designers }: DesignerProps) {
 
-	const { color } = useLayout()
-	const productRows = chunkArray(products, 3)
-
 	return (
 		<>
 			<Section type="full" className={styles.designer}>
@@ -29,11 +26,15 @@ export default function Designer({ designer, products, designers }: DesignerProp
 						{designer.image &&
 							<Image data={designer.image.responsiveImage} layout={'fill'} objectFit={'cover'} />
 						}
+						<figcaption>
+							<h1>{designer.name}
+							</h1>
+						</figcaption>
 					</figure>
 				</header>
 			</Section>
 			<Section type="margin" className={styles.products} bgColor='--mid-gray'>
-				<h1>Products by<br />{designer.name}</h1>
+				<h1>Products by <br />{designer.name}</h1>
 				<div className={styles.gallery}>
 					<ul>
 						{products.map((p, idx) => {
@@ -46,10 +47,16 @@ export default function Designer({ designer, products, designers }: DesignerProp
 					</ul>
 				</div>
 			</Section>
-			<Section type="margin" className={styles.otherDesigners} bgColor='--warm-gray'>
+			<Section  className={styles.otherDesigners} bgColor='--warm-gray'>
 				<h1>Other designers</h1>
 				<div className={styles.gallery}>
-					<FeaturedGallery items={designers} id="all-designers" theme='light' arrowAlign='middle' fadeColor={'--mid-gray'} />
+					<FeaturedGallery 
+						items={designers} 
+						id="all-designers" 
+						theme='light' 
+						arrowAlign='middle' 
+						fadeColor={'--warm-gray'} 
+					/>
 				</div>
 			</Section>
 		</>

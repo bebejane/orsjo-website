@@ -104,7 +104,11 @@ export default function Product({ product, relatedProducts, productsByCategory }
 					</div>
 				</div>
 				{product.productGallery.map((block, idx) => 
-					<Block key={idx} data={block} onClick={(id) => handleGalleryClick('product', id) }/>
+					<Block 
+						key={idx} 
+						data={block} 
+						onClick={(id) => handleGalleryClick('product', id) }
+					/>
 				)}
 			</Section>
 			<SectionListItem 

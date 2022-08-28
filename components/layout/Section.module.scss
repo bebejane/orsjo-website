@@ -1,32 +1,48 @@
-.section{
+.section {
   position: relative;
   width: 100%;
   padding-left: var(--outer-margin);
   padding-right: var(--outer-margin);
-  
-  .wrap{ 
+
+  .wrap {
     position: relative;
     padding-left: spanGridWithGutter(4);
-    width:100%;
+    width: 100%;
   }
-  &[data-type="full"]{
+
+  &[data-type="full"] {
     padding-left: 0;
     padding-right: 0;
-    .wrap{
+
+    .wrap {
       padding-left: 0;
-    }    
+    }
   }
-  &[data-type="margin"]{
+
+  &[data-type="margin"] {
     padding-left: var(--outer-margin);
     padding-right: var(--outer-margin);
-    .wrap{
+
+    .wrap {
       padding-left: 0;
-    }    
+    }
   }
-  &[data-top='true']{
-    margin-top:4rem;
+
+  &[data-type="margin-left"] {
+    padding-left: var(--outer-margin);
+    padding-right: 0;
+
+    .wrap {
+      padding-left: 0;
+    }
   }
-  &[data-bottom='true']{
-    margin-bottom:$margin;
+
+  &[data-top='true'] {
+    margin-top: 4rem;
   }
+
+  &[data-bottom='true'] {
+    margin-bottom: $margin;
+  }
+
 }

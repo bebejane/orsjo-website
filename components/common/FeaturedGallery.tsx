@@ -6,6 +6,7 @@ import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
 import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
+import { useWindowSize } from "rooks";
 
 export type FeaturedGalleryProps = { 
 	products?: ProductRecord[], 
@@ -34,8 +35,9 @@ export default function FeaturedGallery({
 	const { menu } = useLayout()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
+	const { innerWidth } = useWindowSize()
 	const numSlides = items.length
-	const slidesPerView = 4;
+	const slidesPerView = innerWidth < 768 ? 2 : 4;
 	const isShortSlide = numSlides <= slidesPerView
 	
 	return (

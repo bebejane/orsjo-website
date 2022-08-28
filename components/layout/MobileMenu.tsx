@@ -2,7 +2,7 @@ import styles from './MobileMenu.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLayout } from '/lib/context/layout'
 import { useStore } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
@@ -20,10 +20,7 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 	const sub = items.find((item) => item.type === selected)?.sub
 	const subHeader = selected ? items.find(i => i.type === selected).label : null
 
-	useEffect(() => {
-		setSelected(undefined)
-		//setOpen(false)
-	}, [router.asPath])
+	useEffect(() => { setSelected(undefined)}, [router.asPath])
 
 	return (
 		<>
@@ -70,7 +67,7 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 					</div>
 				</div>
 			</nav>
-			<nav className={cn(styles.sub, !selected && !transitioning && styles.hide)}>
+			<nav className={cn(styles.sub, !selected && styles.hide)}>
 				<div className={styles.subHeader}>
 					<h1 className={cn(styles.title)}>{subHeader}</h1>
 					<span className={styles.back} onClick={() => setSelected(undefined)}>❮</span>
@@ -87,7 +84,6 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 					)}
 				</ul>
 			</nav>
-			
 		</>
 	)
 }

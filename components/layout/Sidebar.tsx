@@ -10,52 +10,41 @@ export type SidebarProps = {title: string}
 
 export default function Sidebar({title} : SidebarProps) {
 
-	const { menu, layout } = useLayout()
+	const { menu, layout, color } = useLayout()
 	const router = useRouter()
 	const [currentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
+	const [setCurrentSection, setInvertSidebar, setInvertMenu] = useStore((state) => [state.setCurrentSection, state.setInvertSidebar, state.setInvertMenu, state.setSections, state.setShowMenu], shallow);
 	const [sections, setSections] = useState([])
+	const [open, setOpen] = useState(false)
+	const {scrolledPosition, documentHeight } = useScrollInfo()
+
 	const isInverted = menu === 'inverted' || invertSidebar
 	const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
 	const isProductsPage = router.pathname.toLowerCase() === '/products'
 	const isProductPage = router.pathname.startsWith('/products/')
 	const isProjectPage = router.pathname.startsWith('/professionals/projects/')
 	const [searchFocus, setSearchFocus] = useState(false);
-	const [setCurrentSection, setInvertSidebar, setInvertMenu] = useStore((state) => [state.setCurrentSection, state.setInvertSidebar, state.setInvertMenu, state.setSections, state.setShowMenu], shallow);
-	const {scrolledPosition, documentHeight } = useScrollInfo()
 	
 	const resetSearch = useCallback(() => {setSearchProducts('')},[setSearchProducts]);
-	
+	const handleClick = (e) => {
+		e.preventDefault()
+
+		const section = document.querySelector(`section[data-section-id='${e.target.dataset.sectionId}']`)
+		window.scrollTo({top:section.offsetTop-80, behavior:'smooth'})
+		setOpen(false);
+	}
 	useEffect(()=>{ 
-		console.log('update sections sidebar')
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]')
 		const sections = items.length ? Array.from(items).map((s)  => ({title:s.title, id:s.id})) : []
 		setSections(sections)
 	}, [])
 
 	useEffect(()=>{ // Highlight nav section on scroll\
-		
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-section-id]'))
-		const sidebar = document.getElementById('sidebar')
-		
 		if(!sections.length) return
 
-		const sidebarBottomOffset = sidebar.getBoundingClientRect().bottom
 		const sorted = sections.sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)
 		const { id } = sorted[0]
-		/*
-		let invertSidebar = false;
-		for (let i = 0; i < sections.length; i++) {
-			const s = sections[i];
-			const isIntersecting = (scrolledPosition > (s.offsetTop - sidebarBottomOffset + (sidebar.clientHeight))) && scrolledPosition < (s.offsetTop - sidebarBottomOffset + s.clientHeight)
-			if(s.dataset.dark && isIntersecting && s.id === id){
-				invertSidebar = true
-				break;
-			}
-		}
-		//setInvertMenu(invertSidebar)
-		//setInvertSidebar(invertSidebar)
-		*/
-
 		setCurrentSection(id)
 
 	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu, layout])
@@ -63,13 +52,25 @@ export default function Sidebar({title} : SidebarProps) {
 	useEffect(()=>{ resetSearch()}, [router.asPath, resetSearch])
 	
 	return (
-		<aside id="sidebar" className={cn(styles.sidebar, isInverted && styles.inverted, !isProductsPage && styles.short)}>
-			<h3>{title}</h3>
-			<nav>
+		<aside 
+			id="sidebar" 
+			className={cn(styles.sidebar, isInverted && styles.inverted, !isProductsPage && styles.short)}
+			style={{backgroundColor:color}}
+		>
+			<h3 className={cn(open && styles.open)} onClick={()=>setOpen(!open)}>
+				{title}
+				<span className={cn(styles.arrow, open && styles.open)}>›</span>
+			</h3>
+			<nav className={cn(open && styles.open)}>
 				<ul>
 					{sections?.map((section, idx) => 
 						<li key={idx}>
-							<a href={`${pathname}#${section.id}`} className={cn(section.id === currentSection && styles.active)}>
+							<a 
+								href={`${pathname}#${section.id}`} 
+								data-section-id={section.id}
+								className={cn(section.id === currentSection && styles.active)}
+								onClick={handleClick}
+							>
 								{section.title}
 							</a>
 						</li>

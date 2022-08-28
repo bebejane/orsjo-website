@@ -2,7 +2,7 @@
   position: sticky;
   display: flex;
   flex-direction: column;
-  top:0;
+  top: 0;
   padding-top: calc(1rem + $navbarHeight);
   margin-left: var(--outer-margin);
   //flex: 0 0;
@@ -10,20 +10,26 @@
   max-width: spanGrid(4);
   max-height: calc(100vh);
   z-index: 103;
-  @include mq($until: tablet) {
-    display: none;
-  }
-  &.short{
+
+  &.short {
     //max-height: calc(50vh);
   }
-  h3{
+
+  h3 {
     flex: 0 0 auto;
+    padding: 0;
+    .arrow{
+      display: none;
+    }
   }
-  nav{
+
+  nav {
     flex: 1 1 auto;
+
     ul {
       list-style: none;
       min-width: spanGrid(4);
+
       li {
         a {
           transition: color .3s ease;
@@ -32,79 +38,91 @@
           &:hover {
             color: $black;
           }
+
           &.active {
             transition: color 0s;
             transition-delay: 0.1s; // Delay for not showing when scrolling
             color: $black;
           }
         }
-        &.download{
-          margin-top:.5rem;
+
+        &.download {
+          margin-top: .5rem;
         }
-        &.search{
+
+        &.search {
           position: relative;
           width: 200px;
-          input{
+
+          input {
             position: absolute;
             border: 0px;
             padding-left: 0;
-            padding-top:0;
+            padding-top: 0;
             outline: none;
             background-color: transparent;
             padding: 10px;
             margin-left: -10px;
             width: 200px;
             z-index: 1;
-            &:focus{
-              background-color: $light-gray; 
+
+            &:focus {
+              background-color: $light-gray;
             }
           }
-          
-          .close{
+
+          .close {
             position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
             border: none;
-            right:13px;
-            top:4px;
+            right: 13px;
+            top: 4px;
             height: 30px;
             width: 30px;
             z-index: 2;
-            color:$black;
+            color: $black;
             visibility: hidden;
-            &.show{
+
+            &.show {
               visibility: visible;
             }
           }
-          input::placeholder{
+
+          input::placeholder {
             color: $gray;
             opacity: 0.7;
           }
-          
+
         }
       }
     }
   }
-  .footer{
+
+  .footer {
     flex: 0 0 auto;
     padding-bottom: var(--outer-margin);
     cursor: pointer;
-    span{
+
+    span {
       color: $black-menu;
+
       &:hover {
         color: $black;
       }
     }
   }
+
   &.full {
     display: none;
   }
 
   &.inverted {
-    h3{
-      color: lightgray; 
+    h3 {
+      color: lightgray;
     }
+
     nav ul li a {
       color: lightgray;
 
@@ -112,10 +130,61 @@
         color: $white  !important;
       }
     }
-    .footer a{
-      color: lightgray !important; 
+
+    .footer a {
+      color: lightgray !important;
     }
   }
 
-  
+  @include mq($until: tablet) {
+    position: fixed;
+    padding-top: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    min-width: 100%;
+    max-width: 100%;
+    text-align: center;
+    background-color: $white;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: $navbarHeightMobile;
+      .arrow{
+        display: inline;
+        transition: transform .3s ease;
+        transform: rotate(0deg);
+        margin-left: .1rem;
+        &.open {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    nav {
+      display: none;
+      padding-top: var(--outer-margin);
+      padding-bottom: var(--outer-margin);
+      border-top: 1px solid $light-gray;
+
+      &.open {
+        display: block;
+      }
+
+      ul {
+        li {
+          &.search {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .footer {
+      display: none;
+    }
+  }
 }

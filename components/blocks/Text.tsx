@@ -8,7 +8,7 @@ export type TextBlockProps = { data: TextRecord }
 export default function Text({ data: { text }} : TextBlockProps) {
 	
 	return (
-		<section className={styles.text}>
+		<div className={styles.text}>
 			<StructuredText 
 				data={text}
         renderInlineRecord={({ record }) => {
@@ -47,7 +47,7 @@ export default function Text({ data: { text }} : TextBlockProps) {
         }}
 			>
 			</StructuredText>
-		</section>
+		</div>
 
 	)
 }

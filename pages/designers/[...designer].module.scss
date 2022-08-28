@@ -23,15 +23,14 @@
 				z-index: 2;
 				@include h1Big();
 				animation: fade 1s ease 1s reverse forwards;
-
 			}
 
 			.description {
-				padding-left: 10%;
-				padding-right: 10%;
+				padding: 10%;
 
 				opacity: 0;
 				animation: fade 1s ease 1s forwards;
+
 				span {
 					color: $white;
 				}
@@ -43,8 +42,31 @@
 			flex: 0 0 50%;
 			height: 100%;
 
+			figcaption {
+				position: absolute;
+				display: none;
+				bottom: 0;
+				margin: var(--outer-margin);
+
+				h1 {
+					width: 100%;
+				}
+			}
+
 			div>img[role="presentation"] {
 				height: 100vh;
+			}
+		}
+	}
+
+	@include mq($until: tablet) {
+		header {
+			flex-direction: column-reverse;
+
+			figure {
+				figcaption {
+					display: block;
+				}
 			}
 		}
 	}
@@ -60,7 +82,8 @@
 	}
 }
 
-.products, .otherDesigners {
+.products,
+.otherDesigners {
 	padding-top: $margin;
 	padding-bottom: $small-margin;
 	display: flex;
@@ -76,7 +99,6 @@
 		flex-wrap: wrap;
 		width: spanGrid(12);
 
-
 		ul {
 			display: flex;
 			flex-direction: row;
@@ -85,7 +107,7 @@
 			list-style: none;
 
 			li {
-				width: spanNestedGrid(12,3);
+				width: spanNestedGrid(12, 3);
 				margin-right: nestedGridGutter(12);
 				@include resetLastColumn(4);
 				margin-bottom: 2rem;
@@ -93,9 +115,24 @@
 			}
 		}
 	}
+	@include mq($until: tablet) {
+		flex-direction: column;
+		h1 {
+			width: 100%;
+			br{
+				content: " ";
+    		display: none;
+			}
+		}
+		.gallery{
+			width: spanGrid(16);
+		}
+	}
 }
 
 .otherDesigners {
-	//padding-top: 0;
 	padding-bottom: $margin;
+	@include mq($until: tablet) {
+		overflow-x: hidden;
+	}
 }

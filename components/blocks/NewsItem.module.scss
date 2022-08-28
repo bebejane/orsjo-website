@@ -1,4 +1,4 @@
-.news{
+.news {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -7,21 +7,38 @@
   margin-right: var(--outer-margin);
   padding-top: $margin;
   padding-bottom: $margin;
-  h1{
+
+  h1 {
     flex: 0 0 spanGridWithGutter(4);
-    margin:0;
+    margin: 0;
     padding: 0;
   }
-  .text{
+
+  .text {
     flex: 1 1 auto;
-    .more{
+
+    .more {
       font-weight: bold;
-      a{
+
+      a {
         color: $white;
-        .arrow{
-          filter:invert(1);
+
+        .arrow {
+          filter: invert(1);
         }
       }
-    }  
+    }
+  }
+
+  @include mq($until: tablet) {
+    flex-direction: column;
+
+    h1 {
+      margin-bottom: 0.5em;
+      color: $gray;
+    }
+    .text > .more {
+      margin-top: 0.5em;
+    }
   }
 }

@@ -59,17 +59,9 @@
         padding: $small-margin;
         img{
           width: 100%;
-
         }
       }
-      .label {
-        display: flex;
-        flex: 1 1 100%;
-        justify-content: center;
-        font-weight: bold;
-        position: absolute;
-        bottom: 2rem;
-      }
+
     }
   }
   .caption {
@@ -81,6 +73,7 @@
     bottom: 0;
     font-weight: bold;
     font-size: 0.9rem;
+    color:$white;
   }
   .close {
     position: absolute;
@@ -112,6 +105,18 @@
   &.noArrows{
     .forward, .back {
       visibility: hidden;
+    }
+  }
+
+  @include mq($until: tablet) {
+    background-color: $white;
+    .close{
+      right: auto;
+      left: auto; 
+      filter:invert(1);
+    }
+    .caption{
+      color: $black;
     }
   }
 }
