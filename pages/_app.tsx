@@ -35,7 +35,7 @@ function Application({ Component, pageProps }: ApplicationProps) {
   const { title, description } = pageSeo(pageProps, pathname);
 
   const handleHashChange = async (url, instant) => {
-    
+    console.log(url)
     if(!url.includes('#')) 
       return setTimeout(()=>window.scrollTo({ top:0, behavior: 'instant' }), 100)
 
@@ -47,20 +47,21 @@ function Application({ Component, pageProps }: ApplicationProps) {
       if(section) break
       await sleep(50)
     }
+    
     await sleep(100)
-    const top = section ? section.offsetTop - 80 : 0
+    const top = section ? section.offsetTop - 62 : 0
     const behavior = instant === true || !top ? 'instant' : 'smooth'
 
     window.scrollTo({ top, behavior })
-    //console.log('hash change', id, top, behavior)
+    console.log('hash change', id, top, behavior)
   };
 
   useEffect(() => {
     router.events.on("hashChangeStart", handleHashChange);
     return () => router.events.off("hashChangeStart", handleHashChange)
-  }, []);
+  }, [router.events]);
 
-  useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
+  useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning, router.asPath])
 
   if (isError) return <Component {...pageProps} />
 

@@ -28,8 +28,13 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 		setOpen(false)
 	}
 
-	useEffect(() => { handleClose() }, [router.asPath])
-	
+	useEffect(() => { !transitioning && handleClose() }, [transitioning])
+
+	useEffect(() => {
+    router.events.on("hashChangeStart", handleClose);
+    return () => router.events.off("hashChangeStart", handleClose)
+  }, []);
+
 	return (
 		<>
 			<Link scroll={false} href={'/'}>
@@ -47,7 +52,7 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 					size={24}
 				/>
 			</div>
-			<nav className={cn(styles.mobileMenu, open || transitioning ? styles.open : styles.hide)}>
+			<nav className={cn(styles.mobileMenu, open  ? styles.open : styles.hide)}>
 				<nav className={styles.main}>
 					<ul className={styles.nav}>
 						{items.map(({ label, slug, type, index }, idx) =>
@@ -74,7 +79,7 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 					</div>
 				</div>
 			</nav>
-			<nav className={cn(styles.sub, !selected && !transitioning && styles.hide)}>
+			<nav className={cn(styles.sub, !selected && styles.hide)}>
 				<div className={styles.subHeader}>
 					<h1 className={cn(styles.title)}>{subHeader}</h1>
 					<span className={styles.back} onClick={() => setSelected(undefined)}>❮</span>

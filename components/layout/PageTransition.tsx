@@ -91,7 +91,7 @@ export default function PageTransition(){
 		};
 		router.events.on("routeChangeStart", handleRouteChange);
 		return () => router.events.off("routeChangeStart", handleRouteChange)
-	}, []);
+	}, [router.events]);
 	
 	const enterAnimation = !prevRoute ? "none" : !color ? "enterInstant" : "enter"
 	const exitAnimation = !color ? "exitInstant" : "exit" 

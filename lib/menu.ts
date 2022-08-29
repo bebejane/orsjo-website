@@ -65,7 +65,7 @@ export const generate = (data) => {
         sub = allProductCategories.map(el => ({
           type: item.type,
           label: el.namePlural,
-          slug: `/products#${sectionId(el.name).id}`,
+          slug: `/products#${sectionId(el.namePlural).id}`,
           isHash:true
         }))
         break;

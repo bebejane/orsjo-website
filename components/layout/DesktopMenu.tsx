@@ -164,14 +164,6 @@ const Search = ({show, setShowSearch}) => {
 		client,
 		buildTriggerId: '18902',
 		initialState: { locale: 'en' },
-		/*
-		highlightMatch: (text, key, context) =>
-			context === 'title' ? (
-				<strong key={key}>{text}</strong>
-			) : (
-				<mark key={key}>{text}</mark>
-			),
-			*/
 		resultsPerPage: 20,
 	});
 	
