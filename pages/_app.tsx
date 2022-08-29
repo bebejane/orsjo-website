@@ -9,6 +9,8 @@ import type { NextComponentType } from 'next';
 import { AnimatePresence } from "framer-motion";
 import {PageTransition} from '/components'
 import { useTransitionFix2  as useTransitionFix} from '/lib/hooks/useTransitionFix';
+import { useEffect } from 'react';
+import Router from 'next/router';
 
 export type ApplicationProps = AppProps & {
   Component: NextComponentType & {
@@ -30,6 +32,26 @@ function Application({ Component, pageProps } : ApplicationProps) {
   const { site, seo } = pageProps;
   const { title, description } = pageSeo(pageProps, pathname);
 
+  const onHashChangeStart = (url, instant) => {
+    if(!url.includes('#')) return
+    
+    const id = url.split('#')[1]
+    const section = document.getElementById(id)
+    if(!section) return console.error('cant find section', id)
+    setTimeout(()=>window.scrollTo({top:section.offsetTop-80, behavior: instant === true ? 'instant' : 'smooth'}), 100)
+    console.log('hash change', id, 'instant', instant)
+  };
+
+  useEffect(() => {
+    router.events.on("hashChangeStart", onHashChangeStart);
+    return () => router.events.off("hashChangeStart", onHashChangeStart);
+  }, []);
+
+  useEffect(() => {  
+    onHashChangeStart(router.asPath, true)
+  }, [router.asPath])
+
+  
   if(isError) return <Component {...pageProps} />
   
   return (

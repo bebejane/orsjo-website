@@ -4,6 +4,7 @@ export type MenuItem = {
   type: string,
   label: string,
   slug: string,
+  isHash?: boolean,
   sub?: MenuItem[],
   index?:boolean
 }
@@ -64,7 +65,8 @@ export const generate = (data) => {
         sub = allProductCategories.map(el => ({
           type: item.type,
           label: el.namePlural,
-          slug: `/products#${sectionId(el.name).id}`
+          slug: `/products#${sectionId(el.name).id}`,
+          isHash:true
         }))
         break;
       case 'designer':

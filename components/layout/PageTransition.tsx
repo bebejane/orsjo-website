@@ -80,8 +80,7 @@ export default function PageTransition(){
 		const isExiting = variant.startsWith('exit') && type === 'start'
 		const didExit = variant.startsWith('exit') && type === 'complete'
 		
-		if(didExit) 
-			setTimeout(()=>window.scrollTo({ top: 0, behavior: 'instant' }), 100);
+		if(didExit) setTimeout(()=>window.scrollTo({ top: 0, behavior: 'instant' }), 100);
 		if(variant === 'exit') 
 			setTransitioning(type === 'start')
 	}
@@ -97,7 +96,7 @@ export default function PageTransition(){
 	
 	const enterAnimation = !prevRoute ? "none" : !color ? "enterInstant" : "enter"
 	const exitAnimation = !color ? "exitInstant" : "exit" 
-	//console.log(enterAnimation, exitAnimation, prevRoute)
+	
 	
 	return (
     <motion.div

@@ -8,6 +8,7 @@ import { useStore } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
 import type { Menu } from '/lib/menu'
 import social from '/lib/social'
+import { useWindowSize } from 'rooks'
 
 export type MobileMenuProps = { items: Menu }
 
@@ -16,13 +17,19 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 	const router = useRouter()
 	const { menu } = useLayout()
 	const [open, setOpen] = useState(false)
-	const [transitioning] = useStore((state) => [state.transitioning])
 	const [selected, setSelected] = useState(undefined)
+	const [transitioning] = useStore((state) => [state.transitioning])
+	const { innerHeight } = useWindowSize()
 	const sub = items.find((item) => item.type === selected)?.sub
 	const subHeader = selected ? items.find(i => i.type === selected).label : null
 
-	useEffect(() => { setSelected(undefined)}, [router.asPath])
+	const handleClose = () => {
+		setSelected(undefined)
+		setOpen(false)
+	}
 
+	useEffect(() => { handleClose() }, [router.asPath])
+	
 	return (
 		<>
 			<Link scroll={false} href={'/'}>
@@ -40,10 +47,10 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 					size={24}
 				/>
 			</div>
-			<nav className={cn(styles.mobileMenu, open ? styles.open : styles.hide)}>
+			<nav className={cn(styles.mobileMenu, open || transitioning ? styles.open : styles.hide)} style={{maxxHeight:innerHeight}}>
 				<nav className={styles.main}>
 					<ul className={styles.nav}>
-						{items.map(({ label, slug, type }, idx) =>
+						{items.map(({ label, slug, type, index }, idx) =>
 							<li
 								data-slug={slug}
 								key={idx}
@@ -67,20 +74,18 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 					</div>
 				</div>
 			</nav>
-			<nav className={cn(styles.sub, !selected && styles.hide)}>
+			<nav className={cn(styles.sub, !selected && !transitioning && styles.hide)}>
 				<div className={styles.subHeader}>
 					<h1 className={cn(styles.title)}>{subHeader}</h1>
 					<span className={styles.back} onClick={() => setSelected(undefined)}>❮</span>
 				</div>
 				<ul>
-					{sub?.map(({ label, slug, type }, idx) =>
-						<Link scroll={false} key={idx} href={slug}>
-							<a>
+					{sub?.map(({ label, slug, type, isHash }, idx) =>					
+							<a onClick={()=>router.push(slug)} key={idx}>
 								<li className={cn(slug === router.asPath && styles.active)}>
 									{label}
 								</li>
 							</a>
-						</Link>
 					)}
 				</ul>
 			</nav>

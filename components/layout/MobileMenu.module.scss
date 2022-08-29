@@ -15,9 +15,6 @@
   &.inverted {
     filter: invert(1);
   }
-  @include mq($from: tablet) {
-    display: none;
-  }
 }
 
 .hamburger {
@@ -31,9 +28,6 @@
   min-height: $navbarHeightMobile;
   color: #000;
   z-index: 300;
-  @include mq($from: tablet) {
-    display: none;
-  }
 }
 
 .mobileMenu {
@@ -43,7 +37,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 100%;
-  max-height: 100vh;
+  max-height: calc(100vh - calc(100vh - 100%));
   margin: 0;
   padding: 0;
   top: 0;
@@ -51,10 +45,8 @@
   z-index: 200;
   overflow: hidden;
   padding-top: calc($navbarHeightMobile);
-
-  @include mq($from: tablet) {
-    display: none;
-  }
+  transition: max-height .3s ease;
+  
 
   &.open {
     background-color: $black;
@@ -86,6 +78,9 @@
         &.inactive {
           color: $gray;
         }
+        &.selected{
+          font-weight: bold;
+        }
       }
     }
   }
@@ -96,7 +91,7 @@
     align-items: center;
     width: 100%;
     padding: var(--outer-margin);
-    padding-bottom: calc(var(--outer-margin) * 2);
+    padding-bottom: calc(var(--outer-margin) * 1);
     .search{
       display: flex;
       flex-direction: row;
@@ -193,5 +188,11 @@
         }
       }
     }
+  }
+}
+
+@include mq($from: tablet) {
+  .mobileMenu, .logo, .hamburger, .sub{
+    display: none;
   }
 }

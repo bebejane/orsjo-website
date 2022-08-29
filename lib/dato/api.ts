@@ -16,15 +16,14 @@ export const Dato = (isServer ? buildClient : buildClientBrowser)({apiToken:GRAP
 const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Response>  => {
   
   const operations = init.body ? (JSON.parse(init.body)).map(({operationName})=> operationName) : []
-  const requestName = `${operations.join(', ')} (${operations.length})`
-  
-  console.log(`- graphql req(${requestName})`)
-  
+  const requestName = `${operations.join(', ')}`
   const response = await fetch(input, init)
+  const t = new Date().getTime()
   return {
     ...response,
     async text () {
       const result = await response.text()
+      console.log("\x1b[33m%s\x1b[0m", 'gql  ', `- ${requestName}`, `- ${new Date().getTime()-t}ms`)
       return result
     }
   }

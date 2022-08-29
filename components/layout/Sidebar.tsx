@@ -26,13 +26,13 @@ export default function Sidebar({title} : SidebarProps) {
 	const [searchFocus, setSearchFocus] = useState(false);
 	
 	const resetSearch = useCallback(() => {setSearchProducts('')},[setSearchProducts]);
+
 	const handleClick = (e) => {
 		e.preventDefault()
-
-		const section = document.querySelector(`section[data-section-id='${e.target.dataset.sectionId}']`)
-		window.scrollTo({top:section.offsetTop-80, behavior:'smooth'})
+		router.push(e.target.getAttribute('href'))
 		setOpen(false);
 	}
+	
 	useEffect(()=>{ 
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]')
 		const sections = items.length ? Array.from(items).map((s)  => ({title:s.title, id:s.id})) : []
