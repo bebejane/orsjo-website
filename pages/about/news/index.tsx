@@ -1,4 +1,4 @@
-import styles from './news.module.scss'
+import styles from './index.module.scss'
 import { AllNewsDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
@@ -16,12 +16,12 @@ export default function News({ news }: NewsProps) {
 			<Section name="Header" top={true}>
 				<h1 className="bottomMargin topMargin white">News</h1>
 			</Section>
-			{news.map(({ title, image, link, linkText, text, createdAt, id }, idx) =>
+			{news.map(({ title, image, link, linkText, text, createdAt, id, slug }, idx) =>
 				<Section
 					className={styles.newsItem}
 					type={'margin'}
 					name={format(new Date(createdAt), 'MMM do, yyyy')}
-					id={id}
+					id={slug}
 					key={idx}
 				>
 					<div className={styles.date}>

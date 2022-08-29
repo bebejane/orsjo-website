@@ -1,26 +1,38 @@
 .products {
   ul {
-		display: flex;
+    display: flex;
     flex-direction: row;
-		flex-wrap: wrap;
-		list-style: none;
-    li{
-        position: relative;
+    flex-wrap: wrap;
+    list-style: none;
+
+    li {
+      position: relative;
+      margin-bottom: $small-margin;
+      aspect-ratio: 4/3;
+
+      @include mq($from: tablet) {
         width: spanNestedGrid(12, 3);
-        margin-bottom: $small-margin;
         margin-right: nestedGridGutter(12);
-        aspect-ratio: 4/3;
-        &:nth-child(4n) {
-          margin-right: 0;
+        @include resetLastColumn(4);
+      }
+      
+      @include mq($until: tablet) {
+        width: spanNestedGrid(12, 6);
+        margin-right: nestedGridGutter(12);
+        @include resetLastColumn(2);
       }
     }
-	}
-  .subtitle{
-    color: $gray !important; 
   }
-  .emptySearch{
+
+  .subtitle {
+    color: $gray  !important;
+  }
+
+  .emptySearch {
     color: $gray;
   }
+
   padding-bottom: 2rem;
-  
+
+
 }

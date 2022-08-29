@@ -10,5 +10,7 @@ fragment NewsFragment on NewsRecord{
   linkText
   text(markdown: false)
   title
+  slug
   createdAt
+
 }

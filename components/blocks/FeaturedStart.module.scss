@@ -64,7 +64,7 @@
   }
   @include mq($until: tablet) {
     padding-top: 2rem;
-    padding-bottom: 0rem;
+    padding-bottom: 2rem;
     .wrapper{
       flex-direction: column;
       .header{
