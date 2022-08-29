@@ -47,7 +47,7 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 					size={24}
 				/>
 			</div>
-			<nav className={cn(styles.mobileMenu, open || transitioning ? styles.open : styles.hide)} style={{maxxHeight:innerHeight}}>
+			<nav className={cn(styles.mobileMenu, open || transitioning ? styles.open : styles.hide)}>
 				<nav className={styles.main}>
 					<ul className={styles.nav}>
 						{items.map(({ label, slug, type, index }, idx) =>

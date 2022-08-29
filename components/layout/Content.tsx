@@ -7,7 +7,7 @@ export type ContentProps = { children: React.ReactNode }
 export default function Content({ children}: ContentProps) {
 
 	const { layout } = useLayout()
-	
+  
 	return (
 		<main id="content" className={styles.content} data-type={layout}>
 			<article>

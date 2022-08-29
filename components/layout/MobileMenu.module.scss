@@ -46,7 +46,6 @@
   overflow: hidden;
   padding-top: calc($navbarHeightMobile);
   transition: max-height .3s ease;
-  
 
   &.open {
     background-color: $black;
