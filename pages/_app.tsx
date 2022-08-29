@@ -37,7 +37,7 @@ function Application({ Component, pageProps }: ApplicationProps) {
   const handleHashChange = async (url, instant) => {
     
     if(!url.includes('#')) 
-      return window.scrollTo({ top:0, behavior: 'instant' })
+      return setTimeout(()=>window.scrollTo({ top:0, behavior: 'instant' }), 100)
 
     let section;
     const id = url.split('#')[1]

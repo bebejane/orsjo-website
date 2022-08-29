@@ -18,11 +18,9 @@ class MyDocument extends Document {
           <meta name="google" content="notranslate" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <link rel="preload" href="/fonts/Big Caslon Regular.woff2" as="font" crossOrigin="" type="font/woff2"/>
           <link rel="preload" href="/fonts/IndivisibleWebVariableRoman.woff2" as="font" crossOrigin="" type="font/woff2"/>
           <link rel="preload" href="/fonts/IndivisibleWebRegular.woff2" as="font" crossOrigin="" type="font/woff2"/>
           <link rel="preload" href="/fonts/IndivisibleWebMedium.woff2" as="font" crossOrigin="" type="font/woff2"/>
-          
         </Head>
         <body>
           <Main />
