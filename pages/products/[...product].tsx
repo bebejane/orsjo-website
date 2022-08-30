@@ -12,12 +12,6 @@ import { useLayout } from '/lib/context/layout'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
 
-const allDrawings = (product: ProductRecord) => {
-	const drawings = []
-	product.models.forEach(m => m.drawing && drawings.push(m.drawing))
-	return drawings;
-}
-
 export type ProductProps = { 
 	product: ProductRecord, 
 	relatedProducts: ProductRecord[], 
@@ -47,8 +41,9 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	
 	const images = recordImages(product)//?.filter(({mimeType})=> !mimeType.includes('video'))
 	
-	const drawings = allDrawings(product)
 	const files = productDownloads(product)
+	const drawings = []; 
+	product.models.forEach(m => m.drawing && drawings.push(m.drawing))
 	
 	const handleGalleryClick = (type: string, id:string) => {
 		console.log(id, drawings)
@@ -101,9 +96,6 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						</div>
 					</div>
 				</div>
-				<p>
-					{product.description}
-				</p>
 				{product.productGallery.map((block, idx) => 
 					<Block 
 						key={idx} 
@@ -199,7 +191,6 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} >
 							View drawing{drawings.length > 1 && 's'} +
 						</button>
-					
 				</div>
 			</SectionListItem>
 			<SectionListItem 
