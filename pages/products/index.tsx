@@ -75,7 +75,7 @@ export default function Products({ productStart: { featured }, products, product
 	return (
 		<>
 			{!productsByCategorySearch && featured.slice(0).map((data, idx) =>
-				<Section name={data.headline} className={styles.products} top={idx === 0} key={idx}>
+				<Section name={data.headline}  top={idx === 0} key={idx}>
 					<FeaturedGallery
 						key={`featured-${idx}`}
 						headline={data.headline}

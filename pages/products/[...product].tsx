@@ -5,7 +5,7 @@ import { apiQuery } from '/lib/dato/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
 import { Image } from 'react-datocms'
-import { SectionListItem,FeaturedGallery, Block,  Section, Icon } from '/components'
+import { SectionListItem, FeaturedGallery, Block,  Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages, productDownloads } from '/lib/utils'
 import { useLayout } from '/lib/context/layout'

@@ -27,7 +27,7 @@
       position: relative;
       display: flex;
       flex-direction: row;
-      max-width: spanGrid(12);
+      min-width: spanGrid(12);
       figure {
         position: relative;
         flex: 1 1 auto;

@@ -1,12 +1,14 @@
 import "swiper/css";
-import styles from './FeaturedGallery.module.scss'
+import styles from './FeaturedGalleryOld.module.scss'
 import cn from 'classnames'
+import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
+import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useLayout } from "/lib/context/layout";
-import { useWindowSize, useDebounce } from "rooks";
+import { useWindowSize } from "rooks";
 
-export type FeaturedGalleryProps = { 
+export type FeaturedGalleryOldProps = { 
 	products?: ProductRecord[], 
 	projects?: ProjectRecord[], 
 	designers?: DesignerRecord[],
@@ -20,7 +22,7 @@ export type FeaturedGalleryProps = {
 	fadeColor?: string
 }
 
-export default function FeaturedGallery({ 
+export default function FeaturedGalleryOld({ 
 	headline, 
 	items,
 	id, 
@@ -28,34 +30,15 @@ export default function FeaturedGallery({
 	fadeColor = '--white',
 	arrowAlign = 'top',
 	inverted = false
-} : FeaturedGalleryProps ) {
-	
-	const ref = useRef<HTMLUListElement>(null);
+} : FeaturedGalleryOldProps ) {
 	
 	const { menu } = useLayout()
+	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
-	
 	const { innerWidth } = useWindowSize()
 	const numSlides = items.length
 	const slidesPerView = innerWidth < 768 ? 2 : 4;
 	const isShortSlide = numSlides <= slidesPerView
-	
-	const slideNext = () => {
-
-		const { scrollLeft, clientWidth} = ref.current
-		const right = scrollLeft + clientWidth
-		const items = ref.current.querySelectorAll<HTMLLIElement>('li')
-		const sorted = Array.from(items).sort((a, b) => Math.abs(right-(a.offsetLeft+a.clientWidth)) - Math.abs(right-(b.offsetLeft+b.clientWidth)))[0]
-		const lastIndex = parseInt(sorted.dataset.index);
-		//console.log(lastIndex, lastIndex-(slidesPerView-2), right)
-		const el = items[lastIndex-(slidesPerView-2)]
-		ref.current.scrollTo({left:el.offsetLeft , behavior:'smooth'})
-	}
-	useEffect(()=>{
-		const resetScroll = () => ref.current && ref.current.scrollTo({left:0 , behavior:'instant'})
-		window.addEventListener('resize', resetScroll)
-		return () => window.removeEventListener('resize', resetScroll)
-	}, [])
 	
 	return (
 		<div className={cn(styles.featuredGallery, styles[menu])}>
@@ -65,14 +48,23 @@ export default function FeaturedGallery({
 					<ArrowButton 
 						className={cn(styles.next, isShortSlide && styles.hide)}
 						inverted={inverted}
-						onClick={slideNext}
+						onClick={()=>swiperRef.current.slideNext()} 
 					/>
 				</div>
 			}
-			<div className={styles.gallery} onMouseMove={(e)=> e.stopPropagation()}>
-				<ul id={`${id}-gallery`} ref={ref}>
+			<div className={styles.gallery} >
+				<SwiperReact
+					id={`${id}-swiper-wrap`} 
+					loop={!isShortSlide}
+					noSwiping={isShortSlide}
+					slidesPerView={isShortSlide ? numSlides : slidesPerView}
+					spaceBetween={20}
+					initialSlide={index}
+					onSlideChange={({ realIndex }) => setIndex(realIndex)}
+					onSwiper={(swiper) => swiperRef.current = swiper}
+				>
 					{items?.map((item, idx) =>
-						<li key={`${id}-${idx}`} className={styles.slide} data-index={idx}>
+						<SwiperSlide key={`${id}-${idx}`} className={styles.slide}>
 							{item.__typename === 'ProductRecord' ? 
 								<ProductThumbnail 
 									key={idx}
@@ -97,9 +89,9 @@ export default function FeaturedGallery({
 							: 
 								null
 							}
-						</li>
+						</SwiperSlide>
 					)}
-				</ul>
+				</SwiperReact>
 				<div 
 					className={cn(styles.fade, isShortSlide && styles.hide)}
 					style={{
@@ -111,7 +103,7 @@ export default function FeaturedGallery({
 						<ArrowButton 
 							className={cn(styles.next, isShortSlide && styles.hide)}
 							inverted={inverted}
-							onClick={slideNext} 
+							onClick={()=>swiperRef.current.slideNext()} 
 						/>
 					</div>
 				}

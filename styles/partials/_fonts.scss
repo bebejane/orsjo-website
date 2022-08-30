@@ -6,7 +6,7 @@ $body-font-italic: "";
 
 @font-face {
     font-family: "Indivisible";
-    src: local('Helvetica'), url("/fonts/IndivisibleWebVariableRoman.woff2");
+    src: url("/fonts/IndivisibleWebVariableRoman.woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -14,7 +14,7 @@ $body-font-italic: "";
 
 @font-face {
     font-family: "IndivisibleRegular";
-    src: local('Helvetica'), url("/fonts/IndivisibleWebRegular.woff2");
+    src: url("/fonts/IndivisibleWebRegular.woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -22,18 +22,16 @@ $body-font-italic: "";
 
 @font-face {
     font-family: "IndivisibleMedium";
-    src: local('Helvetica'), url("/fonts/IndivisibleWebMedium.woff2");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-/*
-@font-face {
-    font-family: "Big Caslon Regular";
-    src: local('Helvetica'), url("/fonts/Big Caslon Regular.woff2");
+    src: url("/fonts/IndivisibleWebMedium.woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
-*/
+@font-face {
+    font-family: "Big Caslon Regular";
+    src: url("/fonts/Big Caslon Regular.woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

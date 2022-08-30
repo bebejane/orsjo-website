@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { Image } from 'react-datocms'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useWindowSize } from 'rooks'
 
 export type ThumbnailProps = {
   slug: string,
@@ -31,7 +32,9 @@ export default function Thumbnail({
 }: ThumbnailProps) {
 
   const [hovering, setHovering] = useState(false);
-  const handleMouseOver = ({ type }) => setHovering(type === 'mouseenter')
+  const { innerWidth } = useWindowSize()
+  const isMobile = innerWidth < 768;
+  const handleMouseOver = ({ type }) => !isMobile && setHovering(type === 'mouseenter')
 
   return (
     <div
@@ -50,7 +53,7 @@ export default function Thumbnail({
                 objectFit={'contain'}
               />
             }
-            {imageHover &&
+            {imageHover && !isMobile &&
               <div className={cn(styles.imageHover, hovering && styles.show)}>
                 <Image
                   data={imageHover.responsiveImage}
