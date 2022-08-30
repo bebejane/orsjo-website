@@ -1,7 +1,7 @@
 .image{
 	width: 100%;
-	min-height: 50vh;
-	max-height: 50vh;
+	min-height: 60vh;
+	max-height: 60vh;
 }
 .news {
 	padding-top: $small-margin;
@@ -10,6 +10,6 @@
 		padding-bottom: 0;
 	}
 	p{
-		margin-top: $small-margin;
+		margin-top: 1rem;
 	}
 }

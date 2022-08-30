@@ -45,7 +45,7 @@ export default function Designer({ designer, products, designers }: DesignerProp
 					</ul>
 				</div>
 			</Section>
-			<Section  className={styles.otherDesigners} bgColor='--warm-gray'>
+			<Section type="margin" className={styles.otherDesigners} bgColor='--warm-gray'>
 				<h1>Other designers</h1>
 				<div className={styles.gallery}>
 					<FeaturedGallery 

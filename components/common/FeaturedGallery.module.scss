@@ -47,12 +47,12 @@
     width: 100%;
 
     .slide{
-      //flex: 0 0 25%;
+      //flex: 0 0 spanNestedGrid(12, 3);
+      
       //box-shadow:inset 0px 0px 0px 1px #f00;
       
       .thumbnail{
-      
-        
+        //padding-right: nestedGridGutter(12);
       }
     }
     

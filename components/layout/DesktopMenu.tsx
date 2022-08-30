@@ -6,14 +6,12 @@ import { useState, useRef, useEffect, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
 import { useWindowSize } from 'rooks'
-import { useSiteSearch } from 'react-datocms'
-import { buildClient } from '@datocms/cma-client-browser';
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import type { Menu } from '/lib/menu'
 
-export type DesktopMenuProps = {items : Menu}
+export type DesktopMenuProps = {items : Menu, onShowSiteSearch: Function}
 
-export default function DesktopMenu({items} : DesktopMenuProps){
+export default function DesktopMenu({items, onShowSiteSearch} : DesktopMenuProps){
 	
 	const ref = useRef();
 	const router = useRouter()
@@ -106,7 +104,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 								}
 							</li>
 						)})}
-						<li className={styles.searchIcon} onClick={()=>setShowSearch(true)}>
+						<li className={styles.searchIcon} onClick={()=>onShowSiteSearch()}>
 							<img src={'/images/search.svg'}/>
 						</li>
 				</ul>
@@ -134,77 +132,7 @@ export default function DesktopMenu({items} : DesktopMenuProps){
 					</nav>
 				</div>
 			</div>
-			<Search show={showSearch} setShowSearch={setShowSearch}/>
+			
 		</>
-	)
-}
-
-export type SearchResult = {
-	q: string,
-	data : [{
-		attributes:{
-			title:string,
-			url: string,
-			highlight:{
-				body: string[]
-			}
-		}
-	}]
-}
-
-
-
-
-const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN });
-
-const Search = ({show, setShowSearch}) => {
-	
-	const [query, setQuery] = useState('')
-	const { state, error, data } = useSiteSearch({
-		client,
-		buildTriggerId: '18902',
-		initialState: { locale: 'en' },
-		resultsPerPage: 20,
-	});
-	
-	useEffect(()=>{state.setQuery(query)}, [query])
-	
-	if(!show) return null
-	
-	return (
-		<div className={styles.search}>
-			<div className={styles.query}>
-				<input 
-					autoFocus={true} 
-					placeholder="Search..." 
-					type="text" 
-					value={query} 
-					onChange={(e) => setQuery(e.target.value)}
-				/>
-				<button className={styles.close} onClick={()=>setShowSearch(false)}>×</button>
-			</div>
-			<div className={styles.results}>
-				{data?.pageResults.map(({title, url, bodyExcerpt}, idx) => 
-					<div key={idx}>
-						<h2>
-							<Link 
-								scroll={false} 
-								href={process.env.NODE_ENV === 'development' ?  url?.replace('https://orsjo.vercel.app', '') : url}
-							>
-								{title}
-							</Link>
-						</h2>
-						<p>
-							{bodyExcerpt}
-						</p>
-					</div>
-				)}
-			</div>
-			<div className={styles.status}>
-				{!data && !error && <span>...</span>}
-				{data?.pageResults.length === 0 && query && <span>no matches for "{query}"</span> }
-				{error && <span>Error: {error}</span>}
-			</div>
-		</div>
 	)
 }

@@ -6,6 +6,7 @@ import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 import { format } from 'date-fns'
 import { Section } from '/components'
+import Link from 'next/link';
 
 export type NewsProps = { news: NewsRecord[] }
 
@@ -28,7 +29,11 @@ export default function News({ news }: NewsProps) {
 						<span className="medium">{format(new Date(createdAt), 'MMM do, yyyy')}</span>
 					</div>
 					<div className={styles.post}>
-						<h1 className="copper">{title}</h1>
+						<Link href={`/about/news/${slug}`}>
+							<a>
+								<h1 className="copper">{title}</h1>
+							</a>
+						</Link>
 						{image && <Image data={image.responsiveImage} className={styles.image} />}
 						<Markdown className={styles.text}>{text}</Markdown>
 					</div>

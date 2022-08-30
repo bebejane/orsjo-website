@@ -18,6 +18,7 @@ export interface StoreState {
   searchProducts: string,
   gallery: GalleryProps,
   transitioning: boolean,
+  showSiteSearch: boolean,
   setShowMenu: (showMenu: boolean) => void,
   setInvertSidebar: (invertSidebar: boolean) => void,
   setInvertMenu: (invertMenu: boolean) => void,
@@ -25,6 +26,7 @@ export interface StoreState {
   setGallery: (gallery : GalleryProps)  => void,
   setGalleryIndex: (id : string)  => void,
   setTransitioning: (transitioning : boolean)  => void,
+  setShowSiteSearch: (showSiteSearch : boolean)  => void,
 
 }
 
@@ -38,6 +40,7 @@ const useStore = create<StoreState>((set) => ({
   gallery:undefined,
   product:undefined,
   transitioning: false,
+  showSiteSearch: false,
 	setShowMenu: (showMenu : boolean) =>  
     set((state) => ({
       showMenu
@@ -82,6 +85,11 @@ const useStore = create<StoreState>((set) => ({
   setTransitioning: (transitioning) =>  
     set((state) => ({
       transitioning
+    })
+  ),
+  setShowSiteSearch: (showSiteSearch) =>  
+    set((state) => ({
+      showSiteSearch
     })
   ),
 }));

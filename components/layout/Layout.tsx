@@ -1,27 +1,27 @@
 import styles from './Layout.module.scss'
 import React from 'react'
-import { Content, Sidebar, Footer, Gallery} from '/components'
+import { Content, Sidebar, Footer, Gallery, SiteSearch} from '/components'
 import DesktopMenu from './DesktopMenu'
 import MobileMenu from './MobileMenu'
 import { useLayout } from '/lib/context/layout'
 import type { MenuItem } from '/lib/menu'
 import { useState, useEffect } from 'react'
-import { useStore } from '/lib/store'
+import { useStore, shallow } from '/lib/store'
 
 export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: string }
 
 export default function Layout({ children, menu, title }: LayoutProps) {
 
 	const { color, layout } = useLayout()
-	const [gallery, setGallery, product] = useStore((state) => [state.gallery, state.setGallery, state.product])
+	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch], shallow)
 	
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>	
 			
-				<DesktopMenu items={menu}/>
+				<DesktopMenu items={menu} onShowSiteSearch={()=>setShowSiteSearch(true)}/>
 				<MobileMenu items={menu}/>
-			
+				<SiteSearch show={showSiteSearch} onClose={()=>setShowSiteSearch(false)}/>
 				{layout !== 'full' && 
 					<Sidebar title={title}/>
 				}

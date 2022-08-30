@@ -227,60 +227,6 @@
   }
 }
 
-.search{
-  position: fixed;
-  top:0;
-  right:0;
-  height: 100vh;
-  min-height: 100vh;
-  z-index: 100;
-  background-color: $white;
-  display: flex;
-  flex-direction: column;
-  width: spanGridWithGutter(12);
-  margin-left: calc(var(--outer-margin) + spanGrid(4));
-  padding-left: var(--outer-margin);
-  padding-right: var(--outer-margin);
-  padding-top: 1.5rem;
-  font-size: 18px;
-  box-shadow: -1px 0px 10px rgba(128, 128, 128, 0.1);
-  
-  .query{
-    position: relative;
-    width: 100%;
-    input{
-      border: 0px;
-      padding: .5em;
-      background-color: $light-gray;
-      outline: none;
-      width: 100%;
-      
-    }
-    button{
-      position: absolute;
-      top:0;
-      right:0;
-      z-index: 1;
-      border:0;
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-  .results{
-    padding-top: 1em;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    div{
-      margin-bottom: .5em;
-    }
-  }
-}
 @include mq($until: tablet) {
   .logo, .desktopMenu, .sub{
     display: none;

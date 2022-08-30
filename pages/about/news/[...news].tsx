@@ -10,25 +10,27 @@ import format from 'date-fns/format';
 
 export type NewsProps = { news: NewsRecord };
 
-export default function News({ news }: NewsProps) {
+export default function News({ news: {image, title, createdAt, text} }: NewsProps) {
 
 	return (
 		<>
-			<Section type="full" className={styles.image}>
-				<Image data={news.image.responsiveImage} layout={'fill'} objectFit={'cover'} />
-			</Section>
-			<Section type="margin" className={styles.news}>
-				<h1>{news.title}</h1>
-				<h3>{format(new Date(news.createdAt), 'MMM do, yyyy')}</h3>
+			{image &&
+				<Section className={styles.image} top={true}>
+					<Image data={image.responsiveImage} layout={'fill'} objectFit={'cover'} />
+				</Section>
+			}
+			<Section  className={styles.news} top={image == undefined}>
+				<h1 className="copper">{title}</h1>
+				<h3>{format(new Date(createdAt), 'MMM do, yyyy')}</h3>
 				<p>
-					<Markdown>{news.text}</Markdown>
+					<Markdown>{text}</Markdown>
 				</p>
 			</Section>
 		</>
 	)
 }
 
-News.layout = { layout: 'full', color: '--black', menu: 'inverted' } as PageLayoutProps
+News.layout = { layout: 'normal', color: '--black', menu: 'inverted' } as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { news } = await apiQuery(AllNewsDocument)
@@ -43,7 +45,6 @@ export const getStaticProps = withGlobalProps({ }, async ({ props, context, reva
 
 	const { news } = await apiQuery(NewsDocument, { variables: { slug: context.params.news[0] } })
 	
-
 	if (!news)
 		return { notFound: true }
 
