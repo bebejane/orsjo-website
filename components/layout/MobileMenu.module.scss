@@ -43,13 +43,12 @@
   top: 0;
   left: 0;
   z-index: 200;
-  overflow: hidden;
   padding-top: calc($navbarHeightMobile);
   transition: max-height .3s ease;
 
   &.open {
     background-color: $black;
-    height: 100vh;
+    height: 100%;
   }  
   &.hide {
     display: none;

@@ -32,9 +32,8 @@ export default function Thumbnail({
 }: ThumbnailProps) {
 
   const [hovering, setHovering] = useState(false);
-  const { innerWidth } = useWindowSize()
-  const isMobile = innerWidth < 768;
-  const handleMouseOver = ({ type }) => !isMobile && setHovering(type === 'mouseenter')
+  const isTouch = typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
+  const handleMouseOver = ({ type }) => !isTouch && setHovering(type === 'mouseenter')
 
   return (
     <div
@@ -53,7 +52,7 @@ export default function Thumbnail({
                 objectFit={'contain'}
               />
             }
-            {imageHover && !isMobile &&
+            {imageHover && !isTouch &&
               <div className={cn(styles.imageHover, hovering && styles.show)}>
                 <Image
                   data={imageHover.responsiveImage}
