@@ -2,12 +2,10 @@ import '/styles/index.scss'
 import type { AppProps } from 'next/app'
 import DatoSEO from '/lib/dato/components/DatoSEO';
 import { GoogleAnalytics } from "nextjs-google-analytics";
-import { useRouter } from 'next/router';
-import { Layout } from '/components'
+import { Layout, PageTransition } from '/components'
 import { LayoutProvider, PageLayoutProps } from '/lib/context/layout';
 import type { NextComponentType } from 'next';
 import { AnimatePresence } from "framer-motion";
-import { PageTransition } from '/components'
 import { useTransitionFix2 as useTransitionFix } from '/lib/hooks/useTransitionFix';
 import { useEffect } from 'react';
 import { useStore } from '/lib/store'
@@ -19,12 +17,10 @@ export type ApplicationProps = AppProps & {
   }
 }
 
-function Application({ Component, pageProps }: ApplicationProps) {
-
-  //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+function Application({ Component, pageProps, router }: ApplicationProps) {
 
   useTransitionFix()
-  const router = useRouter()
+  //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const [transitioning] = useStore((state) => [state.transitioning])
 
@@ -61,7 +57,7 @@ function Application({ Component, pageProps }: ApplicationProps) {
     return () => router.events.off("hashChangeStart", handleHashChange)
   }, [router.events]);
 
-  useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning, router.asPath])
+  useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 
   if (isError) return <Component {...pageProps} />
 

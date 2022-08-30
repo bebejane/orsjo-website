@@ -57,15 +57,17 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	}
 
 	useEffect(()=>{
-		const handleHashChange = (e) => {
-			if(e.newURL.endsWith('specifications'))
+		const handleHashChange = (url) => {
+			if(url.endsWith('specifications'))
 				setList((l)=> ({...l, specifications:true}))
-			else if(e.newURL.endsWith('downloads'))
+			else if(url.endsWith('downloads'))
 				setList((l)=> ({...l, downloads:true}))
 		}
-		window.addEventListener('hashchange', handleHashChange);
-		return ()=> window.removeEventListener('hashchange', handleHashChange);
-	}, [])
+		
+		router.events.on("hashChangeStart", handleHashChange);
+		return () => router.events.off("hashChangeStart", handleHashChange)
+	
+	}, [router.events])
 
 	useEffect(()=>setGallery({images}), [])
 	
@@ -81,15 +83,11 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						data={product.image?.responsiveImage}
 						layout={'fill'}
 						objectFit={'contain'}
-						pictureStyle={{
-							paddingBottom:`${3*scale}em`
-						}}
+						pictureStyle={{ paddingBottom:`${3*scale}em`}}
 					/>
 					<div 
 						className={styles.overlay} 
-						style={{
-							opacity: overlayOpacity,
-						}}>
+						style={{opacity: overlayOpacity}}>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
 								{product.title}
@@ -103,6 +101,9 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						</div>
 					</div>
 				</div>
+				<p>
+					{product.description}
+				</p>
 				{product.productGallery.map((block, idx) => 
 					<Block 
 						key={idx} 
