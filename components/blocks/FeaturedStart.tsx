@@ -2,7 +2,6 @@ import "swiper/css";
 import styles from './FeaturedStart.module.scss'
 import cn from 'classnames'
 import { FeaturedGallery } from '/components'
-import { useState } from "react";
 import { useLayout } from "/lib/context/layout";
 
 export type ImageGalleryProps = { data: FeaturedRecord, fadeColor?: number[] }

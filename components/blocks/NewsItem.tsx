@@ -1,6 +1,5 @@
 import styles from './NewsItem.module.scss'
 import React from 'react'
-import Markdown from '/lib/dato/components/Markdown'
 import Link from 'next/link'
 
 export type NewsItemProps = { data: NewsItemRecord }

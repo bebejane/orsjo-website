@@ -54,13 +54,15 @@ export default function Project({ project, related }: ProjectProps) {
 					type="margin"
 					bgColor={'--mid-gray'}
 				>
-					<FeaturedGallery
-						headline={`Other ${project.projectType.title}s`}
-						items={related}
-						id="relatedProjects"
-						theme="dark"
-						fadeColor={'--mid-gray'}
-					/>
+					<h1>{`Other ${project.projectType.title}s`}</h1>
+					<div className={styles.gallery}>
+						<FeaturedGallery
+							items={related}
+							id="relatedProjects"
+							theme="dark"
+							fadeColor={'--mid-gray'}
+						/>
+					</div>
 				</Section>
 			}
 		</>

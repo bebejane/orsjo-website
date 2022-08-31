@@ -1,25 +1,24 @@
-  .intro{
-    width: 80%;
-    color: white;
-  }
+.intro {
+  width: 80%;
+  color: white;
+}
 
-  .projects {
-    display: flex;
-    flex-wrap: wrap;
-    padding-bottom: $small-margin;
-    
-    h1 {
-      width: 100%;
-    }
-  }
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: $small-margin;
 
-.project{
-  width: spanNestedGrid(12,4);
+  h1 {
+    width: 100%;
+  }
+}
+
+.project {
+  width: spanNestedGrid(12, 4);
   padding-right: nestedGridGutter(12);
   @include resetLastColumn(3);
 
   figure {
-    background-color: $gray !important;
+    background-color: $gray  !important;
   }
-  
 }

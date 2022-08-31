@@ -1,6 +1,5 @@
 import styles from './Text.module.scss'
 import React from 'react'
-import Markdown from '/lib/dato/components/Markdown'
 import { StructuredText, renderNodeRule, renderMarkRule } from 'react-datocms';
 import Link from 'next/link';
 export type TextBlockProps = { data: TextRecord }
