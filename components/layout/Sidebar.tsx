@@ -12,8 +12,8 @@ export default function Sidebar({title} : SidebarProps) {
 
 	const { menu, layout, color } = useLayout()
 	const router = useRouter()
-	const [currentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
-	const [setCurrentSection, setInvertSidebar, setInvertMenu] = useStore((state) => [state.setCurrentSection, state.setInvertSidebar, state.setInvertMenu, state.setSections, state.setShowMenu], shallow);
+	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.setCurrentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
+	const [setInvertSidebar, setInvertMenu] = useStore((state) => [state.setInvertSidebar, state.setInvertMenu], shallow);
 	const [sections, setSections] = useState([])
 	const [open, setOpen] = useState(false)
 	const {scrolledPosition, documentHeight } = useScrollInfo()
@@ -41,7 +41,9 @@ export default function Sidebar({title} : SidebarProps) {
 
 	useEffect(()=>{ // Highlight nav section on scroll\
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-section-id]'))
-		if(!sections.length) return
+		
+		if(!sections.length) 
+			return
 
 		const sorted = sections.sort((a, b) => Math.abs(scrolledPosition - a.offsetTop) > Math.abs(scrolledPosition - b.offsetTop) ? 1 : -1)
 		const { id } = sorted[0]

@@ -19,6 +19,7 @@ export interface StoreState {
   gallery: GalleryProps,
   transitioning: boolean,
   showSiteSearch: boolean,
+  setCurrentSection: (currentSection: string) => void,
   setShowMenu: (showMenu: boolean) => void,
   setInvertSidebar: (invertSidebar: boolean) => void,
   setInvertMenu: (invertMenu: boolean) => void,

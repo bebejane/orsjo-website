@@ -1,17 +1,17 @@
-import styles from './DesktopMenu.module.scss'
+import styles from './MenuDesktop.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useRef, useEffect, MouseEvent} from 'react'
+import { useState, useRef, useEffect, useCallback, MouseEvent} from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
 import { useWindowSize } from 'rooks'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import type { Menu } from '/lib/menu'
 
-export type DesktopMenuProps = {items : Menu, onShowSiteSearch: Function}
+export type MenuDesktopProps = {items : Menu, onShowSiteSearch: Function}
 
-export default function DesktopMenu({items, onShowSiteSearch} : DesktopMenuProps){
+export default function MenuDesktop({items, onShowSiteSearch} : MenuDesktopProps){
 	
 	const ref = useRef();
 	const router = useRouter()
@@ -26,15 +26,17 @@ export default function DesktopMenu({items, onShowSiteSearch} : DesktopMenuProps
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
 	const isInverted = (menu === 'inverted' || invertMenu)
 
-	const resetSelected = () => {
-		if(transitioning) return
+	const resetSelected = useCallback(() => {
+		if(transitioning) 
+			return
 		setSelected(undefined)
 		setHovering(undefined)
-	}
+	}, [transitioning])
 
 	useEffect(()=>{ // Hide menu if was closed on scroll
 		!showMenu && resetSelected() 
-	}, [showMenu]) 
+	}, [showMenu, resetSelected]) 
+
 	useEffect(()=>{ // Hide menu if was closed on scroll
 		setSelected(hovering)
 	}, [hovering]) 

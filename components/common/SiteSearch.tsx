@@ -17,7 +17,7 @@ export default function SiteSearch({show, onClose}){
 		resultsPerPage: 20,
 	});
 	
-	useEffect(()=>{state.setQuery(query)}, [query])
+	useEffect(()=>{ state.setQuery(query)}, [query])
 	
 	if(!show) return null
 	
@@ -52,8 +52,10 @@ export default function SiteSearch({show, onClose}){
 				)}
 			</div>
 			<div className={styles.status}>
+				{data?.pageResults.length === 0 && query && 
+					<span>no matches for {`"${query}"`}</span> 
+				}
 				{!data && !error && <span>...</span>}
-				{data?.pageResults.length === 0 && query && <span>no matches for "{query}"</span> }
 				{error && <span>Error: {error}</span>}
 			</div>
 		</div>

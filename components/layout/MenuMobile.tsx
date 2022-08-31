@@ -1,4 +1,4 @@
-import styles from './MobileMenu.module.scss'
+import styles from './MenuMobile.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,9 +10,9 @@ import type { Menu } from '/lib/menu'
 import social from '/lib/social'
 import { useWindowSize } from 'rooks'
 
-export type MobileMenuProps = { items: Menu }
+export type MenuMobileProps = { items: Menu }
 
-export default function MobileMenu({ items }: MobileMenuProps) {
+export default function MenuMobile({ items }: MenuMobileProps) {
 
 	const router = useRouter()
 	const { menu } = useLayout()
@@ -33,7 +33,7 @@ export default function MobileMenu({ items }: MobileMenuProps) {
 	useEffect(() => {
     router.events.on("hashChangeStart", handleClose);
     return () => router.events.off("hashChangeStart", handleClose)
-  }, []);
+  }, [router.events]);
 
 	return (
 		<>

@@ -1,3 +1,5 @@
+type Locale = 'en' | 'sv' | 'no'
+
 const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
 
 const formatPrice = (price: number, locale: Locale) => {
@@ -121,7 +123,12 @@ type ProductDownload = {
   label: string,
   type: string
 }
-const productDownloads = (product: ProductRecord): ProductDownload[] => {
+
+type ProductRecordWithPdfFiles = ProductRecord & { 
+  pdfFiles: FileFieldMultiLocaleField[]
+}
+
+const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[] => {
 
   const { pdfFiles, mountingInstructions, bimLink, lightFile } = product;
 

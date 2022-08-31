@@ -8,12 +8,12 @@ import { useWindowSize } from 'rooks'
 export type ThumbnailProps = {
   slug: string,
   image: FileField,
-  imageHover: FileField,
+  imageHover?: FileField,
   inverted?: boolean,
   title: string,
-  subtitle: string,
+  subtitle?: string,
   className?: string,
-  markAsNew: boolean,
+  markAsNew?: boolean,
   theme?: 'dark' | 'light' | 'mid',
   type?: 'product' | 'project' | 'designer'
 }
@@ -28,7 +28,7 @@ export default function Thumbnail({
   markAsNew = false, 
   className, 
   theme = 'light', 
-  type = 'product' 
+  type = 'product'
 }: ThumbnailProps) {
 
   const [hovering, setHovering] = useState(false);
@@ -135,9 +135,7 @@ export function DesignerThumbnail({ designer, inverted, theme = 'dark', classNam
     <Thumbnail
       slug={`/designers/${designer.slug}`}
       image={designer.image}
-      //imageHover={project.secondaryImage} 
       title={designer.name}
-      //subtitle={project.location}
       inverted={inverted}
       className={className}
       theme={theme}

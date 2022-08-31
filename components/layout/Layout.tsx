@@ -1,8 +1,8 @@
 import styles from './Layout.module.scss'
 import React from 'react'
 import { Content, Sidebar, Footer, Gallery, SiteSearch} from '/components'
-import DesktopMenu from './DesktopMenu'
-import MobileMenu from './MobileMenu'
+import MenuDesktop from './MenuDesktop'
+import MenuMobile from './MenuMobile'
 import { useLayout } from '/lib/context/layout'
 import type { MenuItem } from '/lib/menu'
 import { useState, useEffect } from 'react'
@@ -18,9 +18,8 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>	
-			
-				<DesktopMenu items={menu} onShowSiteSearch={()=>setShowSiteSearch(true)}/>
-				<MobileMenu items={menu}/>
+				<MenuDesktop items={menu} onShowSiteSearch={()=>setShowSiteSearch(true)}/>
+				<MenuMobile items={menu}/>
 				<SiteSearch show={showSiteSearch} onClose={()=>setShowSiteSearch(false)}/>
 				{layout !== 'full' && 
 					<Sidebar title={title}/>
