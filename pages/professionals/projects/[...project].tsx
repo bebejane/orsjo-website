@@ -47,20 +47,22 @@ export default function Project({ project, related }: ProjectProps) {
 				</Section>
 			)}
 			<Section bottom={true} />
-			<Section
-				className={styles.related}
-				name={`Other ${project.projectType.title}s`}
-				type="margin"
-				bgColor={'--mid-gray'}
-			>
-				<FeaturedGallery
-					headline={`Other ${project.projectType.title}s`}
-					items={related}
-					id="relatedProjects"
-					theme="dark"
-					fadeColor={'--mid-gray'}
-				/>
-			</Section>
+			{related.length > 0 &&
+				<Section
+					className={styles.related}
+					name={`Other ${project.projectType.title}s`}
+					type="margin"
+					bgColor={'--mid-gray'}
+				>
+					<FeaturedGallery
+						headline={`Other ${project.projectType.title}s`}
+						items={related}
+						id="relatedProjects"
+						theme="dark"
+						fadeColor={'--mid-gray'}
+					/>
+				</Section>
+			}
 		</>
 	)
 }
