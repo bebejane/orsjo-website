@@ -18,7 +18,7 @@
     }
     
     .header{
-      width: spanGridWithGutter(4);
+      min-width: spanGridWithGutter(4);
       .headline{
         color: white; 
       }
@@ -28,6 +28,7 @@
       display: flex;
       flex-direction: row;
       min-width: spanGrid(12);
+      
       figure {
         position: relative;
         flex: 1 1 auto;

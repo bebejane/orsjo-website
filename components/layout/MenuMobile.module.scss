@@ -128,15 +128,18 @@
   position: fixed;
   top: 0;
   right: 0;
-  min-width: calc(spanGrid(14) - var(--outer-margin));
-  max-width: calc(spanGrid(14) - var(--outer-margin));
+  min-width: spanGrid(12);
+  max-width: spanGrid(12);
+  padding-left: var(--outer-margin) !important;
+  padding-right: var(--outer-margin);
+
+  box-shadow: -1px 0px 10px rgb(125 125 125 / 10%);
   min-height: 100vh;
   max-height: 100vh;
   z-index: 400;
   background-color: $black;
   transition: transform .3s ease;
   transform: translateX(0vw);
-  padding-left: var(--outer-margin);
   font-size: 18px;
   
   &.hide {

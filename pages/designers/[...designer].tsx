@@ -35,13 +35,15 @@ export default function Designer({ designer, products, designers }: DesignerProp
 				<h1>Products by <br />{designer.name}</h1>
 				<div className={styles.gallery}>
 					<ul>
-						{products.map((p, idx) => {
-							return (
-								<li key={idx}>
-									<ProductThumbnail key={idx} product={p} theme="light" />
-								</li>
-							)
-						})}
+						{products.map((p, idx) => 
+							<li key={idx}>
+								<ProductThumbnail 
+									key={idx} 
+									product={p} 
+									theme="light" 
+								/>
+							</li>
+						)}
 					</ul>
 				</div>
 			</Section>

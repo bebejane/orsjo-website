@@ -97,7 +97,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
-		max-width: spanGrid(12);
+		min-width: spanGrid(12);
 
 	}
 	@include mq($until: tablet) {
@@ -110,7 +110,12 @@
 			}
 		}
 		.gallery{
-			width: spanGrid(16);
+			min-width: spanGrid(16);
+			ul{
+				li{
+					min-width: spanNestedGrid(12,6);
+				}
+			}
 		}
 	}
 }
