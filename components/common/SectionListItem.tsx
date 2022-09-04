@@ -9,7 +9,7 @@ export type SectionListItemProps = {
 	total?: number,
 	selected?: boolean,
 	parent?: HTMLUListElement,
-	onToggle?: React.MouseEvent<HTMLButtonElement>
+	onToggle?: (event: React.MouseEvent) => void,
 	className: string
 }
 

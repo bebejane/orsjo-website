@@ -25,7 +25,7 @@ export interface StoreState {
   setInvertMenu: (invertMenu: boolean) => void,
   setSearchProducts: (searchProducts : string) => void,
   setGallery: (gallery : GalleryProps)  => void,
-  setGalleryIndex: (id : string)  => void,
+  setGalleryId: (id : string)  => void,
   setTransitioning: (transitioning : boolean)  => void,
   setShowSiteSearch: (showSiteSearch : boolean)  => void,
 
@@ -75,7 +75,7 @@ const useStore = create<StoreState>((set) => ({
       }
     })
   ),
-  setGalleryIndex: (id : string) =>  
+  setGalleryId: (id : string) =>  
     set((state) => ({
       gallery:{
         ...state.gallery,

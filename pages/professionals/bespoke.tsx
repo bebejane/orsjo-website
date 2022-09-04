@@ -15,8 +15,8 @@ export type BespokeProps = { bespoke: BespokeRecord }
 
 export default function Bespoke({ bespoke }: BespokeProps) {
 
-	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
-	useEffect(() => setGallery({ images: recordImages(bespoke) }), [bespoke])
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
+	useEffect(() => setGallery({ images: recordImages(bespoke) }), [bespoke, setGallery])
 
 	return (
 		<>
@@ -38,7 +38,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 				{bespoke.examples.map(({ project, summary }, idx) => {
 					return (
 						<div className={styles.project} key={idx}>
-							<div className={styles.image}>
+							<div className={styles.image} onClick={()=>setGalleryId((project.secondaryImage || project.image).id)}>
 								<Image className={styles.big} data={project.secondaryImage?.responsiveImage || project.image.responsiveImage} />
 							</div>
 							<div className={styles.description}>
@@ -55,7 +55,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 				</Markdown>
 			</Section>
 			<Section name="More" className={styles.more} type="full" bgColor={'--gray'} bottom={true}>
-				<Link href="/professionals/projects">
+				<Link href="/professionals/projects" passHref={true}>
 					<button>
 						Show more commercial projects
 					</button>

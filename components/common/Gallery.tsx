@@ -3,13 +3,19 @@ import styles from './Gallery.module.scss'
 import cn from 'classnames'
 import { Image } from "react-datocms"
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, MouseEventHandler } from 'react';
+import type { Swiper as SwiperType} from 'swiper'
 
-export type GalleryProps = {images: FileField[], onClose: Function, index:number, show:boolean}
+export type GalleryProps = {
+  images: FileField[], 
+  onClose: (event?: React.MouseEvent) => void, 
+  index:number, 
+  show:boolean
+}
 
 export default function Gallery({ images, onClose, index = 0, show } : GalleryProps) {
   
-  const swiperRef = useRef()
+  const swiperRef = useRef<SwiperType | undefined>()
   const [realIndex, setRealIndex] = useState(index)
   const [title, setTitle] = useState<string>()
   const isSingleSlide = images?.length === 1
@@ -24,7 +30,7 @@ export default function Gallery({ images, onClose, index = 0, show } : GalleryPr
     }
     document.addEventListener('keydown', handleKeys)
     return () => document.removeEventListener('keydown', handleKeys)
-  }, [])
+  }, [onClose])
 
   if (!images || !show) return null
   

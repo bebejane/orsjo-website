@@ -124,7 +124,7 @@ type ProductDownload = {
   type: string
 }
 
-type ProductRecordWithPdfFiles = ProductRecord & { 
+export type ProductRecordWithPdfFiles = ProductRecord & { 
   pdfFiles: FileFieldMultiLocaleField[]
 }
 

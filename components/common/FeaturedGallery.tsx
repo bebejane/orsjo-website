@@ -42,12 +42,7 @@ export default function FeaturedGallery({
 	const numSlides = items.length
 	const slidesPerView = innerWidth < 768 ? 2 : 4;
 	const isShortSlide = numSlides <= slidesPerView
-	
-	useEffect(()=>{
-		//const spaceBetween = galleryRef.current?.clientWidth*0.019696512913;
-		
-		//setSpaceBetween(spaceBetween)
-	}, [])
+	const middleArrowStyle = {}
 
 
 	return (
@@ -62,7 +57,7 @@ export default function FeaturedGallery({
 					/>
 				</div>
 			}
-			<div className={styles.gallery} ref={galleryRef}>
+			<div className={styles.gallery}>
 				<SwiperReact
 					id={`${id}-swiper-wrap`} 
 					loop={!isShortSlide}
@@ -105,12 +100,10 @@ export default function FeaturedGallery({
 				</SwiperReact>
 				<div 
 					className={cn(styles.fade, isShortSlide && styles.hide)}
-					style={{
-						background: `linear-gradient(-90deg, rgba(var(${fadeColor}),1) 0%, rgba(var(${fadeColor}),0) 100%, rgba(var(${fadeColor}),1) 100%)`
-					}}
+					style={{background: `linear-gradient(-90deg, rgba(var(${fadeColor}),1) 0%, rgba(var(${fadeColor}),0) 100%, rgba(var(${fadeColor}),1) 100%)`}}
 				></div>
 				{arrowAlign === 'middle' && !isShortSlide &&
-					<div className={cn(styles.arrowMiddle)}>
+					<div className={styles.arrowMiddle}>
 						<ArrowButton 
 							className={cn(styles.next, isShortSlide && styles.hide)}
 							inverted={inverted}

@@ -51,7 +51,7 @@ export default function Sidebar({title} : SidebarProps) {
 
 	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu, layout])
 	
-	useEffect(()=>{ resetSearch()}, [router.asPath, resetSearch])
+	useEffect(()=>{ setTimeout(()=>resetSearch(), 100)}, [router.asPath, resetSearch])
 	
 	return (
 		<aside 

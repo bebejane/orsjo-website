@@ -7,10 +7,11 @@ import { useStore } from '/lib/store'
 import { Image } from 'react-datocms'
 import { SectionListItem, FeaturedGallery, Block,  Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
-import { chunkArray, parseSpecifications, recordImages, productDownloads } from '/lib/utils'
+import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import { useLayout } from '/lib/context/layout'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
+import type { PageLayoutProps } from '/lib/context/layout';
 
 export type ProductProps = { 
 	product: ProductRecord, 
@@ -21,7 +22,7 @@ export type ProductProps = {
 export default function Product({ product, relatedProducts, productsByCategory }: ProductProps) {
 	
 	const router = useRouter()
-	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const { color } = useLayout()
 	const [list, setList] = useState({specifications:false, downloads:false})
@@ -41,14 +42,14 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	
 	const images = recordImages(product)//?.filter(({mimeType})=> !mimeType.includes('video'))
 	
-	const files = productDownloads(product)
+	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = []; 
 	product.models.forEach(m => m.drawing && drawings.push(m.drawing))
 	
 	const handleGalleryClick = (type: string, id:string) => {
 		console.log(id, drawings)
 		setGallery({images : type === 'product' ? images : drawings, index:0})
-		setGalleryIndex(id)
+		setGalleryId(id)
 	}
 
 	useEffect(()=>{
@@ -261,7 +262,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 			{ designerId: product.designer.id, familyId: product.family.id },
 			{ categoryId: product.categories[0]?.id }
 		]
-	}) as { productsByCategory: ProductRecord[], relatedProduct: ProductRecord[]}
+	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[]}
 	
 	return {
 		props: {

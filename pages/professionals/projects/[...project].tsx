@@ -14,7 +14,7 @@ export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
 
 export default function Project({ project, related }: ProjectProps) {
 
-	const [setGallery, setGalleryIndex] = useStore((state) => [state.setGallery, state.setGalleryIndex])
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
 	const opacity = Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
@@ -43,7 +43,7 @@ export default function Project({ project, related }: ProjectProps) {
 			</Section>
 			{project.gallery.map((block, idx) => 
 				<Section key={idx}>
-					<Block data={block} onClick={setGalleryIndex}/>
+					<Block data={block} onClick={setGalleryId}/>
 				</Section>
 			)}
 			<Section bottom={true} />
