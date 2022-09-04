@@ -81,10 +81,13 @@
  
   @include mq($until: tablet) {
     .gallery{
-      .slide{
-        max-width: spanNestedGrid(12, 6);
-        min-width: spanNestedGrid(12, 6);
+      .swiper{
+        .slide{
+          max-width: spanNestedGrid(12, 6);
+          min-width: spanNestedGrid(12, 6);
+        }
       }
+      
       .arrowMiddle{
         display: none;
         height: calc(100% - 15px - 20px);
