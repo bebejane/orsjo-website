@@ -15,15 +15,17 @@ export const Dato = (isServer ? buildClient : buildClientBrowser)({apiToken:GRAP
 
 const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Response>  => {
   
-  const operations = init.body ? (JSON.parse(init.body)).map(({operationName})=> operationName) : []
+  const body = JSON.parse(init.body as string)
+  const operations = body.map(({operationName})=> operationName)
   const requestName = `${operations.join(', ')}`
   const t = new Date().getTime()
-  const response = await fetch(input, init)  
+  const response = await fetch(input, init)
+
   return {
     ...response,
     async text () {
       const result = await response.text()
-      console.log("\x1b[33m%s\x1b[0m", 'gql  ', `- ${requestName}`, `- ${new Date().getTime()-t}ms`)
+      console.log("\x1b[35m%s\x1b[0m", 'graql', `- ${requestName}`, `- ${new Date().getTime()-t}ms`)
       return result
     }
   }

@@ -1,7 +1,6 @@
 import styles from './SiteSearch.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
-import { useState, useEffect} from 'react'
 import { useSiteSearch } from 'react-datocms'
 import { buildClient } from '@datocms/cma-client-browser';
 
@@ -9,15 +8,13 @@ const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TO
 
 export default function SiteSearch({show, onClose}){
 	
-	const [query, setQuery] = useState('')
+	//const [query, setQuery] = useState('')
 	const { state, error, data } = useSiteSearch({
 		client,
 		buildTriggerId: '18902',
 		initialState: { locale: 'en' },
 		resultsPerPage: 20,
 	});
-	
-	useEffect(()=>{ state.setQuery(query)}, [query])
 	
 	if(!show) return null
 	
@@ -28,8 +25,8 @@ export default function SiteSearch({show, onClose}){
 					autoFocus={true} 
 					placeholder="Search..." 
 					type="text" 
-					value={query} 
-					onChange={(e) => setQuery(e.target.value)}
+					value={state.query} 
+					onChange={(e) => state.setQuery(e.target.value)}
 				/>
 				<button className={styles.close} onClick={()=>onClose()}>×</button>
 			</div>
@@ -52,8 +49,8 @@ export default function SiteSearch({show, onClose}){
 				)}
 			</div>
 			<div className={styles.status}>
-				{data?.pageResults.length === 0 && query && 
-					<span>no matches for {`"${query}"`}</span> 
+				{data?.pageResults.length === 0 && state.query && 
+					<span>no matches for {`"${state.query}"`}</span> 
 				}
 				{!data && !error && <span>...</span>}
 				{error && <span>Error: {error}</span>}

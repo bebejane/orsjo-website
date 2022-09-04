@@ -16,7 +16,7 @@ const usePreviousRoute = () : string => {
     storage.setItem('previousRoute', prevRoute)
     storage.setItem("currentRoute", router.asPath);
     setPrevRoute(prevRoute)
-	}, [router.asPath])	
+	}, [router.asPath, storage])	
   
   return prevRoute
 };

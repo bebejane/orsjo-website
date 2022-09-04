@@ -1,9 +1,22 @@
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+
+export type ScrollInfo = {
+  isScrolling: boolean, 
+  isPageTop: boolean,
+  isPageBottom: boolean,
+  isScrolledUp: boolean,
+  isScrolledDown: boolean,
+  scrolledPosition: number,
+  documentHeight: number,
+  viewportHeight: number,
+  timer: ReturnType<typeof setTimeout>,
+}
 
 export default function useScrollInfo(pageBottomLimit = 0) {
+
   const isServer = typeof window === 'undefined'
-  const [scrollInfo, setScrollInfo] = useState({
+  const [scrollInfo, setScrollInfo] = useState<ScrollInfo>({
     isScrolling:false, 
     isPageTop: false,
     isPageBottom: false,
@@ -11,13 +24,13 @@ export default function useScrollInfo(pageBottomLimit = 0) {
     isScrolledDown: false,
     scrolledPosition: isServer ? 0 : window.pageYOffset,
     documentHeight: isServer ? 0 : document.documentElement.offsetHeight,
-    viewportHeight: isServer ? 0 : window.innerHeight
+    viewportHeight: isServer ? 0 : window.innerHeight,
+    timer:null,
   });
 
   const lastScrollInfo = useRef(scrollInfo);
 
-
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     
     clearTimeout(lastScrollInfo.current.timer)
 
@@ -35,6 +48,7 @@ export default function useScrollInfo(pageBottomLimit = 0) {
     const isScrolledUp = scrolledPosition < lastScrollInfo.current.scrolledPosition;
     const isScrolledDown = scrolledPosition > lastScrollInfo.current.scrolledPosition;
     const isScrolling = true;
+    const timer = lastScrollInfo.current.timer;
     const scrollInfo = {
       isScrolling,
       isPageTop,
@@ -43,7 +57,8 @@ export default function useScrollInfo(pageBottomLimit = 0) {
       isScrolledDown,
       scrolledPosition,
       documentHeight,
-      viewportHeight
+      viewportHeight,
+      timer
     };
     setScrollInfo(scrollInfo);
     lastScrollInfo.current = {
@@ -51,14 +66,14 @@ export default function useScrollInfo(pageBottomLimit = 0) {
       timer: setTimeout(() => setScrollInfo({...scrollInfo, isScrolling:false}), 100)
     }
     
-  };
+  }, [isServer, pageBottomLimit]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   return scrollInfo;
 }

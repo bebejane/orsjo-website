@@ -4,7 +4,6 @@ import Link from "next/link";
 import truncateMarkdown  from 'markdown-truncate'
 import remarkBreaks from 'remark-breaks'
 import type { UrlObject } from 'url';
-import classNames from "classnames";
 
 type MarkdownProps = {children?: string, truncate?: number, className?:string}
 type AnchorProp = {children:[any], href: UrlObject }
@@ -23,10 +22,10 @@ const Markdown = ({ children , truncate, className } : MarkdownProps) => {
       components={{
         // @ts-ignore
         a: ({ children, href } : AnchorProp) => 
-          <Link scroll={false} 
+          <Link 
+            scroll={false} 
             href={href} 
             prefetch={false}
-            scroll={false}
           >
             <a>{children[0]}</a>
           </Link>
