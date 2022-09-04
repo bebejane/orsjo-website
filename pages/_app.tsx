@@ -31,10 +31,11 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   const { title, description } = pageSeo(pageProps, pathname);
 
   const handleHashChange = async (url, instant) => {
-    console.log(url)
-    if(!url.includes('#')) 
+    
+    if(!url.includes('#')){ 
+      // @ts-expect-error
       return setTimeout(()=>window.scrollTo({ top:0, behavior: 'instant' }), 100)
-
+    }
     let section;
     const id = url.split('#')[1]
     
@@ -47,9 +48,8 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
     await sleep(100)
     const top = section ? section.offsetTop - 62 : 0
     const behavior = instant === true || !top ? 'instant' : 'smooth'
-
+    // @ts-expect-error
     window.scrollTo({ top, behavior })
-    console.log('hash change', id, top, behavior)
   };
 
   useEffect(() => {
