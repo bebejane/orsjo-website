@@ -72,6 +72,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
         site={site}
         pathname={pathname}
         key={pathname}
+        noindex={true}
       />
       <AnimatePresence exitBeforeEnter initial={false}>
         <div id="app" key={pathname}>
