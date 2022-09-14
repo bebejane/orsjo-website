@@ -17,19 +17,17 @@ const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TO
 export default function SiteSearch({show, onClose}){
 	
 	const [query, setQuery] = useState<string | undefined>()
-	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(query, 200);
+	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(query, 350);
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
 	const router = useRouter()
 	const setShowSiteSearch = useStore((state) => state.setShowSiteSearch)
-	
-
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading
 
 	useEffect(()=>{
 		if(!debouncedQuery) return
-		setResult({})
+		
 		fetch(`/api/search?q=${debouncedQuery}`).then(async (res) => {
 			const cats = await res.json()
 			console.log(cats)
@@ -41,11 +39,14 @@ export default function SiteSearch({show, onClose}){
 	}, [debouncedQuery, setLoading, setError])
 
 	useEffect(()=>{
-		if(query) return setLoading(true)
+		if(query)
+			return setLoading(true)
 		
 		setQueryImmediate(undefined)
 		setResult(undefined)
-	}, [query, setQueryImmediate])
+	}, [query, setQueryImmediate, setResult])
+
+	useEffect(()=> loading && setResult({}), [loading, setResult])
 
 	useEffect(()=>{
 		setShowSiteSearch(false)
