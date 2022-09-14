@@ -37,9 +37,11 @@ export default async function handler(req: NextRequest) {
   const itemTypes = (await res.json()).data
   
   const qs = `items?[type]=${itemTypes.map(m => m.api_key).join(',')}&filter[query]=${q}&locale=en&order_by=_rank_DESC`
+  return new Response(JSON.stringify({fetchOptions, itemTypes, qs}),{status: 200,headers: {'content-type': 'application/json'}})
+  
   const searchRes = await fetch(`${baseEndpoint}/${qs}`, fetchOptions)
 
-  return new Response(JSON.stringify({fetchOptions, itemTypes, qs}),{status: 200,headers: {'content-type': 'application/json'}})
+  
 
   const search = (await searchRes.json()).data.map(el => ({
     ...el, 
