@@ -1,6 +1,7 @@
-import type { NextRequest } from 'next/server'
 import { apiQuery } from '/lib/dato/api';
 import { SiteSearchDocument } from '/graphql';
+
+import type { NextRequest } from 'next/server'
 
 export const config = {
   runtime: 'experimental-edge',
@@ -26,32 +27,25 @@ const fetchOptions = {
 
 export default async function handler(req: NextRequest) {
   
+  try{
+    throw new Error('fugg')
+
   const { searchParams } = new URL(req.url)
   const q = searchParams.get('q')
   
   if(!q) 
-    return new Response(JSON.stringify(fetchOptions),{status: 200,headers: {'content-type': 'application/json'}})
-
-  return new Response(JSON.stringify({fetchOptions}),{status: 200,headers: {'content-type': 'application/json'}})
+    return new Response(JSON.stringify({}),{status: 200,headers: {'content-type': 'application/json'}})
 
   const res = await fetch(`${baseEndpoint}/item-types`, fetchOptions)
   const itemTypes = (await res.json()).data
-  
-  return new Response(JSON.stringify({fetchOptions, itemTypes}),{status: 200,headers: {'content-type': 'application/json'}})
 
   const qs = `items?[type]=${itemTypes.map(m => m.api_key).join(',')}&filter[query]=${q}&locale=en&order_by=_rank_DESC`
-  
-
   const searchRes = await fetch(`${baseEndpoint}/${qs}`, fetchOptions)
-
-  
 
   const search = (await searchRes.json()).data.map(el => ({
     ...el, 
     _api_key: itemTypes.find((t) => t.id === el.relationships.item_type.data.id).attributes.api_key,
   }))
-  
-  
 
   const data = await apiQuery(SiteSearchDocument, {
     variables:{
@@ -61,36 +55,18 @@ export default async function handler(req: NextRequest) {
       faqIds: search.filter(el => el._api_key === 'faq').map(el => el.id)
     }
   })
-  /*
-  Object.keys(data).forEach(type => {  
+  
+  Object.keys(data).forEach(type => {
     if(!data[type].length)
       delete data[type]
     else
       console.log(type, data[type].length)
   })
   console.log('total:', search.length)
-*/
+  
   return new Response(JSON.stringify(data),{status: 200,headers: {'content-type': 'application/json'}})
   
-}
-
-
-
-const parseRecords = (records : [any]) : SearchResult[] => {
-
-  const r : SearchResult[] = []
-
-  records.forEach(el => {
-    if(el._model === 'product')
-      r.push({
-        _model: el._model,
-        _modelName: el._modelName,
-        title: el.title,
-        slug: `/products/${el.slug}`,
-        description: el.description.en,
-        data:{...el}
-      })
-  })
-
-  return r;
+  }catch(err){
+    return new Response(err.message)
+  }
 }
