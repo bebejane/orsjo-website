@@ -1,0 +1,11 @@
+fragment FaqFragment on FaqRecord {
+	updatedAt
+	createdAt
+	answer
+	id
+	question
+	category {
+		id
+		title
+	}
+}

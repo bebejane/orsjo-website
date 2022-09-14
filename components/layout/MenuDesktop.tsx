@@ -2,67 +2,66 @@ import styles from './MenuDesktop.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useRef, useEffect, useCallback, MouseEvent} from 'react'
+import { useState, useRef, useEffect, useCallback, MouseEvent } from 'react'
 import { useStore, shallow } from '/lib/store'
 import { useLayout } from '/lib/context/layout'
 import { useWindowSize } from 'rooks'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import type { Menu } from '/lib/menu'
 
-export type MenuDesktopProps = {items : Menu, onShowSiteSearch: Function}
+export type MenuDesktopProps = { items: Menu, onShowSiteSearch: Function }
 
-export default function MenuDesktop({items, onShowSiteSearch} : MenuDesktopProps){
-	
+export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProps) {
+
 	const ref = useRef();
 	const router = useRouter()
 	const [showMenu, setShowMenu, invertMenu] = useStore((state) => [state.showMenu, state.setShowMenu, state.invertMenu], shallow);
-	const [transitioning] = useStore((state)=> [state.transitioning])
+	const [transitioning] = useStore((state) => [state.transitioning])
 	const [selected, setSelected] = useState(undefined)
-	const [menuMargin, setMenuMargin] = useState({position:0, padding:0})
+	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 })
 	const [hovering, setHovering] = useState(undefined)
-	const [showSearch, setShowSearch] = useState(false)
 	const { layout, menu, color } = useLayout()
 	const { innerWidth } = useWindowSize()
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
 	const isInverted = (menu === 'inverted' || invertMenu)
 
 	const resetSelected = useCallback(() => {
-		if(transitioning) 
+		if (transitioning)
 			return
 		setSelected(undefined)
 		setHovering(undefined)
 	}, [transitioning])
 
-	useEffect(()=>{ // Hide menu if was closed on scroll
-		!showMenu && resetSelected() 
-	}, [showMenu, resetSelected]) 
+	useEffect(() => { // Hide menu if was closed on scroll
+		!showMenu && resetSelected()
+	}, [showMenu, resetSelected])
 
-	useEffect(()=>{ // Hide menu if was closed on scroll
+	useEffect(() => { // Hide menu if was closed on scroll
 		setSelected(hovering)
-	}, [hovering]) 
+	}, [hovering])
 
-  useEffect(() => { // Toggle menu bar on scroll
+	useEffect(() => { // Toggle menu bar on scroll
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
 	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu]);
 
-	useEffect(()=>{ // Re set margin on window resize
-		if(!selected) return
-		
+	useEffect(() => { // Re set margin on window resize
+		if (!selected) return
+
 		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`)
 		const nav = document.querySelectorAll<HTMLLIElement>(`li[data-slug]`)
 		const idx = parseInt(el.dataset.index);
-		const left = idx > 0 ? nav[idx-1] : undefined
-		
+		const left = idx > 0 ? nav[idx - 1] : undefined
+
 		const bl = left?.getBoundingClientRect()
 		const elPad = parseInt(getComputedStyle(el, null).getPropertyValue("padding-left"))
 		const blPad = parseInt(getComputedStyle(left, null).getPropertyValue("padding-right"))
-		const lm = (bl.left+bl.width-blPad-10)
+		const lm = (bl.left + bl.width - blPad - 10)
 		const rm = el.getBoundingClientRect().left;
-		
-		const position =  bl ? (lm + ((rm-lm)/2)) : el.getBoundingClientRect().x + elPad
+
+		const position = bl ? (lm + ((rm - lm) / 2)) : el.getBoundingClientRect().x + elPad
 		const padding = (el.getBoundingClientRect().x - position)
-		
-		setMenuMargin({position, padding})
+
+		setMenuMargin({ position, padding })
 
 	}, [innerWidth, selected])
 
@@ -71,61 +70,62 @@ export default function MenuDesktop({items, onShowSiteSearch} : MenuDesktopProps
 		const sel = selected === slug ? undefined : slug
 		setSelected(sel)
 	}
-	
+
 	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && !transitioning && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
-	
+
 	return (
 		<>
 			<Link scroll={false} href="/">
 				<a className={cn(styles.logo, isInverted && styles.inverted)}>
 					<figure>
-						<img id="logo" src={'/images/logo.svg'}/>
+						<img id="logo" src={'/images/logo.svg'} />
 					</figure>
 				</a>
 			</Link>
 			<nav id={'menu'} ref={ref} className={menuStyles}>
 				<ul className={styles.nav} >
-					{items.map(({label, slug, index}, idx) => {
+					{items.map(({ label, slug, index }, idx) => {
 						const arrowStyle = cn(styles.arrow, slug === hovering && styles.hover, slug === selected && styles.active)
-						return(
-							<li 
+						return (
+							<li
 								data-slug={slug}
 								data-index={idx}
-								key={idx} 
-								onMouseEnter={()=> setHovering(!index ? slug : undefined)}
-								onMouseLeave={()=>!index && !showMenu && setHovering(undefined)}
+								key={idx}
+								onMouseEnter={() => setHovering(!index ? slug : undefined)}
+								onMouseLeave={() => !index && !showMenu && setHovering(undefined)}
 								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
-							>	
+							>
 								{index === true ? // Direct links
 									<Link scroll={false} href={slug}>
 										{label}
 									</Link>
 								:
-									<>{label}{/*<span className={arrowStyle}>›</span>*/}</>
+									<>{label}</>
 								}
 							</li>
-						)})}
-						<li className={styles.searchIcon} onClick={()=>onShowSiteSearch()}>
-							<img src={'/images/search.svg'}/>
-						</li>
+						)
+					})}
+					<li className={styles.searchIcon} onClick={() => onShowSiteSearch()}>
+						<img src={'/images/search.svg'} />
+					</li>
 				</ul>
 			</nav>
-			
-			<div 
-				className={cn(styles.sub, selected && showMenu && styles.show)} 
-				style={{width:`calc(100% - ${menuMargin.position}px)`, backgroundColor: color}}
+
+			<div
+				className={cn(styles.sub, selected && showMenu && styles.show)}
+				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}
 				onMouseLeave={resetSelected}
 			>
-				<div 
-					className={cn(styles.subPad, styles[menu])} 
-					style={{ backgroundColor: color, paddingLeft:`${menuMargin.padding}px`, }}
+				<div
+					className={cn(styles.subPad, styles[menu])}
+					style={{ backgroundColor: color, paddingLeft: `${menuMargin.padding}px`, }}
 				>
 					<nav>
 						<ul className={cn(sub?.length > 10 && styles.columns)}>
-							{sub?.map(({label, slug}, idx)=>
+							{sub?.map(({ label, slug }, idx) =>
 								<li key={idx} className={cn(slug === router.asPath && styles.active)}>
-									<Link scroll={false}  href={slug}>
+									<Link scroll={false} href={slug}>
 										{label}
 									</Link>
 								</li>
@@ -134,7 +134,7 @@ export default function MenuDesktop({items, onShowSiteSearch} : MenuDesktopProps
 					</nav>
 				</div>
 			</div>
-			
+
 		</>
 	)
 }

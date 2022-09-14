@@ -1,28 +1,14 @@
+#import './fragments/FaqFragment.gql'
+
 query Faq($id: ItemId) {
   faq(filter:{id:{eq:$id}}){
-    updatedAt
-    createdAt
-    answer
-    id
-    question
-    category {
-      id
-      title
-    }
+    ...FaqFragment
   }
 }
 
 query AllFaqs {
   faqs : allFaqs {
-    updatedAt
-    createdAt
-    answer
-    id
-    question
-    category {
-      id
-      title
-    }
+    ...FaqFragment
   }
 }
 
@@ -40,14 +26,6 @@ query FaqStart {
     title
   }
   faqs: allFaqs {
-    updatedAt
-    createdAt
-    answer
-    id
-    question
-    category {
-      id
-      title
-    }
+    ...FaqFragment
   }
 }

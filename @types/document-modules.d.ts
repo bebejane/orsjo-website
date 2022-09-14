@@ -70,6 +70,15 @@ declare module '*/DistributorFragment.gql' {
 }
     
 
+declare module '*/FaqFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const FaqFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/FileFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -233,6 +242,15 @@ export const ProjectStart: DocumentNode;
 export const AllProjectTypes: DocumentNode;
 export const Bespoke: DocumentNode;
 export const FactoryVisit: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/search.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const SiteSearch: DocumentNode;
 
   export default defaultDocument;
 }

@@ -15,7 +15,7 @@ export type ThumbnailProps = {
   className?: string,
   markAsNew?: boolean,
   theme?: 'dark' | 'light' | 'mid',
-  type?: 'product' | 'project' | 'designer'
+  type?: 'product' | 'project' | 'designer' | 'news'
 }
 
 export default function Thumbnail({ 
@@ -75,11 +75,14 @@ export default function Thumbnail({
   )
 }
 
-export type ProductThumbnailProps = {
-  product: ProductRecord,
+export type BaseThumbnailProps = {
   inverted?: boolean,
   className?: string,
   theme: 'dark' | 'light' | 'mid'
+}
+
+export type ProductThumbnailProps = BaseThumbnailProps & {
+  product: ProductRecord
 }
 
 export function ProductThumbnail({ product, inverted, theme = 'dark', className }: ProductThumbnailProps) {
@@ -100,12 +103,10 @@ export function ProductThumbnail({ product, inverted, theme = 'dark', className 
   )
 }
 
-export type ProjectThumbnailProps = {
+export type ProjectThumbnailProps = BaseThumbnailProps & {
   project: ProjectRecord,
-  inverted?: boolean,
-  className?: string,
-  theme: 'dark' | 'light' | 'mid'
 }
+
 export function ProjectThumbnail({ project, inverted, theme = 'dark', className }: ProjectThumbnailProps) {
 
   return (
@@ -123,11 +124,8 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark', className 
   )
 }
 
-export type DesignerThumbnailProps = {
-  designer: DesignerRecord,
-  inverted?: boolean,
-  className?: string,
-  theme: 'dark' | 'light' | 'mid'
+export type DesignerThumbnailProps = BaseThumbnailProps & {
+  designer: DesignerRecord
 }
 export function DesignerThumbnail({ designer, inverted, theme = 'dark', className }: DesignerThumbnailProps) {
 
@@ -140,6 +138,24 @@ export function DesignerThumbnail({ designer, inverted, theme = 'dark', classNam
       className={className}
       theme={theme}
       type="designer"
+    />
+  )
+}
+
+export type NewsThumbnailProps = BaseThumbnailProps & {
+  news: NewsRecord,
+}
+export function NewsThumbnail({ news, inverted, theme = 'dark', className }: NewsThumbnailProps) {
+
+  return (
+    <Thumbnail
+      slug={`/about/news/${news.slug}`}
+      image={news.image}
+      title={news.title}
+      inverted={inverted}
+      className={className}
+      theme={theme}
+      type="news"
     />
   )
 }

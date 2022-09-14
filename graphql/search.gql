@@ -1,0 +1,24 @@
+#import "./fragments/DesignerFragment.gql"
+#import "./fragments/FaqFragment.gql"
+#import "./fragments/ProductLightFragment.gql"
+#import "./fragments/NewsFragment"
+
+query SiteSearch(
+  $productIds: [ItemId],
+  $designerIds: [ItemId],
+  $faqIds: [ItemId],
+  $newsIds: [ItemId],
+) {
+	products : allProducts(filter: {id: { in: $productIds }}) {
+		...ProductLightFragment
+	}
+  designers : allDesigners(filter: {id: { in: $designerIds }}) {
+		...DesignerFragment
+	}
+  faqs : allFaqs(filter: {id: { in: $faqIds }}) {
+		...FaqFragment
+	}
+  news : allNews(filter: {id: { in: $newsIds }}) {
+		...NewsFragment
+	}
+}
