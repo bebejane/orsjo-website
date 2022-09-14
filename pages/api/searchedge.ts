@@ -28,7 +28,7 @@ const fetchOptions = {
 export default async function handler(req: NextRequest) {
   
   try{
-    throw new Error('fugg')
+
 
   const { searchParams } = new URL(req.url)
   const q = searchParams.get('q')
