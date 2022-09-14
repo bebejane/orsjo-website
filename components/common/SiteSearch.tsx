@@ -26,7 +26,7 @@ export default function SiteSearch({show, onClose}){
 	useEffect(()=>{
 		if(!debouncedQuery) return
 		
-		fetch(`/api/search-edge?q=${debouncedQuery}`).then(async (res) => {
+		fetch(`/api/search?q=${debouncedQuery}`).then(async (res) => {
 			const cats = await res.json()
 			console.log(cats)
 			setResult(cats)

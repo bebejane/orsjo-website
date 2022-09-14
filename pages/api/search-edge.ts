@@ -32,10 +32,6 @@ export default async function handler(req: NextRequest) {
   if(!q) 
     return new Response('{}',{status: 200,headers: {'content-type': 'application/json'}})
  
-  try{
-
-  
-
   const res = await fetch(`${baseEndpoint}/item-types`, fetchOptions)
   const itemTypes = (await res.json()).data
   
@@ -64,9 +60,7 @@ export default async function handler(req: NextRequest) {
   console.log('total:', search.length)
 
   return new Response(JSON.stringify(data),{status: 200,headers: {'content-type': 'application/json'}})
-  } catch(err){
-    return new Response(JSON.stringify(err),{status: 200, headers: {'content-type': 'application/json'}})
-  }
+  
 }
 
 
