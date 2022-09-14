@@ -32,7 +32,8 @@ export default async function handler(req: NextRequest) {
   if(!q) 
     return new Response(JSON.stringify(fetchOptions),{status: 200,headers: {'content-type': 'application/json'}})
 
-  
+  return new Response(JSON.stringify({fetchOptions}),{status: 200,headers: {'content-type': 'application/json'}})
+
   const res = await fetch(`${baseEndpoint}/item-types`, fetchOptions)
   const itemTypes = (await res.json()).data
   
