@@ -39,13 +39,15 @@ export default async function handler(req: NextRequest) {
   const qs = `items?[type]=${itemTypes.map(m => m.api_key).join(',')}&filter[query]=${q}&locale=en&order_by=_rank_DESC`
   const searchRes = await fetch(`${baseEndpoint}/${qs}`, fetchOptions)
 
+  return new Response(JSON.stringify({fetchOptions, itemTypes, qs}),{status: 200,headers: {'content-type': 'application/json'}})
+
   const search = (await searchRes.json()).data.map(el => ({
     ...el, 
     _api_key: itemTypes.find((t) => t.id === el.relationships.item_type.data.id).attributes.api_key,
   }))
   
-  return new Response(JSON.stringify(fetchOptions),{status: 200,headers: {'content-type': 'application/json'}})
   
+
   const data = await apiQuery(SiteSearchDocument, {
     variables:{
       productIds: search.filter(el => el._api_key === 'product').map(el => el.id),
