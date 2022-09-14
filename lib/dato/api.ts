@@ -1,8 +1,6 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http"; 
 import { IntlDocument } from '/graphql';
-import { buildClient } from '@datocms/cma-client-node';
-import { buildClient as buildClientBrowser} from '@datocms/cma-client-browser';
 import { isServer } from '/lib/utils';
 import { TypedDocumentNode, gql } from '@apollo/client';
 
@@ -11,7 +9,6 @@ export type IntlMessage = { key:string, value:string }
 export const GRAPHQL_API_ENDPOINT = `https://graphql.datocms.com`;
 export const GRAPHQL_PREVIEW_API_ENDPOINT = `https://graphql.datocms.com/preview`;
 export const GRAPHQL_API_TOKEN = (isServer ? process.env.GRAPHQL_API_TOKEN : process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN) || null
-export const Dato = (isServer ? buildClient : buildClientBrowser)({apiToken:GRAPHQL_API_TOKEN})
 
 const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Response>  => {
   

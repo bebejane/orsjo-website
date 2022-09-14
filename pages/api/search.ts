@@ -18,7 +18,7 @@ export default async function handler(req : NextApiRequest, res : NextApiRespons
 
   if(!q) return res.json({})
 
-  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN });
+  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN});
   const itemTypes = await client.itemTypes.list();
   
   const search = (await client.items.list({

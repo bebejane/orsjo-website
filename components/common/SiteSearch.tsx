@@ -12,8 +12,6 @@ export type SearchResultCategory = {
 	[key: string] : any
 }
 
-const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN });
-
 export default function SiteSearch({show, onClose}){
 	
 	const [query, setQuery] = useState<string | undefined>()
@@ -28,7 +26,7 @@ export default function SiteSearch({show, onClose}){
 	useEffect(()=>{
 		if(!debouncedQuery) return
 		
-		fetch(`/api/search?q=${debouncedQuery}`).then(async (res) => {
+		fetch(`/api/search-edge?q=${debouncedQuery}`).then(async (res) => {
 			const cats = await res.json()
 			console.log(cats)
 			setResult(cats)
