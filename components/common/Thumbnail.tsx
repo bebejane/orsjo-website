@@ -18,16 +18,16 @@ export type ThumbnailProps = {
   type?: 'product' | 'project' | 'designer' | 'news'
 }
 
-export default function Thumbnail({ 
-  image, 
-  imageHover, 
-  slug, 
-  inverted, 
-  title, 
-  subtitle, 
-  markAsNew = false, 
-  className, 
-  theme = 'light', 
+export default function Thumbnail({
+  image,
+  imageHover,
+  slug,
+  inverted,
+  title,
+  subtitle,
+  markAsNew = false,
+  className,
+  theme = 'light',
   type = 'product'
 }: ThumbnailProps) {
 
@@ -68,8 +68,8 @@ export default function Thumbnail({
           </figcaption>
         </a>
       </Link>
-      {markAsNew && 
-        <div className={cn(styles.markAsNew)}>New</div>
+      {markAsNew &&
+        <div className={cn(styles.markAsNew)}><span>New</span></div>
       }
     </div>
   )

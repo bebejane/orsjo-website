@@ -4,7 +4,7 @@ import { Image } from 'react-datocms'
 import Link from 'next/link'
 import { VideoPlayer } from '/components'
 
-export type LayoutProps = { data:  FullscreenMediaBlockRecord }
+export type LayoutProps = { data: FullscreenMediaBlockRecord }
 
 export default function FullscreenMediaBlock({ data: { media, headline, linkRecord, subHeadline }, data }: LayoutProps) {
 
@@ -13,15 +13,16 @@ export default function FullscreenMediaBlock({ data: { media, headline, linkReco
 	return (
 		<Link scroll={false} href={`${slugBase}/${linkRecord.slug}`}>
 			<a className={styles.fullScreenImage}>
-				{!media.video ? 
+				<div className={styles.fade}></div>
+				{!media.video ?
 					<Image
 						className={styles.image}
 						data={media?.responsiveImage}
 						layout="fill"
 						objectFit="cover"
 					/>
-				:
-					<VideoPlayer data={media}/>
+					:
+					<VideoPlayer data={media} />
 				}
 				<div className={styles.wrapper}>
 					<div className={styles.headline}>
