@@ -13,6 +13,8 @@ export default function Icon({ type, label, children, disabled = false }: IconPr
   return (
     <div className={cn(styles.icon, disabled && styles.disabled)}>
       <span className={cn(styles.type, "icon")}>
+        <div className={styles.corner}></div>
+
         {type || children}
       </span>
       {label &&
@@ -21,7 +23,7 @@ export default function Icon({ type, label, children, disabled = false }: IconPr
         </span>
       }
       <div className={cn(styles.arrow, "medium")}>
-        <div>→</div>
+        <div><img src="/images/arrow.svg" className={styles.arrow} /></div>
       </div>
     </div>
   )

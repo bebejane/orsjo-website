@@ -72,7 +72,8 @@
 				flex: 1 1 spanNestedGrid(6, 2, true);
 			}
 			span:nth-child(even){
-				flex: 1 1 spanNestedGrid(6, 4, false);	
+				flex: 1 1 spanNestedGrid(6, 4, false);
+				padding-right: 1em;	
 			}
 		}
 	}
@@ -129,6 +130,7 @@
 			}
 			&.multi{
 				column-count: 2;
+				column-gap: nestedGridGutter(12);
 				ul{
 					flex-direction: column;
 					li{

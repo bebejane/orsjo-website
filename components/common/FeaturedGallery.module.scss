@@ -32,8 +32,7 @@
       border-radius: 20px;
       min-width: 40px;
       min-height: 40px;
-      background-color: transparent;
-      border: 1px solid $gray;
+      background-color: $light-gray;
       flex: 0 0 40px;
       &.hide{
         display: none;

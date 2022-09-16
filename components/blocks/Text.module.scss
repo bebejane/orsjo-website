@@ -5,7 +5,13 @@
     margin-bottom: 0;
   }
   * > a {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid $gray;
+    color: $gray;
+    transition: color .5s;
+
+    &:hover {
+      color: $black;
+    }
   }
   @include mq($until: tablet) {
     padding-right: 0;

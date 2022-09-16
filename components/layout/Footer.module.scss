@@ -67,6 +67,8 @@
     flex-direction: row;
     li{
       padding-right: 2em;
+      flex-basis: 16.67%;
+      flex-grow: 0;
       ul{
         display: flex;
         list-style: none;
@@ -83,7 +85,7 @@
 
           li{
             white-space: pre;
-            max-width: 170px;
+            max-width: 160px;
             overflow: hidden;
             text-overflow: ellipsis;
             padding-bottom: .5em;

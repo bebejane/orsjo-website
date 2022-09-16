@@ -20,8 +20,21 @@
       opacity: 1;
     }
   }
+
+  .corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 .3rem .3rem 0;
+    border-color: transparent $white transparent transparent;
+  }
+
   span{
     display: block;
+    position: relative;
     &.type{
       display: flex;
       align-items: center;
@@ -48,7 +61,8 @@
     opacity: 0;
     flex: 1 1 auto;
     color:$black;
-    margin-left: .5em;
+    margin-left: .1em;
+    padding-bottom: .15em;
     div{
       transform: rotate(90deg);
     }
