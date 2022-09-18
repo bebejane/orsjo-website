@@ -104,9 +104,11 @@ const siteSearch = async (q: string, opt: { offset?: number, limit?: number } = 
 }
 
 const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): FileField[] => {
-  Object.keys(obj).forEach(key => {
-    if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video'))
-      images.push({ ...obj[key], _key: key })
+
+  Object.keys(obj).forEach(key => {  
+    if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video') && !exclude.includes(key))
+      images.push({ ...obj[key], _key: key })    
+      
     if (typeof obj[key] === 'object' && obj[key] !== null)
       recordImages(obj[key], exclude, images)
   })
