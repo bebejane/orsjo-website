@@ -1,4 +1,5 @@
 #import "./ImageFragment.gql"
+#import "./ProductFragment.gql"
 
 fragment ProjectFragment on ProjectRecord{
   id
@@ -8,12 +9,16 @@ fragment ProjectFragment on ProjectRecord{
   projectType {
     id
     title
+    titlePlural
   }
   image {
     ...ImageFragment
   }
   secondaryImage {
     ...ImageFragment
+  }
+  relatedProducts{
+    ...ProductFragment
   }
   gallery {
     ... on FullwidthImageRecord {

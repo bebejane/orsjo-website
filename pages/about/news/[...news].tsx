@@ -30,7 +30,7 @@ export default function News({ news: {image, title, createdAt, text} }: NewsProp
 	)
 }
 
-News.layout = { layout: 'normal', color: '--black', menu: 'inverted' } as PageLayoutProps
+News.layout = { layout: 'normal', color: '--black', menu: 'inverted', footerLine: true  } as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { news } = await apiQuery(AllNewsDocument)

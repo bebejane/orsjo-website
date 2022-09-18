@@ -10,22 +10,33 @@ import { Section } from '/components'
 export type JobsProps = { jobs: JobRecord[] }
 
 export default function Jobs({ jobs }: JobsProps) {
-
+	
 	return (
-		<Section className={styles.jobs} top={true} name="Introduction">
-			<h1>Jobs</h1>
-			{jobs.map(({ title, summary, text }) =>
-				<>
-					<h1>{title}</h1>
-					<Markdown>{summary}</Markdown>
-					<Markdown>{text}</Markdown>
-				</>
+		<>
+			<Section className={styles.jobs} top={true}>
+				<h1>Jobs</h1>
+			</Section>
+
+			{jobs.map(({ id, title, summary, text }, idx) =>
+				<Section key={id} className={styles.jobs} name={title}>	
+					<h2>{title}</h2>
+					<Markdown className={styles.summary}>{summary}</Markdown>
+					<Markdown className={styles.text}>{text}</Markdown>
+				</Section>	
 			)}
-		</Section>
+
+			{jobs.length === 0 &&
+				<Section className={styles.jobs}>
+					<p className={styles.nojobs}>
+						We don&apos;t have any job offers at the moment
+					</p>
+				</Section>
+			}
+		</>
 	)
 }
 
-Jobs.layout = { layout: 'normal', color:"--black", menu: 'inverted' } as PageLayoutProps
+Jobs.layout = { layout: 'normal', color:"--black", menu: 'inverted', footerLine:true } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllJobsDocument], model:'job' }, async ({ props, revalidate }: any) => {
 

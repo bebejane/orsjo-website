@@ -56,7 +56,7 @@ export default function About({ about: { title, image, intro, sections } }: Abou
 	)
 }
 
-About.layout = { layout: 'full', color: "--black", menu: 'inverted' } as PageLayoutProps
+About.layout = { layout: 'full', color: "--black", menu: 'inverted', footerLine:true } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [AboutDocument], model: 'about' }, async ({ props, revalidate }: any) => {
 

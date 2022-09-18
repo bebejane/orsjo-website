@@ -17,10 +17,10 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 					{projectStart.intro}
 				</Markdown>
 			</Section>
-			{projectTypes.filter(({id}) => projects.find(({projectType}) => projectType.id === id)).map(({ title, id }, idx) => {
+			{projectTypes.filter(({id}) => projects.find(({projectType}) => projectType.id === id)).map(({ title, titlePlural, id }, idx) => {
 				return (
-					<Section name={title} className={styles.projects} key={idx} >
-						<h1>{title}</h1>
+					<Section name={titlePlural} className={styles.projects} key={idx} >
+						<h1>{titlePlural}</h1>
 						{projects.filter(({ projectType }) => projectType.id === id).map((p, idx) =>
 							<ProjectThumbnail
 								key={`t-${idx}`}

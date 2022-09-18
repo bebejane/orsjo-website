@@ -8,6 +8,7 @@ fragment ProjectLightFragment on ProjectRecord{
   projectType {
     id
     title
+    titlePlural
   }
   image {
     ...ImageFragment

@@ -29,7 +29,7 @@ export default function Project({ project, related }: ProjectProps) {
 	//console.log(imageStyle, viewportScrollRatio)
 	return (
 		<>
-			<Section className={styles.intro} name="Introduction" top={true}>
+			<Section className={styles.intro} name="Presentation" top={true}>
 				<div className={styles.wrap}>
 					<h1 className={styles.title} style={headerStyle}>{project.title}</h1>
 					<h1 className={styles.location} style={headerStyle}>{project.location}</h1>
@@ -47,10 +47,28 @@ export default function Project({ project, related }: ProjectProps) {
 				</Section>
 			)}
 			<Section bottom={true} />
+			{project.relatedProducts.length > 0 &&
+				<Section
+					className={styles.related}
+					name={`Products used`}
+					type="margin"
+					bgColor={'--mid-gray'}
+				>
+					<h1>{`Products used`}</h1>
+					<div className={styles.gallery}>
+						<FeaturedGallery
+							items={project.relatedProducts}
+							id="relatedProducts"
+							theme="light"
+							fadeColor={'--mid-gray'}
+						/>
+					</div>
+				</Section>
+			}
 			{related.length > 0 &&
 				<Section
 					className={styles.related}
-					name={`Other ${project.projectType.title}s`}
+					name={`Other ${project.projectType.titlePlural}`}
 					type="margin"
 					bgColor={'--mid-gray'}
 				>
@@ -59,7 +77,7 @@ export default function Project({ project, related }: ProjectProps) {
 						<FeaturedGallery
 							items={related}
 							id="relatedProjects"
-							theme="dark"
+							theme="light"
 							fadeColor={'--mid-gray'}
 						/>
 					</div>

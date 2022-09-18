@@ -5,14 +5,16 @@ export type PageLayoutProps = {
   layout: 'normal' | 'full',
   menu: 'normal' | 'inverted',
   color: string,
-  sidebar:boolean
+  sidebar:boolean,
+  footerLine?:boolean
 }
 
 const initialState : PageLayoutProps = {
   layout: 'normal',
   menu: 'normal',
   color: '--white',
-  sidebar: true
+  sidebar: true,
+  footerLine:false
 }
 
 export const LayoutContext = createContext(initialState);
