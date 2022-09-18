@@ -188,7 +188,7 @@ const ContactForm = ({onClose}) => {
 					<label htmlFor="name">Name</label>
 					<input id="name" name="name" type="text" placeholder="Name..." />
 					<label htmlFor="email">E-mail</label>
-					<input type="text" nam="email" placeholder="E-mail..."/>
+					<input type="text" name="email" placeholder="E-mail..."/>
 					<label htmlFor="message">Message</label>
 					<textarea name="message"></textarea>
 					<button type="submit">Send</button>
