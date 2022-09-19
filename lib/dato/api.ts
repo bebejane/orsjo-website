@@ -39,7 +39,7 @@ const link = new BatchHttpLink({
 export const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
-  ssrMode: isServer,
+  //ssrMode: isServer,
   defaultOptions: {
     query: {
       fetchPolicy: process.env.DEV_CACHE ? 'cache-first' : 'no-cache',
