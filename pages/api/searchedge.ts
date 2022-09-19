@@ -16,23 +16,25 @@ export type SearchResult = {
   data:any
 }
 
-const baseEndpoint = 'https://site-api.datocms.com'
-const fetchOptions = {
-  headers:{
-    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN}`,
-    'Accept':  'application/json',
-    'X-Api-Version': '3',
-  }
-}
+
 
 export default async function handler(req: NextRequest) {
   
+  const baseEndpoint = 'https://site-api.datocms.com'
+  const fetchOptions = {
+    headers:{
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN}`,
+      'Accept':  'application/json',
+      'X-Api-Version': '3',
+    }
+  }
+
   const { searchParams } = new URL(req.url)
   const q = searchParams.get('q')
   
-  //if(!q) 
-  return new Response(JSON.stringify({q}),{status: 200,headers: {'content-type': 'application/json'}})
-  /*
+  if(!q) 
+    return new Response(JSON.stringify({}),{status: 200,headers: {'content-type': 'application/json'}})
+  
   const res = await fetch(`${baseEndpoint}/item-types`, fetchOptions)
   const itemTypes = (await res.json()).data
 
