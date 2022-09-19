@@ -1,3 +1,5 @@
+global.__DEV__ = process.env.NODE_ENV === 'development'
+
 import { apiQuery } from '/lib/dato/api';
 import { SiteSearchDocument } from '/graphql';
 
@@ -35,34 +37,41 @@ export default async function handler(req: NextRequest) {
   if(!q) 
     return new Response(JSON.stringify({}),{status: 200,headers: {'content-type': 'application/json'}})
   
-  const res = await fetch(`${baseEndpoint}/item-types`, fetchOptions)
-  const itemTypes = (await res.json()).data
+  try{
+    
+    const res = await fetch(`${baseEndpoint}/item-types`, fetchOptions)
+    const itemTypes = (await res.json()).data
 
-  const qs = `items?[type]=${itemTypes.map(m => m.api_key).join(',')}&filter[query]=${q}&locale=en&order_by=_rank_DESC`
-  const searchRes = await fetch(`${baseEndpoint}/${qs}`, fetchOptions)
+    const qs = `items?[type]=${itemTypes.map(m => m.api_key).join(',')}&filter[query]=${q}&locale=en&order_by=_rank_DESC`
+    const searchRes = await fetch(`${baseEndpoint}/${qs}`, fetchOptions)
 
-  const search = (await searchRes.json()).data.map(el => ({
-    ...el, 
-    _api_key: itemTypes.find((t) => t.id === el.relationships.item_type.data.id).attributes.api_key,
-  }))
+    const search = (await searchRes.json()).data.map(el => ({
+      ...el, 
+      _api_key: itemTypes.find((t) => t.id === el.relationships.item_type.data.id).attributes.api_key,
+    }))
 
-  const data = await apiQuery(SiteSearchDocument, {
-    variables:{
-      productIds: search.filter(el => el._api_key === 'product').map(el => el.id),
-      designerIds: search.filter(el => el._api_key === 'designer').map(el => el.id),
-      newsIds: search.filter(el => el._api_key === 'news').map(el => el.id),
-      faqIds: search.filter(el => el._api_key === 'faq').map(el => el.id)
-    }
-  })
+    const data = await apiQuery(SiteSearchDocument, {
+      variables:{
+        productIds: search.filter(el => el._api_key === 'product').map(el => el.id),
+        designerIds: search.filter(el => el._api_key === 'designer').map(el => el.id),
+        newsIds: search.filter(el => el._api_key === 'news').map(el => el.id),
+        faqIds: search.filter(el => el._api_key === 'faq').map(el => el.id)
+      }
+    })
+    
+    Object.keys(data).forEach(type => {
+      if(!data[type].length)
+        delete data[type]
+      else
+        console.log(type, data[type].length)
+    })
+    console.log('total:', search.length)
+    return new Response(JSON.stringify(data),{status: 200,headers: {'content-type': 'application/json'}})
+  }catch(err){
+    console.error(err)
+    return new Response(JSON.stringify(err),{status: 500, headers: {'content-type': 'application/json'}})
+
+  }
   
-  Object.keys(data).forEach(type => {
-    if(!data[type].length)
-      delete data[type]
-    else
-      console.log(type, data[type].length)
-  })
-  console.log('total:', search.length)
-  
-  return new Response(JSON.stringify(data),{status: 200,headers: {'content-type': 'application/json'}})
  
 }
