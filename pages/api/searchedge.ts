@@ -30,9 +30,9 @@ export default async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const q = searchParams.get('q')
   
-  if(!q) 
-    return new Response(JSON.stringify({}),{status: 200,headers: {'content-type': 'application/json'}})
-
+  //if(!q) 
+  return new Response(JSON.stringify({q}),{status: 200,headers: {'content-type': 'application/json'}})
+  /*
   const res = await fetch(`${baseEndpoint}/item-types`, fetchOptions)
   const itemTypes = (await res.json()).data
 
@@ -62,5 +62,5 @@ export default async function handler(req: NextRequest) {
   console.log('total:', search.length)
   
   return new Response(JSON.stringify(data),{status: 200,headers: {'content-type': 'application/json'}})
-  
+  */
 }
