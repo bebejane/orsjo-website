@@ -36,6 +36,8 @@ const link = new BatchHttpLink({
   headers: { Authorization: `Bearer ${GRAPHQL_API_TOKEN}` }
 });
 
+console.log('isServer', isServer)
+
 export const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),

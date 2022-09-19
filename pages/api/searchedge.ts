@@ -1,7 +1,3 @@
-// Fixes bug in apollo client 
-// https://github.com/apollographql/apollo-client/issues/9756
-global.__DEV__ = process.env.NODE_ENV === 'development'; 
-
 import { apiQuery } from '/lib/dato/api';
 import { SiteSearchDocument } from '/graphql';
 
