@@ -11,12 +11,13 @@
   min-height: 100vh;
 
   .search{
-
-    border-top: 1px solid $white;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: $gutter 0 $gutter 0;
+    padding: $gutter 1em $gutter 1em;
+    background-color: $mid-gray;
+    margin-bottom: 1em;
+
 
     img{
       max-width: 18px;

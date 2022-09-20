@@ -15,7 +15,7 @@ export default function Downloads({ products }: DownloadsProps) {
 	const [search, setSeatch] = useState<string>();
 	const [results, setResults] = useState<ProductRecord[]>(products);
 	const [list, setList] = useState({})
-	
+
 	useEffect(() => {
 		if (!search || !products) return setResults(products)
 		const res = products.filter(({ title }) => title.toLowerCase().startsWith(search.toLowerCase()))
@@ -41,6 +41,7 @@ export default function Downloads({ products }: DownloadsProps) {
 						id="search"
 						type="text"
 						value={search}
+						autoFocus={true}
 						onChange={({ target }) => setSeatch(target.value)}
 					/>
 				</div>
