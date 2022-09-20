@@ -3,10 +3,9 @@ import cn from 'classnames'
 import { Image } from 'react-datocms'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useWindowSize } from 'rooks'
 
 export type ThumbnailProps = {
-  slug: string,
+  slug?: string,
   image: FileField,
   imageHover?: FileField,
   inverted?: boolean,
@@ -15,7 +14,7 @@ export type ThumbnailProps = {
   className?: string,
   markAsNew?: boolean,
   theme?: 'dark' | 'light' | 'mid',
-  type?: 'product' | 'project' | 'designer' | 'news'
+  type?: 'product' | 'project' | 'designer' | 'news' | 'staff'
 }
 
 export default function Thumbnail({
@@ -156,6 +155,24 @@ export function NewsThumbnail({ news, inverted, theme = 'dark', className }: New
       className={className}
       theme={theme}
       type="news"
+    />
+  )
+}
+
+export type StaffThumbnailProps = BaseThumbnailProps & {
+  staff: StaffRecord,
+}
+export function StaffThumbnail({ staff, inverted, theme = 'dark', className }: StaffThumbnailProps) {
+
+  return (
+    <Thumbnail
+      slug={`/contact#${staff.id}`}
+      image={staff.image}
+      title={staff.name}
+      inverted={inverted}
+      className={className}
+      theme={theme}
+      type="staff"
     />
   )
 }

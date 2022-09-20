@@ -2,7 +2,8 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http"; 
 import { IntlDocument } from '/graphql';
 import { TypedDocumentNode, gql } from '@apollo/client';
-import { isServer } from '/lib/utils';
+
+const isServer = typeof window === 'undefined'
 
 export type IntlMessage = { key:string, value:string }
 

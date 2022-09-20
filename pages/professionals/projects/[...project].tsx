@@ -52,14 +52,13 @@ export default function Project({ project, related }: ProjectProps) {
 				<Section
 					className={styles.related}
 					name={`Products`}
-					type="margin"
 					bgColor={'--mid-gray'}
 				>
-					<h1>{`Products`}</h1>
 					<div className={styles.gallery}>
 						<FeaturedGallery
-							items={project.relatedProducts}
 							id="relatedProducts"
+							headline={'Products'}
+							items={project.relatedProducts}
 							theme="light"
 							fadeColor={'--mid-gray'}
 						/>
@@ -70,14 +69,13 @@ export default function Project({ project, related }: ProjectProps) {
 				<Section
 					className={cn(styles.related, styles.other)}
 					name={`Other ${project.projectType.titlePlural}`}
-					type="margin"
 					bgColor={'--mid-gray'}
 				>
-					<h1>{`Other ${project.projectType.title}s`}</h1>
 					<div className={styles.gallery}>
 						<FeaturedGallery
-							items={related}
 							id="relatedProjects"
+							headline={`Other ${project.projectType.title}s`}
+							items={related}
 							theme="light"
 							fadeColor={'--mid-gray'}
 						/>
