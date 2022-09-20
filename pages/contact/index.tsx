@@ -11,7 +11,8 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
 import Markdown from '/lib/dato/components/Markdown';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useForm } from "react-hook-form";
 
 export type ContactProps = {
 	contact: ContactRecord,
@@ -84,9 +85,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					)}
 				</div>
 				{showContactForm && 
-					<Modal>
-						<ContactForm onClose={()=>setShowContactForm(false)}/>
-					</Modal>
+					<ContactModal onClose={()=>setShowContactForm(false)}/>
 				}
 			</Section>
 			<Section name="Showrooms"  className={styles.showroomsSection} bgColor='--black'>
@@ -173,29 +172,64 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 }
 
 
-const ContactForm = ({onClose}) => {
+const ContactModal = ({onClose}) => {
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		console.log('submit')
-	}
+	const { register, handleSubmit } = useForm();
+	const [loading, setLoading] = useState(false)
+	const [success, setSuccess] = useState(false)
+	const [error, setError] = useState()
+
+  const [data, setData] = useState("");
+
+	useEffect(()=>{ 
+
+		if(!data) return 
+
+		setLoading(true)
+
+		fetch('/api/contact', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		}).then(()=>{	
+			setSuccess(true)
+		}).catch((err)=>{
+			setError(err)
+		}).finally(()=>{
+			setLoading(false)
+		})
+
+	}, [data])
 
 	return(
-		<div className={styles.contactForm}>
-			<div className={styles.wrap}>
-				<h1>Contact us</h1>
-				<form onSubmit={handleSubmit}>
-					<label htmlFor="name">Name</label>
-					<input id="name" name="name" type="text" placeholder="Name..." />
-					<label htmlFor="email">E-mail</label>
-					<input type="text" name="email" placeholder="E-mail..."/>
-					<label htmlFor="message">Message</label>
-					<textarea name="message"></textarea>
-					<button type="submit">Send</button>
-				</form>
+		<Modal>
+			<div className={styles.contactForm}>
+				<div className={styles.wrap}>
+					<h1>Contact us</h1>
+					<form id="contact-form" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+						<label htmlFor="name">Name</label>
+						<input id="name" name="name" type="text" placeholder="Name..." {...register("name")} />
+						<label htmlFor="email">E-mail</label>
+						<input id="email" type="text" name="email" placeholder="E-mail..." {...register("email")}/>
+						<label htmlFor="subject">Subject</label>
+						<input id="subject" type="text" name="subject" placeholder="Subject..." {...register("subject")}/>
+						<label htmlFor="text">Message</label>
+						<textarea name="text" {...register("text")}></textarea>
+						<button type="submit">Send</button>
+					</form>
+					{loading && 
+						<div className={styles.loading}>Submitting...</div>
+					}
+					{success && 
+						<div className={styles.success}>Success!</div>
+					}
+				</div>
+				<div className={styles.close} onClick={onClose}>×</div>
 			</div>
-			<div className={styles.close} onClick={onClose}>×</div>
-		</div>
+		</Modal>
 	)
 }
 
