@@ -27,6 +27,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					objectFit='cover'
 					className={styles.image}
 				/>
+				<h1>Custom made lighting</h1>
 			</Section>
 			<Section name="Intro" className={styles.intro} type="margin" bgColor={'--gray'}>
 				<h1>{bespoke.title}</h1>
@@ -38,7 +39,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 				{bespoke.examples.map(({ project, summary }, idx) => {
 					return (
 						<div className={styles.project} key={idx}>
-							<div className={styles.image} onClick={()=>setGalleryId((project.secondaryImage || project.image).id)}>
+							<div className={styles.image} onClick={() => setGalleryId((project.secondaryImage || project.image).id)}>
 								<Image className={styles.big} data={project.secondaryImage?.responsiveImage || project.image.responsiveImage} />
 							</div>
 							<div className={styles.description}>
@@ -50,16 +51,20 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 				})}
 			</Section>
 			<Section name="Outro" className={styles.outro} type="full" bgColor={'--gray'}>
-				<Markdown className={styles.text}>
-					{bespoke.outro}
-				</Markdown>
+				<div className={styles.innerWrap}>
+					<Markdown className={styles.text}>
+						{bespoke.outro}
+					</Markdown>
+				</div>
 			</Section>
 			<Section name="More" className={styles.more} type="full" bgColor={'--gray'} bottom={true}>
-				<Link href="/professionals/projects" passHref={true}>
-					<button>
-						Show more commercial projects
-					</button>
-				</Link>
+				<div className={styles.innerWrap}>
+					<Link href="/professionals/projects" passHref={true}>
+						<button>
+							Show more commercial projects
+						</button>
+					</Link>
+				</div>
 			</Section>
 
 		</>

@@ -6,11 +6,11 @@ export type NewsItemProps = { data: NewsItemRecord }
 
 export default function NewsItem({ data: { news } }: NewsItemProps) {
 	const { title, text, link, linkText, slug } = news
-	
+
 	return (
 		<section className={styles.news}>
 			<h1>News</h1>
-			
+
 			<span className={styles.text}>
 				<h1>{title}</h1>
 				<Markdown sentances={1}>{text}</Markdown>

@@ -4,11 +4,12 @@ import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument } from
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
-import {  Block, Section, FeaturedGallery} from '/components';
+import { Block, Section, FeaturedGallery } from '/components';
 import { useEffect } from 'react'
 import { useStore } from '/lib/store';
 import { recordImages } from '/lib/utils'
 import useScrollInfo from '/lib/hooks/useScrollInfo';
+import cn from 'classnames';
 
 export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
 
@@ -23,7 +24,7 @@ export default function Project({ project, related }: ProjectProps) {
 		opacity: 0.2 + viewportScrollRatio,
 		filter: `grayscale(${1 - (viewportScrollRatio * 4)})`
 	}
-	
+
 	useEffect(() => setGallery({ images: recordImages(project) }), [setGallery, project])
 
 	//console.log(imageStyle, viewportScrollRatio)
@@ -35,26 +36,26 @@ export default function Project({ project, related }: ProjectProps) {
 					<h1 className={styles.location} style={headerStyle}>{project.location}</h1>
 					<Image
 						data={project.image.responsiveImage}
-						objectFit="contain"
+						objectFit="cover"
 						style={imageStyle}
 						className={styles.image}
 					/>
 				</div>
 			</Section>
-			{project.gallery.map((block, idx) => 
+			{project.gallery.map((block, idx) =>
 				<Section key={idx}>
-					<Block data={block} onClick={setGalleryId}/>
+					<Block data={block} onClick={setGalleryId} />
 				</Section>
 			)}
 			<Section bottom={true} />
 			{project.relatedProducts.length > 0 &&
 				<Section
 					className={styles.related}
-					name={`Products used`}
+					name={`Products`}
 					type="margin"
 					bgColor={'--mid-gray'}
 				>
-					<h1>{`Products used`}</h1>
+					<h1>{`Products`}</h1>
 					<div className={styles.gallery}>
 						<FeaturedGallery
 							items={project.relatedProducts}
@@ -67,7 +68,7 @@ export default function Project({ project, related }: ProjectProps) {
 			}
 			{related.length > 0 &&
 				<Section
-					className={styles.related}
+					className={cn(styles.related, styles.other)}
 					name={`Other ${project.projectType.titlePlural}`}
 					type="margin"
 					bgColor={'--mid-gray'}

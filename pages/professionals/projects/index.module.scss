@@ -1,6 +1,13 @@
+.introduction {
+  padding-bottom: $small-margin;
+}
+
 .intro {
   width: 80%;
   color: white;
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .projects {

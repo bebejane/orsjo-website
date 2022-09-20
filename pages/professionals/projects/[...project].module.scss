@@ -4,11 +4,14 @@
   width: 100%;
   .wrap{
     position: relative;
-    min-height: calc(100vh - 4rem);
+    //min-height: calc(100vh - 4rem);
+    min-height: 60vh;
+    display: flex;
     
     .image{
       opacity: 0.2;
       filter: grayscale(1);
+      //mix-blend-mode: screen;
     }
     .title, .location{
       position: absolute;
@@ -34,7 +37,6 @@
 
 .related{
   padding-top: $small-margin;
-  padding-bottom: $margin;
   display: flex;
   flex-direction: row;
   h1{
@@ -49,4 +51,8 @@
       flex: 1 1 auto;
     }
   }
+}
+
+.other {
+    padding-bottom: $margin;
 }

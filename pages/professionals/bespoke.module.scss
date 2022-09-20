@@ -7,6 +7,16 @@
     position: relative !important;
     min-height: 100vh;
     width: 100vw;
+    mix-blend-mode: screen;
+    filter: grayscale(1);
+  }
+  h1 {
+    @include h1Big();
+    position: absolute;
+    //color: $white;
+    bottom: $margin;
+    right: var(--outer-margin);
+    padding-right: spanGrid(1);
   }
 }
 
@@ -78,9 +88,10 @@
 .outro{
   color:$white !important;
   margin-top: 2rem;
+
   .text{
+    margin-left: spanGridWithGutter(4);
     margin-right: spanGrid(4);
-    margin-left: spanGrid(4);
   }
 }
 
@@ -91,6 +102,11 @@
     cursor: pointer;
     width: spanGrid(8);
     margin-right: spanGrid(4);
-    margin-left: spanGrid(4);
+    margin-left: spanGridWithGutter(4);
   }
+}
+
+.innerWrap {
+  padding-left: var(--outer-margin) !important;
+  padding-right: var(--outer-margin) !important;
 }
