@@ -4,8 +4,13 @@
   padding-top: $small-margin;
 	padding-bottom: $small-margin;
 
-  &.line{
+  &.line {
+    padding-top: 0;
+
+    .wrapperTop,{
+    padding-top: $small-margin;
     border-top: 1px solid $white;
+  }
   }
 
   @include mq($until: tablet) {
