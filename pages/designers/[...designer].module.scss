@@ -3,34 +3,29 @@
 
 	header {
 		display: flex;
-		flex-direction: row;
+		//@at-root: row;
 		position: relative;
-		justify-content: flex-end;
 		height: 100vh;
 		width: 100%;
 
 		.artist {
 			position: relative;
 			display: flex;
-			justify-content: center;
-			align-items: center;
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 5%;
+			margin-top: 4rem;
+
 
 			h1 {
-				position: absolute;
-				top: 50%;
-				left: 0.5em;
-				transform: translateY(-50%);
-				z-index: 2;
+				left: 1em;
+				margin-bottom: .5em !important;
 				@include h1Big();
-				animation: fade 1s ease 1s reverse forwards;
+				color: $white;
+				//animation: fade 1s ease 1s reverse forwards;
 			}
 
 			.description {
-				padding: 10%;
-
-				opacity: 0;
-				animation: fade 1s ease 1s forwards;
-
 				span {
 					color: $white;
 				}
@@ -41,6 +36,16 @@
 			position: relative;
 			flex: 0 0 50%;
 			height: 100%;
+			mix-blend-mode: screen;
+
+			.fade{
+				background-image: linear-gradient(to top, rgba(27,91,68,0), rgba(27, 91, 68,.4));
+				height: 10rem;
+				width: 100%;
+				position:absolute;
+				z-index: 1;
+				mix-blend-mode: multiply;
+			}
 
 			figcaption {
 				position: absolute;

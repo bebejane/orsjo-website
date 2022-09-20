@@ -16,11 +16,12 @@ export default function Designer({ designer, products, designers }: DesignerProp
 				<header>
 					<div className={styles.artist} key={designer.id}>
 						<h1>{designer.name}</h1>
-						<p className={styles.description}>
+						<p className="large">
 							{designer.description}
 						</p>
 					</div>
 					<figure>
+						<div className={styles.fade}></div>
 						{designer.image &&
 							<Image data={designer.image.responsiveImage} layout={'fill'} objectFit={'cover'} />
 						}
@@ -35,27 +36,27 @@ export default function Designer({ designer, products, designers }: DesignerProp
 				<h1>Products by <br />{designer.name}</h1>
 				<div className={styles.gallery}>
 					<ul>
-						{products.map((p, idx) => 
+						{products.map((p, idx) =>
 							<li key={idx}>
-								<ProductThumbnail 
-									key={idx} 
-									product={p} 
-									theme="light" 
+								<ProductThumbnail
+									key={idx}
+									product={p}
+									theme="light"
 								/>
 							</li>
 						)}
 					</ul>
 				</div>
 			</Section>
-			<Section type="margin" className={styles.otherDesigners} bgColor='--warm-gray'>
+			<Section type="margin" className={styles.otherDesigners} bgColor='--green'>
 				<h1>Other designers</h1>
 				<div className={styles.gallery}>
-					<FeaturedGallery 
-						items={designers} 
-						id="all-designers" 
-						theme='light' 
-						arrowAlign='middle' 
-						fadeColor={'--warm-gray'} 
+					<FeaturedGallery
+						items={designers}
+						id="all-designers"
+						theme='light'
+						arrowAlign='middle'
+						fadeColor={'--green'}
 					/>
 				</div>
 			</Section>
@@ -63,7 +64,7 @@ export default function Designer({ designer, products, designers }: DesignerProp
 	)
 }
 
-Designer.layout = { layout: 'full', color: '--warm-gray', menu: 'inverted' } as PageLayoutProps
+Designer.layout = { layout: 'full', color: '--green', menu: 'inverted' } as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { designers } = await apiQuery(AllDesignersDocument)
