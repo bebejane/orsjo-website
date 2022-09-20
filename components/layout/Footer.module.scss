@@ -4,6 +4,10 @@
   padding-top: $small-margin;
 	padding-bottom: $small-margin;
 
+  &.line{
+    border-top: 1px solid $white;
+  }
+
   @include mq($until: tablet) {
     display: none;
   }  

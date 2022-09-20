@@ -33,6 +33,7 @@ query AllProjectTypes {
 	projectTypes: allProjectTypes {
 		id
 		title
+		titlePlural
 	}
 }
 

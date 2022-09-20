@@ -40,14 +40,13 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	const singleModel = product.models.length === 1
 	const productCategories = product.categories.map(({ name }, idx) => name).join(', ')
 	
-	const images = recordImages(product)//?.filter(({mimeType})=> !mimeType.includes('video'))
+	const images = recordImages(product, ['environmentImage'])
 	
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = []; 
 	product.models.forEach(m => m.drawing && drawings.push(m.drawing))
 	
 	const handleGalleryClick = (type: string, id:string) => {
-		console.log(id, drawings)
 		setGallery({images : type === 'product' ? images : drawings, index:0})
 		setGalleryId(id)
 	}

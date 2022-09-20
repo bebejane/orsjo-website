@@ -6,11 +6,12 @@ import {
 	AllShowroomsDocument,
 	AllDistributorsDocument
 } from '/graphql';
-import { Section } from '/components'
+import { Section, Modal } from '/components'
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
 import Markdown from '/lib/dato/components/Markdown';
+import { useState } from 'react';
 
 export type ContactProps = {
 	contact: ContactRecord,
@@ -22,13 +23,15 @@ export type ContactProps = {
 
 export default function Contact({ contact, resellers, staffs, showrooms, distributors }: ContactProps) {
 
+	const [showContactForm, setShowContactForm] = useState(false)
+
 	const resellesByCountry = {}
 	resellers.forEach((r, i) => {
 		if (!resellesByCountry[r.country.id])
 			resellesByCountry[r.country.id] = { resellers: [], country: r.country.name }
 		resellesByCountry[r.country.id].resellers.push(r)
 	})
-
+	
 	return (
 		<>
 			<Section name="Information" top={true} className={styles.informationSection} bgColor='--red'>
@@ -52,13 +55,13 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 							</p>
 						</div>
 					</div>
-					<button>Contact Us</button>
+					<button onClick={()=>setShowContactForm(true)}>Contact Us</button>
 				</div>
 				<div className={styles.imageWrap}>
 					<Image data={contact.image.responsiveImage} className={styles.image} />
 				</div>
 			</Section>
-
+			
 			<Section name="Staff" className={styles.staffSection} bgColor='--red'>
 				<h1 className="bottomMargin">Staff</h1>
 				<div className={styles.staff}>
@@ -72,7 +75,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 									{name}</p>
 							</div>
 							<div className={styles.image}>
-								<p className="medium">							{role}<br />
+								<p className="medium">{role}<br />
 									<a href={`tel://${phone}`}>{phone}</a><br />
 									<a href={`mailto:${email}`}>{email}</a>
 								</p>
@@ -80,6 +83,11 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 						</div>
 					)}
 				</div>
+				{showContactForm && 
+					<Modal>
+						<ContactForm onClose={()=>setShowContactForm(false)}/>
+					</Modal>
+				}
 			</Section>
 			<Section name="Showrooms"  className={styles.showroomsSection} bgColor='--black'>
 				<h1>Showrooms</h1>
@@ -159,9 +167,38 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					})}
 				</div>
 			</Section>
+			
 		</>
 	)
 }
+
+
+const ContactForm = ({onClose}) => {
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		console.log('submit')
+	}
+
+	return(
+		<div className={styles.contactForm}>
+			<div className={styles.wrap}>
+				<h1>Contact us</h1>
+				<form onSubmit={handleSubmit}>
+					<label htmlFor="name">Name</label>
+					<input id="name" name="name" type="text" placeholder="Name..." />
+					<label htmlFor="email">E-mail</label>
+					<input type="text" name="email" placeholder="E-mail..."/>
+					<label htmlFor="message">Message</label>
+					<textarea name="message"></textarea>
+					<button type="submit">Send</button>
+				</form>
+			</div>
+			<div className={styles.close} onClick={onClose}>×</div>
+		</div>
+	)
+}
+
 
 Contact.layout = { layout: 'normal', color: "--red", menu: 'inverted' } as PageLayoutProps
 

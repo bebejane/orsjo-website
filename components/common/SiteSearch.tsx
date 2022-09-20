@@ -1,7 +1,6 @@
 import styles from './SiteSearch.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
-import { buildClient } from '@datocms/cma-client-browser';
 import { useEffect, useState } from 'react';
 import { ProductThumbnail, DesignerThumbnail, NewsThumbnail } from '/components';
 import { useDebouncedValue, useRaf } from 'rooks';
@@ -15,7 +14,8 @@ export type SearchResultCategory = {
 export default function SiteSearch({show, onClose}){
 	
 	const [query, setQuery] = useState<string | undefined>()
-	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(query, 350);
+	const [inputValue, setInputValue] = useState<string | undefined>()
+	//const [debouncedQuery, setQueryImmediate] = useDebouncedValue(query, 350);
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
@@ -23,45 +23,50 @@ export default function SiteSearch({show, onClose}){
 	const setShowSiteSearch = useStore((state) => state.setShowSiteSearch)
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading
 
-	useEffect(()=>{
-		if(!debouncedQuery) return
-		
-		fetch(`/api/search?q=${debouncedQuery}`).then(async (res) => {
+	const handleSubmit = (e) => {
+		if(e) e.preventDefault()
+
+		setLoading(true)
+		setQuery(inputValue)
+		fetch(`/api/search?q=${inputValue}`).then(async (res) => {
 			const cats = await res.json()
-			console.log(cats)
 			setResult(cats)
 		})
 		.catch(err => setError(err))
 		.finally(()=> setLoading(false))
-
+	}
+	/*
+	useEffect(()=>{
+		if(!debouncedQuery) return
+		
 	}, [debouncedQuery, setLoading, setError])
 
+
 	useEffect(()=>{
-		if(query)
-			return setLoading(true)
+		if(query) return
 		
 		setQueryImmediate(undefined)
 		setResult(undefined)
 	}, [query, setQueryImmediate, setResult])
-
+	*/
+	
 	useEffect(()=> loading && setResult({}), [loading, setResult])
-
-	useEffect(()=>{
-		setShowSiteSearch(false)
-	}, [router.asPath])
+	useEffect(()=>{ setShowSiteSearch(false) }, [router.asPath])
 
 	if(!show) return null
 	
 	return (
 		<div className={styles.search}>
 			<div className={styles.query}>
-				<input 
-					autoFocus={true} 
-					placeholder="Search..." 
-					type="text" 
-					value={query} 
-					onChange={(e) => setQuery(e.target.value)}
-				/>
+				<form onSubmit={handleSubmit}>
+					<input 
+						autoFocus={true} 
+						placeholder="Search..." 
+						type="text" 
+						value={inputValue} 
+						onChange={(e) => setInputValue(e.target.value)}
+					/>
+				</form>
 			</div>
 			<div className={styles.results}>
 				{result && Object.keys(result).map(model => {

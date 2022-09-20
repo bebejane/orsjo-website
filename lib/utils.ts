@@ -1,3 +1,7 @@
+import { buildClient } from '@datocms/cma-client-browser';
+import { apiQuery } from '/lib/dato/api';
+import { SiteSearchDocument} from '/graphql'
+
 type Locale = 'en' | 'sv' | 'no'
 
 const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
@@ -83,30 +87,13 @@ const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => 
   return specs
 }
 
-const siteSearch = async (q: string, opt: { offset?: number, limit?: number } = {}) => {
-
-  let url = `https://site-api.datocms.com/search-results?q=${encodeURIComponent(q)}'&build_trigger_id=${18902}&locale=en`
-
-  if (opt.offset)
-    url += '&offset=' + encodeURIComponent(opt.offset);
-
-  if (opt.limit)
-    url += '&limit=' + encodeURIComponent(opt.limit);
-
-  const res = await fetch(url, {
-    headers: {
-      'Authorization': 'API-Token ' + process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN,
-      'Accept': 'application/json',
-    },
-  })
-
-  return await res.json()
-}
 
 const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): FileField[] => {
-  Object.keys(obj).forEach(key => {
-    if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video'))
-      images.push({ ...obj[key], _key: key })
+
+  Object.keys(obj).forEach(key => {  
+    if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video') && !exclude.includes(key))
+      images.push({ ...obj[key], _key: key })    
+      
     if (typeof obj[key] === 'object' && obj[key] !== null)
       recordImages(obj[key], exclude, images)
   })
@@ -161,7 +148,6 @@ const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[]
   return files.filter(({ href }) => href);
 }
 
-
 export {
   sleep,
   isServer,
@@ -171,8 +157,7 @@ export {
   sortProductsByCategory,
   sectionId,
   chunkArray,
-  parseSpecifications,
-  siteSearch,
+  parseSpecifications, 
   recordImages,
   productDownloads
 }

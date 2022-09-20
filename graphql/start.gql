@@ -64,6 +64,7 @@ query Start {
         news{
           id
           title
+          text(markdown: false)
           link
           linkText
           slug

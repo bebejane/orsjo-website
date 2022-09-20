@@ -39,7 +39,7 @@ export default function News({ news }: NewsProps) {
 					</div>
 				</Section>
 			)}
-			<Section className={styles.more}>
+			<Section className={styles.more} bottom={true}>
 				<button>Load more +</button>
 			</Section>
 
@@ -47,7 +47,7 @@ export default function News({ news }: NewsProps) {
 	)
 }
 
-News.layout = { layout: 'full', color: "--black", menu: 'inverted', sidebar: false } as PageLayoutProps
+News.layout = { layout: 'full', color: "--black", menu: 'inverted', sidebar: false, footerLine:true  } as PageLayoutProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllNewsDocument], model:'news' }, async ({ props, revalidate }: any) => {
 
