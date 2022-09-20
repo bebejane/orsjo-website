@@ -6,6 +6,7 @@ import {
 	AllShowroomsDocument,
 	AllDistributorsDocument
 } from '/graphql';
+
 import { Section, Modal } from '/components'
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
@@ -66,8 +67,8 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 			<Section name="Staff" className={styles.staffSection} bgColor='--red'>
 				<h1 className="bottomMargin">Staff</h1>
 				<div className={styles.staff}>
-					{staffs.map(({ name, role, phone, email, image }, idx) =>
-						<div key={idx} className={styles.employee}>
+					{staffs.map(({ id, name, role, phone, email, image }, idx) =>
+						<div id={id} key={idx} className={styles.employee}>
 							<div className={styles.image}>
 								<Image data={image.responsiveImage} />
 							</div>

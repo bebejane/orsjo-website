@@ -1,5 +1,5 @@
 import styles from './downloads.module.scss'
-import { AllProductDownloadsDocument } from '/graphql';
+import { AllProductDownloadsDocument, AllCataloguesDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
@@ -8,9 +8,9 @@ import { useState, useEffect } from 'react';
 import { Section, Icon } from '/components'
 import { productDownloads, ProductRecordWithPdfFiles } from '/lib/utils';
 
-export type DownloadsProps = { products: ProductRecord[] }
+export type DownloadsProps = { products: ProductRecord[], catalogues: CatalogueRecord[] }
 
-export default function Downloads({ products }: DownloadsProps) {
+export default function Downloads({ products, catalogues }: DownloadsProps) {
 
 	const [search, setSeatch] = useState<string>();
 	const [results, setResults] = useState<ProductRecord[]>(products);
@@ -108,10 +108,23 @@ export default function Downloads({ products }: DownloadsProps) {
 					<tbody>
 						<tr>
 							<th><span className="small">Image</span></th>
-							<th><span className="small">Product</span></th>
-							<th><span className="small">Type</span></th>
+							<th><span className="small">Title</span></th>
+							
 							<th></th>
 						</tr>
+						{catalogues.map(({id, title, thumbnail, pdf}) =>
+							<tr key={id}>
+								<td>
+									<Image data={thumbnail.responsiveImage} className={styles.image} />
+								</td>
+								<td>
+									<a href={`${pdf.url}?dl=${title}.pdf`}>
+										<Icon type={'pdf'} label={title} />
+									</a>
+								</td>
+								<td></td>
+							</tr>
+						)}
 					</tbody>
 				</table>
 			</Section>
@@ -121,7 +134,7 @@ export default function Downloads({ products }: DownloadsProps) {
 
 Downloads.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllProductDownloadsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllProductDownloadsDocument, AllCataloguesDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

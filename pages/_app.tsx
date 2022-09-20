@@ -36,17 +36,18 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
       // @ts-expect-error
       return setTimeout(()=>window.scrollTo({ top:0, behavior: 'instant' }), 100)
     }
-    let section;
+
+    let el : HTMLElement;
     const id = url.split('#')[1]
     
     for (let i = 0; i < 10; i++) {
-      section = document.getElementById(id)
-      if(section) break
+      el = document.getElementById(id)
+      if(el) break
       await sleep(50)
     }
-    
+
     await sleep(100)
-    const top = section ? section.offsetTop - 62 : 0
+    const top = el ? (el.getBoundingClientRect().top + window.scrollY) - 62 : 0
     const behavior = instant === true || !top ? 'instant' : 'smooth'
     // @ts-expect-error
     window.scrollTo({ top, behavior })

@@ -1,24 +1,34 @@
 #import "./fragments/DesignerFragment.gql"
 #import "./fragments/FaqFragment.gql"
 #import "./fragments/ProductLightFragment.gql"
+#import "./fragments/ProjectFragment.gql"
 #import "./fragments/NewsFragment"
+#import "./fragments/StaffFragment"
 
 query SiteSearch(
   $productIds: [ItemId],
   $designerIds: [ItemId],
   $faqIds: [ItemId],
   $newsIds: [ItemId],
+	$projectIds: [ItemId],
+	$staffIds: [ItemId],
 ) {
-	products : allProducts(filter: {id: { in: $productIds }}) {
+	products: allProducts(filter: {id: { in: $productIds }}) {
 		...ProductLightFragment
 	}
-  designers : allDesigners(filter: {id: { in: $designerIds }}) {
+  designers: allDesigners(filter: {id: { in: $designerIds }}) {
 		...DesignerFragment
 	}
-  faqs : allFaqs(filter: {id: { in: $faqIds }}) {
+	projects: allProjects(filter: {id: { in: $projectIds }}) {
+		...ProjectFragment
+	}
+  faqs: allFaqs(filter: {id: { in: $faqIds }}) {
 		...FaqFragment
 	}
-  news : allNews(filter: {id: { in: $newsIds }}) {
+  news: allNews(filter: {id: { in: $newsIds }}) {
 		...NewsFragment
+	}
+	staffs: allStaffs(filter: {id: { in: $staffIds }}) {
+		...StaffFragment
 	}
 }

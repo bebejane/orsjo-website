@@ -204,6 +204,79 @@ type BooleanFilter = {
   eq?: InputMaybe<Scalars['BooleanType']>;
 };
 
+type CatalogueModelFilter = {
+  OR?: InputMaybe<Array<InputMaybe<CatalogueModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  pdf?: InputMaybe<FileFilter>;
+  thumbnail?: InputMaybe<FileFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum CatalogueModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Catalogue (catalogue) */
+type CatalogueRecord = RecordInterface & {
+  __typename?: 'CatalogueRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  pdf?: Maybe<FileField>;
+  thumbnail?: Maybe<FileField>;
+  title?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Catalogue (catalogue) */
+type CatalogueRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 type CollectionMetadata = {
   __typename?: 'CollectionMetadata';
   count: Scalars['IntType'];
@@ -4571,6 +4644,8 @@ type PublishedAtFilter = {
 type Query = {
   __typename?: 'Query';
   /** Returns meta information regarding a record collection */
+  _allCataloguesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
   _allCountriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allDesignersMeta: CollectionMetadata;
@@ -4633,6 +4708,8 @@ type Query = {
   /** Returns the single instance record */
   about?: Maybe<AboutRecord>;
   /** Returns a collection of records */
+  allCatalogues: Array<CatalogueRecord>;
+  /** Returns a collection of records */
   allCountries: Array<CountryRecord>;
   /** Returns a collection of records */
   allDesigners: Array<DesignerRecord>;
@@ -4692,6 +4769,8 @@ type Query = {
   allUploads: Array<FileField>;
   /** Returns the single instance record */
   bespoke?: Maybe<BespokeRecord>;
+  /** Returns a specific record */
+  catalogue?: Maybe<CatalogueRecord>;
   /** Returns the single instance record */
   contact?: Maybe<ContactRecord>;
   /** Returns a specific record */
@@ -4768,6 +4847,14 @@ type Query = {
   translation?: Maybe<TranslationRecord>;
   /** Returns a specific asset */
   upload?: Maybe<FileField>;
+};
+
+
+/** The query root for this schema */
+type Query_allCataloguesMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<CatalogueModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -5013,6 +5100,17 @@ type Query_siteArgs = {
 type QueryaboutArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type QueryallCataloguesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<CatalogueModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<CatalogueModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
 };
 
 
@@ -5339,6 +5437,15 @@ type QueryallUploadsArgs = {
 type QuerybespokeArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type QuerycatalogueArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<CatalogueModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<CatalogueModelOrderBy>>>;
 };
 
 
@@ -6872,7 +6979,7 @@ type StaffQueryVariables = Exact<{
 }>;
 
 
-type StaffQuery = { __typename?: 'Query', staff?: { __typename?: 'StaffRecord', name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } };
+type StaffQuery = { __typename?: 'Query', staff?: { __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } };
 
 type AllStaffsQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
@@ -6880,7 +6987,7 @@ type AllStaffsQueryVariables = Exact<{
 }>;
 
 
-type AllStaffsQuery = { __typename?: 'Query', staffs: Array<{ __typename?: 'StaffRecord', name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> };
+type AllStaffsQuery = { __typename?: 'Query', staffs: Array<{ __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> };
 
 type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6934,7 +7041,7 @@ type ShowroomFragment = { __typename?: 'ShowroomRecord', additional?: string, ad
 
 type SiteFragment = { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } } };
 
-type StaffFragment = { __typename?: 'StaffRecord', name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } };
+type StaffFragment = { __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } };
 
 type VideoFragment = { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, size: any, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } };
 
@@ -7068,15 +7175,22 @@ type FactoryVisitQueryVariables = Exact<{ [key: string]: never; }>;
 
 type FactoryVisitQuery = { __typename?: 'Query', factoryVisit?: { __typename?: 'FactoryVisitRecord', id: any, title?: string, intro?: string } };
 
+type AllCataloguesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type AllCataloguesQuery = { __typename?: 'Query', catalogues: Array<{ __typename?: 'CatalogueRecord', id: any, title?: string, pdf?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, thumbnail?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> };
+
 type SiteSearchQueryVariables = Exact<{
   productIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
   designerIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
   faqIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
   newsIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
+  projectIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
+  staffIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
 }>;
 
 
-type SiteSearchQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, environmentImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } }>, designers: Array<{ __typename?: 'DesignerRecord', id: any, name: string, description?: string, slug: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }>, news: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug: string, createdAt: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> };
+type SiteSearchQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, environmentImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } }>, designers: Array<{ __typename?: 'DesignerRecord', id: any, name: string, description?: string, slug: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, secondaryImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, lastImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, colorImages: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, lastImage?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> }>, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }>, news: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug: string, createdAt: any, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, staffs: Array<{ __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> };
 
 type SiteSEOQueryVariables = Exact<{ [key: string]: never; }>;
 

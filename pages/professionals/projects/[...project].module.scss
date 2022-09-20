@@ -39,11 +39,8 @@
   padding-top: $small-margin;
   display: flex;
   flex-direction: row;
-  h1{
-    flex: 0 0 spanGridWithGutter(4)
-  }
   .gallery{
-    flex: 0 0 spanGridWithGutter(12)
+    flex: 1 1 auto;
   }
   @include mq($until: tablet) {
     flex-direction: column;
@@ -54,5 +51,5 @@
 }
 
 .other {
-    padding-bottom: $margin;
+  padding-bottom: $margin;
 }

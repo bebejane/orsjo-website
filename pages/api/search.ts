@@ -37,6 +37,7 @@ export default async function handler(req : NextApiRequest, res : NextApiRespons
     variables:{
       productIds: search.filter(el => el._api_key === 'product').map(el => el.id),
       designerIds: search.filter(el => el._api_key === 'designer').map(el => el.id),
+      projectIds: search.filter(el => el._api_key === 'project').map(el => el.id),
       newsIds: search.filter(el => el._api_key === 'news').map(el => el.id),
       faqIds: search.filter(el => el._api_key === 'faq').map(el => el.id)
     }

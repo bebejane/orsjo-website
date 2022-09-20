@@ -105,6 +105,44 @@ const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): Fi
   }, []);
 }
 
+const siteSearch = async (q: string) => {
+
+  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN});
+  const itemTypes = await client.itemTypes.list();
+  
+  const search = (await client.items.list({
+    filter: {
+      type: itemTypes.map(m => m.api_key).join(','),
+      query: q,      
+    },
+    locale: 'en',
+    order_by: '_rank_DESC'
+  })).map(el => ({
+    ...el, 
+    _api_key: itemTypes.find((t) => t.id === el.item_type.id).api_key,
+  }))
+
+  const data = await apiQuery(SiteSearchDocument, {
+    variables:{
+      productIds: search.filter(el => el._api_key === 'product').map(el => el.id),
+      designerIds: search.filter(el => el._api_key === 'designer').map(el => el.id),
+      projectIds: search.filter(el => el._api_key === 'project').map(el => el.id),
+      newsIds: search.filter(el => el._api_key === 'news').map(el => el.id),
+      faqIds: search.filter(el => el._api_key === 'faq').map(el => el.id),
+      staffIds: search.filter(el => el._api_key === 'staff').map(el => el.id)
+    }
+  })
+
+  Object.keys(data).forEach(type => {
+    if(!data[type].length)
+      delete data[type]
+    else
+      console.log(type, data[type].length)
+  })
+  
+  return data;
+}
+
 type ProductDownload = {
   href: string,
   label: string,
@@ -156,6 +194,7 @@ export {
   priceIncLight,
   sortProductsByCategory,
   sectionId,
+  siteSearch,
   chunkArray,
   parseSpecifications, 
   recordImages,

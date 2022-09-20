@@ -1,6 +1,7 @@
 #import "./ImageFragment.gql"
 
 fragment StaffFragment on StaffRecord{
+  id
   name
   image {
     ...ImageFragment

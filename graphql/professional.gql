@@ -63,3 +63,17 @@ query FactoryVisit {
 	  intro(markdown: false)
 	}
 }
+
+
+query AllCatalogues {
+	catalogues: allCatalogues{
+		id
+		title
+		pdf{
+			...FileFragment
+		}
+		thumbnail {
+			...ImageFragment
+		}
+	}
+}
