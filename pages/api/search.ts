@@ -53,24 +53,3 @@ export default async function handler(req : NextApiRequest, res : NextApiRespons
   
   res.json(data)
 }
-
-
-
-const parseRecords = (records : [any]) : SearchResult[] => {
-
-  const r : SearchResult[] = []
-
-  records.forEach(el => {
-    if(el._model === 'product')
-      r.push({
-        _model: el._model,
-        _modelName: el._modelName,
-        title: el.title,
-        slug: `/products/${el.slug}`,
-        description: el.description.en,
-        data:{...el}
-      })
-  })
-
-  return r;
-}

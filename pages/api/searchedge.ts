@@ -16,8 +16,6 @@ export type SearchResult = {
   data:any
 }
 
-
-
 export default async function handler(req: NextRequest) {
   
   const baseEndpoint = 'https://site-api.datocms.com'

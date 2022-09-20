@@ -1,8 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http"; 
 import { IntlDocument } from '/graphql';
-import { isServer } from '/lib/utils';
 import { TypedDocumentNode, gql } from '@apollo/client';
+import { isServer } from '/lib/utils';
 
 export type IntlMessage = { key:string, value:string }
 
@@ -36,12 +36,10 @@ const link = new BatchHttpLink({
   headers: { Authorization: `Bearer ${GRAPHQL_API_TOKEN}` }
 });
 
-console.log('isServer', isServer)
-
 export const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
-  //ssrMode: isServer,
+  ssrMode: isServer,
   defaultOptions: {
     query: {
       fetchPolicy: process.env.DEV_CACHE ? 'cache-first' : 'no-cache',
@@ -82,18 +80,8 @@ export const apiQuery = async (query: TypedDocumentNode | TypedDocumentNode[], o
 }
 
 export const SEOQuery = (schema: string) : TypedDocumentNode => {
-  return gql`
-    query GetSEO {
-      seo: ${schema} {
-        id
-        tags: _seoMetaTags {
-          attributes
-          content
-          tag
-        }
-      }
-    }
-  ` as TypedDocumentNode
+  const q = 'query GetSEO { seo: '+ schema +' { id tags: _seoMetaTags { attributes content tag}}}'
+  return gql(q) as TypedDocumentNode
 }
 
 export const intlQuery = async (page : string, locale: string = 'en', fallbackLocales: string[]) : Promise<any> => {
