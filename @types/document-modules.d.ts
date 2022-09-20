@@ -242,6 +242,7 @@ export const ProjectStart: DocumentNode;
 export const AllProjectTypes: DocumentNode;
 export const Bespoke: DocumentNode;
 export const FactoryVisit: DocumentNode;
+export const AllCatalogues: DocumentNode;
 
   export default defaultDocument;
 }
