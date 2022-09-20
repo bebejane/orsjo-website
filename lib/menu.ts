@@ -25,7 +25,7 @@ const base: Menu = [
       { type: 'professional', label: 'Projects', slug: '/professionals/projects' },
       { type: 'professional', label: 'Bespoke', slug: '/professionals/bespoke' },
       { type: 'professional', label: 'Downloads', slug: '/professionals/downloads' },
-      { type: 'professional', label: 'Factory Visit', slug: '/professionals/factory-visit' }
+      //{ type: 'professional', label: 'Factory Visit', slug: '/professionals/factory-visit' }
     ]
   },
   {

@@ -129,12 +129,12 @@ export default function Product({ product, relatedProducts, productsByCategory }
 					</header>
 					<div className={cn(styles.content, !singleModel && styles.multi)}>
 						{product.models.map(({ id, name, variants, lightsources, accessories }, midx) => {
-
+						
 							const art = variants.map(v => ({
 								articleNo: v.articleNo,
 								label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
 							}))
-
+							
 							const access = accessories.map(a => ({
 								articleNo: a.articleNo,
 								label: a.accessory.name
@@ -149,7 +149,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 							}))
 
 							const cols = art.concat(access).concat(light)
-							const rows = chunkArray(cols, cols.length > 2 ? Math.ceil(cols.length / 2) : 2)
+							const rows = chunkArray(cols, 2)
 							
 							if(singleModel){
 								return(
