@@ -36,7 +36,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
 
   return (
     <div className={cn(styles.gallery, images.length <= 1 && styles.noArrows, isSingleSlide && styles.noArrows)}>
-      <div className={styles.back} onClick={() => swiperRef.current.slidePrev()}><img src="/images/arrow.svg" className={styles.arrow} /></div>
+      <div className={styles.back} onClick={() => swiperRef.current.slidePrev()}><img src="/images/arrow-light.svg" className={styles.arrow} /></div>
       <div className={styles.images} onClick={() => !isSingleSlide && swiperRef?.current?.slideNext()}>
         <Swiper
           id={`main-gallery`}
@@ -66,8 +66,8 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
           )}
         </Swiper>
       </div>
-      <div className={styles.forward} onClick={() => swiperRef.current.slideNext()}><img src="/images/arrow.svg" className={styles.arrow} /></div>
-      <div className={styles.caption}>{title}</div>
+      <div className={styles.forward} onClick={() => swiperRef.current.slideNext()}><img src="/images/arrow-light.svg" className={styles.arrow} /></div>
+      <div className={styles.caption}><p className="medium">{title}</p></div>
       <div className={styles.close} onClick={onClose}>×</div>
     </div>
   )

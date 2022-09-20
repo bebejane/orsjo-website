@@ -101,6 +101,12 @@
     font-size: 1.3rem;
     user-select: none;
     filter:invert(1);
+    img {
+      height: 38px;
+    }
+  }
+  .back{
+    transform: rotate(180deg);
   }
   &.noArrows{
     .forward, .back {
