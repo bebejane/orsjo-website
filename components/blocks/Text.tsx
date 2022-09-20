@@ -1,18 +1,21 @@
 import styles from './Text.module.scss'
 import React from 'react'
-import { renderNodeRule, renderMarkRule } from 'react-datocms';
+import cn from 'classnames'
 import Link from 'next/link';
 import { StructuredText } from 'react-datocms';
 import type { StructuredText as StructuredTextType } from 'datocms-structured-text-utils';
+import { useLayout } from '/lib/context/layout';
 
 export type TextBlockProps = { data: TextRecord & {
   text:  StructuredTextType
-} }
+}}
 
 export default function Text({ data: { text }} : TextBlockProps) {
-	
+
+  const { menu } = useLayout()
+  
 	return (
-		<div className={styles.text}>
+		<div className={cn(styles.text, menu === 'inverted' && styles.inverted)}>
 			<StructuredText 
         data={text}
         renderInlineRecord={({ record }) => {

@@ -1,6 +1,12 @@
 .text {
   padding-top: $small-margin;
   padding-right: 25%;
+  &.inverted{
+    * > a {
+      color:$light-gray;
+      border-bottom: 1px solid $white;
+    }
+  }
   p {
     margin-bottom: 0;
   }
