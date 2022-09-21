@@ -26,8 +26,8 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	const isInverted = (menu === 'inverted' || invertMenu)
 
 	const resetSelected = useCallback(() => {
-		if (transitioning)
-			return
+		if (transitioning) return
+		console.log('reset')
 		setSelected(undefined)
 		setHovering(undefined)
 	}, [transitioning])
@@ -37,6 +37,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	}, [showMenu, resetSelected])
 
 	useEffect(() => { // Hide menu if was closed on scroll
+		console.log('hovering', hovering)
 		setSelected(hovering)
 	}, [hovering])
 
@@ -92,7 +93,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 								data-slug={slug}
 								data-index={idx}
 								key={idx}
-								onMouseEnter={() => setHovering(!index ? slug : undefined)}
+								onMouseMove={() => setHovering(!index ? slug : undefined)}
 								onMouseLeave={() => !index && !showMenu && setHovering(undefined)}
 								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
 							>
@@ -115,11 +116,12 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 			<div
 				className={cn(styles.sub, selected && showMenu && styles.show)}
 				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}
-				onMouseLeave={resetSelected}
+				
 			>
 				<div
 					className={cn(styles.subPad, styles[menu])}
 					style={{ backgroundColor: color, paddingLeft: `${menuMargin.padding}px`, }}
+					onMouseLeave={resetSelected}
 				>
 					<nav>
 						<ul className={cn(sub?.length > 10 && styles.columns)}>
