@@ -71,9 +71,12 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: hidden;
     overflow-y: scroll;
+    width: 100%;
     &::-webkit-scrollbar{
-      width: 0;
+      display: none;
+      width: 0px;
     }
     h1{
       text-transform: capitalize;
@@ -146,28 +149,25 @@
     background-color: $black !important;
     color:$white;
     transform: translateY(120%);
-    top:unset;
-    bottom:0;
     width: 100%;
     background-color: $black;
-    min-height: calc(100vh - $navbarHeightMobile);
-    height: calc(100vh - $navbarHeightMobile);
+    min-height: 100%;
+    height: 100%;
     background-color: $white;
-    margin-bottom: $navbarHeightMobile;
+    margin-bottom: calc($navbarHeightMobile + 20px);
     &.show{
       transform: translateY(0%);
     }
     .results{
       ul > li {
-        flex: 0 0 spanNestedGrid(12, 6);
-        max-width: spanNestedGrid(12, 6);
-        margin-right: nestedGridGutter(12);
-        margin-bottom: nestedGridGutter(12);
+        flex: 0 0 spanGrid(8);
+        max-width: spanGrid(8);
+        margin-right: nestedGridGutter(16);
+        margin-bottom: nestedGridGutter(16);
         @include resetLastColumn(2);
         a{
           color:$white;
-        }
-        
+        } 
       }
     }
     .close{
