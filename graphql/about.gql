@@ -56,9 +56,12 @@ query LastNews {
   }
 }
 
-query AllNews {
-  news: allNews {
+query AllNews($first: IntType = 5, $skip: IntType = 0){
+  news: allNews(first: $first, skip: $skip) {
     ...NewsFragment
+  }
+  pagination: _allNewsMeta {
+    count
   }
 }
 

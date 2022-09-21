@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 
 export default function ContactModal({ onClose, show = false }) {
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setFocus } = useForm();
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState()
@@ -47,7 +47,10 @@ export default function ContactModal({ onClose, show = false }) {
   useEffect(() => {
     if (!show)
       setTimeout(resetForm, 300)
-  }, [show, ref, resetForm])
+    else
+      setFocus("name");
+    
+  }, [show, ref, resetForm, setFocus])
 
   return (
     <Modal>
@@ -75,6 +78,7 @@ export default function ContactModal({ onClose, show = false }) {
 
             <button type="submit">Send</button>
           </form>
+          {error && <div className={styles.error}>{error}</div>}
           {loading &&
             <div className={styles.loading}>Submitting...</div>
           }

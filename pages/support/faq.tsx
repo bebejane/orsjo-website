@@ -5,7 +5,7 @@ import cn from 'classnames'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageLayoutProps } from '/lib/context/layout';
 import { Section } from '/components'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export type FaqsProps = { faqs: FaqRecord[], faqStart: FaqStartRecord }
 
@@ -19,6 +19,11 @@ export default function Faqs({ faqs, faqStart }: FaqsProps) {
 			categories[f.category.id] = { id: f.category.id, title: f.category.title, items: [] }
 		categories[f.category.id].items.push(f)
 	})
+
+	useEffect(() => {
+		if(location.hash)
+			setList({...list, [location.hash.replace('#', '')]: true})
+  }, [setList]);
 	
 	return (
 		<>
@@ -32,7 +37,7 @@ export default function Faqs({ faqs, faqStart }: FaqsProps) {
 						<h1 className={styles.category}>{title}</h1>
 						<ul>
 							{items.map(({ question, answer, id }, idx) =>
-								<li key={idx} className={cn(list[id] && styles.selected)} onClick={() => setList({ ...list, [id]: list[id] ? false : true })}>
+								<li id={id} key={idx} className={cn(list[id] && styles.selected)} onClick={() => setList({ ...list, [id]: list[id] ? false : true })}>
 									<div className={styles.header}>
 										<h2 className={styles.question}>{question}</h2>
 										<div className={styles.indicator}>+</div>

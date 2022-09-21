@@ -3,8 +3,8 @@ import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react';
 import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail } from '/components';
 import { useDebouncedValue} from 'rooks';
-import { useRouter } from 'next/router';
-import { siteSearch } from '/lib/utils'
+import Link from 'next/link';
+import { siteSearch, truncateParagraph } from '/lib/utils'
 import useStore from '/lib/store';
 
 export type SearchResultCategory = {
@@ -13,6 +13,7 @@ export type SearchResultCategory = {
 
 export default function SiteSearch({show, onClose}){
 	
+	const ref = useRef<HTMLInputElement>()
 	const [query, setQuery] = useState<string | undefined>()
 	const [inputValue, setInputValue] = useState<string | undefined>()
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
@@ -20,7 +21,7 @@ export default function SiteSearch({show, onClose}){
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
-	const ref = useRef<HTMLInputElement>()
+	
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading && inputValue
 	
 	useEffect(()=>{
@@ -91,8 +92,11 @@ export default function SiteSearch({show, onClose}){
 										<li><NewsThumbnail news={item} theme="light" className={styles.thumb}/></li>
 								: model === 'faqs' ? 
 										<li className={styles.full}>
-											<strong>{(item as FaqRecord).question}</strong><br/>
-											{(item as FaqRecord).answer}<br/>
+											<Link href={`/support/faq#${item.id}`}>
+												<a><strong>{(item as FaqRecord).question}</strong></a>
+											</Link>
+											<br/>
+											{ truncateParagraph((item as FaqRecord).answer, 1, false)}<br/>
 										</li>
 								:
 									null
