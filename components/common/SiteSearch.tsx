@@ -1,12 +1,11 @@
 import styles from './SiteSearch.module.scss'
 import cn from 'classnames'
-import Link from 'next/link'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail } from '/components';
-import { useDebouncedValue, useRaf } from 'rooks';
-import useStore from '/lib/store';
+import { useDebouncedValue} from 'rooks';
 import { useRouter } from 'next/router';
 import { siteSearch } from '/lib/utils'
+import useStore from '/lib/store';
 
 export type SearchResultCategory = {
 	[key: string] : any
@@ -17,14 +16,16 @@ export default function SiteSearch({show, onClose}){
 	const [query, setQuery] = useState<string | undefined>()
 	const [inputValue, setInputValue] = useState<string | undefined>()
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
+	const [setShowSiteSearch, transitioning] = useStore((state) => [state.setShowSiteSearch, state.transitioning])
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
-	const router = useRouter()
-	const setShowSiteSearch = useStore((state) => state.setShowSiteSearch)
+	const ref = useRef<HTMLInputElement>()
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading && inputValue
-
-	const handleSubmit = () => {
+	
+	useEffect(()=>{
+		if(!debouncedQuery) return setResult(undefined)
+		
 		setLoading(true)
 		setQuery(inputValue)
 		siteSearch(inputValue).then(async (cats) => {
@@ -32,15 +33,6 @@ export default function SiteSearch({show, onClose}){
 		})
 		.catch(err => setError(err))
 		.finally(()=> setLoading(false))
-	}
-	
-	useEffect(()=>{
-		if(!debouncedQuery) {
-
-			return setResult({})
-		}
-		
-		handleSubmit()
 
 	}, [debouncedQuery, setLoading, setError])
 
@@ -50,31 +42,38 @@ export default function SiteSearch({show, onClose}){
 		
 		setQueryImmediate(undefined)
 		setResult(undefined)
-	}, [query, setQueryImmediate, setResult])
-	
-	
-	useEffect(()=> loading && setResult({}), [loading, setResult])
-	useEffect(()=>{ setShowSiteSearch(false) }, [router.asPath])
 
-	if(!show) return null
-	
+	}, [query, setQueryImmediate, setResult])
+
+	useEffect(()=>{
+		if(inputValue) return
+		setQueryImmediate(undefined)
+	}, [inputValue])
+
+	useEffect(()=>{ !transitioning && setShowSiteSearch(false)}, [transitioning])
+	useEffect(()=> loading && setResult({}), [loading, setResult])
+	useEffect(()=>{ show && ref.current.focus() }, [show, ref])
+
 	return (
-		<div className={styles.search}>
+		<div className={cn(styles.search, show && styles.show)}>
 			<div className={styles.query}>
 				<input 
+					ref={ref}
 					autoFocus={true}
 					placeholder="Search..."
 					autoComplete={'off'}
 					autoCorrect={'off'}
-					id="search-downloads"
 					type="text" 
 					value={inputValue} 
+					className={cn(show && styles.show)}
 					onChange={(e) => setInputValue(e.target.value)}
 				/>
 			</div>
 			<div className={styles.results}>
 				{result && Object.keys(result).map(model => {
+					
 					const items = result[model]
+
 					return (
 						<>
 							<h1>{model}</h1>

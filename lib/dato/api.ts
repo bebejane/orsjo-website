@@ -23,7 +23,7 @@ const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Res
     ...response,
     async text () {
       const result = await response.text()
-      console.log("\x1b[35m%s\x1b[0m", 'graql', `- ${requestName}`, `- ${new Date().getTime()-t}ms`)
+      console.log("\x1b[33m%s\x1b[0m", 'gql  ', `- ${requestName}`, `- ${new Date().getTime()-t}ms`)
       return result
     }
   }
