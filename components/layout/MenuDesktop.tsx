@@ -27,7 +27,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	const resetSelected = useCallback(() => {
 		if (transitioning) return
-		console.log('reset')
 		setSelected(undefined)
 		setHovering(undefined)
 	}, [transitioning])
@@ -37,7 +36,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	}, [showMenu, resetSelected])
 
 	useEffect(() => { // Hide menu if was closed on scroll
-		console.log('hovering', hovering)
 		setSelected(hovering)
 	}, [hovering])
 
