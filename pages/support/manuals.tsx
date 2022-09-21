@@ -4,7 +4,7 @@ import cn from 'classnames'
 import { AllProductManualsDocument } from '/graphql';
 import { PageLayoutProps } from '/lib/context/layout';
 import { Section, Icon } from '/components'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 export type ManualsProps = { products: ProductRecord[] }
 
@@ -12,12 +12,16 @@ export default function Manuals({ products }: ManualsProps) {
 
 	const [search, setSeatch] = useState<string>();
 	const [results, setResults] = useState<ProductRecord[]>(products);
+	const ref = useRef<HTMLInputElement>()
 
 	useEffect(() => {
 		if (!search || !products) return setResults(products)
 		const res = products.filter(({ title }) => title.toLowerCase().startsWith(search.toLowerCase()))
 		setResults(res)
 	}, [search, products, setResults])
+
+	
+	useEffect(()=>{ ref.current.focus() }, [ ref])
 
 	return (
 		<>
@@ -29,6 +33,7 @@ export default function Manuals({ products }: ManualsProps) {
 				<div className={styles.search}>
 					<img src={'/images/search.svg'} />
 					<input
+						ref={ref}
 						id="search"
 						type="text"
 						value={search}
