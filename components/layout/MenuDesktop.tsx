@@ -19,7 +19,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	const [transitioning] = useStore((state) => [state.transitioning])
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 })
-	const [hovering, setHovering] = useState(undefined)
 	const { layout, menu, color } = useLayout()
 	const { innerWidth } = useWindowSize()
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
@@ -28,16 +27,11 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	const resetSelected = useCallback(() => {
 		if (transitioning) return
 		setSelected(undefined)
-		setHovering(undefined)
 	}, [transitioning])
 
 	useEffect(() => { // Hide menu if was closed on scroll
 		!showMenu && resetSelected()
 	}, [showMenu, resetSelected])
-
-	useEffect(() => { // Hide menu if was closed on scroll
-		setSelected(hovering)
-	}, [hovering])
 
 	useEffect(() => { // Toggle menu bar on scroll
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
@@ -72,7 +66,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && !transitioning && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
-
+	
 	return (
 		<>
 			<Link scroll={false} href="/">
@@ -85,14 +79,14 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 			<nav id={'menu'} ref={ref} className={menuStyles}>
 				<ul className={styles.nav} >
 					{items.map(({ label, slug, index }, idx) => {
-						const arrowStyle = cn(styles.arrow, slug === hovering && styles.hover, slug === selected && styles.active)
+						const arrowStyle = cn(styles.arrow, slug === selected && styles.hover, slug === selected && styles.active)
 						return (
 							<li
 								data-slug={slug}
 								data-index={idx}
 								key={idx}
-								onMouseMove={() => setHovering(!index ? slug : undefined)}
-								onMouseLeave={() => !index && !showMenu && setHovering(undefined)}
+								onMouseEnter={() => setSelected(!index ? slug : undefined)}
+								onMouseLeave={() => !index && !showMenu && setSelected(undefined)}
 								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
 							>
 								{index === true ? // Direct links
@@ -113,8 +107,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 			<div
 				className={cn(styles.sub, selected && showMenu && styles.show)}
-				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}
-				
+				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}	
 			>
 				<div
 					className={cn(styles.subPad, styles[menu])}

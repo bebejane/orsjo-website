@@ -35,7 +35,7 @@ export default function Sidebar({title} : SidebarProps) {
 	
 	useEffect(()=>{ 
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]')
-		const sections = items.length ? Array.from(items).map((s)  => ({title:s.title, id:s.id})) : []
+		const sections = items.length ? Array.from(items).map((s)  => ({title:s.dataset.sectionTitle, id:s.id})) : []
 		setSections(sections)
 	}, [])
 

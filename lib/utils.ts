@@ -50,7 +50,7 @@ const sectionId = (title: string, id?: string) => {
   return {
     id,
     'data-section-id': id,
-    title
+    'data-section-title': title
   }
 }
 
