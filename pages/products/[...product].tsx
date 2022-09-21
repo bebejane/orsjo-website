@@ -219,7 +219,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						items={relatedProducts} 
 						theme={'light'}
 						id="related"
-						fadeColor={color}
+						fadeColor={'--mid-gray'}
 					/>
 				}
 				{productsByCategory.length > 0 &&
@@ -228,7 +228,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						items={productsByCategory} 
 						theme={'light'}
 						id="relatedbycategory" 
-						fadeColor={color}
+						fadeColor={'--mid-gray'}
 					/>
 				}
 			</Section>

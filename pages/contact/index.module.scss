@@ -247,17 +247,24 @@
 }
 
 .contactForm{
-	position: relative;
+	position: fixed;
+	z-index: 1000;
+	top:0;
+	left:0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	z-index: 100;
 	min-width: 100%;
 	min-height: 100vh;
 	background-color: $white;
-	color:$black;
-	
+	color: $black;
+	transform: translateY(100%);
+	transition: transform .2s ease-out;
+
+	&.show{
+		transform: translateY(0%);
+	}
 	.wrap{
 		position: relative;
 		form{
@@ -279,6 +286,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			flex-direction: column;
 			top:0;
 			left:0;
 			width: 100%;

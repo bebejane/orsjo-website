@@ -46,7 +46,7 @@ export default function SiteSearch({show, onClose}){
 	}, [query, setQueryImmediate, setResult])
 
 	useEffect(()=>{
-		if(inputValue) return
+		if(inputValue) return setLoading(true)
 		setQueryImmediate(undefined)
 	}, [inputValue])
 

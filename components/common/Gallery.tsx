@@ -3,7 +3,7 @@ import styles from './Gallery.module.scss'
 import cn from 'classnames'
 import { Image } from "react-datocms"
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useState, useRef, useEffect, MouseEventHandler } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper'
 
 export type GalleryProps = {
@@ -42,6 +42,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
           id={`main-gallery`}
           loop={true}
           spaceBetween={500}
+          simulateTouch={!isSingleSlide}
           slidesPerView={1}
           initialSlide={index}
           onSlideChange={({ realIndex }) => setRealIndex(realIndex)}

@@ -1,4 +1,5 @@
 import styles from './index.module.scss'
+import cn from 'classnames'
 import {
 	ContactDocument,
 	AllResellersDocument,
@@ -12,7 +13,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageLayoutProps } from '/lib/context/layout';
 import Markdown from '/lib/dato/components/Markdown';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useForm } from "react-hook-form";
 
 export type ContactProps = {
@@ -85,9 +86,8 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 						</div>
 					)}
 				</div>
-				{showContactForm &&
-					<ContactModal onClose={() => setShowContactForm(false)} />
-				}
+				<ContactModal show={showContactForm} onClose={() => setShowContactForm(false)} />
+				
 			</Section>
 			<Section name="Showrooms" className={styles.showroomsSection} bgColor='--black'>
 				<h1>Showrooms</h1>
@@ -173,17 +173,25 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 }
 
 
-const ContactModal = ({ onClose }) => {
+const ContactModal = ({ onClose, show = false }) => {
 
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, reset} = useForm();
 	const [loading, setLoading] = useState(false)
 	const [success, setSuccess] = useState(false)
 	const [error, setError] = useState()
+	const ref = useRef<HTMLInputElement>()
 
 	const [data, setData] = useState("");
 
-	useEffect(() => {
+	const resetForm = useCallback(() => {
+		setSuccess(false)
+		setError(undefined)
+		setLoading(false)
+		reset();
+	}, [setSuccess, setError, setLoading, reset])
 
+	useEffect(() => {
+		console.log(data)
 		if (!data) return
 
 		setLoading(true)
@@ -194,7 +202,7 @@ const ContactModal = ({ onClose }) => {
 				'Accept': 'application/json, text/plain, */*',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(data)
+			body: data
 		}).then(() => {
 			setSuccess(true)
 		}).catch((err) => {
@@ -205,27 +213,45 @@ const ContactModal = ({ onClose }) => {
 
 	}, [data])
 
+	useEffect(()=>{ 
+		if(!show)
+			setTimeout(resetForm,300) 
+	}, [show, ref, resetForm])
+	
 	return (
 		<Modal>
-			<div className={styles.contactForm}>
+			<div className={cn(styles.contactForm, show && styles.show)}>
 				<div className={styles.wrap}>
 					<h1>Contact us</h1>
 					<form id="contact-form" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
 						<label htmlFor="name">Name</label>
-						<input id="name" name="name" type="text" placeholder="Name..." {...register("name")} />
+						<input id="name" name="name" type="text" placeholder="Name..." autoFocus={true} {...register("name", {required:true, minLength:3})} />
+
 						<label htmlFor="email">E-mail</label>
-						<input id="email" type="text" name="email" placeholder="E-mail..." {...register("email")} />
+						<input id="email" type="text" name="email" placeholder="E-mail..." {...register("email", {
+							required:true, 
+							pattern: {
+								value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+								message: "Invalid email address"
+							}
+						})} />
+						
 						<label htmlFor="subject">Subject</label>
-						<input id="subject" type="text" name="subject" placeholder="Subject..." {...register("subject")} />
+						<input id="subject" type="text" name="subject" placeholder="Subject..." {...register("subject", {required:true})} />
+						
 						<label htmlFor="text">Message</label>
-						<textarea name="text" {...register("text")}></textarea>
+						<textarea name="text" {...register("text", {required:true})}></textarea>
+						
 						<button type="submit">Send</button>
 					</form>
 					{loading &&
 						<div className={styles.loading}>Submitting...</div>
 					}
 					{success &&
-						<div className={styles.success}>Success!</div>
+						<div className={styles.success}>
+							<h2>Message sent!</h2>
+							<button onClick={onClose}>Close</button>
+						</div>
 					}
 				</div>
 				<div className={styles.close} onClick={onClose}>×</div>
