@@ -1,19 +1,20 @@
 .search{
-  position: fixed;
+  position: absolute;
   display: flex;
   flex-direction: column;
   top:0;
   right:0;
   height: 100vh;
   min-height: 100vh;
-  width: spanGridWithGutter(12);
+  width: 100%;
   margin-left: calc(var(--outer-margin) + spanGrid(4));
   padding-left: var(--outer-margin);
   padding-right: var(--outer-margin);
   padding-top: 1.5rem;
-  z-index: 10000;
+  z-index: 100;
   background-color: $white;
   box-shadow: -1px 0px 10px rgba(128, 128, 128, 0.1);
+
   opacity: 0;
   transform: translateX(100%);
   transition: opacity 1s ease;
@@ -28,15 +29,11 @@
       transition: opacity .2s .2s ease;
     }
   }
-
   input {
     transition: opacity .0s ease;
     opacity: 0;
     font-size: 20px;
     font-family: $headline-font !important;
-    @include mq($until: tablet){
-      display: none;
-    }
   }
   
   .query{
@@ -139,45 +136,5 @@
     right: var(--outer-margin);
     width: 48px;
     font-size: 1rem;
-    border:0;
-  }
-
-  @include mq($until: tablet){
-    background-color: $black !important;
-    color:$white;
-    transform: translateY(120%);
-    top:unset;
-    bottom:0;
-    width: 100%;
-    background-color: $black;
-    min-height: calc(100vh - $navbarHeightMobile);
-    height: calc(100vh - $navbarHeightMobile);
-    background-color: $white;
-    margin-bottom: $navbarHeightMobile;
-    &.show{
-      transform: translateY(0%);
-    }
-    .results{
-      ul > li {
-        flex: 0 0 spanNestedGrid(12, 6);
-        max-width: spanNestedGrid(12, 6);
-        margin-right: nestedGridGutter(12);
-        margin-bottom: nestedGridGutter(12);
-        @include resetLastColumn(2);
-        a{
-          color:$white;
-        }
-        
-      }
-    }
-    .close{
-      color:$white;
-    }
-    .status{
-      background-color: $black !important;
-      .spinner{
-        filter: invert(1);
-      }
-    }
   }
 }

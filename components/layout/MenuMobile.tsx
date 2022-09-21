@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { useLayout } from '/lib/context/layout'
 import { useStore } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
+import { SiteSearch } from '/components'
 import type { Menu } from '/lib/menu'
 import social from '/lib/social'
 import { useWindowSize } from 'rooks'
@@ -17,23 +18,33 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	const router = useRouter()
 	const { menu } = useLayout()
 	const [open, setOpen] = useState(false)
+	const [query, setQuery] = useState<string>('');
+	const [showSearch, setShowSearch] = useState(false);
 	const [selected, setSelected] = useState(undefined)
 	const [transitioning] = useStore((state) => [state.transitioning])
-	const { innerHeight } = useWindowSize()
 	const sub = items.find((item) => item.type === selected)?.sub
 	const subHeader = selected ? items.find(i => i.type === selected).label : null
 
+	const closeSearch = () =>{
+		setShowSearch(false)
+		setQuery('')
+	}
+	
 	const handleClose = () => {
 		setSelected(undefined)
 		setOpen(false)
 	}
-
+	
 	useEffect(() => { !transitioning && handleClose() }, [transitioning])
 
 	useEffect(() => {
     router.events.on("hashChangeStart", handleClose);
     return () => router.events.off("hashChangeStart", handleClose)
   }, [router.events]);
+
+	useEffect(()=>{
+		setShowSearch(!!query)
+	}, [query])
 
 	return (
 		<>
@@ -70,7 +81,12 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 				<div className={styles.footer}>
 					<div className={styles.search}>
 						<img src={'/images/search.svg'}/>
-						<input type="text" placeholder='Search'/>
+						<input 
+							type="text" 
+							placeholder='Search'
+							value={query}
+							onChange={(e)=>setQuery(e.target.value)}
+						/>
 					</div>
 					<div className={styles.social}>
 						{social.map(({name, icon, url}, idx) =>
@@ -78,6 +94,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 						)}
 					</div>
 				</div>
+				
 			</nav>
 			<nav className={cn(styles.sub, !selected && styles.hide)}>
 				<div className={styles.subHeader}>
@@ -94,6 +111,11 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 					)}
 				</ul>
 			</nav>
+			<SiteSearch 
+				show={showSearch} 
+				query={query} 
+				onClose={closeSearch}
+			/>
 		</>
 	)
 }

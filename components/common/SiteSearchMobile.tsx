@@ -1,8 +1,8 @@
-import styles from './SiteSearch.module.scss'
+import styles from './SiteSearchMobile.module.scss'
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react';
 import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail } from '/components';
-import { useDebouncedValue, useWindowSize} from 'rooks';
+import { useDebouncedValue} from 'rooks';
 import Link from 'next/link';
 import { siteSearch, truncateParagraph } from '/lib/utils'
 import useStore from '/lib/store';
@@ -11,7 +11,7 @@ export type SearchResultCategory = {
 	[key: string] : any
 }
 
-export default function SiteSearch({show, onClose, query : queryAsProp}){
+export default function SiteSearchMobile({show, onClose}){
 	
 	const ref = useRef<HTMLInputElement>()
 	const [query, setQuery] = useState<string | undefined>()
@@ -21,10 +21,9 @@ export default function SiteSearch({show, onClose, query : queryAsProp}){
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
-	const { innerWidth } = useWindowSize()
+	
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading && inputValue
-	const thumbnailTheme = innerWidth < 768 ? 'dark' : 'light'
-
+	
 	useEffect(()=>{
 		if(!debouncedQuery) return setResult(undefined)
 		
@@ -54,46 +53,28 @@ export default function SiteSearch({show, onClose, query : queryAsProp}){
 
 	useEffect(()=>{ !transitioning && setShowSiteSearch(false)}, [transitioning])
 	useEffect(()=> loading && setResult({}), [loading, setResult])
-	useEffect(()=>{ show && ref.current.focus() }, [show, ref])
-	useEffect(()=>{
-		setInputValue(queryAsProp)
-	}, [queryAsProp])
+
 
 	return (
 		<div className={cn(styles.search, show && styles.show)}>
-			<div className={styles.query}>
-				<input 
-					ref={ref}
-					autoFocus={true}
-					placeholder="Search..."
-					autoComplete={'off'}
-					autoCorrect={'off'}
-					type="text" 
-					value={inputValue} 
-					className={cn(show && styles.show)}
-					onChange={(e) => setInputValue(e.target.value)}
-				/>
-			</div>
 			<div className={styles.results}>
 				{result && Object.keys(result).map(model => {
-					
 					const items = result[model]
-
 					return (
 						<>
 							<h1>{model}</h1>
 							<ul>
 								{items.map((item, idx)=>
 									model === 'products' ? 
-										<li><ProductThumbnail product={item} theme={thumbnailTheme} className={styles.thumb}/></li>
+										<li><ProductThumbnail product={item} theme="light" className={styles.thumb}/></li>
 								: model === 'designers' ? 
-										<li><DesignerThumbnail designer={item} theme={thumbnailTheme} className={styles.thumb}/></li>
+										<li><DesignerThumbnail designer={item} theme="light" className={styles.thumb}/></li>
 								: model === 'projects' ? 
-										<li><ProjectThumbnail project={item} theme={thumbnailTheme} className={styles.thumb}/></li>
+										<li><ProjectThumbnail project={item} theme="light" className={styles.thumb}/></li>
 								: model === 'staffs' ? 
-										<li><StaffThumbnail staff={item} theme={thumbnailTheme} className={styles.thumb}/></li>
+										<li><StaffThumbnail staff={item} theme="light" className={styles.thumb}/></li>
 								: model === 'news' ? 
-										<li><NewsThumbnail news={item} theme={thumbnailTheme} className={styles.thumb}/></li>
+										<li><NewsThumbnail news={item} theme="light" className={styles.thumb}/></li>
 								: model === 'faqs' ? 
 										<li className={styles.full}>
 											<Link href={`/support/faq#${item.id}`}>
