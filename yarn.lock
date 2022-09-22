@@ -7008,10 +7008,10 @@ next-plugin-graphql@^0.0.2:
   dependencies:
     graphql-tag "^2.10.0"
 
-next-seo@^4.28.1:
-  version "4.29.0"
-  resolved "https://registry.npmjs.org/next-seo/-/next-seo-4.29.0.tgz"
-  integrity sha512-xmwzcz4uHaYJ8glbuhs6FSBQ7z3irmdPYdJJ5saWm72Uy3o+mPKGaPCXQetTCE6/xxVnpoDV4yFtFlEjUcljSg==
+next-seo@^5.5.0:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-5.5.0.tgz#12bdfce60a6ae098f49617357a166c2d44dbc29e"
+  integrity sha512-5ouBHFtx8YrSDW44lj0qIEQ+oMcz6stgoITB+SqHUZbhgizoJsyLmq73gJ0lxtEKpcN8vG2QgRIJfdb8OAPChw==
 
 next-sitemap@^3.1.18:
   version "3.1.22"

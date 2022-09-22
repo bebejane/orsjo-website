@@ -4,11 +4,11 @@ import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, All
 import { apiQuery } from '/lib/dato/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
+import { isServer } from '/lib/utils'
 import { Image } from 'react-datocms'
 import { SectionListItem, FeaturedGallery, Block,  Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
-import { usePage } from '/lib/context/page'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
@@ -24,7 +24,6 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
-	const { color } = usePage()
 	const [list, setList] = useState({specifications:false, downloads:false})
 	const specs = parseSpecifications(product, 'en', null)
 	
@@ -66,13 +65,13 @@ export default function Product({ product, relatedProducts, productsByCategory }
 
 	useEffect(()=>setGallery({images}), [])
 	
-	const overlayOpacity = Math.max(0, ((viewportHeight-(scrolledPosition*4)) / viewportHeight));
+	const overlayOpacity = isServer ? 1 : Math.max(0, ((viewportHeight-(scrolledPosition*4)) / viewportHeight));
 	const scale = Math.max(0, (viewportHeight-(scrolledPosition*4)) / viewportHeight)
 	
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
-				<div className={styles.intro} onClick={()=>handleGalleryClick('product', product.image?.id)}>
+				<div className={styles.intro} onClick={()=> handleGalleryClick('product', product.image?.id)}>
 					<Image
 						className={styles.image}
 						data={product.image?.responsiveImage}
@@ -232,7 +231,6 @@ export default function Product({ product, relatedProducts, productsByCategory }
 					/>
 				}
 			</Section>
-			
 		</>
 	)
 }
