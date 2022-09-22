@@ -3,7 +3,7 @@ import { FaqStartDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { Section } from '/components'
 import { useState, useEffect } from 'react';
 
@@ -53,7 +53,7 @@ export default function Faqs({ faqs, faqStart }: FaqsProps) {
 	)
 }
 
-Faqs.layout = { layout: 'normal', color: '--copper', menu: 'inverted' } as PageLayoutProps
+Faqs.page = { layout: 'normal', color: '--copper', menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [FaqStartDocument] }, async ({ props, revalidate }: any) => {
 

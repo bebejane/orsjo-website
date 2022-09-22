@@ -3,7 +3,7 @@ import React from 'react'
 import { Content, Sidebar, Footer, Gallery, SiteSearch} from '/components'
 import MenuDesktop from './MenuDesktop'
 import MenuMobile from './MenuMobile'
-import { useLayout } from '/lib/context/layout'
+import { usePage } from '/lib/context/page'
 import type { MenuItem } from '/lib/menu'
 import { useState, useEffect } from 'react'
 import { useStore, shallow } from '/lib/store'
@@ -12,7 +12,7 @@ export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: 
 
 export default function Layout({ children, menu, title }: LayoutProps) {
 
-	const { color, layout } = useLayout()
+	const { color, layout } = usePage()
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch], shallow)
 	
 	return (

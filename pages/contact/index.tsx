@@ -10,7 +10,7 @@ import {
 import { Section, ContactModal } from '/components'
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import Markdown from '/lib/dato/components/Markdown';
 import { useEffect, useRef, useState, useCallback } from 'react';
 
@@ -169,7 +169,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 	)
 }
 
-Contact.layout = { layout: 'normal', color: "--red", menu: 'inverted', footerLine: true } as PageLayoutProps
+Contact.page = { layout: 'normal', color: "--red", menu: 'inverted', footerLine: true } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [ContactDocument, AllResellersDocument, AllStaffsDocument, AllShowroomsDocument, AllDistributorsDocument] }, async ({ props, revalidate }: any) => {
 

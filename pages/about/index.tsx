@@ -4,7 +4,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
-import type { PageLayoutProps } from '/lib/context/layout';
+import type { PageProps } from '/lib/context/page';
 import { Section, VideoPlayer } from '/components'
 import cn from 'classnames'
 
@@ -56,7 +56,7 @@ export default function About({ about: { title, image, intro, sections } }: Abou
 	)
 }
 
-About.layout = { layout: 'full', color: "--black", menu: 'inverted', footerLine:true } as PageLayoutProps
+About.page = { layout: 'full', color: "--black", menu: 'inverted', footerLine:true } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AboutDocument], model: 'about' }, async ({ props, revalidate }: any) => {
 

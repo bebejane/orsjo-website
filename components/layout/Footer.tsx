@@ -3,13 +3,13 @@ import cn from 'classnames'
 import Link from 'next/link'
 import type { MenuItem } from '/lib/menu'
 import social from '/lib/social'
-import { useLayout } from '/lib/context/layout'
+import { usePage } from '/lib/context/page'
 
 export type FooterProps = { menu: MenuItem[] }
 
 export default function Footer({ menu }: FooterProps) {
 
-	const { footerLine } = useLayout()
+	const { footerLine } = usePage()
 	const maxLength = menu[0].sub.length
 	menu = menu.map((item) => ({
 		...item,

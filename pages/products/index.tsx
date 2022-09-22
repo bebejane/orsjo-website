@@ -6,7 +6,8 @@ import { FeaturedGallery, ProductThumbnail, Section } from '/components'
 import { useStore } from '/lib/store';
 import { useEffect, useState } from 'react';
 
-import type { PageLayoutProps } from '/lib/context/layout';
+import type { PageProps } from '/lib/context/page';
+
 export type ProductsStartProps = {
 	productStart: ProductStartRecord,
 	products: ProductRecord[],
@@ -100,7 +101,7 @@ export default function Products({ productStart: { featured }, products, product
 	)
 }
 
-Products.layout = { layout: 'normal', menu: 'normal', color: '--white' } as PageLayoutProps
+Products.page = { layout: 'normal', menu: 'normal', color: '--white' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllProductsLightDocument, ProductStartDocument, ProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
 

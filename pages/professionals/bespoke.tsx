@@ -4,7 +4,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { ProjectThumbnail, Section } from '/components';
 import { recordImages } from '/lib/utils'
 import { useStore } from 'lib/store';
@@ -71,7 +71,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 	)
 }
 
-Bespoke.layout = { layout: 'full', color: "--gray", menu: 'inverted', sidebar: false } as PageLayoutProps
+Bespoke.page = { layout: 'full', color: "--gray", menu: 'inverted', sidebar: false } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [BespokeDocument] }, async ({ props, revalidate }: any) => {
 

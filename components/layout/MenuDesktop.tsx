@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useRef, useEffect, useCallback, MouseEvent } from 'react'
 import { useStore, shallow } from '/lib/store'
-import { useLayout } from '/lib/context/layout'
+import { usePage } from '/lib/context/page'
 import { useWindowSize } from 'rooks'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import type { Menu } from '/lib/menu'
@@ -19,7 +19,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	const [transitioning] = useStore((state) => [state.transitioning])
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 })
-	const { layout, menu, color } = useLayout()
+	const { layout, menu, color } = usePage()
 	const { innerWidth } = useWindowSize()
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
 	const isInverted = (menu === 'inverted' || invertMenu)

@@ -4,7 +4,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { Section } from '/components'
 
 export type JobsProps = { jobs: JobRecord[] }
@@ -36,7 +36,7 @@ export default function Jobs({ jobs }: JobsProps) {
 	)
 }
 
-Jobs.layout = { layout: 'normal', color:"--black", menu: 'inverted', footerLine:true } as PageLayoutProps
+Jobs.page = { layout: 'normal', color:"--black", menu: 'inverted', footerLine:true } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllJobsDocument], model:'job' }, async ({ props, revalidate }: any) => {
 

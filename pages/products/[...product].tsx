@@ -8,10 +8,10 @@ import { Image } from 'react-datocms'
 import { SectionListItem, FeaturedGallery, Block,  Section, Icon } from '/components'
 import { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
-import { useLayout } from '/lib/context/layout'
+import { usePage } from '/lib/context/page'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
-import type { PageLayoutProps } from '/lib/context/layout';
+import type { PageProps } from '/lib/context/page';
 
 export type ProductProps = { 
 	product: ProductRecord, 
@@ -24,7 +24,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
-	const { color } = useLayout()
+	const { color } = usePage()
 	const [list, setList] = useState({specifications:false, downloads:false})
 	const specs = parseSpecifications(product, 'en', null)
 	
@@ -237,7 +237,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	)
 }
 
-Product.layout = { layout: 'normal', color: '--white', menu: 'normal' } as PageLayoutProps
+Product.page = { layout: 'normal', color: '--white', menu: 'normal' } as PageProps
 
 export async function getStaticPaths(context) {
 	const { products } = await apiQuery(AllProductsLightDocument, {})

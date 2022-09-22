@@ -3,7 +3,7 @@ import { AllProductDownloadsDocument, AllCataloguesDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { useState, useEffect, useRef } from 'react';
 import { Section, Icon } from '/components'
 import { productDownloads, ProductRecordWithPdfFiles } from '/lib/utils';
@@ -136,7 +136,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 	)
 }
 
-Downloads.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
+Downloads.page = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllProductDownloadsDocument, AllCataloguesDocument] }, async ({ props, revalidate }: any) => {
 

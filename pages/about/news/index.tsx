@@ -5,7 +5,7 @@ import Markdown from '/lib/dato/components/Markdown';
 import useApiQuery from '/lib/dato/hooks/useApiQuery'
 import { AllNewsDocument } from '/graphql';
 import { Image } from 'react-datocms'
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { format } from 'date-fns'
 import { Section } from '/components'
 
@@ -15,7 +15,7 @@ const pageSize = 1;
 
 export default function News({ news, pagination }: NewsProps) {
 	
-	const { data, loading, error, nextPage, page } = useApiQuery<NewsQuery & { news: NewsRecord[]}>(AllNewsDocument, { 
+	const { data, loading, error, nextPage, page } = useApiQuery<{ news: NewsRecord[]}>(AllNewsDocument, { 
 		initialData:{ news, pagination },
 		variables:{ first:1 },
 		pageSize
@@ -64,9 +64,9 @@ export default function News({ news, pagination }: NewsProps) {
 	)
 }
 
-News.layout = { layout: 'full', color: "--black", menu: 'inverted', sidebar: false, footerLine:true  } as PageLayoutProps
+News.page = { layout: 'full', color: "--black", menu: 'inverted', sidebar: false, footerLine:true  } as PageProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllNewsDocument], variables:{first:pageSize, skip:0} }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllNewsDocument], variables:{first:pageSize} }, async ({ props, revalidate }: any) => {
 	
 	return {
 		props,

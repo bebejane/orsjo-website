@@ -4,7 +4,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { Section } from '/components'
 
 export type PressProps = { presses: PressRecord[]}
@@ -21,7 +21,7 @@ export default function Press({ presses }: PressProps) {
 	)
 }
 
-Press.layout = { layout:'normal', color:"--black", menu:'inverted', footerLine:true } as PageLayoutProps
+Press.page = { layout:'normal', color:"--black", menu:'inverted', footerLine:true } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllPressDocument], model:'press'}, async ({ props, revalidate }: any) => {
 

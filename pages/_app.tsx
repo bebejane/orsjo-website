@@ -3,17 +3,18 @@ import type { AppProps } from 'next/app'
 import DatoSEO from '/lib/dato/components/DatoSEO';
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Layout, PageTransition } from '/components'
-import { LayoutProvider, PageLayoutProps } from '/lib/context/layout';
-import type { NextComponentType } from 'next';
+import { PageProvider, PageProps } from '../lib/context/page';
 import { AnimatePresence } from "framer-motion";
 import { useTransitionFix2 as useTransitionFix } from '/lib/hooks/useTransitionFix';
 import { useEffect } from 'react';
 import { useStore } from '/lib/store'
 import { sleep } from '/lib/utils'
 
+import type { NextComponentType } from 'next';
+
 export type ApplicationProps = AppProps & {
   Component: NextComponentType & {
-    layout?: PageLayoutProps
+    page?: PageProps
   }
 }
 
@@ -21,13 +22,16 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   useTransitionFix()
   //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const [transitioning] = useStore((state) => [state.transitioning])
 
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
-  const layout = (Component.layout || { layout: 'normal', menu: 'normal', color: '' }) as PageLayoutProps
-  const { site, seo } = pageProps;
+  
+  const page = (Component.page || { layout: 'normal', menu: 'normal', color: '' }) as PageProps
+
+  const { site, seo, menu } = pageProps;
   const { title, description } = pageSeo(pageProps, pathname);
 
   const handleHashChange = async (url, instant) => {
@@ -60,7 +64,8 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 
-  if (isError) return <Component {...pageProps} />
+  if(isError) 
+    return <Component {...pageProps} />
 
   return (
     <>
@@ -77,12 +82,12 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
       />
       <AnimatePresence exitBeforeEnter initial={false}>
         <div id="app" key={pathname}>
-          <LayoutProvider value={layout}>
-            <Layout menu={pageProps.menu} title={title}>
+          <PageProvider value={page}>
+            <Layout menu={menu} title={title}>
               <Component {...pageProps} />
               <PageTransition key={`t-${pathname}`} />
             </Layout>
-          </LayoutProvider>
+          </PageProvider>
         </div>
       </AnimatePresence>
     </>

@@ -3,7 +3,7 @@ import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState, useEffect, FormEventHandler, useRef } from 'react'
-import { useLayout } from '/lib/context/layout'
+import { usePage } from '/lib/context/page'
 import { useStore } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
 import { SiteSearch } from '/components'
@@ -16,7 +16,7 @@ export type MenuMobileProps = { items: Menu }
 export default function MenuMobile({ items }: MenuMobileProps) {
 
 	const router = useRouter()
-	const { menu } = useLayout()
+	const { menu } = usePage()
 	const [open, setOpen] = useState(false)
 	const searchRef = useRef<HTMLInputElement>()
 	const [query, setQuery] = useState<string>('');

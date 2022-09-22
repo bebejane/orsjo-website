@@ -5,7 +5,7 @@ import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
 import { useEffect, useRef, useState } from "react";
-import { useLayout } from "/lib/context/layout";
+import { usePage } from "/lib/context/page";
 import { useWindowSize } from "rooks";
 
 export type FeaturedGalleryProps = { 
@@ -32,7 +32,7 @@ export default function FeaturedGallery({
 	inverted = false
 } : FeaturedGalleryProps ) {
 	
-	const { menu } = useLayout()
+	const { menu } = usePage()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
 	const [isShortSlide, setIsShortSlide] = useState(false)

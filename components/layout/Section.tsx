@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import styles from './Section.module.scss'
 import cn from 'classnames'
 import { sectionId } from '/lib/utils'
-import { useLayout } from '/lib/context/layout'
+import { usePage } from '/lib/context/page'
 
 export type SectionProps = { 
 	children?: React.ReactNode, 
