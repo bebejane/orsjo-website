@@ -1,4 +1,6 @@
 require("@next/env").loadEnvConfig(".");
+
+
 const config =  {
 	dedupeOperationSuffix:true,
 	dedupeFragments: true,
@@ -36,7 +38,7 @@ module.exports = {
         "@types/document-modules.d.ts": {
           plugins: ["typescript-graphql-files-modules"],
 					config
-        },
+        }
 			},
 		}
 	},
