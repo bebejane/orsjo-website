@@ -68,7 +68,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
         </Swiper>
       </div>
       <div className={styles.forward} onClick={() => swiperRef.current.slideNext()}><img src="/images/arrow-light.svg" className={styles.arrow} /></div>
-      <div className={styles.caption}><p className="medium">{title}</p></div>
+      <div className={styles.caption}>{title && <p className="medium">{title}</p>}</div>
       <div className={styles.close} onClick={onClose}>×</div>
     </div>
   )

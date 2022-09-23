@@ -75,6 +75,14 @@
     font-weight: bold;
     font-size: 0.9rem;
     color:$white;
+    p {
+      z-index: 100000;
+      padding: .5em;
+      padding-left: 1em;
+      padding-right: 1em;
+      border-radius: 1.5em;
+      background-color: $black;
+    }
   }
   .close {
     position: absolute;
