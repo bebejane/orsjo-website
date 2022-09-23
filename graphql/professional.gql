@@ -1,7 +1,6 @@
 #import "./fragments/ImageFragment.gql"
 #import "./fragments/ProjectFragment.gql"
 
-
 query Project($slug: String) {
 	project (filter: {slug: { eq: $slug }}) {
     ...ProjectFragment

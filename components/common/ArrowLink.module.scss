@@ -1,0 +1,28 @@
+.arrowLink{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color:$white;
+  overflow: hidden;
+  svg > path{
+    fill:$white;
+  }
+  .arrow{
+    display: inline;
+    margin-left: -0.65rem;
+    transition: margin-left .4s ease-out;
+    margin-right: .2rem;
+  }
+  &.hover{
+    .arrow{
+      margin-left: 0rem;
+    }
+  }
+  &.inverted{
+    color:$black;
+    svg > path{
+      fill:$black;
+    }
+  }
+}
