@@ -306,6 +306,184 @@ type ColorField = {
   red: Scalars['IntType'];
 };
 
+/** Record of type Color & material intro (color_material_intro) */
+type ColorMaterialIntroRecord = RecordInterface & {
+  __typename?: 'ColorMaterialIntroRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  intro?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Color & material intro (color_material_intro) */
+type ColorMaterialIntroRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Color & material intro (color_material_intro) */
+type ColorMaterialIntroRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
+type ColorMaterialModelFilter = {
+  OR?: InputMaybe<Array<InputMaybe<ColorMaterialModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  category?: InputMaybe<LinkFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  description?: InputMaybe<StringFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  image?: InputMaybe<FileFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum ColorMaterialModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  description_ASC = 'description_ASC',
+  description_DESC = 'description_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Color & material (color_material) */
+type ColorMaterialRecord = RecordInterface & {
+  __typename?: 'ColorMaterialRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  category?: Maybe<ColorMaterialTypeRecord>;
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Color & material (color_material) */
+type ColorMaterialRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+type ColorMaterialTypeModelFilter = {
+  OR?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  category?: InputMaybe<StringFilter>;
+  categoryPlural?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum ColorMaterialTypeModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  categoryPlural_ASC = 'categoryPlural_ASC',
+  categoryPlural_DESC = 'categoryPlural_DESC',
+  category_ASC = 'category_ASC',
+  category_DESC = 'category_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Color & material type (color_material_type) */
+type ColorMaterialTypeRecord = RecordInterface & {
+  __typename?: 'ColorMaterialTypeRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  category: Scalars['String'];
+  categoryPlural: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Color & material type (color_material_type) */
+type ColorMaterialTypeRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 /** Record of type Contact (contact) */
 type ContactRecord = RecordInterface & {
   __typename?: 'ContactRecord';
@@ -4646,6 +4824,10 @@ type Query = {
   /** Returns meta information regarding a record collection */
   _allCataloguesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allColorMaterialTypesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allColorMaterialsMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
   _allCountriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allDesignersMeta: CollectionMetadata;
@@ -4710,6 +4892,10 @@ type Query = {
   /** Returns a collection of records */
   allCatalogues: Array<CatalogueRecord>;
   /** Returns a collection of records */
+  allColorMaterialTypes: Array<ColorMaterialTypeRecord>;
+  /** Returns a collection of records */
+  allColorMaterials: Array<ColorMaterialRecord>;
+  /** Returns a collection of records */
   allCountries: Array<CountryRecord>;
   /** Returns a collection of records */
   allDesigners: Array<DesignerRecord>;
@@ -4771,6 +4957,12 @@ type Query = {
   bespoke?: Maybe<BespokeRecord>;
   /** Returns a specific record */
   catalogue?: Maybe<CatalogueRecord>;
+  /** Returns a specific record */
+  colorMaterial?: Maybe<ColorMaterialRecord>;
+  /** Returns the single instance record */
+  colorMaterialIntro?: Maybe<ColorMaterialIntroRecord>;
+  /** Returns a specific record */
+  colorMaterialType?: Maybe<ColorMaterialTypeRecord>;
   /** Returns the single instance record */
   contact?: Maybe<ContactRecord>;
   /** Returns a specific record */
@@ -4854,6 +5046,22 @@ type Query = {
 type Query_allCataloguesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CatalogueModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allColorMaterialTypesMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ColorMaterialTypeModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allColorMaterialsMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ColorMaterialModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -5110,6 +5318,28 @@ type QueryallCataloguesArgs = {
   first?: InputMaybe<Scalars['IntType']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<CatalogueModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+};
+
+
+/** The query root for this schema */
+type QueryallColorMaterialTypesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ColorMaterialTypeModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+};
+
+
+/** The query root for this schema */
+type QueryallColorMaterialsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ColorMaterialModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<ColorMaterialModelOrderBy>>>;
   skip?: InputMaybe<Scalars['IntType']>;
 };
 
@@ -5446,6 +5676,31 @@ type QuerycatalogueArgs = {
   filter?: InputMaybe<CatalogueModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<CatalogueModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerycolorMaterialArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ColorMaterialModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<ColorMaterialModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerycolorMaterialIntroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type QuerycolorMaterialTypeArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ColorMaterialTypeModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelOrderBy>>>;
 };
 
 
@@ -7182,6 +7437,11 @@ type AllCataloguesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type AllCataloguesQuery = { __typename?: 'Query', catalogues: Array<{ __typename?: 'CatalogueRecord', id: any, title?: string, pdf?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, size: any, tags: Array<string>, title?: string, url: string }, thumbnail?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> };
+
+type AllColorsAndMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type AllColorsAndMaterialsQuery = { __typename?: 'Query', colorMaterials: Array<{ __typename?: 'ColorMaterialRecord', id: any, description?: string, image?: { __typename?: 'FileField', alt?: string, basename: string, format: string, height?: any, id: any, mimeType: string, size: any, title?: string, url: string, width?: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, category?: { __typename?: 'ColorMaterialTypeRecord', id: any, category: string, categoryPlural: string } }>, colorMaterialTypes: Array<{ __typename?: 'ColorMaterialTypeRecord', id: any, category: string, categoryPlural: string }>, colorMaterialIntro?: { __typename?: 'ColorMaterialIntroRecord', id: any, intro?: string } };
 
 type SiteSearchQueryVariables = Exact<{
   productIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 export type ThumbnailProps = {
-  slug: string,
+  slug?: string,
   image: FileField,
   imageHover?: FileField,
   inverted?: boolean,
@@ -13,8 +13,9 @@ export type ThumbnailProps = {
   subtitle?: string,
   className?: string,
   markAsNew?: boolean,
+  onClick?: () => void,
   theme?: 'dark' | 'light' | 'mid',
-  type?: 'product' | 'project' | 'designer' | 'news' | 'staff'
+  type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material'
 }
 
 export default function Thumbnail({
@@ -26,6 +27,7 @@ export default function Thumbnail({
   subtitle,
   markAsNew = false,
   className,
+  onClick,
   theme = 'light',
   type = 'product'
 }: ThumbnailProps) {
@@ -34,41 +36,55 @@ export default function Thumbnail({
   const isTouch = typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
   const handleMouseOver = ({ type }) => !isTouch && setHovering(type === 'mouseenter')
 
+  const content  = (
+    <>
+      <figure>
+        {image &&
+          <Image
+            data={image.responsiveImage}
+            className={styles.image}
+            layout={'fill'}
+            objectFit={'contain'}
+          />
+        }
+        {imageHover && !isTouch &&
+          <div className={cn(styles.imageHover, hovering && styles.show)}>
+            <Image
+              data={imageHover.responsiveImage}
+              className={styles.image}
+              layout={'fill'}
+              objectFit={'cover'}
+            />
+          </div>
+        }
+      </figure>
+      <figcaption>
+        <span className={styles.title}>{title} <span className={styles.subtitle}>{subtitle}</span></span>
+      </figcaption>
+    </>
+  )
+
   return (
     <div
       className={cn(styles.thumbnail, className, inverted && styles.inverted, styles[theme], styles[type])}
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOver}
+      onClick={onClick}
     >
-      <Link scroll={false} href={slug}>
-        <a>
-          <figure>
-            {image &&
-              <Image
-                data={image.responsiveImage}
-                className={styles.image}
-                layout={'fill'}
-                objectFit={'contain'}
-              />
-            }
-            {imageHover && !isTouch &&
-              <div className={cn(styles.imageHover, hovering && styles.show)}>
-                <Image
-                  data={imageHover.responsiveImage}
-                  className={styles.image}
-                  layout={'fill'}
-                  objectFit={'cover'}
-                />
-              </div>
-            }
-          </figure>
-          <figcaption>
-            <span className={styles.title}>{title} <span className={styles.subtitle}>{subtitle}</span></span>
-          </figcaption>
-        </a>
-      </Link>
+      {slug ? 
+        <Link scroll={false} href={slug} >
+          <a>
+            {content}
+          </a>
+        </Link>
+      :
+        <>{content}</>
+      }
+      
       {markAsNew &&
-        <div className={cn(styles.markAsNew)}><span>New</span></div>
+        <div className={cn(styles.markAsNew)}>
+          <span>New</span>
+        </div>
       }
     </div>
   )

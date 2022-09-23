@@ -7,7 +7,7 @@
     }
   }
 
-  a {
+  a, &:first-child {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -153,6 +153,16 @@
   }
 
   &.designer {
+    a>figure>.image {
+      mix-blend-mode: normal;
+    }
+
+    a>figure img {
+      object-fit: cover !important;
+    }
+  }
+
+  &.material {
     a>figure>.image {
       mix-blend-mode: normal;
     }
