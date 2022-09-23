@@ -9,7 +9,7 @@ fragment ImageThumbnailFragment on FileField {
   title
   url
   width
-  responsiveImage(imgixParams: {w: 800, q:50}) {
+  responsiveImage(imgixParams: {w: 800, q:50, auto:format}){
     alt
     aspectRatio
     base64
