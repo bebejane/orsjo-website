@@ -1,17 +1,19 @@
 import '/styles/index.scss'
+import { styleVariables }from '/lib/utils'
 import type { AppProps } from 'next/app'
 import DatoSEO from '/lib/dato/components/DatoSEO';
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Layout, PageTransition } from '/components'
 import { PageProvider, type PageProps } from '../lib/context/page';
 import { AnimatePresence } from "framer-motion";
-import { useTransitionFix2 as useTransitionFix } from '/lib/hooks/useTransitionFix';
-import { useEffect } from 'react';
+import useTransitionFix from '/lib/hooks/useTransitionFix';
+import { useEffect, useCallback } from 'react';
 import { useStore } from '/lib/store'
 import { sleep } from '/lib/utils'
 
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';
+import { useWindowSize } from 'rooks';
 
 export type ApplicationProps = AppProps & {
   Component: NextComponentType & {
@@ -26,7 +28,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const [transitioning, setShowMenu] = useStore((state) => [state.transitioning, state.setShowMenu])
-
+  const { innerWidth } = useWindowSize()
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
   
@@ -34,7 +36,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   const { site, seo, menu } = pageProps as { site: Site, seo: SiteSEOQuery, menu: Menu};
   const { title, description } = pageSeo(pageProps, pathname);
 
-  const handleHashChange = async (url, instant) => {
+  const handleHashChange =  useCallback(async (url, instant) => {
     
     if(!url.includes('#')){ 
       // @ts-expect-error
@@ -51,17 +53,21 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
     }
 
     await sleep(100)
-    const top = el ? (el.getBoundingClientRect().top + window.scrollY) - 62 : 0
+
+    const { tablet, navbarHeightMobile, navbarHeight } = styleVariables;
+    const topMargin = (innerWidth < tablet ? navbarHeightMobile : navbarHeight) as number
+    const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
     const behavior = instant === true ? 'instant' : !top ? 'instant' : 'smooth'
+
     // @ts-expect-error
     window.scrollTo({ top, behavior })
 
-  };
+  }, [innerWidth]);
 
   useEffect(() => {
     router.events.on("hashChangeStart", handleHashChange);
     return () => router.events.off("hashChangeStart", handleHashChange)
-  }, [router.events]);
+  }, [router.events, innerWidth, handleHashChange]);
 
   useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 

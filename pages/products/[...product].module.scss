@@ -128,19 +128,31 @@
 				flex-direction: row;
 				width: 100%;
 				break-inside: avoid-column;
+				
 				li {
 					display: flex;
 					flex-direction: row;
 					font-weight: normal;
 					padding-bottom: .5em;
 					flex: 0 0 100%;
+					@include mq($until: tablet){
+						flex-wrap: wrap;
+					}
 					span{
-						//padding-right: 2em;
 						&:nth-child(odd){
 							flex: 0 0 spanNestedGrid(12, 2, true);
 						}
 						&:nth-child(even){
 							flex: 0 0 spanNestedGrid(12, 4, true);
+						}
+						@include mq($until: tablet){
+							&:nth-child(odd){
+								flex: 0 0 calc(spanGrid(6) + $gutter);
+							}
+							&:nth-child(even){
+								flex: 0 0 calc(spanGrid(10));
+								padding: 0;
+							}
 						}
 						&.header{
 							color: $gray;
@@ -242,22 +254,29 @@
 		width: 100%;
 		border-top: 1px solid $mid-gray;
 		padding-top: 1.5em;
+		column-count: unset;
+		column-gap: unset;
+		
 		li{
+			flex: 1 1 auto;
 			width: auto;
-			//flex: 0 0 50%;
-		//	margin-bottom: 1em;
+			
 			a{
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 			}
 		}
-	}
-	@include mq($until: tablet) {
-		ul{
-			column-count: 1;
+		@include mq($until: tablet) {	
+			padding-top: 0em;
+			li{
+				flex: 0 0 50% !important;
+				margin-top: 1.5em;
+				
+			}
 		}
 	}
+	
 }
 
 .related{

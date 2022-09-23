@@ -76,7 +76,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 					</figure>
 				</a>
 			</Link>
-			<nav id={'menu'} ref={ref} className={menuStyles}>
+			<nav id={'menu'} ref={ref} className={menuStyles} >
 				<ul className={styles.nav} >
 					{items.map(({ label, slug, index }, idx) => {
 						const arrowStyle = cn(styles.arrow, slug === selected && styles.hover, slug === selected && styles.active)
@@ -107,12 +107,12 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 			<div
 				className={cn(styles.sub, selected && showMenu && styles.show)}
-				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}	
+				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}
+				onMouseLeave={resetSelected}
 			>
 				<div
 					className={cn(styles.subPad, styles[menu])}
 					style={{ backgroundColor: color, paddingLeft: `${menuMargin.padding}px`, }}
-					onMouseLeave={resetSelected}
 				>
 					<nav>
 						<ul className={cn(sub?.length > 10 && styles.columns)}>
@@ -127,7 +127,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 					</nav>
 				</div>
 			</div>
-
 		</>
 	)
 }

@@ -1,0 +1,13 @@
+@import "partials/variables";
+@import "partials/mediaqueries";
+
+
+:export{
+  navbarHeight: $navbarHeight;
+  navbarHeightMobile: $navbarHeightMobile;
+  margin: $margin;
+  smallMargin: $small-margin;
+  @each $key, $value in  $mq-breakpoints {
+    #{unquote($key)}: $value;
+  }
+}

@@ -4,7 +4,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageProps } from '/lib/context/page';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Section, Icon } from '/components'
 import { productDownloads, ProductRecordWithPdfFiles } from '/lib/utils';
 
@@ -60,9 +60,9 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 						{(results || products).map(({ id, image, title, categories }, idx) => {
 							const files = productDownloads(products[idx] as ProductRecordWithPdfFiles)
 							return (
-								<>
+								<React.Fragment key={id}>
 									<tr
-										key={idx}
+										key={`${id}-${idx}`}
 										className={list[idx] ? styles.active : undefined}
 										onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}
 									>
@@ -80,7 +80,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 										<td className={styles.toggle}>{list[idx] ? '–' : '+'}</td>
 									</tr>
 									{list[idx] &&
-										<tr key={`l-${idx}`} className={list[idx] ? styles.active : undefined}>
+										<tr key={`${id}-${idx}-l`} className={list[idx] ? styles.active : undefined}>
 											<td></td>
 											<td colSpan={2} className={styles.content}>
 												<div className={styles.list}>
@@ -99,7 +99,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 											<td></td>
 										</tr>
 									}
-								</>
+								</React.Fragment>
 							)
 						}
 						)}

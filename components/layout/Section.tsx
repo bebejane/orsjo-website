@@ -19,6 +19,7 @@ export default function Section({ children, className, type, name, id, top, bott
 	const color = bgColor?.startsWith('--') ? `rgba(var(${bgColor}))` : bgColor ? bgColor : undefined;
 	
 	return (
+		
 		<section 
 			className={styles.section}
 			style={{backgroundColor: color}}

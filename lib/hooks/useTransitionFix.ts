@@ -1,4 +1,5 @@
 import Router from "next/router";
+import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef } from "react";
 
 // Bugfix for framer-motion page transition - https://github.com/vercel/next.js/issues/17464
@@ -135,5 +136,8 @@ const useTransitionFix3 = () => useEffect(() => {
 	};
 }, []);
 
-export default useTransitionFix3
+
+
+
+export default useTransitionFix2
 export { useTransitionFix, useTransitionFix2, useTransitionFix3}
