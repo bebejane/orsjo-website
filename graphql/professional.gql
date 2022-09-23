@@ -77,3 +77,28 @@ query AllCatalogues {
 		}
 	}
 }
+
+query AllColorsAndMaterials {
+  colorMaterials: allColorMaterials {
+    id
+    image {
+      ...ImageFragment
+    }
+    description,
+    category {
+      id
+      category
+			categoryPlural
+    }
+
+  }
+  colorMaterialTypes : allColorMaterialTypes {
+    id
+    category
+		categoryPlural
+  }
+	colorMaterialIntro {
+		id
+		intro
+	}
+}

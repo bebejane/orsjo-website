@@ -21,10 +21,10 @@
 }
 
 .material {
-  width: spanNestedGrid(12, 4);
+  width: spanNestedGrid(12, 3);
   padding-right: nestedGridGutter(12);
-  @include resetLastColumn(3);
-
+  @include resetLastColumn(4);
+  margin-bottom: 1rem;
   figure {
     background-color: $gray  !important;
   }
