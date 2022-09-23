@@ -2,10 +2,11 @@ import styles from './MenuMobile.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
-import { useLayout } from '/lib/context/layout'
+import React, { useState, useEffect, FormEventHandler, useRef } from 'react'
+import { usePage } from '/lib/context/page'
 import { useStore } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
+import { SiteSearch } from '/components'
 import type { Menu } from '/lib/menu'
 import social from '/lib/social'
 import { useWindowSize } from 'rooks'
@@ -15,25 +16,48 @@ export type MenuMobileProps = { items: Menu }
 export default function MenuMobile({ items }: MenuMobileProps) {
 
 	const router = useRouter()
-	const { menu } = useLayout()
+	const { menu } = usePage()
 	const [open, setOpen] = useState(false)
+	const searchRef = useRef<HTMLInputElement>()
+	const [query, setQuery] = useState<string>('');
+	const [searchInput, setSearchInput] = useState<string>('');
+
+	const [showSearch, setShowSearch] = useState(false);
 	const [selected, setSelected] = useState(undefined)
 	const [transitioning] = useStore((state) => [state.transitioning])
-	const { innerHeight } = useWindowSize()
 	const sub = items.find((item) => item.type === selected)?.sub
 	const subHeader = selected ? items.find(i => i.type === selected).label : null
+
+	const handleSubmitSearch = (e : React.FormEvent) =>{
+		e.preventDefault(); 
+		searchRef.current?.blur();
+	}
+
+	const handleSearch = (e?: React.FormEvent) => {
+		e?.preventDefault()
+		setQuery('');
+		setQuery(searchInput)
+	}
+
+	const closeSearch = () =>{
+		setShowSearch(false)
+		setQuery(undefined)
+	}
+
+	
 
 	const handleClose = () => {
 		setSelected(undefined)
 		setOpen(false)
 	}
-
-	useEffect(() => { !transitioning && handleClose() }, [transitioning])
-
+	
 	useEffect(() => {
     router.events.on("hashChangeStart", handleClose);
     return () => router.events.off("hashChangeStart", handleClose)
   }, [router.events]);
+
+	useEffect(()=>{ setShowSearch(!!query)}, [query])
+	useEffect(() => { !transitioning && handleClose() }, [transitioning])
 
 	return (
 		<>
@@ -70,7 +94,17 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 				<div className={styles.footer}>
 					<div className={styles.search}>
 						<img src={'/images/search.svg'}/>
-						<input type="text" placeholder='Search'/>
+						<form onSubmit={handleSubmitSearch}>
+							<input 
+								ref={searchRef}
+								type="text" 
+								placeholder='Search'
+								value={searchInput}
+								onBlur={()=> searchInput && handleSearch()}
+								onChange={(e)=>setSearchInput(e.target.value)}
+							/>
+							<input type="submit" style={{visibility:'hidden', position:'absolute'}}/>
+						</form>
 					</div>
 					<div className={styles.social}>
 						{social.map(({name, icon, url}, idx) =>
@@ -78,6 +112,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 						)}
 					</div>
 				</div>
+				
 			</nav>
 			<nav className={cn(styles.sub, !selected && styles.hide)}>
 				<div className={styles.subHeader}>
@@ -94,6 +129,11 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 					)}
 				</ul>
 			</nav>
+			<SiteSearch 
+				show={showSearch} 
+				query={query}
+				onClose={closeSearch}
+			/>
 		</>
 	)
 }

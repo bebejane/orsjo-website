@@ -2,6 +2,8 @@ import styles from './Modal.module.scss'
 import cn from 'classnames'
 import ReactDOM from 'react-dom';
 import React from 'react'
+import { isServer } from '/lib/utils';
+import classNames from 'classnames';
 
 type ModalProps = { 
   children: React.ReactElement | React.ReactElement[]
@@ -10,12 +12,9 @@ type ModalProps = {
 
 const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   
-  const modalDiv = (
-    <div ref={ref} className={cn(styles.modal)}>
-      {props.children}
-    </div>
-  )
-  return ReactDOM.createPortal(modalDiv, document.body)
+  if(isServer) return null
+
+  return ReactDOM.createPortal(props.children, document.body)
 })
 
 Modal.displayName = 'Modal'

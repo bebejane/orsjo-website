@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useRef, useEffect, useCallback, MouseEvent } from 'react'
 import { useStore, shallow } from '/lib/store'
-import { useLayout } from '/lib/context/layout'
+import { usePage } from '/lib/context/page'
 import { useWindowSize } from 'rooks'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import type { Menu } from '/lib/menu'
@@ -19,26 +19,19 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	const [transitioning] = useStore((state) => [state.transitioning])
 	const [selected, setSelected] = useState(undefined)
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 })
-	const [hovering, setHovering] = useState(undefined)
-	const { layout, menu, color } = useLayout()
+	const { layout, menu, color } = usePage()
 	const { innerWidth } = useWindowSize()
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
 	const isInverted = (menu === 'inverted' || invertMenu)
 
 	const resetSelected = useCallback(() => {
-		if (transitioning)
-			return
+		if (transitioning) return
 		setSelected(undefined)
-		setHovering(undefined)
 	}, [transitioning])
 
 	useEffect(() => { // Hide menu if was closed on scroll
 		!showMenu && resetSelected()
 	}, [showMenu, resetSelected])
-
-	useEffect(() => { // Hide menu if was closed on scroll
-		setSelected(hovering)
-	}, [hovering])
 
 	useEffect(() => { // Toggle menu bar on scroll
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
@@ -73,7 +66,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && !transitioning && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
-
+	
 	return (
 		<>
 			<Link scroll={false} href="/">
@@ -86,14 +79,14 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 			<nav id={'menu'} ref={ref} className={menuStyles}>
 				<ul className={styles.nav} >
 					{items.map(({ label, slug, index }, idx) => {
-						const arrowStyle = cn(styles.arrow, slug === hovering && styles.hover, slug === selected && styles.active)
+						const arrowStyle = cn(styles.arrow, slug === selected && styles.hover, slug === selected && styles.active)
 						return (
 							<li
 								data-slug={slug}
 								data-index={idx}
 								key={idx}
-								onMouseEnter={() => setHovering(!index ? slug : undefined)}
-								onMouseLeave={() => !index && !showMenu && setHovering(undefined)}
+								onMouseEnter={() => setSelected(!index ? slug : undefined)}
+								onMouseLeave={() => !index && !showMenu && setSelected(undefined)}
 								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
 							>
 								{index === true ? // Direct links
@@ -114,12 +107,12 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 			<div
 				className={cn(styles.sub, selected && showMenu && styles.show)}
-				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}
-				onMouseLeave={resetSelected}
+				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}	
 			>
 				<div
 					className={cn(styles.subPad, styles[menu])}
 					style={{ backgroundColor: color, paddingLeft: `${menuMargin.padding}px`, }}
+					onMouseLeave={resetSelected}
 				>
 					<nav>
 						<ul className={cn(sub?.length > 10 && styles.columns)}>

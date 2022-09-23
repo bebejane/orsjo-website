@@ -2,7 +2,7 @@ import styles from './Sidebar.module.scss'
 import cn from 'classnames'
 import { useStore, shallow } from '/lib/store';
 import { useRouter } from 'next/router';
-import { useLayout } from '/lib/context/layout'
+import { usePage } from '/lib/context/page'
 import { useEffect, useState, useCallback } from 'react'
 import useScrollInfo from '/lib/hooks/useScrollInfo';
 
@@ -10,7 +10,7 @@ export type SidebarProps = {title: string}
 
 export default function Sidebar({title} : SidebarProps) {
 
-	const { menu, layout, color } = useLayout()
+	const { menu, layout, color } = usePage()
 	const router = useRouter()
 	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.setCurrentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
 	const [setInvertSidebar, setInvertMenu] = useStore((state) => [state.setInvertSidebar, state.setInvertMenu], shallow);
@@ -35,7 +35,7 @@ export default function Sidebar({title} : SidebarProps) {
 	
 	useEffect(()=>{ 
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]')
-		const sections = items.length ? Array.from(items).map((s)  => ({title:s.title, id:s.id})) : []
+		const sections = items.length ? Array.from(items).map((s)  => ({title:s.dataset.sectionTitle, id:s.id})) : []
 		setSections(sections)
 	}, [])
 

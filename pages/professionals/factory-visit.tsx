@@ -3,7 +3,7 @@ import { FactoryVisitDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { Section } from '/components';
 
 export type DownloadsProps = { factoryVisit: FactoryVisitRecord }
@@ -20,7 +20,7 @@ export default function FactoryVisit({ factoryVisit }: DownloadsProps) {
 	)
 }
 
-FactoryVisit.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
+FactoryVisit.page = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [FactoryVisitDocument] }, async ({ props, revalidate }: any) => {
 

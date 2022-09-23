@@ -50,7 +50,7 @@ const sectionId = (title: string, id?: string) => {
   return {
     id,
     'data-section-id': id,
-    title
+    'data-section-title': title
   }
 }
 
@@ -186,6 +186,14 @@ const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[]
   return files.filter(({ href }) => href);
 }
 
+const truncateParagraph = (s: string, sentances: number = 1, ellipsis: boolean = true) =>{
+  if(!s || s.indexOf('.') === -1) 
+    return s;
+
+  let str = s.split('.').slice(0, sentances).join('. ')
+  return  ellipsis ? (str + '...') : str + '.';
+}
+
 export {
   sleep,
   isServer,
@@ -198,5 +206,6 @@ export {
   chunkArray,
   parseSpecifications, 
   recordImages,
-  productDownloads
+  productDownloads,
+  truncateParagraph,
 }

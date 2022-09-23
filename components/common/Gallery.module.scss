@@ -55,6 +55,7 @@
       .svg{
         background-color: $white;
         min-height: calc(80vh - $small-margin);
+        max-height: calc(80vh - $small-margin);
         min-width: calc(80vw - $small-margin);
         padding: $small-margin;
         img{

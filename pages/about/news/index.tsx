@@ -1,23 +1,32 @@
 import styles from './index.module.scss'
-import { AllNewsDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
-import { Image } from 'react-datocms'
+import Link from 'next/link';
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import useApiQuery from '/lib/dato/hooks/useApiQuery'
+import { AllNewsDocument } from '/graphql';
+import { Image } from 'react-datocms'
+import { PageProps } from '/lib/context/page';
 import { format } from 'date-fns'
 import { Section } from '/components'
-import Link from 'next/link';
 
-export type NewsProps = { news: NewsRecord[] }
+export type NewsProps = { news: NewsRecord[], pagination: CollectionMetadata }
 
-export default function News({ news }: NewsProps) {
+const pageSize = 1;
 
+export default function News({ news, pagination }: NewsProps) {
+	
+	const { data, loading, error, nextPage, page } = useApiQuery<{ news: NewsRecord[]}>(AllNewsDocument, { 
+		initialData:{ news, pagination },
+		variables:{ first:1 },
+		pageSize
+	});
+	
 	return (
 		<>
 			<Section name="Header" top={true}>
 				<h1 className="bottomMargin topMargin white">News</h1>
 			</Section>
-			{news.map(({ title, image, link, linkText, text, createdAt, id, slug }, idx) =>
+			{data.news.map(({ title, image, link, linkText, text, createdAt, id, slug }, idx) =>
 				<Section
 					className={styles.newsItem}
 					type={'margin'}
@@ -39,18 +48,26 @@ export default function News({ news }: NewsProps) {
 					</div>
 				</Section>
 			)}
-			<Section className={styles.more} bottom={true}>
-				<button>Load more +</button>
-			</Section>
-
+			
+			{!page?.end && 
+				<Section className={styles.more} bottom={true}>
+					
+					<button onClick={nextPage}>{!loading ? 'Load more +' : '···'}</button>
+					{error && 
+						<div className={styles.error}>
+							Error: {typeof error === 'string' ? error : error.message }
+						</div>
+					}
+				</Section>
+			}
 		</>
 	)
 }
 
-News.layout = { layout: 'full', color: "--black", menu: 'inverted', sidebar: false, footerLine:true  } as PageLayoutProps
+News.page = { layout: 'full', color: "--black", menu: 'inverted', sidebar: false, footerLine:true  } as PageProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllNewsDocument], model:'news' }, async ({ props, revalidate }: any) => {
-
+export const getStaticProps = withGlobalProps({ queries: [AllNewsDocument], variables:{first:pageSize} }, async ({ props, revalidate }: any) => {
+	
 	return {
 		props,
 		revalidate

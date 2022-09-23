@@ -54,7 +54,7 @@ const base: Menu = [
   },
 ]
 
-export const generate = (data) => {
+export const buildMenu = (data) => {
 
   const { allDesigners, allProductCategories, allProducts } = data
   

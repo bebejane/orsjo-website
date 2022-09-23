@@ -3,7 +3,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { AllNewsDocument, NewsDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { Image } from 'react-datocms'
-import { PageLayoutProps } from '/lib/context/layout'
+import { PageProps } from '/lib/context/page'
 import { Section } from '/components'
 import Markdown from '/lib/dato/components/Markdown';
 import format from 'date-fns/format';
@@ -38,7 +38,7 @@ export default function News({ news: { image, title, createdAt, text } }: NewsPr
 	)
 }
 
-News.layout = { layout: 'normal', color: '--black', menu: 'inverted', sidebar: false, footerLine: true } as PageLayoutProps
+News.page = { layout: 'normal', color: '--black', menu: 'inverted', footerLine: true } as PageProps
 
 export async function getStaticPaths(context) {
 	const { news } = await apiQuery(AllNewsDocument)

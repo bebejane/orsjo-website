@@ -5,7 +5,7 @@ import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
 import { useEffect, useRef, useState } from "react";
-import { useLayout } from "/lib/context/layout";
+import { usePage } from "/lib/context/page";
 import { useWindowSize } from "rooks";
 
 export type FeaturedGalleryProps = { 
@@ -32,18 +32,19 @@ export default function FeaturedGallery({
 	inverted = false
 } : FeaturedGalleryProps ) {
 	
-	const galleryRef = useRef<HTMLDivElement | undefined>()
-	const { menu } = useLayout()
+	const { menu } = usePage()
 	const swiperRef = useRef<Swiper | null>(null)
 	const [index, setIndex] = useState(0)
+	const [isShortSlide, setIsShortSlide] = useState(false)
 	const [spaceBetween, setSpaceBetween] = useState(0)
 
 	const { innerWidth } = useWindowSize()
 	const numSlides = items.length
-	const slidesPerView = innerWidth < 768 ? 2 : 4;
-	const isShortSlide = numSlides <= slidesPerView
-	const middleArrowStyle = {}
-
+	
+	useEffect(()=>{
+		const slidesPerView = innerWidth < 768 ? 2 : 4;
+		setIsShortSlide(numSlides <= slidesPerView)
+	}, [innerWidth])
 
 	return (
 		<div className={cn(styles.featuredGallery, styles[menu])}>
@@ -51,8 +52,9 @@ export default function FeaturedGallery({
 				<div className={styles.header}>
 					<h1 className={styles.headline}>{headline}</h1>
 					<ArrowButton 
-						className={cn(styles.next, isShortSlide && styles.hide)}
+						className={cn(styles.next)}
 						inverted={inverted}
+						hide={isShortSlide}
 						onClick={()=>swiperRef.current.slideNext()} 
 					/>
 				</div>
@@ -62,6 +64,7 @@ export default function FeaturedGallery({
 					id={`${id}-swiper-wrap`} 
 					loop={!isShortSlide}
 					noSwiping={isShortSlide}
+					simulateTouch={!isShortSlide}
 					slidesPerView={'auto'}
 					spaceBetween={spaceBetween}
 					initialSlide={index}
@@ -105,7 +108,8 @@ export default function FeaturedGallery({
 				{arrowAlign === 'middle' && !isShortSlide &&
 					<div className={styles.arrowMiddle}>
 						<ArrowButton 
-							className={cn(styles.next, isShortSlide && styles.hide)}
+							className={cn(styles.next)}
+							hide={isShortSlide}
 							inverted={inverted}
 							onClick={()=>swiperRef.current.slideNext()} 
 						/>

@@ -3,7 +3,7 @@ import { apiQuery } from '/lib/dato/api';
 import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { Block, Section, FeaturedGallery } from '/components';
 import { useEffect } from 'react'
 import { useStore } from '/lib/store';
@@ -86,7 +86,7 @@ export default function Project({ project, related }: ProjectProps) {
 	)
 }
 
-Project.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
+Project.page = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
 
 export async function getStaticPaths(context) {
 	const { projects } = await apiQuery(AllProjectsDocument, {})

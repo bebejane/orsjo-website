@@ -51,6 +51,7 @@
 .listItemContent{
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	&.top{
 		margin-top: $margin;
 	}
@@ -67,13 +68,23 @@
 			flex-direction: row;
 			break-inside: avoid-column;
 			width: 100%;
-			span:nth-child(odd){
-				color: $gray;
-				flex: 1 1 spanNestedGrid(6, 2, true);
-			}
-			span:nth-child(even){
-				flex: 1 1 spanNestedGrid(6, 4, false);
-				padding-right: 1em;	
+			span{
+				&:nth-child(odd){
+					color: $gray;
+					flex: 1 1 spanNestedGrid(6, 2, true);
+				}
+				&:nth-child(even){
+					flex: 1 1 spanNestedGrid(6, 4, false);
+					padding-right: 1em;	
+				}
+				@include mq($until: tablet){
+					&:nth-child(odd){
+						flex: 0 0 calc(spanGrid(6) + $gutter);
+					}
+					&:nth-child(even){
+						flex: 1 1 auto;
+					}	
+				}
 			}
 		}
 	}
@@ -87,14 +98,25 @@
 			color: $gray;
 			margin-bottom: .5em;
 			span{
-									
 				&:nth-child(odd){
 					flex: 0 0 spanNestedGrid(12, 2, true);
 				}
 				&:nth-child(even){
 					flex: 0 0 spanNestedGrid(12, 4, true);
 				}
+				@include mq($until: tablet){
+					&:nth-child(1){
+						flex: 0 0 calc(spanGrid(6) + $gutter);
+					}
+					&:nth-child(2){
+						flex: 0 0 calc(spanGrid(10));
+					}
+					&:nth-child(3), &:nth-child(4){
+						display: none;
+					}
+				}
 			}
+			
 		}
 		.content{
 			width: 100%;
@@ -122,6 +144,7 @@
 							color: $gray;
 						}
 					}
+					
 					&.subheader{
 						color: $gray;
 					}
@@ -131,6 +154,9 @@
 			&.multi{
 				column-count: 2;
 				column-gap: nestedGridGutter(12);
+				@include mq($until: tablet){
+					column-count: 1;
+				}
 				ul{
 					flex-direction: column;
 					li{
@@ -141,6 +167,15 @@
 							&:nth-child(even){
 								flex: 0 0 spanNestedGrid(6, 4, true);
 							}
+							@include mq($until: tablet){
+								&:nth-child(odd){
+									flex: 0 0 calc(spanGrid(6) + $gutter);
+								}
+								&:nth-child(even){
+									flex: 0 0 calc(spanGrid(10));
+									padding: 0;
+								}
+							}
 							&.header{
 								color: $gray;
 							}
@@ -148,7 +183,6 @@
 					}
 				}	
 			}
-
 		}
 		&:last-child{
 			border-bottom: 0;

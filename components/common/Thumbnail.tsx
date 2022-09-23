@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 export type ThumbnailProps = {
-  slug?: string,
+  slug: string,
   image: FileField,
   imageHover?: FileField,
   inverted?: boolean,

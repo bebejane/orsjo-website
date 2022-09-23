@@ -4,7 +4,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { Section } from '/components'
 
 export type SustainabilityProps = {  sustainability: SustainabilityRecord}
@@ -49,7 +49,7 @@ export default function Sustainability({ sustainability : { image, intro, title,
 	)
 }
 
-Sustainability.layout = { layout:'full', color:"--black", menu:'inverted'} as PageLayoutProps
+Sustainability.page = { layout:'full', color:"--black", menu:'inverted'} as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [SustainabilityDocument], model:'sustainability' }, async ({ props, revalidate }: any) => {
 

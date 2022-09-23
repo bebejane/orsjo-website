@@ -3,7 +3,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { AllDesignersDocument, DesignerDocument, AllProductsByDesignerDocument, AllProductsLightDocument } from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import { Image } from 'react-datocms'
-import { PageLayoutProps } from '/lib/context/layout'
+import { PageProps } from '/lib/context/page'
 import { ProductThumbnail, Section, FeaturedGallery } from '/components'
 
 export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[], designers: DesignerRecord[] };
@@ -64,7 +64,7 @@ export default function Designer({ designer, products, designers }: DesignerProp
 	)
 }
 
-Designer.layout = { layout: 'full', color: '--green', menu: 'inverted' } as PageLayoutProps
+Designer.page = { layout: 'full', color: '--green', menu: 'inverted' } as PageProps
 
 export async function getStaticPaths(context) {
 	const { designers } = await apiQuery(AllDesignersDocument)

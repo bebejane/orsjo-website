@@ -2,7 +2,7 @@ import styles from './index.module.scss'
 import { ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import Markdown from '/lib/dato/components/Markdown';
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import { ProjectThumbnail, Section } from '/components';
 
 export type ProfessionalProps = { projects: ProjectRecord[], projectStart: ProjectStartRecord, projectTypes: ProjectTypeRecord[] }
@@ -36,7 +36,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 	)
 }
 
-Professionals.layout = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageLayoutProps
+Professionals.page = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument] }, async ({ props, revalidate }: any) => {
 

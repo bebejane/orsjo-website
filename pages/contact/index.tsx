@@ -7,13 +7,12 @@ import {
 	AllDistributorsDocument
 } from '/graphql';
 
-import { Section, Modal } from '/components'
+import { Section, ContactModal } from '/components'
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
-import { PageLayoutProps } from '/lib/context/layout';
+import { PageProps } from '/lib/context/page';
 import Markdown from '/lib/dato/components/Markdown';
-import { useEffect, useState } from 'react';
-import { useForm } from "react-hook-form";
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 export type ContactProps = {
 	contact: ContactRecord,
@@ -85,9 +84,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 						</div>
 					)}
 				</div>
-				{showContactForm &&
-					<ContactModal onClose={() => setShowContactForm(false)} />
-				}
+				
 			</Section>
 			<Section name="Showrooms" className={styles.showroomsSection} bgColor='--black'>
 				<h1>Showrooms</h1>
@@ -167,75 +164,12 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					})}
 				</div>
 			</Section>
-
+			<ContactModal show={showContactForm} onClose={() => setShowContactForm(false)} />
 		</>
 	)
 }
 
-
-const ContactModal = ({ onClose }) => {
-
-	const { register, handleSubmit } = useForm();
-	const [loading, setLoading] = useState(false)
-	const [success, setSuccess] = useState(false)
-	const [error, setError] = useState()
-
-	const [data, setData] = useState("");
-
-	useEffect(() => {
-
-		if (!data) return
-
-		setLoading(true)
-
-		fetch('/api/contact', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json, text/plain, */*',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		}).then(() => {
-			setSuccess(true)
-		}).catch((err) => {
-			setError(err)
-		}).finally(() => {
-			setLoading(false)
-		})
-
-	}, [data])
-
-	return (
-		<Modal>
-			<div className={styles.contactForm}>
-				<div className={styles.wrap}>
-					<h1>Contact us</h1>
-					<form id="contact-form" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
-						<label htmlFor="name">Name</label>
-						<input id="name" name="name" type="text" placeholder="Name..." {...register("name")} />
-						<label htmlFor="email">E-mail</label>
-						<input id="email" type="text" name="email" placeholder="E-mail..." {...register("email")} />
-						<label htmlFor="subject">Subject</label>
-						<input id="subject" type="text" name="subject" placeholder="Subject..." {...register("subject")} />
-						<label htmlFor="text">Message</label>
-						<textarea name="text" {...register("text")}></textarea>
-						<button type="submit">Send</button>
-					</form>
-					{loading &&
-						<div className={styles.loading}>Submitting...</div>
-					}
-					{success &&
-						<div className={styles.success}>Success!</div>
-					}
-				</div>
-				<div className={styles.close} onClick={onClose}>×</div>
-			</div>
-		</Modal>
-	)
-}
-
-
-Contact.layout = { layout: 'normal', color: "--red", menu: 'inverted', footerLine: true } as PageLayoutProps
+Contact.page = { layout: 'normal', color: "--red", menu: 'inverted', footerLine: true } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [ContactDocument, AllResellersDocument, AllStaffsDocument, AllShowroomsDocument, AllDistributorsDocument] }, async ({ props, revalidate }: any) => {
 

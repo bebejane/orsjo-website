@@ -2,13 +2,13 @@ import "swiper/css";
 import styles from './FeaturedStart.module.scss'
 import cn from 'classnames'
 import { FeaturedGallery } from '/components'
-import { useLayout } from "/lib/context/layout";
+import { usePage } from "/lib/context/page";
 
 export type ImageGalleryProps = { data: FeaturedRecord, fadeColor?: number[] }
 
 export default function FeaturedStart({ data: { headline, items, id } }: ImageGalleryProps) {
 
-	const { menu } = useLayout()
+	const { menu } = usePage()
 	const isProducts = items[0].__typename === 'ProductRecord'
 
 	return (
