@@ -114,6 +114,7 @@ const pathTotitle = {
   '/professionals/bespoke': 'Bespoke',
   '/professionals/downloads': 'Downloads',
   '/professionals/factory-visit': 'Factory Visit',
+  '/professionals/colors-and-materials': 'Colors & Materials',
   '/about': 'About Us',
   '/about/jobs': 'Jobs',
   '/about/news': 'News',
