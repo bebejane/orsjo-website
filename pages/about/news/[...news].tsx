@@ -22,7 +22,7 @@ export default function News({ news: { image, title, createdAt, text } }: NewsPr
 				<div className={styles.date}>
 					<p className="medium">{format(new Date(createdAt), 'MMM do, yyyy')}</p>
 				</div>
-				<div>
+				<div className={styles.content}>
 					<h1 className="copper">{title}</h1>
 					{image &&
 						<figure className={styles.image}>

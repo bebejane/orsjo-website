@@ -28,7 +28,7 @@ export default function FullscreenMediaBlock({ data: { media, headline, linkReco
 					<div className={styles.headline}>
 						<span className="medium">{subHeadline}</span>
 						<h1 className="start">{headline}</h1>
-						<span className="medium">View Product <img src="/images/arrow.svg" className={styles.arrow} /></span>
+						<span className="medium"><img src="/images/arrow.svg" className={styles.arrow} /> View Product</span>
 					</div>
 				</div>
 			</a>

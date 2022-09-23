@@ -13,7 +13,9 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 
 			<span className={styles.text}>
 				<h1>{title}</h1>
-				<Markdown sentances={1}>{text}</Markdown>
+				<div className="large">
+					<Markdown sentances={1}>{text}</Markdown>
+				</div>
 				<div className={styles.more}>
 					<Link scroll={false} href={`/about/news/${slug}`}>
 						<a className="medium white">

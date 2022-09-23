@@ -17,12 +17,15 @@
   .text {
     flex: 1 1 auto;
 
+    p {
+      padding-top: .5em;
+    }
+
     .more {
       font-weight: bold;
 
       a {
         color: $white;
-
         .arrow {
           filter: invert(1);
         }
