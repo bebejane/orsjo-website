@@ -2,6 +2,8 @@ import styles from './ArrowLink.module.scss'
 import cn from 'classnames'
 import Arrow from '/public/images/arrow.svg'
 import { useEffect, useState } from 'react'
+import { styleVariables } from '/lib/utils'
+import { useWindowSize } from 'rooks'
 
 export type ArrowLinkProps = { 
   title:string,
@@ -12,6 +14,9 @@ export type ArrowLinkProps = {
 export default function ArrowLink({ title, href, hoverRef }: ArrowLinkProps) {
   
   const [hover, setHover] = useState(false)
+  const [disable, setDisable] = useState(false)
+
+  const { innerWidth } = useWindowSize();
 
   const handleHover = ({type}) => setHover(type === 'mousemove')
 
@@ -27,9 +32,11 @@ export default function ArrowLink({ title, href, hoverRef }: ArrowLinkProps) {
     }
   }, [hoverRef])
 
+  useEffect(()=>{ setDisable(innerWidth <= styleVariables.tablet)}, [innerWidth])
+
   return (
 		<span 
-      className={cn('medium', styles.arrowLink, hover && styles.hover)} 
+      className={cn('medium', styles.arrowLink, (hover || disable) && styles.hover)}
       onMouseEnter={handleHover} 
       onMouseLeave={handleHover}
     >
