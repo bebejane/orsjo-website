@@ -20,7 +20,7 @@ export default function ImageLink({ data: { firstImage, firstHeadline, firstLink
 						<Image className={styles.image} data={firstImage?.responsiveImage} layout="fill" objectFit="cover" />
 						<figcaption>
 							<h1>{firstHeadline}</h1>
-							<ArrowLink title={firstLinkText} hoverRef={refOne}/>
+							<ArrowLink hoverRef={refOne} inverted={true}>{firstLinkText}</ArrowLink>
 						</figcaption>
 					</figure>
 				</a>
@@ -31,7 +31,7 @@ export default function ImageLink({ data: { firstImage, firstHeadline, firstLink
 						<Image className={styles.image} data={secondImage?.responsiveImage} layout="fill" objectFit="cover" />
 						<figcaption>
 							<h1>{secondHeadline}</h1>
-							<ArrowLink title={secondLinkText} hoverRef={refTwo}/>
+							<ArrowLink hoverRef={refTwo} inverted={true}>{secondLinkText}</ArrowLink>
 						</figcaption>
 					</figure>
 				</a>

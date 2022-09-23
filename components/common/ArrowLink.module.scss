@@ -1,28 +1,37 @@
 .arrowLink{
   position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color:$white;
+  color:$black;
   overflow: hidden;
   svg > path{
-    fill:$white;
+    fill:$black;
   }
   .arrow{
+    opacity: 0;
     display: inline;
-    margin-left: -0.65rem;
-    transition: margin-left .4s ease-out;
-    margin-right: .2rem;
+    margin-left: -1em;
+    margin-right: .4em;
+    transition: margin-left .2s ease-out;
   }
   &.hover{
     .arrow{
       margin-left: 0rem;
+      opacity: 1;
     }
   }
   &.inverted{
-    color:$black;
+    color:$white;
     svg > path{
-      fill:$black;
+      fill:$white;
+    }
+  }
+  &.reversed{
+    .arrow{
+      transform: rotate(180deg);
+    }
+  }
+  @include mq($until: tablet){
+    .arrow{
+      margin-left: 0rem !important;
     }
   }
 }

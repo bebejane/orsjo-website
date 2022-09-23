@@ -24,7 +24,7 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 						<Link scroll={false} href={link}>
 							<a>
 								<span className="medium white">
-									<ArrowLink title={linkText} hoverRef={ref}/>
+									<ArrowLink hoverRef={ref} inverted={true}>{linkText}</ArrowLink>
 								</span>
 							</a>
 						</Link>

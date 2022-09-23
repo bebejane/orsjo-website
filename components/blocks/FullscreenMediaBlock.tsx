@@ -29,7 +29,7 @@ export default function FullscreenMediaBlock({ data: { media, headline, linkReco
 					<div className={styles.headline}>
 						<span className="medium">{subHeadline}</span>
 						<h1 className="start">{headline}</h1>
-						<ArrowLink title='View Product' href={`${slugBase}/${linkRecord.slug}`} hoverRef={ref}/>
+						<ArrowLink hoverRef={ref} inverted={true}>View Product</ArrowLink>
 					</div>
 				</div>
 			</a>

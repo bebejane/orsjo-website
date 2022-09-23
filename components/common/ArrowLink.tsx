@@ -2,45 +2,47 @@ import styles from './ArrowLink.module.scss'
 import cn from 'classnames'
 import Arrow from '/public/images/arrow.svg'
 import { useEffect, useState } from 'react'
-import { styleVariables } from '/lib/utils'
-import { useWindowSize } from 'rooks'
+import Link from 'next/link'
 
 export type ArrowLinkProps = { 
-  title:string,
+  title?:string,
   href?:string,
+  inverted?: boolean,
+  reversed?: boolean,
   hoverRef?: React.MutableRefObject<HTMLElement>
+  children?: string
 }
 
-export default function ArrowLink({ title, href, hoverRef }: ArrowLinkProps) {
+export default function ArrowLink({ children, title, href, hoverRef, inverted = false, reversed = false }: ArrowLinkProps) {
   
   const [hover, setHover] = useState(false)
-  const [disable, setDisable] = useState(false)
-
-  const { innerWidth } = useWindowSize();
-
-  const handleHover = ({type}) => setHover(type === 'mousemove')
+  const handleHover = ({type}) => setHover(['mousemove', 'mouseenter'].includes(type))
 
   useEffect(()=>{
     if(!hoverRef?.current) return 
+    
+    const ref = hoverRef.current;
 
-    hoverRef.current.addEventListener('mousemove', handleHover)
-    hoverRef.current.addEventListener('mouseleave', handleHover)
+    ref.addEventListener('mousemove', handleHover)
+    ref.addEventListener('mouseenter', handleHover)
+    ref.addEventListener('mouseleave', handleHover)
 
     return () => {
-      hoverRef.current?.removeEventListener('mousemove', handleHover)
-      hoverRef.current?.removeEventListener('mouseleave', handleHover)
+      ref.removeEventListener('mousemove', handleHover)
+      ref.removeEventListener('mouseenter', handleHover)
+      ref.removeEventListener('mouseleave', handleHover)
     }
   }, [hoverRef])
 
-  useEffect(()=>{ setDisable(innerWidth <= styleVariables.tablet)}, [innerWidth])
-
+  const className = cn(styles.arrowLink, 'medium', inverted && styles.inverted, reversed && styles.reversed, hover && styles.hover)
+  
   return (
 		<span 
-      className={cn('medium', styles.arrowLink, (hover || disable) && styles.hover)}
+      className={className}
       onMouseEnter={handleHover} 
       onMouseLeave={handleHover}
     >
-      <Arrow className={styles.arrow} /> {title}
+      <Arrow className={styles.arrow} />{title || children}
     </span>
 	)
 }

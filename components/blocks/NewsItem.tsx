@@ -22,7 +22,7 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 							<Markdown sentances={1}>{text}</Markdown>
 						</div>
 						<div className={styles.more}>
-							<ArrowLink title={'Read more'} hoverRef={ref} />
+							<ArrowLink hoverRef={ref} inverted={true}>Read more</ArrowLink>
 						</div>
 					</span>
 				</a>
