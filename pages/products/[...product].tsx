@@ -185,12 +185,18 @@ export default function Product({ product, relatedProducts, productsByCategory }
 						})}
 					</div>
 				</div>
-				<div className={styles.dimensions}>
-						<span>Dimensions</span>
-						<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} >
-							View drawing{drawings.length > 1 && 's'} +
-						</button>
-				</div>
+				
+					<div className={styles.dimensions}>
+							<span>Dimensions</span>
+							<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} disabled={drawings.length === 0}>
+								{drawings.length ? 
+									<>View drawing{drawings.length > 1 && 's'}</> 
+								: 
+									<>No drawings available</>
+								}
+							</button>
+					</div>
+				
 			</SectionListItem>
 			<SectionListItem 
 				title={'Downloads'} 
