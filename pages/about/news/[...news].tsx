@@ -5,6 +5,7 @@ import { apiQuery } from '/lib/dato/api'
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page'
 import { Section } from '/components'
+import Link from 'next/link';
 import Markdown from '/lib/dato/components/Markdown';
 import format from 'date-fns/format';
 
@@ -14,7 +15,7 @@ export default function News({ news: { image, title, createdAt, text } }: NewsPr
 
 	return (
 		<>
-			<Section name="Header" top={true}>
+			<Section top={true}>
 				<h1 className="bottomMargin topMargin white">News</h1>
 			</Section>
 			<Section className={styles.news} type={'margin'}>
@@ -32,7 +33,11 @@ export default function News({ news: { image, title, createdAt, text } }: NewsPr
 				</div>
 			</Section>
 			<Section className={styles.more} bottom={true}>
-				<button>View all news</button>
+				<Link href={'/about/news'}>
+					<a>
+						<button>View all news</button>
+					</a>
+				</Link>
 			</Section>
 		</>
 	)

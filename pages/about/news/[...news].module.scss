@@ -20,11 +20,12 @@
 	}
 }
 
-.more button {
+.more a button {
 	margin-top: $small-margin;
 	width: 100%;
 	appearance: none;
 	background-color: transparent;
 	color: $white;
 	text-align: center;
+	cursor: pointer;
 }

@@ -1,0 +1,31 @@
+.introduction {
+  padding-bottom: $small-margin;
+}
+
+.intro {
+  width: 80%;
+  color: white;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.materials {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: $small-margin;
+
+  h1 {
+    width: 100%;
+  }
+}
+
+.material {
+  width: spanNestedGrid(12, 4);
+  padding-right: nestedGridGutter(12);
+  @include resetLastColumn(3);
+
+  figure {
+    background-color: $gray  !important;
+  }
+}

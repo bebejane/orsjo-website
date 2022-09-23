@@ -46,7 +46,7 @@
           height: 100%;
           width: 100%;
           .picture {
-            width: aauto !important;
+            width: auto !important;
             height: 100% !important;
             object-fit: contain !important;
           }
@@ -54,10 +54,14 @@
       }
       .svg{
         background-color: $white;
-        min-height: calc(80vh - $small-margin);
-        max-height: calc(80vh - $small-margin);
+        min-height: calc(100vh);
+        max-height: calc(100vh);
         min-width: calc(80vw - $small-margin);
         padding: $small-margin;
+        @include mq($until: tablet){
+          min-height: calc(80vh - $small-margin);
+          max-height: calc(80vh - $small-margin);
+        }
         img{
           width: 100%;
         }
@@ -74,7 +78,7 @@
     bottom: 0;
     font-weight: bold;
     font-size: 0.9rem;
-    color:$white;
+    color: $white !important;
     p {
       z-index: 100000;
       padding: .5em;
