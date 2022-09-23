@@ -20,7 +20,7 @@ export default function Products({ productStart: { featured }, products, product
 	const [productsByCategorySearch, setProductsByCategorySearch] = useState<any>()
 
 	const searchProducts = useStore((state) => state.searchProducts);
-
+	console.log(products);
 	const search = (str: string, value: string) => {
 		const s = str.toLowerCase().split(' ');
 		const v = value.toLowerCase().split(' ');

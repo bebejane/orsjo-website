@@ -1,3 +1,6 @@
+#import './ImageFragment.gql'
+#import './ThumbnailFragment.gql'
+
 fragment ProductLightFragment on ProductRecord{
   id
   title
@@ -14,10 +17,10 @@ fragment ProductLightFragment on ProductRecord{
     position
   }
   image{
-    ...ImageFragment
+    ...ThumbnailFragment
   }
   environmentImage{
-    ...ImageFragment
+    ...ThumbnailFragment
   }
   designer{
     id

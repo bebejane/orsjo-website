@@ -187,6 +187,15 @@ declare module '*/StaffFragment.gql' {
 }
     
 
+declare module '*/ThumbnailFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const ThumbnailFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/VideoFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

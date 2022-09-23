@@ -26,7 +26,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({specifications:false, downloads:false})
 	const specs = parseSpecifications(product, 'en', null)
-	
+		
 	const specsCols = [
 		{ label: 'Designer', value: specs.designer},
 		{ label: 'Mounting', value: specs.mounting},
