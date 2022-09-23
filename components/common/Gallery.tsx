@@ -43,6 +43,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
           loop={true}
           spaceBetween={500}
           simulateTouch={!isSingleSlide}
+          
           slidesPerView={1}
           initialSlide={index}
           onSlideChange={({ realIndex }) => setRealIndex(realIndex)}
@@ -52,13 +53,12 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
             <SwiperSlide key={idx} className={styles.slide}>
               {image.responsiveImage ?
                 <Image
-                  className={styles.image}
-                  pictureClassName={styles.picture}
+                  pictureClassName={styles.image}
                   data={image.responsiveImage}
                   lazyLoad={false}
                   usePlaceholder={false}
                 />
-                :
+              :
                 <div className={styles.svg}>
                   <img src={image.url} className={styles.image} />
                 </div>

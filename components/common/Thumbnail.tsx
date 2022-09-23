@@ -73,12 +73,12 @@ export default function Thumbnail({
     >
       {slug ? 
         <Link scroll={false} href={slug} >
-          <a>
+          <a className={styles.wrap}>
             {content}
           </a>
         </Link>
       :
-        <>{content}</>
+        <div className={styles.wrap}>{content}</div>
       }
       
       {markAsNew &&

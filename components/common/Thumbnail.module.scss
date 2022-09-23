@@ -7,11 +7,12 @@
     }
   }
 
-  a, &:first-child {
+  .wrap {
     display: flex;
     position: relative;
     flex-direction: column;
     aspect-ratio: 4/3;
+    cursor: pointer;
 
     figure {
       position: relative;
