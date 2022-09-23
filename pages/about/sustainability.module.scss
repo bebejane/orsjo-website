@@ -68,6 +68,11 @@
       padding: $margin;
       padding-top: 2rem;
       padding-bottom: 2rem;
+
+      .image {
+        max-width: none !important;
+      }
+
     }
     
     .left{
@@ -92,7 +97,7 @@
           @include h1Big();
           white-space: pre;
           color: rgba(var(--copper));
-          opacity: 0.5;
+          //opacity: 0.5;
           margin-left: 10px;
           margin: 0;
           padding: 0;
@@ -103,12 +108,14 @@
     &.fullWidth{
       .left{
         position: absolute;
-        margin-left: 50%;
+        padding-left: 55%;
         height: 100%;
         top:0;
         left:0;
         flex: 1 1 100%;
         z-index: 2;
+        background: linear-gradient(270deg, rgb(18, 18, 18) 0%, rgba(18,18,18,0) 70%);
+
       }
       .right{
         padding-left:0;

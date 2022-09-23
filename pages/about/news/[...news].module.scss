@@ -1,15 +1,30 @@
 .image{
-	width: 100%;
-	min-height: 60vh;
-	max-height: 60vh;
+	max-width: 50% !important;
 }
+
+.date{
+	flex: 0 0 spanGridWithGutter(4);
+
+}
+
 .news {
-	padding-top: $small-margin;
 	color: $white;
+	display: flex;
 	h1{
-		padding-bottom: 0;
 	}
 	p{
 		margin-top: 1rem;
+		@include mq($from: tablet) {
+    	padding-right: 20%;
+		}
 	}
+}
+
+.more button {
+	margin-top: $small-margin;
+	width: 100%;
+	appearance: none;
+	background-color: transparent;
+	color: $white;
+	text-align: center;
 }

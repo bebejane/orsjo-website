@@ -10,27 +10,35 @@ import format from 'date-fns/format';
 
 export type NewsProps = { news: NewsRecord };
 
-export default function News({ news: {image, title, createdAt, text} }: NewsProps) {
+export default function News({ news: { image, title, createdAt, text } }: NewsProps) {
 
 	return (
 		<>
-			{image &&
-				<Section className={styles.image} top={true}>
-					<Image data={image.responsiveImage} layout={'fill'} objectFit={'cover'} />
-				</Section>
-			}
-			<Section  className={styles.news} top={image == undefined}>
-				<h1 className="copper">{title}</h1>
-				<h3>{format(new Date(createdAt), 'MMM do, yyyy')}</h3>
-				<p>
+			<Section name="Header" top={true}>
+				<h1 className="bottomMargin topMargin white">News</h1>
+			</Section>
+			<Section className={styles.news} type={'margin'}>
+				<div className={styles.date}>
+					<p className="medium">{format(new Date(createdAt), 'MMM do, yyyy')}</p>
+				</div>
+				<div>
+					<h1 className="copper">{title}</h1>
+					{image &&
+						<figure className={styles.image}>
+							<Image data={image.responsiveImage} />
+						</figure>
+					}
 					<Markdown>{text}</Markdown>
-				</p>
+				</div>
+			</Section>
+			<Section className={styles.more} bottom={true}>
+				<button>View all news</button>
 			</Section>
 		</>
 	)
 }
 
-News.layout = { layout: 'normal', color: '--black', menu: 'inverted', footerLine: true  } as PageLayoutProps
+News.layout = { layout: 'normal', color: '--black', menu: 'inverted', sidebar: false, footerLine: true } as PageLayoutProps
 
 export async function getStaticPaths(context) {
 	const { news } = await apiQuery(AllNewsDocument)
@@ -41,10 +49,10 @@ export async function getStaticPaths(context) {
 	}
 }
 
-export const getStaticProps = withGlobalProps({ }, async ({ props, context, revalidate }) => {
+export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
 	const { news } = await apiQuery(NewsDocument, { variables: { slug: context.params.news[0] } })
-	
+
 	if (!news)
 		return { notFound: true }
 
