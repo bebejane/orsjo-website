@@ -1,5 +1,7 @@
 #import "./fragments/ImageFragment.gql"
+#import "./fragments/ImageThumbnailFragment.gql"
 #import "./fragments/ProjectFragment.gql"
+#import "./fragments/ProjectLightFragment.gql"
 
 query Project($slug: String) {
 	project (filter: {slug: { eq: $slug }}) {
@@ -9,14 +11,14 @@ query Project($slug: String) {
 
 query AllProjects {
   projects : allProjects {
-    ...ProjectFragment
+    ...ProjectLightFragment
   }
 }
 
 query AllRelatedProjects($projectType: ItemId) {
   projects : allProjects(
     filter: { projectType: { eq: $projectType}}){
-    ...ProjectFragment
+    ...ProjectLightFragment
   }
 }
 
@@ -89,7 +91,6 @@ query AllColorsAndMaterials {
       category
 			categoryPlural
     }
-
   }
   colorMaterialTypes : allColorMaterialTypes {
     id

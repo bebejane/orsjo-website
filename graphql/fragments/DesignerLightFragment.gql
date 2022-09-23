@@ -1,12 +1,11 @@
 #import "./ImageThumbnailFragment.gql"
 
-fragment StaffFragment on StaffRecord{
+fragment DesignerLightFragment on DesignerRecord{
   id
   name
-  image {
+  image{
     ...ImageThumbnailFragment
   }
-  role
-  phone 
-  email
+  description
+  slug
 }

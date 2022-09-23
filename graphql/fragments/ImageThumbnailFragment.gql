@@ -1,4 +1,4 @@
-fragment ThumbnailFragment on FileField {
+fragment ImageThumbnailFragment on FileField {
   alt
   basename
   format
