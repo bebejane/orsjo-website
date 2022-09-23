@@ -1,4 +1,5 @@
 import styles from './SiteSearch.module.scss'
+import { styleVariables } from '/lib/utils'
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react';
 import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail } from '/components';
@@ -22,8 +23,9 @@ export default function SiteSearch({show, onClose, query : queryAsProp}){
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
 	const { innerWidth } = useWindowSize()
+	
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading && inputValue
-	const thumbnailTheme = innerWidth < 768 ? 'dark' : 'light'
+	const thumbnailTheme = innerWidth < styleVariables.tablet ? 'dark' : 'light'
 
 	useEffect(()=>{
 		if(!debouncedQuery) return setResult(undefined)
@@ -55,9 +57,7 @@ export default function SiteSearch({show, onClose, query : queryAsProp}){
 	useEffect(()=>{ !transitioning && setShowSiteSearch(false)}, [transitioning])
 	useEffect(()=> loading && setResult({}), [loading, setResult])
 	useEffect(()=>{ show && ref.current.focus() }, [show, ref])
-	useEffect(()=>{
-		setInputValue(queryAsProp)
-	}, [queryAsProp])
+	useEffect(()=>{ queryAsProp && setInputValue(queryAsProp) }, [queryAsProp])
 
 	return (
 		<div className={cn(styles.search, show && styles.show)}>

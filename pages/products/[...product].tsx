@@ -7,7 +7,7 @@ import { useStore } from '/lib/store'
 import { isServer } from '/lib/utils'
 import { Image } from 'react-datocms'
 import { SectionListItem, FeaturedGallery, Block,  Section, Icon } from '/components'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
@@ -128,7 +128,7 @@ export default function Product({ product, relatedProducts, productsByCategory }
 					</header>
 					<div className={cn(styles.content, !singleModel && styles.multi)}>
 						{product.models.map(({ id, name, variants, lightsources, accessories }, midx) => {
-						
+							
 							const art = variants.map(v => ({
 								articleNo: v.articleNo,
 								label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
@@ -169,16 +169,16 @@ export default function Product({ product, relatedProducts, productsByCategory }
 								<ul key={id}>
 									<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
 									{rows.map((row, idx) =>
-										<>
-											<li key={`${idx}-0`}>
+										<React.Fragment key={`${id}-${idx}`}>
+											<li key={`${id}-${idx}-c1`}>
 												<span>{row[0].articleNo}</span>
 												<span>{row[0].label}</span>		
 											</li>									
-											<li key={`${idx}-1`}>
+											<li key={`${id}-${idx}-c2`}>
 												<span>{row[1]?.articleNo}</span>
 												<span>{row[1]?.label}</span>
 											</li>
-										</>
+										</React.Fragment>
 									)}
 								</ul>
 							)

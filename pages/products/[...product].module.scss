@@ -126,6 +126,7 @@
 				flex-direction: row;
 				width: 100%;
 				break-inside: avoid-column;
+				
 				li {
 					display: flex;
 					flex-direction: row;
@@ -139,6 +140,15 @@
 						}
 						&:nth-child(even){
 							flex: 0 0 spanNestedGrid(12, 4, true);
+						}
+						@include mq($until: tablet){
+							&:nth-child(odd){
+								flex: 0 0 calc(spanGrid(6) + $gutter);
+							}
+							&:nth-child(even){
+								flex: 0 0 calc(spanGrid(10));
+								padding: 0;
+							}
 						}
 						&.header{
 							color: $gray;

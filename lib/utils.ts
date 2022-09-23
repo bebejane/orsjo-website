@@ -1,10 +1,13 @@
+import scssExports from '/styles/exports.module.scss'
 import { buildClient } from '@datocms/cma-client-browser';
 import { apiQuery } from '/lib/dato/api';
 import { SiteSearchDocument} from '/graphql'
 
-type Locale = 'en' | 'sv' | 'no'
 
+const isServer = typeof window === 'undefined';
 const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
+
+type Locale = 'en' | 'sv' | 'no'
 
 const formatPrice = (price: number, locale: Locale) => {
   const nf = new Intl.NumberFormat(`${locale}-${locale.toUpperCase()}`);
@@ -42,7 +45,7 @@ const sortProductsByCategory = (products: ProductRecord[]) => {
   return sortedProducts;
 }
 
-const isServer = typeof window === 'undefined';
+
 
 const sectionId = (title: string, id?: string) => {
   if (!title) return {}
@@ -194,6 +197,18 @@ const truncateParagraph = (s: string, sentances: number = 1, ellipsis: boolean =
   return  ellipsis ? (str + '...') : str + '.';
 }
 
+const remToPx = (rem: string | number) : number => {
+  if(isServer) return 0
+  return (typeof rem === 'string' ? parseFloat(rem.replace('rem', '')) : rem) * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+const pxToInt = (px: string) : number => {
+  return parseInt(px.replace('px',''))
+}
+
+const styleVariables : { [key:string] : number | string } = {}
+Object.keys(scssExports).forEach((k) => styleVariables[k] = scssExports[k].includes('rem') ? remToPx(scssExports[k]) : scssExports[k].includes('px') ? pxToInt(scssExports[k]) : scssExports[k])
+
 export {
   sleep,
   isServer,
@@ -208,4 +223,7 @@ export {
   recordImages,
   productDownloads,
   truncateParagraph,
+  remToPx,
+  pxToInt,
+  styleVariables
 }

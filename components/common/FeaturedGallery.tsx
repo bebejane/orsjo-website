@@ -1,5 +1,6 @@
 import "swiper/css";
 import styles from './FeaturedGallery.module.scss'
+import { styleVariables } from "/lib/utils";
 import cn from 'classnames'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
@@ -7,6 +8,7 @@ import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } fr
 import { useEffect, useRef, useState } from "react";
 import { usePage } from "/lib/context/page";
 import { useWindowSize } from "rooks";
+
 
 export type FeaturedGalleryProps = { 
 	products?: ProductRecord[], 
@@ -42,7 +44,7 @@ export default function FeaturedGallery({
 	const numSlides = items.length
 	
 	useEffect(()=>{
-		const slidesPerView = innerWidth < 768 ? 2 : 4;
+		const slidesPerView = innerWidth < styleVariables.tablet ? 2 : 4;
 		setIsShortSlide(numSlides <= slidesPerView)
 	}, [innerWidth])
 
