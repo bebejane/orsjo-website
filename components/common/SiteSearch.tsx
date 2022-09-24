@@ -12,7 +12,13 @@ export type SearchResultCategory = {
 	[key: string] : any
 }
 
-export default function SiteSearch({show, onClose, query : queryAsProp}){
+type SiteSearchProps = {
+	show:boolean,
+	onClose?: () => void,
+	query?: string,
+}
+
+export default function SiteSearch({show, onClose, query : queryAsProp} : SiteSearchProps){
 	
 	const ref = useRef<HTMLInputElement>()
 	const [query, setQuery] = useState<string | undefined>()
@@ -52,7 +58,7 @@ export default function SiteSearch({show, onClose, query : queryAsProp}){
 	useEffect(()=>{
 		if(inputValue) return setLoading(true)
 		setQueryImmediate(undefined)
-	}, [inputValue])
+	}, [inputValue, setQueryImmediate])
 
 	useEffect(()=>{ !transitioning && setShowSiteSearch(false)}, [transitioning])
 	useEffect(()=> loading && setResult({}), [loading, setResult])
@@ -117,7 +123,7 @@ export default function SiteSearch({show, onClose, query : queryAsProp}){
 					</div>
 				}
 			</div>
-			<button className={styles.close} onClick={()=>onClose()}>×</button>
+			<button className={styles.close} onClick={onClose}>×</button>
 		</div>
 	)
 }

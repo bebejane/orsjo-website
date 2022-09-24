@@ -37,12 +37,10 @@ export default function ArrowLink({ children, title, href, hoverRef, inverted = 
   const className = cn(styles.arrowLink, 'medium', inverted && styles.inverted, reversed && styles.reversed, hover && styles.hover)
   
   return (
-		<span 
-      className={className}
-      onMouseEnter={handleHover} 
-      onMouseLeave={handleHover}
-    >
-      <Arrow className={styles.arrow} />{title || children}
-    </span>
+    <div className={className}>
+      <span  onMouseEnter={handleHover} onMouseLeave={handleHover}>
+        <Arrow className={styles.arrow} />{title || children}
+      </span>
+    </div>
 	)
 }

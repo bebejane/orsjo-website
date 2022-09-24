@@ -1,36 +1,37 @@
-.arrowLink{
+.arrowLink {
   position: relative;
-  color:$black;
+  color: $black;
   overflow: hidden;
-  svg > path{
-    fill:$black;
+
+  svg>path {
+    fill: $black;
   }
-  .arrow{
-    opacity: 0;
+
+  .arrow {
     display: inline;
     margin-left: -1em;
     margin-right: .4em;
-    transition: margin-left .2s ease-out;
+    transition: margin-left .3s ease-out;
   }
-  &.hover{
-    .arrow{
-      margin-left: 0rem;
-      opacity: 1;
+
+  &.hover .arrow {
+    margin-left: 0rem;
+  }
+
+  &.inverted {
+    color: $white;
+
+    svg>path {
+      fill: $white;
     }
   }
-  &.inverted{
-    color:$white;
-    svg > path{
-      fill:$white;
-    }
+
+  &.reversed .arrow {
+    transform: rotate(180deg);
   }
-  &.reversed{
-    .arrow{
-      transform: rotate(180deg);
-    }
-  }
-  @include mq($until: tablet){
-    .arrow{
+
+  @include mq($until: tablet) {
+    .arrow {
       margin-left: 0rem !important;
     }
   }
