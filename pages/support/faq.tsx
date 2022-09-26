@@ -7,18 +7,23 @@ import { PageProps } from '/lib/context/page';
 import { Section } from '/components'
 import { useState, useEffect } from 'react';
 
-export type FaqsProps = { faqs: FaqRecord[], faqStart: FaqStartRecord }
+export type FaqsByCategory = {
+	[key:string]: {
+		id:string,
+		title:string,
+		items: FaqRecord[]
+	}
+}
 
-export default function Faqs({ faqs, faqStart }: FaqsProps) {
+export type FaqsProps = { 
+	faqs: FaqRecord[], 
+	faqStart: FaqStartRecord, 
+	faqsByCategory: FaqsByCategory 
+}
 
-	const [list, setList] = useState({})
-	const categories = {}
+export default function Faqs({ faqs, faqStart, faqsByCategory }: FaqsProps) {
 
-	faqs.forEach(f => {
-		if (!categories[f.category.id])
-			categories[f.category.id] = { id: f.category.id, title: f.category.title, items: [] }
-		categories[f.category.id].items.push(f)
-	})
+	const [list, setList] = useState<{[key:string]: boolean}>({})
 
 	useEffect(() => {
 		if(location.hash)
@@ -31,13 +36,18 @@ export default function Faqs({ faqs, faqStart }: FaqsProps) {
 				<h1 className="topMargin">{faqStart.title}</h1>
 				<p>{faqStart.intro}</p>
 			</Section>
-			{Object.keys(categories).map(k => categories[k]).map(({ items, title }, i) => {
+			{Object.keys(faqsByCategory).map(k => faqsByCategory[k]).map(({ items, title }, i) => {
 				return (
 					<Section className={styles.faq} name={title} key={i}>
 						<h1 className={styles.category}>{title}</h1>
 						<ul>
 							{items.map(({ question, answer, id }, idx) =>
-								<li id={id} key={idx} className={cn(list[id] && styles.selected)} onClick={() => setList({ ...list, [id]: list[id] ? false : true })}>
+								<li	
+									id={id} 
+									key={idx} 
+									className={cn(list[id] && styles.selected)} 
+									onClick={() => setList({ ...list, [id]: list[id] ? false : true })}
+								>
 									<div className={styles.header}>
 										<h2 className={styles.question}>{question}</h2>
 										<div className={styles.indicator}>+</div>
@@ -57,8 +67,20 @@ Faqs.page = { layout: 'normal', color: '--copper', menu: 'inverted' } as PagePro
 
 export const getStaticProps = withGlobalProps({ queries: [FaqStartDocument] }, async ({ props, revalidate }: any) => {
 
+	const faqsByCategory : FaqsByCategory = {}
+	const faqs = props.faqs as FaqRecord[];
+
+	faqs.forEach(f => {
+		if (!faqsByCategory[f.category?.id])
+		faqsByCategory[f.category?.id] = { id: f.category?.id, title: f.category?.title, items: [] }
+		faqsByCategory[f.category?.id].items.push(f)
+	})
+
 	return {
-		props,
+		props:{
+			...props,
+			faqsByCategory
+		},
 		revalidate
 	};
 });

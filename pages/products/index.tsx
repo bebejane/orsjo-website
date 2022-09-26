@@ -8,42 +8,44 @@ import { useEffect, useState } from 'react';
 
 import type { PageProps } from '/lib/context/page';
 
+export type ProductsByCategory = {
+	[index:string] : ProductRecord[]
+}
+
 export type ProductsStartProps = {
 	productStart: ProductStartRecord,
 	products: ProductRecord[],
-  productsByCategory: { [index:string] : ProductRecord[]},
+  productsByCategory: ProductsByCategory,
 }
 
+const searchString = (str: string, value: string) : boolean => {
+	const s = str.toLowerCase().split(' ');
+	const v = value.toLowerCase().split(' ');
+
+	for (let i = 0; i < s.length; i++) {
+		for (let x = 0; x < v.length; x++) {
+			if (v[x].startsWith(s[i]))
+				return true
+		}
+	}
+	return false
+}
 
 export default function Products({ productStart: { featured }, products, productsByCategory }: ProductsStartProps) {
 
-	const [productsByCategorySearch, setProductsByCategorySearch] = useState<any>()
-
+	const [productsByCategorySearch, setProductsByCategorySearch] = useState<ProductsByCategory | undefined>()
 	const searchProducts = useStore((state) => state.searchProducts);
-	console.log(products);
-	const search = (str: string, value: string) => {
-		const s = str.toLowerCase().split(' ');
-		const v = value.toLowerCase().split(' ');
-
-		for (let i = 0; i < s.length; i++) {
-			for (let x = 0; x < v.length; x++) {
-				if (v[x].startsWith(s[i]))
-					return true
-			}
-		}
-		return false
-	}
 
 	useEffect(() => {
 		if (!searchProducts)
 			return setProductsByCategorySearch(undefined)
 
-		const searchCategories = {}
+		const searchCategories : ProductsByCategory = {}
 
 		Object.keys(productsByCategory).forEach(k => {
 			const res = products
 				.filter(({ categories }) => categories[0].name === k)
-				.filter(({ title, designer: { name } }) => search(searchProducts, title) || search(searchProducts, name))
+				.filter(({ title, designer: { name } }) => searchString(searchProducts, title) || searchString(searchProducts, name))
 
 			if (res.length)
 				searchCategories[k] = res
@@ -107,7 +109,7 @@ export const getStaticProps = withGlobalProps({ queries: [AllProductsLightDocume
 
   const { productCategories, products } = props;
 
-  const productsByCategory = {}
+  const productsByCategory : ProductsByCategory = {}
   productCategories.forEach(({ name }) => productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name))
   
 	return {

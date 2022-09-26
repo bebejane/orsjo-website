@@ -16,7 +16,10 @@ export type BespokeProps = { bespoke: BespokeRecord }
 export default function Bespoke({ bespoke }: BespokeProps) {
 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
-	useEffect(() => setGallery({ images: recordImages(bespoke) }), [bespoke, setGallery])
+	
+	useEffect(() => {
+		setGallery({ images: recordImages(bespoke) })
+	}, [bespoke, setGallery])
 
 	return (
 		<>
