@@ -1,14 +1,5 @@
 fragment ImageThumbnailFragment on FileField {
-  alt
-  basename
-  format
-  height
   id
-  mimeType
-  size
-  title
-  url
-  width
   responsiveImage(imgixParams: {w: 800, q:50, auto:format}){
     alt
     aspectRatio

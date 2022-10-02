@@ -4,7 +4,7 @@ import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocume
 import withGlobalProps from "/lib/withGlobalProps";
 import { FeaturedGallery, ProductThumbnail, Section } from '/components'
 import { useStore } from '/lib/store';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import type { PageProps } from '/lib/context/page';
 
@@ -15,7 +15,7 @@ export type ProductsByCategory = {
 export type ProductsStartProps = {
 	productStart: ProductStartRecord,
 	products: ProductRecord[],
-  productsByCategory: ProductsByCategory,
+  productCategories: ProductCategoryRecord[],
 }
 
 const searchString = (str: string, value: string) : boolean => {
@@ -31,7 +31,12 @@ const searchString = (str: string, value: string) : boolean => {
 	return false
 }
 
-export default function Products({ productStart: { featured }, products, productsByCategory }: ProductsStartProps) {
+
+
+export default function Products({ productStart: { featured }, products, productCategories }: ProductsStartProps) {
+
+	const productsByCategory : ProductsByCategory = useMemo<any>(()=>({}), [])
+  productCategories.forEach(({ name }) => productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name))
 
 	const [productsByCategorySearch, setProductsByCategorySearch] = useState<ProductsByCategory | undefined>()
 	const searchProducts = useStore((state) => state.searchProducts);
@@ -107,16 +112,8 @@ Products.page = { layout: 'normal', menu: 'normal', color: '--white' } as PagePr
 
 export const getStaticProps = withGlobalProps({ queries: [AllProductsLightDocument, ProductStartDocument, ProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
 
-  const { productCategories, products } = props;
-
-  const productsByCategory : ProductsByCategory = {}
-  productCategories.forEach(({ name }) => productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name))
-  
 	return {
-		props:{
-      ...props,
-      productsByCategory
-    },
+		props,
 		revalidate
 	};
 });

@@ -1,4 +1,5 @@
 #import "./ImageFragment.gql"
+#import "./VideoFragment.gql"
 #import "./FileFragment.gql"
 
 fragment ProductFragment on ProductRecord{
@@ -66,7 +67,7 @@ fragment ProductFragment on ProductRecord{
       __typename
       id
       video {
-        ...ImageFragment
+        ...VideoFragment
       }
     }
   }

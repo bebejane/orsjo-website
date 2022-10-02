@@ -4,7 +4,6 @@ fragment VideoFragment on FileField {
   basename
   format
   mimeType
-  size
   title
   url
   width
@@ -17,6 +16,5 @@ fragment VideoFragment on FileField {
     mp4low: mp4Url(res: low)
     framerate
     duration
-    
   }
 }

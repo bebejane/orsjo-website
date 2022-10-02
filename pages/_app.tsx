@@ -1,15 +1,15 @@
 import '/styles/index.scss'
 import { styleVariables }from '/lib/utils'
 import type { AppProps } from 'next/app'
-import DatoSEO from '/lib/dato/components/DatoSEO';
-import { GoogleAnalytics } from "nextjs-google-analytics";
+//import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Layout, PageTransition } from '/components'
 import { PageProvider, type PageProps } from '../lib/context/page';
 import { AnimatePresence } from "framer-motion";
-import useTransitionFix from '/lib/hooks/useTransitionFix';
 import { useEffect, useCallback } from 'react';
 import { useStore } from '/lib/store'
-import { sleep } from '/lib/utils'
+import { sleep, isServer } from '/lib/utils'
+import DatoSEO from '/lib/dato/components/DatoSEO';
+import useTransitionFix from '/lib/hooks/useTransitionFix';
 
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';
@@ -22,7 +22,7 @@ export type ApplicationProps = AppProps & {
 }
 
 function Application({ Component, pageProps, router }: ApplicationProps) {
-
+  
   useTransitionFix()
   //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
@@ -76,7 +76,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   return (
     <>
-      <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
+      {/*<GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />*/}
       <DatoSEO
         title="Örsjö Belysning"
         subtitle={title ? ` - ${title}` : ''}

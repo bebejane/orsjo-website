@@ -4,8 +4,6 @@ fragment FileFragment on FileField {
   filename
   format
   id
-  size
-  tags
   title
   url
 }

@@ -1,7 +1,7 @@
 import { apiQuery, SEOQuery } from "./dato/api";
 import { TypedDocumentNode } from "@apollo/client";
 import { GetServerSideProps, GetStaticProps } from 'next'
-import { GlobalDocument } from "/graphql";
+import { GlobalDocument, MenuDocument } from "/graphql";
 import { buildMenu } from '/lib/menu'
 
 export default function withGlobalProps(opt: any , callback : Function) : GetStaticProps | GetServerSideProps {
@@ -19,8 +19,13 @@ export default function withGlobalProps(opt: any , callback : Function) : GetSta
   
   return async (context) => {
     
-    const props = await apiQuery(queries, { variables, preview: context.preview ? true : false});
-    const menu =  buildMenu(props);
+    const res = await Promise.all([
+      apiQuery(MenuDocument, { variables, preview: context.preview ? true : false}),
+      apiQuery(queries, { variables, preview: context.preview ? true : false})
+    ])
+
+    const menu =  buildMenu(res[0]);
+    const props = res[1];
 
     if(callback)
       return await callback({context, props: {...props, menu}, revalidate});

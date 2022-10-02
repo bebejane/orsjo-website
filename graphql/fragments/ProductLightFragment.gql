@@ -13,7 +13,6 @@ fragment ProductLightFragment on ProductRecord{
     id
     name
     namePlural
-    position
   }
   image{
     ...ImageThumbnailFragment

@@ -218,6 +218,7 @@ declare module '*/global.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const Global: DocumentNode;
+export const Menu: DocumentNode;
 
   export default defaultDocument;
 }
