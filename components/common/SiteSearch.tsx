@@ -61,7 +61,7 @@ export default function SiteSearch({show, onClose, query : queryAsProp} : SiteSe
 	}, [inputValue, setQueryImmediate])
 
 	useEffect(()=>{ !transitioning && setShowSiteSearch(false)}, [transitioning])
-	useEffect(()=> loading && setResult({}), [loading, setResult])
+	useEffect(()=> { loading && setResult({}) }, [loading, setResult])
 	useEffect(()=>{ show && ref.current.focus() }, [show, ref])
 	useEffect(()=>{ queryAsProp && setInputValue(queryAsProp) }, [queryAsProp])
 

@@ -1,7 +1,7 @@
 import '/styles/index.scss'
 import { styleVariables }from '/lib/utils'
 import type { AppProps } from 'next/app'
-//import { GoogleAnalytics } from "nextjs-google-analytics";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Layout, PageTransition } from '/components'
 import { PageProvider, type PageProps } from '../lib/context/page';
 import { AnimatePresence } from "framer-motion";
@@ -59,6 +59,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
     const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
     const behavior = instant === true ? 'instant' : !top ? 'instant' : 'smooth'
 
+    
     // @ts-expect-error
     window.scrollTo({ top, behavior })
 

@@ -24,7 +24,7 @@ const Markdown = ({ children , truncate, className, sentances } : MarkdownProps)
   if(!children) return null
 
   const content = !truncate ? sentances ? truncateSentances(children, sentances) :  children : truncateMarkdown(children, {limit:truncate, ellipsis:true})
-
+  
   return (
     <ReactMarkdown 
       remarkPlugins={[gfm, remarkBreaks]} 
