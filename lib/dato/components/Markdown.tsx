@@ -27,7 +27,7 @@ const Markdown = ({ children , truncate, className, sentances } : MarkdownProps)
   
   return (
     <ReactMarkdown 
-      remarkPlugins={[gfm, remarkBreaks]} 
+      remarkPlugins={[remarkBreaks]} 
       className={className}
       // eslint-disable-next-line react/no-children-prop
       children={content}
