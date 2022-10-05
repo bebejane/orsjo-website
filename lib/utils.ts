@@ -1,7 +1,7 @@
 import scssExports from '/styles/exports.module.scss'
 import { buildClient } from '@datocms/cma-client-browser';
 import { apiQuery } from '/lib/dato/api';
-import { SiteSearchDocument} from '/graphql'
+import { SiteSearchDocument } from '/graphql'
 
 
 const isServer = typeof window === 'undefined';
@@ -93,10 +93,10 @@ const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => 
 
 const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): FileField[] => {
 
-  Object.keys(obj).forEach(key => {  
+  Object.keys(obj).forEach(key => {
     if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video') && !exclude.includes(key))
-      images.push({ ...obj[key], _key: key })    
-      
+      images.push({ ...obj[key], _key: key })
+
     if (typeof obj[key] === 'object' && obj[key] !== null)
       recordImages(obj[key], exclude, images)
   })
@@ -110,23 +110,23 @@ const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): Fi
 
 const siteSearch = async (q: string) => {
 
-  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN});
+  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN });
   const itemTypes = await client.itemTypes.list();
-  
+
   const search = (await client.items.list({
     filter: {
       type: itemTypes.map(m => m.api_key).join(','),
-      query: q,      
+      query: q,
     },
     locale: 'en',
     order_by: '_rank_DESC'
   })).map(el => ({
-    ...el, 
+    ...el,
     _api_key: itemTypes.find((t) => t.id === el.item_type.id).api_key,
   }))
 
   const data = await apiQuery(SiteSearchDocument, {
-    variables:{
+    variables: {
       productIds: search.filter(el => el._api_key === 'product').map(el => el.id),
       designerIds: search.filter(el => el._api_key === 'designer').map(el => el.id),
       projectIds: search.filter(el => el._api_key === 'project').map(el => el.id),
@@ -137,12 +137,12 @@ const siteSearch = async (q: string) => {
   })
 
   Object.keys(data).forEach(type => {
-    if(!data[type].length)
+    if (!data[type].length)
       delete data[type]
     else
       console.log(type, data[type].length)
   })
-  
+
   return data;
 }
 
@@ -152,7 +152,7 @@ type ProductDownload = {
   type: string
 }
 
-export type ProductRecordWithPdfFiles = ProductRecord & { 
+export type ProductRecordWithPdfFiles = ProductRecord & {
   pdfFiles: FileFieldMultiLocaleField[]
 }
 
@@ -178,8 +178,8 @@ const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[]
     type: 'zip'
   }, {
     href: bimLink,
-    label: 'BIM files',
-    type: 'bim'
+    label: 'Visit BIM objects',
+    type: 'cad'
   }, {
     href: undefined,
     label: 'CAD file, size S',
@@ -189,24 +189,24 @@ const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[]
   return files.filter(({ href }) => href);
 }
 
-const truncateParagraph = (s: string, sentances: number = 1, ellipsis: boolean = true) =>{
-  if(!s || s.indexOf('.') === -1) 
+const truncateParagraph = (s: string, sentances: number = 1, ellipsis: boolean = true) => {
+  if (!s || s.indexOf('.') === -1)
     return s;
 
   let str = s.split('.').slice(0, sentances).join('. ')
-  return  ellipsis ? (str + '...') : str + '.';
+  return ellipsis ? (str + '...') : str + '.';
 }
 
-const remToPx = (rem: string | number) : number => {
-  if(isServer) return 0
+const remToPx = (rem: string | number): number => {
+  if (isServer) return 0
   return (typeof rem === 'string' ? parseFloat(rem.replace('rem', '')) : rem) * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
-const pxToInt = (px: string) : number => {
-  return parseInt(px.replace('px',''))
+const pxToInt = (px: string): number => {
+  return parseInt(px.replace('px', ''))
 }
 
-const styleVariables : { [key:string] : number | string } = {}
+const styleVariables: { [key: string]: number | string } = {}
 Object.keys(scssExports).forEach((k) => styleVariables[k] = scssExports[k].includes('rem') ? remToPx(scssExports[k]) : scssExports[k].includes('px') ? pxToInt(scssExports[k]) : scssExports[k])
 
 export {
@@ -219,7 +219,7 @@ export {
   sectionId,
   siteSearch,
   chunkArray,
-  parseSpecifications, 
+  parseSpecifications,
   recordImages,
   productDownloads,
   truncateParagraph,

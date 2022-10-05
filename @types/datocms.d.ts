@@ -44,7 +44,6 @@ type AboutRecord = RecordInterface & {
   image: FileField;
   intro?: Maybe<Scalars['String']>;
   sections: Array<AboutSectionRecord>;
-  seo?: Maybe<SeoField>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -353,6 +352,7 @@ type ColorMaterialModelFilter = {
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
+  position?: InputMaybe<PositionFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
@@ -379,6 +379,8 @@ enum ColorMaterialModelOrderBy {
   description_DESC = 'description_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
+  position_ASC = 'position_ASC',
+  position_DESC = 'position_DESC',
   updatedAt_ASC = 'updatedAt_ASC',
   updatedAt_DESC = 'updatedAt_DESC'
 }
@@ -402,6 +404,7 @@ type ColorMaterialRecord = RecordInterface & {
   description?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
+  position?: Maybe<Scalars['IntType']>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -1107,7 +1110,7 @@ type FeaturedRecord_seoMetaTagsArgs = {
 
 type FeaturedStartModelItemsField = DesignerRecord | ProductRecord | ProjectRecord;
 
-/** Block of type Featured Start (featured_start) */
+/** Block of type Featured start (featured_start) */
 type FeaturedStartRecord = RecordInterface & {
   __typename?: 'FeaturedStartRecord';
   _createdAt: Scalars['DateTime'];
@@ -1129,7 +1132,7 @@ type FeaturedStartRecord = RecordInterface & {
 };
 
 
-/** Block of type Featured Start (featured_start) */
+/** Block of type Featured start (featured_start) */
 type FeaturedStartRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
