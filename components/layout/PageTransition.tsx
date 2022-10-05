@@ -8,7 +8,7 @@ import { useStore } from '/lib/store';
 const duration = {
 	enter: 0.5,
 	exit: 0.3,
-	instant: 0.1
+	instant: 0
 }
 
 const pageTransition = {
@@ -70,20 +70,16 @@ export default function PageTransition() {
 	const [color, setColor] = useState(pathToColor(router.asPath))
 	const prevRoute = usePreviousRoute();
 
-	const [transitioning, setTransitioning] = useStore((state) => [state.transitioning, state.setTransitioning])
+	const [setTransitioning] = useStore((state) => [state.setTransitioning])
 
 	const handleAnimationEvent = async (type, variant) => {
-
+		
 		if (typeof variant !== 'string') return
 
-		const isComplete = ['enter'].includes(variant) && type === 'complete'
-		const isExiting = variant.startsWith('exit') && type === 'start'
-		const didExit = variant.startsWith('exit') && type === 'complete'
-
-		if (variant.startsWith('exit'))
+		if (variant.startsWith('exit') || variant === 'none')
 			setTransitioning(type === 'start')
 	}
-
+	
 	useEffect(() => {
 		const handleRouteChange = (url, { shallow }) => {
 			const isSameSection = document.location.pathname.split('/')[1] === url.split('/')[1]
@@ -91,11 +87,15 @@ export default function PageTransition() {
 		};
 		router.events.on("routeChangeStart", handleRouteChange);
 		return () => router.events.off("routeChangeStart", handleRouteChange)
-	}, [router.events]);
+	}, [router.events, setColor]);
+	
+	useEffect(()=>{
 
+	}, [prevRoute, color])
+	
 	const enterAnimation = !prevRoute ? "none" : !color ? "enterInstant" : "enter"
 	const exitAnimation = !color ? "exitInstant" : "exit"
-
+	
 	return (
 		<motion.div
 			className={styles.pageTransition}

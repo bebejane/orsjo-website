@@ -25,7 +25,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   
   useTransitionFix()
   //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-
+  
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const [transitioning, setShowMenu] = useStore((state) => [state.transitioning, state.setShowMenu])
   const { innerWidth } = useWindowSize()
@@ -85,8 +85,8 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   if(isError) 
     return <Component {...pageProps} />
-  //console.log(pathname)
-  //console.log(page)
+  
+  
   return (
     <>
       {/*<GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />*/}
@@ -101,12 +101,12 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
         noindex={true}
       />
       
-      <AnimatePresence exitBeforeEnter initial={false}>
+      <AnimatePresence exitBeforeEnter initial={true}>
         <div id="app" key={pathname}>
-          <PageProvider value={page} key={`p-${pathname}`}>
-            <Layout menu={menu} title={title} >
+          <PageProvider value={page}>
+            <Layout menu={menu} title={title}>
               <Component {...pageProps}/>
-              <PageTransition key={`pt-${pathname}`}/>
+              <PageTransition/>
             </Layout>
           </PageProvider>
         </div>
