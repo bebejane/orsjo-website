@@ -76,7 +76,7 @@ export default function PageTransition() {
 		
 		if (typeof variant !== 'string') return
 
-		if (variant.startsWith('exit') || variant === 'none')
+		if (variant.startsWith('exit'))
 			setTransitioning(type === 'start')
 	}
 	
@@ -89,9 +89,6 @@ export default function PageTransition() {
 		return () => router.events.off("routeChangeStart", handleRouteChange)
 	}, [router.events, setColor]);
 	
-	useEffect(()=>{
-
-	}, [prevRoute, color])
 	
 	const enterAnimation = !prevRoute ? "none" : !color ? "enterInstant" : "enter"
 	const exitAnimation = !color ? "exitInstant" : "exit"

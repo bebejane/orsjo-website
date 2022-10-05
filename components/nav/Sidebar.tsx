@@ -6,6 +6,7 @@ import { usePage } from '/lib/context/page'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { ArrowLink } from '/components'
 import useScrollInfo from '/lib/hooks/useScrollInfo';
+import Link from 'next/link';
 
 export type SidebarProps = {title: string}
 
@@ -70,7 +71,7 @@ export default function Sidebar({title} : SidebarProps) {
 					{sections?.map((section, idx) => 
 						<li key={idx}>
 							<a 
-								href={`${pathname}#${section.id}`} 
+								href={`${pathname}#${section.id}`}
 								data-section-id={section.id}
 								className={cn(section.id === currentSection && styles.active)}
 								onClick={handleClick}

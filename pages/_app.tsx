@@ -58,10 +58,10 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
     const topMargin = (innerWidth < tablet ? navbarHeightMobile : navbarHeight) as number
     const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
     const behavior = instant === true ? 'instant' : !top ? 'instant' : 'smooth'
+    console.log(behavior, top, instant)
 
-    
     // @ts-expect-error
-    window.scrollTo({ top, behavior })
+    window.scrollTo({ top, left:0, behavior })
 
   }, [innerWidth]);
 
