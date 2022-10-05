@@ -1,0 +1,38 @@
+.arrowLink {
+  position: relative;
+  color: $black;
+  overflow: hidden;
+
+  svg>path {
+    fill: $black;
+  }
+
+  .arrow {
+    display: inline;
+    margin-left: -1em;
+    margin-right: .4em;
+    transition: margin-left .3s ease-out;
+  }
+
+  &.hover .arrow {
+    margin-left: 0rem;
+  }
+
+  &.inverted {
+    color: $white;
+
+    svg>path {
+      fill: $white;
+    }
+  }
+
+  &.reversed .arrow {
+    transform: rotate(180deg);
+  }
+
+  @include mq($until: tablet) {
+    .arrow {
+      margin-left: 0rem !important;
+    }
+  }
+}

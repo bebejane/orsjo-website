@@ -1,7 +1,7 @@
-#import "./fragments/DesignerFragment.gql"
+#import "./fragments/DesignerLightFragment.gql"
 #import "./fragments/FaqFragment.gql"
 #import "./fragments/ProductLightFragment.gql"
-#import "./fragments/ProjectFragment.gql"
+#import "./fragments/ProjectLightFragment.gql"
 #import "./fragments/NewsFragment"
 #import "./fragments/StaffFragment"
 
@@ -17,10 +17,10 @@ query SiteSearch(
 		...ProductLightFragment
 	}
   designers: allDesigners(filter: {id: { in: $designerIds }}) {
-		...DesignerFragment
+		...DesignerLightFragment
 	}
 	projects: allProjects(filter: {id: { in: $projectIds }}) {
-		...ProjectFragment
+		...ProjectLightFragment
 	}
   faqs: allFaqs(filter: {id: { in: $faqIds }}) {
 		...FaqFragment

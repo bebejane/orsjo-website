@@ -1,4 +1,4 @@
-#import "./ImageFragment.gql"
+#import "./ImageThumbnailFragment.gql"
 
 fragment ProjectLightFragment on ProjectRecord{
   id
@@ -11,9 +11,9 @@ fragment ProjectLightFragment on ProjectRecord{
     titlePlural
   }
   image {
-    ...ImageFragment
+    ...ImageThumbnailFragment
   }
   secondaryImage {
-    ...ImageFragment
+    ...ImageThumbnailFragment
   }
 }

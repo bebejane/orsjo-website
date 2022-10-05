@@ -11,7 +11,7 @@ import { Section } from '/components'
 
 export type NewsProps = { news: NewsRecord[], pagination: CollectionMetadata }
 
-const pageSize = 1;
+const pageSize = 5;
 
 export default function News({ news, pagination }: NewsProps) {
 	
@@ -51,8 +51,9 @@ export default function News({ news, pagination }: NewsProps) {
 			
 			{!page?.end && 
 				<Section className={styles.more} bottom={true}>
-					
-					<button onClick={nextPage}>{!loading ? 'Load more +' : '···'}</button>
+					<button onClick={nextPage}>
+						{!loading ? 'Load more +' : '···'}
+					</button>
 					{error && 
 						<div className={styles.error}>
 							Error: {typeof error === 'string' ? error : error.message }

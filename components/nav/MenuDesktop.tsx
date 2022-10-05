@@ -78,27 +78,24 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 			</Link>
 			<nav id={'menu'} ref={ref} className={menuStyles} >
 				<ul className={styles.nav} >
-					{items.map(({ label, slug, index }, idx) => {
-						const arrowStyle = cn(styles.arrow, slug === selected && styles.hover, slug === selected && styles.active)
-						return (
-							<li
-								data-slug={slug}
-								data-index={idx}
-								key={idx}
-								onMouseEnter={() => setSelected(!index ? slug : undefined)}
-								onMouseLeave={() => !index && !showMenu && setSelected(undefined)}
-								className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
-							>
-								{index === true ? // Direct links
-									<Link scroll={false} href={slug}>
-										{label}
-									</Link>
-								:
-									<>{label}</>
-								}
-							</li>
-						)
-					})}
+					{items.map(({ label, slug, index }, idx) => 
+						<li
+							data-slug={slug}
+							data-index={idx}
+							key={idx}
+							onMouseEnter={() => setSelected(!index ? slug : undefined)}
+							onMouseLeave={() => !index && !showMenu && setSelected(undefined)}
+							className={cn(router.pathname.startsWith(`${slug}`) && styles.selected)}
+						>
+							{index === true ? // Direct links
+								<Link scroll={false} href={slug}>
+									{label}
+								</Link>
+							:
+								<>{label}</>
+							}
+						</li>	
+					)}
 					<li className={styles.searchIcon} onClick={() => onShowSiteSearch()}>
 						<img src={'/images/search.svg'} />
 					</li>

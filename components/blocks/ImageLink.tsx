@@ -1,32 +1,37 @@
 import styles from './ImageLink.module.scss'
-import React from 'react'
 import { Image } from 'react-datocms'
 import Link from 'next/link'
+import { ArrowLink } from '/components'
+import { useRef } from 'react'
 
-type LayoutProps = { data: ImageLinkRecord }
+export type LayoutProps = { data: ImageLinkRecord }
 
 export default function ImageLink({ data: { firstImage, firstHeadline, firstLink, firstLinkText, secondImage, secondHeadline, secondLink, secondLinkText, }, data }: LayoutProps) {
+
+	const refOne = useRef()
+	const refTwo = useRef()
+
 
 	return (
 		<section className={styles.imageLink}>
 			<Link scroll={false} href={firstLink}>
-				<a>
+				<a ref={refOne}>
 					<figure>
 						<Image className={styles.image} data={firstImage?.responsiveImage} layout="fill" objectFit="cover" />
 						<figcaption>
 							<h1>{firstHeadline}</h1>
-							{firstLinkText}  <img src="/images/arrow.svg" className={styles.arrow} />
+							<ArrowLink hoverRef={refOne} inverted={true}>{firstLinkText}</ArrowLink>
 						</figcaption>
 					</figure>
 				</a>
 			</Link>
 			<Link scroll={false} href={secondLink}>
-				<a>
+				<a ref={refTwo}>
 					<figure>
 						<Image className={styles.image} data={secondImage?.responsiveImage} layout="fill" objectFit="cover" />
 						<figcaption>
 							<h1>{secondHeadline}</h1>
-							{secondLinkText}  <img src="/images/arrow.svg" className={styles.arrow} />
+							<ArrowLink hoverRef={refTwo} inverted={true}>{secondLinkText}</ArrowLink>
 						</figcaption>
 					</figure>
 				</a>

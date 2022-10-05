@@ -1,4 +1,5 @@
 #import "./fragments/DesignerFragment.gql"
+#import "./fragments/DesignerLightFragment.gql"
 
 query Designer($slug: String, $locale: SiteLocale = en) {
 	designer(locale: $locale, fallbackLocales: [sv, en], filter: {slug: { eq: $slug }}) {
@@ -8,6 +9,6 @@ query Designer($slug: String, $locale: SiteLocale = en) {
 
 query AllDesigners($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
 	designers: allDesigners(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
-		...DesignerFragment
+		...DesignerLightFragment
 	}
 }

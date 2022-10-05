@@ -27,7 +27,6 @@ export default function Project({ project, related }: ProjectProps) {
 
 	useEffect(() => setGallery({ images: recordImages(project) }), [setGallery, project])
 
-	//console.log(imageStyle, viewportScrollRatio)
 	return (
 		<>
 			<Section className={styles.intro} name="Presentation" top={true}>

@@ -1,14 +1,17 @@
 import styles from './FullscreenVideo.module.scss'
 import React from 'react'
-import { VideoPlayer } from '/components'
+import { VideoPlayer, ArrowLink } from '/components'
 import Link from 'next/link'
+import { useRef } from 'react'
 
 export type FullscreenVideoProps = { data: FullscreenVideoRecord }
 
 export default function FullscreenVideo({ data: { video, text, link, linkText } }: FullscreenVideoProps) {
 
+	const ref = useRef()
+
 	return (
-		<section className={styles.fullScreenVideo}>
+		<section className={styles.fullScreenVideo} ref={ref}>
 			<Link scroll={false} href={link}>
 				<a>
 					<VideoPlayer data={video} />
@@ -21,7 +24,7 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 						<Link scroll={false} href={link}>
 							<a>
 								<span className="medium white">
-									{linkText} <img src="/images/arrow.svg" className={styles.arrow} />
+									<ArrowLink hoverRef={ref} inverted={true}>{linkText}</ArrowLink>
 								</span>
 							</a>
 						</Link>

@@ -146,7 +146,7 @@ const siteSearch = async (q: string) => {
   return data;
 }
 
-type ProductDownload = {
+export type ProductDownload = {
   href: string,
   label: string,
   type: string
@@ -225,5 +225,5 @@ export {
   truncateParagraph,
   remToPx,
   pxToInt,
-  styleVariables
+  styleVariables,
 }

@@ -61,6 +61,15 @@ declare module '*/DesignerFragment.gql' {
 }
     
 
+declare module '*/DesignerLightFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const DesignerLightFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/DistributorFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -92,6 +101,15 @@ declare module '*/ImageFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const ImageFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/ImageThumbnailFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const ImageThumbnailFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -200,6 +218,7 @@ declare module '*/global.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const Global: DocumentNode;
+export const Menu: DocumentNode;
 
   export default defaultDocument;
 }

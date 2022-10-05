@@ -1,47 +1,51 @@
 .news {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  color: $white;
-  margin-left: var(--outer-margin);
-  margin-right: var(--outer-margin);
-  padding-top: $margin;
-  padding-bottom: $margin;
-
-  h1 {
-    flex: 0 0 spanGridWithGutter(4);
-    margin: 0;
-    padding: 0;
-  }
-
-  .text {
-    flex: 1 1 auto;
-
-    p {
-      padding-top: .5em;
+ 
+  a{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    color: $white;
+    margin-left: var(--outer-margin);
+    margin-right: var(--outer-margin);
+    padding-top: $margin;
+    padding-bottom: $margin;
+    h1 {
+      flex: 0 0 spanGridWithGutter(4);
+      margin: 0;
+      padding: 0;
     }
-
-    .more {
-      font-weight: bold;
-
-      a {
-        color: $white;
-        .arrow {
-          filter: invert(1);
+  
+    .text {
+      flex: 1 1 auto;
+  
+      p {
+        padding-top: .5em;
+      }
+  
+      .more {
+        font-weight: bold;
+  
+        a {
+          color: $white;
+          .arrow {
+            filter: invert(1);
+          }
         }
       }
     }
-  }
-
-  @include mq($until: tablet) {
-    flex-direction: column;
-
-    h1 {
-      margin-bottom: 0.5em;
-      color: $gray;
+  
+    @include mq($until: tablet) {
+      flex-direction: column;
+  
+      h1 {
+        margin-bottom: 0.5em;
+        color: $gray;
+      }
+      .text > .more {
+        margin-top: 0.5em;
+      }
     }
-    .text > .more {
-      margin-top: 0.5em;
-    }
+  
   }
+  
 }

@@ -3,7 +3,8 @@ import cn from 'classnames'
 import { useStore, shallow } from '/lib/store';
 import { useRouter } from 'next/router';
 import { usePage } from '/lib/context/page'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
+import { ArrowLink } from '/components'
 import useScrollInfo from '/lib/hooks/useScrollInfo';
 
 export type SidebarProps = {title: string}
@@ -17,6 +18,7 @@ export default function Sidebar({title} : SidebarProps) {
 	const [sections, setSections] = useState([])
 	const [open, setOpen] = useState(false)
 	const {scrolledPosition, documentHeight } = useScrollInfo()
+	const backRef = useRef()
 
 	const isInverted = menu === 'inverted' || invertSidebar
 	const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
@@ -99,8 +101,16 @@ export default function Sidebar({title} : SidebarProps) {
 			</nav>
 			
 			<div className={cn(styles.footer, 'medium')}>
-				{isProductPage && <span onClick={()=> router.push("/products")}>All Products</span>}
-				{isProjectPage && <span onClick={()=> router.push("/professionals/projects")}>All Projects</span>}
+				{isProductPage && 
+					<span onClick={()=> router.push("/products")} ref={backRef}>
+						<ArrowLink reversed={true} hoverRef={backRef}>All Products</ArrowLink>
+					</span>
+				}
+				{isProjectPage && 
+					<span onClick={()=> router.push("/professionals/projects")} ref={backRef}>
+						<ArrowLink reversed={true} hoverRef={backRef}>All Projects</ArrowLink>
+					</span>
+				}
 			</div>
 			
 		</aside>

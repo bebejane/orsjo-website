@@ -10,7 +10,7 @@ export default function ContactModal({ onClose, show = false }) {
   const { register, handleSubmit, reset, setFocus } = useForm();
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState()
+  const [error, setError] = useState<Error | string | undefined>()
   const ref = useRef<HTMLInputElement>()
 
   const [data, setData] = useState("");
@@ -23,10 +23,11 @@ export default function ContactModal({ onClose, show = false }) {
   }, [setSuccess, setError, setLoading, reset])
 
   useEffect(() => {
-    
+
     if (!data) return
 
     setLoading(true)
+
     fetch('/api/contact', {
       method: 'POST',
       headers: {
@@ -34,8 +35,11 @@ export default function ContactModal({ onClose, show = false }) {
         'Content-Type': 'application/json'
       },
       body: data
-    }).then(() => {
-      setSuccess(true)
+    }).then(async (res) => {
+      if (res.status !== 200)
+        setError(await res.json())
+      else
+        setSuccess(true)
     }).catch((err) => {
       setError(err)
     }).finally(() => {
@@ -49,7 +53,7 @@ export default function ContactModal({ onClose, show = false }) {
       setTimeout(resetForm, 300)
     else
       setFocus("name");
-    
+
   }, [show, ref, resetForm, setFocus])
 
   return (
@@ -58,6 +62,7 @@ export default function ContactModal({ onClose, show = false }) {
         <div className={styles.wrap}>
           <h1>Contact us</h1>
           <form id="contact-form" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+
             <label htmlFor="name">Name</label>
             <input id="name" name="name" type="text" placeholder="Name..." autoFocus={true} {...register("name", { required: true, minLength: 3 })} />
 
@@ -78,13 +83,20 @@ export default function ContactModal({ onClose, show = false }) {
 
             <button type="submit">Send</button>
           </form>
-          {error && <div className={styles.error}>{error}</div>}
+
+          {error &&
+            <div className={styles.error}>
+              {typeof error === 'string' ? error : error.message}
+            </div>
+          }
           {loading &&
-            <div className={styles.loading}>Submitting...</div>
+            <div className={styles.loading}>
+              Sending message...
+            </div>
           }
           {success &&
             <div className={styles.success}>
-              <h2>Message sent!</h2>
+              Message sent!<br />
               <button onClick={onClose}>Close</button>
             </div>
           }

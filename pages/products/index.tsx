@@ -4,46 +4,53 @@ import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocume
 import withGlobalProps from "/lib/withGlobalProps";
 import { FeaturedGallery, ProductThumbnail, Section } from '/components'
 import { useStore } from '/lib/store';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import type { PageProps } from '/lib/context/page';
+
+export type ProductsByCategory = {
+	[index:string] : ProductRecord[]
+}
 
 export type ProductsStartProps = {
 	productStart: ProductStartRecord,
 	products: ProductRecord[],
-  productsByCategory: { [index:string] : ProductRecord[]},
+  productCategories: ProductCategoryRecord[],
+}
+
+const searchString = (str: string, value: string) : boolean => {
+	const s = str.toLowerCase().split(' ');
+	const v = value.toLowerCase().split(' ');
+
+	for (let i = 0; i < s.length; i++) {
+		for (let x = 0; x < v.length; x++) {
+			if (v[x].startsWith(s[i]))
+				return true
+		}
+	}
+	return false
 }
 
 
-export default function Products({ productStart: { featured }, products, productsByCategory }: ProductsStartProps) {
 
-	const [productsByCategorySearch, setProductsByCategorySearch] = useState<any>()
+export default function Products({ productStart: { featured }, products, productCategories }: ProductsStartProps) {
 
+	const productsByCategory : ProductsByCategory = useMemo<any>(()=>({}), [])
+  productCategories.forEach(({ name }) => productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name))
+
+	const [productsByCategorySearch, setProductsByCategorySearch] = useState<ProductsByCategory | undefined>()
 	const searchProducts = useStore((state) => state.searchProducts);
-
-	const search = (str: string, value: string) => {
-		const s = str.toLowerCase().split(' ');
-		const v = value.toLowerCase().split(' ');
-
-		for (let i = 0; i < s.length; i++) {
-			for (let x = 0; x < v.length; x++) {
-				if (v[x].startsWith(s[i]))
-					return true
-			}
-		}
-		return false
-	}
 
 	useEffect(() => {
 		if (!searchProducts)
 			return setProductsByCategorySearch(undefined)
 
-		const searchCategories = {}
+		const searchCategories : ProductsByCategory = {}
 
 		Object.keys(productsByCategory).forEach(k => {
 			const res = products
 				.filter(({ categories }) => categories[0].name === k)
-				.filter(({ title, designer: { name } }) => search(searchProducts, title) || search(searchProducts, name))
+				.filter(({ title, designer: { name } }) => searchString(searchProducts, title) || searchString(searchProducts, name))
 
 			if (res.length)
 				searchCategories[k] = res
@@ -105,16 +112,8 @@ Products.page = { layout: 'normal', menu: 'normal', color: '--white' } as PagePr
 
 export const getStaticProps = withGlobalProps({ queries: [AllProductsLightDocument, ProductStartDocument, ProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
 
-  const { productCategories, products } = props;
-
-  const productsByCategory = {}
-  productCategories.forEach(({ name }) => productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name))
-  
 	return {
-		props:{
-      ...props,
-      productsByCategory
-    },
+		props,
 		revalidate
 	};
 });

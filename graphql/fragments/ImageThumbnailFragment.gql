@@ -1,10 +1,6 @@
-fragment ImageFragment on FileField {
-  format
+fragment ImageThumbnailFragment on FileField {
   id
-  mimeType
-  url
-  title
-  responsiveImage {
+  responsiveImage(imgixParams: {w: 800, q:50, auto:format}){
     alt
     aspectRatio
     base64
@@ -16,5 +12,5 @@ fragment ImageFragment on FileField {
     webpSrcSet
     title
     width
-  }
+  }  
 }

@@ -3,12 +3,6 @@
   display: block;
   width: 100%;
   height: 100vh;
-
-  &:hover .arrow{
-    margin-left: 0rem;
-
-  }
-
   .image{
 
   }
@@ -35,11 +29,7 @@
       overflow: hidden;
     }    
   }
-  .arrow{
-    filter:invert(1);
-    margin-left: -0.45rem;
-    transition: all .5s;
-  }
+  
 }
 
 .fade {

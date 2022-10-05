@@ -88,7 +88,7 @@ export const getStaticProps = withGlobalProps({ queries: [AllDesignersDocument, 
 		props: {
 			...props,
 			designer,
-			designers: designers.filter(({ id }) => allProducts.find((p) => p.designer?.id === id)).sort(() => Math.random() > 0.5 ? 1 : -1),
+			designers: designers.filter(({ id }) => allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id)).sort(() => Math.random() > 0.5 ? 1 : -1),
 			products
 		},
 		revalidate

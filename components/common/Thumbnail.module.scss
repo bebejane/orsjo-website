@@ -7,11 +7,12 @@
     }
   }
 
-  a, &:first-child {
+  .wrap {
     display: flex;
     position: relative;
     flex-direction: column;
     aspect-ratio: 4/3;
+    cursor: pointer;
 
     figure {
       position: relative;
@@ -163,12 +164,16 @@
   }
 
   &.material {
-    a>figure>.image {
+    a>figure>.image, figure>.image {
       mix-blend-mode: normal;
+      background-color: $white;
     }
 
-    a>figure img {
+    a>figure img, figure img {
       object-fit: cover !important;
+    }
+    >figure div{
+      background-color: $white;
     }
   }
 

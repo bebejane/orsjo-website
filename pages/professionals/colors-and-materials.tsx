@@ -4,6 +4,9 @@ import withGlobalProps from "/lib/withGlobalProps";
 import Markdown from '/lib/dato/components/Markdown';
 import { PageProps } from '/lib/context/page';
 import { Thumbnail, Section } from '/components';
+import { recordImages } from '/lib/utils';
+import useStore from '/lib/store';
+import { useEffect } from 'react';
 
 type ColorsAndMaterialsProps = { 
 	colorMaterials : ColorMaterialRecord[], 
@@ -13,6 +16,10 @@ type ColorsAndMaterialsProps = {
 
 export default function ColorsAndMaterials({  colorMaterials, colorMaterialTypes, colorMaterialIntro:{ intro} }: ColorsAndMaterialsProps) {
 	
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
+	const images = colorMaterials.map(({image, description }) => ({...image, title:description}) )
+	
+	useEffect(()=>images && setGallery({images}), [setGallery])
 	
 	return (
 		<>
@@ -28,7 +35,8 @@ export default function ColorsAndMaterials({  colorMaterials, colorMaterialTypes
 						<h1>{categoryPlural}</h1>
 						{colorMaterials.filter(({category}) => category.id === id).map(({image, description}, idx) =>
 							<Thumbnail
-								slug={'#'}
+								//slug={'#'}
+								onClick={()=>setGalleryId(image.id)}
 								title={description}
 								image={image}
 								key={`t-${idx}`}

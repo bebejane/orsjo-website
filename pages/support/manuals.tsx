@@ -16,12 +16,12 @@ export default function Manuals({ products }: ManualsProps) {
 
 	useEffect(() => {
 		if (!search || !products) return setResults(products)
-		const res = products.filter(({ title }) => title.toLowerCase().startsWith(search.toLowerCase()))
+		const res = products.filter(({ title }) => title?.toLowerCase().startsWith(search.toLowerCase()))
 		setResults(res)
 	}, [search, products, setResults])
 
 	
-	useEffect(()=>{ ref.current.focus() }, [ ref])
+	useEffect(()=>{ typeof ref.current !== 'undefined' && ref.current.focus() }, [ref])
 
 	return (
 		<>

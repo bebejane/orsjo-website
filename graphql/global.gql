@@ -4,7 +4,10 @@ query Global {
   site: _site {
 		...SiteFragment
 	}
-	allDesigners(first: 100, orderBy: [name_ASC]){
+}
+
+query Menu {
+  allDesigners(first: 100, orderBy: [name_ASC]){
     id
     slug
     name
