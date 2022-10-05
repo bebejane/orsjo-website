@@ -1,7 +1,6 @@
 import styles from './index.module.scss'
 import { AboutDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
-import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import type { PageProps } from '/lib/context/page';
@@ -10,16 +9,15 @@ import cn from 'classnames'
 
 export type AboutProps = { about: AboutRecord }
 
-export default function About({ about: { title, image, intro, sections } }: AboutProps) {
-
+export default function About({ about: { title, image, video, intro, sections } }: AboutProps) {
+	
 	return (
 		<>
 			<Section className={styles.about} type="full">
 				<div className={styles.hero}>
-					<Image
-						data={image.responsiveImage}
+					<VideoPlayer
 						className={styles.heroImage}
-						objectFit="cover"
+						data={video}
 					/>
 					<h1>{title}</h1>
 				</div>
@@ -38,15 +36,15 @@ export default function About({ about: { title, image, intro, sections } }: Abou
 							</Markdown>
 						</div>
 						<div className={styles.right}>
-							{image ?
+							{ video ?
+								<VideoPlayer
+									className={styles.video}
+									data={video}
+								/>
+							: image ?
 								<Image data={image.responsiveImage} className={styles.image} />
-								: video ?
-									<VideoPlayer
-										className={styles.video}
-										data={image}
-									/>
-									:
-									null
+							:
+								null
 							}
 						</div>
 					</div>

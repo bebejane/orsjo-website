@@ -20,7 +20,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	}, [inViewRef]);
 
 	useEffect(() => {
-		if(process.env.NODE_ENV === 'development') return console.log('video disabled in dev')
+		//if(process.env.NODE_ENV === 'development') return console.log('video disabled in dev')
 		
 		if (!videoRef.current) return
 		if (active)

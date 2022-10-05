@@ -15,7 +15,7 @@ const useTransitionFix = () => {
 			// ourselves later on when the transition finishes.
 			const nodes = document.querySelectorAll("link[rel=stylesheet], style:not([media=x])");
 			const copies = Array.from(nodes).map((el) => el.cloneNode(true) as HTMLElement)
-			console.log(copies)
+			
 			for (let copy of copies) {
 				// Remove Next.js' data attributes so the copies are not removed from the DOM in the route
 				// change process.
@@ -137,7 +137,54 @@ const useTransitionFix3 = () => useEffect(() => {
 }, []);
 
 
+const savePageStyles = (init?: boolean) => {
+	const head = document.head
+	const previousStylesFixes = head.querySelectorAll('[data-fix]')
+
+	// Delete previously created fixes
+	if (previousStylesFixes) {
+		for (let i = 0; i < previousStylesFixes.length; i++) {
+			head.removeChild(previousStylesFixes[i])
+		}
+	}
+
+	// Get all the styles of the page
+	const allStyleElems = head.querySelectorAll(
+		'link[rel="stylesheet"], link[as="style"]'
+	)
+	// Get all the inline styles of the page, labelled by "data-n-href" ( defined by nextjs )
+	const allInlineStylesElems = head.querySelectorAll('style[data-n-href]')
+
+	// Create doubling links to css sheets that wont be removed unless we say so
+	if (allStyleElems) {
+		console.log('start dbl');
+		
+		for (let i = 0; i < allStyleElems.length; i++) {
+			if (allStyleElems[i].href) {
+				const styles = document.createElement('link')
+				styles.setAttribute('data-pt-fix', 'true')
+				styles.setAttribute('rel', 'stylesheet')
+				styles.setAttribute('href', allStyleElems[i].href)
+
+				head.appendChild(styles)
+			}
+		}
+		console.log('end dbl');
+	}
+
+	// Now do the same with the inline styles
+	const inlineStyles = document.createElement('style')
+	inlineStyles.setAttribute('data-pt-fix', 'true')
+	if (allInlineStylesElems) {
+		for (let i = 0; i < allInlineStylesElems.length; i++) {
+			inlineStyles.innerHTML += allInlineStylesElems[i].innerHTML
+		}
+
+		head.appendChild(inlineStyles)
+	}
+	console.log('pageStyle', init)
+}
 
 
 export default useTransitionFix2
-export { useTransitionFix, useTransitionFix2, useTransitionFix3}
+export { useTransitionFix, useTransitionFix2, useTransitionFix3, savePageStyles}

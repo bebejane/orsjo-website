@@ -8,7 +8,7 @@ import { useStore } from '/lib/store';
 const duration = {
 	enter: 0.5,
 	exit: 0.3,
-	instant: 0
+	instant: 0.1
 }
 
 const pageTransition = {
