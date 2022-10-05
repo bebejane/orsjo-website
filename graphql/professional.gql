@@ -79,8 +79,8 @@ query AllCatalogues {
 	}
 }
 
-query AllColorsAndMaterials {
-  colorMaterials: allColorMaterials {
+query AllColorsAndMaterials($first: IntType = 100){
+  colorMaterials: allColorMaterials (first: $first){
     id
     image {
       ...ImageFragment

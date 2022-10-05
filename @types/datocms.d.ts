@@ -1110,7 +1110,7 @@ type FeaturedRecord_seoMetaTagsArgs = {
 
 type FeaturedStartModelItemsField = DesignerRecord | ProductRecord | ProjectRecord;
 
-/** Block of type Featured Start (featured_start) */
+/** Block of type Featured start (featured_start) */
 type FeaturedStartRecord = RecordInterface & {
   __typename?: 'FeaturedStartRecord';
   _createdAt: Scalars['DateTime'];
@@ -1132,7 +1132,7 @@ type FeaturedStartRecord = RecordInterface & {
 };
 
 
-/** Block of type Featured Start (featured_start) */
+/** Block of type Featured start (featured_start) */
 type FeaturedStartRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
@@ -7450,7 +7450,9 @@ type AllCataloguesQueryVariables = Exact<{ [key: string]: never; }>;
 
 type AllCataloguesQuery = { __typename?: 'Query', catalogues: Array<{ __typename?: 'CatalogueRecord', id: any, title?: string, pdf?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, thumbnail?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
 
-type AllColorsAndMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
+type AllColorsAndMaterialsQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+}>;
 
 
 type AllColorsAndMaterialsQuery = { __typename?: 'Query', colorMaterials: Array<{ __typename?: 'ColorMaterialRecord', id: any, description?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, category?: { __typename?: 'ColorMaterialTypeRecord', id: any, category: string, categoryPlural: string } }>, colorMaterialTypes: Array<{ __typename?: 'ColorMaterialTypeRecord', id: any, category: string, categoryPlural: string }>, colorMaterialIntro?: { __typename?: 'ColorMaterialIntroRecord', id: any, intro?: string } };
