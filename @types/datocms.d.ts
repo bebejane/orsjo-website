@@ -6323,6 +6323,7 @@ type StaffModelFilter = {
   image?: InputMaybe<FileFilter>;
   name?: InputMaybe<StringFilter>;
   phone?: InputMaybe<StringFilter>;
+  position?: InputMaybe<PositionFilter>;
   role?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
@@ -6354,6 +6355,8 @@ enum StaffModelOrderBy {
   name_DESC = 'name_DESC',
   phone_ASC = 'phone_ASC',
   phone_DESC = 'phone_DESC',
+  position_ASC = 'position_ASC',
+  position_DESC = 'position_DESC',
   role_ASC = 'role_ASC',
   role_DESC = 'role_DESC',
   updatedAt_ASC = 'updatedAt_ASC',
@@ -6380,6 +6383,7 @@ type StaffRecord = RecordInterface & {
   image?: Maybe<FileField>;
   name?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['IntType']>;
   role?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
