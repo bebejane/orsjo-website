@@ -28,18 +28,12 @@ query About {
     id
     intro(markdown: false)
     title
-    image{
-      ...ImageFragment
-    }
     video {
       ...VideoFragment
     }
     sections {
       id
       text
-      image {
-        ...ImageFragment
-      }
       video {
         ...VideoFragment
       }

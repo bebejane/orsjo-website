@@ -41,7 +41,6 @@ type AboutRecord = RecordInterface & {
   _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  image: FileField;
   intro?: Maybe<Scalars['String']>;
   sections: Array<AboutSectionRecord>;
   title?: Maybe<Scalars['String']>;
@@ -77,7 +76,6 @@ type AboutSectionRecord = RecordInterface & {
   _updatedAt: Scalars['DateTime'];
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  image?: Maybe<FileField>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   video?: Maybe<FileField>;
@@ -7153,7 +7151,7 @@ type SustainabilityQuery = { __typename?: 'Query', sustainability?: { __typename
 type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AboutQuery = { __typename?: 'Query', about?: { __typename?: 'AboutRecord', id: any, intro?: string, title?: string, image: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, sections: Array<{ __typename?: 'AboutSectionRecord', id: any, text?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> } };
+type AboutQuery = { __typename?: 'Query', about?: { __typename?: 'AboutRecord', id: any, intro?: string, title?: string, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, sections: Array<{ __typename?: 'AboutSectionRecord', id: any, text?: string, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> } };
 
 type NewsQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
