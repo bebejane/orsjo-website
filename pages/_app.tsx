@@ -9,7 +9,7 @@ import { useEffect, useCallback } from 'react';
 import { useStore } from '/lib/store'
 import { sleep, isServer } from '/lib/utils'
 import DatoSEO from '/lib/dato/components/DatoSEO';
-import useTransitionFix from '/lib/hooks/useTransitionFix';
+import {useTransitionFix3 as useTransitionFix, savePageStyles } from '/lib/hooks/useTransitionFix';
 
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';
@@ -72,9 +72,21 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 
+  /*
+  useEffect(() => {
+    const handleDone = () => setTimeout(() => savePageStyles(), 1500)
+    
+    router.events.on('routeChangeComplete', handleDone)
+    return () => router.events.off('routeChangeComplete', handleDone)
+  }, [router])
+  
+  useEffect(()=>{ savePageStyles(true)}, [])
+  */
+
   if(isError) 
     return <Component {...pageProps} />
-
+  //console.log(pathname)
+  //console.log(page)
   return (
     <>
       {/*<GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />*/}
@@ -88,12 +100,13 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
         key={pathname}
         noindex={true}
       />
+      
       <AnimatePresence exitBeforeEnter initial={false}>
         <div id="app" key={pathname}>
-          <PageProvider value={page}>
-            <Layout menu={menu} title={title}>
-              <Component {...pageProps} />
-              <PageTransition key={`t-${pathname}`} />
+          <PageProvider value={page} key={`p-${pathname}`}>
+            <Layout menu={menu} title={title} >
+              <Component {...pageProps}/>
+              <PageTransition key={`pt-${pathname}`}/>
             </Layout>
           </PageProvider>
         </div>

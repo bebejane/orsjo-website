@@ -31,6 +31,9 @@ query About {
     image{
       ...ImageFragment
     }
+    video {
+      ...VideoFragment
+    }
     sections {
       id
       text

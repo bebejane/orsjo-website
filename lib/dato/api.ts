@@ -55,7 +55,8 @@ const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Res
     ...response,
     async text () {
       const result = await response.text()
-      console.log("\x1b[33m%s\x1b[0m", 'gql  ', `- ${requestName}`, `- ${new Date().getTime()-t}ms`)
+      if(process.env.NODE_ENV === 'development')
+        console.log("\x1b[33m%s\x1b[0m", 'gql  ', `- ${requestName}`, `- ${new Date().getTime()-t}ms`)
       return result
     }
   }
