@@ -39,9 +39,11 @@
   padding-top: $small-margin;
   display: flex;
   flex-direction: row;
-  max-width: 100%;
+  
+
   .gallery{
     flex: 1 1 auto;
+    max-width: 100%;
   }
   @include mq($until: tablet) {
     flex-direction: column;
