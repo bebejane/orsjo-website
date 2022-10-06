@@ -70,12 +70,12 @@ export default function FeaturedGallery({
 					slidesPerView={'auto'}
 					spaceBetween={spaceBetween}
 					initialSlide={index}
-					className={styles.swiper}
+					className={cn(styles.swiper, isShortSlide && styles.short)}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => swiperRef.current = swiper}
 				>
 					{items?.map((item, idx) =>
-						<SwiperSlide key={`${id}-${idx}`} className={styles.slide}>
+						<SwiperSlide key={`${id}-${idx}`} className={cn(styles.slide)}>
 							{item.__typename === 'ProductRecord' ? 
 								<ProductThumbnail 
 									key={idx}

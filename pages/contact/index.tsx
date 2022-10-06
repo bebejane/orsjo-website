@@ -61,6 +61,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 				<div className={styles.imageWrap}>
 					<Image data={contact.image.responsiveImage} className={styles.image} />
 				</div>
+				<ContactModal show={showContactForm} onClose={() => setShowContactForm(false)} />
 			</Section>
 
 			<Section name="Staff" className={styles.staffSection} bgColor='--red'>
@@ -164,7 +165,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					})}
 				</div>
 			</Section>
-			<ContactModal show={showContactForm} onClose={() => setShowContactForm(false)} />
+			
 		</>
 	)
 }

@@ -51,9 +51,6 @@ export default function ContactModal({ onClose, show = false }) {
   useEffect(() => {
     if (!show)
       setTimeout(resetForm, 300)
-    else
-      setFocus("name");
-
   }, [show, ref, resetForm, setFocus])
 
   return (
@@ -64,7 +61,7 @@ export default function ContactModal({ onClose, show = false }) {
           <form id="contact-form" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
 
             <label htmlFor="name">Name</label>
-            <input id="name" name="name" type="text" placeholder="Name..." autoFocus={true} {...register("name", { required: true, minLength: 3 })} />
+            <input id="name" name="name" type="text" placeholder="Name..." {...register("name", { required: true, minLength: 3 })} />
 
             <label htmlFor="email">E-mail</label>
             <input id="email" type="text" name="email" placeholder="E-mail..." {...register("email", {
