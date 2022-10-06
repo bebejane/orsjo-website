@@ -25,7 +25,7 @@ export default function Project({ project, related }: ProjectProps) {
 		filter: `grayscale(${1 - (viewportScrollRatio * 4)})`
 	}
 
-	useEffect(() => setGallery({ images: recordImages(project) }), [setGallery, project])
+	useEffect(() => setGallery({ images: recordImages(project) }), [setGallery, project])	
 
 	return (
 		<>
