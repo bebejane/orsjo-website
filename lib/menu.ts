@@ -1,4 +1,5 @@
 import { sectionId } from './utils';
+import { sortSwedish } from './utils';
 
 export type MenuItem = {
   type: string,
@@ -71,7 +72,7 @@ export const buildMenu = (data) => {
         }))
         break;
       case 'designer':
-        sub = allDesigners.filter(({id})=> allProducts.find((p) => p.designer?.id === id)).map(el => ({
+        sub = sortSwedish<DesignerRecord>(allDesigners, 'name').filter(({id})=> allProducts.find((p) => p.designer?.id === id)).map(el => ({
           type: item.type,
           label: el.name,
           slug: `/designers/${el.slug}`
@@ -83,5 +84,6 @@ export const buildMenu = (data) => {
     }
     return { ...item, sub: sub ? sub : item.sub }
   })
+  
   return menu
 }

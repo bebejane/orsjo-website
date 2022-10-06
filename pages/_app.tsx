@@ -28,8 +28,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
   
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
-  const [transitioning, setShowMenu] = useStore((state) => [state.transitioning, state.setShowMenu])
-  const { isScrolling } = useScrollInfo()
+  const [transitioning] = useStore((state) => [state.transitioning, state.setShowMenu])
   const { innerWidth } = useWindowSize()
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
@@ -38,7 +37,6 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   const { site, seo, menu } = pageProps as { site: Site, seo: SiteSEOQuery, menu: Menu};
   const { title, description } = pageSeo(pageProps, pathname);
 
-  
   const handleHashChange =  useCallback(async (url, instant) => {
     
     if(!url.includes('#')) // @ts-expect-error
@@ -56,7 +54,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
     // @ts-expect-error
     window.scrollTo({ top, behavior })
 
-  }, []);
+  }, [innerWidth]);
   
   useEffect(() => {
     router.events.on("hashChangeStart", handleHashChange);

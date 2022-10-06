@@ -219,6 +219,16 @@ const waitForElement = async (id: string, ms:number) : Promise<HTMLElement | und
   return el
 }
 
+const alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Å", "Ä", "Ö"];
+
+const sortSwedish = <T>(arr: T[], key?: string) : T[] => {
+  return arr.sort((a, b)=> {
+    const ai = alfabet.findIndex((l)=> l === (key ? a[key] : a).charAt(0).toUpperCase())
+    const bi = alfabet.findIndex((l)=> l === (key ? b[key] : b).charAt(0).toUpperCase())
+    return ai > bi ? 1 : ai === bi ? 0 : -1
+  })
+}
+
 export {
   sleep,
   isServer,
@@ -236,5 +246,6 @@ export {
   remToPx,
   pxToInt,
   styleVariables,
-  waitForElement
+  waitForElement,
+  sortSwedish
 }
