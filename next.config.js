@@ -24,7 +24,8 @@ const nextOptions = {
     buildActivity: false
   },
   experimental: {
-    scrollRestoration: true
+    scrollRestoration: true,
+    largePageDataBytes: 200 * 1000
   },
   webpack: (config) => {
     config.module.rules.push({

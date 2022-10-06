@@ -209,6 +209,16 @@ const pxToInt = (px: string): number => {
 const styleVariables: { [key: string]: number | string } = {}
 Object.keys(scssExports).forEach((k) => styleVariables[k] = scssExports[k].includes('rem') ? remToPx(scssExports[k]) : scssExports[k].includes('px') ? pxToInt(scssExports[k]) : scssExports[k])
 
+const waitForElement = async (id: string, ms:number) : Promise<HTMLElement | undefined> => {
+  let el : HTMLElement | undefined
+  for (let i = 0; i < ms; i+= 50) {
+    el = document.getElementById(id)
+    if(el) break
+    await sleep(50)
+  }
+  return el
+}
+
 export {
   sleep,
   isServer,
@@ -226,4 +236,5 @@ export {
   remToPx,
   pxToInt,
   styleVariables,
+  waitForElement
 }

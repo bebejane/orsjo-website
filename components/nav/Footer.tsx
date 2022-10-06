@@ -18,7 +18,7 @@ export default function Footer({ menu }: FooterProps) {
 
 	return (
 		<>
-			<footer className={cn(styles.footer, footerLine && styles.line)}>
+			<footer className={cn(styles.footer, footerLine && styles.line)} id="footer">
 				<div className={styles.wrapperTop}>
 					<div className={styles.brand}>
 						<div className={styles.tagline}>

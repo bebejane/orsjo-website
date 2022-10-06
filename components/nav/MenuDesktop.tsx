@@ -8,6 +8,7 @@ import { usePage } from '/lib/context/page'
 import { useWindowSize } from 'rooks'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import type { Menu } from '/lib/menu'
+import { sleep, waitForElement } from '/lib/utils'
 
 export type MenuDesktopProps = { items: Menu, onShowSiteSearch: Function }
 
@@ -18,6 +19,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	const [showMenu, setShowMenu, invertMenu] = useStore((state) => [state.showMenu, state.setShowMenu, state.invertMenu], shallow);
 	const [transitioning] = useStore((state) => [state.transitioning])
 	const [selected, setSelected] = useState(undefined)
+	const [hashChanging, setHashChanging] = useState(false)
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 })
 	const { layout, menu, color } = usePage()
 	const { innerWidth } = useWindowSize()
@@ -34,8 +36,28 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	}, [showMenu, resetSelected])
 
 	useEffect(() => { // Toggle menu bar on scroll
+		if(hashChanging) return setShowMenu(false)
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
-	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu]);
+	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
+
+	useEffect(() => { // Hide menu when scrolling to hash
+
+		const handleHashChangeStart = async (url) => {
+			
+			const id = url.split('#')[1]
+			const el  = await waitForElement(id, 400);
+			if(!(el ? (el.getBoundingClientRect().top + window.scrollY) : false)) 
+				return // If element is at page top, ignore.
+
+			setHashChanging(true)
+			setTimeout(()=>{
+				setHashChanging(false)
+				setTimeout(()=>setShowMenu(false), 0)
+			}, 1000)
+		}
+    router.events.on("hashChangeStart", handleHashChangeStart);
+    return () => router.events.off("hashChangeStart", handleHashChangeStart)
+  }, [router.events, setHashChanging, setShowMenu]);
 
 	useEffect(() => { // Re set margin on window resize
 		if (!selected) return
@@ -57,12 +79,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		setMenuMargin({ position, padding })
 
 	}, [innerWidth, selected])
-
-	const handleSelected = (e: MouseEvent<HTMLLIElement>) => {
-		const slug = e.currentTarget.getAttribute('data-slug')
-		const sel = selected === slug ? undefined : slug
-		setSelected(sel)
-	}
 
 	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && !transitioning && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []

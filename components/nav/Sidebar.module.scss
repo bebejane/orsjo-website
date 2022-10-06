@@ -2,12 +2,12 @@
   position: sticky;
   display: flex;
   flex-direction: column;
-  top: 0;
+  top: 0px;
   padding-top: calc(1rem + $navbarHeight);
   margin-left: var(--outer-margin);
   min-width: spanGrid(4);
   max-width: spanGrid(4);
-  max-height: calc(100vh);
+  max-height: 100vh;
   z-index: 103;
   @include mq($from: tablet) {
     background-color: transparent !important;
@@ -22,7 +22,7 @@
   }
 
   nav {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
 
     ul {
       list-style: none;
@@ -99,8 +99,9 @@
   }
 
   .footer {
-    flex: 0 0 auto;
-    //margin-bottom: $margin;
+    display: flex;
+    flex: 1 1 auto;
+    align-items: flex-end;
     padding-bottom: var(--outer-margin);
     cursor: pointer;
 

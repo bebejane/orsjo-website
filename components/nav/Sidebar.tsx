@@ -6,7 +6,6 @@ import { usePage } from '/lib/context/page'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { ArrowLink } from '/components'
 import useScrollInfo from '/lib/hooks/useScrollInfo';
-import Link from 'next/link';
 
 export type SidebarProps = {title: string}
 
@@ -18,6 +17,7 @@ export default function Sidebar({title} : SidebarProps) {
 	const [setInvertSidebar, setInvertMenu] = useStore((state) => [state.setInvertSidebar, state.setInvertMenu], shallow);
 	const [sections, setSections] = useState([])
 	const [open, setOpen] = useState(false)
+	const [maxHeight, setMaxHeight] = useState<string | undefined>()
 	const {scrolledPosition, documentHeight } = useScrollInfo()
 	const backRef = useRef()
 
@@ -52,6 +52,10 @@ export default function Sidebar({title} : SidebarProps) {
 		const { id } = sorted[0]
 		setCurrentSection(id)
 
+		const footer = document.getElementById('footer')
+		if(!isProductPage && !isProjectPage && !isProductsPage)
+			setMaxHeight(`calc(100vh - ${footer.clientHeight}px`);
+
 	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu, layout])
 	
 	useEffect(()=>{ setTimeout(()=>resetSearch(), 100)}, [router.asPath, resetSearch])
@@ -60,7 +64,7 @@ export default function Sidebar({title} : SidebarProps) {
 		<aside 
 			id="sidebar" 
 			className={cn(styles.sidebar, isInverted && styles.inverted, !isProductsPage && styles.short)}
-			style={{backgroundColor:color}}
+			style={{backgroundColor:color, maxHeight}}
 		>
 			<h3 className={cn(open && styles.open)} onClick={()=>setOpen(!open)}>
 				{title}
