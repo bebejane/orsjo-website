@@ -1,0 +1,14 @@
+query AllShopifyProducts{
+  products(first: 5) {
+    edges {
+      node {
+        id
+        handle
+        title
+      }
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}

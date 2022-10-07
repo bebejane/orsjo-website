@@ -10,36 +10,33 @@ const config =  {
 	maybeValue: "T"
 }
 
-{
-	
-}
 
 module.exports = {
 	schema: {
-		"https://graphql.datocms.com": {
+		"https://orsjo.myshopify.com/admin/api/2022-10/graphql.json": {
 			headers: {
-				Authorization: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN,
-				"X-Exclude-Invalid": true,
+				'X-Shopify-Access-Token': process.env.SHOPIFY_ADMIN_API_TOKEN,
+				'Content-Type': 'application/json',
 			},
-		}
+		},
 	},
-  documents: "graphql/**/*.gql",
+  documents: "lib/shopify/graphql/**/*.gql",
 	extensions: {
 		codegen: {
 			overwrite: true,
 			generates: {
-				"@types/datocms.d.ts": {
+				"@types/shopify.d.ts": {
 					plugins: [
 						"typescript",
 						"typescript-operations",
 					],
 					config:{...config, noExport: true}
 				},
-        "graphql/index.ts": {
+        "lib/shopify/graphql/index.ts": {
           plugins: ["typed-document-node"],
 					config
         },
-        "@types/document-modules.d.ts": {
+        "@types/document-modules-shopify.d.ts": {
           plugins: ["typescript-graphql-files-modules"],
 					config
         }
