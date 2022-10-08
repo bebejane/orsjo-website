@@ -1,23 +1,19 @@
-type Maybe<T> = T;
-type InputMaybe<T> = T;
-type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
-type Scalars = {
+export type Scalars = {
   ID: string;
   String: string;
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Represents `true` or `false` values. */
   BooleanType: any;
   CustomData: any;
-  /** A ISO 8601 compliant datetime value */
   DateTime: any;
-  /** Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). */
   FloatType: any;
-  /** Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
   IntType: any;
   ItemId: any;
   JsonField: any;
@@ -26,7 +22,7 @@ type Scalars = {
 };
 
 /** Record of type About us (about) */
-type AboutRecord = RecordInterface & {
+export type AboutRecord = RecordInterface & {
   __typename?: 'AboutRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -50,18 +46,18 @@ type AboutRecord = RecordInterface & {
 
 
 /** Record of type About us (about) */
-type AboutRecord_seoMetaTagsArgs = {
+export type AboutRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type About us (about) */
-type AboutRecordintroArgs = {
+export type AboutRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Block of type About section (about_section) */
-type AboutSectionRecord = RecordInterface & {
+export type AboutSectionRecord = RecordInterface & {
   __typename?: 'AboutSectionRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -83,18 +79,18 @@ type AboutSectionRecord = RecordInterface & {
 
 
 /** Block of type About section (about_section) */
-type AboutSectionRecord_seoMetaTagsArgs = {
+export type AboutSectionRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Block of type About section (about_section) */
-type AboutSectionRecordtextArgs = {
+export type AboutSectionRecordTextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Block of type Accessory (accessory) */
-type AccessoryRecord = RecordInterface & {
+export type AccessoryRecord = RecordInterface & {
   __typename?: 'AccessoryRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -117,12 +113,12 @@ type AccessoryRecord = RecordInterface & {
 
 
 /** Block of type Accessory (accessory) */
-type AccessoryRecord_seoMetaTagsArgs = {
+export type AccessoryRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Block of type Bespoke project (bespoke_project) */
-type BespokeProjectRecord = RecordInterface & {
+export type BespokeProjectRecord = RecordInterface & {
   __typename?: 'BespokeProjectRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -144,18 +140,18 @@ type BespokeProjectRecord = RecordInterface & {
 
 
 /** Block of type Bespoke project (bespoke_project) */
-type BespokeProjectRecord_seoMetaTagsArgs = {
+export type BespokeProjectRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Block of type Bespoke project (bespoke_project) */
-type BespokeProjectRecordsummaryArgs = {
+export type BespokeProjectRecordSummaryArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Record of type Bespoke (bespoke) */
-type BespokeRecord = RecordInterface & {
+export type BespokeRecord = RecordInterface & {
   __typename?: 'BespokeRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -180,29 +176,29 @@ type BespokeRecord = RecordInterface & {
 
 
 /** Record of type Bespoke (bespoke) */
-type BespokeRecord_seoMetaTagsArgs = {
+export type BespokeRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Bespoke (bespoke) */
-type BespokeRecordintroArgs = {
+export type BespokeRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Bespoke (bespoke) */
-type BespokeRecordoutroArgs = {
+export type BespokeRecordOutroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Specifies how to filter Boolean fields */
-type BooleanFilter = {
+export type BooleanFilter = {
   /** Search for records with an exact match */
   eq?: InputMaybe<Scalars['BooleanType']>;
 };
 
-type CatalogueModelFilter = {
+export type CatalogueModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<CatalogueModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -220,35 +216,35 @@ type CatalogueModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum CatalogueModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum CatalogueModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Catalogue (catalogue) */
-type CatalogueRecord = RecordInterface & {
+export type CatalogueRecord = RecordInterface & {
   __typename?: 'CatalogueRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -271,31 +267,31 @@ type CatalogueRecord = RecordInterface & {
 
 
 /** Record of type Catalogue (catalogue) */
-type CatalogueRecord_seoMetaTagsArgs = {
+export type CatalogueRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type CollectionMetadata = {
+export type CollectionMetadata = {
   __typename?: 'CollectionMetadata';
   count: Scalars['IntType'];
 };
 
-enum ColorBucketType {
-  black = 'black',
-  blue = 'blue',
-  brown = 'brown',
-  cyan = 'cyan',
-  green = 'green',
-  grey = 'grey',
-  orange = 'orange',
-  pink = 'pink',
-  purple = 'purple',
-  red = 'red',
-  white = 'white',
-  yellow = 'yellow'
+export enum ColorBucketType {
+  Black = 'black',
+  Blue = 'blue',
+  Brown = 'brown',
+  Cyan = 'cyan',
+  Green = 'green',
+  Grey = 'grey',
+  Orange = 'orange',
+  Pink = 'pink',
+  Purple = 'purple',
+  Red = 'red',
+  White = 'white',
+  Yellow = 'yellow'
 }
 
-type ColorField = {
+export type ColorField = {
   __typename?: 'ColorField';
   alpha: Scalars['IntType'];
   blue: Scalars['IntType'];
@@ -305,7 +301,7 @@ type ColorField = {
 };
 
 /** Record of type Color & material intro (color_material_intro) */
-type ColorMaterialIntroRecord = RecordInterface & {
+export type ColorMaterialIntroRecord = RecordInterface & {
   __typename?: 'ColorMaterialIntroRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -326,17 +322,17 @@ type ColorMaterialIntroRecord = RecordInterface & {
 
 
 /** Record of type Color & material intro (color_material_intro) */
-type ColorMaterialIntroRecord_seoMetaTagsArgs = {
+export type ColorMaterialIntroRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Color & material intro (color_material_intro) */
-type ColorMaterialIntroRecordintroArgs = {
+export type ColorMaterialIntroRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type ColorMaterialModelFilter = {
+export type ColorMaterialModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ColorMaterialModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -355,37 +351,37 @@ type ColorMaterialModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ColorMaterialModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  description_ASC = 'description_ASC',
-  description_DESC = 'description_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  position_ASC = 'position_ASC',
-  position_DESC = 'position_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ColorMaterialModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  DescriptionAsc = 'description_ASC',
+  DescriptionDesc = 'description_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PositionAsc = 'position_ASC',
+  PositionDesc = 'position_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Color & material (color_material) */
-type ColorMaterialRecord = RecordInterface & {
+export type ColorMaterialRecord = RecordInterface & {
   __typename?: 'ColorMaterialRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -409,11 +405,11 @@ type ColorMaterialRecord = RecordInterface & {
 
 
 /** Record of type Color & material (color_material) */
-type ColorMaterialRecord_seoMetaTagsArgs = {
+export type ColorMaterialRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ColorMaterialTypeModelFilter = {
+export type ColorMaterialTypeModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -431,39 +427,39 @@ type ColorMaterialTypeModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ColorMaterialTypeModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  categoryPlural_ASC = 'categoryPlural_ASC',
-  categoryPlural_DESC = 'categoryPlural_DESC',
-  category_ASC = 'category_ASC',
-  category_DESC = 'category_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  position_ASC = 'position_ASC',
-  position_DESC = 'position_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ColorMaterialTypeModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CategoryPluralAsc = 'categoryPlural_ASC',
+  CategoryPluralDesc = 'categoryPlural_DESC',
+  CategoryAsc = 'category_ASC',
+  CategoryDesc = 'category_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PositionAsc = 'position_ASC',
+  PositionDesc = 'position_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Color & material type (color_material_type) */
-type ColorMaterialTypeRecord = RecordInterface & {
+export type ColorMaterialTypeRecord = RecordInterface & {
   __typename?: 'ColorMaterialTypeRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -486,12 +482,12 @@ type ColorMaterialTypeRecord = RecordInterface & {
 
 
 /** Record of type Color & material type (color_material_type) */
-type ColorMaterialTypeRecord_seoMetaTagsArgs = {
+export type ColorMaterialTypeRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Record of type Contact (contact) */
-type ContactRecord = RecordInterface & {
+export type ContactRecord = RecordInterface & {
   __typename?: 'ContactRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -518,29 +514,29 @@ type ContactRecord = RecordInterface & {
 
 
 /** Record of type Contact (contact) */
-type ContactRecord_seoMetaTagsArgs = {
+export type ContactRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Contact (contact) */
-type ContactRecordaddressArgs = {
+export type ContactRecordAddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Contact (contact) */
-type ContactRecordintroArgs = {
+export type ContactRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Contact (contact) */
-type ContactRecordshowroomIntroArgs = {
+export type ContactRecordShowroomIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type CountryModelFilter = {
+export type CountryModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<CountryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -556,35 +552,35 @@ type CountryModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum CountryModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum CountryModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Country (country) */
-type CountryRecord = RecordInterface & {
+export type CountryRecord = RecordInterface & {
   __typename?: 'CountryRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -606,26 +602,26 @@ type CountryRecord = RecordInterface & {
 
 
 /** Record of type Country (country) */
-type CountryRecord_allNameLocalesArgs = {
+export type CountryRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Country (country) */
-type CountryRecord_seoMetaTagsArgs = {
+export type CountryRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Country (country) */
-type CountryRecordnameArgs = {
+export type CountryRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter by creation datetime */
-type CreatedAtFilter = {
+export type CreatedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
   eq?: InputMaybe<Scalars['DateTime']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
@@ -642,7 +638,7 @@ type CreatedAtFilter = {
   neq?: InputMaybe<Scalars['DateTime']>;
 };
 
-type DesignerModelFilter = {
+export type DesignerModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -661,35 +657,35 @@ type DesignerModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum DesignerModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum DesignerModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Designer (designer) */
-type DesignerRecord = RecordInterface & {
+export type DesignerRecord = RecordInterface & {
   __typename?: 'DesignerRecord';
   _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -714,25 +710,25 @@ type DesignerRecord = RecordInterface & {
 
 
 /** Record of type Designer (designer) */
-type DesignerRecord_allDescriptionLocalesArgs = {
+export type DesignerRecord_AllDescriptionLocalesArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Designer (designer) */
-type DesignerRecord_seoMetaTagsArgs = {
+export type DesignerRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Designer (designer) */
-type DesignerRecorddescriptionArgs = {
+export type DesignerRecordDescriptionArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type DistributorModelFilter = {
+export type DistributorModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<DistributorModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -756,47 +752,47 @@ type DistributorModelFilter = {
   url?: InputMaybe<StringFilter>;
 };
 
-enum DistributorModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  city_ASC = 'city_ASC',
-  city_DESC = 'city_DESC',
-  contactName_ASC = 'contactName_ASC',
-  contactName_DESC = 'contactName_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  email_ASC = 'email_ASC',
-  email_DESC = 'email_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  phone_ASC = 'phone_ASC',
-  phone_DESC = 'phone_DESC',
-  postalCode_ASC = 'postalCode_ASC',
-  postalCode_DESC = 'postalCode_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC',
-  url_ASC = 'url_ASC',
-  url_DESC = 'url_DESC'
+export enum DistributorModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CityAsc = 'city_ASC',
+  CityDesc = 'city_DESC',
+  ContactNameAsc = 'contactName_ASC',
+  ContactNameDesc = 'contactName_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  EmailAsc = 'email_ASC',
+  EmailDesc = 'email_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PhoneAsc = 'phone_ASC',
+  PhoneDesc = 'phone_DESC',
+  PostalCodeAsc = 'postalCode_ASC',
+  PostalCodeDesc = 'postalCode_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC',
+  UrlAsc = 'url_ASC',
+  UrlDesc = 'url_DESC'
 }
 
 /** Record of type Distributor (distributor) */
-type DistributorRecord = RecordInterface & {
+export type DistributorRecord = RecordInterface & {
   __typename?: 'DistributorRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -825,18 +821,18 @@ type DistributorRecord = RecordInterface & {
 
 
 /** Record of type Distributor (distributor) */
-type DistributorRecord_seoMetaTagsArgs = {
+export type DistributorRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Distributor (distributor) */
-type DistributorRecordaddressArgs = {
+export type DistributorRecordAddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Record of type Download (download) */
-type DownloadRecord = RecordInterface & {
+export type DownloadRecord = RecordInterface & {
   __typename?: 'DownloadRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -858,12 +854,12 @@ type DownloadRecord = RecordInterface & {
 
 
 /** Record of type Download (download) */
-type DownloadRecord_seoMetaTagsArgs = {
+export type DownloadRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Record of type Factory visit (factory_visit) */
-type FactoryVisitRecord = RecordInterface & {
+export type FactoryVisitRecord = RecordInterface & {
   __typename?: 'FactoryVisitRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -885,17 +881,17 @@ type FactoryVisitRecord = RecordInterface & {
 
 
 /** Record of type Factory visit (factory_visit) */
-type FactoryVisitRecord_seoMetaTagsArgs = {
+export type FactoryVisitRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Factory visit (factory_visit) */
-type FactoryVisitRecordintroArgs = {
+export type FactoryVisitRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type FaqCategoryModelFilter = {
+export type FaqCategoryModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<FaqCategoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -911,35 +907,35 @@ type FaqCategoryModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum FaqCategoryModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum FaqCategoryModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type FAQ Category (faq_category) */
-type FaqCategoryRecord = RecordInterface & {
+export type FaqCategoryRecord = RecordInterface & {
   __typename?: 'FaqCategoryRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -960,11 +956,11 @@ type FaqCategoryRecord = RecordInterface & {
 
 
 /** Record of type FAQ Category (faq_category) */
-type FaqCategoryRecord_seoMetaTagsArgs = {
+export type FaqCategoryRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type FaqModelFilter = {
+export type FaqModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<FaqModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -982,35 +978,35 @@ type FaqModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum FaqModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  question_ASC = 'question_ASC',
-  question_DESC = 'question_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum FaqModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  QuestionAsc = 'question_ASC',
+  QuestionDesc = 'question_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type FAQ (faq) */
-type FaqRecord = RecordInterface & {
+export type FaqRecord = RecordInterface & {
   __typename?: 'FaqRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1033,18 +1029,18 @@ type FaqRecord = RecordInterface & {
 
 
 /** Record of type FAQ (faq) */
-type FaqRecord_seoMetaTagsArgs = {
+export type FaqRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type FAQ (faq) */
-type FaqRecordanswerArgs = {
+export type FaqRecordAnswerArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Record of type FAQ start (faq_start) */
-type FaqStartRecord = RecordInterface & {
+export type FaqStartRecord = RecordInterface & {
   __typename?: 'FaqStartRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1066,26 +1062,26 @@ type FaqStartRecord = RecordInterface & {
 
 
 /** Record of type FAQ start (faq_start) */
-type FaqStartRecord_seoMetaTagsArgs = {
+export type FaqStartRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type FAQ start (faq_start) */
-type FaqStartRecordintroArgs = {
+export type FaqStartRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-enum FaviconType {
-  appleTouchIcon = 'appleTouchIcon',
-  icon = 'icon',
-  msApplication = 'msApplication'
+export enum FaviconType {
+  AppleTouchIcon = 'appleTouchIcon',
+  Icon = 'icon',
+  MsApplication = 'msApplication'
 }
 
-type FeaturedModelItemsField = DesignerRecord | ProductRecord | ProjectRecord;
+export type FeaturedModelItemsField = DesignerRecord | ProductRecord | ProjectRecord;
 
 /** Block of type Featured (featured) */
-type FeaturedRecord = RecordInterface & {
+export type FeaturedRecord = RecordInterface & {
   __typename?: 'FeaturedRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1107,14 +1103,14 @@ type FeaturedRecord = RecordInterface & {
 
 
 /** Block of type Featured (featured) */
-type FeaturedRecord_seoMetaTagsArgs = {
+export type FeaturedRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type FeaturedStartModelItemsField = DesignerRecord | ProductRecord | ProjectRecord;
+export type FeaturedStartModelItemsField = DesignerRecord | ProductRecord | ProjectRecord;
 
 /** Block of type Featured start (featured_start) */
-type FeaturedStartRecord = RecordInterface & {
+export type FeaturedStartRecord = RecordInterface & {
   __typename?: 'FeaturedStartRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1136,11 +1132,11 @@ type FeaturedStartRecord = RecordInterface & {
 
 
 /** Block of type Featured start (featured_start) */
-type FeaturedStartRecord_seoMetaTagsArgs = {
+export type FeaturedStartRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type FileField = FileFieldInterface & {
+export type FileField = FileFieldInterface & {
   __typename?: 'FileField';
   _createdAt: Scalars['DateTime'];
   _updatedAt: Scalars['DateTime'];
@@ -1154,7 +1150,7 @@ type FileField = FileFieldInterface & {
   customData: Scalars['CustomData'];
   exifInfo: Scalars['CustomData'];
   filename: Scalars['String'];
-  focalPoint?: Maybe<focalPoint>;
+  focalPoint?: Maybe<FocalPoint>;
   format: Scalars['String'];
   height?: Maybe<Scalars['IntType']>;
   id: Scalars['UploadId'];
@@ -1172,13 +1168,13 @@ type FileField = FileFieldInterface & {
 };
 
 
-type FileFieldaltArgs = {
+export type FileFieldAltArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FileFieldblurUpThumbArgs = {
+export type FileFieldBlurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
   punch?: InputMaybe<Scalars['Float']>;
   quality?: InputMaybe<Scalars['Int']>;
@@ -1186,19 +1182,19 @@ type FileFieldblurUpThumbArgs = {
 };
 
 
-type FileFieldcustomDataArgs = {
+export type FileFieldCustomDataArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FileFieldfocalPointArgs = {
+export type FileFieldFocalPointArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FileFieldresponsiveImageArgs = {
+export type FileFieldResponsiveImageArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   imgixParams?: InputMaybe<ImgixParams>;
   locale?: InputMaybe<SiteLocale>;
@@ -1206,17 +1202,17 @@ type FileFieldresponsiveImageArgs = {
 };
 
 
-type FileFieldtitleArgs = {
+export type FileFieldTitleArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FileFieldurlArgs = {
+export type FileFieldUrlArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
 };
 
-type FileFieldInterface = {
+export type FileFieldInterface = {
   _createdAt: Scalars['DateTime'];
   _updatedAt: Scalars['DateTime'];
   alt?: Maybe<Scalars['String']>;
@@ -1229,7 +1225,7 @@ type FileFieldInterface = {
   customData: Scalars['CustomData'];
   exifInfo: Scalars['CustomData'];
   filename: Scalars['String'];
-  focalPoint?: Maybe<focalPoint>;
+  focalPoint?: Maybe<FocalPoint>;
   format: Scalars['String'];
   height?: Maybe<Scalars['IntType']>;
   id: Scalars['UploadId'];
@@ -1247,13 +1243,13 @@ type FileFieldInterface = {
 };
 
 
-type FileFieldInterfacealtArgs = {
+export type FileFieldInterfaceAltArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FileFieldInterfaceblurUpThumbArgs = {
+export type FileFieldInterfaceBlurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
   punch?: InputMaybe<Scalars['Float']>;
   quality?: InputMaybe<Scalars['Int']>;
@@ -1261,19 +1257,19 @@ type FileFieldInterfaceblurUpThumbArgs = {
 };
 
 
-type FileFieldInterfacecustomDataArgs = {
+export type FileFieldInterfaceCustomDataArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FileFieldInterfacefocalPointArgs = {
+export type FileFieldInterfaceFocalPointArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FileFieldInterfaceresponsiveImageArgs = {
+export type FileFieldInterfaceResponsiveImageArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   imgixParams?: InputMaybe<ImgixParams>;
   locale?: InputMaybe<SiteLocale>;
@@ -1281,24 +1277,24 @@ type FileFieldInterfaceresponsiveImageArgs = {
 };
 
 
-type FileFieldInterfacetitleArgs = {
+export type FileFieldInterfaceTitleArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-type FileFieldInterfaceurlArgs = {
+export type FileFieldInterfaceUrlArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
 };
 
-type FileFieldMultiLocaleField = {
+export type FileFieldMultiLocaleField = {
   __typename?: 'FileFieldMultiLocaleField';
   locale?: Maybe<SiteLocale>;
   value?: Maybe<FileField>;
 };
 
 /** Specifies how to filter Single-file/image fields */
-type FileFilter = {
+export type FileFilter = {
   /** Search for records with an exact match. The specified value must be an Upload ID */
   eq?: InputMaybe<Scalars['UploadId']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
@@ -1312,7 +1308,7 @@ type FileFilter = {
 };
 
 /** Specifies how to filter Floating-point fields */
-type FloatFilter = {
+export type FloatFilter = {
   /** Search for records with an exact match */
   eq?: InputMaybe<Scalars['FloatType']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
@@ -1329,10 +1325,10 @@ type FloatFilter = {
   neq?: InputMaybe<Scalars['FloatType']>;
 };
 
-type FullscreenMediaBlockModelLinkRecordField = DesignerRecord | ProductRecord;
+export type FullscreenMediaBlockModelLinkRecordField = DesignerRecord | ProductRecord;
 
 /** Block of type Fullscreen media (fullscreen_media_block) */
-type FullscreenMediaBlockRecord = RecordInterface & {
+export type FullscreenMediaBlockRecord = RecordInterface & {
   __typename?: 'FullscreenMediaBlockRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1356,12 +1352,12 @@ type FullscreenMediaBlockRecord = RecordInterface & {
 
 
 /** Block of type Fullscreen media (fullscreen_media_block) */
-type FullscreenMediaBlockRecord_seoMetaTagsArgs = {
+export type FullscreenMediaBlockRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Block of type Fullscreen video (fullscreen_video) */
-type FullscreenVideoRecord = RecordInterface & {
+export type FullscreenVideoRecord = RecordInterface & {
   __typename?: 'FullscreenVideoRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1385,18 +1381,18 @@ type FullscreenVideoRecord = RecordInterface & {
 
 
 /** Block of type Fullscreen video (fullscreen_video) */
-type FullscreenVideoRecord_seoMetaTagsArgs = {
+export type FullscreenVideoRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Block of type Fullscreen video (fullscreen_video) */
-type FullscreenVideoRecordtextArgs = {
+export type FullscreenVideoRecordTextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Block of type Fullwidth image (fullwidth_image) */
-type FullwidthImageRecord = RecordInterface & {
+export type FullwidthImageRecord = RecordInterface & {
   __typename?: 'FullwidthImageRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1417,12 +1413,12 @@ type FullwidthImageRecord = RecordInterface & {
 
 
 /** Block of type Fullwidth image (fullwidth_image) */
-type FullwidthImageRecord_seoMetaTagsArgs = {
+export type FullwidthImageRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter Multiple files/images field */
-type GalleryFilter = {
+export type GalleryFilter = {
   /** Filter records that have all of the specified uploads. The specified values must be Upload IDs */
   allIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
   /** Filter records that have one of the specified uploads. The specified values must be Upload IDs */
@@ -1435,7 +1431,7 @@ type GalleryFilter = {
   notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
 };
 
-type GlobalSeoField = {
+export type GlobalSeoField = {
   __typename?: 'GlobalSeoField';
   facebookPageUrl?: Maybe<Scalars['String']>;
   fallbackSeo?: Maybe<SeoField>;
@@ -1445,7 +1441,7 @@ type GlobalSeoField = {
 };
 
 /** Block of type Image gallery (image_gallery) */
-type ImageGalleryRecord = RecordInterface & {
+export type ImageGalleryRecord = RecordInterface & {
   __typename?: 'ImageGalleryRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1466,12 +1462,12 @@ type ImageGalleryRecord = RecordInterface & {
 
 
 /** Block of type Image gallery (image_gallery) */
-type ImageGalleryRecord_seoMetaTagsArgs = {
+export type ImageGalleryRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Block of type Image links (image_link) */
-type ImageLinkRecord = RecordInterface & {
+export type ImageLinkRecord = RecordInterface & {
   __typename?: 'ImageLinkRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -1499,11 +1495,11 @@ type ImageLinkRecord = RecordInterface & {
 
 
 /** Block of type Image links (image_link) */
-type ImageLinkRecord_seoMetaTagsArgs = {
+export type ImageLinkRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ImgixParams = {
+export type ImgixParams = {
   /**
    * Aspect Ratio
    *
@@ -2688,193 +2684,193 @@ type ImgixParams = {
   w?: InputMaybe<Scalars['FloatType']>;
 };
 
-enum ImgixParamsAuto {
-  compress = 'compress',
-  enhance = 'enhance',
-  format = 'format',
-  redeye = 'redeye'
+export enum ImgixParamsAuto {
+  Compress = 'compress',
+  Enhance = 'enhance',
+  Format = 'format',
+  Redeye = 'redeye'
 }
 
-enum ImgixParamsBlendAlign {
-  bottom = 'bottom',
-  center = 'center',
-  left = 'left',
-  middle = 'middle',
-  right = 'right',
-  top = 'top'
+export enum ImgixParamsBlendAlign {
+  Bottom = 'bottom',
+  Center = 'center',
+  Left = 'left',
+  Middle = 'middle',
+  Right = 'right',
+  Top = 'top'
 }
 
-enum ImgixParamsBlendCrop {
-  bottom = 'bottom',
-  faces = 'faces',
-  left = 'left',
-  right = 'right',
-  top = 'top'
+export enum ImgixParamsBlendCrop {
+  Bottom = 'bottom',
+  Faces = 'faces',
+  Left = 'left',
+  Right = 'right',
+  Top = 'top'
 }
 
-enum ImgixParamsBlendFit {
-  clamp = 'clamp',
-  clip = 'clip',
-  crop = 'crop',
-  max = 'max',
-  scale = 'scale'
+export enum ImgixParamsBlendFit {
+  Clamp = 'clamp',
+  Clip = 'clip',
+  Crop = 'crop',
+  Max = 'max',
+  Scale = 'scale'
 }
 
-enum ImgixParamsBlendMode {
-  burn = 'burn',
-  color = 'color',
-  darken = 'darken',
-  difference = 'difference',
-  dodge = 'dodge',
-  exclusion = 'exclusion',
-  hardlight = 'hardlight',
-  hue = 'hue',
-  lighten = 'lighten',
-  luminosity = 'luminosity',
-  multiply = 'multiply',
-  normal = 'normal',
-  overlay = 'overlay',
-  saturation = 'saturation',
-  screen = 'screen',
-  softlight = 'softlight'
+export enum ImgixParamsBlendMode {
+  Burn = 'burn',
+  Color = 'color',
+  Darken = 'darken',
+  Difference = 'difference',
+  Dodge = 'dodge',
+  Exclusion = 'exclusion',
+  Hardlight = 'hardlight',
+  Hue = 'hue',
+  Lighten = 'lighten',
+  Luminosity = 'luminosity',
+  Multiply = 'multiply',
+  Normal = 'normal',
+  Overlay = 'overlay',
+  Saturation = 'saturation',
+  Screen = 'screen',
+  Softlight = 'softlight'
 }
 
-enum ImgixParamsBlendSize {
-  inherit = 'inherit'
+export enum ImgixParamsBlendSize {
+  Inherit = 'inherit'
 }
 
-enum ImgixParamsCh {
-  dpr = 'dpr',
-  saveData = 'saveData',
-  width = 'width'
+export enum ImgixParamsCh {
+  Dpr = 'dpr',
+  SaveData = 'saveData',
+  Width = 'width'
 }
 
-enum ImgixParamsCrop {
-  bottom = 'bottom',
-  edges = 'edges',
-  entropy = 'entropy',
-  faces = 'faces',
-  focalpoint = 'focalpoint',
-  left = 'left',
-  right = 'right',
-  top = 'top'
+export enum ImgixParamsCrop {
+  Bottom = 'bottom',
+  Edges = 'edges',
+  Entropy = 'entropy',
+  Faces = 'faces',
+  Focalpoint = 'focalpoint',
+  Left = 'left',
+  Right = 'right',
+  Top = 'top'
 }
 
-enum ImgixParamsCs {
-  adobergb1998 = 'adobergb1998',
-  srgb = 'srgb',
-  strip = 'strip',
-  tinysrgb = 'tinysrgb'
+export enum ImgixParamsCs {
+  Adobergb1998 = 'adobergb1998',
+  Srgb = 'srgb',
+  Strip = 'strip',
+  Tinysrgb = 'tinysrgb'
 }
 
-enum ImgixParamsFill {
-  blur = 'blur',
-  solid = 'solid'
+export enum ImgixParamsFill {
+  Blur = 'blur',
+  Solid = 'solid'
 }
 
-enum ImgixParamsFit {
-  clamp = 'clamp',
-  clip = 'clip',
-  crop = 'crop',
-  facearea = 'facearea',
-  fill = 'fill',
-  fillmax = 'fillmax',
-  max = 'max',
-  min = 'min',
-  scale = 'scale'
+export enum ImgixParamsFit {
+  Clamp = 'clamp',
+  Clip = 'clip',
+  Crop = 'crop',
+  Facearea = 'facearea',
+  Fill = 'fill',
+  Fillmax = 'fillmax',
+  Max = 'max',
+  Min = 'min',
+  Scale = 'scale'
 }
 
-enum ImgixParamsFlip {
-  h = 'h',
-  hv = 'hv',
-  v = 'v'
+export enum ImgixParamsFlip {
+  H = 'h',
+  Hv = 'hv',
+  V = 'v'
 }
 
-enum ImgixParamsFm {
-  avif = 'avif',
-  blurhash = 'blurhash',
-  gif = 'gif',
-  jp2 = 'jp2',
-  jpg = 'jpg',
-  json = 'json',
-  jxr = 'jxr',
-  mp4 = 'mp4',
-  pjpg = 'pjpg',
-  png = 'png',
-  png8 = 'png8',
-  png32 = 'png32',
-  webm = 'webm',
-  webp = 'webp'
+export enum ImgixParamsFm {
+  Avif = 'avif',
+  Blurhash = 'blurhash',
+  Gif = 'gif',
+  Jp2 = 'jp2',
+  Jpg = 'jpg',
+  Json = 'json',
+  Jxr = 'jxr',
+  Mp4 = 'mp4',
+  Pjpg = 'pjpg',
+  Png = 'png',
+  Png8 = 'png8',
+  Png32 = 'png32',
+  Webm = 'webm',
+  Webp = 'webp'
 }
 
-enum ImgixParamsIptc {
-  allow = 'allow',
-  block = 'block'
+export enum ImgixParamsIptc {
+  Allow = 'allow',
+  Block = 'block'
 }
 
-enum ImgixParamsMarkAlign {
-  bottom = 'bottom',
-  center = 'center',
-  left = 'left',
-  middle = 'middle',
-  right = 'right',
-  top = 'top'
+export enum ImgixParamsMarkAlign {
+  Bottom = 'bottom',
+  Center = 'center',
+  Left = 'left',
+  Middle = 'middle',
+  Right = 'right',
+  Top = 'top'
 }
 
-enum ImgixParamsMarkFit {
-  clip = 'clip',
-  crop = 'crop',
-  fill = 'fill',
-  max = 'max',
-  scale = 'scale'
+export enum ImgixParamsMarkFit {
+  Clip = 'clip',
+  Crop = 'crop',
+  Fill = 'fill',
+  Max = 'max',
+  Scale = 'scale'
 }
 
-enum ImgixParamsMarkTile {
-  grid = 'grid'
+export enum ImgixParamsMarkTile {
+  Grid = 'grid'
 }
 
-enum ImgixParamsPalette {
-  css = 'css',
-  json = 'json'
+export enum ImgixParamsPalette {
+  Css = 'css',
+  Json = 'json'
 }
 
-enum ImgixParamsTransparency {
-  grid = 'grid'
+export enum ImgixParamsTransparency {
+  Grid = 'grid'
 }
 
-enum ImgixParamsTrim {
-  auto = 'auto',
-  color = 'color'
+export enum ImgixParamsTrim {
+  Auto = 'auto',
+  Color = 'color'
 }
 
-enum ImgixParamsTxtAlign {
-  bottom = 'bottom',
-  center = 'center',
-  left = 'left',
-  middle = 'middle',
-  right = 'right',
-  top = 'top'
+export enum ImgixParamsTxtAlign {
+  Bottom = 'bottom',
+  Center = 'center',
+  Left = 'left',
+  Middle = 'middle',
+  Right = 'right',
+  Top = 'top'
 }
 
-enum ImgixParamsTxtClip {
-  ellipsis = 'ellipsis',
-  end = 'end',
-  middle = 'middle',
-  start = 'start'
+export enum ImgixParamsTxtClip {
+  Ellipsis = 'ellipsis',
+  End = 'end',
+  Middle = 'middle',
+  Start = 'start'
 }
 
-enum ImgixParamsTxtFit {
-  max = 'max'
+export enum ImgixParamsTxtFit {
+  Max = 'max'
 }
 
 /** Specifies how to filter by usage */
-type InUseFilter = {
+export type InUseFilter = {
   /** Search uploads that are currently used by some record or not */
   eq?: InputMaybe<Scalars['BooleanType']>;
 };
 
 /** Specifies how to filter by ID */
-type ItemIdFilter = {
+export type ItemIdFilter = {
   /** Search the record with the specified ID */
   eq?: InputMaybe<Scalars['ItemId']>;
   /** Search records with the specified IDs */
@@ -2885,13 +2881,13 @@ type ItemIdFilter = {
   notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
 };
 
-enum ItemStatus {
-  draft = 'draft',
-  published = 'published',
-  updated = 'updated'
+export enum ItemStatus {
+  Draft = 'draft',
+  Published = 'published',
+  Updated = 'updated'
 }
 
-type JobModelFilter = {
+export type JobModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<JobModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -2910,35 +2906,35 @@ type JobModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum JobModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum JobModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Jobs (job) */
-type JobRecord = RecordInterface & {
+export type JobRecord = RecordInterface & {
   __typename?: 'JobRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -2962,24 +2958,24 @@ type JobRecord = RecordInterface & {
 
 
 /** Record of type Jobs (job) */
-type JobRecord_seoMetaTagsArgs = {
+export type JobRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Jobs (job) */
-type JobRecordsummaryArgs = {
+export type JobRecordSummaryArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Jobs (job) */
-type JobRecordtextArgs = {
+export type JobRecordTextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Block of type Lightsource (lightsource) */
-type LightsourceRecord = RecordInterface & {
+export type LightsourceRecord = RecordInterface & {
   __typename?: 'LightsourceRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -3003,12 +2999,12 @@ type LightsourceRecord = RecordInterface & {
 
 
 /** Block of type Lightsource (lightsource) */
-type LightsourceRecord_seoMetaTagsArgs = {
+export type LightsourceRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter Single-link fields */
-type LinkFilter = {
+export type LinkFilter = {
   /** Search for records with an exact match. The specified value must be a Record ID */
   eq?: InputMaybe<Scalars['ItemId']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
@@ -3022,7 +3018,7 @@ type LinkFilter = {
 };
 
 /** Specifies how to filter Multiple-links fields */
-type LinksFilter = {
+export type LinksFilter = {
   /** Filter records linked to all of the specified records. The specified values must be Record IDs */
   allIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
   /** Filter records linked to at least one of the specified records. The specified values must be Record IDs */
@@ -3036,7 +3032,7 @@ type LinksFilter = {
 };
 
 /** Record of type Manuals (manual) */
-type ManualRecord = RecordInterface & {
+export type ManualRecord = RecordInterface & {
   __typename?: 'ManualRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -3058,24 +3054,24 @@ type ManualRecord = RecordInterface & {
 
 
 /** Record of type Manuals (manual) */
-type ManualRecord_seoMetaTagsArgs = {
+export type ManualRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Manuals (manual) */
-type ManualRecordintroArgs = {
+export type ManualRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-enum MuxThumbnailFormatType {
-  gif = 'gif',
-  jpg = 'jpg',
-  png = 'png'
+export enum MuxThumbnailFormatType {
+  Gif = 'gif',
+  Jpg = 'jpg',
+  Png = 'png'
 }
 
 /** Block of type News item (news_item) */
-type NewsItemRecord = RecordInterface & {
+export type NewsItemRecord = RecordInterface & {
   __typename?: 'NewsItemRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -3096,11 +3092,11 @@ type NewsItemRecord = RecordInterface & {
 
 
 /** Block of type News item (news_item) */
-type NewsItemRecord_seoMetaTagsArgs = {
+export type NewsItemRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type NewsModelFilter = {
+export type NewsModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<NewsModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3121,39 +3117,39 @@ type NewsModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum NewsModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  linkText_ASC = 'linkText_ASC',
-  linkText_DESC = 'linkText_DESC',
-  link_ASC = 'link_ASC',
-  link_DESC = 'link_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum NewsModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LinkTextAsc = 'linkText_ASC',
+  LinkTextDesc = 'linkText_DESC',
+  LinkAsc = 'link_ASC',
+  LinkDesc = 'link_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type News (news) */
-type NewsRecord = RecordInterface & {
+export type NewsRecord = RecordInterface & {
   __typename?: 'NewsRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -3179,18 +3175,18 @@ type NewsRecord = RecordInterface & {
 
 
 /** Record of type News (news) */
-type NewsRecord_seoMetaTagsArgs = {
+export type NewsRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type News (news) */
-type NewsRecordtextArgs = {
+export type NewsRecordTextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Specifies how to filter by image orientation */
-type OrientationFilter = {
+export type OrientationFilter = {
   /** Search uploads with the specified orientation */
   eq?: InputMaybe<UploadOrientation>;
   /** Exclude uploads with the specified orientation */
@@ -3198,7 +3194,7 @@ type OrientationFilter = {
 };
 
 /** Specifies how to filter by position (sorted and tree-like collections) */
-type PositionFilter = {
+export type PositionFilter = {
   /** Search for records with an exact match */
   eq?: InputMaybe<Scalars['IntType']>;
   /** Filter records with a value that's strictly greater than the one specified */
@@ -3213,7 +3209,7 @@ type PositionFilter = {
   neq?: InputMaybe<Scalars['IntType']>;
 };
 
-type PressModelFilter = {
+export type PressModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<PressModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3230,37 +3226,37 @@ type PressModelFilter = {
   url?: InputMaybe<StringFilter>;
 };
 
-enum PressModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC',
-  url_ASC = 'url_ASC',
-  url_DESC = 'url_DESC'
+export enum PressModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC',
+  UrlAsc = 'url_ASC',
+  UrlDesc = 'url_DESC'
 }
 
 /** Record of type Press (press) */
-type PressRecord = RecordInterface & {
+export type PressRecord = RecordInterface & {
   __typename?: 'PressRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -3282,11 +3278,11 @@ type PressRecord = RecordInterface & {
 
 
 /** Record of type Press (press) */
-type PressRecord_seoMetaTagsArgs = {
+export type PressRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductAccessoryModelFilter = {
+export type ProductAccessoryModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductAccessoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3302,35 +3298,35 @@ type ProductAccessoryModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductAccessoryModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductAccessoryModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product accessory (product_accessory) */
-type ProductAccessoryRecord = RecordInterface & {
+export type ProductAccessoryRecord = RecordInterface & {
   __typename?: 'ProductAccessoryRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -3352,25 +3348,25 @@ type ProductAccessoryRecord = RecordInterface & {
 
 
 /** Record of type Product accessory (product_accessory) */
-type ProductAccessoryRecord_allNameLocalesArgs = {
+export type ProductAccessoryRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product accessory (product_accessory) */
-type ProductAccessoryRecord_seoMetaTagsArgs = {
+export type ProductAccessoryRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product accessory (product_accessory) */
-type ProductAccessoryRecordnameArgs = {
+export type ProductAccessoryRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductCategoryModelFilter = {
+export type ProductCategoryModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductCategoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3389,39 +3385,39 @@ type ProductCategoryModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductCategoryModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  namePlural_ASC = 'namePlural_ASC',
-  namePlural_DESC = 'namePlural_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  position_ASC = 'position_ASC',
-  position_DESC = 'position_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductCategoryModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NamePluralAsc = 'namePlural_ASC',
+  NamePluralDesc = 'namePlural_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PositionAsc = 'position_ASC',
+  PositionDesc = 'position_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product category (product_category) */
-type ProductCategoryRecord = RecordInterface & {
+export type ProductCategoryRecord = RecordInterface & {
   __typename?: 'ProductCategoryRecord';
   _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
@@ -3448,53 +3444,53 @@ type ProductCategoryRecord = RecordInterface & {
 
 
 /** Record of type Product category (product_category) */
-type ProductCategoryRecord_allDescriptionLocalesArgs = {
+export type ProductCategoryRecord_AllDescriptionLocalesArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Product category (product_category) */
-type ProductCategoryRecord_allNameLocalesArgs = {
+export type ProductCategoryRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product category (product_category) */
-type ProductCategoryRecord_allNamePluralLocalesArgs = {
+export type ProductCategoryRecord_AllNamePluralLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product category (product_category) */
-type ProductCategoryRecord_seoMetaTagsArgs = {
+export type ProductCategoryRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product category (product_category) */
-type ProductCategoryRecorddescriptionArgs = {
+export type ProductCategoryRecordDescriptionArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Product category (product_category) */
-type ProductCategoryRecordnameArgs = {
+export type ProductCategoryRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product category (product_category) */
-type ProductCategoryRecordnamePluralArgs = {
+export type ProductCategoryRecordNamePluralArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductColorModelFilter = {
+export type ProductColorModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductColorModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3510,35 +3506,35 @@ type ProductColorModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductColorModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductColorModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product color (product_color) */
-type ProductColorRecord = RecordInterface & {
+export type ProductColorRecord = RecordInterface & {
   __typename?: 'ProductColorRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -3560,25 +3556,25 @@ type ProductColorRecord = RecordInterface & {
 
 
 /** Record of type Product color (product_color) */
-type ProductColorRecord_allNameLocalesArgs = {
+export type ProductColorRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product color (product_color) */
-type ProductColorRecord_seoMetaTagsArgs = {
+export type ProductColorRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product color (product_color) */
-type ProductColorRecordnameArgs = {
+export type ProductColorRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductConnectionModelFilter = {
+export type ProductConnectionModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductConnectionModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3594,35 +3590,35 @@ type ProductConnectionModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductConnectionModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductConnectionModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product connection (product_connection) */
-type ProductConnectionRecord = RecordInterface & {
+export type ProductConnectionRecord = RecordInterface & {
   __typename?: 'ProductConnectionRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -3644,25 +3640,25 @@ type ProductConnectionRecord = RecordInterface & {
 
 
 /** Record of type Product connection (product_connection) */
-type ProductConnectionRecord_allNameLocalesArgs = {
+export type ProductConnectionRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product connection (product_connection) */
-type ProductConnectionRecord_seoMetaTagsArgs = {
+export type ProductConnectionRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product connection (product_connection) */
-type ProductConnectionRecordnameArgs = {
+export type ProductConnectionRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductDimmableModelFilter = {
+export type ProductDimmableModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductDimmableModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3678,35 +3674,35 @@ type ProductDimmableModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductDimmableModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductDimmableModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product dimmable (product_dimmable) */
-type ProductDimmableRecord = RecordInterface & {
+export type ProductDimmableRecord = RecordInterface & {
   __typename?: 'ProductDimmableRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -3728,25 +3724,25 @@ type ProductDimmableRecord = RecordInterface & {
 
 
 /** Record of type Product dimmable (product_dimmable) */
-type ProductDimmableRecord_allNameLocalesArgs = {
+export type ProductDimmableRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product dimmable (product_dimmable) */
-type ProductDimmableRecord_seoMetaTagsArgs = {
+export type ProductDimmableRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product dimmable (product_dimmable) */
-type ProductDimmableRecordnameArgs = {
+export type ProductDimmableRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductElectricalModelFilter = {
+export type ProductElectricalModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductElectricalModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3762,35 +3758,35 @@ type ProductElectricalModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductElectricalModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductElectricalModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product Electrical Data (product_electrical) */
-type ProductElectricalRecord = RecordInterface & {
+export type ProductElectricalRecord = RecordInterface & {
   __typename?: 'ProductElectricalRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -3812,25 +3808,25 @@ type ProductElectricalRecord = RecordInterface & {
 
 
 /** Record of type Product Electrical Data (product_electrical) */
-type ProductElectricalRecord_allNameLocalesArgs = {
+export type ProductElectricalRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product Electrical Data (product_electrical) */
-type ProductElectricalRecord_seoMetaTagsArgs = {
+export type ProductElectricalRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product Electrical Data (product_electrical) */
-type ProductElectricalRecordnameArgs = {
+export type ProductElectricalRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductFamilyModelFilter = {
+export type ProductFamilyModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductFamilyModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3846,35 +3842,35 @@ type ProductFamilyModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductFamilyModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductFamilyModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product family (product_family) */
-type ProductFamilyRecord = RecordInterface & {
+export type ProductFamilyRecord = RecordInterface & {
   __typename?: 'ProductFamilyRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -3895,11 +3891,11 @@ type ProductFamilyRecord = RecordInterface & {
 
 
 /** Record of type Product family (product_family) */
-type ProductFamilyRecord_seoMetaTagsArgs = {
+export type ProductFamilyRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductFeatureModelFilter = {
+export type ProductFeatureModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductFeatureModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3915,35 +3911,35 @@ type ProductFeatureModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductFeatureModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductFeatureModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product feature (product_feature) */
-type ProductFeatureRecord = RecordInterface & {
+export type ProductFeatureRecord = RecordInterface & {
   __typename?: 'ProductFeatureRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -3965,25 +3961,25 @@ type ProductFeatureRecord = RecordInterface & {
 
 
 /** Record of type Product feature (product_feature) */
-type ProductFeatureRecord_allNameLocalesArgs = {
+export type ProductFeatureRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product feature (product_feature) */
-type ProductFeatureRecord_seoMetaTagsArgs = {
+export type ProductFeatureRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product feature (product_feature) */
-type ProductFeatureRecordnameArgs = {
+export type ProductFeatureRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductLightsourceModelFilter = {
+export type ProductLightsourceModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductLightsourceModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4001,39 +3997,39 @@ type ProductLightsourceModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductLightsourceModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  articleNo_ASC = 'articleNo_ASC',
-  articleNo_DESC = 'articleNo_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  price_ASC = 'price_ASC',
-  price_DESC = 'price_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductLightsourceModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  ArticleNoAsc = 'articleNo_ASC',
+  ArticleNoDesc = 'articleNo_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PriceAsc = 'price_ASC',
+  PriceDesc = 'price_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product lightsource (product_lightsource) */
-type ProductLightsourceRecord = RecordInterface & {
+export type ProductLightsourceRecord = RecordInterface & {
   __typename?: 'ProductLightsourceRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -4057,25 +4053,25 @@ type ProductLightsourceRecord = RecordInterface & {
 
 
 /** Record of type Product lightsource (product_lightsource) */
-type ProductLightsourceRecord_allNameLocalesArgs = {
+export type ProductLightsourceRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product lightsource (product_lightsource) */
-type ProductLightsourceRecord_seoMetaTagsArgs = {
+export type ProductLightsourceRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product lightsource (product_lightsource) */
-type ProductLightsourceRecordnameArgs = {
+export type ProductLightsourceRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductMaterialModelFilter = {
+export type ProductMaterialModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductMaterialModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4091,35 +4087,35 @@ type ProductMaterialModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductMaterialModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductMaterialModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product material (product_material) */
-type ProductMaterialRecord = RecordInterface & {
+export type ProductMaterialRecord = RecordInterface & {
   __typename?: 'ProductMaterialRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -4141,25 +4137,25 @@ type ProductMaterialRecord = RecordInterface & {
 
 
 /** Record of type Product material (product_material) */
-type ProductMaterialRecord_allNameLocalesArgs = {
+export type ProductMaterialRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product material (product_material) */
-type ProductMaterialRecord_seoMetaTagsArgs = {
+export type ProductMaterialRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product material (product_material) */
-type ProductMaterialRecordnameArgs = {
+export type ProductMaterialRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductModelFilter = {
+export type ProductModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4194,7 +4190,7 @@ type ProductModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-type ProductModelNameModelFilter = {
+export type ProductModelNameModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductModelNameModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4210,35 +4206,35 @@ type ProductModelNameModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductModelNameModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductModelNameModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product model name (product_model_name) */
-type ProductModelNameRecord = RecordInterface & {
+export type ProductModelNameRecord = RecordInterface & {
   __typename?: 'ProductModelNameRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -4260,61 +4256,61 @@ type ProductModelNameRecord = RecordInterface & {
 
 
 /** Record of type Product model name (product_model_name) */
-type ProductModelNameRecord_allNameLocalesArgs = {
+export type ProductModelNameRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product model name (product_model_name) */
-type ProductModelNameRecord_seoMetaTagsArgs = {
+export type ProductModelNameRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product model name (product_model_name) */
-type ProductModelNameRecordnameArgs = {
+export type ProductModelNameRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-enum ProductModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  bimLink_ASC = 'bimLink_ASC',
-  bimLink_DESC = 'bimLink_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  markAsNew_ASC = 'markAsNew_ASC',
-  markAsNew_DESC = 'markAsNew_DESC',
-  presentation_ASC = 'presentation_ASC',
-  presentation_DESC = 'presentation_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  BimLinkAsc = 'bimLink_ASC',
+  BimLinkDesc = 'bimLink_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  MarkAsNewAsc = 'markAsNew_ASC',
+  MarkAsNewDesc = 'markAsNew_DESC',
+  PresentationAsc = 'presentation_ASC',
+  PresentationDesc = 'presentation_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
-type ProductModelProductGalleryField = FullwidthImageRecord | ImageGalleryRecord | TextRecord | TwoColumnImageRecord | VideoRecord;
+export type ProductModelProductGalleryField = FullwidthImageRecord | ImageGalleryRecord | TextRecord | TwoColumnImageRecord | VideoRecord;
 
 /** Block of type Model (product_model) */
-type ProductModelRecord = RecordInterface & {
+export type ProductModelRecord = RecordInterface & {
   __typename?: 'ProductModelRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -4339,11 +4335,11 @@ type ProductModelRecord = RecordInterface & {
 
 
 /** Block of type Model (product_model) */
-type ProductModelRecord_seoMetaTagsArgs = {
+export type ProductModelRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductMountingModelFilter = {
+export type ProductMountingModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductMountingModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4359,35 +4355,35 @@ type ProductMountingModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductMountingModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductMountingModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product mounting (product_mounting) */
-type ProductMountingRecord = RecordInterface & {
+export type ProductMountingRecord = RecordInterface & {
   __typename?: 'ProductMountingRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -4409,26 +4405,26 @@ type ProductMountingRecord = RecordInterface & {
 
 
 /** Record of type Product mounting (product_mounting) */
-type ProductMountingRecord_allNameLocalesArgs = {
+export type ProductMountingRecord_AllNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product mounting (product_mounting) */
-type ProductMountingRecord_seoMetaTagsArgs = {
+export type ProductMountingRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product mounting (product_mounting) */
-type ProductMountingRecordnameArgs = {
+export type ProductMountingRecordNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Record of type Product (product) */
-type ProductRecord = RecordInterface & {
+export type ProductRecord = RecordInterface & {
   __typename?: 'ProductRecord';
   _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
   _allPdfFileLocales?: Maybe<Array<FileFieldMultiLocaleField>>;
@@ -4473,53 +4469,53 @@ type ProductRecord = RecordInterface & {
 
 
 /** Record of type Product (product) */
-type ProductRecord_allDescriptionLocalesArgs = {
+export type ProductRecord_AllDescriptionLocalesArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Product (product) */
-type ProductRecord_allPdfFileLocalesArgs = {
+export type ProductRecord_AllPdfFileLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product (product) */
-type ProductRecord_allPresentationLocalesArgs = {
+export type ProductRecord_AllPresentationLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product (product) */
-type ProductRecord_seoMetaTagsArgs = {
+export type ProductRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product (product) */
-type ProductRecorddescriptionArgs = {
+export type ProductRecordDescriptionArgs = {
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Product (product) */
-type ProductRecordpdfFileArgs = {
+export type ProductRecordPdfFileArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Product (product) */
-type ProductRecordpresentationArgs = {
+export type ProductRecordPresentationArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProductSocketModelFilter = {
+export type ProductSocketModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProductSocketModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4535,35 +4531,35 @@ type ProductSocketModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProductSocketModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProductSocketModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Product socket (product_socket) */
-type ProductSocketRecord = RecordInterface & {
+export type ProductSocketRecord = RecordInterface & {
   __typename?: 'ProductSocketRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -4584,12 +4580,12 @@ type ProductSocketRecord = RecordInterface & {
 
 
 /** Record of type Product socket (product_socket) */
-type ProductSocketRecord_seoMetaTagsArgs = {
+export type ProductSocketRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Record of type Product start (product_start) */
-type ProductStartRecord = RecordInterface & {
+export type ProductStartRecord = RecordInterface & {
   __typename?: 'ProductStartRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -4610,11 +4606,11 @@ type ProductStartRecord = RecordInterface & {
 
 
 /** Record of type Product start (product_start) */
-type ProductStartRecord_seoMetaTagsArgs = {
+export type ProductStartRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ProjectModelFilter = {
+export type ProjectModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProjectModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4636,39 +4632,39 @@ type ProjectModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-type ProjectModelGalleryField = FullwidthImageRecord | ImageGalleryRecord | TextRecord | TwoColumnImageRecord | VideoRecord;
+export type ProjectModelGalleryField = FullwidthImageRecord | ImageGalleryRecord | TextRecord | TwoColumnImageRecord | VideoRecord;
 
-enum ProjectModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  location_ASC = 'location_ASC',
-  location_DESC = 'location_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProjectModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LocationAsc = 'location_ASC',
+  LocationDesc = 'location_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Project (project) */
-type ProjectRecord = RecordInterface & {
+export type ProjectRecord = RecordInterface & {
   __typename?: 'ProjectRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -4696,12 +4692,12 @@ type ProjectRecord = RecordInterface & {
 
 
 /** Record of type Project (project) */
-type ProjectRecord_seoMetaTagsArgs = {
+export type ProjectRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Record of type Project start (project_start) */
-type ProjectStartRecord = RecordInterface & {
+export type ProjectStartRecord = RecordInterface & {
   __typename?: 'ProjectStartRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -4723,17 +4719,17 @@ type ProjectStartRecord = RecordInterface & {
 
 
 /** Record of type Project start (project_start) */
-type ProjectStartRecord_seoMetaTagsArgs = {
+export type ProjectStartRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Project start (project_start) */
-type ProjectStartRecordintroArgs = {
+export type ProjectStartRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type ProjectTypeModelFilter = {
+export type ProjectTypeModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProjectTypeModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4750,37 +4746,37 @@ type ProjectTypeModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ProjectTypeModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  titlePlural_ASC = 'titlePlural_ASC',
-  titlePlural_DESC = 'titlePlural_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ProjectTypeModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  TitlePluralAsc = 'titlePlural_ASC',
+  TitlePluralDesc = 'titlePlural_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Project type (project_type) */
-type ProjectTypeRecord = RecordInterface & {
+export type ProjectTypeRecord = RecordInterface & {
   __typename?: 'ProjectTypeRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -4802,12 +4798,12 @@ type ProjectTypeRecord = RecordInterface & {
 
 
 /** Record of type Project type (project_type) */
-type ProjectTypeRecord_seoMetaTagsArgs = {
+export type ProjectTypeRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter by publication datetime */
-type PublishedAtFilter = {
+export type PublishedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
   eq?: InputMaybe<Scalars['DateTime']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
@@ -4825,7 +4821,7 @@ type PublishedAtFilter = {
 };
 
 /** The query root for this schema */
-type Query = {
+export type Query = {
   __typename?: 'Query';
   /** Returns meta information regarding a record collection */
   _allCataloguesMeta: CollectionMetadata;
@@ -5049,7 +5045,7 @@ type Query = {
 
 
 /** The query root for this schema */
-type Query_allCataloguesMetaArgs = {
+export type Query_AllCataloguesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CatalogueModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5057,7 +5053,7 @@ type Query_allCataloguesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allColorMaterialTypesMetaArgs = {
+export type Query_AllColorMaterialTypesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ColorMaterialTypeModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5065,7 +5061,7 @@ type Query_allColorMaterialTypesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allColorMaterialsMetaArgs = {
+export type Query_AllColorMaterialsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ColorMaterialModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5073,7 +5069,7 @@ type Query_allColorMaterialsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allCountriesMetaArgs = {
+export type Query_AllCountriesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CountryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5081,7 +5077,7 @@ type Query_allCountriesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allDesignersMetaArgs = {
+export type Query_AllDesignersMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DesignerModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5089,7 +5085,7 @@ type Query_allDesignersMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allDistributorsMetaArgs = {
+export type Query_AllDistributorsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DistributorModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5097,7 +5093,7 @@ type Query_allDistributorsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allFaqCategoriesMetaArgs = {
+export type Query_AllFaqCategoriesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<FaqCategoryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5105,7 +5101,7 @@ type Query_allFaqCategoriesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allFaqsMetaArgs = {
+export type Query_AllFaqsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<FaqModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5113,7 +5109,7 @@ type Query_allFaqsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allJobsMetaArgs = {
+export type Query_AllJobsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<JobModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5121,7 +5117,7 @@ type Query_allJobsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allNewsMetaArgs = {
+export type Query_AllNewsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<NewsModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5129,7 +5125,7 @@ type Query_allNewsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allPressesMetaArgs = {
+export type Query_AllPressesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<PressModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5137,7 +5133,7 @@ type Query_allPressesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductAccessoriesMetaArgs = {
+export type Query_AllProductAccessoriesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductAccessoryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5145,7 +5141,7 @@ type Query_allProductAccessoriesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductCategoriesMetaArgs = {
+export type Query_AllProductCategoriesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductCategoryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5153,7 +5149,7 @@ type Query_allProductCategoriesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductColorsMetaArgs = {
+export type Query_AllProductColorsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductColorModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5161,7 +5157,7 @@ type Query_allProductColorsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductConnectionsMetaArgs = {
+export type Query_AllProductConnectionsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductConnectionModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5169,7 +5165,7 @@ type Query_allProductConnectionsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductDimmablesMetaArgs = {
+export type Query_AllProductDimmablesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductDimmableModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5177,7 +5173,7 @@ type Query_allProductDimmablesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductElectricalsMetaArgs = {
+export type Query_AllProductElectricalsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductElectricalModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5185,7 +5181,7 @@ type Query_allProductElectricalsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductFamiliesMetaArgs = {
+export type Query_AllProductFamiliesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductFamilyModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5193,7 +5189,7 @@ type Query_allProductFamiliesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductFeaturesMetaArgs = {
+export type Query_AllProductFeaturesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductFeatureModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5201,7 +5197,7 @@ type Query_allProductFeaturesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductLightsourcesMetaArgs = {
+export type Query_AllProductLightsourcesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductLightsourceModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5209,7 +5205,7 @@ type Query_allProductLightsourcesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductMaterialsMetaArgs = {
+export type Query_AllProductMaterialsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductMaterialModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5217,7 +5213,7 @@ type Query_allProductMaterialsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductModelNamesMetaArgs = {
+export type Query_AllProductModelNamesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelNameModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5225,7 +5221,7 @@ type Query_allProductModelNamesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductMountingsMetaArgs = {
+export type Query_AllProductMountingsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductMountingModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5233,7 +5229,7 @@ type Query_allProductMountingsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductSocketsMetaArgs = {
+export type Query_AllProductSocketsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductSocketModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5241,7 +5237,7 @@ type Query_allProductSocketsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProductsMetaArgs = {
+export type Query_AllProductsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5249,7 +5245,7 @@ type Query_allProductsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProjectTypesMetaArgs = {
+export type Query_AllProjectTypesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProjectTypeModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5257,7 +5253,7 @@ type Query_allProjectTypesMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allProjectsMetaArgs = {
+export type Query_AllProjectsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProjectModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5265,7 +5261,7 @@ type Query_allProjectsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allResellersMetaArgs = {
+export type Query_AllResellersMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ResellerModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5273,7 +5269,7 @@ type Query_allResellersMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allShowroomsMetaArgs = {
+export type Query_AllShowroomsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ShowroomModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5281,7 +5277,7 @@ type Query_allShowroomsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allStaffsMetaArgs = {
+export type Query_AllStaffsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<StaffModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5289,7 +5285,7 @@ type Query_allStaffsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allTranslationsMetaArgs = {
+export type Query_AllTranslationsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<TranslationModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5297,28 +5293,28 @@ type Query_allTranslationsMetaArgs = {
 
 
 /** The query root for this schema */
-type Query_allUploadsMetaArgs = {
+export type Query_AllUploadsMetaArgs = {
   filter?: InputMaybe<UploadFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type Query_siteArgs = {
+export type Query_SiteArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QueryaboutArgs = {
+export type QueryAboutArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QueryallCataloguesArgs = {
+export type QueryAllCataloguesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CatalogueModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5329,7 +5325,7 @@ type QueryallCataloguesArgs = {
 
 
 /** The query root for this schema */
-type QueryallColorMaterialTypesArgs = {
+export type QueryAllColorMaterialTypesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ColorMaterialTypeModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5340,7 +5336,7 @@ type QueryallColorMaterialTypesArgs = {
 
 
 /** The query root for this schema */
-type QueryallColorMaterialsArgs = {
+export type QueryAllColorMaterialsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ColorMaterialModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5351,7 +5347,7 @@ type QueryallColorMaterialsArgs = {
 
 
 /** The query root for this schema */
-type QueryallCountriesArgs = {
+export type QueryAllCountriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CountryModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5362,7 +5358,7 @@ type QueryallCountriesArgs = {
 
 
 /** The query root for this schema */
-type QueryallDesignersArgs = {
+export type QueryAllDesignersArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DesignerModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5373,7 +5369,7 @@ type QueryallDesignersArgs = {
 
 
 /** The query root for this schema */
-type QueryallDistributorsArgs = {
+export type QueryAllDistributorsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DistributorModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5384,7 +5380,7 @@ type QueryallDistributorsArgs = {
 
 
 /** The query root for this schema */
-type QueryallFaqCategoriesArgs = {
+export type QueryAllFaqCategoriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<FaqCategoryModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5395,7 +5391,7 @@ type QueryallFaqCategoriesArgs = {
 
 
 /** The query root for this schema */
-type QueryallFaqsArgs = {
+export type QueryAllFaqsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<FaqModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5406,7 +5402,7 @@ type QueryallFaqsArgs = {
 
 
 /** The query root for this schema */
-type QueryallJobsArgs = {
+export type QueryAllJobsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<JobModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5417,7 +5413,7 @@ type QueryallJobsArgs = {
 
 
 /** The query root for this schema */
-type QueryallNewsArgs = {
+export type QueryAllNewsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<NewsModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5428,7 +5424,7 @@ type QueryallNewsArgs = {
 
 
 /** The query root for this schema */
-type QueryallPressesArgs = {
+export type QueryAllPressesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<PressModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5439,7 +5435,7 @@ type QueryallPressesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductAccessoriesArgs = {
+export type QueryAllProductAccessoriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductAccessoryModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5450,7 +5446,7 @@ type QueryallProductAccessoriesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductCategoriesArgs = {
+export type QueryAllProductCategoriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductCategoryModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5461,7 +5457,7 @@ type QueryallProductCategoriesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductColorsArgs = {
+export type QueryAllProductColorsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductColorModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5472,7 +5468,7 @@ type QueryallProductColorsArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductConnectionsArgs = {
+export type QueryAllProductConnectionsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductConnectionModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5483,7 +5479,7 @@ type QueryallProductConnectionsArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductDimmablesArgs = {
+export type QueryAllProductDimmablesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductDimmableModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5494,7 +5490,7 @@ type QueryallProductDimmablesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductElectricalsArgs = {
+export type QueryAllProductElectricalsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductElectricalModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5505,7 +5501,7 @@ type QueryallProductElectricalsArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductFamiliesArgs = {
+export type QueryAllProductFamiliesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductFamilyModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5516,7 +5512,7 @@ type QueryallProductFamiliesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductFeaturesArgs = {
+export type QueryAllProductFeaturesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductFeatureModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5527,7 +5523,7 @@ type QueryallProductFeaturesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductLightsourcesArgs = {
+export type QueryAllProductLightsourcesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductLightsourceModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5538,7 +5534,7 @@ type QueryallProductLightsourcesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductMaterialsArgs = {
+export type QueryAllProductMaterialsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductMaterialModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5549,7 +5545,7 @@ type QueryallProductMaterialsArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductModelNamesArgs = {
+export type QueryAllProductModelNamesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelNameModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5560,7 +5556,7 @@ type QueryallProductModelNamesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductMountingsArgs = {
+export type QueryAllProductMountingsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductMountingModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5571,7 +5567,7 @@ type QueryallProductMountingsArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductSocketsArgs = {
+export type QueryAllProductSocketsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductSocketModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5582,7 +5578,7 @@ type QueryallProductSocketsArgs = {
 
 
 /** The query root for this schema */
-type QueryallProductsArgs = {
+export type QueryAllProductsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5593,7 +5589,7 @@ type QueryallProductsArgs = {
 
 
 /** The query root for this schema */
-type QueryallProjectTypesArgs = {
+export type QueryAllProjectTypesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProjectTypeModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5604,7 +5600,7 @@ type QueryallProjectTypesArgs = {
 
 
 /** The query root for this schema */
-type QueryallProjectsArgs = {
+export type QueryAllProjectsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProjectModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5615,7 +5611,7 @@ type QueryallProjectsArgs = {
 
 
 /** The query root for this schema */
-type QueryallResellersArgs = {
+export type QueryAllResellersArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ResellerModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5626,7 +5622,7 @@ type QueryallResellersArgs = {
 
 
 /** The query root for this schema */
-type QueryallShowroomsArgs = {
+export type QueryAllShowroomsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ShowroomModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5637,7 +5633,7 @@ type QueryallShowroomsArgs = {
 
 
 /** The query root for this schema */
-type QueryallStaffsArgs = {
+export type QueryAllStaffsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<StaffModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5648,7 +5644,7 @@ type QueryallStaffsArgs = {
 
 
 /** The query root for this schema */
-type QueryallTranslationsArgs = {
+export type QueryAllTranslationsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<TranslationModelFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5659,7 +5655,7 @@ type QueryallTranslationsArgs = {
 
 
 /** The query root for this schema */
-type QueryallUploadsArgs = {
+export type QueryAllUploadsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<UploadFilter>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -5670,14 +5666,14 @@ type QueryallUploadsArgs = {
 
 
 /** The query root for this schema */
-type QuerybespokeArgs = {
+export type QueryBespokeArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QuerycatalogueArgs = {
+export type QueryCatalogueArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CatalogueModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5686,7 +5682,7 @@ type QuerycatalogueArgs = {
 
 
 /** The query root for this schema */
-type QuerycolorMaterialArgs = {
+export type QueryColorMaterialArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ColorMaterialModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5695,14 +5691,14 @@ type QuerycolorMaterialArgs = {
 
 
 /** The query root for this schema */
-type QuerycolorMaterialIntroArgs = {
+export type QueryColorMaterialIntroArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QuerycolorMaterialTypeArgs = {
+export type QueryColorMaterialTypeArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ColorMaterialTypeModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5711,14 +5707,14 @@ type QuerycolorMaterialTypeArgs = {
 
 
 /** The query root for this schema */
-type QuerycontactArgs = {
+export type QueryContactArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QuerycountryArgs = {
+export type QueryCountryArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CountryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5727,7 +5723,7 @@ type QuerycountryArgs = {
 
 
 /** The query root for this schema */
-type QuerydesignerArgs = {
+export type QueryDesignerArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DesignerModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5736,7 +5732,7 @@ type QuerydesignerArgs = {
 
 
 /** The query root for this schema */
-type QuerydistributorArgs = {
+export type QueryDistributorArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DistributorModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5745,21 +5741,21 @@ type QuerydistributorArgs = {
 
 
 /** The query root for this schema */
-type QuerydownloadArgs = {
+export type QueryDownloadArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QueryfactoryVisitArgs = {
+export type QueryFactoryVisitArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QueryfaqArgs = {
+export type QueryFaqArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<FaqModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5768,7 +5764,7 @@ type QueryfaqArgs = {
 
 
 /** The query root for this schema */
-type QueryfaqCategoryArgs = {
+export type QueryFaqCategoryArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<FaqCategoryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5777,14 +5773,14 @@ type QueryfaqCategoryArgs = {
 
 
 /** The query root for this schema */
-type QueryfaqStartArgs = {
+export type QueryFaqStartArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QueryjobArgs = {
+export type QueryJobArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<JobModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5793,14 +5789,14 @@ type QueryjobArgs = {
 
 
 /** The query root for this schema */
-type QuerymanualArgs = {
+export type QueryManualArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QuerynewsArgs = {
+export type QueryNewsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<NewsModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5809,7 +5805,7 @@ type QuerynewsArgs = {
 
 
 /** The query root for this schema */
-type QuerypressArgs = {
+export type QueryPressArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<PressModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5818,7 +5814,7 @@ type QuerypressArgs = {
 
 
 /** The query root for this schema */
-type QueryproductArgs = {
+export type QueryProductArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5827,7 +5823,7 @@ type QueryproductArgs = {
 
 
 /** The query root for this schema */
-type QueryproductAccessoryArgs = {
+export type QueryProductAccessoryArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductAccessoryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5836,7 +5832,7 @@ type QueryproductAccessoryArgs = {
 
 
 /** The query root for this schema */
-type QueryproductCategoryArgs = {
+export type QueryProductCategoryArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductCategoryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5845,7 +5841,7 @@ type QueryproductCategoryArgs = {
 
 
 /** The query root for this schema */
-type QueryproductColorArgs = {
+export type QueryProductColorArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductColorModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5854,7 +5850,7 @@ type QueryproductColorArgs = {
 
 
 /** The query root for this schema */
-type QueryproductConnectionArgs = {
+export type QueryProductConnectionArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductConnectionModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5863,7 +5859,7 @@ type QueryproductConnectionArgs = {
 
 
 /** The query root for this schema */
-type QueryproductDimmableArgs = {
+export type QueryProductDimmableArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductDimmableModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5872,7 +5868,7 @@ type QueryproductDimmableArgs = {
 
 
 /** The query root for this schema */
-type QueryproductElectricalArgs = {
+export type QueryProductElectricalArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductElectricalModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5881,7 +5877,7 @@ type QueryproductElectricalArgs = {
 
 
 /** The query root for this schema */
-type QueryproductFamilyArgs = {
+export type QueryProductFamilyArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductFamilyModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5890,7 +5886,7 @@ type QueryproductFamilyArgs = {
 
 
 /** The query root for this schema */
-type QueryproductFeatureArgs = {
+export type QueryProductFeatureArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductFeatureModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5899,7 +5895,7 @@ type QueryproductFeatureArgs = {
 
 
 /** The query root for this schema */
-type QueryproductLightsourceArgs = {
+export type QueryProductLightsourceArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductLightsourceModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5908,7 +5904,7 @@ type QueryproductLightsourceArgs = {
 
 
 /** The query root for this schema */
-type QueryproductMaterialArgs = {
+export type QueryProductMaterialArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductMaterialModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5917,7 +5913,7 @@ type QueryproductMaterialArgs = {
 
 
 /** The query root for this schema */
-type QueryproductModelNameArgs = {
+export type QueryProductModelNameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelNameModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5926,7 +5922,7 @@ type QueryproductModelNameArgs = {
 
 
 /** The query root for this schema */
-type QueryproductMountingArgs = {
+export type QueryProductMountingArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductMountingModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5935,7 +5931,7 @@ type QueryproductMountingArgs = {
 
 
 /** The query root for this schema */
-type QueryproductSocketArgs = {
+export type QueryProductSocketArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductSocketModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5944,14 +5940,14 @@ type QueryproductSocketArgs = {
 
 
 /** The query root for this schema */
-type QueryproductStartArgs = {
+export type QueryProductStartArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QueryprojectArgs = {
+export type QueryProjectArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProjectModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5960,14 +5956,14 @@ type QueryprojectArgs = {
 
 
 /** The query root for this schema */
-type QueryprojectStartArgs = {
+export type QueryProjectStartArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QueryprojectTypeArgs = {
+export type QueryProjectTypeArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProjectTypeModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5976,7 +5972,7 @@ type QueryprojectTypeArgs = {
 
 
 /** The query root for this schema */
-type QueryresellerArgs = {
+export type QueryResellerArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ResellerModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5985,7 +5981,7 @@ type QueryresellerArgs = {
 
 
 /** The query root for this schema */
-type QueryshowroomArgs = {
+export type QueryShowroomArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ShowroomModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -5994,7 +5990,7 @@ type QueryshowroomArgs = {
 
 
 /** The query root for this schema */
-type QuerystaffArgs = {
+export type QueryStaffArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<StaffModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -6003,21 +5999,21 @@ type QuerystaffArgs = {
 
 
 /** The query root for this schema */
-type QuerystartArgs = {
+export type QueryStartArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QuerysustainabilityArgs = {
+export type QuerySustainabilityArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** The query root for this schema */
-type QuerytranslationArgs = {
+export type QueryTranslationArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<TranslationModelFilter>;
   locale?: InputMaybe<SiteLocale>;
@@ -6026,14 +6022,14 @@ type QuerytranslationArgs = {
 
 
 /** The query root for this schema */
-type QueryuploadArgs = {
+export type QueryUploadArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<UploadFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
 };
 
-type RecordInterface = {
+export type RecordInterface = {
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
@@ -6049,11 +6045,11 @@ type RecordInterface = {
 };
 
 
-type RecordInterface_seoMetaTagsArgs = {
+export type RecordInterface_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type ResellerModelFilter = {
+export type ResellerModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ResellerModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6074,41 +6070,41 @@ type ResellerModelFilter = {
   url?: InputMaybe<StringFilter>;
 };
 
-enum ResellerModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  city_ASC = 'city_ASC',
-  city_DESC = 'city_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  postalCode_ASC = 'postalCode_ASC',
-  postalCode_DESC = 'postalCode_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC',
-  url_ASC = 'url_ASC',
-  url_DESC = 'url_DESC'
+export enum ResellerModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CityAsc = 'city_ASC',
+  CityDesc = 'city_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PostalCodeAsc = 'postalCode_ASC',
+  PostalCodeDesc = 'postalCode_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC',
+  UrlAsc = 'url_ASC',
+  UrlDesc = 'url_DESC'
 }
 
 /** Record of type Reseller (reseller) */
-type ResellerRecord = RecordInterface & {
+export type ResellerRecord = RecordInterface & {
   __typename?: 'ResellerRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -6134,18 +6130,18 @@ type ResellerRecord = RecordInterface & {
 
 
 /** Record of type Reseller (reseller) */
-type ResellerRecord_seoMetaTagsArgs = {
+export type ResellerRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Reseller (reseller) */
-type ResellerRecordaddressArgs = {
+export type ResellerRecordAddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Specifies how to filter by upload type */
-type ResolutionFilter = {
+export type ResolutionFilter = {
   /** Search uploads with the specified resolution */
   eq?: InputMaybe<ResolutionType>;
   /** Search uploads with the specified resolutions */
@@ -6156,14 +6152,14 @@ type ResolutionFilter = {
   notIn?: InputMaybe<Array<InputMaybe<ResolutionType>>>;
 };
 
-enum ResolutionType {
-  icon = 'icon',
-  large = 'large',
-  medium = 'medium',
-  small = 'small'
+export enum ResolutionType {
+  Icon = 'icon',
+  Large = 'large',
+  Medium = 'medium',
+  Small = 'small'
 }
 
-type ResponsiveImage = {
+export type ResponsiveImage = {
   __typename?: 'ResponsiveImage';
   alt?: Maybe<Scalars['String']>;
   aspectRatio: Scalars['FloatType'];
@@ -6178,7 +6174,7 @@ type ResponsiveImage = {
   width: Scalars['IntType'];
 };
 
-type SeoField = {
+export type SeoField = {
   __typename?: 'SeoField';
   description?: Maybe<Scalars['String']>;
   image?: Maybe<FileField>;
@@ -6186,7 +6182,7 @@ type SeoField = {
   twitterCard?: Maybe<Scalars['String']>;
 };
 
-type ShowroomModelFilter = {
+export type ShowroomModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<ShowroomModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6205,35 +6201,35 @@ type ShowroomModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum ShowroomModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  city_ASC = 'city_ASC',
-  city_DESC = 'city_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum ShowroomModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CityAsc = 'city_ASC',
+  CityDesc = 'city_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Showroom (showroom) */
-type ShowroomRecord = RecordInterface & {
+export type ShowroomRecord = RecordInterface & {
   __typename?: 'ShowroomRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -6257,23 +6253,23 @@ type ShowroomRecord = RecordInterface & {
 
 
 /** Record of type Showroom (showroom) */
-type ShowroomRecord_seoMetaTagsArgs = {
+export type ShowroomRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Showroom (showroom) */
-type ShowroomRecordadditionalArgs = {
+export type ShowroomRecordAdditionalArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
 /** Record of type Showroom (showroom) */
-type ShowroomRecordaddressArgs = {
+export type ShowroomRecordAddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type Site = {
+export type Site = {
   __typename?: 'Site';
   favicon?: Maybe<FileField>;
   faviconMetaTags: Array<Tag>;
@@ -6282,24 +6278,24 @@ type Site = {
 };
 
 
-type SitefaviconMetaTagsArgs = {
+export type SiteFaviconMetaTagsArgs = {
   variants?: InputMaybe<Array<InputMaybe<FaviconType>>>;
 };
 
 
-type SiteglobalSeoArgs = {
+export type SiteGlobalSeoArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
-enum SiteLocale {
-  en = 'en',
-  no = 'no',
-  sv = 'sv'
+export enum SiteLocale {
+  En = 'en',
+  No = 'no',
+  Sv = 'sv'
 }
 
 /** Specifies how to filter Slug fields */
-type SlugFilter = {
+export type SlugFilter = {
   /** Search for records with an exact match */
   eq?: InputMaybe<Scalars['String']>;
   /** Filter records that have one of the specified slugs */
@@ -6310,7 +6306,7 @@ type SlugFilter = {
   notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-type StaffModelFilter = {
+export type StaffModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<StaffModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6331,43 +6327,43 @@ type StaffModelFilter = {
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
-enum StaffModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  email_ASC = 'email_ASC',
-  email_DESC = 'email_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  phone_ASC = 'phone_ASC',
-  phone_DESC = 'phone_DESC',
-  position_ASC = 'position_ASC',
-  position_DESC = 'position_DESC',
-  role_ASC = 'role_ASC',
-  role_DESC = 'role_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+export enum StaffModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  EmailAsc = 'email_ASC',
+  EmailDesc = 'email_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PhoneAsc = 'phone_ASC',
+  PhoneDesc = 'phone_DESC',
+  PositionAsc = 'position_ASC',
+  PositionDesc = 'position_DESC',
+  RoleAsc = 'role_ASC',
+  RoleDesc = 'role_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 /** Record of type Staff (staff) */
-type StaffRecord = RecordInterface & {
+export type StaffRecord = RecordInterface & {
   __typename?: 'StaffRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -6393,14 +6389,14 @@ type StaffRecord = RecordInterface & {
 
 
 /** Record of type Staff (staff) */
-type StaffRecord_seoMetaTagsArgs = {
+export type StaffRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type StartModelContentField = FeaturedStartRecord | FullscreenMediaBlockRecord | FullscreenVideoRecord | ImageLinkRecord | NewsItemRecord;
+export type StartModelContentField = FeaturedStartRecord | FullscreenMediaBlockRecord | FullscreenVideoRecord | ImageLinkRecord | NewsItemRecord;
 
 /** Record of type Start (start) */
-type StartRecord = RecordInterface & {
+export type StartRecord = RecordInterface & {
   __typename?: 'StartRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -6421,12 +6417,12 @@ type StartRecord = RecordInterface & {
 
 
 /** Record of type Start (start) */
-type StartRecord_seoMetaTagsArgs = {
+export type StartRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter by status */
-type StatusFilter = {
+export type StatusFilter = {
   /** Search the record with the specified status */
   eq?: InputMaybe<ItemStatus>;
   /** Search records with the specified statuses */
@@ -6438,7 +6434,7 @@ type StatusFilter = {
 };
 
 /** Specifies how to filter Single-line string fields */
-type StringFilter = {
+export type StringFilter = {
   /** Search for records with an exact match */
   eq?: InputMaybe<Scalars['String']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
@@ -6457,20 +6453,20 @@ type StringFilter = {
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
-type StringMatchesFilter = {
+export type StringMatchesFilter = {
   caseSensitive?: InputMaybe<Scalars['BooleanType']>;
   pattern: Scalars['String'];
   regexp?: InputMaybe<Scalars['BooleanType']>;
 };
 
-type StringMultiLocaleField = {
+export type StringMultiLocaleField = {
   __typename?: 'StringMultiLocaleField';
   locale?: Maybe<SiteLocale>;
   value?: Maybe<Scalars['String']>;
 };
 
 /** Record of type Sustainability (sustainability) */
-type SustainabilityRecord = RecordInterface & {
+export type SustainabilityRecord = RecordInterface & {
   __typename?: 'SustainabilityRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -6494,18 +6490,18 @@ type SustainabilityRecord = RecordInterface & {
 
 
 /** Record of type Sustainability (sustainability) */
-type SustainabilityRecord_seoMetaTagsArgs = {
+export type SustainabilityRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Sustainability (sustainability) */
-type SustainabilityRecordintroArgs = {
+export type SustainabilityRecordIntroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Block of type Sustainability step (sustainability_step) */
-type SustainabilityStepRecord = RecordInterface & {
+export type SustainabilityStepRecord = RecordInterface & {
   __typename?: 'SustainabilityStepRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -6529,17 +6525,17 @@ type SustainabilityStepRecord = RecordInterface & {
 
 
 /** Block of type Sustainability step (sustainability_step) */
-type SustainabilityStepRecord_seoMetaTagsArgs = {
+export type SustainabilityStepRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Block of type Sustainability step (sustainability_step) */
-type SustainabilityStepRecordtextArgs = {
+export type SustainabilityStepRecordTextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-type Tag = {
+export type Tag = {
   __typename?: 'Tag';
   attributes?: Maybe<Scalars['MetaTagAttributes']>;
   content?: Maybe<Scalars['String']>;
@@ -6547,7 +6543,7 @@ type Tag = {
 };
 
 /** Specifies how to filter text fields */
-type TextFilter = {
+export type TextFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not */
   exists?: InputMaybe<Scalars['BooleanType']>;
   /** Filter records with the specified field set as blank (null or empty string) */
@@ -6558,17 +6554,17 @@ type TextFilter = {
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
-type TextModelTextField = {
+export type TextModelTextField = {
   __typename?: 'TextModelTextField';
   blocks: Array<Scalars['String']>;
   links: Array<TextModelTextLinksField>;
   value: Scalars['JsonField'];
 };
 
-type TextModelTextLinksField = DesignerRecord | ProductRecord | ProjectRecord;
+export type TextModelTextLinksField = DesignerRecord | ProductRecord | ProjectRecord;
 
 /** Block of type Text (text) */
-type TextRecord = RecordInterface & {
+export type TextRecord = RecordInterface & {
   __typename?: 'TextRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -6589,11 +6585,11 @@ type TextRecord = RecordInterface & {
 
 
 /** Block of type Text (text) */
-type TextRecord_seoMetaTagsArgs = {
+export type TextRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type TranslationModelFilter = {
+export type TranslationModelFilter = {
   OR?: InputMaybe<Array<InputMaybe<TranslationModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6611,39 +6607,39 @@ type TranslationModelFilter = {
   value?: InputMaybe<StringFilter>;
 };
 
-enum TranslationModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  key_ASC = 'key_ASC',
-  key_DESC = 'key_DESC',
-  page_ASC = 'page_ASC',
-  page_DESC = 'page_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC',
-  value_ASC = 'value_ASC',
-  value_DESC = 'value_DESC'
+export enum TranslationModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  KeyAsc = 'key_ASC',
+  KeyDesc = 'key_DESC',
+  PageAsc = 'page_ASC',
+  PageDesc = 'page_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC',
+  ValueAsc = 'value_ASC',
+  ValueDesc = 'value_DESC'
 }
 
 /** Record of type Translation (translation) */
-type TranslationRecord = RecordInterface & {
+export type TranslationRecord = RecordInterface & {
   __typename?: 'TranslationRecord';
   _allValueLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
@@ -6667,26 +6663,26 @@ type TranslationRecord = RecordInterface & {
 
 
 /** Record of type Translation (translation) */
-type TranslationRecord_allValueLocalesArgs = {
+export type TranslationRecord_AllValueLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Translation (translation) */
-type TranslationRecord_seoMetaTagsArgs = {
+export type TranslationRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Translation (translation) */
-type TranslationRecordvalueArgs = {
+export type TranslationRecordValueArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Block of type Two column images (two_column_image) */
-type TwoColumnImageRecord = RecordInterface & {
+export type TwoColumnImageRecord = RecordInterface & {
   __typename?: 'TwoColumnImageRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -6710,12 +6706,12 @@ type TwoColumnImageRecord = RecordInterface & {
 
 
 /** Block of type Two column images (two_column_image) */
-type TwoColumnImageRecord_seoMetaTagsArgs = {
+export type TwoColumnImageRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter by upload type */
-type TypeFilter = {
+export type TypeFilter = {
   /** Search uploads with the specified type */
   eq?: InputMaybe<UploadType>;
   /** Search uploads with the specified types */
@@ -6727,7 +6723,7 @@ type TypeFilter = {
 };
 
 /** Specifies how to filter by update datetime */
-type UpdatedAtFilter = {
+export type UpdatedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
   eq?: InputMaybe<Scalars['DateTime']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
@@ -6745,7 +6741,7 @@ type UpdatedAtFilter = {
 };
 
 /** Specifies how to filter by default alt */
-type UploadAltFilter = {
+export type UploadAltFilter = {
   /** Search the uploads with the specified alt */
   eq?: InputMaybe<Scalars['String']>;
   /** Filter uploads with the specified field defined (i.e. with any value) or not */
@@ -6763,7 +6759,7 @@ type UploadAltFilter = {
 };
 
 /** Specifies how to filter by auhtor */
-type UploadAuthorFilter = {
+export type UploadAuthorFilter = {
   /** Filter uploads with the specified field defined (i.e. with any value) or not */
   exists?: InputMaybe<Scalars['BooleanType']>;
   /** Filter uploads based on a regular expression */
@@ -6773,7 +6769,7 @@ type UploadAuthorFilter = {
 };
 
 /** Specifies how to filter by basename */
-type UploadBasenameFilter = {
+export type UploadBasenameFilter = {
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
@@ -6781,7 +6777,7 @@ type UploadBasenameFilter = {
 };
 
 /** Specifies how to filter by colors */
-type UploadColorsFilter = {
+export type UploadColorsFilter = {
   /** Filter uploads that have all of the specified colors */
   allIn?: InputMaybe<Array<InputMaybe<ColorBucketType>>>;
   /** Filter uploads that have at least one of the specified colors */
@@ -6795,7 +6791,7 @@ type UploadColorsFilter = {
 };
 
 /** Specifies how to filter by copyright */
-type UploadCopyrightFilter = {
+export type UploadCopyrightFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not */
   exists?: InputMaybe<Scalars['BooleanType']>;
   /** Filter uploads based on a regular expression */
@@ -6805,7 +6801,7 @@ type UploadCopyrightFilter = {
 };
 
 /** Specifies how to filter by creation datetime */
-type UploadCreatedAtFilter = {
+export type UploadCreatedAtFilter = {
   /** Search for uploads with an exact match */
   eq?: InputMaybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's strictly greater than the one specified */
@@ -6821,14 +6817,14 @@ type UploadCreatedAtFilter = {
 };
 
 /** Specifies how to filter by filename */
-type UploadFilenameFilter = {
+export type UploadFilenameFilter = {
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
-type UploadFilter = {
+export type UploadFilter = {
   OR?: InputMaybe<Array<InputMaybe<UploadFilter>>>;
   _createdAt?: InputMaybe<UploadCreatedAtFilter>;
   _updatedAt?: InputMaybe<UploadUpdatedAtFilter>;
@@ -6856,7 +6852,7 @@ type UploadFilter = {
 };
 
 /** Specifies how to filter by format */
-type UploadFormatFilter = {
+export type UploadFormatFilter = {
   /** Search the asset with the specified format */
   eq?: InputMaybe<Scalars['String']>;
   /** Search assets with the specified formats */
@@ -6868,7 +6864,7 @@ type UploadFormatFilter = {
 };
 
 /** Specifies how to filter by height */
-type UploadHeightFilter = {
+export type UploadHeightFilter = {
   /** Search assets with the specified height */
   eq?: InputMaybe<Scalars['IntType']>;
   /** Search all assets larger than the specified height */
@@ -6884,7 +6880,7 @@ type UploadHeightFilter = {
 };
 
 /** Specifies how to filter by ID */
-type UploadIdFilter = {
+export type UploadIdFilter = {
   /** Search the asset with the specified ID */
   eq?: InputMaybe<Scalars['UploadId']>;
   /** Search assets with the specified IDs */
@@ -6896,7 +6892,7 @@ type UploadIdFilter = {
 };
 
 /** Specifies how to filter by MD5 */
-type UploadMd5Filter = {
+export type UploadMd5Filter = {
   /** Search the asset with the specified MD5 */
   eq?: InputMaybe<Scalars['String']>;
   /** Search assets with the specified MD5s */
@@ -6908,7 +6904,7 @@ type UploadMd5Filter = {
 };
 
 /** Specifies how to filter by mime type */
-type UploadMimeTypeFilter = {
+export type UploadMimeTypeFilter = {
   /** Search the asset with the specified mime type */
   eq?: InputMaybe<Scalars['String']>;
   /** Search assets with the specified mime types */
@@ -6924,7 +6920,7 @@ type UploadMimeTypeFilter = {
 };
 
 /** Specifies how to filter by notes */
-type UploadNotesFilter = {
+export type UploadNotesFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not */
   exists?: InputMaybe<Scalars['BooleanType']>;
   /** Filter uploads based on a regular expression */
@@ -6933,35 +6929,35 @@ type UploadNotesFilter = {
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
-enum UploadOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  basename_ASC = 'basename_ASC',
-  basename_DESC = 'basename_DESC',
-  filename_ASC = 'filename_ASC',
-  filename_DESC = 'filename_DESC',
-  format_ASC = 'format_ASC',
-  format_DESC = 'format_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  mimeType_ASC = 'mimeType_ASC',
-  mimeType_DESC = 'mimeType_DESC',
-  resolution_ASC = 'resolution_ASC',
-  resolution_DESC = 'resolution_DESC',
-  size_ASC = 'size_ASC',
-  size_DESC = 'size_DESC'
+export enum UploadOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  BasenameAsc = 'basename_ASC',
+  BasenameDesc = 'basename_DESC',
+  FilenameAsc = 'filename_ASC',
+  FilenameDesc = 'filename_DESC',
+  FormatAsc = 'format_ASC',
+  FormatDesc = 'format_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  MimeTypeAsc = 'mimeType_ASC',
+  MimeTypeDesc = 'mimeType_DESC',
+  ResolutionAsc = 'resolution_ASC',
+  ResolutionDesc = 'resolution_DESC',
+  SizeAsc = 'size_ASC',
+  SizeDesc = 'size_DESC'
 }
 
-enum UploadOrientation {
-  landscape = 'landscape',
-  portrait = 'portrait',
-  square = 'square'
+export enum UploadOrientation {
+  Landscape = 'landscape',
+  Portrait = 'portrait',
+  Square = 'square'
 }
 
 /** Specifies how to filter by size */
-type UploadSizeFilter = {
+export type UploadSizeFilter = {
   /** Search assets with the specified size (in bytes) */
   eq?: InputMaybe<Scalars['IntType']>;
   /** Search all assets larger than the specified size (in bytes) */
@@ -6977,7 +6973,7 @@ type UploadSizeFilter = {
 };
 
 /** Specifies how to filter by tags */
-type UploadTagsFilter = {
+export type UploadTagsFilter = {
   /** Filter uploads linked to all of the specified tags */
   allIn?: InputMaybe<Array<Scalars['String']>>;
   /** Filter uploads linked to at least one of the specified tags */
@@ -6991,7 +6987,7 @@ type UploadTagsFilter = {
 };
 
 /** Specifies how to filter by default title */
-type UploadTitleFilter = {
+export type UploadTitleFilter = {
   /** Search the asset with the specified title */
   eq?: InputMaybe<Scalars['String']>;
   /** Filter assets with the specified field defined (i.e. with any value) or not */
@@ -7008,19 +7004,19 @@ type UploadTitleFilter = {
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
-enum UploadType {
-  archive = 'archive',
-  audio = 'audio',
-  image = 'image',
-  pdfdocument = 'pdfdocument',
-  presentation = 'presentation',
-  richtext = 'richtext',
-  spreadsheet = 'spreadsheet',
-  video = 'video'
+export enum UploadType {
+  Archive = 'archive',
+  Audio = 'audio',
+  Image = 'image',
+  Pdfdocument = 'pdfdocument',
+  Presentation = 'presentation',
+  Richtext = 'richtext',
+  Spreadsheet = 'spreadsheet',
+  Video = 'video'
 }
 
 /** Specifies how to filter by update datetime */
-type UploadUpdatedAtFilter = {
+export type UploadUpdatedAtFilter = {
   /** Search for uploads with an exact match */
   eq?: InputMaybe<Scalars['DateTime']>;
   /** Filter uploads with a value that's strictly greater than the one specified */
@@ -7035,7 +7031,7 @@ type UploadUpdatedAtFilter = {
   neq?: InputMaybe<Scalars['DateTime']>;
 };
 
-type UploadVideoField = {
+export type UploadVideoField = {
   __typename?: 'UploadVideoField';
   duration?: Maybe<Scalars['Int']>;
   framerate?: Maybe<Scalars['Int']>;
@@ -7047,18 +7043,18 @@ type UploadVideoField = {
 };
 
 
-type UploadVideoFieldmp4UrlArgs = {
+export type UploadVideoFieldMp4UrlArgs = {
   exactRes?: InputMaybe<VideoMp4Res>;
   res?: InputMaybe<VideoMp4Res>;
 };
 
 
-type UploadVideoFieldthumbnailUrlArgs = {
+export type UploadVideoFieldThumbnailUrlArgs = {
   format?: InputMaybe<MuxThumbnailFormatType>;
 };
 
 /** Specifies how to filter by width */
-type UploadWidthFilter = {
+export type UploadWidthFilter = {
   /** Search assets with the specified width */
   eq?: InputMaybe<Scalars['IntType']>;
   /** Search all assets larger than the specified width */
@@ -7074,7 +7070,7 @@ type UploadWidthFilter = {
 };
 
 /** Block of type Variant (variant) */
-type VariantRecord = RecordInterface & {
+export type VariantRecord = RecordInterface & {
   __typename?: 'VariantRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -7101,18 +7097,18 @@ type VariantRecord = RecordInterface & {
 
 
 /** Block of type Variant (variant) */
-type VariantRecord_seoMetaTagsArgs = {
+export type VariantRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-enum VideoMp4Res {
-  high = 'high',
-  low = 'low',
-  medium = 'medium'
+export enum VideoMp4Res {
+  High = 'high',
+  Low = 'low',
+  Medium = 'medium'
 }
 
 /** Block of type Video (video) */
-type VideoRecord = RecordInterface & {
+export type VideoRecord = RecordInterface & {
   __typename?: 'VideoRecord';
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -7133,201 +7129,201 @@ type VideoRecord = RecordInterface & {
 
 
 /** Block of type Video (video) */
-type VideoRecord_seoMetaTagsArgs = {
+export type VideoRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type focalPoint = {
+export type FocalPoint = {
   __typename?: 'focalPoint';
   x: Scalars['FloatType'];
   y: Scalars['FloatType'];
 };
 
-type SustainabilityQueryVariables = Exact<{ [key: string]: never; }>;
+export type SustainabilityQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type SustainabilityQuery = { __typename?: 'Query', sustainability?: { __typename?: 'SustainabilityRecord', id: any, title?: string, intro?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, steps: Array<{ __typename?: 'SustainabilityStepRecord', title: string, text: string, fullWidthImage?: any, image: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> } };
+export type SustainabilityQuery = { __typename?: 'Query', sustainability?: { __typename?: 'SustainabilityRecord', id: any, title?: string | null, intro?: string | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, steps: Array<{ __typename?: 'SustainabilityStepRecord', title: string, text: string, fullWidthImage?: any | null, image: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } }> } | null };
 
-type AboutQueryVariables = Exact<{ [key: string]: never; }>;
+export type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AboutQuery = { __typename?: 'Query', about?: { __typename?: 'AboutRecord', id: any, intro?: string, title?: string, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, sections: Array<{ __typename?: 'AboutSectionRecord', id: any, text?: string, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> } };
+export type AboutQuery = { __typename?: 'Query', about?: { __typename?: 'AboutRecord', id: any, intro?: string | null, title?: string | null, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null, sections: Array<{ __typename?: 'AboutSectionRecord', id: any, text?: string | null, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null }> } | null };
 
-type NewsQueryVariables = Exact<{
+export type NewsQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
 
-type NewsQuery = { __typename?: 'Query', news?: { __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
+export type NewsQuery = { __typename?: 'Query', news?: { __typename: 'NewsRecord', id: any, link?: string | null, linkText?: string | null, text?: string | null, title?: string | null, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | null };
 
-type LastNewsQueryVariables = Exact<{ [key: string]: never; }>;
+export type LastNewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type LastNewsQuery = { __typename?: 'Query', lastNews: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
+export type LastNewsQuery = { __typename?: 'Query', lastNews: Array<{ __typename: 'NewsRecord', id: any, link?: string | null, linkText?: string | null, text?: string | null, title?: string | null, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
 
-type AllNewsQueryVariables = Exact<{
+export type AllNewsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllNewsQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+export type AllNewsQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', id: any, link?: string | null, linkText?: string | null, text?: string | null, title?: string | null, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
-type JobQueryVariables = Exact<{
+export type JobQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
 }>;
 
 
-type JobQuery = { __typename?: 'Query', job?: { __typename?: 'JobRecord', id: any, summary?: string, text?: string, title?: string } };
+export type JobQuery = { __typename?: 'Query', job?: { __typename?: 'JobRecord', id: any, summary?: string | null, text?: string | null, title?: string | null } | null };
 
-type AllJobsQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllJobsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllJobsQuery = { __typename?: 'Query', jobs: Array<{ __typename?: 'JobRecord', id: any, summary?: string, text?: string, title?: string }> };
+export type AllJobsQuery = { __typename?: 'Query', jobs: Array<{ __typename?: 'JobRecord', id: any, summary?: string | null, text?: string | null, title?: string | null }> };
 
-type PressQueryVariables = Exact<{
+export type PressQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
 }>;
 
 
-type PressQuery = { __typename?: 'Query', press?: { __typename?: 'PressRecord', id: any, title: string, url: string } };
+export type PressQuery = { __typename?: 'Query', press?: { __typename?: 'PressRecord', id: any, title: string, url: string } | null };
 
-type AllPressQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type AllPressQuery = { __typename?: 'Query', presses: Array<{ __typename?: 'PressRecord', id: any, title: string, url: string }> };
-
-type ShowroomQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllPressQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ShowroomQuery = { __typename?: 'Query', showroom?: { __typename?: 'ShowroomRecord', additional?: string, address?: string, city?: string, id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
+export type AllPressQuery = { __typename?: 'Query', presses: Array<{ __typename?: 'PressRecord', id: any, title: string, url: string }> };
 
-type AllShowroomsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type AllShowroomsQuery = { __typename?: 'Query', showrooms: Array<{ __typename?: 'ShowroomRecord', additional?: string, address?: string, city?: string, id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
-
-type DistributorQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
-  locale?: InputMaybe<SiteLocale>;
-}>;
+export type ShowroomQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type DistributorQuery = { __typename?: 'Query', distributor?: { __typename?: 'DistributorRecord', name?: string, address?: string, postalCode?: string, city?: string, contactName?: string, phone?: string, email?: string, url?: string, country?: { __typename?: 'CountryRecord', name?: string } } };
+export type ShowroomQuery = { __typename?: 'Query', showroom?: { __typename?: 'ShowroomRecord', additional?: string | null, address?: string | null, city?: string | null, id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | null };
 
-type AllDistributorsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
-  locale?: InputMaybe<SiteLocale>;
-}>;
+export type AllShowroomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllDistributorsQuery = { __typename?: 'Query', distributors: Array<{ __typename?: 'DistributorRecord', name?: string, address?: string, postalCode?: string, city?: string, contactName?: string, phone?: string, email?: string, url?: string, country?: { __typename?: 'CountryRecord', name?: string } }> };
+export type AllShowroomsQuery = { __typename?: 'Query', showrooms: Array<{ __typename?: 'ShowroomRecord', additional?: string | null, address?: string | null, city?: string | null, id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
 
-type ResellerQueryVariables = Exact<{
+export type DistributorQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type ResellerQuery = { __typename?: 'Query', reseller?: { __typename?: 'ResellerRecord', id: any, name?: string, address?: string, postalCode?: string, city?: string, url?: string, country?: { __typename?: 'CountryRecord', id: any, name?: string } } };
+export type DistributorQuery = { __typename?: 'Query', distributor?: { __typename?: 'DistributorRecord', name?: string | null, address?: string | null, postalCode?: string | null, city?: string | null, contactName?: string | null, phone?: string | null, email?: string | null, url?: string | null, country?: { __typename?: 'CountryRecord', name?: string | null } | null } | null };
 
-type AllResellersQueryVariables = Exact<{
+export type AllDistributorsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type AllResellersQuery = { __typename?: 'Query', resellers: Array<{ __typename?: 'ResellerRecord', id: any, name?: string, address?: string, postalCode?: string, city?: string, url?: string, country?: { __typename?: 'CountryRecord', id: any, name?: string } }> };
+export type AllDistributorsQuery = { __typename?: 'Query', distributors: Array<{ __typename?: 'DistributorRecord', name?: string | null, address?: string | null, postalCode?: string | null, city?: string | null, contactName?: string | null, phone?: string | null, email?: string | null, url?: string | null, country?: { __typename?: 'CountryRecord', name?: string | null } | null }> };
 
-type StaffQueryVariables = Exact<{
+export type ResellerQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type StaffQuery = { __typename?: 'Query', staff?: { __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
+export type ResellerQuery = { __typename?: 'Query', reseller?: { __typename?: 'ResellerRecord', id: any, name?: string | null, address?: string | null, postalCode?: string | null, city?: string | null, url?: string | null, country?: { __typename?: 'CountryRecord', id: any, name?: string | null } | null } | null };
 
-type AllStaffsQueryVariables = Exact<{
+export type AllResellersQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+}>;
+
+
+export type AllResellersQuery = { __typename?: 'Query', resellers: Array<{ __typename?: 'ResellerRecord', id: any, name?: string | null, address?: string | null, postalCode?: string | null, city?: string | null, url?: string | null, country?: { __typename?: 'CountryRecord', id: any, name?: string | null } | null }> };
+
+export type StaffQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type AllStaffsQuery = { __typename?: 'Query', staffs: Array<{ __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
+export type StaffQuery = { __typename?: 'Query', staff?: { __typename?: 'StaffRecord', id: any, name?: string | null, role?: string | null, phone?: string | null, email?: string | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | null };
 
-type ContactQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllStaffsQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ItemId']>;
+  locale?: InputMaybe<SiteLocale>;
+}>;
 
 
-type ContactQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactRecord', id: any, email?: string, intro?: string, phone?: string, showroomIntro?: string, title?: string, address?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
+export type AllStaffsQuery = { __typename?: 'Query', staffs: Array<{ __typename?: 'StaffRecord', id: any, name?: string | null, role?: string | null, phone?: string | null, email?: string | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
 
-type DesignerQueryVariables = Exact<{
+export type ContactQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ContactQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactRecord', id: any, email?: string | null, intro?: string | null, phone?: string | null, showroomIntro?: string | null, title?: string | null, address?: string | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | null };
+
+export type DesignerQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type DesignerQuery = { __typename?: 'Query', designer?: { __typename?: 'DesignerRecord', id: any, name: string, description?: string, slug: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
+export type DesignerQuery = { __typename?: 'Query', designer?: { __typename?: 'DesignerRecord', id: any, name: string, description?: string | null, slug: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | null };
 
-type AllDesignersQueryVariables = Exact<{
+export type AllDesignersQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type AllDesignersQuery = { __typename?: 'Query', designers: Array<{ __typename?: 'DesignerRecord', id: any, name: string, description?: string, slug: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
+export type AllDesignersQuery = { __typename?: 'Query', designers: Array<{ __typename?: 'DesignerRecord', id: any, name: string, description?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
 
-type ContactFragment = { __typename?: 'ContactRecord', address?: string, email?: string, id: any, intro?: string, phone?: string, showroomIntro?: string, title?: string };
+export type ContactFragmentFragment = { __typename?: 'ContactRecord', address?: string | null, email?: string | null, id: any, intro?: string | null, phone?: string | null, showroomIntro?: string | null, title?: string | null };
 
-type DesignerFragment = { __typename?: 'DesignerRecord', id: any, name: string, description?: string, slug: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } };
+export type DesignerFragmentFragment = { __typename?: 'DesignerRecord', id: any, name: string, description?: string | null, slug: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null };
 
-type DesignerLightFragment = { __typename?: 'DesignerRecord', id: any, name: string, description?: string, slug: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } };
+export type DesignerLightFragmentFragment = { __typename?: 'DesignerRecord', id: any, name: string, description?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null };
 
-type DistributorFragment = { __typename?: 'DistributorRecord', name?: string, address?: string, postalCode?: string, city?: string, contactName?: string, phone?: string, email?: string, url?: string, country?: { __typename?: 'CountryRecord', name?: string } };
+export type DistributorFragmentFragment = { __typename?: 'DistributorRecord', name?: string | null, address?: string | null, postalCode?: string | null, city?: string | null, contactName?: string | null, phone?: string | null, email?: string | null, url?: string | null, country?: { __typename?: 'CountryRecord', name?: string | null } | null };
 
-type FaqFragment = { __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } };
+export type FaqFragmentFragment = { __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string | null, id: any, question?: string | null, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string | null } | null };
 
-type FileFragment = { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string };
+export type FileFragmentFragment = { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string };
 
-type ImageFragment = { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } };
+export type ImageFragmentFragment = { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null };
 
-type ImageThumbnailFragment = { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } };
+export type ImageThumbnailFragmentFragment = { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null };
 
-type NewsFragment = { __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } };
+export type NewsFragmentFragment = { __typename: 'NewsRecord', id: any, link?: string | null, linkText?: string | null, text?: string | null, title?: string | null, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null };
 
-type ProductFragment = { __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
+export type ProductFragmentFragment = { __typename?: 'ProductRecord', id: any, title?: string | null, description?: string | null, slug: string, bimLink?: string | null, presentation?: string | null, markAsNew?: any | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null, position?: any | null }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string } | null, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string | null } | null, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, lightFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string | null } | null, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any | null, amount?: any | null, optional?: any | null, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string } | null }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any | null, volume?: any | null, weight?: any | null, articleNo?: string | null, color?: { __typename?: 'ProductColorRecord', id: any, name?: string | null } | null, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string | null } | null, feature?: { __typename?: 'ProductFeatureRecord', name?: string | null } | null }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string | null, price?: any | null, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string | null } | null }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string | null } | null, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale | null, value?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> | null, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }>, seo: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
-type ProductLightFragment = { __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } };
+export type ProductLightFragmentFragment = { __typename?: 'ProductRecord', id: any, title?: string | null, slug: string, markAsNew?: any | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } | null };
 
-type ProjectFragment = { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
+export type ProjectFragmentFragment = { __typename?: 'ProjectRecord', id: any, location?: string | null, title?: string | null, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string } | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondaryImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, description?: string | null, slug: string, bimLink?: string | null, presentation?: string | null, markAsNew?: any | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null, position?: any | null }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string } | null, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string | null } | null, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, lightFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string | null } | null, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any | null, amount?: any | null, optional?: any | null, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string } | null }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any | null, volume?: any | null, weight?: any | null, articleNo?: string | null, color?: { __typename?: 'ProductColorRecord', id: any, name?: string | null } | null, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string | null } | null, feature?: { __typename?: 'ProductFeatureRecord', name?: string | null } | null }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string | null, price?: any | null, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string | null } | null }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string | null } | null, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale | null, value?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> | null, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }>, seo: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
 
-type ProjectLightFragment = { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } };
+export type ProjectLightFragmentFragment = { __typename?: 'ProjectRecord', id: any, location?: string | null, title?: string | null, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string } | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null };
 
-type ResellerFragment = { __typename?: 'ResellerRecord', id: any, name?: string, address?: string, postalCode?: string, city?: string, url?: string, country?: { __typename?: 'CountryRecord', id: any, name?: string } };
+export type ResellerFragmentFragment = { __typename?: 'ResellerRecord', id: any, name?: string | null, address?: string | null, postalCode?: string | null, city?: string | null, url?: string | null, country?: { __typename?: 'CountryRecord', id: any, name?: string | null } | null };
 
-type SEOFragment = { __typename?: 'Tag', attributes?: any, content?: string, tag: string };
+export type SeoFragmentFragment = { __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string };
 
-type ShowroomFragment = { __typename?: 'ShowroomRecord', additional?: string, address?: string, city?: string, id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } };
+export type ShowroomFragmentFragment = { __typename?: 'ShowroomRecord', additional?: string | null, address?: string | null, city?: string | null, id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null };
 
-type SiteFragment = { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } } };
+export type SiteFragmentFragment = { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | null } | null };
 
-type StaffFragment = { __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } };
+export type StaffFragmentFragment = { __typename?: 'StaffRecord', id: any, name?: string | null, role?: string | null, phone?: string | null, email?: string | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null };
 
-type VideoFragment = { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } };
+export type VideoFragmentFragment = { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null };
 
-type GlobalQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type GlobalQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } } } };
-
-type MenuQueryVariables = Exact<{ [key: string]: never; }>;
+export type GlobalQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug: string, name: string }>, allProducts: Array<{ __typename?: 'ProductRecord', id: any, designer?: { __typename?: 'DesignerRecord', id: any } }>, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }> };
+export type GlobalQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | null } | null } };
 
-type IntlQueryVariables = Exact<{
+export type MenuQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug: string, name: string }>, allProducts: Array<{ __typename?: 'ProductRecord', id: any, designer?: { __typename?: 'DesignerRecord', id: any } | null }>, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }> };
+
+export type IntlQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
   fallbackLocales?: InputMaybe<Array<SiteLocale> | SiteLocale>;
   first?: InputMaybe<Scalars['IntType']>;
@@ -7335,136 +7331,136 @@ type IntlQueryVariables = Exact<{
 }>;
 
 
-type IntlQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'TranslationRecord', key: string, value?: string }> };
+export type IntlQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'TranslationRecord', key: string, value?: string | null }> };
 
-type ProductQueryVariables = Exact<{
+export type ProductQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type ProductQuery = { __typename?: 'Query', product?: { __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
+export type ProductQuery = { __typename?: 'Query', product?: { __typename?: 'ProductRecord', id: any, title?: string | null, description?: string | null, slug: string, bimLink?: string | null, presentation?: string | null, markAsNew?: any | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null, position?: any | null }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string } | null, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string | null } | null, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, lightFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string | null } | null, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any | null, amount?: any | null, optional?: any | null, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string } | null }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any | null, volume?: any | null, weight?: any | null, articleNo?: string | null, color?: { __typename?: 'ProductColorRecord', id: any, name?: string | null } | null, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string | null } | null, feature?: { __typename?: 'ProductFeatureRecord', name?: string | null } | null }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string | null, price?: any | null, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string | null } | null }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string | null } | null, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale | null, value?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> | null, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }>, seo: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
-type AllProductsQueryVariables = Exact<{
+export type AllProductsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
+export type AllProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, description?: string | null, slug: string, bimLink?: string | null, presentation?: string | null, markAsNew?: any | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null, position?: any | null }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string } | null, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string | null } | null, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, lightFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string | null } | null, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any | null, amount?: any | null, optional?: any | null, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string } | null }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any | null, volume?: any | null, weight?: any | null, articleNo?: string | null, color?: { __typename?: 'ProductColorRecord', id: any, name?: string | null } | null, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string | null } | null, feature?: { __typename?: 'ProductFeatureRecord', name?: string | null } | null }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string | null, price?: any | null, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string | null } | null }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string | null } | null, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale | null, value?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> | null, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }>, seo: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }> };
 
-type AllProductsLightQueryVariables = Exact<{
+export type AllProductsLightQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type AllProductsLightQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } }> };
+export type AllProductsLightQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, slug: string, markAsNew?: any | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } | null }> };
 
-type AllProductManualsQueryVariables = Exact<{
+export type AllProductManualsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllProductManualsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }>, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }> };
+export type AllProductManualsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, position?: any | null }>, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> };
 
-type AllProductDownloadsQueryVariables = Exact<{
+export type AllProductDownloadsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllProductDownloadsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', title?: string, bimLink?: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, categories: Array<{ __typename?: 'ProductCategoryRecord', name?: string }>, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }> };
+export type AllProductDownloadsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', title?: string | null, bimLink?: string | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', name?: string | null }>, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale | null, value?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> | null, lightFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> };
 
-type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ProductStartQuery = { __typename?: 'Query', productStart?: { __typename?: 'ProductStartRecord', id: any, featured: Array<{ __typename?: 'FeaturedRecord', id: any, headline?: string, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } } | { __typename?: 'ProjectRecord' }> }> } };
-
-type ProductCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ProductCategoriesQuery = { __typename?: 'Query', productCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }> };
+export type ProductStartQuery = { __typename?: 'Query', productStart?: { __typename?: 'ProductStartRecord', id: any, featured: Array<{ __typename?: 'FeaturedRecord', id: any, headline?: string | null, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string | null, slug: string, markAsNew?: any | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } | null } | { __typename?: 'ProjectRecord' }> }> } | null };
 
-type AllProductsByDesignerQueryVariables = Exact<{
+export type ProductCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductCategoriesQuery = { __typename?: 'Query', productCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, position?: any | null }> };
+
+export type AllProductsByDesignerQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
 }>;
 
 
-type AllProductsByDesignerQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } }> };
+export type AllProductsByDesignerQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, slug: string, markAsNew?: any | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } | null }> };
 
-type RelatedProductsQueryVariables = Exact<{
+export type RelatedProductsQueryVariables = Exact<{
   designerId?: InputMaybe<Scalars['ItemId']>;
   familyId?: InputMaybe<Scalars['ItemId']>;
 }>;
 
 
-type RelatedProductsQuery = { __typename?: 'Query', relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } }> };
+export type RelatedProductsQuery = { __typename?: 'Query', relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, slug: string, markAsNew?: any | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } | null }> };
 
-type AllProductsByCategoryQueryVariables = Exact<{
+export type AllProductsByCategoryQueryVariables = Exact<{
   categoryId?: InputMaybe<Scalars['ItemId']>;
 }>;
 
 
-type AllProductsByCategoryQuery = { __typename?: 'Query', productsByCategory: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } }> };
+export type AllProductsByCategoryQuery = { __typename?: 'Query', productsByCategory: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, slug: string, markAsNew?: any | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } | null }> };
 
-type ProjectQueryVariables = Exact<{
+export type ProjectQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
 
-type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> } };
+export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'ProjectRecord', id: any, location?: string | null, title?: string | null, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string } | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondaryImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, description?: string | null, slug: string, bimLink?: string | null, presentation?: string | null, markAsNew?: any | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null, position?: any | null }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string } | null, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string | null } | null, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, lightFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string | null } | null, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any | null, amount?: any | null, optional?: any | null, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string } | null }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any | null, volume?: any | null, weight?: any | null, articleNo?: string | null, color?: { __typename?: 'ProductColorRecord', id: any, name?: string | null } | null, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string | null } | null, feature?: { __typename?: 'ProductFeatureRecord', name?: string | null } | null }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string | null, price?: any | null, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string | null } | null }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string | null } | null, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale | null, value?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> | null, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }>, seo: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> } | null };
 
-type AllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
+export type AllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string | null, title?: string | null, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string } | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
 
-type AllRelatedProjectsQueryVariables = Exact<{
+export type AllRelatedProjectsQueryVariables = Exact<{
   projectType?: InputMaybe<Scalars['ItemId']>;
 }>;
 
 
-type AllRelatedProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
+export type AllRelatedProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string | null, title?: string | null, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string } | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
 
-type ProjectStartQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ProjectStartQuery = { __typename?: 'Query', projectStart?: { __typename?: 'ProjectStartRecord', id: any, intro?: string, title?: string } };
-
-type AllProjectTypesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProjectStartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllProjectTypesQuery = { __typename?: 'Query', projectTypes: Array<{ __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }> };
+export type ProjectStartQuery = { __typename?: 'Query', projectStart?: { __typename?: 'ProjectStartRecord', id: any, intro?: string | null, title?: string | null } | null };
 
-type BespokeQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type BespokeQuery = { __typename?: 'Query', bespoke?: { __typename?: 'BespokeRecord', id: any, intro?: string, outro?: string, title?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, examples: Array<{ __typename?: 'BespokeProjectRecord', id: any, summary?: string, project?: { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> } }> } };
-
-type FactoryVisitQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllProjectTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type FactoryVisitQuery = { __typename?: 'Query', factoryVisit?: { __typename?: 'FactoryVisitRecord', id: any, title?: string, intro?: string } };
+export type AllProjectTypesQuery = { __typename?: 'Query', projectTypes: Array<{ __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string }> };
 
-type AllCataloguesQueryVariables = Exact<{ [key: string]: never; }>;
+export type BespokeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllCataloguesQuery = { __typename?: 'Query', catalogues: Array<{ __typename?: 'CatalogueRecord', id: any, title?: string, pdf?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, thumbnail?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
+export type BespokeQuery = { __typename?: 'Query', bespoke?: { __typename?: 'BespokeRecord', id: any, intro?: string | null, outro?: string | null, title?: string | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, examples: Array<{ __typename?: 'BespokeProjectRecord', id: any, summary?: string | null, project?: { __typename?: 'ProjectRecord', id: any, location?: string | null, title?: string | null, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string } | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondaryImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, description?: string | null, slug: string, bimLink?: string | null, presentation?: string | null, markAsNew?: any | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null, position?: any | null }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string } | null, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string | null } | null, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, lightFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string | null } | null, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any | null, amount?: any | null, optional?: any | null, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string } | null }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any | null, volume?: any | null, weight?: any | null, articleNo?: string | null, color?: { __typename?: 'ProductColorRecord', id: any, name?: string | null } | null, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string | null } | null, feature?: { __typename?: 'ProductFeatureRecord', name?: string | null } | null }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string | null, price?: any | null, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string | null } | null }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string | null } | null, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale | null, value?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> | null, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }>, seo: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> } | null }> } | null };
 
-type AllColorsAndMaterialsQueryVariables = Exact<{
+export type FactoryVisitQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FactoryVisitQuery = { __typename?: 'Query', factoryVisit?: { __typename?: 'FactoryVisitRecord', id: any, title?: string | null, intro?: string | null } | null };
+
+export type AllCataloguesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllCataloguesQuery = { __typename?: 'Query', catalogues: Array<{ __typename?: 'CatalogueRecord', id: any, title?: string | null, pdf?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, thumbnail?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
+
+export type AllColorsAndMaterialsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllColorsAndMaterialsQuery = { __typename?: 'Query', colorMaterials: Array<{ __typename?: 'ColorMaterialRecord', id: any, description?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, category?: { __typename?: 'ColorMaterialTypeRecord', id: any, category: string, categoryPlural: string } }>, colorMaterialTypes: Array<{ __typename?: 'ColorMaterialTypeRecord', id: any, category: string, categoryPlural: string }>, colorMaterialIntro?: { __typename?: 'ColorMaterialIntroRecord', id: any, intro?: string } };
+export type AllColorsAndMaterialsQuery = { __typename?: 'Query', colorMaterials: Array<{ __typename?: 'ColorMaterialRecord', id: any, description?: string | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, category?: { __typename?: 'ColorMaterialTypeRecord', id: any, category: string, categoryPlural: string } | null }>, colorMaterialTypes: Array<{ __typename?: 'ColorMaterialTypeRecord', id: any, category: string, categoryPlural: string }>, colorMaterialIntro?: { __typename?: 'ColorMaterialIntroRecord', id: any, intro?: string | null } | null };
 
-type SiteSearchQueryVariables = Exact<{
+export type SiteSearchQueryVariables = Exact<{
   productIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
   designerIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
   faqIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
@@ -7474,43 +7470,43 @@ type SiteSearchQueryVariables = Exact<{
 }>;
 
 
-type SiteSearchQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } }>, designers: Array<{ __typename?: 'DesignerRecord', id: any, name: string, description?: string, slug: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }>, projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }>, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }>, news: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }>, staffs: Array<{ __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> };
+export type SiteSearchQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string | null, slug: string, markAsNew?: any | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } | null }>, designers: Array<{ __typename?: 'DesignerRecord', id: any, name: string, description?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }>, projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string | null, title?: string | null, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string } | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }>, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string | null, id: any, question?: string | null, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string | null } | null }>, news: Array<{ __typename: 'NewsRecord', id: any, link?: string | null, linkText?: string | null, text?: string | null, title?: string | null, slug: string, createdAt: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }>, staffs: Array<{ __typename?: 'StaffRecord', id: any, name?: string | null, role?: string | null, phone?: string | null, email?: string | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> };
 
-type SiteSEOQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type SiteSEOQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } } } };
-
-type StartQueryVariables = Exact<{ [key: string]: never; }>;
+export type SiteSeoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', content: Array<{ __typename: 'FeaturedStartRecord', id: any, headline?: string, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string, slug: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } } | { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural: string }, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } }> } | { __typename: 'FullscreenMediaBlockRecord', id: any, headline?: string, subHeadline?: string, media?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, linkRecord?: { __typename?: 'DesignerRecord', id: any, name: string, description?: string, slug: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug: string, bimLink?: string, presentation?: string, markAsNew?: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, seo: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } } | { __typename: 'FullscreenVideoRecord', id: any, link?: string, linkText?: string, text?: string, video?: { __typename?: 'FileField', id: any, alt?: string, basename: string, format: string, mimeType: string, title?: string, url: string, width?: any, height?: any, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'ImageLinkRecord', id: any, firstLink?: string, firstLinkText?: string, firstHeadline?: string, secondLink?: string, secondLinkText?: string, secondHeadline?: string, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } | { __typename: 'NewsItemRecord', news: { __typename?: 'NewsRecord', id: any, title?: string, text?: string, link?: string, linkText?: string, slug: string } }> } };
+export type SiteSeoQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | null } | null } };
 
-type FaqQueryVariables = Exact<{
+export type StartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', content: Array<{ __typename: 'FeaturedStartRecord', id: any, headline?: string | null, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string | null, slug: string, markAsNew?: any | null, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string, slug: string } | null } | { __typename?: 'ProjectRecord', id: any, location?: string | null, title?: string | null, slug: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string | null, titlePlural: string } | null, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondaryImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null }> } | { __typename: 'FullscreenMediaBlockRecord', id: any, headline?: string | null, subHeadline?: string | null, media?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, linkRecord?: { __typename?: 'DesignerRecord', id: any, name: string, description?: string | null, slug: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename?: 'ProductRecord', id: any, title?: string | null, description?: string | null, slug: string, bimLink?: string | null, presentation?: string | null, markAsNew?: any | null, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name: string, slug: string } | { __typename: 'ProductRecord', id: any, title?: string | null, slug: string } | { __typename: 'ProjectRecord', id: any, title?: string | null, slug: string }> } | null } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lastImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null }>, environmentImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, colorImages: Array<{ __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string | null } | null, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null, position?: any | null }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string | null } | null, designer?: { __typename?: 'DesignerRecord', id: any, name: string } | null, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string | null } | null, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, lightFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string | null } | null, drawing?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any | null, amount?: any | null, optional?: any | null, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string } | null }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any | null, volume?: any | null, weight?: any | null, articleNo?: string | null, color?: { __typename?: 'ProductColorRecord', id: any, name?: string | null } | null, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string | null } | null, feature?: { __typename?: 'ProductFeatureRecord', name?: string | null } | null }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string | null, price?: any | null, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string | null } | null }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string | null } | null, mountingInstructions?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFile?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale | null, value?: { __typename?: 'FileField', alt?: string | null, basename: string, filename: string, format: string, id: any, title?: string | null, url: string } | null }> | null, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }>, seo: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null } | { __typename: 'FullscreenVideoRecord', id: any, link?: string | null, linkText?: string | null, text?: string | null, video?: { __typename?: 'FileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, title?: string | null, url: string, width?: any | null, height?: any | null, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } | null } | null } | { __typename: 'ImageLinkRecord', id: any, firstLink?: string | null, firstLinkText?: string | null, firstHeadline?: string | null, secondLink?: string | null, secondLinkText?: string | null, secondHeadline?: string | null, firstImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, secondImage?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null } | { __typename: 'NewsItemRecord', news: { __typename?: 'NewsRecord', id: any, title?: string | null, text?: string | null, link?: string | null, linkText?: string | null, slug: string } }> } | null };
+
+export type FaqQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
 }>;
 
 
-type FaqQuery = { __typename?: 'Query', faq?: { __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } } };
+export type FaqQuery = { __typename?: 'Query', faq?: { __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string | null, id: any, question?: string | null, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string | null } | null } | null };
 
-type AllFaqsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type AllFaqsQuery = { __typename?: 'Query', faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }> };
-
-type AllFaqCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllFaqsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllFaqCategoriesQuery = { __typename?: 'Query', faqCategories: Array<{ __typename?: 'FaqCategoryRecord', id: any, title?: string }> };
+export type AllFaqsQuery = { __typename?: 'Query', faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string | null, id: any, question?: string | null, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string | null } | null }> };
 
-type FaqStartQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllFaqCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type FaqStartQuery = { __typename?: 'Query', faqStart?: { __typename?: 'FaqStartRecord', intro?: string, id: any, title?: string }, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }> };
+export type AllFaqCategoriesQuery = { __typename?: 'Query', faqCategories: Array<{ __typename?: 'FaqCategoryRecord', id: any, title?: string | null }> };
 
-type TaxonomyQueryVariables = Exact<{
+export type FaqStartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FaqStartQuery = { __typename?: 'Query', faqStart?: { __typename?: 'FaqStartRecord', intro?: string | null, id: any, title?: string | null } | null, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string | null, id: any, question?: string | null, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string | null } | null }> };
+
+export type TaxonomyQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type TaxonomyQuery = { __typename?: 'Query', designer: Array<{ __typename?: 'DesignerRecord', name: string, id: any, slug: string }>, category: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string }>, color: Array<{ __typename?: 'ProductColorRecord', id: any, name?: string }>, connection: Array<{ __typename?: 'ProductConnectionRecord', id: any, name?: string }>, dimmable: Array<{ __typename?: 'ProductDimmableRecord', id: any, name?: string }>, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, family: Array<{ __typename?: 'ProductFamilyRecord', id: any, name?: string }>, lightsource: Array<{ __typename?: 'ProductLightsourceRecord', id: any, name?: string, price: any, articleNo: string }>, material: Array<{ __typename?: 'ProductMaterialRecord', id: any, name?: string }>, mounting: Array<{ __typename?: 'ProductMountingRecord', id: any, name?: string }>, socket: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }> };
+export type TaxonomyQuery = { __typename?: 'Query', designer: Array<{ __typename?: 'DesignerRecord', name: string, id: any, slug: string }>, category: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null }>, color: Array<{ __typename?: 'ProductColorRecord', id: any, name?: string | null }>, connection: Array<{ __typename?: 'ProductConnectionRecord', id: any, name?: string | null }>, dimmable: Array<{ __typename?: 'ProductDimmableRecord', id: any, name?: string | null }>, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, family: Array<{ __typename?: 'ProductFamilyRecord', id: any, name?: string | null }>, lightsource: Array<{ __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string }>, material: Array<{ __typename?: 'ProductMaterialRecord', id: any, name?: string | null }>, mounting: Array<{ __typename?: 'ProductMountingRecord', id: any, name?: string | null }>, socket: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }> };

@@ -5,10 +5,13 @@ query AllShopifyProducts{
         id
         handle
         title
+        
+
       }
     }
     pageInfo {
       hasNextPage
+
     }
   }
 }

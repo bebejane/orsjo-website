@@ -44,7 +44,8 @@ export const shopifyQuery = async (query: TypedDocumentNode | TypedDocumentNode[
 
 const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Response>  => {
   
-  const operations = init !== undefined  && init.body ? (JSON.parse(init.body.toString())).map((op : {operationName:string}) => op.operationName) : []
+  const queries = init ? JSON.parse(init.body.toString()) : undefined;
+  const operations = queries ? Array.isArray(queries) ? queries.map((op : {operationName:string}) => op.operationName) : [queries.operationName] : [];
   const requestName = `${operations.join(', ')}`
   const response = await fetch(input, init)
   const t = new Date().getTime()
@@ -63,13 +64,13 @@ const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Res
 const linkConfig = {
   uri: GRAPHQL_API_ENDPOINT,
   credentials: 'include',
-  //fetch: process.env.LOG_GRAPHQL ? loggingFetch : undefined,
+  fetch: process.env.LOG_GRAPHQL ? loggingFetch : undefined,
   batchMax: 10, 
   batchInterval: 50,
   headers: { 
     'X-Shopify-Access-Token': process.env.SHOPIFY_ADMIN_API_TOKEN,
     'Content-Type': 'application/json',
-    //'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_API_TOKEN,
+    //'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_API_TOKEN,
     //'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_ADMIN_API_TOKEN,
     //'Accept': 'application/json',
   }
