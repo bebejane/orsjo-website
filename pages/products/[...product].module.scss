@@ -245,7 +245,7 @@
 	.dimensions {
 		padding-top: 1.5em;
 	}
-
+	
 	.downloads{
 		list-style: none;
 		display: flex;
@@ -287,4 +287,12 @@
 		padding-bottom: $small-margin;
 	}
 
+}
+
+.shop{
+
+	button{
+		margin-top: 1rem;
+		border: 2px solid $black;
+	}
 }

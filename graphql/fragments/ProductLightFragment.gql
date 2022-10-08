@@ -5,6 +5,7 @@ fragment ProductLightFragment on ProductRecord{
   title
   slug
   markAsNew
+  shopifyId
   family{
     id
     name

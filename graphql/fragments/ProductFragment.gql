@@ -10,6 +10,7 @@ fragment ProductFragment on ProductRecord{
   bimLink
   presentation
   markAsNew
+  shopifyId
   image {
     ...ImageFragment
   }

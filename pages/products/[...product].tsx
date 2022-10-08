@@ -1,6 +1,8 @@
 import styles from './[...product].module.scss'
 import cn from 'classnames'
 import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument } from '/graphql'
+import { ShopifyProductDocument } from '/lib/shopify/graphql'
+import { shopifyQuery } from '/lib/shopify/api'
 import { apiQuery } from '/lib/dato/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
@@ -21,7 +23,8 @@ export type ProductProps = {
 	images: FileField[] 
 	drawings: FileField[]
 	specsCols: { label:string, value:string }[]
-	files: ProductDownload[]
+	files: ProductDownload[],
+	shopify?:ShopifyProductQuery['product']
 }
 
 export default function Product({ 
@@ -31,9 +34,11 @@ export default function Product({
 	images, 
 	drawings, 
 	specsCols, 
-	files 
+	files ,
+	shopify
 }: ProductProps) {
-
+	
+	console.log(shopify?.id)
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
@@ -102,6 +107,15 @@ export default function Product({
 					/>
 				)}
 			</Section>
+			{shopify &&
+				<Section name="Shop" className={styles.shop}>
+					<h1>Shop</h1>
+					<p>
+						Price: { shopify.priceRangeV2.maxVariantPrice.amount}kr<br/>
+						<button>ADD TO CART</button>
+					</p>
+				</Section>
+			}
 			<SectionListItem
 				title={'Specifications'}
 				className={cn(styles.listItemContent, styles.top)}
@@ -215,7 +229,7 @@ export default function Product({
 					)}
 				</ul>
 			</SectionListItem>
-
+			
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
 				{relatedProducts.length > 0 &&
 					<FeaturedGallery
@@ -281,7 +295,9 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];
 	product.models.forEach(m => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null }))
-
+	
+	const { product : shopify } = product.shopifyId ? await shopifyQuery(ShopifyProductDocument, {variables:{id: product.shopifyId}}) : { product:null}
+	
 	return {
 		props: {
 			...props,
@@ -291,7 +307,8 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 			images,
 			files,
 			drawings,
-			specsCols
+			specsCols,
+			shopify
 		},
 		revalidate
 	};

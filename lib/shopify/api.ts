@@ -7,7 +7,7 @@ export type ApiQueryOptions = { variables?: any | any[], preview?: boolean}
 
 const isServer = typeof window === 'undefined';
 const GRAPHQL_API_ENDPOINT = process.env.SHOPIFY_API_ENDPOINT;
-const GRAPHQL_API_TOKEN = process.env.SHOPIFY_ADMIN_API_TOKEN
+const GRAPHQL_API_TOKEN = process.env.SHOPIFY_STOREFRONT_API_TOKEN
 
 export const shopifyQuery = async (query: TypedDocumentNode | TypedDocumentNode[], options? : ApiQueryOptions) : Promise<any> => {
   
@@ -28,12 +28,12 @@ export const shopifyQuery = async (query: TypedDocumentNode | TypedDocumentNode[
   
     const data = await Promise.all(batch)
     const errors = data.filter(({errors}) => errors).map(({errors})=> errors?.reduce((curr, acc) => curr + '. ' + acc.message, ''))
-
+    
     if(errors.length)
       throw new Error(errors.join('. '))
     
     let result = {}
-    data.forEach((res) => result = {...result, ...res?.data.data})
+    data.forEach((res) => result = {...result, ...res?.data})
     return result
 
   }catch(err){

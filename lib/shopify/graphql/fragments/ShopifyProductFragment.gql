@@ -1,0 +1,25 @@
+fragment ShopifyProductFragment on Product { 
+  id
+  handle
+  title
+  priceRangeV2{
+    maxVariantPrice {
+      amount
+    }
+    minVariantPrice{
+      amount
+    }
+  }
+  variants (first: 10){
+    edges{
+      node{
+        id
+        title
+        price
+        sellableOnlineQuantity
+        weight
+        availableForSale   
+      }
+    }
+  } 
+}
