@@ -1,13 +1,14 @@
-require('@next/env').loadEnvConfig('.')
+require("@next/env").loadEnvConfig(".");
 
-const defaultConfig = {
-  dedupeOperationSuffix: true,
-  dedupeFragments: true,
-  pureMagicComment: false,
-  exportFragmentSpreadSubTypes: true,
-  namingConvention: 'keep',
-  maybeValue: 'T',
-};
+
+const config =  {
+	dedupeOperationSuffix:true,
+	dedupeFragments: true,
+	pureMagicComment: false,
+	exportFragmentSpreadSubTypes: true,
+	namingConvention: "keep",
+	maybeValue: "T"
+}
 
 const datocms = {
   schema: {
@@ -33,44 +34,57 @@ const shopify = {
   documents: 'lib/shopify/graphql/**/*.gql',
 }
 
-const config = {
-  //schema:datocms.schema,
-  //documents:datocms.documents,  
-  overwrite:true,
-  generates: {
-    '@types/datocms.d.ts': {
+module.exports = {
+  projects: {
+    default: {
       ...datocms,
-      plugins: ['typescript', 'typescript-operations'],
-      config: { ...defaultConfig, noExport: true },
+      extensions: {
+        codegen: {
+          overwrite: true,
+          generates: {
+            "@types/datocms.d.ts": {
+              plugins: [
+                "typescript",
+                "typescript-operations",
+              ],
+              config:{...config, noExport: true}
+            },
+            "graphql/index.ts": {
+              plugins: ["typed-document-node"],
+              config
+            },
+            "@types/document-modules.d.ts": {
+              plugins: ["typescript-graphql-files-modules"],
+              config
+            }
+          },
+        }
+      },
     },
-    'graphql/index.ts': {
-      ...datocms,
-      plugins: ['typed-document-node'],
-      config: defaultConfig,
-    },
-    '@types/document-modules.d.ts': {
-      ...datocms,
-      plugins: ['typescript-graphql-files-modules'],
-      config: defaultConfig,
-    },
-    
-    '@types/shopify.d.ts': {
+    shopify: {
       ...shopify,
-      plugins: ['typescript', 'typescript-operations'],
-      config: { ...defaultConfig, noExport: true },
-    },
-    'lib/shopify/graphql/index.ts': {
-      ...shopify,
-      plugins: ['typed-document-node'],
-      config: defaultConfig,
-    },
-    '@types/document-modules-shopify.d.ts': {
-      ...shopify,
-      plugins: ['typescript-graphql-files-modules'],
-      config: defaultConfig,
-    },
-    
-  },
-  
-}
-module.exports = config;
+      extensions: {
+        codegen: {
+          overwrite: true,
+          generates: {
+            "@types/shopify.d.ts": {
+              plugins: [
+                "typescript",
+                "typescript-operations",
+              ],
+              config:{...config, noExport: true}
+            },
+            "lib/shopify/graphql/index.ts": {
+              plugins: ["typed-document-node"],
+              config
+            },
+            "@types/document-modules-shopify.d.ts": {
+              plugins: ["typescript-graphql-files-modules"],
+              config
+            }
+          },
+        }
+      },
+    }
+  }
+};
