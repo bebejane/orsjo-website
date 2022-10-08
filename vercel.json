@@ -1,6 +1,6 @@
 {
   "github": {
     "silent": true,
-    "enable":false
+    "enabled":false
   }
 }
