@@ -7,9 +7,6 @@ const defaultConfig =  {
 	exportFragmentSpreadSubTypes: true,
 	namingConvention: "keep",
 	maybeValue: "T",
-  skipDocumentsValidation:{
-    skipValidationAgainstSchema:false
-  }
 }
 
 const datocms = {
@@ -24,11 +21,12 @@ const datocms = {
   documents: 'graphql/**/*.gql',
 }
 
+
 const shopify = {
   schema: {
-    'https://orsjo-dev.myshopify.com/admin/api/2022-10/graphql.json': {
+    'https://orsjo-dev.myshopify.com/api/2022-10/graphql.json': {
       headers: {
-        'X-Shopify-Access-Token': process.env.SHOPIFY_ADMIN_API_TOKEN,
+        'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_API_TOKEN,
         'Content-Type': 'application/json',
       },
     },
@@ -38,10 +36,10 @@ const shopify = {
 
 module.exports = {
   //schema:datocms.schema,documents:datocms.documents,
-  //schema:shopify.schema,documents:shopify.documents,
+  schema:shopify.schema,documents:shopify.documents,
   overwrite:true,
   generates: {
-    
+    /*
     '@types/datocms.d.ts': {
       ...datocms,
       plugins: ['typescript', 'typescript-operations'],
@@ -57,7 +55,7 @@ module.exports = {
       plugins: ['typescript-graphql-files-modules'],
       config: defaultConfig,
     },
-    
+    */
     '@types/shopify.d.ts': {
       ...shopify,
       plugins: ['typescript', 'typescript-operations'],

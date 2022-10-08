@@ -1,0 +1,73 @@
+fragment CartFragment on Cart{
+  id
+  createdAt
+  updatedAt
+  checkoutUrl
+  buyerIdentity {
+    customer {
+      firstName
+      lastName
+    }
+  }
+  totalQuantity
+  cost {
+    totalAmount {
+      amount
+      currencyCode
+    }
+    subtotalAmount {
+      amount
+      currencyCode
+    }
+  }
+  lines(first:10) {
+    edges {
+      node {
+        id
+        quantity
+        cost {
+          subtotalAmount {
+            amount
+            currencyCode
+          }
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
+        merchandise {
+          ... on ProductVariant {
+            id
+            title
+            priceV2 {
+              amount
+              currencyCode
+            }
+            product {
+              id
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+  estimatedCost {
+    totalAmount {
+      amount
+      currencyCode
+    }
+    subtotalAmount {
+      amount
+      currencyCode
+    }
+    totalTaxAmount {
+      amount
+      currencyCode
+    }
+    totalDutyAmount {
+      amount
+      currencyCode
+    }
+  }
+}

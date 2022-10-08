@@ -1,0 +1,24 @@
+.cart{
+  position: fixed;
+  display: block;
+  
+  left:0;
+  bottom:0;
+  z-index: 2000;
+  padding: 20px;
+  max-height: 50vh;
+  min-width: 20vw;
+  max-width: 20vw;
+  overflow: hidden;
+  background-color: $black;
+  color:$white;
+  ul{
+    list-style: none;
+  }
+  button{
+    color:$white;
+  }
+  table{
+    width: 100%;
+  }
+}

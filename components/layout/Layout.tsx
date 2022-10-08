@@ -1,6 +1,6 @@
 import styles from './Layout.module.scss'
 import React from 'react'
-import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile} from '/components'
+import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Cart} from '/components'
 import { usePage } from '/lib/context/page'
 import type { MenuItem } from '/lib/menu'
 import { useState, useEffect } from 'react'
@@ -31,8 +31,10 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 					index={gallery?.index}
 					onClose={() => setGallery({...gallery, index:-1})}
 				/>
+				<Cart/>
 			</div>
 			<Footer menu={menu} />
+			
 			<Grid />
 		</>
 	)

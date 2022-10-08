@@ -15,6 +15,7 @@ import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
+import useCart from '/lib/shopify/cart'
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -38,7 +39,8 @@ export default function Product({
 	shopify
 }: ProductProps) {
 	
-	console.log(shopify?.id)
+	
+	const [addToCart] = useCart((state) => [state.addToCart])
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
@@ -111,8 +113,15 @@ export default function Product({
 				<Section name="Shop" className={styles.shop}>
 					<h1>Shop</h1>
 					<p>
-						Price: { shopify.priceRangeV2.maxVariantPrice.amount}kr<br/>
-						<button>ADD TO CART</button>
+						<ul>
+						{shopify.variants.edges.map(({node}, idx) => 
+							<li key={idx}>
+								{node.title} {node.price.amount}
+								<button onClick={()=>addToCart([{merchandiseId:node.id, quantity:1}])}>ADD TO CART</button>
+							</li>
+						)}
+						</ul>
+						
 					</p>
 				</Section>
 			}

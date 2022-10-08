@@ -6,8 +6,8 @@ export type IntlMessage = { key:string, value:string }
 export type ApiQueryOptions = { variables?: any | any[], preview?: boolean}
 
 const isServer = typeof window === 'undefined';
-const GRAPHQL_API_ENDPOINT = process.env.SHOPIFY_API_ENDPOINT;
-const GRAPHQL_API_TOKEN = process.env.SHOPIFY_STOREFRONT_API_TOKEN
+const GRAPHQL_API_ENDPOINT = process.env.NEXT_PUBLIC_SHOPIFY_API_ENDPOINT || process.env.SHOPIFY_API_ENDPOINT;
+const GRAPHQL_API_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN || process.env.SHOPIFY_STOREFRONT_API_TOKEN
 
 export const shopifyQuery = async (query: TypedDocumentNode | TypedDocumentNode[], options? : ApiQueryOptions) : Promise<any> => {
   
@@ -28,7 +28,7 @@ export const shopifyQuery = async (query: TypedDocumentNode | TypedDocumentNode[
   
     const data = await Promise.all(batch)
     const errors = data.filter(({errors}) => errors).map(({errors})=> errors?.reduce((curr, acc) => curr + '. ' + acc.message, ''))
-    
+    console.log(data)
     if(errors.length)
       throw new Error(errors.join('. '))
     
@@ -63,16 +63,12 @@ const loggingFetch = async (input: RequestInfo, init?: RequestInit): Promise<Res
 
 const linkConfig = {
   uri: GRAPHQL_API_ENDPOINT,
-  credentials: 'include',
   fetch: process.env.LOG_GRAPHQL ? loggingFetch : undefined,
   batchMax: 10, 
   batchInterval: 50,
   headers: { 
-    'X-Shopify-Access-Token': process.env.SHOPIFY_ADMIN_API_TOKEN,
-    'Content-Type': 'application/json',
-    //'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_API_TOKEN,
-    //'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_ADMIN_API_TOKEN,
-    //'Accept': 'application/json',
+    'X-Shopify-Storefront-Access-Token': GRAPHQL_API_TOKEN,
+    'Content-Type': 'application/json'
   }
 }
 
