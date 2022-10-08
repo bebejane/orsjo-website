@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "npm run dev:watch",
-    "dev:watch": "next dev & npm run barrel:watch & graphql-codegen --watch",
+    "dev:watch": "next dev & npm run barrel:watch & graphql-codegen -c graphql.config.js --watch",
     "build": "next build",
     "codegen": "graphql-codegen",
     "start": "next start",

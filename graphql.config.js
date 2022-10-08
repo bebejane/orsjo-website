@@ -1,6 +1,6 @@
 require('@next/env').loadEnvConfig('.')
 
-const options = {
+const defaultConfig = {
   dedupeOperationSuffix: true,
   dedupeFragments: true,
   pureMagicComment: false,
@@ -34,37 +34,43 @@ const shopify = {
 }
 
 const config = {
+  //schema:datocms.schema,
+  //documents:datocms.documents,  
+  overwrite:true,
   generates: {
     '@types/datocms.d.ts': {
       ...datocms,
       plugins: ['typescript', 'typescript-operations'],
-      options: { ...options, noExport: true },
+      config: { ...defaultConfig, noExport: true },
     },
     'graphql/index.ts': {
       ...datocms,
       plugins: ['typed-document-node'],
-      options,
+      config: defaultConfig,
     },
     '@types/document-modules.d.ts': {
       ...datocms,
       plugins: ['typescript-graphql-files-modules'],
-      options,
+      config: defaultConfig,
     },
+    
     '@types/shopify.d.ts': {
       ...shopify,
       plugins: ['typescript', 'typescript-operations'],
-      options: { ...options, noExport: true },
+      config: { ...defaultConfig, noExport: true },
     },
     'lib/shopify/graphql/index.ts': {
       ...shopify,
       plugins: ['typed-document-node'],
-      options,
+      config: defaultConfig,
     },
     '@types/document-modules-shopify.d.ts': {
       ...shopify,
       plugins: ['typescript-graphql-files-modules'],
-      options,
+      config: defaultConfig,
     },
-  }
+    
+  },
+  
 }
 module.exports = config;
