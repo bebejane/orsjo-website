@@ -2,7 +2,7 @@ import styles from './cart.module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import { PageProps } from '/lib/context/page';
 import { Section } from '/components';
-import useCart from '/lib/shopify/cart';
+import useCart from '../../lib/shopify/hooks/useCart';
 
 type Props = {
 	p

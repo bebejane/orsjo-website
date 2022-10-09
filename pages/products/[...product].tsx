@@ -15,7 +15,7 @@ import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
-import useCart from '/lib/shopify/cart'
+import useCart from '../../lib/shopify/hooks/useCart'
 
 export type ProductProps = {
 	product: ProductRecord,

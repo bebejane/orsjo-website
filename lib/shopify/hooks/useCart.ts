@@ -1,14 +1,11 @@
 import create from "zustand";
-import shallow from "zustand/shallow"
-import Cart from "/components/shop/Cart";
 import { shopifyQuery } from '/lib/shopify/api'
 import { createCartDocument, CartDocument, addItemToCartDocument, removeItemFromCartDocument } from '/lib/shopify/graphql'
 import { isServer } from "/lib/utils";
 
 const initialCart = !isServer && localStorage.getItem('cart') ?  JSON.parse(localStorage.getItem('cart')) : undefined;
 
-
-export interface StoreState {
+export interface CartState {
   cart?: Cart,
   updatingCart:boolean,
   clearCart: () => void,
@@ -18,7 +15,7 @@ export interface StoreState {
   removeFromCart: (lines: CartLineInput[]) => void, 
 }
 //localStorage.setItem('cart', JSON.stringify(cart))
-const useCart = create<StoreState>((set, get) => ({
+const useCart = create<CartState>((set, get) => ({
 	cart: initialCart,
   updatingCart:false,
   clearCart: () => {
@@ -60,4 +57,3 @@ const useCart = create<StoreState>((set, get) => ({
 }));
 
 export default useCart;
-export { shallow, useCart };

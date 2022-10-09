@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styles from './Cart.module.scss'
-import useCart from '/lib/shopify/cart'
+import useCart from '../../lib/shopify/hooks/useCart'
 import Link from 'next/link'
 
 export type CartProps = {}

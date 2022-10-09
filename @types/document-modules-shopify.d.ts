@@ -11,10 +11,38 @@ export const removeItemFromCart: DocumentNode;
 }
     
 
+declare module '*/customer.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const customerCreate: DocumentNode;
+export const customerAccessTokenCreate: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/CartFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const CartFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/CustomerFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const CustomerFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/CustomerLightFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const CustomerLightFragment: DocumentNode;
 
   export default defaultDocument;
 }
