@@ -33,12 +33,14 @@ export default function Project({ project, related }: ProjectProps) {
 				<div className={styles.wrap}>
 					<h1 className={styles.title} style={headerStyle}>{project.title}</h1>
 					<h1 className={styles.location} style={headerStyle}>{project.location}</h1>
-					<Image
-						data={project.image.responsiveImage}
-						objectFit="cover"
-						style={imageStyle}
-						className={styles.image}
-					/>
+					{project.image &&
+						<Image
+							data={project.image.responsiveImage}
+							objectFit="cover"
+							style={imageStyle}
+							className={styles.image}
+						/>
+					}
 				</div>
 			</Section>
 			{project.gallery.map((block, idx) =>
