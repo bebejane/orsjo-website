@@ -12,11 +12,18 @@
   overflow: hidden;
   background-color: $black;
   color:$white;
+  margin:10px;
   ul{
     list-style: none;
   }
   button{
     color:$white;
+    width: calc(50% - 10px);
+    margin-right: 10px;
+    cursor: pointer;
+    &:last-child{
+      margin-right: 0;
+    }
   }
   table{
     width: 100%;

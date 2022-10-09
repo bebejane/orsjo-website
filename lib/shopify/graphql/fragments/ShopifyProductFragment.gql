@@ -10,6 +10,7 @@ fragment ShopifyProductFragment on Product {
         title
         price {
           amount
+          currencyCode
         }
         
         weight

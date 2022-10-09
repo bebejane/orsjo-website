@@ -290,9 +290,13 @@
 }
 
 .shop{
-
+	margin-top: 1rem;
+	ul{
+		list-style: none;
+	}
 	button{
-		margin-top: 1rem;
+		
+		margin-right: 1rem;
 		border: 2px solid $black;
 	}
 }

@@ -1,4 +1,4 @@
-import styles from './checkout.module.scss'
+import styles from './cart.module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import { PageProps } from '/lib/context/page';
 import { Section } from '/components';
@@ -8,7 +8,7 @@ type Props = {
 	p
 }
 
-export default function Checkout({  }: Props) {
+export default function CartPage({  }: Props) {
 
 	const [
 		cart,
@@ -29,14 +29,15 @@ export default function Checkout({  }: Props) {
 					<table>
 						{cart?.lines.edges.map(({ node }, idx) =>
 							<tr key={idx}>
-								<td>{node.quantity} </td>
-								<td>X</td>
 								<td>{node.merchandise.product.title}</td>
+								<td>{node.quantity} </td>
+								
+								
 								<td>{node.cost?.totalAmount.amount}</td>
 							</tr>
 						)}
 						<tr>
-							<td colSpan={3}>Total</td>
+							<td colSpan={2}>Total</td>
 							<td>{cart.estimatedCost.totalAmount.amount}</td>
 						</tr>
 					</table>
@@ -47,7 +48,7 @@ export default function Checkout({  }: Props) {
 	)
 }
 
-Checkout.page = { layout: 'normal', color: '--white', menu: 'normal' } as PageProps
+CartPage.page = { layout: 'normal', color: '--white', menu: 'normal' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [] }, async ({ props, revalidate }: any) => {
 

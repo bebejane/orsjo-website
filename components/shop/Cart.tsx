@@ -34,7 +34,7 @@ export default function Cart({ }: CartProps) {
         </table>
       </p>
       <button onClick={()=>clearCart()}>Clear</button>
-      <Link href="/shop/checkout">
+      <Link href="/shop/cart">
         <a><button>Checkout</button></a>
       </Link>
 		</div>

@@ -112,17 +112,14 @@ export default function Product({
 			{shopify &&
 				<Section name="Shop" className={styles.shop}>
 					<h1>Shop</h1>
-					<p>
-						<ul>
+					<ul>
 						{shopify.variants.edges.map(({node}, idx) => 
 							<li key={idx}>
-								{node.title} {node.price.amount}
 								<button onClick={()=>addToCart([{merchandiseId:node.id, quantity:1}])}>ADD TO CART</button>
+								{node.title === 'Default Title' ? shopify.title : node.title} {node.price.amount} {node.price.currencyCode}
 							</li>
 						)}
-						</ul>
-						
-					</p>
+					</ul>
 				</Section>
 			}
 			<SectionListItem
