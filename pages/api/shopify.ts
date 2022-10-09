@@ -5,6 +5,7 @@ export default async function handler(req : NextApiRequest, res: NextApiResponse
   
   const client = buildClient({apiToken:process.env.DATOCMS_CMS_TOKEN})
   const product = req.body
+  console.log(product)
   
   const record = await client.items.list({
     filter:{
