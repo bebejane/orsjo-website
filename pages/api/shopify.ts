@@ -4,8 +4,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export default async function handler(req : NextApiRequest, res: NextApiResponse) {
   
   const client = buildClient({apiToken:process.env.DATOCMS_CMS_TOKEN})
-  const product = JSON.parse(req.body)
-
+  const product = req.body
+  
   const record = await client.items.list({
     filter:{
       type:'product', 
