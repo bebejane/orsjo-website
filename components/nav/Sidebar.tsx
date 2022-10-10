@@ -32,7 +32,7 @@ export default function Sidebar({title} : SidebarProps) {
 
 	const handleClick = (e) => {
 		e.preventDefault()
-		//router.push(e.target.getAttribute('href'))
+		router.push(e.target.getAttribute('href'))
 		setOpen(false);
 	}
 	
@@ -78,7 +78,7 @@ export default function Sidebar({title} : SidebarProps) {
 								href={`${pathname}#${section.id}`}
 								data-section-id={section.id}
 								className={cn(section.id === currentSection && styles.active)}
-								onClick={handleClick}
+								//onClick={handleClick}
 							>
 								{section.title}
 							</AnchorLink>

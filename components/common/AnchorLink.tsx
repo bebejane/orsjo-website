@@ -1,6 +1,8 @@
 import { scrollToId } from "/lib/utils";
 import { useRouter } from "next/router";
 import { useWindowSize } from "rooks";
+import { Scrollchor, linear } from 'react-scrollchor';
+import Link from "next/link";
 
 export default function AnchorLink(props){
 
@@ -9,6 +11,7 @@ export default function AnchorLink(props){
   const { innerWidth } = useWindowSize()
   const hash = href.split('#')[1]
   const path = href.split('#')[0]
+  const isExternal = router.asPath.split('#')[0] !== path
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -22,6 +25,11 @@ export default function AnchorLink(props){
 
     
   }
-  return <a {...props} style={{cursor:'pointer'}} onClick={handleClick}  href={undefined}>{children}</a>
+  return (
+    
+      <a {...props}>{children}</a>
+    
+  )
+  //return 
 
 }
