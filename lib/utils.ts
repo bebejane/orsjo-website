@@ -3,7 +3,6 @@ import { buildClient } from '@datocms/cma-client-browser';
 import { apiQuery } from '/lib/dato/api';
 import { SiteSearchDocument } from '/graphql'
 
-
 const isServer = typeof window === 'undefined';
 const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
 
@@ -229,6 +228,16 @@ const sortSwedish = <T>(arr: T[], key?: string) : T[] => {
   })
 }
 
+const scrollToId = (id:string, behavior: ScrollBehavior = 'smooth') => {
+
+  const el = window.document.getElementById(id)
+  const { tablet, navbarHeightMobile, navbarHeight } = styleVariables;
+  const topMargin = 0//(window.innerWidth < tablet ? navbarHeightMobile : navbarHeight) as number
+  const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
+  window.scrollTo({ top, behavior })
+  
+}
+
 export {
   sleep,
   isServer,
@@ -247,5 +256,6 @@ export {
   pxToInt,
   styleVariables,
   waitForElement,
-  sortSwedish
+  sortSwedish,
+  scrollToId
 }

@@ -32,7 +32,7 @@ export default function Sidebar({title} : SidebarProps) {
 
 	const handleClick = (e) => {
 		e.preventDefault()
-		router.push(e.target.getAttribute('href'))
+		//router.push(e.target.getAttribute('href'))
 		setOpen(false);
 	}
 	

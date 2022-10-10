@@ -13,7 +13,7 @@ import {useTransitionFix3 as useTransitionFix} from '/lib/hooks/useTransitionFix
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';
 import { useWindowSize } from 'rooks';
-import { sleep, waitForElement, styleVariables } from '/lib/utils';
+import { sleep, waitForElement, styleVariables, scrollToId } from '/lib/utils';
 
 export type ApplicationProps = AppProps & {
   Component: NextComponentType & {
@@ -44,14 +44,8 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
     const id = url.split('#')[1]
     const el = await waitForElement(id, 400)
     await sleep(100)
-
-    const { tablet, navbarHeightMobile, navbarHeight } = styleVariables;
-    const topMargin = (innerWidth < tablet ? navbarHeightMobile : navbarHeight) as number
-    const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
-    const behavior = instant === true ? 'instant' : !top ? 'instant' : 'smooth'
-    
-    // @ts-expect-error
-    window.scrollTo({ top, behavior })
+    if(el)
+      scrollToId(id, instant === true ? 'instant' : 'smooth')
 
   }, [innerWidth]);
   
