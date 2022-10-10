@@ -1,6 +1,6 @@
 #import './fragments/CustomerFragment.gql'
 
-mutation customerCreate($input: CustomerCreateInput!) {
+mutation CustomerCreate($input: CustomerCreateInput!) {
   customerCreate(input: $input) {
     customer {
       ...CustomerFragment
@@ -13,7 +13,7 @@ mutation customerCreate($input: CustomerCreateInput!) {
   }
 }
 
-mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!){
+mutation CustomerAccessTokenCreate($input: CustomerAccessTokenCreateInput!){
   customerAccessTokenCreate(input: $input){
     customerAccessToken {
       accessToken

@@ -7,22 +7,24 @@
   z-index: 2000;
   padding: 20px;
   max-height: 50vh;
-  min-width: 20vw;
-  max-width: 20vw;
   overflow: hidden;
   background-color: $black;
   color:$white;
   margin:10px;
+  &.updating{
+    opacity: 0.9;
+  }
   ul{
     list-style: none;
+    min-height: 1em;
   }
   button{
     color:$white;
-    width: calc(50% - 10px);
+    //width: calc(50% - 10px);
     margin-right: 10px;
     cursor: pointer;
     &:last-child{
-      margin-right: 0;
+      //margin-right: 0;
     }
   }
   table{

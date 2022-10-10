@@ -1,58 +1,74 @@
 import create from "zustand";
 import { shopifyQuery } from '/lib/shopify/api'
-import { createCartDocument, CartDocument, addItemToCartDocument, removeItemFromCartDocument } from '/lib/shopify/graphql'
-import { isServer } from "/lib/utils";
-
-const initialCart = !isServer && localStorage.getItem('cart') ?  JSON.parse(localStorage.getItem('cart')) : undefined;
+import { CreateCartDocument, CartDocument, AddItemToCartDocument, RemoveItemFromCartDocument } from '/lib/shopify/graphql'
+import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 
 export interface CartState {
   cart?: Cart,
-  updatingCart:boolean,
+  updating:boolean,
+  error:string,
+  update: (fn: () => Promise<Cart>) => void,
   clearCart: () => void,
   createCart: () => void,
   setCart: (cart: Cart) => void,
   addToCart: (lines: CartLineInput[]) => void,
   removeFromCart: (lines: CartLineInput[]) => void, 
 }
-//localStorage.setItem('cart', JSON.stringify(cart))
+
 const useCart = create<CartState>((set, get) => ({
-	cart: initialCart,
-  updatingCart:false,
+	cart: undefined,
+  updating:false,
+  error:undefined,
+  createCart: async () => {
+    get().update(async()=>{
+      const id = getCookie('cart')
+      let cart;
+
+      if(id)
+        return (await shopifyQuery(CartDocument, {variables:{id}})).cart
+      else
+        return (await shopifyQuery(CreateCartDocument)).cartCreate.cart;
+    })
+  },
   clearCart: () => {
     set((state) => ({cart:undefined}))
-    localStorage.removeItem('cart')
-  },
-  createCart: async () => {
-    set((state) => ({updatingCart:true}))
-    const { cartCreate }= await shopifyQuery(createCartDocument)
-    get().setCart(cartCreate.cart)
-    set((state) => ({updatingCart:false}))
+    deleteCookie('cart')
   },
   setCart: (cart : Cart) => {
     set((state) => ({cart}))
-    localStorage.setItem('cart', JSON.stringify(cart))
+    setCookie('cart', cart.id)
   },
   addToCart: async (lines: CartLineInput[]) =>  {
-    set((state) => ({updatingCart:true}))
-    const { cartLinesAdd } = await shopifyQuery(addItemToCartDocument, {
-      variables:{
-        cartId: get().cart?.id,
-        lines
-      }
-    });
-    get().setCart(cartLinesAdd.cart)
-    set((state) => ({updatingCart:false}))
+    
+    get().update(async()=>{
+      const { cartLinesAdd } = await shopifyQuery(AddItemToCartDocument, {
+        variables:{
+          cartId: get().cart?.id,
+          lines
+        }
+      });
+      return cartLinesAdd.cart
+    })
+    
   },
   removeFromCart: async (lines: CartLineInput[]) =>  {
-    set((state) => ({updatingCart:true}))
-    const { cartLinesRemove } = await shopifyQuery(removeItemFromCartDocument, {
-      variables:{
-        cartId: get().cart?.id,
-        lines
-      }
-    });
-    get().setCart(cartLinesRemove.cart)
-    set((state) => ({updatingCart:false}))
+    
+    get().update(async ()=>{
+      const { cartLinesRemove } = await shopifyQuery(RemoveItemFromCartDocument, {
+        variables:{
+          cartId: get().cart?.id,
+          lines
+        }
+      });
+      return cartLinesRemove.cart
+    })    
+  },
+  update:(fn) => {
+    set((state) => ({updating:true, error:undefined}))
+    fn()
+    .then((cart)=>get().setCart(cart))
+    .catch((err)=>set((state) => ({error:err.message})))
+    .finally(()=>set((state) => ({updating:false})))
   },
 }));
 

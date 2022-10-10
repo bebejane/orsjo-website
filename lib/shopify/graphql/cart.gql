@@ -1,31 +1,42 @@
 #import './fragments/CartFragment.gql'
+#import './fragments/UserErrorsFragment.gql'
 
-query Cart($cartId: ID!) {
-  cart(id: $cartId) {
+
+query Cart($id: ID!) {
+  cart(id: $id) {
     ...CartFragment
   }
 }
 
-mutation createCart($cartInput: CartInput) {
+mutation CreateCart($cartInput: CartInput) {
   cartCreate(input: $cartInput) {
     cart {
       ...CartFragment
     }
-  }
-}
-
-mutation addItemToCart($cartId: ID!, $lines: [CartLineInput!]!) {
-  cartLinesAdd(cartId: $cartId, lines: $lines) {
-    cart {
-      ...CartFragment
+    userErrors {
+      ...UserErrorsFragment
     }
   }
 }
 
-mutation removeItemFromCart($cartId: ID!, $lineIds: [ID!]!) {
+mutation AddItemToCart($cartId: ID!, $lines: [CartLineInput!]!) {
+  cartLinesAdd(cartId: $cartId, lines: $lines) {
+    cart {
+      ...CartFragment
+    }
+    userErrors {
+      ...UserErrorsFragment
+    }
+  }
+}
+
+mutation RemoveItemFromCart($cartId: ID!, $lineIds: [ID!]!) {
   cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
     cart {
       ...CartFragment
+    }
+    userErrors {
+      ...UserErrorsFragment
     }
   }
 }
