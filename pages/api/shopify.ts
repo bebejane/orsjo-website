@@ -7,12 +7,13 @@ export default async function handler(req : NextApiRequest, res: NextApiResponse
   
     const client = buildClient({apiToken:process.env.DATOCMS_CMS_TOKEN})
     const product = req.body
+    const id = Buffer.from(product.admin_graphql_api_id).toString('base64');
     
     const record = (await client.items.list({
       filter:{
         type:'product', 
         fields: {
-          shopify_id: {eq: btoa(product.admin_graphql_api_id)}
+          shopify_id: {eq: id}
         }
       }
     }))[0]
