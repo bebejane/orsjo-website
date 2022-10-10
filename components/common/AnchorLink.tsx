@@ -7,9 +7,13 @@ export default function AnchorLink(props){
 
   const handleClick = (e) => {
     e.preventDefault()
-    router.push('#' + props.href.split('#')[1], null, {shallow:true, scroll:false})
+    const hash = props.href.split('#')[1]
+    //router.push('#' + props.href.split('#')[1], null, {shallow:true, scroll:false})
+    const el = window.document.getElementById(hash)
+    el.scrollIntoView({behavior:'smooth'})
+    
   }
   //return <Link href={props.href} scroll={false}><a>{props.children}</a></Link>
-  return <a onClick={handleClick} {...props}>{props.children}</a>
+  return <a onClick={handleClick}>{props.children}</a>
 
 }
