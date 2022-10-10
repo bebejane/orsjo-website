@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect, useCallback } from 'react';
 import { useStore } from '/lib/store'
 import DatoSEO from '/lib/dato/components/DatoSEO';
-import {useTransitionFix3 as useTransitionFix} from '/lib/hooks/useTransitionFix';
+import {useTransitionFix2 as useTransitionFix} from '/lib/hooks/useTransitionFix';
 
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';
