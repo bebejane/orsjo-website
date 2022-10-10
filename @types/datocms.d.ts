@@ -2978,6 +2978,12 @@ type JobRecordtextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** Specifies how to filter JSON fields */
+type JsonFilter = {
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']>;
+};
+
 /** Block of type Lightsource (lightsource) */
 type LightsourceRecord = RecordInterface & {
   __typename?: 'LightsourceRecord';
@@ -4188,6 +4194,8 @@ type ProductModelFilter = {
   mountingInstructions?: InputMaybe<FileFilter>;
   pdfFile?: InputMaybe<FileFilter>;
   presentation?: InputMaybe<StringFilter>;
+  shopifyData?: InputMaybe<JsonFilter>;
+  shopifyId?: InputMaybe<StringFilter>;
   slug?: InputMaybe<SlugFilter>;
   sockets?: InputMaybe<LinksFilter>;
   title?: InputMaybe<StringFilter>;
@@ -4305,6 +4313,8 @@ enum ProductModelOrderBy {
   markAsNew_DESC = 'markAsNew_DESC',
   presentation_ASC = 'presentation_ASC',
   presentation_DESC = 'presentation_DESC',
+  shopifyId_ASC = 'shopifyId_ASC',
+  shopifyId_DESC = 'shopifyId_DESC',
   title_ASC = 'title_ASC',
   title_DESC = 'title_DESC',
   updatedAt_ASC = 'updatedAt_ASC',
@@ -4465,6 +4475,8 @@ type ProductRecord = RecordInterface & {
   pdfFile?: Maybe<FileField>;
   presentation?: Maybe<Scalars['String']>;
   productGallery: Array<ProductModelProductGalleryField>;
+  shopifyData?: Maybe<Scalars['JsonField']>;
+  shopifyId?: Maybe<Scalars['String']>;
   slug: Scalars['String'];
   sockets: Array<ProductSocketRecord>;
   title?: Maybe<Scalars['String']>;

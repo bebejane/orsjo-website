@@ -4,7 +4,7 @@ import { useStore, shallow } from '/lib/store';
 import { useRouter } from 'next/router';
 import { usePage } from '/lib/context/page'
 import { useEffect, useState, useCallback, useRef } from 'react'
-import { ArrowLink } from '/components'
+import { ArrowLink, AnchorLink } from '/components'
 import useScrollInfo from '/lib/hooks/useScrollInfo';
 
 export type SidebarProps = {title: string}
@@ -74,14 +74,14 @@ export default function Sidebar({title} : SidebarProps) {
 				<ul>
 					{sections?.map((section, idx) => 
 						<li key={idx}>
-							<a 
+							<AnchorLink 
 								href={`${pathname}#${section.id}`}
 								data-section-id={section.id}
 								className={cn(section.id === currentSection && styles.active)}
 								onClick={handleClick}
 							>
 								{section.title}
-							</a>
+							</AnchorLink>
 						</li>
 					)}
 					{isProductsPage && 

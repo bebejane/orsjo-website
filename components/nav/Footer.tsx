@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { MenuItem } from '/lib/menu'
 import social from '/lib/social'
 import { usePage } from '/lib/context/page'
+import { AnchorLink } from '/components'
 
 export type FooterProps = { menu: MenuItem[] }
 
@@ -39,6 +40,9 @@ export default function Footer({ menu }: FooterProps) {
 												</Link>
 												{item.sub?.map((subItem, subidx) => {
 													const endReached = subidx === maxLength;
+													const isAnchorLink = subItem.slug.indexOf('#') > -1
+													if(isAnchorLink)
+														return <AnchorLink href={subItem.slug}><li>{subItem.label}</li></AnchorLink>
 													return (
 														<Link scroll={false} key={subidx} href={subItem.slug}>
 															<a>
