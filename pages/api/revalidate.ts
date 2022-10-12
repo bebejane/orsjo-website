@@ -103,7 +103,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await Promise.all(paths.map(path => res.revalidate(path)))
     console.log('revalidated done')
   } catch (err: any) {
-    console.error(err)
+    console.error(err)f
   }
 }
 
