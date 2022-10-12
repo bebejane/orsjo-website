@@ -70,7 +70,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					{staffs.map(({ id, name, role, phone, email, image }, idx) =>
 						<div id={id} key={idx} className={styles.employee}>
 							<div className={styles.image}>
-								<Image data={image.responsiveImage} />
+								{image && <Image data={image.responsiveImage} />}
 							</div>
 							<div className={styles.name}>
 								<p className="medium white noMargin">
