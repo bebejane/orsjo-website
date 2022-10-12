@@ -68,7 +68,8 @@ const linkConfig = {
   batchMax: 10, 
   batchInterval: 50,
   headers: { 
-    'Authorization': `Bearer ${GRAPHQL_API_TOKEN}`
+    'Authorization': `Bearer ${GRAPHQL_API_TOKEN}`,
+    'X-Exclude-Invalid': true 
   }
 }
 
