@@ -100,9 +100,8 @@ const getRecordFromPayload = async (payload: any) : Promise<any> => {
   const modelId = payload?.relationships?.item_type?.data?.id
 
   if (!modelId) throw 'Model id not found in payload!'
-
-  const apiToken = process.env.GRAPHQL_API_TOKEN || process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN || null
-  const client = buildClient({ apiToken })
+  console.log('lookup modelId', modelId)
+  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
   const model = (await client.itemTypes.list()).filter(m => m.id === modelId)[0]
   const record = (await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } }))[0]
 
