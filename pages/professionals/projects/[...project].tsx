@@ -26,19 +26,19 @@ export default function Project({ project, related }: ProjectProps) {
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
-	const opacity = Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
-	const headerStyle = { opacity:  opacity}
+	const opacity = Math.max(0, ((viewportHeight - (scrolledPosition * 8)) / viewportHeight));
+	const headerStyle = { opacity}
 	const imageStyle = {
-		opacity: 0.2 + viewportScrollRatio,
-		filter: `grayscale(${1 - (viewportScrollRatio * 6)})`
+		opacity: Math.min(0.2 + (viewportScrollRatio*4), 1),
+		filter: `grayscale(${Math.max((1-(viewportScrollRatio*4)), 0)})`
 	}
-	console.log(headerStyle)
+	
 	useEffect(() => setGallery({ images: galleryImages(project) }), [setGallery, project])	
 
 	return (
 		<>
 			<Section className={styles.intro} name="Presentation" top={true}>
-				<div className={styles.wrap}>
+				<div className={styles.wrap} onClick={()=>setGalleryId(project.image?.id)}>
 					<h1 className={styles.title} style={headerStyle}>{project.title}</h1>
 					<h1 className={styles.location} style={headerStyle}>{project.location}</h1>
 					{project.image &&
