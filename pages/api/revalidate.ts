@@ -12,15 +12,41 @@ export const basicAuth = (req: NextApiRequest) => {
 }
 
 const modelToPath = {
-  start: '/'
+  start: ['/']
+
 }
 
 const getPathsFromPayload = async (payload: any) => {
   const record = await getRecordFromPayload(payload)
   const { apiKey } = record.model;
-  const paths = [record.slug ? `/${record.slug}` : modelToPath[apiKey]]
+  let slugs = []
+  
+  switch (apiKey) {
+    case 'product':
+        slugs.push(`/products/${record.slug}`)
+        slugs.push(`/products`)
+        slugs.push(`/professionals/downloads`)
+        
 
-  return paths.filter(el => el);
+      break;
+    case 'designer':
+      slugs.push(`/designers/${record.slug}`)
+    break;
+    case 'project':
+      slugs.push(`/professionals/${record.slug}`)
+      slugs.push(`/professionals`)
+    case 'bespoke':
+      slugs.push(`/professionals/bespoke`)
+    case '':
+      slugs.push(`/professionals/bespoke`)
+    default:
+      break;
+  }
+
+  if(modelToPath[apiKey])
+    slugs = slugs.concat(modelToPath[apiKey])
+
+  return slugs.filter(el => el);
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

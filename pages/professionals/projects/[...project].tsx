@@ -7,11 +7,19 @@ import { PageProps } from '/lib/context/page';
 import { Block, Section, FeaturedGallery } from '/components';
 import { useEffect } from 'react'
 import { useStore } from '/lib/store';
-import { recordImages } from '/lib/utils'
 import useScrollInfo from '/lib/hooks/useScrollInfo';
 import cn from 'classnames';
 
 export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
+
+const galleryImages = (project: ProjectRecord) : FileField[] => {
+	const images = [
+		project.image,
+		project.secondaryImage,
+	]
+	project.gallery.forEach(el => Object.keys(el).forEach(k => el[k].responsiveImage  && images.push(el[k])))
+	return images;
+} 
 
 export default function Project({ project, related }: ProjectProps) {
 
@@ -25,7 +33,7 @@ export default function Project({ project, related }: ProjectProps) {
 		filter: `grayscale(${1 - (viewportScrollRatio * 4)})`
 	}
 
-	useEffect(() => setGallery({ images: recordImages(project) }), [setGallery, project])	
+	useEffect(() => setGallery({ images: galleryImages(project) }), [setGallery, project])	
 
 	return (
 		<>
