@@ -97,11 +97,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const paths = await getPathsFromPayload(payload)
 
     if (!paths.length)
-      return console.log(`Nothing to revalidate`);
+      throw 'Nothing to revalidate';
 
     console.log('revalidating paths', paths)
     await Promise.all(paths.map(path => res.revalidate(path)))
-    console.log('revalidated done')
+    console.log('revalidating done!')
   } catch (err: any) {
     console.error(err)
   }
