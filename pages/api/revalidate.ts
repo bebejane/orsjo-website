@@ -26,8 +26,7 @@ const getPathsFromPayload = async (payload: any) => {
         slugs.push(`/products/${record.slug}`)
         slugs.push(`/products`)
         slugs.push(`/professionals/downloads`)
-        
-
+        slugs.push(`/support/manuals`)
       break;
     case 'designer':
       slugs.push(`/designers/${record.slug}`)
@@ -37,8 +36,27 @@ const getPathsFromPayload = async (payload: any) => {
       slugs.push(`/professionals`)
     case 'bespoke':
       slugs.push(`/professionals/bespoke`)
-    case '':
-      slugs.push(`/professionals/bespoke`)
+    case 'color_material':
+      slugs.push(`/professionals/colors-and-materials`)
+    case 'about':
+      slugs.push(`/about/about-us`)
+    case 'sustainability':
+      slugs.push(`/about/sustainability`)
+    case 'press':
+      slugs.push(`/about/press`)
+    case 'news':
+      slugs.push(`/about/news`)
+      slugs.push(`/`)
+    case 'job':
+      slugs.push(`/about/jobs`)
+    case 'faq':
+      slugs.push(`/support/faq`)
+    case 'faq_start':
+      slugs.push(`/support/faq`)
+    case 'faq_category':
+      slugs.push(`/support/faq`)
+    case 'contact': case 'staff': case 'showroom': case 'reseller': case 'distributor':
+      slugs.push(`/contact`)
     default:
       break;
   }
@@ -63,7 +81,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!payload)
       throw 'Payload is empty'
 
-    const paths = await getPathsFromPayload(payload, record)
+    const paths = await getPathsFromPayload(payload)
 
     if (!paths.length)
       throw new Error(`Nothing to revalidate`);

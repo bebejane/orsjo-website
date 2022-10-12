@@ -27,12 +27,12 @@ export default function Project({ project, related }: ProjectProps) {
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
 	const opacity = Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
-	const headerStyle = { opacity }
+	const headerStyle = { opacity:  opacity}
 	const imageStyle = {
 		opacity: 0.2 + viewportScrollRatio,
-		filter: `grayscale(${1 - (viewportScrollRatio * 4)})`
+		filter: `grayscale(${1 - (viewportScrollRatio * 6)})`
 	}
-
+	console.log(headerStyle)
 	useEffect(() => setGallery({ images: galleryImages(project) }), [setGallery, project])	
 
 	return (
