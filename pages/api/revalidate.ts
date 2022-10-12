@@ -94,7 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 }
 
-const getRecordFromPayload = async (payload: any) => {
+const getRecordFromPayload = async (payload: any) : Promise<any> => {
 
   const modelId = payload?.relationships?.item_type?.data?.id
 
