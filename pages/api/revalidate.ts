@@ -1,125 +1,68 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { buildClient } from '@datocms/cma-client-node';
+import revalidate from '/lib/dato/webhook/revalidate'
 
-export const basicAuth = (req: NextApiRequest) => {
-  
-  const basicAuth = req.headers.authorization
-  if (!basicAuth) 
-    return true;
-    
-  const auth = basicAuth.split(' ')[1]
-  const [user, pwd] = Buffer.from(auth, 'base64').toString().split(':')
-  return user === process.env.BASIC_AUTH_USER && pwd === process.env.BASIC_AUTH_PASSWORD
-}
+export default revalidate(async (record, req, res) => {
 
-const modelToPath = {
-  start: ['/']
+  const { api_key: apiKey } = record.model;
+  const { slug }  = record
+  const paths = []
 
-}
-
-const getPathsFromPayload = async (payload: any) => {
-  const record = await getRecordFromPayload(payload)
-  const { api_key : apiKey } = record.model;
-  let slugs = []
-  
   switch (apiKey) {
     case 'product':
-        slugs.push(`/products/${record.slug}`)
-        slugs.push(`/products`)
-        slugs.push(`/professionals/downloads`)
-        slugs.push(`/support/manuals`)
+      paths.push(`/products/${slug}`)
+      paths.push(`/products`)
+      paths.push(`/professionals/downloads`)
+      paths.push(`/support/manuals`)
       break;
     case 'designer':
-      slugs.push(`/designers/${record.slug}`)
+      paths.push(`/designers/${slug}`)
       break;
     case 'project':
-      slugs.push(`/professionals/${record.slug}`)
-      slugs.push(`/professionals`)
+      paths.push(`/professionals/${slug}`)
+      paths.push(`/professionals`)
       break;
     case 'bespoke':
-      slugs.push(`/professionals/bespoke`)
+      paths.push(`/professionals/bespoke`)
       break;
     case 'color_material':
-      slugs.push(`/professionals/colors-and-materials`)
+      paths.push(`/professionals/colors-and-materials`)
       break;
     case 'about':
-      slugs.push(`/about/about-us`)
+      paths.push(`/about/about-us`)
       break;
     case 'sustainability':
-      slugs.push(`/about/sustainability`)
+      paths.push(`/about/sustainability`)
       break;
     case 'press':
-      slugs.push(`/about/press`)
+      paths.push(`/about/press`)
       break;
     case 'news':
-      slugs.push(`/about/news`)
-      slugs.push(`/`)
+      paths.push(`/about/news`)
+      paths.push(`/`)
       break;
     case 'job':
-      slugs.push(`/about/jobs`)
+      paths.push(`/about/jobs`)
       break;
     case 'faq':
-      slugs.push(`/support/faq`)
+      paths.push(`/support/faq`)
       break;
     case 'faq_start':
-      slugs.push(`/support/faq`)
+      paths.push(`/support/faq`)
       break;
     case 'faq_category':
-      slugs.push(`/support/faq`)
+      paths.push(`/support/faq`)
       break;
     case 'contact': case 'staff': case 'showroom': case 'reseller': case 'distributor':
-      slugs.push(`/contact`)
+      paths.push(`/contact`)
       break;
     default:
       break;
   }
 
-  if(modelToPath[apiKey])
-    slugs = slugs.concat(modelToPath[apiKey])
+  if (!paths.length)
+    throw 'Nothing to revalidate';
 
-  return slugs.filter(el => el);
-}
+  console.log('revalidating paths', paths)
+  await Promise.all(paths.map(path => res.revalidate(path)))
+  console.log('revalidating done!')
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
-  if (!basicAuth(req))
-    return res.status(401).send('Access denied')
-
-  res.json({ revalidated: true })
-
-  try {
-
-    const payload = req.body?.entity;
-
-    if (!payload)
-      throw 'Payload is empty'
-
-    const paths = await getPathsFromPayload(payload)
-
-    if (!paths.length)
-      throw 'Nothing to revalidate';
-
-    console.log('revalidating paths', paths)
-    await Promise.all(paths.map(path => res.revalidate(path)))
-    console.log('revalidating done!')
-  } catch (err: any) {
-    console.error(err)
-  }
-}
-
-const getRecordFromPayload = async (payload: any) : Promise<any> => {
-
-  const modelId = payload?.relationships?.item_type?.data?.id
-
-  if (!modelId) throw 'Model id not found in payload!'
-  console.log('lookup modelId', modelId)
-  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
-  const model = (await client.itemTypes.list()).filter(m => m.id === modelId)[0]
-  const record = (await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } }))[0]
-  
-  if (!record)
-    throw `No record found with modelId: ${modelId}`
-
-  return { ...record, model }
-}
-
+})

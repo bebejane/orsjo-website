@@ -14,8 +14,7 @@ module.exports = {
 	schema: {
 		"https://graphql.datocms.com": {
 			headers: {
-				Authorization: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN,
-				"X-Exclude-Invalid": true,
+				Authorization: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN
 			},
 		},
 	},

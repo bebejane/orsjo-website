@@ -12,20 +12,41 @@
 
 .projects {
   display: flex;
-  flex-wrap: wrap;
-  padding-bottom: $small-margin;
-
+  flex: 1 1 auto;
+  flex-direction: column;
+  .wrap{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: $small-margin;
+    margin-top: -1rem;
+    >div{
+      margin-top: 1rem;
+    }
+  }
   h1 {
     width: 100%;
   }
 }
 
 .project {
-  width: spanNestedGrid(12, 4);
-  padding-right: nestedGridGutter(12);
-  @include resetLastColumn(3);
+  margin-right: nestedGridGutter(12);
 
   figure {
-    background-color: $gray  !important;
+    background-color: $gray !important;
   }
+
+  @include mq($from: desktop, $until: wide){
+    flex: 0 0 spanNestedGrid(12, 4);
+    @include resetLastColumn(3);
+  }
+  @include mq($from: wide){
+    flex: 0 0 spanNestedGrid(12, 3);
+    @include resetLastColumn(4);
+  }
+  @include mq($from:mobile, $until: tablet){
+    flex: 0 0 spanNestedGrid(12, 6);
+    @include resetLastColumn(2);
+  }
+
 }

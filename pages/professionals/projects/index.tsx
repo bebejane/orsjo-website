@@ -21,14 +21,16 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 				return (
 					<Section name={titlePlural} className={styles.projects} key={idx} >
 						<h1>{titlePlural}</h1>
-						{projects.filter(({ projectType }) => projectType.id === id).map((p, idx) =>
-							<ProjectThumbnail
-								key={`t-${idx}`}
-								project={p}
-								theme='mid'
-								className={styles.project}
-							/>
-						)}
+						<div className={styles.wrap}>
+							{projects.filter(({ projectType }) => projectType.id === id).map((p, idx) =>
+								<ProjectThumbnail
+									key={`t-${idx}`}
+									project={p}
+									theme='mid'
+									className={styles.project}
+								/>
+							)}
+						</div>
 					</Section>
 				)
 			})}
