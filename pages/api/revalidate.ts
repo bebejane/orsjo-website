@@ -86,8 +86,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!paths.length)
       throw new Error(`Nothing to revalidate`);
 
+    console.log('revalidating paths', paths)
     await Promise.all(paths.map(path => res.revalidate(path)))
-    console.log('revalidated', paths)
+    console.log('revalidated done')
   } catch (err: any) {
     console.error(err)
     res.status(500).send(`Error revalidating: ${err.message || err}`)
