@@ -20,11 +20,11 @@ const getRecordFromPayload = async (payload: any) : Promise<any> => {
     throw 'Model id not found in payload!'
   
   const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
-  const model = (await client.itemTypes.list()).filter(m => m.id === modelId)[0]
-  const record = (await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } }))[0]
+  const models = await client.itemTypes.list()
+  const model = models.find(m => m.id === modelId)
+  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
+  const record = records[0]
   
-  
-
   if (!record)
     throw `No record found with modelId: ${modelId}`
 
