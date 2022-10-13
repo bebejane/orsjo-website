@@ -41,17 +41,18 @@ export default function Footer({ menu }: FooterProps) {
 												{item.sub?.map((subItem, subidx) => {
 													const endReached = subidx === maxLength;
 													const isAnchorLink = subItem.slug.indexOf('#') > -1
-													if(isAnchorLink)
-														return <AnchorLink href={subItem.slug}><li>{subItem.label}</li></AnchorLink>
-													return (
+													
+													return isAnchorLink ? 
+														<AnchorLink key={subidx} href={subItem.slug}>
+															<li>{subItem.label}</li>
+														</AnchorLink>
+													:
 														<Link scroll={false} key={subidx} href={subItem.slug}>
 															<a>
 																<li>{subItem.label}</li>
 															</a>
 														</Link>
-													)
-												}
-												)}
+												})}
 											</>
 										</ul>
 									</li>

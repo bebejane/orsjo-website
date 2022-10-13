@@ -47,8 +47,8 @@ query Staff($id: ItemId, $locale: SiteLocale = en) {
 	}
 }
 
-query AllStaffs($id: ItemId, $locale: SiteLocale = en) {
-	staffs : allStaffs(locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
+query AllStaffs($id: ItemId, $locale: SiteLocale = en, $first: IntType = 100) {
+	staffs : allStaffs(first: $first, locale: $locale, fallbackLocales: [sv, en], filter: {id: { eq: $id }}) {
 		...StaffFragment
 	}
 }

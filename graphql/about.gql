@@ -71,8 +71,8 @@ query Job($id:ItemId){
   }
 }
 
-query AllJobs {
-  jobs: allJobs {
+query AllJobs($first: IntType = 100) {
+  jobs: allJobs(first: $first) {
     id
     summary(markdown: false)
     text(markdown: false)
@@ -88,8 +88,8 @@ query Press($id:ItemId){
   }
 }
 
-query AllPress {
-  presses: allPresses {
+query AllPress($first: IntType = 100) {
+  presses: allPresses(first: $first) {
     id
     title
     url
