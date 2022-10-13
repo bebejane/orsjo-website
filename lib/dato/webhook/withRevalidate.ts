@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { buildClient } from '@datocms/cma-client-node';
+import { buildClient } from '@datocms/cma-client-browser';
 
 export const basicAuth = (req: NextApiRequest) => {
   
@@ -20,18 +20,23 @@ const recordFromPayload = async (payload: any) : Promise<any> => {
     throw 'Model id not found in payload!'
   
   console.log('revalidate modelId', modelId)
-  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
-  client.itemTypes.list().then(res => console.log(res))
-  const models = await client.itemTypes.list()
-  const model = models.find(m => m.id === modelId)
-  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
-  const record = records[0]
-  
-  if (!record)
-    throw `No record found with modelId: ${modelId}`
+  try{
 
-  console.log('revalidate', modelId, model.api_key)
-  return { ...record, model }
+    const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
+    const models = await client.itemTypes.list()
+    const model = models.find(m => m.id === modelId)
+    const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
+    const record = records[0]
+    
+    if (!record)
+      throw `No record found with modelId: ${modelId}`
+
+    console.log('revalidate', modelId, model.api_key)
+    return { ...record, model }
+
+  }catch(err){
+    throw err
+  }
 }
 
 
