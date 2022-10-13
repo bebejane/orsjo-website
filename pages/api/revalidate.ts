@@ -1,30 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { buildClient } from '@datocms/cma-client-node';
+import withRevalidate from '/lib/dato/webhook/withRevalidate'
 
-export default async function revalidate(req: NextApiRequest, res: NextApiResponse){
-  res.json({ revalidated: true })
-
-  const payload = req.body?.entity;
-  
-  const modelId = payload?.relationships?.item_type?.data?.id
-
-  if (!modelId) 
-    throw 'Model id not found in payload!'
-  
-  console.log('revalidate modelId', modelId)
-  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
-  const models = await client.itemTypes.list()
-  const model = models.find(m => m.id === modelId)
-  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
-  const record = records[0]
-  
-  if (!record)
-    throw `No record found with modelId: ${modelId}`
-
-  console.log('revalidate', modelId, model.api_key)
-  // /return { ...record, model }
-
-  const { api_key: apiKey } = model;
+export default withRevalidate(async (record, req, res) => {
+ 
+  const { api_key: apiKey } = record.model;
   const { slug }  = record
   const paths = []
 
@@ -90,4 +68,4 @@ export default async function revalidate(req: NextApiRequest, res: NextApiRespon
   }
   console.log('revalidating done!')
 
-}
+})
