@@ -8,8 +8,12 @@ const usePreviousRoute = () => {
   const [prevRoute, setPrevRoute] = useState(typeof storage !== 'undefined' ? storage.getItem('previousRoute') : null)
 
 	useEffect(()=>{
+    
     const prevRoute = storage.getItem('currentRoute');
-    if (prevRoute === router.asPath) return
+    
+    if (prevRoute === router.asPath) 
+      return console.log('same', prevRoute)
+    console.log(prevRoute, '>', router.asPath)
     storage.setItem('previousRoute', prevRoute)
     storage.setItem("currentRoute", router.asPath);
     setPrevRoute(prevRoute)
@@ -22,7 +26,7 @@ const usePreviousRoute = () => {
     }
     window.addEventListener('beforeunload', handleWindowReload)
     return () => window.removeEventListener('beforeunload', handleWindowReload)
-  })
+  }, [])
 
 
   return prevRoute
