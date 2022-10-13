@@ -208,7 +208,7 @@ export default function Product({
 				<ul className={styles.downloads}>
 					{files.map(({ href, type, label }, idx) =>
 						<li key={idx}>
-							<a href={href} download>
+							<a href={href} download target="_new">
 								<Icon type={type} label={label} disabled={!href} />
 							</a>
 						</li>

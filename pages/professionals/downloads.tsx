@@ -122,7 +122,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 									<Image data={thumbnail.responsiveImage} className={styles.image} />
 								</td>
 								<td>
-									<a href={`${pdf.url}?dl=${title}.pdf`}>
+									<a href={`${pdf.url}?dl=${title}.pdf`} download target="_new">
 										<Icon type={'pdf'} label={title} />
 									</a>
 								</td>
