@@ -19,7 +19,6 @@ const recordFromPayload = async (payload: any) : Promise<any> => {
   if (!modelId) 
     throw 'Model id not found in payload!'
   
-  console.log(process.env.HTTP_PROXY)
   console.log('revalidate modelId', modelId)
   const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
   console.log('list models')
