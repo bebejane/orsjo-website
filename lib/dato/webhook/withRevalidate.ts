@@ -20,7 +20,7 @@ const recordFromPayload = async (payload: any) : Promise<any> => {
     throw 'Model id not found in payload!'
   
   console.log('revalidate modelId', modelId)
-  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
+  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN, requestTimeout:3000 })
   console.log('list models')
   const models = await client.itemTypes.list()
   const model = models.find(m => m.id === modelId)
