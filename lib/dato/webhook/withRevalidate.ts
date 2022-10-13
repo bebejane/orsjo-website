@@ -21,9 +21,9 @@ const recordFromPayload = async (payload: any) : Promise<any> => {
   
   console.log('modelId', modelId, process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN)
   const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
-  const models = await client.itemTypes.list().then()
+  const models = await client.itemTypes.list()
   const model = models.find(m => m.id === modelId)
-  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } }).then()
+  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
   const record = records[0]
   
   if (!record)
@@ -48,8 +48,25 @@ export default function withRevalidate(callback: (record:any, req: NextApiReques
     if (!payload)
       throw 'Payload is empty'
 
-    const record = await recordFromPayload(payload)
-    callback(record, req, res)
+    //const record = await recordFromPayload(payload)
+    const modelId = payload?.relationships?.item_type?.data?.id
+
+    if (!modelId) 
+      throw 'Model id not found in payload!'
+    
+    console.log('modelId', modelId, process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN)
+    const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
+    const models = await client.itemTypes.list()
+    const model = models.find(m => m.id === modelId)
+    const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
+    const record = records[0]
+    
+    if (!record)
+      throw `No record found with modelId: ${modelId}`
+
+    console.log('revalidate', modelId, model.api_key)
+    //return { ...record, model }
+    return callback({ ...record, model }, req, res)
   }
 }
 
