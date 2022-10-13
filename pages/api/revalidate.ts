@@ -7,6 +7,9 @@ export default withRevalidate(async (record, req, res) => {
   const paths = []
 
   switch (apiKey) {
+    case 'start':
+      paths.push(`/`)
+      break;
     case 'product':
       paths.push(`/products/${slug}`)
       paths.push(`/products`)
@@ -16,8 +19,11 @@ export default withRevalidate(async (record, req, res) => {
     case 'designer':
       paths.push(`/designers/${slug}`)
       break;
+    case 'project_start':
+      paths.push(`/professionals/projects`)
+      break;
     case 'project':
-      paths.push(`/professionals/${slug}`)
+      paths.push(`/professionals/projects/${slug}`)
       paths.push(`/professionals`)
       break;
     case 'bespoke':
@@ -42,13 +48,7 @@ export default withRevalidate(async (record, req, res) => {
     case 'job':
       paths.push(`/about/jobs`)
       break;
-    case 'faq':
-      paths.push(`/support/faq`)
-      break;
-    case 'faq_start':
-      paths.push(`/support/faq`)
-      break;
-    case 'faq_category':
+    case 'faq': case 'faq_start': case 'faq_category':
       paths.push(`/support/faq`)
       break;
     case 'contact': case 'staff': case 'showroom': case 'reseller': case 'distributor':
