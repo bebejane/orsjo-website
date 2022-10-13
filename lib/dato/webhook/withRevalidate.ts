@@ -36,7 +36,6 @@ const recordFromPayload = async (payload: any) : Promise<any> => {
 
 }
 
-
 export default function withRevalidate(cb:(record:any, req: NextApiRequest, res: NextApiResponse) => Promise<void>) : (req: NextApiRequest, res: NextApiResponse) => void {
 
   return async (req: NextApiRequest, res: NextApiResponse) => {
