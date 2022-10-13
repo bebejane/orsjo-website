@@ -33,7 +33,7 @@ const getRecordFromPayload = async (payload: any) : Promise<any> => {
 }
 
 
-const revalidate = (callback: (record:any, req: NextApiRequest, res: NextApiResponse) => void) : (req: NextApiRequest, res: NextApiResponse) => void => {
+const withRevalidate = (callback: (record:any, req: NextApiRequest, res: NextApiResponse) => void) : (req: NextApiRequest, res: NextApiResponse) => void => {
 
   return async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -52,6 +52,6 @@ const revalidate = (callback: (record:any, req: NextApiRequest, res: NextApiResp
   }
 }
 
-export default revalidate;
+export default withRevalidate;
 
 
