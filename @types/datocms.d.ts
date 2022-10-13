@@ -4648,6 +4648,7 @@ type ProjectModelFilter = {
   _status?: InputMaybe<StatusFilter>;
   _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
   _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  bespoke?: InputMaybe<BooleanFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
@@ -4679,6 +4680,8 @@ enum ProjectModelOrderBy {
   _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
   _updatedAt_ASC = '_updatedAt_ASC',
   _updatedAt_DESC = '_updatedAt_DESC',
+  bespoke_ASC = 'bespoke_ASC',
+  bespoke_DESC = 'bespoke_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
@@ -4705,6 +4708,7 @@ type ProjectRecord = RecordInterface & {
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
+  bespoke?: Maybe<Scalars['BooleanType']>;
   createdAt: Scalars['DateTime'];
   gallery: Array<ProjectModelGalleryField>;
   id: Scalars['ItemId'];

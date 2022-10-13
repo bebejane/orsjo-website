@@ -34,7 +34,7 @@ const recordFromPayload = async (payload: any) : Promise<any> => {
 
 }
 
-export default function withRevalidate(cb:(record:any, req: NextApiRequest, res: NextApiResponse) => Promise<void>) : (req: NextApiRequest, res: NextApiResponse) => void {
+export default function withRevalidate(callback:(record:any, revalidate : (paths:string[]) => Promise<void> ) => Promise<void>) : (req: NextApiRequest, res: NextApiResponse) => void {
 
   return async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -47,7 +47,25 @@ export default function withRevalidate(cb:(record:any, req: NextApiRequest, res:
       throw 'Payload is empty'
 
     const record = await recordFromPayload(payload)
-    cb(record, req, res)
+
+    callback(record, async (paths) => {
+      try{
+        if (!paths.length)
+          throw 'Nothing to revalidate';
+
+        console.log('revalidating paths', paths)
+        for (let i = 0; i < paths.length; i++){
+          console.log('revalidate', paths[i])
+          await res.revalidate(paths[i])
+        }
+        console.log('revalidating done!')
+        return res.json({ revalidated: true, paths })
+      }catch(err){
+        console.error(err)
+        return res.json({ revalidated: false, err })
+      }
+      
+    })
   }
 }
 

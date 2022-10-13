@@ -1,6 +1,6 @@
 import withRevalidate from '/lib/dato/webhook/withRevalidate'
 
-export default withRevalidate(async (record, req, res) => {
+export default withRevalidate(async (record, revalidate) => {
   
   const { api_key: apiKey } = record.model;
   const { slug }  = record
@@ -57,16 +57,5 @@ export default withRevalidate(async (record, req, res) => {
     default:
       break;
   }
-
-  if (!paths.length)
-    throw 'Nothing to revalidate';
-
-  console.log('revalidating paths', paths)
-  for (let i = 0; i < paths.length; i++){
-    console.log('revalidate', paths[i])
-    await res.revalidate(paths[i])
-  }
-  res.json({ revalidated: true })
-  console.log('revalidating done!')
-
+  revalidate(paths)
 })
