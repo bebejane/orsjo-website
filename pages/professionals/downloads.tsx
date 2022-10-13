@@ -87,7 +87,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 													{files.map(({ type, label, href }, idx) =>
 														<>
 															<div key={`f-${idx}`} className={styles.item}>
-																<a href={href} download>
+																<a href={href} download target="_new">
 																	<Icon type={type} label={label} />
 																</a>
 															</div>
