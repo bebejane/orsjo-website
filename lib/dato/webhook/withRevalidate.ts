@@ -12,17 +12,18 @@ export const basicAuth = (req: NextApiRequest) => {
   return user === process.env.BASIC_AUTH_USER && pwd === process.env.BASIC_AUTH_PASSWORD
 }
 
-const getRecordFromPayload = async (payload: any) : Promise<any> => {
+const recordFromPayload = async (payload: any) : Promise<any> => {
 
   const modelId = payload?.relationships?.item_type?.data?.id
 
   if (!modelId) 
     throw 'Model id not found in payload!'
   
+  console.log('modelId', modelId, process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN)
   const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN })
-  const models = await client.itemTypes.list()
+  const models = await client.itemTypes.list().then()
   const model = models.find(m => m.id === modelId)
-  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } })
+  const records = await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } }).then()
   const record = records[0]
   
   if (!record)
@@ -33,7 +34,7 @@ const getRecordFromPayload = async (payload: any) : Promise<any> => {
 }
 
 
-const withRevalidate = (callback: (record:any, req: NextApiRequest, res: NextApiResponse) => void) : (req: NextApiRequest, res: NextApiResponse) => void => {
+export default function withRevalidate(callback: (record:any, req: NextApiRequest, res: NextApiResponse) => void) : (req: NextApiRequest, res: NextApiResponse) => void {
 
   return async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -47,11 +48,11 @@ const withRevalidate = (callback: (record:any, req: NextApiRequest, res: NextApi
     if (!payload)
       throw 'Payload is empty'
 
-    const record = await getRecordFromPayload(payload)
+    const record = await recordFromPayload(payload)
     callback(record, req, res)
   }
 }
 
-export default withRevalidate;
+//export default withRevalidate;
 
 
