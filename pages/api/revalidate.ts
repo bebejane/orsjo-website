@@ -1,7 +1,7 @@
 import withRevalidate from '/lib/dato/webhook/withRevalidate'
 
 export default withRevalidate(async (record, req, res) => {
-
+  
   const { api_key: apiKey } = record.model;
   const { slug }  = record
   const paths = []

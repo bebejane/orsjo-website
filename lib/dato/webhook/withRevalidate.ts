@@ -1,4 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+
+
 import { buildClient } from '@datocms/cma-client-browser';
 
 export const basicAuth = (req: NextApiRequest) => {
@@ -40,7 +42,7 @@ const recordFromPayload = async (payload: any) : Promise<any> => {
 }
 
 
-export default function withRevalidate(callback: (record:any, req: NextApiRequest, res: NextApiResponse) => void) : (req: NextApiRequest, res: NextApiResponse) => void {
+export default function withRevalidate(callback:(record:any, req: NextApiRequest, res: NextApiResponse) => Promise<void>) : (req: NextApiRequest, res: NextApiResponse) => void {
 
   return async (req: NextApiRequest, res: NextApiResponse) => {
 
