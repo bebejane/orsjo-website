@@ -1,69 +1,61 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { buildClient } from '@datocms/cma-client-node';
+import withRevalidate from '/lib/dato/webhook/withRevalidate'
 
-export const basicAuth = (req: NextApiRequest) => {
-  const basicAuth = req.headers.authorization
-  if (!basicAuth) 
-    return true;
-    
-  const auth = basicAuth.split(' ')[1]
-  const [user, pwd] = Buffer.from(auth, 'base64').toString().split(':')
-  return user === process.env.BASIC_AUTH_USER && pwd === process.env.BASIC_AUTH_PASSWORD
-}
+export default withRevalidate(async (record, revalidate) => {
+  
+  const { api_key: apiKey } = record.model;
+  const { slug }  = record
+  const paths = []
 
-const modelToPath = {
-  start: '/'
-}
-
-const getPathsFromPayload = async (payload: any) => {
-  const record = await getRecordFromPayload(payload)
-  const { apiKey } = record.model;
-  const paths = [record.slug ? `/${record.slug}` : modelToPath[apiKey]]
-
-  return paths.filter(el => el);
-}
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
-  if (!basicAuth(req))
-    return res.status(401).send('Access denied')
-
-  res.json({ revalidated: true })
-
-  try {
-
-    const payload = req.body?.entity;
-
-    if (!payload)
-      throw 'Payload is empty'
-
-    const paths = await getPathsFromPayload(payload, record)
-
-    if (!paths.length)
-      throw new Error(`Nothing to revalidate`);
-
-    await Promise.all(paths.map(path => res.revalidate(path)))
-    console.log('revalidated', paths)
-  } catch (err: any) {
-    console.error(err)
-    res.status(500).send(`Error revalidating: ${err.message || err}`)
+  switch (apiKey) {
+    case 'start':
+      paths.push(`/`)
+      break;
+    case 'product':
+      paths.push(`/products/${slug}`)
+      paths.push(`/products`)
+      paths.push(`/professionals/downloads`)
+      paths.push(`/support/manuals`)
+      break;
+    case 'designer':
+      paths.push(`/designers/${slug}`)
+      break;
+    case 'project_start':
+      paths.push(`/professionals/projects`)
+      break;
+    case 'project':
+      paths.push(`/professionals/projects/${slug}`)
+      paths.push(`/professionals`)
+      break;
+    case 'bespoke':
+      paths.push(`/professionals/bespoke`)
+      break;
+    case 'color_material':
+      paths.push(`/professionals/colors-and-materials`)
+      break;
+    case 'about':
+      paths.push(`/about/about-us`)
+      break;
+    case 'sustainability':
+      paths.push(`/about/sustainability`)
+      break;
+    case 'press':
+      paths.push(`/about/press`)
+      break;
+    case 'news':
+      paths.push(`/about/news`)
+      paths.push(`/`)
+      break;
+    case 'job':
+      paths.push(`/about/jobs`)
+      break;
+    case 'faq': case 'faq_start': case 'faq_category':
+      paths.push(`/support/faq`)
+      break;
+    case 'contact': case 'staff': case 'showroom': case 'reseller': case 'distributor':
+      paths.push(`/contact`)
+      break;
+    default:
+      break;
   }
-}
-
-const getRecordFromPayload = async (payload: any) => {
-
-  const modelId = payload?.relationships?.item_type?.data?.id
-
-  if (!modelId) throw 'Model id not found in payload!'
-
-  const apiToken = process.env.GRAPHQL_API_TOKEN || process.env.NEXT_PUBLIC_GRAPHQL_API_TOKEN || null
-  const client = buildClient({ apiToken })
-  const model = (await client.itemTypes.list()).filter(m => m.id === modelId)[0]
-  const record = (await client.items.list({ filter: { type: model.api_key, fields: { id: { eq: payload.id } } } }))[0]
-
-  if (!record)
-    throw `No record found with modelId: ${modelId}`
-
-  return { ...record, model }
-}
-
+  revalidate(paths)
+})

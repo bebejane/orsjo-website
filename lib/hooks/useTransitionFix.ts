@@ -157,7 +157,6 @@ const savePageStyles = (init?: boolean) => {
 
 	// Create doubling links to css sheets that wont be removed unless we say so
 	if (allStyleElems) {
-		console.log('start dbl');
 		
 		for (let i = 0; i < allStyleElems.length; i++) {
 			if (allStyleElems[i].href) {

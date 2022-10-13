@@ -87,14 +87,15 @@ query ProductCategories {
   }
 }
 
-query AllProductsByDesigner($id: ItemId) {
-	products: allProducts(filter: {designer: { eq: $id }}) {
+query AllProductsByDesigner($id: ItemId,  $first: IntType = 100) {
+	products: allProducts(first:$first, filter: {designer: { eq: $id }}) {
 		...ProductLightFragment
 	}
 }
 
-query RelatedProducts($designerId: ItemId, $familyId: ItemId) {
+query RelatedProducts($designerId: ItemId, $familyId: ItemId,  $first: IntType = 100) {
 	relatedProducts: allProducts(
+    first: $first,
     filter: { 
       OR:[
         {designer: { eq: $designerId }}, 
@@ -105,8 +106,9 @@ query RelatedProducts($designerId: ItemId, $familyId: ItemId) {
 	}
 }
 
-query AllProductsByCategory($categoryId: ItemId) {
+query AllProductsByCategory($categoryId: ItemId,  $first: IntType = 100) {
 	productsByCategory: allProducts(
+    first:$first,
     filter: { 
       categories: { eq: [$categoryId]}
     }) {

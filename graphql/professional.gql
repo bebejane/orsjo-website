@@ -9,14 +9,15 @@ query Project($slug: String) {
 	}
 }
 
-query AllProjects {
-  projects : allProjects {
+query AllProjects($first: IntType = 100){
+  projects : allProjects(first: $first) {
     ...ProjectLightFragment
   }
 }
 
-query AllRelatedProjects($projectType: ItemId) {
+query AllRelatedProjects($projectType: ItemId, $first: IntType = 100) {
   projects : allProjects(
+		first: $first
     filter: { projectType: { eq: $projectType}}){
     ...ProjectLightFragment
   }
@@ -66,8 +67,8 @@ query FactoryVisit {
 }
 
 
-query AllCatalogues {
-	catalogues: allCatalogues{
+query AllCatalogues($first: IntType = 100) {
+	catalogues: allCatalogues(first: $first){
 		id
 		title
 		pdf{

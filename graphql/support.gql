@@ -6,14 +6,14 @@ query Faq($id: ItemId) {
   }
 }
 
-query AllFaqs {
-  faqs : allFaqs {
+query AllFaqs($first: IntType = 100){
+  faqs: allFaqs(first: $first){
     ...FaqFragment
   }
 }
 
-query AllFaqCategories {
-  faqCategories: allFaqCategories {
+query AllFaqCategories($first: IntType = 100){
+  faqCategories: allFaqCategories(first: $first) {
     id
     title
   }
