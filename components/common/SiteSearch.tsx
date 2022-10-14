@@ -2,10 +2,9 @@ import styles from './SiteSearch.module.scss'
 import { styleVariables } from '/lib/utils'
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react';
-import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail } from '/components';
+import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail, Loader } from '/components';
 import { AnchorLink } from '/components';
 import { useDebouncedValue, useWindowSize } from 'rooks';
-import Link from 'next/link';
 import { siteSearch, truncateParagraph } from '/lib/utils'
 import useStore from '/lib/store';
 
@@ -119,7 +118,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 				{(noResults || loading || error) &&
 					<div className={styles.status}>
 						{noResults && <span>no matches for {`"${query}"`}</span>}
-						{loading && <span><img className={styles.spinner} src={'/images/logo.svg'} /></span>}
+						{loading && <span><Loader/></span>}
 						{error && <span>Error: {error}</span>}
 					</div>
 				}
