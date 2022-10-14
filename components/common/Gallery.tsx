@@ -5,6 +5,7 @@ import { Image } from "react-datocms"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper'
+import { Loader } from '/components'
 
 export type GalleryProps = {
   images: FileField[],
@@ -18,6 +19,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
   const swiperRef = useRef<SwiperType | undefined>()
   const [realIndex, setRealIndex] = useState(index)
   const [title, setTitle] = useState<string>()
+  const [loaded, setLoaded] = useState<any>({})
   const isSingleSlide = images?.length === 1
 
   useEffect(() => images && setTitle(images[realIndex]?.title), [realIndex, images])
@@ -43,7 +45,6 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
           loop={true}
           spaceBetween={500}
           simulateTouch={!isSingleSlide}
-          
           slidesPerView={1}
           initialSlide={index}
           onSlideChange={({ realIndex }) => setRealIndex(realIndex)}
@@ -57,11 +58,19 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
                   data={image.responsiveImage}
                   lazyLoad={false}
                   usePlaceholder={false}
+                  onLoad={()=>setLoaded({...loaded, [image.id]:true})}
                 />
               :
                 <div className={styles.svg}>
-                  <img src={image.url} className={styles.image} />
+                  <img 
+                    src={image.url} 
+                    className={styles.image} 
+                    onLoad={()=>setLoaded({...loaded, [image.id]:true})}
+                  />
                 </div>
+              }
+              {!loaded[image.id] && 
+                <div className={styles.loading}><Loader/></div>
               }
             </SwiperSlide>
           )}

@@ -3,19 +3,18 @@ import { buildClient } from '@datocms/cma-client-browser';
 import { apiQuery } from '/lib/dato/api';
 import { SiteSearchDocument } from '/graphql'
 
-const isServer = typeof window === 'undefined';
-const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
+export const isServer = typeof window === 'undefined';
+export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
 
 type Locale = 'en' | 'sv' | 'no'
 
-const formatPrice = (price: number, locale: Locale) => {
+export const formatPrice = (price: number, locale: Locale) => {
   const nf = new Intl.NumberFormat(`${locale}-${locale.toUpperCase()}`);
   const currency = locale === 'en' ? '€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
   return `${nf.format(Math.round(price))} ${currency}`;
-  //return format(price, { currency, thousandSeparator: ' ', decimalsDigits: 0, decimalSeparator: '' })
 }
 
-const convertPrice = (price: number, locale: Locale) => {
+export const convertPrice = (price: number, locale: Locale) => {
   if (locale === 'sv')
     return formatPrice(price, locale)
   if (locale === 'en') {
@@ -28,13 +27,13 @@ const convertPrice = (price: number, locale: Locale) => {
   }
 }
 
-const priceIncLight = (prodPrice: number, lightsources: LightsourceRecord[], locale: Locale) => {
+export const priceIncLight = (prodPrice: number, lightsources: LightsourceRecord[], locale: Locale) => {
   let price = prodPrice;
   lightsources.filter((l) => !l.optional && !l.included).forEach((l) => price += (l.lightsource.price * (l.amount ? l.amount : 0)))
   return formatPrice(price, locale);
 }
 
-const sortProductsByCategory = (products: ProductRecord[]) => {
+export const sortProductsByCategory = (products: ProductRecord[]) => {
   const sortedProducts = [...products].sort((a, b) => {
     if (a.family?.id === b.family?.id)
       return a.categories[0].position < b.categories[0].position ? -1 : 1;
@@ -44,9 +43,7 @@ const sortProductsByCategory = (products: ProductRecord[]) => {
   return sortedProducts;
 }
 
-
-
-const sectionId = (title: string, id?: string) => {
+export const sectionId = (title: string, id?: string) => {
   if (!title) return {}
   id = id ? id : title.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase()
   return {
@@ -56,14 +53,14 @@ const sectionId = (title: string, id?: string) => {
   }
 }
 
-const chunkArray = (array: any[], chunkSize: number) => {
+export const chunkArray = (array: any[], chunkSize: number) => {
   const newArr = []
   for (let i = 0; i < array.length; i += chunkSize)
     newArr.push(array.slice(i, i + chunkSize));
   return newArr
 }
 
-const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => {
+export const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => {
 
   type LightsourcePick = { id: string, amount?: number, name: string, included: boolean }
 
@@ -90,7 +87,7 @@ const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => 
 }
 
 
-const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): FileField[] => {
+export const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): FileField[] => {
 
   Object.keys(obj).forEach(key => {
     if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video') && !exclude.includes(key))
@@ -107,7 +104,7 @@ const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): Fi
   }, []);
 }
 
-const siteSearch = async (q: string) => {
+export const siteSearch = async (q: string) => {
 
   const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN });
   const itemTypes = await client.itemTypes.list();
@@ -155,7 +152,7 @@ export type ProductRecordWithPdfFiles = ProductRecord & {
   pdfFiles: FileFieldMultiLocaleField[]
 }
 
-const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[] => {
+export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[] => {
 
   const { pdfFiles, mountingInstructions, bimLink, lightFile } = product;
 
@@ -188,7 +185,7 @@ const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[]
   return files.filter(({ href }) => href);
 }
 
-const truncateParagraph = (s: string, sentances: number = 1, ellipsis: boolean = true) => {
+export const truncateParagraph = (s: string, sentances: number = 1, ellipsis: boolean = true) => {
   if (!s || s.indexOf('.') === -1)
     return s;
 
@@ -196,19 +193,19 @@ const truncateParagraph = (s: string, sentances: number = 1, ellipsis: boolean =
   return ellipsis ? (str + '...') : str + '.';
 }
 
-const remToPx = (rem: string | number): number => {
+export const remToPx = (rem: string | number): number => {
   if (isServer) return 0
   return (typeof rem === 'string' ? parseFloat(rem.replace('rem', '')) : rem) * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
-const pxToInt = (px: string): number => {
+export const pxToInt = (px: string): number => {
   return parseInt(px.replace('px', ''))
 }
 
-const styleVariables: { [key: string]: number | string } = {}
+export const styleVariables: { [key: string]: number | string } = {}
 Object.keys(scssExports).forEach((k) => styleVariables[k] = scssExports[k].includes('rem') ? remToPx(scssExports[k]) : scssExports[k].includes('px') ? pxToInt(scssExports[k]) : scssExports[k])
 
-const waitForElement = async (id: string, ms:number) : Promise<HTMLElement | undefined> => {
+export const waitForElement = async (id: string, ms:number) : Promise<HTMLElement | undefined> => {
   let el : HTMLElement | undefined
   for (let i = 0; i < ms; i+= 50) {
     el = document.getElementById(id)
@@ -218,9 +215,11 @@ const waitForElement = async (id: string, ms:number) : Promise<HTMLElement | und
   return el
 }
 
-const alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Å", "Ä", "Ö"];
 
-const sortSwedish = <T>(arr: T[], key?: string) : T[] => {
+
+export const sortSwedish = <T>(arr: T[], key?: string) : T[] => {
+  const alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Å", "Ä", "Ö"];
+  
   return arr.sort((a, b)=> {
     const ai = alfabet.findIndex((l)=> l === (key ? a[key] : a).charAt(0).toUpperCase())
     const bi = alfabet.findIndex((l)=> l === (key ? b[key] : b).charAt(0).toUpperCase())
@@ -228,7 +227,7 @@ const sortSwedish = <T>(arr: T[], key?: string) : T[] => {
   })
 }
 
-const scrollToId = (id:string, behavior: ScrollBehavior = 'smooth') => {
+export const scrollToId = (id:string, behavior: ScrollBehavior = 'smooth') => {
 
   const el = window.document.getElementById(id)
   const { tablet, navbarHeightMobile, navbarHeight } = styleVariables;
@@ -236,26 +235,4 @@ const scrollToId = (id:string, behavior: ScrollBehavior = 'smooth') => {
   const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
   window.scrollTo({ top, behavior })
   
-}
-
-export {
-  sleep,
-  isServer,
-  formatPrice,
-  convertPrice,
-  priceIncLight,
-  sortProductsByCategory,
-  sectionId,
-  siteSearch,
-  chunkArray,
-  parseSpecifications,
-  recordImages,
-  productDownloads,
-  truncateParagraph,
-  remToPx,
-  pxToInt,
-  styleVariables,
-  waitForElement,
-  sortSwedish,
-  scrollToId
 }
