@@ -7,7 +7,7 @@ import { useStore } from '/lib/store';
 
 const duration = {
 	enter: 0.5,
-	exit: 0.3,
+	exit: 0.5,
 	instant: 0
 }
 
@@ -27,9 +27,7 @@ const pageTransition = {
 	exit: {
 		height: ['0vh', '100vh'],
 		transition: { duration: duration.exit, ease: 'easeOut' },
-		transitionEnd: {
-
-		}
+		
 	},
 	none: {
 		transition: { duration: duration.instant },

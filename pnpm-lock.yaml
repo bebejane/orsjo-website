@@ -15,6 +15,7 @@ specifiers:
   '@graphql-codegen/typescript-react-apollo': ^3.3.3
   '@graphql-codegen/typescript-resolvers': ^2.6.6
   '@next/bundle-analyzer': ^12.2.5
+  '@next/env': ^12.3.1
   '@svgr/webpack': ^6.3.1
   '@types/graphql': ^14.5.0
   '@types/react-dom': ^18.0.5
@@ -60,6 +61,7 @@ dependencies:
   '@datocms/cma-client-browser': 1.1.5
   '@datocms/cma-client-node': 1.1.5
   '@next/bundle-analyzer': 12.3.1
+  '@next/env': 12.3.1
   base-64: 1.0.0
   classnames: 2.3.2
   date-fns: 2.29.3
@@ -74,7 +76,7 @@ dependencies:
   next-compose-plugins: 2.2.1
   next-intl: 2.7.6_next@12.3.1+react@17.0.2
   next-seo: 5.5.0_dty4et2pnba4zo7o4cegg6bk2e
-  next-sitemap: 3.1.25_next@12.3.1
+  next-sitemap: 3.1.25_mna6xsgplvxkrmeg4ftolwenke
   nextjs-google-analytics: 2.1.0_next@12.3.1+react@17.0.2
   nodemailer: 6.8.0
   react: 17.0.2
@@ -7184,7 +7186,7 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
-  /next-sitemap/3.1.25_next@12.3.1:
+  /next-sitemap/3.1.25_mna6xsgplvxkrmeg4ftolwenke:
     resolution: {integrity: sha512-+unneurDQyhZZqwumlE9LmBDyk2BAzTE4tJeXq0qOWNvfjw+Mp1/ciDrQgaP/CG/JJvKvKUhUsg2CqTQEuAqQA==}
     engines: {node: '>=14.18'}
     hasBin: true
@@ -7193,6 +7195,7 @@ packages:
       next: '*'
     dependencies:
       '@corex/deepmerge': 4.0.29
+      '@next/env': 12.3.1
       minimist: 1.2.7
       next: 12.3.1_iutfvtabbkxnrbh7zc4a3qrmie
     dev: false

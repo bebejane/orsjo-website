@@ -20,6 +20,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
   const [realIndex, setRealIndex] = useState(index)
   const [title, setTitle] = useState<string>()
   const [loaded, setLoaded] = useState<any>({})
+  const [initLoaded, setInitLoaded] = useState(false)
   const isSingleSlide = images?.length === 1
 
   useEffect(() => images && setTitle(images[realIndex]?.title), [realIndex, images])
@@ -34,7 +35,10 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
     return () => document.removeEventListener('keydown', handleKeys)
   }, [onClose])
 
-  if (!images || !show) return null
+  useEffect(()=>{ setTimeout(()=>setInitLoaded(true), 300)}, [initLoaded]) // Delay loader
+
+  if (!images || !show) 
+    return null
 
   return (
     <div className={cn(styles.gallery, images.length <= 1 && styles.noArrows, isSingleSlide && styles.noArrows)}>
@@ -69,7 +73,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
                   />
                 </div>
               }
-              {!loaded[image.id] && 
+              {!loaded[image.id] && initLoaded &&
                 <div className={styles.loading}><Loader/></div>
               }
             </SwiperSlide>
