@@ -6,6 +6,7 @@ declare module '*/cart.gql' {
 export const CreateCart: DocumentNode;
 export const AddItemToCart: DocumentNode;
 export const RemoveItemFromCart: DocumentNode;
+export const UpdateItemFromCart: DocumentNode;
 
   export default defaultDocument;
 }

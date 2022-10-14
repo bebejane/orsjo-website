@@ -1,7 +1,13 @@
 import create from "zustand";
 import { shopifyQuery } from '/lib/shopify/api'
-import { CreateCartDocument, CartDocument, AddItemToCartDocument, RemoveItemFromCartDocument } from '/lib/shopify/graphql'
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
+import { 
+  CreateCartDocument, 
+  CartDocument, 
+  AddItemToCartDocument, 
+  RemoveItemFromCartDocument, 
+  UpdateItemFromCartDocument 
+} from '/lib/shopify/graphql'
 
 export interface CartState {
   cart?: Cart,
@@ -13,6 +19,7 @@ export interface CartState {
   setCart: (cart: Cart) => void,
   addToCart: (lines: CartLineInput[]) => void,
   removeFromCart: (lines: CartLineInput[]) => void, 
+  updateQuantity: (id: string, quantity:number) => void, 
 }
 
 const useCart = create<CartState>((set, get) => ({
@@ -39,7 +46,6 @@ const useCart = create<CartState>((set, get) => ({
     setCookie('cart', cart.id)
   },
   addToCart: async (lines: CartLineInput[]) =>  {
-    
     get().update(async()=>{
       const { cartLinesAdd } = await shopifyQuery(AddItemToCartDocument, {
         variables:{
@@ -52,7 +58,6 @@ const useCart = create<CartState>((set, get) => ({
     
   },
   removeFromCart: async (lines: CartLineInput[]) =>  {
-    
     get().update(async ()=>{
       const { cartLinesRemove } = await shopifyQuery(RemoveItemFromCartDocument, {
         variables:{
@@ -62,6 +67,19 @@ const useCart = create<CartState>((set, get) => ({
       });
       return cartLinesRemove.cart
     })    
+  },
+  updateQuantity: async(id:string, quantity: number ) =>{
+    get().update(async ()=>{
+      const c = get().cart as Cart
+      const lines = c.lines.edges.map(l => ({id:l.node.id, quantity:l.node.id === id ? quantity : l.node.quantity}))
+      const { cartLinesUpdate } = await shopifyQuery(UpdateItemFromCartDocument , {
+        variables:{
+          cartId: get().cart?.id,
+          lines
+        }
+      });
+      return cartLinesUpdate.cart
+    })   
   },
   update:(fn) => {
     set((state) => ({updating:true, error:undefined}))

@@ -40,3 +40,14 @@ mutation RemoveItemFromCart($cartId: ID!, $lineIds: [ID!]!) {
     }
   }
 }
+
+mutation UpdateItemFromCart($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+  cartLinesUpdate(cartId: $cartId, lines: $lines) {
+    cart {
+      ...CartFragment
+    }
+    userErrors {
+      ...UserErrorsFragment
+    }
+  }
+}
