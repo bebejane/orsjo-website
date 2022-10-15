@@ -6823,6 +6823,13 @@ type UpdateItemFromCartMutationVariables = Exact<{
 
 type UpdateItemFromCartMutation = { __typename?: 'Mutation', cartLinesUpdate?: { __typename?: 'CartLinesUpdatePayload', cart?: { __typename?: 'Cart', id: string, createdAt: any, updatedAt: any, checkoutUrl: any, totalQuantity: number, buyerIdentity: { __typename?: 'CartBuyerIdentity', customer?: { __typename?: 'Customer', firstName?: string, lastName?: string } }, cost: { __typename?: 'CartCost', totalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, subtotalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, lines: { __typename?: 'CartLineConnection', edges: Array<{ __typename?: 'CartLineEdge', node: { __typename?: 'CartLine', id: string, quantity: number, cost: { __typename?: 'CartLineCost', subtotalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, merchandise: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, product: { __typename?: 'Product', id: string, title: string } } } }> }, estimatedCost: { __typename?: 'CartEstimatedCost', totalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, subtotalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalTaxAmount?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalDutyAmount?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } } }, userErrors: Array<{ __typename: 'CartUserError', field?: Array<string>, message: string, code?: CartErrorCode }> } };
 
+type CustomerQueryVariables = Exact<{
+  accessToken: Scalars['String'];
+}>;
+
+
+type CustomerQuery = { __typename?: 'QueryRoot', customer?: { __typename?: 'Customer', id: string, createdAt: any, updatedAt: any, firstName?: string, lastName?: string, email?: string, addresses: { __typename?: 'MailingAddressConnection', edges: Array<{ __typename?: 'MailingAddressEdge', node: { __typename?: 'MailingAddress', id: string, address1?: string, lastName?: string, name?: string, phone?: string, province?: string, provinceCode?: string, zip?: string, address2?: string, company?: string, country?: string, countryCodeV2?: CountryCode, firstName?: string, formatted: Array<string>, formattedArea?: string } }> }, orders: { __typename?: 'OrderConnection', edges: Array<{ __typename?: 'OrderEdge', node: { __typename?: 'Order', id: string, fulfillmentStatus: OrderFulfillmentStatus, lineItems: { __typename?: 'OrderLineItemConnection', edges: Array<{ __typename?: 'OrderLineItemEdge', node: { __typename?: 'OrderLineItem', quantity: number, title: string, variant?: { __typename?: 'ProductVariant', title: string, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } } } }> } } }> } } };
+
 type CustomerCreateMutationVariables = Exact<{
   input: CustomerCreateInput;
 }>;
@@ -6835,9 +6842,20 @@ type CustomerAccessTokenCreateMutationVariables = Exact<{
 }>;
 
 
-type CustomerAccessTokenCreateMutation = { __typename?: 'Mutation', customerAccessTokenCreate?: { __typename?: 'CustomerAccessTokenCreatePayload', customerAccessToken?: { __typename?: 'CustomerAccessToken', accessToken: string, expiresAt: any }, customerUserErrors: Array<{ __typename?: 'CustomerUserError', code?: CustomerErrorCode, field?: Array<string>, message: string }> } };
+type CustomerAccessTokenCreateMutation = { __typename?: 'Mutation', customerAccessTokenCreate?: { __typename?: 'CustomerAccessTokenCreatePayload', customerAccessToken?: { __typename?: 'CustomerAccessToken', accessToken: string, expiresAt: any }, customerUserErrors: Array<{ __typename: 'CustomerUserError', field?: Array<string>, message: string, code?: CustomerErrorCode }> } };
+
+type CustomerAccessTokenDeleteMutationVariables = Exact<{
+  accessToken: Scalars['String'];
+}>;
+
+
+type CustomerAccessTokenDeleteMutation = { __typename?: 'Mutation', customerAccessTokenDelete?: { __typename?: 'CustomerAccessTokenDeletePayload', deletedAccessToken?: string, userErrors: Array<{ __typename: 'UserError', field?: Array<string>, message: string }> } };
+
+type CartErrorsFragment = { __typename: 'CartUserError', field?: Array<string>, message: string, code?: CartErrorCode };
 
 type CartFragment = { __typename?: 'Cart', id: string, createdAt: any, updatedAt: any, checkoutUrl: any, totalQuantity: number, buyerIdentity: { __typename?: 'CartBuyerIdentity', customer?: { __typename?: 'Customer', firstName?: string, lastName?: string } }, cost: { __typename?: 'CartCost', totalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, subtotalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, lines: { __typename?: 'CartLineConnection', edges: Array<{ __typename?: 'CartLineEdge', node: { __typename?: 'CartLine', id: string, quantity: number, cost: { __typename?: 'CartLineCost', subtotalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, merchandise: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, product: { __typename?: 'Product', id: string, title: string } } } }> }, estimatedCost: { __typename?: 'CartEstimatedCost', totalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, subtotalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalTaxAmount?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalDutyAmount?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } } };
+
+type CustomerErrorsFragment = { __typename: 'CustomerUserError', field?: Array<string>, message: string, code?: CustomerErrorCode };
 
 type CustomerFragment = { __typename?: 'Customer', id: string, createdAt: any, updatedAt: any, firstName?: string, lastName?: string, email?: string, addresses: { __typename?: 'MailingAddressConnection', edges: Array<{ __typename?: 'MailingAddressEdge', node: { __typename?: 'MailingAddress', id: string, address1?: string, lastName?: string, name?: string, phone?: string, province?: string, provinceCode?: string, zip?: string, address2?: string, company?: string, country?: string, countryCodeV2?: CountryCode, firstName?: string, formatted: Array<string>, formattedArea?: string } }> }, orders: { __typename?: 'OrderConnection', edges: Array<{ __typename?: 'OrderEdge', node: { __typename?: 'Order', id: string, fulfillmentStatus: OrderFulfillmentStatus, lineItems: { __typename?: 'OrderLineItemConnection', edges: Array<{ __typename?: 'OrderLineItemEdge', node: { __typename?: 'OrderLineItem', quantity: number, title: string, variant?: { __typename?: 'ProductVariant', title: string, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } } } }> } } }> } };
 
@@ -6845,7 +6863,7 @@ type CustomerLightFragment = { __typename?: 'Customer', id: string, createdAt: a
 
 type ShopifyProductFragment = { __typename?: 'Product', id: string, handle: string, title: string, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, weight?: number, availableForSale: boolean, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } } }> } };
 
-type UserErrorsFragment = { __typename: 'CartUserError', field?: Array<string>, message: string, code?: CartErrorCode };
+type UserErrorsFragment = { __typename: 'UserError', field?: Array<string>, message: string };
 
 type AllShopifyProductsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;

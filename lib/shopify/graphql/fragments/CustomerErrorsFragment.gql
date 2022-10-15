@@ -1,0 +1,6 @@
+fragment CustomerErrorsFragment on CustomerUserError{
+  __typename
+  field
+  message
+  code
+}

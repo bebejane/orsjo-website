@@ -1,4 +1,12 @@
 #import './fragments/CustomerFragment.gql'
+#import './fragments/CustomerErrorsFragment.gql'
+#import './fragments/UserErrorsFragment.gql'
+
+query Customer($accessToken:String!){
+  customer(customerAccessToken: $accessToken){
+    ...CustomerFragment
+  }
+}
 
 mutation CustomerCreate($input: CustomerCreateInput!) {
   customerCreate(input: $input) {
@@ -20,9 +28,17 @@ mutation CustomerAccessTokenCreate($input: CustomerAccessTokenCreateInput!){
       expiresAt      
     }
     customerUserErrors {
-      code
-      field
-      message
+      ...CustomerErrorsFragment
     }
   }
 }
+
+mutation CustomerAccessTokenDelete($accessToken: String!){
+  customerAccessTokenDelete(customerAccessToken: $accessToken){
+    deletedAccessToken
+    userErrors {
+      ...UserErrorsFragment
+    }
+  }
+}
+

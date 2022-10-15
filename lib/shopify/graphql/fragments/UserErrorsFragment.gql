@@ -1,6 +1,5 @@
-fragment UserErrorsFragment on CartUserError{
+fragment UserErrorsFragment on UserError{
   __typename
   field
   message
-  code
 }

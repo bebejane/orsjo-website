@@ -1,5 +1,5 @@
 #import './fragments/CartFragment.gql'
-#import './fragments/UserErrorsFragment.gql'
+#import './fragments/CartErrorsFragment.gql'
 
 
 query Cart($id: ID!) {
@@ -14,7 +14,7 @@ mutation CreateCart($cartInput: CartInput) {
       ...CartFragment
     }
     userErrors {
-      ...UserErrorsFragment
+      ...CartErrorsFragment
     }
   }
 }
@@ -25,7 +25,7 @@ mutation AddItemToCart($cartId: ID!, $lines: [CartLineInput!]!) {
       ...CartFragment
     }
     userErrors {
-      ...UserErrorsFragment
+      ...CartErrorsFragment
     }
   }
 }
@@ -36,7 +36,7 @@ mutation RemoveItemFromCart($cartId: ID!, $lineIds: [ID!]!) {
       ...CartFragment
     }
     userErrors {
-      ...UserErrorsFragment
+      ...CartErrorsFragment
     }
   }
 }
@@ -47,7 +47,7 @@ mutation UpdateItemFromCart($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
       ...CartFragment
     }
     userErrors {
-      ...UserErrorsFragment
+      ...CartErrorsFragment
     }
   }
 }

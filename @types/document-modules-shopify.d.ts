@@ -15,8 +15,19 @@ export const UpdateItemFromCart: DocumentNode;
 declare module '*/customer.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const CustomerCreate: DocumentNode;
+  export const Customer: DocumentNode;
+export const CustomerCreate: DocumentNode;
 export const CustomerAccessTokenCreate: DocumentNode;
+export const CustomerAccessTokenDelete: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/CartErrorsFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const CartErrorsFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -26,6 +37,15 @@ declare module '*/CartFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const CartFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/CustomerErrorsFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const CustomerErrorsFragment: DocumentNode;
 
   export default defaultDocument;
 }
