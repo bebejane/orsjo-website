@@ -43,4 +43,4 @@ const nextOptions = {
 }
 
 const config = { sassOptions, ...nextOptions }
-module.exports = withBundleAnalyzer(config)
+module.exports = config
