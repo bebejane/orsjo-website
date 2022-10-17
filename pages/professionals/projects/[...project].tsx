@@ -49,8 +49,6 @@ export default function Project({ project, related, bespokeThumbnail }: ProjectP
 		setGallery({ images: galleryImages(project) })
 	}, [setGallery, project])	
 	
-	console.log(relatedProducts);
-	
 	return (
 		<>
 			<Section className={styles.intro} name="Presentation" top={true}>
