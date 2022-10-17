@@ -19,6 +19,7 @@ import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
+import Markdown from '/lib/dato/components/Markdown';
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -102,6 +103,9 @@ export default function Product({
 						</div>
 					</div>
 				</div>
+				<Markdown className={styles.description}>
+					{product.description}
+				</Markdown>
 				{product.productGallery.map((block, idx) =>
 					<Block
 						key={idx}
