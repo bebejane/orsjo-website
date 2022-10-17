@@ -4,7 +4,7 @@ import { styleVariables } from "/lib/utils";
 import cn from 'classnames'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
-import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
+import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, Thumbnail, ArrowButton } from '/components'
 import { useEffect, useRef, useState } from "react";
 import { usePage } from "/lib/context/page";
 import { useWindowSize } from "rooks";
@@ -97,7 +97,17 @@ export default function FeaturedGallery({
 									theme={theme}
 									className={styles.thumbnail}
 								/>
-							: 
+							: item.title && item.image ?
+								<Thumbnail 
+									key={idx}
+									slug={item.slug}
+									title={item.title}
+									image={item.image}
+									theme={theme}
+									objectFit={'cover'}
+									className={styles.thumbnail}
+								/>
+							:
 								null
 							}
 						</SwiperSlide>

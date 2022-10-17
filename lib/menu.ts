@@ -50,7 +50,7 @@ const base: Menu = [
       { type: 'contact', label: 'Information', slug: '/contact#information' },
       { type: 'contact', label: 'Staff', slug: '/contact#staff' },
       { type: 'contact', label: 'Showrooms', slug: '/contact#showrooms' },
-      { type: 'contact', label: 'Suppliers', slug: '/contact#agentsdistributors' },
+      { type: 'contact', label: 'Agents & Distributors', slug: '/contact#agentsdistributors' },
       { type: 'contact', label: 'Retailers', slug: '/contact#retailers' },
     ]
   },

@@ -283,8 +283,11 @@
 	padding-top: $small-margin;
 	padding-bottom: $margin;
 
-	& > div:first-child {
+	& > div{
 		padding-bottom: $small-margin;
+		&:last-child{
+			padding-bottom: 0;
+		}
 	}
 
 }

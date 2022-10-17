@@ -12,6 +12,7 @@ export type ThumbnailProps = {
   title: string,
   subtitle?: string,
   className?: string,
+  objectFit?: 'contain' | 'cover',
   markAsNew?: boolean,
   onClick?: () => void,
   theme?: 'dark' | 'light' | 'mid',
@@ -28,6 +29,7 @@ export default function Thumbnail({
   markAsNew = false,
   className,
   onClick,
+  objectFit = 'contain',
   theme = 'light',
   type = 'product'
 }: ThumbnailProps) {
@@ -44,7 +46,7 @@ export default function Thumbnail({
             data={image.responsiveImage}
             className={styles.image}
             layout={'fill'}
-            objectFit={'contain'}
+            objectFit={objectFit}
           />
         }
         {imageHover && !isTouch &&

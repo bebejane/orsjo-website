@@ -245,6 +245,7 @@ export const ProductStart: DocumentNode;
 export const ProductCategories: DocumentNode;
 export const AllProductsByDesigner: DocumentNode;
 export const RelatedProducts: DocumentNode;
+export const RelatedProjectsForProduct: DocumentNode;
 export const AllProductsByCategory: DocumentNode;
 
   export default defaultDocument;
@@ -260,6 +261,7 @@ export const AllRelatedProjects: DocumentNode;
 export const ProjectStart: DocumentNode;
 export const AllProjectTypes: DocumentNode;
 export const Bespoke: DocumentNode;
+export const BespokeThumbnail: DocumentNode;
 export const FactoryVisit: DocumentNode;
 export const AllCatalogues: DocumentNode;
 export const AllColorsAndMaterials: DocumentNode;

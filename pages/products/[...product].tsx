@@ -1,6 +1,12 @@
 import styles from './[...product].module.scss'
 import cn from 'classnames'
-import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument } from '/graphql'
+import { 
+	AllProductsLightDocument, 
+	ProductDocument, 
+	RelatedProductsDocument, 
+	AllProductsByCategoryDocument,
+	RelatedProjectsForProductDocument
+} from '/graphql'
 import { apiQuery } from '/lib/dato/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
@@ -17,6 +23,7 @@ import type { ProductDownload } from '/lib/utils';
 export type ProductProps = {
 	product: ProductRecord,
 	relatedProducts: ProductRecord[],
+	relatedProjects: ProjectRecord[],
 	productsByCategory: ProductRecord[],
 	images: FileField[] 
 	drawings: FileField[]
@@ -27,6 +34,7 @@ export type ProductProps = {
 export default function Product({ 
 	product, 
 	relatedProducts, 
+	relatedProjects, 
 	productsByCategory, 
 	images, 
 	drawings, 
@@ -226,6 +234,15 @@ export default function Product({
 						fadeColor={'--mid-gray'}
 					/>
 				}
+				{relatedProjects.length > 0 &&
+					<FeaturedGallery
+						headline={`Related Projects`}
+						items={relatedProjects}
+						theme={'light'}
+						id="relatedProjects"
+						fadeColor={'--mid-gray'}
+					/>
+				}
 				{productsByCategory.length > 0 &&
 					<FeaturedGallery
 						headline={`Other ${product.categories[0].namePlural}`}
@@ -257,14 +274,15 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 
 	if (!product) return { notFound: true }
 
-	const { productsByCategory, relatedProducts } = await apiQuery([
-		RelatedProductsDocument, AllProductsByCategoryDocument
+	const { productsByCategory, relatedProducts, relatedProjects } = await apiQuery([
+		RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument
 	], {
 		variables: [
 			{ designerId: product.designer.id, familyId: product.family.id },
-			{ categoryId: product.categories[0]?.id }
+			{ categoryId: product.categories[0]?.id },
+			{ productId: product.id }
 		]
-	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[] }
+	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[], relatedProjects : ProjectRecord[]}
 
 	const specs = parseSpecifications(product, 'en', null)
 	const specsCols = [
@@ -288,6 +306,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 			product,
 			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort((a, b) => a.family.id === b.family.id ? 1 : -1),
 			productsByCategory: productsByCategory.filter(p => p.id !== product.id),
+			relatedProjects,
 			images,
 			files,
 			drawings,

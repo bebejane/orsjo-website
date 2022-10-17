@@ -106,6 +106,16 @@ query RelatedProducts($designerId: ItemId, $familyId: ItemId,  $first: IntType =
 	}
 }
 
+query RelatedProjectsForProduct($productId: ItemId, $first: IntType = 100) {
+	relatedProjects: allProjects(
+    first: $first,
+    filter: { 
+      relatedProducts :{ anyIn: [$productId]}
+    }) {
+		...ProjectLightFragment
+	}
+}
+
 query AllProductsByCategory($categoryId: ItemId,  $first: IntType = 100) {
 	productsByCategory: allProducts(
     first:$first,

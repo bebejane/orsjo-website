@@ -6,6 +6,7 @@ fragment ProjectFragment on ProjectRecord{
   location
   title
   slug
+  bespoke
   projectType {
     id
     title

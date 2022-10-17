@@ -1,6 +1,6 @@
 import styles from './[...project].module.scss'
 import { apiQuery } from '/lib/dato/api';
-import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument } from '/graphql';
+import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, BespokeThumbnailDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
@@ -10,21 +10,26 @@ import { useStore } from '/lib/store';
 import useScrollInfo from '/lib/hooks/useScrollInfo';
 import cn from 'classnames';
 
-export type ProjectProps = { project: ProjectRecord, related: ProjectRecord[] }
+type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail'>
+
+export type ProjectProps = { 
+	project: ProjectRecord, 
+	related: ProjectRecord[], 
+	bespokeThumbnail:BespokeThumbnailRecord 
+}
 
 const galleryImages = (project: ProjectRecord) : FileField[] => {
-	const images = [
-		project.image,
-		project.secondaryImage,
-	]
+	const images = [project.image, project.secondaryImage]
 	project.gallery.forEach(el => Object.keys(el).forEach(k => el[k].responsiveImage  && images.push(el[k])))
 	return images;
 } 
 
-export default function Project({ project, related }: ProjectProps) {
+export default function Project({ project, related, bespokeThumbnail }: ProjectProps) {
 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
+	const isOtherProject = project.projectType?.title.toLowerCase() === 'other'
+	const relatedHeadline  = !isOtherProject ? `Other ${project.projectType.titlePlural}` : 'Related projects'
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
 	const opacity = Math.max(0, ((viewportHeight - (scrolledPosition * 8)) / viewportHeight));
 	const headerStyle = { opacity}
@@ -33,8 +38,19 @@ export default function Project({ project, related }: ProjectProps) {
 		filter: `grayscale(${Math.max((1-(viewportScrollRatio*4)), 0)})`
 	}
 	
-	useEffect(() => setGallery({ images: galleryImages(project) }), [setGallery, project])	
+	// Add bespoke link to related products if project is bespoke.
+	const relatedProducts = project.bespoke ? project.relatedProducts.concat([{
+		title: 'Bespoke', 
+		image: bespokeThumbnail.thumbnail, 
+		slug: '/professionals/bespoke'
+	} as ProductRecord]) : project.relatedProducts
 
+	useEffect(() => {
+		setGallery({ images: galleryImages(project) })
+	}, [setGallery, project])	
+	
+	console.log(relatedProducts);
+	
 	return (
 		<>
 			<Section className={styles.intro} name="Presentation" top={true}>
@@ -57,7 +73,7 @@ export default function Project({ project, related }: ProjectProps) {
 				</Section>
 			)}
 			<Section bottom={true} />
-			{project.relatedProducts.length > 0 &&
+			{relatedProducts.length > 0 &&
 				<Section
 					className={styles.related}
 					name={`Products`}
@@ -67,7 +83,7 @@ export default function Project({ project, related }: ProjectProps) {
 						<FeaturedGallery
 							id="relatedProducts"
 							headline={'Products'}
-							items={project.relatedProducts}
+							items={relatedProducts}
 							theme="light"
 							fadeColor={'--mid-gray'}
 						/>
@@ -77,13 +93,13 @@ export default function Project({ project, related }: ProjectProps) {
 			{related.length > 0 &&
 				<Section
 					className={cn(styles.related, styles.other)}
-					name={`Other ${project.projectType.titlePlural}`}
+					name={relatedHeadline}
 					bgColor={'--mid-gray'}
 				>
 					<div className={styles.gallery}>
 						<FeaturedGallery
 							id="relatedProjects"
-							headline={`Other ${project.projectType.title}s`}
+							headline={relatedHeadline}
 							items={related}
 							theme="light"
 							fadeColor={'--mid-gray'}
@@ -109,15 +125,16 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
-	const { project }: { project: ProjectRecord } = await apiQuery(ProjectDocument, { variables: { slug: context.params.project[0] } })
+	const { project, bespokeThumbnail }: { project: ProjectRecord, bespokeThumbnail: BespokeThumbnailRecord} = await apiQuery([ProjectDocument, BespokeThumbnailDocument], { variables: { slug: context.params.project[0] } })
 	const { projects: related }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
 
 	if (!project)
 		return { notFound: true }
-
+	
 	return {
 		props: {
 			...props,
+			bespokeThumbnail,
 			project,
 			related: related.filter(p => p.id !== project.id)
 		},
