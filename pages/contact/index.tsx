@@ -12,7 +12,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
 import Markdown from '/lib/dato/components/Markdown';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import {  useState } from 'react';
 
 export type ContactProps = {
 	contact: ContactRecord,
@@ -64,8 +64,8 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 				<ContactModal show={showContactForm} onClose={() => setShowContactForm(false)} />
 			</Section>
 
-			<Section name="Staff" className={styles.staffSection} bgColor='--red'>
-				<h1 className="bottomMargin">Staff</h1>
+			<Section name="People" className={styles.staffSection} bgColor='--red'>
+				<h1 className="bottomMargin">People</h1>
 				<div className={styles.staff}>
 					{staffs.map(({ id, name, role, phone, email, image }, idx) =>
 						<div id={id} key={idx} className={styles.employee}>

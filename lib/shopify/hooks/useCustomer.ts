@@ -29,10 +29,10 @@ const useCustomer = create<CustomerState>((set, get) => ({
     setCookie('customer', customer.id)
     return customer
   },
-  createCustomer: async (customer: CustomerCreateInput) => {
+  createCustomer: async (input: CustomerCreateInput) => {
     return await get().update(async () => {
       const { createCustomer } = await shopifyQuery(CustomerCreateDocument, { 
-        variables: { ...customer } 
+        variables: { input } 
       })
       return createCustomer.customer
     })
