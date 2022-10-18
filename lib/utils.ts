@@ -72,7 +72,8 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
   const specs = {
     designer: product.designer?.name,
     electricalData: product.electricalData.map((el) => el.name).join(', '),
-    description: product.presentation,
+    additionalInformation: product.additionalInformation ? (product.additionalInformation + (product.dimmable?.name ? `. ${product.dimmable?.name}` : '')) : undefined,
+    dimmable:product.dimmable?.name,
     connection: product.connection?.name,
     mounting: product.mounting?.name,
     lightsource: lightsources.map(({ amount, included, name }) => `${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),

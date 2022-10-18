@@ -104,7 +104,7 @@ export default function Product({
 					</div>
 				</div>
 			</Section>
-			<Section name="Description" className={styles.description}>
+			<Section className={styles.description}>
 				<Markdown>
 					{product.description}
 				</Markdown>
@@ -300,9 +300,10 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		{ label: 'Electrical Data', value: specs.electricalData },
 		{ label: 'Socket', value: specs.socket },
 		{ label: 'Connection', value: specs.connection },
-		{ label: 'Lightsource', value: specs.lightsource }
+		{ label: 'Lightsource', value: specs.lightsource },
+		{ label: 'Additional Information', value: specs.additionalInformation },
 	].filter(el => el.value)
-
+	
 	const images = recordImages(product, ['environmentImage', 'drawing'])
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];

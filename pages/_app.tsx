@@ -20,7 +20,7 @@ export type ApplicationProps = AppProps & {
   }
 }
 
-const handleHashChange = async (url, instant) => {
+const handleHashChange = async (url: string, instant: boolean) => {
     
   if(!url.includes('#')) // @ts-expect-error
     return setTimeout(()=> window.scrollTo({ top:0, behavior: 'instant' }), 100)
@@ -39,12 +39,10 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   
   useTransitionFix()
   
-  const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
-  const [transitioning] = useStore((state) => [state.transitioning, state.setShowMenu])
+  const [ transitioning ] = useStore((state) => [state.transitioning, state.setShowMenu])
   const { innerWidth } = useWindowSize()
-  const errorCode = parseInt(router.pathname.replace('/', ''))
-  const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
   
+  const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const page = (Component.page || { layout: 'normal', menu: 'normal', color: '' }) as PageProps
   const { site, seo, menu } = pageProps as { site: Site, seo: SiteSEOQuery, menu: Menu};
   const { title, description } = pageSeo(pageProps, pathname);
@@ -56,6 +54,9 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   
   useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 
+  const errorCode = parseInt(router.pathname.replace('/', ''))
+  const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
+  
   if(isError) 
     return <Component {...pageProps} />
   

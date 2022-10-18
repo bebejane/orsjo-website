@@ -8,7 +8,7 @@ fragment ProductFragment on ProductRecord{
   description (markdown:false)
   slug
   bimLink
-  presentation
+  additionalInformation
   markAsNew
   image {
     ...ImageFragment
