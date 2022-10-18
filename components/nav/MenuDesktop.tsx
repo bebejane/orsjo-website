@@ -27,16 +27,19 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	const isInverted = (menu === 'inverted' || invertMenu)
 
 	const resetSelected = useCallback(() => {
-		if (transitioning) return
+		if(transitioning) 
+			return
 		setSelected(undefined)
 	}, [transitioning])
 
 	useEffect(() => { // Hide menu if was closed on scroll
-		!showMenu && resetSelected()
+		if(!showMenu)
+			resetSelected()
 	}, [showMenu, resetSelected])
 
 	useEffect(() => { // Toggle menu bar on scroll
-		if(hashChanging) return setShowMenu(false)
+		if(hashChanging) 
+			return setShowMenu(false)
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
 	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
 
@@ -59,7 +62,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
     return () => router.events.off("hashChangeStart", handleHashChangeStart)
   }, [router.events, setHashChanging, setShowMenu]);
 
-	useEffect(() => { // Re set margin on window resize
+	useEffect(() => { // Re set margin on window resize or selected change
 		if (!selected) return
 
 		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`)

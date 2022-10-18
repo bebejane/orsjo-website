@@ -52,12 +52,14 @@ export default function Sidebar({title} : SidebarProps) {
 		const { id } = sorted[0]
 		setCurrentSection(id)
 
+	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu, layout])
+	
+	useEffect(()=>{ 
 		const footer = document.getElementById('footer')
 		if(!isProductPage && !isProjectPage && !isProductsPage)
 			setMaxHeight(`calc(100vh - ${footer.clientHeight}px`);
+	}, [isProductPage, isProjectPage, isProductsPage])
 
-	}, [scrolledPosition, documentHeight, setCurrentSection, setInvertSidebar, setInvertMenu, layout])
-	
 	useEffect(()=>{ setTimeout(()=>resetSearch(), 100)}, [router.asPath, resetSearch])
 	
 	return (

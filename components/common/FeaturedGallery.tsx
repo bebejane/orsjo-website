@@ -9,7 +9,6 @@ import { useEffect, useRef, useState } from "react";
 import { usePage } from "/lib/context/page";
 import { useWindowSize } from "rooks";
 
-
 export type FeaturedGalleryProps = { 
 	products?: ProductRecord[], 
 	projects?: ProjectRecord[], 
@@ -103,6 +102,7 @@ export default function FeaturedGallery({
 									slug={item.slug}
 									title={item.title}
 									image={item.image}
+									imageHover={item.environmentImage}
 									theme={theme}
 									objectFit={'cover'}
 									className={styles.thumbnail}

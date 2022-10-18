@@ -10,7 +10,7 @@ import { useStore } from '/lib/store';
 import useScrollInfo from '/lib/hooks/useScrollInfo';
 import cn from 'classnames';
 
-type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail'>
+type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>
 
 export type ProjectProps = { 
 	project: ProjectRecord, 
@@ -42,6 +42,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 	const relatedProducts = project.bespoke ? project.relatedProducts.concat([{
 		title: 'Bespoke', 
 		image: bespokeThumbnail.thumbnail, 
+		environmentImage: bespokeThumbnail.secondaryThumbnail,
 		slug: '/professionals/bespoke'
 	} as ProductRecord]) : project.relatedProducts
 

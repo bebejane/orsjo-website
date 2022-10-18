@@ -1,6 +1,8 @@
 import { sectionId } from './utils';
 import { sortSwedish } from './utils';
 
+export type Menu = MenuItem[]
+
 export type MenuItem = {
   type: string,
   label: string,
@@ -9,8 +11,6 @@ export type MenuItem = {
   sub?: MenuItem[],
   index?:boolean
 }
-
-export type Menu = MenuItem[]
 
 export type MenuQuery = {
   designers: DesignerRecord[],

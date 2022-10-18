@@ -170,6 +170,7 @@ type BespokeRecord = RecordInterface & {
   image?: Maybe<FileField>;
   intro?: Maybe<Scalars['String']>;
   outro?: Maybe<Scalars['String']>;
+  secondaryThumbnail?: Maybe<FileField>;
   thumbnail?: Maybe<FileField>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -7496,7 +7497,7 @@ type BespokeQuery = { __typename?: 'Query', bespoke?: { __typename?: 'BespokeRec
 type BespokeThumbnailQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type BespokeThumbnailQuery = { __typename?: 'Query', bespokeThumbnail?: { __typename?: 'BespokeRecord', thumbnail?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
+type BespokeThumbnailQuery = { __typename?: 'Query', bespokeThumbnail?: { __typename?: 'BespokeRecord', thumbnail?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, secondaryThumbnail?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
 
 type FactoryVisitQueryVariables = Exact<{ [key: string]: never; }>;
 

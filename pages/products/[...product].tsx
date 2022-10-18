@@ -103,9 +103,13 @@ export default function Product({
 						</div>
 					</div>
 				</div>
-				<Markdown className={styles.description}>
+			</Section>
+			<Section name="Description" className={styles.description}>
+				<Markdown>
 					{product.description}
 				</Markdown>
+			</Section>
+			<Section>
 				{product.productGallery.map((block, idx) =>
 					<Block
 						key={idx}

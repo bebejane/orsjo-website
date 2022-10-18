@@ -12,7 +12,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
 import Markdown from '/lib/dato/components/Markdown';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export type ContactProps = {
 	contact: ContactRecord,

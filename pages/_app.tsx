@@ -1,19 +1,18 @@
 import '/styles/index.scss'
 
 import type { AppProps } from 'next/app'
-import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Layout, PageTransition } from '/components'
 import { PageProvider, type PageProps } from '../lib/context/page';
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useCallback } from 'react';
 import { useStore } from '/lib/store'
+import { useWindowSize } from 'rooks';
+import { sleep, waitForElement, scrollToId } from '/lib/utils';
 import DatoSEO from '/lib/dato/components/DatoSEO';
 import {useTransitionFix3 as useTransitionFix} from '/lib/hooks/useTransitionFix';
 
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';
-import { useWindowSize } from 'rooks';
-import { sleep, waitForElement, styleVariables, scrollToId } from '/lib/utils';
 
 export type ApplicationProps = AppProps & {
   Component: NextComponentType & {
@@ -21,10 +20,24 @@ export type ApplicationProps = AppProps & {
   }
 }
 
+const handleHashChange = async (url, instant) => {
+    
+  if(!url.includes('#')) // @ts-expect-error
+    return setTimeout(()=> window.scrollTo({ top:0, behavior: 'instant' }), 100)
+
+  const id = url.split('#')[1]
+  const el = await waitForElement(id, 400)
+  
+  if(!el) return
+  await sleep(100)
+  // @ts-expect-error
+  scrollToId(id, instant === true ? 'instant' : 'smooth') 
+
+}
+
 function Application({ Component, pageProps, router }: ApplicationProps) {
   
   useTransitionFix()
-  //usePagesViews(); // Google Analytics page view tracker = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
   
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const [transitioning] = useStore((state) => [state.transitioning, state.setShowMenu])
@@ -35,24 +48,11 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   const page = (Component.page || { layout: 'normal', menu: 'normal', color: '' }) as PageProps
   const { site, seo, menu } = pageProps as { site: Site, seo: SiteSEOQuery, menu: Menu};
   const { title, description } = pageSeo(pageProps, pathname);
-
-  const handleHashChange =  useCallback(async (url, instant) => {
-    
-    if(!url.includes('#')) // @ts-expect-error
-      return setTimeout(()=> window.scrollTo({ top:0, behavior: 'instant' }), 100)
-
-    const id = url.split('#')[1]
-    const el = await waitForElement(id, 400)
-    await sleep(100)
-    if(el)
-      scrollToId(id, instant === true ? 'instant' : 'smooth')
-
-  }, [innerWidth]);
   
   useEffect(() => {
     router.events.on("hashChangeStart", handleHashChange);
     return () => router.events.off("hashChangeStart", handleHashChange)
-  }, [router.events, innerWidth, handleHashChange]);
+  }, [router.events, innerWidth]);
   
   useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 
@@ -61,7 +61,6 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   
   return (
     <>
-      {/*<GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />*/}
       <DatoSEO
         title="Örsjö Belysning"
         subtitle={title ? ` - ${title}` : ''}
