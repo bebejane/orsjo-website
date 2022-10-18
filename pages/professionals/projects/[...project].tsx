@@ -14,7 +14,7 @@ type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail'>
 
 export type ProjectProps = { 
 	project: ProjectRecord, 
-	related: ProjectRecord[], 
+	relatedProjects: ProjectRecord[], 
 	bespokeThumbnail:BespokeThumbnailRecord 
 }
 
@@ -24,7 +24,7 @@ const galleryImages = (project: ProjectRecord) : FileField[] => {
 	return images;
 } 
 
-export default function Project({ project, related, bespokeThumbnail }: ProjectProps) {
+export default function Project({ project, relatedProjects, bespokeThumbnail }: ProjectProps) {
 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
@@ -88,7 +88,7 @@ export default function Project({ project, related, bespokeThumbnail }: ProjectP
 					</div>
 				</Section>
 			}
-			{related.length > 0 &&
+			{relatedProjects.length > 0 &&
 				<Section
 					className={cn(styles.related, styles.other)}
 					name={relatedHeadline}
@@ -98,7 +98,7 @@ export default function Project({ project, related, bespokeThumbnail }: ProjectP
 						<FeaturedGallery
 							id="relatedProjects"
 							headline={relatedHeadline}
-							items={related}
+							items={relatedProjects}
 							theme="light"
 							fadeColor={'--mid-gray'}
 						/>
@@ -124,7 +124,9 @@ export async function getStaticPaths(context) {
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
 	const { project, bespokeThumbnail }: { project: ProjectRecord, bespokeThumbnail: BespokeThumbnailRecord} = await apiQuery([ProjectDocument, BespokeThumbnailDocument], { variables: { slug: context.params.project[0] } })
-	const { projects: related }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
+	const { projects }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
+	const relatedProjects = projects.filter(p => p.id !== project.id).sort((a, b) => Math.random() > 0.5 ? 1 : -1)
+	//project.relatedProducts = project.relatedProducts.sort((a, b) => a.family.id === b.family.id ? 1 : -1)
 
 	if (!project)
 		return { notFound: true }
@@ -134,7 +136,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 			...props,
 			bespokeThumbnail,
 			project,
-			related: related.filter(p => p.id !== project.id)
+			relatedProjects
 		},
 		revalidate
 	};

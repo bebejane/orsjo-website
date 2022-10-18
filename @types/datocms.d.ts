@@ -6732,8 +6732,6 @@ type TwoColumnImageRecord = RecordInterface & {
   firstImage?: Maybe<FileField>;
   id: Scalars['ItemId'];
   lastImage?: Maybe<FileField>;
-  marginFirst?: Maybe<Scalars['BooleanType']>;
-  marginOnLastImage?: Maybe<Scalars['BooleanType']>;
   updatedAt: Scalars['DateTime'];
 };
 
