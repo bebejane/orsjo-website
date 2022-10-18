@@ -19,9 +19,9 @@
     flex-wrap: wrap;
     width: 100%;
     padding-bottom: $small-margin;
-    margin-top: -1rem;
+    margin-top: -2rem;
     >div{
-      margin-top: 1rem;
+      margin-top: 2rem;
     }
   }
   h1 {
@@ -30,22 +30,25 @@
 }
 
 .project {
-  margin-right: nestedGridGutter(12);
+  
 
   figure {
     background-color: $gray !important;
   }
 
   @include mq($from: desktop, $until: wide){
-    flex: 0 0 spanNestedGrid(12, 4);
+    width: spanNestedGrid(12, 4);
+    margin-right: nestedGridGutter(12);
     @include resetLastColumn(3);
   }
   @include mq($from: wide){
-    flex: 0 0 spanNestedGrid(12, 3);
+    width: spanNestedGrid(12, 3);
+    margin-right: nestedGridGutter(12);
     @include resetLastColumn(4);
   }
   @include mq($from:mobile, $until: tablet){
-    flex: 0 0 spanNestedGrid(12, 6);
+    width:  spanNestedGrid(16, 8);
+    margin-right: nestedGridGutter(16);
     @include resetLastColumn(2);
   }
 

@@ -50,7 +50,7 @@ export default function Faqs({ faqs, faqStart, faqsByCategory }: FaqsProps) {
 								>
 									<div className={styles.header}>
 										<h2 className={styles.question}>{question}</h2>
-										<div className={styles.indicator}>+</div>
+										<div className={styles.indicator}>{list[id] ? '-' : '+'}</div>
 									</div>
 									<Markdown className={cn(styles.answer, "medium")}>{answer}</Markdown>
 								</li>

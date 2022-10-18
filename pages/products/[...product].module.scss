@@ -75,6 +75,9 @@
 		width: 100%; 
 		column-count: 2;
 		column-gap: nestedGridGutter(12);
+		@include mq($until: tablet) {	
+			column-count: 1;
+		}
 		li{
 			display: flex;
 			flex-direction: row;
@@ -219,17 +222,21 @@
 		display: flex;
 		
 		span {
-			width: spanNestedGrid(12,2,1);
+			min-width: spanNestedGrid(12,2, true);
+			@include mq($until: tablet){
+				min-width: spanNestedGrid(16, 6, true);
+			}
 			flex-basis: auto;
 			color: $gray;
 		}
 		button{
 			padding:0;
 			margin: 0;
+			
 			font-size: inherit;
 			cursor: pointer;
 			width: spanNestedGrid(12,10);
-			text-align: left;;
+			text-align: left;
 		}
 	}
 	.specifications{

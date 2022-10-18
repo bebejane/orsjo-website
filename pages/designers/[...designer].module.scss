@@ -3,7 +3,6 @@
 
 	header {
 		display: flex;
-		//@at-root: row;
 		position: relative;
 		height: 100vh;
 		width: 100%;
@@ -15,14 +14,11 @@
 			align-items: flex-start;
 			padding: 5%;
 			margin-top: 4rem;
-
-
 			h1 {
 				left: 1em;
 				margin-bottom: .5em !important;
 				@include h1Big();
 				color: $white;
-				//animation: fade 1s ease 1s reverse forwards;
 			}
 
 			.description {
@@ -67,10 +63,11 @@
 	@include mq($until: tablet) {
 		header {
 			flex-direction: column-reverse;
-
+			height: auto;
 			figure {
+				min-height: 60vh;
 				figcaption {
-					display: block;
+					display: none;
 				}
 			}
 		}
@@ -134,9 +131,15 @@
 		list-style: none;
 
 		li {
-			width: spanNestedGrid(12, 3);
+			@include mq($until: tablet) {
+				width: spanNestedGrid(12, 6);
+				@include resetLastColumn(2);
+			}
+			@include mq($from: tablet) {
+				width: spanNestedGrid(12, 3);
+				@include resetLastColumn(4);
+			}
 			margin-right: nestedGridGutter(12);
-			@include resetLastColumn(4);
 			margin-bottom: 2rem;
 			overflow: hidden;
 		}
