@@ -48,9 +48,16 @@
 			}
 		}
 	}
-	.description{
-		margin-top: $small-margin;
+	
+}
+
+.description{
+	margin-top: $small-margin;
+	padding-right: 25%;
+	@include mq($until: tablet){
+		padding-right: 0;
 	}
+
 }
 
 .listItemContent{

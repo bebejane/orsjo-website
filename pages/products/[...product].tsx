@@ -122,9 +122,9 @@ export default function Product({
 				title={'Specifications'}
 				className={cn(styles.listItemContent, styles.top)}
 				selected={list.specifications === true}
+				onToggle={() => setList({ ...list, specifications: !list.specifications })}
 				idx={0}
 				total={2}
-				onToggle={() => setList({ ...list, specifications: !list.specifications })}
 			>
 				<ul className={styles.specifications}>
 					{specsCols.map(({ label, value }, idx) =>

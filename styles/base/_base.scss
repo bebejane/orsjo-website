@@ -14,7 +14,6 @@ body {
 	margin: 0;
 	padding: 0;
 	overscroll-behavior-x: contain;
-	//scroll-behavior: smooth;
 }
 
 html {
@@ -93,4 +92,14 @@ button {
   border: 1px solid $white;
 	outline:none;
 	line-height: 1em;
+}
+
+// Achor link scroll margin from top of page
+[id]{
+	@include mq($from: tablet){
+		scroll-margin-top: 4.5rem;
+	}
+	@include mq($until: tablet){
+		scroll-margin-top: 	$navbarHeightMobile;
+	}
 }

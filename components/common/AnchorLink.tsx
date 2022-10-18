@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useWindowSize } from "rooks";
 
 export default function AnchorLink(props){
-
+  /*
   const { href, children} = props
   const router = useRouter()
   const { innerWidth } = useWindowSize()
@@ -21,6 +21,7 @@ export default function AnchorLink(props){
     else
       scrollToId(hash)
   }
+*/
 
-  return <a {...props}>{children}</a>
+  return <a {...props}>{props.children}</a>
 }
