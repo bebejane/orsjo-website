@@ -126,8 +126,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	const { project, bespokeThumbnail }: { project: ProjectRecord, bespokeThumbnail: BespokeThumbnailRecord} = await apiQuery([ProjectDocument, BespokeThumbnailDocument], { variables: { slug: context.params.project[0] } })
 	const { projects }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
 	const relatedProjects = projects.filter(p => p.id !== project.id).sort((a, b) => Math.random() > 0.5 ? 1 : -1)
-	//project.relatedProducts = project.relatedProducts.sort((a, b) => a.family.id === b.family.id ? 1 : -1)
-
+	
 	if (!project)
 		return { notFound: true }
 	

@@ -274,7 +274,8 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
-	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug: context.params.product[0] } })
+	const slug = context.params.product[0]
+	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug } })
 
 	if (!product) return { notFound: true }
 
@@ -298,18 +299,23 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		{ label: 'Lightsource', value: specs.lightsource }
 	].filter(el => el.value)
 
-
 	const images = recordImages(product, ['environmentImage', 'drawing'])
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];
 	product.models.forEach(m => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null }))
+	
+	const sort = {
+		byFamily : (a:ProductRecord, b: ProductRecord) => a.family.id === b.family.id ? 1 : -1,
+		byCategory: (a:ProductRecord, b: ProductRecord) => a.categories.map(el=> el.id).find((id)=>product.categories.map(el=>el.id).includes[id]) ? 1 : -1,
+		byDesigner : (a:ProductRecord, b: ProductRecord) => a.designer.id === product.designer.id ? 1 : -1
+	}
 
 	return {
 		props: {
 			...props,
 			product,
-			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort((a, b) => a.family.id === b.family.id ? 1 : -1),
-			productsByCategory: productsByCategory.filter(p => p.id !== product.id),
+			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort(sort.byFamily),
+			productsByCategory: productsByCategory.filter(p => p.id !== product.id).sort(sort.byDesigner).sort(sort.byCategory),
 			relatedProjects,
 			images,
 			files,
