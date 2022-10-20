@@ -1,26 +1,27 @@
 .logo {
   position: fixed;
   margin-left: var(--outer-margin);
-  font-family: 'Orsjo';
+  font-family: 'logo', Arial, Helvetica, sans-serif;
   font-size: 1rem;
   margin-top: 1.4rem;
   z-index: 1000; 
   transition: color .8s ease-out;
   color: $black;
-  &.inverted {  
-    color:$white;
-  }
   span{
     display: inline-block;
-    opacity: 1;
+    font-variation-settings: 'wght' 1000, 'opsz' 0;
+    opacity: 1;  
     transform: scale(1);
-    transition: opacity .3s, transform .3s ease-out, font-size .4s ease-in-out;
+    transition: opacity .3s, font-size .4s ease-in-out, font-variation-settings .4s ease-in-out;
     &.hide{
       opacity: 0;
-      //transform: scale(0);
     }
     &.big{
       font-size: 1.6rem;
+    }
+    &.inverted { 
+      font-variation-settings: 'wght' 0, 'opsz' 0;
+      color:$white;
     }
   }
 }
