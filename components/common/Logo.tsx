@@ -25,7 +25,7 @@ export default function Logo({inverted = false} : Props){
     const characters = text.length-Math.ceil(4*r)
     setCharacters(characters)
   }, [scrolledPosition, viewportHeight, setCharacters, prevRoute])
-  console.log(isStatic);
+  
   
   return(
     <Link scroll={false} href="/">

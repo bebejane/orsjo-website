@@ -12,7 +12,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
 import { isServer } from '/lib/utils'
 import { Image } from 'react-datocms'
-import { SectionListItem, FeaturedGallery, Block, Section, Icon } from '/components'
+import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
 import React, { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
@@ -105,16 +105,23 @@ export default function Product({
 					/>
 					<div
 						className={styles.overlay}
-						style={{ opacity: overlayOpacity }}>
+						//style={{ opacity: overlayOpacity }}
+					>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
-								{product.title}
+								<TextReveal>
+									{product.title}
+								</TextReveal>
 							</h1>
 							<h1 className={styles.designer}>
-								By {formatDesignerName(product.designer?.name)}
+								<TextReveal>
+									By {formatDesignerName(product.designer?.name)}
+								</TextReveal>
 							</h1>
 							<h3 className={styles.type}>
-								{product.categories.map(({ name }, idx) => name).join(', ')}
+								<TextReveal>
+									{product.categories.map(({ name }, idx) => name).join(', ')}
+								</TextReveal>
 							</h3>
 						</div>
 					</div>
