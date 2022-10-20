@@ -75,6 +75,9 @@ export default function Product({
 
 	const overlayOpacity = isServer ? 1 : Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
 	const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
+	
+	const designerName = product.designer?.name?.split(' ');
+	const designerNameFormatted = designerName.length <= 2 ? designerName.join(' ') : <>{designerName.slice(0,2).join(' ')}<br/>{designerName.slice(2).join(' ')}</>
 
 	return (
 		<>
@@ -95,7 +98,7 @@ export default function Product({
 								{product.title}
 							</h1>
 							<h1 className={styles.designer}>
-								By {product.designer?.name}
+								By {designerNameFormatted}
 							</h1>
 							<h3 className={styles.type}>
 								{product.categories.map(({ name }, idx) => name).join(', ')}
