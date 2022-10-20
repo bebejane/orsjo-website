@@ -61,11 +61,6 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	return (
 		<>
-			<Link scroll={false} href={'/'}>
-				<a className={cn(styles.logo, (open || (open || menu == 'inverted')) && styles.inverted)}>
-					<img id={'logo-mobile'} src={'/images/logo.svg'}/>
-				</a>
-			</Link>
 			<div className={styles.hamburger}>
 				<Hamburger
 					toggled={open}

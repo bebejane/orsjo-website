@@ -12,7 +12,6 @@
     opacity: 1;  
     transform: scale(1);
     transition: opacity .3s, font-size .4s ease-in-out, font-variation-settings .4s ease-in-out;
-
     &.hide{
       opacity: 0;
     }
@@ -28,6 +27,16 @@
       font-variation-settings: 'wght' -300, 'opsz' 1000;
       &.big{
         font-variation-settings: 'wght' 0, 'opsz' 0 !important;
+      }
+    }
+  }
+
+  @include mq($until: tablet){
+    margin-top: 1rem;
+    
+    span{
+      &.big{
+        
       }
     }
   }
