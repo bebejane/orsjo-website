@@ -149,12 +149,12 @@ export default function Product({
 								label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
 							}))
 
-							const access = accessories.map(a => ({
+							const access = accessories.filter(el => el.accessory).map(a => ({
 								articleNo: a.articleNo,
 								label: a.accessory.name
 							}))
 
-							const light = lightsources.map(l => ({
+							const light = lightsources.filter(el => el.lightsource).map(l => ({
 								articleNo: l.lightsource.articleNo,
 								label: `${l.lightsource.name} (need ${l.amount})`,
 								included: l.included,
