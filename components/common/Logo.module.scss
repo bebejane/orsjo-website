@@ -2,8 +2,8 @@
   position: fixed;
   margin-left: var(--outer-margin);
   font-family: 'logo', Arial, Helvetica, sans-serif;
-  font-size: 1rem;
-  margin-top: 1.4rem;
+  font-size: 1.2rem;
+  margin-top: 1.35rem;
   z-index: 1000; 
   transition: color .8s ease-out;
   color: $black;
@@ -20,7 +20,7 @@
     
     &.big{
       font-variation-settings: 'wght' 1000, 'opsz' 0;
-      font-size: 1.6rem;
+      font-size: 1.85rem;
     }
     &.inverted { 
       color:$white;
