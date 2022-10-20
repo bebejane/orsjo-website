@@ -68,7 +68,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
                 <div className={styles.svg}>
                   <img 
                     src={image.url} 
-                    className={styles.image} 
+                    className={styles.image}
                     onLoad={()=>setLoaded({...loaded, [image.id]:true})}
                   />
                 </div>

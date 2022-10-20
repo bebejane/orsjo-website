@@ -53,16 +53,17 @@
       }
       .svg{
         background-color: $white;
-        min-height: calc(100vh);
-        max-height: calc(100vh);
-        min-width: calc(80vw - $small-margin);
+        min-height: 90vh;
+        max-height: 90vh;
+        //min-width: calc(80vw - $small-margin);
         padding: $small-margin;
         @include mq($until: tablet){
           min-height: calc(80vh - $small-margin);
           max-height: calc(80vh - $small-margin);
         }
         img{
-          width: 100%;
+          min-height: 100%;
+          max-height: 100%;
         }
       }
       .loading{
