@@ -32,6 +32,22 @@ export type ProductProps = {
 	files: ProductDownload[]
 }
 
+const formatDesignerName = (name?: string) => {
+  if(!name) return ''
+	const words = name?.split(' ');
+	const rows = []
+	
+	for (let i = words.length-1; i >= 0; i-=2) {
+		const row = [words[i]]
+		if(i-1 >= 0)
+			row.push(words[i-1])
+		rows.push(row)
+	}
+	
+	return rows.reverse().map((el, i) => <>{el.reverse().join(' ')}{i < rows.length-1 && <br/>}</>)
+}
+
+
 export default function Product({ 
 	product, 
 	relatedProducts, 
@@ -76,9 +92,6 @@ export default function Product({
 	const overlayOpacity = isServer ? 1 : Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
 	const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
 	
-	const designerName = product.designer?.name?.split(' ');
-	const designerNameFormatted = designerName.length <= 2 ? designerName.join(' ') : <>{designerName.slice(0,2).join(' ')}<br/>{designerName.slice(2).join(' ')}</>
-
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
@@ -98,7 +111,7 @@ export default function Product({
 								{product.title}
 							</h1>
 							<h1 className={styles.designer}>
-								By {designerNameFormatted}
+								By {formatDesignerName(product.designer?.name)}
 							</h1>
 							<h3 className={styles.type}>
 								{product.categories.map(({ name }, idx) => name).join(', ')}
