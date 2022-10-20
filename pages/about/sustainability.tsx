@@ -5,7 +5,7 @@ import cn from 'classnames'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageProps } from '/lib/context/page';
-import { Section } from '/components'
+import { Section, TextReveal } from '/components'
 
 export type SustainabilityProps = {  sustainability: SustainabilityRecord}
 
@@ -19,7 +19,11 @@ export default function Sustainability({ sustainability : { image, intro, title,
 						className={styles.heroImage}
 						objectFit="cover"
 					/>
-					<h1>{title}</h1>
+					<div className={styles.header}>
+						<h1>
+							<TextReveal>{title}</TextReveal>
+						</h1>
+					</div>
 				</div>
 			</Section>
 			<Section className={styles.intro} type="margin">

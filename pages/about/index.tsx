@@ -4,12 +4,12 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import type { PageProps } from '/lib/context/page';
-import { Section, VideoPlayer } from '/components'
+import { Section, VideoPlayer, TextReveal } from '/components'
 import cn from 'classnames'
 
 export type AboutProps = { about: AboutRecord }
 
-export default function About({ about: { title, image, video, intro, sections } }: AboutProps) {
+export default function About({ about: { title,  video, intro, sections } }: AboutProps) {
 	
 	return (
 		<>
@@ -19,7 +19,11 @@ export default function About({ about: { title, image, video, intro, sections } 
 						className={styles.heroImage}
 						data={video}
 					/>
-					<h1>{title}</h1>
+					<div className={styles.header}>
+						<h1>
+							<TextReveal>{title}</TextReveal>
+						</h1>
+					</div>
 				</div>
 			</Section>
 			<Section className={styles.intro} type="margin">

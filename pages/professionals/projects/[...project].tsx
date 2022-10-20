@@ -4,7 +4,7 @@ import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, Bespo
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
-import { Block, Section, FeaturedGallery } from '/components';
+import { Block, Section, FeaturedGallery, TextReveal } from '/components';
 import { useEffect } from 'react'
 import { useStore } from '/lib/store';
 import useScrollInfo from '/lib/hooks/useScrollInfo';
@@ -54,8 +54,16 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 		<>
 			<Section className={styles.intro} name="Presentation" top={true}>
 				<div className={styles.wrap} onClick={()=>setGalleryId(project.image?.id)}>
-					<h1 className={styles.title} style={headerStyle}>{project.title}</h1>
-					<h1 className={styles.location} style={headerStyle}>{project.location}</h1>
+					<h1 className={styles.title}>
+						<TextReveal>
+							{project.title}
+						</TextReveal>
+					</h1>
+					<h1 className={styles.location}>
+						<TextReveal>
+							{project.location}
+						</TextReveal>
+					</h1>
 					{project.image &&
 						<Image
 							data={project.image.responsiveImage}
