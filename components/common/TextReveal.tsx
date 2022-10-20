@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import cn from 'classnames'
 import Children from 'react-children-utilities';
 
-
 export default function TextReveal({children}){
   const text = Children.onlyText(children)
 
