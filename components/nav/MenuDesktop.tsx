@@ -2,13 +2,14 @@ import styles from './MenuDesktop.module.scss'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useRef, useEffect, useCallback, MouseEvent } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { useStore, shallow } from '/lib/store'
 import { usePage } from '/lib/context/page'
 import { useWindowSize } from 'rooks'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import type { Menu } from '/lib/menu'
-import { sleep, waitForElement } from '/lib/utils'
+import { waitForElement } from '/lib/utils'
+import { Logo } from '/components'
 
 export type MenuDesktopProps = { items: Menu, onShowSiteSearch: Function }
 
@@ -88,13 +89,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	
 	return (
 		<>
-			<Link scroll={false} href="/">
-				<a className={cn(styles.logo, isInverted && styles.inverted)}>
-					<figure>
-						<img id="logo" src={'/images/logo.svg'} />
-					</figure>
-				</a>
-			</Link>
+			<Logo inverted={isInverted}/>
 			<nav id={'menu'} ref={ref} className={menuStyles} >
 				<ul className={styles.nav} >
 					{items.map(({ label, slug, index }, idx) => 

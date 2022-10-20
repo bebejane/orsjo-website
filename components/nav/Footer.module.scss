@@ -7,10 +7,10 @@
   &.line {
     padding-top: 0;
 
-    .wrapperTop,{
-    padding-top: $small-margin;
-    border-top: 1px solid $white;
-  }
+    .wrapperTop{
+      padding-top: $small-margin;
+      border-top: 1px solid $white;
+    }
   }
 
   @include mq($until: tablet) {
@@ -78,7 +78,10 @@
       padding-right: 2em;
       flex-basis: 16.67%;
       flex-grow: 0;
-      ul{
+      &:last-child{
+        padding-right: 0;
+      }
+      > ul{
         display: flex;
         list-style: none;
         flex-direction: column;

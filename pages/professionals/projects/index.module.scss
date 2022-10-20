@@ -46,7 +46,7 @@
     margin-right: nestedGridGutter(12);
     @include resetLastColumn(4);
   }
-  @include mq($from:mobile, $until: tablet){
+  @include mq($until: desktop){
     width:  spanNestedGrid(16, 8);
     margin-right: nestedGridGutter(16);
     @include resetLastColumn(2);
