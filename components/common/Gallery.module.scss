@@ -55,9 +55,9 @@
         background-color: #ffffff;
 
         picture, .image{
-          min-height: calc(100vh - 20vh);
-          max-height: calc(100vh - 20vh);
-          margin-bottom: 10vh;
+          min-height: calc(100vh - 2rem);
+          max-height: calc(100vh - 2rem);
+          padding-bottom: 5rem;
         }
       }
       .svg{

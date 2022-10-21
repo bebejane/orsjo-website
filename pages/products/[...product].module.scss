@@ -54,6 +54,11 @@
 .description{
 	margin-top: $small-margin;
 	padding-right: 20%;
+
+	p {
+		margin-bottom: 0;
+	}
+	
 	@include mq($until: tablet){
 		padding-right: 0;
 	}
