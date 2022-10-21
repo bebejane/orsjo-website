@@ -1,10 +1,11 @@
 import styles from './SectionListItem.module.scss'
 import cn from 'classnames'
 import { Section } from '/components'
+import React from 'react'
 
 export type SectionListItemProps = {
 	title?: string,
-	children: React.ReactNode,
+	children?: React.ReactNode,
 	idx?: number,
 	total?: number,
 	selected?: boolean,
