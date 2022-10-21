@@ -11,10 +11,11 @@ export type GalleryProps = {
   images: FileField[],
   onClose: (event?: React.MouseEvent) => void,
   index: number,
-  show: boolean
+  show: boolean,
+  padImagesWithTitle?: boolean
 }
 
-export default function Gallery({ images, onClose, index = 0, show }: GalleryProps) {
+export default function Gallery({ images, onClose, index = 0, show, padImagesWithTitle = true }: GalleryProps) {
 
   const swiperRef = useRef<SwiperType | undefined>()
   const [realIndex, setRealIndex] = useState(index)
@@ -55,7 +56,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
           onSwiper={(swiper) => swiperRef.current = swiper}
         >
           {images.map((image, idx) =>
-            <SwiperSlide key={idx} className={styles.slide}>
+            <SwiperSlide key={idx} className={cn(styles.slide, padImagesWithTitle && image.title && styles.padded)}>
               {image.responsiveImage ?
                 <Image
                   pictureClassName={styles.image}

@@ -51,11 +51,20 @@
         object-fit: contain !important;
         min-height: 100vh;
       }
+      &.padded{
+        background-color: #ffffff;
+
+        picture, .image{
+          min-height: calc(100vh - 20vh);
+          max-height: calc(100vh - 20vh);
+          margin-bottom: 10vh;
+        }
+      }
       .svg{
         background-color: $white;
         min-height: 90vh;
         max-height: 90vh;
-        //min-width: calc(80vw - $small-margin);
+        
         padding: $small-margin;
         @include mq($until: tablet){
           min-height: calc(80vh - $small-margin);
