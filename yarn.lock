@@ -10,25 +10,6 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@apollo/client@^3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.7.0.tgz#1c26a04488f45b3a4779fa2562e4b706402cb876"
-  integrity sha512-hp4OvrH1ZIQACRYcIrh/C0WFnY7IM7G6nlTpC8DSTEWxfZQ2kvpvDY0I/hYmCs0oAVrg26g3ANEdOzGWTcYbPg==
-  dependencies:
-    "@graphql-typed-document-node/core" "^3.1.1"
-    "@wry/context" "^0.7.0"
-    "@wry/equality" "^0.5.0"
-    "@wry/trie" "^0.3.0"
-    graphql-tag "^2.12.6"
-    hoist-non-react-statics "^3.3.2"
-    optimism "^0.16.1"
-    prop-types "^15.7.2"
-    response-iterator "^0.2.6"
-    symbol-observable "^4.0.0"
-    ts-invariant "^0.10.3"
-    tslib "^2.3.0"
-    zen-observable-ts "^1.2.5"
-
 "@apollo/client@^3.7.1":
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.7.1.tgz#86ce47c18a0714e229231148b0306562550c2248"
@@ -1170,7 +1151,7 @@
     "@datocms/cma-client" "^1.1.8"
     "@datocms/rest-client-utils" "^1.1.4"
 
-"@datocms/cma-client-node@1.1.8", "@datocms/cma-client-node@^1.1.8":
+"@datocms/cma-client-node@^1.1.8":
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/@datocms/cma-client-node/-/cma-client-node-1.1.8.tgz#7c4f09bebf6dc642a6811a20bf865a37226a98b6"
   integrity sha512-Dud7MDEgUySWW6p3PAVqYMhumY3F0QDjmi08v5du0Go6eAD5a/9j98nRLFCTZbP4IzpctHxedXS4b94Dzmideg==
@@ -2351,11 +2332,6 @@
   version "18.0.0"
   resolved "https://registry.npmjs.org/@types/node/-/node-18.0.0.tgz"
   integrity sha512-cHlGmko4gWLVI27cGJntjs/Sj8th9aYwplmZFwmmgYQQvL5NUsgVJG7OddLvNfLqYS31KFN0s3qlaD9qCaxACA==
-
-"@types/node@18.11.3":
-  version "18.11.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.3.tgz#78a6d7ec962b596fc2d2ec102c4dd3ef073fea6a"
-  integrity sha512-fNjDQzzOsZeKZu5NATgXUPsaFaTxeRgFXoosrHivTl8RGeV733OLawXsGfEk9a8/tySyZUyiZ6E8LcjPFZ2y1A==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -3676,22 +3652,6 @@ date-fns@^2.28.0:
   version "2.28.0"
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
   integrity sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==
-
-"dato-nextjs-utils@https://github.com/bebejane/dato-nextjs-utils":
-  version "1.0.2"
-  resolved "https://github.com/bebejane/dato-nextjs-utils#0dd3251ad34c7999ea23655211ea2261d808db97"
-  dependencies:
-    "@apollo/client" "^3.7.0"
-    "@datocms/cma-client-node" "1.1.8"
-    "@types/node" "18.11.3"
-    markdown-truncate "^1.0.4"
-    next "^12.3.1"
-    next-seo "^5.8.0"
-    react "^18.2.0"
-    react-dom "^18.2.0"
-    react-markdown "^8.0.3"
-    remark-breaks "^3.0.2"
-    remark-gfm "^3.0.1"
 
 datocms-listen@^0.1.9:
   version "0.1.9"
@@ -6483,11 +6443,6 @@ next-seo@^5.5.0:
   resolved "https://registry.npmjs.org/next-seo/-/next-seo-5.5.0.tgz"
   integrity sha512-5ouBHFtx8YrSDW44lj0qIEQ+oMcz6stgoITB+SqHUZbhgizoJsyLmq73gJ0lxtEKpcN8vG2QgRIJfdb8OAPChw==
 
-next-seo@^5.8.0:
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-5.8.0.tgz#c71c791971e030af448cae61dc1ece5e79da1790"
-  integrity sha512-V5W/JwqdoX6/0zG4S7m5g8zNajYffytWigkPo2hrbHhLD18yGFBU9607OPhvbI9zX3QjWQFMBSmlUY456xt9cA==
-
 next-sitemap@^3.1.18:
   version "3.1.22"
   resolved "https://registry.npmjs.org/next-sitemap/-/next-sitemap-3.1.22.tgz"
@@ -7118,14 +7073,6 @@ react-dom@17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
-react-dom@^18.2.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
-  integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
-  dependencies:
-    loose-envify "^1.1.0"
-    scheduler "^0.23.0"
-
 react-hook-form@^7.35.0:
   version "7.36.0"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.36.0.tgz"
@@ -7193,13 +7140,6 @@ react@17.0.2:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-
-react@^18.2.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
-  integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
-  dependencies:
-    loose-envify "^1.1.0"
 
 readable-stream@^3.4.0:
   version "3.6.0"
@@ -7570,13 +7510,6 @@ scheduler@^0.20.2:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-
-scheduler@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.23.0.tgz#ba8041afc3d30eb206a487b6b384002e4e61fdfe"
-  integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
-  dependencies:
-    loose-envify "^1.1.0"
 
 scuid@^1.1.0:
   version "1.1.0"
