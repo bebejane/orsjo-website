@@ -196,7 +196,10 @@ export default function Product({
 
 							return (
 								<ul key={id}>
-									<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
+									<li className={styles.subheader}>
+										<span></span>
+										<span>{product.title} {name?.name}</span>
+									</li>
 									{rows.map((row, idx) =>
 										<React.Fragment key={`${id}-${idx}`}>
 											<li key={`${id}-${idx}-c1`}>
@@ -267,7 +270,7 @@ export default function Product({
 				}
 				{productsByCategory.length > 0 &&
 					<FeaturedGallery
-						headline={`Other ${product.categories[0].namePlural}`}
+						headline={`Other ${product.categories[0].namePlural.toLowerCase()}`}
 						items={productsByCategory}
 						theme={'light'}
 						id="relatedbycategory"

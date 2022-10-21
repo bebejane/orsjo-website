@@ -30,7 +30,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const isOtherProject = project.projectType?.title.toLowerCase() === 'other'
-	const relatedHeadline  = !isOtherProject ? `Other ${project.projectType.titlePlural}` : 'Related projects'
+	const relatedHeadline  = !isOtherProject ? `Other ${project.projectType.titlePlural.toLowerCase()}` : 'Related projects'
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
 	const opacity = Math.max(0, ((viewportHeight - (scrolledPosition * 8)) / viewportHeight));
 	const headerStyle = { opacity}
