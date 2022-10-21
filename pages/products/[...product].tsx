@@ -249,7 +249,7 @@ export default function Product({
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
 				{relatedProducts.length > 0 &&
 					<FeaturedGallery
-						headline={`Related Products`}
+						headline={`Related products`}
 						items={relatedProducts}
 						theme={'light'}
 						id="related"
@@ -258,7 +258,7 @@ export default function Product({
 				}
 				{relatedProjects.length > 0 &&
 					<FeaturedGallery
-						headline={`Related Projects`}
+						headline={`Related projects`}
 						items={relatedProjects}
 						theme={'light'}
 						id="relatedProjects"
