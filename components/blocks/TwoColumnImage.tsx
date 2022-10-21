@@ -8,10 +8,10 @@ export default function TwoColumnImage({ data: { firstImage, lastImage }, onClic
 
 	return (
 		<div className={styles.twoColumnImage}>
-			<figure onClick={()=>onClick(firstImage.id)} data-gallery-image={firstImage.id}>
+			<figure onClick={()=>onClick(firstImage.id)} data-image-zoom={firstImage.id}>
 				<Image data={firstImage.responsiveImage} className={styles.image}/>
 			</figure>
-			<figure onClick={()=>onClick(lastImage.id)} data-gallery-image={lastImage.id}>
+			<figure onClick={()=>onClick(lastImage.id)} data-image-zoom={lastImage.id}>
 				<Image data={lastImage.responsiveImage} className={styles.image}/>
 			</figure>
 		</div>

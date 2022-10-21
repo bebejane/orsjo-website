@@ -104,9 +104,9 @@ button {
 	}
 }
 
-[data-gallery-image]{
+[data-image-zoom]{
 	img{
-		transition: transform 0.7s ease !important;	
+		transition: transform 0.5s ease !important;	
 		transform: scale(1);
 		&:hover{
 			transform: scale(1.02);
@@ -114,10 +114,18 @@ button {
 	}
 }
 
-[data-gallery-image="small"]{
+[data-image-zoom="small"]{
 	img{
 		&:hover{
 			transform: scale(1.1);
+		}		
+	}
+}
+
+[data-image-zoom="medium"]{
+	img{
+		&:hover{
+			transform: scale(1.04);
 		}		
 	}
 }
