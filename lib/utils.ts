@@ -98,12 +98,16 @@ export const recordImages = (obj, exclude: string[] = [], images: FileField[] = 
       recordImages(obj[key], exclude, images)
   })
 
+  return dedupeImages(images)
+}
+
+export const dedupeImages = (images : FileField[]) : FileField[] => {
   return images.reduce((unique, o) => {
     if (!unique.some(obj => obj.id === o.id))
       unique.push(o);
     return unique;
   }, []);
-}
+} 
 
 export const siteSearch = async (q: string) => {
 

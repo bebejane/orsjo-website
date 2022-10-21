@@ -2,7 +2,7 @@ import styles from './[...product].module.scss'
 import cn from 'classnames'
 import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument,RelatedProjectsForProductDocument } from '/graphql'
 import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
-import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
+import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import { apiQuery } from '/lib/dato/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
@@ -57,7 +57,7 @@ export default function Product({
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({ specifications: false, downloads: false })
 	const singleModel = product.models.length === 1
-	const images = useMemo(()=>[product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])], [product])
+	const images = useMemo(()=>dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
 	
 	const handleGalleryClick = (type: string, id: string) => {
 		setGallery({ images: type === 'product' ? images : drawings, index: 0 })

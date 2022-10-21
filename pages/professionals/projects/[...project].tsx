@@ -5,6 +5,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
 import { Block, Section, FeaturedGallery, TextReveal } from '/components';
+import { dedupeImages } from '/lib/utils';
 import { useEffect } from 'react'
 import { useStore } from '/lib/store';
 import useScrollInfo from '/lib/hooks/useScrollInfo';
@@ -21,7 +22,7 @@ export type ProjectProps = {
 const galleryImages = (project: ProjectRecord) : FileField[] => {
 	const images = [project.image, project.secondaryImage]
 	project.gallery.forEach(el => Object.keys(el).forEach(k => el[k].responsiveImage  && images.push(el[k])))
-	return images;
+	return dedupeImages(images);
 } 
 
 export default function Project({ project, relatedProjects, bespokeThumbnail }: ProjectProps) {
