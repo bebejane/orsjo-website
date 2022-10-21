@@ -13,7 +13,7 @@ const childrenToText = (children) => {
   return chars.filter(arr => arr.join('')).map(arr => arr.join('')).join('')
 }
 
-export default function TextReveal({children, speed = 0.5, block = false}){
+export default function TextReveal({children = undefined, speed = 0.5, block = false}){
   const text = childrenToText(children)
 
   const { scrolledPosition, viewportHeight } = useScrollInfo()

@@ -6,7 +6,6 @@ import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDow
 import { apiQuery } from '/lib/dato/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
-import { isServer } from '/lib/utils'
 import { Image } from 'react-datocms'
 import React, { useState, useEffect, useMemo } from 'react'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
@@ -26,22 +25,6 @@ export type ProductProps = {
 	files: ProductDownload[]
 }
 
-const formatDesignerName = (name?: string) => {
-	if (!name) return ''
-	const words = name?.split(' ');
-	const rows = []
-
-	for (let i = words.length - 1; i >= 0; i -= 2) {
-		const row = [words[i]]
-		if (i - 1 >= 0)
-			row.push(words[i - 1])
-		rows.push(row)
-	}
-
-	return rows.reverse().map((el, i) => <>{el.reverse().join(' ')}{i < rows.length - 1 && <br />}</>)
-}
-
-
 export default function Product({
 	product,
 	relatedProducts,
@@ -56,6 +39,7 @@ export default function Product({
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({ specifications: false, downloads: false })
+	const [pictureStyle, setPictureStyle] = useState({ paddingBottom:'4em' })
 	const singleModel = product.models.length === 1
 	const images = useMemo(() => dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
 
@@ -82,22 +66,24 @@ export default function Product({
 	useEffect(() => {
 		setGallery({ images, padImagesWithTitle:true })
 	}, [images, setGallery])
-
-	const overlayOpacity = isServer ? 1 : Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
-	const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
-
+	
+	useEffect(() => {
+		const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
+		setPictureStyle({ paddingBottom: `${4 * scale}em` })
+	}, [viewportHeight, scrolledPosition, setPictureStyle])
+	
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
 				<div className={styles.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					<Image
 						className={styles.image}
-						data={product.image?.responsiveImage}
+						data={product.image.responsiveImage}
 						layout={'fill'}
 						lazyLoad={false}
 						fadeInDuration={100}
 						objectFit={'contain'}
-						pictureStyle={{ paddingBottom: `${4 * scale}em` }}
+						pictureStyle={pictureStyle}
 					/>
 					<div className={styles.overlay}>
 						<div className={styles.text}>
@@ -349,3 +335,17 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		revalidate
 	};
 });
+
+const formatDesignerName = (name?: string) => {
+	if (!name) return ''
+	const words = name?.split(' ');
+	const rows = []
+
+	for (let i = words.length - 1; i >= 0; i -= 2) {
+		const row = [words[i]]
+		if (i - 1 >= 0)
+			row.push(words[i - 1])
+		rows.push(row)
+	}
+	return rows.reverse().map((el, i) => <>{el.reverse().join(' ')}{i < rows.length - 1 && <br />}</>)
+}
