@@ -4,8 +4,8 @@ import { buildClient } from '@datocms/cma-client-node';
 export const basicAuth = (req: NextApiRequest) => {
   
   const basicAuth = req.headers.authorization
-  if (!basicAuth) 
-    return true;
+  if (!basicAuth || !process.env.BASIC_AUTH_USER || !process.env.BASIC_AUTH_PASSWORD)
+    return false;
     
   const auth = basicAuth.split(' ')[1]
   const [user, pwd] = Buffer.from(auth, 'base64').toString().split(':')
@@ -54,17 +54,13 @@ export default function withRevalidate(callback:(record:any, revalidate : (paths
           throw 'Nothing to revalidate';
 
         console.log('revalidating paths', paths)
-        for (let i = 0; i < paths.length; i++){
-          console.log('revalidate', paths[i])
-          await res.revalidate(paths[i])
-        }
+        await Promise.all(paths.map(p => res.revalidate(p)))
         console.log('revalidating done!')
         return res.json({ revalidated: true, paths })
       }catch(err){
         console.error(err)
         return res.json({ revalidated: false, err })
       }
-      
     })
   }
 }
