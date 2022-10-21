@@ -103,3 +103,21 @@ button {
 		scroll-margin-top: 	$navbarHeightMobile;
 	}
 }
+
+[data-gallery-image]{
+	img{
+		transition: transform 0.7s ease !important;	
+		transform: scale(1);
+		&:hover{
+			transform: scale(1.01);
+		}		
+	}
+}
+
+[data-gallery-image="small"]{
+	img{
+		&:hover{
+			transform: scale(1.1);
+		}		
+	}
+}

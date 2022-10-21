@@ -7,7 +7,7 @@ export type FullwidthImageProps = { data: FullwidthImageRecord, onClick:Function
 export default function FullwidthImage({ data: { image }, data, onClick }: FullwidthImageProps) {
 
 	return (
-		<div onClick={()=>onClick(image.id)}>
+		<div onClick={()=>onClick(image.id)} data-gallery-image={image.id}>
 			<Image className={styles.image} data={image?.responsiveImage}/>
 		</div>
 	)
