@@ -1,6 +1,9 @@
 
 .word{
-  display: inline-block;
+  display: inline;
+  &.block{
+    display: inline-block;
+  }
   .letter{
     display: inline;
     opacity: 1;

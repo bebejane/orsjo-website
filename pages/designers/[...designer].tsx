@@ -16,7 +16,7 @@ export default function Designer({ designer, products, designers }: DesignerProp
 				<header>
 					<div className={styles.artist} key={designer.id}>
 						<h1>
-							<TextReveal>
+							<TextReveal block={true}>
 								{designer.name}
 							</TextReveal>
 						</h1>

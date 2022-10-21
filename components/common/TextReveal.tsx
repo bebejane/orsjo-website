@@ -13,7 +13,7 @@ const childrenToText = (children) => {
   return chars.filter(arr => arr.join('')).map(arr => arr.join('')).join('')
 }
 
-export default function TextReveal({children, speed = 0.5}){
+export default function TextReveal({children, speed = 0.5, block = false}){
   const text = childrenToText(children)
 
   const { scrolledPosition, viewportHeight } = useScrollInfo()
@@ -30,13 +30,13 @@ export default function TextReveal({children, speed = 0.5}){
   return (
     <>
       {text?.split(' ').map((word, widx) => 
-        <span key={widx} className={styles.word}>
+        <span key={widx} className={cn(styles.word, block && styles.block)}>
           {word.split('').map((c, idx) => 
             <span key={idx} className={cn(styles.letter, (++count > chars) && styles.hide)}>
               {c === '\n' ? <br/> : c}
             </span>
           )}
-          &nbsp;
+          {widx < text.split(' ').length-1 ? <>&nbsp;</> : undefined}
         </span>
       )}
     </>
