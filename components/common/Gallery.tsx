@@ -15,7 +15,7 @@ export type GalleryProps = {
   padImagesWithTitle?: boolean
 }
 
-export default function Gallery({ images, onClose, index = 0, show, padImagesWithTitle = true }: GalleryProps) {
+export default function Gallery({ images, onClose, index = 0, show, padImagesWithTitle = false }: GalleryProps) {
 
   const swiperRef = useRef<SwiperType | undefined>()
   const [realIndex, setRealIndex] = useState(index)

@@ -2,12 +2,14 @@ import create from "zustand";
 import shallow from "zustand/shallow"
 
 export type SectionId = {
-  title:string, id:string
+  title:string, 
+  id:string
 }
 
 export type GalleryProps = {
   images: FileField[],
-  index?: number
+  index?: number,
+  padImagesWithTitle?: boolean
 }
 
 export interface StoreState {
@@ -71,7 +73,8 @@ const useStore = create<StoreState>((set) => ({
     set((state) => ({
       gallery:{
         images: gallery.images,
-        index: gallery.index !== undefined ? gallery.index : undefined
+        index: gallery.index !== undefined ? gallery.index : undefined,
+        padImagesWithTitle:gallery.padImagesWithTitle || false
       }
     })
   ),
