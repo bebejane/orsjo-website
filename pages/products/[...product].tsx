@@ -114,7 +114,6 @@ export default function Product({
 								</TextReveal>
 							</h1>
 							<h1 className={styles.designer}>
-								by {designerNameFormatted}
 								<TextReveal>
 									By {formatDesignerName(product.designer?.name)}
 								</TextReveal>
