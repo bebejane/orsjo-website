@@ -1,9 +1,9 @@
 import styles from './[...product].module.scss'
 import cn from 'classnames'
-import { 
-	AllProductsLightDocument, 
-	ProductDocument, 
-	RelatedProductsDocument, 
+import {
+	AllProductsLightDocument,
+	ProductDocument,
+	RelatedProductsDocument,
 	AllProductsByCategoryDocument,
 	RelatedProjectsForProductDocument
 } from '/graphql'
@@ -26,21 +26,21 @@ export type ProductProps = {
 	relatedProducts: ProductRecord[],
 	relatedProjects: ProjectRecord[],
 	productsByCategory: ProductRecord[],
-	images: FileField[] 
+	images: FileField[]
 	drawings: FileField[]
-	specsCols: { label:string, value:string }[]
+	specsCols: { label: string, value: string }[]
 	files: ProductDownload[]
 }
 
-export default function Product({ 
-	product, 
-	relatedProducts, 
-	relatedProjects, 
-	productsByCategory, 
-	images, 
-	drawings, 
-	specsCols, 
-	files 
+export default function Product({
+	product,
+	relatedProducts,
+	relatedProjects,
+	productsByCategory,
+	images,
+	drawings,
+	specsCols,
+	files
 }: ProductProps) {
 
 	const router = useRouter()
@@ -48,7 +48,7 @@ export default function Product({
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({ specifications: false, downloads: false })
 	const singleModel = product.models.length === 1
-	
+
 	const handleGalleryClick = (type: string, id: string) => {
 		setGallery({ images: type === 'product' ? images : drawings, index: 0 })
 		setGalleryId(id)
@@ -56,7 +56,7 @@ export default function Product({
 
 	useEffect(() => { // Toggle specs/downloads on sidebar click
 
-		const handleHashChange = (url : string) => {
+		const handleHashChange = (url: string) => {
 			setList((l) => ({
 				...l,
 				specifications: url.endsWith('specifications') || l.specifications,
@@ -75,9 +75,9 @@ export default function Product({
 
 	const overlayOpacity = isServer ? 1 : Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
 	const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
-	
+
 	const designerName = product.designer?.name?.split(' ');
-	const designerNameFormatted = designerName.length <= 2 ? designerName.join(' ') : <>{designerName.slice(0,2).join(' ')}<br/>{designerName.slice(2).join(' ')}</>
+	const designerNameFormatted = designerName.length <= 2 ? designerName.join(' ') : <>{designerName.slice(0, 2).join(' ')}<br />{designerName.slice(2).join(' ')}</>
 
 	return (
 		<>
@@ -98,7 +98,7 @@ export default function Product({
 								{product.title}
 							</h1>
 							<h1 className={styles.designer}>
-								By {designerNameFormatted}
+								by {designerNameFormatted}
 							</h1>
 							<h3 className={styles.type}>
 								{product.categories.map(({ name }, idx) => name).join(', ')}
@@ -294,7 +294,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 			{ categoryId: product.categories[0]?.id },
 			{ productId: product.id }
 		]
-	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[], relatedProjects : ProjectRecord[]}
+	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[], relatedProjects: ProjectRecord[] }
 
 	const specs = parseSpecifications(product, 'en', null)
 	const specsCols = [
@@ -306,16 +306,16 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		{ label: 'Lightsource', value: specs.lightsource },
 		{ label: 'Additional Information', value: specs.additionalInformation },
 	].filter(el => el.value)
-	
+
 	const images = recordImages(product, ['environmentImage', 'drawing'])
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];
 	product.models.forEach(m => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null }))
-	
+
 	const sort = {
-		byFamily : (a:ProductRecord, b: ProductRecord) => a.family.id === b.family.id ? 1 : -1,
-		byCategory: (a:ProductRecord, b: ProductRecord) => a.categories.map(el=> el.id).find((id)=>product.categories.map(el=>el.id).includes[id]) ? 1 : -1,
-		byDesigner : (a:ProductRecord, b: ProductRecord) => a.designer.id === product.designer.id ? 1 : -1
+		byFamily: (a: ProductRecord, b: ProductRecord) => a.family.id === b.family.id ? 1 : -1,
+		byCategory: (a: ProductRecord, b: ProductRecord) => a.categories.map(el => el.id).find((id) => product.categories.map(el => el.id).includes[id]) ? 1 : -1,
+		byDesigner: (a: ProductRecord, b: ProductRecord) => a.designer.id === product.designer.id ? 1 : -1
 	}
 
 	return {
