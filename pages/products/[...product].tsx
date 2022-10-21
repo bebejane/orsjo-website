@@ -1,6 +1,6 @@
 import styles from './[...product].module.scss'
 import cn from 'classnames'
-import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument,RelatedProjectsForProductDocument } from '/graphql'
+import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument } from '/graphql'
 import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
 import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import { apiQuery } from '/lib/dato/api'
@@ -51,14 +51,14 @@ export default function Product({
 	specsCols,
 	files
 }: ProductProps) {
-	
+
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({ specifications: false, downloads: false })
 	const singleModel = product.models.length === 1
-	const images = useMemo(()=>dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
-	
+	const images = useMemo(() => dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
+
 	const handleGalleryClick = (type: string, id: string) => {
 		setGallery({ images: type === 'product' ? images : drawings, index: 0 })
 		setGalleryId(id)
@@ -95,7 +95,7 @@ export default function Product({
 						data={product.image?.responsiveImage}
 						layout={'fill'}
 						objectFit={'contain'}
-						pictureStyle={{ paddingBottom: `${3 * scale}em` }}
+						pictureStyle={{ paddingBottom: `${4 * scale}em` }}
 					/>
 					<div className={styles.overlay}>
 						<div className={styles.text}>
@@ -106,7 +106,7 @@ export default function Product({
 							</h1>
 							<h1 className={styles.designer}>
 								<TextReveal>
-									By {formatDesignerName(product.designer?.name)}
+									by {formatDesignerName(product.designer?.name)}
 								</TextReveal>
 							</h1>
 							<h3 className={styles.type}>
@@ -321,8 +321,8 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		{ label: 'Additional Information', value: specs.additionalInformation },
 	].filter(el => el.value)
 
-	
-	
+
+
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];
 	product.models.forEach(m => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null }))
