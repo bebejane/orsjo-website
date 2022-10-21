@@ -29,6 +29,7 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 					show={gallery?.index > -1}
 					images={gallery?.images}
 					index={gallery?.index}
+					padImagesWithTitle={gallery?.padImagesWithTitle}
 					onClose={() => setGallery({...gallery, index:-1})}
 				/>
 			</div>

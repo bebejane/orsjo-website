@@ -60,7 +60,7 @@ export default function Product({
 	const images = useMemo(() => dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
 
 	const handleGalleryClick = (type: string, id: string) => {
-		setGallery({ images: type === 'product' ? images : drawings, index: 0 })
+		setGallery({ images: type === 'product' ? images : drawings, index: 0, padImagesWithTitle:true })
 		setGalleryId(id)
 	}
 
@@ -80,7 +80,7 @@ export default function Product({
 	}, [router.events])
 
 	useEffect(() => {
-		setGallery({ images })
+		setGallery({ images, padImagesWithTitle:true })
 	}, [images, setGallery])
 
 	const overlayOpacity = isServer ? 1 : Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
@@ -94,6 +94,8 @@ export default function Product({
 						className={styles.image}
 						data={product.image?.responsiveImage}
 						layout={'fill'}
+						lazyLoad={false}
+						fadeInDuration={100}
 						objectFit={'contain'}
 						pictureStyle={{ paddingBottom: `${4 * scale}em` }}
 					/>
