@@ -1,20 +1,14 @@
 import styles from './[...product].module.scss'
 import cn from 'classnames'
-import {
-	AllProductsLightDocument,
-	ProductDocument,
-	RelatedProductsDocument,
-	AllProductsByCategoryDocument,
-	RelatedProjectsForProductDocument
-} from '/graphql'
+import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument,RelatedProjectsForProductDocument } from '/graphql'
+import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
+import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import { apiQuery } from '/lib/dato/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
 import { isServer } from '/lib/utils'
 import { Image } from 'react-datocms'
-import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
-import React, { useState, useEffect } from 'react'
-import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
+import React, { useState, useEffect, useMemo } from 'react'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
@@ -53,18 +47,18 @@ export default function Product({
 	relatedProducts,
 	relatedProjects,
 	productsByCategory,
-	images,
 	drawings,
 	specsCols,
 	files
 }: ProductProps) {
-
+	
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({ specifications: false, downloads: false })
 	const singleModel = product.models.length === 1
-
+	const images = useMemo(()=>[product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])], [product])
+	
 	const handleGalleryClick = (type: string, id: string) => {
 		setGallery({ images: type === 'product' ? images : drawings, index: 0 })
 		setGalleryId(id)
@@ -103,10 +97,7 @@ export default function Product({
 						objectFit={'contain'}
 						pictureStyle={{ paddingBottom: `${3 * scale}em` }}
 					/>
-					<div
-						className={styles.overlay}
-					//style={{ opacity: overlayOpacity }}
-					>
+					<div className={styles.overlay}>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
 								<TextReveal>
@@ -327,7 +318,8 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		{ label: 'Additional Information', value: specs.additionalInformation },
 	].filter(el => el.value)
 
-	const images = recordImages(product, ['environmentImage', 'drawing'])
+	
+	
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];
 	product.models.forEach(m => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null }))
@@ -345,7 +337,6 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort(sort.byFamily),
 			productsByCategory: productsByCategory.filter(p => p.id !== product.id).sort(sort.byDesigner).sort(sort.byCategory),
 			relatedProjects,
-			images,
 			files,
 			drawings,
 			specsCols
