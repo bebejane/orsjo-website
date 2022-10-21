@@ -10,14 +10,10 @@ type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Represents `true` or `false` values. */
   BooleanType: any;
   CustomData: any;
-  /** A ISO 8601 compliant datetime value */
   DateTime: any;
-  /** Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). */
   FloatType: any;
-  /** Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
   IntType: any;
   ItemId: any;
   JsonField: any;
