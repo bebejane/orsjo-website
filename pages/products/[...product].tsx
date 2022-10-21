@@ -12,7 +12,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
 import { isServer } from '/lib/utils'
 import { Image } from 'react-datocms'
-import { SectionListItem, FeaturedGallery, Block, Section, Icon } from '/components'
+import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
 import React, { useState, useEffect } from 'react'
 import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import useScrollInfo from '/lib/hooks/useScrollInfo'
@@ -31,6 +31,22 @@ export type ProductProps = {
 	specsCols: { label: string, value: string }[]
 	files: ProductDownload[]
 }
+
+const formatDesignerName = (name?: string) => {
+	if (!name) return ''
+	const words = name?.split(' ');
+	const rows = []
+
+	for (let i = words.length - 1; i >= 0; i -= 2) {
+		const row = [words[i]]
+		if (i - 1 >= 0)
+			row.push(words[i - 1])
+		rows.push(row)
+	}
+
+	return rows.reverse().map((el, i) => <>{el.reverse().join(' ')}{i < rows.length - 1 && <br />}</>)
+}
+
 
 export default function Product({
 	product,
@@ -76,9 +92,6 @@ export default function Product({
 	const overlayOpacity = isServer ? 1 : Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
 	const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
 
-	const designerName = product.designer?.name?.split(' ');
-	const designerNameFormatted = designerName.length <= 2 ? designerName.join(' ') : <>{designerName.slice(0, 2).join(' ')}<br />{designerName.slice(2).join(' ')}</>
-
 	return (
 		<>
 			<Section name="Introduction" className={styles.product}>
@@ -92,16 +105,24 @@ export default function Product({
 					/>
 					<div
 						className={styles.overlay}
-						style={{ opacity: overlayOpacity }}>
+					//style={{ opacity: overlayOpacity }}
+					>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
-								{product.title}
+								<TextReveal>
+									{product.title}
+								</TextReveal>
 							</h1>
 							<h1 className={styles.designer}>
 								by {designerNameFormatted}
+								<TextReveal>
+									By {formatDesignerName(product.designer?.name)}
+								</TextReveal>
 							</h1>
 							<h3 className={styles.type}>
-								{product.categories.map(({ name }, idx) => name).join(', ')}
+								<TextReveal>
+									{product.categories.map(({ name }, idx) => name).join(', ')}
+								</TextReveal>
 							</h3>
 						</div>
 					</div>

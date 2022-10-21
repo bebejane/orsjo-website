@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Image } from 'react-datocms'
 import Markdown from '/lib/dato/components/Markdown';
 import { PageProps } from '/lib/context/page';
-import { ProjectThumbnail, Section } from '/components';
+import { ProjectThumbnail, Section, TextReveal } from '/components';
 import { recordImages } from '/lib/utils'
 import { useStore } from 'lib/store';
 import { useEffect } from 'react';
@@ -30,7 +30,11 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					objectFit='cover'
 					className={styles.image}
 				/>
-				<h1>Custom made lighting</h1>
+				<h1>
+					<TextReveal>
+						Custom made lighting
+					</TextReveal>
+				</h1>
 			</Section>
 			<Section name="Intro" className={styles.intro} type="margin" bgColor={'--gray'}>
 				<h1>{bespoke.title}</h1>

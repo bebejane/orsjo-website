@@ -19,7 +19,7 @@
       min-width: 100%;
       max-width: 100%;
     }
-    h1{
+    .header{
       position: absolute;
       top:0;
       left:0;
@@ -29,7 +29,10 @@
       justify-content: center;
       min-width: 100%;
       min-height: 100%;
-      @include h1Big();
+      h1{
+        @include h1Big();
+        word-break: break-all;
+      }
     }
   }
 }

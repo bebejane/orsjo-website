@@ -10,10 +10,10 @@
     .image{
       opacity: 0.2;
       filter: grayscale(1);
-      //mix-blend-mode: screen;
     }
     .title, .location{
       position: absolute;
+      z-index: 1;
       @include h1Big();
       color: $black;
       margin: 0.5em;

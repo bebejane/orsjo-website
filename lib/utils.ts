@@ -216,8 +216,6 @@ export const waitForElement = async (id: string, ms:number) : Promise<HTMLElemen
   return el
 }
 
-
-
 export const sortSwedish = <T>(arr: T[], key?: string) : T[] => {
   const alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Å", "Ä", "Ö"];
   
@@ -234,6 +232,5 @@ export const scrollToId = (id:string, behavior: ScrollBehavior = 'smooth') => {
   const { tablet, navbarHeightMobile, navbarHeight } = styleVariables;
   const topMargin = 0//(window.innerWidth < tablet ? navbarHeightMobile : navbarHeight) as number
   const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
-  window.scrollTo({ top, behavior })
-  
+  window.scrollTo({ top, behavior }) 
 }
