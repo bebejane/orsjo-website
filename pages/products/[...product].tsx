@@ -34,6 +34,9 @@ export default function Product({
 	specsCols,
 	files
 }: ProductProps) {
+	
+	console.log(relatedProducts);
+	
 
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
@@ -316,7 +319,8 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	product.models.forEach(m => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null }))
 
 	const sort = {
-		byFamily: (a: ProductRecord, b: ProductRecord) => a.family.id === b.family.id ? 1 : -1,
+		byFamily: (a: ProductRecord, b: ProductRecord) => a.family.id === b.family.id ? 0 : 1,
+		byTitle: (a: ProductRecord, b: ProductRecord) => a.title > b.title ? 1 : -1,
 		byCategory: (a: ProductRecord, b: ProductRecord) => a.categories.map(el => el.id).find((id) => product.categories.map(el => el.id).includes[id]) ? 1 : -1,
 		byDesigner: (a: ProductRecord, b: ProductRecord) => a.designer.id === product.designer.id ? 1 : -1
 	}
@@ -325,7 +329,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		props: {
 			...props,
 			product,
-			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort(sort.byFamily),
+			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort(sort.byTitle).sort(sort.byFamily),
 			productsByCategory: productsByCategory.filter(p => p.id !== product.id).sort(sort.byDesigner).sort(sort.byCategory),
 			relatedProjects,
 			files,

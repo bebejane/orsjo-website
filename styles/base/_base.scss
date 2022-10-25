@@ -94,6 +94,10 @@ button {
 	line-height: 1em;
 }
 
+::placeholder{
+	font-family: $body-font;	
+}
+
 // Achor link scroll margin from top of page
 [id]{
 	@include mq($from: tablet){

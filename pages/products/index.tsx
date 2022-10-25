@@ -24,8 +24,9 @@ const searchString = (str: string, value: string) : boolean => {
 
 	for (let i = 0; i < s.length; i++) {
 		for (let x = 0; x < v.length; x++) {
-			if (v[x].startsWith(s[i]))
+			if (s[i] && s[i].length >= 2 && v[x].startsWith(s[i])){
 				return true
+			}
 		}
 	}
 	return false
