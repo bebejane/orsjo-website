@@ -3,7 +3,7 @@ import { SustainabilityDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import { Section, TextReveal } from '/components'
 

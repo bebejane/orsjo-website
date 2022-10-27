@@ -4,12 +4,12 @@ import type { AppProps } from 'next/app'
 import { Layout, PageTransition } from '/components'
 import { PageProvider, type PageProps } from '../lib/context/page';
 import { AnimatePresence } from "framer-motion";
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useStore } from '/lib/store'
 import { useWindowSize } from 'rooks';
 import { sleep, waitForElement, scrollToId } from '/lib/utils';
-import DatoSEO from '/lib/dato/components/DatoSEO';
-import {useTransitionFix3 as useTransitionFix} from '/lib/hooks/useTransitionFix';
+import { DatoSEO } from 'dato-nextjs-utils/components';
+import { useTransitionFix } from 'dato-nextjs-utils/hooks'
 
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';

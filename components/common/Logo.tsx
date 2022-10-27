@@ -1,9 +1,8 @@
 import styles from './Logo.module.scss'
 import Link from 'next/link'
 import cn from 'classnames'
-import useScrollInfo from '/lib/hooks/useScrollInfo'
 import { useEffect, useState } from 'react'
-import { usePreviousRoute } from '/lib/hooks'
+import { usePreviousRoute, useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { useRouter } from 'next/router'
 import { useStore } from '/lib/store'
 

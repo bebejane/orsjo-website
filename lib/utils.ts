@@ -1,6 +1,6 @@
 import scssExports from '/styles/exports.module.scss'
 import { buildClient } from '@datocms/cma-client-browser';
-import { apiQuery } from '/lib/dato/api';
+import { apiQuery } from 'dato-nextjs-utils/api';
 import { SiteSearchDocument } from '/graphql'
 
 export const isServer = typeof window === 'undefined';

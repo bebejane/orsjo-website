@@ -2,7 +2,7 @@ import styles from './index.module.scss'
 import { AboutDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import type { PageProps } from '/lib/context/page';
 import { Section, VideoPlayer, TextReveal } from '/components'
 import cn from 'classnames'

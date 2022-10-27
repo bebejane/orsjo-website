@@ -1,5 +1,5 @@
 import styles from './[...project].module.scss'
-import { apiQuery } from '/lib/dato/api';
+import { apiQuery } from 'dato-nextjs-utils/api';
 import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, BespokeThumbnailDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
@@ -8,7 +8,7 @@ import { Block, Section, FeaturedGallery, TextReveal } from '/components';
 import { dedupeImages } from '/lib/utils';
 import { useEffect, useState } from 'react'
 import { useStore } from '/lib/store';
-import useScrollInfo from '/lib/hooks/useScrollInfo';
+import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import cn from 'classnames';
 
 type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>

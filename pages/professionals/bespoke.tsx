@@ -3,7 +3,7 @@ import { BespokeDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import { ProjectThumbnail, Section, TextReveal } from '/components';
 import { recordImages } from '/lib/utils'

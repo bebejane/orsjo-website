@@ -3,16 +3,16 @@ import cn from 'classnames'
 import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument } from '/graphql'
 import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
 import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
-import { apiQuery } from '/lib/dato/api'
+import { apiQuery } from 'dato-nextjs-utils/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore } from '/lib/store'
 import { Image } from 'react-datocms'
 import React, { useState, useEffect, useMemo } from 'react'
-import useScrollInfo from '/lib/hooks/useScrollInfo'
+import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -35,9 +35,6 @@ export default function Product({
 	files
 }: ProductProps) {
 	
-	console.log(relatedProducts);
-	
-
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()

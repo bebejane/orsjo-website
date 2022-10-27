@@ -2,7 +2,7 @@ import styles from './downloads.module.scss'
 import { AllProductDownloadsDocument, AllCataloguesDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import React, { useState, useEffect, useRef } from 'react';
 import { Section, Icon } from '/components'

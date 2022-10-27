@@ -1,5 +1,5 @@
 import styles from './TextReveal.module.scss'
-import useScrollInfo from "/lib/hooks/useScrollInfo"
+import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { useEffect, useState } from "react"
 import cn from 'classnames'
 import React, {Children} from 'react';

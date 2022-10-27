@@ -1,7 +1,7 @@
 import styles from './[...designer].module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import { AllDesignersDocument, DesignerDocument, AllProductsByDesignerDocument, AllProductsLightDocument } from '/graphql'
-import { apiQuery } from '/lib/dato/api'
+import { apiQuery } from 'dato-nextjs-utils/api'
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page'
 import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '/components'

@@ -2,7 +2,7 @@ import styles from './faq.module.scss'
 import { FaqStartDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import { Section } from '/components'
 import { useState, useEffect } from 'react';
