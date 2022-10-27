@@ -10,14 +10,10 @@ type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Represents `true` or `false` values. */
   BooleanType: any;
   CustomData: any;
-  /** A ISO 8601 compliant datetime value */
   DateTime: any;
-  /** Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). */
   FloatType: any;
-  /** Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
   IntType: any;
   ItemId: any;
   JsonField: any;
@@ -6236,6 +6232,7 @@ type ShowroomModelFilter = {
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
+  position?: InputMaybe<PositionFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
@@ -6262,6 +6259,8 @@ enum ShowroomModelOrderBy {
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
+  position_ASC = 'position_ASC',
+  position_DESC = 'position_DESC',
   updatedAt_ASC = 'updatedAt_ASC',
   updatedAt_DESC = 'updatedAt_DESC'
 }
@@ -6286,6 +6285,7 @@ type ShowroomRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
+  position?: Maybe<Scalars['IntType']>;
   updatedAt: Scalars['DateTime'];
 };
 
