@@ -39,7 +39,76 @@ const nextOptions = {
       use: ['@svgr/webpack'],
     })
     return config;
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/produkter',
+        destination: '/products',
+        permanent: true,
+      },
+      {
+        source: '/produkter/:path*',
+        destination: '/products/:path*',
+        permanent: true,
+      },
+      {
+        source: '/projekt',
+        destination: '/professionals/projects',
+        permanent: true,
+      },
+      {
+        source: '/projects',
+        destination: '/professionals/projects',
+        permanent: true,
+      },
+      {
+        source: '/designers',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/designer/:path*',
+        destination: '/designers/:path*',
+        permanent: true,
+      },
+      {
+        source: '/nyheter',
+        destination: '/about/news',
+        permanent: true,
+      },
+      {
+        source: '/news',
+        destination: '/about/news',
+        permanent: true,
+      },
+      {
+        source: '/nyheter/:path*',
+        destination: '/about/news',
+        permanent: true,
+      },
+      {
+        source: '/faq',
+        destination: '/support/faq',
+        permanent: true,
+      },
+      {
+        source: '/kontakt',
+        destination: '/contact',
+        permanent: true,
+      },
+      {
+        source: '/about-orsjo',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/om-orsjo',
+        destination: '/about',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const config = { sassOptions, ...nextOptions }
