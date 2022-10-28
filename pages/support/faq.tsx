@@ -70,7 +70,7 @@ export const getStaticProps = withGlobalProps({ queries: [FaqStartDocument] }, a
 	const faqsByCategory : FaqsByCategory = {}
 	const faqs = props.faqs as FaqRecord[];
 
-	faqs.filter(f => f.category).forEach(f => {
+	faqs.forEach(f => {
 		if (!faqsByCategory[f.category.id])
 			faqsByCategory[f.category?.id] = { id: f.category?.id, title: f.category?.title, items: [] }
 		faqsByCategory[f.category?.id].items.push(f)

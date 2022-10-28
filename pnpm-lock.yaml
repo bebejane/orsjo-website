@@ -67,7 +67,7 @@ dependencies:
   base-64: 1.0.0
   classnames: 2.3.2
   date-fns: 2.29.3
-  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/322c96f91835f6fa6f49f867bef1600ca7ebb990_jw5loo5qrmoo4g6zm4p5f3qvl4
+  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/fea39efe213a617d664128a0e546afece8b3eaa1_jw5loo5qrmoo4g6zm4p5f3qvl4
   datocms-structured-text-utils: 2.0.4
   framer-motion: 6.3.4_sfoxds7t5ydpegc3knd667wn6m
   glob: 8.0.3
@@ -9476,11 +9476,11 @@ packages:
     resolution: {integrity: sha512-JZxotl7SxAJH0j7dN4pxsTV6ZLXoLdGME+PsjkL/DaBrVryK9kTGq06GfKrwcSOqypP+fdXGoCHE36b99fWVoA==}
     dev: false
 
-  github.com/bebejane/dato-nextjs-utils/322c96f91835f6fa6f49f867bef1600ca7ebb990_jw5loo5qrmoo4g6zm4p5f3qvl4:
-    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/322c96f91835f6fa6f49f867bef1600ca7ebb990}
-    id: github.com/bebejane/dato-nextjs-utils/322c96f91835f6fa6f49f867bef1600ca7ebb990
+  github.com/bebejane/dato-nextjs-utils/fea39efe213a617d664128a0e546afece8b3eaa1_jw5loo5qrmoo4g6zm4p5f3qvl4:
+    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/fea39efe213a617d664128a0e546afece8b3eaa1}
+    id: github.com/bebejane/dato-nextjs-utils/fea39efe213a617d664128a0e546afece8b3eaa1
     name: dato-nextjs-utils
-    version: 1.0.138
+    version: 1.0.140
     engines: {node: '>=0.16'}
     peerDependencies:
       react: 16 - 18
