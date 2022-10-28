@@ -67,7 +67,7 @@ dependencies:
   base-64: 1.0.0
   classnames: 2.3.2
   date-fns: 2.29.3
-  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/fea39efe213a617d664128a0e546afece8b3eaa1_jw5loo5qrmoo4g6zm4p5f3qvl4
+  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90_jw5loo5qrmoo4g6zm4p5f3qvl4
   datocms-structured-text-utils: 2.0.4
   framer-motion: 6.3.4_sfoxds7t5ydpegc3knd667wn6m
   glob: 8.0.3
@@ -3111,8 +3111,8 @@ packages:
       '@types/react': 18.0.21
     dev: true
 
-  /@types/react-dom/18.0.7:
-    resolution: {integrity: sha512-HaXc+BbqAZE1RdsK3tC8SbkFy6UL2xF76lT9rQs5JkPrJg3rWA3Ou/Lhw3YJQzEDkBpmJ79nBsfnd05WrBd2QQ==}
+  /@types/react-dom/18.0.8:
+    resolution: {integrity: sha512-C3GYO0HLaOkk9dDAz3Dl4sbe4AKUGTCfFIZsz3n/82dPNN8Du533HzKatDxeUYWu24wJgMP1xICqkWk1YOLOIw==}
     dependencies:
       '@types/react': 18.0.23
     dev: false
@@ -9476,11 +9476,11 @@ packages:
     resolution: {integrity: sha512-JZxotl7SxAJH0j7dN4pxsTV6ZLXoLdGME+PsjkL/DaBrVryK9kTGq06GfKrwcSOqypP+fdXGoCHE36b99fWVoA==}
     dev: false
 
-  github.com/bebejane/dato-nextjs-utils/fea39efe213a617d664128a0e546afece8b3eaa1_jw5loo5qrmoo4g6zm4p5f3qvl4:
-    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/fea39efe213a617d664128a0e546afece8b3eaa1}
-    id: github.com/bebejane/dato-nextjs-utils/fea39efe213a617d664128a0e546afece8b3eaa1
+  github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90_jw5loo5qrmoo4g6zm4p5f3qvl4:
+    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/312084e806c5293dab8580163675c6fb75990a90}
+    id: github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90
     name: dato-nextjs-utils
-    version: 1.0.140
+    version: 1.0.141
     engines: {node: '>=0.16'}
     peerDependencies:
       react: 16 - 18
@@ -9490,7 +9490,7 @@ packages:
       '@datocms/cma-client': 1.1.8
       '@types/node': 18.11.3
       '@types/react': 18.0.23
-      '@types/react-dom': 18.0.7
+      '@types/react-dom': 18.0.8
       markdown-truncate: 1.0.4
       next: 12.3.1_iutfvtabbkxnrbh7zc4a3qrmie
       next-seo: 5.8.0_dty4et2pnba4zo7o4cegg6bk2e

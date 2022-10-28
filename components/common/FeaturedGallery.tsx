@@ -20,7 +20,8 @@ export type FeaturedGalleryProps = {
 	theme: 'dark' | 'light' | 'mid',
 	arrowAlign?: 'top' | 'middle',
 	inverted?: boolean,
-	fadeColor?: string
+	fadeColor?: string,
+	showMarkAsNew?: boolean
 }
 
 export default function FeaturedGallery({ 
@@ -30,7 +31,8 @@ export default function FeaturedGallery({
 	theme, 
 	fadeColor = '--white',
 	arrowAlign = 'top',
-	inverted = false
+	inverted = false,
+	showMarkAsNew = true
 } : FeaturedGalleryProps ) {
 	
 	const { menu } = usePage()
@@ -80,6 +82,7 @@ export default function FeaturedGallery({
 									key={idx}
 									product={item as ProductRecord} 
 									theme={theme}
+									showMarkAsNew={showMarkAsNew}
 									className={styles.thumbnail}
 								/>
 							: item.__typename === 'ProjectRecord' ?								
@@ -87,6 +90,7 @@ export default function FeaturedGallery({
 									key={idx}
 									project={item as ProjectRecord} 
 									theme={theme}
+									showMarkAsNew={showMarkAsNew}
 									className={styles.thumbnail}
 								/>
 							: item.__typename === 'DesignerRecord' ?
@@ -94,6 +98,7 @@ export default function FeaturedGallery({
 									key={idx}
 									designer={item as DesignerRecord} 
 									theme={theme}
+									showMarkAsNew={showMarkAsNew}
 									className={styles.thumbnail}
 								/>
 							: item.title && item.image ?
@@ -105,6 +110,7 @@ export default function FeaturedGallery({
 									imageHover={item.environmentImage}
 									theme={theme}
 									objectFit={'cover'}
+									showMarkAsNew={showMarkAsNew}
 									className={styles.thumbnail}
 								/>
 							:

@@ -37,7 +37,9 @@ const searchString = (str: string, value: string) : boolean => {
 export default function Products({ productStart: { featured }, products, productCategories }: ProductsStartProps) {
 
 	const productsByCategory : ProductsByCategory = useMemo<any>(()=>({}), [])
-  productCategories.forEach(({ name }) => productsByCategory[name] = products.filter(({ categories }) => categories[0].name === name))
+  productCategories.forEach(({ name }) => {
+		productsByCategory[name] = products.filter(({ categories }) => categories.find(c => c.name === name))
+	})
 
 	const [productsByCategorySearch, setProductsByCategorySearch] = useState<ProductsByCategory | undefined>()
 	const searchProducts = useStore((state) => state.searchProducts);
@@ -86,6 +88,7 @@ export default function Products({ productStart: { featured }, products, product
 						id={data.id}
 						items={data.items as ProductRecord[]}
 						theme="light"
+						showMarkAsNew={data.showMarkAsNew}
 					/>
 				</Section>
 			)}

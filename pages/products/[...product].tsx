@@ -74,13 +74,13 @@ export default function Product({
 	
 	return (
 		<>
-			<Section name="Introduction" className={styles.product}>
+			<Section name="Introduction" className={styles.product} top={true}>
 				<div className={styles.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					<Image
 						className={styles.image}
 						data={product.image.responsiveImage}
 						layout={'fill'}
-						lazyLoad={false}
+						lazyLoad={true}
 						fadeInDuration={100}
 						objectFit={'contain'}
 						pictureStyle={pictureStyle}

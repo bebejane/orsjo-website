@@ -87,7 +87,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 			{relatedProducts.length > 0 &&
 				<Section
 					className={styles.related}
-					name={`Products`}
+					name={'Related'}
 					bgColor={'--mid-gray'}
 				>
 					<div className={styles.gallery}>
@@ -104,7 +104,8 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 			{relatedProjects.length > 0 &&
 				<Section
 					className={cn(styles.related, styles.other)}
-					name={relatedHeadline}
+					name={'Related'}
+					disableSidebar={relatedProducts.length > 0}
 					bgColor={'--mid-gray'}
 				>
 					<div className={styles.gallery}>
