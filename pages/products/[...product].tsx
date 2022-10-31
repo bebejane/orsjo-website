@@ -133,7 +133,7 @@ export default function Product({
 					{specsCols.map(({ label, value, slug }, idx) =>
 						<li key={idx}>
 							<span>{label}</span>
-							<span>{!slug ? value : <Link href={slug}>{value}</Link>}</span>
+							<span>{!slug ? value : <Link href={slug} scroll={false}>{value}</Link>}</span>
 						</li>
 					)}
 				</ul>
