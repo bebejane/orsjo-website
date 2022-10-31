@@ -111,5 +111,5 @@ const nextOptions = {
   },
 }
 
-const config = { sassOptions, ...nextOptions }
+const config = withBundleAnalyzer({ sassOptions, ...nextOptions })
 module.exports = config

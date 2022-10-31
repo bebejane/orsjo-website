@@ -1,5 +1,6 @@
 import styles from './Icon.module.scss'
 import cn from 'classnames'
+import React from 'react'
 
 export type IconProps = {
   children?: React.ReactNode,
@@ -12,11 +13,12 @@ export default function Icon({ type, label, children, disabled = false }: IconPr
 
   return (
     <div className={cn(styles.icon, disabled && styles.disabled)}>
-      <span className={cn(styles.type, "icon")}>
-        <div className={styles.corner}></div>
-
-        {type || children}
-      </span>
+      {type && 
+        <span className={cn(styles.type, "icon")}>
+          <div className={styles.corner}></div>
+          {type || children}
+        </span>
+      }
       {label &&
         <span className={cn(styles.label, "small")}>
           {label}
