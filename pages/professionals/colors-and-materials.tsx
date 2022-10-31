@@ -4,7 +4,7 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import { Thumbnail, Section } from '/components';
-import useStore from '/lib/store';
+import { useStore, shallow } from '/lib/store';
 import { useEffect } from 'react';
 
 type ColorsAndMaterialsProps = { 
@@ -15,7 +15,7 @@ type ColorsAndMaterialsProps = {
 
 export default function ColorsAndMaterials({  colorMaterials, colorMaterialTypes, colorMaterialIntro:{ intro} }: ColorsAndMaterialsProps) {
 	
-	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const images = colorMaterials.map(({image, description }) => ({...image, title:description}) )
 	
 	useEffect(()=>images && setGallery({images}), [setGallery])

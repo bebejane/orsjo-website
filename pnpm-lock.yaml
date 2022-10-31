@@ -19,7 +19,8 @@ specifiers:
   '@svgr/webpack': ^6.3.1
   '@types/graphql': ^14.5.0
   '@types/node': ^18.11.4
-  '@types/react-dom': ^18.0.5
+  '@types/react': ^18.0.24
+  '@types/react-dom': ^18.0.6
   apollo: ^2.34.0
   base-64: ^1.0.0
   classnames: ^2.3.1
@@ -64,10 +65,11 @@ dependencies:
   '@datocms/cma-client-node': 1.1.8
   '@next/bundle-analyzer': 12.3.1
   '@next/env': 12.3.1
+  '@types/react': 18.0.24
   base-64: 1.0.0
   classnames: 2.3.2
   date-fns: 2.29.3
-  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90_jw5loo5qrmoo4g6zm4p5f3qvl4
+  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/4da53ce1a9209f791dd7f359a8a0e8fc0907606b_mp6gnzdamhednmsec4wpx2spp4
   datocms-structured-text-utils: 2.0.4
   framer-motion: 6.3.4_sfoxds7t5ydpegc3knd667wn6m
   glob: 8.0.3
@@ -87,7 +89,7 @@ dependencies:
   react-dom: 17.0.2_react@17.0.2
   react-hook-form: 7.38.0_react@17.0.2
   react-icons: 4.6.0_react@17.0.2
-  react-markdown: 8.0.3_react@17.0.2
+  react-markdown: 8.0.3_kxqj3uqjjxu5i6yjbdv7tzqjde
   react-scrollchor: 7.0.2_react@17.0.2
   remark-breaks: 3.0.2
   remark-gfm: 3.0.1
@@ -3091,10 +3093,6 @@ packages:
       form-data: 3.0.1
     dev: true
 
-  /@types/node/18.11.3:
-    resolution: {integrity: sha512-fNjDQzzOsZeKZu5NATgXUPsaFaTxeRgFXoosrHivTl8RGeV733OLawXsGfEk9a8/tySyZUyiZ6E8LcjPFZ2y1A==}
-    dev: false
-
   /@types/node/18.11.4:
     resolution: {integrity: sha512-BxcJpBu8D3kv/GZkx/gSMz6VnTJREBj/4lbzYOQueUOELkt8WrO6zAcSPmp9uRPEW/d+lUO8QK0W2xnS1hEU0A==}
 
@@ -3108,30 +3106,14 @@ packages:
   /@types/react-dom/18.0.6:
     resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
     dependencies:
-      '@types/react': 18.0.21
-    dev: true
+      '@types/react': 18.0.24
 
-  /@types/react-dom/18.0.8:
-    resolution: {integrity: sha512-C3GYO0HLaOkk9dDAz3Dl4sbe4AKUGTCfFIZsz3n/82dPNN8Du533HzKatDxeUYWu24wJgMP1xICqkWk1YOLOIw==}
-    dependencies:
-      '@types/react': 18.0.23
-    dev: false
-
-  /@types/react/18.0.21:
-    resolution: {integrity: sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==}
+  /@types/react/18.0.24:
+    resolution: {integrity: sha512-wRJWT6ouziGUy+9uX0aW4YOJxAY0bG6/AOk5AW5QSvZqI7dk6VBIbXvcVgIw/W5Jrl24f77df98GEKTJGOLx7Q==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
-    dev: true
-
-  /@types/react/18.0.23:
-    resolution: {integrity: sha512-R1wTULtCiJkudAN2DJGoYYySbGtOdzZyUWAACYinKdiQC8auxso4kLDUhQ7AJ2kh3F6A6z4v69U6tNY39hihVQ==}
-    dependencies:
-      '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.2
-      csstype: 3.1.1
-    dev: false
 
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
@@ -7862,7 +7844,7 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-markdown/8.0.3_cbv2ru6bsfc5uo6sfnasxbcgti:
+  /react-markdown/8.0.3_kxqj3uqjjxu5i6yjbdv7tzqjde:
     resolution: {integrity: sha512-We36SfqaKoVNpN1QqsZwWSv/OZt5J15LNgTLWynwAN5b265hrQrsjMtlRNwUvS+YyR3yDM8HpTNc4pK9H/Gc0A==}
     peerDependencies:
       '@types/react': '>=16'
@@ -7870,33 +7852,7 @@ packages:
     dependencies:
       '@types/hast': 2.3.4
       '@types/prop-types': 15.7.5
-      '@types/react': 18.0.23
-      '@types/unist': 2.0.6
-      comma-separated-tokens: 2.0.2
-      hast-util-whitespace: 2.0.0
-      prop-types: 15.8.1
-      property-information: 6.1.1
-      react: 17.0.2
-      react-is: 18.2.0
-      remark-parse: 10.0.1
-      remark-rehype: 10.1.0
-      space-separated-tokens: 2.0.1
-      style-to-object: 0.3.0
-      unified: 10.1.2
-      unist-util-visit: 4.1.1
-      vfile: 5.3.5
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /react-markdown/8.0.3_react@17.0.2:
-    resolution: {integrity: sha512-We36SfqaKoVNpN1QqsZwWSv/OZt5J15LNgTLWynwAN5b265hrQrsjMtlRNwUvS+YyR3yDM8HpTNc4pK9H/Gc0A==}
-    peerDependencies:
-      '@types/react': '>=16'
-      react: '>=16'
-    dependencies:
-      '@types/hast': 2.3.4
-      '@types/prop-types': 15.7.5
+      '@types/react': 18.0.24
       '@types/unist': 2.0.6
       comma-separated-tokens: 2.0.2
       hast-util-whitespace: 2.0.0
@@ -7924,7 +7880,7 @@ packages:
       react: 17.0.2
       requestanimationframe-timer: 3.0.3
     optionalDependencies:
-      '@types/react': 18.0.23
+      '@types/react': 18.0.24
     dev: false
 
   /react-string-replace/1.1.0:
@@ -9476,27 +9432,30 @@ packages:
     resolution: {integrity: sha512-JZxotl7SxAJH0j7dN4pxsTV6ZLXoLdGME+PsjkL/DaBrVryK9kTGq06GfKrwcSOqypP+fdXGoCHE36b99fWVoA==}
     dev: false
 
-  github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90_jw5loo5qrmoo4g6zm4p5f3qvl4:
-    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/312084e806c5293dab8580163675c6fb75990a90}
-    id: github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90
+  github.com/bebejane/dato-nextjs-utils/4da53ce1a9209f791dd7f359a8a0e8fc0907606b_mp6gnzdamhednmsec4wpx2spp4:
+    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/4da53ce1a9209f791dd7f359a8a0e8fc0907606b}
+    id: github.com/bebejane/dato-nextjs-utils/4da53ce1a9209f791dd7f359a8a0e8fc0907606b
     name: dato-nextjs-utils
-    version: 1.0.141
+    version: 1.0.144
     engines: {node: '>=0.16'}
     peerDependencies:
+      '@types/node': 16 - 18
+      '@types/react': 17 - 18
+      '@types/react-dom': 17 - 18
       react: 16 - 18
       react-dom: 16 - 18
     dependencies:
       '@apollo/client': 3.7.1_4acpsgwrblrf7yma4ztoevvkgq
       '@datocms/cma-client': 1.1.8
-      '@types/node': 18.11.3
-      '@types/react': 18.0.23
-      '@types/react-dom': 18.0.8
+      '@types/node': 18.11.4
+      '@types/react': 18.0.24
+      '@types/react-dom': 18.0.6
       markdown-truncate: 1.0.4
       next: 12.3.1_iutfvtabbkxnrbh7zc4a3qrmie
       next-seo: 5.8.0_dty4et2pnba4zo7o4cegg6bk2e
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-markdown: 8.0.3_cbv2ru6bsfc5uo6sfnasxbcgti
+      react-markdown: 8.0.3_kxqj3uqjjxu5i6yjbdv7tzqjde
       remark-breaks: 3.0.2
       remark-gfm: 3.0.1
       typescript: 4.8.4

@@ -94,6 +94,7 @@ fragment ProductFragment on ProductRecord{
   designer {
     id
     name
+    slug
   }
   dimmable {
     id

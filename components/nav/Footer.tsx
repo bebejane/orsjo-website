@@ -5,16 +5,17 @@ import type { MenuItem } from '/lib/menu'
 import social from '/lib/social'
 import { usePage } from '/lib/context/page'
 import { AnchorLink } from '/components'
+import { useEffect } from 'react'
 
 export type FooterProps = { menu: MenuItem[] }
 
 export default function Footer({ menu }: FooterProps) {
-
+	
 	const { footerLine } = usePage()
 	const maxLength = menu[0].sub.length
 	menu = menu.map((item) => ({
 		...item,
-		sub: item.type === 'designer' ? item.sub.slice(0, maxLength) : item.sub
+		sub: item.type === 'designer' ? item.sub.sort(()=> Math.random() > 0.5 ? 1 : -1).slice(0, maxLength) : item.sub
 	}))
 
 	return (

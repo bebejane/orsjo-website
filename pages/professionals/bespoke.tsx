@@ -4,22 +4,35 @@ import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { useScrollInfo } from 'dato-nextjs-utils/hooks';
 import { PageProps } from '/lib/context/page';
 import { ProjectThumbnail, Section, TextReveal } from '/components';
 import { recordImages } from '/lib/utils'
-import { useStore } from 'lib/store';
-import { useEffect } from 'react';
+import { shallow, useStore } from 'lib/store';
+import { useEffect, useState } from 'react';
 import cn from 'classnames'
 
 export type BespokeProps = { bespoke: BespokeRecord }
 
 export default function Bespoke({ bespoke }: BespokeProps) {
 
-	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
-	
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
+	const { scrolledPosition, viewportHeight } = useScrollInfo()
+	const [imageStyle, setImageStyle] = useState({})
+
 	useEffect(() => {
 		setGallery({ images: recordImages(bespoke) })
 	}, [bespoke, setGallery])
+
+	
+	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
+	
+	useEffect(()=>{
+		setImageStyle({
+			opacity: Math.min(0.2 + ((viewportScrollRatio || 0) *4), 1),
+			filter: `grayscale(${Math.max((1-(viewportScrollRatio*4)), 0)})`
+		})
+	}, [viewportScrollRatio, setImageStyle])
 
 	return (
 		<>
@@ -29,6 +42,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					layout='fill'
 					objectFit='cover'
 					className={styles.image}
+					pictureStyle={imageStyle}
 				/>
 				<h1>
 					<TextReveal>

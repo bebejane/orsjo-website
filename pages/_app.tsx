@@ -5,7 +5,7 @@ import { Layout, PageTransition } from '/components'
 import { PageProvider, type PageProps } from '../lib/context/page';
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from 'react';
-import { useStore } from '/lib/store'
+import { useStore, shallow } from '/lib/store'
 import { useWindowSize } from 'rooks';
 import { sleep, waitForElement, scrollToId } from '/lib/utils';
 import { DatoSEO } from 'dato-nextjs-utils/components';
@@ -39,7 +39,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   
   useTransitionFix()
   
-  const [ transitioning ] = useStore((state) => [state.transitioning, state.setShowMenu])
+  const [ transitioning ] = useStore((state) => [state.transitioning, state.setShowMenu], shallow)
   const { innerWidth } = useWindowSize()
   
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
@@ -59,6 +59,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   
   if(isError) 
     return <Component {...pageProps} />
+  console.log('render');
   
   return (
     <>

@@ -18,7 +18,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	const ref = useRef();
 	const router = useRouter()
 	const [showMenu, setShowMenu, invertMenu] = useStore((state) => [state.showMenu, state.setShowMenu, state.invertMenu], shallow);
-	const [transitioning] = useStore((state) => [state.transitioning])
+	const [transitioning] = useStore((state) => [state.transitioning], shallow)
 	const [selected, setSelected] = useState(undefined)
 	const [hashChanging, setHashChanging] = useState(false)
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 })

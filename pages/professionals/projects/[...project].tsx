@@ -7,7 +7,7 @@ import { PageProps } from '/lib/context/page';
 import { Block, Section, FeaturedGallery, TextReveal } from '/components';
 import { dedupeImages } from '/lib/utils';
 import { useEffect, useState } from 'react'
-import { useStore } from '/lib/store';
+import { useStore, shallow } from '/lib/store';
 import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import cn from 'classnames';
 
@@ -27,7 +27,7 @@ const galleryImages = (project: ProjectRecord) : FileField[] => {
 
 export default function Project({ project, relatedProjects, bespokeThumbnail }: ProjectProps) {
 
-	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [imageStyle, setImageStyle] = useState({})
 

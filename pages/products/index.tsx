@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { FeaturedGallery, ProductThumbnail, Section } from '/components'
-import { useStore } from '/lib/store';
+import { useStore, shallow } from '/lib/store';
 import { useEffect, useState, useMemo } from 'react';
 
 import type { PageProps } from '/lib/context/page';
@@ -42,7 +42,7 @@ export default function Products({ productStart: { featured }, products, product
 	})
 
 	const [productsByCategorySearch, setProductsByCategorySearch] = useState<ProductsByCategory | undefined>()
-	const searchProducts = useStore((state) => state.searchProducts);
+	const searchProducts = useStore((state) => state.searchProducts, shallow);
 
 	useEffect(() => {
 		if (!searchProducts)

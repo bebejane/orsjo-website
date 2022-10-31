@@ -5,7 +5,7 @@ import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } fr
 import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import { apiQuery } from 'dato-nextjs-utils/api'
 import withGlobalProps from "/lib/withGlobalProps";
-import { useStore } from '/lib/store'
+import { useStore, shallow } from '/lib/store'
 import { Image } from 'react-datocms'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useScrollInfo } from 'dato-nextjs-utils/hooks'
@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import Link from 'next/link'
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -21,7 +22,7 @@ export type ProductProps = {
 	productsByCategory: ProductRecord[],
 	images: FileField[]
 	drawings: FileField[]
-	specsCols: { label: string, value: string }[]
+	specsCols: { label: string, value: string, slug?: string }[]
 	files: ProductDownload[]
 }
 
@@ -36,7 +37,7 @@ export default function Product({
 }: ProductProps) {
 	
 	const router = useRouter()
-	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({ specifications: false, downloads: false })
 	const [pictureStyle, setPictureStyle] = useState({ paddingBottom:'4em' })
@@ -129,10 +130,10 @@ export default function Product({
 				total={2}
 			>
 				<ul className={styles.specifications}>
-					{specsCols.map(({ label, value }, idx) =>
+					{specsCols.map(({ label, value, slug }, idx) =>
 						<li key={idx}>
 							<span>{label}</span>
-							<span>{value}</span>
+							<span>{!slug ? value : <Link href={slug}>{value}</Link>}</span>
 						</li>
 					)}
 				</ul>
@@ -300,7 +301,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 
 	const specs = parseSpecifications(product, 'en', null)
 	const specsCols = [
-		{ label: 'Designer', value: specs.designer },
+		{ label: 'Designer', value: specs.designer, slug: `/designers/${product.designer.slug}` },
 		{ label: 'Mounting', value: specs.mounting },
 		{ label: 'Electrical Data', value: specs.electricalData },
 		{ label: 'Socket', value: specs.socket },
