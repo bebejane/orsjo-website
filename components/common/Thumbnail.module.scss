@@ -79,9 +79,15 @@
   }
 
   &.mid {
+    figcaption>.title {
+     color: $light-gray;
+    }
+    figcaption>.title>.subtitle {
+      color: $black;
+    }
     &:hover {
       figcaption>.title>.subtitle {
-        color: $white;
+        color: $light-gray;
       }
     }
   }
