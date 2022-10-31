@@ -60,11 +60,11 @@ export default function ContactModal({ onClose, show = false }) {
           <h1>Contact us</h1>
           <form id="contact-form" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
 
-            <label htmlFor="name">Name</label>
-            <input id="name" name="name" type="text" placeholder="Name..." {...register("name", { required: true, minLength: 3 })} />
+            <label htmlFor="name" className="medium">Name</label>
+            <input id="name" name="name" type="text" placeholder="Name" {...register("name", { required: true, minLength: 3 })} />
 
-            <label htmlFor="email">E-mail</label>
-            <input id="email" type="text" name="email" placeholder="E-mail..." {...register("email", {
+            <label htmlFor="email" className="medium">E-mail</label>
+            <input id="email" type="text" name="email" placeholder="E-mail" {...register("email", {
               required: true,
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -72,10 +72,10 @@ export default function ContactModal({ onClose, show = false }) {
               }
             })} />
 
-            <label htmlFor="subject">Subject</label>
-            <input id="subject" type="text" name="subject" placeholder="Subject..." {...register("subject", { required: true })} />
+            <label htmlFor="subject" className="medium">Subject</label>
+            <input id="subject" type="text" name="subject" placeholder="Subject" {...register("subject", { required: true })} />
 
-            <label htmlFor="text">Message</label>
+            <label htmlFor="text" className="medium">Message</label>
             <textarea name="text" {...register("text", { required: true })}></textarea>
 
             <button type="submit">Send</button>

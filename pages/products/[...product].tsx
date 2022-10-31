@@ -34,17 +34,17 @@ export default function Product({
 	specsCols,
 	files
 }: ProductProps) {
-	
+
 	const router = useRouter()
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({ specifications: false, downloads: false })
-	const [pictureStyle, setPictureStyle] = useState({ paddingBottom:'4em' })
+	const [pictureStyle, setPictureStyle] = useState({ paddingBottom: '4em' })
 	const singleModel = product.models.length === 1
 	const images = useMemo(() => dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
 
 	const handleGalleryClick = (type: string, id: string) => {
-		setGallery({ images: type === 'product' ? images : drawings, index: 0, padImagesWithTitle:true })
+		setGallery({ images: type === 'product' ? images : drawings, index: 0, padImagesWithTitle: true })
 		setGalleryId(id)
 	}
 
@@ -64,14 +64,14 @@ export default function Product({
 	}, [router.events])
 
 	useEffect(() => {
-		setGallery({ images, padImagesWithTitle:true })
+		setGallery({ images, padImagesWithTitle: true })
 	}, [images, setGallery])
-	
+
 	useEffect(() => {
 		const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
 		setPictureStyle({ paddingBottom: `${4 * scale}em` })
 	}, [viewportHeight, scrolledPosition, setPictureStyle])
-	
+
 	return (
 		<>
 			<Section name="Introduction" className={styles.product} top={true}>
@@ -210,7 +210,7 @@ export default function Product({
 					<span>Dimensions</span>
 					<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} disabled={drawings.length === 0}>
 						{drawings.length ?
-							<>View drawing{drawings.length > 1 && 's'}</>
+							<>View drawing{drawings.length > 1 && 's'} + </>
 							:
 							<>No drawings available</>
 						}
