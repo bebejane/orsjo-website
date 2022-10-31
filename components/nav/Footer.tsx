@@ -5,18 +5,27 @@ import type { MenuItem } from '/lib/menu'
 import social from '/lib/social'
 import { usePage } from '/lib/context/page'
 import { AnchorLink } from '/components'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 export type FooterProps = { menu: MenuItem[] }
 
-export default function Footer({ menu }: FooterProps) {
+export default function Footer({ menu : menuFromProps }: FooterProps) {
 	
+	const router = useRouter()
+	const [menu, setMenu] = useState<MenuItem[]>([...menuFromProps])
 	const { footerLine } = usePage()
 	const maxLength = menu[0].sub.length
-	menu = menu.map((item) => ({
-		...item,
-		sub: item.type === 'designer' ? item.sub.sort(()=> Math.random() > 0.5 ? 1 : -1).slice(0, maxLength) : item.sub
-	}))
+
+	useEffect(()=>{
+		setMenu(JSON.parse(JSON.stringify(menuFromProps)).map((item) => ({
+			...item,
+			sub: item.type === 'designer' ? item.sub
+				.sort(()=> Math.random() > 0.5 ? 1 : -1)
+				.slice(0, maxLength) : item.sub
+		})))
+
+	}, [menuFromProps, setMenu, maxLength, router.asPath])
 
 	return (
 		<>
@@ -34,11 +43,7 @@ export default function Footer({ menu }: FooterProps) {
 									<li key={idx}>
 										<ul className={styles.category}>
 											<>
-												<Link scroll={false} href={item.slug}>
-													<a>
-														<li>{item.label}</li>
-													</a>
-												</Link>
+												<li>{item.label}</li>
 												{item.sub?.map((subItem, subidx) => {
 													const endReached = subidx === maxLength;
 													const isAnchorLink = subItem.slug.indexOf('#') > -1

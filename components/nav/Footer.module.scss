@@ -90,19 +90,16 @@
           &:first-child{
             color:$white;
           }
-
           &:hover{
             color: $white;
           }
-
-          li{
-            white-space: pre;
-            max-width: 160px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding-bottom: .5em;
-
-          }
+        }
+        li{
+          white-space: pre;
+          max-width: 160px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding-bottom: .5em;
         }
       }
     } 

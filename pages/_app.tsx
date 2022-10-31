@@ -59,7 +59,6 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   
   if(isError) 
     return <Component {...pageProps} />
-  console.log('render');
   
   return (
     <>
@@ -89,7 +88,12 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 }
 
 const pageSeo = (pageProps, pathname) => {
-  const { product, designer, project }: { product: ProductRecord, designer: DesignerRecord, project: ProjectRecord } = pageProps
+  const { product, designer, project } : { 
+    product: ProductRecord, 
+    designer: DesignerRecord, 
+    project: ProjectRecord 
+  } = pageProps
+  
   const title = product?.title || designer?.name || project?.title || pathTotitle[pathname]
   const description = product?.description || designer?.description || pageProps.description || undefined
   return { title, description }
