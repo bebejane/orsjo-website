@@ -59,7 +59,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 			<Section className={styles.intro} name="Presentation" top={true}>
 				<div className={styles.wrap} onClick={()=>setGalleryId(project.image?.id)}>
 					<h1 className={styles.title}>
-						<TextReveal>
+						<TextReveal block={true}>
 							{project.title}
 						</TextReveal>
 					</h1>
