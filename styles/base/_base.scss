@@ -133,3 +133,7 @@ button {
 		}		
 	}
 }
+
+input, ::placeholder {
+	font-family: $headline-font;
+}
