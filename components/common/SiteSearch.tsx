@@ -6,7 +6,7 @@ import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, S
 import { AnchorLink } from '/components';
 import { useDebouncedValue, useWindowSize } from 'rooks';
 import { siteSearch, truncateParagraph } from '/lib/utils'
-import useStore from '/lib/store';
+import { useStore, shallow } from '/lib/store';
 
 export type SearchResultCategory = {
 	[key: string]: any
@@ -24,7 +24,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 	const [query, setQuery] = useState<string | undefined>()
 	const [inputValue, setInputValue] = useState<string | undefined>()
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
-	const [setShowSiteSearch, transitioning] = useStore((state) => [state.setShowSiteSearch, state.transitioning])
+	const [setShowSiteSearch, transitioning] = useStore((state) => [state.setShowSiteSearch, state.transitioning], shallow)
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()

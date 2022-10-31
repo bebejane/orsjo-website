@@ -1,9 +1,9 @@
 import styles from './Layout.module.scss'
 import React from 'react'
-import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile} from '/components'
+import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Grid} from '/components'
 import { usePage } from '/lib/context/page'
 import type { MenuItem } from '/lib/menu'
-import { useState, useEffect } from 'react'
+
 import { useStore, shallow } from '/lib/store'
 
 export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: string }
@@ -36,40 +36,5 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 			<Footer menu={menu} />
 			<Grid />
 		</>
-	)
-}
-
-const Grid = () => {
-
-	const [showGrid, setShowGrid] = useState(false)
-
-	useEffect(() => {
-		const toggleGrid = ({ key, target }) => target.tagName !== 'INPUT' && key === 'g' && setShowGrid(!showGrid)
-		document.addEventListener('keydown', toggleGrid)
-		return () => document.removeEventListener('keydown', toggleGrid)
-	}, [showGrid, setShowGrid])
-
-	if (!showGrid) return null
-
-	return (
-		<div className={styles.grid}>
-			<div className={styles.gridWrapper}>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-			</div>
-		</div>
 	)
 }

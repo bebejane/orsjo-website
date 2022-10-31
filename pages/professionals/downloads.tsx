@@ -18,9 +18,12 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 	const ref = useRef<HTMLInputElement>()
 
 	useEffect(() => {
-		if (!search || !products) return setResults(products)
+		if (!search || !products) 
+			return setResults(products)
+
 		const res = products.filter(({ title }) => title.toLowerCase().startsWith(search.toLowerCase()))
 		setResults(res)
+		
 	}, [search, products, setResults])
 
 	useEffect(()=>{ ref.current.focus() }, [ ref])
@@ -88,7 +91,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 														<>
 															<div key={`f-${idx}`} className={styles.item}>
 																<a href={href} download target="_new">
-																	<Icon label={label} />
+																	<Icon type={'pdf'} label={label} />
 																</a>
 															</div>
 															{idx % 2 === 1 && <hr key={`hr-${idx}`} />}

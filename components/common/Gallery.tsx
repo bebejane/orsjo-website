@@ -1,6 +1,7 @@
 import "swiper/css";
 import styles from './Gallery.module.scss'
 import cn from 'classnames'
+import React from 'react'
 import { Image } from "react-datocms"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef, useEffect } from 'react';

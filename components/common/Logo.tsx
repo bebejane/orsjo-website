@@ -4,7 +4,7 @@ import cn from 'classnames'
 import { useEffect, useState } from 'react'
 import { usePreviousRoute, useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { useRouter } from 'next/router'
-import { useStore } from '/lib/store'
+import { useStore, shallow } from '/lib/store'
 
 type Props = {
   inverted:boolean
@@ -17,7 +17,7 @@ export default function Logo({inverted = false} : Props){
   const router = useRouter()
   const prevRoute = usePreviousRoute()
   const [characters, setCharacters] = useState(text.length)
-  const [ transitioning ] = useStore((state) => [state.transitioning])
+  const [ transitioning ] = useStore((state) => [state.transitioning], shallow)
   const { scrolledPosition, viewportHeight } = useScrollInfo()
   const isStatic = (prevRoute !== null && router.asPath !== '/')
 
