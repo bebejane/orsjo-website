@@ -18,11 +18,13 @@ specifiers:
   '@next/env': ^12.3.1
   '@svgr/webpack': ^6.3.1
   '@types/graphql': ^14.5.0
+  '@types/node': ^18.11.4
   '@types/react-dom': ^18.0.5
   apollo: ^2.34.0
   base-64: ^1.0.0
   classnames: ^2.3.1
   date-fns: ^2.28.0
+  dato-nextjs-utils: github:bebejane/dato-nextjs-utils
   datocms-structured-text-utils: ^2.0.4
   eslint: 7.32.0
   eslint-config-next: 12.0.3
@@ -52,7 +54,7 @@ specifiers:
   rooks: ^5.8.0
   sass: ^1.54.5
   swiper: ^8.2.3
-  typescript: ^4.7.3
+  typescript: ^4.8.4
   watch: ^1.0.2
   zustand: ^4.1.2
 
@@ -65,6 +67,7 @@ dependencies:
   base-64: 1.0.0
   classnames: 2.3.2
   date-fns: 2.29.3
+  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90_jw5loo5qrmoo4g6zm4p5f3qvl4
   datocms-structured-text-utils: 2.0.4
   framer-motion: 6.3.4_sfoxds7t5ydpegc3knd667wn6m
   glob: 8.0.3
@@ -94,7 +97,7 @@ dependencies:
   zustand: 4.1.2_react@17.0.2
 
 devDependencies:
-  '@graphql-codegen/cli': 2.6.2_siotesyb2nuw4tqpprclj4vbfq
+  '@graphql-codegen/cli': 2.6.2_i2yjlpk2c3rcnyllhslco5ffeu
   '@graphql-codegen/import-types-preset': 2.2.5_graphql@16.6.0
   '@graphql-codegen/introspection': 2.1.1_graphql@16.6.0
   '@graphql-codegen/typed-document-node': 2.3.5_graphql@16.6.0
@@ -106,6 +109,7 @@ devDependencies:
   '@graphql-codegen/typescript-resolvers': 2.7.5_graphql@16.6.0
   '@svgr/webpack': 6.5.0
   '@types/graphql': 14.5.0
+  '@types/node': 18.11.4
   '@types/react-dom': 18.0.6
   apollo: 2.34.0_typescript@4.8.4
   eslint: 7.32.0
@@ -1724,7 +1728,7 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@graphql-codegen/cli/2.6.2_siotesyb2nuw4tqpprclj4vbfq:
+  /@graphql-codegen/cli/2.6.2_i2yjlpk2c3rcnyllhslco5ffeu:
     resolution: {integrity: sha512-UO75msoVgvLEvfjCezM09cQQqp32+mR8Ma1ACsBpr7nroFvHbgcu2ulx1cMovg4sxDBCsvd9Eq/xOOMpARUxtw==}
     hasBin: true
     peerDependencies:
@@ -1739,8 +1743,8 @@ packages:
       '@graphql-tools/graphql-file-loader': 7.5.5_graphql@16.6.0
       '@graphql-tools/json-file-loader': 7.4.6_graphql@16.6.0
       '@graphql-tools/load': 7.7.7_graphql@16.6.0
-      '@graphql-tools/prisma-loader': 7.2.24_graphql@16.6.0
-      '@graphql-tools/url-loader': 7.16.4_graphql@16.6.0
+      '@graphql-tools/prisma-loader': 7.2.24_5gdguhvlewiz3q2uki45g4u7oe
+      '@graphql-tools/url-loader': 7.16.4_5gdguhvlewiz3q2uki45g4u7oe
       '@graphql-tools/utils': 8.12.0_graphql@16.6.0
       ansi-escapes: 4.3.2
       chalk: 4.1.2
@@ -1754,7 +1758,7 @@ packages:
       glob: 7.2.3
       globby: 11.1.0
       graphql: 16.6.0
-      graphql-config: 4.3.6_siotesyb2nuw4tqpprclj4vbfq
+      graphql-config: 4.3.6_i2yjlpk2c3rcnyllhslco5ffeu
       inquirer: 8.2.4
       is-glob: 4.0.3
       json-to-pretty-yaml: 1.2.2
@@ -2191,12 +2195,12 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@graphql-tools/prisma-loader/7.2.24_graphql@16.6.0:
+  /@graphql-tools/prisma-loader/7.2.24_5gdguhvlewiz3q2uki45g4u7oe:
     resolution: {integrity: sha512-CRQvoraCIcQa44RMSF3EpzLedouR9SSLC6ylFEHCFf2b8r1EfbK5NOdLL1V9znOjjapI6/oJURlFWdldcAaMgg==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/url-loader': 7.16.4_graphql@16.6.0
+      '@graphql-tools/url-loader': 7.16.4_5gdguhvlewiz3q2uki45g4u7oe
       '@graphql-tools/utils': 8.12.0_graphql@16.6.0
       '@types/js-yaml': 4.0.5
       '@types/json-stable-stringify': 1.0.34
@@ -2262,7 +2266,7 @@ packages:
       value-or-promise: 1.0.11
     dev: true
 
-  /@graphql-tools/url-loader/7.16.4_graphql@16.6.0:
+  /@graphql-tools/url-loader/7.16.4_5gdguhvlewiz3q2uki45g4u7oe:
     resolution: {integrity: sha512-7yGrJJNcqVQIplCyVLk7tW2mAgYyZ06FRmCBnzw3B61+aIjFavrm6YlnKkhdqYSYyFmIbVcigdP3vkoYIu23TA==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -2278,7 +2282,7 @@ packages:
       graphql: 16.6.0
       graphql-ws: 5.11.2_graphql@16.6.0
       isomorphic-ws: 5.0.0_ws@8.9.0
-      meros: 1.2.1
+      meros: 1.2.1_@types+node@18.11.4
       tslib: 2.4.0
       value-or-promise: 1.0.11
       ws: 8.9.0
@@ -3012,7 +3016,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.1
       '@types/keyv': 4.2.0
-      '@types/node': 18.11.3
+      '@types/node': 18.11.4
       '@types/responselike': 1.0.0
     dev: false
 
@@ -3054,13 +3058,13 @@ packages:
   /@types/jsonwebtoken/8.5.9:
     resolution: {integrity: sha512-272FMnFGzAVMGtu9tkr29hRL6bZj4Zs1KZNeHLnKqAvp06tAIcarTMwOh8/8bz4FmKRcMxZhZNeUAQsNLoiPhg==}
     dependencies:
-      '@types/node': 18.11.3
+      '@types/node': 18.11.4
     dev: true
 
   /@types/keyv/3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 18.11.3
+      '@types/node': 18.11.4
     dev: true
 
   /@types/keyv/4.2.0:
@@ -3083,12 +3087,16 @@ packages:
   /@types/node-fetch/2.6.2:
     resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
     dependencies:
-      '@types/node': 18.11.3
+      '@types/node': 18.11.4
       form-data: 3.0.1
     dev: true
 
   /@types/node/18.11.3:
     resolution: {integrity: sha512-fNjDQzzOsZeKZu5NATgXUPsaFaTxeRgFXoosrHivTl8RGeV733OLawXsGfEk9a8/tySyZUyiZ6E8LcjPFZ2y1A==}
+    dev: false
+
+  /@types/node/18.11.4:
+    resolution: {integrity: sha512-BxcJpBu8D3kv/GZkx/gSMz6VnTJREBj/4lbzYOQueUOELkt8WrO6zAcSPmp9uRPEW/d+lUO8QK0W2xnS1hEU0A==}
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -3103,17 +3111,32 @@ packages:
       '@types/react': 18.0.21
     dev: true
 
+  /@types/react-dom/18.0.8:
+    resolution: {integrity: sha512-C3GYO0HLaOkk9dDAz3Dl4sbe4AKUGTCfFIZsz3n/82dPNN8Du533HzKatDxeUYWu24wJgMP1xICqkWk1YOLOIw==}
+    dependencies:
+      '@types/react': 18.0.23
+    dev: false
+
   /@types/react/18.0.21:
     resolution: {integrity: sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
+    dev: true
+
+  /@types/react/18.0.23:
+    resolution: {integrity: sha512-R1wTULtCiJkudAN2DJGoYYySbGtOdzZyUWAACYinKdiQC8auxso4kLDUhQ7AJ2kh3F6A6z4v69U6tNY39hihVQ==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.1
+    dev: false
 
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 18.11.3
+      '@types/node': 18.11.4
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
@@ -3125,7 +3148,7 @@ packages:
   /@types/ws/8.5.3:
     resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
     dependencies:
-      '@types/node': 18.11.3
+      '@types/node': 18.11.4
     dev: true
 
   /@typescript-eslint/parser/4.33.0_3rubbgt5ekhqrcgx4uwls3neim:
@@ -4328,7 +4351,7 @@ packages:
       '@iarna/toml': 2.2.5
     dev: true
 
-  /cosmiconfig-typescript-loader/4.1.1_iq4inwuv4kwxih6sjysxmpdvle:
+  /cosmiconfig-typescript-loader/4.1.1_d6spji7ety5nzo75wilo7v7d4a:
     resolution: {integrity: sha512-9DHpa379Gp0o0Zefii35fcmuuin6q92FnLDffzdZ0l9tVd3nEobG3O+MZ06+kuBvFTSVScvNb/oHA13Nd4iipg==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -4337,8 +4360,9 @@ packages:
       ts-node: '>=10'
       typescript: '>=3'
     dependencies:
+      '@types/node': 18.11.4
       cosmiconfig: 7.0.1
-      ts-node: 10.9.1_typescript@4.8.4
+      ts-node: 10.9.1_6hf6ijjdmrvgn4gwd23tocsh2m
       typescript: 4.8.4
     dev: true
 
@@ -5624,7 +5648,7 @@ packages:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
     dev: true
 
-  /graphql-config/4.3.6_siotesyb2nuw4tqpprclj4vbfq:
+  /graphql-config/4.3.6_i2yjlpk2c3rcnyllhslco5ffeu:
     resolution: {integrity: sha512-i7mAPwc0LAZPnYu2bI8B6yXU5820Wy/ArvmOseDLZIu0OU1UTULEuexHo6ZcHXeT9NvGGaUPQZm8NV3z79YydA==}
     engines: {node: '>= 10.0.0'}
     peerDependencies:
@@ -5634,15 +5658,15 @@ packages:
       '@graphql-tools/json-file-loader': 7.4.6_graphql@16.6.0
       '@graphql-tools/load': 7.7.7_graphql@16.6.0
       '@graphql-tools/merge': 8.3.6_graphql@16.6.0
-      '@graphql-tools/url-loader': 7.16.4_graphql@16.6.0
+      '@graphql-tools/url-loader': 7.16.4_5gdguhvlewiz3q2uki45g4u7oe
       '@graphql-tools/utils': 8.12.0_graphql@16.6.0
       cosmiconfig: 7.0.1
       cosmiconfig-toml-loader: 1.0.0
-      cosmiconfig-typescript-loader: 4.1.1_iq4inwuv4kwxih6sjysxmpdvle
+      cosmiconfig-typescript-loader: 4.1.1_d6spji7ety5nzo75wilo7v7d4a
       graphql: 16.6.0
       minimatch: 4.2.1
       string-env-interpolation: 1.0.1
-      ts-node: 10.9.1_typescript@4.8.4
+      ts-node: 10.9.1_6hf6ijjdmrvgn4gwd23tocsh2m
       tslib: 2.4.0
     transitivePeerDependencies:
       - '@swc/core'
@@ -6778,7 +6802,7 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /meros/1.2.1:
+  /meros/1.2.1_@types+node@18.11.4:
     resolution: {integrity: sha512-R2f/jxYqCAGI19KhAvaxSOxALBMkaXWH2a7rOyqQw+ZmizX5bKkEYWLzdhC+U82ZVVPVp6MCXe3EkVligh+12g==}
     engines: {node: '>=13'}
     peerDependencies:
@@ -6786,6 +6810,8 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
+    dependencies:
+      '@types/node': 18.11.4
     dev: true
 
   /micromark-core-commonmark/1.0.6:
@@ -7836,6 +7862,33 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
+  /react-markdown/8.0.3_cbv2ru6bsfc5uo6sfnasxbcgti:
+    resolution: {integrity: sha512-We36SfqaKoVNpN1QqsZwWSv/OZt5J15LNgTLWynwAN5b265hrQrsjMtlRNwUvS+YyR3yDM8HpTNc4pK9H/Gc0A==}
+    peerDependencies:
+      '@types/react': '>=16'
+      react: '>=16'
+    dependencies:
+      '@types/hast': 2.3.4
+      '@types/prop-types': 15.7.5
+      '@types/react': 18.0.23
+      '@types/unist': 2.0.6
+      comma-separated-tokens: 2.0.2
+      hast-util-whitespace: 2.0.0
+      prop-types: 15.8.1
+      property-information: 6.1.1
+      react: 17.0.2
+      react-is: 18.2.0
+      remark-parse: 10.0.1
+      remark-rehype: 10.1.0
+      space-separated-tokens: 2.0.1
+      style-to-object: 0.3.0
+      unified: 10.1.2
+      unist-util-visit: 4.1.1
+      vfile: 5.3.5
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /react-markdown/8.0.3_react@17.0.2:
     resolution: {integrity: sha512-We36SfqaKoVNpN1QqsZwWSv/OZt5J15LNgTLWynwAN5b265hrQrsjMtlRNwUvS+YyR3yDM8HpTNc4pK9H/Gc0A==}
     peerDependencies:
@@ -7871,7 +7924,7 @@ packages:
       react: 17.0.2
       requestanimationframe-timer: 3.0.3
     optionalDependencies:
-      '@types/react': 18.0.21
+      '@types/react': 18.0.23
     dev: false
 
   /react-string-replace/1.1.0:
@@ -8747,7 +8800,7 @@ packages:
     resolution: {integrity: sha512-PGcnJoTBnVGy6yYNFxWVNkdcAuAMstvutN9MgDJIV6L0oG8fB+ZNNy1T+wJzah8RPGor1mZuPQkVfXNDpy9eHA==}
     dev: true
 
-  /ts-node/10.9.1_typescript@4.8.4:
+  /ts-node/10.9.1_6hf6ijjdmrvgn4gwd23tocsh2m:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -8766,6 +8819,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
+      '@types/node': 18.11.4
       acorn: 8.8.0
       acorn-walk: 8.2.0
       arg: 4.1.3
@@ -8864,7 +8918,6 @@ packages:
     resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: true
 
   /ua-parser-js/0.7.32:
     resolution: {integrity: sha512-f9BESNVhzlhEFf2CHMSj40NWOjYPl1YKYbrvIr/hFTDEmLq7SRbWvm7FcdcpCYT95zrOhC7gZSxjdnnTpBcwVw==}
@@ -9421,4 +9474,41 @@ packages:
 
   /zwitch/2.0.2:
     resolution: {integrity: sha512-JZxotl7SxAJH0j7dN4pxsTV6ZLXoLdGME+PsjkL/DaBrVryK9kTGq06GfKrwcSOqypP+fdXGoCHE36b99fWVoA==}
+    dev: false
+
+  github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90_jw5loo5qrmoo4g6zm4p5f3qvl4:
+    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/312084e806c5293dab8580163675c6fb75990a90}
+    id: github.com/bebejane/dato-nextjs-utils/312084e806c5293dab8580163675c6fb75990a90
+    name: dato-nextjs-utils
+    version: 1.0.141
+    engines: {node: '>=0.16'}
+    peerDependencies:
+      react: 16 - 18
+      react-dom: 16 - 18
+    dependencies:
+      '@apollo/client': 3.7.1_4acpsgwrblrf7yma4ztoevvkgq
+      '@datocms/cma-client': 1.1.8
+      '@types/node': 18.11.3
+      '@types/react': 18.0.23
+      '@types/react-dom': 18.0.8
+      markdown-truncate: 1.0.4
+      next: 12.3.1_iutfvtabbkxnrbh7zc4a3qrmie
+      next-seo: 5.8.0_dty4et2pnba4zo7o4cegg6bk2e
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-markdown: 8.0.3_cbv2ru6bsfc5uo6sfnasxbcgti
+      remark-breaks: 3.0.2
+      remark-gfm: 3.0.1
+      typescript: 4.8.4
+    transitivePeerDependencies:
+      - '@babel/core'
+      - babel-plugin-macros
+      - encoding
+      - fibers
+      - graphql
+      - graphql-ws
+      - node-sass
+      - sass
+      - subscriptions-transport-ws
+      - supports-color
     dev: false

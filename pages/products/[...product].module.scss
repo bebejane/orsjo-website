@@ -2,12 +2,18 @@
 .product {
 	position: relative;
 	background-color: $white;
-	padding-top: 4.5rem;
+	
 	.intro {
 		position: relative;
 		width: 100%;
-		height: 60vh;
-		min-height: 80vh;
+		
+		@include mq($until:tablet){
+			min-height: 60vh;
+		}
+		@include mq($from:tablet){
+			min-height: calc(100vh - $navbarHeight);
+			max-height: calc(100vh - $navbarHeight);
+		}
 		background-color: white;
 		cursor: pointer;
 		.image{

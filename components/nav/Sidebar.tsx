@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { usePage } from '/lib/context/page'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { ArrowLink, AnchorLink } from '/components'
-import useScrollInfo from '/lib/hooks/useScrollInfo';
+import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 
 export type SidebarProps = {title: string}
 

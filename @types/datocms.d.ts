@@ -7379,6 +7379,11 @@ type IntlQueryVariables = Exact<{
 
 type IntlQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'TranslationRecord', key?: string, value?: string }> };
 
+type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ProductStartQuery = { __typename?: 'Query', productStart?: { __typename?: 'ProductStartRecord', id: any, featured: Array<{ __typename?: 'FeaturedRecord', id: any, headline?: string, showMarkAsNew?: any, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename?: 'ProjectRecord' }> }> } };
+
 type ProductQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
   locale?: InputMaybe<SiteLocale>;
@@ -7422,11 +7427,6 @@ type AllProductDownloadsQueryVariables = Exact<{
 
 
 type AllProductDownloadsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', title?: string, bimLink?: string, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, categories: Array<{ __typename?: 'ProductCategoryRecord', name?: string }>, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }> };
-
-type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ProductStartQuery = { __typename?: 'Query', productStart?: { __typename?: 'ProductStartRecord', id: any, featured: Array<{ __typename?: 'FeaturedRecord', id: any, headline?: string, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, environmentImage?: { __typename?: 'FileField', id: any, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename?: 'ProjectRecord' }> }> } };
 
 type ProductCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 

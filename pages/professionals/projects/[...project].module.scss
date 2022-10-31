@@ -4,8 +4,13 @@
   .wrap{
     display: flex;
     position: relative;
-    min-height: calc(100vh - 4rem);
-    min-height: 60vh;
+    @include mq($until:tablet){
+			min-height: 60vh;
+		}
+		@include mq($from:tablet){
+			min-height: calc(100vh - $navbarHeight);
+			max-height: calc(100vh - $navbarHeight);
+		}
     cursor: pointer;
     .image{
       opacity: 0.2;

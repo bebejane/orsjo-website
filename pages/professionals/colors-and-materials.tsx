@@ -1,10 +1,9 @@
 import styles from './colors-and-materials.module.scss'
 import { AllColorsAndMaterialsDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import { Thumbnail, Section } from '/components';
-import { recordImages } from '/lib/utils';
 import useStore from '/lib/store';
 import { useEffect } from 'react';
 

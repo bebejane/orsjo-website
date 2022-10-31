@@ -1,8 +1,8 @@
 import styles from './index.module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link';
-import Markdown from '/lib/dato/components/Markdown';
-import useApiQuery from '/lib/dato/hooks/useApiQuery'
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { useApiQuery } from 'dato-nextjs-utils/hooks'
 import { AllNewsDocument } from '/graphql';
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';

@@ -1,12 +1,12 @@
 import styles from './[...news].module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import { AllNewsDocument, NewsDocument } from '/graphql'
-import { apiQuery } from '/lib/dato/api'
+import { apiQuery } from 'dato-nextjs-utils/api'
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page'
 import { Section } from '/components'
 import Link from 'next/link';
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import format from 'date-fns/format';
 
 export type NewsProps = { news: NewsRecord };

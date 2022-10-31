@@ -236,12 +236,12 @@ declare module '*/intl.gql' {
 declare module '*/product.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const Product: DocumentNode;
+  export const ProductStart: DocumentNode;
+export const Product: DocumentNode;
 export const AllProducts: DocumentNode;
 export const AllProductsLight: DocumentNode;
 export const AllProductManuals: DocumentNode;
 export const AllProductDownloads: DocumentNode;
-export const ProductStart: DocumentNode;
 export const ProductCategories: DocumentNode;
 export const AllProductsByDesigner: DocumentNode;
 export const RelatedProducts: DocumentNode;
