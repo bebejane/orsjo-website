@@ -88,7 +88,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 														<>
 															<div key={`f-${idx}`} className={styles.item}>
 																<a href={href} download target="_new">
-																	<Icon type={type} label={label} />
+																	<Icon label={label} />
 																</a>
 															</div>
 															{idx % 2 === 1 && <hr key={`hr-${idx}`} />}
@@ -123,7 +123,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 								</td>
 								<td>
 									<a href={`${pdf.url}?dl=${title}.pdf`} download target="_new">
-										<Icon type={'pdf'} label={title} />
+										<Icon label={title} />
 									</a>
 								</td>
 								<td></td>

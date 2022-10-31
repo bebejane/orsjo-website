@@ -1,6 +1,7 @@
 {
   "name": "orsjo-website",
   "version": "0.1.0",
+  "sideEffects": false,
   "scripts": {
     "dev": "npm run dev:watch",
     "dev:watch": "next dev & npm run barrel:watch & graphql-codegen --watch",
@@ -11,13 +12,14 @@
     "preview": "npm run build && npm run start",
     "barrel": "node ./lib/scripts/barrel",
     "barrel:watch": "watch 'node ./lib/scripts/barrel' ./graphql ./components",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
     "@datocms/cma-client-browser": "^1.1.8",
     "@datocms/cma-client-node": "^1.1.8",
-    "@next/bundle-analyzer": "^12.2.5",
+    "@next/bundle-analyzer": "^12.3.1",
     "@next/env": "^12.3.1",
     "base-64": "^1.0.0",
     "classnames": "^2.3.1",
