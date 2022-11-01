@@ -65,7 +65,7 @@
             z-index: 1;
 
             &:focus {
-              background-color: $light-gray;
+              background-color: $mid-gray;
             }
           }
 
@@ -120,11 +120,11 @@
 
   &.inverted {
     h3 {
-      color: lightgray;
+      color: $mid-gray;
     }
 
     nav ul li a {
-      color: lightgray;
+      color: $mid-gray;
 
       &.active {
         color: $white  !important;
@@ -132,7 +132,7 @@
     }
 
     .footer a {
-      color: lightgray !important;
+      color: $mid-gray !important;
     }
   }
 
@@ -170,7 +170,7 @@
       display: none;
       padding-top: var(--outer-margin);
       padding-bottom: var(--outer-margin);
-      border-top: 1px solid $light-gray;
+      border-top: 1px solid $mid-gray;
 
       &.open {
         display: block;

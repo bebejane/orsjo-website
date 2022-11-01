@@ -17,7 +17,12 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	const ref = useRef();
 	const router = useRouter()
-	const [showMenu, setShowMenu, invertMenu] = useStore((state) => [state.showMenu, state.setShowMenu, state.invertMenu], shallow);
+	const [showMenu, setShowMenu, invertMenu] = useStore((state) => [
+		state.showMenu, 
+		state.setShowMenu, 
+		state.invertMenu], 
+		shallow
+	)
 	const [transitioning] = useStore((state) => [state.transitioning], shallow)
 	const [selected, setSelected] = useState(undefined)
 	const [hashChanging, setHashChanging] = useState(false)
@@ -41,7 +46,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	useEffect(() => { // Toggle menu bar on scroll
 		if(hashChanging)
 			return setShowMenu(false)
-			console.log(transitioning);
 			
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
 	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging, transitioning]);
