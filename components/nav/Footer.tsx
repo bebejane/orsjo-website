@@ -7,6 +7,7 @@ import { usePage } from '/lib/context/page'
 import { AnchorLink } from '/components'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import useStore, { shallow } from '/lib/store'
 
 export type FooterProps = { menu: MenuItem[] }
 
@@ -18,6 +19,7 @@ export default function Footer({ menu : menuFromProps }: FooterProps) {
 	const maxLength = menu[0].sub.length
 
 	useEffect(()=>{
+		
 		setMenu(JSON.parse(JSON.stringify(menuFromProps)).map((item) => ({
 			...item,
 			sub: item.type === 'designer' ? item.sub
@@ -25,7 +27,7 @@ export default function Footer({ menu : menuFromProps }: FooterProps) {
 				.slice(0, maxLength) : item.sub
 		})))
 
-	}, [menuFromProps, setMenu, maxLength, router.asPath])
+	}, [menuFromProps, setMenu, maxLength])
 
 	return (
 		<>
