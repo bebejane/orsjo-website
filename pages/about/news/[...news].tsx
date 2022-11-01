@@ -33,11 +33,11 @@ export default function News({ news: { image, title, createdAt, text } }: NewsPr
 				</div>
 			</Section>
 			<Section className={styles.more} bottom={true}>
-				<button>
-					<Link href={'/about/news'}>
+				<Link href={'/about/news'} passHref={true}>
+					<button>
 						View all news
-					</Link>
-				</button>
+					</button>
+				</Link>
 			</Section>
 		</>
 	)

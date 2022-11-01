@@ -60,6 +60,7 @@ query Contact{
     intro(markdown: false)
     phone
     showroomIntro(markdown: false)
+		contactFormMessage(markdown: false)
     title
     address
 		image{

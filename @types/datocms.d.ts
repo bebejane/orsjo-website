@@ -503,6 +503,7 @@ type ContactRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   address?: Maybe<Scalars['String']>;
+  contactFormMessage?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   email?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
@@ -523,6 +524,12 @@ type ContactRecord_seoMetaTagsArgs = {
 
 /** Record of type Contact (contact) */
 type ContactRecordaddressArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Record of type Contact (contact) */
+type ContactRecordcontactFormMessageArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -7298,7 +7305,7 @@ type AllStaffsQuery = { __typename?: 'Query', staffs: Array<{ __typename?: 'Staf
 type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ContactQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactRecord', id: any, email?: string, intro?: string, phone?: string, showroomIntro?: string, title?: string, address?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
+type ContactQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactRecord', id: any, email?: string, intro?: string, phone?: string, showroomIntro?: string, contactFormMessage?: string, title?: string, address?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } };
 
 type DesignerQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;

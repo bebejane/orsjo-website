@@ -1,11 +1,18 @@
 
 import styles from './ContactModal.module.scss'
 import cn from 'classnames'
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { Modal, Loader } from '/components'
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useForm } from "react-hook-form";
 
-export default function ContactModal({ onClose, show = false }) {
+type Props = {
+  onClose: () => void,
+  show: boolean,
+  message: string
+}
+
+export default function ContactModal({ onClose, show = false, message } : Props) {
 
   const { register, handleSubmit, reset, setFocus } = useForm();
   const [loading, setLoading] = useState(false)
@@ -112,9 +119,7 @@ export default function ContactModal({ onClose, show = false }) {
           }
           {success &&
             <div className={styles.success}>
-              Thanks for your message! <br />
-              We will get back to you as soon as possible.
-              <br />
+              <Markdown>{message}</Markdown>
               <button onClick={onClose}>Close</button>
             </div>
           }
