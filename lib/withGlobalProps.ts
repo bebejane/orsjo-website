@@ -20,11 +20,11 @@ export default function withGlobalProps(opt: any , callback : Function) : GetSta
   return async (context) => {
     
     const res = await Promise.all([
-      apiQuery(MenuDocument, { variables, preview: context.preview ? true : false}),
+      buildMenu(),
       apiQuery(queries, { variables, preview: context.preview ? true : false})
     ])
 
-    const menu =  buildMenu(res[0]);
+    const menu =  res[0];
     const props = res[1];
 
     if(callback)
