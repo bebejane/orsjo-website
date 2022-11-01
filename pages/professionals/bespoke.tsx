@@ -33,7 +33,6 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 			filter: `grayscale(${Math.max((1-(viewportScrollRatio*4)), 0)})`
 		})
 	}, [viewportScrollRatio, setImageStyle])
-	console.log(imageStyle);
 	
 	return (
 		<>
