@@ -18,7 +18,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
-	const [imageStyle, setImageStyle] = useState({})
+	const [imageStyle, setImageStyle] = useState({opacity:0.2, filter:'grayscale(1)'})
 
 	useEffect(() => {
 		setGallery({ images: recordImages(bespoke) })
@@ -33,7 +33,8 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 			filter: `grayscale(${Math.max((1-(viewportScrollRatio*4)), 0)})`
 		})
 	}, [viewportScrollRatio, setImageStyle])
-
+	console.log(imageStyle);
+	
 	return (
 		<>
 			<Section className={styles.bespoke} type={'full'}>
@@ -42,7 +43,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					layout='fill'
 					objectFit='cover'
 					className={styles.image}
-					pictureStyle={imageStyle}
+					style={imageStyle}
 				/>
 				<h1>
 					<TextReveal>
