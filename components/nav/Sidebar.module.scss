@@ -9,6 +9,13 @@
   max-width: spanGrid(4);
   max-height: 100vh;
   z-index: 103;
+  opacity: 0;
+  animation: fadeIn .2s ease-out forwards;
+  @keyframes fadeIn {
+    to{
+      opacity: 1;
+    }
+  }
   @include mq($from: tablet) {
     background-color: transparent !important;
   }
@@ -51,7 +58,11 @@
         &.search {
           position: relative;
           width: 200px;
-
+          opacity: 0;
+          transition: opacity .3s ease-out;
+          &.show{
+            opacity: 1;
+          }
           input {
             position: absolute;
             border: 0px;

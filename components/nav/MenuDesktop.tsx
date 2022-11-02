@@ -44,18 +44,18 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	}, [showMenu, resetSelected])
 
 	useEffect(() => { // Toggle menu bar on scroll
-		
+		if(transitioning) return
 		if(hashChanging)
 			return setShowMenu(false)
 			
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
 	}, [transitioning, scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
 
-	useEffect(()=>{
-		if(transitioning)
-			setShowMenu(false)
+	/*
+	useEffect(()=>{if(transitioning )setShowMenu(false)
 	}, [transitioning, setShowMenu])
-
+	*/
+	
 	useEffect(() => { // Hide menu when scrolling to hash
 
 		const handleHashChangeStart = async (url) => {

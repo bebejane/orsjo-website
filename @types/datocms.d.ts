@@ -7367,11 +7367,6 @@ type GlobalQueryVariables = Exact<{ [key: string]: never; }>;
 
 type GlobalQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', format: string, id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string, aspectRatio: any, base64?: string, bgColor?: string, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string, width: any } } } } } };
 
-type MenuQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug?: string, name?: string }>, allProducts: Array<{ __typename?: 'ProductRecord', id: any, designer?: { __typename?: 'DesignerRecord', id: any } }>, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }> };
-
 type IntlQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
   fallbackLocales?: InputMaybe<Array<SiteLocale> | SiteLocale>;
@@ -7381,6 +7376,11 @@ type IntlQueryVariables = Exact<{
 
 
 type IntlQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'TranslationRecord', key?: string, value?: string }> };
+
+type MenuQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug?: string, name?: string }>, allProducts: Array<{ __typename?: 'ProductRecord', id: any, designer?: { __typename?: 'DesignerRecord', id: any } }>, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }> };
 
 type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -9,16 +9,23 @@ import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { remToPx, styleVariables } from '/lib/utils';
 import { useWindowSize } from 'rooks';
 
-export type SidebarProps = {title: string}
+export type SidebarProps = {title: string, show:boolean}
 
-export default function Sidebar({title} : SidebarProps) {
+const getPageType = (pathname) => {
+	const p = pathname.toLowerCase();
+	return p === '/products' ? 'products' : p.startsWith('/products/') ? 'product' : p.startsWith('/professionals/projects/') ? 'project' : undefined
+}
+
+export default function Sidebar({title, show} : SidebarProps) {
 
 	const { menu, layout, color } = usePage()
 	const router = useRouter()
+	const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
 	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.setCurrentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
 	const [setInvertSidebar, setInvertMenu] = useStore((state) => [state.setInvertSidebar, state.setInvertMenu], shallow);
 	const [inverted, setInverted] = useState(menu === 'inverted' || invertSidebar)
 	const [sections, setSections] = useState([])
+	const [pageType, setPageType] = useState<string | undefined>(getPageType(router.pathname))
 	const [open, setOpen] = useState(false)
 	const [searchFocus, setSearchFocus] = useState(false);
 	const [maxHeight, setMaxHeight] = useState<string | undefined>()
@@ -26,17 +33,8 @@ export default function Sidebar({title} : SidebarProps) {
 	const { innerWidth } = useWindowSize()
 	const backRef = useRef()
 
-	const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
-	const isProductsPage = router.pathname.toLowerCase() === '/products'
-	const isProductPage = router.pathname.startsWith('/products/')
-	const isProjectPage = router.pathname.startsWith('/professionals/projects/')
-	
 	const resetSearch = useCallback(() => {setSearchProducts('')},[setSearchProducts]);
-
-	const handleClick = (e) => {
-		router.replace(e.target.getAttribute('href'), {hash:e.target.getAttribute('href')})
-		setOpen(false);
-	}
+	const handleClick = (e) => setOpen(false);
 	
 	useEffect(()=>{ 
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]')
@@ -74,21 +72,22 @@ export default function Sidebar({title} : SidebarProps) {
 		else
 			setInverted(menu === 'inverted')
 
-	}, [currentSection, setInverted, menu, styleVariables, innerWidth])
+	}, [currentSection, setInverted, menu, innerWidth])
 
 	useEffect(()=>{ 
+		if(pageType) return
 		const footer = document.getElementById('footer')
-		if(!isProductPage && !isProjectPage && !isProductsPage)
-			setMaxHeight(`calc(100vh - ${footer.clientHeight}px`);
-	}, [isProductPage, isProjectPage, isProductsPage])
+		setMaxHeight(`calc(100vh - ${footer?.clientHeight}px`);
+	}, [pageType, setMaxHeight])
 
 	useEffect(()=>{ setTimeout(()=>resetSearch(), 100)}, [router.asPath, resetSearch])
 	
-	
+	if(!show) return null
+
 	return (
 		<aside 
 			id="sidebar" 
-			className={cn(styles.sidebar, inverted && styles.inverted, !isProductsPage && styles.short)}
+			className={cn(styles.sidebar, inverted && styles.inverted, pageType === 'products' && styles.short)}
 			style={{backgroundColor:color, maxHeight}}
 		>
 			<h3 id="sidebar-header" className={cn(open && styles.open)} onClick={()=>setOpen(!open)}>
@@ -109,34 +108,32 @@ export default function Sidebar({title} : SidebarProps) {
 							</AnchorLink>
 						</li>
 					)}
-					{isProductsPage && 
-						<li className={styles.search}>
-							<input 
-								type="text" 
-								placeholder='Search' 
-								value={searchProducts} 
-								onChange={(e) => setSearchProducts(e.target.value)}
-								onFocus={()=> setSearchFocus(true)}
-								onBlur={()=> setTimeout(()=>setSearchFocus(false), 100)}
-							/>
-							<button 
-								onClick={resetSearch}
-								className={cn(styles.close, searchFocus && styles.show)}
-							>
-								×
-							</button>
-						</li>
-					}
+					<li className={cn(styles.search, pageType === 'products' && styles.show)}>
+						<input 
+							type="text" 
+							placeholder='Search' 
+							value={searchProducts} 
+							onChange={(e) => setSearchProducts(e.target.value)}
+							onFocus={()=> setSearchFocus(true)}
+							onBlur={()=> setTimeout(()=>setSearchFocus(false), 100)}
+						/>
+						<button 
+							onClick={resetSearch}
+							className={cn(styles.close, searchFocus && styles.show)}
+						>
+							×
+						</button>
+					</li>
 				</ul>
 			</nav>
 			
 			<div className={cn(styles.footer, 'medium')}>
-				{isProductPage && 
+				{pageType === 'product' && 
 					<span onClick={()=> router.push("/products")} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>All Products</ArrowLink>
 					</span>
 				}
-				{isProjectPage && 
+				{pageType === 'project' && 
 					<span onClick={()=> router.push("/professionals/projects")} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>All Projects</ArrowLink>
 					</span>

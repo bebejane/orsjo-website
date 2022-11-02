@@ -6,6 +6,7 @@ import type { MenuItem } from '/lib/menu'
 import { useStore, shallow } from '/lib/store'
 import { useState } from 'react'
 import { buildMenu } from '/lib/menu'
+import { useRouter } from 'next/router'
 
 export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: string }
 
@@ -18,16 +19,14 @@ export default function Layout({ children, menu : menuFromProps, title }: Layout
 	useEffect(()=>{ // Refresh menu on load.
 		buildMenu().then(res => setMenu(res)).catch(err => console.error(err))
 	}, [])
-
+	
 	return (
 		<>
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>	
 				<MenuDesktop items={menu} onShowSiteSearch={()=>setShowSiteSearch(true)}/>
 				<MenuMobile items={menu}/>
 				<SiteSearch show={showSiteSearch} onClose={()=>setShowSiteSearch(false)}/>
-				{layout !== 'full' && 
-					<Sidebar title={title}/>
-				}
+				<Sidebar title={title} show={layout !== 'full'}/>
 				<Content>
 					{children}
 				</Content>
