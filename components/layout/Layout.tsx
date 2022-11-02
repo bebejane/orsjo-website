@@ -1,11 +1,6 @@
 import styles from './Layout.module.scss'
-<<<<<<< HEAD
-import React from 'react'
-import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Cart} from '/components'
-=======
 import React, { useEffect } from 'react'
-import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Grid} from '/components'
->>>>>>> master
+import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Grid, Cart} from '/components'
 import { usePage } from '/lib/context/page'
 import type { MenuItem } from '/lib/menu'
 import { useStore, shallow } from '/lib/store'
@@ -45,7 +40,6 @@ export default function Layout({ children, menu : menuFromProps, title }: Layout
 				<Cart/>
 			</div>
 			<Footer menu={menu} />
-			
 			<Grid />
 		</>
 	)

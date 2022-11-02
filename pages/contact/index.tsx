@@ -11,13 +11,8 @@ import { Section, ContactModal } from '/components'
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
-<<<<<<< HEAD
-import Markdown from '/lib/dato/components/Markdown';
-import {  useState } from 'react';
-=======
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { useState } from 'react';
->>>>>>> master
 
 export type ContactProps = {
 	contact: ContactRecord,

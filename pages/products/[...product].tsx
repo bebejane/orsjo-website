@@ -1,16 +1,9 @@
 import styles from './[...product].module.scss'
 import cn from 'classnames'
-<<<<<<< HEAD
-import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument } from '/graphql'
-import { ShopifyProductDocument } from '/lib/shopify/graphql'
-import { shopifyQuery } from '/lib/shopify/api'
-import { apiQuery } from '/lib/dato/api'
-=======
 import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument } from '/graphql'
 import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
 import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
 import { apiQuery } from 'dato-nextjs-utils/api'
->>>>>>> master
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore, shallow } from '/lib/store'
 import { Image } from 'react-datocms'
@@ -19,12 +12,10 @@ import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
-<<<<<<< HEAD
-import useCart from '../../lib/shopify/hooks/useCart'
-=======
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import Link from 'next/link'
->>>>>>> master
+import { shopifyQuery, useCart } from '/lib/shopify'
+import { ShopifyProductDocument } from '/lib/shopify/graphql'
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -33,24 +24,9 @@ export type ProductProps = {
 	productsByCategory: ProductRecord[],
 	images: FileField[]
 	drawings: FileField[]
-<<<<<<< HEAD
-	specsCols: { label:string, value:string }[]
-	files: ProductDownload[],
-	shopify?:ShopifyProductQuery['product']
-}
-
-export default function Product({ 
-	product, 
-	relatedProducts, 
-	productsByCategory, 
-	images, 
-	drawings, 
-	specsCols, 
-	files ,
-	shopify
-=======
 	specsCols: { label: string, value: string, slug?: string }[]
-	files: ProductDownload[]
+	files: ProductDownload[],
+	shopify: Product
 }
 
 export default function Product({
@@ -60,8 +36,8 @@ export default function Product({
 	productsByCategory,
 	drawings,
 	specsCols,
-	files
->>>>>>> master
+	files,
+	shopify
 }: ProductProps) {
 	
 	
@@ -358,11 +334,6 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];
 	product.models.forEach(m => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null }))
-<<<<<<< HEAD
-	
-	const { product : shopify } = product.shopifyId ? await shopifyQuery(ShopifyProductDocument, {variables:{id: product.shopifyId}}) : { product:null}
-	
-=======
 
 	const sort = {
 		byFamily: (a: ProductRecord, b: ProductRecord) => a.family.id === b.family.id ? 0 : 1,
@@ -370,8 +341,8 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		byCategory: (a: ProductRecord, b: ProductRecord) => a.categories.map(el => el.id).find((id) => product.categories.map(el => el.id).includes[id]) ? 1 : -1,
 		byDesigner: (a: ProductRecord, b: ProductRecord) => a.designer.id === product.designer.id ? 1 : -1
 	}
+	const { product : shopify } = product.shopifyId ? await shopifyQuery(ShopifyProductDocument, {variables:{id: product.shopifyId}}) : { product:null}
 
->>>>>>> master
 	return {
 		props: {
 			...props,
