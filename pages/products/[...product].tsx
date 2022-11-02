@@ -1,28 +1,39 @@
 import styles from './[...product].module.scss'
 import cn from 'classnames'
+<<<<<<< HEAD
 import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument } from '/graphql'
 import { ShopifyProductDocument } from '/lib/shopify/graphql'
 import { shopifyQuery } from '/lib/shopify/api'
 import { apiQuery } from '/lib/dato/api'
+=======
+import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument } from '/graphql'
+import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
+import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
+import { apiQuery } from 'dato-nextjs-utils/api'
+>>>>>>> master
 import withGlobalProps from "/lib/withGlobalProps";
-import { useStore } from '/lib/store'
-import { isServer } from '/lib/utils'
+import { useStore, shallow } from '/lib/store'
 import { Image } from 'react-datocms'
-import { SectionListItem, FeaturedGallery, Block, Section, Icon } from '/components'
-import React, { useState, useEffect } from 'react'
-import { chunkArray, parseSpecifications, recordImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
-import useScrollInfo from '/lib/hooks/useScrollInfo'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
+<<<<<<< HEAD
 import useCart from '../../lib/shopify/hooks/useCart'
+=======
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import Link from 'next/link'
+>>>>>>> master
 
 export type ProductProps = {
 	product: ProductRecord,
 	relatedProducts: ProductRecord[],
+	relatedProjects: ProjectRecord[],
 	productsByCategory: ProductRecord[],
-	images: FileField[] 
+	images: FileField[]
 	drawings: FileField[]
+<<<<<<< HEAD
 	specsCols: { label:string, value:string }[]
 	files: ProductDownload[],
 	shopify?:ShopifyProductQuery['product']
@@ -37,24 +48,40 @@ export default function Product({
 	specsCols, 
 	files ,
 	shopify
+=======
+	specsCols: { label: string, value: string, slug?: string }[]
+	files: ProductDownload[]
+}
+
+export default function Product({
+	product,
+	relatedProducts,
+	relatedProjects,
+	productsByCategory,
+	drawings,
+	specsCols,
+	files
+>>>>>>> master
 }: ProductProps) {
 	
 	
 	const [addToCart] = useCart((state) => [state.addToCart])
 	const router = useRouter()
-	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [list, setList] = useState({ specifications: false, downloads: false })
+	const [pictureStyle, setPictureStyle] = useState({ paddingBottom: '4em' })
 	const singleModel = product.models.length === 1
-	
+	const images = useMemo(() => dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
+
 	const handleGalleryClick = (type: string, id: string) => {
-		setGallery({ images: type === 'product' ? images : drawings, index: 0 })
+		setGallery({ images: type === 'product' ? images : drawings, index: 0, padImagesWithTitle: true })
 		setGalleryId(id)
 	}
 
 	useEffect(() => { // Toggle specs/downloads on sidebar click
 
-		const handleHashChange = (url : string) => {
+		const handleHashChange = (url: string) => {
 			setList((l) => ({
 				...l,
 				specifications: url.endsWith('specifications') || l.specifications,
@@ -68,39 +95,54 @@ export default function Product({
 	}, [router.events])
 
 	useEffect(() => {
-		setGallery({ images })
+		setGallery({ images, padImagesWithTitle: true })
 	}, [images, setGallery])
 
-	const overlayOpacity = isServer ? 1 : Math.max(0, ((viewportHeight - (scrolledPosition * 4)) / viewportHeight));
-	const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
+	useEffect(() => {
+		const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
+		setPictureStyle({ paddingBottom: `${4 * scale}em` })
+	}, [viewportHeight, scrolledPosition, setPictureStyle])
 
 	return (
 		<>
-			<Section name="Introduction" className={styles.product}>
+			<Section name="Introduction" className={styles.product} top={true}>
 				<div className={styles.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					<Image
 						className={styles.image}
-						data={product.image?.responsiveImage}
+						data={product.image.responsiveImage}
 						layout={'fill'}
+						lazyLoad={true}
+						fadeInDuration={100}
 						objectFit={'contain'}
-						pictureStyle={{ paddingBottom: `${3 * scale}em` }}
+						pictureStyle={pictureStyle}
 					/>
-					<div
-						className={styles.overlay}
-						style={{ opacity: overlayOpacity }}>
+					<div className={styles.overlay}>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
-								{product.title}
+								<TextReveal>
+									{product.title}
+								</TextReveal>
 							</h1>
 							<h1 className={styles.designer}>
-								By {product.designer?.name}
+								<TextReveal>
+									by {formatDesignerName(product.designer?.name)}
+								</TextReveal>
 							</h1>
 							<h3 className={styles.type}>
-								{product.categories.map(({ name }, idx) => name).join(', ')}
+								<TextReveal>
+									{product.categories.map(({ name }, idx) => name).join(', ')}
+								</TextReveal>
 							</h3>
 						</div>
 					</div>
 				</div>
+			</Section>
+			<Section className={styles.description}>
+				<Markdown>
+					{product.description}
+				</Markdown>
+			</Section>
+			<Section>
 				{product.productGallery.map((block, idx) =>
 					<Block
 						key={idx}
@@ -126,15 +168,15 @@ export default function Product({
 				title={'Specifications'}
 				className={cn(styles.listItemContent, styles.top)}
 				selected={list.specifications === true}
+				onToggle={() => setList({ ...list, specifications: !list.specifications })}
 				idx={0}
 				total={2}
-				onToggle={() => setList({ ...list, specifications: !list.specifications })}
 			>
 				<ul className={styles.specifications}>
-					{specsCols.map(({ label, value }, idx) =>
+					{specsCols.map(({ label, value, slug }, idx) =>
 						<li key={idx}>
 							<span>{label}</span>
-							<span>{value}</span>
+							<span>{!slug ? value : <Link href={slug} scroll={false}>{value}</Link>}</span>
 						</li>
 					)}
 				</ul>
@@ -153,12 +195,12 @@ export default function Product({
 								label: [v.color?.name, v.material?.name, v.feature?.name].filter(el => el).join(', ')
 							}))
 
-							const access = accessories.map(a => ({
+							const access = accessories.filter(el => el.accessory).map(a => ({
 								articleNo: a.articleNo,
 								label: a.accessory.name
 							}))
 
-							const light = lightsources.map(l => ({
+							const light = lightsources.filter(el => el.lightsource).map(l => ({
 								articleNo: l.lightsource.articleNo,
 								label: `${l.lightsource.name} (need ${l.amount})`,
 								included: l.included,
@@ -186,7 +228,10 @@ export default function Product({
 
 							return (
 								<ul key={id}>
-									<li className={styles.subheader}><span></span><span>{name?.name}</span></li>
+									<li className={styles.subheader}>
+										<span></span>
+										<span>{product.title} {name?.name}</span>
+									</li>
 									{rows.map((row, idx) =>
 										<React.Fragment key={`${id}-${idx}`}>
 											<li key={`${id}-${idx}-c1`}>
@@ -209,7 +254,7 @@ export default function Product({
 					<span>Dimensions</span>
 					<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} disabled={drawings.length === 0}>
 						{drawings.length ?
-							<>View drawing{drawings.length > 1 && 's'}</>
+							<>View drawing{drawings.length > 1 && 's'} + </>
 							:
 							<>No drawings available</>
 						}
@@ -239,16 +284,25 @@ export default function Product({
 			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
 				{relatedProducts.length > 0 &&
 					<FeaturedGallery
-						headline={`Related`}
+						headline={`Related products`}
 						items={relatedProducts}
 						theme={'light'}
 						id="related"
 						fadeColor={'--mid-gray'}
 					/>
 				}
+				{relatedProjects.length > 0 &&
+					<FeaturedGallery
+						headline={`Related projects`}
+						items={relatedProjects}
+						theme={'light'}
+						id="relatedProjects"
+						fadeColor={'--mid-gray'}
+					/>
+				}
 				{productsByCategory.length > 0 &&
 					<FeaturedGallery
-						headline={`Other ${product.categories[0].namePlural}`}
+						headline={`Other ${product.categories[0].namePlural.toLowerCase()}`}
 						items={productsByCategory}
 						theme={'light'}
 						id="relatedbycategory"
@@ -273,44 +327,58 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
-	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug: context.params.product[0] } })
+	const slug = context.params.product[0]
+	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug } })
 
 	if (!product) return { notFound: true }
 
-	const { productsByCategory, relatedProducts } = await apiQuery([
-		RelatedProductsDocument, AllProductsByCategoryDocument
+	const { productsByCategory, relatedProducts, relatedProjects } = await apiQuery([
+		RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument
 	], {
 		variables: [
 			{ designerId: product.designer.id, familyId: product.family.id },
-			{ categoryId: product.categories[0]?.id }
+			{ categoryId: product.categories[0]?.id },
+			{ productId: product.id }
 		]
-	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[] }
+	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[], relatedProjects: ProjectRecord[] }
 
 	const specs = parseSpecifications(product, 'en', null)
 	const specsCols = [
-		{ label: 'Designer', value: specs.designer },
+		{ label: 'Designer', value: specs.designer, slug: `/designers/${product.designer.slug}` },
 		{ label: 'Mounting', value: specs.mounting },
 		{ label: 'Electrical Data', value: specs.electricalData },
 		{ label: 'Socket', value: specs.socket },
 		{ label: 'Connection', value: specs.connection },
-		{ label: 'Lightsource', value: specs.lightsource }
+		{ label: 'Lightsource', value: specs.lightsource },
+		{ label: 'Additional Information', value: specs.additionalInformation },
 	].filter(el => el.value)
 
 
-	const images = recordImages(product, ['environmentImage', 'drawing'])
+
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];
 	product.models.forEach(m => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null }))
+<<<<<<< HEAD
 	
 	const { product : shopify } = product.shopifyId ? await shopifyQuery(ShopifyProductDocument, {variables:{id: product.shopifyId}}) : { product:null}
 	
+=======
+
+	const sort = {
+		byFamily: (a: ProductRecord, b: ProductRecord) => a.family.id === b.family.id ? 0 : 1,
+		byTitle: (a: ProductRecord, b: ProductRecord) => a.title > b.title ? 1 : -1,
+		byCategory: (a: ProductRecord, b: ProductRecord) => a.categories.map(el => el.id).find((id) => product.categories.map(el => el.id).includes[id]) ? 1 : -1,
+		byDesigner: (a: ProductRecord, b: ProductRecord) => a.designer.id === product.designer.id ? 1 : -1
+	}
+
+>>>>>>> master
 	return {
 		props: {
 			...props,
 			product,
-			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort((a, b) => a.family.id === b.family.id ? 1 : -1),
-			productsByCategory: productsByCategory.filter(p => p.id !== product.id),
-			images,
+			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort(sort.byTitle).sort(sort.byFamily),
+			productsByCategory: productsByCategory.filter(p => p.id !== product.id).sort(sort.byDesigner).sort(sort.byCategory),
+			relatedProjects,
 			files,
 			drawings,
 			specsCols,
@@ -319,3 +387,17 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 		revalidate
 	};
 });
+
+const formatDesignerName = (name?: string) => {
+	if (!name) return ''
+	const words = name?.split(' ');
+	const rows = []
+
+	for (let i = words.length - 1; i >= 0; i -= 2) {
+		const row = [words[i]]
+		if (i - 1 >= 0)
+			row.push(words[i - 1])
+		rows.push(row)
+	}
+	return rows.reverse().map((el, i) => <>{el.reverse().join(' ')}{i < rows.length - 1 && <br />}</>)
+}

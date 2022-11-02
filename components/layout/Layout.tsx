@@ -1,17 +1,29 @@
 import styles from './Layout.module.scss'
+<<<<<<< HEAD
 import React from 'react'
 import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Cart} from '/components'
+=======
+import React, { useEffect } from 'react'
+import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Grid} from '/components'
+>>>>>>> master
 import { usePage } from '/lib/context/page'
 import type { MenuItem } from '/lib/menu'
-import { useState, useEffect } from 'react'
 import { useStore, shallow } from '/lib/store'
+import { useState } from 'react'
+import { buildMenu } from '/lib/menu'
+import { useRouter } from 'next/router'
 
 export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: string }
 
-export default function Layout({ children, menu, title }: LayoutProps) {
+export default function Layout({ children, menu : menuFromProps, title }: LayoutProps) {
 
 	const { color, layout } = usePage()
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch], shallow)
+	const [menu, setMenu] = useState(menuFromProps)
+
+	useEffect(()=>{ // Refresh menu on load.
+		buildMenu().then(res => setMenu(res)).catch(err => console.error(err))
+	}, [])
 	
 	return (
 		<>
@@ -19,9 +31,7 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 				<MenuDesktop items={menu} onShowSiteSearch={()=>setShowSiteSearch(true)}/>
 				<MenuMobile items={menu}/>
 				<SiteSearch show={showSiteSearch} onClose={()=>setShowSiteSearch(false)}/>
-				{layout !== 'full' && 
-					<Sidebar title={title}/>
-				}
+				<Sidebar title={title} show={layout !== 'full'}/>
 				<Content>
 					{children}
 				</Content>
@@ -29,6 +39,7 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 					show={gallery?.index > -1}
 					images={gallery?.images}
 					index={gallery?.index}
+					padImagesWithTitle={gallery?.padImagesWithTitle}
 					onClose={() => setGallery({...gallery, index:-1})}
 				/>
 				<Cart/>
@@ -37,40 +48,5 @@ export default function Layout({ children, menu, title }: LayoutProps) {
 			
 			<Grid />
 		</>
-	)
-}
-
-const Grid = () => {
-
-	const [showGrid, setShowGrid] = useState(false)
-
-	useEffect(() => {
-		const toggleGrid = ({ key, target }) => target.tagName !== 'INPUT' && key === 'g' && setShowGrid(!showGrid)
-		document.addEventListener('keydown', toggleGrid)
-		return () => document.removeEventListener('keydown', toggleGrid)
-	}, [showGrid, setShowGrid])
-
-	if (!showGrid) return null
-
-	return (
-		<div className={styles.grid}>
-			<div className={styles.gridWrapper}>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-				<div className={styles.gridItem}></div>
-			</div>
-		</div>
 	)
 }

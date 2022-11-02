@@ -21,6 +21,7 @@ class MyDocument extends Document {
           <link rel="preload" href="/fonts/IndivisibleWebVariableRoman.woff2" as="font" crossOrigin="" type="font/woff2"/>
           <link rel="preload" href="/fonts/IndivisibleWebRegular.woff2" as="font" crossOrigin="" type="font/woff2"/>
           <link rel="preload" href="/fonts/IndivisibleWebMedium.woff2" as="font" crossOrigin="" type="font/woff2"/>
+          <link rel="preload" href="/fonts/OrsjoVF.woff2" as="font" crossOrigin="" type="font/woff2"/>
         </Head>
         <body>
           <Main />

@@ -79,9 +79,15 @@
   }
 
   &.mid {
+    figcaption>.title {
+     color: $light-gray;
+    }
+    figcaption>.title>.subtitle {
+      color: $black;
+    }
     &:hover {
       figcaption>.title>.subtitle {
-        color: $white;
+        color: $light-gray;
       }
     }
   }
@@ -184,7 +190,7 @@
     justify-content: center;
     top: 0;
     left: 0;
-    background-color: #DF3600;
+    background-color: $copper;
 
     border-radius: 50%;
     line-height: 0;

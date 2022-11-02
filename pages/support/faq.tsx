@@ -2,7 +2,7 @@ import styles from './faq.module.scss'
 import { FaqStartDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import { Section } from '/components'
 import { useState, useEffect } from 'react';
@@ -50,7 +50,7 @@ export default function Faqs({ faqs, faqStart, faqsByCategory }: FaqsProps) {
 								>
 									<div className={styles.header}>
 										<h2 className={styles.question}>{question}</h2>
-										<div className={styles.indicator}>+</div>
+										<div className={styles.indicator}>{list[id] ? '-' : '+'}</div>
 									</div>
 									<Markdown className={cn(styles.answer, "medium")}>{answer}</Markdown>
 								</li>
@@ -71,11 +71,11 @@ export const getStaticProps = withGlobalProps({ queries: [FaqStartDocument] }, a
 	const faqs = props.faqs as FaqRecord[];
 
 	faqs.forEach(f => {
-		if (!faqsByCategory[f.category?.id])
-		faqsByCategory[f.category?.id] = { id: f.category?.id, title: f.category?.title, items: [] }
+		if (!faqsByCategory[f.category.id])
+			faqsByCategory[f.category?.id] = { id: f.category?.id, title: f.category?.title, items: [] }
 		faqsByCategory[f.category?.id].items.push(f)
 	})
-
+	
 	return {
 		props:{
 			...props,

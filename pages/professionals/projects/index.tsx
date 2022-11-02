@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import { ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import { ProjectThumbnail, Section } from '/components';
 

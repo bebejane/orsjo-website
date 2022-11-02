@@ -1,9 +1,9 @@
 import styles from './PageTransition.module.scss'
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import usePreviousRoute from '/lib/hooks/usePreviousRoute';
+import { usePreviousRoute } from 'dato-nextjs-utils/hooks'
 import { useEffect, useState } from 'react';
-import { useStore } from '/lib/store';
+import { useStore, shallow } from '/lib/store';
 
 const duration = {
 	enter: 0.5,
@@ -68,7 +68,7 @@ export default function PageTransition() {
 	const [color, setColor] = useState(pathToColor(router.asPath))
 	const prevRoute = usePreviousRoute();
 
-	const [setTransitioning] = useStore((state) => [state.setTransitioning])
+	const [setTransitioning] = useStore((state) => [state.setTransitioning], shallow)
 
 	const handleAnimationEvent = async (type, variant) => {
 		

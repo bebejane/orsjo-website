@@ -12,10 +12,12 @@ export type ThumbnailProps = {
   title: string,
   subtitle?: string,
   className?: string,
+  objectFit?: 'contain' | 'cover',
   markAsNew?: boolean,
   onClick?: () => void,
   theme?: 'dark' | 'light' | 'mid',
-  type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material'
+  type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material',
+  showMarkAsNew?: boolean
 }
 
 export default function Thumbnail({
@@ -28,8 +30,10 @@ export default function Thumbnail({
   markAsNew = false,
   className,
   onClick,
+  objectFit = 'contain',
   theme = 'light',
-  type = 'product'
+  type = 'product',
+  showMarkAsNew = true,
 }: ThumbnailProps) {
 
   const [hovering, setHovering] = useState(false);
@@ -44,7 +48,7 @@ export default function Thumbnail({
             data={image.responsiveImage}
             className={styles.image}
             layout={'fill'}
-            objectFit={'contain'}
+            objectFit={objectFit}
           />
         }
         {imageHover && !isTouch &&
@@ -81,7 +85,7 @@ export default function Thumbnail({
         <div className={styles.wrap}>{content}</div>
       }
       
-      {markAsNew &&
+      {markAsNew && showMarkAsNew &&
         <div className={cn(styles.markAsNew)}>
           <span>New</span>
         </div>
@@ -93,14 +97,15 @@ export default function Thumbnail({
 export type BaseThumbnailProps = {
   inverted?: boolean,
   className?: string,
-  theme: 'dark' | 'light' | 'mid'
+  theme: 'dark' | 'light' | 'mid',
+  showMarkAsNew?: boolean
 }
 
 export type ProductThumbnailProps = BaseThumbnailProps & {
   product: ProductRecord
 }
 
-export function ProductThumbnail({ product, inverted, theme = 'dark', className }: ProductThumbnailProps) {
+export function ProductThumbnail({ product, inverted, theme = 'dark', className, showMarkAsNew }: ProductThumbnailProps) {
 
   return (
     <Thumbnail
@@ -114,6 +119,7 @@ export function ProductThumbnail({ product, inverted, theme = 'dark', className 
       theme={theme}
       markAsNew={product.markAsNew}
       type="product"
+      showMarkAsNew={showMarkAsNew}
     />
   )
 }
@@ -122,7 +128,7 @@ export type ProjectThumbnailProps = BaseThumbnailProps & {
   project: ProjectRecord,
 }
 
-export function ProjectThumbnail({ project, inverted, theme = 'dark', className }: ProjectThumbnailProps) {
+export function ProjectThumbnail({ project, inverted, theme = 'dark', className, showMarkAsNew }: ProjectThumbnailProps) {
 
   return (
     <Thumbnail
@@ -135,6 +141,7 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark', className 
       className={className}
       theme={theme}
       type="project"
+      showMarkAsNew={showMarkAsNew}
     />
   )
 }
@@ -142,7 +149,7 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark', className 
 export type DesignerThumbnailProps = BaseThumbnailProps & {
   designer: DesignerRecord
 }
-export function DesignerThumbnail({ designer, inverted, theme = 'dark', className }: DesignerThumbnailProps) {
+export function DesignerThumbnail({ designer, inverted, theme = 'dark', className, showMarkAsNew }: DesignerThumbnailProps) {
 
   return (
     <Thumbnail
@@ -153,6 +160,7 @@ export function DesignerThumbnail({ designer, inverted, theme = 'dark', classNam
       className={className}
       theme={theme}
       type="designer"
+      showMarkAsNew={showMarkAsNew}
     />
   )
 }
@@ -160,7 +168,7 @@ export function DesignerThumbnail({ designer, inverted, theme = 'dark', classNam
 export type NewsThumbnailProps = BaseThumbnailProps & {
   news: NewsRecord,
 }
-export function NewsThumbnail({ news, inverted, theme = 'dark', className }: NewsThumbnailProps) {
+export function NewsThumbnail({ news, inverted, theme = 'dark', className, showMarkAsNew }: NewsThumbnailProps) {
 
   return (
     <Thumbnail
@@ -171,6 +179,7 @@ export function NewsThumbnail({ news, inverted, theme = 'dark', className }: New
       className={className}
       theme={theme}
       type="news"
+      showMarkAsNew={showMarkAsNew}
     />
   )
 }
@@ -178,7 +187,7 @@ export function NewsThumbnail({ news, inverted, theme = 'dark', className }: New
 export type StaffThumbnailProps = BaseThumbnailProps & {
   staff: StaffRecord,
 }
-export function StaffThumbnail({ staff, inverted, theme = 'dark', className }: StaffThumbnailProps) {
+export function StaffThumbnail({ staff, inverted, theme = 'dark', className, showMarkAsNew }: StaffThumbnailProps) {
 
   return (
     <Thumbnail
@@ -189,6 +198,7 @@ export function StaffThumbnail({ staff, inverted, theme = 'dark', className }: S
       className={className}
       theme={theme}
       type="staff"
+      showMarkAsNew={showMarkAsNew}
     />
   )
 }

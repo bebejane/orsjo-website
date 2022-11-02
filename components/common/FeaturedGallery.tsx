@@ -4,11 +4,10 @@ import { styleVariables } from "/lib/utils";
 import cn from 'classnames'
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
-import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, ArrowButton } from '/components'
+import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, Thumbnail, ArrowButton } from '/components'
 import { useEffect, useRef, useState } from "react";
 import { usePage } from "/lib/context/page";
 import { useWindowSize } from "rooks";
-
 
 export type FeaturedGalleryProps = { 
 	products?: ProductRecord[], 
@@ -21,7 +20,8 @@ export type FeaturedGalleryProps = {
 	theme: 'dark' | 'light' | 'mid',
 	arrowAlign?: 'top' | 'middle',
 	inverted?: boolean,
-	fadeColor?: string
+	fadeColor?: string,
+	showMarkAsNew?: boolean
 }
 
 export default function FeaturedGallery({ 
@@ -31,7 +31,8 @@ export default function FeaturedGallery({
 	theme, 
 	fadeColor = '--white',
 	arrowAlign = 'top',
-	inverted = false
+	inverted = false,
+	showMarkAsNew = true
 } : FeaturedGalleryProps ) {
 	
 	const { menu } = usePage()
@@ -81,6 +82,7 @@ export default function FeaturedGallery({
 									key={idx}
 									product={item as ProductRecord} 
 									theme={theme}
+									showMarkAsNew={showMarkAsNew}
 									className={styles.thumbnail}
 								/>
 							: item.__typename === 'ProjectRecord' ?								
@@ -88,6 +90,7 @@ export default function FeaturedGallery({
 									key={idx}
 									project={item as ProjectRecord} 
 									theme={theme}
+									showMarkAsNew={showMarkAsNew}
 									className={styles.thumbnail}
 								/>
 							: item.__typename === 'DesignerRecord' ?
@@ -95,9 +98,22 @@ export default function FeaturedGallery({
 									key={idx}
 									designer={item as DesignerRecord} 
 									theme={theme}
+									showMarkAsNew={showMarkAsNew}
 									className={styles.thumbnail}
 								/>
-							: 
+							: item.title && item.image ?
+								<Thumbnail 
+									key={idx}
+									slug={item.slug}
+									title={item.title}
+									image={item.image}
+									imageHover={item.environmentImage}
+									theme={theme}
+									objectFit={'cover'}
+									showMarkAsNew={showMarkAsNew}
+									className={styles.thumbnail}
+								/>
+							:
 								null
 							}
 						</SwiperSlide>

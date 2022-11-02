@@ -11,8 +11,13 @@ import { Section, ContactModal } from '/components'
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
+<<<<<<< HEAD
 import Markdown from '/lib/dato/components/Markdown';
 import {  useState } from 'react';
+=======
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { useState } from 'react';
+>>>>>>> master
 
 export type ContactProps = {
 	contact: ContactRecord,
@@ -61,7 +66,10 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 				<div className={styles.imageWrap}>
 					<Image data={contact.image.responsiveImage} className={styles.image} />
 				</div>
-				<ContactModal show={showContactForm} onClose={() => setShowContactForm(false)} />
+				<ContactModal 
+					show={showContactForm} onClose={() => setShowContactForm(false)} 
+					message={contact.contactFormMessage}
+				/>
 			</Section>
 
 			<Section name="People" className={styles.staffSection} bgColor='--red'>
@@ -123,6 +131,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 						<div key={idx} className={styles.distributor}>
 							<p className="medium">
 								<span className="white">{country.name}</span><br />
+								{name}<br />
 								{address && <>{address}<br /></>}
 								{postalCode && <>{postalCode}<br /></>}
 								{city && <>{city}<br /></>}

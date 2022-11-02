@@ -2,7 +2,7 @@ import styles from './downloads.module.scss'
 import { AllProductDownloadsDocument, AllCataloguesDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import React, { useState, useEffect, useRef } from 'react';
 import { Section, Icon } from '/components'
@@ -18,9 +18,12 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 	const ref = useRef<HTMLInputElement>()
 
 	useEffect(() => {
-		if (!search || !products) return setResults(products)
+		if (!search || !products) 
+			return setResults(products)
+
 		const res = products.filter(({ title }) => title.toLowerCase().startsWith(search.toLowerCase()))
 		setResults(res)
+		
 	}, [search, products, setResults])
 
 	useEffect(()=>{ ref.current.focus() }, [ ref])
@@ -88,7 +91,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 														<>
 															<div key={`f-${idx}`} className={styles.item}>
 																<a href={href} download target="_new">
-																	<Icon type={type} label={label} />
+																	<Icon type={'pdf'} label={label} />
 																</a>
 															</div>
 															{idx % 2 === 1 && <hr key={`hr-${idx}`} />}
@@ -123,7 +126,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 								</td>
 								<td>
 									<a href={`${pdf.url}?dl=${title}.pdf`} download target="_new">
-										<Icon type={'pdf'} label={title} />
+										<Icon label={title} />
 									</a>
 								</td>
 								<td></td>

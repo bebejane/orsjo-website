@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState, useEffect, FormEventHandler, useRef } from 'react'
 import { usePage } from '/lib/context/page'
-import { useStore } from '/lib/store'
+import { useStore, shallow } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
 import { SiteSearch } from '/components'
 import type { Menu } from '/lib/menu'
@@ -24,7 +24,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	const [showSearch, setShowSearch] = useState(false);
 	const [selected, setSelected] = useState(undefined)
-	const [transitioning] = useStore((state) => [state.transitioning])
+	const [transitioning] = useStore((state) => [state.transitioning], shallow)
 	const sub = items.find((item) => item.type === selected)?.sub
 	const subHeader = selected ? items.find(i => i.type === selected).label : null
 
@@ -61,11 +61,6 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	return (
 		<>
-			<Link scroll={false} href={'/'}>
-				<a className={cn(styles.logo, (open || (open || menu == 'inverted')) && styles.inverted)}>
-					<img id={'logo-mobile'} src={'/images/logo.svg'}/>
-				</a>
-			</Link>
 			<div className={styles.hamburger}>
 				<Hamburger
 					toggled={open}

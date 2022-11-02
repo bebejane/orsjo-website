@@ -51,22 +51,50 @@
         object-fit: contain !important;
         min-height: 100vh;
       }
+      &.padded{
+        background-color: #ffffff;
+
+        picture, .image, .svg{
+          min-height: calc(100vh - 2rem);
+          max-height: calc(100vh - 2rem);
+          padding: 0;
+          padding-bottom: 5rem;
+        }
+        .svg{
+
+          @include mq($until: tablet){
+            padding-bottom: 0;
+            min-height: calc(100vh - 8rem);
+            max-height: calc(100vh - 8rem);
+            img{
+              min-height: 100%;
+              max-height: 100%;
+            }
+          } 
+        }
+      }
       .svg{
         background-color: $white;
-        min-height: calc(100vh);
-        max-height: calc(100vh);
-        min-width: calc(80vw - $small-margin);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        max-height: 100vh;
         padding: $small-margin;
         @include mq($until: tablet){
           min-height: calc(80vh - $small-margin);
           max-height: calc(80vh - $small-margin);
         }
         img{
-          width: 100%;
+          height: 100%;
+          min-height: auto;
+          max-height: calc(100% - 4rem);
+          max-width: 100%;
         }
       }
       .loading{
         position: absolute;
+        background-color: $black;
         z-index: 100;
         top:0;
         left:0;

@@ -1,6 +1,6 @@
 import scssExports from '/styles/exports.module.scss'
 import { buildClient } from '@datocms/cma-client-browser';
-import { apiQuery } from '/lib/dato/api';
+import { apiQuery } from 'dato-nextjs-utils/api';
 import { SiteSearchDocument } from '/graphql'
 
 export const isServer = typeof window === 'undefined';
@@ -72,7 +72,8 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
   const specs = {
     designer: product.designer?.name,
     electricalData: product.electricalData.map((el) => el.name).join(', '),
-    description: product.presentation,
+    additionalInformation: product.additionalInformation ? (product.additionalInformation + (product.dimmable?.name ? `. ${product.dimmable?.name}` : '')) : undefined,
+    dimmable:product.dimmable?.name,
     connection: product.connection?.name,
     mounting: product.mounting?.name,
     lightsource: lightsources.map(({ amount, included, name }) => `${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
@@ -97,12 +98,16 @@ export const recordImages = (obj, exclude: string[] = [], images: FileField[] = 
       recordImages(obj[key], exclude, images)
   })
 
+  return dedupeImages(images)
+}
+
+export const dedupeImages = (images : FileField[]) : FileField[] => {
   return images.reduce((unique, o) => {
     if (!unique.some(obj => obj.id === o.id))
       unique.push(o);
     return unique;
   }, []);
-}
+} 
 
 export const siteSearch = async (q: string) => {
 
@@ -215,8 +220,6 @@ export const waitForElement = async (id: string, ms:number) : Promise<HTMLElemen
   return el
 }
 
-
-
 export const sortSwedish = <T>(arr: T[], key?: string) : T[] => {
   const alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Å", "Ä", "Ö"];
   
@@ -233,6 +236,5 @@ export const scrollToId = (id:string, behavior: ScrollBehavior = 'smooth') => {
   const { tablet, navbarHeightMobile, navbarHeight } = styleVariables;
   const topMargin = 0//(window.innerWidth < tablet ? navbarHeightMobile : navbarHeight) as number
   const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
-  window.scrollTo({ top, behavior })
-  
+  window.scrollTo({ top, behavior }) 
 }

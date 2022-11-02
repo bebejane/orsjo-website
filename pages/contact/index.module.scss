@@ -103,7 +103,7 @@
 		flex: 0 0 100%;
 		position: relative;
 
-		&:nth-child(2) {
+		&:nth-child(even) {
 			flex-direction: row-reverse;
 
 			.left {

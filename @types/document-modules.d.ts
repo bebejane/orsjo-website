@@ -218,7 +218,6 @@ declare module '*/global.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const Global: DocumentNode;
-export const Menu: DocumentNode;
 
   export default defaultDocument;
 }
@@ -233,18 +232,28 @@ declare module '*/intl.gql' {
 }
     
 
+declare module '*/menu.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Menu: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/product.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const Product: DocumentNode;
+  export const ProductStart: DocumentNode;
+export const Product: DocumentNode;
 export const AllProducts: DocumentNode;
 export const AllProductsLight: DocumentNode;
 export const AllProductManuals: DocumentNode;
 export const AllProductDownloads: DocumentNode;
-export const ProductStart: DocumentNode;
 export const ProductCategories: DocumentNode;
 export const AllProductsByDesigner: DocumentNode;
 export const RelatedProducts: DocumentNode;
+export const RelatedProjectsForProduct: DocumentNode;
 export const AllProductsByCategory: DocumentNode;
 
   export default defaultDocument;
@@ -260,6 +269,7 @@ export const AllRelatedProjects: DocumentNode;
 export const ProjectStart: DocumentNode;
 export const AllProjectTypes: DocumentNode;
 export const Bespoke: DocumentNode;
+export const BespokeThumbnail: DocumentNode;
 export const FactoryVisit: DocumentNode;
 export const AllCatalogues: DocumentNode;
 export const AllColorsAndMaterials: DocumentNode;

@@ -1,22 +1,3 @@
-.logo {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  top:0;
-  left: var(--outer-margin);
-  z-index: 300;
-  max-height: $navbarHeightMobile;
-  min-height: $navbarHeightMobile;
-  
-  img{
-    min-height: 36  px;
-    max-height: 36px;
-  }
-  &.inverted {
-    filter: invert(1);
-  }
-}
-
 .hamburger {
   position: fixed;
   display: flex;

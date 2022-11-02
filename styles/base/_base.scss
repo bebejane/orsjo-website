@@ -14,7 +14,6 @@ body {
 	margin: 0;
 	padding: 0;
 	overscroll-behavior-x: contain;
-	//scroll-behavior: smooth;
 }
 
 html {
@@ -87,10 +86,61 @@ a {
 	}
 }
 
-button {
+button { 
 	background-color: transparent;
 	padding: 1em;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
   border: 1px solid $white;
 	outline:none;
 	line-height: 1em;
+	&:hover {
+		background: $white;
+		color: $black !important;
+		cursor: pointer;
+	}
+}
+
+::placeholder{
+	font-family: $body-font;	
+}
+
+// Achor link scroll margin from top of page
+[id]{
+	@include mq($from: tablet){
+		scroll-margin-top: 4.5rem;
+	}
+	@include mq($until: tablet){
+		scroll-margin-top: 	$navbarHeightMobile;
+	}
+}
+
+[data-image-zoom]{
+	img{
+		transition: transform 0.5s ease !important;	
+		transform: scale(1);
+		&:hover{
+			transform: scale(1.02);
+		}		
+	}
+}
+
+[data-image-zoom="small"]{
+	img{
+		&:hover{
+			transform: scale(1.1);
+		}		
+	}
+}
+
+[data-image-zoom="medium"]{
+	img{
+		&:hover{
+			transform: scale(1.04);
+		}		
+	}
+}
+
+input, ::placeholder {
+	font-family: $headline-font;
 }

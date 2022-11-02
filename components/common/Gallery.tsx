@@ -1,6 +1,7 @@
 import "swiper/css";
 import styles from './Gallery.module.scss'
 import cn from 'classnames'
+import React from 'react'
 import { Image } from "react-datocms"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef, useEffect } from 'react';
@@ -11,10 +12,11 @@ export type GalleryProps = {
   images: FileField[],
   onClose: (event?: React.MouseEvent) => void,
   index: number,
-  show: boolean
+  show: boolean,
+  padImagesWithTitle?: boolean
 }
 
-export default function Gallery({ images, onClose, index = 0, show }: GalleryProps) {
+export default function Gallery({ images, onClose, index = 0, show, padImagesWithTitle = false }: GalleryProps) {
 
   const swiperRef = useRef<SwiperType | undefined>()
   const [realIndex, setRealIndex] = useState(index)
@@ -55,7 +57,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
           onSwiper={(swiper) => swiperRef.current = swiper}
         >
           {images.map((image, idx) =>
-            <SwiperSlide key={idx} className={styles.slide}>
+            <SwiperSlide key={idx} className={cn(styles.slide, padImagesWithTitle && image.title && styles.padded)}>
               {image.responsiveImage ?
                 <Image
                   pictureClassName={styles.image}
@@ -68,7 +70,7 @@ export default function Gallery({ images, onClose, index = 0, show }: GalleryPro
                 <div className={styles.svg}>
                   <img 
                     src={image.url} 
-                    className={styles.image} 
+                    className={styles.image}
                     onLoad={()=>setLoaded({...loaded, [image.id]:true})}
                   />
                 </div>

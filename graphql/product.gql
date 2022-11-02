@@ -2,6 +2,20 @@
 #import "./fragments/ProductLightFragment.gql"
 #import "./fragments/ImageFragment.gql"
 
+query ProductStart {
+  productStart {
+    id
+    featured {
+      id
+      headline
+      showMarkAsNew
+      items {
+        ...ProductLightFragment
+      }
+    }
+  } 
+}
+
 query Product($slug: String, $locale: SiteLocale = en) {
 	product(locale: $locale, fallbackLocales: [sv, en], filter: {slug: { eq: $slug }}) {
 		...ProductFragment
@@ -66,18 +80,6 @@ query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip
     
 	}
 }
-query ProductStart {
-  productStart {
-    id
-    featured {
-      id
-      headline
-      items {
-        ...ProductLightFragment
-      }
-    }
-  } 
-}
 
 query ProductCategories {
   productCategories : allProductCategories {
@@ -103,6 +105,16 @@ query RelatedProducts($designerId: ItemId, $familyId: ItemId,  $first: IntType =
       ]
     }) {
 		...ProductLightFragment
+	}
+}
+
+query RelatedProjectsForProduct($productId: ItemId, $first: IntType = 100) {
+	relatedProjects: allProjects(
+    first: $first,
+    filter: { 
+      relatedProducts :{ anyIn: [$productId]}
+    }) {
+		...ProjectLightFragment
 	}
 }
 

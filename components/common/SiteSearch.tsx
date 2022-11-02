@@ -2,11 +2,18 @@ import styles from './SiteSearch.module.scss'
 import { styleVariables } from '/lib/utils'
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react';
-import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail, Loader } from '/components';
+import { 
+	ProductThumbnail, 
+	ProjectThumbnail, 
+	DesignerThumbnail, 
+	NewsThumbnail, 
+	StaffThumbnail, 
+	Loader 
+} from '/components';
 import { AnchorLink } from '/components';
 import { useDebouncedValue, useWindowSize } from 'rooks';
 import { siteSearch, truncateParagraph } from '/lib/utils'
-import useStore from '/lib/store';
+import { useStore, shallow } from '/lib/store';
 
 export type SearchResultCategory = {
 	[key: string]: any
@@ -24,7 +31,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 	const [query, setQuery] = useState<string | undefined>()
 	const [inputValue, setInputValue] = useState<string | undefined>()
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
-	const [setShowSiteSearch, transitioning] = useStore((state) => [state.setShowSiteSearch, state.transitioning])
+	const [setShowSiteSearch, transitioning] = useStore((state) => [state.setShowSiteSearch, state.transitioning], shallow)
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
@@ -34,17 +41,19 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 	const thumbnailTheme = innerWidth < styleVariables.tablet ? 'dark' : 'light'
 
 	useEffect(() => {
-		if (!debouncedQuery) return setResult(undefined)
+		if (!debouncedQuery) {
+			setResult(undefined)
+			return setLoading(false)
+		}
 
 		setLoading(true)
 		setQuery(inputValue)
-		siteSearch(inputValue).then(async (cats) => {
-			setResult(cats)
-		})
+		siteSearch(inputValue)
+			.then(async (cats) => setResult(cats))
 			.catch(err => setError(err))
 			.finally(() => setLoading(false))
 
-	}, [debouncedQuery, setLoading, setError])
+	}, [debouncedQuery, setLoading, setError, inputValue])
 
 
 	useEffect(() => {
@@ -60,7 +69,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 		setQueryImmediate(undefined)
 	}, [inputValue, setQueryImmediate])
 
-	useEffect(() => { !transitioning && setShowSiteSearch(false) }, [transitioning])
+	useEffect(() => { !transitioning && setShowSiteSearch(false) }, [transitioning,setShowSiteSearch])
 	useEffect(() => { loading && setResult({}) }, [loading, setResult])
 	useEffect(() => { show && ref.current.focus() }, [show, ref])
 	useEffect(() => { queryAsProp && setInputValue(queryAsProp) }, [queryAsProp])
@@ -81,10 +90,8 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 				/>
 			</div>
 			<div className={styles.results}>
-				{result && Object.keys(result).map(model => {
-
+				{inputValue && result && Object.keys(result).map(model => {
 					const items = result[model]
-
 					return (
 						<>
 							<h1>{model}</h1>

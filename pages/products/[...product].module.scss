@@ -2,12 +2,18 @@
 .product {
 	position: relative;
 	background-color: $white;
-	padding-top: 4.5rem;
+	
 	.intro {
 		position: relative;
 		width: 100%;
-		height: 60vh;
-		min-height: 80vh;
+		
+		@include mq($until:tablet){
+			min-height: 60vh;
+		}
+		@include mq($from:tablet){
+			min-height: calc(100vh - $navbarHeight);
+			max-height: calc(100vh - $navbarHeight);
+		}
 		background-color: white;
 		cursor: pointer;
 		.image{
@@ -16,7 +22,6 @@
 		}
 		.overlay {
 			position: absolute;
-			//background-color: rgba(255, 255, 255, 0.2);
 			top: 0;
 			left: 0;
 			width: 100%;
@@ -48,6 +53,21 @@
 			}
 		}
 	}
+	
+}
+
+.description{
+	margin-top: $small-margin;
+	padding-right: 20%;
+
+	p {
+		margin-bottom: 0;
+	}
+	
+	@include mq($until: tablet){
+		padding-right: 0;
+	}
+
 }
 
 .listItemContent{
@@ -65,6 +85,9 @@
 		width: 100%; 
 		column-count: 2;
 		column-gap: nestedGridGutter(12);
+		@include mq($until: tablet) {	
+			column-count: 1;
+		}
 		li{
 			display: flex;
 			flex-direction: row;
@@ -160,7 +183,7 @@
 					}
 					
 					&.subheader{
-						color: $gray;
+						color: $black;
 					}
 					
 				}
@@ -209,17 +232,21 @@
 		display: flex;
 		
 		span {
-			width: spanNestedGrid(12,2,1);
+			min-width: spanNestedGrid(12,2, true);
+			@include mq($until: tablet){
+				min-width: spanNestedGrid(16, 6, true);
+			}
 			flex-basis: auto;
 			color: $gray;
 		}
 		button{
 			padding:0;
 			margin: 0;
+			
 			font-size: inherit;
 			cursor: pointer;
 			width: spanNestedGrid(12,10);
-			text-align: left;;
+			text-align: left;
 		}
 	}
 	.specifications{
@@ -283,8 +310,11 @@
 	padding-top: $small-margin;
 	padding-bottom: $margin;
 
-	& > div:first-child {
+	& > div{
 		padding-bottom: $small-margin;
+		&:last-child{
+			padding-bottom: 0;
+		}
 	}
 
 }

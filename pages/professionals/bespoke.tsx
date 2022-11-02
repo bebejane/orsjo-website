@@ -3,24 +3,37 @@ import { BespokeDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
 import { Image } from 'react-datocms'
-import Markdown from '/lib/dato/components/Markdown';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { useScrollInfo } from 'dato-nextjs-utils/hooks';
 import { PageProps } from '/lib/context/page';
-import { ProjectThumbnail, Section } from '/components';
+import { ProjectThumbnail, Section, TextReveal } from '/components';
 import { recordImages } from '/lib/utils'
-import { useStore } from 'lib/store';
-import { useEffect } from 'react';
+import { shallow, useStore } from 'lib/store';
+import { useEffect, useState } from 'react';
 import cn from 'classnames'
 
 export type BespokeProps = { bespoke: BespokeRecord }
 
 export default function Bespoke({ bespoke }: BespokeProps) {
 
-	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId])
-	
+	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
+	const { scrolledPosition, viewportHeight } = useScrollInfo()
+	const [imageStyle, setImageStyle] = useState({opacity:0.2, filter:'grayscale(1)'})
+
 	useEffect(() => {
 		setGallery({ images: recordImages(bespoke) })
 	}, [bespoke, setGallery])
 
+	
+	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
+	
+	useEffect(()=>{
+		setImageStyle({
+			opacity: Math.min(0.2 + ((viewportScrollRatio || 0) *4), 1),
+			filter: `grayscale(${Math.max((1-(viewportScrollRatio*4)), 0)})`
+		})
+	}, [viewportScrollRatio, setImageStyle])
+	
 	return (
 		<>
 			<Section className={styles.bespoke} type={'full'}>
@@ -29,8 +42,13 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					layout='fill'
 					objectFit='cover'
 					className={styles.image}
+					style={imageStyle}
 				/>
-				<h1>Custom made lighting</h1>
+				<h1>
+					<TextReveal>
+						Custom made lighting
+					</TextReveal>
+				</h1>
 			</Section>
 			<Section name="Intro" className={styles.intro} type="margin" bgColor={'--gray'}>
 				<h1>{bespoke.title}</h1>

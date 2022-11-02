@@ -1,10 +1,10 @@
 import styles from './[...designer].module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import { AllDesignersDocument, DesignerDocument, AllProductsByDesignerDocument, AllProductsLightDocument } from '/graphql'
-import { apiQuery } from '/lib/dato/api'
+import { apiQuery } from 'dato-nextjs-utils/api'
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page'
-import { ProductThumbnail, Section, FeaturedGallery } from '/components'
+import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '/components'
 
 export type DesignerProps = { designer: DesignerRecord, products: ProductRecord[], designers: DesignerRecord[] };
 
@@ -15,7 +15,11 @@ export default function Designer({ designer, products, designers }: DesignerProp
 			<Section type="full" className={styles.designer}>
 				<header>
 					<div className={styles.artist} key={designer.id}>
-						<h1>{designer.name}</h1>
+						<h1>
+							<TextReveal block={true}>
+								{designer.name}
+							</TextReveal>
+						</h1>
 						<p className="large">
 							{designer.description}
 						</p>

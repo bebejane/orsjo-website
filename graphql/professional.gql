@@ -58,6 +58,17 @@ query Bespoke {
 	}
 }
 
+query BespokeThumbnail {
+	bespokeThumbnail : bespoke {
+		thumbnail{
+			...ImageThumbnailFragment
+		}
+		secondaryThumbnail {
+			...ImageThumbnailFragment
+		}
+	}
+}
+
 query FactoryVisit {
 	factoryVisit {
     id

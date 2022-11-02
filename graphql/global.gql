@@ -5,22 +5,3 @@ query Global {
 		...SiteFragment
 	}
 }
-
-query Menu {
-  allDesigners(first: 100, orderBy: [name_ASC]){
-    id
-    slug
-    name
-  }
-  allProducts(first: 100){
-    id
-    designer{
-      id
-    }
-  }
-  allProductCategories{
-    id
-    name
-    namePlural
-  }
-}
