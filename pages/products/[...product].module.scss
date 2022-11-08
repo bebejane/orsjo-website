@@ -9,26 +9,37 @@
 		@include mq($until: tablet) {
 			min-height: 60vh;
 		}
+
 		@include mq($from: tablet) {
-			min-height: calc(100vh - $navbarHeight);
-			max-height: calc(100vh - $navbarHeight);
+			min-height: calc(100vh - $navbarHeight - $small-margin);
+			max-height: calc(100vh - $navbarHeight - $small-margin);
 		}
+
 		background-color: white;
 		cursor: pointer;
+
 		.image {
 			mix-blend-mode: multiply;
 			padding-bottom: 3em;
+
+			@include mq($until: tablet) {
+				padding-bottom: 0;
+			}
 		}
+
 		.overlay {
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
+
 			.text {
 				position: relative;
 				width: 100%;
 				height: 100%;
+				max-width: 100%;
+
 				.title {
 					position: absolute;
 					top: 0;
@@ -36,6 +47,7 @@
 					padding-top: 0.4em;
 					@include h1Big();
 				}
+
 				.designer {
 					position: absolute;
 					right: 0.5em;
@@ -43,7 +55,10 @@
 					text-align: right;
 					bottom: 0;
 					@include h1Big();
+					width: 100%;
+
 				}
+
 				.type {
 					position: absolute;
 					top: 1.5rem;
@@ -66,6 +81,7 @@
 		@include mq($until: tablet) {
 			padding-bottom: $small-margin / 2;
 		}
+
 		margin-bottom: 0;
 	}
 
@@ -78,38 +94,47 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+
 	&.top {
 		margin-top: $margin;
 	}
+
 	&.bottom {
 		margin-bottom: $margin;
 	}
+
 	ul {
 		list-style: none;
 		width: 100%;
 		column-count: 2;
 		column-gap: nestedGridGutter(12);
+
 		@include mq($until: tablet) {
 			column-count: 1;
 		}
+
 		li {
 			display: flex;
 			flex-direction: row;
 			break-inside: avoid-column;
 			width: 100%;
+
 			span {
 				&:nth-child(odd) {
 					color: $gray;
 					flex: 1 1 spanNestedGrid(6, 2, true);
 				}
+
 				&:nth-child(even) {
 					flex: 1 1 spanNestedGrid(6, 4, false);
 					padding-right: 1em;
 				}
+
 				@include mq($until: tablet) {
 					&:nth-child(odd) {
 						flex: 0 0 calc(spanGrid(6) + $gutter);
 					}
+
 					&:nth-child(even) {
 						flex: 1 1 auto;
 					}
@@ -117,29 +142,36 @@
 			}
 		}
 	}
+
 	.articles {
 		width: 100%;
 		border-top: 1px solid $mid-gray;
+
 		header {
 			display: flex;
 			flex-direction: row;
 			width: 100%;
 			color: $gray;
 			margin-bottom: 0.5em;
+
 			span {
 				&:nth-child(odd) {
 					flex: 0 0 spanNestedGrid(12, 2, true);
 				}
+
 				&:nth-child(even) {
 					flex: 0 0 spanNestedGrid(12, 4, true);
 				}
+
 				@include mq($until: tablet) {
 					&:nth-child(1) {
 						flex: 0 0 calc(spanGrid(6) + $gutter);
 					}
+
 					&:nth-child(2) {
 						flex: 0 0 calc(spanGrid(10));
 					}
+
 					&:nth-child(3),
 					&:nth-child(4) {
 						display: none;
@@ -147,8 +179,10 @@
 				}
 			}
 		}
+
 		.content {
 			width: 100%;
+
 			ul {
 				list-style: none;
 				display: flex;
@@ -162,25 +196,31 @@
 					font-weight: normal;
 					padding-bottom: 0.5em;
 					flex: 0 0 100%;
+
 					@include mq($until: tablet) {
 						flex-wrap: wrap;
 					}
+
 					span {
 						&:nth-child(odd) {
 							flex: 0 0 spanNestedGrid(12, 2, true);
 						}
+
 						&:nth-child(even) {
 							flex: 0 0 spanNestedGrid(12, 4, true);
 						}
+
 						@include mq($until: tablet) {
 							&:nth-child(odd) {
 								flex: 0 0 calc(spanGrid(6) + $gutter);
 							}
+
 							&:nth-child(even) {
 								flex: 0 0 calc(spanGrid(10));
 								padding: 0;
 							}
 						}
+
 						&.header {
 							color: $gray;
 						}
@@ -191,31 +231,39 @@
 					}
 				}
 			}
+
 			&.multi {
 				column-count: 2;
 				column-gap: nestedGridGutter(12);
+
 				@include mq($until: tablet) {
 					column-count: 1;
 				}
+
 				ul {
 					flex-direction: column;
+
 					li {
 						span {
 							&:nth-child(odd) {
 								flex: 0 0 spanNestedGrid(6, 2, true);
 							}
+
 							&:nth-child(even) {
 								flex: 0 0 spanNestedGrid(6, 4, true);
 							}
+
 							@include mq($until: tablet) {
 								&:nth-child(odd) {
 									flex: 0 0 calc(spanGrid(6) + $gutter);
 								}
+
 								&:nth-child(even) {
 									flex: 0 0 calc(spanGrid(10));
 									padding: 0;
 								}
 							}
+
 							&.header {
 								color: $gray;
 							}
@@ -224,6 +272,7 @@
 				}
 			}
 		}
+
 		&:last-child {
 			border-bottom: 0;
 		}
@@ -236,12 +285,15 @@
 
 		span {
 			min-width: spanNestedGrid(12, 2, true);
+
 			@include mq($until: tablet) {
 				min-width: spanNestedGrid(16, 6, true);
 			}
+
 			flex-basis: auto;
 			color: $gray;
 		}
+
 		button {
 			padding: 0;
 			margin: 0;
@@ -252,6 +304,7 @@
 			text-align: left;
 		}
 	}
+
 	.specifications {
 		padding-bottom: 1em;
 		padding-top: 1.5em;
@@ -260,13 +313,16 @@
 		li {
 			padding-bottom: 0.5em;
 		}
+
 		tr {
+
 			td:nth-child(1),
 			td:nth-child(3) {
 				color: $gray;
 			}
 		}
 	}
+
 	.articles {
 		padding-bottom: 1em;
 		padding-top: 1.5em;
@@ -297,8 +353,10 @@
 				align-items: center;
 			}
 		}
+
 		@include mq($until: tablet) {
 			padding-top: 0em;
+
 			li {
 				flex: 0 0 50% !important;
 				margin-top: 1.5em;
@@ -311,8 +369,9 @@
 	padding-top: $small-margin;
 	padding-bottom: $margin;
 
-	& > div {
+	&>div {
 		padding-bottom: $small-margin;
+
 		&:last-child {
 			padding-bottom: 0;
 		}

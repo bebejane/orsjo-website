@@ -2,7 +2,7 @@ import styles from './[...product].module.scss'
 import cn from 'classnames'
 import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument } from '/graphql'
 import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
-import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles } from '/lib/utils'
+import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles, styleVariables } from '/lib/utils'
 import { apiQuery } from 'dato-nextjs-utils/api'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore, shallow } from '/lib/store'
@@ -14,6 +14,7 @@ import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import Link from 'next/link'
+import { useWindowSize } from 'rooks'
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -37,11 +38,14 @@ export default function Product({
 }: ProductProps) {
 
 	const router = useRouter()
+
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
+	const { innerWidth } = useWindowSize()
+	const singleModel = product.models.length === 1
+	const isMobile = innerWidth <= styleVariables.tablet;
 	const [list, setList] = useState({ specifications: false, downloads: false })
 	const [pictureStyle, setPictureStyle] = useState({ paddingBottom: '4em' })
-	const singleModel = product.models.length === 1
 	const images = useMemo(() => dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
 
 	const handleGalleryClick = (type: string, id: string) => {
@@ -83,7 +87,7 @@ export default function Product({
 						layout={'fill'}
 						fadeInDuration={100}
 						objectFit={'contain'}
-						pictureStyle={pictureStyle}
+						pictureStyle={!isMobile ? pictureStyle : undefined}
 					/>
 					<div className={styles.overlay}>
 						<div className={styles.text}>
