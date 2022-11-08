@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import * as EmailValidator from 'email-validator';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -6,6 +7,23 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
 
     const { subject, name, email, text } = req.body
+
+    if (!subject || !name || !EmailValidator.validate(email) || !text) {
+      const errors = []
+
+      if (!subject)
+        errors.push('Subject is empty')
+      if (!name)
+        errors.push('Name is empty')
+      if (!email)
+        errors.push('E-mail address is empty')
+      else if (!EmailValidator.validate(email))
+        errors.push('E-mail address is invalid')
+      if (!text)
+        errors.push('Message is empty')
+
+      return res.status(500).json({ error: true, message: errors.join('. ') })
+    }
 
     const transporter = nodemailer.createTransport({
       port: process.env.SMTP_PORT,
@@ -26,7 +44,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     transporter.sendMail(mailData, (err, info) => {
-      res.status(err ? 500 : 200)
+      if (err)
+        res.status(500).json({ error: true, message: err.message });
+      else
+        res.status(200).json({ success: true })
       console.error(err)
       console.log(info)
     })
