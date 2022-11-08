@@ -11,7 +11,7 @@ export default function handler(req : NextApiRequest, res: NextApiResponse) {
       port: process.env.SMTP_PORT,
       host: process.env.SMTP_SERVER,
       auth: {
-        user: process.env.SMTP_USER,
+        user: process.env.SMTP_EMAIL,
         pass: process.env.SMTP_PASSWORD,
       },
       secure: true,
@@ -24,9 +24,9 @@ export default function handler(req : NextApiRequest, res: NextApiResponse) {
       text
     }
 
-    setTimeout(()=> res.status(200).json({success:true}), 1000)
+    //setTimeout(()=> res.status(200).json({success:true}), 1000)
     
-    /*
+    
     transporter.sendMail(mailData,(err, info) => {
       if(err)
         res.status(500)
@@ -36,7 +36,7 @@ export default function handler(req : NextApiRequest, res: NextApiResponse) {
       console.error(err)
       console.log(info)
     })
-    */
+    
   
   } catch(err){
 

@@ -93,7 +93,7 @@
             z-index: 2;
             color: $black;
             visibility: hidden;
-
+            background-color: transparent;
             &.show {
               visibility: visible;
             }

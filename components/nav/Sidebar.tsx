@@ -112,7 +112,7 @@ export default function Sidebar({title, show} : SidebarProps) {
 						<input 
 							type="text" 
 							placeholder='Search' 
-							value={searchProducts} 
+							value={searchProducts || ''} 
 							onChange={(e) => setSearchProducts(e.target.value)}
 							onFocus={()=> setSearchFocus(true)}
 							onBlur={()=> setTimeout(()=>setSearchFocus(false), 100)}
