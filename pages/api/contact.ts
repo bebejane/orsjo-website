@@ -5,8 +5,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   try {
 
-    console.log(req.body);
-
     const { subject, name, email, text } = req.body
 
     const transporter = nodemailer.createTransport({
@@ -27,18 +25,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     transporter.sendMail(mailData, (err, info) => {
-      if (err)
-        res.status(500)
-      else
-        res.status(200)
-
+      res.status(err ? 500 : 200)
       console.error(err)
       console.log(info)
     })
 
-
   } catch (err) {
-
     res.status(500).json({ error: true, message: err.message });
   }
 }

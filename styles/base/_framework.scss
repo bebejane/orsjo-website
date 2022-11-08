@@ -1,7 +1,9 @@
 @use "sass:math";
 
 @function hexToRGBString($hexColor) {
-  @return #{red($hexColor)},#{green($hexColor)},#{blue($hexColor)};
+  @return #{red($hexColor)},
+  #{green($hexColor)},
+  #{blue($hexColor)};
 }
 
 $margin: 3rem;
@@ -20,8 +22,8 @@ $small-margin: 2rem;
   --mid-gray: #{hexToRGBString($mid-gray)};
   --warm-gray: #{hexToRGBString($warm-gray)};
   --red: #{hexToRGBString($red)};
+  --beige: #{hexToRGBString($beige)};
   --copper: #{hexToRGBString($copper)};
   --copper-light: #{hexToRGBString($copper-light)};
   --green: #{hexToRGBString($green)};
 }
-

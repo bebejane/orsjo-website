@@ -58,6 +58,8 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
   useEffect(() => {
     if (!show)
       setTimeout(resetForm, 300)
+
+    setError('fugg')
   }, [show, ref, resetForm, setFocus])
 
   if (error)

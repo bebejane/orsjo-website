@@ -27,7 +27,7 @@ const pageTransition = {
 	exit: {
 		height: ['0vh', '100vh'],
 		transition: { duration: duration.exit, ease: 'easeOut' },
-		
+
 	},
 	none: {
 		transition: { duration: duration.instant },
@@ -57,7 +57,7 @@ const pathToColor = (path) => {
 	if (path.startsWith('/designers')) return '--green'
 	if (path.startsWith('/professionals')) return '--gray'
 	if (path.startsWith('/about')) return '--black'
-	if (path.startsWith('/contact')) return '--red'
+	if (path.startsWith('/contact')) return '--beige'
 	if (path.startsWith('/support')) return '--copper'
 	if (path === '/') return '--black'
 }
@@ -71,13 +71,13 @@ export default function PageTransition() {
 	const [setTransitioning] = useStore((state) => [state.setTransitioning], shallow)
 
 	const handleAnimationEvent = async (type, variant) => {
-		
+
 		if (typeof variant !== 'string') return
 
 		if (variant.startsWith('exit'))
 			setTransitioning(type === 'start')
 	}
-	
+
 	useEffect(() => {
 		const handleRouteChange = (url, { shallow }) => {
 			const isSameSection = document.location.pathname.split('/')[1] === url.split('/')[1]
@@ -86,11 +86,11 @@ export default function PageTransition() {
 		router.events.on("routeChangeStart", handleRouteChange);
 		return () => router.events.off("routeChangeStart", handleRouteChange)
 	}, [router.events, setColor]);
-	
-	
+
+
 	const enterAnimation = !prevRoute ? "none" : !color ? "enterInstant" : "enter"
 	const exitAnimation = !color ? "exitInstant" : "exit"
-	
+
 	return (
 		<motion.div
 			className={styles.pageTransition}

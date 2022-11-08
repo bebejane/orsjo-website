@@ -1,11 +1,11 @@
 .informationSection {
-  display: flex;
+	display: flex;
 	flex-direction: row;
 	padding-bottom: $small-margin;
 
 	.info {
-    flex: 0 0 spanNestedGrid(12, 8);
-    padding-right: 1em;
+		flex: 0 0 spanNestedGrid(12, 8);
+		padding-right: 1em;
 
 		.getintouch {
 			display: flex;
@@ -22,17 +22,18 @@
 
 		button {
 			margin-top: 1em;
-			color:$white;
+			color: $white;
 			cursor: pointer;
 		}
 	}
 
 	.imageWrap {
 		flex: 1 1 100%;
-    width: 100%;
-    .image{
-      max-width: 100% !important;
-    }
+		width: 100%;
+
+		.image {
+			max-width: 100% !important;
+		}
 	}
 }
 
@@ -40,10 +41,11 @@
 	flex-direction: column;
 	padding-bottom: $margin;
 
-  h1 {
-    padding-top: $small-margin;
-    border-top: 1px solid $white;
-  }
+	h1 {
+		padding-top: $small-margin;
+		border-top: 1px solid $white;
+	}
+
 	.staff {
 		display: flex;
 		flex-direction: row;
@@ -53,28 +55,31 @@
 		.employee {
 			display: flex;
 			flex-direction: column;
-      width: spanNestedGrid(12,3);
-      margin-right: nestedGridGutter(12);
-      @include resetLastColumn(4);
+			width: spanNestedGrid(12, 3);
+			margin-right: nestedGridGutter(12);
+			@include resetLastColumn(4);
 
 			.image {
 				margin-bottom: .5em;
 
-        display: flex;
-        img, picture {
-          object-fit: cover;
-          aspect-ratio: 4 / 3;
-        }
+				display: flex;
+
+				img,
+				picture {
+					object-fit: cover;
+					aspect-ratio: 4 / 3;
+				}
 			}
 		}
 	}
+
 	@include mq($until: tablet) {
-		.staff{
-			.employee{
-				width: spanNestedGrid(12,6);
+		.staff {
+			.employee {
+				width: spanNestedGrid(12, 6);
 				margin-right: nestedGridGutter(12);
 				@include resetLastColumn(2);
-				
+
 			}
 		}
 	}
@@ -88,7 +93,7 @@
 	background-color: $black;
 
 	h1 {
-		color: $red;
+		color: $beige;
 	}
 
 	.intro {
@@ -103,7 +108,9 @@
 		flex: 0 0 100%;
 		position: relative;
 
-		a { color: $white }
+		a {
+			color: $white
+		}
 
 		&:nth-child(even) {
 			flex-direction: row-reverse;
@@ -138,7 +145,7 @@
 	}
 
 	h2 {
-		color: $red;
+		color: $beige;
 	}
 }
 
@@ -147,7 +154,7 @@
 	flex-direction: column;
 	padding-top: $margin;
 	padding-bottom: $margin;
-	background-color: $red;
+	background-color: $beige;
 
 	h2 {
 		color: $white;
@@ -161,19 +168,21 @@
 		flex: 1 1 100%;
 
 		.distributor {
-			width: spanNestedGrid(12,4);
-      margin-right: nestedGridGutter(12);
-      @include resetLastColumn(3);
+			width: spanNestedGrid(12, 4);
+			margin-right: nestedGridGutter(12);
+			@include resetLastColumn(3);
 			margin-bottom: 1em;
 		}
 	}
+
 	@include mq($until: tablet) {
-		.distributors{
-			.distributor{
-				width: spanNestedGrid(12,6);
+		.distributors {
+			.distributor {
+				width: spanNestedGrid(12, 6);
 				margin-right: nestedGridGutter(12);
 				@include resetLastColumn(2);
-				P{
+
+				P {
 					text-overflow: ellipsis;
 					overflow: hidden;
 				}
@@ -209,27 +218,29 @@
 				flex-direction: row;
 				flex-wrap: wrap;
 				position: relative;
-				
+
 				.reseller {
 					padding-bottom: 0.5em;
-					
+
 					@include mq($from: tablet) {
 						width: spanNestedGrid(12, 4);
 						margin-right: nestedGridGutter(12);
 						@include resetLastColumn(3);
 					}
+
 					@include mq($until: tablet) {
 						width: spanNestedGrid(12, 6);
 						margin-right: nestedGridGutter(12);
 						@include resetLastColumn(2);
 					}
-					
-					p{
+
+					p {
 						text-overflow: ellipsis;
 						overflow: hidden;
 					}
+
 					.name {
-						color: $red;
+						color: $beige;
 					}
 
 					a {
@@ -239,5 +250,5 @@
 			}
 		}
 	}
-	
+
 }
