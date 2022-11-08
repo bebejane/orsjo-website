@@ -7,15 +7,15 @@ import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
 import { Section, TextReveal } from '/components'
 
-export type SustainabilityProps = {  sustainability: SustainabilityRecord}
+export type SustainabilityProps = { sustainability: SustainabilityRecord }
 
-export default function Sustainability({ sustainability : { image, intro, title, steps } }: SustainabilityProps) {
+export default function Sustainability({ sustainability: { image, intro, title, steps } }: SustainabilityProps) {
 	return (
 		<>
 			<Section className={styles.sustainability} type="full">
 				<div className={styles.hero}>
-					<Image 
-						data={image.responsiveImage} 
+					<Image
+						data={image.responsiveImage}
 						className={styles.heroImage}
 						objectFit="cover"
 					/>
@@ -32,19 +32,23 @@ export default function Sustainability({ sustainability : { image, intro, title,
 				</Markdown>
 			</Section>
 			<Section className={styles.blocks} type="full">
-				{steps.map(({id, text, title, image, fullWidthImage}, idx) => 
+				{steps.map(({ id, text, title, image, fullWidthImage }, idx) =>
 					<div className={cn(styles.block, fullWidthImage && styles.fullWidth)} key={idx}>
 						<div className={styles.left}>
 							<div className={styles.header}>
 								<h2>{title}</h2>
-								<span>N°{idx+1}</span>
+								<span>N°{idx + 1}</span>
 							</div>
 							<Markdown className={styles.text}>
 								{text}
 							</Markdown>
 						</div>
 						<div className={styles.right}>
-							<Image data={image.responsiveImage} className={styles.image}/>
+							<Image
+								data={image.responsiveImage}
+								className={styles.image}
+								lazyLoad={false}
+							/>
 						</div>
 					</div>
 				)}
@@ -53,12 +57,12 @@ export default function Sustainability({ sustainability : { image, intro, title,
 	)
 }
 
-Sustainability.page = { layout:'full', color:"--black", menu:'inverted'} as PageProps
+Sustainability.page = { layout: 'full', color: "--black", menu: 'inverted' } as PageProps
 
-export const getStaticProps = withGlobalProps({ queries: [SustainabilityDocument], model:'sustainability' }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [SustainabilityDocument], model: 'sustainability' }, async ({ props, revalidate }: any) => {
 
 	return {
-		props,	
+		props,
 		revalidate
 	};
 });

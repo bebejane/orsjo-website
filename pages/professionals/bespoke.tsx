@@ -18,22 +18,22 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
-	const [imageStyle, setImageStyle] = useState({opacity:0.2, filter:'grayscale(1)'})
+	const [imageStyle, setImageStyle] = useState({ opacity: 0.2, filter: 'grayscale(1)' })
 
 	useEffect(() => {
 		setGallery({ images: recordImages(bespoke) })
 	}, [bespoke, setGallery])
 
-	
+
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
-	
-	useEffect(()=>{
+
+	useEffect(() => {
 		setImageStyle({
-			opacity: Math.min(0.2 + ((viewportScrollRatio || 0) *4), 1),
-			filter: `grayscale(${Math.max((1-(viewportScrollRatio*4)), 0)})`
+			opacity: Math.min(0.2 + ((viewportScrollRatio || 0) * 4), 1),
+			filter: `grayscale(${Math.max((1 - (viewportScrollRatio * 4)), 0)})`
 		})
 	}, [viewportScrollRatio, setImageStyle])
-	
+
 	return (
 		<>
 			<Section className={styles.bespoke} type={'full'}>

@@ -13,17 +13,17 @@ import cn from 'classnames';
 
 type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>
 
-export type ProjectProps = { 
-	project: ProjectRecord, 
-	relatedProjects: ProjectRecord[], 
-	bespokeThumbnail:BespokeThumbnailRecord 
+export type ProjectProps = {
+	project: ProjectRecord,
+	relatedProjects: ProjectRecord[],
+	bespokeThumbnail: BespokeThumbnailRecord
 }
 
-const galleryImages = (project: ProjectRecord) : FileField[] => {
+const galleryImages = (project: ProjectRecord): FileField[] => {
 	const images = [project.image, project.secondaryImage]
-	project.gallery.forEach(el => Object.keys(el).forEach(k => el[k].responsiveImage  && images.push(el[k])))
+	project.gallery.forEach(el => Object.keys(el).forEach(k => el[k].responsiveImage && images.push(el[k])))
 	return dedupeImages(images);
-} 
+}
 
 export default function Project({ project, relatedProjects, bespokeThumbnail }: ProjectProps) {
 
@@ -32,32 +32,32 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 	const [imageStyle, setImageStyle] = useState({})
 
 	const isOtherProject = project.projectType?.title.toLowerCase() === 'other'
-	const relatedHeadline  = !isOtherProject ? `Other ${project.projectType.titlePlural.toLowerCase()}` : 'Related projects'
+	const relatedHeadline = !isOtherProject ? `Other ${project.projectType.titlePlural.toLowerCase()}` : 'Related projects'
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
-	
+
 	// Add bespoke link to related products if project is bespoke.
 	const relatedProducts = project.bespoke ? project.relatedProducts.concat([{
-		title: 'Bespoke', 
-		image: bespokeThumbnail.thumbnail, 
+		title: 'Bespoke',
+		image: bespokeThumbnail.thumbnail,
 		environmentImage: bespokeThumbnail.secondaryThumbnail,
 		slug: '/professionals/bespoke'
 	} as ProductRecord]) : project.relatedProducts
 
 	useEffect(() => {
 		setGallery({ images: galleryImages(project) })
-	}, [setGallery, project])	
-	
-	useEffect(()=>{
+	}, [setGallery, project])
+
+	useEffect(() => {
 		setImageStyle({
-			opacity: Math.min(0.2 + ((viewportScrollRatio || 0) *4), 1),
-			filter: `grayscale(${Math.max((1-(viewportScrollRatio*4)), 0)})`
+			opacity: Math.min(0.2 + ((viewportScrollRatio || 0) * 4), 1),
+			filter: `grayscale(${Math.max((1 - (viewportScrollRatio * 4)), 0)})`
 		})
 	}, [viewportScrollRatio, setImageStyle])
 
 	return (
 		<>
 			<Section className={styles.intro} name="Presentation" top={true}>
-				<div className={styles.wrap} onClick={()=>setGalleryId(project.image?.id)}>
+				<div className={styles.wrap} onClick={() => setGalleryId(project.image?.id)}>
 					<h1 className={styles.title}>
 						<TextReveal block={true}>
 							{project.title}
@@ -137,13 +137,13 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
-	const { project, bespokeThumbnail }: { project: ProjectRecord, bespokeThumbnail: BespokeThumbnailRecord} = await apiQuery([ProjectDocument, BespokeThumbnailDocument], { variables: { slug: context.params.project[0] } })
+	const { project, bespokeThumbnail }: { project: ProjectRecord, bespokeThumbnail: BespokeThumbnailRecord } = await apiQuery([ProjectDocument, BespokeThumbnailDocument], { variables: { slug: context.params.project[0] } })
 	const { projects }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
 	const relatedProjects = projects.filter(p => p.id !== project.id).sort((a, b) => Math.random() > 0.5 ? 1 : -1)
-	
+
 	if (!project)
 		return { notFound: true }
-	
+
 	return {
 		props: {
 			...props,

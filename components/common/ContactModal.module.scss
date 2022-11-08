@@ -1,8 +1,8 @@
-.contactModal{
+.contactModal {
 	position: fixed;
 	z-index: 1000;
-	top:0;
-	left:0;
+	top: 0;
+	left: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -14,84 +14,91 @@
 	transform: translateY(100%);
 	transition: transform .2s ease-out;
 	background-color: $black !important;
-	color:$white;
+	color: $white;
 
-	button{
+	button {
 		border: 1px solid $white;
-		color:$white;
+		color: $white;
 		margin-top: 1rem;
 	}
 
-	&.show{
+	&.show {
 		transform: translateY(0%);
 	}
 
 	h1 {
-		color: $red;
+		color: $beige;
 	}
 
 
-	.wrap{
+	.wrap {
 		position: relative;
-		width:100%;
+		width: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 
 		label {
-			color: $red;
+			color: $beige;
 		}
 
-		form{
+		form {
 			width: 50vw;
 
-			input{
+			input {
 				padding: .4em;
 				display: block;
 				width: 50vw;
 
 				margin-bottom: 1em;
 			}
-			textarea{
+
+			textarea {
 				width: 50vw;
 				display: block;
 				min-height: 6em;
 				padding: .4em;
 
 			}
-			button{
-				
+
+			button {
+
 				width: 100%;
 			}
 
 		}
-		.success, .loading{
+
+		.success,
+		.loading {
 			position: absolute;
 			z-index: 1;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
-			
-			top:0;
-			left:0;
+
+			top: 0;
+			left: 0;
 			width: 100%;
 			height: 100%;
 			background-color: $black;
-			
+
 		}
 	}
-	.error{
-		color:$red;
+
+	.error {
+		color: $red;
+		font-size: $body-font-size;
 	}
-	.close{
+
+	.close {
 		position: absolute;
-		top:0;
+		top: 0;
 		right: 0;
 		margin: var(--outer-margin);
 		font-size: 50px;
 		cursor: pointer;
-		
+
 	}
 }

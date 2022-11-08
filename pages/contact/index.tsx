@@ -35,7 +35,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 
 	return (
 		<>
-			<Section name="Information" top={true} className={styles.informationSection} bgColor='--red'>
+			<Section name="Information" top={true} className={styles.informationSection} bgColor='--beige'>
 				<div className={styles.info}>
 					<h1 className="topMargin">{contact.title}</h1>
 					<p className="white bodyWeight">
@@ -61,13 +61,13 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 				<div className={styles.imageWrap}>
 					<Image data={contact.image.responsiveImage} className={styles.image} />
 				</div>
-				<ContactModal 
-					show={showContactForm} onClose={() => setShowContactForm(false)} 
+				<ContactModal
+					show={showContactForm} onClose={() => setShowContactForm(false)}
 					message={contact.contactFormMessage}
 				/>
 			</Section>
 
-			<Section name="People" className={styles.staffSection} bgColor='--red'>
+			<Section name="People" className={styles.staffSection} bgColor='--beige'>
 				<h1 className="bottomMargin">People</h1>
 				<div className={styles.staff}>
 					{staffs.map(({ id, name, role, phone, email, image }, idx) =>
@@ -88,7 +88,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 						</div>
 					)}
 				</div>
-				
+
 			</Section>
 			<Section name="Showrooms" className={styles.showroomsSection} bgColor='--black'>
 				<h1>Showrooms</h1>
@@ -119,7 +119,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					)}
 				</ul>
 			</Section>
-			<Section name="Agents & Distributors" className={styles.distributorSection} bgColor='--red'>
+			<Section name="Agents & Distributors" className={styles.distributorSection} bgColor='--beige'>
 				<h1 className="white bottomMargin">Agents & Distributors</h1>
 				<div className={styles.distributors}>
 					{distributors.map(({ name, address, city, country, email, phone, postalCode, contactName, url }, idx) =>
@@ -169,12 +169,12 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					})}
 				</div>
 			</Section>
-			
+
 		</>
 	)
 }
 
-Contact.page = { layout: 'normal', color: "--red", menu: 'inverted', footerLine: true } as PageProps
+Contact.page = { layout: 'normal', color: "--beige", menu: 'inverted', footerLine: true } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [ContactDocument, AllResellersDocument, AllStaffsDocument, AllShowroomsDocument, AllDistributorsDocument] }, async ({ props, revalidate }: any) => {
 

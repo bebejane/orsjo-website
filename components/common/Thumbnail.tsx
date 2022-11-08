@@ -40,7 +40,7 @@ export default function Thumbnail({
   const isTouch = typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
   const handleMouseOver = ({ type }) => !isTouch && setHovering(type === 'mouseenter')
 
-  const content  = (
+  const content = (
     <>
       <figure>
         {image &&
@@ -48,6 +48,7 @@ export default function Thumbnail({
             data={image.responsiveImage}
             className={styles.image}
             layout={'fill'}
+            lazyLoad={false}
             objectFit={objectFit}
           />
         }
@@ -75,16 +76,16 @@ export default function Thumbnail({
       onMouseLeave={handleMouseOver}
       onClick={onClick}
     >
-      {slug ? 
+      {slug ?
         <Link scroll={false} href={slug} >
           <a className={styles.wrap}>
             {content}
           </a>
         </Link>
-      :
+        :
         <div className={styles.wrap}>{content}</div>
       }
-      
+
       {markAsNew && showMarkAsNew &&
         <div className={cn(styles.markAsNew)}>
           <span>New</span>
