@@ -18,10 +18,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     })
 
     const mailData = {
-      from: `${name} <${email}>`,
-      to: process.env.SMTP_FROM_EMAIL,
+      from: process.env.SMTP_FROM_EMAIL,
+      to: process.env.SMTP_CONTACT_EMAIL,
+      replyTo: email,
       subject,
-      text
+      text: `${text}\n\n${name}\n<${email}>`
     }
 
     transporter.sendMail(mailData, (err, info) => {
