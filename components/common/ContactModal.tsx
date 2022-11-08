@@ -59,19 +59,19 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
     if (!show)
       setTimeout(resetForm, 300)
 
-    setError('fugg')
   }, [show, ref, resetForm, setFocus])
-
-  if (error)
-    console.log(error);
 
   return (
     <Modal>
       <div className={cn(styles.contactModal, show && styles.show)}>
         <div className={styles.wrap}>
           <h1>Contact us</h1>
+          {error &&
+            <div className={styles.error}>
+              {typeof error === 'string' ? error : error.message}
+            </div>
+          }
           <form id="contact-form" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
-
             <label htmlFor="name" className="medium">Name</label>
             <input
               id="name"
@@ -112,11 +112,7 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
             <button type="submit">Send</button>
           </form>
 
-          {error &&
-            <div className={styles.error}>
-              {typeof error === 'string' ? error : error.message}
-            </div>
-          }
+
           {loading &&
             <div className={styles.loading}>
               <Loader />

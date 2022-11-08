@@ -36,6 +36,8 @@ $navbarHeightMobile: 62px;
 $margin: 3rem;
 $small-margin: 2rem;
 
+$body-font-size: 18px;
+
 @mixin maxWidth() {
   max-width: $max-width;
   margin: auto;
