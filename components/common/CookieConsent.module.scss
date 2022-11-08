@@ -10,10 +10,16 @@
   font-size: $body-font-size;
 
   button {
-    //color: $white;
+
     border-color: $black;
     margin-right: 10px;
     margin-bottom: 0;
+
+    &:hover {
+      color: $white !important;
+      background-color: $black;
+
+    }
   }
 }
 
@@ -39,5 +45,6 @@
     right: 0;
     margin: 20px;
     cursor: pointer;
+    font-size: 40px;
   }
 }

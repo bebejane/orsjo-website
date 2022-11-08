@@ -23,7 +23,7 @@ export default function CookieConsent() {
   return (
     <>
       <div className={cn(styles.options, show && styles.show)}>
-        <div className={styles.close} onClick={() => setShow(false)}>X</div>
+        <div className={styles.close} onClick={() => setShow(false)}>×</div>
         <h1>Cookie policy</h1>
         <p>
           We use cookies and other tracking technologies to improve your browsing
@@ -37,7 +37,7 @@ export default function CookieConsent() {
         </p>
         <p>
           <button onClick={() => confirmConsent(true)}> Accept all</button>
-          <button onClick={() => confirmConsent(false)}> Rejact all</button>
+          <button onClick={() => confirmConsent(false)}> Reject all</button>
         </p>
       </div >
     </>
