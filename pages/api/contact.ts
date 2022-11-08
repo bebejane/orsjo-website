@@ -5,6 +5,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   try {
 
+    console.log(req.body);
+
     const { subject, name, email, text } = req.body
 
     const transporter = nodemailer.createTransport({
