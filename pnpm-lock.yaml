@@ -47,7 +47,7 @@ specifiers:
   nextjs-google-analytics: ^2.1.0
   nodemailer: ^6.7.8
   react: 17.0.2
-  react-datocms: ^3.1.4
+  react-datocms: github:bebejane/react-datocms
   react-dom: 17.0.2
   react-hook-form: ^7.35.0
   react-icons: ^4.4.0
@@ -91,7 +91,7 @@ dependencies:
   nextjs-google-analytics: 2.1.0_next@12.3.1+react@17.0.2
   nodemailer: 6.8.0
   react: 17.0.2
-  react-datocms: 3.1.4_react@17.0.2
+  react-datocms: github.com/bebejane/react-datocms/07e1d5b3694fa454faffee79a3424610ae498e63_react@17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-hook-form: 7.38.0_react@17.0.2
   react-icons: 4.6.0_react@17.0.2
@@ -7834,21 +7834,6 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
-  /react-datocms/3.1.4_react@17.0.2:
-    resolution: {integrity: sha512-L+esZt3id1b/shQkjPmIUU+CEjwuz1ZRTMU+LylMC3uPUat3iuads/V625Bnz6blyrRxpPlcd14Uit9LxnHfcg==}
-    peerDependencies:
-      react: '>= 16.12.0'
-    dependencies:
-      datocms-listen: 0.1.10
-      datocms-structured-text-generic-html-renderer: 2.0.4
-      datocms-structured-text-utils: 2.0.4
-      react: 17.0.2
-      react-intersection-observer: 8.34.0_react@17.0.2
-      react-string-replace: 1.1.0
-      universal-base64: 2.1.0
-      use-deep-compare-effect: 1.8.1_react@17.0.2
-    dev: false
-
   /react-dom/17.0.2_react@17.0.2:
     resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
     peerDependencies:
@@ -9512,4 +9497,22 @@ packages:
       typescript: 4.8.4
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  github.com/bebejane/react-datocms/07e1d5b3694fa454faffee79a3424610ae498e63_react@17.0.2:
+    resolution: {tarball: https://codeload.github.com/bebejane/react-datocms/tar.gz/07e1d5b3694fa454faffee79a3424610ae498e63}
+    id: github.com/bebejane/react-datocms/07e1d5b3694fa454faffee79a3424610ae498e63
+    name: react-datocms
+    version: 3.1.4
+    peerDependencies:
+      react: '>= 16.12.0'
+    dependencies:
+      datocms-listen: 0.1.10
+      datocms-structured-text-generic-html-renderer: 2.0.4
+      datocms-structured-text-utils: 2.0.4
+      react: 17.0.2
+      react-intersection-observer: 8.34.0_react@17.0.2
+      react-string-replace: 1.1.0
+      universal-base64: 2.1.0
+      use-deep-compare-effect: 1.8.1_react@17.0.2
     dev: false
