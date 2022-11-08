@@ -1,4 +1,8 @@
 .image {
   cursor: pointer;
-  margin-top: $small-margin;
+  margin-top: $small-margin / 2;
+
+  @include mq($from: tablet) {
+    margin-top: $small-margin;
+  }
 }

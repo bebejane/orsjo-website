@@ -1,7 +1,11 @@
 .twoColumnImage {
   display: flex;
   flex-direction: row;
-  margin-top: $small-margin;
+  margin-top: $small-margin / 2;
+
+  @include mq($from: tablet) {
+    margin-top: $small-margin;
+  }
   justify-content: space-between;
   align-items: center;
   figure {
