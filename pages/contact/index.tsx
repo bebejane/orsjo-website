@@ -59,7 +59,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					<button onClick={() => setShowContactForm(true)}>Contact Us</button>
 				</div>
 				<div className={styles.imageWrap}>
-					<Image data={contact.image.responsiveImage} className={styles.image} />
+					<Image data={contact.image.responsiveImage} className={styles.image} lazyLoad={false} />
 				</div>
 				<ContactModal
 					show={showContactForm} onClose={() => setShowContactForm(false)}

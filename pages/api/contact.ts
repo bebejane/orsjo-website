@@ -40,7 +40,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       to: process.env.SMTP_CONTACT_EMAIL,
       replyTo: email,
       subject,
-      text: `${text}\n\n${name}\n<${email}>`
+      text: `${text}\n\n${name}\n${email}`
     }
 
     transporter.sendMail(mailData, (err, info) => {

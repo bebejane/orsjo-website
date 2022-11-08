@@ -27,7 +27,12 @@ export default function Designer({ designer, products, designers }: DesignerProp
 					<figure>
 						<div className={styles.fade}></div>
 						{designer.image &&
-							<Image data={designer.image.responsiveImage} layout={'fill'} objectFit={'cover'} />
+							<Image
+								data={designer.image.responsiveImage}
+								lazyLoad={false}
+								layout={'fill'}
+								objectFit={'cover'}
+							/>
 						}
 						<figcaption>
 							<h1>{designer.name}
