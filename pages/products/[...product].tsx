@@ -81,7 +81,6 @@ export default function Product({
 						className={styles.image}
 						data={product.image.responsiveImage}
 						layout={'fill'}
-						lazyLoad={false}
 						fadeInDuration={100}
 						objectFit={'contain'}
 						pictureStyle={pictureStyle}

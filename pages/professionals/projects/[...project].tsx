@@ -73,7 +73,6 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 							data={project.image.responsiveImage}
 							objectFit="cover"
 							style={imageStyle}
-							lazyLoad={false}
 							className={styles.image}
 						/>
 					}

@@ -29,7 +29,6 @@ export default function Designer({ designer, products, designers }: DesignerProp
 						{designer.image &&
 							<Image
 								data={designer.image.responsiveImage}
-								lazyLoad={false}
 								layout={'fill'}
 								objectFit={'cover'}
 							/>

@@ -43,7 +43,6 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					objectFit='cover'
 					className={styles.image}
 					style={imageStyle}
-					lazyLoad={false}
 				/>
 				<h1>
 					<TextReveal>
