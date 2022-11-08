@@ -73,7 +73,7 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
     designer: product.designer?.name,
     electricalData: product.electricalData.map((el) => el.name).join(', '),
     additionalInformation: product.additionalInformation ? (product.additionalInformation + (product.dimmable?.name ? `. ${product.dimmable?.name}` : '')) : undefined,
-    dimmable:product.dimmable?.name,
+    dimmable: product.dimmable?.name,
     connection: product.connection?.name,
     mounting: product.mounting?.name,
     lightsource: lightsources.map(({ amount, included, name }) => `${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
@@ -101,13 +101,13 @@ export const recordImages = (obj, exclude: string[] = [], images: FileField[] = 
   return dedupeImages(images)
 }
 
-export const dedupeImages = (images : FileField[]) : FileField[] => {
+export const dedupeImages = (images: FileField[]): FileField[] => {
   return images.reduce((unique, o) => {
     if (!unique.some(obj => obj.id === o.id))
       unique.push(o);
     return unique;
   }, []);
-} 
+}
 
 export const siteSearch = async (q: string) => {
 
@@ -179,7 +179,7 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
     type: 'zip'
   }, {
     href: bimLink,
-    label: 'Visit BIM objects',
+    label: 'Download at BIM Objects',
     type: 'cad'
   }, {
     href: undefined,
@@ -210,31 +210,31 @@ export const pxToInt = (px: string): number => {
 export const styleVariables: { [key: string]: number | string } = {}
 Object.keys(scssExports).forEach((k) => styleVariables[k] = scssExports[k].includes('rem') ? remToPx(scssExports[k]) : scssExports[k].includes('px') ? pxToInt(scssExports[k]) : scssExports[k])
 
-export const waitForElement = async (id: string, ms:number) : Promise<HTMLElement | undefined> => {
-  let el : HTMLElement | undefined
-  for (let i = 0; i < ms; i+= 50) {
+export const waitForElement = async (id: string, ms: number): Promise<HTMLElement | undefined> => {
+  let el: HTMLElement | undefined
+  for (let i = 0; i < ms; i += 50) {
     el = document.getElementById(id)
-    if(el) break
+    if (el) break
     await sleep(50)
   }
   return el
 }
 
-export const sortSwedish = <T>(arr: T[], key?: string) : T[] => {
+export const sortSwedish = <T>(arr: T[], key?: string): T[] => {
   const alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Å", "Ä", "Ö"];
-  
-  return arr.sort((a, b)=> {
-    const ai = alfabet.findIndex((l)=> l === (key ? a[key] : a).charAt(0).toUpperCase())
-    const bi = alfabet.findIndex((l)=> l === (key ? b[key] : b).charAt(0).toUpperCase())
+
+  return arr.sort((a, b) => {
+    const ai = alfabet.findIndex((l) => l === (key ? a[key] : a).charAt(0).toUpperCase())
+    const bi = alfabet.findIndex((l) => l === (key ? b[key] : b).charAt(0).toUpperCase())
     return ai > bi ? 1 : ai === bi ? 0 : -1
   })
 }
 
-export const scrollToId = (id:string, behavior: ScrollBehavior = 'smooth') => {
+export const scrollToId = (id: string, behavior: ScrollBehavior = 'smooth') => {
 
   const el = window.document.getElementById(id)
   const { tablet, navbarHeightMobile, navbarHeight } = styleVariables;
   const topMargin = 0//(window.innerWidth < tablet ? navbarHeightMobile : navbarHeight) as number
   const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
-  window.scrollTo({ top, behavior }) 
+  window.scrollTo({ top, behavior })
 }

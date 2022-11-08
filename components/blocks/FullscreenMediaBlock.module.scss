@@ -2,7 +2,10 @@
   position: relative;
   display: block;
   width: 100%;
-  height: 100vh;
+  height: 80vh;
+  @include mq($from: desktop) {
+   height: 100vh;
+  }
   .image{
 
   }
@@ -21,10 +24,12 @@
   .headline{
     padding-bottom: $margin;
     display: flex;
-    padding-left: spanGridWithGutter(4);
     flex-direction: column;
     color: $white;
     z-index: 100;
+    @include mq($from: tablet) { 
+      padding-left: spanGridWithGutter(4);
+    }
     span{
       overflow: hidden;
     }    

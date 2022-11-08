@@ -7,6 +7,9 @@
   z-index: 1000; 
   transition: color .8s ease-out;
   color: $black;
+  @include mq($until: tablet) {
+    line-height: 1.5;
+   }
   span{
     display: inline-block;
     opacity: 1;  

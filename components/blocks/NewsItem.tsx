@@ -17,7 +17,7 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 				<a className="medium white" ref={ref}>
 					<h1>News</h1>
 					<span className={styles.text}>
-						<h1>{title}</h1>
+						<h1 className={styles.title}>{title}</h1>
 						<div className="large">
 							<Markdown sentances={1}>{text}</Markdown>
 						</div>

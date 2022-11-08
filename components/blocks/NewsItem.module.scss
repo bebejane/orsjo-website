@@ -40,6 +40,11 @@
       h1 {
         margin-bottom: 0.5em;
         color: $gray;
+        &.title {
+          @include mq($until: tablet) { 
+            color: $white;
+          }
+        }
       }
       .text > .more {
         margin-top: 0.5em;

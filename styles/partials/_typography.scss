@@ -70,7 +70,11 @@ h3 {
 }
 
 nav, .medium, .medium p, button, span.medium {
-  font-size: .65rem;
+  font-size: 14px;
+
+  @include mq($from: tablet) { 
+    font-size: .65rem;
+  }
   font-family: "IndivisibleMedium";
   font-weight: normal;
   line-height: $body-line-height;
@@ -83,7 +87,10 @@ nav {
 
 figcaption, p.small, span.small, .tableList, footer ul {
   line-height: $body-line-height;
-  font-size: .57rem;
+  font-size: 12px;
+  @include mq($from: tablet) { 
+    font-size: .57rem;
+  }
   line-height: 1.4;
   font-weight: normal;
   font-family: "IndivisibleMedium";

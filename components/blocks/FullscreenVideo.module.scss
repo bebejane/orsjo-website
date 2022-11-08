@@ -40,11 +40,12 @@
     }
   }
   @include mq($until: tablet) {
-    min-height: auto;
+    //min-height: auto;
+    height: 50vh;
     .textWrap{
-      position: relative;
-      margin-top: $small-margin;
-      bottom: 0;
+      //position: relative;
+      //margin-top: $small-margin;
+      //bottom: 0;
       .text{
         padding: 0;
       
