@@ -1,24 +1,24 @@
 // COLOR
 $black: #121212;
-$white: #FCFCFC;
+$white: #fcfcfc;
 $gray: #969693;
 $red: #b41f1f;
 $beige: #aaa091;
 $light-gray: #f2f2f1;
 $mid-gray: #d4d3cf;
-$warm-gray: #D2BD93;
+$warm-gray: #d2bd93;
 $copper: #876058;
-$copper-light: #AF685A;
-$green: #1B5B44;
-$black-menu: rgba($black, .65);
-$white-menu: rgba($white, .65);
+$copper-light: #af685a;
+$green: #1b5b44;
+$black-menu: rgba($black, 0.65);
+$white-menu: rgba($white, 0.65);
 
 .white {
   color: $white;
 }
 
 .red {
-  color: $red !important;
+  color: $mid-gray !important;
 }
 
 .copper {

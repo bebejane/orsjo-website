@@ -13,11 +13,20 @@
 			flex-direction: column;
 			align-items: flex-start;
 			padding: 5%;
-			margin-top: 4rem;
+			margin-top: 0.5rem;
+			@include mq($until: tablet) {
+				padding-bottom: $small-margin;
+			}
+
+			@include mq($from: tablet) {
+				margin-top: 4rem;
+			}
 			max-width: 50%;
 			h1 {
 				left: 1em;
-				margin-bottom: .5em !important;
+				@include mq($from: tablet) {
+					margin-bottom: 0.5em !important;
+				}
 				@include h1Big();
 				color: $white;
 			}
@@ -35,11 +44,11 @@
 			height: 100%;
 			mix-blend-mode: screen;
 
-			.fade{
-				background-image: linear-gradient(to top, rgba(27,91,68,0), rgba(27, 91, 68,.4));
+			.fade {
+				background-image: linear-gradient(to top, rgba(27, 91, 68, 0), rgba(27, 91, 68, 0.4));
 				height: 10rem;
 				width: 100%;
-				position:absolute;
+				position: absolute;
 				z-index: 1;
 				mix-blend-mode: multiply;
 			}
@@ -55,7 +64,7 @@
 				}
 			}
 
-			div>img[role="presentation"] {
+			div > img[role="presentation"] {
 				height: 100vh;
 			}
 		}
@@ -65,7 +74,7 @@
 		header {
 			flex-direction: column-reverse;
 			height: auto;
-			.artist{
+			.artist {
 				max-width: 100%;
 			}
 			figure {
@@ -104,29 +113,28 @@
 		flex-direction: row;
 		flex-wrap: nowrap;
 		min-width: spanGrid(12);
-
 	}
 	@include mq($until: tablet) {
 		flex-direction: column;
 		h1 {
 			width: 100%;
-			br{
+			br {
 				content: " ";
-    		display: none;
+				display: none;
 			}
 		}
-		.gallery{
+		.gallery {
 			min-width: spanGrid(16);
-			ul{
-				li{
-					min-width: spanNestedGrid(12,6);
+			ul {
+				li {
+					min-width: spanNestedGrid(12, 6);
 				}
 			}
 		}
 	}
 }
 
-.products{
+.products {
 	ul {
 		display: flex;
 		flex-direction: row;
