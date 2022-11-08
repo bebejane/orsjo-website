@@ -14,6 +14,7 @@ export default function CookieConsent() {
       setCookie(GDPR_CONSENT_COOKIES, 'accepted', { maxAge: ((60 * 60) * 24 * 365) })
     else
       deleteCookie(GDPR_CONSENT_COOKIES)
+
     setShow(false)
   }
 
