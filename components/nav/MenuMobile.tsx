@@ -28,8 +28,8 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	const sub = items.find((item) => item.type === selected)?.sub
 	const subHeader = selected ? items.find(i => i.type === selected).label : null
 
-	const handleSubmitSearch = (e : React.FormEvent) =>{
-		e.preventDefault(); 
+	const handleSubmitSearch = (e: React.FormEvent) => {
+		e.preventDefault();
 		searchRef.current?.blur();
 	}
 
@@ -39,24 +39,22 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 		setQuery(searchInput)
 	}
 
-	const closeSearch = () =>{
+	const closeSearch = () => {
 		setShowSearch(false)
 		setQuery(undefined)
 	}
-
-	
 
 	const handleClose = () => {
 		setSelected(undefined)
 		setOpen(false)
 	}
-	
-	useEffect(() => {
-    router.events.on("hashChangeStart", handleClose);
-    return () => router.events.off("hashChangeStart", handleClose)
-  }, [router.events]);
 
-	useEffect(()=>{ setShowSearch(!!query)}, [query])
+	useEffect(() => {
+		router.events.on("hashChangeStart", handleClose);
+		return () => router.events.off("hashChangeStart", handleClose)
+	}, [router.events]);
+
+	useEffect(() => { setShowSearch(!!query) }, [query])
 	useEffect(() => { !transitioning && handleClose() }, [transitioning])
 
 	return (
@@ -71,7 +69,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 					size={24}
 				/>
 			</div>
-			<nav className={cn(styles.mobileMenu, open  ? styles.open : styles.hide)}>
+			<nav className={cn(styles.mobileMenu, open ? styles.open : styles.hide)}>
 				<nav className={styles.main}>
 					<ul className={styles.nav}>
 						{items.map(({ label, slug, type, index }, idx) =>
@@ -79,7 +77,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 								data-slug={slug}
 								key={idx}
 								className={cn(selected && selected !== type && styles.inactive)}
-								onClick={() => setSelected(selected === type ? undefined : type)}
+								onClick={() => index ? router.push(slug) : setSelected(selected === type ? undefined : type)}
 							>
 								{label}
 							</li>
@@ -88,26 +86,26 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 				</nav>
 				<div className={styles.footer}>
 					<div className={styles.search}>
-						<img src={'/images/search.svg'}/>
+						<img src={'/images/search.svg'} />
 						<form onSubmit={handleSubmitSearch}>
-							<input 
+							<input
 								ref={searchRef}
-								type="text" 
+								type="text"
 								placeholder='Search'
 								value={searchInput}
-								onBlur={()=> searchInput && handleSearch()}
-								onChange={(e)=>setSearchInput(e.target.value)}
+								onBlur={() => searchInput && handleSearch()}
+								onChange={(e) => setSearchInput(e.target.value)}
 							/>
-							<input type="submit" style={{visibility:'hidden', position:'absolute'}}/>
+							<input type="submit" style={{ visibility: 'hidden', position: 'absolute' }} />
 						</form>
 					</div>
 					<div className={styles.social}>
-						{social.map(({name, icon, url}, idx) =>
-							<a key={idx} href={url}><img src={icon} alt={name}/></a>
+						{social.map(({ name, icon, url }, idx) =>
+							<a key={idx} href={url}><img src={icon} alt={name} /></a>
 						)}
 					</div>
 				</div>
-				
+
 			</nav>
 			<nav className={cn(styles.sub, !selected && styles.hide)}>
 				<div className={styles.subHeader}>
@@ -115,17 +113,17 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 					<span className={styles.back} onClick={() => setSelected(undefined)}>❮</span>
 				</div>
 				<ul>
-					{sub?.map(({ label, slug, type, isHash }, idx) =>					
-							<a onClick={()=>router.push(slug)} key={idx}>
-								<li className={cn(slug === router.asPath && styles.active)}>
-									{label}
-								</li>
-							</a>
+					{sub?.map(({ label, slug, type, isHash }, idx) =>
+						<a onClick={() => router.push(slug)} key={idx}>
+							<li className={cn(slug === router.asPath && styles.active)}>
+								{label}
+							</li>
+						</a>
 					)}
 				</ul>
 			</nav>
-			<SiteSearch 
-				show={showSearch} 
+			<SiteSearch
+				show={showSearch}
 				query={query}
 				onClose={closeSearch}
 			/>
