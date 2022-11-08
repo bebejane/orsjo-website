@@ -46,8 +46,12 @@
 				}
 				.type {
 					position: absolute;
-					top: 2rem;
-					right: 2rem;
+					top: 1.5rem;
+					right: 1rem;
+					@include mq($from: tablet) {
+						top: 2rem;
+						right: 2rem;
+					}
 				}
 			}
 		}

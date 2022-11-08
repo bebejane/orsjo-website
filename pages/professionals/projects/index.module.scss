@@ -3,7 +3,9 @@
 }
 
 .intro {
-  width: 80%;
+  @include mq($from: tablet) {
+    width: 80%;
+  }
   color: white;
   p {
     margin-bottom: 0;
@@ -14,13 +16,13 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  .wrap{
+  .wrap {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     padding-bottom: $small-margin;
     margin-top: -2rem;
-    >div{
+    > div {
       margin-top: 2rem;
     }
   }
@@ -30,26 +32,23 @@
 }
 
 .project {
-  
-
   figure {
     background-color: $gray !important;
   }
 
-  @include mq($from: desktop, $until: wide){
+  @include mq($from: desktop, $until: wide) {
     width: spanNestedGrid(12, 4);
     margin-right: nestedGridGutter(12);
     @include resetLastColumn(3);
   }
-  @include mq($from: wide){
+  @include mq($from: wide) {
     width: spanNestedGrid(12, 3);
     margin-right: nestedGridGutter(12);
     @include resetLastColumn(4);
   }
-  @include mq($until: desktop){
-    width:  spanNestedGrid(16, 8);
+  @include mq($until: desktop) {
+    width: spanNestedGrid(16, 8);
     margin-right: nestedGridGutter(16);
     @include resetLastColumn(2);
   }
-
 }
