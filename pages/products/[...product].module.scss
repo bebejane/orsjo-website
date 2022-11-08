@@ -1,22 +1,21 @@
-
 .product {
 	position: relative;
 	background-color: $white;
-	
+
 	.intro {
 		position: relative;
 		width: 100%;
-		
-		@include mq($until:tablet){
+
+		@include mq($until: tablet) {
 			min-height: 60vh;
 		}
-		@include mq($from:tablet){
+		@include mq($from: tablet) {
 			min-height: calc(100vh - $navbarHeight);
 			max-height: calc(100vh - $navbarHeight);
 		}
 		background-color: white;
 		cursor: pointer;
-		.image{
+		.image {
 			mix-blend-mode: multiply;
 			padding-bottom: 3em;
 		}
@@ -34,13 +33,13 @@
 					position: absolute;
 					top: 0;
 					left: 0.5em;
-					padding-top: .4em;
+					padding-top: 0.4em;
 					@include h1Big();
 				}
 				.designer {
 					position: absolute;
 					right: 0.5em;
-					padding-left: .5em;
+					padding-left: 0.5em;
 					text-align: right;
 					bottom: 0;
 					@include h1Big();
@@ -53,227 +52,227 @@
 			}
 		}
 	}
-	
 }
 
-.description{
+.description {
 	margin-top: $small-margin;
 	padding-right: 20%;
 
 	p {
+		@include mq($until: tablet) {
+			padding-bottom: $small-margin / 2;
+		}
 		margin-bottom: 0;
 	}
-	
-	@include mq($until: tablet){
+
+	@include mq($until: tablet) {
 		padding-right: 0;
 	}
-
 }
 
-.listItemContent{
+.listItemContent {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	&.top{
+	&.top {
 		margin-top: $margin;
 	}
-	&.bottom{
+	&.bottom {
 		margin-bottom: $margin;
 	}
-	ul{
+	ul {
 		list-style: none;
-		width: 100%; 
+		width: 100%;
 		column-count: 2;
 		column-gap: nestedGridGutter(12);
-		@include mq($until: tablet) {	
+		@include mq($until: tablet) {
 			column-count: 1;
 		}
-		li{
+		li {
 			display: flex;
 			flex-direction: row;
 			break-inside: avoid-column;
 			width: 100%;
-			span{
-				&:nth-child(odd){
+			span {
+				&:nth-child(odd) {
 					color: $gray;
 					flex: 1 1 spanNestedGrid(6, 2, true);
 				}
-				&:nth-child(even){
+				&:nth-child(even) {
 					flex: 1 1 spanNestedGrid(6, 4, false);
-					padding-right: 1em;	
+					padding-right: 1em;
 				}
-				@include mq($until: tablet){
-					&:nth-child(odd){
+				@include mq($until: tablet) {
+					&:nth-child(odd) {
 						flex: 0 0 calc(spanGrid(6) + $gutter);
 					}
-					&:nth-child(even){
+					&:nth-child(even) {
 						flex: 1 1 auto;
-					}	
+					}
 				}
 			}
 		}
 	}
-	.articles{
+	.articles {
 		width: 100%;
 		border-top: 1px solid $mid-gray;
-		header{
+		header {
 			display: flex;
 			flex-direction: row;
 			width: 100%;
 			color: $gray;
-			margin-bottom: .5em;
-			span{
-				&:nth-child(odd){
+			margin-bottom: 0.5em;
+			span {
+				&:nth-child(odd) {
 					flex: 0 0 spanNestedGrid(12, 2, true);
 				}
-				&:nth-child(even){
+				&:nth-child(even) {
 					flex: 0 0 spanNestedGrid(12, 4, true);
 				}
-				@include mq($until: tablet){
-					&:nth-child(1){
+				@include mq($until: tablet) {
+					&:nth-child(1) {
 						flex: 0 0 calc(spanGrid(6) + $gutter);
 					}
-					&:nth-child(2){
+					&:nth-child(2) {
 						flex: 0 0 calc(spanGrid(10));
 					}
-					&:nth-child(3), &:nth-child(4){
+					&:nth-child(3),
+					&:nth-child(4) {
 						display: none;
 					}
 				}
 			}
-			
 		}
-		.content{
+		.content {
 			width: 100%;
-			ul{
+			ul {
 				list-style: none;
 				display: flex;
 				flex-direction: row;
 				width: 100%;
 				break-inside: avoid-column;
-				
+
 				li {
 					display: flex;
 					flex-direction: row;
 					font-weight: normal;
-					padding-bottom: .5em;
+					padding-bottom: 0.5em;
 					flex: 0 0 100%;
-					@include mq($until: tablet){
+					@include mq($until: tablet) {
 						flex-wrap: wrap;
 					}
-					span{
-						&:nth-child(odd){
+					span {
+						&:nth-child(odd) {
 							flex: 0 0 spanNestedGrid(12, 2, true);
 						}
-						&:nth-child(even){
+						&:nth-child(even) {
 							flex: 0 0 spanNestedGrid(12, 4, true);
 						}
-						@include mq($until: tablet){
-							&:nth-child(odd){
+						@include mq($until: tablet) {
+							&:nth-child(odd) {
 								flex: 0 0 calc(spanGrid(6) + $gutter);
 							}
-							&:nth-child(even){
+							&:nth-child(even) {
 								flex: 0 0 calc(spanGrid(10));
 								padding: 0;
 							}
 						}
-						&.header{
+						&.header {
 							color: $gray;
 						}
 					}
-					
-					&.subheader{
+
+					&.subheader {
 						color: $black;
 					}
-					
 				}
 			}
-			&.multi{
+			&.multi {
 				column-count: 2;
 				column-gap: nestedGridGutter(12);
-				@include mq($until: tablet){
+				@include mq($until: tablet) {
 					column-count: 1;
 				}
-				ul{
+				ul {
 					flex-direction: column;
-					li{
-						span{
-							&:nth-child(odd){
+					li {
+						span {
+							&:nth-child(odd) {
 								flex: 0 0 spanNestedGrid(6, 2, true);
 							}
-							&:nth-child(even){
+							&:nth-child(even) {
 								flex: 0 0 spanNestedGrid(6, 4, true);
 							}
-							@include mq($until: tablet){
-								&:nth-child(odd){
+							@include mq($until: tablet) {
+								&:nth-child(odd) {
 									flex: 0 0 calc(spanGrid(6) + $gutter);
 								}
-								&:nth-child(even){
+								&:nth-child(even) {
 									flex: 0 0 calc(spanGrid(10));
 									padding: 0;
 								}
 							}
-							&.header{
+							&.header {
 								color: $gray;
 							}
 						}
 					}
-				}	
+				}
 			}
 		}
-		&:last-child{
+		&:last-child {
 			border-bottom: 0;
 		}
 	}
-	
-	.dimensions{
+
+	.dimensions {
 		border-top: 1px solid $mid-gray;
 		width: 100%;
 		display: flex;
-		
+
 		span {
-			min-width: spanNestedGrid(12,2, true);
-			@include mq($until: tablet){
+			min-width: spanNestedGrid(12, 2, true);
+			@include mq($until: tablet) {
 				min-width: spanNestedGrid(16, 6, true);
 			}
 			flex-basis: auto;
 			color: $gray;
 		}
-		button{
-			padding:0;
+		button {
+			padding: 0;
 			margin: 0;
-			
+
 			font-size: inherit;
 			cursor: pointer;
-			width: spanNestedGrid(12,10);
+			width: spanNestedGrid(12, 10);
 			text-align: left;
 		}
 	}
-	.specifications{
+	.specifications {
 		padding-bottom: 1em;
 		padding-top: 1.5em;
 		border-top: 1px solid $mid-gray;
 
 		li {
-			padding-bottom: .5em;
+			padding-bottom: 0.5em;
 		}
-		tr{
-			td:nth-child(1), td:nth-child(3){
+		tr {
+			td:nth-child(1),
+			td:nth-child(3) {
 				color: $gray;
 			}
 		}
 	}
-	.articles{
+	.articles {
 		padding-bottom: 1em;
 		padding-top: 1.5em;
-		
 	}
 
 	.dimensions {
 		padding-top: 1.5em;
 	}
 
-	.downloads{
+	.downloads {
 		list-style: none;
 		display: flex;
 		flex-direction: row;
@@ -283,38 +282,35 @@
 		padding-top: 1.5em;
 		column-count: unset;
 		column-gap: unset;
-		
-		li{
+
+		li {
 			flex: 1 1 auto;
 			width: auto;
-			
-			a{
+
+			a {
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 			}
 		}
-		@include mq($until: tablet) {	
+		@include mq($until: tablet) {
 			padding-top: 0em;
-			li{
+			li {
 				flex: 0 0 50% !important;
 				margin-top: 1.5em;
-				
 			}
 		}
 	}
-	
 }
 
-.related{
+.related {
 	padding-top: $small-margin;
 	padding-bottom: $margin;
 
-	& > div{
+	& > div {
 		padding-bottom: $small-margin;
-		&:last-child{
+		&:last-child {
 			padding-bottom: 0;
 		}
 	}
-
 }

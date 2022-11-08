@@ -99,7 +99,7 @@ span.small,
 .tableList,
 footer ul {
   line-height: $body-line-height;
-  font-size: 12px;
+  font-size: 13px;
 
   @include mq($from: tablet) {
     font-size: 0.57rem;

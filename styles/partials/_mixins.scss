@@ -30,9 +30,9 @@ $gutter-nested: $gutter / $difference12; //Denna ska göras om
   $nestedWidth: (($totalWidth - (($container - 1) * $gutter)) / $container);
   $difference: $totalWidth / 100%;
   $width: ($nestedWidth * $element + $gutter * ($element - 1)) / $difference;
-  
-  @if $withGutter{
-    $width: $width + nestedGridGutter($container)
+
+  @if $withGutter {
+    $width: $width + nestedGridGutter($container);
   }
   @return $width;
 }
@@ -44,13 +44,16 @@ $gutter-nested: $gutter / $difference12; //Denna ska göras om
 
 //Typography
 @mixin h1Big() {
+  @include mq($until: tablet) {
+    font-size: 2rem;
+  }
   font-size: 3rem;
   font-family: $body-font;
   line-height: 1em;
 }
 @mixin h1Small() {
-  font-size: .45em;
-  letter-spacing: .1em;
+  font-size: 0.45em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding-bottom: .5em;
+  padding-bottom: 0.5em;
 }

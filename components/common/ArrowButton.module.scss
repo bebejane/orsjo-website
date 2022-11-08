@@ -1,4 +1,7 @@
-.arrowButton{
+.arrowButton {
+  @include mq($until: tablet) {
+    display: none;
+  }
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -10,53 +13,52 @@
   color: $black;
   padding: 0 !important;
   cursor: pointer;
-  
+
   &:hover {
     border-color: $black !important;
-    .arrow{
-      path{
-        fill:$black;
+    .arrow {
+      path {
+        fill: $black;
       }
     }
   }
-  .arrow{
+  .arrow {
     width: 12px;
     height: 12px;
     margin-top: 5px;
     transform: rotate(0deg);
-    transition: transform .3s;
-    path{
-      
-      fill:$gray;
+    transition: transform 0.3s;
+    path {
+      fill: $gray;
     }
-    &.reverse{
+    &.reverse {
       transform: rotate(180deg);
     }
   }
 
-  &.hide{
+  &.hide {
     display: none;
   }
-  &.inverted{
+  &.inverted {
     &:hover {
       border-color: $white !important;
-      .arrow{
-        path{
-          fill:$black;
+      .arrow {
+        path {
+          fill: $black;
         }
       }
     }
-    .arrow{
-      path{
-        fill:$gray;
+    .arrow {
+      path {
+        fill: $gray;
       }
     }
   }
-  &:disabled{
+  &:disabled {
     color: $gray;
     border: 1px solid $gray;
-    .arrow{
-      color:$gray;
+    .arrow {
+      color: $gray;
     }
   }
 }

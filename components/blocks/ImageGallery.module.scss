@@ -2,7 +2,11 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  padding-top: $small-margin;
+  padding-top: $small-margin / 2;
+
+  @include mq($from: tablet) {
+    padding-top: $small-margin;
+  }
 
   figure {
     cursor: pointer;
@@ -19,8 +23,7 @@
       object-fit: contain;
     }
     background-color: white;
-    .image{
-      
+    .image {
     }
   }
 }
