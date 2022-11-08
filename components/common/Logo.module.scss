@@ -1,7 +1,7 @@
 .logo {
   position: fixed;
   margin-left: var(--outer-margin);
-  font-family: 'logo', Arial, Helvetica, sans-serif;
+  font-family: 'logo', Helvetica, sans-serif;
   font-size: 1rem;
   margin-top: 1.45rem;
   z-index: 1000; 
@@ -12,16 +12,17 @@
     opacity: 1;  
     transform: scale(1);
     transition: opacity .3s, font-size .4s ease-in-out, font-variation-settings .4s ease-in-out;
+    font-variation-settings: 'wght' 1000, 'opsz' 1000;
+
     &.hide{
       opacity: 0;
     }
 
-    font-variation-settings: 'wght' 1000, 'opsz' 1000;
-    
     &.big{
       font-variation-settings: 'wght' 1000, 'opsz' 0;
       font-size: 1.75rem;
     }
+    
     &.inverted { 
       color:$white;
       font-variation-settings: 'wght' -300, 'opsz' 1000;
@@ -33,11 +34,5 @@
 
   @include mq($until: tablet){
     margin-top: 1rem;
-    
-    span{
-      &.big{
-        
-      }
-    }
   }
 }

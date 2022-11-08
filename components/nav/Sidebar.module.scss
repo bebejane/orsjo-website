@@ -9,6 +9,13 @@
   max-width: spanGrid(4);
   max-height: 100vh;
   z-index: 103;
+  opacity: 0;
+  animation: fadeIn .2s ease-out forwards;
+  @keyframes fadeIn {
+    to{
+      opacity: 1;
+    }
+  }
   @include mq($from: tablet) {
     background-color: transparent !important;
   }
@@ -51,7 +58,11 @@
         &.search {
           position: relative;
           width: 200px;
-
+          opacity: 0;
+          transition: opacity .3s ease-out;
+          &.show{
+            opacity: 1;
+          }
           input {
             position: absolute;
             border: 0px;
@@ -65,7 +76,7 @@
             z-index: 1;
 
             &:focus {
-              background-color: $light-gray;
+              background-color: $mid-gray;
             }
           }
 
@@ -120,11 +131,11 @@
 
   &.inverted {
     h3 {
-      color: lightgray;
+      color: $mid-gray;
     }
 
     nav ul li a {
-      color: lightgray;
+      color: $mid-gray;
 
       &.active {
         color: $white  !important;
@@ -132,7 +143,7 @@
     }
 
     .footer a {
-      color: lightgray !important;
+      color: $mid-gray !important;
     }
   }
 
@@ -170,7 +181,7 @@
       display: none;
       padding-top: var(--outer-margin);
       padding-bottom: var(--outer-margin);
-      border-top: 1px solid $light-gray;
+      border-top: 1px solid $mid-gray;
 
       &.open {
         display: block;

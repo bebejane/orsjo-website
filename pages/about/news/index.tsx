@@ -11,7 +11,7 @@ import { Section } from '/components'
 
 export type NewsProps = { news: NewsRecord[], pagination: CollectionMetadata }
 
-const pageSize = 5;
+const pageSize = 2;
 
 export default function News({ news, pagination }: NewsProps) {
 	
@@ -20,6 +20,7 @@ export default function News({ news, pagination }: NewsProps) {
 		variables:{ first:1 },
 		pageSize
 	});
+	
 	
 	return (
 		<>

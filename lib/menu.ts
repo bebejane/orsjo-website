@@ -1,5 +1,7 @@
 import { sectionId } from './utils';
 import { sortSwedish } from './utils';
+import { apiQuery } from 'dato-nextjs-utils/api';
+import { MenuDocument } from "/graphql";
 
 export type Menu = MenuItem[]
 
@@ -52,9 +54,9 @@ const base: Menu = [
   },
 ]
 
-export const buildMenu = (data) => {
+export const buildMenu = async () => {
 
-  const { allDesigners, allProductCategories, allProducts } = data
+  const { allDesigners, allProductCategories, allProducts } = await apiQuery(MenuDocument, {});
   
   const menu = base.map(item => {
     let sub: MenuItem[];

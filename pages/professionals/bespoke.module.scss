@@ -7,13 +7,10 @@
     position: relative !important;
     min-height: 100vh;
     width: 100vw;
-    //mix-blend-mode:screen;
-    
   }
   h1 {
     @include h1Big();
     position: absolute;
-    //color: $white;
     bottom: $margin;
     right: var(--outer-margin);
     padding-right: spanGrid(1);

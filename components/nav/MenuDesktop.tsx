@@ -17,8 +17,13 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	const ref = useRef();
 	const router = useRouter()
-	const [showMenu, setShowMenu, invertMenu] = useStore((state) => [state.showMenu, state.setShowMenu, state.invertMenu], shallow);
-	const [transitioning] = useStore((state) => [state.transitioning], shallow)
+	const [showMenu, setShowMenu, invertMenu, transitioning] = useStore((state) => [
+		state.showMenu, 
+		state.setShowMenu, 
+		state.invertMenu,
+		state.transitioning
+	], shallow)
+	
 	const [selected, setSelected] = useState(undefined)
 	const [hashChanging, setHashChanging] = useState(false)
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 })
@@ -39,13 +44,18 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	}, [showMenu, resetSelected])
 
 	useEffect(() => { // Toggle menu bar on scroll
+		if(transitioning) return
 		if(hashChanging)
 			return setShowMenu(false)
-			console.log(transitioning);
 			
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
-	}, [scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging, transitioning]);
+	}, [transitioning, scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
 
+	/*
+	useEffect(()=>{if(transitioning )setShowMenu(false)
+	}, [transitioning, setShowMenu])
+	*/
+	
 	useEffect(() => { // Hide menu when scrolling to hash
 
 		const handleHashChangeStart = async (url) => {
@@ -86,7 +96,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	}, [innerWidth, selected])
 
-	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && !transitioning && styles.hide, styles[layout], isInverted && styles.inverted)
+	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu  && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
 	
 	return (

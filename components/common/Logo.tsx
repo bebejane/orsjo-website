@@ -22,7 +22,8 @@ export default function Logo({inverted = false} : Props){
   const isStatic = (prevRoute !== null && router.asPath !== '/')
 
   useEffect(()=>{
-    if(transitioning) return
+    if(transitioning) 
+      return
     const r = Math.min(1, scrolledPosition/(viewportHeight/2))
     const characters = text.length-Math.ceil(4*r)
     setCharacters(characters)
@@ -31,7 +32,7 @@ export default function Logo({inverted = false} : Props){
   
   return(
     <Link scroll={false} href="/">
-      <a className={styles.logo}>
+      <a className={styles.logo} style={{fontFamily: "'logo', Helvetica, sans-serif" }}>
         {text.slice(0, isStatic ? 1 : text.length).map((c, idx) => 
           <span 
             key={idx}

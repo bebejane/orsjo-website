@@ -2,7 +2,14 @@ import styles from './SiteSearch.module.scss'
 import { styleVariables } from '/lib/utils'
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react';
-import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail, Loader } from '/components';
+import { 
+	ProductThumbnail, 
+	ProjectThumbnail, 
+	DesignerThumbnail, 
+	NewsThumbnail, 
+	StaffThumbnail, 
+	Loader 
+} from '/components';
 import { AnchorLink } from '/components';
 import { useDebouncedValue, useWindowSize } from 'rooks';
 import { siteSearch, truncateParagraph } from '/lib/utils'
@@ -34,17 +41,19 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 	const thumbnailTheme = innerWidth < styleVariables.tablet ? 'dark' : 'light'
 
 	useEffect(() => {
-		if (!debouncedQuery) return setResult(undefined)
+		if (!debouncedQuery) {
+			setResult(undefined)
+			return setLoading(false)
+		}
 
 		setLoading(true)
 		setQuery(inputValue)
-		siteSearch(inputValue).then(async (cats) => {
-			setResult(cats)
-		})
+		siteSearch(inputValue)
+			.then(async (cats) => setResult(cats))
 			.catch(err => setError(err))
 			.finally(() => setLoading(false))
 
-	}, [debouncedQuery, setLoading, setError])
+	}, [debouncedQuery, setLoading, setError, inputValue])
 
 
 	useEffect(() => {
@@ -60,7 +69,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 		setQueryImmediate(undefined)
 	}, [inputValue, setQueryImmediate])
 
-	useEffect(() => { !transitioning && setShowSiteSearch(false) }, [transitioning])
+	useEffect(() => { !transitioning && setShowSiteSearch(false) }, [transitioning,setShowSiteSearch])
 	useEffect(() => { loading && setResult({}) }, [loading, setResult])
 	useEffect(() => { show && ref.current.focus() }, [show, ref])
 	useEffect(() => { queryAsProp && setInputValue(queryAsProp) }, [queryAsProp])
@@ -81,10 +90,8 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 				/>
 			</div>
 			<div className={styles.results}>
-				{result && Object.keys(result).map(model => {
-
+				{inputValue && result && Object.keys(result).map(model => {
 					const items = result[model]
-
 					return (
 						<>
 							<h1>{model}</h1>
@@ -96,7 +103,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 										<li><DesignerThumbnail designer={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 									: model === 'projects' ?
 										<li><ProjectThumbnail project={item} theme={thumbnailTheme} className={styles.thumb} /></li>
-									: model === 'data-image-zooms' ?
+									: model === 'staffs' ?
 										<li><StaffThumbnail staff={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 									: model === 'news' ?
 										<li><NewsThumbnail news={item} theme={thumbnailTheme} className={styles.thumb} /></li>

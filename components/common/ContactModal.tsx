@@ -1,11 +1,18 @@
 
 import styles from './ContactModal.module.scss'
 import cn from 'classnames'
-import { Modal } from '/components'
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Modal, Loader } from '/components'
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useForm } from "react-hook-form";
 
-export default function ContactModal({ onClose, show = false }) {
+type Props = {
+  onClose: () => void,
+  show: boolean,
+  message: string
+}
+
+export default function ContactModal({ onClose, show = false, message } : Props) {
 
   const { register, handleSubmit, reset, setFocus } = useForm();
   const [loading, setLoading] = useState(false)
@@ -61,23 +68,42 @@ export default function ContactModal({ onClose, show = false }) {
           <form id="contact-form" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
 
             <label htmlFor="name" className="medium">Name</label>
-            <input id="name" name="name" type="text" placeholder="Name" {...register("name", { required: true, minLength: 3 })} />
+            <input 
+              id="name" 
+              name="name" 
+              type="text" 
+              autoComplete="off" 
+              {...register("name", { required: true, minLength: 3 })} 
+            />
 
             <label htmlFor="email" className="medium">E-mail</label>
-            <input id="email" type="text" name="email" placeholder="E-mail" {...register("email", {
+            <input 
+              id="email" 
+              type="text" 
+              name="email" 
+              {...register("email", {
               required: true,
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "Invalid email address"
-              }
-            })} />
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address"
+                }
+              })}
+            />
 
             <label htmlFor="subject" className="medium">Subject</label>
-            <input id="subject" type="text" name="subject" placeholder="Subject" {...register("subject", { required: true })} />
+            <input 
+              id="subject" 
+              type="text" 
+              name="subject" 
+              autoComplete="off" 
+              {...register("subject", { required: true })} 
+            />
 
             <label htmlFor="text" className="medium">Message</label>
-            <textarea name="text" {...register("text", { required: true })}></textarea>
-
+            <textarea 
+              name="text" 
+              {...register("text", { required: true })}
+            />
             <button type="submit">Send</button>
           </form>
 
@@ -88,12 +114,12 @@ export default function ContactModal({ onClose, show = false }) {
           }
           {loading &&
             <div className={styles.loading}>
-              Sending message...
+              <Loader/>
             </div>
           }
           {success &&
             <div className={styles.success}>
-              Message sent!<br />
+              <Markdown>{message}</Markdown>
               <button onClick={onClose}>Close</button>
             </div>
           }

@@ -46,6 +46,9 @@
     background-color: transparent;
     color: $white;
     text-align: center;
+    &:hover{
+      background-color: $white;
+    }
   }  
   .error{
     color:$red;
