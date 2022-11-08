@@ -1,0 +1,42 @@
+.bar,
+.options {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: $white;
+  z-index: 1001;
+  font-size: $body-font-size;
+
+  button {
+    color: $white;
+    margin-bottom: 0;
+  }
+}
+
+.bar {
+  display: none;
+}
+
+.options {
+  padding: 40px;
+  transition: transform .2s ease-in-out;
+  transform: translateY(100%);
+  //transform-origin: bottom left;
+  min-width: 40vw;
+  max-width: 100%;
+  min-height: 20vw;
+
+  &.show {
+    transform: scale(1);
+  }
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    cursor: pointer;
+  }
+}
