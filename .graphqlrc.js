@@ -1,6 +1,5 @@
 require("@next/env").loadEnvConfig(".");
 
-
 const config =  {
 	dedupeOperationSuffix:true,
 	dedupeFragments: true,

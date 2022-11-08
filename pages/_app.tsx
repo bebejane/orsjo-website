@@ -2,7 +2,7 @@ import '/styles/index.scss'
 
 import type { AppProps } from 'next/app'
 import { Layout, PageTransition } from '/components'
-import { PageProvider, type PageProps } from '../lib/context/page';
+import { PageProvider, type PageProps } from '/lib/context/page';
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from 'react';
 import { useStore, shallow } from '/lib/store'
