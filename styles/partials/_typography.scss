@@ -2,7 +2,7 @@ $body-line-height: 1.35em;
 $headline-line-height: 1.25;
 
 body,
-html{
+html {
   font-size: 18px;
   line-height: $headline-line-height;
   color: $black;
@@ -21,13 +21,18 @@ html{
 }
 
 h1 {
+  @include mq($until: tablet) {
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
   font-size: 1rem;
   font-weight: normal;
   font-family: $headline-font;
   padding-bottom: 1rem;
 
   &.topMargin {
-    padding-top: .5rem;
+    padding-top: 0.5rem;
   }
 
   &.bottomMargin {
@@ -37,43 +42,46 @@ h1 {
   &.start {
     font-size: 1.5rem;
     font-family: $body-font;
-    padding-bottom: .2em;
-    padding-top: .2em;
+    padding-bottom: 0.2em;
+    padding-top: 0.2em;
   }
-
 }
 
 //Big h1, see mixins
 
-p.large, .large p {
-    font-size: .87rem;
-  }
-
+p.large,
+.large p {
+  font-size: 0.87rem;
+}
 
 h2 {
-  font-size: .8em;
+  font-size: 0.8em;
   //letter-spacing: .1em;
   padding-bottom: 1em;
   font-weight: normal;
   font-family: $headline-font;
 
   &.topMargin {
-    padding-top: .5em;
+    padding-top: 0.5em;
   }
 }
 
 h3 {
-  font-size: .45em;
-  letter-spacing: .1em;
+  font-size: 0.45em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding-bottom: .5em;
+  padding-bottom: 0.5em;
 }
 
-nav, .medium, .medium p, button, span.medium {
+nav,
+.medium,
+.medium p,
+button,
+span.medium {
   font-size: 14px;
 
-  @include mq($from: tablet) { 
-    font-size: .65rem;
+  @include mq($from: tablet) {
+    font-size: 0.65rem;
   }
   font-family: "IndivisibleMedium";
   font-weight: normal;
@@ -84,12 +92,15 @@ nav {
   line-height: 2em !important;
 }
 
-
-figcaption, p.small, span.small, .tableList, footer ul {
+figcaption,
+p.small,
+span.small,
+.tableList,
+footer ul {
   line-height: $body-line-height;
   font-size: 12px;
-  @include mq($from: tablet) { 
-    font-size: .57rem;
+  @include mq($from: tablet) {
+    font-size: 0.57rem;
   }
   line-height: 1.4;
   font-weight: normal;
@@ -97,7 +108,7 @@ figcaption, p.small, span.small, .tableList, footer ul {
 }
 
 .icon {
-  font-size: .5rem;
+  font-size: 0.5rem;
   font-family: "IndivisibleMedium";
 }
 

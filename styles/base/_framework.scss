@@ -8,7 +8,10 @@ $margin: 3rem;
 $small-margin: 2rem;
 
 :root {
+    --outer-margin: 1.2rem;
+  @include mq($from: tablet) { 
   --outer-margin: 1.5rem;
+  }
 
   --black: #{hexToRGBString($black)};
   --white: #{hexToRGBString($white)};
