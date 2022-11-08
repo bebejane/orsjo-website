@@ -1,11 +1,11 @@
 import nodemailer from 'nodemailer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(req : NextApiRequest, res: NextApiResponse) {
-  
-  try{
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    const { subject, name, email, text} = req.body
+  try {
+
+    const { subject, name, email, text } = req.body
 
     const transporter = nodemailer.createTransport({
       port: process.env.SMTP_PORT,
@@ -14,7 +14,7 @@ export default function handler(req : NextApiRequest, res: NextApiResponse) {
         user: process.env.SMTP_EMAIL,
         pass: process.env.SMTP_PASSWORD,
       },
-      secure: true,
+      secure: false,
     })
 
     const mailData = {
@@ -24,11 +24,8 @@ export default function handler(req : NextApiRequest, res: NextApiResponse) {
       text
     }
 
-    //setTimeout(()=> res.status(200).json({success:true}), 1000)
-    
-    
-    transporter.sendMail(mailData,(err, info) => {
-      if(err)
+    transporter.sendMail(mailData, (err, info) => {
+      if (err)
         res.status(500)
       else
         res.status(200)
@@ -36,10 +33,10 @@ export default function handler(req : NextApiRequest, res: NextApiResponse) {
       console.error(err)
       console.log(info)
     })
-    
-  
-  } catch(err){
 
-    res.status(500).json({error:true, message:err.message});
+
+  } catch (err) {
+
+    res.status(500).json({ error: true, message: err.message });
   }
 }

@@ -3,25 +3,25 @@ import { LastNewsDocument, StartDocument } from '/graphql';
 import { Block, Section } from '/components';
 import { PageProps } from '../lib/context/page';
 
-export type StartProps = {start:StartRecord, lastNews: NewsRecord[]}
+export type StartProps = { start: StartRecord, lastNews: NewsRecord[] }
 
-export default function Start({start : { content }, lastNews } : StartProps) {
-	
+export default function Start({ start: { content }, lastNews }: StartProps) {
+
 	return (
 		<>
-			{content.map((block, idx) => 
+			{content.map((block, idx) =>
 				<Section key={idx} type="full">
-					<Block data={block}/>
+					<Block data={block} />
 				</Section>
 			)}
 		</>
 	)
 }
 
-Start.page = {layout:'full', color:'--black', menu:'inverted', sidebar:false} as PageProps
+Start.page = { layout: 'full', color: '--black', menu: 'inverted', sidebar: false } as PageProps
 
-export const getStaticProps = withGlobalProps({queries:[StartDocument, LastNewsDocument]}, async ({props, revalidate } : any) => {
-	
+export const getStaticProps = withGlobalProps({ queries: [StartDocument, LastNewsDocument] }, async ({ props, revalidate }: any) => {
+
 	return {
 		props,
 		revalidate
