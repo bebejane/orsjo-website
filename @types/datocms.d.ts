@@ -10,10 +10,14 @@ type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** Represents `true` or `false` values. */
   BooleanType: any;
   CustomData: any;
+  /** A ISO 8601 compliant datetime value */
   DateTime: any;
+  /** Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). */
   FloatType: any;
+  /** Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
   IntType: any;
   ItemId: any;
   JsonField: any;
@@ -503,6 +507,7 @@ type ContactRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   address?: Maybe<Scalars['String']>;
+  contactFormMessage?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   email?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
@@ -523,6 +528,12 @@ type ContactRecord_seoMetaTagsArgs = {
 
 /** Record of type Contact (contact) */
 type ContactRecordaddressArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Record of type Contact (contact) */
+type ContactRecordcontactFormMessageArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
