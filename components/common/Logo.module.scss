@@ -7,10 +7,17 @@
   z-index: 1000;
   transition: color 0.8s ease-out;
   color: $black;
-  //@include mq($until: tablet) {
   line-height: 1.5;
-  //}
+  @include mq($until: tablet) {
+    margin-top: 0;
+    display: flex;
+    height: $navbarHeightMobile;
+    align-items: center;
+  }
   span {
+    @include mq($until: tablet) {
+      padding-top: 0.2em;
+    }
     display: inline-block;
     opacity: 1;
     transform: scale(1);
@@ -33,9 +40,5 @@
         font-variation-settings: "wght" 0, "opsz" 0 !important;
       }
     }
-  }
-
-  @include mq($until: tablet) {
-    margin-top: 1rem;
   }
 }
