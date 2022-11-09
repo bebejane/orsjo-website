@@ -1,4 +1,5 @@
 import styles from './downloads.module.scss'
+import cn from 'classnames'
 import { AllProductDownloadsDocument, AllCataloguesDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
@@ -7,6 +8,8 @@ import { PageProps } from '/lib/context/page';
 import React, { useState, useEffect, useRef } from 'react';
 import { Section, Icon } from '/components'
 import { productDownloads, ProductRecordWithPdfFiles } from '/lib/utils';
+import { useMediaMatch } from 'rooks';
+import { styleVariables } from '/lib/utils';
 
 export type DownloadsProps = { products: ProductRecord[], catalogues: CatalogueRecord[] }
 
@@ -14,6 +17,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 
 	const [search, setSeatch] = useState<string>();
 	const [results, setResults] = useState<ProductRecord[]>(products);
+	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
 	const [list, setList] = useState({})
 	const ref = useRef<HTMLInputElement>()
 
@@ -94,7 +98,10 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 																	<Icon type={'pdf'} label={label} />
 																</a>
 															</div>
-															{idx % 2 === 1 && <hr key={`hr-${idx}`} />}
+															{idx % 2 === 1 &&
+																<hr key={`hr-${idx}`} className={cn(isMobile && styles.hide)} />
+															}
+															{<hr key={`hr-${idx}`} className={cn(!isMobile && styles.hide)} />}
 														</>
 													)}
 												</div>
@@ -116,7 +123,6 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 						<tr>
 							<th><span className="small">Image</span></th>
 							<th><span className="small">Title</span></th>
-
 							<th></th>
 						</tr>
 						{catalogues.map(({ id, title, thumbnail, pdf }) =>
