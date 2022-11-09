@@ -105,7 +105,7 @@ export default function Product({
 							</h1>
 							<h3 className={styles.type}>
 								<TextReveal>
-									{product.categories.map(({ name }, idx) => name).join(', ')}
+									{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}
 								</TextReveal>
 							</h3>
 						</div>

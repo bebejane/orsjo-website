@@ -97,8 +97,11 @@ query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip
 				...FileFragment
 			}
 		}
-		bimLink
 		lightFile {
+			...FileFragment
+		}
+		bimLink
+		bimFile {
 			...FileFragment
 		}
 	}
