@@ -64,13 +64,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   return (
     <>
-      <DefaultDatoSEO
-        siteTitle="Örsjö Belysning"
-        title={pageTitle}
-        description={description}
-        site={site}
-        path={router.asPath}
-      />
+
       <AnimatePresence exitBeforeEnter initial={true}>
         <div id="app" key={pathname}>
           <PageProvider value={page}>
@@ -84,18 +78,5 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
     </>
   )
 }
-/*
-const parsePageTitle = (pageProps: any, page: PageProps) => {
-  const { product, designer, project, news }: {
-    product: ProductRecord,
-    designer: DesignerRecord,
-    project: ProjectRecord,
-    news: NewsRecord
-  } = pageProps
-
-  const title = product?.title || designer?.name || project?.title || news.title || page.title
-  return title
-}
-*/
 
 export default Application

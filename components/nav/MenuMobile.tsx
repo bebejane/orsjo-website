@@ -1,15 +1,13 @@
 import styles from './MenuMobile.module.scss'
 import cn from 'classnames'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState, useEffect, FormEventHandler, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { usePage } from '/lib/context/page'
 import { useStore, shallow } from '/lib/store'
 import { Twirl as Hamburger } from "hamburger-react";
 import { SiteSearch } from '/components'
 import type { Menu } from '/lib/menu'
 import social from '/lib/social'
-import { useWindowSize } from 'rooks'
 
 export type MenuMobileProps = { items: Menu }
 
