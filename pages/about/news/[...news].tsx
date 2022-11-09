@@ -12,11 +12,11 @@ import format from 'date-fns/format';
 
 export type NewsProps = { news: NewsRecord };
 
-export default function News({ news: { image, title, createdAt, text } }: NewsProps) {
+export default function News({ news: { image, title, createdAt, text, _seoMetaTags } }: NewsProps) {
 
 	return (
 		<>
-			<DatoSEO title={title} description={text} />
+			<DatoSEO title={title} description={text} seo={_seoMetaTags} />
 			<Section top={true}>
 				<h1 className="bottomMargin topMargin white">News</h1>
 			</Section>
@@ -66,7 +66,8 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	return {
 		props: {
 			...props,
-			news
+			news,
+			pageTitle: news.title
 		},
 		revalidate
 	};

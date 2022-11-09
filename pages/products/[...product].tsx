@@ -80,7 +80,7 @@ export default function Product({
 
 	return (
 		<>
-			<DatoSEO title={product.title} description={product.description} />
+			<DatoSEO title={product.title} description={product.description} seo={product._seoMetaTags} />
 			<Section name="Introduction" className={styles.product} top={true}>
 				<div className={styles.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					<Image
@@ -278,6 +278,20 @@ export default function Product({
 
 Product.page = { layout: 'normal', color: '--white', menu: 'normal' } as PageProps
 
+const formatDesignerName = (name?: string) => {
+	if (!name) return ''
+	const words = name?.split(' ');
+	const rows = []
+
+	for (let i = words.length - 1; i >= 0; i -= 2) {
+		const row = [words[i]]
+		if (i - 1 >= 0)
+			row.push(words[i - 1])
+		rows.push(row)
+	}
+	return rows.reverse().map((el, i) => <>{el.reverse().join(' ')}{i < rows.length - 1 && <br />}</>)
+}
+
 export async function getStaticPaths(context) {
 	const { products } = await apiQuery(AllProductsLightDocument, {})
 	const paths = products.map(({ slug }) => ({ params: { product: [slug] } }))
@@ -337,22 +351,10 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 			relatedProjects,
 			files,
 			drawings,
-			specsCols
+			specsCols,
+			pageTitle: product.title
 		},
 		revalidate
 	};
 });
 
-const formatDesignerName = (name?: string) => {
-	if (!name) return ''
-	const words = name?.split(' ');
-	const rows = []
-
-	for (let i = words.length - 1; i >= 0; i -= 2) {
-		const row = [words[i]]
-		if (i - 1 >= 0)
-			row.push(words[i - 1])
-		rows.push(row)
-	}
-	return rows.reverse().map((el, i) => <>{el.reverse().join(' ')}{i < rows.length - 1 && <br />}</>)
-}

@@ -1,186 +1,185 @@
 #import "./ImageFragment.gql"
 #import "./VideoFragment.gql"
 #import "./FileFragment.gql"
+#import "./SEOFragment.gql"
 
-fragment ProductFragment on ProductRecord{
-  id
-  title
-  description (markdown:false)
-  slug
-  bimLink
-  additionalInformation
-  markAsNew
-  image {
-    ...ImageFragment
-  }
-  productGallery {
-    ... on FullwidthImageRecord {
-      __typename
-      id
-      image{
-        ...ImageFragment
-      }      
-    }
-    ... on ImageGalleryRecord {
-      __typename
-      id
-      gallery {
-        ...ImageFragment
-      }
-    }
-   ... on TextRecord {
-      __typename
-      id
-      text {
-        value
-        links {
-          __typename  
-          ... on ProductRecord{
-            id
-            title
-            slug
-          }
-          ... on ProjectRecord{
-            id
-            title
-            slug
-          }
-          ... on DesignerRecord{
-            id
-            name
-            slug
-          }
-        }
-      }
-    }
-    ... on TwoColumnImageRecord {
-      __typename
-      id
-      firstImage {
-        ...ImageFragment
-      }
-      lastImage {
-        ...ImageFragment
-      }
-    }
-    ... on VideoRecord {
-      __typename
-      id
-      video {
-        ...VideoFragment
-      }
-    }
-  }
-  environmentImage{
-    ...ImageFragment
-  }
-  colorImages {
-    ...ImageFragment
-  }
-  family{
-    id
-    name
-  }
-  categories{
-    id
-    name
-    namePlural
-    position
-  }
-  connection {
-    id
-    name
-  }
-  designer {
-    id
-    name
-    slug
-  }
-  dimmable {
-    id
-    name
-  }
-  electricalData {
-    id
-    name
-  }
-  electricalData {
-    id
-    name
-  }
-  lightFile {
-    ...FileFragment
-  }
-  models {
-    id
-    name {
-      id
-      name
-    }
-    drawing {
-      ...ImageFragment
-    }
-    lightsources {
-      id
-      included
-      amount
-      optional
-      lightsource {
-        id
-        name
-        price
-        articleNo
-      }
-    }
-    variants {
-      color {
-        id
-        name
-      }
-      id
-      material {
-        id
-        name
-      }
-      price
-      volume
-      weight
-      feature{
-        name
-      }
-      articleNo
-    }
-    accessories {
-      articleNo
-      price
-      accessory {
-        name
-      }
-    } 
-  }
-  mounting {
-    id
-    name
-  }
-  mountingInstructions {
-    ...FileFragment
-  }
-  pdfFile {
-    ...FileFragment
-  }
-  pdfFiles :_allPdfFileLocales {
-    locale
-    value {
-      ...FileFragment
-    }
-  }
-  sockets {
-    id
-    name
-  }
-  seo: _seoMetaTags {
-    attributes
-    content
-    tag
-  }
+fragment ProductFragment on ProductRecord {
+	id
+	title
+	description(markdown: false)
+	slug
+	bimLink
+	additionalInformation
+	markAsNew
+	image {
+		...ImageFragment
+	}
+	productGallery {
+		... on FullwidthImageRecord {
+			__typename
+			id
+			image {
+				...ImageFragment
+			}
+		}
+		... on ImageGalleryRecord {
+			__typename
+			id
+			gallery {
+				...ImageFragment
+			}
+		}
+		... on TextRecord {
+			__typename
+			id
+			text {
+				value
+				links {
+					__typename
+					... on ProductRecord {
+						id
+						title
+						slug
+					}
+					... on ProjectRecord {
+						id
+						title
+						slug
+					}
+					... on DesignerRecord {
+						id
+						name
+						slug
+					}
+				}
+			}
+		}
+		... on TwoColumnImageRecord {
+			__typename
+			id
+			firstImage {
+				...ImageFragment
+			}
+			lastImage {
+				...ImageFragment
+			}
+		}
+		... on VideoRecord {
+			__typename
+			id
+			video {
+				...VideoFragment
+			}
+		}
+	}
+	environmentImage {
+		...ImageFragment
+	}
+	colorImages {
+		...ImageFragment
+	}
+	family {
+		id
+		name
+	}
+	categories {
+		id
+		name
+		namePlural
+		position
+	}
+	connection {
+		id
+		name
+	}
+	designer {
+		id
+		name
+		slug
+	}
+	dimmable {
+		id
+		name
+	}
+	electricalData {
+		id
+		name
+	}
+	electricalData {
+		id
+		name
+	}
+	lightFile {
+		...FileFragment
+	}
+	models {
+		id
+		name {
+			id
+			name
+		}
+		drawing {
+			...ImageFragment
+		}
+		lightsources {
+			id
+			included
+			amount
+			optional
+			lightsource {
+				id
+				name
+				price
+				articleNo
+			}
+		}
+		variants {
+			color {
+				id
+				name
+			}
+			id
+			material {
+				id
+				name
+			}
+			price
+			volume
+			weight
+			feature {
+				name
+			}
+			articleNo
+		}
+		accessories {
+			articleNo
+			price
+			accessory {
+				name
+			}
+		}
+	}
+	mounting {
+		id
+		name
+	}
+	mountingInstructions {
+		...FileFragment
+	}
+	pdfFile {
+		...FileFragment
+	}
+	pdfFiles: _allPdfFileLocales {
+		locale
+		value {
+			...FileFragment
+		}
+	}
+	sockets {
+		id
+		name
+	}
+	_seoMetaTags {
+		...SEOFragment
+	}
 }
