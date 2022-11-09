@@ -1,59 +1,63 @@
-.intro{
-  p{
-    color:$white;
+.intro {
+  p {
+    color: $white;
     padding-bottom: 1em;
-    padding-right: 20%;
+    @include mq($from: tablet) {
+      padding-right: 20%;
+    }
   }
-  
 }
-.faq{
+.faq {
   position: relative;
   margin-bottom: 2em;
-  h2.category{
-    margin:0;
+  h2.category {
+    margin: 0;
     padding: 0;
     border-bottom: 1px solid $black;
   }
-  ul{
+  ul {
     list-style: none;
     border-top: 1px solid $white;
-    li{
+    li {
       display: flex;
       position: relative;
       flex-direction: column;
       cursor: pointer;
-      padding: .8em .8em .8em 0em;
+      padding: 0.8em 0.8em 0.8em 0em;
       border-bottom: 1px solid $white;
-      &.selected{
-        padding: .8em .8em .8em .8em;
+      &.selected {
+        padding: 0.8em 0.8em 0.8em 0.8em;
         background-color: $white;
-        
-        .answer{
+
+        .answer {
           display: block;
         }
       }
-      .header{
+      .header {
         display: flex;
         flex-direction: row;
         align-items: center;
-        
-        .question{
+
+        .question {
           flex: 1 1 100%;
-          padding:0;
+          padding: 0;
+          padding-right: 1em;
         }
-        .indicator{
+        .indicator {
           margin-right: $gutter;
         }
       }
-      
-      .answer{
+
+      .answer {
         display: none;
-        p{
-          margin:0;
-          padding-right: 20%;
-          padding-top: .5em;
+        p {
+          margin: 0;
+          @include mq($from: tablet) {
+            padding-right: 20%;
+          }
+          padding-top: 0.5em;
         }
       }
-    } 
-  }  
+    }
+  }
 }

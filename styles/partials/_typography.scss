@@ -49,7 +49,10 @@ h1 {
 
 //Big h1, see mixins
 h2 {
-  font-size: 0.8em;
+  font-size: 16px;
+  @include mq($from: tablet) {
+    font-size: 0.8em;
+  }
   //letter-spacing: .1em;
   padding-bottom: 1em;
   font-weight: normal;
@@ -62,12 +65,12 @@ h2 {
 
 h3 {
   font-size: 11px;
-  @include mq($from: tablet) {
-    font-size: 0.45em;
-  }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding-bottom: 0.5em;
+  @include mq($from: tablet) {
+    font-size: 0.45em;
+  }
 }
 
 nav,
