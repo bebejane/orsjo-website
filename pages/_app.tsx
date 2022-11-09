@@ -61,7 +61,6 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   if (isError)
     return <Component {...pageProps} />
-  console.log(pageTitle);
 
   return (
     <>
@@ -70,6 +69,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
         title={pageTitle}
         description={description}
         site={site}
+        path={router.asPath}
       />
       <AnimatePresence exitBeforeEnter initial={true}>
         <div id="app" key={pathname}>
