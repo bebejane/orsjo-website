@@ -1,43 +1,50 @@
 .intro {
   position: relative;
   width: 100%;
+
   .wrap {
     display: flex;
     position: relative;
+    cursor: pointer;
+
     @include mq($until: tablet) {
       min-height: 60vh;
     }
+
     @include mq($from: tablet) {
-      min-height: calc(100vh - $navbarHeight);
-      max-height: calc(100vh - $navbarHeight);
+      min-height: calc(100vh - $navbarHeight - var(--outer-margin));
+      max-height: calc(100vh - $navbarHeight - var(--outer-margin));
     }
-    cursor: pointer;
-    .image {
-      opacity: 0.2;
-      filter: grayscale(1);
-    }
+
+    .image {}
+
     .title,
     .location {
       @include mq($from: tablet) {
         margin: 0.5em;
         position: absolute;
       }
+
       z-index: 1;
       @include h1Big();
       color: $black;
     }
+
     .title {
       top: 0;
       left: 0;
     }
+
     .location {
       @include mq($until: tablet) {
         display: none;
       }
+
       bottom: 0;
       right: 0;
     }
   }
+
   @include mq($until: tablet) {
     .wrap {
       min-height: auto;
@@ -55,8 +62,10 @@
     flex: 1 1 auto;
     max-width: 100%;
   }
+
   @include mq($until: tablet) {
     flex-direction: column;
+
     h1,
     .gallery {
       flex: 1 1 auto;

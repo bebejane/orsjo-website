@@ -15,7 +15,7 @@ import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import Link from 'next/link'
-import { useWindowSize } from 'rooks'
+import { useMediaMatch, useWindowSize } from 'rooks'
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -42,9 +42,8 @@ export default function Product({
 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
-	const { innerWidth } = useWindowSize()
+	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
 	const singleModel = product.models.length === 1
-	const isMobile = innerWidth <= styleVariables.tablet;
 	const [list, setList] = useState({ specifications: false, downloads: false })
 	const [pictureStyle, setPictureStyle] = useState({ paddingBottom: '4em' })
 	const images = useMemo(() => dedupeImages([product.image, ...product.productGallery.map(block => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]), [product])
@@ -77,6 +76,7 @@ export default function Product({
 		const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
 		setPictureStyle({ paddingBottom: `${4 * scale}em` })
 	}, [viewportHeight, scrolledPosition, setPictureStyle])
+	console.log(isMobile, `max-width: ${styleVariables.tablet}px`);
 
 	return (
 		<>
@@ -105,7 +105,7 @@ export default function Product({
 							</h1>
 							<h3 className={styles.type}>
 								<TextReveal>
-									{product.categories.map(({ name }, idx) => name).join(', ')}
+									{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}
 								</TextReveal>
 							</h3>
 						</div>

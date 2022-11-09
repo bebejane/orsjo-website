@@ -159,7 +159,7 @@ export type ProductRecordWithPdfFiles = ProductRecord & {
 
 export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[] => {
 
-  const { pdfFiles, mountingInstructions, bimLink, lightFile } = product;
+  const { pdfFiles, mountingInstructions, bimLink, bimFile, lightFile } = product;
 
   const files = [{
     href: pdfFiles.find(({ locale }) => locale === 'sv') && `${pdfFiles.find(({ locale }) => locale === 'sv')?.value.url}?dl=${pdfFiles.find(({ locale }) => locale === 'sv')?.value.title}.pdf`,
@@ -178,8 +178,8 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
     label: 'Light file',
     type: 'zip'
   }, {
-    href: bimLink,
-    label: 'Download at BIM Objects',
+    href: bimFile?.url || bimLink,
+    label: bimFile?.url ? 'Download CAD files' : 'Visit BIM Objects',
     type: 'cad'
   }, {
     href: undefined,

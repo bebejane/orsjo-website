@@ -1,5 +1,5 @@
 .intro {
-  @include mq($from: tablet) { 
+  @include mq($from: tablet) {
     width: 80%;
   }
 }
@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
 
-  .search{
+  .search {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -18,23 +18,24 @@
     margin-bottom: 1em;
 
 
-    img{
+    img {
       max-width: 18px;
       margin-right: .5rem;
     }
-    input{
-      margin:0;
+
+    input {
+      margin: 0;
       margin-bottom: $gutter;
       background-color: transparent;
-      border:0;
+      border: 0;
       outline: none;
-      margin:0;
+      margin: 0;
       width: 100%;
     }
   }
-  
+
   table {
-    
+
     tbody {
       tr {
         margin-top: .2em;
@@ -46,8 +47,7 @@
 
         &.active {
           td {
-            background-color: $white  !important;
-            //padding-top: .0em;
+            background-color: $white !important;
             padding-bottom: 0em;
           }
         }
@@ -56,6 +56,7 @@
           text-align: left;
           color: $white;
           padding-bottom: .6em;
+
           &:nth-child(2) {
             padding-left: 1em;
           }
@@ -69,8 +70,6 @@
           white-space: pre;
           cursor: pointer;
           vertical-align: middle;
-
-       
 
           &:first-child {
             width: 2em;
@@ -109,19 +108,26 @@
               flex: 0 0 50%;
               padding-top: .5em;
               padding-bottom: .5em;
-              a{
+
+              a {
                 flex: 1 1 auto;
                 padding-right: 1em;
               }
             }
-            hr{
+
+            hr {
+
               min-height: 1px;
               max-height: 1px;
-              margin:0;
+              margin: 0;
               width: 100%;
               background-color: $black;
-              border:0;
-              
+              border: 0;
+
+              &.hide {
+                display: none;
+              }
+
             }
           }
         }
@@ -131,10 +137,11 @@
     *>.image {
       position: relative !important;
       margin: 0 !important;
-      aspect-ratio: 1,1;
+      aspect-ratio: 1, 1;
       height: 2em;
       mix-blend-mode: multiply;
       display: flex;
+
       img {
         object-fit: contain;
       }

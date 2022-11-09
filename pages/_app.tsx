@@ -45,7 +45,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const page = (Component.page || { layout: 'normal', menu: 'normal', color: '' }) as PageProps
   const { site, seo, menu } = pageProps as { site: Site, seo: SiteSEOQuery, menu: Menu };
-  const pageTitle = pageProps.pageTitle || page.title
+  const pageTitle = pageProps.pageTitle || page?.title
   const description = site?.globalSeo.fallbackSeo.description
 
   useEffect(() => {

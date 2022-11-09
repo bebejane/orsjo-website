@@ -8,7 +8,6 @@ fragment ProductFragment on ProductRecord {
 	title
 	description(markdown: false)
 	slug
-	bimLink
 	additionalInformation
 	markAsNew
 	image {
@@ -174,6 +173,10 @@ fragment ProductFragment on ProductRecord {
 		value {
 			...FileFragment
 		}
+	}
+	bimLink
+	bimFile {
+		...FileFragment
 	}
 	sockets {
 		id
