@@ -17,63 +17,59 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	const ref = useRef();
 	const router = useRouter()
-	const [showMenu, setShowMenu, invertMenu, transitioning] = useStore((state) => [
-		state.showMenu, 
-		state.setShowMenu, 
+	const [showMenu, showMenuMobile, setShowMenu, invertMenu, transitioning] = useStore((state) => [
+		state.showMenu,
+		state.showMenuMobile,
+		state.setShowMenu,
 		state.invertMenu,
 		state.transitioning
 	], shallow)
-	
+
 	const [selected, setSelected] = useState(undefined)
 	const [hashChanging, setHashChanging] = useState(false)
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 })
 	const { layout, menu, color } = usePage()
 	const { innerWidth } = useWindowSize()
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo()
-	const isInverted = (menu === 'inverted' || invertMenu)
+	const isInverted = (menu === 'inverted' || invertMenu) || showMenuMobile
 
 	const resetSelected = useCallback(() => {
-		if(transitioning) 
+		if (transitioning)
 			return
 		setSelected(undefined)
 	}, [transitioning])
 
 	useEffect(() => { // Hide menu if was closed on scroll
-		if(!showMenu)
+		if (!showMenu)
 			resetSelected()
 	}, [showMenu, resetSelected])
 
 	useEffect(() => { // Toggle menu bar on scroll
-		if(transitioning) return
-		if(hashChanging)
+		if (transitioning) return
+		if (hashChanging)
 			return setShowMenu(false)
-			
+
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop)
 	}, [transitioning, scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
 
-	/*
-	useEffect(()=>{if(transitioning )setShowMenu(false)
-	}, [transitioning, setShowMenu])
-	*/
-	
 	useEffect(() => { // Hide menu when scrolling to hash
 
 		const handleHashChangeStart = async (url) => {
-			
+
 			const id = url.split('#')[1]
-			const el  = await waitForElement(id, 400);
-			if(!(el ? (el.getBoundingClientRect().top + window.scrollY) : false)) 
+			const el = await waitForElement(id, 400);
+			if (!(el ? (el.getBoundingClientRect().top + window.scrollY) : false))
 				return // If element is at page top, ignore.
 
 			setHashChanging(true)
-			setTimeout(()=>{
+			setTimeout(() => {
 				setHashChanging(false)
-				setTimeout(()=>setShowMenu(false), 0)
+				setTimeout(() => setShowMenu(false), 0)
 			}, 1000)
 		}
-    router.events.on("hashChangeStart", handleHashChangeStart);
-    return () => router.events.off("hashChangeStart", handleHashChangeStart)
-  }, [router.events, setHashChanging, setShowMenu]);
+		router.events.on("hashChangeStart", handleHashChangeStart);
+		return () => router.events.off("hashChangeStart", handleHashChangeStart)
+	}, [router.events, setHashChanging, setShowMenu]);
 
 	useEffect(() => { // Re set margin on window resize or selected change
 		if (!selected) return
@@ -96,15 +92,15 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	}, [innerWidth, selected])
 
-	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu  && styles.hide, styles[layout], isInverted && styles.inverted)
+	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
-	
+
 	return (
 		<>
-			<Logo inverted={isInverted}/>
+			<Logo inverted={isInverted} />
 			<nav id={'menu'} ref={ref} className={menuStyles} >
 				<ul className={styles.nav} >
-					{items.map(({ label, slug, index }, idx) => 
+					{items.map(({ label, slug, index }, idx) =>
 						<li
 							data-slug={slug}
 							data-index={idx}
@@ -117,10 +113,10 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 								<Link scroll={false} href={slug}>
 									{label}
 								</Link>
-							:
+								:
 								<>{label}</>
 							}
-						</li>	
+						</li>
 					)}
 					<li className={styles.searchIcon} onClick={() => onShowSiteSearch()}>
 						<img src={'/images/search.svg'} />

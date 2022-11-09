@@ -2,6 +2,7 @@ import styles from './[...designer].module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import { AllDesignersDocument, DesignerDocument, AllProductsByDesignerDocument, AllProductsLightDocument } from '/graphql'
 import { apiQuery } from 'dato-nextjs-utils/api'
+import { DatoSEO } from 'dato-nextjs-utils/components';
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page'
 import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '/components'
@@ -12,6 +13,7 @@ export default function Designer({ designer, products, designers }: DesignerProp
 
 	return (
 		<>
+			<DatoSEO title={designer.name} description={designer.description} />
 			<Section type="full" className={styles.designer}>
 				<header>
 					<div className={styles.artist} key={designer.id}>
