@@ -21,7 +21,7 @@ export default function Sustainability({ sustainability: { image, intro, title, 
 					/>
 					<div className={styles.header}>
 						<h1>
-							<TextReveal>{title}</TextReveal>
+							<TextReveal block={true}>{title}</TextReveal>
 						</h1>
 					</div>
 				</div>
