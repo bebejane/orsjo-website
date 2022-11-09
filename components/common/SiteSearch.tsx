@@ -2,16 +2,16 @@ import styles from './SiteSearch.module.scss'
 import { styleVariables } from '/lib/utils'
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react';
-import { 
-	ProductThumbnail, 
-	ProjectThumbnail, 
-	DesignerThumbnail, 
-	NewsThumbnail, 
-	StaffThumbnail, 
-	Loader 
+import {
+	ProductThumbnail,
+	ProjectThumbnail,
+	DesignerThumbnail,
+	NewsThumbnail,
+	StaffThumbnail,
+	Loader
 } from '/components';
 import { AnchorLink } from '/components';
-import { useDebouncedValue, useWindowSize } from 'rooks';
+import { useDebouncedValue, useMediaMatch } from 'rooks';
 import { siteSearch, truncateParagraph } from '/lib/utils'
 import { useStore, shallow } from '/lib/store';
 
@@ -35,10 +35,9 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
-	const { innerWidth } = useWindowSize()
-
+	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading && inputValue
-	const thumbnailTheme = innerWidth < styleVariables.tablet ? 'dark' : 'light'
+	const thumbnailTheme = isMobile ? 'dark' : 'light'
 
 	useEffect(() => {
 		if (!debouncedQuery) {
@@ -69,7 +68,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 		setQueryImmediate(undefined)
 	}, [inputValue, setQueryImmediate])
 
-	useEffect(() => { !transitioning && setShowSiteSearch(false) }, [transitioning,setShowSiteSearch])
+	useEffect(() => { !transitioning && setShowSiteSearch(false) }, [transitioning, setShowSiteSearch])
 	useEffect(() => { loading && setResult({}) }, [loading, setResult])
 	useEffect(() => { show && ref.current.focus() }, [show, ref])
 	useEffect(() => { queryAsProp && setInputValue(queryAsProp) }, [queryAsProp])
@@ -99,24 +98,24 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 								{items.map((item, idx) =>
 									model === 'products' ?
 										<li><ProductThumbnail product={item} theme={thumbnailTheme} className={styles.thumb} /></li>
-									: model === 'designers' ?
-										<li><DesignerThumbnail designer={item} theme={thumbnailTheme} className={styles.thumb} /></li>
-									: model === 'projects' ?
-										<li><ProjectThumbnail project={item} theme={thumbnailTheme} className={styles.thumb} /></li>
-									: model === 'staffs' ?
-										<li><StaffThumbnail staff={item} theme={thumbnailTheme} className={styles.thumb} /></li>
-									: model === 'news' ?
-										<li><NewsThumbnail news={item} theme={thumbnailTheme} className={styles.thumb} /></li>
-									: model === 'faqs' ?
-										<li className={styles.full}>
-											<AnchorLink href={`/support/faq#${item.id}`} style={{fontWeight:'bold'}}>
-												{(item as FaqRecord).question}
-											</AnchorLink>
-											<br />
-											{truncateParagraph((item as FaqRecord).answer, 1, false)}<br />
-										</li>
-										:
-										null
+										: model === 'designers' ?
+											<li><DesignerThumbnail designer={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+											: model === 'projects' ?
+												<li><ProjectThumbnail project={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+												: model === 'staffs' ?
+													<li><StaffThumbnail staff={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+													: model === 'news' ?
+														<li><NewsThumbnail news={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+														: model === 'faqs' ?
+															<li className={styles.full}>
+																<AnchorLink href={`/support/faq#${item.id}`} style={{ fontWeight: 'bold' }}>
+																	{(item as FaqRecord).question}
+																</AnchorLink>
+																<br />
+																{truncateParagraph((item as FaqRecord).answer, 1, false)}<br />
+															</li>
+															:
+															null
 								)}
 							</ul>
 						</>
@@ -125,7 +124,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 				{(noResults || loading || error) &&
 					<div className={styles.status}>
 						{noResults && <span>no matches for {`"${query}"`}</span>}
-						{loading && <span><Loader/></span>}
+						{loading && <span><Loader /></span>}
 						{error && <span>Error: {error}</span>}
 					</div>
 				}

@@ -37,7 +37,7 @@ export interface StoreState {
 
 const useStore = create<StoreState>((set) => ({
   showMenu: true,
-  showMenuMobile: true,
+  showMenuMobile: false,
   currentSection: undefined,
   invertSidebar: false,
   invertMenu: false,
