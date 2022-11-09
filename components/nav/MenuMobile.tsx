@@ -54,6 +54,11 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	useEffect(() => { setShowSearch(!!query) }, [query])
 	useEffect(() => { !transitioning && handleClose() }, [transitioning])
 
+	useEffect(() => {
+		if (!showMenuMobile) return
+		items.filter(({ index, type }) => index || selected === type).forEach(({ slug }) => router.prefetch(slug))
+	}, [showMenuMobile, items, router, selected])
+
 	return (
 		<>
 			<div className={styles.hamburger}>

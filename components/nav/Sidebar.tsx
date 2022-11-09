@@ -9,14 +9,14 @@ import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { remToPx, styleVariables } from '/lib/utils';
 import { useWindowSize } from 'rooks';
 
-export type SidebarProps = {title: string, show:boolean}
+export type SidebarProps = { title: string, show: boolean }
 
 const getPageType = (pathname) => {
 	const p = pathname.toLowerCase();
 	return p === '/products' ? 'products' : p.startsWith('/products/') ? 'product' : p.startsWith('/professionals/projects/') ? 'project' : undefined
 }
 
-export default function Sidebar({title, show} : SidebarProps) {
+export default function Sidebar({ title, show }: SidebarProps) {
 
 	const { menu, layout, color } = usePage()
 	const router = useRouter()
@@ -29,76 +29,76 @@ export default function Sidebar({title, show} : SidebarProps) {
 	const [open, setOpen] = useState(false)
 	const [searchFocus, setSearchFocus] = useState(false);
 	const [maxHeight, setMaxHeight] = useState<string | undefined>()
-	const {scrolledPosition, documentHeight } = useScrollInfo()
+	const { scrolledPosition, documentHeight } = useScrollInfo()
 	const { innerWidth } = useWindowSize()
 	const backRef = useRef()
 
-	const resetSearch = useCallback(() => {setSearchProducts('')},[setSearchProducts]);
+	const resetSearch = useCallback(() => { setSearchProducts('') }, [setSearchProducts]);
 	const handleClick = (e) => setOpen(false);
-	
-	useEffect(()=>{ 
+
+	useEffect(() => {
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]')
-		const sections = items.length ? Array.from(items).map((s)  => ({title:s.dataset.sectionTitle, id:s.id})) : []
+		const sections = items.length ? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id })) : []
 		setSections(sections)
 	}, [])
 
-	useEffect(()=>{ // Highlight nav section on scroll\
+	useEffect(() => { // Highlight nav section on scroll\
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-section-id]'))
-		
-		if(!sections.length) 
+
+		if (!sections.length)
 			return
 
-		const calcPos = (el : HTMLElement) => Math.abs(scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop)) + el.offsetTop 
+		const calcPos = (el: HTMLElement) => Math.abs(scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop)) + el.offsetTop
 		const { id } = sections.sort((a, b) => calcPos(a) > calcPos(b) ? 1 : -1)[0]
-		
+
 		setCurrentSection(id)
 
 	}, [scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, menu])
-	
-	useEffect(()=>{
-		
+
+	useEffect(() => {
+
 		const isDesktop = innerWidth > styleVariables.tablet
 		const section = document.getElementById(currentSection)
 		const header = document.getElementById('sidebar-header')
 
-		if(!section || !header || !isDesktop) 
+		if (!section || !header || !isDesktop)
 			return
 
 		const bg = getComputedStyle(section, null).backgroundColor
 		const fg = getComputedStyle(header, null).color
 
-		if(menu === 'inverted' && bg === fg)	
+		if (menu === 'inverted' && bg === fg)
 			setInverted(false)
 		else
 			setInverted(menu === 'inverted')
 
 	}, [currentSection, setInverted, menu, innerWidth])
 
-	useEffect(()=>{ 
-		if(pageType) return
+	useEffect(() => {
+		if (pageType) return
 		const footer = document.getElementById('footer')
 		setMaxHeight(`calc(100vh - ${footer?.clientHeight}px`);
 	}, [pageType, setMaxHeight])
 
-	useEffect(()=>{ setTimeout(()=>resetSearch(), 100)}, [router.asPath, resetSearch])
-	
-	if(!show) return null
+	useEffect(() => { setTimeout(() => resetSearch(), 100) }, [router.asPath, resetSearch])
+
+	if (!show) return null
 
 	return (
-		<aside 
-			id="sidebar" 
+		<aside
+			id="sidebar"
 			className={cn(styles.sidebar, inverted && styles.inverted, pageType === 'products' && styles.short)}
-			style={{backgroundColor:color, maxHeight}}
+			style={{ backgroundColor: color, maxHeight }}
 		>
-			<h3 id="sidebar-header" className={cn(open && styles.open)} onClick={()=>setOpen(!open)}>
+			<h3 id="sidebar-header" className={cn(open && styles.open)} onClick={() => setOpen(!open)}>
 				{title}
 				<span className={cn(styles.arrow, open && styles.open)}>›</span>
 			</h3>
 			<nav className={cn(open && styles.open)}>
 				<ul>
-					{sections?.map((section, idx) => 
+					{sections?.map((section, idx) =>
 						<li key={idx}>
-							<AnchorLink 
+							<AnchorLink
 								href={`${pathname}#${section.id}`}
 								data-section-id={section.id}
 								className={cn(section.id === currentSection && styles.active)}
@@ -109,15 +109,15 @@ export default function Sidebar({title, show} : SidebarProps) {
 						</li>
 					)}
 					<li className={cn(styles.search, pageType === 'products' && styles.show)}>
-						<input 
-							type="text" 
-							placeholder='Search' 
-							value={searchProducts || ''} 
+						<input
+							type="text"
+							placeholder='Search'
+							value={searchProducts || ''}
 							onChange={(e) => setSearchProducts(e.target.value)}
-							onFocus={()=> setSearchFocus(true)}
-							onBlur={()=> setTimeout(()=>setSearchFocus(false), 100)}
+							onFocus={() => setSearchFocus(true)}
+							onBlur={() => setTimeout(() => setSearchFocus(false), 100)}
 						/>
-						<button 
+						<button
 							onClick={resetSearch}
 							className={cn(styles.close, searchFocus && styles.show)}
 						>
@@ -126,20 +126,20 @@ export default function Sidebar({title, show} : SidebarProps) {
 					</li>
 				</ul>
 			</nav>
-			
+
 			<div className={cn(styles.footer, 'medium')}>
-				{pageType === 'product' && 
-					<span onClick={()=> router.push("/products")} ref={backRef}>
+				{pageType === 'product' &&
+					<span onClick={() => router.push("/products")} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>All Products</ArrowLink>
 					</span>
 				}
-				{pageType === 'project' && 
-					<span onClick={()=> router.push("/professionals/projects")} ref={backRef}>
+				{pageType === 'project' &&
+					<span onClick={() => router.push("/professionals/projects")} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>All Projects</ArrowLink>
 					</span>
 				}
 			</div>
-			
+
 		</aside>
 	)
 }
