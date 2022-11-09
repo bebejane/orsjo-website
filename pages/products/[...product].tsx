@@ -80,7 +80,7 @@ export default function Product({
 
 	return (
 		<>
-			<DatoSEO title={product.title} description={product.description} />
+			<DatoSEO title={product.title} description={product.description} seo={product._seoMetaTags} />
 			<Section name="Introduction" className={styles.product} top={true}>
 				<div className={styles.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					<Image

@@ -57,7 +57,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 
 	return (
 		<>
-			<DatoSEO title={project.title} />
+			<DatoSEO title={project.title} seo={project._seoMetaTags} />
 			<Section className={styles.intro} name="Presentation" top={true}>
 				<div className={styles.wrap} onClick={() => setGalleryId(project.image?.id)}>
 					<h1 className={styles.title}>

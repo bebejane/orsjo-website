@@ -48,7 +48,6 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   const pageTitle = pageProps.title || page.title
   const description = site?.globalSeo.fallbackSeo.description
 
-
   useEffect(() => {
     router.events.on("hashChangeStart", handleHashChange);
     return () => router.events.off("hashChangeStart", handleHashChange)

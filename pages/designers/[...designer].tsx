@@ -13,7 +13,7 @@ export default function Designer({ designer, products, designers }: DesignerProp
 
 	return (
 		<>
-			<DatoSEO title={designer.name} description={designer.description} />
+			<DatoSEO title={designer.name} description={designer.description} seo={designer._seoMetaTags} />
 			<Section type="full" className={styles.designer}>
 				<header>
 					<div className={styles.artist} key={designer.id}>

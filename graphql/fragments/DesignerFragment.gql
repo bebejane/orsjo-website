@@ -1,11 +1,15 @@
 #import "./ImageFragment.gql"
+#import "./SEOFragment.gql"
 
-fragment DesignerFragment on DesignerRecord{
-  id
-  name
-  image{
-    ...ImageFragment
-  }
-  description
-  slug
+fragment DesignerFragment on DesignerRecord {
+	id
+	name
+	image {
+		...ImageFragment
+	}
+	description
+	slug
+	_seoMetaTags {
+		...SEOFragment
+	}
 }
