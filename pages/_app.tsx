@@ -64,7 +64,13 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
 
   return (
     <>
-
+      <DefaultDatoSEO
+        siteTitle="Örsjö Belysning"
+        title={pageTitle}
+        description={description}
+        site={site}
+        path={router.asPath}
+      />
       <AnimatePresence exitBeforeEnter initial={true}>
         <div id="app" key={pathname}>
           <PageProvider value={page}>
