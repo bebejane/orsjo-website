@@ -57,7 +57,7 @@ export default function Sustainability({ sustainability: { image, intro, title, 
 	)
 }
 
-Sustainability.page = { layout: 'full', color: "--black", menu: 'inverted' } as PageProps
+Sustainability.page = { title: 'Sustainability', layout: 'full', color: "--black", menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [SustainabilityDocument], model: 'sustainability' }, async ({ props, revalidate }: any) => {
 

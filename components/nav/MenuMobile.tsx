@@ -17,14 +17,13 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	const router = useRouter()
 	const { menu } = usePage()
-	const [open, setOpen] = useState(false)
 	const searchRef = useRef<HTMLInputElement>()
 	const [query, setQuery] = useState<string>('');
 	const [searchInput, setSearchInput] = useState<string>('');
 
 	const [showSearch, setShowSearch] = useState(false);
 	const [selected, setSelected] = useState(undefined)
-	const [transitioning] = useStore((state) => [state.transitioning], shallow)
+	const [showMenuMobile, setShowMenuMobile, transitioning] = useStore((state) => [state.showMenuMobile, state.setShowMenuMobile, state.transitioning], shallow)
 	const sub = items.find((item) => item.type === selected)?.sub
 	const subHeader = selected ? items.find(i => i.type === selected).label : null
 
@@ -46,7 +45,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	const handleClose = () => {
 		setSelected(undefined)
-		setOpen(false)
+		setShowMenuMobile(false)
 	}
 
 	useEffect(() => {
@@ -61,15 +60,15 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 		<>
 			<div className={styles.hamburger}>
 				<Hamburger
-					toggled={open}
+					toggled={showMenuMobile}
 					duration={0.5}
-					onToggle={setOpen}
-					color={menu === 'inverted' || open ? "#fff" : "#000"}
+					onToggle={setShowMenuMobile}
+					color={menu === 'inverted' || showMenuMobile ? "#fff" : "#000"}
 					label={"Menu"}
 					size={24}
 				/>
 			</div>
-			<nav className={cn(styles.mobileMenu, open ? styles.open : styles.hide)}>
+			<nav className={cn(styles.mobileMenu, showMenuMobile ? styles.open : styles.hide)}>
 				<nav className={styles.main}>
 					<ul className={styles.nav}>
 						{items.map(({ label, slug, type, index }, idx) =>

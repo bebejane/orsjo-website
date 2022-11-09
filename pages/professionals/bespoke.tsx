@@ -92,7 +92,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 	)
 }
 
-Bespoke.page = { layout: 'full', color: "--gray", menu: 'inverted', sidebar: false } as PageProps
+Bespoke.page = { title: 'Bespoke', layout: 'full', color: "--gray", menu: 'inverted', sidebar: false } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [BespokeDocument] }, async ({ props, revalidate }: any) => {
 

@@ -17,7 +17,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 					{projectStart.intro}
 				</Markdown>
 			</Section>
-			{projectTypes.filter(({id}) => projects.find(({projectType}) => projectType.id === id)).map(({ title, titlePlural, id }, idx) => {
+			{projectTypes.filter(({ id }) => projects.find(({ projectType }) => projectType.id === id)).map(({ title, titlePlural, id }, idx) => {
 				return (
 					<Section name={titlePlural} className={styles.projects} key={idx} >
 						<h1>{titlePlural}</h1>
@@ -38,7 +38,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 	)
 }
 
-Professionals.page = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
+Professionals.page = { title: 'Projects', layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument] }, async ({ props, revalidate }: any) => {
 

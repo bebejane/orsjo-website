@@ -1,5 +1,6 @@
 import styles from './[...project].module.scss'
 import { apiQuery } from 'dato-nextjs-utils/api';
+import { DatoSEO } from 'dato-nextjs-utils/components';
 import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, BespokeThumbnailDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
@@ -56,6 +57,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 
 	return (
 		<>
+			<DatoSEO title={project.title} />
 			<Section className={styles.intro} name="Presentation" top={true}>
 				<div className={styles.wrap} onClick={() => setGalleryId(project.image?.id)}>
 					<h1 className={styles.title}>

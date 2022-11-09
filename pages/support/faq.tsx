@@ -8,28 +8,28 @@ import { Section } from '/components'
 import { useState, useEffect } from 'react';
 
 export type FaqsByCategory = {
-	[key:string]: {
-		id:string,
-		title:string,
+	[key: string]: {
+		id: string,
+		title: string,
 		items: FaqRecord[]
 	}
 }
 
-export type FaqsProps = { 
-	faqs: FaqRecord[], 
-	faqStart: FaqStartRecord, 
-	faqsByCategory: FaqsByCategory 
+export type FaqsProps = {
+	faqs: FaqRecord[],
+	faqStart: FaqStartRecord,
+	faqsByCategory: FaqsByCategory
 }
 
 export default function Faqs({ faqs, faqStart, faqsByCategory }: FaqsProps) {
 
-	const [list, setList] = useState<{[key:string]: boolean}>({})
+	const [list, setList] = useState<{ [key: string]: boolean }>({})
 
 	useEffect(() => {
-		if(location.hash)
-			setList({...list, [location.hash.replace('#', '')]: true})
-  }, [setList]);
-	
+		if (location.hash)
+			setList({ ...list, [location.hash.replace('#', '')]: true })
+	}, [setList]);
+
 	return (
 		<>
 			<Section className={styles.intro} top={true}>
@@ -42,10 +42,10 @@ export default function Faqs({ faqs, faqStart, faqsByCategory }: FaqsProps) {
 						<h1 className={styles.category}>{title}</h1>
 						<ul>
 							{items.map(({ question, answer, id }, idx) =>
-								<li	
-									id={id} 
-									key={idx} 
-									className={cn(list[id] && styles.selected)} 
+								<li
+									id={id}
+									key={idx}
+									className={cn(list[id] && styles.selected)}
 									onClick={() => setList({ ...list, [id]: list[id] ? false : true })}
 								>
 									<div className={styles.header}>
@@ -63,11 +63,11 @@ export default function Faqs({ faqs, faqStart, faqsByCategory }: FaqsProps) {
 	)
 }
 
-Faqs.page = { layout: 'normal', color: '--copper', menu: 'inverted' } as PageProps
+Faqs.page = { title: 'FAQ', layout: 'normal', color: '--copper', menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [FaqStartDocument] }, async ({ props, revalidate }: any) => {
 
-	const faqsByCategory : FaqsByCategory = {}
+	const faqsByCategory: FaqsByCategory = {}
 	const faqs = props.faqs as FaqRecord[];
 
 	faqs.forEach(f => {
@@ -75,9 +75,9 @@ export const getStaticProps = withGlobalProps({ queries: [FaqStartDocument] }, a
 			faqsByCategory[f.category?.id] = { id: f.category?.id, title: f.category?.title, items: [] }
 		faqsByCategory[f.category?.id].items.push(f)
 	})
-	
+
 	return {
-		props:{
+		props: {
 			...props,
 			faqsByCategory
 		},

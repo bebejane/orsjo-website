@@ -4,6 +4,7 @@ import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, All
 import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
 import { chunkArray, parseSpecifications, recordImages, dedupeImages, productDownloads, ProductRecordWithPdfFiles, styleVariables } from '/lib/utils'
 import { apiQuery } from 'dato-nextjs-utils/api'
+import { DatoSEO } from 'dato-nextjs-utils/components'
 import withGlobalProps from "/lib/withGlobalProps";
 import { useStore, shallow } from '/lib/store'
 import { Image } from 'react-datocms'
@@ -79,6 +80,7 @@ export default function Product({
 
 	return (
 		<>
+			<DatoSEO title={product.title} description={product.description} />
 			<Section name="Introduction" className={styles.product} top={true}>
 				<div className={styles.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					<Image
@@ -285,7 +287,7 @@ export async function getStaticPaths(context) {
 	}
 }
 
-export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
+export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
 
 	const slug = context.params.product[0]
 	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug } })

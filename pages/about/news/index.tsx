@@ -14,14 +14,14 @@ export type NewsProps = { news: NewsRecord[], pagination: CollectionMetadata }
 const pageSize = 2;
 
 export default function News({ news, pagination }: NewsProps) {
-	
-	const { data, loading, error, nextPage, page } = useApiQuery<{ news: NewsRecord[]}>(AllNewsDocument, { 
-		initialData:{ news, pagination },
-		variables:{ first:1 },
+
+	const { data, loading, error, nextPage, page } = useApiQuery<{ news: NewsRecord[] }>(AllNewsDocument, {
+		initialData: { news, pagination },
+		variables: { first: 1 },
 		pageSize
 	});
-	
-	
+
+
 	return (
 		<>
 			<Section name="Header" top={true}>
@@ -49,15 +49,15 @@ export default function News({ news, pagination }: NewsProps) {
 					</div>
 				</Section>
 			)}
-			
-			{!page?.end && 
+
+			{!page?.end &&
 				<Section className={styles.more} bottom={true}>
 					<button onClick={nextPage}>
 						{!loading ? 'Load more +' : '···'}
 					</button>
-					{error && 
+					{error &&
 						<div className={styles.error}>
-							Error: {typeof error === 'string' ? error : error.message }
+							Error: {typeof error === 'string' ? error : error.message}
 						</div>
 					}
 				</Section>
@@ -66,10 +66,10 @@ export default function News({ news, pagination }: NewsProps) {
 	)
 }
 
-News.page = { layout: 'full', color: "--black", menu: 'inverted', sidebar: false, footerLine:true  } as PageProps
+News.page = { title: 'News', layout: 'full', color: "--black", menu: 'inverted', sidebar: false, footerLine: true } as PageProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllNewsDocument], variables:{first:pageSize} }, async ({ props, revalidate }: any) => {
-	
+export const getStaticProps = withGlobalProps({ queries: [AllNewsDocument], variables: { first: pageSize } }, async ({ props, revalidate }: any) => {
+
 	return {
 		props,
 		revalidate

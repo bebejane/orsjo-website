@@ -2,8 +2,8 @@ import create from "zustand";
 import shallow from "zustand/shallow"
 
 export type SectionId = {
-  title:string, 
-  id:string
+  title: string,
+  id: string
 }
 
 export type GalleryProps = {
@@ -14,6 +14,7 @@ export type GalleryProps = {
 
 export interface StoreState {
   showMenu: boolean,
+  showMenuMobile: boolean,
   currentSection: string,
   invertSidebar: boolean,
   invertMenu: boolean,
@@ -23,79 +24,86 @@ export interface StoreState {
   showSiteSearch: boolean,
   setCurrentSection: (currentSection: string) => void,
   setShowMenu: (showMenu: boolean) => void,
+  setShowMenuMobile: (showMenuMobile: boolean) => void,
   setInvertSidebar: (invertSidebar: boolean) => void,
   setInvertMenu: (invertMenu: boolean) => void,
-  setSearchProducts: (searchProducts : string) => void,
-  setGallery: (gallery : GalleryProps)  => void,
-  setGalleryId: (id : string)  => void,
-  setTransitioning: (transitioning : boolean)  => void,
-  setShowSiteSearch: (showSiteSearch : boolean)  => void,
+  setSearchProducts: (searchProducts: string) => void,
+  setGallery: (gallery: GalleryProps) => void,
+  setGalleryId: (id: string) => void,
+  setTransitioning: (transitioning: boolean) => void,
+  setShowSiteSearch: (showSiteSearch: boolean) => void,
 
 }
 
 const useStore = create<StoreState>((set) => ({
-	showMenu: true,
+  showMenu: true,
+  showMenuMobile: true,
   currentSection: undefined,
-  invertSidebar:false,
-  invertMenu:false,
-  sections:[],
-  searchProducts:undefined,
-  gallery:undefined,
-  product:undefined,
+  invertSidebar: false,
+  invertMenu: false,
+  sections: [],
+  searchProducts: undefined,
+  gallery: undefined,
+  product: undefined,
   transitioning: false,
   showSiteSearch: false,
-	setShowMenu: (showMenu : boolean) =>  
+  setShowMenu: (showMenu: boolean) =>
     set((state) => ({
       showMenu
     })
-  ),
-  setCurrentSection: (currentSection : string) =>  
+    ),
+  setShowMenuMobile: (showMenuMobile: boolean) =>
+    set((state) => ({
+      showMenuMobile
+    })
+    ),
+  setCurrentSection: (currentSection: string) =>
     set((state) => ({
       currentSection
     })
-  ),
-  setInvertSidebar: (invertSidebar : boolean) =>  
+    ),
+  setInvertSidebar: (invertSidebar: boolean) =>
     set((state) => ({
       invertSidebar
     })
-  ),
-  setInvertMenu: (invertMenu : boolean) =>  
+    ),
+  setInvertMenu: (invertMenu: boolean) =>
     set((state) => ({
       invertMenu
     })
-  ),
-  setSearchProducts: (searchProducts : string) =>  
+    ),
+  setSearchProducts: (searchProducts: string) =>
     set((state) => ({
       searchProducts
     })
-  ),
-  setGallery: (gallery : GalleryProps) =>  
+    ),
+  setGallery: (gallery: GalleryProps) =>
     set((state) => ({
-      gallery:{
+      gallery: {
         images: gallery.images,
         index: gallery.index !== undefined ? gallery.index : undefined,
-        padImagesWithTitle:gallery.padImagesWithTitle || false
+        padImagesWithTitle: gallery.padImagesWithTitle || false
       }
     })
-  ),
-  setGalleryId: (id : string) =>  
+    ),
+  setGalleryId: (id: string) =>
     set((state) => ({
-      gallery:{
+      gallery: {
         ...state.gallery,
         index: state.gallery?.images?.findIndex((i) => i.id === id) ?? state.gallery?.index
       }
     })
-  ),
-  setTransitioning: (transitioning) =>  
+    ),
+  setTransitioning: (transitioning) =>
     set((state) => ({
       transitioning
     })
-  ),
-  setShowSiteSearch: (showSiteSearch) =>  
+    ),
+  setShowSiteSearch: (showSiteSearch) =>
     set((state) => ({
       showSiteSearch
     })
-  ),
+    ),
 }));
 
 export default useStore;

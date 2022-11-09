@@ -74,7 +74,7 @@ dependencies:
   classnames: 2.3.2
   cookies-next: 2.1.1
   date-fns: 2.29.3
-  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/88c53083a6ad13e22bc1f8f5b23bdbf4b0b9c941_n2a7x3iv22vi2jmik4hgezsori
+  dato-nextjs-utils: github.com/bebejane/dato-nextjs-utils/5bda424a6a4504e2f6fe2a26a7d04c0cebbce087_n2a7x3iv22vi2jmik4hgezsori
   datocms-structured-text-utils: 2.0.4
   email-validator: 2.0.4
   framer-motion: 6.3.4_sfoxds7t5ydpegc3knd667wn6m
@@ -9479,11 +9479,11 @@ packages:
     resolution: {integrity: sha512-JZxotl7SxAJH0j7dN4pxsTV6ZLXoLdGME+PsjkL/DaBrVryK9kTGq06GfKrwcSOqypP+fdXGoCHE36b99fWVoA==}
     dev: false
 
-  github.com/bebejane/dato-nextjs-utils/88c53083a6ad13e22bc1f8f5b23bdbf4b0b9c941_n2a7x3iv22vi2jmik4hgezsori:
-    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/88c53083a6ad13e22bc1f8f5b23bdbf4b0b9c941}
-    id: github.com/bebejane/dato-nextjs-utils/88c53083a6ad13e22bc1f8f5b23bdbf4b0b9c941
+  github.com/bebejane/dato-nextjs-utils/5bda424a6a4504e2f6fe2a26a7d04c0cebbce087_n2a7x3iv22vi2jmik4hgezsori:
+    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/5bda424a6a4504e2f6fe2a26a7d04c0cebbce087}
+    id: github.com/bebejane/dato-nextjs-utils/5bda424a6a4504e2f6fe2a26a7d04c0cebbce087
     name: dato-nextjs-utils
-    version: 1.0.156
+    version: 1.0.177
     engines: {node: '>=0.16'}
     peerDependencies:
       '@apollo/client': 3 - 4
