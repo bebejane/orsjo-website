@@ -1,28 +1,29 @@
-.image{
+.image {
 	max-width: 50%;
-	@include mq($until: tablet){
+	@include mq($until: tablet) {
 		max-width: 100%;
 	}
 }
 
-.date{
+.date {
 	flex: 0 0 spanGridWithGutter(4);
-
 }
 
 .news {
 	color: $white;
 	display: flex;
 	flex-direction: row;
-	
-	.content p{
+
+	.content p {
 		margin-top: 1rem;
 		padding-right: 20%;
-		
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
-	@include mq($until: tablet){
+	@include mq($until: tablet) {
 		flex-direction: column;
-		.content p{
+		.content p {
 			padding-right: 0;
 		}
 	}
@@ -31,5 +32,5 @@
 .more button {
 	margin-top: $small-margin;
 	width: 100%;
-	color: $white;	
+	color: $white;
 }
