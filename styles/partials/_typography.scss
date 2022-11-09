@@ -61,7 +61,7 @@ h2 {
 }
 
 h3 {
-  font-size: 10px;
+  font-size: 11px;
   @include mq($from: tablet) {
     font-size: 0.45em;
   }

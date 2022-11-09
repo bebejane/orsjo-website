@@ -109,7 +109,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 			</nav>
 			<nav className={cn(styles.sub, !selected && styles.hide)}>
 				<div className={styles.subHeader}>
-					<h1 className={cn(styles.title)}>{subHeader}</h1>
+					<p className={cn(styles.title)}>{subHeader}</p>
 					<span className={styles.back} onClick={() => setSelected(undefined)}>❮</span>
 				</div>
 				<ul>

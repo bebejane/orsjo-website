@@ -10,20 +10,20 @@
   max-height: 100vh;
   z-index: 103;
   opacity: 0;
-  animation: fadeIn .2s ease-out forwards;
+  animation: fadeIn 0.2s ease-out forwards;
   @keyframes fadeIn {
-    to{
+    to {
       opacity: 1;
     }
   }
   @include mq($from: tablet) {
     background-color: transparent !important;
   }
-  
+
   h3 {
     flex: 0 0 auto;
-    
-    .arrow{
+
+    .arrow {
       display: none;
     }
   }
@@ -37,7 +37,7 @@
 
       li {
         a {
-          transition: color .3s ease;
+          transition: color 0.3s ease;
           color: $black-menu;
 
           &:hover {
@@ -52,15 +52,15 @@
         }
 
         &.download {
-          margin-top: .5rem;
+          margin-top: 0.5rem;
         }
 
         &.search {
           position: relative;
           width: 200px;
           opacity: 0;
-          transition: opacity .3s ease-out;
-          &.show{
+          transition: opacity 0.3s ease-out;
+          &.show {
             opacity: 1;
           }
           input {
@@ -103,7 +103,6 @@
             color: $gray;
             opacity: 0.7;
           }
-
         }
       }
     }
@@ -138,7 +137,7 @@
       color: $mid-gray;
 
       &.active {
-        color: $white  !important;
+        color: $white !important;
       }
     }
 
@@ -165,12 +164,14 @@
       justify-content: center;
       height: $navbarHeightMobile;
       padding: 0;
+      padding-top: 0.2em;
+
       cursor: pointer;
-      .arrow{
+      .arrow {
         display: inline;
-        transition: transform .3s ease;
+        transition: transform 0.3s ease;
         transform: rotate(0deg);
-        margin-left: .1rem;
+        margin-left: 0.1rem;
         &.open {
           transform: rotate(90deg);
         }

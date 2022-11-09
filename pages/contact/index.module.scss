@@ -55,12 +55,18 @@
 		.employee {
 			display: flex;
 			flex-direction: column;
-			width: spanNestedGrid(12, 3);
-			margin-right: nestedGridGutter(12);
-			@include resetLastColumn(4);
+			width: 48%;
+			margin-right: 4%;
+			@include resetLastColumn(2);
+
+			@include mq($from: tablet) {
+				width: spanNestedGrid(12, 3);
+				margin-right: nestedGridGutter(12);
+				@include resetLastColumn(4);
+			}
 
 			.image {
-				margin-bottom: .5em;
+				margin-bottom: 0.5em;
 
 				display: flex;
 
@@ -69,17 +75,6 @@
 					object-fit: cover;
 					aspect-ratio: 4 / 3;
 				}
-			}
-		}
-	}
-
-	@include mq($until: tablet) {
-		.staff {
-			.employee {
-				width: spanNestedGrid(12, 6);
-				margin-right: nestedGridGutter(12);
-				@include resetLastColumn(2);
-
 			}
 		}
 	}
@@ -98,7 +93,9 @@
 
 	.intro {
 		color: $white;
-		width: 70%;
+		@include mq($from: tablet) {
+			width: 70%;
+		}
 		padding-bottom: 1.5em;
 	}
 
@@ -107,9 +104,16 @@
 		flex-direction: row;
 		flex: 0 0 100%;
 		position: relative;
+		@include mq($until: tablet) {
+			flex-wrap: wrap;
+			.left,
+			.right {
+				width: 100%;
+			}
+		}
 
 		a {
-			color: $white
+			color: $white;
 		}
 
 		&:nth-child(even) {
@@ -117,6 +121,9 @@
 
 			.left {
 				padding-right: 0em;
+				@include mq($until: tablet) {
+					padding-top: 1em;
+				}
 			}
 
 			.right {
@@ -128,15 +135,25 @@
 
 		.left {
 			position: relative;
-			flex: 0 0 50%;
-			padding-left: 0em;
+			@include mq($until: tablet) {
+				padding-top: 1em;
+			}
+			@include mq($from: tablet) {
+				flex: 0 0 50%;
+				padding-left: 0em;
+			}
 		}
 
 		.right {
 			position: relative;
-			flex: 0 0 50%;
-			padding-left: 1em;
-			padding-top: 1em;
+			@include mq($until: tablet) {
+				padding-top: 1em;
+			}
+			@include mq($from: tablet) {
+				flex: 0 0 50%;
+				padding-left: 1em;
+				padding-top: 1em;
+			}
 		}
 	}
 
@@ -168,18 +185,20 @@
 		flex: 1 1 100%;
 
 		.distributor {
-			width: spanNestedGrid(12, 4);
-			margin-right: nestedGridGutter(12);
-			@include resetLastColumn(3);
-			margin-bottom: 1em;
+			@include mq($from: tablet) {
+				width: spanNestedGrid(12, 4);
+				margin-right: nestedGridGutter(12);
+				@include resetLastColumn(3);
+				margin-bottom: 1em;
+			}
 		}
 	}
 
 	@include mq($until: tablet) {
 		.distributors {
 			.distributor {
-				width: spanNestedGrid(12, 6);
-				margin-right: nestedGridGutter(12);
+				width: 48%;
+				margin-right: 4%;
 				@include resetLastColumn(2);
 
 				P {
@@ -250,5 +269,4 @@
 			}
 		}
 	}
-
 }
