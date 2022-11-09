@@ -151,7 +151,8 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 			...props,
 			bespokeThumbnail,
 			project,
-			relatedProjects
+			relatedProjects,
+			pageTitle: project.title
 		},
 		revalidate
 	};

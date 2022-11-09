@@ -66,7 +66,8 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	return {
 		props: {
 			...props,
-			news
+			news,
+			pageTitle: news.title
 		},
 		revalidate
 	};
