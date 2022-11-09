@@ -2,7 +2,7 @@
   position: relative;
 
   &:hover {
-    figcaption>.title>.subtitle {
+    figcaption > .title > .subtitle {
       color: $black;
     }
   }
@@ -45,7 +45,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        transition: opacity .0s ease;
+        transition: opacity 0s ease;
         z-index: 2;
 
         &.show {
@@ -66,7 +66,7 @@
         color: $black;
 
         .subtitle {
-          transition: color .2s ease;
+          transition: color 0.2s ease;
         }
       }
     }
@@ -79,20 +79,20 @@
   }
 
   &.mid {
-    figcaption>.title {
-     color: $light-gray;
+    figcaption > .title {
+      color: $light-gray;
     }
-    figcaption>.title>.subtitle {
+    figcaption > .title > .subtitle {
       color: $black;
     }
     &:hover {
-      figcaption>.title>.subtitle {
+      figcaption > .title > .subtitle {
         color: $light-gray;
       }
     }
   }
 
-  a>figcaption>.title {
+  a > figcaption > .title {
     color: $white;
 
     .subtitle {
@@ -102,12 +102,12 @@
 
   &.dark {
     &:hover {
-      figcaption>.title>.subtitle {
+      figcaption > .title > .subtitle {
         color: $white;
       }
     }
 
-    a>figcaption>.title {
+    a > figcaption > .title {
       color: $white;
 
       .subtitle {
@@ -118,12 +118,12 @@
 
   &.light {
     &:hover {
-      figcaption>.title>.subtitle {
+      figcaption > .title > .subtitle {
         color: $black;
       }
     }
 
-    a>figcaption>.title {
+    a > figcaption > .title {
       color: $black;
 
       .subtitle {
@@ -134,12 +134,12 @@
 
   &.black {
     &:hover {
-      figcaption>.title>.subtitle {
+      figcaption > .title > .subtitle {
         color: $white;
       }
     }
 
-    a>figcaption>.title {
+    a > figcaption > .title {
       color: $white;
 
       .subtitle {
@@ -148,37 +148,38 @@
     }
   }
 
-
   &.project {
-    a>figure>.image {
+    a > figure > .image {
       mix-blend-mode: normal;
     }
 
-    a>figure img {
+    a > figure img {
       object-fit: cover !important;
     }
   }
 
   &.designer {
-    a>figure>.image {
+    a > figure > .image {
       mix-blend-mode: normal;
     }
 
-    a>figure img {
+    a > figure img {
       object-fit: cover !important;
     }
   }
 
   &.material {
-    a>figure>.image, figure>.image {
+    a > figure > .image,
+    figure > .image {
       mix-blend-mode: normal;
       background-color: $white;
     }
 
-    a>figure img, figure img {
+    a > figure img,
+    figure img {
       object-fit: cover !important;
     }
-    >figure div{
+    > figure div {
       background-color: $white;
     }
   }
@@ -198,22 +199,21 @@
     color: $white;
     text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: .1em;
+    letter-spacing: 0.15em;
     margin: 8px;
     width: 28px;
     height: 28px;
     font-size: 7px;
 
-     span {
+    span {
       padding-top: 1px;
-     }
+    }
 
-     @include mq($from: tablet) {
-      margin: .8vw;
+    @include mq($from: tablet) {
+      margin: 0.8vw;
       width: 1.9vw;
       height: 1.9vw;
-      font-size: .5vw;
-      }
-
+      font-size: 0.5vw;
+    }
   }
 }

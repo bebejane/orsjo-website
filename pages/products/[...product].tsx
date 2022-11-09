@@ -306,11 +306,11 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	const specsCols = [
 		{ label: 'Designer', value: specs.designer, slug: `/designers/${product.designer.slug}` },
 		{ label: 'Mounting', value: specs.mounting },
-		{ label: 'Electrical Data', value: specs.electricalData },
+		{ label: 'Electrical data', value: specs.electricalData },
 		{ label: 'Socket', value: specs.socket },
 		{ label: 'Connection', value: specs.connection },
 		{ label: 'Lightsource', value: specs.lightsource },
-		{ label: 'Additional Information', value: specs.additionalInformation },
+		{ label: 'Additional info', value: specs.additionalInformation },
 	].filter(el => el.value)
 
 

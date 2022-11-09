@@ -194,9 +194,7 @@
 					flex-direction: row;
 					font-weight: normal;
 					flex: 0 0 100%;
-					@include mq($from: tablet) {
-						padding-bottom: 0.5em;
-					}
+					padding-bottom: 0.5em;
 
 					@include mq($until: tablet) {
 						flex-wrap: wrap;
@@ -219,7 +217,6 @@
 							&:nth-child(even) {
 								flex: 0 0 calc(spanGrid(10));
 								padding: 0;
-								padding-bottom: 0.5em;
 							}
 						}
 
