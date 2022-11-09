@@ -1,16 +1,18 @@
-.intro{
+.intro {
   position: relative;
-  p{
-    color:$white;
-    padding-right: 35%;
+  p {
+    color: $white;
+    @include mq($from: tablet) {
+      padding-right: 35%;
+    }
   }
 }
-.manuals{
+.manuals {
   position: relative;
-  p{
-    color:$white;
+  p {
+    color: $white;
   }
-  .search{
+  .search {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -18,41 +20,43 @@
     margin-bottom: 1em;
     background-color: $light-gray;
 
-    img{
-      max-width: 18px;
-      margin-right: .5rem;
+    img {
+      max-width: 0.7em;
+      margin-right: 0.5rem;
     }
-    input{
-      margin:0;
+    input {
+      margin: 0;
       margin-bottom: $gutter;
       background-color: transparent;
-      border:0;
+      border: 0;
       outline: none;
-      margin:0;
+      margin: 0;
       width: 100%;
     }
   }
-  
-  .result{
+
+  .result {
     list-style: none;
-      
-      li{
+
+    li {
+      display: flex;
+      flex-direction: row;
+      padding: 0.8em;
+      border-top: 1px $light-gray solid;
+
+      &:nth-child(odd) {
+        background-color: $white;
+      }
+      &:nth-child(even) {
+        background-color: $white;
+      }
+      a {
         display: flex;
         flex-direction: row;
-        padding: .8em;
-        &:nth-child(odd){
-          background-color: $white;
-        }
-        &:nth-child(even){
-          background-color: $light-gray;
-        }
-        a{
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          width: 100%;
-          font-size: 18px;
-        }
+        align-items: center;
+        width: 100%;
+        font-size: 18px;
       }
+    }
   }
 }
