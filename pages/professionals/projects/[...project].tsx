@@ -1,18 +1,19 @@
 import styles from './[...project].module.scss'
+import cn from 'classnames';
+import withGlobalProps from "/lib/withGlobalProps";
 import { apiQuery } from 'dato-nextjs-utils/api';
 import { DatoSEO } from 'dato-nextjs-utils/components';
 import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, BespokeThumbnailDocument } from '/graphql';
-import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
 import { Block, Section, FeaturedGallery, TextReveal } from '/components';
-import { dedupeImages } from '/lib/utils';
+import { dedupeImages, styleVariables } from '/lib/utils';
 import { useEffect, useState } from 'react'
 import { useStore, shallow } from '/lib/store';
 import { useScrollInfo } from 'dato-nextjs-utils/hooks'
-import cn from 'classnames';
+import { useMediaMatch } from 'rooks';
 
-type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>
+export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>
 
 export type ProjectProps = {
 	project: ProjectRecord,
@@ -31,7 +32,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [imageStyle, setImageStyle] = useState({})
-
+	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
 	const isOtherProject = project.projectType?.title.toLowerCase() === 'other'
 	const relatedHeadline = !isOtherProject ? `Other ${project.projectType.titlePlural.toLowerCase()}` : 'Related projects'
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
@@ -74,7 +75,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 						<Image
 							data={project.image.responsiveImage}
 							objectFit="cover"
-							style={imageStyle}
+							style={!isMobile ? imageStyle : undefined}
 							className={styles.image}
 						/>
 					}
