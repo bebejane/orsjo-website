@@ -1,45 +1,46 @@
 .footer {
-	background-color: $black;
-	color: $white;
+  background-color: $black;
+  color: $white;
   padding-top: $small-margin;
-	padding-bottom: $small-margin;
+  padding-bottom: $small-margin;
 
   &.line {
-    padding-top: 0;
-
-    .wrapperTop{
-      padding-top: $small-margin;
-      border-top: 1px solid $white;
+    @include mq($from: tablet) {
+      padding-top: 0;
+      .wrapperTop {
+        padding-top: $small-margin;
+        border-top: 1px solid $white;
+      }
     }
   }
 
   @include mq($until: tablet) {
     display: none;
-  }  
-  
-  .wrapperTop, .wrapperBottom {
-		margin-left: var(--outer-margin);
-		margin-right: var(--outer-margin);
-		display: flex;
-		justify-content: space-between;
-	}
-  
-  .wrapperTop{
-    .brand{
-      .tagline{
+  }
+
+  .wrapperTop,
+  .wrapperBottom {
+    margin-left: var(--outer-margin);
+    margin-right: var(--outer-margin);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .wrapperTop {
+    .brand {
+      .tagline {
         text-transform: uppercase !important;
-        font-size: .7em;
+        font-size: 0.7em;
         line-height: 1.2em;
-        letter-spacing: .05em;
+        letter-spacing: 0.05em;
       }
     }
-    
   }
-  .wrapperBottom{
+  .wrapperBottom {
     display: flex;
     flex-direction: row;
     align-items: center;
-    .brand{
+    .brand {
       flex: 0 0 spanGridWithGutter(4);
     }
     .lastRow {
@@ -49,12 +50,12 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      .social{
+      .social {
         display: flex;
         flex-direction: row;
-        img{
+        img {
           height: 1rem;
-          margin-right: .5rem;
+          margin-right: 0.5rem;
         }
       }
       .copyright {
@@ -63,7 +64,6 @@
       }
     }
   }
-
 }
 
 .menu {
@@ -74,39 +74,39 @@
     list-style: none;
     display: flex;
     flex-direction: row;
-    li{
+    li {
       padding-right: 2em;
       flex-basis: 16.67%;
       flex-grow: 0;
-      &:last-child{
+      &:last-child {
         padding-right: 0;
       }
-      > ul{
+      > ul {
         display: flex;
         list-style: none;
         flex-direction: column;
-        a{
+        a {
           color: $white-menu;
-          &:first-child{
-            color:$white;
+          &:first-child {
+            color: $white;
           }
-          &:hover{
+          &:hover {
             color: $white;
           }
         }
-        li{
+        li {
           white-space: pre;
           max-width: 160px;
           overflow: hidden;
           text-overflow: ellipsis;
-          padding-bottom: .5em;
+          padding-bottom: 0.5em;
         }
       }
-    } 
-  } 
+    }
+  }
 }
 
-.footerMobile{
+.footerMobile {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -115,18 +115,23 @@
   background-color: $black;
   padding: var(--outer-margin);
 
-  .logo{
+  &.line {
+    padding-top: $small-margin;
+    //border-top: 1px solid $white;
+  }
+
+  .logo {
     display: none;
     justify-content: flex-start;
-    filter:invert(1);
-    img{
+    filter: invert(1);
+    img {
       max-height: 32px;
       width: auto;
     }
-    
+
     flex: 0 0 spanGridWithGutter(2);
   }
-  .tagline{
+  .tagline {
     color: $white;
     text-transform: uppercase;
     flex: 0 0 spanGridWithGutter(8);
@@ -135,14 +140,13 @@
     font-size: 10px;
     line-height: 12px;
   }
-  .social{
+  .social {
     display: flex;
     justify-content: space-between;
     flex: 0 0 spanGrid(6);
-    a{
+    a {
       line-height: 0;
     }
-    
   }
   @include mq($from: tablet) {
     display: none;

@@ -11,19 +11,19 @@ import useStore, { shallow } from '/lib/store'
 
 export type FooterProps = { menu: MenuItem[] }
 
-export default function Footer({ menu : menuFromProps }: FooterProps) {
-	
+export default function Footer({ menu: menuFromProps }: FooterProps) {
+
 	const router = useRouter()
 	const [menu, setMenu] = useState<MenuItem[]>([...menuFromProps])
 	const { footerLine } = usePage()
 	const maxLength = menu[0].sub.length
 
-	useEffect(()=>{
-		
+	useEffect(() => {
+
 		setMenu(JSON.parse(JSON.stringify(menuFromProps)).map((item) => ({
 			...item,
 			sub: item.type === 'designer' ? item.sub
-				.sort(()=> Math.random() > 0.5 ? 1 : -1)
+				.sort(() => Math.random() > 0.5 ? 1 : -1)
 				.slice(0, maxLength) : item.sub
 		})))
 
@@ -49,12 +49,12 @@ export default function Footer({ menu : menuFromProps }: FooterProps) {
 												{item.sub?.map((subItem, subidx) => {
 													const endReached = subidx === maxLength;
 													const isAnchorLink = subItem.slug.indexOf('#') > -1
-													
-													return isAnchorLink ? 
+
+													return isAnchorLink ?
 														<AnchorLink key={subidx} href={subItem.slug}>
 															<li>{subItem.label}</li>
 														</AnchorLink>
-													:
+														:
 														<Link scroll={false} key={subidx} href={subItem.slug}>
 															<a>
 																<li>{subItem.label}</li>
@@ -76,22 +76,22 @@ export default function Footer({ menu : menuFromProps }: FooterProps) {
 					</div>
 					<nav className={styles.lastRow}>
 						<div className={styles.social}>
-							{social.map(({name, icon, url}, idx) =>
-								<a key={idx} href={url}><img src={icon} alt={name}/></a>
+							{social.map(({ name, icon, url }, idx) =>
+								<a key={idx} href={url}><img src={icon} alt={name} /></a>
 							)}
 						</div>
 						<div className={styles.copyright}><figcaption>Copyright ©2022 Örsjö Belysning AB. All rights reserved.</figcaption></div>
 					</nav>
 				</div>
 			</footer>
-			<footer className={styles.footerMobile}>
+			<footer className={cn(styles.footerMobile, footerLine && styles.line)}>
 				<figure className={styles.logo}>
 					<img src={'/images/logo.svg'} />
 				</figure>
-				<span className={styles.tagline}>Locally<br/>crafted<br/>lighting</span>
+				<span className={styles.tagline}>Locally<br />crafted<br />lighting</span>
 				<div className={styles.social}>
-					{social.map(({name, icon, url}, idx) =>
-						<a key={idx} href={url}><img src={icon} alt={name}/></a>
+					{social.map(({ name, icon, url }, idx) =>
+						<a key={idx} href={url}><img src={icon} alt={name} /></a>
 					)}
 				</div>
 			</footer>

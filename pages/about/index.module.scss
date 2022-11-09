@@ -68,7 +68,6 @@
       padding: $margin;
       padding-top: 2rem;
       padding-bottom: 2rem;
-
       p:not(:first-of-type) {
         text-indent: 2em;
       }
@@ -83,7 +82,9 @@
       }
     }
     &:nth-child(even) {
-      flex-direction: row-reverse;
+      @include mq($from: tablet) {
+        flex-direction: row-reverse;
+      }
       .right {
         padding-left: 0;
         justify-content: flex-start;
@@ -96,6 +97,7 @@
       .left,
       .right {
         flex: 1 1 auto;
+        padding-bottom: 0;
       }
       .left {
         padding-left: var(--outer-margin);
@@ -105,6 +107,7 @@
         padding-right: 0;
         padding-left: 0;
       }
+      flex-direction: column-reverse;
     }
   }
 }
