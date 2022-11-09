@@ -1,7 +1,7 @@
-.about{
+.about {
   position: relative;
   color: $white;
-  .hero{
+  .hero {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -10,54 +10,57 @@
     max-width: 100% !important;
     min-height: 100vh;
     max-height: 100vh;
-    .heroImage{
+    .heroImage {
       position: absolute;
-      top:0;
-      left:0;
+      top: 0;
+      left: 0;
       min-height: 100vh;
       max-height: 100vh;
       min-width: 100%;
       max-width: 100%;
     }
-    .header{
+    .header {
       position: absolute;
-      top:0;
-      left:0;
+      top: 0;
+      left: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-width: 100%;
       min-height: 100%;
-      h1{
+      h1 {
         @include h1Big();
         word-break: break-all;
+        padding-left: 1em;
+        padding-right: 1em;
       }
     }
   }
 }
 
-.intro{
+.intro {
   padding-top: 2rem;
   color: $white;
-  .text{
+  .text {
     margin-right: spanGridWithGutter(4);
     margin-left: spanGridWithGutter(4);
     @include mq($until: tablet) {
       margin-right: 0;
       margin-left: 0;
     }
-  }  
+  }
 }
 
-.blocks{
-  .block{
+.blocks {
+  .block {
     color: $white;
     display: flex;
     flex-direction: row;
     width: 100%;
-    
-    .left, .right{
+
+    .left,
+    .right {
       flex: 0 0 50%;
       display: flex;
       justify-content: center;
@@ -65,7 +68,7 @@
       padding: $margin;
       padding-top: 2rem;
       padding-bottom: 2rem;
-      
+
       p:not(:first-of-type) {
         text-indent: 2em;
       }
@@ -78,28 +81,27 @@
         font-weight: normal;
         font-family: $headline-font;
       }
-
     }
-    &:nth-child(even){
+    &:nth-child(even) {
       flex-direction: row-reverse;
-      .right{
+      .right {
         padding-left: 0;
         justify-content: flex-start;
       }
     }
   }
   @include mq($until: tablet) {
-    .block{
+    .block {
       flex-wrap: wrap;
-      .left,.right{
+      .left,
+      .right {
         flex: 1 1 auto;
-        
       }
-      .left{
+      .left {
         padding-left: var(--outer-margin);
         padding-right: var(--outer-margin);
       }
-      .right{
+      .right {
         padding-right: 0;
         padding-left: 0;
       }

@@ -1,9 +1,9 @@
-.bespoke{
+.bespoke {
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  .image{
+  .image {
     position: relative !important;
     min-height: 100vh;
     width: 100vw;
@@ -17,89 +17,108 @@
   }
 }
 
-.intro{
+.intro {
   display: flex;
   flex-direction: row;
-  color:$white !important;
+  color: $white !important;
   padding-top: 2rem;
 
   p {
     margin-bottom: 0;
   }
 
-  h1{
-    color:$black;
+  h1 {
+    @include mq($until: tablet) {
+      display: none;
+    }
+    color: $black;
     flex: 0 0 spanGridWithGutter(4);
     @include h1Small();
   }
-  .text{
-    padding-right: 20%;
+  .text {
+    @include mq($from: tablet) {
+      padding-right: 20%;
+    }
   }
 }
 
-.projects{
-  display:flex;
+.projects {
+  display: flex;
   flex-direction: column;
-  .project{
+
+  .project {
     display: flex;
     flex-direction: row;
     margin-top: $margin;
-    
-    &:nth-child(even){
+    @include mq($until: tablet) {
+      flex-wrap: wrap;
+    }
+
+    &:nth-child(even) {
       flex-direction: row-reverse;
-      .description{
+      .description {
         align-items: flex-start;
         padding-left: 0;
-        padding-right: var(--outer-margin);
-        .text{
+        @include mq($from: tablet) {
+          padding-right: var(--outer-margin);
+        }
+        .text {
           text-align: left;
         }
       }
     }
-    .image{
-      flex: 0 0 spanGrid(12);
+    .image {
+      @include mq($from: tablet) {
+        flex: 0 0 spanGrid(12);
+      }
       cursor: pointer;
-      .big{
-
+      .big {
       }
     }
-    .description{
+    .description {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      padding-left: var(--outer-margin);
-      
-      .text{
+      @include mq($from: tablet) {
+        padding-left: var(--outer-margin);
+      }
+
+      .text {
         display: flex;
         align-items: center;
         flex: 1 1 auto;
         //text-align: right;
       }
-      .thumbnail{
+      .thumbnail {
         width: 100%;
       }
     }
   }
 }
 
-.outro{
-  color:$white !important;
+.outro {
+  color: $white !important;
   margin-top: 2rem;
 
-  .text{
-    margin-left: spanGridWithGutter(4);
-    margin-right: spanGrid(4);
+  .text {
+    @include mq($from: tablet) {
+      margin-left: spanGridWithGutter(4);
+      margin-right: spanGrid(4);
+    }
   }
 }
 
-.more{
+.more {
   margin-top: 2rem;
-  button{
-    color:$white;
+  button {
+    color: $white;
     cursor: pointer;
-    width: spanGrid(8);
-    margin-right: spanGrid(4);
-    margin-left: spanGridWithGutter(4);
+    width: 100%;
+    @include mq($from: tablet) {
+      width: spanGrid(8);
+      margin-right: spanGrid(4);
+      margin-left: spanGridWithGutter(4);
+    }
   }
 }
 

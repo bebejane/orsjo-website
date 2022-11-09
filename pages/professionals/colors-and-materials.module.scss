@@ -3,7 +3,9 @@
 }
 
 .intro {
-  width: 80%;
+  @include mq($from: tablet) {
+    width: 80%;
+  }
   color: white;
   p {
     margin-bottom: 0;
@@ -21,21 +23,20 @@
 }
 
 .material {
-  
   margin-bottom: 1rem;
   margin-right: nestedGridGutter(12);
 
   figure {
-    background-color: $gray  !important;
+    background-color: $gray !important;
   }
 
-  @include mq($from: tablet){
-    
+  @include mq($from: tablet) {
     width: spanNestedGrid(12, 3);
     @include resetLastColumn(4);
   }
-  @include mq($until: tablet){
-    width: spanNestedGrid(12, 6);
+  @include mq($until: tablet) {
+    width: 48%;
+    margin-right: 4%;
     @include resetLastColumn(2);
   }
 }
