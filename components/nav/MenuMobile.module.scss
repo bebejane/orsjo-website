@@ -155,7 +155,7 @@
   }
 
   ul {
-    margin-top: 1.4rem;
+    margin-top: 1.7em;
     list-style: none;
     min-height: calc(100vh - calc(var(--outer-margin) * 4));
     max-height: calc(100vh - calc(var(--outer-margin) * 4));
@@ -165,8 +165,11 @@
       color: $white;
 
       li {
+        line-height: 1.5em;
+        padding-bottom: 1em;
+        padding-right: 1em;
         &.active {
-          font-weight: bold;
+          //font-weight: bold;
         }
       }
     }

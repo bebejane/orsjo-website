@@ -3,33 +3,34 @@
 	flex-direction: row;
 	padding-bottom: $small-margin;
 
+	.textWrap {
+		z-index: 1;
+	}
+
 	.info {
-		flex: 0 0 spanNestedGrid(12, 8);
-		padding-right: 1em;
+		padding: 1em;
+		padding-left: 2em;
+		padding-right: 2em;
+		z-index: 1;
+		position: absolute;
 
 		.getintouch {
 			display: flex;
+			width: 100%;
 			flex-direction: row;
-
-			.visit {
-				flex: 0 0 50%;
-			}
-
-			.reachout {
-				flex: 0 0 50%;
-			}
 		}
 
 		button {
 			margin-top: 1em;
-			color: $white;
+			//color: $white;
+			border-color: $black;
 			cursor: pointer;
 		}
 	}
 
 	.imageWrap {
-		flex: 1 1 100%;
-		width: 100%;
+		//position: absolute;
+		//mix-blend-mode: screen;
 
 		.image {
 			max-width: 100% !important;
@@ -57,7 +58,9 @@
 			flex-direction: column;
 			width: 48%;
 			margin-right: 4%;
-			@include resetLastColumn(2);
+			@include mq($until: tablet) {
+				@include resetLastColumn(2);
+			}
 
 			@include mq($from: tablet) {
 				width: spanNestedGrid(12, 3);

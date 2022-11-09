@@ -1,7 +1,19 @@
-.jobs{
+.jobs {
   position: relative;
   color: $white;
-  a{
-    color:$white;
+  a {
+    color: $white;
+  }
+
+  p {
+    @include mq($from: tablet) {
+      padding-right: 20%;
+    }
+  }
+  ul {
+    padding-bottom: 1em;
+    li {
+      padding-bottom: 0.5em;
+    }
   }
 }

@@ -19,7 +19,7 @@ export default function Jobs({ jobs }: JobsProps) {
 
 			{jobs.map(({ id, title, summary, text }, idx) =>
 				<Section key={id} className={styles.jobs} name={title}>
-					<h2>{title}</h2>
+					<h1 className="copper">{title}</h1>
 					<Markdown className={styles.summary}>{summary}</Markdown>
 					<Markdown className={styles.text}>{text}</Markdown>
 				</Section>

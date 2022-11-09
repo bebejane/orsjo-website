@@ -38,7 +38,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 			<Section name="Information" top={true} className={styles.informationSection} bgColor='--beige'>
 				<div className={styles.info}>
 					<h1 className="topMargin">{contact.title}</h1>
-					<p className="white bodyWeight">
+					<p className=" bodyWeight">
 						{contact.intro}
 					</p>
 					<div className={styles.getintouch}>
@@ -49,22 +49,21 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 							</div>
 						</div>
 						<div className={styles.reachout}>
-							<p className="white medium noMargin">Reach out</p>
+							<p className=" medium noMargin">Reach out</p>
 							<p className="medium">
 								<a href={`tel://${contact.phone}`}>{contact.phone}</a><br />
 								<a href={`mailto:${contact.email}`}>{contact.email}</a>
 							</p>
 						</div>
+						<button onClick={() => setShowContactForm(true)}>Contact Us</button>
 					</div>
-					<button onClick={() => setShowContactForm(true)}>Contact Us</button>
-				</div>
+					<ContactModal
+						show={showContactForm} onClose={() => setShowContactForm(false)}
+						message={contact.contactFormMessage}
+					/></div>
 				<div className={styles.imageWrap}>
 					<Image data={contact.image.responsiveImage} className={styles.image} />
 				</div>
-				<ContactModal
-					show={showContactForm} onClose={() => setShowContactForm(false)}
-					message={contact.contactFormMessage}
-				/>
 			</Section>
 
 			<Section name="People" className={styles.staffSection} bgColor='--beige'>
