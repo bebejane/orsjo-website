@@ -1,56 +1,64 @@
-.intro{
+.intro {
   position: relative;
   width: 100%;
-  .wrap{
+  .wrap {
     display: flex;
     position: relative;
-    @include mq($until:tablet){
-			min-height: 60vh;
-		}
-		@include mq($from:tablet){
-			min-height: calc(100vh - $navbarHeight);
-			max-height: calc(100vh - $navbarHeight);
-		}
+    @include mq($until: tablet) {
+      min-height: 60vh;
+    }
+    @include mq($from: tablet) {
+      min-height: calc(100vh - $navbarHeight);
+      max-height: calc(100vh - $navbarHeight);
+    }
     cursor: pointer;
-    .image{
+    .image {
       opacity: 0.2;
       filter: grayscale(1);
     }
-    .title, .location{
-      position: absolute;
+    .title,
+    .location {
+      @include mq($from: tablet) {
+        margin: 0.5em;
+        position: absolute;
+      }
       z-index: 1;
       @include h1Big();
       color: $black;
-      margin: 0.5em;
     }
-    .title{
-      top:0;
-      left:0;
+    .title {
+      top: 0;
+      left: 0;
     }
-    .location{
-      bottom:0;
-      right:0;
+    .location {
+      @include mq($until: tablet) {
+        display: none;
+      }
+      bottom: 0;
+      right: 0;
     }
   }
   @include mq($until: tablet) {
-    .wrap{
+    .wrap {
       min-height: auto;
+      flex-direction: column;
     }
   }
 }
 
-.related{
+.related {
   padding-top: $small-margin;
   display: flex;
   flex-direction: row;
-  
-  .gallery{
+
+  .gallery {
     flex: 1 1 auto;
     max-width: 100%;
   }
   @include mq($until: tablet) {
     flex-direction: column;
-    h1, .gallery{
+    h1,
+    .gallery {
       flex: 1 1 auto;
     }
   }

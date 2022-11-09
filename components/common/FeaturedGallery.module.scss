@@ -4,29 +4,29 @@
   flex-direction: column;
   max-width: 100%;
   min-width: 100%;
-  
-  &.inverted{
+
+  &.inverted {
     color: $white;
-    button{
-      color:$white;
+    button {
+      color: $white;
     }
   }
-  &.middle{
-    button{
+  &.middle {
+    button {
       margin-top: 30px;
     }
   }
-  .header{
+  .header {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-bottom: 1em;
-    padding-top: .5em;
-    .headline{
-      flex: 1 1 100%;  
+    padding-top: 0.5em;
+    .headline {
+      flex: 1 1 100%;
       padding: 0;
     }
-    .next{
+    .next {
       width: 40px;
       height: 40px;
       border-radius: 20px;
@@ -34,59 +34,60 @@
       min-height: 40px;
       background-color: $light-gray;
       flex: 0 0 40px;
-      &.hide{
+      &.hide {
         display: none;
       }
     }
   }
 
-  .gallery{
+  .gallery {
     position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
-    .swiper{
+    .swiper {
       min-width: 100%;
-      .slide{
+      .slide {
         max-width: spanNestedGrid(12, 3);
         min-width: spanNestedGrid(12, 3);
         margin-right: nestedGridGutter(12);
         @include mq($until: tablet) {
-          max-width: spanNestedGrid(12, 6);
-          min-width: spanNestedGrid(12, 6);
+          max-width: 48%;
+          min-width: 48%;
+          margin-right: 4%;
         }
       }
-      &.short{
-        @include mq($until: tablet){
-          .slide:nth-child(2){
+      &.short {
+        @include mq($until: tablet) {
+          .slide:nth-child(2) {
             margin-right: 0;
           }
         }
-        @include mq($from: tablet){
-          .slide:nth-child(4){
+        @include mq($from: tablet) {
+          .slide:nth-child(4) {
             margin-right: 0;
           }
-        } 
+        }
       }
     }
 
-    .fade{
+    .fade {
       position: absolute;
-      top:0;
+      top: 0;
       right: -1px;
-      height: calc(100%);      
+      height: calc(100%);
       min-width: 30%;
       max-width: 30%;
       pointer-events: none;
       z-index: 1;
-      &.hide{
+      &.hide {
         display: none;
       }
     }
-    .arrowMiddle{
+    .arrowMiddle {
       position: absolute;
-      top:0;
-      right:0;
+      top: 0;
+      right: 0;
       z-index: 2;
       display: flex;
       height: calc(100% - 35px);

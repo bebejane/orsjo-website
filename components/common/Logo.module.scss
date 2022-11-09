@@ -1,41 +1,41 @@
 .logo {
   position: fixed;
   margin-left: var(--outer-margin);
-  font-family: 'logo', Helvetica, sans-serif;
+  font-family: "logo", Helvetica, sans-serif;
   font-size: 1rem;
-  margin-top: 1.45rem;
-  z-index: 1000; 
-  transition: color .8s ease-out;
+  margin-top: 1.35rem;
+  z-index: 1000;
+  transition: color 0.8s ease-out;
   color: $black;
-  @include mq($until: tablet) {
-    line-height: 1.5;
-   }
-  span{
+  //@include mq($until: tablet) {
+  line-height: 1.5;
+  //}
+  span {
     display: inline-block;
-    opacity: 1;  
+    opacity: 1;
     transform: scale(1);
-    transition: opacity .3s, font-size .4s ease-in-out, font-variation-settings .4s ease-in-out;
-    font-variation-settings: 'wght' 1000, 'opsz' 1000;
+    transition: opacity 0.3s, font-size 0.4s ease-in-out, font-variation-settings 0.4s ease-in-out;
+    font-variation-settings: "wght" 1000, "opsz" 1000;
 
-    &.hide{
+    &.hide {
       opacity: 0;
     }
 
-    &.big{
-      font-variation-settings: 'wght' 1000, 'opsz' 0;
+    &.big {
+      font-variation-settings: "wght" 1000, "opsz" 0;
       font-size: 1.75rem;
     }
-    
-    &.inverted { 
-      color:$white;
-      font-variation-settings: 'wght' -300, 'opsz' 1000;
-      &.big{
-        font-variation-settings: 'wght' 0, 'opsz' 0 !important;
+
+    &.inverted {
+      color: $white;
+      font-variation-settings: "wght" -300, "opsz" 1000;
+      &.big {
+        font-variation-settings: "wght" 0, "opsz" 0 !important;
       }
     }
   }
 
-  @include mq($until: tablet){
+  @include mq($until: tablet) {
     margin-top: 1rem;
   }
 }

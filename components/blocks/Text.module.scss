@@ -1,9 +1,13 @@
 .text {
-  padding-top: $small-margin;
+  padding-top: $small-margin / 2;
+
+  @include mq($from: tablet) {
+    padding-top: $small-margin;
+  }
   padding-right: 25%;
-  &.inverted{
+  &.inverted {
     * > a {
-      color:$light-gray;
+      color: $light-gray;
       border-bottom: 1px solid $white;
     }
   }
@@ -13,7 +17,7 @@
   * > a {
     border-bottom: 1px solid $gray;
     color: $gray;
-    transition: color .5s;
+    transition: color 0.5s;
 
     &:hover {
       color: $black;

@@ -1,8 +1,7 @@
-.featured{
+.featured {
   margin-bottom: $small-margin;
 }
 .products {
-
   ul {
     display: flex;
     flex-direction: row;
@@ -19,17 +18,17 @@
         margin-right: nestedGridGutter(12);
         @include resetLastColumn(4);
       }
-      
+
       @include mq($until: tablet) {
-        width: spanNestedGrid(12, 6);
-        margin-right: nestedGridGutter(12);
+        width: 48%;
+        margin-right: 4%;
         @include resetLastColumn(2);
       }
     }
   }
 
   .subtitle {
-    color: $gray  !important;
+    color: $gray !important;
   }
 
   .emptySearch {
@@ -37,6 +36,4 @@
   }
 
   padding-bottom: 2rem;
-
-
 }
