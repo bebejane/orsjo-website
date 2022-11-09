@@ -10,7 +10,7 @@ import { Section } from '/components'
 export type JobsProps = { jobs: JobRecord[] }
 
 export default function Jobs({ jobs }: JobsProps) {
-	
+
 	return (
 		<>
 			<Section className={styles.jobs} top={true}>
@@ -18,11 +18,11 @@ export default function Jobs({ jobs }: JobsProps) {
 			</Section>
 
 			{jobs.map(({ id, title, summary, text }, idx) =>
-				<Section key={id} className={styles.jobs} name={title}>	
+				<Section key={id} className={styles.jobs} name={title}>
 					<h2>{title}</h2>
 					<Markdown className={styles.summary}>{summary}</Markdown>
 					<Markdown className={styles.text}>{text}</Markdown>
-				</Section>	
+				</Section>
 			)}
 
 			{jobs.length === 0 &&
@@ -36,9 +36,9 @@ export default function Jobs({ jobs }: JobsProps) {
 	)
 }
 
-Jobs.page = { layout: 'normal', color:"--black", menu: 'inverted', footerLine:true } as PageProps
+Jobs.page = { title: 'Jobs', layout: 'normal', color: "--black", menu: 'inverted', footerLine: true } as PageProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllJobsDocument], model:'job' }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllJobsDocument], model: 'job' }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

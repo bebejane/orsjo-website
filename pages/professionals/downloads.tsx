@@ -18,15 +18,15 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 	const ref = useRef<HTMLInputElement>()
 
 	useEffect(() => {
-		if (!search || !products) 
+		if (!search || !products)
 			return setResults(products)
 
 		const res = products.filter(({ title }) => title.toLowerCase().startsWith(search.toLowerCase()))
 		setResults(res)
-		
+
 	}, [search, products, setResults])
 
-	useEffect(()=>{ ref.current.focus() }, [ ref])
+	useEffect(() => { ref.current.focus() }, [ref])
 
 	return (
 		<>
@@ -116,10 +116,10 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 						<tr>
 							<th><span className="small">Image</span></th>
 							<th><span className="small">Title</span></th>
-							
+
 							<th></th>
 						</tr>
-						{catalogues.map(({id, title, thumbnail, pdf}) =>
+						{catalogues.map(({ id, title, thumbnail, pdf }) =>
 							<tr key={id}>
 								<td>
 									<Image data={thumbnail.responsiveImage} className={styles.image} />
@@ -139,7 +139,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 	)
 }
 
-Downloads.page = { layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
+Downloads.page = { title: 'Downloads', layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllProductDownloadsDocument, AllCataloguesDocument] }, async ({ props, revalidate }: any) => {
 

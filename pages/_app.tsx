@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useStore, shallow } from '/lib/store'
 import { useWindowSize } from 'rooks';
 import { sleep, waitForElement, scrollToId } from '/lib/utils';
-import { DatoSEO } from 'dato-nextjs-utils/components';
+import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
 import { useTransitionFix } from 'dato-nextjs-utils/hooks'
 
 import type { NextComponentType } from 'next';
@@ -21,66 +21,62 @@ export type ApplicationProps = AppProps & {
 }
 
 const handleHashChange = async (url: string, instant: boolean) => {
-    
-  if(!url.includes('#')) // @ts-expect-error
-    return setTimeout(()=> window.scrollTo({ top:0, behavior: 'instant' }), 100)
+
+  if (!url.includes('#')) // @ts-expect-error
+    return setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 100)
 
   const id = url.split('#')[1]
   const el = await waitForElement(id, 400)
-  
-  if(!el) return
+
+  if (!el) return
   await sleep(100)
   // @ts-expect-error
-  scrollToId(id, instant === true ? 'instant' : 'smooth') 
+  scrollToId(id, instant === true ? 'instant' : 'smooth')
 
 }
 
 function Application({ Component, pageProps, router }: ApplicationProps) {
-  
+
   useTransitionFix()
-  
-  const [ transitioning ] = useStore((state) => [state.transitioning, state.setShowMenu], shallow)
+
+  const [transitioning] = useStore((state) => [state.transitioning, state.setShowMenu], shallow)
   const { innerWidth } = useWindowSize()
-  
+
   const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
   const page = (Component.page || { layout: 'normal', menu: 'normal', color: '' }) as PageProps
-  const { site, seo, menu } = pageProps as { site: Site, seo: SiteSEOQuery, menu: Menu};
-  const { title, description } = pageSeo(pageProps, pathname);
-  
+  const { site, seo, menu } = pageProps as { site: Site, seo: SiteSEOQuery, menu: Menu };
+  const pageTitle = pageProps.title || page.title
+  const description = site?.globalSeo.fallbackSeo.description
+
+
   useEffect(() => {
     router.events.on("hashChangeStart", handleHashChange);
     return () => router.events.off("hashChangeStart", handleHashChange)
   }, [router.events, innerWidth]);
-  
+
   useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
-  
-  
 
-  if(isError) 
+  if (isError)
     return <Component {...pageProps} />
-  
+  console.log(pageTitle);
+
   return (
     <>
-      <DatoSEO
-        title="Örsjö Belysning"
-        subtitle={title ? ` - ${title}` : ''}
+      <DefaultDatoSEO
+        siteTitle="Örsjö Belysning"
+        title={pageTitle}
         description={description}
-        seo={seo}
         site={site}
-        pathname={pathname}
-        key={pathname}
-        noindex={true}
       />
-      
       <AnimatePresence exitBeforeEnter initial={true}>
         <div id="app" key={pathname}>
           <PageProvider value={page}>
-            <Layout menu={menu} title={title}>
-              <Component {...pageProps}/>
-              <PageTransition/>
+            <Layout menu={menu} title={pageTitle}>
+              <Component {...pageProps} />
+              <PageTransition />
             </Layout>
           </PageProvider>
         </div>
@@ -88,35 +84,18 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
     </>
   )
 }
-
-const pageSeo = (pageProps, pathname) => {
-  const { product, designer, project } : { 
-    product: ProductRecord, 
-    designer: DesignerRecord, 
-    project: ProjectRecord 
+/*
+const parsePageTitle = (pageProps: any, page: PageProps) => {
+  const { product, designer, project, news }: {
+    product: ProductRecord,
+    designer: DesignerRecord,
+    project: ProjectRecord,
+    news: NewsRecord
   } = pageProps
-  
-  const title = product?.title || designer?.name || project?.title || pathTotitle[pathname]
-  const description = product?.description || designer?.description || pageProps.description || undefined
-  return { title, description }
-}
 
-const pathTotitle = {
-  '/products': 'Products',
-  '/professionals/projects': 'Projects',
-  '/professionals/bespoke': 'Bespoke',
-  '/professionals/downloads': 'Downloads',
-  '/professionals/factory-visit': 'Factory Visit',
-  '/professionals/colors-and-materials': 'Colors & Materials',
-  '/about': 'About Us',
-  '/about/jobs': 'Jobs',
-  '/about/news': 'News',
-  '/about/press': 'Press',
-  '/about/sustainability': 'Sustainability',
-  '/support/faq': 'FAQ',
-  '/support/manuals': 'Manuals',
-  '/contact': 'Contact',
+  const title = product?.title || designer?.name || project?.title || news.title || page.title
+  return title
 }
-
+*/
 
 export default Application

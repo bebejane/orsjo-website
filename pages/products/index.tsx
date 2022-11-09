@@ -5,26 +5,27 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { FeaturedGallery, ProductThumbnail, Section } from '/components'
 import { useStore, shallow } from '/lib/store';
 import { useEffect, useState, useMemo } from 'react';
+import { DatoSEO } from 'dato-nextjs-utils/components';
 
 import type { PageProps } from '/lib/context/page';
 
 export type ProductsByCategory = {
-	[index:string] : ProductRecord[]
+	[index: string]: ProductRecord[]
 }
 
 export type ProductsStartProps = {
 	productStart: ProductStartRecord,
 	products: ProductRecord[],
-  productCategories: ProductCategoryRecord[],
+	productCategories: ProductCategoryRecord[],
 }
 
-const searchString = (str: string, value: string) : boolean => {
+const searchString = (str: string, value: string): boolean => {
 	const s = str.toLowerCase().split(' ');
 	const v = value.toLowerCase().split(' ');
 
 	for (let i = 0; i < s.length; i++) {
 		for (let x = 0; x < v.length; x++) {
-			if (s[i] && s[i].length >= 2 && v[x].startsWith(s[i])){
+			if (s[i] && s[i].length >= 2 && v[x].startsWith(s[i])) {
 				return true
 			}
 		}
@@ -36,8 +37,8 @@ const searchString = (str: string, value: string) : boolean => {
 
 export default function Products({ productStart: { featured }, products, productCategories }: ProductsStartProps) {
 
-	const productsByCategory : ProductsByCategory = useMemo<any>(()=>({}), [])
-  productCategories.forEach(({ name }) => {
+	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), [])
+	productCategories.forEach(({ name }) => {
 		productsByCategory[name] = products.filter(({ categories }) => categories.find(c => c.name === name))
 	})
 
@@ -48,7 +49,7 @@ export default function Products({ productStart: { featured }, products, product
 		if (!searchProducts)
 			return setProductsByCategorySearch(undefined)
 
-		const searchCategories : ProductsByCategory = {}
+		const searchCategories: ProductsByCategory = {}
 
 		Object.keys(productsByCategory).forEach(k => {
 			const res = products
@@ -60,10 +61,10 @@ export default function Products({ productStart: { featured }, products, product
 		})
 
 		setProductsByCategorySearch(searchCategories);
-		
+
 	}, [searchProducts, productsByCategory, products])
 
-	useEffect(()=>{ window.scrollTo(0,0)}, [searchProducts])
+	useEffect(() => { window.scrollTo(0, 0) }, [searchProducts])
 
 	const prodsByCat = productsByCategorySearch || productsByCategory
 	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0
@@ -101,7 +102,7 @@ export default function Products({ productStart: { featured }, products, product
 						<ul >
 							{products.map((product, idx) =>
 								<li key={idx}>
-									<ProductThumbnail product={product} theme="light"/>
+									<ProductThumbnail product={product} theme="light" />
 								</li>
 							)}
 						</ul>
@@ -112,7 +113,7 @@ export default function Products({ productStart: { featured }, products, product
 	)
 }
 
-Products.page = { layout: 'normal', menu: 'normal', color: '--white' } as PageProps
+Products.page = { title: 'Products', layout: 'normal', menu: 'normal', color: '--white' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllProductsLightDocument, ProductStartDocument, ProductCategoriesDocument] }, async ({ props, revalidate }: any) => {
 

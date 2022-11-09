@@ -174,7 +174,7 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 	)
 }
 
-Contact.page = { layout: 'normal', color: "--beige", menu: 'inverted', footerLine: true } as PageProps
+Contact.page = { title: 'Contact', layout: 'normal', color: "--beige", menu: 'inverted', footerLine: true } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [ContactDocument, AllResellersDocument, AllStaffsDocument, AllShowroomsDocument, AllDistributorsDocument] }, async ({ props, revalidate }: any) => {
 

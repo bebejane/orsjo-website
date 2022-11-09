@@ -1,19 +1,21 @@
 import { useContext, createContext } from "react";
 
 export type PageProps = {
+  title: undefined | string,
   layout: 'normal' | 'full',
   menu: 'normal' | 'inverted',
   color: string,
-  sidebar:boolean,
-  footerLine?:boolean
+  sidebar: boolean,
+  footerLine?: boolean
 }
 
-const initialState : PageProps = {
+const initialState: PageProps = {
+  title: undefined,
   layout: 'normal',
   menu: 'normal',
   color: '--white',
   sidebar: true,
-  footerLine:false
+  footerLine: false
 }
 
 export const PageContext = createContext(initialState);
@@ -24,15 +26,15 @@ export type PageProviderProps = {
 }
 
 // Context provider
-export const PageProvider = ({ children, value } : PageProviderProps) => {
-  
+export const PageProvider = ({ children, value }: PageProviderProps) => {
+
   return (
-    <PageContext.Provider value={{...initialState, ...value, color:`rgba(var(${value.color}),1)`}}>
+    <PageContext.Provider value={{ ...initialState, ...value, color: `rgba(var(${value.color}),1)` }}>
       {children}
     </PageContext.Provider>
   )
 };
 // usePage hook
-export const usePage = () : PageProps => {
+export const usePage = (): PageProps => {
   return useContext(PageContext)
 }

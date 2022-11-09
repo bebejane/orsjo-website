@@ -20,8 +20,8 @@ export default function Manuals({ products }: ManualsProps) {
 		setResults(res)
 	}, [search, products, setResults])
 
-	
-	useEffect(()=>{ typeof ref.current !== 'undefined' && ref.current.focus() }, [ref])
+
+	useEffect(() => { typeof ref.current !== 'undefined' && ref.current.focus() }, [ref])
 
 	return (
 		<>
@@ -65,7 +65,7 @@ export default function Manuals({ products }: ManualsProps) {
 	)
 }
 
-Manuals.page = { layout: 'normal', color: '--copper', menu: 'inverted' } as PageProps
+Manuals.page = { title: 'Manuals', layout: 'normal', color: '--copper', menu: 'inverted' } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AllProductManualsDocument] }, async ({ props, revalidate }: any) => {
 

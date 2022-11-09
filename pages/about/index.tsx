@@ -9,8 +9,8 @@ import cn from 'classnames'
 
 export type AboutProps = { about: AboutRecord }
 
-export default function About({ about: { title,  video, intro, sections } }: AboutProps) {
-	
+export default function About({ about: { title, video, intro, sections } }: AboutProps) {
+
 	return (
 		<>
 			<Section className={styles.about} type="full">
@@ -40,15 +40,15 @@ export default function About({ about: { title,  video, intro, sections } }: Abo
 							</Markdown>
 						</div>
 						<div className={styles.right}>
-							{ video ?
+							{video ?
 								<VideoPlayer
 									className={styles.video}
 									data={video}
 								/>
-							: image ?
-								<Image data={image.responsiveImage} className={styles.image} />
-							:
-								null
+								: image ?
+									<Image data={image.responsiveImage} className={styles.image} />
+									:
+									null
 							}
 						</div>
 					</div>
@@ -58,7 +58,7 @@ export default function About({ about: { title,  video, intro, sections } }: Abo
 	)
 }
 
-About.page = { layout: 'full', color: "--black", menu: 'inverted', footerLine:true } as PageProps
+About.page = { title: 'About Us', layout: 'full', color: "--black", menu: 'inverted', footerLine: true } as PageProps
 
 export const getStaticProps = withGlobalProps({ queries: [AboutDocument], model: 'about' }, async ({ props, revalidate }: any) => {
 
