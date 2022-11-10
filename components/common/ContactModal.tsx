@@ -115,7 +115,7 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 
           {loading &&
             <div className={styles.loading}>
-              <Loader />
+              <Loader invert={true} />
             </div>
           }
           {success &&

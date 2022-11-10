@@ -1,19 +1,7 @@
-.spinner{
-  animation: pulse .5s ease infinite;
-  opacity: 0.1;
-  @keyframes pulse {
-    0%{
-      transform: scale(1);
-    }
-    50%{
-      transform: scale(0.9);
-    }
-    0%{
-      transform: scale(1);
-    }
-  }
-}
-
-.loader{
+.loader {
   width: 70px;
+
+  &.invert {
+    filter: invert(1);
+  }
 }

@@ -37,9 +37,9 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
     return () => document.removeEventListener('keydown', handleKeys)
   }, [onClose])
 
-  useEffect(()=>{ setTimeout(()=>setInitLoaded(true), 300)}, [initLoaded]) // Delay loader
+  useEffect(() => { setTimeout(() => setInitLoaded(true), 300) }, [initLoaded]) // Delay loader
 
-  if (!images || !show) 
+  if (!images || !show)
     return null
 
   return (
@@ -64,19 +64,19 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
                   data={image.responsiveImage}
                   lazyLoad={false}
                   usePlaceholder={false}
-                  onLoad={()=>setLoaded({...loaded, [image.id]:true})}
+                  onLoad={() => setLoaded({ ...loaded, [image.id]: true })}
                 />
-              :
+                :
                 <div className={styles.svg}>
-                  <img 
-                    src={image.url} 
+                  <img
+                    src={image.url}
                     className={styles.image}
-                    onLoad={()=>setLoaded({...loaded, [image.id]:true})}
+                    onLoad={() => setLoaded({ ...loaded, [image.id]: true })}
                   />
                 </div>
               }
               {!loaded[image.id] && initLoaded &&
-                <div className={styles.loading}><Loader/></div>
+                <div className={styles.loading}><Loader invert={true} /></div>
               }
             </SwiperSlide>
           )}
