@@ -40,13 +40,13 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 					<h1 className="topMargin">{contact.title}</h1>
 					<div className={styles.getintouch}>
 						<div className={styles.visit}>
-							<p className="beige medium noMargin">Visit</p>
+							<p className="black medium noMargin">Visit</p>
 							<div className="medium">
 								<Markdown>{contact.address}</Markdown>
 							</div>
 						</div>
 						<div className={styles.reachout}>
-							<p className=" medium beige noMargin">Reach out</p>
+							<p className="black medium noMargin">Reach out</p>
 							<p className="medium">
 								<a href={`tel://${contact.phone}`}>{contact.phone}</a><br />
 								<a href={`mailto:${contact.email}`}>{contact.email}</a>

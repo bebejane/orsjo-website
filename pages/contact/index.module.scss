@@ -19,7 +19,6 @@
 		h1 {
 			padding: 0.5em;
 			@include h1Big();
-			color: white;
 		}
 
 		.getintouch {
@@ -45,7 +44,6 @@
 
 		button {
 			margin-top: 1em;
-			color: $white;
 			//border-color: $black;
 			cursor: pointer;
 		}
@@ -53,6 +51,7 @@
 
 	.imageWrap {
 		width: 100%;
+		mix-blend-mode: screen;
 		.image {
 			width: spanGrid(12);
 			max-width: 100% !important;
