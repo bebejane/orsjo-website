@@ -100,8 +100,10 @@
         //text-align: right;
       }
       .thumbnail {
-        display: none;
         width: 100%;
+        @include mq($until: tablet) {
+          display: none;
+        }
       }
     }
   }
