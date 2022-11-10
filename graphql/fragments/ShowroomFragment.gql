@@ -1,11 +1,11 @@
-#import "./ImageFragment.gql"
+#import "./ImageMediumFragment.gql"
 
-fragment ShowroomFragment on ShowroomRecord{
-  additional(markdown: false)
-  address(markdown: false)
-  city
-  id
-  image {
-    ...ImageFragment
-  }
+fragment ShowroomFragment on ShowroomRecord {
+	additional(markdown: false)
+	address(markdown: false)
+	city
+	id
+	image {
+		...ImageMediumFragment
+	}
 }

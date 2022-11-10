@@ -1,4 +1,5 @@
 import styles from './bespoke.module.scss'
+import cn from 'classnames'
 import { BespokeDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import Link from 'next/link'
@@ -7,10 +8,10 @@ import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { useScrollInfo } from 'dato-nextjs-utils/hooks';
 import { PageProps } from '/lib/context/page';
 import { ProjectThumbnail, Section, TextReveal } from '/components';
-import { recordImages } from '/lib/utils'
+import { recordImages, styleVariables } from '/lib/utils'
 import { shallow, useStore } from 'lib/store';
 import { useEffect, useState } from 'react';
-import cn from 'classnames'
+import { useMediaQuery } from 'usehooks-ts';
 
 export type BespokeProps = { bespoke: BespokeRecord }
 
@@ -19,6 +20,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [imageStyle, setImageStyle] = useState({ opacity: 0.2, filter: 'grayscale(1)' })
+	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
 
 	useEffect(() => {
 		setGallery({ images: recordImages(bespoke) })
@@ -42,7 +44,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					layout='fill'
 					objectFit='cover'
 					className={styles.image}
-					style={imageStyle}
+					style={!isMobile ? imageStyle : undefined}
 				/>
 				<h1>
 					<TextReveal>

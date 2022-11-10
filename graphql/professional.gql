@@ -1,26 +1,25 @@
 #import "./fragments/ImageFragment.gql"
+#import "./fragments/ImageMediumFragment.gql"
 #import "./fragments/ImageThumbnailFragment.gql"
 #import "./fragments/ProjectFragment.gql"
 #import "./fragments/ProjectLightFragment.gql"
 
 query Project($slug: String) {
-	project (filter: {slug: { eq: $slug }}) {
-    ...ProjectFragment
+	project(filter: { slug: { eq: $slug } }) {
+		...ProjectFragment
 	}
 }
 
-query AllProjects($first: IntType = 100){
-  projects : allProjects(first: $first) {
-    ...ProjectLightFragment
-  }
+query AllProjects($first: IntType = 100) {
+	projects: allProjects(first: $first) {
+		...ProjectLightFragment
+	}
 }
 
 query AllRelatedProjects($projectType: ItemId, $first: IntType = 100) {
-  projects : allProjects(
-		first: $first
-    filter: { projectType: { eq: $projectType}}){
-    ...ProjectLightFragment
-  }
+	projects: allProjects(first: $first, filter: { projectType: { eq: $projectType } }) {
+		...ProjectLightFragment
+	}
 }
 
 query ProjectStart {
@@ -42,10 +41,10 @@ query AllProjectTypes {
 query Bespoke {
 	bespoke {
 		id
-    intro(markdown: false)
-    outro(markdown: false)
-    title
-		image{
+		intro(markdown: false)
+		outro(markdown: false)
+		title
+		image {
 			...ImageFragment
 		}
 		examples {
@@ -59,8 +58,8 @@ query Bespoke {
 }
 
 query BespokeThumbnail {
-	bespokeThumbnail : bespoke {
-		thumbnail{
+	bespokeThumbnail: bespoke {
+		thumbnail {
 			...ImageThumbnailFragment
 		}
 		secondaryThumbnail {
@@ -71,18 +70,17 @@ query BespokeThumbnail {
 
 query FactoryVisit {
 	factoryVisit {
-    id
-    title
-	  intro(markdown: false)
+		id
+		title
+		intro(markdown: false)
 	}
 }
 
-
 query AllCatalogues($first: IntType = 100) {
-	catalogues: allCatalogues(first: $first){
+	catalogues: allCatalogues(first: $first) {
 		id
 		title
-		pdf{
+		pdf {
 			...FileFragment
 		}
 		thumbnail {
@@ -91,24 +89,24 @@ query AllCatalogues($first: IntType = 100) {
 	}
 }
 
-query AllColorsAndMaterials($first: IntType = 100){
-  colorMaterials: allColorMaterials (first: $first){
-    id
-    image {
-      ...ImageFragment
-    }
-    description,
-    category {
-      id
-      category
+query AllColorsAndMaterials($first: IntType = 100) {
+	colorMaterials: allColorMaterials(first: $first) {
+		id
+		image {
+			...ImageFragment
+		}
+		description
+		category {
+			id
+			category
 			categoryPlural
-    }
-  }
-  colorMaterialTypes : allColorMaterialTypes {
-    id
-    category
+		}
+	}
+	colorMaterialTypes: allColorMaterialTypes {
+		id
+		category
 		categoryPlural
-  }
+	}
 	colorMaterialIntro {
 		id
 		intro

@@ -1,11 +1,11 @@
-#import "./ImageFragment.gql"
+#import "./ImageMediumFragment.gql"
 #import "./SEOFragment.gql"
 
 fragment DesignerFragment on DesignerRecord {
 	id
 	name
 	image {
-		...ImageFragment
+		...ImageMediumFragment
 	}
 	description
 	slug
