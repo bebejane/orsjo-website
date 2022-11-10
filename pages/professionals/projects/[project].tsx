@@ -1,4 +1,4 @@
-import styles from './[...project].module.scss'
+import styles from './[project].module.scss'
 import cn from 'classnames';
 import withGlobalProps from "/lib/withGlobalProps";
 import { apiQuery } from 'dato-nextjs-utils/api';
@@ -130,7 +130,7 @@ Project.page = { layout: 'normal', color: "--gray", menu: 'inverted' } as PagePr
 
 export async function getStaticPaths(context) {
 	const { projects } = await apiQuery(AllProjectsDocument, {})
-	const paths = projects.map(({ slug }) => ({ params: { project: [slug] } }))
+	const paths = projects.map(({ slug }) => ({ params: { project: slug } }))
 
 	return {
 		paths,
@@ -140,7 +140,7 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
-	const { project, bespokeThumbnail }: { project: ProjectRecord, bespokeThumbnail: BespokeThumbnailRecord } = await apiQuery([ProjectDocument, BespokeThumbnailDocument], { variables: { slug: context.params.project[0] } })
+	const { project, bespokeThumbnail }: { project: ProjectRecord, bespokeThumbnail: BespokeThumbnailRecord } = await apiQuery([ProjectDocument, BespokeThumbnailDocument], { variables: { slug: context.params.project } })
 	const { projects }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
 	const relatedProjects = projects.filter(p => p.id !== project.id).sort((a, b) => Math.random() > 0.5 ? 1 : -1)
 

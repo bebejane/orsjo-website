@@ -80,7 +80,9 @@ export default function Sidebar({ title, show }: SidebarProps) {
 		setMaxHeight(`calc(100vh - ${footer?.clientHeight}px`);
 	}, [pageType, setMaxHeight])
 
-	useEffect(() => { setTimeout(() => resetSearch(), 100) }, [router.asPath, resetSearch])
+	useEffect(() => {
+		setTimeout(() => resetSearch(), 100)
+	}, [router.asPath, resetSearch])
 
 	if (!show) return null
 

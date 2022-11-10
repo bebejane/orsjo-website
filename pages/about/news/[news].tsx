@@ -1,4 +1,4 @@
-import styles from './[...news].module.scss'
+import styles from './[news].module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import { AllNewsDocument, NewsDocument } from '/graphql'
 import { apiQuery } from 'dato-nextjs-utils/api'
@@ -17,10 +17,7 @@ export default function News({ news: { image, title, createdAt, text, _seoMetaTa
 	return (
 		<>
 			<DatoSEO title={title} description={text} seo={_seoMetaTags} />
-			<Section top={true}>
-				<h1 className="bottomMargin topMargin white">News</h1>
-			</Section>
-			<Section className={styles.news} type={'margin'}>
+			<Section className={styles.news} type={'margin'} top={true}>
 				<div className={styles.date}>
 					<p className="medium">{format(new Date(createdAt), 'MMM do, yyyy')}</p>
 				</div>
@@ -45,11 +42,11 @@ export default function News({ news: { image, title, createdAt, text, _seoMetaTa
 	)
 }
 
-News.page = { layout: 'normal', color: '--black', menu: 'inverted', sidebar: false, footerLine: true } as PageProps
+News.page = { layout: 'full', color: '--black', menu: 'inverted', sidebar: false, footerLine: true } as PageProps
 
 export async function getStaticPaths(context) {
 	const { news } = await apiQuery(AllNewsDocument)
-	const paths = news.map(({ slug }) => ({ params: { news: [slug] } }))
+	const paths = news.map(({ slug }) => ({ params: { news: slug } }))
 	return {
 		paths,
 		fallback: 'blocking'
@@ -58,7 +55,7 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
-	const { news } = await apiQuery(NewsDocument, { variables: { slug: context.params.news[0] } })
+	const { news } = await apiQuery(NewsDocument, { variables: { slug: context.params.news } })
 
 	if (!news)
 		return { notFound: true }

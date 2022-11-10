@@ -1,4 +1,4 @@
-import styles from './[...product].module.scss'
+import styles from './[product].module.scss'
 import cn from 'classnames'
 import { AllProductsLightDocument, ProductDocument, RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument } from '/graphql'
 import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components'
@@ -293,7 +293,7 @@ const formatDesignerName = (name?: string) => {
 
 export async function getStaticPaths(context) {
 	const { products } = await apiQuery(AllProductsLightDocument, {})
-	const paths = products.map(({ slug }) => ({ params: { product: [slug] } }))
+	const paths = products.map(({ slug }) => ({ params: { product: slug } }))
 	return {
 		paths,
 		fallback: 'blocking'
@@ -302,7 +302,7 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
 
-	const slug = context.params.product[0]
+	const slug = context.params.product
 	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug } })
 
 	if (!product)

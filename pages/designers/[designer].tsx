@@ -1,4 +1,4 @@
-import styles from './[...designer].module.scss'
+import styles from './[designer].module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import { AllDesignersDocument, DesignerDocument, AllProductsByDesignerDocument, AllProductsLightDocument } from '/graphql'
 import { apiQuery } from 'dato-nextjs-utils/api'
@@ -78,7 +78,7 @@ Designer.page = { layout: 'full', color: '--green', menu: 'inverted' } as PagePr
 
 export async function getStaticPaths(context) {
 	const { designers } = await apiQuery(AllDesignersDocument)
-	const paths = designers.map(({ slug }) => ({ params: { designer: [slug] } }))
+	const paths = designers.map(({ slug }) => ({ params: { designer: slug } }))
 	return {
 		paths,
 		fallback: 'blocking'
@@ -88,7 +88,7 @@ export async function getStaticPaths(context) {
 export const getStaticProps = withGlobalProps({ queries: [AllDesignersDocument, AllProductsLightDocument] }, async ({ props, context, revalidate }) => {
 
 	const { designers, products: allProducts } = props;
-	const { designer } = await apiQuery(DesignerDocument, { variables: { slug: context.params.designer[0] } })
+	const { designer } = await apiQuery(DesignerDocument, { variables: { slug: context.params.designer } })
 	const { products } = await apiQuery(AllProductsByDesignerDocument, { variables: { id: designer.id } })
 
 	if (!designer)

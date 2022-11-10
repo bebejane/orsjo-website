@@ -1,28 +1,37 @@
 .image {
 	max-width: 50%;
+
 	@include mq($until: tablet) {
 		max-width: 100%;
 	}
 }
 
-.date {
-	flex: 0 0 spanGridWithGutter(4);
-}
 
 .news {
 	color: $white;
 	display: flex;
 	flex-direction: row;
 
+	.date {
+		flex: 0 0 spanGridWithGutter(4);
+
+		p {
+			color: $white;
+		}
+	}
+
 	.content p {
 		margin-top: 1rem;
 		padding-right: 20%;
+
 		&:last-child {
 			margin-bottom: 0;
 		}
 	}
+
 	@include mq($until: tablet) {
 		flex-direction: column;
+
 		.content p {
 			padding-right: 0;
 		}

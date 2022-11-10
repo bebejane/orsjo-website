@@ -11,7 +11,7 @@ export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: 
 
 export default function Layout({ children, menu: menuFromProps, title }: LayoutProps) {
 
-	const { color, layout } = usePage()
+	const { color, layout, sidebar } = usePage()
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch], shallow)
 	const [menu, setMenu] = useState(menuFromProps)
 
@@ -25,7 +25,7 @@ export default function Layout({ children, menu: menuFromProps, title }: LayoutP
 				<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} />
 				<MenuMobile items={menu} />
 				<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />
-				<Sidebar title={title} show={layout !== 'full'} />
+				<Sidebar title={title} show={layout !== 'full' && sidebar} />
 				<Content>
 					{children}
 				</Content>
