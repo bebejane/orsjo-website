@@ -8,27 +8,42 @@
 	}
 
 	.info {
-		z-index: 2;
-		position: absolute;
-		width: spanGrid(12);
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		height: 100%;
+		@include mq($from: tablet) {
+			z-index: 2;
+			position: absolute;
+			width: spanGrid(12);
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 100%;
+		}
 
 		h1 {
-			padding: 0.5em;
-			@include h1Big();
+			@include mq($from: tablet) {
+				padding: 0.5em;
+				@include h1Big();
+			}
 		}
 
 		.getintouch {
-			z-index: 3;
 			display: flex;
-			width: 100%;
-			flex-direction: row;
-			justify-content: space-between;
-			padding: 2em;
-			margin-bottom: $small-margin;
+			flex-wrap: wrap;
+
+			@include mq($from: tablet) {
+				z-index: 3;
+
+				width: 100%;
+				flex-direction: row;
+				justify-content: space-between;
+				padding: 2em;
+				margin-bottom: $small-margin;
+			}
+
+			& > div {
+				@include mq($until: tablet) {
+					width: 50%;
+				}
+			}
 
 			p,
 			div,
@@ -46,25 +61,34 @@
 			margin-top: 1em;
 			//border-color: $black;
 			cursor: pointer;
+			@include mq($until: tablet) {
+				width: 100%;
+				margin-top: 1em;
+			}
 		}
 	}
 
 	.imageWrap {
-		width: 100%;
-		mix-blend-mode: screen;
-		.image {
-			width: spanGrid(12);
-			max-width: 100% !important;
-			position: relative;
+		@include mq($until: tablet) {
+			display: none;
 		}
-		.fade {
-			height: 30%;
-			position: absolute;
-			width: spanGrid(12);
-			max-width: 100% !important;
-			z-index: 1;
-			bottom: $small-margin;
-			background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), rgb(0, 0, 0));
+		width: 100%;
+		@include mq($from: tablet) {
+			mix-blend-mode: screen;
+			.image {
+				width: spanGrid(12);
+				max-width: 100% !important;
+				position: relative;
+			}
+			.fade {
+				height: 30%;
+				position: absolute;
+				width: spanGrid(12);
+				max-width: 100% !important;
+				z-index: 1;
+				bottom: $small-margin;
+				background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), rgb(0, 0, 0));
+			}
 		}
 	}
 }
