@@ -7,7 +7,7 @@ import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, Thumbnail, ArrowButton } from '/components'
 import { useEffect, useRef, useState } from "react";
 import { usePage } from "/lib/context/page";
-import { useMediaMatch } from "rooks";
+import { useMediaQuery } from 'usehooks-ts'
 
 export type FeaturedGalleryProps = {
 	products?: ProductRecord[],
@@ -40,7 +40,7 @@ export default function FeaturedGallery({
 	const [index, setIndex] = useState(0)
 	const [isShortSlide, setIsShortSlide] = useState(false)
 	const [spaceBetween, setSpaceBetween] = useState(0)
-	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
+	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
 	const numSlides = items.length
 
 	useEffect(() => {

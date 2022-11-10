@@ -11,7 +11,7 @@ import { dedupeImages, styleVariables } from '/lib/utils';
 import { useEffect, useState } from 'react'
 import { useStore, shallow } from '/lib/store';
 import { useScrollInfo } from 'dato-nextjs-utils/hooks'
-import { useMediaMatch } from 'rooks';
+import { useMediaQuery } from 'usehooks-ts'
 
 export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>
 
@@ -32,7 +32,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const [imageStyle, setImageStyle] = useState({})
-	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
+	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
 	const isOtherProject = project.projectType?.title.toLowerCase() === 'other'
 	const relatedHeadline = !isOtherProject ? `Other ${project.projectType.titlePlural.toLowerCase()}` : 'Related projects'
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)

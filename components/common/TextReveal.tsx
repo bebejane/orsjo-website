@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { styleVariables } from '/lib/utils'
 import cn from 'classnames'
 import React, { Children } from 'react';
-import { useMediaMatch } from 'rooks';
+import { useMediaQuery } from 'usehooks-ts'
 
 const childrenToText = (children) => {
   const chars = Children.toArray(children).map(c =>
@@ -19,7 +19,7 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 
   const text = childrenToText(children)
   const { scrolledPosition, viewportHeight } = useScrollInfo()
-  const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
+  const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
   const [chars, setChars] = useState(text.length)
 
   useEffect(() => {

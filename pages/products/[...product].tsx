@@ -15,7 +15,7 @@ import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import Link from 'next/link'
-import { useMediaMatch, useWindowSize } from 'rooks'
+import { useMediaQuery } from 'usehooks-ts'
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -42,7 +42,7 @@ export default function Product({
 
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
-	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
+	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
 	const singleModel = product.models.length === 1
 	const [list, setList] = useState({ specifications: false, downloads: false })
 	const [pictureStyle, setPictureStyle] = useState({ paddingBottom: '4em' })
@@ -76,7 +76,6 @@ export default function Product({
 		const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
 		setPictureStyle({ paddingBottom: `${4 * scale}em` })
 	}, [viewportHeight, scrolledPosition, setPictureStyle])
-	console.log(isMobile, `max-width: ${styleVariables.tablet}px`);
 
 	return (
 		<>
@@ -233,10 +232,10 @@ export default function Product({
 				onToggle={() => setList({ ...list, downloads: !list.downloads })}
 			>
 				<ul className={styles.downloads}>
-					{files.map(({ href, type, label }, idx) =>
+					{files.map(({ href, type, label, download }, idx) =>
 						<li key={idx}>
 							<a href={href} download target="_new">
-								<Icon type={type} label={label} disabled={!href} />
+								<Icon type={type} label={label} disabled={!href} download={download} />
 							</a>
 						</li>
 					)}
@@ -306,7 +305,8 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 	const slug = context.params.product[0]
 	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug } })
 
-	if (!product) return { notFound: true }
+	if (!product)
+		return { notFound: true }
 
 	const { productsByCategory, relatedProducts, relatedProjects } = await apiQuery([
 		RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument
@@ -328,8 +328,6 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 		{ label: 'Lightsource', value: specs.lightsource },
 		{ label: 'Additional info', value: specs.additionalInformation },
 	].filter(el => el.value)
-
-
 
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
 	const drawings = [];

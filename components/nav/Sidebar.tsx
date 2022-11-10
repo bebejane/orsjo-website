@@ -6,7 +6,7 @@ import { usePage } from '/lib/context/page'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { ArrowLink, AnchorLink } from '/components'
 import { useScrollInfo } from 'dato-nextjs-utils/hooks'
-import { remToPx, styleVariables } from '/lib/utils';
+import { styleVariables } from '/lib/utils';
 import { useWindowSize } from 'rooks';
 
 export type SidebarProps = { title: string, show: boolean }

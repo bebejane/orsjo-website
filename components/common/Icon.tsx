@@ -6,14 +6,15 @@ export type IconProps = {
   children?: React.ReactNode,
   type?: string,
   label?: string,
-  disabled?: boolean
+  disabled?: boolean,
+  download?: boolean
 }
 
-export default function Icon({ type, label, children, disabled = false }: IconProps) {
+export default function Icon({ type, label, children, disabled = false, download = true }: IconProps) {
 
   return (
     <div className={cn(styles.icon, disabled && styles.disabled)}>
-      {type && 
+      {type &&
         <span className={cn(styles.type, "icon")}>
           <div className={styles.corner}></div>
           {type || children}
@@ -24,9 +25,11 @@ export default function Icon({ type, label, children, disabled = false }: IconPr
           {label}
         </span>
       }
-      <div className={cn(styles.arrow, "medium")}>
-        <div><img src="/images/arrow.svg" className={styles.arrow} /></div>
-      </div>
+      {download &&
+        <div className={cn(styles.arrow, "medium")}>
+          <div><img src="/images/arrow.svg" className={styles.arrow} /></div>
+        </div>
+      }
     </div>
   )
 }

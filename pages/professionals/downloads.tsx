@@ -8,7 +8,7 @@ import { PageProps } from '/lib/context/page';
 import React, { useState, useEffect, useRef } from 'react';
 import { Section, Icon } from '/components'
 import { productDownloads, ProductRecordWithPdfFiles } from '/lib/utils';
-import { useMediaMatch } from 'rooks';
+import { useMediaQuery } from 'usehooks-ts'
 import { styleVariables } from '/lib/utils';
 
 export type DownloadsProps = { products: ProductRecord[], catalogues: CatalogueRecord[] }
@@ -17,7 +17,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 
 	const [search, setSeatch] = useState<string>();
 	const [results, setResults] = useState<ProductRecord[]>(products);
-	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
+	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
 	const [list, setList] = useState({})
 	const ref = useRef<HTMLInputElement>()
 

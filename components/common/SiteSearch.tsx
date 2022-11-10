@@ -11,7 +11,8 @@ import {
 	Loader
 } from '/components';
 import { AnchorLink } from '/components';
-import { useDebouncedValue, useMediaMatch } from 'rooks';
+import { useDebouncedValue } from 'rooks';
+import { useMediaQuery } from 'usehooks-ts'
 import { siteSearch, truncateParagraph } from '/lib/utils'
 import { useStore, shallow } from '/lib/store';
 
@@ -35,7 +36,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 	const [error, setError] = useState()
 	const [loading, setLoading] = useState(false)
 	const [result, setResult] = useState<SearchResultCategory | undefined>()
-	const isMobile = useMediaMatch(`(max-width: ${styleVariables.tablet}px)`)
+	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading && inputValue
 	const thumbnailTheme = isMobile ? 'dark' : 'light'
 

@@ -6,7 +6,6 @@ import type { MenuItem } from '/lib/menu'
 import { useStore, shallow } from '/lib/store'
 import { useState } from 'react'
 import { buildMenu } from '/lib/menu'
-import { useRouter } from 'next/router'
 
 export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: string }
 

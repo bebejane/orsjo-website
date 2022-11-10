@@ -150,7 +150,8 @@ export const siteSearch = async (q: string) => {
 export type ProductDownload = {
   href: string,
   label: string,
-  type: string
+  type: string,
+  download: boolean
 }
 
 export type ProductRecordWithPdfFiles = ProductRecord & {
@@ -164,27 +165,33 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
   const files = [{
     href: pdfFiles.find(({ locale }) => locale === 'sv') && `${pdfFiles.find(({ locale }) => locale === 'sv')?.value.url}?dl=${pdfFiles.find(({ locale }) => locale === 'sv')?.value.title}.pdf`,
     label: 'Productsheet (SE)',
-    type: 'pdf'
+    type: 'pdf',
+    download: true
   }, {
     href: pdfFiles.find(({ locale }) => locale === 'en') && `${pdfFiles.find(({ locale }) => locale === 'en')?.value.url}?dl=${pdfFiles.find(({ locale }) => locale === 'en')?.value.title}.pdf`,
     label: 'Productsheet (EN)',
-    type: 'pdf'
+    type: 'pdf',
+    download: true
   }, {
     href: mountingInstructions?.url,
     label: 'Mounting instructions',
-    type: 'pdf'
+    type: 'pdf',
+    download: true
   }, {
     href: lightFile?.url,
     label: 'Light file',
-    type: 'zip'
+    type: 'zip',
+    download: true
   }, {
     href: bimFile?.url || bimLink,
     label: bimFile?.url ? 'Download CAD files' : 'Visit BIM Objects',
-    type: 'cad'
+    type: 'cad',
+    download: bimFile?.url ? true : false
   }, {
     href: undefined,
     label: 'CAD file, size S',
-    type: 'cad'
+    type: 'cad',
+    download: true
   }]
 
   return files.filter(({ href }) => href);
