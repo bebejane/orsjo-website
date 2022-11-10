@@ -9,6 +9,7 @@ import { sleep, waitForElement, scrollToId } from '/lib/utils';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
 import { useTransitionFix } from 'dato-nextjs-utils/hooks'
 import { AnimatePresence } from "framer-motion";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 import type { AppProps } from 'next/app'
 import type { NextComponentType } from 'next';
@@ -71,6 +72,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
         site={site}
         path={router.asPath}
       />
+      <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
       <AnimatePresence exitBeforeEnter initial={true}>
         <div id="app" key={pathname}>
           <PageProvider value={page}>
