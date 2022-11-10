@@ -56,6 +56,12 @@ type AboutRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
+
+/** Record of type About us (about) */
+type AboutRecordtitleArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Block of type About section (about_section) */
 type AboutSectionRecord = RecordInterface & {
   __typename?: 'AboutSectionRecord';
