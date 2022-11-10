@@ -1,20 +1,18 @@
 fragment ImageFragment on FileField {
-  format
-  id
-  mimeType
-  url
-  title
-  responsiveImage {
-    alt
-    aspectRatio
-    base64
-    bgColor
-    height
-    sizes
-    src
-    srcSet
-    webpSrcSet
-    title
-    width
-  }
+	id
+	mimeType
+	url
+	responsiveImage {
+		alt
+		aspectRatio
+		base64
+		bgColor
+		height
+		sizes
+		src
+		srcSet
+		webpSrcSet
+		title
+		width
+	}
 }

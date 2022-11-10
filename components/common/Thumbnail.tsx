@@ -48,7 +48,8 @@ export default function Thumbnail({
             data={image.responsiveImage}
             className={styles.image}
             layout={'fill'}
-            lazyLoad={false}
+            lazyLoad={true}
+            fadeInDuration={100}
             objectFit={objectFit}
           />
         }
@@ -57,6 +58,7 @@ export default function Thumbnail({
             <Image
               data={imageHover.responsiveImage}
               className={styles.image}
+              lazyLoad={false}
               layout={'fill'}
               objectFit={'cover'}
             />

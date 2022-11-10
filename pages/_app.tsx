@@ -1,18 +1,19 @@
 import '/styles/index.scss'
 
-import type { AppProps } from 'next/app'
 import { Layout, PageTransition } from '/components'
 import { PageProvider, type PageProps } from '/lib/context/page';
-import { AnimatePresence } from "framer-motion";
 import { useEffect } from 'react';
 import { useStore, shallow } from '/lib/store'
 import { useWindowSize } from 'rooks';
 import { sleep, waitForElement, scrollToId } from '/lib/utils';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
 import { useTransitionFix } from 'dato-nextjs-utils/hooks'
+import { AnimatePresence } from "framer-motion";
 
+import type { AppProps } from 'next/app'
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';
+
 
 export type ApplicationProps = AppProps & {
   Component: NextComponentType & {

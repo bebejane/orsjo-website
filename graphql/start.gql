@@ -2,74 +2,75 @@
 #import "./fragments/ProjectLightFragment.gql"
 #import "./fragments/DesignerFragment.gql"
 #import "./fragments/ImageFragment.gql"
+#import "./fragments/ImageMediumFragment.gql"
 #import "./fragments/VideoFragment.gql"
 
 query Start {
-  start {
-    content {
-      __typename
-      ... on FeaturedStartRecord {
-        id
-        headline
-        items {
-          ... on ProductRecord{
-            ...ProductLightFragment
-          }
-          ... on ProjectRecord{
-            ...ProjectLightFragment
-          }
-        }
-      }
-      ... on FullscreenMediaBlockRecord {
-        id
-        headline
-        subHeadline
-        media {
-          ...ImageFragment
-        }
-        linkRecord{
-          ... on ProductRecord{
-            ...ProductFragment
-          }
-          ... on DesignerRecord{
-            ...DesignerFragment
-          }
-        }
-      }
-      ... on FullscreenVideoRecord {
-        id
-        link
-        linkText
-        text
-        video {
-          ...VideoFragment
-        }
-      }
-      ... on ImageLinkRecord {
-        id
-        firstImage{
-          ...ImageFragment
-        }
-        firstLink
-        firstLinkText
-        firstHeadline
-        secondImage {
-          ...ImageFragment
-        }
-        secondLink
-        secondLinkText
-        secondHeadline
-      }
-      ... on NewsItemRecord {
-        news{
-          id
-          title
-          text(markdown: false)
-          link
-          linkText
-          slug
-        }
-      }
-    }
-  }
+	start {
+		content {
+			__typename
+			... on FeaturedStartRecord {
+				id
+				headline
+				items {
+					... on ProductRecord {
+						...ProductLightFragment
+					}
+					... on ProjectRecord {
+						...ProjectLightFragment
+					}
+				}
+			}
+			... on FullscreenMediaBlockRecord {
+				id
+				headline
+				subHeadline
+				media {
+					...ImageFragment
+				}
+				linkRecord {
+					... on ProductRecord {
+						...ProductFragment
+					}
+					... on DesignerRecord {
+						...DesignerFragment
+					}
+				}
+			}
+			... on FullscreenVideoRecord {
+				id
+				link
+				linkText
+				text
+				video {
+					...VideoFragment
+				}
+			}
+			... on ImageLinkRecord {
+				id
+				firstImage {
+					...ImageMediumFragment
+				}
+				firstLink
+				firstLinkText
+				firstHeadline
+				secondImage {
+					...ImageMediumFragment
+				}
+				secondLink
+				secondLinkText
+				secondHeadline
+			}
+			... on NewsItemRecord {
+				news {
+					id
+					title
+					text(markdown: false)
+					link
+					linkText
+					slug
+				}
+			}
+		}
+	}
 }

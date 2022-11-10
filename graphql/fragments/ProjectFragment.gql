@@ -1,4 +1,5 @@
 #import "./ImageFragment.gql"
+#import "./ImageMediumFragment.gql"
 #import "./ProductFragment.gql"
 #import "./SEOFragment.gql"
 
@@ -66,10 +67,10 @@ fragment ProjectFragment on ProjectRecord {
 			__typename
 			id
 			firstImage {
-				...ImageFragment
+				...ImageMediumFragment
 			}
 			lastImage {
-				...ImageFragment
+				...ImageMediumFragment
 			}
 		}
 		... on VideoRecord {
