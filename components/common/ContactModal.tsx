@@ -109,7 +109,7 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
               name="text"
               {...register("text", { required: true })}
             />
-            <button type="submit">Send</button>
+            <button type="submit">Send message</button>
           </form>
 
 
