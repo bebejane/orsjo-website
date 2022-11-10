@@ -5,8 +5,10 @@ import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { Modal, Loader } from '/components'
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useForm } from "react-hook-form";
+import { styleVariables } from '/lib/utils'
+import { useMediaQuery } from 'usehooks-ts'
 
-type Props = {
+export type Props = {
   onClose: () => void,
   show: boolean,
   message: string
@@ -18,6 +20,7 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | string | undefined>()
+  const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
   const ref = useRef<HTMLInputElement>()
 
   const [data, setData] = useState("");
@@ -58,8 +61,9 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
   useEffect(() => {
     if (!show)
       setTimeout(resetForm, 300)
-
-  }, [show, ref, resetForm, setFocus])
+    if (!isMobile)
+      setFocus('name')
+  }, [show, ref, resetForm, setFocus, isMobile])
 
   return (
     <Modal>
