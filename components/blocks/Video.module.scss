@@ -12,7 +12,6 @@
     margin-right: calc(var(--outer-margin) * -1);
   }
 
-
   @include mq($from: tablet) {
     padding-top: $small-margin;
   }

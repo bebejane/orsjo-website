@@ -121,6 +121,10 @@
 			break-inside: avoid-column;
 			width: 100%;
 
+			@include mq($until: tablet) {
+				padding-bottom: 0 !important;
+			}
+
 			span {
 				&:nth-child(odd) {
 					color: $gray;
@@ -317,6 +321,7 @@
 		}
 
 		tr {
+
 			td:nth-child(1),
 			td:nth-child(3) {
 				color: $gray;
@@ -346,6 +351,7 @@
 		li {
 			flex: 1 1 auto;
 			width: auto;
+
 			@include mq($from: tablet) {
 				padding-top: 1.5em;
 			}
@@ -372,7 +378,7 @@
 	padding-top: $small-margin;
 	padding-bottom: $margin;
 
-	& > div {
+	&>div {
 		padding-bottom: $small-margin;
 
 		&:last-child {
