@@ -98,6 +98,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	return (
 		<>
 			<Logo inverted={isInverted} />
+			<div className={cn(styles.underlay, selected && styles.show)}></div>
 			<nav id={'menu'} ref={ref} className={menuStyles} >
 				<ul className={styles.nav} >
 					{items.map(({ label, slug, index }, idx) =>

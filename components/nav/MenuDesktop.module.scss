@@ -1,3 +1,19 @@
+.underlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.0);
+  transition: all ease-in-out 0.4s;
+  pointer-events: none;
+
+  &.show {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+}
+
 .desktopMenu {
   position: fixed;
   display: flex;
@@ -14,6 +30,7 @@
   min-height: $navbarHeight;
   max-height: $navbarHeight;
   transition: transform 0.3s ease;
+
   ul {
     width: spanGrid(12);
     padding-top: 1em;
@@ -26,6 +43,7 @@
     opacity: 1;
     transition: opacity 0.3s ease;
 
+
     li {
       position: relative;
       cursor: default;
@@ -36,10 +54,12 @@
 
       &.selected {
         color: $black !important;
+
         a {
           color: $black !important;
         }
       }
+
       a,
       a:visited {
         color: $black-menu;
@@ -49,6 +69,7 @@
       a:hover {
         color: $black;
       }
+
       .arrow {
         display: inline-block;
         visibility: hidden;
@@ -66,26 +87,30 @@
       }
     }
   }
+
   li.searchIcon {
     display: flex;
     justify-content: flex-end;
     padding-right: 0;
     flex: 1 1 100%;
     cursor: pointer;
+
     img {
       opacity: 0.6;
       width: 16px;
       max-width: 16px;
+
       &:hover {
         opacity: 1;
       }
     }
   }
+
   &.open {
     min-height: 100vh;
     pointer-events: none;
 
-    * > li {
+    *>li {
       //color: $black  !important;
     }
 
@@ -95,8 +120,9 @@
   }
 
   &.inverted {
-    * > li,
-    * > a {
+
+    *>li,
+    *>a {
       color: $white-menu;
     }
 
@@ -109,8 +135,8 @@
       color: $white-menu;
     }
 
-    ul > li.selected,
-    ul > li.selected > a {
+    ul>li.selected,
+    ul>li.selected>a {
       color: $white !important;
     }
 
@@ -148,6 +174,7 @@
   box-shadow: -1px 0px 10px rgba(gray, 0.1);
   color: $black-menu;
 
+
   &.show {
     pointer-events: all;
     height: 100vh;
@@ -158,6 +185,7 @@
     padding-right: var(--outer-margin);
     padding-top: 4rem;
     background-color: $white;
+
     &.inverted {
       * {
         color: $white-menu !important;
@@ -175,6 +203,7 @@
         border-top: 1px solid $light-gray;
       }
     }
+
     nav {
       ul {
         display: flex;
@@ -189,8 +218,10 @@
           display: none;
           -ms-overflow-style: none;
         }
+
         li {
           line-height: 1.25rem;
+
           a {
             transition: color 0.3s;
             color: $black-menu;
@@ -198,11 +229,13 @@
             &:hover {
               color: $black;
             }
+
             &.active {
               color: $black !important;
             }
           }
         }
+
         &.columns {
           display: block;
           column-count: 2;
@@ -214,6 +247,7 @@
 }
 
 @include mq($until: nav-break) {
+
   .logo,
   .desktopMenu,
   .sub {
