@@ -8,6 +8,9 @@
 
 		@include mq($until: tablet) {
 			min-height: 60vh;
+			width: calc(100% + calc(var(--outer-margin) * 2)) !important;
+			margin-left: calc(var(--outer-margin) * -1);
+			margin-right: calc(var(--outer-margin) * -1);
 		}
 
 		@include mq($from: tablet) {
@@ -43,14 +46,20 @@
 				.title {
 					position: absolute;
 					top: 0;
-					left: 0.5em;
+					left: var(--outer-margin);
+					@include mq($from: tablet) {
+						left: 0.5em;
+					}
 					padding-top: 0.4em;
 					@include h1Big();
 				}
 
 				.designer {
 					position: absolute;
-					right: 0.5em;
+					right: var(--outer-margin);
+					@include mq($from: tablet) {
+						right: 0.5em;
+					}
 					padding-left: 0.5em;
 					text-align: right;
 					bottom: 0;
