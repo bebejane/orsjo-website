@@ -11,17 +11,15 @@
   h1 {
     @include h1Big();
     position: absolute;
-    bottom: $margin;
-    right: var(--outer-margin);
-    padding-right: spanGrid(1);
-    @include mq($until: tablet) {
-      word-break: break-all;
-      padding-left: 1em;
-      padding-right: 1em;
-      color: $white;
-      bottom: auto;
-      top: calc(50vh - 1em);
-    }
+    left: 0;
+    word-break: break-all;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: $white;
+    bottom: auto;
+    top: calc(50vh - 1em);
+    text-align: center;
+    width: 100%;
   }
 }
 
