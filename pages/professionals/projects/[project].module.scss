@@ -16,7 +16,14 @@
       max-height: calc(100vh - $navbarHeight - var(--outer-margin));
     }
 
-    .image {}
+    .image {
+      @include mq($until: tablet) {
+        height: 50vh;
+        width: calc(100% + calc(var(--outer-margin) * 2)) !important;
+        margin-left: calc(var(--outer-margin) * -1);
+        margin-right: calc(var(--outer-margin) * -1);
+      }
+    }
 
     .title,
     .location {
@@ -33,6 +40,11 @@
     .title {
       top: 0;
       left: 0;
+      @include mq($until: tablet) {
+        position: absolute;
+        top: 0.4em;
+        color: white;
+      }
     }
 
     .location {

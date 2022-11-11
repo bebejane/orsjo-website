@@ -37,16 +37,19 @@
     }
   }
 
-  &[data-top='true'] {
-    margin-top: 4rem;
+  &[data-top="true"] {
+    margin-top: $navbarHeightMobile;
+    @include mq($from: tablet) {
+      margin-top: 4rem;
+    }
   }
 
-  &[data-bottom='true'] {
+  &[data-bottom="true"] {
     margin-bottom: $margin;
   }
 
   @include mq($until: tablet) {
-    .wrap{
+    .wrap {
       padding-left: 0;
       padding-right: 0;
     }
