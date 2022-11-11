@@ -46,16 +46,22 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	}
 
 	useEffect(() => {
-		router.events.off("hashChangeStart", handleClose)
 		router.events.on("hashChangeStart", handleClose);
+
 		return () => router.events.off("hashChangeStart", handleClose)
 	}, [router.events]);
 
-	useEffect(() => { setShowSearch(!!query) }, [query])
-	useEffect(() => { !transitioning && handleClose() }, [transitioning])
+	useEffect(() => {
+		setShowSearch(!!query)
+	}, [query])
 
 	useEffect(() => {
-		if (!showMenuMobile) return
+		!transitioning && handleClose()
+	}, [transitioning])
+
+	useEffect(() => {
+		if (!showMenuMobile)
+			return
 		items.filter(({ index, type }) => index || selected?.type === type).forEach(({ slug }) => router.prefetch(slug))
 	}, [showMenuMobile, items, router, selected])
 
@@ -64,7 +70,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 			const item = items.find(({ slug, index }) => router.asPath.startsWith(slug))
 			setSelected(item)
 		}
-	}, [showMenuMobile, router])
+	}, [showMenuMobile, router, setSelected, items])
 
 	return (
 		<>
