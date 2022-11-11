@@ -17,7 +17,7 @@
   }
   span {
     @include mq($until: tablet) {
-      padding-top: 0.2em;
+      padding-top: 0.25em;
     }
     display: inline-block;
     opacity: 1;
