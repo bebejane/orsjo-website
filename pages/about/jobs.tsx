@@ -18,7 +18,7 @@ export default function Jobs({ jobs }: JobsProps) {
 			</Section>
 
 			{jobs.map(({ id, title, summary, text }, idx) =>
-				<Section key={id} className={styles.jobs} name={title}>
+				<Section key={id} className={styles.jobs} name={title} bottom={idx === (jobs.length - 1)}>
 					<h1 className="copper">{title}</h1>
 					<Markdown className={styles.summary}>{summary}</Markdown>
 					<Markdown className={styles.text}>{text}</Markdown>
@@ -26,7 +26,7 @@ export default function Jobs({ jobs }: JobsProps) {
 			)}
 
 			{jobs.length === 0 &&
-				<Section className={styles.jobs}>
+				<Section className={styles.jobs} bottom={true}>
 					<p className={styles.nojobs}>
 						We don&apos;t have any job offers at the moment
 					</p>
