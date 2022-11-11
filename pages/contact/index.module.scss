@@ -59,6 +59,7 @@
 
 		button {
 			margin-top: 1em;
+			color: $black;
 			//border-color: $black;
 			cursor: pointer;
 			@include mq($until: tablet) {

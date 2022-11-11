@@ -144,8 +144,9 @@
 
 		li {
 			@include mq($until: tablet) {
-				width: spanNestedGrid(12, 6);
+				width: 48%;
 				@include resetLastColumn(2);
+				margin-right: 4%;
 			}
 			@include mq($from: tablet) {
 				width: spanNestedGrid(12, 3);

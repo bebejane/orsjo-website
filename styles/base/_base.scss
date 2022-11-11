@@ -6,7 +6,7 @@ body {
 	width: 100%;
 	color: $black;
 	background-color: $white;
-	font-family: $body-font, serif, 'Helvetica', 'Arial';
+	font-family: $body-font, serif, "Helvetica", "Arial";
 	//-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-feature-settings: "liga", "kern";
@@ -21,7 +21,6 @@ html {
 	margin: 0;
 	padding: 0;
 	scroll-behavior: smooth;
-
 }
 
 ::-webkit-scrollbar {
@@ -86,13 +85,14 @@ a {
 	}
 }
 
-button { 
+button {
 	background-color: transparent;
+	color: $black;
 	padding: 1em;
 	padding-left: 1.5em;
 	padding-right: 1.5em;
-  border: 1px solid $white;
-	outline:none;
+	border: 1px solid $white;
+	outline: none;
 	line-height: 1em;
 	&:hover {
 		background: $white;
@@ -101,46 +101,47 @@ button {
 	}
 }
 
-::placeholder{
-	font-family: $body-font;	
+::placeholder {
+	font-family: $body-font;
 }
 
 // Achor link scroll margin from top of page
-[id]{
-	@include mq($from: tablet){
+[id] {
+	@include mq($from: tablet) {
 		scroll-margin-top: 4.5rem;
 	}
-	@include mq($until: tablet){
-		scroll-margin-top: 	$navbarHeightMobile;
+	@include mq($until: tablet) {
+		scroll-margin-top: $navbarHeightMobile;
 	}
 }
 
-[data-image-zoom]{
-	img{
-		transition: transform 0.5s ease !important;	
+[data-image-zoom] {
+	img {
+		transition: transform 0.5s ease !important;
 		transform: scale(1);
-		&:hover{
+		&:hover {
 			transform: scale(1.02);
-		}		
+		}
 	}
 }
 
-[data-image-zoom="small"]{
-	img{
-		&:hover{
+[data-image-zoom="small"] {
+	img {
+		&:hover {
 			transform: scale(1.1);
-		}		
+		}
 	}
 }
 
-[data-image-zoom="medium"]{
-	img{
-		&:hover{
+[data-image-zoom="medium"] {
+	img {
+		&:hover {
 			transform: scale(1.04);
-		}		
+		}
 	}
 }
 
-input, ::placeholder {
+input,
+::placeholder {
 	font-family: $headline-font;
 }
