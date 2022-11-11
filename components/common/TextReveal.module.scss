@@ -2,9 +2,10 @@
   margin: 0;
   padding: 0;
   line-height: 1.3;
+  display: inline;
 
-  @include mq($from: wide) {
-    display: inline;
+  @include mq($from: desktop, $until: wide) {
+    display: inline-block;
   }
 
   .word {
