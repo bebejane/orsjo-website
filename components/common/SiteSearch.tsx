@@ -15,6 +15,7 @@ import { useDebouncedValue } from 'rooks';
 import { useMediaQuery } from 'usehooks-ts'
 import { siteSearch, truncateParagraph } from '/lib/utils'
 import { useStore, shallow } from '/lib/store';
+import Close from '/public/images/close.svg'
 
 export type SearchResultCategory = {
 	[key: string]: any
@@ -88,7 +89,11 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 					className={cn(show && styles.show)}
 					onChange={(e) => setInputValue(e.target.value)}
 				/>
+				<button className={styles.close} onClick={onClose}>
+					<Close />
+				</button>
 			</div>
+
 			<div className={styles.results}>
 				{inputValue && result && Object.keys(result).map(model => {
 					const items = result[model]
@@ -130,7 +135,6 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 					</div>
 				}
 			</div>
-			<button className={styles.close} onClick={onClose}>×</button>
 		</div>
 	)
 }

@@ -10,13 +10,14 @@
   margin-left: calc(var(--outer-margin) + spanGrid(4));
   padding-left: var(--outer-margin);
   padding-right: var(--outer-margin);
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   z-index: 800;
   background-color: $white;
   box-shadow: -1px 0px 10px rgba(128, 128, 128, 0.1);
   opacity: 0;
   transform: translateX(100%);
   transition: opacity 1s ease;
+
 
   &.show {
     transition: transform 0.2s ease-out;
@@ -34,21 +35,29 @@
     opacity: 0;
     font-size: 20px;
     font-family: $headline-font !important;
-    @include mq($until: tablet) {
-      display: none;
-    }
+
+
   }
 
   .query {
     position: relative;
     width: 100%;
+
     input {
       border: 0px;
       padding: 1em;
       background-color: $light-gray;
       outline: none;
       width: 80%;
+
+      @include mq($until: tablet) {
+        padding: 0.5rem;
+        width: 100%;
+        background-color: $black;
+        color: $white;
+      }
     }
+
     button {
       position: absolute;
       top: 0;
@@ -63,6 +72,7 @@
       justify-content: center;
     }
   }
+
   .results {
     position: relative;
     margin-top: 1em;
@@ -73,14 +83,17 @@
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
+
     &::-webkit-scrollbar {
       display: none;
       width: 0px;
     }
+
     h1 {
       text-transform: capitalize;
       padding-bottom: 1em;
     }
+
     ul {
       list-style: none;
       display: flex;
@@ -94,11 +107,13 @@
         margin-right: nestedGridGutter(12);
         margin-bottom: nestedGridGutter(12);
         @include resetLastColumn(4);
+
         &.full {
           flex: 1 1 100%;
           margin-right: 0;
           max-width: 100%;
         }
+
         .thumb {
           max-width: 100%;
         }
@@ -118,13 +133,34 @@
       justify-content: center;
     }
   }
+
   .close {
     position: absolute;
-    top: 1rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-top: .5rem;
     right: var(--outer-margin);
-    width: 48px;
-    font-size: 1rem;
+    font-size: 1.3rem;
+    line-height: 0;
     border: 0;
+
+    svg {
+      width: 24px;
+      height: 24px;
+
+      path {
+        fill: $black;
+
+        @include mq($until: tablet) {
+          fill: $white;
+        }
+      }
+    }
+
+    @include mq($until: tablet) {
+      background-color: $black;
+    }
   }
 
   @include mq($until: tablet) {
@@ -137,26 +173,33 @@
     height: 100%;
     background-color: $white;
     margin-bottom: calc($navbarHeightMobile + 20px);
+    padding-top: 4rem;
+
     &.show {
       transform: translateY(0%);
     }
+
     .results {
-      ul > li {
+      ul>li {
         flex: 0 0 48%;
         max-width: 48%;
         margin-right: 4%;
         margin-bottom: nestedGridGutter(16);
         @include resetLastColumn(2);
+
         a {
           color: $white;
         }
       }
     }
+
     .close {
       color: $white;
     }
+
     .status {
       background-color: $black !important;
+
       .spinner {
         filter: invert(1);
       }
