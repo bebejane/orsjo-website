@@ -7,7 +7,7 @@
 		width: 100%;
 
 		@include mq($until: tablet) {
-			min-height: 60vh;
+			min-height: 55vh;
 			width: calc(100% + calc(var(--outer-margin) * 2)) !important;
 			margin-left: calc(var(--outer-margin) * -1);
 			margin-right: calc(var(--outer-margin) * -1);
