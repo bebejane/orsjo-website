@@ -65,10 +65,11 @@ h2 {
 
 h3 {
   font-size: 11px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   padding-bottom: 0.5em;
   @include mq($from: tablet) {
+    letter-spacing: 0.1em;
     font-size: 0.45em;
   }
 }
