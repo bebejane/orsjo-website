@@ -37,6 +37,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 	const relatedHeadline = !isOtherProject ? `Other ${project.projectType.titlePlural.toLowerCase()}` : 'Related projects'
 	const viewportScrollRatio = 1 - ((viewportHeight - (scrolledPosition)) / viewportHeight)
 
+
 	// Add bespoke link to related products if project is bespoke.
 	const relatedProducts = project.bespoke ? project.relatedProducts.concat([{
 		title: 'Bespoke',
@@ -44,6 +45,8 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 		environmentImage: bespokeThumbnail.secondaryThumbnail,
 		slug: '/professionals/bespoke'
 	} as ProductRecord]) : project.relatedProducts
+
+	const doubleRelated = relatedProjects.length && relatedProducts.length
 
 	useEffect(() => {
 		setGallery({ images: galleryImages(project) })
@@ -92,6 +95,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 					className={styles.related}
 					name={'Related'}
 					bgColor={'--mid-gray'}
+					fadeColor={'--gray'}
 				>
 					<div className={styles.gallery}>
 						<FeaturedGallery
@@ -110,6 +114,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 					name={'Related'}
 					disableSidebar={relatedProducts.length > 0}
 					bgColor={'--mid-gray'}
+					fadeColor={'--gray'}
 				>
 					<div className={styles.gallery}>
 						<FeaturedGallery
