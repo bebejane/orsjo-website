@@ -47,7 +47,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					style={!isMobile ? imageStyle : undefined}
 				/>
 				<h1>
-					<TextReveal>
+					<TextReveal block={true}>
 						Custom made lighting
 					</TextReveal>
 				</h1>
