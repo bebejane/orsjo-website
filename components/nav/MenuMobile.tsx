@@ -18,12 +18,11 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	const searchRef = useRef<HTMLInputElement>()
 	const [query, setQuery] = useState<string>('');
 	const [searchInput, setSearchInput] = useState<string>('');
-
 	const [showSearch, setShowSearch] = useState(false);
 	const [selected, setSelected] = useState(undefined)
 	const [showMenuMobile, setShowMenuMobile, transitioning] = useStore((state) => [state.showMenuMobile, state.setShowMenuMobile, state.transitioning], shallow)
-	const sub = items.find((item) => item.type === selected)?.sub
-	const subHeader = selected ? items.find(i => i.type === selected).label : null
+	const sub = items.find((item) => item.type === selected?.type)?.sub
+	const subHeader = selected ? items.find(i => i.type === selected?.type).label : null
 
 	const handleSubmitSearch = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -47,6 +46,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	}
 
 	useEffect(() => {
+		router.events.off("hashChangeStart", handleClose)
 		router.events.on("hashChangeStart", handleClose);
 		return () => router.events.off("hashChangeStart", handleClose)
 	}, [router.events]);
@@ -56,8 +56,15 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	useEffect(() => {
 		if (!showMenuMobile) return
-		items.filter(({ index, type }) => index || selected === type).forEach(({ slug }) => router.prefetch(slug))
+		items.filter(({ index, type }) => index || selected?.type === type).forEach(({ slug }) => router.prefetch(slug))
 	}, [showMenuMobile, items, router, selected])
+
+	useEffect(() => {
+		if (showMenuMobile && router.asPath !== '/') {
+			const item = items.find(({ slug, index }) => router.asPath.startsWith(slug))
+			setSelected(item)
+		}
+	}, [showMenuMobile, router])
 
 	return (
 		<>
@@ -74,14 +81,14 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 			<nav className={cn(styles.mobileMenu, showMenuMobile ? styles.open : styles.hide)}>
 				<nav className={styles.main}>
 					<ul className={styles.nav}>
-						{items.map(({ label, slug, type, index }, idx) =>
+						{items.map((item, idx) =>
 							<li
-								data-slug={slug}
+								data-slug={item.slug}
 								key={idx}
-								className={cn(selected && selected !== type && styles.inactive)}
-								onClick={() => index ? router.push(slug) : setSelected(selected === type ? undefined : type)}
+								className={cn(router.asPath.startsWith(item?.slug) && styles.active)}
+								onClick={() => item.index ? router.push(item.slug) : setSelected(selected?.type === item.type ? undefined : item)}
 							>
-								{label}
+								{item.label}
 							</li>
 						)}
 					</ul>
@@ -109,7 +116,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 				</div>
 
 			</nav>
-			<nav className={cn(styles.sub, !selected && styles.hide)}>
+			<nav className={cn(styles.sub, (!selected || selected?.index) && styles.hide)}>
 				<div className={styles.subHeader}>
 					<p className={cn(styles.title)}>{subHeader}</p>
 					<span className={styles.back} onClick={() => setSelected(undefined)}>❮</span>
