@@ -5,13 +5,11 @@
   padding-top: $small-margin / 2;
   line-height: 0;
 
-
   @include mq($until: tablet) {
-    width: calc(100% + calc(var(--outer-margin) *2));
+    width: calc(100% + calc(var(--outer-margin) * 2));
     margin-left: calc(var(--outer-margin) * -1);
     margin-right: calc(var(--outer-margin) * -1);
   }
-
 
   @include mq($from: tablet) {
     padding-top: $small-margin;
