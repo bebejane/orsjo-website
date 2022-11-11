@@ -125,7 +125,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 				{(noResults || loading || error) &&
 					<div className={styles.status}>
 						{noResults && <span>no matches for {`"${query}"`}</span>}
-						{loading && <span><Loader /></span>}
+						{loading && <span><Loader invert={isMobile} /></span>}
 						{error && <span>Error: {error}</span>}
 					</div>
 				}

@@ -242,7 +242,7 @@ export default function Product({
 				</ul>
 			</SectionListItem>
 
-			<Section name="Related" className={styles.related} bgColor='--mid-gray'>
+			<Section name="Related" className={styles.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 &&
 					<FeaturedGallery
 						headline={`Related products`}

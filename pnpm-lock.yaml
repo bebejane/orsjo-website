@@ -52,8 +52,8 @@ specifiers:
   react-dom: 17.0.2
   react-hook-form: ^7.35.0
   react-icons: ^4.4.0
+  react-intersection-observer: ^9.4.0
   react-markdown: ^8.0.3
-  react-scrollchor: ^7.0.2
   remark-breaks: ^3.0.2
   remark-gfm: ^3.0.1
   rooks: ^5.14.1
@@ -97,8 +97,8 @@ dependencies:
   react-dom: 17.0.2_react@17.0.2
   react-hook-form: 7.38.0_react@17.0.2
   react-icons: 4.6.0_react@17.0.2
+  react-intersection-observer: 9.4.0_react@17.0.2
   react-markdown: 8.0.3_kxqj3uqjjxu5i6yjbdv7tzqjde
-  react-scrollchor: 7.0.2_react@17.0.2
   remark-breaks: 3.0.2
   remark-gfm: 3.0.1
   rooks: 5.14.1_sfoxds7t5ydpegc3knd667wn6m
@@ -7894,6 +7894,14 @@ packages:
       react: 17.0.2
     dev: false
 
+  /react-intersection-observer/9.4.0_react@17.0.2:
+    resolution: {integrity: sha512-v0403CmomOVlzhqFXlzOxg0ziLcVq8mfbP0AwAcEQWgZmR2OulOT79Ikznw4UlB3N+jlUYqLMe4SDHUOyp0t2A==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
+    dependencies:
+      react: 17.0.2
+    dev: false
+
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -7926,18 +7934,6 @@ packages:
       vfile: 5.3.5
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /react-scrollchor/7.0.2_react@17.0.2:
-    resolution: {integrity: sha512-l3bVTy8LAYK4dWEaB3Tr437hIyPMIzRzSJt9c0jss1y9wy/Mvq/y5Q+wwEceeSRziN2Hh6mu7mpCkFHjMb2xjA==}
-    engines: {npm: '>=3.0'}
-    peerDependencies:
-      react: '>=16.8.0 || 17.x.x'
-    dependencies:
-      react: 17.0.2
-      requestanimationframe-timer: 3.0.3
-    optionalDependencies:
-      '@types/react': 18.0.24
     dev: false
 
   /react-string-replace/1.1.0:
@@ -8120,13 +8116,6 @@ packages:
   /remove-trailing-spaces/1.0.8:
     resolution: {integrity: sha512-O3vsMYfWighyFbTd8hk8VaSj9UAGENxAtX+//ugIst2RMk5e03h6RoIS+0ylsFxY1gvmPuAY/PO4It+gPEeySA==}
     dev: true
-
-  /requestanimationframe-timer/3.0.3:
-    resolution: {integrity: sha512-2gCvk7jCQTq0nyukEdLI06X5zogy0DSj0j+mwVz12q29DnelCefxByiUsRovpjdc06cvSLTV6vyhw7g8b0AZ1A==}
-    engines: {node: '>= 10.18'}
-    dependencies:
-      raf: 3.4.1
-    dev: false
 
   /require-directory/2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
