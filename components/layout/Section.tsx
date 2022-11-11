@@ -32,7 +32,7 @@ export default function Section({
 }: SectionProps) {
 
 	const color = bgColor?.startsWith('--') ? `rgba(var(${bgColor}))` : bgColor ? bgColor : undefined;
-	const { ref, inView } = useInView({ threshold: 0, triggerOnce: true })
+	const { ref, inView } = useInView({ threshold: 0, triggerOnce: false })
 
 	fadeColor = fadeColor?.startsWith('--') ? `var(--${fadeColor})` : fadeColor
 
