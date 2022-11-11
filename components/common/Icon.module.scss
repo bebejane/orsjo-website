@@ -5,19 +5,25 @@
   justify-content: center;
   flex: 1 1 auto;
   color: $black;
-  &.disabled{
+
+  &.disabled {
     opacity: 0.5;
     pointer-events: none;
   }
-  &:hover{
-    span{
-      &.type{
-        color:$white;
-        background-color: $gray;
+
+  @include mq($from: desktop) {
+
+    &:hover {
+      span {
+        &.type {
+          color: $white;
+          background-color: $gray;
+        }
       }
-    }
-    .arrow{
-      opacity: 1;
+
+      .arrow {
+        opacity: 1;
+      }
     }
   }
 
@@ -32,10 +38,11 @@
     border-color: transparent $white transparent transparent;
   }
 
-  span{
+  span {
     display: block;
     position: relative;
-    &.type{
+
+    &.type {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -45,25 +52,28 @@
       height: 2rem;
       min-height: 2rem;
       flex: 0 0 1.6em;
-      margin-right: 1em;    
+      margin-right: 1em;
       background-color: $light-gray;
       text-transform: uppercase;
     }
-    &.label{
+
+    &.label {
       flex: 0 1 auto;
       white-space: pre;
     }
   }
-  .arrow{
+
+  .arrow {
     display: flex;
     justify-content: flex-start;
     transform: opacity .2 ease;
     opacity: 0;
     flex: 1 1 auto;
-    color:$black;
+    color: $black;
     margin-left: .1em;
     padding-bottom: .15em;
-    div{
+
+    div {
       transform: rotate(90deg);
     }
   }
