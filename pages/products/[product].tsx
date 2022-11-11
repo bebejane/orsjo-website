@@ -98,7 +98,7 @@ export default function Product({
 								</TextReveal>
 							</h1>
 							<h1 className={styles.designer}>
-								<TextReveal>
+								<TextReveal block={true}>
 									by {formatDesignerName(product.designer?.name)}
 								</TextReveal>
 							</h1>

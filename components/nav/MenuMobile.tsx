@@ -85,7 +85,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 							<li
 								data-slug={item.slug}
 								key={idx}
-								className={cn(router.asPath.startsWith(item?.slug) && styles.active)}
+								className={cn(selected?.slug === item.slug && styles.active)}
 								onClick={() => item.index ? router.push(item.slug) : setSelected(selected?.type === item.type ? undefined : item)}
 							>
 								{item.label}

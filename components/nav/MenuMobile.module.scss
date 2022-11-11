@@ -66,6 +66,10 @@
           color: $white;
         }
 
+        &.subactive {
+          color: $white;
+        }
+
         &.selected {
           font-weight: bold;
         }
@@ -150,6 +154,7 @@
     align-items: center;
     color: $gray;
     padding-top: 0.5rem;
+    color: $white;
     min-height: $navbarHeightMobile;
 
     .title {
