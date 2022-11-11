@@ -2,13 +2,35 @@ import s from './Grid.module.scss'
 import React from 'react'
 import { useState, useEffect } from 'react'
 
-export default function Grid(){
+export default function Grid() {
 
 	const [showGrid, setShowGrid] = useState(false)
 
 	useEffect(() => {
-		if(process.env.NODE_ENV === 'production') return
-		const toggleGrid = ({ key, target }) => target.tagName !== 'INPUT' && key === 'g' && setShowGrid(!showGrid)
+		if (process.env.NODE_ENV === 'production')
+			return
+
+		const toggleGrid = ({ key, target }) => {
+			if (target.tagName === 'INPUT' || key !== 'g')
+				return
+
+			if (showGrid) {
+				setShowGrid(false)
+				const headElement = document.head;
+				const styleElement = document.createElement('style');
+				styleElement.setAttribute('debug-css', '');
+				styleElement.innerText = `* { outline: 1px solid rgb(255, 0, 0);}`;
+				const debugElement = headElement.querySelector('[debug-css]');
+
+				if (debugElement)
+					debugElement.remove();
+				else
+					headElement.append(styleElement);
+
+			} else
+				setShowGrid(!showGrid)
+		}
+
 		document.addEventListener('keydown', toggleGrid)
 		return () => document.removeEventListener('keydown', toggleGrid)
 	}, [showGrid, setShowGrid])
