@@ -7,7 +7,7 @@ import {
 	AllDistributorsDocument
 } from '/graphql';
 
-import { Section, ContactModal } from '/components'
+import { Section, ContactModal, TextReveal } from '/components'
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { PageProps } from '/lib/context/page';
@@ -37,7 +37,11 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 		<>
 			<Section name="Information" top={true} className={styles.informationSection} bgColor='--beige'>
 				<div className={styles.info}>
-					<h1 className="topMargin">{contact.title}</h1>
+					<h1 className="topMargin">
+						<TextReveal>
+							{contact.title}
+						</TextReveal>
+					</h1>
 					<div className={styles.getintouch}>
 						<div className={styles.visit}>
 							<p className="black medium noMargin">Visit</p>

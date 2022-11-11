@@ -116,7 +116,7 @@ query ProductCategories {
 }
 
 query AllProductsByDesigner($id: ItemId, $first: IntType = 100) {
-	products: allProducts(first: $first, filter: { designer: { eq: $id } }) {
+	products: allProducts(first: $first, orderBy: [title_ASC], filter: { designer: { eq: $id } }) {
 		...ProductLightFragment
 	}
 }
