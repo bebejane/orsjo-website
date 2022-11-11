@@ -87,7 +87,7 @@
 		margin-bottom: 0;
 	}
 
-	@include mq($until: tablet) {
+	@include mq($until: desktop) {
 		padding-right: 0;
 	}
 }

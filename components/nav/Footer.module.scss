@@ -14,7 +14,7 @@
     }
   }
 
-  @include mq($until: tablet) {
+  @include mq($until: nav-break) {
     display: none;
   }
 
@@ -142,13 +142,15 @@
   }
   .social {
     display: flex;
-    justify-content: space-between;
-    flex: 0 0 spanGrid(6);
+    width: 100%;
+    justify-content: flex-end;
+    //flex: 0 0 spanGrid(6);
     a {
+      padding-left: 0.5em;
       line-height: 0;
     }
   }
-  @include mq($from: tablet) {
+  @include mq($from: nav-break) {
     display: none;
   }
 }

@@ -25,7 +25,7 @@
     list-style: none;
     opacity: 1;
     transition: opacity 0.3s ease;
-    
+
     li {
       position: relative;
       cursor: default;
@@ -34,23 +34,25 @@
       white-space: pre;
       color: $black-menu;
 
-      &.selected{
-        color: $black !important;  
-        a{
-          color: $black !important;  
+      &.selected {
+        color: $black !important;
+        a {
+          color: $black !important;
         }
       }
-      a, a:visited {
+      a,
+      a:visited {
         color: $black-menu;
       }
 
-      &:hover, a:hover {
+      &:hover,
+      a:hover {
         color: $black;
       }
       .arrow {
         display: inline-block;
         visibility: hidden;
-        transition: transform .2s;
+        transition: transform 0.2s;
         transform: rotate(0deg);
 
         &.active {
@@ -64,17 +66,17 @@
       }
     }
   }
-  li.searchIcon{
+  li.searchIcon {
     display: flex;
     justify-content: flex-end;
     padding-right: 0;
     flex: 1 1 100%;
     cursor: pointer;
-    img{
+    img {
       opacity: 0.6;
       width: 16px;
       max-width: 16px;
-      &:hover{
+      &:hover {
         opacity: 1;
       }
     }
@@ -83,8 +85,7 @@
     min-height: 100vh;
     pointer-events: none;
 
-
-    *>li {
+    * > li {
       //color: $black  !important;
     }
 
@@ -94,32 +95,33 @@
   }
 
   &.inverted {
-    *>li, *>a {
+    * > li,
+    * > a {
       color: $white-menu;
     }
-     
-    li:hover, a:hover {
+
+    li:hover,
+    a:hover {
       color: $white !important;
     }
 
     a:visited {
       color: $white-menu;
-
     }
-    
-    ul > li.selected, ul > li.selected > a {
+
+    ul > li.selected,
+    ul > li.selected > a {
       color: $white !important;
     }
 
-    li.searchIcon{
+    li.searchIcon {
       filter: invert(1);
     }
   }
 
   &.hide {
-    
     pointer-events: none;
-    
+
     @include mq($until: tablet) {
       transform: translateY(-$navbarHeight);
     }
@@ -140,7 +142,7 @@
   height: 100vh;
   z-index: 99;
   background-color: rgb(255, 255, 255);
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
   box-shadow: -1px 0px 10px rgba(gray, 0.1);
@@ -156,18 +158,17 @@
     padding-right: var(--outer-margin);
     padding-top: 4rem;
     background-color: $white;
-    &.inverted{
+    &.inverted {
       * {
-        color:$white-menu !important;
+        color: $white-menu !important;
 
-        &.active{
+        &.active {
           color: $white !important;
         }
 
         &:hover {
           color: $white !important;
         }
-
       }
 
       nav ul {
@@ -183,26 +184,26 @@
         padding-top: 1rem;
         border-top: 1px solid $gray;
         max-height: calc(100vh - 4rem);
-        
-        &::-webkit-scrollbar{
+
+        &::-webkit-scrollbar {
           display: none;
           -ms-overflow-style: none;
         }
         li {
           line-height: 1.25rem;
           a {
-            transition: color .3s;
+            transition: color 0.3s;
             color: $black-menu;
 
             &:hover {
               color: $black;
             }
-            &.active{
+            &.active {
               color: $black !important;
             }
           }
         }
-        &.columns{
+        &.columns {
           display: block;
           column-count: 2;
           column-gap: 10px;
@@ -212,8 +213,10 @@
   }
 }
 
-@include mq($until: tablet) {
-  .logo, .desktopMenu, .sub{
+@include mq($until: nav-break) {
+  .logo,
+  .desktopMenu,
+  .sub {
     display: none;
   }
 }

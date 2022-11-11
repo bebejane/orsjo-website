@@ -1,9 +1,9 @@
-.search{
+.search {
   position: fixed;
   display: flex;
   flex-direction: column;
-  top:0;
-  right:0;
+  top: 0;
+  right: 0;
   height: 100vh;
   min-height: 100vh;
   width: spanGridWithGutter(12);
@@ -18,44 +18,43 @@
   transform: translateX(100%);
   transition: opacity 1s ease;
 
-  &.show{
-    transition: transform .2s ease-out;
+  &.show {
+    transition: transform 0.2s ease-out;
     transform: translateX(0%);
     opacity: 1;
 
-    input{
+    input {
       opacity: 1;
-      transition: opacity .2s .2s ease;
+      transition: opacity 0.2s 0.2s ease;
     }
   }
 
   input {
-    transition: opacity .0s ease;
+    transition: opacity 0s ease;
     opacity: 0;
     font-size: 20px;
     font-family: $headline-font !important;
-    @include mq($until: tablet){
+    @include mq($until: tablet) {
       display: none;
     }
   }
-  
-  .query{
+
+  .query {
     position: relative;
     width: 100%;
-    input{
+    input {
       border: 0px;
       padding: 1em;
       background-color: $light-gray;
       outline: none;
       width: 80%;
-      
     }
-    button{
+    button {
       position: absolute;
-      top:0;
-      right:0;
+      top: 0;
+      right: 0;
       z-index: 1;
-      border:0;
+      border: 0;
       padding: 0;
       margin: 0;
       width: 48px;
@@ -64,7 +63,7 @@
       justify-content: center;
     }
   }
-  .results{
+  .results {
     position: relative;
     margin-top: 1em;
     padding-top: 1em;
@@ -74,42 +73,42 @@
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
       width: 0px;
     }
-    h1{
+    h1 {
       text-transform: capitalize;
       padding-bottom: 1em;
     }
-    ul{
+    ul {
       list-style: none;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       margin-bottom: $small-margin;
-      
-      li{
+
+      li {
         flex: 0 0 spanNestedGrid(12, 3);
         max-width: spanNestedGrid(12, 3);
         margin-right: nestedGridGutter(12);
         margin-bottom: nestedGridGutter(12);
         @include resetLastColumn(4);
-        &.full{
+        &.full {
           flex: 1 1 100%;
           margin-right: 0;
           max-width: 100%;
         }
-        .thumb{
+        .thumb {
           max-width: 100%;
         }
       }
     }
 
-    .status{
+    .status {
       position: absolute;
-      top:0;
-      left:0;
+      top: 0;
+      left: 0;
       min-width: 100%;
       min-height: 100%;
       display: flex;
@@ -119,18 +118,18 @@
       justify-content: center;
     }
   }
-  .close{
+  .close {
     position: absolute;
-    top:1rem;
+    top: 1rem;
     right: var(--outer-margin);
     width: 48px;
     font-size: 1rem;
-    border:0;
+    border: 0;
   }
 
-  @include mq($until: tablet){
+  @include mq($until: tablet) {
     background-color: $black !important;
-    color:$white;
+    color: $white;
     transform: translateY(120%);
     width: 100%;
     background-color: $black;
@@ -138,27 +137,27 @@
     height: 100%;
     background-color: $white;
     margin-bottom: calc($navbarHeightMobile + 20px);
-    &.show{
+    &.show {
       transform: translateY(0%);
     }
-    .results{
+    .results {
       ul > li {
-        flex: 0 0 spanGrid(8);
-        max-width: spanGrid(8);
-        margin-right: nestedGridGutter(16);
+        flex: 0 0 48%;
+        max-width: 48%;
+        margin-right: 4%;
         margin-bottom: nestedGridGutter(16);
         @include resetLastColumn(2);
-        a{
-          color:$white;
-        } 
+        a {
+          color: $white;
+        }
       }
     }
-    .close{
-      color:$white;
+    .close {
+      color: $white;
     }
-    .status{
+    .status {
       background-color: $black !important;
-      .spinner{
+      .spinner {
         filter: invert(1);
       }
     }

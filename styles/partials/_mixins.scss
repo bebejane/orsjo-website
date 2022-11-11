@@ -44,7 +44,7 @@ $gutter-nested: $gutter / $difference12; //Denna ska göras om
 
 //Typography
 @mixin h1Big() {
-  @include mq($until: tablet) {
+  @include mq($until: nav-break) {
     font-size: 2rem;
   }
   font-size: 3rem;

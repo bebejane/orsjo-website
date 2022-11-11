@@ -9,6 +9,9 @@
   min-height: $navbarHeightMobile;
   color: #000;
   z-index: 300;
+  @include mq($from: tablet, $until: nav-break) {
+    top: 20px;
+  }
 }
 
 .mobileMenu {
@@ -79,6 +82,7 @@
       img {
         filter: invert(1);
         max-height: 20px;
+        padding-bottom: 5px;
       }
       input {
         appearance: none;
@@ -88,7 +92,8 @@
         color: $white;
         background-color: transparent;
         margin-left: 10px;
-        font-size: 26px;
+        font-size: 1rem;
+        font-family: $headline-font;
         width: 100%;
         margin-right: 10px;
       }
@@ -176,7 +181,7 @@
   }
 }
 
-@include mq($from: tablet) {
+@include mq($from: nav-break) {
   .mobileMenu,
   .logo,
   .hamburger,
