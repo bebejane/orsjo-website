@@ -19,8 +19,8 @@ const childrenToText = (children: React.ReactNode) => {
 
 type Props = {
   children: React.ReactNode,
-  speed: number,
-  block: boolean
+  speed?: number,
+  block?: boolean
 }
 
 export default function TextReveal({ children = undefined, speed = 0.5, block = false }: Props) {

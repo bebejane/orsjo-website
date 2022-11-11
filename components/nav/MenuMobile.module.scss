@@ -66,6 +66,10 @@
           color: $white;
         }
 
+        &.subactive {
+          color: $white;
+        }
+
         &.selected {
           font-weight: bold;
         }
