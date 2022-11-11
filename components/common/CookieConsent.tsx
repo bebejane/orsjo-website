@@ -1,13 +1,13 @@
 import styles from './CookieConsent.module.scss'
 import cn from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { setCookie, deleteCookie, getCookie } from 'cookies-next';
 
 const GDPR_CONSENT_COOKIES = 'gdpr_consent_cookies'
 
 export default function CookieConsent() {
 
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
 
   const confirmConsent = (confirm: boolean) => {
     if (confirm)
@@ -18,7 +18,12 @@ export default function CookieConsent() {
     setShow(false)
   }
 
-  if (getCookie(GDPR_CONSENT_COOKIES) === 'accepted')
+  useEffect(() => {
+    if (getCookie(GDPR_CONSENT_COOKIES) !== 'accepted')
+      setShow(true)
+  }, [])
+
+  if (!show)
     return null
 
   return (
