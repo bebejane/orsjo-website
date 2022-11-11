@@ -3,95 +3,95 @@
 #import "./fragments/NewsFragment.gql"
 
 query Sustainability {
-  sustainability {
-    id
-    title
-    intro(markdown:false)
-    image{
-      ...ImageFragment
-    }
-    steps{
-      ... on SustainabilityStepRecord{
-        title
-        text(markdown:false)
-        image{
-          ...ImageFragment
-        }
-        fullWidthImage
-      }
-    }
-  }
+	sustainability {
+		id
+		title
+		intro(markdown: false)
+		image {
+			...ImageFragment
+		}
+		steps {
+			... on SustainabilityStepRecord {
+				title
+				text(markdown: false)
+				image {
+					...ImageFragment
+				}
+				fullWidthImage
+			}
+		}
+	}
 }
 
 query About {
-  about {
-    id
-    intro(markdown: false)
-    title
-    video {
-      ...VideoFragment
-    }
-    sections {
-      id
-      text
-      video {
-        ...VideoFragment
-      }
-    }
-  }
+	about {
+		id
+		intro(markdown: false)
+		title(markdown: false)
+		video {
+			...VideoFragment
+		}
+		sections {
+			id
+			text
+			video {
+				...VideoFragment
+			}
+		}
+	}
 }
 
-query News($slug:String){
-  news(filter: {slug: { eq: $slug }}) {
-    ...NewsFragment
-  }
+query News($slug: String) {
+	news(filter: { slug: { eq: $slug } }) {
+		...NewsFragment
+	}
 }
 
 query LastNews {
-  lastNews: allNews(orderBy: [createdAt_ASC], first: 1) {
-    ...NewsFragment
-  }
+	lastNews: allNews(orderBy: [createdAt_ASC], first: 1) {
+		...NewsFragment
+	}
 }
 
-query AllNews($first: IntType = 5, $skip: IntType = 0){
-  news: allNews(first: $first, skip: $skip) {
-    ...NewsFragment
-  }
-  pagination: _allNewsMeta {
-    count
-  }
+query AllNews($first: IntType = 5, $skip: IntType = 0) {
+	news: allNews(first: $first, skip: $skip) {
+		...NewsFragment
+	}
+	pagination: _allNewsMeta {
+		count
+	}
 }
 
-query Job($id:ItemId){
-  job(filter:{id:{eq:$id}}) {
-    id
-    summary(markdown: false)
-    text(markdown: false)
-    title
-  }
+query Job($id: ItemId) {
+	job(filter: { id: { eq: $id } }) {
+		id
+		summary(markdown: false)
+		text(markdown: false)
+		title
+	}
 }
 
 query AllJobs($first: IntType = 100) {
-  jobs: allJobs(first: $first) {
-    id
-    summary(markdown: false)
-    text(markdown: false)
-    title
-  }
+	jobs: allJobs(first: $first) {
+		id
+		summary(markdown: false)
+		text(markdown: false)
+		title
+	}
 }
 
-query Press($id:ItemId){
-  press(filter:{id:{eq:$id}}) {
-    id
-    title
-    url
-  }
+query Press($id: ItemId) {
+	press(filter: { id: { eq: $id } }) {
+		id
+		title
+		url
+	}
 }
 
 query AllPress($first: IntType = 100) {
-  presses: allPresses(first: $first) {
-    id
-    title
-    url
-  }
+	presses: allPresses(first: $first) {
+		id
+		title
+		url
+	}
 }

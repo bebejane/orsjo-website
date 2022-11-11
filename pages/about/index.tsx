@@ -21,7 +21,9 @@ export default function About({ about: { title, video, intro, sections } }: Abou
 					/>
 					<div className={styles.header}>
 						<h1>
-							<TextReveal block={true}>{title}</TextReveal>
+							<TextReveal block={true}>
+								{title}
+							</TextReveal>
 						</h1>
 					</div>
 				</div>
