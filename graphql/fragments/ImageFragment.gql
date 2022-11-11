@@ -2,6 +2,7 @@ fragment ImageFragment on FileField {
 	id
 	mimeType
 	url
+	title
 	responsiveImage {
 		alt
 		aspectRatio

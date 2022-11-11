@@ -2,6 +2,7 @@ fragment ImageMediumFragment on FileField {
 	id
 	mimeType
 	url
+	title
 	responsiveImage(
 		imgixParams: { w: 1600, auto: format }
 		sizes: "(max-width: 46.24em) 100vw, 50vw"

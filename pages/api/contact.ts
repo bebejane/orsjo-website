@@ -2,9 +2,14 @@ import nodemailer from 'nodemailer'
 import * as EmailValidator from 'email-validator';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const envKeys = ['SMTP_SERVER', 'SMTP_PORT', 'SMTP_EMAIL', 'SMTP_FROM_EMAIL', 'SMTP_CONTACT_EMAIL']
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   try {
+
+    if (envKeys.find(k => !process.env[k]))
+      throw 'SMTP config missing in .env file'
 
     const { subject, name, email, text } = req.body
 
@@ -43,16 +48,17 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       text: `${text}\n\n${name}\n${email}`
     }
 
-    transporter.sendMail(mailData, (err, info) => {
-      if (err)
-        res.status(500).json({ error: true, message: err.message });
-      else
-        res.status(200).json({ success: true })
-      console.error(err)
-      console.log(info)
+    console.log('sending email...');
+
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(mailData, (err, info) => err ? reject(err) : resolve(info))
     })
 
+    console.log('sent email from', email);
+    res.status(200).json({ success: true })
+
   } catch (err) {
+    console.error(err)
     res.status(500).json({ error: true, message: err.message });
   }
 }
