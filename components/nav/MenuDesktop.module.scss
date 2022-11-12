@@ -5,12 +5,13 @@
   top: 0;
   left: 0;
   z-index: 99;
-  background-color: rgba(0, 0, 0, 0.0);
+  opacity: 0;
+  background-color: $black;
   transition: all ease-in-out 0.4s;
   pointer-events: none;
 
   &.show {
-    background-color: rgba(0, 0, 0, 0.08);
+    opacity: 0.3;
   }
 }
 
@@ -65,7 +66,6 @@
         color: $black-menu;
       }
 
-      &:hover,
       a:hover {
         color: $black;
       }
@@ -127,7 +127,6 @@
       color: $white-menu;
     }
 
-    li:hover,
     a:hover {
       color: $white !important;
     }
