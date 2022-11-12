@@ -35,8 +35,6 @@
     opacity: 0;
     font-size: 20px;
     font-family: $headline-font !important;
-
-
   }
 
   .query {
@@ -131,6 +129,11 @@
       z-index: 2;
       align-items: center;
       justify-content: center;
+
+      @include mq($until: tablet) {
+        padding-top: 1rem;
+        align-items: flex-start;
+      }
     }
   }
 

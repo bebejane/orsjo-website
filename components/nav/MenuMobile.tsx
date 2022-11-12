@@ -29,12 +29,6 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 		searchRef.current?.blur();
 	}
 
-	const handleSearch = (e?: React.FormEvent) => {
-		e?.preventDefault()
-		setQuery('');
-		setQuery(searchInput)
-	}
-
 	const closeSearch = () => {
 		setShowSearch(false)
 		setQuery(undefined)

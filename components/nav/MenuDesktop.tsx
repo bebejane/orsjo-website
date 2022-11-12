@@ -117,6 +117,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 								:
 								<>{label}</>
 							}
+							{!index && <span className={cn(styles.arrow, slug == selected && styles.active)}>›</span>}
 						</li>
 					)}
 					<li className={styles.searchIcon} onClick={() => onShowSiteSearch()}>

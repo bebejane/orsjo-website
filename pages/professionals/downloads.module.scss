@@ -64,6 +64,7 @@
 
           &:nth-child(2) {
             padding-left: 1em;
+            min-width: 120px;
           }
         }
 
@@ -148,5 +149,9 @@
         object-fit: contain;
       }
     }
+  }
+
+  .noMatches {
+    margin-bottom: 1rem;
   }
 }

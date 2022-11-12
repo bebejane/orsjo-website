@@ -72,9 +72,10 @@
 
       .arrow {
         display: inline-block;
-        visibility: hidden;
-        transition: transform 0.2s;
-        transform: rotate(0deg);
+        //visibility: hidden;
+        transition: transform 0.3s ease-out;
+        transform: rotate(-90deg);
+        margin-left: 0.2rem;
 
         &.active {
           visibility: visible;

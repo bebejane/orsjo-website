@@ -56,65 +56,72 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 						onChange={({ target }) => setSeatch(target.value)}
 					/>
 				</div>
-				<table>
-					<tbody>
-						<tr>
-							<th><span className="small">Image</span></th>
-							<th><span className="small">Product</span></th>
-							<th><span className="small">Type</span></th>
-							<th></th>
-						</tr>
-						{(results || products).map(({ id, image, title, categories }, idx) => {
-							const files = productDownloads(products[idx] as ProductRecordWithPdfFiles)
-							return (
-								<React.Fragment key={id}>
-									<tr
-										key={`${id}-${idx}`}
-										className={list[idx] ? styles.active : undefined}
-										onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}
-									>
-										<td>
-											<Image data={image.responsiveImage} className={styles.image} />
-										</td>
-										<td>
-											<h2 className="noMargin">{title}</h2>
-										</td>
-										<td>
-											<span className="medium">
-												{categories.map(c => c.name).join(', ')}
-											</span>
-										</td>
-										<td className={styles.toggle}>{list[idx] ? '–' : '+'}</td>
-									</tr>
-									{list[idx] &&
-										<tr key={`${id}-${idx}-l`} className={list[idx] ? styles.active : undefined}>
-											<td></td>
-											<td colSpan={2} className={styles.content}>
-												<div className={styles.list}>
-													{files.map(({ type, label, href }, idx) =>
-														<>
-															<div key={`f-${idx}`} className={styles.item}>
-																<a href={href} download target="_new">
-																	<Icon type={'pdf'} label={label} />
-																</a>
-															</div>
-															{idx % 2 === 1 &&
-																<hr key={`hr-${idx}`} className={cn(isMobile && styles.hide)} />
-															}
-															{<hr key={`hr-${idx}`} className={cn(!isMobile && styles.hide)} />}
-														</>
-													)}
-												</div>
+				{results && results.length === 0 ?
+					<div className={styles.noMatches}>
+						No match for &quot;{search}&quot;...
+					</div>
+					:
+					<table>
+						<tbody>
+							<tr>
+								<th><span className="small">Image</span></th>
+								<th><span className="small">Product</span></th>
+								<th><span className="small">Type</span></th>
+								<th></th>
+							</tr>
+
+							{(results || products).map(({ id, image, title, categories }, idx) => {
+								const files = productDownloads(products[idx] as ProductRecordWithPdfFiles)
+								return (
+									<React.Fragment key={id}>
+										<tr
+											key={`${id}-${idx}`}
+											className={list[idx] ? styles.active : undefined}
+											onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}
+										>
+											<td>
+												<Image data={image.responsiveImage} className={styles.image} />
 											</td>
-											<td></td>
+											<td>
+												<h2 className="noMargin">{title}</h2>
+											</td>
+											<td>
+												<span className="medium">
+													{categories.map(c => c.name).join(', ')}
+												</span>
+											</td>
+											<td className={styles.toggle}>{list[idx] ? '–' : '+'}</td>
 										</tr>
-									}
-								</React.Fragment>
-							)
-						}
-						)}
-					</tbody>
-				</table>
+										{list[idx] &&
+											<tr key={`${id}-${idx}-l`} className={list[idx] ? styles.active : undefined}>
+												<td></td>
+												<td colSpan={2} className={styles.content}>
+													<div className={styles.list}>
+														{files.map(({ type, label, href }, idx) =>
+															<>
+																<div key={`f-${idx}`} className={styles.item}>
+																	<a href={href} download target="_new">
+																		<Icon type={'pdf'} label={label} />
+																	</a>
+																</div>
+																{idx % 2 === 1 &&
+																	<hr key={`hr-${idx}`} className={cn(isMobile && styles.hide)} />
+																}
+																{<hr key={`hr-${idx}`} className={cn(!isMobile && styles.hide)} />}
+															</>
+														)}
+													</div>
+												</td>
+												<td></td>
+											</tr>
+										}
+									</React.Fragment>
+								)
+							}
+							)}
+						</tbody>
+					</table>
+				}
 			</Section>
 			<Section className={styles.related} name="Catalogues" bottom={true}>
 				<h1 className="white topMargin">Catalogues</h1>
