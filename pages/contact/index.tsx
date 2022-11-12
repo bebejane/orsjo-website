@@ -63,7 +63,11 @@ export default function Contact({ contact, resellers, staffs, showrooms, distrib
 						message={contact.contactFormMessage}
 					/></div>
 				<div className={styles.imageWrap}>
-					<Image data={contact.image.responsiveImage} className={styles.image} />
+					<Image
+						data={contact.image.responsiveImage}
+						className={styles.image}
+						priority={true}
+					/>
 					<div className={styles.fade}></div>
 				</div>
 			</Section>

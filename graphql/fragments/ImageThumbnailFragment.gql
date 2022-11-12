@@ -7,16 +7,11 @@ fragment ImageThumbnailFragment on FileField {
 		imgixParams: { w: 800, q: 50, auto: format }
 		sizes: "(max-width: 46.24em) 50vw, 25vw"
 	) {
-		alt
-		aspectRatio
-		base64
-		bgColor
-		height
-		sizes
 		src
-		srcSet
-		webpSrcSet
-		title
 		width
+		height
+		alt
+		base64
+		sizes
 	}
 }

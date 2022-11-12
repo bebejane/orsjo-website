@@ -14,6 +14,7 @@
 			align-items: flex-start;
 			padding: 5%;
 			margin-top: 0.5rem;
+
 			@include mq($until: tablet) {
 				padding-bottom: $small-margin;
 			}
@@ -21,12 +22,16 @@
 			@include mq($from: tablet) {
 				margin-top: 4rem;
 			}
+
 			max-width: 50%;
+
 			h1 {
 				left: 1em;
+
 				@include mq($from: tablet) {
 					margin-bottom: 0.5em !important;
 				}
+
 				@include h1Big();
 				color: $white;
 			}
@@ -64,8 +69,8 @@
 				}
 			}
 
-			div > img[role="presentation"] {
-				height: 100vh;
+			div>img[role="presentation"] {
+				//height: 100vh;
 			}
 		}
 	}
@@ -74,11 +79,14 @@
 		header {
 			flex-direction: column-reverse;
 			height: auto;
+
 			.artist {
 				max-width: 100%;
 			}
+
 			figure {
 				min-height: 60vh;
+
 				figcaption {
 					display: none;
 				}
@@ -114,17 +122,22 @@
 		flex-wrap: nowrap;
 		min-width: spanGrid(12);
 	}
+
 	@include mq($until: tablet) {
 		flex-direction: column;
+
 		h1 {
 			width: 100%;
+
 			br {
 				content: " ";
 				display: none;
 			}
 		}
+
 		.gallery {
 			min-width: spanGrid(16);
+
 			ul {
 				li {
 					min-width: 48%;
@@ -150,18 +163,22 @@
 				@include resetLastColumn(2);
 				margin-right: 4%;
 			}
+
 			@include mq($from: tablet) {
 				width: spanNestedGrid(12, 3);
 				@include resetLastColumn(4);
 			}
+
 			margin-right: nestedGridGutter(12);
 			margin-bottom: 2rem;
 			overflow: hidden;
 		}
 	}
 }
+
 .otherDesigners {
 	padding-bottom: $margin;
+
 	@include mq($until: tablet) {
 		overflow-x: hidden;
 	}

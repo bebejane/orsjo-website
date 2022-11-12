@@ -25,9 +25,10 @@ type SiteSearchProps = {
 	show: boolean,
 	onClose?: () => void,
 	query?: string,
+	onChange?: (query: string) => void
 }
 
-export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSearchProps) {
+export default function SiteSearch({ show, onClose, query: queryAsProp, onChange }: SiteSearchProps) {
 
 	const ref = useRef<HTMLInputElement>()
 	const [query, setQuery] = useState<string | undefined>()
@@ -66,8 +67,11 @@ export default function SiteSearch({ show, onClose, query: queryAsProp }: SiteSe
 	}, [query, setQueryImmediate, setResult])
 
 	useEffect(() => {
-		if (inputValue) return setLoading(true)
+		onChange?.(inputValue)
+		if (inputValue)
+			return setLoading(true)
 		setQueryImmediate(undefined)
+
 	}, [inputValue, setQueryImmediate])
 
 	useEffect(() => { !transitioning && setShowSiteSearch(false) }, [transitioning, setShowSiteSearch])

@@ -108,8 +108,8 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 								type="text"
 								placeholder='Search'
 								value={searchInput}
-								onBlur={() => searchInput && handleSearch()}
-								onChange={(e) => setSearchInput(e.target.value)}
+								onFocus={() => setShowSearch(true)}
+								onChange={() => { }}
 							/>
 							<input type="submit" style={{ visibility: 'hidden', position: 'absolute' }} />
 						</form>
@@ -140,6 +140,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 			<SiteSearch
 				show={showSearch}
 				query={query}
+				onChange={(q) => setSearchInput(q)}
 				onClose={closeSearch}
 			/>
 		</>

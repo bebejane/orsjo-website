@@ -12,6 +12,7 @@ export type ThumbnailProps = {
   title: string,
   subtitle?: string,
   className?: string,
+  lazyload?: boolean
   objectFit?: 'contain' | 'cover',
   markAsNew?: boolean,
   onClick?: () => void,
@@ -34,6 +35,7 @@ export default function Thumbnail({
   theme = 'light',
   type = 'product',
   showMarkAsNew = true,
+  lazyload = true
 }: ThumbnailProps) {
 
   const [hovering, setHovering] = useState(false);
@@ -48,7 +50,7 @@ export default function Thumbnail({
             data={image.responsiveImage}
             className={styles.image}
             layout={'fill'}
-            lazyLoad={true}
+            lazyLoad={lazyload}
             fadeInDuration={100}
             objectFit={objectFit}
           />
@@ -58,7 +60,7 @@ export default function Thumbnail({
             <Image
               data={imageHover.responsiveImage}
               className={styles.image}
-              lazyLoad={false}
+              lazyLoad={lazyload}
               layout={'fill'}
               objectFit={'cover'}
             />
@@ -101,14 +103,15 @@ export type BaseThumbnailProps = {
   inverted?: boolean,
   className?: string,
   theme: 'dark' | 'light' | 'mid',
-  showMarkAsNew?: boolean
+  showMarkAsNew?: boolean,
+  lazyload?: boolean
 }
 
 export type ProductThumbnailProps = BaseThumbnailProps & {
   product: ProductRecord
 }
 
-export function ProductThumbnail({ product, inverted, theme = 'dark', className, showMarkAsNew }: ProductThumbnailProps) {
+export function ProductThumbnail({ product, inverted, theme = 'dark', className, showMarkAsNew, lazyload }: ProductThumbnailProps) {
 
   return (
     <Thumbnail
@@ -122,6 +125,7 @@ export function ProductThumbnail({ product, inverted, theme = 'dark', className,
       theme={theme}
       markAsNew={product.markAsNew}
       type="product"
+      lazyload={lazyload}
       showMarkAsNew={showMarkAsNew}
     />
   )
@@ -131,7 +135,7 @@ export type ProjectThumbnailProps = BaseThumbnailProps & {
   project: ProjectRecord,
 }
 
-export function ProjectThumbnail({ project, inverted, theme = 'dark', className, showMarkAsNew }: ProjectThumbnailProps) {
+export function ProjectThumbnail({ project, inverted, theme = 'dark', className, showMarkAsNew, lazyload }: ProjectThumbnailProps) {
 
   return (
     <Thumbnail
@@ -144,6 +148,7 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark', className,
       className={className}
       theme={theme}
       type="project"
+      lazyload={lazyload}
       showMarkAsNew={showMarkAsNew}
     />
   )
@@ -152,7 +157,7 @@ export function ProjectThumbnail({ project, inverted, theme = 'dark', className,
 export type DesignerThumbnailProps = BaseThumbnailProps & {
   designer: DesignerRecord
 }
-export function DesignerThumbnail({ designer, inverted, theme = 'dark', className, showMarkAsNew }: DesignerThumbnailProps) {
+export function DesignerThumbnail({ designer, inverted, theme = 'dark', className, showMarkAsNew, lazyload }: DesignerThumbnailProps) {
 
   return (
     <Thumbnail
@@ -163,6 +168,7 @@ export function DesignerThumbnail({ designer, inverted, theme = 'dark', classNam
       className={className}
       theme={theme}
       type="designer"
+      lazyload={lazyload}
       showMarkAsNew={showMarkAsNew}
     />
   )
@@ -171,7 +177,7 @@ export function DesignerThumbnail({ designer, inverted, theme = 'dark', classNam
 export type NewsThumbnailProps = BaseThumbnailProps & {
   news: NewsRecord,
 }
-export function NewsThumbnail({ news, inverted, theme = 'dark', className, showMarkAsNew }: NewsThumbnailProps) {
+export function NewsThumbnail({ news, inverted, theme = 'dark', className, showMarkAsNew, lazyload }: NewsThumbnailProps) {
 
   return (
     <Thumbnail
@@ -182,6 +188,7 @@ export function NewsThumbnail({ news, inverted, theme = 'dark', className, showM
       className={className}
       theme={theme}
       type="news"
+      lazyload={lazyload}
       showMarkAsNew={showMarkAsNew}
     />
   )
@@ -190,7 +197,7 @@ export function NewsThumbnail({ news, inverted, theme = 'dark', className, showM
 export type StaffThumbnailProps = BaseThumbnailProps & {
   staff: StaffRecord,
 }
-export function StaffThumbnail({ staff, inverted, theme = 'dark', className, showMarkAsNew }: StaffThumbnailProps) {
+export function StaffThumbnail({ staff, inverted, theme = 'dark', className, showMarkAsNew, lazyload }: StaffThumbnailProps) {
 
   return (
     <Thumbnail
@@ -201,6 +208,7 @@ export function StaffThumbnail({ staff, inverted, theme = 'dark', className, sho
       className={className}
       theme={theme}
       type="staff"
+      lazyload={lazyload}
       showMarkAsNew={showMarkAsNew}
     />
   )

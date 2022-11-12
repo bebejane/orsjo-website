@@ -7,16 +7,11 @@ fragment ImageMediumFragment on FileField {
 		imgixParams: { w: 1600, auto: format }
 		sizes: "(max-width: 46.24em) 100vw, 50vw"
 	) {
-		alt
-		aspectRatio
-		base64
-		bgColor
-		height
-		sizes
 		src
-		srcSet
-		webpSrcSet
-		title
 		width
+		height
+		alt
+		base64
+		sizes
 	}
 }

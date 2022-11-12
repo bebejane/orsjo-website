@@ -33,6 +33,7 @@ export default function Designer({ designer, products, designers }: DesignerProp
 								data={designer.image.responsiveImage}
 								layout={'fill'}
 								objectFit={'cover'}
+								priority={true}
 							/>
 						}
 						<figcaption>

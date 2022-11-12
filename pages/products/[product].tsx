@@ -39,7 +39,7 @@ export default function Product({
 }: ProductProps) {
 
 	const router = useRouter()
-
+	const [imageLoaded, setImageLoaded] = useState(false)
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const { scrolledPosition, viewportHeight } = useScrollInfo()
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
@@ -89,8 +89,10 @@ export default function Product({
 						fadeInDuration={100}
 						objectFit={'contain'}
 						pictureStyle={!isMobile ? pictureStyle : undefined}
+						//priority={true}
+						onLoad={() => setImageLoaded(true)}
 					/>
-					<div className={styles.overlay}>
+					<div className={cn(styles.overlay, styles.show)}>
 						<div className={styles.text}>
 							<h1 className={styles.title}>
 								<TextReveal>
@@ -122,6 +124,7 @@ export default function Product({
 						key={idx}
 						data={block}
 						onClick={(id) => handleGalleryClick('product', id)}
+						first={idx === 0}
 					/>
 				)}
 			</Section>

@@ -2,7 +2,7 @@
   position: relative;
 
   &:hover {
-    figcaption > .title > .subtitle {
+    figcaption>.title>.subtitle {
       color: $black;
     }
   }
@@ -27,10 +27,10 @@
         mix-blend-mode: multiply;
 
         img[role="presentation"] {
-          height: 100%;
-          width: 100% !important;
-          object-fit: fill;
-          background-color: transparent !important;
+          //height: 100%;
+          //width: 100% !important;
+          //object-fit: fill;
+          //background-color: transparent !important;
         }
       }
 
@@ -80,27 +80,27 @@
 
   &.product {
     img[role="presentation"] {
-      transform: scale(1.1);
+      //transform: scale(1.1);
     }
   }
 
   &.mid {
-    figcaption > .title {
+    figcaption>.title {
       color: $light-gray;
     }
 
-    figcaption > .title > .subtitle {
+    figcaption>.title>.subtitle {
       color: $black;
     }
 
     &:hover {
-      figcaption > .title > .subtitle {
+      figcaption>.title>.subtitle {
         color: $light-gray;
       }
     }
   }
 
-  a > figcaption > .title {
+  a>figcaption>.title {
     color: $white;
 
     .subtitle {
@@ -110,12 +110,12 @@
 
   &.dark {
     &:hover {
-      figcaption > .title > .subtitle {
+      figcaption>.title>.subtitle {
         color: $white;
       }
     }
 
-    a > figcaption > .title {
+    a>figcaption>.title {
       color: $white;
 
       .subtitle {
@@ -126,12 +126,12 @@
 
   &.light {
     &:hover {
-      figcaption > .title > .subtitle {
+      figcaption>.title>.subtitle {
         color: $black;
       }
     }
 
-    a > figcaption > .title {
+    a>figcaption>.title {
       color: $black;
 
       .subtitle {
@@ -142,12 +142,12 @@
 
   &.black {
     &:hover {
-      figcaption > .title > .subtitle {
+      figcaption>.title>.subtitle {
         color: $white;
       }
     }
 
-    a > figcaption > .title {
+    a>figcaption>.title {
       color: $white;
 
       .subtitle {
@@ -157,38 +157,39 @@
   }
 
   &.project {
-    a > figure > .image {
+    a>figure>.image {
       mix-blend-mode: normal;
     }
 
-    a > figure img {
+    a>figure img {
       object-fit: cover !important;
     }
   }
 
   &.designer {
-    a > figure > .image {
+    a>figure>.image {
       mix-blend-mode: normal;
     }
 
-    a > figure img {
+    a>figure img {
       object-fit: cover !important;
     }
   }
 
   &.material {
-    a > figure > .image,
-    figure > .image {
+
+    a>figure>.image,
+    figure>.image {
       mix-blend-mode: normal;
       background-color: $white;
     }
 
-    a > figure img,
+    a>figure img,
     figure img {
       object-fit: cover !important;
     }
 
-    > figure div {
+    >figure div {
       background-color: $white;
     }
   }

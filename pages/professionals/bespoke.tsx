@@ -45,6 +45,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 					objectFit='cover'
 					className={styles.image}
 					style={!isMobile ? imageStyle : undefined}
+					priority={true}
 				/>
 				<h1>
 					<TextReveal block={true}>

@@ -80,6 +80,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 							objectFit="cover"
 							style={!isMobile ? imageStyle : undefined}
 							className={styles.image}
+							priority={true}
 						/>
 					}
 				</div>

@@ -11,7 +11,7 @@ export default function Start({ start: { content }, lastNews }: StartProps) {
 		<>
 			{content.map((block, idx) =>
 				<Section key={idx} type="full">
-					<Block data={block} />
+					<Block data={block} first={idx === 0} />
 				</Section>
 			)}
 		</>

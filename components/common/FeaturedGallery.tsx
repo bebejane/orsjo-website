@@ -82,6 +82,7 @@ export default function FeaturedGallery({
 									product={item as ProductRecord}
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
+									lazyload={false}
 									className={styles.thumbnail}
 								/>
 								: item.__typename === 'ProjectRecord' ?
@@ -90,6 +91,7 @@ export default function FeaturedGallery({
 										project={item as ProjectRecord}
 										theme={theme}
 										showMarkAsNew={showMarkAsNew}
+										lazyload={false}
 										className={styles.thumbnail}
 									/>
 									: item.__typename === 'DesignerRecord' ?
@@ -98,6 +100,7 @@ export default function FeaturedGallery({
 											designer={item as DesignerRecord}
 											theme={theme}
 											showMarkAsNew={showMarkAsNew}
+											lazyload={false}
 											className={styles.thumbnail}
 										/>
 										: item.title && item.image ?
@@ -108,6 +111,7 @@ export default function FeaturedGallery({
 												image={item.image}
 												imageHover={item.environmentImage}
 												theme={theme}
+												lazyload={false}
 												objectFit={'cover'}
 												showMarkAsNew={showMarkAsNew}
 												className={styles.thumbnail}
