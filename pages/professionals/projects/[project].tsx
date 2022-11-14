@@ -80,7 +80,6 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 							objectFit="cover"
 							style={!isMobile ? imageStyle : undefined}
 							className={styles.image}
-							priority={true}
 						/>
 					}
 				</div>
@@ -91,41 +90,35 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 				</Section>
 			)}
 			<Section bottom={true} />
-			{relatedProducts.length > 0 &&
+			{(relatedProducts.length > 0 || relatedProjects.length > 0) &&
 				<Section
 					className={styles.related}
 					name={'Related'}
 					bgColor={'--mid-gray'}
 					fadeColor={'--gray'}
 				>
-					<div className={styles.gallery}>
-						<FeaturedGallery
-							id="relatedProducts"
-							headline={'Products'}
-							items={relatedProducts}
-							theme="light"
-							fadeColor={'--mid-gray'}
-						/>
-					</div>
-				</Section>
-			}
-			{relatedProjects.length > 0 &&
-				<Section
-					className={cn(styles.related, styles.other)}
-					name={'Related'}
-					disableSidebar={relatedProducts.length > 0}
-					bgColor={'--mid-gray'}
-					fadeColor={'--gray'}
-				>
-					<div className={styles.gallery}>
-						<FeaturedGallery
-							id="relatedProjects"
-							headline={relatedHeadline}
-							items={relatedProjects}
-							theme="light"
-							fadeColor={'--mid-gray'}
-						/>
-					</div>
+					{relatedProducts.length > 0 &&
+						<div className={styles.gallery}>
+							<FeaturedGallery
+								id="relatedProducts"
+								headline={'Products'}
+								items={relatedProducts}
+								theme="light"
+								fadeColor={'--mid-gray'}
+							/>
+						</div>
+					}
+					{relatedProjects.length > 0 &&
+						<div className={styles.gallery}>
+							<FeaturedGallery
+								id="relatedProjects"
+								headline={relatedHeadline}
+								items={relatedProjects}
+								theme="light"
+								fadeColor={'--mid-gray'}
+							/>
+						</div>
+					}
 				</Section>
 			}
 		</>

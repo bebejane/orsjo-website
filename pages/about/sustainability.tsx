@@ -18,7 +18,6 @@ export default function Sustainability({ sustainability: { image, intro, title, 
 						data={image.responsiveImage}
 						className={styles.heroImage}
 						objectFit="cover"
-						priority={true}
 					/>
 					<div className={styles.header}>
 						<h1>

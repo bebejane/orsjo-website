@@ -40,6 +40,7 @@
     .title {
       top: 0;
       left: 0;
+
       @include mq($until: tablet) {
         position: absolute;
         top: 0.4em;
@@ -68,11 +69,12 @@
 .related {
   padding-top: $small-margin;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   .gallery {
     flex: 1 1 auto;
     max-width: 100%;
+    margin-bottom: $small-margin;
   }
 
   @include mq($until: tablet) {
