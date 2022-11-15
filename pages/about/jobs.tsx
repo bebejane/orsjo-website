@@ -12,7 +12,7 @@ export default function Jobs({ jobs }: JobsProps) {
 	return (
 		<>
 			<Section className={styles.jobs} top={true}>
-				<h1>Jobs</h1>
+				<h1 className="topMargin">Jobs</h1>
 			</Section>
 
 			{jobs.map(({ id, title, summary, text }, idx) =>
@@ -26,7 +26,7 @@ export default function Jobs({ jobs }: JobsProps) {
 			{jobs.length === 0 &&
 				<Section className={styles.jobs} bottom={true}>
 					<p className={styles.nojobs}>
-						We don&apos;t have any job offers at the moment
+						We don&apos;t have any job offers at the moment.
 					</p>
 				</Section>
 			}

@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0.7em;
+    padding: 0.5em 1em 0.5em 1em;
 
     @include mq($from: tablet) {
       padding: $gutter 1em $gutter 1em;
@@ -137,7 +137,7 @@
       }
     }
 
-    *>.image {
+    * > .image {
       position: relative !important;
       margin: 0 !important;
       aspect-ratio: 1, 1;
