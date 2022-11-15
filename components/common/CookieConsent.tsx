@@ -36,7 +36,7 @@ export default function CookieConsent() {
         </p>
         <p>
           <button onClick={() => confirmConsent(true)}> Accept all</button>
-          <button onClick={() => confirmConsent(false)}> Reject all</button>
+          <button onClick={() => confirmConsent(true)}> Reject all</button>
         </p>
       </div >
     </>
