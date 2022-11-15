@@ -6,30 +6,30 @@
 #import "./fragments/StaffFragment"
 
 query SiteSearch(
-  $productIds: [ItemId],
-  $designerIds: [ItemId],
-  $faqIds: [ItemId],
-  $newsIds: [ItemId],
-	$projectIds: [ItemId],
-	$staffIds: [ItemId],
+	$productIds: [ItemId]
+	$designerIds: [ItemId]
+	$faqIds: [ItemId]
+	$newsIds: [ItemId]
+	$projectIds: [ItemId]
+	$staffIds: [ItemId]
 	$first: IntType = 100
 ) {
-	products: allProducts(first: $first, filter: {id: { in: $productIds }}) {
+	products: allProducts(first: $first, filter: { id: { in: $productIds } }) {
 		...ProductLightFragment
 	}
-  designers: allDesigners(first: $first, filter: {id: { in: $designerIds }}) {
+	designers: allDesigners(first: $first, filter: { id: { in: $designerIds } }) {
 		...DesignerLightFragment
 	}
-	projects: allProjects(first: $first, filter: {id: { in: $projectIds }}) {
+	projects: allProjects(first: $first, filter: { id: { in: $projectIds } }) {
 		...ProjectLightFragment
 	}
-  faqs: allFaqs(first: $first, filter: {id: { in: $faqIds }}) {
+	faqs: allFaqs(first: $first, filter: { id: { in: $faqIds } }) {
 		...FaqFragment
 	}
-  news: allNews(first: $first, filter: {id: { in: $newsIds }}) {
+	news: allNews(first: $first, filter: { id: { in: $newsIds } }) {
 		...NewsFragment
 	}
-	staffs: allStaffs(first: $first, filter: {id: { in: $staffIds }}) {
+	people: allStaffs(first: $first, filter: { id: { in: $staffIds } }) {
 		...StaffFragment
 	}
 }

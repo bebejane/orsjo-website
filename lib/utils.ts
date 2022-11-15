@@ -140,8 +140,6 @@ export const siteSearch = async (q: string) => {
   Object.keys(data).forEach(type => {
     if (!data[type].length)
       delete data[type]
-    else
-      console.log(type, data[type].length)
   })
 
   return data;
