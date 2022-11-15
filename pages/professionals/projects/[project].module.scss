@@ -27,6 +27,7 @@
 
     .title,
     .location {
+      padding-bottom: 0;
       @include mq($from: tablet) {
         margin: 0.5em;
         position: absolute;
