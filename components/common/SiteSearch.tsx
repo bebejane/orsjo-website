@@ -112,7 +112,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 											<li><DesignerThumbnail designer={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 											: model === 'projects' ?
 												<li><ProjectThumbnail project={item} theme={thumbnailTheme} className={styles.thumb} /></li>
-												: model === 'staffs' ?
+												: model === 'people' ?
 													<li><StaffThumbnail staff={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 													: model === 'news' ?
 														<li><NewsThumbnail news={item} theme={thumbnailTheme} className={styles.thumb} /></li>
