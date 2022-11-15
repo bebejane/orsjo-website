@@ -4,16 +4,18 @@
   bottom: 0;
   left: 0;
   padding: 20px;
-  background-color: $white;
-  color: $black;
+  background-color: $black;
+  color: $white;
   z-index: 1001;
   font-size: $body-font-size;
   width: 100%;
 
   button {
-    border-color: $black;
+    border-color: $white;
+    color: $white;
     margin-right: 10px;
     margin-bottom: 0;
+    margin-top: 0.5em;
 
     &:hover {
       color: $white !important;
@@ -27,7 +29,7 @@
 }
 
 .options {
-  padding: 40px;
+  padding: var(--outer-margin);
   transition: transform 0.2s ease-in-out;
   transform: translateY(100%);
   min-width: 40vw;
@@ -42,8 +44,8 @@
     position: absolute;
     top: 0;
     right: 0;
-    margin: 20px;
+    margin: var(--outer-margin);
     cursor: pointer;
-    font-size: 40px;
+    font-size: 1.5rem;
   }
 }

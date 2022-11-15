@@ -32,7 +32,7 @@ export default function CookieConsent() {
         <div className={styles.close} onClick={() => setShow(false)}>×</div>
         <h1>Cookie policy</h1>
         <p>
-          We use cookies to improve your browsing experience on our site. By choosing Accept all, you consent to our use of cookies and other tracking technologies.
+          We use cookies to improve your browsing experience on our site. By choosing Accept all you consent to this.
         </p>
         <p>
           <button onClick={() => confirmConsent(true)}> Accept all</button>
