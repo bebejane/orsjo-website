@@ -2,13 +2,13 @@
   position: relative;
   flex: 1 1 auto;
   width: 100%;
-  padding-top: $small-margin / 2;
   line-height: 0;
 
   @include mq($until: tablet) {
     width: calc(100% + calc(var(--outer-margin) * 2));
     margin-left: calc(var(--outer-margin) * -1);
     margin-right: calc(var(--outer-margin) * -1);
+    margin-top: $small-margin / 1.3;
   }
 
   @include mq($from: tablet) {
