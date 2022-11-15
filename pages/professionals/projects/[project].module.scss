@@ -75,6 +75,10 @@
     flex: 1 1 auto;
     max-width: 100%;
     margin-bottom: $small-margin;
+
+    &:last-of-type {
+      margin-bottom: $margin;
+    }
   }
 
   @include mq($until: tablet) {
