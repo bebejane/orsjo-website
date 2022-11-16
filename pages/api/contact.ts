@@ -41,11 +41,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
 
     const mailData = {
-      from: process.env.SMTP_FROM_EMAIL,
+      from: `${process.env.SMTP_FROM_NAME} <${process.env.SMTP_FROM_EMAIL}>`,
       to: process.env.SMTP_CONTACT_EMAIL,
       replyTo: email,
       subject,
-      text: `${text}\n\n${name}\n${email}`
+      text: `${text} \n\n${name}\n${email} `
     }
 
     console.log('sending email...');

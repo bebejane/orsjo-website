@@ -75,7 +75,7 @@ export default function Product({
 	useEffect(() => {
 		const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
 		setPictureStyle({ paddingBottom: `${4 * scale}em` })
-	}, [viewportHeight, scrolledPosition, setPictureStyle])
+	}, [viewportHeight, scrolledPosition, setPictureStyle, isMobile])
 
 	return (
 		<>
@@ -89,7 +89,7 @@ export default function Product({
 						fadeInDuration={100}
 						objectFit={'contain'}
 						pictureStyle={!isMobile ? pictureStyle : undefined}
-						//priority={true}
+						placeholderStyle={!isMobile ? pictureStyle : undefined}
 						onLoad={() => setImageLoaded(true)}
 					/>
 					<div className={cn(styles.overlay, styles.show)}>
