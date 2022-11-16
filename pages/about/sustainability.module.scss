@@ -31,6 +31,7 @@
       min-width: 100%;
       min-height: 100%;
       h1 {
+        text-align: center;
         padding-left: 1em;
         padding-right: 1em;
         @include h1Big();
@@ -47,7 +48,7 @@
     margin-right: spanGridWithGutter(4);
     margin-left: spanGridWithGutter(4);
 
-    @include mq($until: tablet) {
+    @include mq($until: desktop) {
       margin-right: 0;
       margin-left: 0;
       padding-bottom: $small-margin;
@@ -109,7 +110,7 @@
     }
 
     &.fullWidth {
-      @include mq($from: tablet) {
+      @include mq($from: desktop) {
         .left {
           position: absolute;
           padding-left: 55%;
@@ -137,7 +138,7 @@
       }
     }
   }
-  @include mq($until: tablet) {
+  @include mq($until: desktop) {
     .block {
       flex-direction: column;
       flex-wrap: wrap;

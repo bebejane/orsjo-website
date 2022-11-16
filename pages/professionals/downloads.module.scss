@@ -1,5 +1,5 @@
 .intro {
-  @include mq($from: tablet) {
+  @include mq($from: desktop) {
     width: 80%;
   }
 }

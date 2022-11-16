@@ -23,7 +23,7 @@
       }
     }
     .image {
-      max-width: 50%;
+      max-width: 50% !important;
       margin-bottom: 1.5em;
       margin-top: 0.4em;
     }
@@ -35,8 +35,14 @@
         padding-right: 0;
       }
       .image {
+        width: 50%;
         max-width: 100%;
       }
+    }
+  }
+  @include mq($from: tablet, $until: desktop) {
+    .post p {
+      padding-right: 0;
     }
   }
 }

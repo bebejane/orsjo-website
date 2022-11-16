@@ -23,7 +23,7 @@
       color: $black;
     }
   }
-  @include mq($until: tablet) {
+  @include mq($until: desktop) {
     padding-right: 0;
   }
 }

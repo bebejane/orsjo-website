@@ -12,6 +12,10 @@
   opacity: 0;
   animation: fadeIn 0.2s ease-out forwards;
 
+  @include mq($from: tablet, $until: desktop) {
+    padding-right: 1em;
+  }
+
   @keyframes fadeIn {
     to {
       opacity: 1;
