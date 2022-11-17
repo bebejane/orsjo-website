@@ -95,6 +95,9 @@ query AllColorsAndMaterials($first: IntType = 100) {
 		image {
 			...ImageFragment
 		}
+		thumb: image {
+			...ImageThumbnailFragment
+		}
 		description
 		category {
 			id

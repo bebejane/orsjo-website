@@ -19,27 +19,37 @@ export type GalleryProps = {
 export default function Gallery({ images, onClose, index = 0, show, padImagesWithTitle = false }: GalleryProps) {
 
   const swiperRef = useRef<SwiperType | undefined>()
-  const [realIndex, setRealIndex] = useState(index)
+  const [realIndex, setRealIndex] = useState(0)
   const [title, setTitle] = useState<string>()
   const [loaded, setLoaded] = useState<any>({})
   const [initLoaded, setInitLoaded] = useState(false)
   const isSingleSlide = images?.length === 1
+  const isHidden = !images || !show;
 
-  useEffect(() => images && setTitle(images[realIndex]?.title), [realIndex, images])
+  useEffect(() => {
+    if (images)
+      setTitle(images[realIndex]?.title)
 
+  }, [realIndex, images, setTitle])
+  useEffect(() => {
+    setRealIndex(index)
+  }, [index])
   useEffect(() => { // handle  keys
     const handleKeys = ({ key }) => {
+      if (isHidden) return
       if (key === 'ArrowRight') swiperRef?.current?.slideNext()
       if (key === 'ArrowLeft') swiperRef?.current?.slidePrev()
       if (key === 'Escape') onClose()
     }
     document.addEventListener('keydown', handleKeys)
     return () => document.removeEventListener('keydown', handleKeys)
-  }, [onClose])
+  }, [onClose, isHidden])
 
-  useEffect(() => { setTimeout(() => setInitLoaded(true), 300) }, [initLoaded]) // Delay loader
+  useEffect(() => {
+    setTimeout(() => setInitLoaded(true), 300)
+  }, [initLoaded]) // Delay loader
 
-  if (!images || !show)
+  if (isHidden)
     return null
 
   return (

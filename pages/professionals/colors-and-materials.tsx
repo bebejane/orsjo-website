@@ -7,8 +7,9 @@ import { Thumbnail, Section } from '/components';
 import { useStore, shallow } from '/lib/store';
 import { useEffect } from 'react';
 
+type ColorMaterialRecordWithThumb = ColorMaterialRecord & { thumb: FileField }
 type ColorsAndMaterialsProps = {
-	colorMaterials: ColorMaterialRecord[],
+	colorMaterials: ColorMaterialRecordWithThumb[],
 	colorMaterialTypes: ColorMaterialTypeRecord[],
 	colorMaterialIntro: ColorMaterialIntroRecord
 }
@@ -18,7 +19,7 @@ export default function ColorsAndMaterials({ colorMaterials, colorMaterialTypes,
 	const [setGallery, setGalleryId] = useStore((state) => [state.setGallery, state.setGalleryId], shallow)
 	const images = colorMaterials.map(({ image, description }) => ({ ...image, title: description }))
 
-	useEffect(() => images && setGallery({ images }), [setGallery])
+	useEffect(() => images && setGallery({ images }), [images, setGallery])
 
 	return (
 		<>
@@ -32,11 +33,11 @@ export default function ColorsAndMaterials({ colorMaterials, colorMaterialTypes,
 				return (
 					<Section name={categoryPlural} className={styles.materials} key={idx} >
 						<h1>{categoryPlural}</h1>
-						{colorMaterials.filter(({ category }) => category.id === id).map(({ image, description }, idx) =>
+						{colorMaterials.filter(({ category }) => category.id === id).map(({ thumb, description }, idx) =>
 							<Thumbnail
-								onClick={() => setGalleryId(image.id)}
+								onClick={() => setGalleryId(thumb.id)}
 								title={description}
-								image={image}
+								image={thumb}
 								key={`t-${idx}`}
 								theme='mid'
 								type="material"
