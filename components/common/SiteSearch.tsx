@@ -11,7 +11,7 @@ import {
 	Loader
 } from '/components';
 import { AnchorLink } from '/components';
-import { useDebouncedValue } from 'rooks';
+import { useDebouncedValue, useKey } from 'rooks';
 import { useMediaQuery } from 'usehooks-ts'
 import { siteSearch, truncateParagraph } from '/lib/utils'
 import { useStore, shallow } from '/lib/store';
@@ -74,10 +74,13 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 
 	}, [inputValue, setQueryImmediate])
 
+	useKey('Escape', () => { setShowSiteSearch(false) })
+
 	useEffect(() => { !transitioning && setShowSiteSearch(false) }, [transitioning, setShowSiteSearch])
 	useEffect(() => { loading && setResult({}) }, [loading, setResult])
 	useEffect(() => { show && ref.current.focus() }, [show, ref])
 	useEffect(() => { queryAsProp && setInputValue(queryAsProp) }, [queryAsProp])
+
 
 	return (
 		<div className={cn(styles.search, show && styles.show)}>

@@ -31,9 +31,11 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
       setTitle(images[realIndex]?.title)
 
   }, [realIndex, images, setTitle])
+
   useEffect(() => {
     setRealIndex(index)
   }, [index])
+
   useEffect(() => { // handle  keys
     const handleKeys = ({ key }) => {
       if (isHidden) return

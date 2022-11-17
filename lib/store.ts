@@ -14,6 +14,7 @@ export type GalleryProps = {
 
 export interface StoreState {
   showMenu: boolean,
+  showSubMenu: boolean,
   showMenuMobile: boolean,
   currentSection: string,
   invertSidebar: boolean,
@@ -24,6 +25,7 @@ export interface StoreState {
   showSiteSearch: boolean,
   setCurrentSection: (currentSection: string) => void,
   setShowMenu: (showMenu: boolean) => void,
+  setShowSubMenu: (showSubMenu: boolean) => void,
   setShowMenuMobile: (showMenuMobile: boolean) => void,
   setInvertSidebar: (invertSidebar: boolean) => void,
   setInvertMenu: (invertMenu: boolean) => void,
@@ -37,6 +39,7 @@ export interface StoreState {
 
 const useStore = create<StoreState>((set) => ({
   showMenu: true,
+  showSubMenu: true,
   showMenuMobile: false,
   currentSection: undefined,
   invertSidebar: false,
@@ -50,6 +53,11 @@ const useStore = create<StoreState>((set) => ({
   setShowMenu: (showMenu: boolean) =>
     set((state) => ({
       showMenu
+    })
+    ),
+  setShowSubMenu: (showSubMenu: boolean) =>
+    set((state) => ({
+      showSubMenu
     })
     ),
   setShowMenuMobile: (showMenuMobile: boolean) =>

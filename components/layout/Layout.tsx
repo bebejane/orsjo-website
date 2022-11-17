@@ -1,6 +1,6 @@
 import styles from './Layout.module.scss'
 import React, { useEffect } from 'react'
-import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Grid, CookieConsent } from '/components'
+import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Grid, CookieConsent, Underlay } from '/components'
 import { usePage } from '/lib/context/page'
 import type { MenuItem } from '/lib/menu'
 import { useStore, shallow } from '/lib/store'
@@ -24,6 +24,7 @@ export default function Layout({ children, menu: menuFromProps, title }: LayoutP
 			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>
 				<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} />
 				<MenuMobile items={menu} />
+				<Underlay />
 				<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />
 				<Sidebar title={title} show={layout !== 'full' && sidebar} />
 				<Content>

@@ -17,12 +17,15 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	const ref = useRef();
 	const router = useRouter()
-	const [showMenu, showMenuMobile, setShowMenu, invertMenu, transitioning] = useStore((state) => [
+	const [showMenu, showSubMenu, setShowSubMenu, showMenuMobile, setShowMenu, invertMenu, transitioning, showSiteSearch] = useStore((state) => [
 		state.showMenu,
+		state.showSubMenu,
+		state.setShowSubMenu,
 		state.showMenuMobile,
 		state.setShowMenu,
 		state.invertMenu,
-		state.transitioning
+		state.transitioning,
+		state.showSiteSearch
 	], shallow)
 
 	const [selected, setSelected] = useState(undefined)
@@ -92,13 +95,16 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	}, [innerWidth, selected])
 
+	useEffect(() => {
+		setShowSubMenu(selected && showMenu)
+	}, [selected, showMenu, setShowSubMenu])
+
 	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
 
 	return (
 		<>
 			<Logo inverted={isInverted} />
-			<div className={cn(styles.underlay, selected && styles.show)}></div>
 			<nav id={'menu'} ref={ref} className={menuStyles} >
 				<ul className={styles.nav} >
 					{items.map(({ label, slug, index }, idx) =>
@@ -127,7 +133,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 			</nav>
 
 			<div
-				className={cn(styles.sub, selected && showMenu && styles.show)}
+				className={cn(styles.sub, showSubMenu && styles.show)}
 				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}
 				onMouseLeave={resetSelected}
 			>
