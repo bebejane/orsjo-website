@@ -48,13 +48,13 @@ query News($slug: String) {
 }
 
 query LastNews {
-	lastNews: allNews(orderBy: [createdAt_ASC], first: 1) {
+	lastNews: allNews(orderBy: [createdAt_DESC], first: 1) {
 		...NewsFragment
 	}
 }
 
 query AllNews($first: IntType = 5, $skip: IntType = 0) {
-	news: allNews(first: $first, skip: $skip) {
+	news: allNews(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
 		...NewsFragment
 	}
 	pagination: _allNewsMeta {
