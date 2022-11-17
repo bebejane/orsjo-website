@@ -48,7 +48,7 @@ export default function Bespoke({ bespoke }: BespokeProps) {
 				/>
 				<h1>
 					<TextReveal block={true}>
-						Custom made lighting
+						Custom-Made Lighting
 					</TextReveal>
 				</h1>
 			</Section>
