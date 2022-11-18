@@ -24,6 +24,18 @@
 		.image {
 			mix-blend-mode: multiply;
 			padding-bottom: 3em;
+			filter: blur(50px);
+
+
+			&.loaded {
+				animation: blurout 0.7s ease-out forwards;
+
+				@keyframes blurout {
+					to {
+						filter: blur(0px);
+					}
+				}
+			}
 
 			@include mq($until: tablet) {
 				padding-bottom: 0;
