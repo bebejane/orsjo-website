@@ -83,7 +83,7 @@ export default function Product({
 			<Section name="Introduction" className={styles.product} top={true}>
 				<div className={styles.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					<Image
-						pictureClassName={styles.image}
+						pictureClassName={cn(styles.image, imageLoaded && styles.loaded)}
 						data={product.image.responsiveImage}
 						layout={'fill'}
 						fadeInDuration={100}
