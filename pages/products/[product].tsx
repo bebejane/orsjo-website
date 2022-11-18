@@ -76,7 +76,6 @@ export default function Product({
 		const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
 		setPictureStyle({ paddingBottom: `${4 * scale}em` })
 	}, [viewportHeight, scrolledPosition, setPictureStyle, isMobile])
-	console.log(imageLoaded);
 
 	return (
 		<>
@@ -84,12 +83,11 @@ export default function Product({
 			<Section name="Introduction" className={styles.product} top={true}>
 				<div className={styles.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					<Image
-						pictureClassName={cn(styles.image, imageLoaded && styles.loaded)}
+						pictureClassName={styles.image}
 						data={product.image.responsiveImage}
 						layout={'fill'}
 						fadeInDuration={100}
 						objectFit={'contain'}
-
 						pictureStyle={!isMobile ? pictureStyle : undefined}
 						placeholderStyle={!isMobile ? pictureStyle : undefined}
 						onLoad={() => setImageLoaded(true)}
