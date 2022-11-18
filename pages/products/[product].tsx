@@ -86,7 +86,7 @@ export default function Product({
 						pictureClassName={styles.image}
 						data={product.image.responsiveImage}
 						layout={'fill'}
-						fadeInDuration={100}
+						fadeInDuration={700}
 						objectFit={'contain'}
 						pictureStyle={!isMobile ? pictureStyle : undefined}
 						placeholderStyle={!isMobile ? pictureStyle : undefined}
