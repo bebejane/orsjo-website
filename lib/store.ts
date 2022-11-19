@@ -39,7 +39,7 @@ export interface StoreState {
 
 const useStore = create<StoreState>((set) => ({
   showMenu: true,
-  showSubMenu: true,
+  showSubMenu: false,
   showMenuMobile: false,
   currentSection: undefined,
   invertSidebar: false,
