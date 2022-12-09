@@ -8,9 +8,11 @@ export default function CustomMade({ show }: Props) {
   if (!show) return null
   return (
     <div className={s.container}>
-      Custom
-      <br />
-      made
+      <h3>
+        Custom
+        <br />
+        made
+      </h3>
     </div>
   )
 }
