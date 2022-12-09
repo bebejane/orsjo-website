@@ -161,12 +161,12 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
   const { pdfFiles, mountingInstructions, bimLink, bimFile, lightFile } = product;
 
   const files = [{
-    href: pdfFiles.find(({ locale }) => locale === 'sv') && `${pdfFiles.find(({ locale }) => locale === 'sv')?.value.url}?dl=${pdfFiles.find(({ locale }) => locale === 'sv')?.value.title}.pdf`,
+    href: pdfFiles.find(({ locale }) => locale === 'sv') && `${pdfFiles.find(({ locale }) => locale === 'sv')?.value.url}`,
     label: 'Productsheet (SE)',
     type: 'pdf',
     download: true
   }, {
-    href: pdfFiles.find(({ locale }) => locale === 'en') && `${pdfFiles.find(({ locale }) => locale === 'en')?.value.url}?dl=${pdfFiles.find(({ locale }) => locale === 'en')?.value.title}.pdf`,
+    href: pdfFiles.find(({ locale }) => locale === 'en') && `${pdfFiles.find(({ locale }) => locale === 'en')?.value.url}`,
     label: 'Productsheet (EN)',
     type: 'pdf',
     download: true

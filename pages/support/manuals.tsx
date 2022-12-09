@@ -46,9 +46,8 @@ export default function Manuals({ products }: ManualsProps) {
 						<li key={idx}>
 							<a
 								key={idx}
-								href={file?.url ? `${file?.url}?dl=${title} ${categories[0].name} - Assembly Instructions` : undefined}
+								href={file?.url ? `${file?.url}` : undefined}
 								className={cn(!file && styles.disabled)}
-								download
 								target="_new"
 							>
 								<Icon
