@@ -112,6 +112,11 @@ const nextOptions = {
 				destination: "/about",
 				permanent: true,
 			},
+			{
+				source: "/manual",
+				destination: "/support/manuals",
+				permanent: true,
+			},
 		];
 	},
 };
