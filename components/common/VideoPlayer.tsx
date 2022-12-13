@@ -21,7 +21,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 
 	useEffect(() => {
 		//if(process.env.NODE_ENV === 'development') return console.log('video disabled in dev')
-		
+
 		if (!videoRef.current) return
 		if (active)
 			videoRef.current.play().catch((err) => { })
@@ -33,16 +33,16 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	useEffect(() => { setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null) }, [innerWidth])
 
 	return (
-    <video
-      className={cn(styles.video, className)}
-      src={quality ? data.video[`mp4${quality}`] : undefined}
-      ref={setRefs}
-      playsInline
-      muted
-      loop={true}
-      autoPlay={false}
-      disablePictureInPicture={true}
-      poster={data.video?.thumbnailUrl}
-    />
+		<video
+			className={cn(styles.video, className)}
+			src={quality ? data.video[`mp4${quality}`] : undefined}
+			ref={setRefs}
+			playsInline
+			muted
+			loop={true}
+			autoPlay={false}
+			disablePictureInPicture={true}
+		//poster={data.video?.thumbnailUrl}
+		/>
 	)
 }
