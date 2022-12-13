@@ -26,7 +26,7 @@ query Start {
 				headline
 				subHeadline
 				media {
-					...ImageFragment
+					...VideoFragment
 				}
 				linkRecord {
 					... on ProductRecord {
