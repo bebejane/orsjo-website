@@ -15,6 +15,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	const { innerWidth } = useWindowSize()
 
 	const setRefs = useCallback((node) => {
+		console.log('set refs', node)
 		videoRef.current = node;
 		inViewRef(node);
 	}, [inViewRef]);
@@ -22,12 +23,12 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	useEffect(() => {
 		//if(process.env.NODE_ENV === 'development') return console.log('video disabled in dev')
 
-		if (!videoRef.current) return
+		if (!videoRef.current) return console.log('no video ref')
 		if (active)
 			videoRef.current.play().catch((err) => { })
 		else
 			videoRef.current.pause();
-	}, [active, quality])
+	}, [active, quality, videoRef])
 
 	useEffect(() => { setActive(inView) }, [inView])
 	useEffect(() => { setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null) }, [innerWidth])
@@ -40,9 +41,9 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 			playsInline
 			muted
 			loop={true}
-			autoPlay={true}
+			autoPlay={false}
 			disablePictureInPicture={true}
-		//poster={data.video?.thumbnailUrl}
+			poster={data.video?.thumbnailUrl}
 		/>
 	)
 }
