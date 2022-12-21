@@ -21,7 +21,6 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	}, [inViewRef]);
 
 	useEffect(() => {
-		//if(process.env.NODE_ENV === 'development') return console.log('video disabled in dev')
 
 		if (!videoRef.current) return console.log('no video ref')
 		if (active)
@@ -38,12 +37,12 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 			className={cn(styles.video, className)}
 			src={quality ? data.video[`mp4${quality}`] : undefined}
 			ref={setRefs}
-			playsInline
-			muted
+			playsInline={true}
+			muted={true}
 			loop={true}
 			autoPlay={false}
 			disablePictureInPicture={true}
-			poster={data.video?.thumbnailUrl}
+		//poster={data.video?.thumbnailUrl}
 		/>
 	)
 }
