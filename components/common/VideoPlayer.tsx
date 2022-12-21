@@ -40,7 +40,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 			playsInline
 			muted
 			loop={true}
-			autoPlay={false}
+			autoPlay={true}
 			disablePictureInPicture={true}
 		//poster={data.video?.thumbnailUrl}
 		/>
