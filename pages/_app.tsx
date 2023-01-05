@@ -58,10 +58,12 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 
   const errorCode = parseInt(router.pathname.replace('/', ''))
-  const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
+  const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600) || pathname === '/404' || pathname === '/500'
 
-  if (isError)
+  if (isError){
+    console.log(isError);
     return <Component {...pageProps} />
+  }
 
   return (
     <>
