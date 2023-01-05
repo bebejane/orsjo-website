@@ -70,6 +70,18 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
       <div className={cn(styles.contactModal, show && styles.show)}>
         <div className={styles.wrap}>
           <h1>Contact us</h1>
+
+          <div className={styles.text}>
+            <p className="medium">
+              <span>OBS!</span> Vi kan tyvärr inte erbjuda teknisk support till privatpersoner, vänligen kontakta någon av våra <a href="https://www.orsjo.com/contact#retailers">återförsäljare</a>.
+              Vi har samlat de vanligaste frågorna med svar på vår <a href="https://www.orsjo.com/support/faq">FAQ-sida.</a>
+            </p>
+            <p className="medium">
+              <span>NOTE!</span> We're not able to offer techical support for private customers, intead, please contact one of our <a href="https://www.orsjo.com/contact#retailers">retailers</a>.
+              We've collected the most common questions on our <a href="https://www.orsjo.com/support/faq">FAQ page.</a>
+            </p>
+          </div>
+
           {error &&
             <div className={styles.error}>
               {typeof error === 'string' ? error : error.message}
