@@ -60,8 +60,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
 
-  if (isError){
-    console.log(isError);
+  if (isError) {
     return <Component {...pageProps} />
   }
 
