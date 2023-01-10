@@ -1,7 +1,7 @@
 import React from "react";
 import { MjmlButton } from "mjml-react";
 
-import { colors, fontSize, borderRadius, lineHeight, spacing } from "../theme";
+import { colors, fontSize, borderRadius, lineHeight, spacing, letterSpacing, textTransform } from "../theme";
 
 type ButtonProps = React.ComponentProps<typeof MjmlButton>;
 
@@ -10,24 +10,16 @@ export default function Button(props: ButtonProps) {
     <>
       <MjmlButton
         lineHeight={lineHeight.tight}
-        fontSize={fontSize.base}
+        fontSize={fontSize.sm}
         height={spacing.s8}
+        letterSpacing={letterSpacing.wide}
+        textTransform={textTransform.big}
         align="left"
         backgroundColor={colors.black}
-        color={colors.neutral100}
-        borderRadius={borderRadius.base}
+        color={colors.white}
+        border="1px solid white"
         cssClass="light-mode"
-        {...props}
-      />
-      <MjmlButton
-        lineHeight={lineHeight.tight}
-        fontSize={fontSize.base}
-        height={spacing.s8}
-        align="left"
-        backgroundColor={colors.gold}
-        color={colors.black}
-        borderRadius={borderRadius.base}
-        cssClass="dark-mode"
+        borderRadius="0px"
         {...props}
       />
     </>

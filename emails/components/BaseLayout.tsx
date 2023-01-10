@@ -41,6 +41,8 @@ export default function BaseLayout({
         <MjmlStyle>{`
           body {
             -webkit-font-smoothing: antialiased;
+            background: ${colors.black};
+            color: ${colors.white};
           }
           a {
             color: inherit

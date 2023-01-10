@@ -4,10 +4,11 @@ import { Template } from "mailing-core";
 import Button from "./components/Button";
 import Header from "./components/Header";
 import Heading from "./components/Heading";
+import SubHeading from "./components/SubHeading";
 import Footer from "./components/Footer";
 import BaseLayout from "./components/BaseLayout";
 import Text from "./components/Text";
-import { spacing, fontSize } from "./theme";
+import { spacing, fontSize, letterSpacing, textTransform } from "./theme";
 
 type AccountCreatedProps = { name: string };
 
@@ -24,18 +25,16 @@ const AccountCreated: Template<AccountCreatedProps> = ({ name }) => (
     </MjmlSection>
     <MjmlSection cssClass="gutter">
       <MjmlColumn>
-        <Heading fontSize={fontSize.xl}>{name}, your table awaits.</Heading>
+        <SubHeading paddingBottom={spacing.s7}>Nytt projekt</SubHeading>
+        <Heading fontSize={fontSize.lg}>Aira av Jonas Bohlin</Heading>
         <Text paddingTop={spacing.s7} paddingBottom={spacing.s7}>
-          Thank you for joining BookBook! We’re excited to help you enjoy great
-          meals without any begging, guessing, waiting or phone calls. Just a
-          couple taps, and the table is yours.
+          Örsjö Belysning och Folkform fortsätter sitt samarbete och lanserar Plissé White Edition. I den skulpturala serien armaturer helt i vit textil utmanas plisseringens finkänsliga konst.
+
+          Lampan blev nyligen utsedd till ”Årets Belysning 2022” av tidningen Residence med motiveringen: ”Ett sofistikerat ljussmycke som lyfter in det försummade plisseringshantverket i ett samtida sammanhang”.
+
+          Plissé White Edition finns på i vårt uppdaterade showroom på B3 som nu är öppet för besök igen.
         </Text>
-        <Button href="https://www.mailing.run">Book a Reservation</Button>
-        <Text paddingTop={spacing.s7}>
-          Enjoy!
-          <br />
-          The BookBook Team
-        </Text>
+        <Button href="https://www.mailing.run">Läs mer</Button>
       </MjmlColumn>
     </MjmlSection>
     <Footer includeUnsubscribe />

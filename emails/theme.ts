@@ -12,8 +12,8 @@ export const colors = {
 
 export const fontSize = {
   xs: 12,
-  sm: 14,
-  base: 16,
+  sm: 12,
+  base: 18,
   lg: 24,
   xl: 30,
 };
@@ -28,15 +28,23 @@ export const fontWeight = {
   bold: 700,
 };
 
+export const letterSpacing = {
+  normal: "0em",
+  wide: ".1em",
+};
+
+export const textTransform = {
+  normal: "none",
+  big: "uppercase",
+};
+
 export const borderRadius = {
   base: 100,
   full: 9999,
 };
 
 export const fontFamily = {
-  sans: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  serif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
-  mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+  sans: 'Inter, -apple-system, BlinkMacSystemFont, Arial, "Segoe UI", sans-serif',
 };
 
 export const spacing = {
@@ -63,6 +71,6 @@ export const themeDefaults = {
   lineHeight: lineHeight.relaxed,
   fontWeight: fontWeight.normal,
   fontSize: fontSize.base,
-  color: colors.black,
+  color: colors.white,
   padding: 0,
 };

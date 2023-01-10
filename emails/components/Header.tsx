@@ -1,5 +1,10 @@
 import React from "react";
 import { MjmlSection, MjmlColumn, MjmlImage } from "mjml-react";
+import { colors, fontSize, spacing } from "../theme";
+import SubHeading from "./SubHeading";
+import Text from "./Text";
+import Divider from "./Divider";
+
 
 type HeaderProps = {
   loose?: boolean;
@@ -7,18 +12,25 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ loose }) => {
   return (
-    <MjmlSection padding={loose ? "48px 0 40px" : "48px 0 24px"}>
-      <MjmlColumn>
-        <MjmlImage
-          padding="0 24px 0"
-          width="49px"
-          height="54px"
-          align="center"
-          src="https://s3.amazonaws.com/lab.campsh.com/bb-transparent%402x.png"
-          cssClass="invert"
-        />
-      </MjmlColumn>
-    </MjmlSection>
+    <>
+      <MjmlSection paddingTop={spacing.s10}>
+        <MjmlColumn width="45px">
+          <mj-image width="45px"
+            src="https://www.datocms-assets.com/62617/1673342405-logo-email.png" />
+        </MjmlColumn>
+        <MjmlColumn width="555px">
+          <Text align="right">
+            <SubHeading align="right">News from Örsjö Belysning</SubHeading>
+          </Text>
+          <Text paddingTop={spacing.s3} align="right" fontSize={fontSize.sm} color={colors.neutral500}>Open in Browser</Text>
+        </MjmlColumn>
+      </MjmlSection>
+      <MjmlSection>
+        <MjmlColumn>
+          <Divider></Divider>
+        </MjmlColumn>
+      </MjmlSection>
+    </>
   );
 };
 
