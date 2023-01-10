@@ -43,6 +43,11 @@ export const borderRadius = {
   full: 9999,
 };
 
+export const textAlign = {
+  left: "left",
+  right: "right",
+};
+
 export const fontFamily = {
   sans: 'Inter, -apple-system, BlinkMacSystemFont, Arial, "Segoe UI", sans-serif',
 };

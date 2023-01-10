@@ -1,20 +1,23 @@
 import React from "react";
 import Text from "./Text";
-import Heading from "./Heading";
-import { fontFamily, lineHeight, fontWeight, fontSize, letterSpacing, textTransform } from "../theme";
+import { fontFamily, lineHeight, fontWeight, fontSize, letterSpacing, textTransform, textAlign } from "../theme";
 
 type SubHeadingProps = React.ComponentProps<typeof Text>;
 
 const defaultProps = {
-
+  fontFamily: fontFamily.sans,
+  fontWeight: fontWeight.normal,
+  lineHeight: lineHeight.tight,
+  fontSize: fontSize.sm,
+  letterSpacing: letterSpacing.wide,
+  textTransform: textTransform.big,
+  textAlign: textAlign.left,
 };
 
 export default function SubHeading(props: SubHeadingProps) {
   return (
-    <Heading fontSize={fontSize.sm} letterSpacing={letterSpacing.wide} textTransform={textTransform.big} >
-      <Text {...defaultProps} {...props}>
-        {props.children}
-      </Text>
-    </Heading>
+    <Text {...defaultProps} {...props}>
+      {props.children}
+    </Text>
   );
 }
