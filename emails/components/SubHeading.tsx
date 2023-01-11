@@ -11,7 +11,7 @@ const defaultProps = {
   fontSize: fontSize.sm,
   letterSpacing: letterSpacing.wide,
   textTransform: textTransform.big,
-  textAlign: textAlign.left,
+  //align: textAlign.left,
 };
 
 export default function SubHeading(props: SubHeadingProps) {

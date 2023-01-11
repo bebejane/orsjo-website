@@ -19,13 +19,15 @@ export default function Footer({ includeUnsubscribe }: FooterProps) {
         </MjmlColumn>
       </MjmlSection>
       <MjmlSection paddingBottom={spacing.s10}>
-        <MjmlColumn width="45px">
+        <MjmlColumn width="100%">
           <mj-image width="45px"
             src="https://www.datocms-assets.com/62617/1673342405-logo-email.png" />
         </MjmlColumn>
-        <MjmlColumn width="555px">
-          <SubHeading align="right"><a style={{ textDecoration: 'none' }} href="https://www.orsjo.com">Website</a>  <a style={{ textDecoration: 'none' }} href="https://www.instagram.com/orsjo_belysning">Instagram</a>  <a style={{ textDecoration: 'none' }} href="https://www.facebook.com/orsjobelysning">Facebook</a></SubHeading>
-          <Text paddingTop={spacing.s3} align="right" fontSize={fontSize.sm} color={colors.neutral500}>Unsubscribe</Text>
+        <MjmlColumn width="100%" paddingTop={spacing.s6}>
+          <SubHeading align="center">
+            <a style={{ textDecoration: 'none', color: 'white' }} href="https://www.instagram.com/orsjo_belysning">Instagram</a> &nbsp; <a style={{ textDecoration: 'none', color: 'white' }} href="https://www.orsjo.com">Website</a> &nbsp; <a style={{ textDecoration: 'none', color: 'white' }} href="https://www.facebook.com/orsjobelysning">Facebook</a>
+          </SubHeading>
+          <Text paddingTop={spacing.s3} align="center" fontSize={fontSize.sm} color={colors.neutral500}>Unsubscribe</Text>
         </MjmlColumn>
       </MjmlSection>
     </>

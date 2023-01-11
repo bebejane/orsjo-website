@@ -7,8 +7,8 @@ type DividerProps = React.ComponentProps<typeof MjmlDivider>;
 const defaultProps = {
   borderColor: colors.white,
   borderWidth: "1px",
-  paddingTop: spacing.s10,
-  paddingBottom: spacing.s10,
+  paddingTop: spacing.s9,
+  paddingBottom: spacing.s9,
 };
 
 export default function Divider(props: DividerProps) {

@@ -11,16 +11,20 @@ export default function Button(props: ButtonProps) {
       <MjmlButton
         lineHeight={lineHeight.tight}
         fontSize={fontSize.sm}
-        height={spacing.s8}
+        height={spacing.s10}
+        paddingLeft={spacing.s11}
+        paddingRight={spacing.s11}
+        width="100%"
+        align="center"
         letterSpacing={letterSpacing.wide}
         textTransform={textTransform.big}
-        align="left"
-        backgroundColor={colors.black}
+        backgroundColor={colors.trasparent}
         color={colors.white}
         border="1px solid white"
         cssClass="light-mode"
         borderRadius="0px"
         {...props}
+        paddingTop={spacing.s7}
       />
     </>
   );

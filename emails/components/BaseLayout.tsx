@@ -28,12 +28,15 @@ export default function BaseLayout({
       <MjmlHead>
         {preview && <MjmlPreview>{preview}</MjmlPreview>}
         <MjmlRaw>
-          <meta name="color-scheme" content="light dark" />
-          <meta name="supported-color-schemes" content="light dark" />
+          <meta name="color-scheme" content="dark" />
+          <meta name="supported-color-schemes" content="dark" />
         </MjmlRaw>
         <MjmlFont
           name="Inter"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700" />
+        <MjmlFont
+          name="Indivisible"
+          href="https://www.orsjo.com/fonts/mail.css"
         />
         <MjmlAttributes>
           <MjmlAll {...themeDefaults} />
@@ -44,12 +47,31 @@ export default function BaseLayout({
             background: ${colors.black};
             color: ${colors.white};
           }
+          
+          table, td {
+            -webkit-font-smoothing: antialiased;
+            background: ${colors.black};
+            color: ${colors.white};
+          }
+
           a {
-            color: inherit
+            color: ${colors.white} !important;
           }
           .gutter {
             padding-left: ${spacing.s7}px;
             padding-right: ${spacing.s7}px;
+          }
+          .margin {
+            padding-left: ${spacing.s7}px !important;
+            padding-right: ${spacing.s7}px !important;
+          }
+          .green td {
+            background: ${colors.green} !important;
+          }
+          .padding {
+            padding-left: ${spacing.s7}px !important;
+            padding-right: ${spacing.s7}px !important;
+          }
           }
           .no-wrap {
             white-space: nowrap;
@@ -82,6 +104,12 @@ export default function BaseLayout({
               padding-left: ${spacing.s7}px !important;
               padding-right: ${spacing.s7}px !important;
             }
+
+            .margin {
+              padding-left: ${spacing.s8}px !important;
+              padding-right: ${spacing.s8}px !important;
+            }
+
             .sm-hidden {
               display: none;
               max-width: 0px;
@@ -97,37 +125,10 @@ export default function BaseLayout({
               mso-hide: none !important;
             }
           }
-
-          /* Dark Mode */
-          @media (prefers-color-scheme: dark) {
-            body {
-              background: ${colors.black};
-            }
-            .invert > * {
-              filter: invert(1) !important;
-            }
-            .text > * {
-              color: #fff !important;
-            }
-            .dark-mode {
-              display: inherit !important;
-              max-width: none !important;
-              max-height: none !important;
-              overflow: visible !important;
-              mso-hide: none !important;
-            }
-            .light-mode {
-              display: none;
-              max-width: 0px;
-              max-height: 0px;
-              overflow: hidden;
-              mso-hide: all;
-            }
-          }
       `}</MjmlStyle>
       </MjmlHead>
 
-      <MjmlBody width={width}>{children}</MjmlBody>
+      <MjmlBody backgroundColor={colors.black} width={width}>{children}</MjmlBody>
     </Mjml>
   );
 }

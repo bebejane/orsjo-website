@@ -1,26 +1,27 @@
 export const colors = {
   black: "#000",
   white: "#FFF",
-  gold: "#FADF98",
+  green: "#1b5b44",
   neutral100: "#F5F5F5",
   neutral200: "#EEE",
   neutral400: "#888",
   neutral500: "#777",
   neutral600: "#666",
   neutral800: "#444",
+  trasparent: "transparent",
 };
 
 export const fontSize = {
   xs: 12,
   sm: 12,
-  base: 18,
+  base: 17,
   lg: 24,
   xl: 30,
 };
 
 export const lineHeight = {
   tight: "125%",
-  relaxed: "160%",
+  relaxed: "150%",
 };
 
 export const fontWeight = {
@@ -49,7 +50,7 @@ export const textAlign = {
 };
 
 export const fontFamily = {
-  sans: 'Inter, -apple-system, BlinkMacSystemFont, Arial, "Segoe UI", sans-serif',
+  sans: 'Indivisible, Inter, -apple-system, BlinkMacSystemFont, Helvetica, Arial, "Segoe UI", sans-serif',
 };
 
 export const spacing = {

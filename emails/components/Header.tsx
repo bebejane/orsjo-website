@@ -13,16 +13,14 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ loose }) => {
   return (
     <>
-      <MjmlSection paddingTop={spacing.s10}>
-        <MjmlColumn width="45px">
+      <MjmlSection paddingTop={spacing.s9} backgroundColor={colors.black}>
+        <MjmlColumn width="100%">
           <mj-image width="45px"
             src="https://www.datocms-assets.com/62617/1673342405-logo-email.png" />
         </MjmlColumn>
-        <MjmlColumn width="555px">
-          <Text align="right">
-            <SubHeading align="right">News from Örsjö Belysning</SubHeading>
-          </Text>
-          <Text paddingTop={spacing.s3} align="right" fontSize={fontSize.sm} color={colors.neutral500}>Open in Browser</Text>
+        <MjmlColumn width="100%">
+          <SubHeading align="center" paddingTop={spacing.s6}>News from Örsjö Belysning</SubHeading>
+          <Text paddingTop={spacing.s3} align="center" fontSize={fontSize.sm} color={colors.neutral500}>Open in Browser</Text>
         </MjmlColumn>
       </MjmlSection>
       <MjmlSection>

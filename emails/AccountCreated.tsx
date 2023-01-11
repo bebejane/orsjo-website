@@ -8,7 +8,8 @@ import SubHeading from "./components/SubHeading";
 import Footer from "./components/Footer";
 import BaseLayout from "./components/BaseLayout";
 import Text from "./components/Text";
-import { spacing, fontSize, letterSpacing, textTransform } from "./theme";
+import Divider from "./components/Divider";
+import { spacing, fontSize, letterSpacing, textTransform, colors } from "./theme";
 
 type AccountCreatedProps = { name: string };
 
@@ -19,26 +20,75 @@ const AccountCreated: Template<AccountCreatedProps> = ({ name }) => (
       <MjmlColumn>
         <MjmlImage
           align="left"
-          src="https://s3.amazonaws.com/lab.campsh.com/bb-hero%402x.jpg"
+          src="https://www.datocms-assets.com/62617/1673417732-ranka_vit.png"
         />
       </MjmlColumn>
     </MjmlSection>
     <MjmlSection cssClass="gutter">
       <MjmlColumn>
-        <SubHeading paddingBottom={spacing.s7}>Nytt projekt</SubHeading>
-        <Heading fontSize={fontSize.lg}>Aira av Jonas Bohlin</Heading>
-        <Text paddingTop={spacing.s7} paddingBottom={spacing.s7}>
-          Örsjö Belysning och Folkform fortsätter sitt samarbete och lanserar Plissé White Edition. I den skulpturala serien armaturer helt i vit textil utmanas plisseringens finkänsliga konst.
-
-          Lampan blev nyligen utsedd till ”Årets Belysning 2022” av tidningen Residence med motiveringen: ”Ett sofistikerat ljussmycke som lyfter in det försummade plisseringshantverket i ett samtida sammanhang”.
-
-          Plissé White Edition finns på i vårt uppdaterade showroom på B3 som nu är öppet för besök igen.
+        <SubHeading paddingBottom={spacing.s7}>Inbjudan</SubHeading>
+        <Heading fontSize={fontSize.lg}>Frukostföreläsningar & förhandsvisning</Heading>
+        <Text paddingTop={spacing.s7}>
+          Starta din dag under Stockholm Design week med en riktigt designboost! Vi introducerar en nyhet varje morgon under veckan och bjuder samtidigt på en riktigt bra frukost från Fabrique stenugnsbageri.
+          Varje morgon presenterar en av våra formgivare en ny produkt.
+          <p>
+            Tisdag 7 februari:         Sun badrumslampa av Addi<br />
+            Onsdag 8 februari:         Ranka av Jonas Bohlin<br />
+            Torsdag 9 februari:        Cake av Lars Bülow<br />
+          </p>
         </Text>
-        <Button href="https://www.mailing.run">Läs mer</Button>
+        <Button href="https://www.mailing.run">Anmäl dig här</Button>
+      </MjmlColumn>
+    </MjmlSection>
+    <MjmlSection>
+      <MjmlColumn>
+        <Divider></Divider>
+      </MjmlColumn>
+    </MjmlSection>
+    <MjmlSection cssClass="green" backgroundColor={colors.green}>
+      <MjmlColumn cssClass="green">
+        <SubHeading cssClass="padding" paddingTop={spacing.s7} paddingBottom={spacing.s6} paddingLeft={spacing.s7} paddingRight={spacing.s7}>Inbjudan</SubHeading>
+        <Text paddingRight={spacing.s7} paddingLeft={spacing.s7}>
+          Starta din dag under Stockholm Design week med en riktigt designboost! Vi introducerar en nyhet varje morgon under veckan och bjuder samtidigt på en riktigt bra frukost från Fabrique stenugnsbageri.
+        </Text>
+        <Button href="https://www.mailing.run" paddingBottom={spacing.s7} paddingLeft={spacing.s7} paddingRight={spacing.s7}>Anmäl dig här</Button>
+      </MjmlColumn>
+      <MjmlColumn>
+        <MjmlImage
+          cssClass="lg-hidden"
+          align="center"
+          src="https://www.datocms-assets.com/62617/1667455852-vinge.jpg"
+        />
+      </MjmlColumn>
+
+    </MjmlSection>
+    <MjmlSection cssClass="lg-gutter" paddingBottom={spacing.s9}>
+      <MjmlColumn>
+        <Divider></Divider>
+        <MjmlImage cssClass="margin"
+          align="left"
+          src="https://www.datocms-assets.com/62617/1673417732-ranka_vit.png"
+        />
+      </MjmlColumn>
+    </MjmlSection>
+    <MjmlSection cssClass="gutter">
+      <MjmlColumn>
+        <SubHeading paddingBottom={spacing.s7}>Inbjudan</SubHeading>
+        <Heading fontSize={fontSize.lg}>Frukostföreläsningar & förhandsvisning</Heading>
+        <Text paddingTop={spacing.s7}>
+          Starta din dag under Stockholm Design week med en riktigt designboost! Vi introducerar en nyhet varje morgon under veckan och bjuder samtidigt på en riktigt bra frukost från Fabrique stenugnsbageri.
+          Varje morgon presenterar en av våra formgivare en ny produkt.
+          <p>
+            Tisdag 7 februari:         Sun badrumslampa av Addi<br />
+            Onsdag 8 februari:         Ranka av Jonas Bohlin<br />
+            Torsdag 9 februari:        Cake av Lars Bülow<br />
+          </p>
+        </Text>
+        <Button href="https://www.mailing.run">Anmäl dig här</Button>
       </MjmlColumn>
     </MjmlSection>
     <Footer includeUnsubscribe />
-  </BaseLayout>
+  </BaseLayout >
 );
 
 AccountCreated.subject = ({ name }) => `Welcome to BookBook, ${name}!`;
