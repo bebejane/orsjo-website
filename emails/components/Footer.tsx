@@ -1,6 +1,4 @@
-import React from "react";
-import { MjmlSection, MjmlColumn, MjmlText } from "mjml-react";
-import { EMAIL_PREFERENCES_URL } from "mailing-core";
+import { MjmlSection, MjmlColumn, MjmlImage } from "mjml-react";
 import { colors, fontSize, spacing } from "../theme";
 import Divider from "./Divider";
 import SubHeading from "./SubHeading";
@@ -20,7 +18,7 @@ export default function Footer({ includeUnsubscribe }: FooterProps) {
       </MjmlSection>
       <MjmlSection paddingBottom={spacing.s10}>
         <MjmlColumn width="100%">
-          <mj-image width="45px"
+          <MjmlImage width="45px"
             src="https://www.datocms-assets.com/62617/1673342405-logo-email.png" />
         </MjmlColumn>
         <MjmlColumn width="100%" paddingTop={spacing.s6}>

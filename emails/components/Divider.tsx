@@ -1,4 +1,3 @@
-import React from "react";
 import { MjmlDivider } from "mjml-react";
 import { colors, spacing } from "../theme";
 

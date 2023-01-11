@@ -1,4 +1,3 @@
-import React from "react";
 import { MjmlSection, MjmlColumn, MjmlImage } from "mjml-react";
 import { colors, fontSize, spacing } from "../theme";
 import SubHeading from "./SubHeading";
@@ -15,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ loose }) => {
     <>
       <MjmlSection paddingTop={spacing.s10} cssClass="lg-hidden">
         <MjmlColumn width="45px">
-          <mj-image width="45px"
+          <MjmlImage width="45px"
             src="https://www.datocms-assets.com/62617/1673342405-logo-email.png" />
         </MjmlColumn>
         <MjmlColumn width="555px">
@@ -27,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ loose }) => {
       </MjmlSection>
       <MjmlSection paddingTop={spacing.s10} backgroundColor={colors.black} cssClass="sm-hidden">
         <MjmlColumn width="100%">
-          <mj-image width="45px"
+          <MjmlImage width="45px"
             src="https://www.datocms-assets.com/62617/1673342405-logo-email.png" />
         </MjmlColumn>
         <MjmlColumn width="100%">

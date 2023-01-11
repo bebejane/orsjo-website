@@ -1,4 +1,3 @@
-import React from "react";
 import Text from "./Text";
 import { fontFamily, lineHeight, fontWeight, fontSize, letterSpacing, textTransform } from "../theme";
 

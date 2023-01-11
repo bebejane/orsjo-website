@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { MjmlSection, MjmlColumn, MjmlSpacer } from "mjml-react";
 import { Template } from "mailing-core";
 import Header from "./components/Header";
