@@ -42,6 +42,13 @@ export default function BaseLayout({
           <MjmlAll {...themeDefaults} />
         </MjmlAttributes>
         <MjmlStyle>{`
+
+            .ExternalClass p, 
+            .ExternalClass span,
+            .ExternalClass font,
+            .ExternalClass td
+            {line-height: 100%} 
+
           body {
             -webkit-font-smoothing: antialiased;
             background: ${colors.black};
@@ -52,6 +59,14 @@ export default function BaseLayout({
             -webkit-font-smoothing: antialiased;
             background: ${colors.black};
             color: ${colors.white};
+          }
+
+          span {
+            color: ${colors.white} !important;
+          }
+
+          p {
+            margin: 0 !important;
           }
 
           a {
@@ -106,8 +121,8 @@ export default function BaseLayout({
             }
 
             .margin {
-              padding-left: ${spacing.s8}px !important;
-              padding-right: ${spacing.s8}px !important;
+              padding-left: ${spacing.s12}px !important;
+              padding-right: ${spacing.s12}px !important;
             }
 
             .sm-hidden {

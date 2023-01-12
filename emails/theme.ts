@@ -21,7 +21,7 @@ export const fontSize = {
 
 export const lineHeight = {
   tight: "125%",
-  relaxed: "150%",
+  relaxed: "140%",
 };
 
 export const fontWeight = {
@@ -65,6 +65,7 @@ export const spacing = {
   s9: 40,
   s10: 48,
   s11: 56,
+  s12: 72,
 };
 
 export const screens = {

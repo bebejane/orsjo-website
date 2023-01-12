@@ -24,7 +24,7 @@ const AccountCreated: Template<AccountCreatedProps> = ({ name }) => (
         />
       </MjmlColumn>
     </MjmlSection>
-    <MjmlSection cssClass="gutter">
+    <MjmlSection paddingLeft={spacing.s7} paddingRight={spacing.s7}>
       <MjmlColumn>
         <SubHeading paddingBottom={spacing.s7}>Inbjudan</SubHeading>
         <Heading fontSize={fontSize.lg}>Frukostföreläsningar & förhandsvisning</Heading>
@@ -46,21 +46,18 @@ const AccountCreated: Template<AccountCreatedProps> = ({ name }) => (
       </MjmlColumn>
     </MjmlSection>
     <MjmlSection cssClass="green" backgroundColor={colors.green}>
-      <MjmlColumn cssClass="green">
+      <MjmlColumn>
+        <MjmlImage
+          align="center"
+          src="https://www.datocms-assets.com/62617/1667455852-vinge.jpg"
+        />
+      </MjmlColumn>      <MjmlColumn cssClass="green">
         <SubHeading cssClass="padding" paddingTop={spacing.s7} paddingBottom={spacing.s6} paddingLeft={spacing.s7} paddingRight={spacing.s7}>Inbjudan</SubHeading>
         <Text paddingRight={spacing.s7} paddingLeft={spacing.s7}>
           Starta din dag under Stockholm Design week med en riktigt designboost! Vi introducerar en nyhet varje morgon under veckan och bjuder samtidigt på en riktigt bra frukost från Fabrique stenugnsbageri.
         </Text>
         <Button href="https://www.mailing.run" paddingBottom={spacing.s7} paddingLeft={spacing.s7} paddingRight={spacing.s7}>Anmäl dig här</Button>
       </MjmlColumn>
-      <MjmlColumn>
-        <MjmlImage
-          cssClass="lg-hidden"
-          align="center"
-          src="https://www.datocms-assets.com/62617/1667455852-vinge.jpg"
-        />
-      </MjmlColumn>
-
     </MjmlSection>
     <MjmlSection cssClass="lg-gutter" paddingBottom={spacing.s9}>
       <MjmlColumn>
@@ -71,7 +68,7 @@ const AccountCreated: Template<AccountCreatedProps> = ({ name }) => (
         />
       </MjmlColumn>
     </MjmlSection>
-    <MjmlSection cssClass="gutter">
+    <MjmlSection paddingLeft={spacing.s7} paddingRight={spacing.s7}>
       <MjmlColumn>
         <SubHeading paddingBottom={spacing.s7}>Inbjudan</SubHeading>
         <Heading fontSize={fontSize.lg}>Frukostföreläsningar & förhandsvisning</Heading>

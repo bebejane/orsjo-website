@@ -21,7 +21,7 @@ export default function Footer({ includeUnsubscribe }: FooterProps) {
       <MjmlSection paddingBottom={spacing.s10}>
         <MjmlColumn width="100%">
           <mj-image width="45px"
-            src="https://www.datocms-assets.com/62617/1673342405-logo-email.png" />
+            src="https://www.datocms-assets.com/62617/1673436119-logo_mail.png" />
         </MjmlColumn>
         <MjmlColumn width="100%" paddingTop={spacing.s6}>
           <SubHeading align="center">
