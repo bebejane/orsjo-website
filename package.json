@@ -22,6 +22,7 @@
 		"@datocms/cma-client-node": "^1.1.8",
 		"@next/bundle-analyzer": "^12.3.1",
 		"@next/env": "^12.3.1",
+		"@types/mjml": "^4.7.0",
 		"@types/mjml-react": "^2.0.6",
 		"@types/react": "^18.0.24",
 		"base-64": "^1.0.0",
@@ -64,6 +65,7 @@
 		"swiper": "^8.4.4",
 		"usehooks-ts": "^2.9.1",
 		"utf-8-validate": "^6.0.0",
+		"uuid": "^9.0.0",
 		"zustand": "^4.1.2"
 	},
 	"devDependencies": {
@@ -84,7 +86,7 @@
 		"@types/react-dom": "^18.0.6",
 		"apollo": "^2.34.0",
 		"encoding": "^0.1.13",
-		"eslint": "7.32.0",
+		"eslint": "7.23.0",
 		"eslint-config-next": "12.0.3",
 		"mailing-core": "^0.9.7",
 		"next-plugin-graphql": "^0.0.2",

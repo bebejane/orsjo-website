@@ -1,4 +1,3 @@
-import React from "react";
 import { MjmlText } from "mjml-react";
 
 type TextProps = {

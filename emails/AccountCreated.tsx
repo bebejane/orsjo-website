@@ -1,4 +1,3 @@
-import React from "react";
 import { MjmlSection, MjmlColumn, MjmlImage } from "mjml-react";
 import { Template } from "mailing-core";
 import Button from "./components/Button";

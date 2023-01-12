@@ -5,8 +5,8 @@ import { buildSendMail } from "mailing-core";
 dotenv.config({ path: `${process.cwd()}/.env.local` })
 
 const opt = {
-  port: process.env.SMTP_PORT,
-  host: process.env.SMTP_SERVER,
+  port: process.env.SMTP_PORT as string,
+  host: process.env.SMTP_SERVER as string,
   auth: {
     user: process.env.SMTP_EMAIL,
     pass: process.env.SMTP_PASSWORD,
