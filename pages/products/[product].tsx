@@ -16,6 +16,7 @@ import type { ProductDownload } from '/lib/utils';
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import Link from 'next/link'
 import { useMediaQuery } from 'usehooks-ts'
+import { firstBy } from 'thenby'
 
 export type ProductProps = {
 	product: ProductRecord,
@@ -347,8 +348,8 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 		props: {
 			...props,
 			product,
-			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort(sort.byTitle).sort(sort.byFamily),
-			productsByCategory: productsByCategory.filter(p => p.id !== product.id).sort(sort.byDesigner).sort(sort.byCategory),
+			relatedProducts: relatedProducts.filter(p => p.id !== product.id).sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
+			productsByCategory: productsByCategory.filter(p => p.id !== product.id).sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
 			relatedProjects,
 			files,
 			drawings,
