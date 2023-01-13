@@ -70,6 +70,7 @@ export default function BaseLayout({
 
           a {
             color: ${colors.white} !important;
+            text-underline-offset: 2px;
           }
           .gutter {
             padding-left: ${spacing.s7}px;

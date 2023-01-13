@@ -16,16 +16,18 @@ export default function Footer({ includeUnsubscribe }: FooterProps) {
           <Divider></Divider>
         </MjmlColumn>
       </MjmlSection>
-      <MjmlSection paddingBottom={spacing.s10}>
+      <MjmlSection >
         <MjmlColumn width="100%">
           <MjmlImage width="45px"
             src="https://www.datocms-assets.com/62617/1673342405-logo-email.png" />
         </MjmlColumn>
+      </MjmlSection>
+      <MjmlSection paddingBottom={spacing.s10}>
         <MjmlColumn width="100%" paddingTop={spacing.s6}>
           <SubHeading align="center">
             <a style={{ textDecoration: 'none', color: 'white' }} href="https://www.instagram.com/orsjo_belysning">Instagram</a> &nbsp; <a style={{ textDecoration: 'none', color: 'white' }} href="https://www.orsjo.com">Website</a> &nbsp; <a style={{ textDecoration: 'none', color: 'white' }} href="https://www.facebook.com/orsjobelysning">Facebook</a>
           </SubHeading>
-          <Text paddingTop={spacing.s3} align="center" fontSize={fontSize.sm} color={colors.neutral500}>Unsubscribe</Text>
+          {includeUnsubscribe && <Text paddingTop={spacing.s3} align="center" fontSize={fontSize.sm} color={colors.neutral500}>Unsubscribe</Text>}
         </MjmlColumn>
       </MjmlSection>
     </>
