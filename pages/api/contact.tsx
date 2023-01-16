@@ -55,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await new Promise((resolve, reject) => {
       transporter.sendMail(mailData, (err, info) => err ? reject(err) : resolve(info))
     })
-    await sendMail({ to: email, subject: 'Contact (auto-reply)', component: <ContactAutoReply name={name} /> })
+    await sendMail({ to: email, from: process.env.SMTP_CONTACT_EMAIL, subject: 'Contact (auto-reply)', component: <ContactAutoReply name={name} /> })
     console.log('sent email from', email);
     res.status(200).json({ success: true })
 
