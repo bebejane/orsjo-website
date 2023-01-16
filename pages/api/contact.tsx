@@ -1,6 +1,8 @@
 import nodemailer from 'nodemailer'
 import * as EmailValidator from 'email-validator';
 import type { NextApiRequest, NextApiResponse } from 'next'
+import sendMail from '/emails';
+import ContactAutoReply from '/emails/ContactAutoReply';
 
 const envKeys = ['SMTP_SERVER', 'SMTP_PORT', 'SMTP_EMAIL', 'SMTP_FROM_EMAIL', 'SMTP_CONTACT_EMAIL']
 
@@ -53,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await new Promise((resolve, reject) => {
       transporter.sendMail(mailData, (err, info) => err ? reject(err) : resolve(info))
     })
-
+    await sendMail({ to: email, subject: 'Contact (auto-reply)', component: <ContactAutoReply name={name} /> })
     console.log('sent email from', email);
     res.status(200).json({ success: true })
 
