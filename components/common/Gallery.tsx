@@ -54,6 +54,8 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
   if (isHidden)
     return null
 
+  console.log(loaded);
+
   return (
     <div className={cn(styles.gallery, images.length <= 1 && styles.noArrows, isSingleSlide && styles.noArrows)}>
       <div className={styles.back} onClick={() => swiperRef.current.slidePrev()}><img src="/images/arrow-light.svg" className={styles.arrow} /></div>
@@ -76,14 +78,14 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
                   data={image.responsiveImage}
                   lazyLoad={false}
                   usePlaceholder={false}
-                  onLoad={() => setLoaded({ ...loaded, [image.id]: true })}
+                  onLoad={() => setLoaded((prevState) => ({ ...prevState, [image.id]: true }))}
                 />
                 :
                 <div className={styles.svg}>
                   <img
                     src={image.url}
                     className={styles.image}
-                    onLoad={() => setLoaded({ ...loaded, [image.id]: true })}
+                    onLoad={() => setLoaded((prevState) => ({ ...prevState, [image.id]: true }))}
                   />
                 </div>
               }

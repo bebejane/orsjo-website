@@ -7,11 +7,11 @@ import Divider from "./Divider";
 
 type HeaderProps = {
   loose?: boolean;
-  openInBroswser: boolean;
+  openInBrowser?: boolean;
   title: string;
 };
 
-const Header: React.FC<HeaderProps> = ({ loose, title, openInBrowser }) => {
+const Header: React.FC<HeaderProps> = ({ loose, title, openInBrowser = false }) => {
   return (
     <>
       <MjmlSection paddingTop={spacing.s9} backgroundColor={colors.black}>
