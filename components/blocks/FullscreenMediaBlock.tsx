@@ -6,13 +6,15 @@ import { VideoPlayer, ArrowLink } from '/components'
 
 export type LayoutProps = { data: FullscreenMediaBlockRecord }
 
-export default function FullscreenMediaBlock({ data: { media, headline, linkRecord, subHeadline }, data }: LayoutProps) {
+export default function FullscreenMediaBlock({ data: { media, headline, linkRecord, subHeadline, readMore }, data }: LayoutProps) {
 
-	const slugBase = linkRecord.__typename === 'DesignerRecord' ? '/designers' : '/products'
+	const { __typename } = linkRecord;
+	const path = __typename === 'DesignerRecord' ? 'designer' : linkRecord.__typename === 'AboutRecord' ? 'about' : 'products'
+	const slug = `${path}/${linkRecord.__typename !== 'AboutRecord' ? linkRecord.slug : ''}`
 	const ref = useRef()
 
 	return (
-		<Link scroll={false} href={`${slugBase}/${linkRecord.slug}`}>
+		<Link scroll={false} href={`/${slug}`}>
 			<a className={styles.fullScreenImage} ref={ref}>
 				<div className={styles.fade}></div>
 				{!media.mimeType.includes('video') ?
@@ -29,7 +31,7 @@ export default function FullscreenMediaBlock({ data: { media, headline, linkReco
 					<div className={styles.headline}>
 						<span className="medium">{subHeadline}</span>
 						<h1 className="start">{headline}</h1>
-						<ArrowLink hoverRef={ref} inverted={true}>View Product</ArrowLink>
+						<ArrowLink hoverRef={ref} inverted={true}>{readMore}</ArrowLink>
 					</div>
 				</div>
 			</a>

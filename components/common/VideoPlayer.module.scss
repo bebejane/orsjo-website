@@ -1,7 +1,41 @@
-.video{
-  position: relative;
-  width: 100%;
+.container {
   height: 100%;
-  object-fit: cover;
-  pointer-events: none;
+
+  .video {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .mute {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    margin: 1rem;
+    cursor: pointer;
+    line-height: 0;
+
+    opacity: 0.7;
+
+    @include mq($from: desktop) {
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &.enabled {
+      opacity: 1;
+    }
+
+    svg {
+      height: 1rem;
+      width: 1rem;
+      filter: invert(1);
+      opacity: 1;
+    }
+  }
 }
