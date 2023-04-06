@@ -12,11 +12,13 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 
 	const [inViewRef, inView] = useInView();
 	const videoRef = useRef<HTMLVideoElement | null>(null);
+	const muteRef = useRef<HTMLDivElement | null>(null);
 	const [active, setActive] = useState(false)
 	const [muted, setMuted] = useState(true)
+	const [muteStyle, setMuteStyle] = useState({ top: '0px', left: '0px', display: 'none' })
 	const [hasAudio, setHasAudio] = useState(false)
-	const [quality, setQuality] = useState<String | null>(null)
-	const { innerWidth } = useWindowSize()
+	const [quality, setQuality] = useState<String | null>('high')
+	const { innerWidth, innerHeight } = useWindowSize()
 
 	const setRefs = useCallback((node) => {
 		console.log('set refs', node)
@@ -33,7 +35,6 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 
 
 	useEffect(() => {
-
 		if (!videoRef.current)
 			return console.log('no video ref')
 
@@ -47,8 +48,9 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	useEffect(() => { setActive(inView) }, [inView])
 	useEffect(() => { setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null) }, [innerWidth])
 
+
 	useEffect(() => {
-		videoRef.current?.addEventListener('loadeddata', () => {
+		videoRef.current.addEventListener('loadeddata', () => {
 			//@ts-ignore
 			if ((typeof videoRef.current.mozHasAudio !== undefined && videoRef.current.mozHasAudio) || (typeof videoRef.current.webkitAudioDecodedByteCount !== undefined && videoRef.current.webkitAudioDecodedByteCount > 0) || Boolean(videoRef.current.audioTracks?.length))
 				setHasAudio(true)
@@ -58,7 +60,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	}, [])
 
 	return (
-		<section className={styles.container}>
+		<div className={styles.container}>
 			<video
 				className={cn(styles.video, className)}
 				src={quality ? data.video[`mp4${quality}`] : undefined}
@@ -70,11 +72,9 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 				disablePictureInPicture={true}
 			//poster={data.video?.thumbnailUrl}
 			/>
-			{hasAudio &&
-				<div className={cn(styles.mute, !muted && styles.enabled)} onClick={handleMute}>
-					{muted ? <SondOff /> : <SoundOn />}
-				</div>
-			}
-		</section >
+			<div ref={muteRef} className={cn(styles.mute, !muted && styles.enabled)} onClick={handleMute}>
+				{muted ? <SondOff /> : <SoundOn />}
+			</div>
+		</div>
 	)
 }
