@@ -292,7 +292,7 @@ const formatDesignerName = (name?: string) => {
 			row.push(words[i - 1])
 		rows.push(row)
 	}
-	return rows.reverse().map((el, i) => <>{el.reverse().join(' ')}{i < rows.length - 1 && <br />}</>)
+	return rows.reverse().map((el, i) => <React.Fragment key={i}>{el.reverse().join(' ')}{i < rows.length - 1 && <br />}</React.Fragment>)
 }
 
 export async function getStaticPaths(context) {
