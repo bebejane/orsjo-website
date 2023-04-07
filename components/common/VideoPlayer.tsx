@@ -8,6 +8,15 @@ import SondOff from '/public/images/sound-off.svg'
 
 export type VideoPlayerProps = { data: FileField, className?: string }
 
+const videoHasAudio = (video) => {
+	if (!video) return false
+	return (
+		video.mozHasAudio ||
+		Boolean(video.webkitAudioDecodedByteCount) ||
+		Boolean(video.audioTracks?.length)
+	);
+}
+
 export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 
 	const [inViewRef, inView] = useInView();
@@ -21,7 +30,6 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	const { innerWidth, innerHeight } = useWindowSize()
 
 	const setRefs = useCallback((node) => {
-		console.log('set refs', node)
 		videoRef.current = node;
 		inViewRef(node);
 	}, [inViewRef]);
@@ -50,14 +58,9 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 
 
 	useEffect(() => {
-		videoRef.current.addEventListener('loadeddata', () => {
-			//@ts-ignore
-			if ((typeof videoRef.current.mozHasAudio !== undefined && videoRef.current.mozHasAudio) || (typeof videoRef.current.webkitAudioDecodedByteCount !== undefined && videoRef.current.webkitAudioDecodedByteCount > 0) || Boolean(videoRef.current.audioTracks?.length))
-				setHasAudio(true)
-			else
-				setHasAudio(false)
-		})
-	}, [])
+		videoRef.current.addEventListener('loadeddata', () => setHasAudio(videoHasAudio(videoRef.current)))
+		setHasAudio(videoHasAudio(videoRef.current))
+	}, [active])
 
 	return (
 		<div className={styles.container}>
@@ -72,9 +75,11 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 				disablePictureInPicture={true}
 			//poster={data.video?.thumbnailUrl}
 			/>
-			<div ref={muteRef} className={cn(styles.mute, !muted && styles.enabled)} onClick={handleMute}>
-				{muted ? <SondOff /> : <SoundOn />}
-			</div>
+			{hasAudio &&
+				<div ref={muteRef} className={cn(styles.mute, !muted && styles.enabled)} onClick={handleMute}>
+					{muted ? <SondOff /> : <SoundOn />}
+				</div>
+			}
 		</div>
 	)
 }
