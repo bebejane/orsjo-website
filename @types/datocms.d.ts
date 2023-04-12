@@ -303,6 +303,7 @@ type ColorField = {
   __typename?: 'ColorField';
   alpha: Scalars['IntType'];
   blue: Scalars['IntType'];
+  cssRgb: Scalars['String'];
   green: Scalars['IntType'];
   hex: Scalars['String'];
   red: Scalars['IntType'];

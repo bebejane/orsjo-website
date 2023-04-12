@@ -41,7 +41,6 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 		setMuted(videoRef.current.muted)
 	}
 
-
 	useEffect(() => {
 		if (!videoRef.current)
 			return console.log('no video ref')
@@ -56,14 +55,13 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	useEffect(() => { setActive(inView) }, [inView])
 	useEffect(() => { setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null) }, [innerWidth])
 
-
 	useEffect(() => {
 		videoRef.current.addEventListener('loadeddata', () => setHasAudio(videoHasAudio(videoRef.current)))
 		setHasAudio(videoHasAudio(videoRef.current))
 	}, [active])
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} style={{ width: '100%', height: '100%', position: 'relative' }}>
 			<video
 				className={cn(styles.video, className)}
 				src={quality ? data.video[`mp4${quality}`] : undefined}
