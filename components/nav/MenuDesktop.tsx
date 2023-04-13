@@ -1,6 +1,6 @@
 import styles from './MenuDesktop.module.scss'
 import cn from 'classnames'
-import Link from 'next/link'
+import Link from '/components/nav/Link'
 import { useRouter } from 'next/router'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useStore, shallow } from '/lib/store'

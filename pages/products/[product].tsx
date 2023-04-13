@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 import type { PageProps } from '/lib/context/page';
 import type { ProductDownload } from '/lib/utils';
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
-import Link from 'next/link'
+import Link from '/components/nav/Link'
 import { useMediaQuery } from 'usehooks-ts'
 import { firstBy } from 'thenby'
 

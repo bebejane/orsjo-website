@@ -1,6 +1,6 @@
 import styles from './NewsItem.module.scss'
 import React from 'react'
-import Link from 'next/link'
+import Link from '/components/nav/Link'
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { ArrowLink } from '/components'
 import { useRef } from 'react'

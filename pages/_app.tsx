@@ -7,7 +7,7 @@ import { useStore, shallow } from '/lib/store'
 import { useWindowSize } from 'rooks';
 import { sleep, waitForElement, scrollToId } from '/lib/utils';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
-//import { useTransitionFix } from 'dato-nextjs-utils/hooks'
+import { useTransitionFix } from 'dato-nextjs-utils/hooks'
 import useNextCssRemovalPrevention from '/lib/hooks/useNextCssRemovalPrevention';
 import useFoucFix from '/lib/hooks/useFoucFix';
 import { AnimatePresence } from "framer-motion";
@@ -41,7 +41,9 @@ const handleHashChange = async (url: string, instant: boolean) => {
 
 function Application({ Component, pageProps, router }: ApplicationProps) {
 
-  useNextCssRemovalPrevention()
+  //useNextCssRemovalPrevention()
+  useTransitionFix()
+
   const [transitioning] = useStore((state) => [state.transitioning, state.setShowMenu], shallow)
   const { innerWidth } = useWindowSize()
 
@@ -80,16 +82,13 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
         path={router.asPath}
       />
       <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
-      <AnimatePresence exitBeforeEnter initial={true}>
-        <div id="app" key={pathname}>
-          <PageProvider value={page}>
-            <Layout menu={menu} title={pageTitle}>
-              <Component {...pageProps} />
-              <PageTransition />
-            </Layout>
-          </PageProvider>
-        </div>
-      </AnimatePresence>
+
+      <PageProvider value={page}>
+        <Layout menu={menu} title={pageTitle}>
+          <Component {...pageProps} />
+          <PageTransition />
+        </Layout>
+      </PageProvider>
     </>
   )
 }

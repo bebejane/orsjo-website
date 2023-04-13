@@ -1,7 +1,7 @@
 import styles from './Thumbnail.module.scss'
 import cn from 'classnames'
 import { Image } from 'react-datocms'
-import Link from 'next/link'
+import Link from '/components/nav/Link'
 import { useState } from 'react'
 
 export type ThumbnailProps = {

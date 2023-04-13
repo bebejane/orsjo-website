@@ -1,7 +1,7 @@
 import styles from './press.module.scss'
 import { AllPressDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
-import Link from 'next/link'
+import Link from '/components/nav/Link'
 import { Image } from 'react-datocms'
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';

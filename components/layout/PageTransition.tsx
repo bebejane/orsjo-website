@@ -68,36 +68,39 @@ export default function PageTransition() {
 	const [color, setColor] = useState(pathToColor(router.asPath))
 	const prevRoute = usePreviousRoute();
 
-	const [setTransitioning] = useStore((state) => [state.setTransitioning], shallow)
+	const [setTransitioning, transitioning, url, setUrl] = useStore((state) => [state.setTransitioning, state.transitioning, state.url, state.setUrl], shallow)
 
 	const handleAnimationEvent = async (type, variant) => {
 
 		if (typeof variant !== 'string') return
-
-		if (variant.startsWith('exit'))
+		if (variant.startsWith('exit')) {
+			//setUrl(undefined)
 			setTransitioning(type === 'start')
+
+		}
+		if (variant.startsWith('exit') && type === 'complete') {
+			console.log('doooooooooone', variant)
+			router.push(url)
+			setTimeout(() => setUrl(undefined), 300)
+		}
 	}
 
 	useEffect(() => {
-		const handleRouteChange = (url, { shallow }) => {
-			const isSameSection = document.location.pathname.split('/')[1] === url.split('/')[1]
-			setColor(!isSameSection ? pathToColor(url) : undefined)
-		};
-		router.events.on("routeChangeStart", handleRouteChange);
-		return () => router.events.off("routeChangeStart", handleRouteChange)
-	}, [router.events, setColor]);
+		if (!url) return
+		const isSameSection = document.location.pathname.split('/')[1] === url.split('/')[1]
+		setColor(!isSameSection ? pathToColor(url) : undefined)
+
+	}, [url]);
 
 
-	const enterAnimation = !prevRoute ? "none" : !color ? "enterInstant" : "enter"
-	const exitAnimation = !color ? "exitInstant" : "exit"
+	const animation = !prevRoute && !url ? "enter" : !url ? 'enter' : "exit"
 
 	return (
 		<motion.div
 			className={styles.pageTransition}
 			variants={pageTransition}
 			initial="initial"
-			animate={enterAnimation}
-			exit={exitAnimation}
+			animate={animation}
 			onAnimationComplete={(variant) => handleAnimationEvent('complete', variant)}
 			onAnimationStart={(variant) => handleAnimationEvent('start', variant)}
 			style={{ backgroundColor: color ? `rgba(var(${color}))` : undefined }}

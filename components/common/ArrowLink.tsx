@@ -2,11 +2,11 @@ import styles from './ArrowLink.module.scss'
 import cn from 'classnames'
 import Arrow from '/public/images/arrow.svg'
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
+import Link from '/components/nav/Link'
 
-export type ArrowLinkProps = { 
-  title?:string,
-  href?:string,
+export type ArrowLinkProps = {
+  title?: string,
+  href?: string,
   inverted?: boolean,
   reversed?: boolean,
   hoverRef?: React.MutableRefObject<HTMLElement>
@@ -14,13 +14,13 @@ export type ArrowLinkProps = {
 }
 
 export default function ArrowLink({ children, title, href, hoverRef, inverted = false, reversed = false }: ArrowLinkProps) {
-  
-  const [hover, setHover] = useState(false)
-  const handleHover = ({type}) => setHover(['mousemove', 'mouseenter'].includes(type))
 
-  useEffect(()=>{
-    if(!hoverRef?.current) return 
-    
+  const [hover, setHover] = useState(false)
+  const handleHover = ({ type }) => setHover(['mousemove', 'mouseenter'].includes(type))
+
+  useEffect(() => {
+    if (!hoverRef?.current) return
+
     const ref = hoverRef.current;
 
     ref.addEventListener('mousemove', handleHover)
@@ -35,12 +35,12 @@ export default function ArrowLink({ children, title, href, hoverRef, inverted = 
   }, [hoverRef])
 
   const className = cn(styles.arrowLink, 'medium', inverted && styles.inverted, reversed && styles.reversed, hover && styles.hover)
-  
+
   return (
     <div className={className}>
-      <span  onMouseEnter={handleHover} onMouseLeave={handleHover}>
+      <span onMouseEnter={handleHover} onMouseLeave={handleHover}>
         <Arrow className={styles.arrow} />{title || children}
       </span>
     </div>
-	)
+  )
 }

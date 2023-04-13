@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
-import Link from 'next/link';
+import Link from '/components/nav/Link';
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { useApiQuery } from 'dato-nextjs-utils/hooks'
 import { AllNewsDocument } from '/graphql';

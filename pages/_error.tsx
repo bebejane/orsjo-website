@@ -1,5 +1,5 @@
 import s from './_error.module.scss'
-import Link from 'next/link'
+import Link from '/components/nav/Link'
 
 function Error({ statusCode }) {
   return (
