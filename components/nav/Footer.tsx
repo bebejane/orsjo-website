@@ -56,9 +56,7 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 														</AnchorLink>
 														:
 														<Link scroll={false} key={subidx} href={subItem.slug}>
-															<a>
-																<li>{subItem.label}</li>
-															</a>
+															<li>{subItem.label}</li>
 														</Link>
 												})}
 											</>

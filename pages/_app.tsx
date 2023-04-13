@@ -42,7 +42,7 @@ const handleHashChange = async (url: string, instant: boolean) => {
 function Application({ Component, pageProps, router }: ApplicationProps) {
 
   //useNextCssRemovalPrevention()
-  useTransitionFix()
+  //useTransitionFix()
 
   const [transitioning] = useStore((state) => [state.transitioning, state.setShowMenu], shallow)
   const { innerWidth } = useWindowSize()
