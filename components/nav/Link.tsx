@@ -14,8 +14,7 @@ export type Props = {
 
 export default function Link({ href, className, children, prefetch, scroll, passHref }: Props) {
 
-  const router = useRouter()
-  const [url, setUrl, transitioning] = useStore((state) => [state.url, state.setUrl, state.transitioning], shallow)
+  const [setUrl] = useStore((state) => [state.setUrl], shallow)
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
     setUrl(href)

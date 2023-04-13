@@ -103,6 +103,7 @@ export default function PageTransition() {
 			animate={animation}
 			onAnimationComplete={(variant) => handleAnimationEvent('complete', variant)}
 			onAnimationStart={(variant) => handleAnimationEvent('start', variant)}
+			//@ts-ignore
 			style={{ backgroundColor: color ? `rgba(var(${color}))` : undefined }}
 		>
 		</motion.div>
