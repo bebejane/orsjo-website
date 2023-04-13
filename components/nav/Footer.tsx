@@ -51,14 +51,12 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 													const isAnchorLink = subItem.slug.indexOf('#') > -1
 
 													return isAnchorLink ?
-														<AnchorLink key={subidx} href={subItem.slug}>
+														<Link key={subidx} href={subItem.slug}>
 															<li>{subItem.label}</li>
-														</AnchorLink>
+														</Link>
 														:
 														<Link scroll={false} key={subidx} href={subItem.slug}>
-															<a>
-																<li>{subItem.label}</li>
-															</a>
+															<li>{subItem.label}</li>
 														</Link>
 												})}
 											</>

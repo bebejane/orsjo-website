@@ -6,9 +6,7 @@ export default function FourOhFour() {
     <div className={s.container}>
       <h1>404 - Page Not Found</h1>
       <Link prefetch={false} href="/">
-        <a>
-          Go back home
-        </a>
+        Go back home
       </Link>
     </div>
   )

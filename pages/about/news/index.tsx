@@ -39,9 +39,7 @@ export default function News({ news, pagination }: NewsProps) {
 					</div>
 					<div className={styles.post}>
 						<Link href={`/about/news/${slug}`}>
-							<a>
-								<h1 className="copper">{title}</h1>
-							</a>
+							<h1 className="copper">{title}</h1>
 						</Link>
 						{image && <Image data={image.responsiveImage} className={styles.image} />}
 						<Markdown className={styles.text}>{text}</Markdown>

@@ -14,27 +14,26 @@ export default function FullscreenMediaBlock({ data: { media, headline, linkReco
 	const ref = useRef()
 
 	return (
-		<Link scroll={false} href={`/${slug}`}>
-			<a className={styles.fullScreenImage} ref={ref}>
-				<div className={styles.fade}></div>
-				{!media.mimeType.includes('video') ?
-					<Image
-						className={styles.image}
-						data={media?.responsiveImage}
-						layout="fill"
-						objectFit="cover"
-					/>
-					:
-					<VideoPlayer data={media} />
-				}
-				<div className={styles.wrapper}>
-					<div className={styles.headline}>
-						<span className="medium">{subHeadline}</span>
-						<h1 className="start">{headline}</h1>
-						<ArrowLink hoverRef={ref} inverted={true}>{readMore}</ArrowLink>
-					</div>
+		<Link scroll={false} href={`/${slug}`} className={styles.fullScreenImage} ref={ref}>
+
+			<div className={styles.fade}></div>
+			{!media.mimeType.includes('video') ?
+				<Image
+					className={styles.image}
+					data={media?.responsiveImage}
+					layout="fill"
+					objectFit="cover"
+				/>
+				:
+				<VideoPlayer data={media} />
+			}
+			<div className={styles.wrapper}>
+				<div className={styles.headline}>
+					<span className="medium">{subHeadline}</span>
+					<h1 className="start">{headline}</h1>
+					<ArrowLink hoverRef={ref} inverted={true}>{readMore}</ArrowLink>
 				</div>
-			</a>
+			</div>
 		</Link>
 	)
 }

@@ -1,6 +1,6 @@
-//import Link from "next/link";
+import Link from "next/link";
 //import { useRouter } from "next/router";
-export default function AnchorLink(props){
+export default function AnchorLink(props) {
   /*  
   const router = useRouter()
 
@@ -31,6 +31,6 @@ export default function AnchorLink(props){
     
   }
   */
-  //return <Link href={props.href} scroll={false}><a {...props}  onClick={handleClick}>{props.children}</a></Link>
-  return <a {...props}>{props.children}</a>
+  return <Link href={props.href} scroll={false} {...props}>{props.children}</Link>
+  //return <a {...props}>{props.children}</a>
 }

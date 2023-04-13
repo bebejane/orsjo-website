@@ -3,6 +3,7 @@
 yarn.lock
 package-lock.json
 /public/sitemap*
+/public/robots.txt
 /uploads*
 /migrations/data
 docs

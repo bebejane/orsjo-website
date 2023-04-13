@@ -14,27 +14,23 @@ export default function ImageLink({ data: { firstImage, firstHeadline, firstLink
 
 	return (
 		<section className={styles.imageLink}>
-			<Link scroll={false} href={firstLink}>
-				<a ref={refOne}>
-					<figure>
-						<Image className={styles.image} data={firstImage?.responsiveImage} layout="fill" objectFit="cover" />
-						<figcaption>
-							<h1>{firstHeadline}</h1>
-							<ArrowLink hoverRef={refOne} inverted={true}>{firstLinkText}</ArrowLink>
-						</figcaption>
-					</figure>
-				</a>
+			<Link scroll={false} href={firstLink} ref={refOne}>
+				<figure>
+					<Image className={styles.image} data={firstImage?.responsiveImage} layout="fill" objectFit="cover" />
+					<figcaption>
+						<h1>{firstHeadline}</h1>
+						<ArrowLink hoverRef={refOne} inverted={true}>{firstLinkText}</ArrowLink>
+					</figcaption>
+				</figure>
 			</Link>
-			<Link scroll={false} href={secondLink}>
-				<a ref={refTwo}>
-					<figure>
-						<Image className={styles.image} data={secondImage?.responsiveImage} layout="fill" objectFit="cover" />
-						<figcaption>
-							<h1>{secondHeadline}</h1>
-							<ArrowLink hoverRef={refTwo} inverted={true}>{secondLinkText}</ArrowLink>
-						</figcaption>
-					</figure>
-				</a>
+			<Link scroll={false} href={secondLink} ref={refTwo}>
+				<figure>
+					<Image className={styles.image} data={secondImage?.responsiveImage} layout="fill" objectFit="cover" />
+					<figcaption>
+						<h1>{secondHeadline}</h1>
+						<ArrowLink hoverRef={refTwo} inverted={true}>{secondLinkText}</ArrowLink>
+					</figcaption>
+				</figure>
 			</Link>
 		</section>
 	)

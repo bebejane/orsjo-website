@@ -5,11 +5,11 @@ export default function useNextCssRemovalPrevention() {
 	const router = useRouter()
 
 	React.useEffect(() => {
+
 		console.log('useNextCssRemovalPrevention')
 		// Remove data-n-p attribute from all link nodes.
 		// This prevents Next.js from removing server rendered stylesheets.
 		document.querySelectorAll('head > link[data-n-p]').forEach(linkNode => {
-			console.log(linkNode)
 			linkNode.removeAttribute('data-n-p');
 		});
 
@@ -20,13 +20,16 @@ export default function useNextCssRemovalPrevention() {
 					// and remove data-n-href and media attributes from those nodes.
 					// This prevents Next.js from removing or disabling dynamic stylesheets.
 					addedNodes.forEach(node => {
+
 						const el = node as Element;
 						if (el.nodeName === 'STYLE' && el.hasAttribute('data-n-href')) {
+
 							const href = el.getAttribute('data-n-href');
 							if (href) {
 								el.setAttribute('data-n-href-perm', href);
 								el.removeAttribute('data-n-href');
 								el.removeAttribute('media');
+								console.log('set data-n-href-perm', href)
 							}
 						}
 					});
@@ -42,8 +45,10 @@ export default function useNextCssRemovalPrevention() {
 							if (href) {
 								if (requiredHrefs.has(href)) {
 									el.parentNode!.removeChild(el);
+									console.log('remove duplicate', href)
 								} else {
 									requiredHrefs.add(href);
+									console.log('add duplicate', href)
 								}
 							}
 						} else {
