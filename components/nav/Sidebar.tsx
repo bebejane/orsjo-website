@@ -4,10 +4,11 @@ import { useStore, shallow } from '/lib/store';
 import { useRouter } from 'next/router';
 import { usePage } from '/lib/context/page'
 import { useEffect, useState, useCallback, useRef } from 'react'
-import { ArrowLink, AnchorLink } from '/components'
+import { ArrowLink } from '/components'
 import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { styleVariables } from '/lib/utils';
 import { useWindowSize } from 'rooks';
+import Link from 'next/link';
 
 export type SidebarProps = { title: string, show: boolean }
 
@@ -22,7 +23,7 @@ export default function Sidebar({ title, show }: SidebarProps) {
 	const router = useRouter()
 	const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath
 	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore((state) => [state.currentSection, state.setCurrentSection, state.invertSidebar, state.searchProducts, state.setSearchProducts], shallow);
-	const [setInvertSidebar, setInvertMenu] = useStore((state) => [state.setInvertSidebar, state.setInvertMenu], shallow);
+	const [setInvertMenu] = useStore((state) => [state.setInvertMenu], shallow);
 	const [inverted, setInverted] = useState(menu === 'inverted' || invertSidebar)
 	const [sections, setSections] = useState([])
 	const [pageType, setPageType] = useState<string | undefined>(getPageType(router.pathname))
@@ -57,7 +58,7 @@ export default function Sidebar({ title, show }: SidebarProps) {
 
 	useEffect(() => {
 
-		const isDesktop = innerWidth > styleVariables.tablet
+		const isDesktop = innerWidth > parseInt(styleVariables.tablet as string)
 		const section = document.getElementById(currentSection)
 		const header = document.getElementById('sidebar-header')
 
@@ -100,14 +101,14 @@ export default function Sidebar({ title, show }: SidebarProps) {
 				<ul>
 					{sections?.map((section, idx) =>
 						<li key={idx}>
-							<AnchorLink
+							<a
 								href={`${pathname}#${section.id}`}
 								data-section-id={section.id}
 								className={cn(section.id === currentSection && styles.active)}
 								onClick={handleClick}
 							>
 								{section.title}
-							</AnchorLink>
+							</a>
 						</li>
 					)}
 					<li className={cn(styles.search, pageType === 'products' && styles.show)}>

@@ -4,7 +4,6 @@ import Link from 'next/link'
 import type { MenuItem } from '/lib/menu'
 import social from '/lib/social'
 import { usePage } from '/lib/context/page'
-import { AnchorLink } from '/components'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import useStore, { shallow } from '/lib/store'
@@ -13,7 +12,7 @@ export type FooterProps = { menu: MenuItem[] }
 
 export default function Footer({ menu: menuFromProps }: FooterProps) {
 
-	const router = useRouter()
+	const { asPath } = useRouter()
 	const [menu, setMenu] = useState<MenuItem[]>([...menuFromProps])
 	const { footerLine } = usePage()
 	const maxLength = menu[0].sub.length
@@ -47,17 +46,17 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 											<>
 												<li>{item.label}</li>
 												{item.sub?.map((subItem, subidx) => {
-													const endReached = subidx === maxLength;
-													const isAnchorLink = subItem.slug.indexOf('#') > -1
-
-													return isAnchorLink ?
-														<Link key={subidx} href={subItem.slug}>
-															<li>{subItem.label}</li>
-														</Link>
-														:
-														<Link scroll={false} key={subidx} href={subItem.slug}>
-															<li>{subItem.label}</li>
-														</Link>
+													const localAnchorLink = subItem.slug.indexOf('#') > -1 && ['/products', '/contact'].includes(asPath.split('#')[0])
+													return (
+														localAnchorLink ?
+															<a href={subItem.slug} key={subidx}>
+																<li>{subItem.label}</li>
+															</a>
+															:
+															<Link scroll={false} key={subidx} href={subItem.slug} passHref={true}>
+																<li>{subItem.label}</li>
+															</Link>
+													)
 												})}
 											</>
 										</ul>

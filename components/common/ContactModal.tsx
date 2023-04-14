@@ -77,8 +77,8 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
               Vi har samlat de vanligaste frågorna med svar på vår <a href="https://www.orsjo.com/support/faq">FAQ-sida.</a>
             </p>
             <p className="medium">
-              <span>NOTE!</span> We're not able to offer techical support for private customers, intead, please contact one of our <a href="https://www.orsjo.com/contact#retailers">retailers</a>.
-              We've collected the most common questions on our <a href="https://www.orsjo.com/support/faq">FAQ page.</a>
+              <span>NOTE!</span> We&apos;re not able to offer techical support for private customers, intead, please contact one of our <a href="https://www.orsjo.com/contact#retailers">retailers</a>.
+              We&apos;ve collected the most common questions on our <a href="https://www.orsjo.com/support/faq">FAQ page.</a>
             </p>
           </div>
 

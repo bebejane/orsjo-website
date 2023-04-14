@@ -13,7 +13,7 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 
 	return (
 		<section className={styles.news}>
-			<Link scroll={false} href={`/about/news/${slug}`} className="medium white" ref={ref}>
+			<Link scroll={false} href={`/about/news/${slug}`} className="medium white" ref={ref} passHref={true}>
 				<h1>News</h1>
 				<span className={styles.text}>
 					<h1 className={styles.title}>{title}</h1>

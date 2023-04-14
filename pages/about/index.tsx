@@ -34,7 +34,7 @@ export default function About({ about: { title, video, intro, sections } }: Abou
 				</Markdown>
 			</Section>
 			<Section className={styles.blocks} type="full">
-				{sections.map(({ text, image, video }, idx) =>
+				{sections.map(({ text, video }, idx) =>
 					<div className={styles.block} key={idx}>
 						<div className={styles.left}>
 							<Markdown className={cn(styles.text, "large")}>
@@ -42,16 +42,10 @@ export default function About({ about: { title, video, intro, sections } }: Abou
 							</Markdown>
 						</div>
 						<div className={styles.right}>
-							{video ?
-								<VideoPlayer
-									className={styles.video}
-									data={video}
-								/>
-								: image ?
-									<Image data={image.responsiveImage} className={styles.image} />
-									:
-									null
-							}
+							<VideoPlayer
+								className={styles.video}
+								data={video}
+							/>
 						</div>
 					</div>
 				)}

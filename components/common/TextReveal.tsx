@@ -9,10 +9,8 @@ import { useMediaQuery } from 'usehooks-ts'
 const childrenToText = (children: React.ReactNode) => {
 
   const chars = Children.toArray(children).map(c =>
-    typeof c === 'string' ?
-      [c]
-      :
-      c.props.children.map(c2 => typeof c2 === 'string' ? c2 : c2.type === 'br' ? '\n' : '')
+    //@ts-ignore
+    typeof c === 'string' || typeof c === 'number' ? [c] : c.props.children.map(c2 => typeof c2 === 'string' ? c2 : c2.type === 'br' ? '\n' : '')
   )
   return chars.filter(arr => arr.join('')).map(arr => arr.join('')).join('')
 }

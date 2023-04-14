@@ -14,7 +14,7 @@ export default function ImageLink({ data: { firstImage, firstHeadline, firstLink
 
 	return (
 		<section className={styles.imageLink}>
-			<Link scroll={false} href={firstLink} ref={refOne}>
+			<Link scroll={false} href={firstLink} ref={refOne} passHref={true}>
 				<figure>
 					<Image className={styles.image} data={firstImage?.responsiveImage} layout="fill" objectFit="cover" />
 					<figcaption>
@@ -23,7 +23,7 @@ export default function ImageLink({ data: { firstImage, firstHeadline, firstLink
 					</figcaption>
 				</figure>
 			</Link>
-			<Link scroll={false} href={secondLink} ref={refTwo}>
+			<Link scroll={false} href={secondLink} ref={refTwo} passHref={true}>
 				<figure>
 					<Image className={styles.image} data={secondImage?.responsiveImage} layout="fill" objectFit="cover" />
 					<figcaption>

@@ -22,16 +22,14 @@ export default function Logo({ inverted = false }: Props) {
   const isStatic = (prevRoute !== null && router.asPath !== '/')
 
   useEffect(() => {
-    if (transitioning)
-      return
     const r = Math.min(1, scrolledPosition / (viewportHeight / 2))
     const characters = text.length - Math.ceil(4 * r)
     setCharacters(characters)
-  }, [scrolledPosition, viewportHeight, setCharacters, prevRoute, transitioning])
+  }, [scrolledPosition, viewportHeight, setCharacters, prevRoute])
 
 
   return (
-    <Link scroll={false} href="/" className={styles.logo} style={{ fontFamily: "'logo', Helvetica, sans-serif" }}>
+    <Link href="/" className={styles.logo} style={{ fontFamily: "'logo', Helvetica, sans-serif" }} scroll={false}>
       {text.slice(0, isStatic ? 1 : text.length).map((c, idx) =>
         <span
           key={idx}

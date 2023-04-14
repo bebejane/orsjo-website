@@ -23,11 +23,11 @@ export default function Text({ data: { text } }: TextBlockProps) {
         renderInlineRecord={({ record }) => {
           switch (record.__typename) {
             case 'ProductRecord':
-              return <Link scroll={false} href={`/products/${record.slug}`}>{record.title}</Link>
+              return <Link scroll={false} href={`/products/${record.slug}`} passHref={true}>{record.title as string}</Link>
             case 'ProjectRecord':
-              return <Link scroll={false} href={`/professionals/projects/${record.slug}`}>{record.title}</Link>
+              return <Link scroll={false} href={`/professionals/projects/${record.slug}`} passHref={true}>{record.title as string}</Link>
             case 'DesignerRecord':
-              return <Link scroll={false} href={`/designers/${record.slug}`}>{record.name}</Link>
+              return <Link scroll={false} href={`/designers/${record.slug}`} passHref={true}>{record.name as string}</Link>
             default:
               return null;
           }
@@ -35,11 +35,11 @@ export default function Text({ data: { text } }: TextBlockProps) {
         renderLinkToRecord={({ record, children, transformedMeta }) => {
           switch (record.__typename) {
             case 'ProductRecord':
-              return <Link scroll={false} href={`/products/${record.slug}`}>{children}</Link>
+              return <Link scroll={false} href={`/products/${record.slug}`} passHref={true}>{children}</Link>
             case 'ProjectRecord':
-              return <Link scroll={false} href={`/professionals/projects/${record.slug}`}>{children}</Link>
+              return <Link scroll={false} href={`/professionals/projects/${record.slug}`} passHref={true}>{children}</Link>
             case 'DesignerRecord':
-              return <Link scroll={false} href={`/designers/${record.slug}`}>{children}</Link>
+              return <Link scroll={false} href={`/designers/${record.slug}`} passHref={true}>{children}</Link>
             default:
               return null;
           }

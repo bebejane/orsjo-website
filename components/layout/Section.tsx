@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React from 'react'
 import styles from './Section.module.scss'
 import cn from 'classnames'
 import { sectionId } from '/lib/utils'
-import { usePage } from '/lib/context/page'
 import { useInView } from 'react-intersection-observer';
 
 export type SectionProps = {

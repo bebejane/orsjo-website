@@ -33,6 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const transporter = nodemailer.createTransport({
+      //@ts-ignore
       port: process.env.SMTP_PORT,
       host: process.env.SMTP_SERVER,
       auth: {
