@@ -1,14 +1,17 @@
 import styles from './manuals.module.scss'
 import withGlobalProps from "/lib/withGlobalProps";
 import cn from 'classnames'
-import { AllProductManualsDocument } from '/graphql';
+import { AllProductManualsDocument, ManualsIntroDocument } from '/graphql';
 import { PageProps } from '/lib/context/page';
 import { Section, Icon } from '/components'
 import { useEffect, useState, useRef } from 'react'
 
-export type ManualsProps = { products: ProductRecord[] }
+export type ManualsProps = {
+	products: ProductRecord[]
+	manual: ManualRecord
+}
 
-export default function Manuals({ products }: ManualsProps) {
+export default function Manuals({ products, manual }: ManualsProps) {
 
 	const [search, setSeatch] = useState<string>();
 	const [results, setResults] = useState<ProductRecord[]>(products);
@@ -26,8 +29,8 @@ export default function Manuals({ products }: ManualsProps) {
 	return (
 		<>
 			<Section name="Introduction" className={styles.intro} top={true}>
-				<h1 className="topMargin">Manuals</h1>
-				<p>Search by product name to find assemly instructions for your Örsjö lighting product.</p>
+				<h1 className="topMargin">{manual.title}</h1>
+				<p>{manual.intro}</p>
 			</Section>
 			<Section className={styles.manuals} bottom={true}>
 				<div className={styles.search}>
@@ -66,7 +69,7 @@ export default function Manuals({ products }: ManualsProps) {
 
 Manuals.page = { title: 'Manuals', layout: 'normal', color: '--copper', menu: 'inverted' } as PageProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllProductManualsDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllProductManualsDocument, ManualsIntroDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props: {

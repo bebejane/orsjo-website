@@ -207,6 +207,7 @@ type BooleanFilter = {
 };
 
 type CatalogueModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CatalogueModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CatalogueModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -342,6 +343,7 @@ type ColorMaterialIntroRecordintroArgs = {
 };
 
 type ColorMaterialModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ColorMaterialModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ColorMaterialModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -419,6 +421,7 @@ type ColorMaterialRecord_seoMetaTagsArgs = {
 };
 
 type ColorMaterialTypeModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -553,6 +556,7 @@ type ContactRecordshowroomIntroArgs = {
 };
 
 type CountryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CountryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CountryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -657,6 +661,7 @@ type CreatedAtFilter = {
 };
 
 type DesignerModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -747,6 +752,7 @@ type DesignerRecorddescriptionArgs = {
 };
 
 type DistributorModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<DistributorModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<DistributorModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -910,6 +916,7 @@ type FactoryVisitRecordintroArgs = {
 };
 
 type FaqCategoryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<FaqCategoryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<FaqCategoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -979,6 +986,7 @@ type FaqCategoryRecord_seoMetaTagsArgs = {
 };
 
 type FaqModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<FaqModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<FaqModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -1549,6 +1557,14 @@ type ImgixParams = {
    */
   bg?: InputMaybe<Scalars['String']>;
   /**
+   * Background Removal
+   *
+   * Removes background from image.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background-removal/bg-remove)
+   */
+  bgRemove?: InputMaybe<Scalars['BooleanType']>;
+  /**
    * Blend
    *
    * Specifies the location of the blend image.
@@ -2001,6 +2017,18 @@ type ImgixParams = {
    */
   fpZ?: InputMaybe<Scalars['FloatType']>;
   /**
+   * Frames Per Second
+   *
+   * Specifies the framerate of the generated image.
+   */
+  fps?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Frame Selection
+   *
+   * Specifies the frame of an animated image to use.
+   */
+  frame?: InputMaybe<Scalars['String']>;
+  /**
    * Gamma
    *
    * Adjusts the gamma of the source image.
@@ -2008,6 +2036,12 @@ type ImgixParams = {
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/gam)
    */
   gam?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Animated Gif Quality
+   *
+   * Depends on: `fm=gif`
+   */
+  gifQ?: InputMaybe<Scalars['IntType']>;
   /**
    * Grid Colors
    *
@@ -2057,6 +2091,12 @@ type ImgixParams = {
    */
   hue?: InputMaybe<Scalars['IntType']>;
   /**
+   * Frame Interval
+   *
+   * Displays every Nth frame starting with the first frame.
+   */
+  interval?: InputMaybe<Scalars['IntType']>;
+  /**
    * Invert
    *
    * Inverts the colors on the source image.
@@ -2070,6 +2110,12 @@ type ImgixParams = {
    * Determine if IPTC data should be passed for JPEG images.
    */
   iptc?: InputMaybe<ImgixParamsIptc>;
+  /**
+   * Animation Loop Count
+   *
+   * Specifies the number of times an animated image should repeat. A value of 0 means infinite looping.
+   */
+  loop?: InputMaybe<Scalars['IntType']>;
   /**
    * Lossless Compression
    *
@@ -2397,6 +2443,12 @@ type ImgixParams = {
    */
   rect?: InputMaybe<Scalars['String']>;
   /**
+   * Reverse
+   *
+   * Reverses the frame order on the source animation.
+   */
+  reverse?: InputMaybe<Scalars['BooleanType']>;
+  /**
    * Rotation
    *
    * Rotates an image by a specified number of degrees.
@@ -2436,6 +2488,12 @@ type ImgixParams = {
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sharp)
    */
   sharp?: InputMaybe<Scalars['FloatType']>;
+  /**
+   * Frame Skip
+   *
+   * Skips every Nth frame starting with the first frame.
+   */
+  skip?: InputMaybe<Scalars['IntType']>;
   /**
    * Transparency
    *
@@ -2910,6 +2968,7 @@ enum ItemStatus {
 }
 
 type JobModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<JobModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<JobModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3129,6 +3188,7 @@ type NewsItemRecord_seoMetaTagsArgs = {
 };
 
 type NewsModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<NewsModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<NewsModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3242,6 +3302,7 @@ type PositionFilter = {
 };
 
 type PressModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<PressModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<PressModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3315,6 +3376,7 @@ type PressRecord_seoMetaTagsArgs = {
 };
 
 type ProductAccessoryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductAccessoryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductAccessoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3399,6 +3461,7 @@ type ProductAccessoryRecordnameArgs = {
 };
 
 type ProductCategoryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductCategoryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductCategoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3523,6 +3586,7 @@ type ProductCategoryRecordnamePluralArgs = {
 };
 
 type ProductColorModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductColorModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductColorModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3607,6 +3671,7 @@ type ProductColorRecordnameArgs = {
 };
 
 type ProductConnectionModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductConnectionModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductConnectionModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3691,6 +3756,7 @@ type ProductConnectionRecordnameArgs = {
 };
 
 type ProductDimmableModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductDimmableModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductDimmableModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3775,6 +3841,7 @@ type ProductDimmableRecordnameArgs = {
 };
 
 type ProductElectricalModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductElectricalModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductElectricalModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3859,6 +3926,7 @@ type ProductElectricalRecordnameArgs = {
 };
 
 type ProductFamilyModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductFamilyModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductFamilyModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3928,6 +3996,7 @@ type ProductFamilyRecord_seoMetaTagsArgs = {
 };
 
 type ProductFeatureModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductFeatureModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductFeatureModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4012,6 +4081,7 @@ type ProductFeatureRecordnameArgs = {
 };
 
 type ProductLightsourceModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductLightsourceModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductLightsourceModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4104,6 +4174,7 @@ type ProductLightsourceRecordnameArgs = {
 };
 
 type ProductMaterialModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductMaterialModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductMaterialModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4188,6 +4259,7 @@ type ProductMaterialRecordnameArgs = {
 };
 
 type ProductModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4225,6 +4297,7 @@ type ProductModelFilter = {
 };
 
 type ProductModelNameModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductModelNameModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductModelNameModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4376,6 +4449,7 @@ type ProductModelRecord_seoMetaTagsArgs = {
 };
 
 type ProductMountingModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductMountingModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductMountingModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4554,6 +4628,7 @@ type ProductRecordpdfFileArgs = {
 };
 
 type ProductSocketModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductSocketModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductSocketModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4649,6 +4724,7 @@ type ProductStartRecord_seoMetaTagsArgs = {
 };
 
 type ProjectModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProjectModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProjectModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4772,6 +4848,7 @@ type ProjectStartRecordintroArgs = {
 };
 
 type ProjectTypeModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProjectTypeModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProjectTypeModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6105,6 +6182,7 @@ type RecordInterface_seoMetaTagsArgs = {
 };
 
 type ResellerModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ResellerModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ResellerModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6238,6 +6316,7 @@ type SeoField = {
 };
 
 type ShowroomModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ShowroomModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ShowroomModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6393,6 +6472,7 @@ type SocialRecord_seoMetaTagsArgs = {
 };
 
 type StaffModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<StaffModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<StaffModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6680,6 +6760,7 @@ type TextRecord_seoMetaTagsArgs = {
 };
 
 type TranslationModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TranslationModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<TranslationModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6913,6 +6994,7 @@ type UploadFilenameFilter = {
 };
 
 type UploadFilter = {
+  AND?: InputMaybe<Array<InputMaybe<UploadFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<UploadFilter>>>;
   _createdAt?: InputMaybe<UploadCreatedAtFilter>;
   _updatedAt?: InputMaybe<UploadUpdatedAtFilter>;
@@ -7624,6 +7706,11 @@ type FaqStartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type FaqStartQuery = { __typename?: 'Query', faqStart?: { __typename?: 'FaqStartRecord', intro?: string, id: any, title?: string }, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }> };
+
+type ManualsIntroQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ManualsIntroQuery = { __typename?: 'Query', manual?: { __typename?: 'ManualRecord', intro?: string, id: any, title?: string } };
 
 type TaxonomyQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;

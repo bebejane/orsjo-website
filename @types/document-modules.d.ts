@@ -321,6 +321,7 @@ declare module '*/support.gql' {
 export const AllFaqs: DocumentNode;
 export const AllFaqCategories: DocumentNode;
 export const FaqStart: DocumentNode;
+export const ManualsIntro: DocumentNode;
 
   export default defaultDocument;
 }
