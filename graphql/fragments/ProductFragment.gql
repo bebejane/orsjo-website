@@ -111,6 +111,9 @@ fragment ProductFragment on ProductRecord {
 	lightFile {
 		...FileFragment
 	}
+	bimFile {
+		...FileFragment
+	}
 	models {
 		id
 		name {
