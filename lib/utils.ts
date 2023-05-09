@@ -159,7 +159,7 @@ export type ProductRecordWithPdfFiles = ProductRecord & {
 export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[] => {
 
   const { pdfFiles, mountingInstructions, bimLink, bimFile, lightFile } = product;
-  console.log(pdfFiles)
+
   const files = [{
     href: pdfFiles.find(({ locale }) => locale === 'sv') && `${pdfFiles.find(({ locale }) => locale === 'sv')?.value.url}`,
     label: 'Productsheet (SE)',
