@@ -137,7 +137,7 @@ dependencies:
     specifier: ^5.14.1
     version: 5.14.1(react-dom@18.2.0)(react@18.2.0)
   sass:
-    specifier: ^1.54.5
+    specifier: ^1.57.1
     version: 1.57.1
   swiper:
     specifier: ^8.4.4
