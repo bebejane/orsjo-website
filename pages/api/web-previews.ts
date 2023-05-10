@@ -29,7 +29,7 @@ export default withWebPreviews(async ({ item, itemType }) => {
       path = `/professionals/colors-and-materials`
       break;
     case 'about':
-      path = `/about/about-us`
+      path = `/about`
       break;
     case 'sustainability':
       path = `/about/sustainability`
