@@ -3,7 +3,7 @@ import { withWebPreviews } from 'dato-nextjs-utils/hoc';
 export default withWebPreviews(async ({ item, itemType }) => {
 
   let path = null;
-  const { slug } = item
+  const { slug } = item.attributes
   const { api_key } = itemType.attributes
 
   switch (api_key) {
