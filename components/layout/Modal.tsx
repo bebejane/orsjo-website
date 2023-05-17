@@ -1,16 +1,22 @@
 import ReactDOM from 'react-dom';
-import React from 'react'
-import { isServer } from '/lib/utils';
+import React, { useRef, useEffect, useState } from 'react'
 
-type ModalProps = { 
+type ModalProps = {
   children: React.ReactElement | React.ReactElement[]
 }
 
 const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
-  
-  if(isServer) return null
 
-  return ReactDOM.createPortal(props.children, document.body)
+  const bodyRef = useRef<HTMLElement | null>(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    bodyRef.current = document.body
+    setMounted(true)
+  }, [])
+
+
+  return mounted ? ReactDOM.createPortal(props.children, bodyRef.current) : null
 })
 
 Modal.displayName = 'Modal'

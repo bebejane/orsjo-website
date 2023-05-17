@@ -54,8 +54,6 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
   if (isHidden)
     return null
 
-  console.log(loaded);
-
   return (
     <div className={cn(styles.gallery, images.length <= 1 && styles.noArrows, isSingleSlide && styles.noArrows)}>
       <div className={styles.back} onClick={() => swiperRef.current.slidePrev()}><img src="/images/arrow-light.svg" className={styles.arrow} /></div>

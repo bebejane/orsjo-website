@@ -181,11 +181,18 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
     type: 'zip',
     download: true
   }, {
-    href: bimFile?.url || bimLink,
-    label: bimFile?.url ? 'Download CAD files' : 'Download at BIM Objects',
+    href: bimLink,
+    label: 'Download at BIM Objects',
     type: 'cad',
-    download: bimFile?.url ? true : false
-  }, {
+    download: false
+  },
+  {
+    href: bimFile?.url,
+    label: 'Download CAD files',
+    type: 'cad',
+    download: true
+  },
+  {
     href: undefined,
     label: 'CAD file, size S',
     type: 'cad',

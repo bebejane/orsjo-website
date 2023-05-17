@@ -15,7 +15,7 @@ export type DownloadsProps = { products: ProductRecord[], catalogues: CatalogueR
 
 export default function Downloads({ products, catalogues }: DownloadsProps) {
 
-	const [search, setSeatch] = useState<string>();
+	const [search, setSearch] = useState<string>('');
 	const [results, setResults] = useState<ProductRecord[]>(products);
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`)
 	const [list, setList] = useState({})
@@ -53,7 +53,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 						type="text"
 						value={search}
 						autoFocus={true}
-						onChange={({ target }) => setSeatch(target.value)}
+						onChange={({ target }) => setSearch(target.value)}
 					/>
 				</div>
 				{results && results.length === 0 ?
@@ -73,7 +73,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 							{(results || products).map(({ id, image, title, categories }, idx) => {
 								const files = productDownloads(products[idx] as ProductRecordWithPdfFiles)
 								return (
-									<React.Fragment key={id}>
+									<React.Fragment key={idx}>
 										<tr
 											key={`${id}-${idx}`}
 											className={list[idx] ? styles.active : undefined}
@@ -87,7 +87,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 											</td>
 											<td>
 												<span className="medium">
-													{categories.map(c => c.name).join(', ')}
+													{categories.map((c, idx) => c.name).join(', ')}
 												</span>
 											</td>
 											<td className={styles.toggle}>{list[idx] ? '–' : '+'}</td>
@@ -98,17 +98,17 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 												<td colSpan={2} className={styles.content}>
 													<div className={styles.list}>
 														{files.map(({ type, label, href }, idx) =>
-															<>
+															<React.Fragment key={`${id}-file-${idx}`}>
 																<div key={`f-${idx}`} className={styles.item}>
 																	<a href={href} target="_new">
-																		<Icon type={'pdf'} label={label} />
+																		<Icon type={type} label={label} />
 																	</a>
 																</div>
 																{idx % 2 === 1 &&
 																	<hr key={`hr-${idx}`} className={cn(isMobile && styles.hide)} />
 																}
 																{<hr key={`hr-${idx}`} className={cn(!isMobile && styles.hide)} />}
-															</>
+															</React.Fragment>
 														)}
 													</div>
 												</td>

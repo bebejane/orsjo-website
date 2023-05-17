@@ -13,19 +13,17 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 
 	return (
 		<section className={styles.news}>
-			<Link scroll={false} href={`/about/news/${slug}`}>
-				<a className="medium white" ref={ref}>
-					<h1>News</h1>
-					<span className={styles.text}>
-						<h1 className={styles.title}>{title}</h1>
-						<div className="large">
-							<Markdown sentances={1}>{text}</Markdown>
-						</div>
-						<div className={styles.more}>
-							<ArrowLink hoverRef={ref} inverted={true}>Read more</ArrowLink>
-						</div>
-					</span>
-				</a>
+			<Link scroll={false} href={`/about/news/${slug}`} className="medium white" ref={ref} passHref={true}>
+				<h1>News</h1>
+				<span className={styles.text}>
+					<h1 className={styles.title}>{title}</h1>
+					<div className="large">
+						<Markdown sentances={1}>{text}</Markdown>
+					</div>
+					<div className={styles.more}>
+						<ArrowLink hoverRef={ref} inverted={true}>Read more</ArrowLink>
+					</div>
+				</span>
 			</Link>
 		</section>
 

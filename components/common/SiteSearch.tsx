@@ -10,7 +10,7 @@ import {
 	StaffThumbnail,
 	Loader
 } from '/components';
-import { AnchorLink } from '/components';
+import Link from 'next/link';
 import { useDebouncedValue, useKey } from 'rooks';
 import { useMediaQuery } from 'usehooks-ts'
 import { siteSearch, truncateParagraph } from '/lib/utils'
@@ -110,20 +110,20 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 							<ul>
 								{items.map((item, idx) =>
 									model === 'products' ?
-										<li><ProductThumbnail product={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+										<li key={idx}><ProductThumbnail product={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 										: model === 'designers' ?
-											<li><DesignerThumbnail designer={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+											<li key={idx}><DesignerThumbnail designer={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 											: model === 'projects' ?
-												<li><ProjectThumbnail project={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+												<li key={idx}><ProjectThumbnail project={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 												: model === 'people' ?
-													<li><StaffThumbnail staff={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+													<li key={idx}><StaffThumbnail staff={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 													: model === 'news' ?
-														<li><NewsThumbnail news={item} theme={thumbnailTheme} className={styles.thumb} /></li>
+														<li key={idx}><NewsThumbnail news={item} theme={thumbnailTheme} className={styles.thumb} /></li>
 														: model === 'faqs' ?
-															<li className={styles.full}>
-																<AnchorLink href={`/support/faq#${item.id}`} style={{ fontWeight: 'bold' }}>
+															<li key={idx} className={styles.full}>
+																<Link href={`/support/faq#${item.id}`} style={{ fontWeight: 'bold' }} passHref={true}>
 																	{(item as FaqRecord).question}
-																</AnchorLink>
+																</Link>
 																<br />
 																{truncateParagraph((item as FaqRecord).answer, 1, false)}<br />
 															</li>

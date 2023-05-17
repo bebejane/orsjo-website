@@ -7,14 +7,12 @@ import { useStore, shallow } from '/lib/store'
 import { useWindowSize } from 'rooks';
 import { sleep, waitForElement, scrollToId } from '/lib/utils';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
-import { useTransitionFix } from 'dato-nextjs-utils/hooks'
 import { AnimatePresence } from "framer-motion";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 
 import type { AppProps } from 'next/app'
 import type { NextComponentType } from 'next';
 import type { Menu } from '/lib/menu';
-
 
 export type ApplicationProps = AppProps & {
   Component: NextComponentType & {
@@ -39,8 +37,6 @@ const handleHashChange = async (url: string, instant: boolean) => {
 
 function Application({ Component, pageProps, router }: ApplicationProps) {
 
-  useTransitionFix()
-
   const [transitioning] = useStore((state) => [state.transitioning, state.setShowMenu], shallow)
   const { innerWidth } = useWindowSize()
 
@@ -58,11 +54,10 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   useEffect(() => { !transitioning && handleHashChange(router.asPath, true); }, [transitioning])
 
   const errorCode = parseInt(router.pathname.replace('/', ''))
-  const isError = !isNaN(errorCode) && (errorCode > 400 && errorCode < 600)
+  const isError = (!isNaN(errorCode) && (errorCode > 400 && errorCode < 600)) || router.pathname.replace('/', '') === '_error'
 
-  if (isError) {
+  if (isError)
     return <Component {...pageProps} />
-  }
 
   return (
     <>

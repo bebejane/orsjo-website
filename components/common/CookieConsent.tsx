@@ -11,7 +11,7 @@ export default function CookieConsent() {
 
   const confirmConsent = (confirm: boolean) => {
     if (confirm)
-      setCookie(GDPR_CONSENT_COOKIES, 'accepted', { maxAge: ((60 * 60) * 24 * 365) })
+      setCookie(GDPR_CONSENT_COOKIES, 'accepted')
     else
       deleteCookie(GDPR_CONSENT_COOKIES)
 

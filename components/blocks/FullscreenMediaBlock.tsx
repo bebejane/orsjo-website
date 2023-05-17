@@ -6,33 +6,33 @@ import { VideoPlayer, ArrowLink } from '/components'
 
 export type LayoutProps = { data: FullscreenMediaBlockRecord }
 
-export default function FullscreenMediaBlock({ data: { media, headline, linkRecord, subHeadline }, data }: LayoutProps) {
+export default function FullscreenMediaBlock({ data: { media, headline, linkRecord, subHeadline, readMore }, data }: LayoutProps) {
 
-	const slugBase = linkRecord.__typename === 'DesignerRecord' ? '/designers' : '/products'
+	const { __typename } = linkRecord;
+	const path = __typename === 'DesignerRecord' ? 'designer' : linkRecord.__typename === 'AboutRecord' ? 'about' : 'products'
+	const slug = `${path}/${linkRecord.__typename !== 'AboutRecord' ? linkRecord.slug : ''}`
 	const ref = useRef()
 
 	return (
-		<Link scroll={false} href={`${slugBase}/${linkRecord.slug}`}>
-			<a className={styles.fullScreenImage} ref={ref}>
-				<div className={styles.fade}></div>
-				{!media.mimeType.includes('video') ?
-					<Image
-						className={styles.image}
-						data={media?.responsiveImage}
-						layout="fill"
-						objectFit="cover"
-					/>
-					:
-					<VideoPlayer data={media} />
-				}
-				<div className={styles.wrapper}>
-					<div className={styles.headline}>
-						<span className="medium">{subHeadline}</span>
-						<h1 className="start">{headline}</h1>
-						<ArrowLink hoverRef={ref} inverted={true}>View Product</ArrowLink>
-					</div>
+		<Link scroll={false} href={`/${slug}`} className={styles.fullScreenImage} ref={ref} passHref={true}>
+			<div className={styles.fade}></div>
+			{!media.mimeType.includes('video') ?
+				<Image
+					className={styles.image}
+					data={media?.responsiveImage}
+					layout="fill"
+					objectFit="cover"
+				/>
+				:
+				<VideoPlayer data={media} />
+			}
+			<div className={styles.wrapper}>
+				<div className={styles.headline}>
+					<span className="medium">{subHeadline}</span>
+					<h1 className="start">{headline}</h1>
+					<ArrowLink hoverRef={ref} inverted={true}>{readMore}</ArrowLink>
 				</div>
-			</a>
+			</div>
 		</Link>
 	)
 }

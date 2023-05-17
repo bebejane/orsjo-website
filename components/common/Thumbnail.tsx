@@ -81,10 +81,8 @@ export default function Thumbnail({
       onClick={onClick}
     >
       {slug ?
-        <Link scroll={false} href={slug} >
-          <a className={styles.wrap}>
-            {content}
-          </a>
+        <Link scroll={false} href={slug} className={styles.wrap}>
+          {content}
         </Link>
         :
         <div className={styles.wrap}>{content}</div>

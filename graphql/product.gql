@@ -70,6 +70,7 @@ query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: 
 		}
 	}
 }
+
 query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
 	products: allProducts(
 		locale: $locale

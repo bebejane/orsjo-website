@@ -25,15 +25,24 @@ query Start {
 				id
 				headline
 				subHeadline
+				readMore
 				media {
 					...VideoFragment
 				}
 				linkRecord {
+					__typename
 					... on ProductRecord {
+						__typename
 						...ProductFragment
 					}
 					... on DesignerRecord {
+						__typename
 						...DesignerFragment
+					}
+					... on AboutRecord {
+						__typename
+						id
+						title
 					}
 				}
 			}
