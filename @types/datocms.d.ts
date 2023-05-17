@@ -207,6 +207,7 @@ type BooleanFilter = {
 };
 
 type CatalogueModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CatalogueModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CatalogueModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -303,6 +304,7 @@ type ColorField = {
   __typename?: 'ColorField';
   alpha: Scalars['IntType'];
   blue: Scalars['IntType'];
+  cssRgb: Scalars['String'];
   green: Scalars['IntType'];
   hex: Scalars['String'];
   red: Scalars['IntType'];
@@ -341,6 +343,7 @@ type ColorMaterialIntroRecordintroArgs = {
 };
 
 type ColorMaterialModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ColorMaterialModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ColorMaterialModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -418,6 +421,7 @@ type ColorMaterialRecord_seoMetaTagsArgs = {
 };
 
 type ColorMaterialTypeModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -552,6 +556,7 @@ type ContactRecordshowroomIntroArgs = {
 };
 
 type CountryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CountryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CountryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -656,6 +661,7 @@ type CreatedAtFilter = {
 };
 
 type DesignerModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -746,6 +752,7 @@ type DesignerRecorddescriptionArgs = {
 };
 
 type DistributorModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<DistributorModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<DistributorModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -909,6 +916,7 @@ type FactoryVisitRecordintroArgs = {
 };
 
 type FaqCategoryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<FaqCategoryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<FaqCategoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -978,6 +986,7 @@ type FaqCategoryRecord_seoMetaTagsArgs = {
 };
 
 type FaqModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<FaqModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<FaqModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -1179,6 +1188,7 @@ type FileField = FileFieldInterface & {
   size: Scalars['IntType'];
   smartTags: Array<Scalars['String']>;
   tags: Array<Scalars['String']>;
+  thumbhash?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   url: Scalars['String'];
   video?: Maybe<UploadVideoField>;
@@ -1194,9 +1204,9 @@ type FileFieldaltArgs = {
 
 type FileFieldblurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
-  punch?: InputMaybe<Scalars['Float']>;
-  quality?: InputMaybe<Scalars['Int']>;
-  size?: InputMaybe<Scalars['Int']>;
+  punch?: Scalars['Float'];
+  quality?: Scalars['Int'];
+  size?: Scalars['Int'];
 };
 
 
@@ -1254,6 +1264,7 @@ type FileFieldInterface = {
   size: Scalars['IntType'];
   smartTags: Array<Scalars['String']>;
   tags: Array<Scalars['String']>;
+  thumbhash?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   url: Scalars['String'];
   video?: Maybe<UploadVideoField>;
@@ -1269,9 +1280,9 @@ type FileFieldInterfacealtArgs = {
 
 type FileFieldInterfaceblurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
-  punch?: InputMaybe<Scalars['Float']>;
-  quality?: InputMaybe<Scalars['Int']>;
-  size?: InputMaybe<Scalars['Int']>;
+  punch?: Scalars['Float'];
+  quality?: Scalars['Int'];
+  size?: Scalars['Int'];
 };
 
 
@@ -1343,7 +1354,7 @@ type FloatFilter = {
   neq?: InputMaybe<Scalars['FloatType']>;
 };
 
-type FullscreenMediaBlockModelLinkRecordField = DesignerRecord | ProductRecord;
+type FullscreenMediaBlockModelLinkRecordField = AboutRecord | DesignerRecord | ProductRecord;
 
 /** Block of type Fullscreen media (fullscreen_media_block) */
 type FullscreenMediaBlockRecord = RecordInterface & {
@@ -1364,6 +1375,7 @@ type FullscreenMediaBlockRecord = RecordInterface & {
   id: Scalars['ItemId'];
   linkRecord?: Maybe<FullscreenMediaBlockModelLinkRecordField>;
   media?: Maybe<FileField>;
+  readMore?: Maybe<Scalars['String']>;
   subHeadline?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -1544,6 +1556,14 @@ type ImgixParams = {
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/bg)
    */
   bg?: InputMaybe<Scalars['String']>;
+  /**
+   * Background Removal
+   *
+   * Removes background from image.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background-removal/bg-remove)
+   */
+  bgRemove?: InputMaybe<Scalars['BooleanType']>;
   /**
    * Blend
    *
@@ -1997,6 +2017,18 @@ type ImgixParams = {
    */
   fpZ?: InputMaybe<Scalars['FloatType']>;
   /**
+   * Frames Per Second
+   *
+   * Specifies the framerate of the generated image.
+   */
+  fps?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Frame Selection
+   *
+   * Specifies the frame of an animated image to use.
+   */
+  frame?: InputMaybe<Scalars['String']>;
+  /**
    * Gamma
    *
    * Adjusts the gamma of the source image.
@@ -2004,6 +2036,12 @@ type ImgixParams = {
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/gam)
    */
   gam?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Animated Gif Quality
+   *
+   * Depends on: `fm=gif`
+   */
+  gifQ?: InputMaybe<Scalars['IntType']>;
   /**
    * Grid Colors
    *
@@ -2053,6 +2091,12 @@ type ImgixParams = {
    */
   hue?: InputMaybe<Scalars['IntType']>;
   /**
+   * Frame Interval
+   *
+   * Displays every Nth frame starting with the first frame.
+   */
+  interval?: InputMaybe<Scalars['IntType']>;
+  /**
    * Invert
    *
    * Inverts the colors on the source image.
@@ -2066,6 +2110,12 @@ type ImgixParams = {
    * Determine if IPTC data should be passed for JPEG images.
    */
   iptc?: InputMaybe<ImgixParamsIptc>;
+  /**
+   * Animation Loop Count
+   *
+   * Specifies the number of times an animated image should repeat. A value of 0 means infinite looping.
+   */
+  loop?: InputMaybe<Scalars['IntType']>;
   /**
    * Lossless Compression
    *
@@ -2393,6 +2443,12 @@ type ImgixParams = {
    */
   rect?: InputMaybe<Scalars['String']>;
   /**
+   * Reverse
+   *
+   * Reverses the frame order on the source animation.
+   */
+  reverse?: InputMaybe<Scalars['BooleanType']>;
+  /**
    * Rotation
    *
    * Rotates an image by a specified number of degrees.
@@ -2432,6 +2488,12 @@ type ImgixParams = {
    * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sharp)
    */
   sharp?: InputMaybe<Scalars['FloatType']>;
+  /**
+   * Frame Skip
+   *
+   * Skips every Nth frame starting with the first frame.
+   */
+  skip?: InputMaybe<Scalars['IntType']>;
   /**
    * Transparency
    *
@@ -2906,6 +2968,7 @@ enum ItemStatus {
 }
 
 type JobModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<JobModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<JobModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -2990,12 +3053,6 @@ type JobRecordsummaryArgs = {
 /** Record of type Jobs (job) */
 type JobRecordtextArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** Specifies how to filter JSON fields */
-type JsonFilter = {
-  /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
 };
 
 /** Block of type Lightsource (lightsource) */
@@ -3131,6 +3188,7 @@ type NewsItemRecord_seoMetaTagsArgs = {
 };
 
 type NewsModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<NewsModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<NewsModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3244,6 +3302,7 @@ type PositionFilter = {
 };
 
 type PressModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<PressModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<PressModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3317,6 +3376,7 @@ type PressRecord_seoMetaTagsArgs = {
 };
 
 type ProductAccessoryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductAccessoryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductAccessoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3401,6 +3461,7 @@ type ProductAccessoryRecordnameArgs = {
 };
 
 type ProductCategoryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductCategoryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductCategoryModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3525,6 +3586,7 @@ type ProductCategoryRecordnamePluralArgs = {
 };
 
 type ProductColorModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductColorModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductColorModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3609,6 +3671,7 @@ type ProductColorRecordnameArgs = {
 };
 
 type ProductConnectionModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductConnectionModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductConnectionModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3693,6 +3756,7 @@ type ProductConnectionRecordnameArgs = {
 };
 
 type ProductDimmableModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductDimmableModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductDimmableModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3777,6 +3841,7 @@ type ProductDimmableRecordnameArgs = {
 };
 
 type ProductElectricalModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductElectricalModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductElectricalModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3861,6 +3926,7 @@ type ProductElectricalRecordnameArgs = {
 };
 
 type ProductFamilyModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductFamilyModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductFamilyModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -3930,6 +3996,7 @@ type ProductFamilyRecord_seoMetaTagsArgs = {
 };
 
 type ProductFeatureModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductFeatureModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductFeatureModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4014,6 +4081,7 @@ type ProductFeatureRecordnameArgs = {
 };
 
 type ProductLightsourceModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductLightsourceModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductLightsourceModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4106,6 +4174,7 @@ type ProductLightsourceRecordnameArgs = {
 };
 
 type ProductMaterialModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductMaterialModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductMaterialModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4190,6 +4259,7 @@ type ProductMaterialRecordnameArgs = {
 };
 
 type ProductModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4212,6 +4282,7 @@ type ProductModelFilter = {
   electricalData?: InputMaybe<LinksFilter>;
   environmentImage?: InputMaybe<FileFilter>;
   family?: InputMaybe<LinkFilter>;
+  hideInPricelist?: InputMaybe<BooleanFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
   lightFile?: InputMaybe<FileFilter>;
@@ -4219,8 +4290,6 @@ type ProductModelFilter = {
   mounting?: InputMaybe<LinkFilter>;
   mountingInstructions?: InputMaybe<FileFilter>;
   pdfFile?: InputMaybe<FileFilter>;
-  shopifyData?: InputMaybe<JsonFilter>;
-  shopifyId?: InputMaybe<StringFilter>;
   slug?: InputMaybe<SlugFilter>;
   sockets?: InputMaybe<LinksFilter>;
   title?: InputMaybe<StringFilter>;
@@ -4228,6 +4297,7 @@ type ProductModelFilter = {
 };
 
 type ProductModelNameModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductModelNameModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductModelNameModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4334,12 +4404,12 @@ enum ProductModelOrderBy {
   bimLink_DESC = 'bimLink_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
+  hideInPricelist_ASC = 'hideInPricelist_ASC',
+  hideInPricelist_DESC = 'hideInPricelist_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
   markAsNew_ASC = 'markAsNew_ASC',
   markAsNew_DESC = 'markAsNew_DESC',
-  shopifyId_ASC = 'shopifyId_ASC',
-  shopifyId_DESC = 'shopifyId_DESC',
   title_ASC = 'title_ASC',
   title_DESC = 'title_DESC',
   updatedAt_ASC = 'updatedAt_ASC',
@@ -4379,6 +4449,7 @@ type ProductModelRecord_seoMetaTagsArgs = {
 };
 
 type ProductMountingModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductMountingModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductMountingModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4492,6 +4563,7 @@ type ProductRecord = RecordInterface & {
   electricalData: Array<ProductElectricalRecord>;
   environmentImage?: Maybe<FileField>;
   family?: Maybe<ProductFamilyRecord>;
+  hideInPricelist?: Maybe<Scalars['BooleanType']>;
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
   lightFile?: Maybe<FileField>;
@@ -4501,8 +4573,6 @@ type ProductRecord = RecordInterface & {
   mountingInstructions?: Maybe<FileField>;
   pdfFile?: Maybe<FileField>;
   productGallery: Array<ProductModelProductGalleryField>;
-  shopifyData?: Maybe<Scalars['JsonField']>;
-  shopifyId?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   sockets: Array<ProductSocketRecord>;
   title?: Maybe<Scalars['String']>;
@@ -4558,6 +4628,7 @@ type ProductRecordpdfFileArgs = {
 };
 
 type ProductSocketModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductSocketModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProductSocketModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4653,6 +4724,7 @@ type ProductStartRecord_seoMetaTagsArgs = {
 };
 
 type ProjectModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProjectModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProjectModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4776,6 +4848,7 @@ type ProjectStartRecordintroArgs = {
 };
 
 type ProjectTypeModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProjectTypeModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProjectTypeModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -4936,7 +5009,7 @@ type Query = {
   /** Returns meta information regarding a record collection */
   _allTranslationsMeta: CollectionMetadata;
   /** Returns meta information regarding an assets collection */
-  _allUploadsMeta?: Maybe<CollectionMetadata>;
+  _allUploadsMeta: CollectionMetadata;
   /** Returns the single instance record */
   _site: Site;
   /** Returns the single instance record */
@@ -6109,6 +6182,7 @@ type RecordInterface_seoMetaTagsArgs = {
 };
 
 type ResellerModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ResellerModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ResellerModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6242,6 +6316,7 @@ type SeoField = {
 };
 
 type ShowroomModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ShowroomModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ShowroomModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6352,6 +6427,7 @@ type SiteglobalSeoArgs = {
 };
 
 enum SiteLocale {
+  da = 'da',
   en = 'en',
   no = 'no',
   sv = 'sv'
@@ -6396,6 +6472,7 @@ type SocialRecord_seoMetaTagsArgs = {
 };
 
 type StaffModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<StaffModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<StaffModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6526,12 +6603,14 @@ type StatusFilter = {
 type StringFilter = {
   /** Search for records with an exact match */
   eq?: InputMaybe<Scalars['String']>;
-  /** Filter records with the specified field defined (i.e. with any value) or not */
+  /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
   exists?: InputMaybe<Scalars['BooleanType']>;
   /** Filter records that equal one of the specified values */
   in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   /** Filter records with the specified field set as blank (null or empty string) */
   isBlank?: InputMaybe<Scalars['BooleanType']>;
+  /** Filter records with the specified field present (neither null, nor empty string) */
+  isPresent?: InputMaybe<Scalars['BooleanType']>;
   /** Filter records based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude records with an exact match */
@@ -6633,10 +6712,12 @@ type Tag = {
 
 /** Specifies how to filter text fields */
 type TextFilter = {
-  /** Filter records with the specified field defined (i.e. with any value) or not */
+  /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
   exists?: InputMaybe<Scalars['BooleanType']>;
   /** Filter records with the specified field set as blank (null or empty string) */
   isBlank?: InputMaybe<Scalars['BooleanType']>;
+  /** Filter records with the specified field present (neither null, nor empty string) */
+  isPresent?: InputMaybe<Scalars['BooleanType']>;
   /** Filter records based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude records based on a regular expression */
@@ -6679,6 +6760,7 @@ type TextRecord_seoMetaTagsArgs = {
 };
 
 type TranslationModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TranslationModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<TranslationModelFilter>>>;
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
@@ -6912,6 +6994,7 @@ type UploadFilenameFilter = {
 };
 
 type UploadFilter = {
+  AND?: InputMaybe<Array<InputMaybe<UploadFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<UploadFilter>>>;
   _createdAt?: InputMaybe<UploadCreatedAtFilter>;
   _updatedAt?: InputMaybe<UploadUpdatedAtFilter>;
@@ -7596,7 +7679,7 @@ type SiteSEOQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', content: Array<{ __typename: 'FeaturedStartRecord', id: any, headline?: string, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> } | { __typename: 'FullscreenMediaBlockRecord', id: any, headline?: string, subHeadline?: string, media?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, linkRecord?: { __typename?: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } | { __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, bimLink?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } } | { __typename: 'FullscreenVideoRecord', id: any, link?: string, linkText?: string, text?: string, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'ImageLinkRecord', id: any, firstLink?: string, firstLinkText?: string, firstHeadline?: string, secondLink?: string, secondLinkText?: string, secondHeadline?: string, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'NewsItemRecord', news?: { __typename?: 'NewsRecord', id: any, title?: string, text?: string, link?: string, linkText?: string, slug?: string } }> } };
+type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', content: Array<{ __typename: 'FeaturedStartRecord', id: any, headline?: string, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> } | { __typename: 'FullscreenMediaBlockRecord', id: any, headline?: string, subHeadline?: string, media?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, linkRecord?: { __typename?: 'AboutRecord' } | { __typename?: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } | { __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, bimLink?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } } | { __typename: 'FullscreenVideoRecord', id: any, link?: string, linkText?: string, text?: string, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'ImageLinkRecord', id: any, firstLink?: string, firstLinkText?: string, firstHeadline?: string, secondLink?: string, secondLinkText?: string, secondHeadline?: string, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'NewsItemRecord', news?: { __typename?: 'NewsRecord', id: any, title?: string, text?: string, link?: string, linkText?: string, slug?: string } }> } };
 
 type FaqQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;

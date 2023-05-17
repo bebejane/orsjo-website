@@ -37,6 +37,10 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 						<div className={styles.tagline}>
 							<span>Locally<br />crafted<br />lighting</span>
 						</div>
+						<div className={styles.iso}>
+							<img src="images/ISO-9001.png"></img>
+							<img src="images/ISO-14001.png"></img>
+						</div>
 					</div>
 					<nav className={styles.menu}>
 						<ul>
@@ -80,7 +84,7 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 								<a key={idx} href={url}><img src={icon} alt={name} /></a>
 							)}
 						</div>
-						<div className={styles.copyright}><figcaption>Copyright ©2022 Örsjö Belysning AB. All rights reserved.</figcaption></div>
+						<div className={styles.copyright}><figcaption>Copyright ©2023 Örsjö Belysning AB. All rights reserved.</figcaption></div>
 					</nav>
 				</div>
 			</footer>

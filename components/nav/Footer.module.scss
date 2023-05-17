@@ -28,11 +28,23 @@
 
   .wrapperTop {
     .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding-bottom: 2rem;
+      justify-content: space-between;
       .tagline {
         text-transform: uppercase !important;
         font-size: 0.7em;
         line-height: 1.2em;
         letter-spacing: 0.05em;
+      }
+      .iso {
+        display: flex;
+        img {
+          height: 2rem;
+          padding-right: 0.5rem;
+        }
       }
     }
   }
