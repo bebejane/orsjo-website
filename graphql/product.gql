@@ -141,7 +141,7 @@ query RelatedProjectsForProduct($productId: ItemId, $first: IntType = 100) {
 }
 
 query AllProductsByCategory($categoryId: ItemId, $first: IntType = 100) {
-	productsByCategory: allProducts(first: $first, filter: { categories: { eq: [$categoryId] } }) {
+	productsByCategory: allProducts(first: $first, filter: { categories: { anyIn: [$categoryId] } }) {
 		...ProductLightFragment
 	}
 }

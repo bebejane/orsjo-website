@@ -312,12 +312,16 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 	if (!product)
 		return { notFound: true }
 
-	const { productsByCategory, relatedProducts, relatedProjects } = await apiQuery([
+	const { relatedProducts, productsByCategory, relatedProjects } = await apiQuery([
 		RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument
 	], {
 		variables: [
 			{ designerId: product.designer.id, familyId: product.family.id },
 			{ categoryId: product.categories[0]?.id },
+			{ productId: product.id }
+			,
+			{ categoryId: product.categories[0]?.id }
+			,
 			{ productId: product.id }
 		]
 	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[], relatedProjects: ProjectRecord[] }
