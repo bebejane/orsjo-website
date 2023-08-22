@@ -307,7 +307,7 @@ export async function getStaticPaths(context) {
 export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ props, context, revalidate }) => {
 
 	const slug = context.params.product
-	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug } })
+	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug }, preview: context.preview })
 
 	if (!product)
 		return { notFound: true }
@@ -323,7 +323,8 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 			{ categoryId: product.categories[0]?.id }
 			,
 			{ productId: product.id }
-		]
+		],
+		preview: context.preview
 	}) as { productsByCategory: ProductRecord[], relatedProducts: ProductRecord[], relatedProjects: ProjectRecord[] }
 
 	const specs = parseSpecifications(product, 'en', null)
