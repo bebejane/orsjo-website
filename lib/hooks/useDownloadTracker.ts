@@ -8,7 +8,6 @@ const useDownloadTracker = () => {
   useEffect(() => {
 
     const handleDownloadClick = (e: MouseEvent) => {
-      e.preventDefault()
 
       const link = (e.target as HTMLElement).closest('a')
       if (!link) return
