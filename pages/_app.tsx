@@ -9,6 +9,7 @@ import { sleep, waitForElement, scrollToId } from '/lib/utils';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
 import { AnimatePresence } from "framer-motion";
 import { GoogleAnalytics } from "nextjs-google-analytics";
+import useDownloadTracker from '/lib/hooks/useDownloadTracker';
 
 import type { AppProps } from 'next/app'
 import type { NextComponentType } from 'next';
@@ -22,7 +23,7 @@ export type ApplicationProps = AppProps & {
 
 const handleHashChange = async (url: string, instant: boolean) => {
 
-  if (!url.includes('#')) // @ts-expect-error
+  if (!url.includes('#'))
     return setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 100)
 
   const id = url.split('#')[1]
@@ -30,7 +31,6 @@ const handleHashChange = async (url: string, instant: boolean) => {
 
   if (!el) return
   await sleep(100)
-  // @ts-expect-error
   scrollToId(id, instant === true ? 'instant' : 'smooth')
 
 }
@@ -45,6 +45,8 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
   const { site, seo, menu } = pageProps as { site: Site, seo: SiteSEOQuery, menu: Menu };
   const pageTitle = pageProps.pageTitle || page?.title
   const description = site?.globalSeo.fallbackSeo.description
+
+  useDownloadTracker()
 
   useEffect(() => {
     router.events.on("hashChangeStart", handleHashChange);
