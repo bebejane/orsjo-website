@@ -37,8 +37,8 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 							<span>Locally<br />crafted<br />lighting</span>
 						</div>
 						<div className={styles.iso}>
-							<img src="images/ISO-9001.png"></img>
-							<img src="images/ISO-14001.png"></img>
+							<img src="/images/ISO-9001.png"></img>
+							<img src="/images/ISO-14001.png"></img>
 						</div>
 					</div>
 					<nav className={styles.menu}>
