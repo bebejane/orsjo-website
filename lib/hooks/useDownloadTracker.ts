@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { event } from "nextjs-google-analytics";
+import { useRouter } from 'next/router';
 
-const extensions = ['pdf', 'zip', 'docx', 'xls', 'xlsx', 'mp3', 'mp4']
+const extensions = ['pdf', 'zip', 'doc', 'docx', 'xls', 'xlsx', 'mp3', 'mp4', 'wav']
 
 const useDownloadTracker = () => {
+
+  const router = useRouter()
 
   useEffect(() => {
 
@@ -23,7 +26,7 @@ const useDownloadTracker = () => {
     const observeDownloadLinks = () => {
 
       Array.from(document.querySelectorAll('a')).filter((link) => {
-        return extensions.some((ext) => link.href.endsWith(`.${ext}`))
+        return extensions.some((ext) => link.href.toLowerCase().endsWith(`.${ext}`))
       }).forEach((link) => {
         link.removeEventListener('click', handleDownloadClick)
         link.addEventListener('click', handleDownloadClick)
@@ -43,7 +46,7 @@ const useDownloadTracker = () => {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [router.asPath]);
 
   return null;
 }
