@@ -6,7 +6,6 @@ import social from '/lib/social'
 import { usePage } from '/lib/context/page'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import useStore, { shallow } from '/lib/store'
 
 export type FooterProps = { menu: MenuItem[] }
 

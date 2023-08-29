@@ -33,10 +33,7 @@ const useDownloadTracker = () => {
       })
     }
 
-    const observer = new MutationObserver(function () {
-      observeDownloadLinks()
-    });
-
+    const observer = new MutationObserver(() => observeDownloadLinks());
     const bodyNode = document.querySelector('body');
 
     observer.observe(bodyNode, {
