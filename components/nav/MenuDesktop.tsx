@@ -99,8 +99,12 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		setShowSubMenu(selected && showMenu)
 	}, [selected, showMenu, setShowSubMenu])
 
+	if (!items) return null
+
 	const menuStyles = cn(styles.desktopMenu, selected && styles.open, !showMenu && styles.hide, styles[layout], isInverted && styles.inverted)
 	const sub = selected ? items.find(i => i.slug === selected).sub : []
+
+	if (!items) return null
 
 	return (
 		<>

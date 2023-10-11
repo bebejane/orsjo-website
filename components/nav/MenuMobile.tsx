@@ -17,7 +17,6 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	const { menu } = usePage()
 	const searchRef = useRef<HTMLInputElement>()
 	const [query, setQuery] = useState<string>('');
-	const [searchInput, setSearchInput] = useState<string>('');
 	const [showSearch, setShowSearch] = useState(false);
 	const [selected, setSelected] = useState(undefined)
 	const [showMenuMobile, setShowMenuMobile, transitioning] = useStore((state) => [state.showMenuMobile, state.setShowMenuMobile, state.transitioning], shallow)
@@ -65,6 +64,8 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 			setSelected(item)
 		}
 	}, [showMenuMobile, router, setSelected, items])
+
+	if (!items) return null
 
 	return (
 		<>
