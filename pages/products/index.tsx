@@ -39,7 +39,7 @@ export default function Products({ productStart: { featured }, products, product
 
 	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), [])
 	productCategories.forEach(({ name }) => {
-		productsByCategory[name] = products.filter(({ categories }) => categories.find(c => c.name === name))
+		productsByCategory[name] = products.filter(({ categories }) => categories?.find(c => c.name === name))
 	})
 
 	const [productsByCategorySearch, setProductsByCategorySearch] = useState<ProductsByCategory | undefined>()
@@ -53,7 +53,7 @@ export default function Products({ productStart: { featured }, products, product
 
 		Object.keys(productsByCategory).forEach(k => {
 			const res = products
-				.filter(({ categories }) => categories[0].name === k)
+				.filter(({ categories }) => categories?.[0].name === k)
 				.filter(({ title, designer: { name } }) => searchString(searchProducts, title) || searchString(searchProducts, name))
 
 			if (res.length)
