@@ -57,5 +57,6 @@ export default withRevalidate(async (record, revalidate) => {
     default:
       break;
   }
+  console.log('revalidate paths: ', paths)
   revalidate(paths)
 })
