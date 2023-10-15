@@ -1,2 +1,2 @@
 export { withBackup as default } from "dato-nextjs-utils/hoc"
-export const maxDuration = 30;
+export const config = { maxDuration: 30 }
