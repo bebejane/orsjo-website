@@ -2,18 +2,14 @@ import withGlobalProps from "/lib/withGlobalProps";
 import { LastNewsDocument, StartDocument } from '/graphql';
 import { Block, Section } from '/components';
 import { PageProps } from '../lib/context/page';
-import { useLivePreview } from "dato-nextjs-utils/hooks";
 
-export type StartProps = { start: StartRecord, preview: boolean }
+export type StartProps = { start: StartRecord, lastNews: NewsRecord[] }
 
-export default function Start(props: StartProps) {
-
-	const { data: { start: { content } }, error, status } = useLivePreview(StartDocument, props, { preview: props.preview })
+export default function Start({ start: { content }, lastNews }: StartProps) {
 
 	return (
 		<>
-			{error && <div>{error.message}</div>}
-			{content?.map((block, idx) =>
+			{content.map((block, idx) =>
 				<Section key={idx} type="full">
 					<Block data={block} first={idx === 0} />
 				</Section>
