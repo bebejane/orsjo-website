@@ -27,6 +27,8 @@ export default function withGlobalProps(opt: any, callback: Function): GetStatic
     const menu = res[0];
     const props = res[1];
 
+    props.preview = context.preview ? true : false
+
     if (callback)
       return await callback({ context, props: { ...props, menu }, revalidate });
     else
