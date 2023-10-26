@@ -38,11 +38,8 @@ export default withRevalidate(async (record, revalidate) => {
     case 'sustainability':
       paths.push(`/about/sustainability`)
       break;
-    case 'press':
-      paths.push(`/about/press`)
-      break;
     case 'news':
-      paths.push(`/about/news`)
+      paths.push(`/about/news/${slug}`)
       paths.push(`/`)
       break;
     case 'job':

@@ -32,6 +32,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 
 	useEffect(() => { ref.current.focus() }, [ref])
 
+
 	return (
 		<>
 			<Section className={styles.intro} top={true}>
@@ -70,8 +71,8 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 								<th></th>
 							</tr>
 
-							{(results || products).map(({ id, image, title, categories }, idx) => {
-								const files = productDownloads(products[idx] as ProductRecordWithPdfFiles)
+							{(results ?? products).map(({ id, image, title, categories }, idx) => {
+								const files = productDownloads((results ?? products)[idx] as ProductRecordWithPdfFiles)
 								return (
 									<React.Fragment key={idx}>
 										<tr
@@ -107,7 +108,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 																{idx % 2 === 1 &&
 																	<hr key={`hr-${idx}`} className={cn(isMobile && styles.hide)} />
 																}
-																{<hr key={`hr-${idx}`} className={cn(!isMobile && styles.hide)} />}
+
 															</React.Fragment>
 														)}
 													</div>

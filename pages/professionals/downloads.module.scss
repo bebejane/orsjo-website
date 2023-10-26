@@ -44,10 +44,17 @@
         margin-top: 0.2em;
         padding-bottom: 2em;
 
+        &:not(:first-child) {
+          cursor: pointer;
+        }
+
+
         @include mq($from: tablet) {
           &:hover:not(:first-child) {
             background-color: $white !important;
           }
+
+
         }
 
         &.active {
@@ -74,7 +81,6 @@
           padding-bottom: 0.8em;
           border-top: 1px solid $white;
           white-space: pre;
-          cursor: pointer;
           vertical-align: middle;
 
           &:first-child {
@@ -137,7 +143,7 @@
       }
     }
 
-    * > .image {
+    *>.image {
       position: relative !important;
       margin: 0 !important;
       aspect-ratio: 1, 1;

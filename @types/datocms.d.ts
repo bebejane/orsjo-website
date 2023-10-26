@@ -1206,7 +1206,7 @@ type FeaturedStartRecord_seoMetaTagsArgs = {
 type FileField = FileFieldInterface & {
   __typename?: 'FileField';
   _createdAt: Scalars['DateTime'];
-  /** Editing URL */
+  /** The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request */
   _editingUrl?: Maybe<Scalars['String']>;
   _updatedAt: Scalars['DateTime'];
   alt?: Maybe<Scalars['String']>;
@@ -1284,7 +1284,7 @@ type FileFieldurlArgs = {
 
 type FileFieldInterface = {
   _createdAt: Scalars['DateTime'];
-  /** Editing URL */
+  /** The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request */
   _editingUrl?: Maybe<Scalars['String']>;
   _updatedAt: Scalars['DateTime'];
   alt?: Maybe<Scalars['String']>;
