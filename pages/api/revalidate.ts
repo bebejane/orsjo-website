@@ -15,6 +15,7 @@ export default withRevalidate(async (record, revalidate) => {
       paths.push(`/professionals/downloads`)
       paths.push(`/support/manuals`)
       paths.push(`/products`)
+      paths.push(`/`)
       break;
     case 'designer':
       paths.push(`/designers/${slug}`)
@@ -25,6 +26,7 @@ export default withRevalidate(async (record, revalidate) => {
     case 'project':
       paths.push(`/professionals/projects/${slug}`)
       paths.push(`/professionals`)
+      paths.push(`/`)
       break;
     case 'bespoke':
       paths.push(`/professionals/bespoke`)
