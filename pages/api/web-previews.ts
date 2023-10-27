@@ -17,6 +17,9 @@ export default withWebPreviewsEdge(async ({ item, itemType }) => {
     case 'product':
       path = `/products/${slug}`
       break;
+    case 'product_start':
+      path = `/products`
+      break;
     case 'designer':
       path = `/designers/${slug}`
       break;
@@ -24,6 +27,7 @@ export default withWebPreviewsEdge(async ({ item, itemType }) => {
       path = `/professionals/projects/${slug}`
       break;
     case 'project_start':
+    case 'project_type':
       path = `/professionals/projects`
       break;
     case 'bespoke':
@@ -49,6 +53,16 @@ export default withWebPreviewsEdge(async ({ item, itemType }) => {
       break;
     case 'contact': case 'staff': case 'showroom': case 'reseller': case 'distributor':
       path = `/contact`
+      break;
+    case 'downloads_start':
+    case 'catalogue':
+      path = `/professionals/downloads`
+      break;
+    case 'manual':
+      path = `/support/manuals`
+      break;
+    case 'factory_visit':
+      path = `/professionals/factory-visit`
       break;
     default:
       break;

@@ -1,6 +1,6 @@
 import styles from './downloads.module.scss'
 import cn from 'classnames'
-import { AllProductDownloadsDocument, AllCataloguesDocument } from '/graphql';
+import { AllProductDownloadsDocument, AllCataloguesDocument, DownloadsStartDocument } from '/graphql';
 import withGlobalProps from "/lib/withGlobalProps";
 import { Image } from 'react-datocms'
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
@@ -11,9 +11,13 @@ import { productDownloads, ProductRecordWithPdfFiles } from '/lib/utils';
 import { useMediaQuery } from 'usehooks-ts'
 import { styleVariables } from '/lib/utils';
 
-export type DownloadsProps = { products: ProductRecord[], catalogues: CatalogueRecord[] }
+export type DownloadsProps = {
+	products: ProductRecord[],
+	catalogues: CatalogueRecord[]
+	downloadsStart: DownloadsStartRecord
+}
 
-export default function Downloads({ products, catalogues }: DownloadsProps) {
+export default function Downloads({ products, catalogues, downloadsStart }: DownloadsProps) {
 
 	const [search, setSearch] = useState<string>('');
 	const [results, setResults] = useState<ProductRecord[]>(products);
@@ -36,11 +40,10 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 	return (
 		<>
 			<Section className={styles.intro} top={true}>
-				<h1 className="white topMargin">Download center</h1>
+				<h1 className="white topMargin">{downloadsStart.title}</h1>
 				<div className={styles.intro}>
 					<Markdown>
-						Looking for BIM-files? Need a CAD-file for a mock-up? Lightfiles?
-						Product sheets too? No worries, we got you covered.
+						{downloadsStart.intro}
 					</Markdown>
 				</div>
 			</Section>
@@ -155,7 +158,7 @@ export default function Downloads({ products, catalogues }: DownloadsProps) {
 
 Downloads.page = { title: 'Downloads', layout: 'normal', color: "--gray", menu: 'inverted' } as PageProps
 
-export const getStaticProps = withGlobalProps({ queries: [AllProductDownloadsDocument, AllCataloguesDocument] }, async ({ props, revalidate }: any) => {
+export const getStaticProps = withGlobalProps({ queries: [AllProductDownloadsDocument, AllCataloguesDocument, DownloadsStartDocument] }, async ({ props, revalidate }: any) => {
 
 	return {
 		props,

@@ -76,6 +76,14 @@ query FactoryVisit {
 	}
 }
 
+query DownloadsStart {
+	downloadsStart {
+		id
+		intro(markdown: false)
+		title
+	}
+}
+
 query AllCatalogues($first: IntType = 100) {
 	catalogues: allCatalogues(first: $first) {
 		id

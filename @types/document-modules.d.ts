@@ -280,6 +280,7 @@ export const AllProjectTypes: DocumentNode;
 export const Bespoke: DocumentNode;
 export const BespokeThumbnail: DocumentNode;
 export const FactoryVisit: DocumentNode;
+export const DownloadsStart: DocumentNode;
 export const AllCatalogues: DocumentNode;
 export const AllColorsAndMaterials: DocumentNode;
 

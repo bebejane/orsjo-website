@@ -881,9 +881,9 @@ type DistributorRecordaddressArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-/** Record of type Download (download) */
-type DownloadRecord = RecordInterface & {
-  __typename?: 'DownloadRecord';
+/** Record of type Downloads (downloads_start) */
+type DownloadsStartRecord = RecordInterface & {
+  __typename?: 'DownloadsStartRecord';
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
@@ -905,9 +905,15 @@ type DownloadRecord = RecordInterface & {
 };
 
 
-/** Record of type Download (download) */
-type DownloadRecord_seoMetaTagsArgs = {
+/** Record of type Downloads (downloads_start) */
+type DownloadsStartRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Downloads (downloads_start) */
+type DownloadsStartRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Record of type Factory visit (factory_visit) */
@@ -5201,7 +5207,7 @@ type Query = {
   /** Returns a specific record */
   distributor?: Maybe<DistributorRecord>;
   /** Returns the single instance record */
-  download?: Maybe<DownloadRecord>;
+  downloadsStart?: Maybe<DownloadsStartRecord>;
   /** Returns the single instance record */
   factoryVisit?: Maybe<FactoryVisitRecord>;
   /** Returns a specific record */
@@ -5970,7 +5976,7 @@ type QuerydistributorArgs = {
 
 
 /** The query root for this schema */
-type QuerydownloadArgs = {
+type QuerydownloadsStartArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -7773,6 +7779,11 @@ type FactoryVisitQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type FactoryVisitQuery = { __typename?: 'Query', factoryVisit?: { __typename?: 'FactoryVisitRecord', id: any, title?: string, intro?: string } };
+
+type DownloadsStartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type DownloadsStartQuery = { __typename?: 'Query', downloadsStart?: { __typename?: 'DownloadsStartRecord', id: any, intro?: string, title?: string } };
 
 type AllCataloguesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;

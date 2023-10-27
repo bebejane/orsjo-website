@@ -17,25 +17,34 @@ export default withRevalidate(async (record, revalidate) => {
       paths.push(`/products`)
       paths.push(`/`)
       break;
+    case 'product_start':
+      paths.push(`/products`)
+      break;
     case 'designer':
       paths.push(`/designers/${slug}`)
       break;
     case 'project_start':
+    case 'project_type':
       paths.push(`/professionals/projects`)
       break;
     case 'project':
       paths.push(`/professionals/projects/${slug}`)
-      paths.push(`/professionals`)
+      paths.push(`/professionals/projects`)
       paths.push(`/`)
       break;
     case 'bespoke':
       paths.push(`/professionals/bespoke`)
       break;
     case 'color_material':
+    case 'color_material_intro':
+    case 'color_material_type':
       paths.push(`/professionals/colors-and-materials`)
       break;
+    case 'manual':
+      paths.push(`/support/manuals`)
+      break;
     case 'about':
-      paths.push(`/about/about-us`)
+      paths.push(`/about`)
       break;
     case 'sustainability':
       paths.push(`/about/sustainability`)
@@ -47,11 +56,24 @@ export default withRevalidate(async (record, revalidate) => {
     case 'job':
       paths.push(`/about/jobs`)
       break;
-    case 'faq': case 'faq_start': case 'faq_category':
+    case 'faq':
+    case 'faq_start':
+    case 'faq_category':
       paths.push(`/support/faq`)
       break;
-    case 'contact': case 'staff': case 'showroom': case 'reseller': case 'distributor':
+    case 'contact':
+    case 'staff':
+    case 'showroom':
+    case 'reseller':
+    case 'distributor':
       paths.push(`/contact`)
+      break;
+    case 'downloads_start':
+    case 'catalogue':
+      paths.push(`/professionals/downloads`)
+      break;
+    case 'factory_visit':
+      paths.push(`/professionals/factory-visit`)
       break;
     default:
       break;
