@@ -310,7 +310,7 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 	const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, { variables: { slug }, preview: context.preview })
 
 	if (!product)
-		return { notFound: true }
+		return { notFound: true, revalidate }
 
 	const { relatedProducts, productsByCategory, relatedProjects } = await apiQuery([
 		RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument

@@ -144,7 +144,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	const relatedProjects = projects.filter(p => p.id !== project.id).sort((a, b) => Math.random() > 0.5 ? 1 : -1)
 
 	if (!project)
-		return { notFound: true }
+		return { notFound: true, revalidate }
 
 	return {
 		props: {

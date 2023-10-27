@@ -58,7 +58,7 @@ export const getStaticProps = withGlobalProps({}, async ({ props, context, reval
 	const { news } = await apiQuery(NewsDocument, { variables: { slug: context.params.news } })
 
 	if (!news)
-		return { notFound: true }
+		return { notFound: true, revalidate }
 
 	return {
 		props: {

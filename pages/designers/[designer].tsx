@@ -93,7 +93,7 @@ export const getStaticProps = withGlobalProps({ queries: [AllDesignersDocument, 
 	const { products } = await apiQuery(AllProductsByDesignerDocument, { variables: { id: designer.id } })
 
 	if (!designer)
-		return { notFound: true }
+		return { notFound: true, revalidate }
 
 	return {
 		props: {
