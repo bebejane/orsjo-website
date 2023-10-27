@@ -71,7 +71,7 @@ function Application({ Component, pageProps, router }: ApplicationProps) {
         path={router.asPath}
       />
       <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
-      <AnimatePresence exitBeforeEnter initial={true}>
+      <AnimatePresence mode="wait" initial={true}>
         <div id="app" key={pathname}>
           <PageProvider value={page}>
             <Layout menu={menu} title={pageTitle}>
