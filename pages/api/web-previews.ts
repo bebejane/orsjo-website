@@ -51,7 +51,7 @@ export default withWebPreviewsEdge(async ({ item, itemType }) => {
     case 'faq': case 'faq_start': case 'faq_category':
       path = `/support/faq`
       break;
-    case 'contact': case 'staff': case 'showroom': case 'reseller': case 'distributor':
+    case 'contact': case 'staff': case 'showroom': case 'reseller': case 'distributor': case 'country':
       path = `/contact`
       break;
     case 'downloads_start':

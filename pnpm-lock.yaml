@@ -9,14 +9,14 @@ dependencies:
     specifier: ^3.7.1
     version: 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
   '@datocms/cma-client':
-    specifier: ^2.2.6
-    version: 2.2.6(encoding@0.1.13)
+    specifier: ^3.0.1
+    version: 3.0.1
   '@datocms/cma-client-browser':
-    specifier: ^2.2.6
-    version: 2.2.6(encoding@0.1.13)
+    specifier: ^3.0.1
+    version: 3.0.1
   '@datocms/cma-client-node':
-    specifier: ^2.2.6
-    version: 2.2.6(encoding@0.1.13)
+    specifier: ^3.0.2
+    version: 3.0.2
   '@next/bundle-analyzer':
     specifier: ^12.3.1
     version: 12.3.4(bufferutil@4.0.7)(utf-8-validate@6.0.3)
@@ -49,7 +49,7 @@ dependencies:
     version: 2.30.0
   dato-nextjs-utils:
     specifier: github:bebejane/dato-nextjs-utils
-    version: github.com/bebejane/dato-nextjs-utils/3e7b70db5388a80da8d353a91e271628b89c22e4(@apollo/client@3.7.14)(@datocms/cma-client-node@2.2.6)(@datocms/cma-client@2.2.6)(@types/node@18.16.12)(@types/react-dom@18.2.4)(@types/react@18.2.6)(datocms-listen@0.1.15)(next-seo@5.15.0)(next@13.5.6)(react-datocms@4.1.3)(react-dom@18.2.0)(react@18.2.0)
+    version: github.com/bebejane/dato-nextjs-utils/c11f8d418c0423f048df56620ece08ca36562365(@apollo/client@3.7.14)(@datocms/cma-client-node@3.0.2)(@datocms/cma-client@3.0.1)(@types/node@18.16.12)(@types/react-dom@18.2.4)(@types/react@18.2.6)(datocms-listen@0.1.15)(next-seo@5.15.0)(next@13.5.6)(react-datocms@4.1.3)(react-dom@18.2.0)(react@18.2.0)
   datocms-structured-text-utils:
     specifier: ^2.0.4
     version: 2.0.4
@@ -1898,42 +1898,33 @@ packages:
     resolution: {integrity: sha512-N8uEMrMPL0cu/bdboEWpQYb/0i2K5Qn8eCsxzOmxSggJbbQte7ljMRoXm917AbntqTGOzdTu+vP3KOOzoC70HQ==}
     dev: false
 
-  /@datocms/cma-client-browser@2.2.6(encoding@0.1.13):
-    resolution: {integrity: sha512-ZCQJ5mrVr/gEfTsoBU+TJdpoE9Ve/ypPYgWnTUg6gTs36h4HbXzDV7vjKd0jaN+eq3iAF9DQL5YPeWVmGBIV/w==}
+  /@datocms/cma-client-browser@3.0.1:
+    resolution: {integrity: sha512-UmpOVI21FfbAs71cskhKBg2LzzsYVqxPs1lgUw+LwqU8JOayxzWX9L2I8qylp++TTV0DSb2xX+TRXnuF3oHFiQ==}
     dependencies:
-      '@datocms/cma-client': 2.2.6(encoding@0.1.13)
-      '@datocms/rest-client-utils': 1.3.3(encoding@0.1.13)
-    transitivePeerDependencies:
-      - encoding
+      '@datocms/cma-client': 3.0.1
+      '@datocms/rest-client-utils': 3.0.1
     dev: false
 
-  /@datocms/cma-client-node@2.2.6(encoding@0.1.13):
-    resolution: {integrity: sha512-ODkTT/uDoemhSjk/oic1CEkIkDCHysYlaih6uFrVZEoEqrqpilntZLxDwu2F6UbAn7jLczIX0MAevZIVFx6pSw==}
+  /@datocms/cma-client-node@3.0.2:
+    resolution: {integrity: sha512-NdTDigCQrVgw3Y46wRXk+P8c0CX8BhE1bblTaUCkCbDJik1wMfvyxaBqT3QbhAT98r+NeDqFd4I/mxmPf++JVA==}
     dependencies:
-      '@datocms/cma-client': 2.2.6(encoding@0.1.13)
-      '@datocms/rest-client-utils': 1.3.3(encoding@0.1.13)
+      '@datocms/cma-client': 3.0.1
+      '@datocms/rest-client-utils': 3.0.1
       got: 11.8.6
       mime-types: 2.1.35
       tmp-promise: 3.0.3
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
-  /@datocms/cma-client@2.2.6(encoding@0.1.13):
-    resolution: {integrity: sha512-4g0R8DGZT+XRdAiHeUlLxi0O7o89ZV0LQJxYq8eIqGa/Ib6zNBwr4C4CvKXZt4IF2cO8ZEkrB/r0aXZjFz+pYA==}
+  /@datocms/cma-client@3.0.1:
+    resolution: {integrity: sha512-wRGnNaD/wsv3dQlbsHZ9MDEpWYk6PyYERwSweRARq9keHQqkUSxwX0116Ubh5gjETyFdkUdRCCINmppiuv78yQ==}
     dependencies:
-      '@datocms/rest-client-utils': 1.3.3(encoding@0.1.13)
-    transitivePeerDependencies:
-      - encoding
+      '@datocms/rest-client-utils': 3.0.1
     dev: false
 
-  /@datocms/rest-client-utils@1.3.3(encoding@0.1.13):
-    resolution: {integrity: sha512-hAfzEKs2vHUIg+kZNheMaSy5Azl82kIKJeY+dzydyacwcXdbF4BcHSKR7My7lSZm3sy7RTpqsp/azT5vY64vtQ==}
+  /@datocms/rest-client-utils@3.0.1:
+    resolution: {integrity: sha512-+LzQynt4TghFclPjREbAY9AfaksYFD2kOR5oIhOZL9xLnFz8d4eKJbph8IFkZd314vBFjyM9cby+ScEZpQkr3Q==}
     dependencies:
-      '@whatwg-node/fetch': 0.5.4(encoding@0.1.13)
       async-scheduler: 1.4.4
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
   /@emotion/is-prop-valid@0.8.8:
@@ -1999,11 +1990,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /@fastify/busboy@2.0.0:
-    resolution: {integrity: sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==}
-    engines: {node: '>=14'}
-    dev: false
 
   /@formatjs/ecma402-abstract@1.11.4:
     resolution: {integrity: sha512-EBikYFp2JCdIfGEb5G9dyCkTGDmC57KSHhRQOC3aYxoPWVZvfWCDjZwkGYHN7Lis/fmuWl906bnNTJifDQ3sXw==}
@@ -3841,21 +3827,6 @@ packages:
     resolution: {integrity: sha512-IqnKIDWfXBJkvy/k6tzskWTc2NK3LcqHlb+KHGCrjOCH4jfQckRX0NAiIcC/vIqQkzLYw2r2CTSwAxcrtcD6lA==}
     dev: true
 
-  /@whatwg-node/fetch@0.5.4(encoding@0.1.13):
-    resolution: {integrity: sha512-dR5PCzvOeS7OaW6dpIlPt+Ou3pak7IEG+ZVAV26ltcaiDB3+IpuvjqRdhsY6FKHcqBo1qD+S99WXY9Z6+9Rwnw==}
-    dependencies:
-      '@peculiar/webcrypto': 1.4.3
-      abort-controller: 3.0.0
-      busboy: 1.6.0
-      form-data-encoder: 1.9.0
-      formdata-node: 4.4.1
-      node-fetch: 2.7.0(encoding@0.1.13)
-      undici: 5.26.5
-      web-streams-polyfill: 3.2.1
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
   /@whatwg-node/fetch@0.8.8:
     resolution: {integrity: sha512-CdcjGC2vdKhc13KKxgsc6/616BQ7ooDIgPeTuAiE8qfCnS0mGzcfCOoZXypQSz73nxI+GWc7ZReIAVhxoE1KCg==}
     dependencies:
@@ -3905,13 +3876,6 @@ packages:
 
   /abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
-
-  /abort-controller@3.0.0:
-    resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
-    engines: {node: '>=6.5'}
-    dependencies:
-      event-target-shim: 5.0.1
-    dev: false
 
   /accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
@@ -4758,8 +4722,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001554
-      electron-to-chromium: 1.4.568
+      caniuse-lite: 1.0.30001557
+      electron-to-chromium: 1.4.569
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
 
@@ -4886,6 +4850,9 @@ packages:
 
   /caniuse-lite@1.0.30001554:
     resolution: {integrity: sha512-A2E3U//MBwbJVzebddm1YfNp7Nud5Ip+IPn4BozBmn4KqVX7AvluoIDFWjsv5OkGnKUXQVmMSoMKLa3ScCblcQ==}
+
+  /caniuse-lite@1.0.30001557:
+    resolution: {integrity: sha512-91oR7hLNUP3gG6MLU+n96em322a8Xzes8wWdBKhLgUoiJsAF5irZnxSUCbc+qUZXNnPCfUwLOi9ZCZpkvjQajw==}
 
   /capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -5797,8 +5764,8 @@ packages:
   /electron-to-chromium@1.4.397:
     resolution: {integrity: sha512-jwnPxhh350Q/aMatQia31KAIQdhEsYS0fFZ0BQQlN9tfvOEwShu6ZNwI4kL/xBabjcB/nTy6lSt17kNIluJZ8Q==}
 
-  /electron-to-chromium@1.4.568:
-    resolution: {integrity: sha512-3TCOv8+BY6Ltpt1/CmGBMups2IdKOyfEmz4J8yIS4xLSeMm0Rf+psSaxLuswG9qMKt+XbNbmADybtXGpTFlbDg==}
+  /electron-to-chromium@1.4.569:
+    resolution: {integrity: sha512-LsrJjZ0IbVy12ApW3gpYpcmHS3iRxH4bkKOW98y1/D+3cvDUWGcbzbsFinfUS8knpcZk/PG/2p/RnkMCYN7PVg==}
 
   /elegant-spinner@1.0.1:
     resolution: {integrity: sha512-B+ZM+RXvRqQaAmkMlO/oSe5nMUOaUnyfGYCEHoR8wrXsZR2mA0XVibsxV1bvTwxdRWah1PkQqso2EzhILGHtEQ==}
@@ -6515,11 +6482,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /event-target-shim@5.0.1:
-    resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
-    engines: {node: '>=6'}
-    dev: false
-
   /exec-sh@0.2.2:
     resolution: {integrity: sha512-FIUCJz1RbuS0FKTdaAafAByGS0CPvU3R0MeHxgtl+djzCc//F8HakL8GzmVNZanasTbTAY/3DRFA0KpVqj/eAw==}
     dependencies:
@@ -6740,10 +6702,6 @@ packages:
     resolution: {integrity: sha512-j0KLYPhm6zeac4lz3oJ3o65qvgQCcPubiyotZrXqEaG4hNagNYO8qdlUrX5vwqv9ohqeT/Z3j6+yW067yWWdUw==}
     dev: false
 
-  /form-data-encoder@1.9.0:
-    resolution: {integrity: sha512-rahaRMkN8P8d/tgK/BLPX+WBVM27NbvdXBxqQujBtkDAIFspaRqN7Od7lfdGQA6KAD+f82fYCLBq1ipvcu8qLw==}
-    dev: false
-
   /form-data@2.1.4:
     resolution: {integrity: sha512-8HWGSLAPr+AG0hBpsqi5Ob8HrLStN/LWeqhpFl14d7FJgHK48TmgLoALPz69XSUR65YJzDfLUX/BM8+MLJLghQ==}
     engines: {node: '>= 0.12'}
@@ -6768,14 +6726,6 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
-
-  /formdata-node@4.4.1:
-    resolution: {integrity: sha512-0iirZp3uVDjVGt9p49aTaqjk84TrglENEDuqfdlZQ1roC9CWlPk6Avf8EEnZNcAqPonwkG35x4n3ww/1THYAeQ==}
-    engines: {node: '>= 12.20'}
-    dependencies:
-      node-domexception: 1.0.0
-      web-streams-polyfill: 4.0.0-beta.3
-    dev: false
 
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
@@ -9534,11 +9484,6 @@ packages:
     resolution: {integrity: sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==}
     dev: false
 
-  /node-domexception@1.0.0:
-    resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
-    engines: {node: '>=10.5.0'}
-    dev: false
-
   /node-fetch@2.6.11(encoding@0.1.13):
     resolution: {integrity: sha512-4I6pdBY1EthSqDmJkiNk3JIT8cswwR9nfeW/cPdUagJYEQG7R95WRH74wpz7ma8Gh/9dI9FP+OU+0E4FvtA55w==}
     engines: {node: 4.x || >=6.0.0}
@@ -11676,13 +11621,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /undici@5.26.5:
-    resolution: {integrity: sha512-cSb4bPFd5qgR7qr2jYAi0hlX9n5YKK2ONKkLFkxl+v/9BvC0sOpZjBHDBSXc5lWAf5ty9oZdRXytBIHzgUcerw==}
-    engines: {node: '>=14.0'}
-    dependencies:
-      '@fastify/busboy': 2.0.0
-    dev: false
-
   /unicode-canonical-property-names-ecmascript@2.0.0:
     resolution: {integrity: sha512-yY5PpDlfVIU5+y/BSCxAJRBIS1Zc2dDG3Ujq+sR0U+JjUevW2JhocOF+soROYDSaAezOzOKuyyixhD6mBknSmQ==}
     engines: {node: '>=4'}
@@ -12046,11 +11984,7 @@ packages:
   /web-streams-polyfill@3.2.1:
     resolution: {integrity: sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==}
     engines: {node: '>= 8'}
-
-  /web-streams-polyfill@4.0.0-beta.3:
-    resolution: {integrity: sha512-QW95TCTaHmsYfHDybGMwO5IJIM93I/6vTRk+daHTWFPhwh+C8Cg7j7XyKrwrj8Ib6vYXe0ocYNrmzY4xAAN6ug==}
-    engines: {node: '>= 14'}
-    dev: false
+    dev: true
 
   /webcrypto-core@1.7.7:
     resolution: {integrity: sha512-7FjigXNsBfopEj+5DV2nhNpfic2vumtjjgPmeDKk45z+MJwXKKfhPB7118Pfzrmh4jqOMST6Ch37iPAHoImg5g==}
@@ -12384,11 +12318,11 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/bebejane/dato-nextjs-utils/3e7b70db5388a80da8d353a91e271628b89c22e4(@apollo/client@3.7.14)(@datocms/cma-client-node@2.2.6)(@datocms/cma-client@2.2.6)(@types/node@18.16.12)(@types/react-dom@18.2.4)(@types/react@18.2.6)(datocms-listen@0.1.15)(next-seo@5.15.0)(next@13.5.6)(react-datocms@4.1.3)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/3e7b70db5388a80da8d353a91e271628b89c22e4}
-    id: github.com/bebejane/dato-nextjs-utils/3e7b70db5388a80da8d353a91e271628b89c22e4
+  github.com/bebejane/dato-nextjs-utils/c11f8d418c0423f048df56620ece08ca36562365(@apollo/client@3.7.14)(@datocms/cma-client-node@3.0.2)(@datocms/cma-client@3.0.1)(@types/node@18.16.12)(@types/react-dom@18.2.4)(@types/react@18.2.6)(datocms-listen@0.1.15)(next-seo@5.15.0)(next@13.5.6)(react-datocms@4.1.3)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/c11f8d418c0423f048df56620ece08ca36562365}
+    id: github.com/bebejane/dato-nextjs-utils/c11f8d418c0423f048df56620ece08ca36562365
     name: dato-nextjs-utils
-    version: 1.0.404
+    version: 1.0.407
     engines: {node: '>=0.16'}
     peerDependencies:
       '@apollo/client': '>=3'
@@ -12405,8 +12339,8 @@ packages:
       react-dom: '>= 16'
     dependencies:
       '@apollo/client': 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
-      '@datocms/cma-client': 2.2.6(encoding@0.1.13)
-      '@datocms/cma-client-node': 2.2.6(encoding@0.1.13)
+      '@datocms/cma-client': 3.0.1
+      '@datocms/cma-client-node': 3.0.2
       '@next/env': 13.3.0
       '@types/node': 18.16.12
       '@types/react': 18.2.6

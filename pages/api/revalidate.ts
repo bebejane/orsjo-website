@@ -1,9 +1,16 @@
 import { withRevalidate } from 'dato-nextjs-utils/hoc'
+import { buildClient } from '@datocms/cma-client-node';
+
+export const config = {
+  maxDuration: 120
+}
+
+const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN });
 
 export default withRevalidate(async (record, revalidate) => {
 
   const { api_key: apiKey } = record.model;
-  const { slug } = record
+  const { slug, id } = record
   const paths = []
 
   switch (apiKey) {
@@ -16,6 +23,29 @@ export default withRevalidate(async (record, revalidate) => {
       paths.push(`/support/manuals`)
       paths.push(`/products`)
       paths.push(`/`)
+      break;
+    case 'product_accessory':
+    case 'product_category':
+    case 'product_color':
+    case 'product_connection':
+    case 'product_dimmable':
+    case 'product_electrical':
+    case 'product_family':
+    case 'product_feature':
+    case 'product_lightsource':
+    case 'product_material':
+    case 'product_model_name':
+    case 'product_mounting':
+    case 'product_socket':
+      const products = await client.items.references(id, { version: 'published', limit: 500 })
+      if (products.length) {
+        paths.push(`/products`)
+        paths.push(`/professionals/downloads`)
+        paths.push(`/support/manuals`)
+        paths.push(`/`)
+        paths.push.apply(paths, products.map(product => `/products/${product.slug}`))
+      }
+
       break;
     case 'product_start':
       paths.push(`/products`)
@@ -74,6 +104,9 @@ export default withRevalidate(async (record, revalidate) => {
       break;
     case 'factory_visit':
       paths.push(`/professionals/factory-visit`)
+      break;
+    case 'country':
+      paths.push(`/contact`)
       break;
     default:
       break;
