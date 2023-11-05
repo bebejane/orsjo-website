@@ -90,10 +90,11 @@ export const getStaticProps = withGlobalProps({ queries: [AllDesignersDocument, 
 
 	const { designers, products: allProducts } = props;
 	const { designer } = await apiQuery(DesignerDocument, { variables: { slug: context.params.designer } })
-	const { products } = await apiQuery(AllProductsByDesignerDocument, { variables: { id: designer.id } })
 
 	if (!designer)
 		return { notFound: true, revalidate }
+
+	const { products } = await apiQuery(AllProductsByDesignerDocument, { variables: { id: designer.id } })
 
 	return {
 		props: {

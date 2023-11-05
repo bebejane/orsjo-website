@@ -46,8 +46,6 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 		slug: '/professionals/bespoke'
 	} as ProductRecord]) : project.relatedProducts
 
-	const doubleRelated = relatedProjects.length && relatedProducts.length
-
 	useEffect(() => {
 		setGallery({ images: galleryImages(project) })
 	}, [setGallery, project])
@@ -140,11 +138,13 @@ export async function getStaticPaths(context) {
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
 	const { project, bespokeThumbnail }: { project: ProjectRecord, bespokeThumbnail: BespokeThumbnailRecord } = await apiQuery([ProjectDocument, BespokeThumbnailDocument], { variables: { slug: context.params.project } })
-	const { projects }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
-	const relatedProjects = projects.filter(p => p.id !== project.id).sort((a, b) => Math.random() > 0.5 ? 1 : -1)
 
 	if (!project)
 		return { notFound: true, revalidate }
+
+	const { projects }: { projects: ProjectRecord[] } = await apiQuery(AllRelatedProjectsDocument, { variables: { projectType: project.projectType.id } })
+	const relatedProjects = projects.filter(p => p.id !== project.id).sort((a, b) => Math.random() > 0.5 ? 1 : -1)
+
 
 	return {
 		props: {
