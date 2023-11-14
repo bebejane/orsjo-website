@@ -55,7 +55,7 @@ export async function getStaticPaths(context) {
 
 export const getStaticProps = withGlobalProps({}, async ({ props, context, revalidate }) => {
 
-	const { news } = await apiQuery(NewsDocument, { variables: { slug: context.params.news } })
+	const { news } = await apiQuery(NewsDocument, { variables: { slug: context.params.news }, preview: context.preview })
 
 	if (!news)
 		return { notFound: true, revalidate }
