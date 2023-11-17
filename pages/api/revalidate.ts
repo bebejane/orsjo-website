@@ -12,7 +12,7 @@ export default withRevalidate(async (record, revalidate) => {
   const { api_key: apiKey } = record.model;
   const { slug, id } = record
   const paths = []
-
+  console.log(record)
   switch (apiKey) {
     case 'start':
       paths.push(`/`)
