@@ -12,7 +12,7 @@ export default withRevalidate(async (record, revalidate) => {
   const { api_key: apiKey } = record.model;
   const { slug, id } = record
   const paths = []
-  console.log(record)
+
   switch (apiKey) {
     case 'start':
       paths.push(`/`)
@@ -37,6 +37,7 @@ export default withRevalidate(async (record, revalidate) => {
     case 'product_model_name':
     case 'product_mounting':
     case 'product_socket':
+      if (!id) throw new Error('Missing reference  id')
       const products = await client.items.references(id, { version: 'published', limit: 500 })
       if (products.length) {
         paths.push(`/products`)
