@@ -10,6 +10,7 @@ fragment ProductFragment on ProductRecord {
 	slug
 	additionalInformation
 	markAsNew
+	upcycled
 	image {
 		...ImageFragment
 	}

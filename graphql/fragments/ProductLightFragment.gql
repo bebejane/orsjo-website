@@ -1,28 +1,29 @@
 #import './ImageThumbnailFragment.gql'
 
-fragment ProductLightFragment on ProductRecord{
-  id
-  title
-  slug
-  markAsNew
-  family{
-    id
-    name
-  }
-  categories{
-    id
-    name
-    namePlural
-  }
-  image{
-    ...ImageThumbnailFragment
-  }
-  environmentImage{
-    ...ImageThumbnailFragment
-  }
-  designer{
-    id
-    name
-    slug
-  }
+fragment ProductLightFragment on ProductRecord {
+	id
+	title
+	slug
+	markAsNew
+	upcycled
+	family {
+		id
+		name
+	}
+	categories {
+		id
+		name
+		namePlural
+	}
+	image {
+		...ImageThumbnailFragment
+	}
+	environmentImage {
+		...ImageThumbnailFragment
+	}
+	designer {
+		id
+		name
+		slug
+	}
 }

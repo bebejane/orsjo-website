@@ -15,6 +15,7 @@ export type ThumbnailProps = {
   lazyload?: boolean
   objectFit?: 'contain' | 'cover',
   markAsNew?: boolean,
+  upcycled?: boolean,
   onClick?: () => void,
   theme?: 'dark' | 'light' | 'mid',
   type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material',
@@ -29,6 +30,7 @@ export default function Thumbnail({
   title,
   subtitle,
   markAsNew = false,
+  upcycled = false,
   className,
   onClick,
   objectFit = 'contain',
@@ -66,7 +68,7 @@ export default function Thumbnail({
             />
           </div>
         }
-        <div className={styles.upcycled}><img src="/images/upcycled.svg" /></div>
+        {upcycled && <div className={styles.upcycled}><img src="/images/upcycled.svg" /></div>}
       </figure>
       <figcaption>
         <span className={styles.title}>{title} <span className={styles.subtitle}>{subtitle}</span></span>
@@ -123,6 +125,7 @@ export function ProductThumbnail({ product, inverted, theme = 'dark', className,
       inverted={inverted}
       theme={theme}
       markAsNew={product.markAsNew}
+      upcycled={product.upcycled}
       type="product"
       lazyload={lazyload}
       showMarkAsNew={showMarkAsNew}

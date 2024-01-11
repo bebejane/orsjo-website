@@ -26,6 +26,7 @@ query Start {
 				headline
 				subHeadline
 				readMore
+				makeDarker
 				media {
 					...VideoFragment
 				}
