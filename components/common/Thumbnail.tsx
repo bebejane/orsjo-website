@@ -66,6 +66,7 @@ export default function Thumbnail({
             />
           </div>
         }
+        <div className={styles.upcycled}><img src="/images/upcycled.svg" /></div>
       </figure>
       <figcaption>
         <span className={styles.title}>{title} <span className={styles.subtitle}>{subtitle}</span></span>

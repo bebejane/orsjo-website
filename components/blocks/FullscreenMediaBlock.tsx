@@ -15,6 +15,7 @@ export default function FullscreenMediaBlock({ data: { media, headline, linkReco
 
 	return (
 		<Link scroll={false} href={`/${slug}`} className={styles.fullScreenImage} ref={ref} passHref={true}>
+			<div className={styles.fadeTop}></div>
 			<div className={styles.fade}></div>
 			{!media.mimeType.includes('video') ?
 				<Image

@@ -56,3 +56,17 @@
   bottom: 0;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
 }
+
+.fadeTop {
+  height: 30vh;
+
+  @include mq($from: tablet) {
+    height: 20vh;
+  }
+
+  width: 100%;
+  z-index: 1;
+  position: absolute;
+  bottom: top;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+}

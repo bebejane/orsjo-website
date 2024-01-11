@@ -1426,6 +1426,7 @@ type FullscreenMediaBlockRecord = RecordInterface & {
   headline?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
   linkRecord?: Maybe<FullscreenMediaBlockModelLinkRecordField>;
+  makeDarker?: Maybe<Scalars['BooleanType']>;
   media?: Maybe<FileField>;
   readMore?: Maybe<Scalars['String']>;
   subHeadline?: Maybe<Scalars['String']>;
@@ -4385,6 +4386,7 @@ type ProductModelFilter = {
   slug?: InputMaybe<SlugFilter>;
   sockets?: InputMaybe<LinksFilter>;
   title?: InputMaybe<StringFilter>;
+  upcycled?: InputMaybe<BooleanFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
@@ -4506,6 +4508,8 @@ enum ProductModelOrderBy {
   markAsNew_DESC = 'markAsNew_DESC',
   title_ASC = 'title_ASC',
   title_DESC = 'title_DESC',
+  upcycled_ASC = 'upcycled_ASC',
+  upcycled_DESC = 'upcycled_DESC',
   updatedAt_ASC = 'updatedAt_ASC',
   updatedAt_DESC = 'updatedAt_DESC'
 }
@@ -4676,6 +4680,7 @@ type ProductRecord = RecordInterface & {
   slug?: Maybe<Scalars['String']>;
   sockets: Array<ProductSocketRecord>;
   title?: Maybe<Scalars['String']>;
+  upcycled?: Maybe<Scalars['BooleanType']>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -6425,6 +6430,7 @@ type SeoField = {
   __typename?: 'SeoField';
   description?: Maybe<Scalars['String']>;
   image?: Maybe<FileField>;
+  noIndex?: Maybe<Scalars['BooleanType']>;
   title?: Maybe<Scalars['String']>;
   twitterCard?: Maybe<Scalars['String']>;
 };
@@ -6529,6 +6535,7 @@ type Site = {
   faviconMetaTags: Array<Tag>;
   globalSeo?: Maybe<GlobalSeoField>;
   locales: Array<SiteLocale>;
+  noIndex?: Maybe<Scalars['BooleanType']>;
 };
 
 
