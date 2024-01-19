@@ -30,6 +30,7 @@
       justify-content: center;
       min-width: 100%;
       min-height: 100%;
+
       h1 {
         text-align: center;
         padding-left: 1em;
@@ -77,14 +78,21 @@
       .image {
         max-width: none !important;
       }
+
+      .video {
+        width: 100%;
+        object-fit: contain;
+      }
     }
 
     .left {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+
       .header {
         position: relative;
+
         h2 {
           position: absolute;
           white-space: pre;
@@ -97,6 +105,7 @@
           line-height: 1;
           font-weight: bold;
         }
+
         span {
           @include h1Big();
           white-space: pre;
@@ -121,6 +130,7 @@
           z-index: 2;
           background: linear-gradient(270deg, rgb(18, 18, 18) 0%, rgba(18, 18, 18, 0) 70%);
         }
+
         .right {
           padding-left: 0;
           padding-right: 0;
@@ -138,6 +148,7 @@
       }
     }
   }
+
   @include mq($until: desktop) {
     .block {
       flex-direction: column;
@@ -155,14 +166,17 @@
         padding-right: var(--outer-margin);
         flex: 1 1 auto;
       }
+
       .left {
         margin-top: $small-margin;
         margin-bottom: $small-margin;
       }
+
       .right {
         padding-right: 0;
         padding-left: 0;
       }
+
       &.fullWidth {
         .left {
           position: relative;

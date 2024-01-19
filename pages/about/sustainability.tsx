@@ -5,7 +5,7 @@ import cn from 'classnames'
 import { Image } from 'react-datocms'
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
 import { PageProps } from '/lib/context/page';
-import { Section, TextReveal } from '/components'
+import { Section, TextReveal, VideoPlayer } from '/components'
 
 export type SustainabilityProps = { sustainability: SustainabilityRecord }
 
@@ -32,7 +32,7 @@ export default function Sustainability({ sustainability: { image, intro, title, 
 				</Markdown>
 			</Section>
 			<Section className={styles.blocks} type="full">
-				{steps.map(({ id, text, title, image, fullWidthImage }, idx) =>
+				{steps.map(({ id, text, title, media, fullWidthImage }, idx) =>
 					<div className={cn(styles.block, fullWidthImage && styles.fullWidth)} key={idx}>
 						<div className={styles.left}>
 							<div className={styles.header}>
@@ -44,11 +44,18 @@ export default function Sustainability({ sustainability: { image, intro, title, 
 							</Markdown>
 						</div>
 						<div className={styles.right}>
-							<Image
-								data={image.responsiveImage}
-								className={styles.image}
-								lazyLoad={false}
-							/>
+							{media.video ?
+								<VideoPlayer
+									className={styles.video}
+									data={media}
+								/>
+								:
+								<Image
+									data={media.responsiveImage}
+									className={styles.image}
+									lazyLoad={false}
+								/>
+							}
 						</div>
 					</div>
 				)}

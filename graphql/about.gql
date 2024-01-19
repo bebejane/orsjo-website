@@ -14,8 +14,8 @@ query Sustainability {
 			... on SustainabilityStepRecord {
 				title
 				text(markdown: false)
-				image {
-					...ImageFragment
+				media {
+					...VideoFragment
 				}
 				fullWidthImage
 			}

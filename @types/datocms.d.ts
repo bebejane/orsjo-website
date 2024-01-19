@@ -6818,7 +6818,7 @@ type SustainabilityStepRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   fullWidthImage?: Maybe<Scalars['BooleanType']>;
   id: Scalars['ItemId'];
-  image?: Maybe<FileField>;
+  media?: Maybe<FileField>;
   text?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -7455,7 +7455,7 @@ type focalPoint = {
 type SustainabilityQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type SustainabilityQuery = { __typename?: 'Query', sustainability?: { __typename?: 'SustainabilityRecord', id: any, title?: string, intro?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, steps: Array<{ __typename?: 'SustainabilityStepRecord', title?: string, text?: string, fullWidthImage?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> } };
+type SustainabilityQuery = { __typename?: 'Query', sustainability?: { __typename?: 'SustainabilityRecord', id: any, title?: string, intro?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, steps: Array<{ __typename?: 'SustainabilityStepRecord', title?: string, text?: string, fullWidthImage?: any, media?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> } };
 
 type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 
