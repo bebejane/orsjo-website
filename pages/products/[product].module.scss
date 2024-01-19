@@ -107,7 +107,6 @@
 			}
 
 			.upcycled {
-				display: none; //Björn ta bort
 				position: absolute;
 				top: calc(2.5rem + var(--outer-margin));
 				right: 2rem;
@@ -117,6 +116,7 @@
 				@include mq($from: desktop) {
 					width: 10vw;
 				}
+
 				line-height: 0;
 				//animation: rotating 30s linear infinite;
 			}
@@ -125,6 +125,7 @@
 				from {
 					transform: rotate(0deg);
 				}
+
 				to {
 					transform: rotate(360deg);
 				}
@@ -380,6 +381,7 @@
 		}
 
 		tr {
+
 			td:nth-child(1),
 			td:nth-child(3) {
 				color: $gray;
@@ -436,7 +438,7 @@
 	padding-top: $small-margin;
 	padding-bottom: $margin;
 
-	& > div {
+	&>div {
 		padding-bottom: $small-margin;
 
 		&:last-child {

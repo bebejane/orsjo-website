@@ -111,8 +111,9 @@ export default function Product({
 								</TextReveal>
 							</h3>
 						</div>
-						<div className={styles.upcycled}><img src="/images/upcycled-logo.svg" /></div>
-
+						{product.upcycled &&
+							<div className={styles.upcycled}><img src="/images/upcycled-logo.svg" /></div>
+						}
 					</div>
 				</div>
 			</Section>
