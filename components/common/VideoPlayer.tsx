@@ -53,7 +53,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	}, [active, quality, videoRef])
 
 	useEffect(() => { setActive(inView) }, [inView])
-	useEffect(() => { setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null) }, [innerWidth])
+	//useEffect(() => { setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null) }, [innerWidth])
 
 	useEffect(() => {
 		videoRef.current.addEventListener('loadeddata', () => setHasAudio(videoHasAudio(videoRef.current)))

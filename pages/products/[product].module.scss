@@ -5,6 +5,8 @@
 	.intro {
 		position: relative;
 		width: 100%;
+		background-color: white;
+		cursor: pointer;
 
 		@include mq($until: tablet) {
 			min-height: 55vh;
@@ -18,8 +20,6 @@
 			max-height: calc(100vh - $navbarHeight - $small-margin);
 		}
 
-		background-color: white;
-		cursor: pointer;
 
 		.image {
 			mix-blend-mode: multiply;

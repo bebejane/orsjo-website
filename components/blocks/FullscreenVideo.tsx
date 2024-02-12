@@ -12,18 +12,24 @@ export default function FullscreenVideo({ data: { video, text, link, linkText } 
 
 	return (
 		<section className={styles.fullScreenVideo} ref={ref}>
-			<Link scroll={false} href={link} passHref={true}>
+			{link ?
+				<Link scroll={false} href={link} passHref={true}>
+					<VideoPlayer data={video} />
+				</Link>
+				:
 				<VideoPlayer data={video} />
-			</Link>
+			}
 			<div className={styles.textWrap}>
 				<div className={styles.text}>
 					<div><h1 className="start">{text}</h1></div>
 					<div className={styles.link}>
-						<Link scroll={false} href={link} passHref={true}>
-							<span className="medium white">
-								<ArrowLink hoverRef={ref} inverted={true}>{linkText}</ArrowLink>
-							</span>
-						</Link>
+						{link &&
+							<Link scroll={false} href={link} passHref={true}>
+								<span className="medium white">
+									<ArrowLink hoverRef={ref} inverted={true}>{linkText}</ArrowLink>
+								</span>
+							</Link>
+						}
 					</div>
 				</div>
 			</div>
