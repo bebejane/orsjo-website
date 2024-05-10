@@ -758,6 +758,7 @@ type DesignerRecord = RecordInterface & {
 
 /** Record of type Designer (designer) */
 type DesignerRecord_allDescriptionLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
@@ -771,6 +772,7 @@ type DesignerRecord_seoMetaTagsArgs = {
 
 /** Record of type Designer (designer) */
 type DesignerRecorddescriptionArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
@@ -2556,6 +2558,12 @@ type ImgixParams = {
    */
   skip?: InputMaybe<Scalars['IntType']>;
   /**
+   * Bypasses any [DatoCMS Automatic Image Optimization](https://www.datocms.com/docs/cdn-settings/advanced-asset-settings) that might be set up for the project.
+   *
+   * Exercise caution when using this parameter, as it could significantly increase your bandwidth costs.
+   */
+  skipDefaultOptimizations?: InputMaybe<Scalars['BooleanType']>;
+  /**
    * Transparency
    *
    * Adds checkerboard behind images which support transparency.
@@ -3617,6 +3625,7 @@ type ProductCategoryRecord = RecordInterface & {
 
 /** Record of type Product category (product_category) */
 type ProductCategoryRecord_allDescriptionLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
@@ -3644,6 +3653,7 @@ type ProductCategoryRecord_seoMetaTagsArgs = {
 
 /** Record of type Product category (product_category) */
 type ProductCategoryRecorddescriptionArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
@@ -4694,6 +4704,7 @@ type ProductRecord_allAdditionalInformationLocalesArgs = {
 
 /** Record of type Product (product) */
 type ProductRecord_allDescriptionLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
@@ -4721,6 +4732,7 @@ type ProductRecordadditionalInformationArgs = {
 
 /** Record of type Product (product) */
 type ProductRecorddescriptionArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
@@ -7342,13 +7354,34 @@ type UploadUpdatedAtFilter = {
 
 type UploadVideoField = {
   __typename?: 'UploadVideoField';
+  alt?: Maybe<Scalars['String']>;
+  blurUpThumb?: Maybe<Scalars['String']>;
+  blurhash?: Maybe<Scalars['String']>;
   duration?: Maybe<Scalars['Int']>;
   framerate?: Maybe<Scalars['Int']>;
+  height: Scalars['IntType'];
   mp4Url?: Maybe<Scalars['String']>;
   muxAssetId: Scalars['String'];
   muxPlaybackId: Scalars['String'];
   streamingUrl: Scalars['String'];
+  thumbhash?: Maybe<Scalars['String']>;
   thumbnailUrl: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
+  width: Scalars['IntType'];
+};
+
+
+type UploadVideoFieldaltArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type UploadVideoFieldblurUpThumbArgs = {
+  imgixParams?: InputMaybe<ImgixParams>;
+  punch?: Scalars['Float'];
+  quality?: Scalars['Int'];
+  size?: Scalars['Int'];
 };
 
 
@@ -7360,6 +7393,12 @@ type UploadVideoFieldmp4UrlArgs = {
 
 type UploadVideoFieldthumbnailUrlArgs = {
   format?: InputMaybe<MuxThumbnailFormatType>;
+};
+
+
+type UploadVideoFieldtitleArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 /** Specifies how to filter by width */
