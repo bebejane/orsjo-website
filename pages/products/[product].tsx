@@ -339,6 +339,7 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 		{ label: 'Connection', value: specs.connection },
 		{ label: 'Lightsource', value: specs.lightsource },
 		{ label: 'Additional info', value: specs.additionalInformation },
+		{ label: 'Note', value: product.note },
 	].filter(el => el.value)
 
 	const files = productDownloads(product as ProductRecordWithPdfFiles)
