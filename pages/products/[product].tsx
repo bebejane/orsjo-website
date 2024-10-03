@@ -25,7 +25,7 @@ export type ProductProps = {
 	productsByCategory: ProductRecord[],
 	images: FileField[]
 	drawings: FileField[]
-	specsCols: { label: string, value: string, slug?: string }[]
+	specsCols: { label: string, value: string, linebreaks?: boolean, slug?: string }[]
 	files: ProductDownload[]
 }
 
@@ -77,6 +77,7 @@ export default function Product({
 		const scale = Math.max(0, (viewportHeight - (scrolledPosition * 4)) / viewportHeight)
 		setPictureStyle({ paddingBottom: `${4 * scale}em` })
 	}, [viewportHeight, scrolledPosition, setPictureStyle, isMobile])
+
 
 	return (
 		<>
@@ -141,12 +142,15 @@ export default function Product({
 				total={2}
 			>
 				<ul className={styles.specifications}>
-					{specsCols.map(({ label, value, slug }, idx) =>
-						<li key={idx}>
-							<span>{label}</span>
-							<span>{!slug ? value : <Link href={slug} scroll={false}>{value}</Link>}</span>
-						</li>
-					)}
+					{specsCols.map(({ label, value, linebreaks, slug }, idx) => {
+						const text = linebreaks ? value.split('\n').map((el, idx) => <React.Fragment key={idx}>{el}<br /></React.Fragment>) : value
+						return (
+							<li key={idx} data-linebreaks={linebreaks}>
+								<span>{label}</span>
+								<span>{!slug ? text : <Link href={slug} scroll={false}>{text}</Link>}</span>
+							</li>
+						)
+					})}
 				</ul>
 				<div className={styles.articles}>
 					<header>
@@ -339,7 +343,7 @@ export const getStaticProps = withGlobalProps({ model: 'product' }, async ({ pro
 		{ label: 'Connection', value: specs.connection },
 		{ label: 'Lightsource', value: specs.lightsource },
 		{ label: 'Additional info', value: specs.additionalInformation },
-		{ label: 'Note', value: product.note },
+		{ label: 'Note', value: product.note, linebreaks: true },
 	].filter(el => el.value)
 
 	const files = productDownloads(product as ProductRecordWithPdfFiles)

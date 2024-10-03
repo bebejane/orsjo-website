@@ -186,7 +186,7 @@ fragment ProductFragment on ProductRecord {
 		id
 		name
 	}
-	note
+	note(markdown: false)
 	_seoMetaTags {
 		...SEOFragment
 	}

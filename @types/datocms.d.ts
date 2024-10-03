@@ -4606,7 +4606,7 @@ type ProductModelFilter = {
   markAsNew?: InputMaybe<BooleanFilter>;
   mounting?: InputMaybe<LinkFilter>;
   mountingInstructions?: InputMaybe<FileFilter>;
-  note?: InputMaybe<StringFilter>;
+  note?: InputMaybe<TextFilter>;
   pdfFile?: InputMaybe<FileFilter>;
   slug?: InputMaybe<SlugFilter>;
   sockets?: InputMaybe<LinksFilter>;
@@ -4731,8 +4731,6 @@ enum ProductModelOrderBy {
   id_DESC = 'id_DESC',
   markAsNew_ASC = 'markAsNew_ASC',
   markAsNew_DESC = 'markAsNew_DESC',
-  note_ASC = 'note_ASC',
-  note_DESC = 'note_DESC',
   title_ASC = 'title_ASC',
   title_DESC = 'title_DESC',
   upcycled_ASC = 'upcycled_ASC',
@@ -4933,6 +4931,7 @@ type ProductRecord_allDescriptionLocalesArgs = {
 type ProductRecord_allNoteLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
+  markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -4968,6 +4967,7 @@ type ProductRecorddescriptionArgs = {
 type ProductRecordnoteArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
+  markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 
