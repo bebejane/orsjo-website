@@ -78,7 +78,6 @@ export default function Product({
 		setPictureStyle({ paddingBottom: `${4 * scale}em` })
 	}, [viewportHeight, scrolledPosition, setPictureStyle, isMobile])
 
-
 	return (
 		<>
 			<DatoSEO title={product.title} description={product.description} seo={product._seoMetaTags} />
@@ -180,6 +179,7 @@ export default function Product({
 								amount: l.amount
 							}))
 
+							console.log(light)
 							const cols = art.concat(access).concat(light)
 							const rows = chunkArray(cols, 2)
 

@@ -62,12 +62,11 @@ export const chunkArray = (array: any[], chunkSize: number) => {
 
 export const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => {
 
-  type LightsourcePick = { id: string, amount?: number, name: string, included: boolean }
+  type LightsourcePick = { id: string, amount?: number, name: string, included: boolean, modelName: string }
 
-  let allLightsources: LightsourceRecord[] = []
-  product.models.map((m) => m.lightsources.map((l) => l)).forEach((l) => allLightsources.push.apply(allLightsources, l))
-  let lightsources: LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({ lightsource }) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource }) => ({ included, amount, name: lightsource?.name, id: lightsource?.id }))
-  lightsources = lightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
+  let allLightsources: (LightsourceRecord & { modelName: string })[] = []
+  product.models.map((m) => m.lightsources.map((l) => ({ ...l, modelName: m.name?.name }))).forEach((l) => allLightsources.push.apply(allLightsources, l))
+  let lightsources: LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({ lightsource }) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource, modelName }) => ({ included, amount, name: lightsource?.name, modelName, id: lightsource?.id }))
 
   const specs = {
     designer: product.designer?.name,
@@ -76,7 +75,7 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
     dimmable: product.dimmable?.name,
     connection: product.connection?.name,
     mounting: product.mounting?.name,
-    lightsource: lightsources.map(({ amount, included, name }) => `${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
+    lightsource: lightsources.map(({ included, name, modelName }) => `${lightsources.length && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
     socket: product.sockets.map((el) => el.name).join(', '),
     weight: product.models.length && product.models?.[0].variants?.[0]?.weight ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined,
     volume: product.models.length && product.models?.[0].variants?.[0]?.volume ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined,
