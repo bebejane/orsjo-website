@@ -75,7 +75,7 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
     dimmable: product.dimmable?.name,
     connection: product.connection?.name,
     mounting: product.mounting?.name,
-    lightsource: lightsources.map(({ included, name, modelName }) => `${lightsources.length && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
+    lightsource: lightsources.map(({ included, name, modelName }) => `${lightsources.length && product.models.length > 1 && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`).join(', '),
     socket: product.sockets.map((el) => el.name).join(', '),
     weight: product.models.length && product.models?.[0].variants?.[0]?.weight ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined,
     volume: product.models.length && product.models?.[0].variants?.[0]?.volume ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined,
