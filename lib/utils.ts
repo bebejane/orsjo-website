@@ -66,7 +66,7 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 
   let allLightsources: (LightsourceRecord & { modelName: string })[] = []
   product.models.map((m) => m.lightsources.map((l) => ({ ...l, modelName: m.name?.name }))).forEach((l) => allLightsources.push.apply(allLightsources, l))
-  let lightsources: LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({ lightsource }) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource, modelName }) => ({ included, amount, name: lightsource?.name, modelName, id: lightsource?.id }))
+  let lightsources: LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({ lightsource }) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource, modelName }) => ({ included, amount: amount || 1, name: lightsource?.name, modelName, id: lightsource?.id }))
 
   const specs = {
     designer: product.designer?.name,
