@@ -112,6 +112,7 @@ query ProductCategories {
 	productCategories: allProductCategories {
 		id
 		name
+		namePlural
 		position
 	}
 }

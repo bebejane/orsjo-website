@@ -7977,7 +7977,7 @@ type AllProductDownloadsQuery = { __typename?: 'Query', products: Array<{ __type
 type ProductCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ProductCategoriesQuery = { __typename?: 'Query', productCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }> };
+type ProductCategoriesQuery = { __typename?: 'Query', productCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }> };
 
 type AllProductsByDesignerQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
