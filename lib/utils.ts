@@ -6,26 +6,52 @@ import { SiteSearchDocument } from '/graphql'
 export const isServer = typeof window === 'undefined';
 export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
 
-type Locale = 'en' | 'sv' | 'no'
+type Locale = 'en' | 'sv' | 'no' | 'dk' | 'en-GB'
 
-export const formatPrice = (price: number, locale: Locale) => {
-  const nf = new Intl.NumberFormat(`${locale}-${locale.toUpperCase()}`);
-  const currency = locale === 'en' ? '€' : locale === 'no' ? 'NOK' : locale === 'sv' ? ':-' : ':-'
-  return `${nf.format(Math.round(price))} ${currency}`;
-}
+export const currency = {
+  en: {
+    surcharge: 1.1,
+    rate: 11.0391,
+    rateDeduction: 0.95,
+    symbol: '€',
+  },
+  no: {
+    surcharge: 1.1,
+    rate: 0.93875,
+    rateDeduction: 0.95,
+    symbol: 'NOK',
+  },
+  da: {
+    surcharge: 1.1,
+    rate: 1.48,
+    rateDeduction: 0.95,
+    symbol: 'DKK',
+  },
+  sv: {
+    surcharge: 1,
+    rate: 1,
+    rateDeduction: 1,
+    symbol: ':-',
+  },
+  'en-GB': {
+    surcharge: 1.2,
+    rate: 13.24727,
+    rateDeduction: 0.95,
+    symbol: 'GBP',
+  },
+};
 
-export const convertPrice = (price: number, locale: Locale) => {
-  if (locale === 'sv')
-    return formatPrice(price, locale)
-  if (locale === 'en') {
-    price = (price * 1.1 * 0.975) / (10.1449 * 0.95);
-    return formatPrice(price, locale);
-  }
-  if (locale === 'no') {
-    price = (price * 1.1 * 0.975) / (.998015 * 0.95);
-    return formatPrice(price, locale);
-  }
-}
+const formatPrice = (price: number, locale: Locale) => {
+  const nf = new Intl.NumberFormat(
+    `${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`
+  );
+  return `${nf.format(Math.round(price))} ${currency[locale].symbol}`;
+};
+
+const convertPrice = (price: number, locale: Locale) => {
+  const c = currency[locale];
+  return formatPrice((price * c.surcharge) / (c.rate * c.rateDeduction), locale);
+};
 
 export const priceIncLight = (prodPrice: number, lightsources: LightsourceRecord[], locale: Locale) => {
   let price = prodPrice;
