@@ -18,7 +18,7 @@ export const currency = {
   no: {
     surcharge: 1.1,
     rate: 0.93875,
-    rateDeduction: 0.95,
+    rateDeduction: 1,
     symbol: 'NOK',
   },
   da: {
@@ -36,7 +36,7 @@ export const currency = {
   'en-GB': {
     surcharge: 1.2,
     rate: 13.24727,
-    rateDeduction: 0.95,
+    rateDeduction: 0.97,
     symbol: 'GBP',
   },
 };
