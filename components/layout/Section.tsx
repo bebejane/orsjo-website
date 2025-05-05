@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import styles from './Section.module.scss';
+import s from './Section.module.scss';
 import cn from 'classnames';
 import { sectionId } from '@/lib/utils';
 import { useInView } from 'react-intersection-observer';
@@ -38,7 +38,7 @@ export default function Section({
 
 	return (
 		<section
-			className={styles.section}
+			className={s.section}
 			style={{ backgroundColor: fadeColor && !inView ? fadeColor : color }}
 			data-type={type}
 			data-top={top}
@@ -46,7 +46,7 @@ export default function Section({
 			ref={ref}
 			{...sectionId(!disableSidebar ? name : undefined, id)}
 		>
-			<div className={cn(styles.wrap, className)}>{children}</div>
+			<div className={cn(s.wrap, className)}>{children}</div>
 		</section>
 	);
 }

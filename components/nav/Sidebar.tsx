@@ -1,13 +1,13 @@
 'use client';
 
-import styles from './Sidebar.module.scss';
+import s from './Sidebar.module.scss';
 import cn from 'classnames';
 import { useStore, useShallow } from '@/lib/store';
 import { useRouter, usePathname } from 'next/navigation';
 import { usePage } from '@/lib/context/page';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { ArrowLink } from '@/components';
-import { useScrollInfo } from 'dato-nextjs-utils/hooks';
+import { useScrollInfo } from 'next-dato-utils/hooks';
 import { styleVariables } from '@/lib/utils';
 import { useWindowSize } from 'rooks';
 import Link from 'next/link';
@@ -116,32 +116,28 @@ export default function Sidebar({ title, show }: SidebarProps) {
 	return (
 		<aside
 			id='sidebar'
-			className={cn(
-				styles.sidebar,
-				inverted && styles.inverted,
-				pageType === 'products' && styles.short
-			)}
+			className={cn(s.sidebar, inverted && s.inverted, pageType === 'products' && s.short)}
 			style={{ backgroundColor: color, maxHeight }}
 		>
-			<h3 id='sidebar-header' className={cn(open && styles.open)} onClick={() => setOpen(!open)}>
+			<h3 id='sidebar-header' className={cn(open && s.open)} onClick={() => setOpen(!open)}>
 				{title}
-				<span className={cn(styles.arrow, open && styles.open)}>›</span>
+				<span className={cn(s.arrow, open && s.open)}>›</span>
 			</h3>
-			<nav className={cn(open && styles.open)}>
+			<nav className={cn(open && s.open)}>
 				<ul>
 					{sections?.map((section, idx) => (
 						<li key={idx}>
 							<a
 								href={`${pathname}#${section.id}`}
 								data-section-id={section.id}
-								className={cn(section.id === currentSection && styles.active)}
+								className={cn(section.id === currentSection && s.active)}
 								onClick={handleClick}
 							>
 								{section.title}
 							</a>
 						</li>
 					))}
-					<li className={cn(styles.search, pageType === 'products' && styles.show)}>
+					<li className={cn(s.search, pageType === 'products' && s.show)}>
 						<input
 							type='text'
 							placeholder='Search'
@@ -150,14 +146,14 @@ export default function Sidebar({ title, show }: SidebarProps) {
 							onFocus={() => setSearchFocus(true)}
 							onBlur={() => setTimeout(() => setSearchFocus(false), 100)}
 						/>
-						<button onClick={resetSearch} className={cn(styles.close, searchFocus && styles.show)}>
+						<button onClick={resetSearch} className={cn(s.close, searchFocus && s.show)}>
 							×
 						</button>
 					</li>
 				</ul>
 			</nav>
 
-			<div className={cn(styles.footer, 'medium')}>
+			<div className={cn(s.footer, 'medium')}>
 				{pageType === 'product' && (
 					<span onClick={() => router.push('/products')} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>

@@ -1,13 +1,13 @@
-import styles from './[news].module.scss';
+import s from './[news].module.scss';
 import withGlobalProps from '@/lib/withGlobalProps';
 import { AllNewsDocument, NewsDocument } from '@/graphql';
-import { apiQuery } from 'dato-nextjs-utils/api';
+import { apiQuery } from 'next-dato-utils/api';
 import { Image } from 'react-datocms';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import Link from 'next/link';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
-import { DatoSEO } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
+import { DatoSEO } from 'next-dato-utils/components';
 import format from 'date-fns/format';
 
 export type NewsProps = { news: NewsRecord };
@@ -16,21 +16,21 @@ export default function News({ news: { image, title, createdAt, text, _seoMetaTa
 	return (
 		<>
 			<DatoSEO title={title} description={text} seo={_seoMetaTags} />
-			<Section className={styles.news} type={'margin'} top={true}>
-				<div className={styles.date}>
+			<Section className={s.news} type={'margin'} top={true}>
+				<div className={s.date}>
 					<p className='medium'>{format(new Date(createdAt), 'MMM do, yyyy')}</p>
 				</div>
-				<div className={styles.content}>
+				<div className={s.content}>
 					<h1 className='copper'>{title}</h1>
 					{image && (
-						<figure className={styles.image}>
+						<figure className={s.image}>
 							<Image data={image.responsiveImage} />
 						</figure>
 					)}
 					<Markdown>{text}</Markdown>
 				</div>
 			</Section>
-			<Section className={styles.more} bottom={true}>
+			<Section className={s.more} bottom={true}>
 				<Link href={'/about/news'} passHref={true}>
 					<button>View all news</button>
 				</Link>

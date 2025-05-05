@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './ImageLink.module.scss';
+import s from './ImageLink.module.scss';
 import { Image } from 'react-datocms';
 import Link from 'next/link';
 import { ArrowLink } from '@/components';
@@ -25,11 +25,11 @@ export default function ImageLink({
 	const refTwo = useRef();
 
 	return (
-		<section className={styles.imageLink}>
+		<section className={s.imageLink}>
 			<Link scroll={false} href={firstLink} ref={refOne} passHref={true}>
 				<figure>
 					<Image
-						className={styles.image}
+						className={s.image}
 						data={firstImage?.responsiveImage}
 						layout='fill'
 						objectFit='cover'
@@ -45,7 +45,7 @@ export default function ImageLink({
 			<Link scroll={false} href={secondLink} ref={refTwo} passHref={true}>
 				<figure>
 					<Image
-						className={styles.image}
+						className={s.image}
 						data={secondImage?.responsiveImage}
 						layout='fill'
 						objectFit='cover'

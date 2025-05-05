@@ -41,7 +41,7 @@ const useFoucFix = () => useEffect(() => {
     });
 
     // Cycle through the server-side rendered stylesheets and remove the ones that
-    // are already present as inline <style> tags added by Next.js, so that we don't have duplicate styles.
+    // are already present as inline <style> tags added by Next.js, so that we don't have duplicate s.
     ssrPageStyleSheetsEntries = ssrPageStyleSheetsEntries.reduce((entries, entry) => {
       const { element, href } = entry;
       const styleExists = fixedStyleHrefs.includes(href);

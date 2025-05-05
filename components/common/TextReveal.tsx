@@ -1,7 +1,7 @@
 'use client';
 
-import styles from './TextReveal.module.scss';
-import { useScrollInfo } from 'dato-nextjs-utils/hooks';
+import s from './TextReveal.module.scss';
+import { useScrollInfo } from 'next-dato-utils/hooks';
 import { useEffect, useState } from 'react';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
@@ -45,11 +45,11 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 	return (
 		<>
 			{text?.split('\n').map((p, key) => (
-				<p key={key} className={styles.paragraph}>
+				<p key={key} className={s.paragraph}>
 					{p.split(' ').map((word, widx) => (
-						<span key={widx} className={cn(styles.word, block && styles.block)}>
+						<span key={widx} className={cn(s.word, block && s.block)}>
 							{word.split('').map((c, idx) => (
-								<span key={idx} className={cn(styles.letter, ++count > chars && styles.hide)}>
+								<span key={idx} className={cn(s.letter, ++count > chars && s.hide)}>
 									{c === '\n' ? <br /> : c}
 								</span>
 							))}

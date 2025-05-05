@@ -1,7 +1,7 @@
 'use client';
 
 import 'swiper/css';
-import styles from './FeaturedStart.module.scss';
+import s from './FeaturedStart.module.scss';
 import cn from 'classnames';
 import { FeaturedGallery } from '@/components';
 import { usePage } from '@/lib/context/page';
@@ -13,12 +13,12 @@ export default function FeaturedStart({ data: { headline, items, id } }: ImageGa
 	const isProducts = items[0].__typename === 'ProductRecord';
 
 	return (
-		<div className={cn(styles.featuredStart, styles[menu])}>
-			<div className={styles.wrapper}>
-				<div className={styles.header}>
-					<h1 className={styles.headline}>{headline}</h1>
+		<div className={cn(s.featuredStart, s[menu])}>
+			<div className={s.wrapper}>
+				<div className={s.header}>
+					<h1 className={s.headline}>{headline}</h1>
 				</div>
-				<div className={styles.gallery}>
+				<div className={s.gallery}>
 					<FeaturedGallery
 						id={id}
 						arrowAlign='middle'

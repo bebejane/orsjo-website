@@ -1,4 +1,4 @@
-import styles from './Text.module.scss';
+import s from './Text.module.scss';
 import React from 'react';
 import cn from 'classnames';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ export default function Text({ data: { text } }: TextBlockProps) {
 	const { menu } = usePage();
 
 	return (
-		<div className={cn(styles.text, menu === 'inverted' && styles.inverted)}>
+		<div className={cn(s.text, menu === 'inverted' && s.inverted)}>
 			<StructuredText
 				data={text}
 				renderInlineRecord={({ record }) => {

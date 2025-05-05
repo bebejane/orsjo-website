@@ -1,4 +1,4 @@
-import styles from './FullwidthImage.module.scss';
+import s from './FullwidthImage.module.scss';
 import React from 'react';
 import { Image } from 'react-datocms';
 import { CustomMade } from '@/components';
@@ -8,8 +8,8 @@ export type FullwidthImageProps = BlockProps & { data: FullwidthImageRecord };
 
 export default function FullwidthImage({ data: { image }, onClick, first }: FullwidthImageProps) {
 	return (
-		<div className={styles.container} onClick={() => onClick(image.id)} data-image-zoom={image.id}>
-			<Image className={styles.image} data={image?.responsiveImage} priority={first} />
+		<div className={s.container} onClick={() => onClick(image.id)} data-image-zoom={image.id}>
+			<Image className={s.image} data={image?.responsiveImage} priority={first} />
 			<CustomMade show={image.customData?.custom} />
 		</div>
 	);

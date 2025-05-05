@@ -1,4 +1,4 @@
-import styles from './[designer].module.scss';
+import s from './[designer].module.scss';
 import withGlobalProps from '@/lib/withGlobalProps';
 import {
 	AllDesignersDocument,
@@ -6,8 +6,8 @@ import {
 	AllProductsByDesignerDocument,
 	AllProductsLightDocument,
 } from '@/graphql';
-import { apiQuery } from 'dato-nextjs-utils/api';
-import { DatoSEO } from 'dato-nextjs-utils/components';
+import { apiQuery } from 'next-dato-utils/api';
+import { DatoSEO } from 'next-dato-utils/components';
 import { Image } from 'react-datocms';
 import { PageProps } from '@/lib/context/page';
 import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '@/components';
@@ -26,16 +26,16 @@ export default function Designer({ designer, products, designers }: DesignerProp
 				description={designer.description}
 				seo={designer._seoMetaTags}
 			/>
-			<Section type='full' className={styles.designer}>
+			<Section type='full' className={s.designer}>
 				<header>
-					<div className={styles.artist} key={designer.id}>
+					<div className={s.artist} key={designer.id}>
 						<h1>
 							<TextReveal block={true}>{designer.name}</TextReveal>
 						</h1>
 						<p className='large'>{designer.description}</p>
 					</div>
 					<figure>
-						<div className={styles.fade}></div>
+						<div className={s.fade}></div>
 						{designer.image && (
 							<Image
 								data={designer.image.responsiveImage}
@@ -50,12 +50,12 @@ export default function Designer({ designer, products, designers }: DesignerProp
 					</figure>
 				</header>
 			</Section>
-			<Section type='margin' className={styles.products} bgColor='--mid-gray'>
+			<Section type='margin' className={s.products} bgColor='--mid-gray'>
 				<h1>
 					Products by <br />
 					{designer.name}
 				</h1>
-				<div className={styles.gallery}>
+				<div className={s.gallery}>
 					<ul>
 						{products.map((p, idx) => (
 							<li key={idx}>
@@ -65,9 +65,9 @@ export default function Designer({ designer, products, designers }: DesignerProp
 					</ul>
 				</div>
 			</Section>
-			<Section type='margin' className={styles.otherDesigners} bgColor='--green'>
+			<Section type='margin' className={s.otherDesigners} bgColor='--green'>
 				<h1>Other designers</h1>
-				<div className={styles.gallery}>
+				<div className={s.gallery}>
 					<FeaturedGallery
 						items={designers}
 						id='all-designers'

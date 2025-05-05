@@ -1,3 +1,3 @@
-import { withPreview } from 'dato-nextjs-utils/hoc';
+import { withPreview } from 'next-dato-utils/hoc';
 
 export default withPreview;

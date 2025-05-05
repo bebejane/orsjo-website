@@ -1,8 +1,8 @@
-import styles from './faq.module.scss';
+import s from './faq.module.scss';
 import { FaqStartDocument } from '@/graphql';
 import withGlobalProps from '@/lib/withGlobalProps';
 import cn from 'classnames';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import { useState, useEffect } from 'react';
@@ -30,7 +30,7 @@ export default function Faqs({ faqs, faqStart, faqsByCategory }: FaqsProps) {
 
 	return (
 		<>
-			<Section className={styles.intro} top={true}>
+			<Section className={s.intro} top={true}>
 				<h1 className='topMargin'>{faqStart.title}</h1>
 				<p>{faqStart.intro}</p>
 			</Section>
@@ -38,21 +38,21 @@ export default function Faqs({ faqs, faqStart, faqsByCategory }: FaqsProps) {
 				.map((k) => faqsByCategory[k])
 				.map(({ items, title }, i) => {
 					return (
-						<Section className={styles.faq} name={title} key={i}>
-							<h1 className={styles.category}>{title}</h1>
+						<Section className={s.faq} name={title} key={i}>
+							<h1 className={s.category}>{title}</h1>
 							<ul>
 								{items.map(({ question, answer, id }, idx) => (
 									<li
 										id={id}
 										key={idx}
-										className={cn(list[id] && styles.selected)}
+										className={cn(list[id] && s.selected)}
 										onClick={() => setList({ ...list, [id]: list[id] ? false : true })}
 									>
-										<div className={styles.header}>
-											<h2 className={styles.question}>{question}</h2>
-											<div className={styles.indicator}>{list[id] ? '-' : '+'}</div>
+										<div className={s.header}>
+											<h2 className={s.question}>{question}</h2>
+											<div className={s.indicator}>{list[id] ? '-' : '+'}</div>
 										</div>
-										<Markdown className={cn(styles.answer, 'medium')}>{answer}</Markdown>
+										<Markdown className={cn(s.answer, 'medium')}>{answer}</Markdown>
 									</li>
 								))}
 							</ul>

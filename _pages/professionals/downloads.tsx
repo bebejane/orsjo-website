@@ -1,4 +1,4 @@
-import styles from './downloads.module.scss';
+import s from './downloads.module.scss';
 import cn from 'classnames';
 import {
 	AllProductDownloadsDocument,
@@ -7,7 +7,7 @@ import {
 } from '@/graphql';
 import withGlobalProps from '@/lib/withGlobalProps';
 import { Image } from 'react-datocms';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
 import React, { useState, useEffect, useRef } from 'react';
 import { Section, Icon } from '@/components';
@@ -43,15 +43,15 @@ export default function Downloads({ products, catalogues, downloadsStart }: Down
 
 	return (
 		<>
-			<Section className={styles.intro} top={true}>
+			<Section className={s.intro} top={true}>
 				<h1 className='white topMargin'>{downloadsStart.title}</h1>
-				<div className={styles.intro}>
+				<div className={s.intro}>
 					<Markdown>{downloadsStart.intro}</Markdown>
 				</div>
 			</Section>
-			<Section className={styles.related} name='Product Files'>
+			<Section className={s.related} name='Product Files'>
 				<h1 className='white topMargin'>Product related files</h1>
-				<div className={styles.search}>
+				<div className={s.search}>
 					<img src={'/images/search.svg'} />
 					<input
 						ref={ref}
@@ -63,7 +63,7 @@ export default function Downloads({ products, catalogues, downloadsStart }: Down
 					/>
 				</div>
 				{results && results.length === 0 ? (
-					<div className={styles.noMatches}>No match for &quot;{search}&quot;...</div>
+					<div className={s.noMatches}>No match for &quot;{search}&quot;...</div>
 				) : (
 					<table>
 						<tbody>
@@ -88,11 +88,11 @@ export default function Downloads({ products, catalogues, downloadsStart }: Down
 									<React.Fragment key={idx}>
 										<tr
 											key={`${id}-${idx}`}
-											className={list[idx] ? styles.active : undefined}
+											className={list[idx] ? s.active : undefined}
 											onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}
 										>
 											<td>
-												<Image data={image.responsiveImage} className={styles.image} />
+												<Image data={image.responsiveImage} className={s.image} />
 											</td>
 											<td>
 												<h2 className='noMargin'>{title}</h2>
@@ -102,22 +102,22 @@ export default function Downloads({ products, catalogues, downloadsStart }: Down
 													{categories.map((c, idx) => c.name).join(', ')}
 												</span>
 											</td>
-											<td className={styles.toggle}>{list[idx] ? '–' : '+'}</td>
+											<td className={s.toggle}>{list[idx] ? '–' : '+'}</td>
 										</tr>
 										{list[idx] && (
-											<tr key={`${id}-${idx}-l`} className={list[idx] ? styles.active : undefined}>
+											<tr key={`${id}-${idx}-l`} className={list[idx] ? s.active : undefined}>
 												<td></td>
-												<td colSpan={2} className={styles.content}>
-													<div className={styles.list}>
+												<td colSpan={2} className={s.content}>
+													<div className={s.list}>
 														{files.map(({ type, label, href }, idx) => (
 															<React.Fragment key={`${id}-file-${idx}`}>
-																<div key={`f-${idx}`} className={styles.item}>
+																<div key={`f-${idx}`} className={s.item}>
 																	<a href={href} target='_new'>
 																		<Icon type={type} label={label} />
 																	</a>
 																</div>
 																{idx % 2 === 1 && (
-																	<hr key={`hr-${idx}`} className={cn(isMobile && styles.hide)} />
+																	<hr key={`hr-${idx}`} className={cn(isMobile && s.hide)} />
 																)}
 															</React.Fragment>
 														))}
@@ -133,7 +133,7 @@ export default function Downloads({ products, catalogues, downloadsStart }: Down
 					</table>
 				)}
 			</Section>
-			<Section className={styles.related} name='Catalogues' bottom={true}>
+			<Section className={s.related} name='Catalogues' bottom={true}>
 				<h1 className='white topMargin'>Catalogues</h1>
 				<table>
 					<tbody>
@@ -149,7 +149,7 @@ export default function Downloads({ products, catalogues, downloadsStart }: Down
 						{catalogues.map(({ id, title, thumbnail, pdf }) => (
 							<tr key={id}>
 								<td>
-									<Image data={thumbnail.responsiveImage} className={styles.image} />
+									<Image data={thumbnail.responsiveImage} className={s.image} />
 								</td>
 								<td>
 									<a href={`${pdf.url}?dl=${title}.pdf`} download target='_new'>

@@ -1,8 +1,8 @@
-import styles from './[project].module.scss';
+import s from './[project].module.scss';
 import cn from 'classnames';
 import withGlobalProps from '@/lib/withGlobalProps';
-import { apiQuery } from 'dato-nextjs-utils/api';
-import { DatoSEO } from 'dato-nextjs-utils/components';
+import { apiQuery } from 'next-dato-utils/api';
+import { DatoSEO } from 'next-dato-utils/components';
 import {
 	ProjectDocument,
 	AllProjectsDocument,
@@ -15,7 +15,7 @@ import { Block, Section, FeaturedGallery, TextReveal } from '@/components';
 import { dedupeImages, styleVariables } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import { useStore, useShallow } from '@/lib/store';
-import { useScrollInfo } from 'dato-nextjs-utils/hooks';
+import { useScrollInfo } from 'next-dato-utils/hooks';
 import { useMediaQuery } from 'usehooks-ts';
 
 export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>;
@@ -74,12 +74,12 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 	return (
 		<>
 			<DatoSEO title={project.title} seo={project._seoMetaTags} />
-			<Section className={styles.intro} name='Presentation' top={true}>
-				<div className={styles.wrap} onClick={() => setGalleryId(project.image?.id)}>
-					<h1 className={styles.title}>
+			<Section className={s.intro} name='Presentation' top={true}>
+				<div className={s.wrap} onClick={() => setGalleryId(project.image?.id)}>
+					<h1 className={s.title}>
 						<TextReveal block={true}>{project.title}</TextReveal>
 					</h1>
-					<h1 className={styles.location}>
+					<h1 className={s.location}>
 						<TextReveal>{project.location}</TextReveal>
 					</h1>
 					{project.image && (
@@ -87,7 +87,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 							data={project.image.responsiveImage}
 							objectFit='cover'
 							style={!isMobile ? imageStyle : undefined}
-							className={styles.image}
+							className={s.image}
 						/>
 					)}
 				</div>
@@ -99,14 +99,9 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 			))}
 			<Section bottom={true} />
 			{(relatedProducts.length > 0 || relatedProjects.length > 0) && (
-				<Section
-					className={styles.related}
-					name={'Related'}
-					bgColor={'--mid-gray'}
-					fadeColor={'--gray'}
-				>
+				<Section className={s.related} name={'Related'} bgColor={'--mid-gray'} fadeColor={'--gray'}>
 					{relatedProducts.length > 0 && (
-						<div className={styles.gallery}>
+						<div className={s.gallery}>
 							<FeaturedGallery
 								id='relatedProducts'
 								headline={'Products'}
@@ -117,7 +112,7 @@ export default function Project({ project, relatedProjects, bespokeThumbnail }: 
 						</div>
 					)}
 					{relatedProjects.length > 0 && (
-						<div className={styles.gallery}>
+						<div className={s.gallery}>
 							<FeaturedGallery
 								id='relatedProjects'
 								headline={relatedHeadline}

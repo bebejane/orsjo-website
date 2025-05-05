@@ -1,4 +1,4 @@
-import { withRevalidate } from 'dato-nextjs-utils/hoc'
+import { withRevalidate } from 'next-dato-utils/hoc'
 import { buildClient } from '@datocms/cma-client-node';
 
 export const config = {

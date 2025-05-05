@@ -1,7 +1,7 @@
 'use client';
 
 import 'swiper/css';
-import styles from './FeaturedGallery.module.scss';
+import s from './FeaturedGallery.module.scss';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
@@ -56,19 +56,19 @@ export default function FeaturedGallery({
 	}, [isMobile, numSlides]);
 
 	return (
-		<div className={cn(styles.featuredGallery, styles[menu])}>
+		<div className={cn(s.featuredGallery, s[menu])}>
 			{headline && arrowAlign === 'top' && (
-				<div className={styles.header}>
-					<h1 className={styles.headline}>{headline}</h1>
+				<div className={s.header}>
+					<h1 className={s.headline}>{headline}</h1>
 					<ArrowButton
-						className={cn(styles.next)}
+						className={cn(s.next)}
 						inverted={inverted}
 						hide={isShortSlide}
 						onClick={() => swiperRef.current?.slideNext()}
 					/>
 				</div>
 			)}
-			<div className={styles.gallery}>
+			<div className={s.gallery}>
 				<SwiperReact
 					id={`${id}-swiper-wrap`}
 					loop={!isShortSlide}
@@ -77,12 +77,12 @@ export default function FeaturedGallery({
 					slidesPerView={'auto'}
 					spaceBetween={spaceBetween}
 					initialSlide={index}
-					className={cn(styles.swiper, isShortSlide && styles.short)}
+					className={cn(s.swiper, isShortSlide && s.short)}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
 				>
 					{items?.map((item, idx) => (
-						<SwiperSlide key={`${id}-${idx}`} className={cn(styles.slide)}>
+						<SwiperSlide key={`${id}-${idx}`} className={cn(s.slide)}>
 							{item.__typename === 'ProductRecord' ? (
 								<ProductThumbnail
 									key={idx}
@@ -90,7 +90,7 @@ export default function FeaturedGallery({
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
 									lazyload={false}
-									className={styles.thumbnail}
+									className={s.thumbnail}
 								/>
 							) : item.__typename === 'ProjectRecord' ? (
 								<ProjectThumbnail
@@ -99,7 +99,7 @@ export default function FeaturedGallery({
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
 									lazyload={false}
-									className={styles.thumbnail}
+									className={s.thumbnail}
 								/>
 							) : item.__typename === 'DesignerRecord' ? (
 								<DesignerThumbnail
@@ -108,7 +108,7 @@ export default function FeaturedGallery({
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
 									lazyload={false}
-									className={styles.thumbnail}
+									className={s.thumbnail}
 								/>
 							) : item.title && item.image ? (
 								<Thumbnail
@@ -121,22 +121,22 @@ export default function FeaturedGallery({
 									lazyload={false}
 									objectFit={'cover'}
 									showMarkAsNew={showMarkAsNew}
-									className={styles.thumbnail}
+									className={s.thumbnail}
 								/>
 							) : null}
 						</SwiperSlide>
 					))}
 				</SwiperReact>
 				<div
-					className={cn(styles.fade, isShortSlide && styles.hide)}
+					className={cn(s.fade, isShortSlide && s.hide)}
 					style={{
 						background: `linear-gradient(-90deg, rgba(var(${fadeColor}),1) 0%, rgba(var(${fadeColor}),0) 100%, rgba(var(${fadeColor}),1) 100%)`,
 					}}
 				></div>
 				{arrowAlign === 'middle' && !isShortSlide && (
-					<div className={styles.arrowMiddle}>
+					<div className={s.arrowMiddle}>
 						<ArrowButton
-							className={cn(styles.next)}
+							className={cn(s.next)}
 							hide={isShortSlide}
 							inverted={inverted}
 							onClick={() => swiperRef.current?.slideNext()}

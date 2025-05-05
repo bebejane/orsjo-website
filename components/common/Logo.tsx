@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './Logo.module.scss';
+import s from './Logo.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
@@ -32,7 +32,7 @@ export default function Logo({ inverted = false }: Props) {
 	return (
 		<Link
 			href='/'
-			className={styles.logo}
+			className={s.logo}
 			style={{ fontFamily: "'logo', Helvetica, sans-serif" }}
 			scroll={false}
 		>
@@ -40,9 +40,9 @@ export default function Logo({ inverted = false }: Props) {
 				<span
 					key={idx}
 					className={cn(
-						idx + 1 > characters && styles.hide,
-						((idx === 0 && characters === 1) || isStatic) && styles.big,
-						inverted && styles.inverted
+						idx + 1 > characters && s.hide,
+						((idx === 0 && characters === 1) || isStatic) && s.big,
+						inverted && s.inverted
 					)}
 				>
 					{c}

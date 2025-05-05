@@ -1,9 +1,9 @@
 'use client';
 
-import styles from './PageTransition.module.scss';
+import s from './PageTransition.module.scss';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { usePreviousRoute } from 'dato-nextjs-utils/hooks';
+//import { usePreviousRoute } from 'next-dato-utils/hooks';
 import { useEffect, useState } from 'react';
 import { useStore, useShallow } from '@/lib/store';
 
@@ -91,7 +91,7 @@ export default function PageTransition() {
 
 	return (
 		<motion.div
-			className={styles.pageTransition}
+			className={s.pageTransition}
 			variants={pageTransition}
 			initial='initial'
 			animate={enterAnimation}

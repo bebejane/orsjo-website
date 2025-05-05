@@ -19,7 +19,7 @@ query Product($slug: String, $locale: SiteLocale = en) {
 }
 
 query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	products: allProducts(
+	allProducts(
 		locale: $locale
 		first: $first
 		skip: $skip
@@ -28,10 +28,13 @@ query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntTyp
 	) {
 		...ProductFragment
 	}
+	_allProductsMeta {
+		count
+	}
 }
 
 query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	products: allProducts(
+	allProducts(
 		first: $first
 		skip: $skip
 		orderBy: [title_ASC]
@@ -40,10 +43,13 @@ query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteL
 	) {
 		...ProductLightFragment
 	}
+	_allProductsMeta {
+		count
+	}
 }
 
 query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	products: allProducts(
+	allProducts(
 		locale: $locale
 		first: $first
 		skip: $skip
@@ -65,10 +71,13 @@ query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: 
 			...FileFragment
 		}
 	}
+	_allProductsMeta {
+		count
+	}
 }
 
 query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	products: allProducts(
+	allProducts(
 		locale: $locale
 		first: $first
 		skip: $skip
@@ -102,6 +111,9 @@ query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip
 			...FileFragment
 		}
 	}
+	_allProductsMeta {
+		count
+	}
 }
 
 query ProductCategories {
@@ -114,8 +126,11 @@ query ProductCategories {
 }
 
 query AllProductsByDesigner($id: ItemId, $first: IntType = 100) {
-	products: allProducts(first: $first, orderBy: [title_ASC], filter: { designer: { eq: $id } }) {
+	allProducts(first: $first, orderBy: [title_ASC], filter: { designer: { eq: $id } }) {
 		...ProductLightFragment
+	}
+	_allProductsMeta {
+		count
 	}
 }
 
@@ -151,6 +166,9 @@ fragment ProductFragment on ProductRecord {
 	additionalInformation
 	markAsNew
 	upcycled
+	image {
+		...ImageFragment
+	}
 	productGallery {
 		... on FullwidthImageRecord {
 			__typename

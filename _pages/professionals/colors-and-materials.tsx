@@ -1,7 +1,7 @@
-import styles from './colors-and-materials.module.scss';
+import s from './colors-and-materials.module.scss';
 import { AllColorsAndMaterialsDocument } from '@/graphql';
 import withGlobalProps from '@/lib/withGlobalProps';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
 import { Thumbnail, Section } from '@/components';
 import { useStore, useShallow } from '@/lib/store';
@@ -29,15 +29,15 @@ export default function ColorsAndMaterials({
 
 	return (
 		<>
-			<Section className={styles.introduction} top={true}>
+			<Section className={s.introduction} top={true}>
 				<h1 className='topMargin'>Colors & Materials</h1>
-				<Markdown className={styles.intro}>{intro}</Markdown>
+				<Markdown className={s.intro}>{intro}</Markdown>
 			</Section>
 			{colorMaterialTypes
 				.filter(({ id }) => colorMaterials.find(({ category }) => category.id === id))
 				.map(({ id, categoryPlural }, idx) => {
 					return (
-						<Section name={categoryPlural} className={styles.materials} key={idx}>
+						<Section name={categoryPlural} className={s.materials} key={idx}>
 							<h1>{categoryPlural}</h1>
 							{colorMaterials
 								.filter(({ category }) => category.id === id)
@@ -49,7 +49,7 @@ export default function ColorsAndMaterials({
 										key={`t-${idx}`}
 										theme='mid'
 										type='material'
-										className={styles.material}
+										className={s.material}
 									/>
 								))}
 						</Section>

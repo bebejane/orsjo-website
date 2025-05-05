@@ -1,4 +1,4 @@
-import { withWebPreviewsEdge } from 'dato-nextjs-utils/hoc';
+import { withWebPreviewsEdge } from 'next-dato-utils/hoc';
 
 export const config = {
   runtime: 'edge'

@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './VideoPlayer.module.scss';
+import s from './VideoPlayer.module.scss';
 import cn from 'classnames';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useWindowSize } from 'rooks';
@@ -65,12 +65,9 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	}, [active]);
 
 	return (
-		<div
-			className={styles.container}
-			style={{ width: '100%', height: '100%', position: 'relative' }}
-		>
+		<div className={s.container} style={{ width: '100%', height: '100%', position: 'relative' }}>
 			<video
-				className={cn(styles.video, className)}
+				className={cn(s.video, className)}
 				src={quality ? data.video[`mp4${quality}`] : undefined}
 				ref={setRefs}
 				playsInline={true}
@@ -81,11 +78,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 				//poster={data.video?.thumbnailUrl}
 			/>
 			{hasAudio && (
-				<div
-					ref={muteRef}
-					className={cn(styles.mute, !muted && styles.enabled)}
-					onClick={handleMute}
-				>
+				<div ref={muteRef} className={cn(s.mute, !muted && s.enabled)} onClick={handleMute}>
 					{muted ? <SondOff /> : <SoundOn />}
 				</div>
 			)}

@@ -1,4 +1,4 @@
-import styles from './Featured.module.scss';
+import s from './Featured.module.scss';
 import cn from 'classnames';
 import { usePage } from '@/lib/context/page';
 import { FeaturedGallery } from '@/components';
@@ -9,7 +9,7 @@ export default function Featured({ data: { headline, items: products, id } }: Fe
 	const { menu } = usePage();
 
 	return (
-		<div className={cn(styles.featured, styles[menu])}>
+		<div className={cn(s.featured, s[menu])}>
 			<FeaturedGallery
 				items={products as ProductRecord[]}
 				headline={headline}

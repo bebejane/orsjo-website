@@ -23,7 +23,7 @@ const initialState: PageProps = {
 export const PageContext = createContext(initialState);
 
 export type PageProviderProps = {
-	children: React.ReactElement;
+	children: React.ReactNode;
 	value: PageProps;
 };
 

@@ -1,4 +1,4 @@
-import styles from './ArrowButton.module.scss';
+import s from './ArrowButton.module.scss';
 import cn from 'classnames';
 import Arrow from '@/public/images/arrow.svg';
 import type { MouseEventHandler } from 'react';
@@ -20,11 +20,11 @@ export default function ArrowButton({
 }: ArrowButtonProps) {
 	if (hide) return null;
 
-	const buttonStyles = cn(styles.arrowButton, className, inverted && styles.inverted);
+	const buttonStyles = cn(s.arrowButton, className, inverted && s.inverted);
 
 	return (
 		<button className={buttonStyles} onClick={onClick}>
-			<Arrow className={cn(styles.arrow, reverse && styles.reverse)} />
+			<Arrow className={cn(s.arrow, reverse && s.reverse)} />
 		</button>
 	);
 }

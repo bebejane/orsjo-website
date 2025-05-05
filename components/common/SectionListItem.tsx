@@ -1,4 +1,6 @@
-import styles from './SectionListItem.module.scss';
+'use client';
+
+import s from './SectionListItem.module.scss';
 import cn from 'classnames';
 import { Section } from '@/components';
 import React from 'react';
@@ -24,10 +26,10 @@ export function SectionListItem({
 	className,
 }: SectionListItemProps) {
 	return (
-		<Section name={title} className={cn(styles.item, className)}>
-			<div className={styles.wrapper} onClick={onToggle} data-idx={idx}>
+		<Section name={title} className={cn(s.item, className)}>
+			<div className={s.wrapper} onClick={onToggle} data-idx={idx}>
 				{title ? <h1>{title}</h1> : children}
-				<div className={styles.toggle}>
+				<div className={s.toggle}>
 					<h1>
 						<span>{selected ? '–' : '+'}</span>
 					</h1>
@@ -35,12 +37,7 @@ export function SectionListItem({
 			</div>
 
 			<div
-				className={cn(
-					styles.content,
-					selected && styles.selected,
-					'tableList',
-					idx + 1 === total && styles.last
-				)}
+				className={cn(s.content, selected && s.selected, 'tableList', idx + 1 === total && s.last)}
 			>
 				{selected && title ? children : null}
 			</div>

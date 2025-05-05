@@ -50,9 +50,9 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
-      dato-nextjs-utils:
-        specifier: github:bebejane/dato-nextjs-utils
-        version: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/7800c171e8345c0b6757818f5bf445c0dfd8e113(@apollo/client@3.13.8(@types/react@19.1.2)(graphql-ws@6.0.4(graphql@16.11.0)(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.3)(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(datocms-listen@0.1.15(graphql@16.11.0))(next-seo@6.6.0(next@15.3.1(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.1(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-datocms@7.2.2(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next-dato-utils:
+        specifier: github:bebejane/next-dato-utils
+        version: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/7800c171e8345c0b6757818f5bf445c0dfd8e113(@apollo/client@3.13.8(@types/react@19.1.2)(graphql-ws@6.0.4(graphql@16.11.0)(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.3)(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(datocms-listen@0.1.15(graphql@16.11.0))(next-seo@6.6.0(next@15.3.1(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.1(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-datocms@7.2.2(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       datocms-structured-text-utils:
         specifier: ^5.0.0
         version: 5.0.0
@@ -3201,8 +3201,8 @@ packages:
   date-fns@4.1.0:
     resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
-  dato-nextjs-utils@https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/7800c171e8345c0b6757818f5bf445c0dfd8e113:
-    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/7800c171e8345c0b6757818f5bf445c0dfd8e113}
+  next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/7800c171e8345c0b6757818f5bf445c0dfd8e113:
+    resolution: {tarball: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/7800c171e8345c0b6757818f5bf445c0dfd8e113}
     version: 1.0.432
     engines: {node: '>=0.16'}
     peerDependencies:
@@ -11209,7 +11209,7 @@ snapshots:
 
   date-fns@4.1.0: {}
 
-  dato-nextjs-utils@https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/7800c171e8345c0b6757818f5bf445c0dfd8e113(@apollo/client@3.13.8(@types/react@19.1.2)(graphql-ws@6.0.4(graphql@16.11.0)(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.3)(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(datocms-listen@0.1.15(graphql@16.11.0))(next-seo@6.6.0(next@15.3.1(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.1(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-datocms@7.2.2(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/7800c171e8345c0b6757818f5bf445c0dfd8e113(@apollo/client@3.13.8(@types/react@19.1.2)(graphql-ws@6.0.4(graphql@16.11.0)(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.3)(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(datocms-listen@0.1.15(graphql@16.11.0))(next-seo@6.6.0(next@15.3.1(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(next@15.3.1(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-datocms@7.2.2(@types/react-dom@19.1.3(@types/react@19.1.2))(@types/react@19.1.2)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@apollo/client': 3.13.8(@types/react@19.1.2)(graphql-ws@6.0.4(graphql@16.11.0)(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@datocms/cma-client': 4.0.1

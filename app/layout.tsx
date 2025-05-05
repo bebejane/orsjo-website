@@ -12,15 +12,13 @@ export type LayoutProps = {
 
 export default async function RootLayout({ children }: LayoutProps) {
 	const menu = await buildMenu();
-	const pageTitle = 'no title';
+
 	return (
 		<>
 			<html lang='en-US'>
 				<body id='root'>
 					<main className={s.main}>
-						<Layout menu={menu} title={pageTitle}>
-							{children}
-						</Layout>
+						<Layout menu={menu}>{children}</Layout>
 					</main>
 				</body>
 			</html>

@@ -1,8 +1,8 @@
 'use client';
 
-import styles from './ContactModal.module.scss';
+import s from './ContactModal.module.scss';
 import cn from 'classnames';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { Modal, Loader } from '@/components';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
@@ -64,11 +64,11 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 
 	return (
 		<Modal>
-			<div className={cn(styles.contactModal, show && styles.show)}>
-				<div className={styles.wrap}>
+			<div className={cn(s.contactModal, show && s.show)}>
+				<div className={s.wrap}>
 					<h1>Contact us</h1>
 
-					<div className={styles.text}>
+					<div className={s.text}>
 						<p className='medium'>
 							<span>OBS!</span> Vi kan tyvärr inte erbjuda teknisk support till privatpersoner,
 							vänligen kontakta någon av våra{' '}
@@ -86,7 +86,7 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 					</div>
 
 					{error && (
-						<div className={styles.error}>{typeof error === 'string' ? error : error.message}</div>
+						<div className={s.error}>{typeof error === 'string' ? error : error.message}</div>
 					)}
 					<form id='contact-form' onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
 						<label htmlFor='name' className='medium'>
@@ -132,18 +132,18 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 					</form>
 
 					{loading && (
-						<div className={styles.loading}>
+						<div className={s.loading}>
 							<Loader invert={true} />
 						</div>
 					)}
 					{success && (
-						<div className={styles.success}>
+						<div className={s.success}>
 							<Markdown>{message}</Markdown>
 							<button onClick={onClose}>Close</button>
 						</div>
 					)}
 				</div>
-				<div className={styles.close} onClick={onClose}>
+				<div className={s.close} onClick={onClose}>
 					×
 				</div>
 			</div>

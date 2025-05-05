@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './MenuMobile.module.scss';
+import s from './MenuMobile.module.scss';
 import cn from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
 import { usePage } from '@/lib/context/page';
@@ -75,7 +75,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	return (
 		<>
-			<div className={styles.hamburger}>
+			<div className={s.hamburger}>
 				<Hamburger
 					toggled={showMenuMobile}
 					duration={0.5}
@@ -85,14 +85,14 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 					size={24}
 				/>
 			</div>
-			<nav className={cn(styles.mobileMenu, showMenuMobile ? styles.open : styles.hide)}>
-				<nav className={styles.main}>
-					<ul className={styles.nav}>
+			<nav className={cn(s.mobileMenu, showMenuMobile ? s.open : s.hide)}>
+				<nav className={s.main}>
+					<ul className={s.nav}>
 						{items.map((item, idx) => (
 							<li
 								data-slug={item.slug}
 								key={idx}
-								className={cn(selected?.slug === item.slug && styles.active)}
+								className={cn(selected?.slug === item.slug && s.active)}
 								onClick={() =>
 									item.index
 										? router.push(item.slug)
@@ -104,8 +104,8 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 						))}
 					</ul>
 				</nav>
-				<div className={styles.footer}>
-					<div className={styles.search}>
+				<div className={s.footer}>
+					<div className={s.search}>
 						<img src={'/images/search.svg'} />
 						<form onSubmit={handleSubmitSearch}>
 							<input
@@ -117,7 +117,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 							<input type='submit' style={{ visibility: 'hidden', position: 'absolute' }} />
 						</form>
 					</div>
-					<div className={styles.social}>
+					<div className={s.social}>
 						{social.map(({ name, icon, url }, idx) => (
 							<a key={idx} href={url}>
 								<img src={icon} alt={name} />
@@ -126,17 +126,17 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 					</div>
 				</div>
 			</nav>
-			<nav className={cn(styles.sub, (!selected || selected?.index) && styles.hide)}>
-				<div className={styles.subHeader}>
-					<p className={cn(styles.title)}>{subHeader}</p>
-					<span className={styles.back} onClick={() => setSelected(undefined)}>
+			<nav className={cn(s.sub, (!selected || selected?.index) && s.hide)}>
+				<div className={s.subHeader}>
+					<p className={cn(s.title)}>{subHeader}</p>
+					<span className={s.back} onClick={() => setSelected(undefined)}>
 						❮
 					</span>
 				</div>
 				<ul>
 					{sub?.map(({ label, slug, type, isHash }, idx) => (
 						<a onClick={() => router.push(slug)} key={idx}>
-							<li className={cn(slug === pathname && styles.active)}>{label}</li>
+							<li className={cn(slug === pathname && s.active)}>{label}</li>
 						</a>
 					))}
 				</ul>

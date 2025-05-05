@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './Footer.module.scss';
+import s from './Footer.module.scss';
 import cn from 'classnames';
 import Link from 'next/link';
 import type { MenuItem } from '@/lib/menu';
@@ -31,10 +31,10 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 
 	return (
 		<>
-			<footer className={cn(styles.footer, footerLine && styles.line)} id='footer'>
-				<div className={styles.wrapperTop}>
-					<div className={styles.brand}>
-						<div className={styles.tagline}>
+			<footer className={cn(s.footer, footerLine && s.line)} id='footer'>
+				<div className={s.wrapperTop}>
+					<div className={s.brand}>
+						<div className={s.tagline}>
 							<span>
 								Locally
 								<br />
@@ -43,17 +43,17 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 								lighting
 							</span>
 						</div>
-						<div className={styles.iso}>
+						<div className={s.iso}>
 							<img src='/images/ISO-9001.png'></img>
 							<img src='/images/ISO-14001.png'></img>
 						</div>
 					</div>
-					<nav className={styles.menu}>
+					<nav className={s.menu}>
 						<ul>
 							{menu.map((item, idx) => {
 								return (
 									<li key={idx}>
-										<ul className={styles.category}>
+										<ul className={s.category}>
 											<>
 												<li>{item.label}</li>
 												{item.sub?.map((subItem, subidx) => {
@@ -79,36 +79,36 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 					</nav>
 				</div>
 
-				<div className={styles.wrapperBottom}>
-					<div className={styles.brand}>
+				<div className={s.wrapperBottom}>
+					<div className={s.brand}>
 						<figcaption>Örsjö Belysning</figcaption>
 					</div>
-					<nav className={styles.lastRow}>
-						<div className={styles.social}>
+					<nav className={s.lastRow}>
+						<div className={s.social}>
 							{social.map(({ name, icon, url }, idx) => (
 								<a key={idx} href={url}>
 									<img src={icon} alt={name} />
 								</a>
 							))}
 						</div>
-						<div className={styles.copyright}>
+						<div className={s.copyright}>
 							<figcaption>Copyright ©2023 Örsjö Belysning AB. All rights reserved.</figcaption>
 						</div>
 					</nav>
 				</div>
 			</footer>
-			<footer className={cn(styles.footerMobile, footerLine && styles.line)}>
-				<figure className={styles.logo}>
+			<footer className={cn(s.footerMobile, footerLine && s.line)}>
+				<figure className={s.logo}>
 					<img src={'/images/logo.svg'} />
 				</figure>
-				<span className={styles.tagline}>
+				<span className={s.tagline}>
 					Locally
 					<br />
 					crafted
 					<br />
 					lighting
 				</span>
-				<div className={styles.social}>
+				<div className={s.social}>
 					{social.map(({ name, icon, url }, idx) => (
 						<a key={idx} href={url}>
 							<img src={icon} alt={name} />

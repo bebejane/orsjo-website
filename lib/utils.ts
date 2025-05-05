@@ -1,6 +1,6 @@
 
 import { buildClient } from '@datocms/cma-client-browser';
-import { apiQuery } from 'dato-nextjs-utils/api';
+import { apiQuery } from 'next-dato-utils/api';
 import { SiteSearchDocument } from '@/graphql'
 
 const scssExports = {

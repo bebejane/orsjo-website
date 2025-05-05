@@ -9,72 +9,82 @@
     position: relative;
     display: flex;
     flex-direction: row;
-  
-    &.inverted{
+
+    &.inverted {
       color: $white;
-      button{
-        color:$white;
+
+      button {
+        color: $white;
       }
     }
-    
-    .header{
+
+    .header {
       min-width: spanGridWithGutter(4);
-      .headline{
-        color: white; 
+
+      .headline {
+        color: white;
       }
     }
-    .gallery{
+
+    .gallery {
       position: relative;
       display: flex;
       flex-direction: row;
       min-width: spanGrid(12);
-      
+
       figure {
         position: relative;
         flex: 1 1 auto;
         height: 100%;
-        .image{
-          
-        }
+
+        .image {}
       }
-      .fade{
+
+      .fade {
         position: absolute;
-        top:0;
-        right:0;
-        height: calc(100% - 35px);      
+        top: 0;
+        right: 0;
+        height: calc(100% - 35px);
         min-width: 30%;
         max-width: 30%;
         pointer-events: none;
         //background: rgb(255,255,255);
         //background: linear-gradient(-90deg, rgba(255,255,255,1) 0%, rgba(9,9,121,0) 100%, rgba(255,255,255,1) 100%);
         z-index: 2;
+
         &.hide {
           display: none;
         }
       }
     }
-    .arrow{
+
+    .arrow {
       position: absolute;
-      top:50%;
-      right:1rem;
+      top: 50%;
+      right: 1rem;
       transform: translateY(-50%);
-      margin-top:-.5rem;
+      margin-top: -.5rem;
       z-index: 10;
-      color:$black;
+      color: $black;
     }
   }
+
   @include mq($until: tablet) {
     padding-top: 2rem;
     padding-bottom: 2rem;
-    .wrapper{
+
+    .wrapper {
       flex-direction: column;
-      .header{
+
+      .header {
         width: 100%;
-        .headline{
-          color: $gray;  
+
+        .headline {
+          color: $gray;
         }
       }
-      .gallery{
+
+      .gallery {
         max-width: spanGrid(16);
       }
     }

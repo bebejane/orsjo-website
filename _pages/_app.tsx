@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useStore, useShallow } from '@/lib/store';
 import { useWindowSize } from 'rooks';
 import { sleep, waitForElement, scrollToId } from '@/lib/utils';
-import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
+import { DefaultDatoSEO } from 'next-dato-utils/components';
 import { AnimatePresence } from 'framer-motion';
 import { GoogleAnalytics } from 'nextjs-google-analytics';
 import useDownloadTracker from '@/lib/hooks/useDownloadTracker';

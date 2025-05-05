@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './MenuDesktop.module.scss';
+import s from './MenuDesktop.module.scss';
 import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -8,7 +8,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useStore, useShallow } from '@/lib/store';
 import { usePage } from '@/lib/context/page';
 import { useWindowSize } from 'rooks';
-import { useScrollInfo } from 'dato-nextjs-utils/hooks';
+import { useScrollInfo } from 'next-dato-utils/hooks';
 import type { Menu } from '@/lib/menu';
 import { waitForElement } from '@/lib/utils';
 import { Logo } from '@/components';
@@ -125,11 +125,11 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	if (!items) return null;
 
 	const menuStyles = cn(
-		styles.desktopMenu,
-		selected && styles.open,
-		!showMenu && styles.hide,
-		styles[layout],
-		isInverted && styles.inverted
+		s.desktopMenu,
+		selected && s.open,
+		!showMenu && s.hide,
+		s[layout],
+		isInverted && s.inverted
 	);
 	const sub = selected ? items.find((i) => i.slug === selected).sub : [];
 
@@ -139,7 +139,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		<>
 			<Logo inverted={isInverted} />
 			<nav id={'menu'} ref={ref} className={menuStyles}>
-				<ul className={styles.nav}>
+				<ul className={s.nav}>
 					{items.map(({ label, slug, index }, idx) => (
 						<li
 							data-slug={slug}
@@ -147,7 +147,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 							key={idx}
 							onMouseEnter={() => setSelected(!index ? slug : undefined)}
 							onMouseLeave={() => !index && !showMenu && setSelected(undefined)}
-							className={cn(pathname.startsWith(`${slug}`) && styles.selected)}
+							className={cn(pathname.startsWith(`${slug}`) && s.selected)}
 						>
 							{index === true ? ( // Direct links
 								<Link scroll={false} href={slug}>
@@ -156,30 +156,28 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 							) : (
 								<>{label}</>
 							)}
-							{!index && (
-								<span className={cn(styles.arrow, slug == selected && styles.active)}>›</span>
-							)}
+							{!index && <span className={cn(s.arrow, slug == selected && s.active)}>›</span>}
 						</li>
 					))}
-					<li className={styles.searchIcon} onClick={() => onShowSiteSearch()}>
+					<li className={s.searchIcon} onClick={() => onShowSiteSearch()}>
 						<img src={'/images/search.svg'} />
 					</li>
 				</ul>
 			</nav>
 
 			<div
-				className={cn(styles.sub, showSubMenu && styles.show)}
+				className={cn(s.sub, showSubMenu && s.show)}
 				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}
 				onMouseLeave={resetSelected}
 			>
 				<div
-					className={cn(styles.subPad, styles[menu])}
+					className={cn(s.subPad, s[menu])}
 					style={{ backgroundColor: color, paddingLeft: `${menuMargin.padding}px` }}
 				>
 					<nav>
-						<ul className={cn(sub?.length > 10 && styles.columns)}>
+						<ul className={cn(sub?.length > 10 && s.columns)}>
 							{sub?.map(({ label, slug }, idx) => (
-								<li key={idx} className={cn(slug === pathname && styles.active)}>
+								<li key={idx} className={cn(slug === pathname && s.active)}>
 									<Link scroll={false} href={slug}>
 										{label}
 									</Link>

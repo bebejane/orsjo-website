@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './CookieConsent.module.scss';
+import s from './CookieConsent.module.scss';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
 import { setCookie, deleteCookie, getCookie } from 'cookies-next';
@@ -25,8 +25,8 @@ export default function CookieConsent() {
 
 	return (
 		<>
-			<div className={cn(styles.options, show && styles.show)}>
-				<div className={styles.close} onClick={() => setShow(false)}>
+			<div className={cn(s.options, show && s.show)}>
+				<div className={s.close} onClick={() => setShow(false)}>
 					×
 				</div>
 				<h1>Cookie policy</h1>

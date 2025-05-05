@@ -1,6 +1,6 @@
 import { sectionId } from './utils';
 import { sortSwedish } from './utils';
-import { apiQuery } from 'dato-nextjs-utils/api';
+import { apiQuery } from 'next-dato-utils/api';
 import { MenuDocument } from "@/graphql";
 
 export type Menu = MenuItem[]

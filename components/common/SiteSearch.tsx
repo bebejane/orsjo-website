@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './SiteSearch.module.scss';
+import s from './SiteSearch.module.scss';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
@@ -96,8 +96,8 @@ export default function SiteSearch({
 	}, [queryAsProp]);
 
 	return (
-		<div className={cn(styles.search, show && styles.show)}>
-			<div className={styles.query}>
+		<div className={cn(s.search, show && s.show)}>
+			<div className={s.query}>
 				<input
 					ref={ref}
 					autoFocus={true}
@@ -106,15 +106,15 @@ export default function SiteSearch({
 					autoCorrect={'off'}
 					type='text'
 					value={inputValue}
-					className={cn(show && styles.show)}
+					className={cn(show && s.show)}
 					onChange={(e) => setInputValue(e.target.value)}
 				/>
-				<button className={styles.close} onClick={onClose}>
+				<button className={s.close} onClick={onClose}>
 					<Close />
 				</button>
 			</div>
 
-			<div className={styles.results}>
+			<div className={s.results}>
 				{inputValue &&
 					result &&
 					Object.keys(result).map((model) => {
@@ -129,7 +129,7 @@ export default function SiteSearch({
 												<ProductThumbnail
 													product={item}
 													theme={thumbnailTheme}
-													className={styles.thumb}
+													className={s.thumb}
 												/>
 											</li>
 										) : model === 'designers' ? (
@@ -137,7 +137,7 @@ export default function SiteSearch({
 												<DesignerThumbnail
 													designer={item}
 													theme={thumbnailTheme}
-													className={styles.thumb}
+													className={s.thumb}
 												/>
 											</li>
 										) : model === 'projects' ? (
@@ -145,27 +145,19 @@ export default function SiteSearch({
 												<ProjectThumbnail
 													project={item}
 													theme={thumbnailTheme}
-													className={styles.thumb}
+													className={s.thumb}
 												/>
 											</li>
 										) : model === 'people' ? (
 											<li key={idx}>
-												<StaffThumbnail
-													staff={item}
-													theme={thumbnailTheme}
-													className={styles.thumb}
-												/>
+												<StaffThumbnail staff={item} theme={thumbnailTheme} className={s.thumb} />
 											</li>
 										) : model === 'news' ? (
 											<li key={idx}>
-												<NewsThumbnail
-													news={item}
-													theme={thumbnailTheme}
-													className={styles.thumb}
-												/>
+												<NewsThumbnail news={item} theme={thumbnailTheme} className={s.thumb} />
 											</li>
 										) : model === 'faqs' ? (
-											<li key={idx} className={styles.full}>
+											<li key={idx} className={s.full}>
 												<Link
 													href={`/support/faq#${item.id}`}
 													style={{ fontWeight: 'bold' }}
@@ -184,7 +176,7 @@ export default function SiteSearch({
 						);
 					})}
 				{(noResults || loading || error) && (
-					<div className={styles.status}>
+					<div className={s.status}>
 						{noResults && <span>no matches for {`"${query}"`}</span>}
 						{loading && (
 							<span>

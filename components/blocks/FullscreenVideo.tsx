@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './FullscreenVideo.module.scss';
+import s from './FullscreenVideo.module.scss';
 import React from 'react';
 import { VideoPlayer, ArrowLink } from '@/components';
 import Link from 'next/link';
@@ -14,7 +14,7 @@ export default function FullscreenVideo({
 	const ref = useRef();
 
 	return (
-		<section className={styles.fullScreenVideo} ref={ref}>
+		<section className={s.fullScreenVideo} ref={ref}>
 			{link ? (
 				<Link scroll={false} href={link} passHref={true}>
 					<VideoPlayer data={video} />
@@ -22,12 +22,12 @@ export default function FullscreenVideo({
 			) : (
 				<VideoPlayer data={video} />
 			)}
-			<div className={styles.textWrap}>
-				<div className={styles.text}>
+			<div className={s.textWrap}>
+				<div className={s.text}>
 					<div>
 						<h1 className='start'>{text}</h1>
 					</div>
-					<div className={styles.link}>
+					<div className={s.link}>
 						{link && (
 							<Link scroll={false} href={link} passHref={true}>
 								<span className='medium white'>

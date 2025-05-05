@@ -1,9 +1,9 @@
 'use client';
 
-import styles from './NewsItem.module.scss';
+import s from './NewsItem.module.scss';
 import React from 'react';
 import Link from 'next/link';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { ArrowLink } from '@/components';
 import { useRef } from 'react';
 
@@ -14,7 +14,7 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 	const ref = useRef();
 
 	return (
-		<section className={styles.news}>
+		<section className={s.news}>
 			<Link
 				scroll={false}
 				href={`/about/news/${slug}`}
@@ -23,12 +23,12 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 				passHref={true}
 			>
 				<h1>News</h1>
-				<span className={styles.text}>
-					<h1 className={styles.title}>{title}</h1>
+				<span className={s.text}>
+					<h1 className={s.title}>{title}</h1>
 					<div className='large'>
 						<Markdown sentances={1}>{text}</Markdown>
 					</div>
-					<div className={styles.more}>
+					<div className={s.more}>
 						<ArrowLink hoverRef={ref} inverted={true}>
 							Read more
 						</ArrowLink>

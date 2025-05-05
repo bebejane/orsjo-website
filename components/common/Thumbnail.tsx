@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './Thumbnail.module.scss';
+import s from './Thumbnail.module.scss';
 import cn from 'classnames';
 import { Image } from 'react-datocms';
 import Link from 'next/link';
@@ -52,7 +52,7 @@ export default function Thumbnail({
 				{image && (
 					<Image
 						data={image.responsiveImage}
-						className={styles.image}
+						className={s.image}
 						layout={'fill'}
 						lazyLoad={lazyload}
 						fadeInDuration={100}
@@ -60,10 +60,10 @@ export default function Thumbnail({
 					/>
 				)}
 				{imageHover && !isTouch && (
-					<div className={cn(styles.imageHover, hovering && styles.show)}>
+					<div className={cn(s.imageHover, hovering && s.show)}>
 						<Image
 							data={imageHover.responsiveImage}
-							className={styles.image}
+							className={s.image}
 							lazyLoad={lazyload}
 							layout={'fill'}
 							objectFit={'cover'}
@@ -71,14 +71,14 @@ export default function Thumbnail({
 					</div>
 				)}
 				{upcycled && (
-					<div className={styles.upcycled}>
+					<div className={s.upcycled}>
 						<img src='/images/upcycled.svg' />
 					</div>
 				)}
 			</figure>
 			<figcaption>
-				<span className={styles.title}>
-					{title} <span className={styles.subtitle}>{subtitle}</span>
+				<span className={s.title}>
+					{title} <span className={s.subtitle}>{subtitle}</span>
 				</span>
 			</figcaption>
 		</>
@@ -86,27 +86,21 @@ export default function Thumbnail({
 
 	return (
 		<div
-			className={cn(
-				styles.thumbnail,
-				className,
-				inverted && styles.inverted,
-				styles[theme],
-				styles[type]
-			)}
+			className={cn(s.thumbnail, className, inverted && s.inverted, s[theme], s[type])}
 			onMouseEnter={handleMouseOver}
 			onMouseLeave={handleMouseOver}
 			onClick={onClick}
 		>
 			{slug ? (
-				<Link scroll={false} href={slug} className={styles.wrap}>
+				<Link scroll={false} href={slug} className={s.wrap}>
 					{content}
 				</Link>
 			) : (
-				<div className={styles.wrap}>{content}</div>
+				<div className={s.wrap}>{content}</div>
 			)}
 
 			{markAsNew && showMarkAsNew && (
-				<div className={cn(styles.markAsNew)}>
+				<div className={cn(s.markAsNew)}>
 					<span>New</span>
 				</div>
 			)}

@@ -1,15 +1,14 @@
-import styles from './index.module.scss';
+import s from './page.module.scss';
+import { apiQuery } from 'next-dato-utils/api';
 import {
 	ProductStartDocument,
 	AllProductsLightDocument,
 	ProductCategoriesDocument,
-} from '/graphql';
-import withGlobalProps from '/lib/withGlobalProps';
-import { FeaturedGallery, ProductThumbnail, Section } from '/components';
-import { useStore, useShallow } from '/lib/store';
-import { useEffect, useState, useMemo } from 'react';
-
-import type { PageProps } from '/lib/context/page';
+} from '@/graphql';
+import { FeaturedGallery, ProductThumbnail, Section } from '@/components';
+import { useStore, useShallow } from '@/lib/store';
+//import { useEffect, useState, useMemo } from 'react';
+import type { PageProps } from '@/lib/context/page';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -23,25 +22,14 @@ export type ProductsStartProps = {
 	productCategories: ProductCategoryRecord[];
 };
 
-const searchString = (str: string, value: string): boolean => {
-	const s = str.toLowerCase().split(' ');
-	const v = value.toLowerCase().split(' ');
-
-	for (let i = 0; i < s.length; i++) {
-		for (let x = 0; x < v.length; x++) {
-			if (s[i] && s[i].length >= 2 && v[x].startsWith(s[i])) {
-				return true;
-			}
-		}
-	}
-	return false;
-};
-
-export default function Products({
-	productStart: { featured },
-	products,
-	productCategories,
-}: ProductsStartProps) {
+export default async function Products() {
+	const [{ productStart }, { allProducts }, { productCategories }] = await Promise.all([
+		apiQuery<ProductStartQuery, ProductStartQueryVariables>(ProductStartDocument),
+		apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(AllProductsLightDocument),
+		apiQuery<ProductCategoriesQuery, ProductCategoriesQueryVariables>(ProductCategoriesDocument),
+	]);
+	/*
+	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), []);
 	productCategories.forEach(({ name, namePlural }) => {
 		productsByCategory[name] = {
@@ -54,7 +42,7 @@ export default function Products({
 	const [productsByCategorySearch, setProductsByCategorySearch] = useState<
 		{ [index: string]: ProductsByCategory } | undefined
 	>();
-	const searchProducts = useStore((state) => state.searchProducts, shallow);
+	
 
 	useEffect(() => {
 		if (!searchProducts) return setProductsByCategorySearch(undefined);
@@ -89,19 +77,27 @@ export default function Products({
 
 	if (isEmptySearch) {
 		return (
-			<Section className={styles.products} top={true}>
-				<div className={styles.emptySearch}>
-					No products matching &quot;{searchProducts}&quot;...
-				</div>
+			<Section className={s.products} top={true}>
+				<div className={s.emptySearch}>No products matching &quot;{searchProducts}&quot;...</div>
 			</Section>
 		);
 	}
+*/
+	const productsByCategory: ProductsByCategory = {};
+	productCategories.forEach(({ name, namePlural }) => {
+		productsByCategory[name] = {
+			name,
+			namePlural,
+			products: allProducts.filter(({ categories }) => categories?.find((c) => c.name === name)),
+		};
+	});
+	const prodsByCat = productsByCategory;
 
 	return (
 		<>
-			{!productsByCategorySearch &&
-				featured.slice(0).map((data, idx) => (
-					<Section className={styles.featured} name={data.headline} top={idx === 0} key={idx}>
+			{/*!productsByCategorySearch &&
+				productStart?.featured.slice(0).map((data, idx) => (
+					<Section className={s.featured} name={data.headline} top={idx === 0} key={idx}>
 						<FeaturedGallery
 							key={`featured-${idx}`}
 							headline={data.headline}
@@ -111,17 +107,17 @@ export default function Products({
 							showMarkAsNew={data.showMarkAsNew}
 						/>
 					</Section>
-				))}
+				))*/}
 
 			{Object.keys(prodsByCat)
 				.map((name) => prodsByCat[name])
 				.map(({ products, namePlural }, idx) => {
 					return (
 						<Section
-							className={styles.products}
+							className={s.products}
 							key={idx}
 							name={namePlural}
-							top={productsByCategorySearch && idx === 0}
+							//top={productsByCategorySearch && idx === 0}
 						>
 							<h1>{namePlural}</h1>
 							<ul>
@@ -138,19 +134,23 @@ export default function Products({
 	);
 }
 
+const searchString = (str: string, value: string): boolean => {
+	const s = str.toLowerCase().split(' ');
+	const v = value.toLowerCase().split(' ');
+
+	for (let i = 0; i < s.length; i++) {
+		for (let x = 0; x < v.length; x++) {
+			if (s[i] && s[i].length >= 2 && v[x].startsWith(s[i])) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
 Products.page = {
 	title: 'Products',
 	layout: 'normal',
 	menu: 'normal',
 	color: '--white',
 } as PageProps;
-
-export const getStaticProps = withGlobalProps(
-	{ queries: [AllProductsLightDocument, ProductStartDocument, ProductCategoriesDocument] },
-	async ({ props, revalidate }: any) => {
-		return {
-			props,
-			revalidate,
-		};
-	}
-);

@@ -1,8 +1,8 @@
-import styles from './index.module.scss';
+import s from './index.module.scss';
 import withGlobalProps from '@/lib/withGlobalProps';
 import Link from 'next/link';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
-import { useApiQuery } from 'dato-nextjs-utils/hooks';
+import { Markdown } from 'next-dato-utils/components';
+import { useApiQuery } from 'next-dato-utils/hooks';
 import { AllNewsDocument } from '@/graphql';
 import { Image } from 'react-datocms';
 import { PageProps } from '@/lib/context/page';
@@ -30,30 +30,30 @@ export default function News({ news, pagination }: NewsProps) {
 			</Section>
 			{data.news.map(({ title, image, link, linkText, text, createdAt, id, slug }, idx) => (
 				<Section
-					className={styles.newsItem}
+					className={s.newsItem}
 					type={'margin'}
 					name={format(new Date(createdAt), 'MMM do, yyyy')}
 					id={slug}
 					key={idx}
 				>
-					<div className={styles.date}>
+					<div className={s.date}>
 						<span className='medium'>{format(new Date(createdAt), 'MMM do, yyyy')}</span>
 					</div>
-					<div className={styles.post}>
+					<div className={s.post}>
 						<Link href={`/about/news/${slug}`}>
 							<h1 className='copper'>{title}</h1>
 						</Link>
-						{image && <Image data={image.responsiveImage} className={styles.image} />}
-						<Markdown className={styles.text}>{text}</Markdown>
+						{image && <Image data={image.responsiveImage} className={s.image} />}
+						<Markdown className={s.text}>{text}</Markdown>
 					</div>
 				</Section>
 			))}
 
 			{!page?.end && (
-				<Section className={styles.more} bottom={true}>
+				<Section className={s.more} bottom={true}>
 					<button onClick={nextPage}>{!loading ? 'Load more +' : '···'}</button>
 					{error && (
-						<div className={styles.error}>
+						<div className={s.error}>
 							Error: {typeof error === 'string' ? error : error.message}
 						</div>
 					)}

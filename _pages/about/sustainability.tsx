@@ -1,9 +1,9 @@
-import styles from './sustainability.module.scss';
+import s from './sustainability.module.scss';
 import { SustainabilityDocument } from '@/graphql';
 import withGlobalProps from '@/lib/withGlobalProps';
 import cn from 'classnames';
 import { Image } from 'react-datocms';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
 import { Section, TextReveal, VideoPlayer } from '@/components';
 
@@ -14,34 +14,34 @@ export default function Sustainability({
 }: SustainabilityProps) {
 	return (
 		<>
-			<Section className={styles.sustainability} type='full'>
-				<div className={styles.hero}>
-					<Image data={image.responsiveImage} className={styles.heroImage} objectFit='cover' />
-					<div className={styles.header}>
+			<Section className={s.sustainability} type='full'>
+				<div className={s.hero}>
+					<Image data={image.responsiveImage} className={s.heroImage} objectFit='cover' />
+					<div className={s.header}>
 						<h1>
 							<TextReveal block={true}>{title}</TextReveal>
 						</h1>
 					</div>
 				</div>
 			</Section>
-			<Section className={styles.intro} type='margin'>
-				<Markdown className={styles.text}>{intro}</Markdown>
+			<Section className={s.intro} type='margin'>
+				<Markdown className={s.text}>{intro}</Markdown>
 			</Section>
-			<Section className={styles.blocks} type='full'>
+			<Section className={s.blocks} type='full'>
 				{steps.map(({ id, text, title, media, fullWidthImage }, idx) => (
-					<div className={cn(styles.block, fullWidthImage && styles.fullWidth)} key={idx}>
-						<div className={styles.left}>
-							<div className={styles.header}>
+					<div className={cn(s.block, fullWidthImage && s.fullWidth)} key={idx}>
+						<div className={s.left}>
+							<div className={s.header}>
 								<h2>{title}</h2>
 								<span>N°{idx + 1}</span>
 							</div>
-							<Markdown className={styles.text}>{text}</Markdown>
+							<Markdown className={s.text}>{text}</Markdown>
 						</div>
-						<div className={styles.right}>
+						<div className={s.right}>
 							{media.video ? (
-								<VideoPlayer className={styles.video} data={media} />
+								<VideoPlayer className={s.video} data={media} />
 							) : (
-								<Image data={media.responsiveImage} className={styles.image} lazyLoad={false} />
+								<Image data={media.responsiveImage} className={s.image} lazyLoad={false} />
 							)}
 						</div>
 					</div>

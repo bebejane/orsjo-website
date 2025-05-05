@@ -1,7 +1,7 @@
 'use client';
 
 import 'swiper/css';
-import styles from './Gallery.module.scss';
+import s from './Gallery.module.scss';
 import cn from 'classnames';
 import React from 'react';
 import { Image } from 'react-datocms';
@@ -60,20 +60,11 @@ export default function Gallery({
 	if (isHidden) return null;
 
 	return (
-		<div
-			className={cn(
-				styles.gallery,
-				images.length <= 1 && styles.noArrows,
-				isSingleSlide && styles.noArrows
-			)}
-		>
-			<div className={styles.back} onClick={() => swiperRef.current?.slidePrev()}>
-				<img src='/images/arrow-light.svg' className={styles.arrow} />
+		<div className={cn(s.gallery, images.length <= 1 && s.noArrows, isSingleSlide && s.noArrows)}>
+			<div className={s.back} onClick={() => swiperRef.current?.slidePrev()}>
+				<img src='/images/arrow-light.svg' className={s.arrow} />
 			</div>
-			<div
-				className={styles.images}
-				onClick={() => !isSingleSlide && swiperRef?.current?.slideNext()}
-			>
+			<div className={s.images} onClick={() => !isSingleSlide && swiperRef?.current?.slideNext()}>
 				<Swiper
 					id={`main-gallery`}
 					loop={true}
@@ -87,26 +78,26 @@ export default function Gallery({
 					{images.map((image, idx) => (
 						<SwiperSlide
 							key={idx}
-							className={cn(styles.slide, padImagesWithTitle && image.title && styles.padded)}
+							className={cn(s.slide, padImagesWithTitle && image.title && s.padded)}
 						>
 							{image.responsiveImage ? (
 								<Image
-									pictureClassName={styles.image}
+									pictureClassName={s.image}
 									data={image.responsiveImage}
 									usePlaceholder={false}
 									onLoad={() => setLoaded((prevState) => ({ ...prevState, [image.id]: true }))}
 								/>
 							) : (
-								<div className={styles.svg}>
+								<div className={s.svg}>
 									<img
 										src={image.url}
-										className={styles.image}
+										className={s.image}
 										onLoad={() => setLoaded((prevState) => ({ ...prevState, [image.id]: true }))}
 									/>
 								</div>
 							)}
 							{!loaded[image.id] && initLoaded && (
-								<div className={styles.loading}>
+								<div className={s.loading}>
 									<Loader invert={true} />
 								</div>
 							)}
@@ -114,11 +105,11 @@ export default function Gallery({
 					))}
 				</Swiper>
 			</div>
-			<div className={styles.forward} onClick={() => swiperRef.current?.slideNext()}>
-				<img src='/images/arrow-light.svg' className={styles.arrow} />
+			<div className={s.forward} onClick={() => swiperRef.current?.slideNext()}>
+				<img src='/images/arrow-light.svg' className={s.arrow} />
 			</div>
-			<div className={styles.caption}>{title && <p className='medium'>{title}</p>}</div>
-			<div className={styles.close} onClick={onClose}>
+			<div className={s.caption}>{title && <p className='medium'>{title}</p>}</div>
+			<div className={s.close} onClick={onClose}>
 				×
 			</div>
 		</div>

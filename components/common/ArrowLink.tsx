@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './ArrowLink.module.scss';
+import s from './ArrowLink.module.scss';
 import cn from 'classnames';
 import Arrow from '@/public/images/arrow.svg';
 import { useEffect, useState } from 'react';
@@ -43,17 +43,17 @@ export default function ArrowLink({
 	}, [hoverRef]);
 
 	const className = cn(
-		styles.arrowLink,
+		s.arrowLink,
 		'medium',
-		inverted && styles.inverted,
-		reversed && styles.reversed,
-		hover && styles.hover
+		inverted && s.inverted,
+		reversed && s.reversed,
+		hover && s.hover
 	);
 
 	return (
 		<div className={className}>
 			<span onMouseEnter={handleHover} onMouseLeave={handleHover}>
-				<Arrow className={styles.arrow} />
+				<Arrow className={s.arrow} />
 				{title || children}
 			</span>
 		</div>

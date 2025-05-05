@@ -1,4 +1,4 @@
-import styles from './[product].module.scss';
+import s from './page.module.scss';
 import cn from 'classnames';
 import {
 	AllProductsLightDocument,
@@ -6,8 +6,8 @@ import {
 	RelatedProductsDocument,
 	AllProductsByCategoryDocument,
 	RelatedProjectsForProductDocument,
-} from '/graphql';
-import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '/components';
+} from '@/graphql';
+import { SectionListItem, FeaturedGallery, Block, Section, Icon, TextReveal } from '@/components';
 import {
 	chunkArray,
 	parseSpecifications,
@@ -16,51 +16,53 @@ import {
 	productDownloads,
 	ProductRecordWithPdfFiles,
 	styleVariables,
-} from '/lib/utils';
-import { apiQuery } from 'dato-nextjs-utils/api';
-import { DatoSEO } from 'dato-nextjs-utils/components';
-import withGlobalProps from '/lib/withGlobalProps';
-import { useStore, useShallow } from '/lib/store';
+} from '@/lib/utils';
+import { apiQuery } from 'next-dato-utils/api';
+import { useStore, useShallow } from '@/lib/store';
 import { Image } from 'react-datocms';
-import React, { useState, useEffect, useMemo } from 'react';
-import { useScrollInfo } from 'dato-nextjs-utils/hooks';
-import { useRouter } from 'next/router';
-import type { PageProps } from '/lib/context/page';
-import type { ProductDownload } from '/lib/utils';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+//import React, { useState, useEffect, useMemo } from 'react';
+import { useScrollInfo } from 'next-dato-utils/hooks';
+//import { useRouter } from 'next/router';
+import type { PageProps } from '@/lib/context/page';
+import type { ProductDownload } from '@/lib/utils';
+import { Markdown } from 'next-dato-utils/components';
 import Link from 'next/link';
 import { useMediaQuery } from 'usehooks-ts';
 import { firstBy } from 'thenby';
+import React from 'react';
+import { notFound } from '@node_modules/next/navigation';
 
-export type ProductProps = {
-	product: ProductRecord;
-	relatedProducts: ProductRecord[];
-	relatedProjects: ProjectRecord[];
-	productsByCategory: ProductRecord[];
-	images: FileField[];
-	drawings: FileField[];
-	specsCols: { label: string; value: string; linebreaks?: boolean; slug?: string }[];
-	files: ProductDownload[];
+type Props = {
+	params: Promise<{
+		product: string;
+	}>;
 };
 
-export default function Product({
-	product,
-	relatedProducts,
-	relatedProjects,
-	productsByCategory,
-	drawings,
-	specsCols,
-	files,
-}: ProductProps) {
-	const router = useRouter();
-	const [imageLoaded, setImageLoaded] = useState(false);
-	const [setGallery, setGalleryId] = useStore(
-		(state) => [state.setGallery, state.setGalleryId],
-		shallow
-	);
-	const { scrolledPosition, viewportHeight } = useScrollInfo();
-	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
+export default async function Product({ params }: Props) {
+	const { product: slug } = await params;
+	const res = await getProductPageData(slug);
+	if (!res) return notFound();
+
+	const {
+		product,
+		relatedProducts,
+		relatedProjects,
+		productsByCategory,
+		drawings,
+		specsCols,
+		files,
+	} = res;
+
+	//const router = useRouter();
+	//const [imageLoaded, setImageLoaded] = useState(false);
+	//const [setGallery, setGalleryId] = useStore(
+	//useShallow((state) => [state.setGallery, state.setGalleryId])
+	//);
+	//const { scrolledPosition, viewportHeight } = useScrollInfo();
+	const isMobile = false; //useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const singleModel = product.models.length === 1;
+	const pictureStyle = { paddingBottom: '4em' };
+	/*
 	const [list, setList] = useState({ specifications: false, downloads: false });
 	const [pictureStyle, setPictureStyle] = useState({ paddingBottom: '4em' });
 	const images = useMemo(
@@ -106,71 +108,77 @@ export default function Product({
 		const scale = Math.max(0, (viewportHeight - scrolledPosition * 4) / viewportHeight);
 		setPictureStyle({ paddingBottom: `${4 * scale}em` });
 	}, [viewportHeight, scrolledPosition, setPictureStyle, isMobile]);
-
+*/
 	return (
 		<>
-			<DatoSEO title={product.title} description={product.description} seo={product._seoMetaTags} />
-			<Section name='Introduction' className={styles.product} top={true}>
+			{/*<DatoSEO title={product.title} description={product.description} seo={product._seoMetaTags} />*/}
+			<Section name='Introduction' className={s.product} top={true}>
 				<div
-					className={styles.intro}
-					onClick={() => handleGalleryClick('product', product.image?.id)}
+					className={s.intro}
+					//onClick={() => handleGalleryClick('product', product.image?.id)}
 				>
-					<Image
-						pictureClassName={cn(styles.image, imageLoaded && styles.loaded)}
-						data={product.image.responsiveImage}
-						layout={'fill'}
-						fadeInDuration={700}
-						objectFit={'contain'}
-						pictureStyle={!isMobile ? pictureStyle : undefined}
-						placeholderStyle={!isMobile ? pictureStyle : undefined}
-						onLoad={() => setImageLoaded(true)}
-					/>
-					<div className={cn(styles.overlay, styles.show)}>
-						<div className={styles.text}>
-							<h1 className={styles.title}>
+					{product.image?.responsiveImage && (
+						<Image
+							pictureClassName={cn(
+								s.image
+								//imageLoaded && s.loaded
+							)}
+							data={product.image.responsiveImage}
+							layout={'fill'}
+							fadeInDuration={700}
+							objectFit={'contain'}
+							pictureStyle={!isMobile ? pictureStyle : undefined}
+							placeholderStyle={!isMobile ? pictureStyle : undefined}
+							//onLoad={() => setImageLoaded(true)}
+						/>
+					)}
+					<div className={cn(s.overlay, s.show)}>
+						<div className={s.text}>
+							<h1 className={s.title}>
 								<TextReveal>{product.title}</TextReveal>
 							</h1>
-							<h1 className={styles.designer}>
+							<h1 className={s.designer}>
 								<TextReveal block={true}>
 									by {formatDesignerName(product.designer?.name)}
 								</TextReveal>
 							</h1>
-							<h3 className={styles.type}>
+							<h3 className={s.type}>
 								<TextReveal>
 									{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}
 								</TextReveal>
 							</h3>
 						</div>
 						{product.upcycled && (
-							<div className={styles.upcycled}>
+							<div className={s.upcycled}>
 								<img src='/images/upcycled-logo.svg' />
 							</div>
 						)}
 					</div>
 				</div>
 			</Section>
-			<Section className={styles.description}>
-				<Markdown>{product.description}</Markdown>
+			<Section className={s.description}>
+				<Markdown content={product.description} />
 			</Section>
 			<Section>
 				{product.productGallery.map((block, idx) => (
 					<Block
 						key={idx}
 						data={block}
-						onClick={(id) => handleGalleryClick('product', id)}
+						//onClick={(id) => handleGalleryClick('product', id)}
 						first={idx === 0}
 					/>
 				))}
 			</Section>
+			{/*
 			<SectionListItem
 				title={'Specifications'}
-				className={cn(styles.listItemContent, styles.top)}
-				selected={list.specifications === true}
-				onToggle={() => setList({ ...list, specifications: !list.specifications })}
+				className={cn(s.listItemContent, s.top)}
+				//selected={list.specifications === true}
+				//onToggle={() => setList({ ...list, specifications: !list.specifications })}
 				idx={0}
 				total={2}
 			>
-				<ul className={styles.specifications}>
+				<ul className={s.specifications}>
 					{specsCols.map(({ label, value, linebreaks, slug }, idx) => {
 						const text = linebreaks
 							? value.split('\n').map((el, idx) => (
@@ -196,14 +204,14 @@ export default function Product({
 						);
 					})}
 				</ul>
-				<div className={styles.articles}>
+				<div className={s.articles}>
 					<header>
 						<span>Art no</span>
 						<span>Model</span>
 						<span>Art no</span>
 						<span>Model</span>
 					</header>
-					<div className={cn(styles.content, !singleModel && styles.multi)}>
+					<div className={cn(s.content, !singleModel && s.multi)}>
 						{product.models.map(({ id, name, variants, lightsources, accessories }, midx) => {
 							const art = variants.map((v) => ({
 								articleNo: v.articleNo,
@@ -247,7 +255,7 @@ export default function Product({
 
 							return (
 								<ul key={id}>
-									<li className={styles.subheader}>
+									<li className={s.subheader}>
 										<span></span>
 										<span>
 											{product.title} {name?.name}
@@ -271,10 +279,10 @@ export default function Product({
 					</div>
 				</div>
 
-				<div className={styles.dimensions}>
+				<div className={s.dimensions}>
 					<span>Dimensions</span>
 					<button
-						onClick={() => handleGalleryClick('drawings', drawings[0].id)}
+						//onClick={() => handleGalleryClick('drawings', drawings[0].id)}
 						disabled={drawings.length === 0}
 					>
 						{drawings.length ? (
@@ -287,13 +295,13 @@ export default function Product({
 			</SectionListItem>
 			<SectionListItem
 				title={'Downloads'}
-				className={cn(styles.listItemContent, styles.bottom)}
-				selected={list.downloads === true}
+				className={cn(s.listItemContent, s.bottom)}
+				//selected={list.downloads === true}
 				idx={1}
 				total={2}
-				onToggle={() => setList({ ...list, downloads: !list.downloads })}
+				//onToggle={() => setList({ ...list, downloads: !list.downloads })}
 			>
-				<ul className={styles.downloads}>
+				<ul className={s.downloads}>
 					{files.map(({ href, type, label, download }, idx) => (
 						<li key={idx}>
 							<a href={href} target='_new'>
@@ -303,8 +311,8 @@ export default function Product({
 					))}
 				</ul>
 			</SectionListItem>
-
-			<Section name='Related' className={styles.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
+			*/}
+			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery
 						headline={`Related products`}
@@ -325,7 +333,7 @@ export default function Product({
 				)}
 				{productsByCategory.length > 0 && (
 					<FeaturedGallery
-						headline={`Other ${product.categories[0].namePlural.toLowerCase()}`}
+						headline={`Other ${product.categories[0].namePlural?.toLowerCase()}`}
 						items={productsByCategory}
 						theme={'light'}
 						id='relatedbycategory'
@@ -349,7 +357,7 @@ const formatDesignerName = (name?: string) => {
 		if (i - 1 >= 0) row.push(words[i - 1]);
 		rows.push(row);
 	}
-	return rows.reverse().map((el, i) => (
+	return rows.reverse().map((el: string[], i) => (
 		<React.Fragment key={i}>
 			{el.reverse().join(' ')}
 			{i < rows.length - 1 && <br />}
@@ -357,92 +365,95 @@ const formatDesignerName = (name?: string) => {
 	));
 };
 
-export async function getStaticPaths(context) {
-	const { products } = await apiQuery(AllProductsLightDocument, {});
-	const paths = products.map(({ slug }) => ({ params: { product: slug } }));
-	return {
-		paths,
-		fallback: 'blocking',
-	};
-}
+export type ProductDataProps = {
+	product: ProductRecord;
+	relatedProducts: ProductRecord[];
+	relatedProjects: ProjectRecord[];
+	productsByCategory: ProductRecord[];
+	images: FileField[];
+	drawings: FileField[];
+	specsCols: { label: string; value: string; linebreaks?: boolean; slug?: string }[];
+	files: ProductDownload[];
+};
 
-export const getStaticProps = withGlobalProps(
-	{ model: 'product' },
-	async ({ props, context, revalidate }) => {
-		const slug = context.params.product;
-		const { product }: { product: ProductRecord } = await apiQuery(ProductDocument, {
-			variables: { slug },
-			preview: context.preview,
-		});
+const getProductPageData = async (slug: string): Promise<ProductDataProps | null> => {
+	console.log(slug);
+	const { product } = await apiQuery<ProductQuery, ProductQueryVariables>(ProductDocument, {
+		variables: { slug },
+	});
 
-		if (!product) return { notFound: true, revalidate };
+	if (!product) return null;
 
-		const { relatedProducts, productsByCategory, relatedProjects } = (await apiQuery(
-			[RelatedProductsDocument, AllProductsByCategoryDocument, RelatedProjectsForProductDocument],
+	const [{ relatedProducts }, { productsByCategory }, { relatedProjects }] = await Promise.all([
+		apiQuery<RelatedProductsQuery, RelatedProductsQueryVariables>(RelatedProductsDocument, {
+			variables: { designerId: product.designer?.id, familyId: product.family.id },
+		}),
+		apiQuery<AllProductsByCategoryQuery, AllProductsByCategoryQueryVariables>(
+			AllProductsByCategoryDocument,
 			{
-				variables: [
-					{ designerId: product.designer.id, familyId: product.family.id },
-					{ categoryId: product.categories[0]?.id },
-					{ productId: product.id },
-					{ categoryId: product.categories[0]?.id },
-					{ productId: product.id },
-				],
-				preview: context.preview,
+				variables: { categoryId: product.categories[0]?.id },
 			}
-		)) as {
-			productsByCategory: ProductRecord[];
-			relatedProducts: ProductRecord[];
-			relatedProjects: ProjectRecord[];
-		};
+		),
+		apiQuery<RelatedProjectsForProductQuery, RelatedProjectsForProductQueryVariables>(
+			RelatedProjectsForProductDocument,
+			{
+				variables: { productId: product.id },
+			}
+		),
+	]);
 
-		const specs = parseSpecifications(product, 'en', null);
-		const specsCols = [
-			{ label: 'Designer', value: specs.designer, slug: `/designers/${product.designer.slug}` },
-			{ label: 'Mounting', value: specs.mounting },
-			{ label: 'Electrical data', value: specs.electricalData },
-			{ label: 'Socket', value: specs.socket },
-			{ label: 'Connection', value: specs.connection },
-			{ label: 'Lightsource', value: specs.lightsource },
-			{ label: 'Additional info', value: specs.additionalInformation },
-			{ label: 'Note', value: product.note, linebreaks: true },
-		].filter((el) => el.value);
+	const specs = parseSpecifications(product as any, 'en', null);
+	const specsCols = [
+		{ label: 'Designer', value: specs.designer, slug: `/designers/${product.designer?.slug}` },
+		{ label: 'Mounting', value: specs.mounting },
+		{ label: 'Electrical data', value: specs.electricalData },
+		{ label: 'Socket', value: specs.socket },
+		{ label: 'Connection', value: specs.connection },
+		{ label: 'Lightsource', value: specs.lightsource },
+		{ label: 'Additional info', value: specs.additionalInformation },
+		{ label: 'Note', value: product.note, linebreaks: true },
+	].filter((el) => el.value);
 
-		const files = productDownloads(product as ProductRecordWithPdfFiles);
-		const drawings = [];
-		product.models.forEach(
-			(m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null })
-		);
+	const files = productDownloads(product as ProductRecordWithPdfFiles);
+	const drawings = [];
+	product.models.forEach(
+		(m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null })
+	);
 
-		const sort = {
-			byFamily: (a: ProductRecord, b: ProductRecord) => (a.family.id === b.family.id ? 0 : 1),
-			byTitle: (a: ProductRecord, b: ProductRecord) => (a.title > b.title ? 1 : -1),
-			byCategory: (a: ProductRecord, b: ProductRecord) =>
-				a.categories
-					.map((el) => el.id)
-					.find((id) => product.categories.map((el) => el.id).includes[id])
-					? 1
-					: -1,
-			byDesigner: (a: ProductRecord, b: ProductRecord) =>
-				a.designer.id === product.designer.id ? 1 : -1,
-		};
+	const sort = {
+		byFamily: (a: ProductRecord, b: ProductRecord) => (a.family.id === b.family.id ? 0 : 1),
+		byTitle: (a: ProductRecord, b: ProductRecord) => (a.title > b.title ? 1 : -1),
+		byCategory: (a: ProductRecord, b: ProductRecord) =>
+			a.categories
+				.map((el) => el.id)
+				.find((id) => product.categories.map((el) => el.id).includes[id])
+				? 1
+				: -1,
+		byDesigner: (a: ProductRecord, b: ProductRecord) =>
+			a.designer.id === product.designer.id ? 1 : -1,
+	};
 
-		return {
-			props: {
-				...props,
-				product,
-				relatedProducts: relatedProducts
-					.filter((p) => p.id !== product.id)
-					.sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
-				productsByCategory: productsByCategory
-					.filter((p) => p.id !== product.id)
-					.sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
-				relatedProjects,
-				files,
-				drawings,
-				specsCols,
-				pageTitle: product.title,
-			},
-			revalidate,
-		};
-	}
-);
+	return {
+		product,
+		relatedProducts: relatedProducts
+			.filter((p) => p.id !== product.id)
+			.sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
+		productsByCategory: productsByCategory
+			.filter((p) => p.id !== product.id)
+			.sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
+		relatedProjects,
+		files,
+		drawings,
+		specsCols,
+		pageTitle: product.title,
+	};
+};
+
+export async function generateStaticParams() {
+	const { allProducts } = await apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(
+		AllProductsLightDocument,
+		{ all: true }
+	);
+	const paths = allProducts.map(({ slug }) => ({ slug }));
+	return paths;
+}

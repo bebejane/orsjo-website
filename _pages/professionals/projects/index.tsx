@@ -1,7 +1,7 @@
-import styles from './index.module.scss';
+import s from './index.module.scss';
 import { ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument } from '@/graphql';
 import withGlobalProps from '@/lib/withGlobalProps';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
 import { ProjectThumbnail, Section } from '@/components';
 
@@ -14,17 +14,17 @@ export type ProfessionalProps = {
 export default function Professionals({ projects, projectStart, projectTypes }: ProfessionalProps) {
 	return (
 		<>
-			<Section className={styles.introduction} top={true}>
+			<Section className={s.introduction} top={true}>
 				<h1 className='topMargin'>{projectStart.title}</h1>
-				<Markdown className={styles.intro}>{projectStart.intro}</Markdown>
+				<Markdown className={s.intro}>{projectStart.intro}</Markdown>
 			</Section>
 			{projectTypes
 				.filter(({ id }) => projects.find(({ projectType }) => projectType.id === id))
 				.map(({ title, titlePlural, id }, idx) => {
 					return (
-						<Section name={titlePlural} className={styles.projects} key={idx}>
+						<Section name={titlePlural} className={s.projects} key={idx}>
 							<h1>{titlePlural}</h1>
-							<div className={styles.wrap}>
+							<div className={s.wrap}>
 								{projects
 									.filter(({ projectType }) => projectType.id === id)
 									.map((p, idx) => (
@@ -32,7 +32,7 @@ export default function Professionals({ projects, projectStart, projectTypes }: 
 											key={`t-${idx}`}
 											project={p}
 											theme='mid'
-											className={styles.project}
+											className={s.project}
 										/>
 									))}
 							</div>

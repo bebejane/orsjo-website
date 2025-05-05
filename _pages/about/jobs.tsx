@@ -1,7 +1,7 @@
-import styles from './jobs.module.scss';
+import s from './jobs.module.scss';
 import { AllJobsDocument } from '@/graphql';
 import withGlobalProps from '@/lib/withGlobalProps';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 
@@ -10,21 +10,21 @@ export type JobsProps = { jobs: JobRecord[] };
 export default function Jobs({ jobs }: JobsProps) {
 	return (
 		<>
-			<Section className={styles.jobs} top={true}>
+			<Section className={s.jobs} top={true}>
 				<h1 className='topMargin'>Jobs</h1>
 			</Section>
 
 			{jobs.map(({ id, title, summary, text }, idx) => (
-				<Section key={id} className={styles.jobs} name={title} bottom={idx === jobs.length - 1}>
+				<Section key={id} className={s.jobs} name={title} bottom={idx === jobs.length - 1}>
 					<h1 className='copper'>{title}</h1>
-					<Markdown className={styles.summary}>{summary}</Markdown>
-					<Markdown className={styles.text}>{text}</Markdown>
+					<Markdown className={s.summary}>{summary}</Markdown>
+					<Markdown className={s.text}>{text}</Markdown>
 				</Section>
 			))}
 
 			{jobs.length === 0 && (
-				<Section className={styles.jobs} bottom={true}>
-					<p className={styles.nojobs}>We don&apos;t have any job offers at the moment.</p>
+				<Section className={s.jobs} bottom={true}>
+					<p className={s.nojobs}>We don&apos;t have any job offers at the moment.</p>
 				</Section>
 			)}
 		</>

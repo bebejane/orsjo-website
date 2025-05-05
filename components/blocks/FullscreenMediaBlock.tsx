@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './FullscreenMediaBlock.module.scss';
+import s from './FullscreenMediaBlock.module.scss';
 import React, { useRef } from 'react';
 import { Image } from 'react-datocms';
 import Link from 'next/link';
@@ -23,27 +23,16 @@ export default function FullscreenMediaBlock({
 	const ref = useRef(null);
 
 	return (
-		<Link
-			scroll={false}
-			href={`/${slug}`}
-			className={styles.fullScreenImage}
-			ref={ref}
-			passHref={true}
-		>
-			{makeDarker && <div className={styles.fadeTop}></div>}
-			<div className={styles.fade}></div>
+		<Link scroll={false} href={`/${slug}`} className={s.fullScreenImage} ref={ref} passHref={true}>
+			{makeDarker && <div className={s.fadeTop}></div>}
+			<div className={s.fade}></div>
 			{!media.mimeType.includes('video') ? (
-				<Image
-					className={styles.image}
-					data={media?.responsiveImage}
-					layout='fill'
-					objectFit='cover'
-				/>
+				<Image className={s.image} data={media?.responsiveImage} layout='fill' objectFit='cover' />
 			) : (
 				<VideoPlayer data={media} />
 			)}
-			<div className={styles.wrapper}>
-				<div className={styles.headline}>
+			<div className={s.wrapper}>
+				<div className={s.headline}>
 					<span className='medium'>{subHeadline}</span>
 					<h1 className='start'>{headline}</h1>
 					<ArrowLink hoverRef={ref} inverted={true}>

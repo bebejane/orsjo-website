@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './Layout.module.scss';
+import s from './Layout.module.scss';
 import React, { useEffect } from 'react';
 import {
 	Content,
@@ -13,16 +13,26 @@ import {
 	CookieConsent,
 	Underlay,
 } from '@/components';
-import { usePage } from '@/lib/context/page';
+import { PageProps, PageProvider, usePage } from '@/lib/context/page';
 import type { MenuItem } from '@/lib/menu';
 import { useStore, useShallow } from '@/lib/store';
 import { useState } from 'react';
 import { buildMenu } from '@/lib/menu';
 
-export type LayoutProps = { children: React.ReactNode; menu: MenuItem[]; title: string };
+export type LayoutProps = { children: React.ReactNode; menu: MenuItem[] };
 
-export default function Layout({ children, menu: menuFromProps, title }: LayoutProps) {
-	const { color, layout, sidebar } = usePage();
+export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
+	const title = 'no title';
+	//const page = { layout: 'full', color: '--black', menu: 'inverted', sidebar: false } as PageProps;
+	const page = {
+		title: 'Products',
+		layout: 'normal',
+		menu: 'normal',
+		color: '--white',
+		sidebar: true,
+	} as PageProps;
+
+	const { color, layout, sidebar } = page; //usePage();
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(
 		useShallow((state) => [
 			state.gallery,
@@ -33,16 +43,9 @@ export default function Layout({ children, menu: menuFromProps, title }: LayoutP
 	);
 	const [menu, setMenu] = useState(menuFromProps);
 
-	useEffect(() => {
-		// Refresh menu on load.
-		buildMenu()
-			.then((res) => setMenu(res))
-			.catch((err) => console.error(err));
-	}, []);
-
 	return (
-		<>
-			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>
+		<PageProvider value={page}>
+			<div className={s.layout} style={{ backgroundColor: color || undefined }}>
 				<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} />
 				<MenuMobile items={menu} />
 				<Underlay />
@@ -60,6 +63,6 @@ export default function Layout({ children, menu: menuFromProps, title }: LayoutP
 			</div>
 			<Footer menu={menu} />
 			<CookieConsent />
-		</>
+		</PageProvider>
 	);
 }

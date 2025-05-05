@@ -1,4 +1,4 @@
-import styles from './manuals.module.scss';
+import s from './manuals.module.scss';
 import withGlobalProps from '@/lib/withGlobalProps';
 import cn from 'classnames';
 import { AllProductManualsDocument, ManualsIntroDocument } from '@/graphql';
@@ -30,12 +30,12 @@ export default function Manuals({ products, manual }: ManualsProps) {
 
 	return (
 		<>
-			<Section name='Introduction' className={styles.intro} top={true}>
+			<Section name='Introduction' className={s.intro} top={true}>
 				<h1 className='topMargin'>{manual.title}</h1>
 				<p>{manual.intro}</p>
 			</Section>
-			<Section className={styles.manuals} bottom={true}>
-				<div className={styles.search}>
+			<Section className={s.manuals} bottom={true}>
+				<div className={s.search}>
 					<img src={'/images/search.svg'} />
 					<input
 						ref={ref}
@@ -46,13 +46,13 @@ export default function Manuals({ products, manual }: ManualsProps) {
 					/>
 				</div>
 
-				<ul className={styles.result}>
+				<ul className={s.result}>
 					{results?.map(({ title, categories, mountingInstructions: file }, idx) => (
 						<li key={idx}>
 							<a
 								key={idx}
 								href={file?.url ? `${file?.url}` : undefined}
-								className={cn(!file && styles.disabled)}
+								className={cn(!file && s.disabled)}
 								target='_new'
 							>
 								<Icon
