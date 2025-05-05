@@ -1,21 +1,23 @@
-import React from 'react'
-import styles from './Section.module.scss'
-import cn from 'classnames'
-import { sectionId } from '/lib/utils'
+'use client';
+
+import React from 'react';
+import styles from './Section.module.scss';
+import cn from 'classnames';
+import { sectionId } from '@/lib/utils';
 import { useInView } from 'react-intersection-observer';
 
 export type SectionProps = {
-	children?: React.ReactNode,
-	className?: string,
-	type?: string,
-	name?: string,
-	id?: string,
-	top?: boolean,
-	bottom?: boolean,
-	bgColor?: string,
-	disableSidebar?: boolean,
-	fadeColor?: string
-}
+	children?: React.ReactNode;
+	className?: string;
+	type?: string;
+	name?: string;
+	id?: string;
+	top?: boolean;
+	bottom?: boolean;
+	bgColor?: string;
+	disableSidebar?: boolean;
+	fadeColor?: string;
+};
 
 export default function Section({
 	children,
@@ -27,16 +29,14 @@ export default function Section({
 	bottom,
 	bgColor,
 	fadeColor,
-	disableSidebar = false
+	disableSidebar = false,
 }: SectionProps) {
-
 	const color = bgColor?.startsWith('--') ? `rgba(var(${bgColor}))` : bgColor ? bgColor : undefined;
-	const { ref, inView } = useInView({ threshold: 0.05, triggerOnce: false })
+	const { ref, inView } = useInView({ threshold: 0.05, triggerOnce: false });
 
-	fadeColor = fadeColor?.startsWith('--') ? `var(${fadeColor})` : fadeColor
+	fadeColor = fadeColor?.startsWith('--') ? `var(${fadeColor})` : fadeColor;
 
 	return (
-
 		<section
 			className={styles.section}
 			style={{ backgroundColor: fadeColor && !inView ? fadeColor : color }}
@@ -46,9 +46,7 @@ export default function Section({
 			ref={ref}
 			{...sectionId(!disableSidebar ? name : undefined, id)}
 		>
-			<div className={cn(styles.wrap, className)}>
-				{children}
-			</div>
+			<div className={cn(styles.wrap, className)}>{children}</div>
 		</section>
-	)
+	);
 }

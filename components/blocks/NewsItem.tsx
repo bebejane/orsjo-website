@@ -1,31 +1,40 @@
-import styles from './NewsItem.module.scss'
-import React from 'react'
-import Link from 'next/link'
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
-import { ArrowLink } from '/components'
-import { useRef } from 'react'
+'use client';
 
-export type NewsItemProps = { data: NewsItemRecord }
+import styles from './NewsItem.module.scss';
+import React from 'react';
+import Link from 'next/link';
+import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import { ArrowLink } from '@/components';
+import { useRef } from 'react';
+
+export type NewsItemProps = { data: NewsItemRecord };
 
 export default function NewsItem({ data: { news } }: NewsItemProps) {
-	const { title, text, link, linkText, slug } = news
-	const ref = useRef()
+	const { title, text, link, linkText, slug } = news;
+	const ref = useRef();
 
 	return (
 		<section className={styles.news}>
-			<Link scroll={false} href={`/about/news/${slug}`} className="medium white" ref={ref} passHref={true}>
+			<Link
+				scroll={false}
+				href={`/about/news/${slug}`}
+				className='medium white'
+				ref={ref}
+				passHref={true}
+			>
 				<h1>News</h1>
 				<span className={styles.text}>
 					<h1 className={styles.title}>{title}</h1>
-					<div className="large">
+					<div className='large'>
 						<Markdown sentances={1}>{text}</Markdown>
 					</div>
 					<div className={styles.more}>
-						<ArrowLink hoverRef={ref} inverted={true}>Read more</ArrowLink>
+						<ArrowLink hoverRef={ref} inverted={true}>
+							Read more
+						</ArrowLink>
 					</div>
 				</span>
 			</Link>
 		</section>
-
-	)
+	);
 }

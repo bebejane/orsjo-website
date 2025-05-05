@@ -1,8 +1,19 @@
-import scssExports from '/styles/exports.module.scss'
+
 import { buildClient } from '@datocms/cma-client-browser';
 import { apiQuery } from 'dato-nextjs-utils/api';
-import { SiteSearchDocument } from '/graphql'
+import { SiteSearchDocument } from '@/graphql'
 
+const scssExports = {
+  navbarHeight: '4rem',
+  navbarHeightMobile: '60px',
+  margin: '3rem',
+  smallMargin: '2rem',
+  mobile: '320px',
+  tablet: '740px',
+  desktop: '980px',
+  wide: '1441px',
+  "nav-break": '1200px',
+}
 export const isServer = typeof window === 'undefined';
 export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms))
 
@@ -136,7 +147,7 @@ export const dedupeImages = (images: FileField[]): FileField[] => {
 
 export const siteSearch = async (q: string) => {
 
-  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN });
+  const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN as string });
   const itemTypes = await client.itemTypes.list();
 
   const search = (await client.items.list({

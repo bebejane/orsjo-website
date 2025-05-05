@@ -27,7 +27,6 @@ export { default as Thumbnail, ProductThumbnail, ProjectThumbnail, DesignerThumb
 export { default as Underlay } from './common/Underlay'
 export { default as VideoPlayer } from './common/VideoPlayer'
 export { default as Content } from './layout/Content'
-export { default as Grid } from './layout/Grid'
 export { default as Layout } from './layout/Layout'
 export { default as Modal } from './layout/Modal'
 export { default as PageTransition } from './layout/PageTransition'

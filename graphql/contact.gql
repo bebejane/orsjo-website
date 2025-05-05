@@ -1,10 +1,3 @@
-#import "./fragments/ShowroomFragment.gql"
-#import "./fragments/ContactFragment.gql"
-#import "./fragments/DistributorFragment.gql"
-#import "./fragments/ResellerFragment.gql"
-#import "./fragments/StaffFragment.gql"
-#import "./fragments/ImageFragment.gql"
-
 query Showroom {
 	showroom {
 		...ShowroomFragment
@@ -33,6 +26,20 @@ query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLo
 	) {
 		...DistributorFragment
 	}
+}
+
+fragment DistributorFragment on DistributorRecord {
+	name
+	address
+	postalCode
+	city
+	country {
+		name
+	}
+	contactName
+	phone
+	email
+	url
 }
 
 query Reseller($id: ItemId, $locale: SiteLocale = en) {
@@ -84,4 +91,48 @@ query Contact {
 			...ImageFragment
 		}
 	}
+}
+
+fragment ContactFragment on ContactRecord {
+	address(markdown: false)
+	email
+	id
+	intro(markdown: false)
+	phone
+	showroomIntro(markdown: false)
+	title
+}
+
+fragment ResellerFragment on ResellerRecord {
+	id
+	name
+	address
+	postalCode
+	city
+	country {
+		id
+		name
+	}
+	url
+}
+
+fragment ShowroomFragment on ShowroomRecord {
+	additional(markdown: false)
+	address(markdown: false)
+	city
+	id
+	image {
+		...ImageMediumFragment
+	}
+}
+
+fragment StaffFragment on StaffRecord {
+	id
+	name
+	image {
+		...ImageThumbnailFragment
+	}
+	role
+	phone
+	email
 }

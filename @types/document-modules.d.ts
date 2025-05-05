@@ -7,6 +7,7 @@ export const About: DocumentNode;
 export const News: DocumentNode;
 export const LastNews: DocumentNode;
 export const AllNews: DocumentNode;
+export const NewsFragment: DocumentNode;
 export const Job: DocumentNode;
 export const AllJobs: DocumentNode;
 export const Press: DocumentNode;
@@ -23,11 +24,16 @@ declare module '*/contact.gql' {
 export const AllShowrooms: DocumentNode;
 export const Distributor: DocumentNode;
 export const AllDistributors: DocumentNode;
+export const DistributorFragment: DocumentNode;
 export const Reseller: DocumentNode;
 export const AllResellers: DocumentNode;
 export const Staff: DocumentNode;
 export const AllStaffs: DocumentNode;
 export const Contact: DocumentNode;
+export const ContactFragment: DocumentNode;
+export const ResellerFragment: DocumentNode;
+export const ShowroomFragment: DocumentNode;
+export const StaffFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -38,51 +44,8 @@ declare module '*/designer.gql' {
   const defaultDocument: DocumentNode;
   export const Designer: DocumentNode;
 export const AllDesigners: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ContactFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ContactFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/DesignerFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const DesignerFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/DesignerLightFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const DesignerLightFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/DistributorFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const DistributorFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/FaqFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const FaqFragment: DocumentNode;
+export const DesignerFragment: DocumentNode;
+export const DesignerLightFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -124,91 +87,10 @@ declare module '*/ImageThumbnailFragment.gql' {
 }
     
 
-declare module '*/NewsFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const NewsFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ProductFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ProductFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ProductLightFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ProductLightFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ProjectFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ProjectFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ProjectLightFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ProjectLightFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ResellerFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ResellerFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/SEOFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const SEOFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ShowroomFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ShowroomFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/SiteFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const SiteFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/StaffFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const StaffFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -264,6 +146,8 @@ export const AllProductsByDesigner: DocumentNode;
 export const RelatedProducts: DocumentNode;
 export const RelatedProjectsForProduct: DocumentNode;
 export const AllProductsByCategory: DocumentNode;
+export const ProductFragment: DocumentNode;
+export const ProductLightFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -283,6 +167,8 @@ export const FactoryVisit: DocumentNode;
 export const DownloadsStart: DocumentNode;
 export const AllCatalogues: DocumentNode;
 export const AllColorsAndMaterials: DocumentNode;
+export const ProjectFragment: DocumentNode;
+export const ProjectLightFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -301,6 +187,7 @@ declare module '*/seo.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const SiteSEO: DocumentNode;
+export const SiteFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -323,6 +210,7 @@ export const AllFaqs: DocumentNode;
 export const AllFaqCategories: DocumentNode;
 export const FaqStart: DocumentNode;
 export const ManualsIntro: DocumentNode;
+export const FaqFragment: DocumentNode;
 
   export default defaultDocument;
 }

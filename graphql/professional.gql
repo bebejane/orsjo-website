@@ -1,9 +1,3 @@
-#import "./fragments/ImageFragment.gql"
-#import "./fragments/ImageMediumFragment.gql"
-#import "./fragments/ImageThumbnailFragment.gql"
-#import "./fragments/ProjectFragment.gql"
-#import "./fragments/ProjectLightFragment.gql"
-
 query Project($slug: String) {
 	project(filter: { slug: { eq: $slug } }) {
 		...ProjectFragment
@@ -121,5 +115,106 @@ query AllColorsAndMaterials($first: IntType = 100) {
 	colorMaterialIntro {
 		id
 		intro
+	}
+}
+
+fragment ProjectFragment on ProjectRecord {
+	id
+	location
+	title
+	slug
+	bespoke
+	projectType {
+		id
+		title
+		titlePlural
+	}
+	image {
+		...ImageFragment
+	}
+	secondaryImage {
+		...ImageFragment
+	}
+	relatedProducts {
+		...ProductFragment
+	}
+	gallery {
+		... on FullwidthImageRecord {
+			__typename
+			id
+			image {
+				...ImageFragment
+			}
+		}
+		... on ImageGalleryRecord {
+			__typename
+			id
+			gallery {
+				...ImageFragment
+			}
+		}
+		... on TextRecord {
+			__typename
+			id
+			text {
+				value
+				links {
+					__typename
+					... on ProductRecord {
+						id
+						title
+						slug
+					}
+					... on DesignerRecord {
+						id
+						name
+						slug
+					}
+					... on ProjectRecord {
+						id
+						title
+						slug
+					}
+				}
+			}
+		}
+		... on TwoColumnImageRecord {
+			__typename
+			id
+			firstImage {
+				...ImageMediumFragment
+			}
+			lastImage {
+				...ImageMediumFragment
+			}
+		}
+		... on VideoRecord {
+			__typename
+			id
+			video {
+				...ImageFragment
+			}
+		}
+	}
+	_seoMetaTags {
+		...SEOFragment
+	}
+}
+
+fragment ProjectLightFragment on ProjectRecord {
+	id
+	location
+	title
+	slug
+	projectType {
+		id
+		title
+		titlePlural
+	}
+	image {
+		...ImageThumbnailFragment
+	}
+	secondaryImage {
+		...ImageThumbnailFragment
 	}
 }

@@ -1,23 +1,44 @@
-import styles from './Layout.module.scss'
-import React, { useEffect } from 'react'
-import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Grid, CookieConsent, Underlay } from '/components'
-import { usePage } from '/lib/context/page'
-import type { MenuItem } from '/lib/menu'
-import { useStore, shallow } from '/lib/store'
-import { useState } from 'react'
-import { buildMenu } from '/lib/menu'
+'use client';
 
-export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: string }
+import styles from './Layout.module.scss';
+import React, { useEffect } from 'react';
+import {
+	Content,
+	Sidebar,
+	Footer,
+	Gallery,
+	SiteSearch,
+	MenuDesktop,
+	MenuMobile,
+	CookieConsent,
+	Underlay,
+} from '@/components';
+import { usePage } from '@/lib/context/page';
+import type { MenuItem } from '@/lib/menu';
+import { useStore, useShallow } from '@/lib/store';
+import { useState } from 'react';
+import { buildMenu } from '@/lib/menu';
+
+export type LayoutProps = { children: React.ReactNode; menu: MenuItem[]; title: string };
 
 export default function Layout({ children, menu: menuFromProps, title }: LayoutProps) {
+	const { color, layout, sidebar } = usePage();
+	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(
+		useShallow((state) => [
+			state.gallery,
+			state.setGallery,
+			state.showSiteSearch,
+			state.setShowSiteSearch,
+		])
+	);
+	const [menu, setMenu] = useState(menuFromProps);
 
-	const { color, layout, sidebar } = usePage()
-	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch], shallow)
-	const [menu, setMenu] = useState(menuFromProps)
-
-	useEffect(() => { // Refresh menu on load.
-		buildMenu().then(res => setMenu(res)).catch(err => console.error(err))
-	}, [])
+	useEffect(() => {
+		// Refresh menu on load.
+		buildMenu()
+			.then((res) => setMenu(res))
+			.catch((err) => console.error(err));
+	}, []);
 
 	return (
 		<>
@@ -27,20 +48,18 @@ export default function Layout({ children, menu: menuFromProps, title }: LayoutP
 				<Underlay />
 				<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />
 				<Sidebar title={title} show={layout !== 'full' && sidebar} />
-				<Content>
-					{children}
-				</Content>
-				<Gallery
+				<Content>{children}</Content>
+				{/* <Gallery
 					show={gallery?.index > -1}
 					images={gallery?.images}
 					index={gallery?.index}
 					padImagesWithTitle={gallery?.padImagesWithTitle}
 					onClose={() => setGallery({ ...gallery, index: -1 })}
 				/>
+				*/}
 			</div>
 			<Footer menu={menu} />
 			<CookieConsent />
-			<Grid />
 		</>
-	)
+	);
 }

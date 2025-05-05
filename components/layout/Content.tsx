@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react'
-import styles from './Content.module.scss'
-import { usePage } from '/lib/context/page'
+'use client';
 
-export type ContentProps = { children: React.ReactNode }
+import React, { useEffect, useState, useRef } from 'react';
+import styles from './Content.module.scss';
+import { usePage } from '@/lib/context/page';
 
-export default function Content({ children}: ContentProps) {
+export type ContentProps = { children: React.ReactNode };
 
-	const { layout } = usePage()
-  
+export default function Content({ children }: ContentProps) {
+	const { layout } = usePage();
+
 	return (
-		<main id="content" className={styles.content} data-type={layout}>
-			<article>
-				{children}
-			</article>
+		<main id='content' className={styles.content} data-type={layout}>
+			<article>{children}</article>
 		</main>
-	)
+	);
 }

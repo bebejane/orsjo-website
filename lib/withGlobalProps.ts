@@ -1,8 +1,8 @@
 import { apiQuery, SEOQuery } from 'dato-nextjs-utils/api';
 import type { TypedDocumentNode } from "@apollo/client";
 import type { GetServerSideProps, GetStaticProps } from 'next'
-import { GlobalDocument } from "/graphql";
-import { buildMenu } from '/lib/menu'
+import { GlobalDocument } from "@/graphql";
+import { buildMenu } from '@/lib/menu'
 
 export default function withGlobalProps(opt: any, callback: Function): GetStaticProps | GetServerSideProps {
 

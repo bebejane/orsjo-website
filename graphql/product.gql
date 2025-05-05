@@ -1,7 +1,3 @@
-#import "./fragments/ProductFragment.gql"
-#import "./fragments/ProductLightFragment.gql"
-#import "./fragments/ImageFragment.gql"
-
 query ProductStart {
 	productStart {
 		id
@@ -144,5 +140,219 @@ query RelatedProjectsForProduct($productId: ItemId, $first: IntType = 100) {
 query AllProductsByCategory($categoryId: ItemId, $first: IntType = 100) {
 	productsByCategory: allProducts(first: $first, filter: { categories: { anyIn: [$categoryId] } }) {
 		...ProductLightFragment
+	}
+}
+
+fragment ProductFragment on ProductRecord {
+	id
+	title
+	description(markdown: false)
+	slug
+	additionalInformation
+	markAsNew
+	upcycled
+	productGallery {
+		... on FullwidthImageRecord {
+			__typename
+			id
+			image {
+				...ImageFragment
+			}
+		}
+		... on ImageGalleryRecord {
+			__typename
+			id
+			gallery {
+				...ImageFragment
+			}
+		}
+		... on TextRecord {
+			__typename
+			id
+			text {
+				value
+				links {
+					__typename
+					... on ProductRecord {
+						id
+						title
+						slug
+					}
+					... on ProjectRecord {
+						id
+						title
+						slug
+					}
+					... on DesignerRecord {
+						id
+						name
+						slug
+					}
+				}
+			}
+		}
+		... on TwoColumnImageRecord {
+			__typename
+			id
+			firstImage {
+				...ImageFragment
+			}
+			lastImage {
+				...ImageFragment
+			}
+		}
+		... on VideoRecord {
+			__typename
+			id
+			video {
+				...VideoFragment
+			}
+		}
+	}
+	environmentImage {
+		...ImageFragment
+	}
+	colorImages {
+		...ImageFragment
+	}
+	family {
+		id
+		name
+	}
+	categories {
+		id
+		name
+		namePlural
+		position
+	}
+	connection {
+		id
+		name
+	}
+	designer {
+		id
+		name
+		slug
+	}
+	dimmable {
+		id
+		name
+	}
+	electricalData {
+		id
+		name
+	}
+	electricalData {
+		id
+		name
+	}
+	lightFile {
+		...FileFragment
+	}
+	bimFile {
+		...FileFragment
+	}
+	models {
+		id
+		name {
+			id
+			name
+		}
+		drawing {
+			...ImageFragment
+		}
+		lightsources {
+			id
+			included
+			amount
+			optional
+			lightsource {
+				id
+				name
+				price
+				articleNo
+			}
+		}
+		variants {
+			color {
+				id
+				name
+			}
+			id
+			material {
+				id
+				name
+			}
+			price
+			volume
+			weight
+			feature {
+				name
+			}
+			articleNo
+		}
+		accessories {
+			articleNo
+			price
+			accessory {
+				name
+			}
+		}
+	}
+	mounting {
+		id
+		name
+	}
+	mountingInstructions {
+		...FileFragment
+	}
+	pdfFile {
+		...FileFragment
+	}
+	pdfFiles: _allPdfFileLocales {
+		locale
+		value {
+			...FileFragment
+		}
+	}
+	bimLink
+	bimFile {
+		...FileFragment
+	}
+	sockets {
+		id
+		name
+	}
+	note(markdown: false)
+	_seoMetaTags {
+		...SEOFragment
+	}
+}
+
+fragment ProductLightFragment on ProductRecord {
+	id
+	title
+	slug
+	markAsNew
+	upcycled
+	family {
+		id
+		name
+	}
+	categories {
+		id
+		name
+		namePlural
+	}
+	image {
+		...ImageThumbnailFragment
+	}
+	environmentImage {
+		...ImageThumbnailFragment
+	}
+	designer {
+		id
+		name
+		slug
 	}
 }

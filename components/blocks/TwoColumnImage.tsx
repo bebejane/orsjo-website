@@ -1,12 +1,14 @@
-import styles from './TwoColumnImage.module.scss'
-import React from 'react'
-import { Image } from 'react-datocms'
-import { CustomMade } from '/components'
+import styles from './TwoColumnImage.module.scss';
+import React from 'react';
+import { Image } from 'react-datocms';
+import { CustomMade } from '@/components';
 
-type TwoColumnImageBlockProps = { data: TwoColumnImageRecord, onClick: Function }
+type TwoColumnImageBlockProps = { data: TwoColumnImageRecord; onClick: Function };
 
-export default function TwoColumnImage({ data: { firstImage, lastImage }, onClick }: TwoColumnImageBlockProps) {
-
+export default function TwoColumnImage({
+	data: { firstImage, lastImage },
+	onClick,
+}: TwoColumnImageBlockProps) {
 	return (
 		<div className={styles.twoColumnImage}>
 			<figure onClick={() => onClick(firstImage.id)} data-image-zoom={firstImage.id}>
@@ -18,5 +20,5 @@ export default function TwoColumnImage({ data: { firstImage, lastImage }, onClic
 				<CustomMade show={lastImage.customData?.custom} />
 			</figure>
 		</div>
-	)
+	);
 }

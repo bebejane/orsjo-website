@@ -1,5 +1,3 @@
-#import './fragments/FaqFragment.gql'
-
 query Faq($id: ItemId) {
 	faq(filter: { id: { eq: $id } }) {
 		...FaqFragment
@@ -33,6 +31,18 @@ query FaqStart {
 query ManualsIntro {
 	manual {
 		intro(markdown: false)
+		id
+		title
+	}
+}
+
+fragment FaqFragment on FaqRecord {
+	updatedAt
+	createdAt
+	answer
+	id
+	question
+	category {
 		id
 		title
 	}

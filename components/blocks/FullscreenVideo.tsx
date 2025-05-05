@@ -1,38 +1,45 @@
-import styles from './FullscreenVideo.module.scss'
-import React from 'react'
-import { VideoPlayer, ArrowLink } from '/components'
-import Link from 'next/link'
-import { useRef } from 'react'
+'use client';
 
-export type FullscreenVideoProps = { data: FullscreenVideoRecord }
+import styles from './FullscreenVideo.module.scss';
+import React from 'react';
+import { VideoPlayer, ArrowLink } from '@/components';
+import Link from 'next/link';
+import { useRef } from 'react';
 
-export default function FullscreenVideo({ data: { video, text, link, linkText } }: FullscreenVideoProps) {
+export type FullscreenVideoProps = { data: FullscreenVideoRecord };
 
-	const ref = useRef()
+export default function FullscreenVideo({
+	data: { video, text, link, linkText },
+}: FullscreenVideoProps) {
+	const ref = useRef();
 
 	return (
 		<section className={styles.fullScreenVideo} ref={ref}>
-			{link ?
+			{link ? (
 				<Link scroll={false} href={link} passHref={true}>
 					<VideoPlayer data={video} />
 				</Link>
-				:
+			) : (
 				<VideoPlayer data={video} />
-			}
+			)}
 			<div className={styles.textWrap}>
 				<div className={styles.text}>
-					<div><h1 className="start">{text}</h1></div>
+					<div>
+						<h1 className='start'>{text}</h1>
+					</div>
 					<div className={styles.link}>
-						{link &&
+						{link && (
 							<Link scroll={false} href={link} passHref={true}>
-								<span className="medium white">
-									<ArrowLink hoverRef={ref} inverted={true}>{linkText}</ArrowLink>
+								<span className='medium white'>
+									<ArrowLink hoverRef={ref} inverted={true}>
+										{linkText}
+									</ArrowLink>
 								</span>
 							</Link>
-						}
+						)}
 					</div>
 				</div>
 			</div>
 		</section>
-	)
+	);
 }

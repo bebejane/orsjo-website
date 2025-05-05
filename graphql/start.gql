@@ -1,10 +1,3 @@
-#import "./fragments/ProductLightFragment.gql"
-#import "./fragments/ProjectLightFragment.gql"
-#import "./fragments/DesignerFragment.gql"
-#import "./fragments/ImageFragment.gql"
-#import "./fragments/ImageMediumFragment.gql"
-#import "./fragments/VideoFragment.gql"
-
 query Start {
 	start {
 		content {
@@ -33,15 +26,12 @@ query Start {
 				linkRecord {
 					__typename
 					... on ProductRecord {
-						__typename
 						...ProductFragment
 					}
 					... on DesignerRecord {
-						__typename
 						...DesignerFragment
 					}
 					... on AboutRecord {
-						__typename
 						id
 						title
 					}
@@ -82,5 +72,8 @@ query Start {
 				}
 			}
 		}
+	}
+	lastNews: allNews(orderBy: [createdAt_DESC], first: 1) {
+		...NewsFragment
 	}
 }
