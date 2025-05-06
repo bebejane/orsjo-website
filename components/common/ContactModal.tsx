@@ -8,7 +8,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { styleVariables } from '@/lib/utils';
 import { useMediaQuery } from 'usehooks-ts';
-import { sendContact } from '@lib/actions/send-contact';
+//import { sendContact } from '@lib/actions/send-contact';
 import { useRouter } from 'next/navigation';
 
 export type Props = {
@@ -52,6 +52,10 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 			setSubmitting(false);
 		}
 	};
+	const action: () => void = handleSubmit(async (data: FormData) => {
+		//const response = await sendContact(data);
+		//console.log(response);
+	});
 
 	return (
 		<Modal>
@@ -78,7 +82,7 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 					{error && (
 						<div className={s.error}>{typeof error === 'string' ? error : error.message}</div>
 					)}
-					<form id='contact-form' onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+					<form id='contact-form' action={action} method='POST'>
 						<label htmlFor='name' className='medium'>
 							Name
 						</label>

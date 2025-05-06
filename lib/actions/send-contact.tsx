@@ -1,3 +1,5 @@
+'use server';
+
 import nodemailer from 'nodemailer';
 import * as EmailValidator from 'email-validator';
 import sendMail from '@/emails';

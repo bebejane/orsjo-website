@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-d
 import nodemailer from "nodemailer";
 import { buildSendMail } from "mailing-core";
 
-dotenv.config({ path: `${process.cwd()}/.env.local` })
+dotenv.config({ path: `${process.cwd()}/.env` })
 
 const opt = {
   port: process.env.SMTP_PORT as string,
