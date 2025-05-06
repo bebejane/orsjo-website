@@ -11,7 +11,7 @@ export type FullscreenVideoProps = { data: FullscreenVideoRecord };
 export default function FullscreenVideo({
 	data: { video, text, link, linkText },
 }: FullscreenVideoProps) {
-	const ref = useRef();
+	const ref = useRef(null);
 
 	return (
 		<section className={s.fullScreenVideo} ref={ref}>
@@ -28,7 +28,7 @@ export default function FullscreenVideo({
 						<h1 className='start'>{text}</h1>
 					</div>
 					<div className={s.link}>
-						{link && (
+						{link && linkText && (
 							<Link scroll={false} href={link} passHref={true}>
 								<span className='medium white'>
 									<ArrowLink hoverRef={ref} inverted={true}>

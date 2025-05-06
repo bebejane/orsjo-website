@@ -12,7 +12,7 @@ export type ArrowLinkProps = {
 	inverted?: boolean;
 	reversed?: boolean;
 	hoverRef?: React.MutableRefObject<HTMLElement | null>;
-	children?: string;
+	children?: string | undefined;
 };
 
 export default function ArrowLink({

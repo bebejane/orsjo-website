@@ -19,42 +19,50 @@ export default function ImageLink({
 		secondLink,
 		secondLinkText,
 	},
-	data,
 }: LayoutProps) {
-	const refOne = useRef();
-	const refTwo = useRef();
+	const refOne = useRef(null);
+	const refTwo = useRef(null);
 
 	return (
 		<section className={s.imageLink}>
-			<Link scroll={false} href={firstLink} ref={refOne} passHref={true}>
+			<Link scroll={false} href={firstLink ?? '/'} ref={refOne} passHref={true}>
 				<figure>
-					<Image
-						className={s.image}
-						data={firstImage?.responsiveImage}
-						layout='fill'
-						objectFit='cover'
-					/>
+					{firstImage?.responsiveImage && (
+						<Image
+							className={s.image}
+							data={firstImage?.responsiveImage}
+							layout='fill'
+							objectFit='cover'
+						/>
+					)}
 					<figcaption>
 						<h1>{firstHeadline}</h1>
-						<ArrowLink hoverRef={refOne} inverted={true}>
-							{firstLinkText}
-						</ArrowLink>
+						{firstLinkText && (
+							<ArrowLink hoverRef={refOne} inverted={true}>
+								{firstLinkText}
+							</ArrowLink>
+						)}
 					</figcaption>
 				</figure>
 			</Link>
-			<Link scroll={false} href={secondLink} ref={refTwo} passHref={true}>
+			<Link scroll={false} href={secondLink ?? '/'} ref={refTwo} passHref={true}>
 				<figure>
-					<Image
-						className={s.image}
-						data={secondImage?.responsiveImage}
-						layout='fill'
-						objectFit='cover'
-					/>
+					{secondImage?.responsiveImage && (
+						<Image
+							className={s.image}
+							data={secondImage?.responsiveImage}
+							layout='fill'
+							objectFit='cover'
+						/>
+					)}
+
 					<figcaption>
 						<h1>{secondHeadline}</h1>
-						<ArrowLink hoverRef={refTwo} inverted={true}>
-							{secondLinkText}
-						</ArrowLink>
+						{secondLinkText && (
+							<ArrowLink hoverRef={refTwo} inverted={true}>
+								{secondLinkText}
+							</ArrowLink>
+						)}
 					</figcaption>
 				</figure>
 			</Link>

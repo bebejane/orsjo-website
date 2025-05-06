@@ -7,25 +7,26 @@ import { usePage } from '@/lib/context/page';
 import { useStore, useShallow } from '@/lib/store';
 import { Twirl as Hamburger } from 'hamburger-react';
 import { SiteSearch } from '@/components';
-import type { Menu } from '@/lib/menu';
+import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';
 import { usePathname, useRouter } from 'next/navigation';
+//import { MenuItem } from '@node_modules/@datocms/cma-client/dist/types/generated/resources';
 
-export type MenuMobileProps = { items: Menu };
+export type MenuMobileProps = { items: MenuItem[] };
 
 export default function MenuMobile({ items }: MenuMobileProps) {
 	const router = useRouter();
 	const pathname = usePathname();
 	const { menu } = usePage();
 	const searchRef = useRef<HTMLInputElement>(null);
-	const [query, setQuery] = useState<string>('');
+	const [query, setQuery] = useState<string | null>(null);
 	const [showSearch, setShowSearch] = useState(false);
-	const [selected, setSelected] = useState(undefined);
+	const [selected, setSelected] = useState<MenuItem | null>(null);
 	const [showMenuMobile, setShowMenuMobile, transitioning] = useStore(
 		useShallow((state) => [state.showMenuMobile, state.setShowMenuMobile, state.transitioning])
 	);
 	const sub = items.find((item) => item.type === selected?.type)?.sub;
-	const subHeader = selected ? items.find((i) => i.type === selected?.type).label : null;
+	const subHeader = selected ? items.find((i) => i.type === selected?.type)?.label : null;
 
 	const handleSubmitSearch = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -34,11 +35,11 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	const closeSearch = () => {
 		setShowSearch(false);
-		setQuery(undefined);
+		setQuery(null);
 	};
 
 	const handleClose = () => {
-		setSelected(undefined);
+		setSelected(null);
 		setShowMenuMobile(false);
 	};
 
@@ -67,7 +68,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	useEffect(() => {
 		if (showMenuMobile && pathname !== '/') {
 			const item = items.find(({ slug, index }) => pathname.startsWith(slug));
-			setSelected(item);
+			setSelected(item ?? null);
 		}
 	}, [showMenuMobile, router, setSelected, items]);
 
@@ -96,7 +97,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 								onClick={() =>
 									item.index
 										? router.push(item.slug)
-										: setSelected(selected?.type === item.type ? undefined : item)
+										: setSelected(selected?.type === item.type ? null : item)
 								}
 							>
 								{item.label}
@@ -129,7 +130,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 			<nav className={cn(s.sub, (!selected || selected?.index) && s.hide)}>
 				<div className={s.subHeader}>
 					<p className={cn(s.title)}>{subHeader}</p>
-					<span className={s.back} onClick={() => setSelected(undefined)}>
+					<span className={s.back} onClick={() => setSelected(null)}>
 						❮
 					</span>
 				</div>
@@ -143,8 +144,8 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 			</nav>
 			<SiteSearch
 				show={showSearch}
-				query={query}
-				onChange={(q) => (searchRef.current.value = q || '')}
+				query={query ?? undefined}
+				onChange={(q) => searchRef.current && (searchRef.current.value = q || '')}
 				onClose={closeSearch}
 			/>
 		</>

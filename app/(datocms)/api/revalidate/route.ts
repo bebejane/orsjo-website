@@ -1,11 +1,127 @@
 import { revalidate } from 'next-dato-utils/route-handlers';
-
+import { buildClient } from '@datocms/cma-client';
 export const runtime = "edge"
 export const dynamic = "force-dynamic"
-import { buildRoute } from '@/lib/routes';
+//import { buildRoute } from '@/lib/routes';
+
+const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string });
 
 export async function POST(req: Request) {
 
+  return await revalidate(req, async (payload, revalidate) => {
+
+    const { api_key, entity } = payload;
+    const { slug } = entity.attributes
+    const { id } = entity
+    const paths: string[] = []
+    const tags: string[] = [api_key, id].filter(t => t) as string[]
+
+    switch (api_key) {
+      case 'start':
+        paths.push(`/`)
+        break;
+      case 'product':
+        paths.push(`/products/${slug}`)
+        paths.push(`/professionals/downloads`)
+        paths.push(`/support/manuals`)
+        paths.push(`/products`)
+        paths.push(`/`)
+        break;
+      case 'product_accessory':
+      case 'product_category':
+      case 'product_color':
+      case 'product_connection':
+      case 'product_dimmable':
+      case 'product_electrical':
+      case 'product_family':
+      case 'product_feature':
+      case 'product_lightsource':
+      case 'product_material':
+      case 'product_model_name':
+      case 'product_mounting':
+      case 'product_socket':
+        if (!id) throw new Error('Missing reference  id')
+        const products = await client.items.references(id, { version: 'published', limit: 500 })
+        if (products.length) {
+          paths.push(`/products`)
+          paths.push(`/professionals/downloads`)
+          paths.push(`/support/manuals`)
+          paths.push(`/`)
+          paths.push.apply(paths, products.map(product => `/products/${product.slug}`))
+        }
+
+        break;
+      case 'product_start':
+        paths.push(`/products`)
+        break;
+      case 'designer':
+        paths.push(`/designers/${slug}`)
+        break;
+      case 'project_start':
+      case 'project_type':
+        paths.push(`/professionals/projects`)
+        break;
+      case 'project':
+        paths.push(`/professionals/projects/${slug}`)
+        paths.push(`/professionals/projects`)
+        paths.push(`/`)
+        break;
+      case 'bespoke':
+        paths.push(`/professionals/bespoke`)
+        break;
+      case 'color_material':
+      case 'color_material_intro':
+      case 'color_material_type':
+        paths.push(`/professionals/colors-and-materials`)
+        break;
+      case 'manual':
+        paths.push(`/support/manuals`)
+        break;
+      case 'about':
+        paths.push(`/about`)
+        break;
+      case 'sustainability':
+        paths.push(`/about/sustainability`)
+        break;
+      case 'news':
+        paths.push(`/about/news/${slug}`)
+        paths.push(`/`)
+        break;
+      case 'job':
+        paths.push(`/about/jobs`)
+        break;
+      case 'faq':
+      case 'faq_start':
+      case 'faq_category':
+        paths.push(`/support/faq`)
+        break;
+      case 'contact':
+      case 'staff':
+      case 'showroom':
+      case 'reseller':
+      case 'distributor':
+        paths.push(`/contact`)
+        break;
+      case 'downloads_start':
+      case 'catalogue':
+        paths.push(`/professionals/downloads`)
+        break;
+      case 'factory_visit':
+        paths.push(`/professionals/factory-visit`)
+        break;
+      case 'country':
+        paths.push(`/contact`)
+        break;
+      default:
+        break;
+    }
+    return await revalidate(paths, tags, true)
+  })
+}
+
+
+
+/*
   return await revalidate(req, async (payload, revalidate) => {
 
     const { api_key, entity, entity: { id } } = payload;
@@ -13,4 +129,4 @@ export async function POST(req: Request) {
     const tags: string[] = [api_key, id].filter(t => t)
     return await revalidate(paths, tags)
   })
-}
+    */

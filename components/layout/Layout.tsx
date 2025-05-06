@@ -48,11 +48,12 @@ export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
 				<Sidebar key={pathname} title={title} show={layout !== 'full' && sidebar} />
 				<Content>{children}</Content>
 				<Gallery
-					show={gallery?.index > -1}
-					images={gallery?.images}
-					index={gallery?.index}
+					show={gallery?.index !== undefined && gallery.index > 0}
+					images={gallery?.images ?? []}
+					index={gallery?.index ?? 0}
 					padImagesWithTitle={gallery?.padImagesWithTitle}
-					onClose={() => setGallery({ ...gallery, index: -1 })}
+					//@ts-ignore
+					onClose={() => setGallery((g) => ({ ...g, index: -1 }))}
 				/>
 			</div>
 			<Footer menu={menu} />

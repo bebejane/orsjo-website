@@ -11,7 +11,7 @@ export type NewsItemProps = { data: NewsItemRecord };
 
 export default function NewsItem({ data: { news } }: NewsItemProps) {
 	const { title, text, link, linkText, slug } = news;
-	const ref = useRef();
+	const ref = useRef(null);
 
 	return (
 		<section className={s.news}>
@@ -26,7 +26,7 @@ export default function NewsItem({ data: { news } }: NewsItemProps) {
 				<span className={s.text}>
 					<h1 className={s.title}>{title}</h1>
 					<div className='large'>
-						<Markdown sentances={1}>{text}</Markdown>
+						<Markdown sentances={1} content={text} />
 					</div>
 					<div className={s.more}>
 						<ArrowLink hoverRef={ref} inverted={true}>

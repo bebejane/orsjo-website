@@ -80,7 +80,7 @@ export const sortProductsByCategory = (products: ProductRecord[]) => {
   return sortedProducts;
 }
 
-export const sectionId = (title: string, id?: string) => {
+export const sectionId = (title?: string, id?: string) => {
   if (!title) return {}
   id = id ? id : title.replace(/\s/g, '').replace(/[^\w\s]/gi, '').toLowerCase()
   return {
@@ -145,11 +145,11 @@ export const dedupeImages = (images: FileField[]): FileField[] => {
   }, []);
 }
 
-export const siteSearch = async (q: string) => {
+export const siteSearch = async (q: string | undefined | null) => {
+  if (!q) return {};
 
   const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN as string });
   const itemTypes = await client.itemTypes.list();
-
   const search = (await client.items.list({
     filter: {
       type: itemTypes.map(m => m.api_key).join(','),
@@ -159,7 +159,7 @@ export const siteSearch = async (q: string) => {
     order_by: '_rank_DESC'
   })).map(el => ({
     ...el,
-    _api_key: itemTypes.find((t) => t.id === el.item_type.id).api_key,
+    _api_key: itemTypes.find((t) => t.id === el.item_type.id)?.api_key,
   }))
 
   const data = await apiQuery(SiteSearchDocument, {
@@ -174,7 +174,7 @@ export const siteSearch = async (q: string) => {
   })
 
   Object.keys(data).forEach(type => {
-    if (!data[type].length)
+    if (!data?.[type]?.length)
       delete data[type]
   })
 

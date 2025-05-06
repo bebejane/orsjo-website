@@ -27,7 +27,7 @@ type SiteSearchProps = {
 	show: boolean;
 	onClose?: () => void;
 	query?: string;
-	onChange?: (query: string) => void;
+	onChange?: (query: string | undefined) => void;
 };
 
 export default function SiteSearch({
@@ -58,10 +58,11 @@ export default function SiteSearch({
 		}
 
 		setLoading(true);
+		setError(undefined);
 		setQuery(inputValue);
 		siteSearch(inputValue)
 			.then(async (cats) => setResult(cats))
-			.catch((err) => setError(err))
+			.catch((err) => setError(err.message))
 			.finally(() => setLoading(false));
 	}, [debouncedQuery, setLoading, setError, inputValue]);
 
@@ -89,7 +90,7 @@ export default function SiteSearch({
 		loading && setResult({});
 	}, [loading, setResult]);
 	useEffect(() => {
-		show && ref.current.focus();
+		show && ref.current?.focus();
 	}, [show, ref]);
 	useEffect(() => {
 		queryAsProp && setInputValue(queryAsProp);

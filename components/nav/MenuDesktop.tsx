@@ -18,7 +18,6 @@ export type MenuDesktopProps = { items: Menu; onShowSiteSearch: Function };
 
 export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProps) {
 	const ref = useRef(null);
-	//const router = useRouter();
 	const pathname = usePathname();
 	const [
 		showMenu,
@@ -28,7 +27,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		setShowMenu,
 		invertMenu,
 		transitioning,
-		showSiteSearch,
 	] = useStore(
 		useShallow((state) => [
 			state.showMenu,
@@ -42,7 +40,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		])
 	);
 
-	const [selected, setSelected] = useState(undefined);
+	const [selected, setSelected] = useState<string | null>(null);
 	const [hashChanging, setHashChanging] = useState(false);
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 });
 	const { layout, menu, color } = usePage();
@@ -52,7 +50,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	const resetSelected = useCallback(() => {
 		if (transitioning) return;
-		setSelected(undefined);
+		setSelected(null);
 	}, [transitioning]);
 
 	useEffect(() => {
@@ -76,8 +74,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		hashChanging,
 	]);
 
-	/*
-
 	useEffect(() => {
 		// Hide menu when scrolling to hash
 
@@ -92,18 +88,41 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 				setTimeout(() => setShowMenu(false), 0);
 			}, 1000);
 		};
-		router.events.on('hashChangeStart', handleHashChangeStart);
-		return () => router.events.off('hashChangeStart', handleHashChangeStart);
-	}, [router.events, setHashChanging, setShowMenu]);
-	*/
+		document.addEventListener('hashchange', handleHashChangeStart);
+		return () => document.removeEventListener('hashChangeStart', handleHashChangeStart);
+	}, [setHashChanging, setShowMenu]);
 
+	/*
 	useEffect(() => {
 		// Re set margin on window resize or selected change
 		if (!selected) return;
 
 		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`);
 		const nav = document.querySelectorAll<HTMLLIElement>(`li[data-slug]`);
-		const idx = parseInt(el.dataset.index);
+		const idx = parseInt(el?.dataset.idx ?? '1');
+		const left = idx > 0 ? nav[idx - 1] : undefined;
+
+		if (!left || !el) return;
+
+		const bl = left.getBoundingClientRect();
+		const elPad = parseInt(getComputedStyle(el, null).getPropertyValue('padding-left'));
+		const blPad = parseInt(getComputedStyle(left, null).getPropertyValue('padding-right'));
+		const lm = bl.left + bl.width - blPad - 10;
+		const rm = el?.getBoundingClientRect().left;
+
+		const position = bl ? lm + (rm - lm) / 2 : el.getBoundingClientRect().x + elPad;
+		const padding = el.getBoundingClientRect().x - position;
+
+		setMenuMargin({ position, padding });
+	}, [innerWidth, selected]);
+*/
+	useEffect(() => {
+		// Re set margin on window resize or selected change
+		if (!selected) return;
+
+		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`);
+		const nav = document.querySelectorAll<HTMLLIElement>(`li[data-slug]`);
+		const idx = parseInt(el?.dataset?.index ?? '1');
 		const left = idx > 0 ? nav[idx - 1] : undefined;
 
 		const bl = left?.getBoundingClientRect();
@@ -119,10 +138,8 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	}, [innerWidth, selected]);
 
 	useEffect(() => {
-		setShowSubMenu(selected && showMenu);
+		setShowSubMenu(selected && showMenu ? true : false);
 	}, [selected, showMenu, setShowSubMenu]);
-
-	if (!items) return null;
 
 	const menuStyles = cn(
 		s.desktopMenu,
@@ -131,7 +148,8 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		s[layout],
 		isInverted && s.inverted
 	);
-	const sub = selected ? items.find((i) => i.slug === selected).sub : [];
+
+	const sub = selected ? items.find((i) => i.slug === selected)?.sub : [];
 
 	if (!items) return null;
 
@@ -145,8 +163,8 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 							data-slug={slug}
 							data-index={idx}
 							key={idx}
-							onMouseEnter={() => setSelected(!index ? slug : undefined)}
-							onMouseLeave={() => !index && !showMenu && setSelected(undefined)}
+							onMouseEnter={() => setSelected(!index ? slug : null)}
+							onMouseLeave={() => !index && !showMenu && setSelected(null)}
 							className={cn(pathname.startsWith(`${slug}`) && s.selected)}
 						>
 							{index === true ? ( // Direct links
@@ -175,7 +193,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 					style={{ backgroundColor: color, paddingLeft: `${menuMargin.padding}px` }}
 				>
 					<nav>
-						<ul className={cn(sub?.length > 10 && s.columns)}>
+						<ul className={cn(sub && sub.length > 10 && s.columns)}>
 							{sub?.map(({ label, slug }, idx) => (
 								<li key={idx} className={cn(slug === pathname && s.active)}>
 									<Link scroll={false} href={slug}>

@@ -12,11 +12,15 @@ export default function TwoColumnImage({
 	return (
 		<div className={s.twoColumnImage}>
 			<figure onClick={() => onClick(firstImage.id)} data-image-zoom={firstImage.id}>
-				<Image data={firstImage.responsiveImage} className={s.image} />
+				{firstImage.responsiveImage && (
+					<Image data={firstImage.responsiveImage} className={s.image} />
+				)}
 				<CustomMade show={firstImage.customData?.custom} />
 			</figure>
 			<figure onClick={() => onClick(lastImage.id)} data-image-zoom={lastImage.id}>
-				<Image data={lastImage.responsiveImage} className={s.image} />
+				{lastImage.responsiveImage && (
+					<Image data={lastImage.responsiveImage} className={s.image} />
+				)}
 				<CustomMade show={lastImage.customData?.custom} />
 			</figure>
 		</div>

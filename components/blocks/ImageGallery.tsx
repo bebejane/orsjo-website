@@ -15,7 +15,14 @@ export default function ImageGallery({ data: { gallery }, onClick }: ImageGaller
 					onClick={() => onClick(image.id)}
 					data-image-zoom={gallery.length >= 4 ? 'small' : 'medium'}
 				>
-					<Image data={image.responsiveImage} className={s.image} />
+					{image.responsiveImage && (
+						<Image
+							className={s.image}
+							data={image.responsiveImage}
+							layout='fill'
+							objectFit='cover'
+						/>
+					)}
 				</figure>
 			))}
 		</div>
