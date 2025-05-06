@@ -118,6 +118,7 @@ export default async function Products() {
 							key={idx}
 							name={namePlural}
 							//top={productsByCategorySearch && idx === 0}
+							top={idx === 0}
 						>
 							<h1>{namePlural}</h1>
 							<ul>

@@ -1,4 +1,4 @@
-import { apiQuery, SEOQuery } from 'next-dato-utils/api';
+import { apiQuery } from 'next-dato-utils/api';
 import type { TypedDocumentNode } from "@apollo/client";
 import type { GetServerSideProps, GetStaticProps } from 'next'
 import { GlobalDocument } from "@/graphql";
@@ -14,8 +14,6 @@ export default function withGlobalProps(opt: any, callback: Function): GetStatic
     queries.push(opt.query)
   if (opt.queries)
     queries.push.apply(queries, opt.queries)
-  if (opt.seo)
-    queries.push(SEOQuery(opt.seo))
 
   return async (context) => {
 

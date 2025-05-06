@@ -84,6 +84,7 @@ query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip
 		orderBy: [title_ASC]
 		fallbackLocales: [sv, en]
 	) {
+		id
 		image {
 			...ImageThumbnailFragment
 		}
@@ -125,11 +126,11 @@ query ProductCategories {
 	}
 }
 
-query AllProductsByDesigner($id: ItemId, $first: IntType = 100) {
-	allProducts(first: $first, orderBy: [title_ASC], filter: { designer: { eq: $id } }) {
+query AllProductsByDesigner($id: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+	allProducts(first: $first, skip: $skip, orderBy: [title_ASC], filter: { designer: { eq: $id } }) {
 		...ProductLightFragment
 	}
-	_allProductsMeta {
+	_allProductsMeta(filter: { designer: { eq: $id } }) {
 		count
 	}
 }

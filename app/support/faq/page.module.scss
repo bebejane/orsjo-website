@@ -1,0 +1,10 @@
+.intro {
+  p {
+    color: $white;
+    padding-bottom: 1em;
+
+    @include mq($from: desktop) {
+      padding-right: 20%;
+    }
+  }
+}

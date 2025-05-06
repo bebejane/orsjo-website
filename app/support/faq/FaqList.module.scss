@@ -1,0 +1,63 @@
+.faq {
+  position: relative;
+  margin-bottom: 2em;
+
+  h2.category {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid $black;
+  }
+
+  ul {
+    list-style: none;
+    border-top: 1px solid $white;
+
+    li {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 0.8em 0.8em 0.8em 0em;
+      border-bottom: 1px solid $white;
+
+      &.selected {
+        padding: 0.8em 0.8em 0.8em 0.8em;
+        background-color: $white;
+
+        .answer {
+          display: block;
+        }
+      }
+
+      .header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .question {
+          flex: 1 1 100%;
+          padding: 0;
+          padding-right: 1em;
+        }
+
+        .indicator {
+          margin-right: $gutter;
+        }
+      }
+
+      .answer {
+        display: none;
+
+        p {
+          margin: 0;
+
+          @include mq($from: tablet) {
+            padding-right: 20%;
+          }
+
+          padding-top: 0.5em;
+        }
+      }
+    }
+  }
+}

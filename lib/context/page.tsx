@@ -20,15 +20,97 @@ const initialState: PageProps = {
 	footerLine: false,
 };
 
+export const getPageAttributes = (pathname: string): PageProps => {
+	const rootPath = pathname.split('/')[1];
+
+	switch (rootPath) {
+		case 'products':
+			return {
+				title: 'Products',
+				layout: 'normal',
+				menu: 'normal',
+				color: '--white',
+				sidebar: true,
+			};
+		case 'designers':
+			return {
+				title: 'Designers',
+				layout: 'normal',
+				menu: 'inverted',
+				color: '--green',
+				sidebar: true,
+			};
+		case 'professionals':
+			if (pathname.includes('bespoke'))
+				return {
+					title: 'Bespoke',
+					layout: 'normal',
+					menu: 'inverted',
+					color: '--gray',
+					sidebar: false,
+				};
+			return {
+				title: 'Professionals',
+				layout: 'normal',
+				menu: 'inverted',
+				color: '--gray',
+				sidebar: true,
+			};
+		case 'about':
+			if (pathname.includes('jobs'))
+				return {
+					title: 'Jobs',
+					layout: 'normal',
+					menu: 'inverted',
+					color: '--black',
+					sidebar: true,
+				};
+			if (pathname.includes('news'))
+				return {
+					title: 'News',
+					layout: 'normal',
+					menu: 'inverted',
+					color: '--black',
+					sidebar: true,
+				};
+			return {
+				title: 'About',
+				layout: 'normal',
+				menu: 'inverted',
+				color: '--black',
+				sidebar: true,
+			};
+		case 'contact':
+			return {
+				title: 'Contact',
+				layout: 'normal',
+				menu: 'normal',
+				color: '--beige',
+				sidebar: true,
+			};
+		case 'support':
+			return {
+				title: 'Support',
+				layout: 'normal',
+				menu: 'inverted',
+				color: '--copper',
+				sidebar: true,
+			};
+	}
+
+	return { title: 'Home', layout: 'normal', menu: 'inverted', color: '--white', sidebar: false };
+};
+
 export const PageContext = createContext(initialState);
 
 export type PageProviderProps = {
 	children: React.ReactNode;
-	value: PageProps;
+	pathname: string;
 };
 
 // Context provider
-export const PageProvider = ({ children, value }: PageProviderProps) => {
+export const PageProvider = ({ children, pathname }: PageProviderProps) => {
+	const value = getPageAttributes(pathname);
 	return (
 		<PageContext.Provider
 			value={{ ...initialState, ...value, color: `rgba(var(${value.color}),1)` }}

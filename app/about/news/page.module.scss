@@ -1,0 +1,66 @@
+.newsItem {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: $margin;
+  width: 100%;
+  color: $white;
+
+  .date {
+    color: $gray;
+    flex: 0 0 spanGridWithGutter(4);
+  }
+
+  .post {
+    width: 100%;
+    color: $white;
+    h1 {
+      margin-top: 0 !important;
+    }
+    p {
+      padding-right: 20%;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .image {
+      max-width: 50% !important;
+      margin-bottom: 1.5em;
+      margin-top: 0.4em;
+    }
+  }
+  @include mq($until: tablet) {
+    flex-direction: column;
+    .post {
+      p {
+        padding-right: 0;
+      }
+      .image {
+        width: 50%;
+        max-width: 100%;
+      }
+    }
+  }
+  @include mq($from: tablet, $until: desktop) {
+    .post p {
+      padding-right: 0;
+    }
+  }
+}
+
+.more {
+  padding-left: spanGridWithGutter(4);
+  button {
+    width: 100%;
+    appearance: none;
+    background-color: transparent;
+    color: $white;
+    text-align: center;
+    &:hover {
+      background-color: $white;
+    }
+  }
+  .error {
+    color: $red;
+    margin-top: 1rem;
+  }
+}

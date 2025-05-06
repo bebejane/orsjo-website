@@ -13,26 +13,18 @@ import {
 	CookieConsent,
 	Underlay,
 } from '@/components';
-import { PageProps, PageProvider, usePage } from '@/lib/context/page';
+import { PageProvider, getPageAttributes } from '@/lib/context/page';
 import type { MenuItem } from '@/lib/menu';
 import { useStore, useShallow } from '@/lib/store';
 import { useState } from 'react';
-import { buildMenu } from '@/lib/menu';
+import { usePathname } from 'next/navigation';
 
 export type LayoutProps = { children: React.ReactNode; menu: MenuItem[] };
 
 export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
 	const title = 'no title';
-	//const page = { layout: 'full', color: '--black', menu: 'inverted', sidebar: false } as PageProps;
-	const page = {
-		title: 'Products',
-		layout: 'normal',
-		menu: 'normal',
-		color: '--white',
-		sidebar: true,
-	} as PageProps;
-
-	const { color, layout, sidebar } = page; //usePage();
+	const pathname = usePathname();
+	const { color, layout, sidebar } = getPageAttributes(pathname);
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(
 		useShallow((state) => [
 			state.gallery,
@@ -44,22 +36,24 @@ export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
 	const [menu, setMenu] = useState(menuFromProps);
 
 	return (
-		<PageProvider value={page}>
-			<div className={s.layout} style={{ backgroundColor: color || undefined }}>
+		<PageProvider pathname={pathname}>
+			<div
+				className={s.layout}
+				style={{ backgroundColor: color ? `rgba(var(${color}),1)` : undefined }}
+			>
 				<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} />
 				<MenuMobile items={menu} />
 				<Underlay />
 				<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />
-				<Sidebar title={title} show={layout !== 'full' && sidebar} />
+				<Sidebar key={pathname} title={title} show={layout !== 'full' && sidebar} />
 				<Content>{children}</Content>
-				{/* <Gallery
+				<Gallery
 					show={gallery?.index > -1}
 					images={gallery?.images}
 					index={gallery?.index}
 					padImagesWithTitle={gallery?.padImagesWithTitle}
 					onClose={() => setGallery({ ...gallery, index: -1 })}
 				/>
-				*/}
 			</div>
 			<Footer menu={menu} />
 			<CookieConsent />

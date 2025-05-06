@@ -17,9 +17,7 @@ export default async function RootLayout({ children }: LayoutProps) {
 		<>
 			<html lang='en-US'>
 				<body id='root'>
-					<main className={s.main}>
-						<Layout menu={menu}>{children}</Layout>
-					</main>
+					<Layout menu={menu}>{children}</Layout>
 				</body>
 			</html>
 		</>

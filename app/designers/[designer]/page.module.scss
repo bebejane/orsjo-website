@@ -1,0 +1,197 @@
+.designer {
+	width: 100%;
+
+	header {
+		display: flex;
+		position: relative;
+		height: 100vh;
+		width: 100%;
+
+		.artist {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 5%;
+			margin-top: 0.5rem;
+
+			@include mq($until: tablet) {
+				padding-bottom: $small-margin;
+			}
+
+			@include mq($from: tablet) {
+				margin-top: 4rem;
+			}
+
+			max-width: 50%;
+
+			h1 {
+				left: 1em;
+
+				@include mq($from: tablet) {
+					margin-bottom: 0.5em !important;
+				}
+
+				@include h1Big();
+				color: $white;
+			}
+
+			.description {
+				span {
+					color: $white;
+				}
+			}
+		}
+
+		figure {
+			position: relative;
+			flex: 0 0 50%;
+			height: 100%;
+			mix-blend-mode: screen;
+
+			img {
+				object-fit: cover;
+				height: 100vh;
+				width: 100%;
+			}
+
+			.fade {
+				background-image: linear-gradient(to top, rgba(27, 91, 68, 0), rgba(27, 91, 68, 0.4));
+				height: 10rem;
+				width: 100%;
+				position: absolute;
+				z-index: 1;
+				mix-blend-mode: multiply;
+			}
+
+			figcaption {
+				position: absolute;
+				display: none;
+				bottom: 0;
+				margin: var(--outer-margin);
+
+				h1 {
+					width: 100%;
+				}
+			}
+
+			div>img[role="presentation"] {
+				//height: 100vh;
+			}
+		}
+	}
+
+	@include mq($until: tablet) {
+		header {
+			flex-direction: column-reverse;
+			height: auto;
+
+			.artist {
+				max-width: 100%;
+			}
+
+			figure {
+				min-height: 60vh;
+
+				img {
+
+					height: 60vh;
+
+				}
+
+				figcaption {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.products,
+.otherDesigners {
+	padding-top: $margin;
+	padding-bottom: $small-margin;
+	display: flex;
+	flex-direction: row;
+
+	h1 {
+		min-width: spanGridWithGutter(4);
+	}
+
+	.gallery {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		min-width: spanGrid(12);
+	}
+
+	@include mq($until: tablet) {
+		flex-direction: column;
+
+		h1 {
+			width: 100%;
+
+			br {
+				content: " ";
+				display: none;
+			}
+		}
+
+		.gallery {
+			min-width: spanGrid(16);
+
+			ul {
+				li {
+					min-width: 48%;
+				}
+			}
+		}
+	}
+}
+
+.products {
+	ul {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		width: 100%;
+		list-style: none;
+
+		li {
+			@include mq($until: tablet) {
+				width: 48%;
+				min-width: 48%;
+
+				@include resetLastColumn(2);
+				margin-right: 4%;
+			}
+
+			@include mq($from: tablet) {
+				width: spanNestedGrid(12, 3);
+				@include resetLastColumn(4);
+			}
+
+			margin-right: nestedGridGutter(12);
+			margin-bottom: 2rem;
+			overflow: hidden;
+		}
+	}
+}
+
+.otherDesigners {
+	padding-bottom: $margin;
+
+	@include mq($until: tablet) {
+		overflow-x: hidden;
+	}
+}

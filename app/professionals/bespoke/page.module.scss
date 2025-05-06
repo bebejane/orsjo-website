@@ -1,0 +1,141 @@
+.intro {
+  display: flex;
+  flex-direction: row;
+  color: $white !important;
+  padding-top: 2rem;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  h1 {
+    @include mq($until: desktop) {
+      display: none;
+    }
+
+    color: $black;
+    flex: 0 0 spanGridWithGutter(4);
+    @include h1Small();
+  }
+
+  .text {
+    @include mq($until: desktop) {
+      padding-bottom: 2em;
+    }
+
+    @include mq($from: desktop) {
+      padding-right: 20%;
+    }
+  }
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+
+  .project {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+
+    @include mq($from: desktop) {
+      margin-top: $margin;
+    }
+
+    @include mq($until: desktop) {
+      flex-wrap: wrap;
+    }
+
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+
+      .description {
+        align-items: flex-start;
+        padding-left: 0;
+
+        @include mq($from: desktop) {
+          padding-right: var(--outer-margin);
+        }
+
+        .text {
+          text-align: left;
+        }
+      }
+    }
+
+    .image {
+      @include mq($until: desktop) {
+        margin-bottom: 1em;
+      }
+
+      @include mq($from: desktop) {
+        flex: 0 0 spanGrid(12);
+      }
+
+      cursor: pointer;
+
+      .big {}
+    }
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      @include mq($from: desktop) {
+        padding-left: var(--outer-margin);
+      }
+
+      .text {
+        display: flex;
+        align-items: center;
+        flex: 1 1 auto;
+        //text-align: right;
+      }
+
+      .thumbnail {
+        width: 100%;
+
+        @include mq($until: desktop) {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.outro {
+  color: $white !important;
+
+  @include mq($from: desktop) {
+    margin-top: 2rem;
+  }
+
+  .text {
+    @include mq($from: desktop) {
+      margin-left: spanGridWithGutter(4);
+      margin-right: spanGrid(4);
+    }
+  }
+}
+
+.more {
+  margin-top: 2rem;
+
+  button {
+    color: $white;
+    cursor: pointer;
+    width: 100%;
+
+    @include mq($from: desktop) {
+      width: spanGrid(8);
+      margin-right: spanGrid(4);
+      margin-left: spanGridWithGutter(4);
+    }
+  }
+}
+
+.innerWrap {
+  padding-left: var(--outer-margin) !important;
+  padding-right: var(--outer-margin) !important;
+}

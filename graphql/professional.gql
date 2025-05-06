@@ -4,15 +4,21 @@ query Project($slug: String) {
 	}
 }
 
-query AllProjects($first: IntType = 100) {
-	projects: allProjects(first: $first) {
+query AllProjects($first: IntType = 100, $skip: IntType = 0) {
+	allProjects(first: $first, skip: $skip) {
 		...ProjectLightFragment
+	}
+	_allProjectsMeta {
+		count
 	}
 }
 
-query AllRelatedProjects($projectType: ItemId, $first: IntType = 100) {
-	projects: allProjects(first: $first, filter: { projectType: { eq: $projectType } }) {
+query AllRelatedProjects($projectType: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+	allProjects(first: $first, skip: $skip, filter: { projectType: { eq: $projectType } }) {
 		...ProjectLightFragment
+	}
+	_allProjectsMeta {
+		count
 	}
 }
 
@@ -24,11 +30,14 @@ query ProjectStart {
 	}
 }
 
-query AllProjectTypes {
-	projectTypes: allProjectTypes {
+query AllProjectTypes($first: IntType = 100, $skip: IntType = 0) {
+	allProjectTypes(first: $first, skip: $skip) {
 		id
 		title
 		titlePlural
+	}
+	_allProjectTypesMeta {
+		count
 	}
 }
 
@@ -78,8 +87,8 @@ query DownloadsStart {
 	}
 }
 
-query AllCatalogues($first: IntType = 100) {
-	catalogues: allCatalogues(first: $first) {
+query AllCatalogues($first: IntType = 100, $skip: IntType = 0) {
+	allCatalogues(first: $first, skip: $skip) {
 		id
 		title
 		pdf {
@@ -89,10 +98,13 @@ query AllCatalogues($first: IntType = 100) {
 			...ImageThumbnailFragment
 		}
 	}
+	_allCataloguesMeta {
+		count
+	}
 }
 
-query AllColorsAndMaterials($first: IntType = 100) {
-	colorMaterials: allColorMaterials(first: $first) {
+query AllColorsAndMaterials($first: IntType = 100, $skip: IntType = 0) {
+	allColorMaterials(first: $first, skip: $skip) {
 		id
 		image {
 			...ImageFragment
@@ -107,10 +119,16 @@ query AllColorsAndMaterials($first: IntType = 100) {
 			categoryPlural
 		}
 	}
-	colorMaterialTypes: allColorMaterialTypes {
+	_allColorMaterialsMeta {
+		count
+	}
+	allColorMaterialTypes(first: $first, skip: $skip) {
 		id
 		category
 		categoryPlural
+	}
+	_allColorMaterialTypesMeta {
+		count
 	}
 	colorMaterialIntro {
 		id

@@ -1,4 +1,4 @@
-import s from './index.module.scss';
+import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
 import {
 	ContactDocument,
