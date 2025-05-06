@@ -81,7 +81,7 @@ export default function FeaturedGallery({
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
 				>
-					{items?.map((item, idx) => (
+					{items?.map((item: any, idx: number) => (
 						<SwiperSlide key={`${id}-${idx}`} className={cn(s.slide)}>
 							{item.__typename === 'ProductRecord' ? (
 								<ProductThumbnail

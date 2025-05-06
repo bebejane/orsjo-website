@@ -35,10 +35,10 @@ export const getPageAttributes = (pathname: string): PageProps => {
 		case 'designers':
 			return {
 				title: 'Designers',
-				layout: 'normal',
+				layout: 'full',
 				menu: 'inverted',
 				color: '--green',
-				sidebar: true,
+				sidebar: false,
 			};
 		case 'professionals':
 			if (pathname.includes('bespoke'))
@@ -68,10 +68,11 @@ export const getPageAttributes = (pathname: string): PageProps => {
 			if (pathname.includes('news'))
 				return {
 					title: 'News',
-					layout: 'normal',
+					layout: 'full',
 					menu: 'inverted',
 					color: '--black',
 					sidebar: true,
+					footerLine: true,
 				};
 			return {
 				title: 'About',
@@ -79,6 +80,7 @@ export const getPageAttributes = (pathname: string): PageProps => {
 				menu: 'inverted',
 				color: '--black',
 				sidebar: true,
+				footerLine: true,
 			};
 		case 'contact':
 			return {
@@ -96,9 +98,11 @@ export const getPageAttributes = (pathname: string): PageProps => {
 				color: '--copper',
 				sidebar: true,
 			};
+		default:
+			return { title: 'Home', layout: 'full', color: '--black', menu: 'inverted', sidebar: false };
 	}
 
-	return { title: 'Home', layout: 'normal', menu: 'inverted', color: '--white', sidebar: false };
+	//return { title: 'Home', layout: 'normal', menu: 'inverted', color: '--white', sidebar: false };
 };
 
 export const PageContext = createContext(initialState);

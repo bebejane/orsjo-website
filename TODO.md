@@ -1,11 +1,9 @@
-- PageProvider and usePage
 - router.events
+- framer motion
+- buildroute
+- revalidate, web-preview
+- contact api route
 
 Pages
-
-designers/[designer]
-other deisgners
-
-about/news
-infinite scroll
-news/[news]
+product page
+contact page

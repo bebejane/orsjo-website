@@ -50,10 +50,10 @@ query LastNews {
 }
 
 query AllNews($first: IntType = 5, $skip: IntType = 0) {
-	news: allNews(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
+	allNews(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
 		...NewsFragment
 	}
-	pagination: _allNewsMeta {
+	_allNewsMeta {
 		count
 	}
 }

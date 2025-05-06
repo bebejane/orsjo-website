@@ -1,7 +1,6 @@
 import s from './page.module.scss';
 import { FactoryVisitDocument } from '@/graphql';
 import { Markdown } from 'next-dato-utils/components';
-import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
