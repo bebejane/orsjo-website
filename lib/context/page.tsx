@@ -76,10 +76,10 @@ export const getPageAttributes = (pathname: string): PageProps => {
 				};
 			return {
 				title: 'About',
-				layout: 'normal',
+				layout: 'full',
 				menu: 'inverted',
 				color: '--black',
-				sidebar: true,
+				sidebar: false,
 				footerLine: true,
 			};
 		case 'contact':

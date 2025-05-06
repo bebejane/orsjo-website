@@ -10,7 +10,6 @@ import { ArrowLink } from '@/components';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { styleVariables } from '@/lib/utils';
 import { useWindowSize } from 'rooks';
-import Link from 'next/link';
 
 export type SidebarProps = { title: string; show: boolean };
 
@@ -19,14 +18,14 @@ const getPageType = (pathname: string) => {
 	return p === '/products'
 		? 'products'
 		: p.startsWith('/products/')
-		? 'product'
-		: p.startsWith('/professionals/projects/')
-		? 'project'
-		: undefined;
+			? 'product'
+			: p.startsWith('/professionals/projects/')
+				? 'project'
+				: undefined;
 };
 
-export default function Sidebar({ title, show }: SidebarProps) {
-	const { menu, layout, color } = usePage();
+export default function Sidebar({ show }: SidebarProps) {
+	const { menu, layout, color, title } = usePage();
 	const router = useRouter();
 	const path = usePathname();
 	const pathname = path.includes('#') ? path.substring(0, path.indexOf('#')) : path;
@@ -42,7 +41,7 @@ export default function Sidebar({ title, show }: SidebarProps) {
 		);
 	const [setInvertMenu] = useStore(useShallow((state) => [state.setInvertMenu]));
 	const [inverted, setInverted] = useState(menu === 'inverted' || invertSidebar);
-	const [sections, setSections] = useState([]);
+	const [sections, setSections] = useState<{ title: string | undefined; id: string }[]>([]);
 	const [pageType, setPageType] = useState<string | undefined>(getPageType(pathname));
 	const [open, setOpen] = useState(false);
 	const [searchFocus, setSearchFocus] = useState(false);
@@ -56,13 +55,18 @@ export default function Sidebar({ title, show }: SidebarProps) {
 	}, [setSearchProducts]);
 	const handleClick = (e) => setOpen(false);
 
-	useEffect(() => {
+	const updateSections = () => {
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]');
 		const sections = items.length
 			? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id }))
 			: [];
 		setSections(sections);
-	}, []);
+	};
+
+	useEffect(() => {
+		setTimeout(() => updateSections(), 0);
+		setTimeout(() => updateSections(), 300);
+	}, [path]);
 
 	useEffect(() => {
 		// Highlight nav section on scroll\
@@ -88,6 +92,8 @@ export default function Sidebar({ title, show }: SidebarProps) {
 	]);
 
 	useEffect(() => {
+		if (!currentSection) return;
+
 		const isDesktop = innerWidth > parseInt(styleVariables.tablet as string);
 		const section = document.getElementById(currentSection);
 		const header = document.getElementById('sidebar-header');
@@ -116,6 +122,7 @@ export default function Sidebar({ title, show }: SidebarProps) {
 	return (
 		<aside
 			id='sidebar'
+			key={path}
 			className={cn(s.sidebar, inverted && s.inverted, pageType === 'products' && s.short)}
 			style={{ backgroundColor: color, maxHeight }}
 		>

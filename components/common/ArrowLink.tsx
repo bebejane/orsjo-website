@@ -11,7 +11,7 @@ export type ArrowLinkProps = {
 	href?: string;
 	inverted?: boolean;
 	reversed?: boolean;
-	hoverRef?: React.MutableRefObject<HTMLElement>;
+	hoverRef?: React.MutableRefObject<HTMLElement | null>;
 	children?: string;
 };
 
