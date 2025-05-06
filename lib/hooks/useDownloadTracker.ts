@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { event } from "nextjs-google-analytics";
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 const extensions = ['pdf', 'zip', 'doc', 'docx', 'xls', 'xlsx', 'mp3', 'mp4', 'wav']
 
 const useDownloadTracker = () => {
 
-  const router = useRouter()
+  const pathname = usePathname();
 
   useEffect(() => {
 
@@ -36,6 +36,8 @@ const useDownloadTracker = () => {
     const observer = new MutationObserver(() => observeDownloadLinks());
     const bodyNode = document.querySelector('body');
 
+    if (!bodyNode) return
+
     observer.observe(bodyNode, {
       attributes: false,
       childList: true,
@@ -43,7 +45,7 @@ const useDownloadTracker = () => {
     });
 
     return () => observer.disconnect();
-  }, [router.asPath]);
+  }, [pathname]);
 
   return null;
 }

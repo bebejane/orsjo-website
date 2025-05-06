@@ -18,6 +18,8 @@ import { useMediaQuery } from 'usehooks-ts';
 import { siteSearch, truncateParagraph } from '@/lib/utils';
 import { useStore, useShallow } from '@/lib/store';
 import Close from '@/public/images/close.svg';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 
 export type SearchResultCategory = {
 	[key: string]: any;
@@ -37,8 +39,9 @@ export default function SiteSearch({
 	onChange,
 }: SiteSearchProps) {
 	const ref = useRef<HTMLInputElement | null>(null);
+	const pathname = usePathname();
 	const [query, setQuery] = useState<string | undefined>();
-	const [inputValue, setInputValue] = useState<string | undefined>();
+	const [inputValue, setInputValue] = useState<string | undefined>('');
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
 	const [setShowSiteSearch, transitioning] = useStore(
 		useShallow((state) => [state.setShowSiteSearch, state.transitioning])
@@ -96,6 +99,10 @@ export default function SiteSearch({
 		queryAsProp && setInputValue(queryAsProp);
 	}, [queryAsProp]);
 
+	useEffect(() => {
+		setShowSiteSearch(false);
+	}, [pathname]);
+
 	return (
 		<div className={cn(s.search, show && s.show)}>
 			<div className={s.query}>
@@ -121,7 +128,7 @@ export default function SiteSearch({
 					Object.keys(result).map((model) => {
 						const items = result[model];
 						return (
-							<>
+							<React.Fragment key={model}>
 								<h1>{model}</h1>
 								<ul>
 									{items.map((item, idx) =>
@@ -173,7 +180,7 @@ export default function SiteSearch({
 										) : null
 									)}
 								</ul>
-							</>
+							</React.Fragment>
 						);
 					})}
 				{(noResults || loading || error) && (

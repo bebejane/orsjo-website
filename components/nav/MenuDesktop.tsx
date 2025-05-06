@@ -54,6 +54,9 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 	}, [transitioning]);
 
 	useEffect(() => {
+		resetSelected();
+	}, [pathname]);
+	useEffect(() => {
 		// Hide menu if was closed on scroll
 		if (!showMenu) resetSelected();
 	}, [showMenu, resetSelected]);
@@ -76,7 +79,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 	useEffect(() => {
 		// Hide menu when scrolling to hash
-
 		const handleHashChangeStart = async (url) => {
 			const id = url.split('#')[1];
 			const el = await waitForElement(id, 400);
@@ -92,30 +94,6 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		return () => document.removeEventListener('hashChangeStart', handleHashChangeStart);
 	}, [setHashChanging, setShowMenu]);
 
-	/*
-	useEffect(() => {
-		// Re set margin on window resize or selected change
-		if (!selected) return;
-
-		const el = document.querySelector<HTMLLIElement>(`li[data-slug="${selected}"]`);
-		const nav = document.querySelectorAll<HTMLLIElement>(`li[data-slug]`);
-		const idx = parseInt(el?.dataset.idx ?? '1');
-		const left = idx > 0 ? nav[idx - 1] : undefined;
-
-		if (!left || !el) return;
-
-		const bl = left.getBoundingClientRect();
-		const elPad = parseInt(getComputedStyle(el, null).getPropertyValue('padding-left'));
-		const blPad = parseInt(getComputedStyle(left, null).getPropertyValue('padding-right'));
-		const lm = bl.left + bl.width - blPad - 10;
-		const rm = el?.getBoundingClientRect().left;
-
-		const position = bl ? lm + (rm - lm) / 2 : el.getBoundingClientRect().x + elPad;
-		const padding = el.getBoundingClientRect().x - position;
-
-		setMenuMargin({ position, padding });
-	}, [innerWidth, selected]);
-*/
 	useEffect(() => {
 		// Re set margin on window resize or selected change
 		if (!selected) return;
@@ -196,7 +174,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 						<ul className={cn(sub && sub.length > 10 && s.columns)}>
 							{sub?.map(({ label, slug }, idx) => (
 								<li key={idx} className={cn(slug === pathname && s.active)}>
-									<Link scroll={false} href={slug}>
+									<Link scroll={false} href={slug} onClick={() => setShowSubMenu(false)}>
 										{label}
 									</Link>
 								</li>

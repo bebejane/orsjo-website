@@ -23,7 +23,7 @@ export default async function Manuals() {
 
 	return (
 		<>
-			<Section name='Introduction' className={s.intro} top={true}>
+			<Section name='Manuals' className={s.intro} top={true}>
 				<h1 className='topMargin'>{manual.title}</h1>
 				<p>{manual.intro}</p>
 			</Section>

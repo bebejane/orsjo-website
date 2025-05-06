@@ -14,12 +14,6 @@ export type MenuItem = {
   index?: boolean
 }
 
-export type MenuQuery = {
-  designers: DesignerRecord[],
-  productCategories: ProductCategoryRecord[],
-  products: ProductRecord[]
-}
-
 const base: Menu = [
   { type: 'product', label: 'Products', slug: '/products', sub: [], index: true },
   { type: 'designer', label: 'Designers', slug: '/designers', sub: [] },
@@ -60,30 +54,28 @@ const base: Menu = [
 
 export const buildMenu = async () => {
 
-  const { allDesigners, allProductCategories, allProducts } = await apiQuery(MenuDocument, {});
+  const { allDesigners, allProductCategories, allProducts } = await apiQuery<MenuQuery, MenuQueryVariables>(MenuDocument, { all: true });
 
   const menu = base.map(item => {
-    let sub: MenuItem[];
+    let sub: MenuItem[] | null = null;
     switch (item.type) {
       case 'product':
         sub = allProductCategories.map(el => ({
           type: item.type,
-          label: el.namePlural,
-          slug: `/products#${sectionId(el.namePlural).id}`,
+          label: el.namePlural ?? null,
+          slug: `/products#${sectionId(el.namePlural ?? undefined).id}`,
           isHash: true
-        }))
+        })) as MenuItem[]
         break;
       case 'designer':
-        sub = sortSwedish<DesignerRecord>(allDesigners, 'name').filter(({ id }) => allProducts.find((p) => p.designer?.id === id)).map(el => ({
+        sub = sortSwedish<MenuQuery['allDesigners'][0]>(allDesigners, 'name').filter(({ id }) => allProducts.find((p) => p.designer?.id === id)).map(el => ({
           type: item.type,
           label: el.name,
           slug: `/designers/${el.slug}`
-        }))
-        break;
-
-      default:
+        })) as MenuItem[]
         break;
     }
+
     return { ...item, sub: sub ? sub : item.sub }
   })
 

@@ -46,14 +46,15 @@ export default function Sidebar({ show }: SidebarProps) {
 	const [open, setOpen] = useState(false);
 	const [searchFocus, setSearchFocus] = useState(false);
 	const [maxHeight, setMaxHeight] = useState<string | undefined>();
-	const { scrolledPosition, documentHeight } = useScrollInfo();
+	const { scrolledPosition, documentHeight, isScrolling } = useScrollInfo();
 	const { innerWidth } = useWindowSize();
 	const backRef = useRef(null);
 
 	const resetSearch = useCallback(() => {
 		setSearchProducts('');
 	}, [setSearchProducts]);
-	const handleClick = (e) => setOpen(false);
+
+	const handleClick = (e: any) => setOpen(false);
 
 	const updateSections = () => {
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]');
@@ -69,6 +70,7 @@ export default function Sidebar({ show }: SidebarProps) {
 	}, [path]);
 
 	useEffect(() => {
+		if (isScrolling) return;
 		// Highlight nav section on scroll\
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-section-id]'));
 
@@ -82,6 +84,7 @@ export default function Sidebar({ show }: SidebarProps) {
 
 		setCurrentSection(id);
 	}, [
+		isScrolling,
 		scrolledPosition,
 		documentHeight,
 		setCurrentSection,
@@ -138,7 +141,10 @@ export default function Sidebar({ show }: SidebarProps) {
 								href={`${pathname}#${section.id}`}
 								data-section-id={section.id}
 								className={cn(section.id === currentSection && s.active)}
-								onClick={handleClick}
+								onClick={(e) => {
+									handleClick(e);
+									setCurrentSection(section.id);
+								}}
 							>
 								{section.title}
 							</a>

@@ -91,7 +91,7 @@ export const sectionId = (title?: string, id?: string) => {
 }
 
 export const chunkArray = (array: any[], chunkSize: number) => {
-  const newArr = []
+  const newArr: any[] = []
   for (let i = 0; i < array.length; i += chunkSize)
     newArr.push(array.slice(i, i + chunkSize));
   return newArr
@@ -102,8 +102,16 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
   type LightsourcePick = { id: string, amount?: number, name: string, included: boolean, modelName: string }
 
   let allLightsources: (LightsourceRecord & { modelName: string })[] = []
-  product.models.map((m) => m.lightsources.map((l) => ({ ...l, modelName: m.name?.name }))).forEach((l) => allLightsources.push.apply(allLightsources, l))
-  let lightsources: LightsourcePick[] = allLightsources.filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index).filter(({ lightsource }) => lightsource !== undefined && lightsource !== null).map(({ amount, included, lightsource, modelName }) => ({ included, amount: amount || 1, name: lightsource?.name, modelName, id: lightsource?.id }))
+
+  product.models
+    .map((m) => m.lightsources.map((l) => ({ ...l, modelName: m.name?.name })))
+    .forEach((l) => allLightsources.push.apply(allLightsources, l))
+
+  let lightsources = allLightsources.filter((obj, index, arr) =>
+    arr.map(mapObj => mapObj.id)
+      .indexOf(obj.id) === index)
+    .filter(({ lightsource }) => lightsource !== undefined && lightsource !== null)
+    .map(({ amount, included, lightsource, modelName }) => ({ included, amount: amount || 1, name: lightsource?.name, modelName, id: lightsource?.id })) as LightsourcePick[]
 
   const specs = {
     designer: product.designer?.name,
@@ -138,8 +146,8 @@ export const recordImages = (obj, exclude: string[] = [], images: FileField[] = 
 }
 
 export const dedupeImages = (images: FileField[]): FileField[] => {
-  return images.reduce((unique, o) => {
-    if (!unique.some(obj => obj.id === o.id))
+  return images.reduce<FileField[]>((unique, o) => {
+    if (!unique.some((obj: FileField) => obj.id === o.id))
       unique.push(o);
     return unique;
   }, []);
@@ -235,7 +243,7 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
     download: true
   }]
 
-  return files.filter(({ href }) => href);
+  return files.filter(({ href }) => href) as ProductDownload[];
 }
 
 export const truncateParagraph = (s: string, sentances: number = 1, ellipsis: boolean = true) => {
@@ -258,8 +266,8 @@ export const pxToInt = (px: string): number => {
 export const styleVariables: { [key: string]: number | string } = {}
 Object.keys(scssExports).forEach((k) => styleVariables[k] = scssExports[k].includes('rem') ? remToPx(scssExports[k]) : scssExports[k].includes('px') ? pxToInt(scssExports[k]) : scssExports[k])
 
-export const waitForElement = async (id: string, ms: number): Promise<HTMLElement | undefined> => {
-  let el: HTMLElement | undefined
+export const waitForElement = async (id: string, ms: number): Promise<HTMLElement | null> => {
+  let el: HTMLElement | null = null
   for (let i = 0; i < ms; i += 50) {
     el = document.getElementById(id)
     if (el) break

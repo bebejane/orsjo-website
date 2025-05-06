@@ -61,7 +61,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 		};
 
 		document.addEventListener('hashchange', handleHashChange);
-		return () => document.removeEventListener('hashChangeStart', handleHashChange);
+		return () => document.removeEventListener('hashchange', handleHashChange);
 	}, []);
 
 	useEffect(() => {

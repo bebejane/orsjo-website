@@ -1,27 +1,30 @@
 import nodemailer from 'nodemailer';
 import * as EmailValidator from 'email-validator';
-import type { NextApiRequest, NextApiResponse } from 'next';
 import sendMail from '@/emails';
 import ContactAutoReply from '@/emails/ContactAutoReply';
+import { MailOptions } from '@node_modules/@types/nodemailer/lib/json-transport';
 
 const envKeys = ['SMTP_SERVER', 'SMTP_PORT', 'SMTP_EMAIL', 'SMTP_FROM_EMAIL', 'SMTP_CONTACT_EMAIL'];
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function sendContact(formData: FormData) {
 	try {
 		if (envKeys.find((k) => !process.env[k])) throw 'SMTP config missing in .env file';
 
-		const { subject, name, email, text } = req.body;
+		const subject = formData.get('subject');
+		const name = formData.get('name');
+		const email = formData.get('email');
+		const text = formData.get('text');
 
-		if (!subject || !name || !EmailValidator.validate(email) || !text) {
+		if (!subject || !name || !EmailValidator.validate(email as string) || !text) {
 			const errors: string[] = [];
 
 			if (!subject) errors.push('Subject is empty');
 			if (!name) errors.push('Name is empty');
 			if (!email) errors.push('E-mail address is empty');
-			else if (!EmailValidator.validate(email)) errors.push('E-mail address is invalid');
+			else if (!EmailValidator.validate(email as string)) errors.push('E-mail address is invalid');
 			if (!text) errors.push('Message is empty');
 
-			return res.status(500).json({ error: true, message: errors.join('. ') });
+			return { errors };
 		}
 
 		const transporter = nodemailer.createTransport({
@@ -35,11 +38,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			secure: false,
 		});
 
-		const mailData = {
+		if (typeof email !== 'string') throw new Error('E-mail address is empty');
+		if (typeof name !== 'string') throw new Error('Subject is empty');
+
+		const mailData: MailOptions = {
 			from: `${process.env.SMTP_FROM_NAME} <${process.env.SMTP_FROM_EMAIL}>`,
-			to: process.env.SMTP_CONTACT_EMAIL,
+			to: process.env.SMTP_CONTACT_EMAIL as string,
 			replyTo: email,
-			subject,
+			subject: subject as string,
 			text: `${text} \n\n${name}\n${email} `,
 		};
 
@@ -55,9 +61,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			component: <ContactAutoReply name={name} />,
 		});
 		console.log('sent email from', email);
-		res.status(200).json({ success: true });
 	} catch (err) {
-		console.error(err);
-		res.status(500).json({ error: true, message: err.message });
+		console.log(err);
+		throw new Error(err);
 	}
 }

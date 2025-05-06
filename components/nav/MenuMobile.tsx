@@ -43,13 +43,11 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 		setShowMenuMobile(false);
 	};
 
-	/*
 	useEffect(() => {
-		router.events.on('hashChangeStart', handleClose);
+		document.addEventListener('hashchange', handleClose);
+		return () => document.removeEventListener('hashchange', handleClose);
+	}, [pathname]);
 
-		return () => router.events.off('hashChangeStart', handleClose);
-	}, [router.events]);
-*/
 	useEffect(() => {
 		setShowSearch(!!query);
 	}, [query]);

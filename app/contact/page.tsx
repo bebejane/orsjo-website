@@ -8,13 +8,12 @@ import {
 	AllDistributorsDocument,
 } from '@/graphql';
 
-import { Section, ContactModal, TextReveal } from '@/components';
-import withGlobalProps from '@/lib/withGlobalProps';
+import { Section, TextReveal } from '@/components';
 import { Image } from 'react-datocms';
 import { PageProps } from '@/lib/context/page';
 import { Markdown } from 'next-dato-utils/components';
 import { notFound } from 'next/navigation';
-//import { useState } from 'react';
+import ContactButton from '@app/contact/ContactButton';
 
 export type ContactProps = {
 	contact: ContactRecord;
@@ -35,8 +34,6 @@ export default async function Contact() {
 		]);
 
 	if (!contact) return notFound();
-
-	//const [showContactForm, setShowContactForm] = useState(false);
 
 	const resellesByCountry = {};
 	resellers.forEach((r, i) => {
@@ -67,15 +64,8 @@ export default async function Contact() {
 								<a href={`mailto:${contact.email}`}>{contact.email}</a>
 							</p>
 						</div>
-						{/*<button onClick={() => setShowContactForm(true)}>Contact Us</button>*/}
+						<ContactButton contact={contact} />
 					</div>
-					{/*
-					<ContactModal		
-						show={showContactForm}
-						onClose={() => setShowContactForm(false)}
-						message={contact.contactFormMessage}
-					/>
-					*/}
 				</div>
 				<div className={s.imageWrap}>
 					{contact?.image.responsiveImage && (
@@ -90,7 +80,9 @@ export default async function Contact() {
 				<div className={s.staff}>
 					{staffs.map(({ id, name, role, phone, email, image }, idx) => (
 						<div id={id} key={idx} className={s.employee}>
-							<div className={s.image}>{image && <Image data={image.responsiveImage} />}</div>
+							<div className={s.image}>
+								{image?.responsiveImage && <Image data={image.responsiveImage} />}
+							</div>
 							<div className={s.name}>
 								<p className='medium white noMargin'>{name}</p>
 							</div>
@@ -149,6 +141,7 @@ export default async function Contact() {
 									<br />
 									{name}
 									<br />
+
 									{address && (
 										<>
 											{address}

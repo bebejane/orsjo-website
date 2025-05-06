@@ -228,9 +228,6 @@ importers:
       next-plugin-graphql:
         specifier: ^0.0.2
         version: 0.0.2(graphql@16.11.0)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
       uglify-js:
         specifier: ^3.19.3
         version: 3.19.3

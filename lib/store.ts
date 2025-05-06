@@ -98,7 +98,7 @@ const useStore = create<StoreState>((set) => ({
       gallery: {
         ...state.gallery,
         index: state.gallery?.images?.findIndex((i) => i.id === id) ?? state.gallery?.index
-      }
+      } as GalleryProps
     })
     ),
   setTransitioning: (transitioning) =>

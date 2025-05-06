@@ -1,4 +1,4 @@
-import s from './press.module.scss';
+import s from './page.module.scss';
 import { AllPressDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';

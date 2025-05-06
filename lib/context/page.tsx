@@ -89,6 +89,7 @@ export const getPageAttributes = (pathname: string): PageProps => {
 				menu: 'normal',
 				color: '--beige',
 				sidebar: true,
+				footerLine: true,
 			};
 		case 'support':
 			return {

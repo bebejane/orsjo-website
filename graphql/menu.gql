@@ -1,18 +1,27 @@
-query Menu {
-  allDesigners(first: 100, orderBy: [name_ASC]){
-    id
-    slug
-    name
-  }
-  allProducts(first: 100){
-    id
-    designer{
-      id
-    }
-  }
-  allProductCategories{
-    id
-    name
-    namePlural
-  }
+query Menu($first: IntType = 100, $skip: IntType = 0) {
+	allDesigners(first: $first, skip: $skip, orderBy: [name_ASC]) {
+		id
+		slug
+		name
+	}
+	_allDesignersMeta {
+		count
+	}
+	allProducts(first: $first, skip: $skip) {
+		id
+		designer {
+			id
+		}
+	}
+	_allProductsMeta {
+		count
+	}
+	allProductCategories(first: $first, skip: $skip) {
+		id
+		name
+		namePlural
+	}
+	_allProductCategoriesMeta {
+		count
+	}
 }

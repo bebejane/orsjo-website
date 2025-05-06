@@ -8,6 +8,8 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { styleVariables } from '@/lib/utils';
 import { useMediaQuery } from 'usehooks-ts';
+import { sendContact } from '@lib/actions/send-contact';
+import { useRouter } from 'next/navigation';
 
 export type Props = {
 	onClose: () => void;
@@ -16,10 +18,11 @@ export type Props = {
 };
 
 export default function ContactModal({ onClose, show = false, message }: Props) {
+	const router = useRouter();
 	const { register, handleSubmit, reset, setFocus } = useForm();
-	const [loading, setLoading] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
 	const [success, setSuccess] = useState(false);
-	const [error, setError] = useState<Error | string | undefined>();
+	const [error, setError] = useState<Error | string | null>(null);
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const ref = useRef<HTMLInputElement | null>(null);
 
@@ -27,47 +30,34 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 
 	const resetForm = useCallback(() => {
 		setSuccess(false);
-		setError(undefined);
-		setLoading(false);
+		setError(null);
+		setSubmitting(false);
 		reset();
-	}, [setSuccess, setError, setLoading, reset]);
-
-	useEffect(() => {
-		if (!data) return;
-
-		setLoading(true);
-
-		fetch('/api/contact', {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json, text/plain, */*',
-				'Content-Type': 'application/json',
-			},
-			body: data,
-		})
-			.then(async (res) => {
-				if (res.status !== 200) setError(await res.json());
-				else setSuccess(true);
-			})
-			.catch((err) => {
-				setError(err);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	}, [data]);
+	}, [setSuccess, setError, setSubmitting, reset]);
 
 	useEffect(() => {
 		if (!show) setTimeout(resetForm, 300);
 		if (!isMobile) setFocus('name');
 	}, [show, ref, resetForm, setFocus, isMobile]);
 
+	const onSubmitForm = async (data: FormData) => {
+		try {
+			setSubmitting(true);
+			setError(null);
+			await sendContact(data);
+			router.refresh();
+		} catch (err) {
+			setError(err instanceof Error ? err.message : 'Ett fel uppstod');
+		} finally {
+			setSubmitting(false);
+		}
+	};
+
 	return (
 		<Modal>
 			<div className={cn(s.contactModal, show && s.show)}>
 				<div className={s.wrap}>
 					<h1>Contact us</h1>
-
 					<div className={s.text}>
 						<p className='medium'>
 							<span>OBS!</span> Vi kan tyvärr inte erbjuda teknisk support till privatpersoner,
@@ -131,14 +121,14 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 						<button type='submit'>Send message</button>
 					</form>
 
-					{loading && (
+					{submitting && (
 						<div className={s.loading}>
 							<Loader invert={true} />
 						</div>
 					)}
 					{success && (
 						<div className={s.success}>
-							<Markdown>{message}</Markdown>
+							<Markdown content={message} />
 							<button onClick={onClose}>Close</button>
 						</div>
 					)}
