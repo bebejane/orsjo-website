@@ -27,4 +27,6 @@ $small-margin: 2rem;
   --copper: #{hexToRGBString($copper)};
   --copper-light: #{hexToRGBString($copper-light)};
   --green: #{hexToRGBString($green)};
+
+  --page-color:#{hexToRGBString($white)};
 }

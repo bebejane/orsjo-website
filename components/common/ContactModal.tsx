@@ -82,7 +82,7 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 					{error && (
 						<div className={s.error}>{typeof error === 'string' ? error : error.message}</div>
 					)}
-					<form id='contact-form' action={action} method='POST'>
+					<form id='contact-form' method='POST'>
 						<label htmlFor='name' className='medium'>
 							Name
 						</label>

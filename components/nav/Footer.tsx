@@ -2,7 +2,8 @@
 
 import s from './Footer.module.scss';
 import cn from 'classnames';
-import Link from 'next/link';
+//import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';
 import { usePage } from '@/lib/context/page';
@@ -65,7 +66,7 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 															<li>{subItem.label}</li>
 														</a>
 													) : (
-														<Link scroll={false} key={subidx} href={subItem.slug} passHref={true}>
+														<Link key={subidx} href={subItem.slug} passHref={true}>
 															<li>{subItem.label}</li>
 														</Link>
 													);

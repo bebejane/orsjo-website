@@ -23,23 +23,19 @@ export default function Text({ data: { text } }: TextBlockProps) {
 					switch (record.__typename) {
 						case 'ProductRecord':
 							return (
-								<Link scroll={false} href={`/products/${record.slug}`} passHref={true}>
+								<Link href={`/products/${record.slug}`} passHref={true}>
 									{record.title as string}
 								</Link>
 							);
 						case 'ProjectRecord':
 							return (
-								<Link
-									scroll={false}
-									href={`/professionals/projects/${record.slug}`}
-									passHref={true}
-								>
+								<Link href={`/professionals/projects/${record.slug}`} passHref={true}>
 									{record.title as string}
 								</Link>
 							);
 						case 'DesignerRecord':
 							return (
-								<Link scroll={false} href={`/designers/${record.slug}`} passHref={true}>
+								<Link href={`/designers/${record.slug}`} passHref={true}>
 									{record.name as string}
 								</Link>
 							);
@@ -51,23 +47,19 @@ export default function Text({ data: { text } }: TextBlockProps) {
 					switch (record.__typename) {
 						case 'ProductRecord':
 							return (
-								<Link scroll={false} href={`/products/${record.slug}`} passHref={true}>
+								<Link href={`/products/${record.slug}`} passHref={true}>
 									{children}
 								</Link>
 							);
 						case 'ProjectRecord':
 							return (
-								<Link
-									scroll={false}
-									href={`/professionals/projects/${record.slug}`}
-									passHref={true}
-								>
+								<Link href={`/professionals/projects/${record.slug}`} passHref={true}>
 									{children}
 								</Link>
 							);
 						case 'DesignerRecord':
 							return (
-								<Link scroll={false} href={`/designers/${record.slug}`} passHref={true}>
+								<Link href={`/designers/${record.slug}`} passHref={true}>
 									{children}
 								</Link>
 							);

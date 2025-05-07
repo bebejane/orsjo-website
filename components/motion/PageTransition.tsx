@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 //import { usePreviousRoute } from 'next-dato-utils/hooks';
 import { useEffect, useState } from 'react';
 import { useStore, useShallow } from '@/lib/store';
+import { usePathname } from 'next/navigation';
 
 const duration = {
 	enter: 0.5,
@@ -64,33 +65,30 @@ const pathToColor = (path) => {
 };
 
 export default function PageTransition() {
-	return null;
-	const router = useRouter();
-	const [color, setColor] = useState(pathToColor(router.asPath));
-	const prevRoute = usePreviousRoute();
+	const pathname = usePathname();
+	const [color, setColor] = useState(pathToColor(pathname));
+	const prevRoute = null; //usePreviousRoute();
 
 	const [setTransitioning] = useStore(useShallow((state) => [state.setTransitioning]));
 
 	const handleAnimationEvent = async (type, variant) => {
+		console.log(type, variant);
 		if (typeof variant !== 'string') return;
 
 		if (variant.startsWith('exit')) setTransitioning(type === 'start');
 	};
 
 	useEffect(() => {
-		const handleRouteChange = (url, { shallow }) => {
-			const isSameSection = document.location.pathname.split('/')[1] === url.split('/')[1];
-			setColor(!isSameSection ? pathToColor(url) : undefined);
-		};
-		router.events.on('routeChangeStart', handleRouteChange);
-		return () => router.events.off('routeChangeStart', handleRouteChange);
-	}, [router.events, setColor]);
+		const isSameSection = document.location.pathname.split('/')[1] === pathname.split('/')[1];
+		//setColor(!isSameSection ? pathToColor(pathname) : undefined);
+	}, [pathname, setColor]);
 
-	const enterAnimation = !prevRoute ? 'none' : !color ? 'enterInstant' : 'enter';
-	const exitAnimation = !color ? 'exitInstant' : 'exit';
+	const enterAnimation = 'enter'; //!prevRoute ? 'none' : !color ? 'enterInstant' : 'enter';
+	const exitAnimation = 'exit'; //!color ? 'exitInstant' : 'exit';
 
 	return (
 		<motion.div
+			key='pageTransition'
 			className={s.pageTransition}
 			variants={pageTransition}
 			initial='initial'
@@ -98,8 +96,7 @@ export default function PageTransition() {
 			exit={exitAnimation}
 			onAnimationComplete={(variant) => handleAnimationEvent('complete', variant)}
 			onAnimationStart={(variant) => handleAnimationEvent('start', variant)}
-			//@ts-ignore
-			style={{ backgroundColor: color ? `rgba(var(${color}))` : undefined }}
-		></motion.div>
+			style={{ backgroundColor: color ? `var(${color})` : undefined }}
+		/>
 	);
 }

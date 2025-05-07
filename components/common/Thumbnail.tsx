@@ -92,7 +92,7 @@ export default function Thumbnail({
 			onClick={onClick}
 		>
 			{slug ? (
-				<Link scroll={false} href={slug} className={s.wrap}>
+				<Link href={slug} className={s.wrap}>
 					{content}
 				</Link>
 			) : (

@@ -294,3 +294,13 @@ export const scrollToId = (id: string, behavior: ScrollBehavior = 'smooth') => {
   const top = el ? (el.getBoundingClientRect().top + window.scrollY) - topMargin : 0
   window.scrollTo({ top, behavior })
 }
+
+export const pathnameToColor = (pathname: string) => {
+  if (pathname.startsWith('/products')) return '--white';
+  if (pathname.startsWith('/designers')) return '--green';
+  if (pathname.startsWith('/professionals')) return '--gray';
+  if (pathname.startsWith('/about')) return '--black';
+  if (pathname.startsWith('/contact')) return '--beige';
+  if (pathname.startsWith('/support')) return '--copper';
+  if (pathname === '/') return '--black';
+};

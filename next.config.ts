@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
+	experimental: {
+		viewTransition: true,
+	},
+	reactStrictMode: false,
 	logging: {
 		fetches: {
 			fullUrl: true,

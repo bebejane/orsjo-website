@@ -1,7 +1,7 @@
 'use client';
 
 import s from './Logo.module.scss';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
 import { useScrollInfo } from 'next-dato-utils/hooks';
@@ -30,12 +30,7 @@ export default function Logo({ inverted = false }: Props) {
 	}, [scrolledPosition, viewportHeight, setCharacters, prevRoute]);
 
 	return (
-		<Link
-			href='/'
-			className={s.logo}
-			style={{ fontFamily: "'logo', Helvetica, sans-serif" }}
-			scroll={false}
-		>
+		<Link href='/' className={s.logo} style={{ fontFamily: "'logo', Helvetica, sans-serif" }}>
 			{text.slice(0, isStatic ? 1 : text.length).map((c, idx) => (
 				<span
 					key={idx}

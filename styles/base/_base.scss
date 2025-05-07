@@ -149,3 +149,56 @@ input,
 ::placeholder {
 	font-family: $headline-font;
 }
+
+
+@view-transition {
+	navigation: auto;
+}
+
+#page-transition {
+	position: fixed;
+	display: block;
+	width: 100vw;
+	height: 0vh;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	z-index: 999;
+	opacity: 1;
+	background-color: var(--page-color);
+	transition: height 0.5s ease;
+
+	&.enter {
+		//animation: slide-up 0.5s ease forwards;
+		height: 0vh;
+		bottom: unset;
+		top: 0
+	}
+
+	&.exit {
+		//animation: slide-down 0.5s ease forwards;
+		bottom: 0;
+		top: unset;
+		height: 100vh;
+	}
+}
+
+@keyframes slidedown {
+	from {
+		height: 100vh;
+	}
+
+	to {
+		height: 0vh;
+	}
+}
+
+@keyframes slideup {
+	from {
+		height: 0vh;
+	}
+
+	to {
+		height: 100vh;
+	}
+}

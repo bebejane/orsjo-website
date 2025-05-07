@@ -14,13 +14,11 @@ export default async function RootLayout({ children }: LayoutProps) {
 	const menu = await buildMenu();
 
 	return (
-		<>
-			<html lang='en-US'>
-				<body id='root'>
-					<Layout menu={menu}>{children}</Layout>
-				</body>
-			</html>
-		</>
+		<html lang='en-US'>
+			<body id='root'>
+				<Layout menu={menu}>{children}</Layout>
+			</body>
+		</html>
 	);
 }
 

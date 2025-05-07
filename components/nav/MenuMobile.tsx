@@ -10,7 +10,7 @@ import { SiteSearch } from '@/components';
 import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';
 import { usePathname, useRouter } from 'next/navigation';
-//import { MenuItem } from '@node_modules/@datocms/cma-client/dist/types/generated/resources';
+import Link from '@/components/nav/Link';
 
 export type MenuMobileProps = { items: MenuItem[] };
 
@@ -44,6 +44,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 	};
 
 	useEffect(() => {
+		handleClose();
 		document.addEventListener('hashchange', handleClose);
 		return () => document.removeEventListener('hashchange', handleClose);
 	}, [pathname]);
@@ -92,13 +93,14 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 								data-slug={item.slug}
 								key={idx}
 								className={cn(selected?.slug === item.slug && s.active)}
-								onClick={() =>
-									item.index
-										? router.push(item.slug)
-										: setSelected(selected?.type === item.type ? null : item)
-								}
 							>
-								{item.label}
+								{item.index ? (
+									<Link href={item.slug}>{item.label}</Link>
+								) : (
+									<span onClick={() => setSelected(selected?.type === item.type ? null : item)}>
+										{item.label}
+									</span>
+								)}
 							</li>
 						))}
 					</ul>
@@ -134,9 +136,9 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 				</div>
 				<ul>
 					{sub?.map(({ label, slug, type, isHash }, idx) => (
-						<a onClick={() => router.push(slug)} key={idx}>
-							<li className={cn(slug === pathname && s.active)}>{label}</li>
-						</a>
+						<li className={cn(slug === pathname && s.active)} key={idx}>
+							<Link href={slug}>{label}</Link>
+						</li>
 					))}
 				</ul>
 			</nav>

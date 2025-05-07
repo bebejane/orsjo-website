@@ -55,15 +55,7 @@ export default function ProductIntro({ product, drawings, specsCols }: Props) {
 					return (
 						<li key={idx} data-linebreaks={linebreaks}>
 							<span>{label}</span>
-							<span>
-								{!slug ? (
-									text
-								) : (
-									<Link href={slug} scroll={false}>
-										{text}
-									</Link>
-								)}
-							</span>
+							<span>{!slug ? text : <Link href={slug}>{text}</Link>}</span>
 						</li>
 					);
 				})}

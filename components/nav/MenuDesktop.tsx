@@ -2,8 +2,9 @@
 
 import s from './MenuDesktop.module.scss';
 import cn from 'classnames';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+//import Link from 'next/link';
+import Link from '@/components/nav/Link';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useStore, useShallow } from '@/lib/store';
 import { usePage } from '@/lib/context/page';
@@ -146,9 +147,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 							className={cn(pathname.startsWith(`${slug}`) && s.selected)}
 						>
 							{index === true ? ( // Direct links
-								<Link scroll={false} href={slug}>
-									{label}
-								</Link>
+								<Link href={slug}>{label}</Link>
 							) : (
 								<>{label}</>
 							)}
@@ -174,7 +173,7 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 						<ul className={cn(sub && sub.length > 10 && s.columns)}>
 							{sub?.map(({ label, slug }, idx) => (
 								<li key={idx} className={cn(slug === pathname && s.active)}>
-									<Link scroll={false} href={slug} onClick={() => setShowSubMenu(false)}>
+									<Link href={slug} onClick={() => setShowSubMenu(false)}>
 										{label}
 									</Link>
 								</li>

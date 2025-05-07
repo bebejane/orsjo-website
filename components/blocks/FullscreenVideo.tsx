@@ -16,7 +16,7 @@ export default function FullscreenVideo({
 	return (
 		<section className={s.fullScreenVideo} ref={ref}>
 			{link ? (
-				<Link scroll={false} href={link} passHref={true}>
+				<Link href={link} passHref={true}>
 					<VideoPlayer data={video} />
 				</Link>
 			) : (
@@ -29,7 +29,7 @@ export default function FullscreenVideo({
 					</div>
 					<div className={s.link}>
 						{link && linkText && (
-							<Link scroll={false} href={link} passHref={true}>
+							<Link href={link} passHref={true}>
 								<span className='medium white'>
 									<ArrowLink hoverRef={ref} inverted={true}>
 										{linkText}

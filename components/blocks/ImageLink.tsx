@@ -25,7 +25,7 @@ export default function ImageLink({
 
 	return (
 		<section className={s.imageLink}>
-			<Link scroll={false} href={firstLink ?? '/'} ref={refOne} passHref={true}>
+			<Link href={firstLink ?? '/'} ref={refOne} passHref={true}>
 				<figure>
 					{firstImage?.responsiveImage && (
 						<Image
@@ -45,7 +45,7 @@ export default function ImageLink({
 					</figcaption>
 				</figure>
 			</Link>
-			<Link scroll={false} href={secondLink ?? '/'} ref={refTwo} passHref={true}>
+			<Link href={secondLink ?? '/'} ref={refTwo} passHref={true}>
 				<figure>
 					{secondImage?.responsiveImage && (
 						<Image

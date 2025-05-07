@@ -24,7 +24,7 @@ export default function FullscreenMediaBlock({
 	const ref = useRef(null);
 
 	return (
-		<Link scroll={false} href={`/${slug}`} className={s.fullScreenImage} ref={ref} passHref={true}>
+		<Link href={`/${slug}`} className={s.fullScreenImage} ref={ref} passHref={true}>
 			{makeDarker && <div className={s.fadeTop}></div>}
 			<div className={s.fade}></div>
 			{!media.mimeType.includes('video') && media?.responsiveImage ? (

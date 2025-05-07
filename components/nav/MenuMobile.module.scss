@@ -63,8 +63,8 @@
         transition: color 0.3s ease;
         color: $gray;
 
-        &.active {
-          color: $white;
+        a {
+          color: $gray;
         }
 
         &.subactive {
@@ -74,6 +74,16 @@
         &.selected {
           font-weight: bold;
         }
+
+        &.active {
+          color: $white;
+
+          a {
+            color: $white;
+          }
+        }
+
+
       }
     }
   }
@@ -185,19 +195,24 @@
     max-height: calc(100vh - calc(var(--outer-margin) * 4));
     overflow-y: auto;
 
-    a {
-      color: $gray;
+    li {
+      line-height: 1.5em;
+      padding-bottom: 1em;
+      padding-right: 1em;
 
-      li {
-        line-height: 1.5em;
-        padding-bottom: 1em;
-        padding-right: 1em;
+      a {
+        color: $gray;
+      }
 
-        &.active {
+      &.active {
+        color: $white;
+
+        a {
           color: $white;
         }
       }
     }
+
   }
 }
 
