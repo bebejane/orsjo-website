@@ -4,7 +4,7 @@ import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
-import ManualList from '@app/support/manuals/ManualList';
+import ManualList from '@/app/support/manuals/ManualList';
 
 export type ManualsProps = {
 	products: ProductRecord[];

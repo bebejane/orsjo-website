@@ -8,7 +8,7 @@ import {
 import { apiQuery } from 'next-dato-utils/api';
 import { Image } from 'react-datocms';
 import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '@/components';
-import { notFound } from '@node_modules/next/navigation';
+import { notFound } from 'next/navigation';
 
 export type Props = {
 	params: Promise<{

@@ -8,9 +8,9 @@ import {
 } from '@/graphql';
 import { PageProps } from '@/lib/context/page';
 import { Section, FeaturedGallery } from '@/components';
-import ProjectHeader from '@app/professionals/projects/[project]/ProjectHeader';
-import { notFound } from '@node_modules/next/navigation';
-import ProjectGallery from '@app/professionals/projects/[project]/ProjectGallery';
+import ProjectHeader from '@/app/professionals/projects/[project]/ProjectHeader';
+import { notFound } from 'next/navigation';
+import ProjectGallery from '@/app/professionals/projects/[project]/ProjectGallery';
 
 export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>;
 

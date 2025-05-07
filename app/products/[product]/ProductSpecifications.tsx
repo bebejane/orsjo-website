@@ -9,7 +9,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import React from 'react';
 import { ProductPageDataProps } from './page';
-import useStore, { useShallow } from '@lib/store';
+import useStore, { useShallow } from '@/lib/store';
 
 type Props = {
 	product: ProductPageDataProps['product'];

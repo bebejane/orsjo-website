@@ -1,6 +1,3 @@
-- router.events
-- framer motion
-- buildroute
 - mail with postmark
 
 Pages
@@ -16,4 +13,6 @@ contact page
 ## Last
 
 Fix scss errors
+organize scss, scss vars
 Page SEO metadata
+next-dato-utils/config

@@ -4,7 +4,7 @@ import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
-import FaqList from '@app/support/faq/FaqList';
+import FaqList from '@/app/support/faq/FaqList';
 
 export default async function Faqs() {
 	const { faqs, faqStart } = await apiQuery<FaqStartQuery, FaqStartQueryVariables>(

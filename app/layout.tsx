@@ -1,10 +1,10 @@
-import '@styles/index.scss';
-import s from './layout.module.scss';
+import '@/styles/index.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { GlobalDocument } from '@graphql';
+import { GlobalDocument } from '@/graphql';
 import { Metadata } from 'next';
-import Layout from '@components/layout/Layout';
+import Layout from '@/components/layout/Layout';
 import { buildMenu } from '@/lib/menu';
+import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 
 export type LayoutProps = {
 	children: React.ReactNode;

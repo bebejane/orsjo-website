@@ -1,0 +1,1 @@
+export { favicon as GET } from 'next-dato-utils/route-handlers';

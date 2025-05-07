@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 import * as EmailValidator from 'email-validator';
 import sendMail from '@/emails';
 import ContactAutoReply from '@/emails/ContactAutoReply';
-import { MailOptions } from '@node_modules/@types/nodemailer/lib/json-transport';
+import { MailOptions } from '@/@types/nodemailer/lib/json-transport';
 
 const envKeys = ['SMTP_SERVER', 'SMTP_PORT', 'SMTP_EMAIL', 'SMTP_FROM_EMAIL', 'SMTP_CONTACT_EMAIL'];
 

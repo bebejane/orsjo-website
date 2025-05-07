@@ -1,6 +1,6 @@
 'use client';
 
-import ContactModal from '@components/common/ContactModal';
+import ContactModal from '@/components/common/ContactModal';
 import { useState } from 'react';
 
 export default function ContactButton({ contact }) {

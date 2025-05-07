@@ -13,7 +13,7 @@ import { useScrollInfo } from 'next-dato-utils/hooks';
 import type { Menu } from '@/lib/menu';
 import { waitForElement } from '@/lib/utils';
 import { Logo } from '@/components';
-import { usePathname } from '@node_modules/next/navigation';
+import { usePathname } from 'next/navigation';
 
 export type MenuDesktopProps = { items: Menu; onShowSiteSearch: Function };
 

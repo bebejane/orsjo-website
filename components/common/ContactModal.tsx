@@ -8,7 +8,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { styleVariables } from '@/lib/utils';
 import { useMediaQuery } from 'usehooks-ts';
-//import { sendContact } from '@lib/actions/send-contact';
+//import { sendContact } from '@/lib/actions/send-contact';
 import { useRouter } from 'next/navigation';
 
 export type Props = {

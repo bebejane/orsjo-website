@@ -12,10 +12,10 @@ import { apiQuery } from 'next-dato-utils/api';
 import type { ProductDownload } from '@/lib/utils';
 import { firstBy } from 'thenby';
 import React from 'react';
-import { notFound } from '@node_modules/next/navigation';
-import ProductIntro from '@app/products/[product]/ProductIntro';
-import ProductSpecifications from '@app/products/[product]/ProductSpecifications';
-import ProductDownloads from '@app/products/[product]/ProductDownloads';
+import { notFound } from 'next/navigation';
+import ProductIntro from '@/app/products/[product]/ProductIntro';
+import ProductSpecifications from '@/app/products/[product]/ProductSpecifications';
+import ProductDownloads from '@/app/products/[product]/ProductDownloads';
 
 type Props = {
 	params: Promise<{

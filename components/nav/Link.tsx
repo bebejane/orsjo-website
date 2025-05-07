@@ -15,26 +15,24 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 		e.preventDefault();
 		const el = document.getElementById('page-transition');
 		document
-			.querySelector(':root')
+			.querySelector<HTMLDivElement>(':root')
 			?.style.setProperty('--page-color', `rgba(var(${pathnameToColor(props.href)}),1)`);
 		if (el) {
 			el.setAttribute('pathname', pathname);
 			el.classList.toggle('enter', false);
 			el.classList.toggle('exit', true);
 		}
+		router.prefetch(props.href);
 		await sleep(500);
 		router.push(props.href);
 	};
 
 	useEffect(() => {
 		const el = document.getElementById('page-transition');
-		if (el) {
-			if (el.dataset.pathname !== pathname) {
-				el.classList.toggle('enter', true);
-				el.classList.toggle('exit', false);
-			}
-			//el.classList.toggle('exit', true);
-			// /el.classList.toggle('enter', false);
+		if (!el) return;
+		if (el.dataset.pathname !== pathname) {
+			el.classList.toggle('enter', true);
+			el.classList.toggle('exit', false);
 		}
 	}, [pathname]);
 

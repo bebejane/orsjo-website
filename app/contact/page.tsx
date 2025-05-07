@@ -13,7 +13,7 @@ import { Image } from 'react-datocms';
 import { PageProps } from '@/lib/context/page';
 import { Markdown } from 'next-dato-utils/components';
 import { notFound } from 'next/navigation';
-import ContactButton from '@app/contact/ContactButton';
+import ContactButton from '@/app/contact/ContactButton';
 
 export type ContactProps = {
 	contact: ContactRecord;

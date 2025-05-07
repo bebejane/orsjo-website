@@ -1,4 +1,4 @@
-//import { AllProgramsDocument } from '@graphql';
+//import { AllProgramsDocument } from '@/graphql';
 //import { apiQuery } from 'next-dato-utils/api';
 import { MetadataRoute } from 'next'
 

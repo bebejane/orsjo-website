@@ -20,7 +20,7 @@ import type { MenuItem } from '@/lib/menu';
 import { useStore, useShallow } from '@/lib/store';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import PageAnimatePresence from '@components/motion/PageAnimatePresense';
+import PageAnimatePresence from '@/components/motion/PageAnimatePresense';
 import { AnimatePresence } from 'framer-motion';
 import { unstable_ViewTransition as ViewTransition } from 'react';
 import { ViewTransitions } from 'next-view-transitions';
