@@ -15,19 +15,6 @@ export default {
   routes: {
     'start': async (record, locale) => [`/`],
     'product': async ({ slug }, locale) => [`/products/${slug}`, `/professionals/downloads`, `/support/manuals`, `/products`, `/`],
-    'product_accessory': async ({ id }, locale) => productReferences(id),
-    'product_category': async ({ id }, locale) => productReferences(id),
-    'product_color': async ({ id }, locale) => productReferences(id),
-    'product_connection': async ({ id }, locale) => productReferences(id),
-    'product_dimmable': async ({ id }, locale) => productReferences(id),
-    'product_electrical': async ({ id }, locale) => productReferences(id),
-    'product_family': async ({ id }, locale) => productReferences(id),
-    'product_feature': async ({ id }, locale) => productReferences(id),
-    'product_lightsource': async ({ id }, locale) => productReferences(id),
-    'product_material': async ({ id }, locale) => productReferences(id),
-    'product_model_name': async ({ id }, locale) => productReferences(id),
-    'product_mounting': async ({ id }, locale) => productReferences(id),
-    'product_socket': async ({ id }, locale) => productReferences(id),
     'product_start': async ({ id }, locale) => ['/products'],
     'project_type': async ({ id }, locale) => ['/professionals/projects'],
     'project': async ({ slug }, locale) => [`/professionals/projects/${slug}`, `/professionals/projects`, `/`],
@@ -53,6 +40,20 @@ export default {
     'factory_visit': async ({ id }, locale) => ['/professionals/factory-visit'],
     'country': async ({ id }, locale) => ['/contact'],
     'designer': async ({ slug }, locale) => [`/designers/${slug}`],
+    'project_start': async ({ id }, locale) => ['/professionals/projects'],
+    'product_accessory': async ({ id }, locale) => productReferences(id),
+    'product_category': async ({ id }, locale) => productReferences(id),
+    'product_color': async ({ id }, locale) => productReferences(id),
+    'product_connection': async ({ id }, locale) => productReferences(id),
+    'product_dimmable': async ({ id }, locale) => productReferences(id),
+    'product_electrical': async ({ id }, locale) => productReferences(id),
+    'product_family': async ({ id }, locale) => productReferences(id),
+    'product_feature': async ({ id }, locale) => productReferences(id),
+    'product_lightsource': async ({ id }, locale) => productReferences(id),
+    'product_material': async ({ id }, locale) => productReferences(id),
+    'product_model_name': async ({ id }, locale) => productReferences(id),
+    'product_mounting': async ({ id }, locale) => productReferences(id),
+    'product_socket': async ({ id }, locale) => productReferences(id),
   },
   sitemap: async () => {
     return []
@@ -60,10 +61,10 @@ export default {
 } satisfies DatoCmsConfig
 
 
-async function productReferences(id: string) {
-  if (!id) throw new Error('Missing reference  id')
+async function productReferences(itemId: string) {
+  if (!itemId) throw new Error('Missing reference: itemId')
   const paths: string[] = []
-  const products = await client.items.references(id, { version: 'published', limit: 500 })
+  const products = await client.items.references(itemId, { version: 'published', limit: 500 })
   if (products.length) {
     paths.push(`/products`)
     paths.push(`/professionals/downloads`)
@@ -71,6 +72,5 @@ async function productReferences(id: string) {
     paths.push(`/`)
     paths.push.apply(paths, products.map(product => `/products/${product.slug}`))
   }
-
   return paths
 }

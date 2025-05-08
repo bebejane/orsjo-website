@@ -1,2 +1,5 @@
 export const dynamic = "force-dynamic"
-export { POST, GET } from 'next-dato-utils/config'
+import config from '@/datocms.config'
+import { router } from 'next-dato-utils/config'
+export const GET = async (req: Request, params: any) => router(req, params, config)
+export const POST = async (req: Request, params: any) => router(req, params, config)
