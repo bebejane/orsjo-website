@@ -6,6 +6,7 @@ query Start {
 				id
 				headline
 				items {
+					__typename
 					... on ProductRecord {
 						...ProductLightFragment
 					}

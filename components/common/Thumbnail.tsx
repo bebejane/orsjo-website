@@ -3,7 +3,7 @@
 import s from './Thumbnail.module.scss';
 import cn from 'classnames';
 import { Image } from 'react-datocms';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { useState } from 'react';
 
 export type ThumbnailProps = {
@@ -11,7 +11,7 @@ export type ThumbnailProps = {
 	image: FileField;
 	imageHover?: FileField;
 	inverted?: boolean;
-	title: string;
+	title?: string;
 	subtitle?: string;
 	className?: string;
 	lazyload?: boolean;
@@ -49,22 +49,20 @@ export default function Thumbnail({
 	const content = (
 		<>
 			<figure>
-				{image && (
+				{image.responsiveImage && (
 					<Image
 						data={image.responsiveImage}
 						className={s.image}
 						layout={'fill'}
-						lazyLoad={lazyload}
 						fadeInDuration={100}
 						objectFit={objectFit}
 					/>
 				)}
-				{imageHover && !isTouch && (
+				{imageHover && !isTouch && imageHover.responsiveImage && (
 					<div className={cn(s.imageHover, hovering && s.show)}>
 						<Image
 							data={imageHover.responsiveImage}
 							className={s.image}
-							lazyLoad={lazyload}
 							layout={'fill'}
 							objectFit={'cover'}
 						/>
@@ -163,7 +161,7 @@ export function ProjectThumbnail({
 		<Thumbnail
 			slug={`/professionals/projects/${project.slug}`}
 			image={project.image}
-			imageHover={project.secondaryImage}
+			imageHover={project.secondaryImage as FileField}
 			title={project.title}
 			subtitle={project.location}
 			inverted={inverted}
@@ -191,7 +189,7 @@ export function DesignerThumbnail({
 		<Thumbnail
 			slug={`/designers/${designer.slug}`}
 			image={designer.image}
-			title={designer.name}
+			title={designer.name as string}
 			inverted={inverted}
 			className={className}
 			theme={theme}
@@ -216,7 +214,7 @@ export function NewsThumbnail({
 	return (
 		<Thumbnail
 			slug={`/about/news/${news.slug}`}
-			image={news.image}
+			image={news.image as FileField}
 			title={news.title}
 			inverted={inverted}
 			className={className}
