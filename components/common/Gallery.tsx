@@ -82,7 +82,7 @@ export default function Gallery({
 						>
 							{image.responsiveImage ? (
 								<Image
-									pictureClassName={s.image}
+									imgClassName={s.image}
 									data={image.responsiveImage}
 									usePlaceholder={false}
 									onLoad={() => setLoaded((prevState) => ({ ...prevState, [image.id]: true }))}

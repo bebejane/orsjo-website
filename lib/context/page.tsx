@@ -3,7 +3,7 @@
 import { useContext, createContext } from 'react';
 
 export type PageProps = {
-	title: undefined | string;
+	title: string | undefined;
 	layout: 'normal' | 'full';
 	menu: 'normal' | 'inverted';
 	color: string;

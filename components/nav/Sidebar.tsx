@@ -11,7 +11,7 @@ import { useScrollInfo } from 'next-dato-utils/hooks';
 import { styleVariables } from '@/lib/utils';
 import { useWindowSize } from 'rooks';
 
-export type SidebarProps = { title: string; show: boolean };
+export type SidebarProps = { title?: string; show: boolean };
 
 const getPageType = (pathname: string) => {
 	const p = pathname.toLowerCase();

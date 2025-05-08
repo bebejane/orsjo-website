@@ -12,6 +12,4 @@ contact page
 
 ## Last
 
-Fix scss errors
-organize scss, scss vars
 Page SEO metadata
