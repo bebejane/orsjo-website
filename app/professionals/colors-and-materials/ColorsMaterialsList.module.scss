@@ -1,7 +1,7 @@
 .materials {
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: $small-margin;
+  padding-bottom: var(--small-margin);
 
   h1 {
     width: 100%;
@@ -10,20 +10,20 @@
 
 .material {
   margin-bottom: 1rem;
-  margin-right: nestedGridGutter(12);
+  margin-right: mixin.nestedGridGutter(12);
 
   figure {
-    background-color: $gray !important;
+    background-color: var(--gray) !important;
   }
 
-  @include mq($from: tablet) {
-    width: spanNestedGrid(12, 3);
-    @include resetLastColumn(4);
+  @include mixin.mq($from: tablet) {
+    width: mixin.spanNestedGrid(12, 3);
+    @include mixin.resetLastColumn(4);
   }
 
-  @include mq($until: tablet) {
+  @include mixin.mq($until: tablet) {
     width: 48%;
     margin-right: 4%;
-    @include resetLastColumn(2);
+    @include mixin.resetLastColumn(2);
   }
 }

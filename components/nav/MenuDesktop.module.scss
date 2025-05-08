@@ -11,15 +11,15 @@
   padding-bottom: 1rem;
   padding-left: var(--outer-margin);
   padding-right: var(--outer-margin);
-  min-height: $navbarHeight;
-  max-height: $navbarHeight;
+  min-height: var(--navbar-height);
+  max-height: var(--navbar-height);
   transition: transform 0.3s ease;
 
   ul {
-    width: spanGrid(12);
+    width: mixin.spanGrid(12);
     padding-top: 1em;
     height: 100%;
-    margin-left: spanGridWithGutter(4);
+    margin-left: mixin.spanGridWithGutter(4);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -34,23 +34,23 @@
       user-select: none;
       padding-right: 4em;
       white-space: pre;
-      color: $black-menu;
+      color: var(--black-menu);
 
       &.selected {
-        color: $black !important;
+        color: var(--black) !important;
 
         a {
-          color: $black !important;
+          color: var(--black) !important;
         }
       }
 
       a,
       a:visited {
-        color: $black-menu;
+        color: var(--black-menu);
       }
 
       a:hover {
-        color: $black;
+        color: var(--black);
       }
 
       .arrow {
@@ -91,7 +91,7 @@
     pointer-events: none;
 
     *>li {
-      //color: $black  !important;
+      //color: var(--black)  !important;
     }
 
     ul {
@@ -103,20 +103,20 @@
 
     *>li,
     *>a {
-      color: $white-menu;
+      color: var(--white-menu);
     }
 
     a:hover {
-      color: $white !important;
+      color: var(--white) !important;
     }
 
     a:visited {
-      color: $white-menu;
+      color: var(--white-menu);
     }
 
     ul>li.selected,
     ul>li.selected>a {
-      color: $white !important;
+      color: var(--white) !important;
     }
 
     li.searchIcon {
@@ -127,11 +127,11 @@
   &.hide {
     pointer-events: none;
 
-    @include mq($until: tablet) {
-      transform: translateY(-$navbarHeight);
+    @include mixin.mq($until: tablet) {
+      transform: translateY(-var(--navbar-height));
     }
 
-    @include mq($from: tablet) {
+    @include mixin.mq($from: tablet) {
       ul {
         opacity: 0;
       }
@@ -151,7 +151,7 @@
   opacity: 0;
   pointer-events: none;
   box-shadow: -1px 0px 10px rgba(gray, 0.1);
-  color: $black-menu;
+  color: var(--black-menu);
 
 
   &.show {
@@ -163,23 +163,23 @@
   .subPad {
     padding-right: var(--outer-margin);
     padding-top: 4rem;
-    background-color: $white;
+    background-color: var(--white);
 
     &.inverted {
       * {
-        color: $white-menu !important;
+        color: var(--white-menu) !important;
 
         &.active {
-          color: $white !important;
+          color: var(--white) !important;
         }
 
         &:hover {
-          color: $white !important;
+          color: var(--white) !important;
         }
       }
 
       nav ul {
-        border-top: 1px solid $light-gray;
+        border-top: 1px solid var(--light-gray);
       }
     }
 
@@ -190,7 +190,7 @@
         align-items: flex-start;
         list-style: none;
         padding-top: 1rem;
-        border-top: 1px solid $gray;
+        border-top: 1px solid var(--gray);
         max-height: calc(100vh - 4rem);
 
         &::-webkit-scrollbar {
@@ -203,14 +203,14 @@
 
           a {
             transition: color 0.3s;
-            color: $black-menu;
+            color: var(--black-menu);
 
             &:hover {
-              color: $black;
+              color: var(--black);
             }
 
             &.active {
-              color: $black !important;
+              color: var(--black) !important;
             }
           }
         }
@@ -225,7 +225,7 @@
   }
 }
 
-@include mq($until: nav-break) {
+@include mixin.mq($until: nav-break) {
 
   .logo,
   .desktopMenu,

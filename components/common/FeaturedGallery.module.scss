@@ -6,10 +6,10 @@
   min-width: 100%;
 
   &.inverted {
-    color: $white;
+    color: var(--white);
 
     button {
-      color: $white;
+      color: var(--white);
     }
   }
 
@@ -37,7 +37,7 @@
       border-radius: 20px;
       min-width: 40px;
       min-height: 40px;
-      background-color: $light-gray;
+      background-color: var(--light-gray);
       flex: 0 0 40px;
 
       &.hide {
@@ -56,11 +56,11 @@
       min-width: 100%;
 
       .slide {
-        max-width: spanNestedGrid(12, 3);
-        min-width: spanNestedGrid(12, 3);
-        margin-right: nestedGridGutter(12);
+        max-width: mixin.spanNestedGrid(12, 3);
+        min-width: mixin.spanNestedGrid(12, 3);
+        margin-right: mixin.nestedGridGutter(12);
 
-        @include mq($until: tablet) {
+        @include mixin.mq($until: tablet) {
           max-width: 48%;
           min-width: 48%;
           margin-right: 4%;
@@ -68,13 +68,13 @@
       }
 
       &.short {
-        @include mq($until: tablet) {
+        @include mixin.mq($until: tablet) {
           .slide:nth-child(2) {
             margin-right: 0;
           }
         }
 
-        @include mq($from: tablet) {
+        @include mixin.mq($from: tablet) {
           .slide:nth-child(4) {
             margin-right: 0;
           }
@@ -106,7 +106,7 @@
       height: calc(100% - 35px);
       align-items: center;
 
-      @include mq($until: tablet) {
+      @include mixin.mq($until: tablet) {
         display: none;
         height: calc(100% - 15px);
       }

@@ -1,7 +1,7 @@
 .intro {
   display: flex;
   flex-direction: row;
-  color: $white !important;
+  color: var(--white) !important;
   padding-top: 2rem;
 
   p {
@@ -9,21 +9,21 @@
   }
 
   h1 {
-    @include mq($until: desktop) {
+    @include mixin.mq($until: desktop) {
       display: none;
     }
 
-    color: $black;
-    flex: 0 0 spanGridWithGutter(4);
-    @include h1Small();
+    color: var(--black);
+    flex: 0 0 mixin.spanGridWithGutter(4);
+    @include mixin.h1Small();
   }
 
   .text {
-    @include mq($until: desktop) {
+    @include mixin.mq($until: desktop) {
       padding-bottom: 2em;
     }
 
-    @include mq($from: desktop) {
+    @include mixin.mq($from: desktop) {
       padding-right: 20%;
     }
   }
@@ -38,11 +38,11 @@
     flex-direction: row;
     margin-top: 1em;
 
-    @include mq($from: desktop) {
-      margin-top: $margin;
+    @include mixin.mq($from: desktop) {
+      margin-top: var(--margin);
     }
 
-    @include mq($until: desktop) {
+    @include mixin.mq($until: desktop) {
       flex-wrap: wrap;
     }
 
@@ -53,7 +53,7 @@
         align-items: flex-start;
         padding-left: 0;
 
-        @include mq($from: desktop) {
+        @include mixin.mq($from: desktop) {
           padding-right: var(--outer-margin);
         }
 
@@ -64,12 +64,12 @@
     }
 
     .image {
-      @include mq($until: desktop) {
+      @include mixin.mq($until: desktop) {
         margin-bottom: 1em;
       }
 
-      @include mq($from: desktop) {
-        flex: 0 0 spanGrid(12);
+      @include mixin.mq($from: desktop) {
+        flex: 0 0 mixin.spanGrid(12);
       }
 
       cursor: pointer;
@@ -82,7 +82,7 @@
       flex-direction: column;
       align-items: flex-end;
 
-      @include mq($from: desktop) {
+      @include mixin.mq($from: desktop) {
         padding-left: var(--outer-margin);
       }
 
@@ -96,7 +96,7 @@
       .thumbnail {
         width: 100%;
 
-        @include mq($until: desktop) {
+        @include mixin.mq($until: desktop) {
           display: none;
         }
       }
@@ -105,16 +105,16 @@
 }
 
 .outro {
-  color: $white !important;
+  color: var(--white) !important;
 
-  @include mq($from: desktop) {
+  @include mixin.mq($from: desktop) {
     margin-top: 2rem;
   }
 
   .text {
-    @include mq($from: desktop) {
-      margin-left: spanGridWithGutter(4);
-      margin-right: spanGrid(4);
+    @include mixin.mq($from: desktop) {
+      margin-left: mixin.spanGridWithGutter(4);
+      margin-right: mixin.spanGrid(4);
     }
   }
 }
@@ -123,14 +123,14 @@
   margin-top: 2rem;
 
   button {
-    color: $white;
+    color: var(--white);
     cursor: pointer;
     width: 100%;
 
-    @include mq($from: desktop) {
-      width: spanGrid(8);
-      margin-right: spanGrid(4);
-      margin-left: spanGridWithGutter(4);
+    @include mixin.mq($from: desktop) {
+      width: mixin.spanGrid(8);
+      margin-right: mixin.spanGrid(4);
+      margin-left: mixin.spanGridWithGutter(4);
     }
   }
 }

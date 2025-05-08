@@ -15,11 +15,11 @@
 			padding: 5%;
 			margin-top: 0.5rem;
 
-			@include mq($until: tablet) {
-				padding-bottom: $small-margin;
+			@include mixin.mq($until: tablet) {
+				padding-bottom: var(--small-margin);
 			}
 
-			@include mq($from: tablet) {
+			@include mixin.mq($from: tablet) {
 				margin-top: 4rem;
 			}
 
@@ -28,17 +28,17 @@
 			h1 {
 				left: 1em;
 
-				@include mq($from: tablet) {
+				@include mixin.mq($from: tablet) {
 					margin-bottom: 0.5em !important;
 				}
 
-				@include h1Big();
-				color: $white;
+				@include mixin.h1Big();
+				color: var(--white);
 			}
 
 			.description {
 				span {
-					color: $white;
+					color: var(--white);
 				}
 			}
 		}
@@ -81,7 +81,7 @@
 		}
 	}
 
-	@include mq($until: tablet) {
+	@include mixin.mq($until: tablet) {
 		header {
 			flex-direction: column-reverse;
 			height: auto;
@@ -119,23 +119,23 @@
 
 .products,
 .otherDesigners {
-	padding-top: $margin;
-	padding-bottom: $small-margin;
+	padding-top: var(--margin);
+	padding-bottom: var(--small-margin);
 	display: flex;
 	flex-direction: row;
 
 	h1 {
-		min-width: spanGridWithGutter(4);
+		min-width: mixin.spanGridWithGutter(4);
 	}
 
 	.gallery {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
-		min-width: spanGrid(12);
+		min-width: mixin.spanGrid(12);
 	}
 
-	@include mq($until: tablet) {
+	@include mixin.mq($until: tablet) {
 		flex-direction: column;
 
 		h1 {
@@ -148,7 +148,7 @@
 		}
 
 		.gallery {
-			min-width: spanGrid(16);
+			min-width: mixin.spanGrid(16);
 
 			ul {
 				li {
@@ -168,20 +168,20 @@
 		list-style: none;
 
 		li {
-			@include mq($until: tablet) {
+			@include mixin.mq($until: tablet) {
 				width: 48%;
 				min-width: 48%;
 
-				@include resetLastColumn(2);
+				@include mixin.resetLastColumn(2);
 				margin-right: 4%;
 			}
 
-			@include mq($from: tablet) {
-				width: spanNestedGrid(12, 3);
-				@include resetLastColumn(4);
+			@include mixin.mq($from: tablet) {
+				width: mixin.spanNestedGrid(12, 3);
+				@include mixin.resetLastColumn(4);
 			}
 
-			margin-right: nestedGridGutter(12);
+			margin-right: mixin.nestedGridGutter(12);
 			margin-bottom: 2rem;
 			overflow: hidden;
 		}
@@ -189,9 +189,9 @@
 }
 
 .otherDesigners {
-	padding-bottom: $margin;
+	padding-bottom: var(--margin);
 
-	@include mq($until: tablet) {
+	@include mixin.mq($until: tablet) {
 		overflow-x: hidden;
 	}
 }

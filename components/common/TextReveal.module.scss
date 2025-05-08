@@ -4,7 +4,7 @@
   line-height: 1.1;
   display: inline;
 
-  @include mq($from: desktop, $until: wide) {
+  @include mixin.mq($from: desktop, $until: wide) {
     display: inline-block;
   }
 

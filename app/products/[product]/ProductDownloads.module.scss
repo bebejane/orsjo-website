@@ -4,7 +4,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  border-top: 1px solid $mid-gray;
+  border-top: 1px solid var(--mid-gray);
   column-count: unset;
   column-gap: unset;
 
@@ -12,7 +12,7 @@
     flex: 1 1 auto;
     width: auto;
 
-    @include mq($from: tablet) {
+    @include mixin.mq($from: tablet) {
       padding-top: 1.5em;
     }
 
@@ -23,7 +23,7 @@
     }
   }
 
-  @include mq($until: tablet) {
+  @include mixin.mq($until: tablet) {
     padding-top: 0em;
 
     li {

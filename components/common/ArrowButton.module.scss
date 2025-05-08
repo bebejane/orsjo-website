@@ -1,36 +1,41 @@
 .arrowButton {
-  @include mq($until: tablet) {
+  @include mixin.mq($until: tablet) {
     display: none;
   }
+
   width: 40px;
   height: 40px;
   border-radius: 20px;
   min-width: 40px;
   min-height: 40px;
-  background-color: $light-gray;
+  background-color: var(--light-gray);
   flex: 0 0 40px;
-  border: 0px solid $gray;
-  color: $black;
+  border: 0px solid var(--gray);
+  color: var(--black);
   padding: 0 !important;
   cursor: pointer;
 
   &:hover {
-    border-color: $black !important;
+    border-color: var(--black) !important;
+
     .arrow {
       path {
-        fill: $black;
+        fill: var(--black);
       }
     }
   }
+
   .arrow {
     width: 12px;
     height: 12px;
     margin-top: 5px;
     transform: rotate(0deg);
     transition: transform 0.3s;
+
     path {
-      fill: $gray;
+      fill: var(--gray);
     }
+
     &.reverse {
       transform: rotate(180deg);
     }
@@ -39,26 +44,31 @@
   &.hide {
     display: none;
   }
+
   &.inverted {
     &:hover {
-      border-color: $white !important;
+      border-color: var(--white) !important;
+
       .arrow {
         path {
-          fill: $black;
+          fill: var(--black);
         }
       }
     }
+
     .arrow {
       path {
-        fill: $gray;
+        fill: var(--gray);
       }
     }
   }
+
   &:disabled {
-    color: $gray;
-    border: 1px solid $gray;
+    color: var(--gray);
+    border: 1px solid var(--gray);
+
     .arrow {
-      color: $gray;
+      color: var(--gray);
     }
   }
 }

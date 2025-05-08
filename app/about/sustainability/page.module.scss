@@ -1,6 +1,6 @@
 .sustainability {
   position: relative;
-  color: $white;
+  color: var(--white);
 
   .hero {
     position: relative;
@@ -35,7 +35,7 @@
         text-align: center;
         padding-left: 1em;
         padding-right: 1em;
-        @include h1Big();
+        @include mixin.h1Big();
       }
     }
   }
@@ -43,16 +43,16 @@
 
 .intro {
   padding-top: 2rem;
-  color: $white;
+  color: var(--white);
 
   .text {
-    margin-right: spanGridWithGutter(4);
-    margin-left: spanGridWithGutter(4);
+    margin-right: mixin.spanGridWithGutter(4);
+    margin-left: mixin.spanGridWithGutter(4);
 
-    @include mq($until: desktop) {
+    @include mixin.mq($until: desktop) {
       margin-right: 0;
       margin-left: 0;
-      padding-bottom: $small-margin;
+      padding-bottom: var(--small-margin);
     }
   }
 }
@@ -60,7 +60,7 @@
 .blocks {
   .block {
     position: relative;
-    color: $white;
+    color: var(--white);
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -71,7 +71,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: $margin;
+      padding: var(--margin);
       padding-top: 2rem;
       padding-bottom: 2rem;
 
@@ -107,7 +107,7 @@
         }
 
         span {
-          @include h1Big();
+          @include mixin.h1Big();
           white-space: pre;
           color: rgba(var(--copper));
           //opacity: 0.5;
@@ -119,7 +119,7 @@
     }
 
     &.fullWidth {
-      @include mq($from: desktop) {
+      @include mixin.mq($from: desktop) {
         .left {
           position: absolute;
           padding-left: 55%;
@@ -149,7 +149,7 @@
     }
   }
 
-  @include mq($until: desktop) {
+  @include mixin.mq($until: desktop) {
     .block {
       flex-direction: column;
       flex-wrap: wrap;
@@ -168,8 +168,8 @@
       }
 
       .left {
-        margin-top: $small-margin;
-        margin-bottom: $small-margin;
+        margin-top: var(--small-margin);
+        margin-bottom: var(--small-margin);
       }
 
       .right {

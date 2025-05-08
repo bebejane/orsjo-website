@@ -55,7 +55,7 @@ export default function Thumbnail({
 						className={s.image}
 						layout={'fill'}
 						fadeInDuration={100}
-						objectFit={objectFit}
+						objectFit={objectFit as any}
 					/>
 				)}
 				{imageHover && !isTouch && imageHover.responsiveImage && (

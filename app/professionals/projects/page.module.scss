@@ -1,12 +1,14 @@
 .introduction {
-  padding-bottom: $small-margin;
+  padding-bottom: var(--small-margin);
 }
 
 .intro {
-  @include mq($from: tablet) {
+  @include mixin.mq($from: tablet) {
     width: 80%;
   }
+
   color: white;
+
   p {
     margin-bottom: 0;
   }
@@ -16,16 +18,19 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
+
   .wrap {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    padding-bottom: $small-margin;
+    padding-bottom: var(--small-margin);
     margin-top: -2rem;
-    > div {
+
+    >div {
       margin-top: 2rem;
     }
   }
+
   h1 {
     width: 100%;
   }
@@ -33,22 +38,24 @@
 
 .project {
   figure {
-    background-color: $gray !important;
+    background-color: var(--gray) !important;
   }
 
-  @include mq($from: desktop, $until: wide) {
-    width: spanNestedGrid(12, 4);
-    margin-right: nestedGridGutter(12);
-    @include resetLastColumn(3);
+  @include mixin.mq($from: desktop, $until: wide) {
+    width: mixin.spanNestedGrid(12, 4);
+    margin-right: mixin.nestedGridGutter(12);
+    @include mixin.resetLastColumn(3);
   }
-  @include mq($from: wide) {
-    width: spanNestedGrid(12, 3);
-    margin-right: nestedGridGutter(12);
-    @include resetLastColumn(4);
+
+  @include mixin.mq($from: wide) {
+    width: mixin.spanNestedGrid(12, 3);
+    margin-right: mixin.nestedGridGutter(12);
+    @include mixin.resetLastColumn(4);
   }
-  @include mq($until: desktop) {
+
+  @include mixin.mq($until: desktop) {
     width: 48%;
     margin-right: 4%;
-    @include resetLastColumn(2);
+    @include mixin.resetLastColumn(2);
   }
 }

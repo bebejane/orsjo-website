@@ -61,7 +61,7 @@ export default {
 } satisfies DatoCmsConfig
 
 
-async function productReferences(itemId: string) {
+async function productReferences(itemId: string): Promise<string[]> {
   if (!itemId) throw new Error('Missing reference: itemId')
   const paths: string[] = []
   const products = await client.items.references(itemId, { version: 'published', limit: 500 })

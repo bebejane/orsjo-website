@@ -6,7 +6,7 @@
   left: 0;
   z-index: 98;
   opacity: 0;
-  background-color: $black;
+  background-color: var(--black);
   transition: all ease-in-out 0.4s;
   pointer-events: none;
 

@@ -2,9 +2,9 @@
   position: relative;
 
   p {
-    color: $white;
+    color: var(--white);
 
-    @include mq($from: desktop) {
+    @include mixin.mq($from: desktop) {
       padding-right: 35%;
     }
   }

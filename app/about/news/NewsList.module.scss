@@ -1,18 +1,18 @@
 .newsItem {
   display: flex;
   flex-direction: row;
-  margin-bottom: $margin;
+  margin-bottom: var(--margin);
   width: 100%;
-  color: $white;
+  color: var(--white);
 
   .date {
-    color: $gray;
-    flex: 0 0 spanGridWithGutter(4);
+    color: var(--gray);
+    flex: 0 0 mixin.spanGridWithGutter(4);
   }
 
   .post {
     width: 100%;
-    color: $white;
+    color: var(--white);
 
     h1 {
       margin-top: 0 !important;
@@ -33,7 +33,7 @@
     }
   }
 
-  @include mq($until: tablet) {
+  @include mixin.mq($until: tablet) {
     flex-direction: column;
 
     .post {
@@ -48,7 +48,7 @@
     }
   }
 
-  @include mq($from: tablet, $until: desktop) {
+  @include mixin.mq($from: tablet, $until: desktop) {
     .post p {
       padding-right: 0;
     }
@@ -56,22 +56,22 @@
 }
 
 .more {
-  padding-left: spanGridWithGutter(4);
+  padding-left: mixin.spanGridWithGutter(4);
 
   button {
     width: 100%;
     appearance: none;
     background-color: transparent;
-    color: $white;
+    color: var(--white);
     text-align: center;
 
     &:hover {
-      background-color: $white;
+      background-color: var(--white);
     }
   }
 
   .error {
-    color: $red;
+    color: var(--red);
     margin-top: 1rem;
   }
 }

@@ -1,15 +1,16 @@
-.content{
+.content {
   position: relative;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   width: 100%;
-  margin-left: calc(-#{spanGrid(4)} - var(--outer-margin));
-  
-  &[data-type='full']{
+  margin-left: calc(-#{mixin.spanGrid(4)} - var(--outer-margin));
+
+  &[data-type='full'] {
     margin-left: 0 !important;
-  } 
-  @include mq($until: tablet) {
+  }
+
+  @include mixin.mq($until: tablet) {
     margin-left: 0;
   }
 }

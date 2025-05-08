@@ -31,7 +31,6 @@ export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
 	const title = 'no title';
 	const pathname = usePathname();
 	const { color, layout, sidebar } = getPageAttributes(pathname);
-	const [transition, setTransition] = useState<'enter' | 'exit' | 'update' | null>(null);
 	const [menu, setMenu] = useState(menuFromProps);
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(
 		useShallow((state) => [
@@ -45,10 +44,7 @@ export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
 	return (
 		<>
 			<PageProvider pathname={pathname}>
-				<div
-					className={s.layout}
-					style={{ backgroundColor: color ? `rgba(var(${color}),1)` : undefined }}
-				>
+				<div className={s.layout} style={{ backgroundColor: `var(${color})` }}>
 					<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} />
 					<MenuMobile items={menu} />
 					<Underlay />

@@ -1,10 +1,10 @@
 .arrowLink {
   position: relative;
-  color: $black;
+  color: var(--black);
   overflow: hidden;
 
   svg>path {
-    fill: $black;
+    fill: var(--black);
   }
 
   .arrow {
@@ -20,10 +20,10 @@
   }
 
   &.inverted {
-    color: $white;
+    color: var(--white);
 
     svg>path {
-      fill: $white;
+      fill: var(--white);
     }
   }
 
@@ -31,7 +31,7 @@
     transform: rotate(180deg);
   }
 
-  @include mq($until: tablet) {
+  @include mixin.mq($until: tablet) {
     .arrow {
       margin-left: 0rem !important;
     }

@@ -162,12 +162,12 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 
 			<div
 				className={cn(s.sub, showSubMenu && s.show)}
-				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: color }}
+				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: `var(${color})` }}
 				onMouseLeave={resetSelected}
 			>
 				<div
 					className={cn(s.subPad, s[menu])}
-					style={{ backgroundColor: color, paddingLeft: `${menuMargin.padding}px` }}
+					style={{ backgroundColor: `var(${color})`, paddingLeft: `${menuMargin.padding}px` }}
 				>
 					<nav>
 						<ul className={cn(sub && sub.length > 10 && s.columns)}>

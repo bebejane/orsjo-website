@@ -3,16 +3,16 @@
 
   .image {
     cursor: pointer;
-    margin-top: $small-margin / 1.3;
+    margin-top: var(--small-margin) / 1.3;
 
-    @include mq($until: tablet) {
+    @include mixin.mq($until: tablet) {
       width: calc(100% + calc(var(--outer-margin) * 2)) !important;
       margin-left: calc(var(--outer-margin) * -1);
       margin-right: calc(var(--outer-margin) * -1);
     }
 
-    @include mq($from: tablet) {
-      margin-top: $small-margin;
+    @include mixin.mq($from: tablet) {
+      margin-top: var(--small-margin);
     }
   }
 }

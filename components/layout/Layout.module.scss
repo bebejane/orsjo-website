@@ -28,7 +28,7 @@
   }
 
   .gridItem {
-    padding-left: $gutter;
+    padding-left: var(--gutter);
     background: rgba(9, 255, 0, 0.417);
 
     &:last-of-type {

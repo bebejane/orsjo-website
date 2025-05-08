@@ -1,8 +1,8 @@
 .featuredStart {
   margin-left: var(--outer-margin);
   margin-right: var(--outer-margin);
-  padding-top: $margin;
-  padding-bottom: $margin;
+  padding-top: var(--margin);
+  padding-bottom: var(--margin);
   max-width: 100vw;
 
   .wrapper {
@@ -11,15 +11,15 @@
     flex-direction: row;
 
     &.inverted {
-      color: $white;
+      color: var(--white);
 
       button {
-        color: $white;
+        color: var(--white);
       }
     }
 
     .header {
-      min-width: spanGridWithGutter(4);
+      min-width: mixin.spanGridWithGutter(4);
 
       .headline {
         color: white;
@@ -30,7 +30,7 @@
       position: relative;
       display: flex;
       flex-direction: row;
-      min-width: spanGrid(12);
+      min-width: mixin.spanGrid(12);
 
       figure {
         position: relative;
@@ -65,11 +65,11 @@
       transform: translateY(-50%);
       margin-top: -.5rem;
       z-index: 10;
-      color: $black;
+      color: var(--black);
     }
   }
 
-  @include mq($until: tablet) {
+  @include mixin.mq($until: tablet) {
     padding-top: 2rem;
     padding-bottom: 2rem;
 
@@ -80,12 +80,12 @@
         width: 100%;
 
         .headline {
-          color: $gray;
+          color: var(--gray);
         }
       }
 
       .gallery {
-        max-width: spanGrid(16);
+        max-width: mixin.spanGrid(16);
       }
     }
   }

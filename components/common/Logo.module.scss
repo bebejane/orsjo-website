@@ -6,24 +6,30 @@
   margin-top: 1.35rem;
   z-index: 1000;
   transition: color 0.8s ease-out;
-  color: $black;
+  color: var(--black);
   line-height: 1.5;
-  @include mq($until: tablet) {
+
+  @include mixin.mq($until: tablet) {
     font-size: 1.1rem;
     margin-top: 0;
     display: flex;
-    height: $navbarHeightMobile;
+    height: var(--navbar-height)Mobile;
     align-items: center;
   }
+
   span {
-    @include mq($until: tablet) {
+    @include mixin.mq($until: tablet) {
       padding-top: 0.25em;
     }
+
     display: inline-block;
     opacity: 1;
     transform: scale(1);
-    transition: opacity 0.3s, font-size 0.4s ease-in-out, font-variation-settings 0.4s ease-in-out;
-    font-variation-settings: "wght" 1000, "opsz" 1000;
+    transition: opacity 0.3s,
+    font-size 0.4s ease-in-out,
+    font-variation-settings 0.4s ease-in-out;
+    font-variation-settings: "wght" 1000,
+    "opsz" 1000;
 
     &.hide {
       opacity: 0;
@@ -35,8 +41,9 @@
     }
 
     &.inverted {
-      color: $white;
+      color: var(--white);
       font-variation-settings: "wght" -300, "opsz" 1000;
+
       &.big {
         font-variation-settings: "wght" 0, "opsz" 0 !important;
       }

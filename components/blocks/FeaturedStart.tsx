@@ -11,7 +11,7 @@ export type ImageGalleryProps = { data: FeaturedRecord; fadeColor?: number[] };
 export default function FeaturedStart({ data: { headline, items, id } }: ImageGalleryProps) {
 	const { menu } = usePage();
 	const isProducts = items[0].__typename === 'ProductRecord';
-	console.log(items);
+
 	return (
 		<div className={cn(s.featuredStart, s[menu])}>
 			<div className={s.wrapper}>

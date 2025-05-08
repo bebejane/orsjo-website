@@ -1,56 +1,60 @@
 .news {
- 
-  a{
+
+  a {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    color: $white;
+    color: var(--white);
     margin-left: var(--outer-margin);
     margin-right: var(--outer-margin);
-    padding-top: $margin;
-    padding-bottom: $margin;
+    padding-top: var(--margin);
+    padding-bottom: var(--margin);
+
     h1 {
-      flex: 0 0 spanGridWithGutter(4);
+      flex: 0 0 mixin.spanGridWithGutter(4);
       margin: 0;
       padding: 0;
     }
-  
+
     .text {
       flex: 1 1 auto;
-  
+
       p {
         padding-top: .5em;
       }
-  
+
       .more {
         font-weight: bold;
-  
+
         a {
-          color: $white;
+          color: var(--white);
+
           .arrow {
             filter: invert(1);
           }
         }
       }
     }
-  
-    @include mq($until: tablet) {
+
+    @include mixin.mq($until: tablet) {
       flex-direction: column;
-  
+
       h1 {
         margin-bottom: 0.5em;
-        color: $gray;
+        color: var(--gray);
+
         &.title {
-          @include mq($until: tablet) { 
-            color: $white;
+          @include mixin.mq($until: tablet) {
+            color: var(--white);
           }
         }
       }
-      .text > .more {
+
+      .text>.more {
         margin-top: 0.5em;
       }
     }
-  
+
   }
-  
+
 }

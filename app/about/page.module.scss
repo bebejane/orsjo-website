@@ -1,6 +1,6 @@
 .about {
   position: relative;
-  color: $white;
+  color: var(--white);
 
   .hero {
     position: relative;
@@ -35,7 +35,7 @@
       min-height: 100%;
 
       h1 {
-        @include h1Big();
+        @include mixin.h1Big();
         word-break: break-all;
         padding-left: 1em;
         padding-right: 1em;
@@ -47,13 +47,13 @@
 
 .intro {
   padding-top: 2rem;
-  color: $white;
+  color: var(--white);
 
   .text {
-    margin-right: spanGridWithGutter(4);
-    margin-left: spanGridWithGutter(4);
+    margin-right: mixin.spanGridWithGutter(4);
+    margin-left: mixin.spanGridWithGutter(4);
 
-    @include mq($until: desktop) {
+    @include mixin.mq($until: desktop) {
       margin-right: 0;
       margin-left: 0;
     }
@@ -62,7 +62,7 @@
 
 .blocks {
   .block {
-    color: $white;
+    color: var(--white);
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -73,7 +73,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: $margin;
+      padding: var(--margin);
       padding-top: 2rem;
       padding-bottom: 2rem;
 
@@ -86,14 +86,14 @@
       }
 
       strong {
-        color: $copper;
+        color: var(--copper);
         font-weight: normal;
-        font-family: $headline-font;
+        font-family: var(--headline-font);
       }
     }
 
     &:nth-child(even) {
-      @include mq($from: desktop) {
+      @include mixin.mq($from: desktop) {
         flex-direction: row-reverse;
       }
 
@@ -104,7 +104,7 @@
     }
   }
 
-  @include mq($until: desktop) {
+  @include mixin.mq($until: desktop) {
     .block {
       flex-wrap: wrap;
 

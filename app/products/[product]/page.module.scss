@@ -1,6 +1,6 @@
 .product {
 	position: relative;
-	background-color: $white;
+	background-color: var(--white);
 
 	.intro {
 		position: relative;
@@ -8,16 +8,16 @@
 		background-color: white;
 		cursor: pointer;
 
-		@include mq($until: tablet) {
+		@include mixin.mq($until: tablet) {
 			min-height: 55vh;
 			width: calc(100% + calc(var(--outer-margin) * 2)) !important;
 			margin-left: calc(var(--outer-margin) * -1);
 			margin-right: calc(var(--outer-margin) * -1);
 		}
 
-		@include mq($from: tablet) {
-			min-height: calc(100vh - $navbarHeight - $small-margin);
-			max-height: calc(100vh - $navbarHeight - $small-margin);
+		@include mixin.mq($from: tablet) {
+			min-height: calc(100vh - var(--navbar-height) - var(--small-margin));
+			max-height: calc(100vh - var(--navbar-height) - var(--small-margin));
 		}
 
 
@@ -36,7 +36,7 @@
 				}
 			}
 
-			@include mq($until: tablet) {
+			@include mixin.mq($until: tablet) {
 				padding-bottom: 0;
 			}
 		}
@@ -67,12 +67,12 @@
 					top: 0;
 					left: var(--outer-margin);
 
-					@include mq($from: tablet) {
+					@include mixin.mq($from: tablet) {
 						left: 0.5em;
 					}
 
 					padding-top: 0.4em;
-					@include h1Big();
+					@include mixin.h1Big();
 				}
 
 				.designer {
@@ -80,7 +80,7 @@
 					padding-left: var(--outer-margin);
 					padding-right: 0.5em;
 
-					@include mq($from: tablet) {
+					@include mixin.mq($from: tablet) {
 						left: auto;
 						right: 0.5em;
 						padding-left: 0.5em;
@@ -89,7 +89,7 @@
 					}
 
 					bottom: 0;
-					@include h1Big();
+					@include mixin.h1Big();
 					width: 100%;
 				}
 
@@ -99,7 +99,7 @@
 					top: 1.5rem;
 					right: 1rem;
 
-					@include mq($from: tablet) {
+					@include mixin.mq($from: tablet) {
 						top: 2rem;
 						right: 2rem;
 					}
@@ -113,7 +113,7 @@
 				z-index: 2;
 				width: 15vw;
 
-				@include mq($from: desktop) {
+				@include mixin.mq($from: desktop) {
 					width: 10vw;
 				}
 
@@ -140,20 +140,20 @@
 	width: 100%;
 
 	&.top {
-		margin-top: $margin;
+		margin-top: var(--margin);
 	}
 
 	&.bottom {
-		margin-bottom: $margin;
+		margin-bottom: var(--margin);
 	}
 
 	ul {
 		list-style: none;
 		width: 100%;
 		column-count: 2;
-		column-gap: nestedGridGutter(12);
+		column-gap: mixin.nestedGridGutter(12);
 
-		@include mq($until: tablet) {
+		@include mixin.mq($until: tablet) {
 			column-count: 1;
 		}
 
@@ -163,24 +163,24 @@
 			break-inside: avoid-column;
 			width: 100%;
 
-			@include mq($until: tablet) {
+			@include mixin.mq($until: tablet) {
 				padding-bottom: 0 !important;
 			}
 
 			span {
 				&:nth-child(odd) {
-					color: $gray;
-					flex: 1 1 spanNestedGrid(6, 2, true);
+					color: var(--gray);
+					flex: 1 1 mixin.spanNestedGrid(6, 2, true);
 				}
 
 				&:nth-child(even) {
-					flex: 1 1 spanNestedGrid(6, 4, false);
+					flex: 1 1 mixin.spanNestedGrid(6, 4, false);
 					padding-right: 1em;
 				}
 
-				@include mq($until: tablet) {
+				@include mixin.mq($until: tablet) {
 					&:nth-child(odd) {
-						flex: 0 0 calc(spanGrid(6) + $gutter);
+						flex: 0 0 calc(mixin.spanGrid(6) + var(--gutter));
 					}
 
 					&:nth-child(even) {
@@ -193,31 +193,31 @@
 
 	.articles {
 		width: 100%;
-		border-top: 1px solid $mid-gray;
+		border-top: 1px solid var(--mid-gray);
 
 		header {
 			display: flex;
 			flex-direction: row;
 			width: 100%;
-			color: $gray;
+			color: var(--gray);
 			margin-bottom: 0.5em;
 
 			span {
 				&:nth-child(odd) {
-					flex: 0 0 spanNestedGrid(12, 2, true);
+					flex: 0 0 mixin.spanNestedGrid(12, 2, true);
 				}
 
 				&:nth-child(even) {
-					flex: 0 0 spanNestedGrid(12, 4, true);
+					flex: 0 0 mixin.spanNestedGrid(12, 4, true);
 				}
 
-				@include mq($until: tablet) {
+				@include mixin.mq($until: tablet) {
 					&:nth-child(1) {
-						flex: 0 0 calc(spanGrid(6) + $gutter);
+						flex: 0 0 calc(mixin.spanGrid(6) + var(--gutter));
 					}
 
 					&:nth-child(2) {
-						flex: 0 0 calc(spanGrid(10));
+						flex: 0 0 calc(mixin.spanGrid(10));
 					}
 
 					&:nth-child(3),
@@ -245,46 +245,46 @@
 					flex: 0 0 100%;
 					padding-bottom: 0.5em;
 
-					@include mq($until: tablet) {
+					@include mixin.mq($until: tablet) {
 						flex-wrap: wrap;
 					}
 
 					span {
 						&:nth-child(odd) {
-							flex: 0 0 spanNestedGrid(12, 2, true);
+							flex: 0 0 mixin.spanNestedGrid(12, 2, true);
 						}
 
 						&:nth-child(even) {
-							flex: 0 0 spanNestedGrid(12, 4, true);
+							flex: 0 0 mixin.spanNestedGrid(12, 4, true);
 						}
 
-						@include mq($until: tablet) {
+						@include mixin.mq($until: tablet) {
 							&:nth-child(odd) {
-								flex: 0 0 calc(spanGrid(6) + $gutter);
+								flex: 0 0 calc(mixin.spanGrid(6) + var(--gutter));
 							}
 
 							&:nth-child(even) {
-								flex: 0 0 calc(spanGrid(10));
+								flex: 0 0 calc(mixin.spanGrid(10));
 								padding: 0;
 							}
 						}
 
 						&.header {
-							color: $gray;
+							color: var(--gray);
 						}
 					}
 
 					&.subheader {
-						color: $black;
+						color: var(--black);
 					}
 				}
 			}
 
 			&.multi {
 				column-count: 2;
-				column-gap: nestedGridGutter(12);
+				column-gap: mixin.nestedGridGutter(12);
 
-				@include mq($until: tablet) {
+				@include mixin.mq($until: tablet) {
 					column-count: 1;
 				}
 
@@ -294,26 +294,26 @@
 					li {
 						span {
 							&:nth-child(odd) {
-								flex: 0 0 spanNestedGrid(6, 2, true);
+								flex: 0 0 mixin.spanNestedGrid(6, 2, true);
 							}
 
 							&:nth-child(even) {
-								flex: 0 0 spanNestedGrid(6, 4, true);
+								flex: 0 0 mixin.spanNestedGrid(6, 4, true);
 							}
 
-							@include mq($until: tablet) {
+							@include mixin.mq($until: tablet) {
 								&:nth-child(odd) {
-									flex: 0 0 calc(spanGrid(6) + $gutter);
+									flex: 0 0 calc(mixin.spanGrid(6) + var(--gutter));
 								}
 
 								&:nth-child(even) {
-									flex: 0 0 calc(spanGrid(10));
+									flex: 0 0 calc(mixin.spanGrid(10));
 									padding: 0;
 								}
 							}
 
 							&.header {
-								color: $gray;
+								color: var(--gray);
 							}
 						}
 					}
@@ -327,19 +327,19 @@
 	}
 
 	.dimensions {
-		border-top: 1px solid $mid-gray;
+		border-top: 1px solid var(--mid-gray);
 		width: 100%;
 		display: flex;
 
 		span {
-			min-width: spanNestedGrid(12, 2, true);
+			min-width: mixin.spanNestedGrid(12, 2, true);
 
-			@include mq($until: tablet) {
-				min-width: spanNestedGrid(16, 6, true);
+			@include mixin.mq($until: tablet) {
+				min-width: mixin.spanNestedGrid(16, 6, true);
 			}
 
 			flex-basis: auto;
-			color: $gray;
+			color: var(--gray);
 		}
 
 		button {
@@ -348,7 +348,7 @@
 
 			font-size: inherit;
 			cursor: pointer;
-			width: spanNestedGrid(12, 10);
+			width: mixin.spanNestedGrid(12, 10);
 			text-align: left;
 		}
 	}
@@ -356,7 +356,7 @@
 	.specifications {
 		padding-bottom: 1em;
 		padding-top: 1.5em;
-		border-top: 1px solid $mid-gray;
+		border-top: 1px solid var(--mid-gray);
 
 		li {
 			padding-bottom: 0.5em;
@@ -366,7 +366,7 @@
 
 			td:nth-child(1),
 			td:nth-child(3) {
-				color: $gray;
+				color: var(--gray);
 			}
 		}
 	}
@@ -386,7 +386,7 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		width: 100%;
-		border-top: 1px solid $mid-gray;
+		border-top: 1px solid var(--mid-gray);
 		column-count: unset;
 		column-gap: unset;
 
@@ -394,7 +394,7 @@
 			flex: 1 1 auto;
 			width: auto;
 
-			@include mq($from: tablet) {
+			@include mixin.mq($from: tablet) {
 				padding-top: 1.5em;
 			}
 
@@ -405,7 +405,7 @@
 			}
 		}
 
-		@include mq($until: tablet) {
+		@include mixin.mq($until: tablet) {
 			padding-top: 0em;
 
 			li {
@@ -417,11 +417,11 @@
 }
 
 .related {
-	padding-top: $small-margin;
-	padding-bottom: $margin;
+	padding-top: var(--small-margin);
+	padding-bottom: var(--margin);
 
 	&>div {
-		padding-bottom: $small-margin;
+		padding-bottom: var(--small-margin);
 
 		&:last-child {
 			padding-bottom: 0;

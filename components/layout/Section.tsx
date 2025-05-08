@@ -31,9 +31,8 @@ export default function Section({
 	fadeColor,
 	disableSidebar = false,
 }: SectionProps) {
-	const color = bgColor?.startsWith('--') ? `rgba(var(${bgColor}))` : bgColor ? bgColor : undefined;
+	const color = bgColor?.startsWith('--') ? `var(${bgColor})` : bgColor ? bgColor : undefined;
 	const { ref, inView } = useInView({ threshold: 0.05, triggerOnce: false });
-
 	fadeColor = fadeColor?.startsWith('--') ? `var(${fadeColor})` : fadeColor;
 
 	return (

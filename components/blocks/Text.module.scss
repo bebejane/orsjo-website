@@ -1,29 +1,34 @@
 .text {
-  padding-top: $small-margin / 1.3;
+  padding-top: var(--small-margin) / 1.3;
 
-  @include mq($from: tablet) {
-    padding-top: $small-margin;
+  @include mixin.mq($from: tablet) {
+    padding-top: var(--small-margin);
   }
+
   padding-right: 25%;
+
   &.inverted {
-    * > a {
-      color: $light-gray;
-      border-bottom: 1px solid $white;
+    *>a {
+      color: var(--light-gray);
+      border-bottom: 1px solid var(--white);
     }
   }
+
   p {
     margin-bottom: 0;
   }
-  * > a {
-    border-bottom: 1px solid $gray;
-    color: $gray;
+
+  *>a {
+    border-bottom: 1px solid var(--gray);
+    color: var(--gray);
     transition: color 0.5s;
 
     &:hover {
-      color: $black;
+      color: var(--black);
     }
   }
-  @include mq($until: desktop) {
+
+  @include mixin.mq($until: desktop) {
     padding-right: 0;
   }
 }

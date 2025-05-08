@@ -1,6 +1,7 @@
 .featured {
-  margin-bottom: $small-margin;
+  margin-bottom: var(--small-margin);
 }
+
 .products {
   ul {
     display: flex;
@@ -10,29 +11,29 @@
 
     li {
       position: relative;
-      margin-bottom: $small-margin;
+      margin-bottom: var(--small-margin);
       aspect-ratio: 4/3;
 
-      @include mq($from: tablet) {
-        width: spanNestedGrid(12, 3);
-        margin-right: nestedGridGutter(12);
-        @include resetLastColumn(4);
+      @include mixin.mq($from: tablet) {
+        width: mixin.spanNestedGrid(12, 3);
+        margin-right: mixin.nestedGridGutter(12);
+        @include mixin.resetLastColumn(4);
       }
 
-      @include mq($until: tablet) {
+      @include mixin.mq($until: tablet) {
         width: 48%;
         margin-right: 4%;
-        @include resetLastColumn(2);
+        @include mixin.resetLastColumn(2);
       }
     }
   }
 
   .subtitle {
-    color: $gray !important;
+    color: var(--gray) !important;
   }
 
   .emptySearch {
-    color: $gray;
+    color: var(--gray);
   }
 
   padding-bottom: 2rem;

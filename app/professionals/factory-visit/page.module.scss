@@ -10,18 +10,18 @@
 
         &.active {
           td {
-            background-color: $white  !important;
+            background-color: var(--white) !important;
           }
         }
 
         th {
           text-align: left;
-          color: $white;
+          color: var(--white);
         }
 
         td {
           padding: 0;
-          border-top: 1px solid $white;
+          border-top: 1px solid var(--white);
           white-space: pre;
           cursor: pointer;
           vertical-align: middle;
@@ -40,7 +40,7 @@
         }
 
         td.content {
-          background-color: $white;
+          background-color: var(--white);
 
           .list {
             display: flex;
@@ -60,8 +60,8 @@
                 width: 60px;
                 height: 60px;
                 flex: 0 0 60px;
-                background-color: $gray;
-                color: $black;
+                background-color: var(--gray);
+                color: var(--black);
               }
 
               .title {
@@ -75,7 +75,7 @@
 
     *>.image {
       position: relative !important;
-      background-color: $white;
+      background-color: var(--white);
       max-height: 60px;
       max-width: 60px;
       margin: 0 !important;

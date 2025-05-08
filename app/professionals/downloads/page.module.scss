@@ -1,5 +1,5 @@
 .intro {
-  @include mq($from: desktop) {
+  @include mixin.mq($from: desktop) {
     width: 80%;
   }
 }
@@ -15,11 +15,11 @@
     align-items: center;
     padding: 0.5em 1em 0.5em 1em;
 
-    @include mq($from: tablet) {
-      padding: $gutter 1em $gutter 1em;
+    @include mixin.mq($from: tablet) {
+      padding: var(--gutter) 1em var(--gutter) 1em;
     }
 
-    background-color: $mid-gray;
+    background-color: var(--mid-gray);
     margin-bottom: 1em;
 
     img {
@@ -29,7 +29,7 @@
 
     input {
       margin: 0;
-      margin-bottom: $gutter;
+      margin-bottom: var(--gutter);
       background-color: transparent;
       border: 0;
       outline: none;
@@ -49,9 +49,9 @@
         }
 
 
-        @include mq($from: tablet) {
+        @include mixin.mq($from: tablet) {
           &:hover:not(:first-child) {
-            background-color: $white !important;
+            background-color: var(--white) !important;
           }
 
 
@@ -59,14 +59,14 @@
 
         &.active {
           td {
-            background-color: $white !important;
+            background-color: var(--white) !important;
             padding-bottom: 0em;
           }
         }
 
         th {
           text-align: left;
-          color: $white;
+          color: var(--white);
           padding-bottom: 0.6em;
 
           &:nth-child(2) {
@@ -79,7 +79,7 @@
           padding: 0;
           padding-top: 0.8em;
           padding-bottom: 0.8em;
-          border-top: 1px solid $white;
+          border-top: 1px solid var(--white);
           white-space: pre;
           vertical-align: middle;
 
@@ -103,14 +103,14 @@
         }
 
         td.content {
-          background-color: $white;
+          background-color: var(--white);
 
           .list {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             margin-bottom: 1.8em;
-            border-top: 1px solid $black;
+            border-top: 1px solid var(--black);
 
             .item {
               display: flex;
@@ -131,7 +131,7 @@
               max-height: 1px;
               margin: 0;
               width: 100%;
-              background-color: $black;
+              background-color: var(--black);
               border: 0;
 
               &.hide {

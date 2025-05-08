@@ -1,6 +1,5 @@
-- mail with postmark
+# Pages
 
-Pages
 product page
 
 - fix animation product image
@@ -9,10 +8,10 @@ product page
 contact page
 
 - server action to send email
+- mail with postmark
 
 ## Last
 
 Fix scss errors
 organize scss, scss vars
 Page SEO metadata
-next-dato-utils/config

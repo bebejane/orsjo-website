@@ -16,7 +16,7 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 		const el = document.getElementById('page-transition');
 		document
 			.querySelector<HTMLDivElement>(':root')
-			?.style.setProperty('--page-color', `rgba(var(${pathnameToColor(props.href)}),1)`);
+			?.style.setProperty('--page-color', `var(${pathnameToColor(props.href) ?? '--white'})`);
 		if (el) {
 			el.setAttribute('pathname', pathname);
 			el.classList.toggle('enter', false);

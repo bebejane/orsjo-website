@@ -117,9 +117,7 @@ export type PageProviderProps = {
 export const PageProvider = ({ children, pathname }: PageProviderProps) => {
 	const value = getPageAttributes(pathname);
 	return (
-		<PageContext.Provider
-			value={{ ...initialState, ...value, color: `rgba(var(${value.color}),1)` }}
-		>
+		<PageContext.Provider value={{ ...initialState, ...value, color: value.color }}>
 			{children}
 		</PageContext.Provider>
 	);
