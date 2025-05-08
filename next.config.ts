@@ -3,7 +3,7 @@ import { NextConfig } from "next";
 const nextConfig: NextConfig = {
 	sassOptions: {
 		includePaths: ["./components", "./pages", "./app"],
-		silenceDeprecations: ['legacy-js-api'],
+		silenceDeprecations: ['legacy-js-api', 'mixed-decls'],
 		prependData: `
 			@use "sass:math";
     	@use "./styles/mixin";
