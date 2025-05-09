@@ -29,7 +29,7 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 			pft.classList.toggle('exit', isSameBase);
 		}
 		router.prefetch(props.href);
-		await sleep((isSameBase ? 300 : 500) - 100);
+		await sleep(isSameBase ? 300 : 500);
 		router.push(props.href);
 	};
 
