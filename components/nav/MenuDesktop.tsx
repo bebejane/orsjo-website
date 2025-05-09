@@ -104,11 +104,12 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		const idx = parseInt(el?.dataset?.index ?? '1');
 		const left = idx > 0 ? nav[idx - 1] : undefined;
 
+		if (!left || !el) return;
 		const bl = left?.getBoundingClientRect();
 		const elPad = parseInt(getComputedStyle(el, null).getPropertyValue('padding-left'));
 		const blPad = parseInt(getComputedStyle(left, null).getPropertyValue('padding-right'));
 		const lm = bl.left + bl.width - blPad - 10;
-		const rm = el.getBoundingClientRect().left;
+		const rm = el?.getBoundingClientRect().left;
 
 		const position = bl ? lm + (rm - lm) / 2 : el.getBoundingClientRect().x + elPad;
 		const padding = el.getBoundingClientRect().x - position;

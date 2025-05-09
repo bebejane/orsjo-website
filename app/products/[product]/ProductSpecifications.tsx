@@ -60,7 +60,7 @@ export default function ProductIntro({ product, drawings, specsCols }: Props) {
 					);
 				})}
 			</ul>
-			<div className={ps.articles}>
+			<div className={(ps.section, ps.articles)}>
 				<header>
 					<span>Art no</span>
 					<span>Model</span>
@@ -135,7 +135,7 @@ export default function ProductIntro({ product, drawings, specsCols }: Props) {
 				</div>
 			</div>
 
-			<div className={s.dimensions}>
+			<div className={cn(ps.section, s.dimensions)}>
 				<span>Dimensions</span>
 				<button
 					onClick={() => handleGalleryClick('drawings', drawings[0].id)}

@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import s from './global-error.module.scss'
+import ErrorPage from './error';
 
-export default function GlobalError({ error, reset }: {
-  error: Error & { digest?: string }
-  reset: () => void
+export default function GlobalError({
+	error,
+	reset,
+}: {
+	error: Error & { digest?: string };
+	reset: () => void;
 }) {
-
-  return (
-    <html>
-      <body className={`${s.body} ${s.error}`}>
-        <h2>Something went wrong!</h2>
-        <p>{error.message}</p>
-        <button onClick={() => reset()}>Try again</button>
-      </body>
-    </html>
-  )
+	return (
+		<html>
+			<body>
+				<ErrorPage error={error} reset={reset} />
+			</body>
+		</html>
+	);
 }

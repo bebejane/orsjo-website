@@ -1,52 +1,60 @@
 .logo {
-  position: fixed;
-  margin-left: var(--outer-margin);
-  font-family: "logo", Helvetica, sans-serif;
-  font-size: 1rem;
-  margin-top: 1.35rem;
-  z-index: 1000;
-  transition: color 0.8s ease-out;
-  color: var(--black);
-  line-height: 1.5;
+	position: fixed;
+	margin-left: var(--outer-margin);
+	font-family: 'logo', Helvetica, sans-serif;
+	font-size: 1rem;
+	margin-top: 1.35rem;
+	z-index: 1000;
+	transition: color 0.8s ease-out;
+	color: var(--black);
+	line-height: 1.5;
 
-  @include mixin.mq($until: tablet) {
-    font-size: 1.1rem;
-    margin-top: 0;
-    display: flex;
-    height: var(--navbar-height)Mobile;
-    align-items: center;
-  }
+	@include mixin.mq($until: tablet) {
+		font-size: 1.1rem;
+		margin-top: 0;
+		display: flex;
+		height: var(--navbar-height-mobile);
+		align-items: center;
+	}
 
-  span {
-    @include mixin.mq($until: tablet) {
-      padding-top: 0.25em;
-    }
+	span {
+		@include mixin.mq($until: tablet) {
+			padding-top: 0.25em;
+		}
 
-    display: inline-block;
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 0.3s,
-    font-size 0.4s ease-in-out,
-    font-variation-settings 0.4s ease-in-out;
-    font-variation-settings: "wght" 1000,
-    "opsz" 1000;
+		display: inline-block;
+		opacity: 1;
+		transform: scale(1);
+		transition:
+			opacity 0.3s,
+			font-size 0.4s ease-in-out,
+			font-variation-settings 0.4s ease-in-out;
+		font-variation-settings:
+			'wght' 1000,
+			'opsz' 1000;
 
-    &.hide {
-      opacity: 0;
-    }
+		&.hide {
+			opacity: 0;
+		}
 
-    &.big {
-      font-variation-settings: "wght" 1000, "opsz" 0;
-      font-size: 1.75rem;
-    }
+		&.big {
+			font-variation-settings:
+				'wght' 1000,
+				'opsz' 0;
+			font-size: 1.75rem;
+		}
 
-    &.inverted {
-      color: var(--white);
-      font-variation-settings: "wght" -300, "opsz" 1000;
+		&.inverted {
+			color: var(--white);
+			font-variation-settings:
+				'wght' -300,
+				'opsz' 1000;
 
-      &.big {
-        font-variation-settings: "wght" 0, "opsz" 0 !important;
-      }
-    }
-  }
+			&.big {
+				font-variation-settings:
+					'wght' 0,
+					'opsz' 0 !important;
+			}
+		}
+	}
 }

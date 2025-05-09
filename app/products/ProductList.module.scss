@@ -1,0 +1,40 @@
+.products {
+	ul {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		list-style: none;
+
+		li {
+			position: relative;
+			margin-bottom: var(--small-margin);
+			aspect-ratio: 4/3;
+
+			@include mixin.mq($from: tablet) {
+				width: mixin.spanNestedGrid(12, 3);
+				margin-right: mixin.nestedGridGutter(12);
+				@include mixin.resetLastColumn(4);
+			}
+
+			@include mixin.mq($until: tablet) {
+				width: 48%;
+				margin-right: 4%;
+				@include mixin.resetLastColumn(2);
+			}
+		}
+	}
+
+	.subtitle {
+		color: var(--gray) !important;
+	}
+
+	.emptySearch {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--gray);
+		height: calc(100vh - var(--navbar-height));
+	}
+
+	padding-bottom: 2rem;
+}

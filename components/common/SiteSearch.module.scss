@@ -1,213 +1,215 @@
 .search {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  min-height: 100vh;
-  width: mixin.spanGridWithGutter(12);
-  margin-left: calc(var(--outer-margin) + mixin.spanGrid(4));
-  padding-left: var(--outer-margin);
-  padding-right: var(--outer-margin);
-  padding-top: 1rem;
-  z-index: 800;
-  background-color: var(--white);
-  box-shadow: -1px 0px 10px rgba(128, 128, 128, 0.1);
-  opacity: 0;
-  transform: translateX(100%);
-  transition: transform 0.2s, opacity 1s ease;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	top: 0;
+	right: 0;
+	height: 100vh;
+	min-height: 100vh;
+	width: mixin.spanGridWithGutter(12);
+	margin-left: calc(var(--outer-margin) + mixin.spanGrid(4));
+	padding-left: var(--outer-margin);
+	padding-right: var(--outer-margin);
+	padding-top: 1rem;
+	z-index: 800;
+	background-color: var(--white);
+	box-shadow: -1px 0px 10px rgba(128, 128, 128, 0.1);
+	opacity: 0;
+	transform: translateX(100%);
+	transition:
+		transform 0.2s,
+		opacity 1s ease;
 
-  &.show {
-    transition: transform 0.2s ease-out;
-    transform: translateX(0%);
-    opacity: 1;
+	&.show {
+		transition: transform 0.2s ease-out;
+		transform: translateX(0%);
+		opacity: 1;
 
-    input {
-      opacity: 1;
-      transition: opacity 0.2s 0.2s ease;
-    }
-  }
+		input {
+			opacity: 1;
+			transition: opacity 0.2s 0.2s ease;
+		}
+	}
 
-  input {
-    transition: opacity 0s ease;
-    opacity: 0;
-    font-size: 20px;
-    font-family: var(--headline-font) !important;
-  }
+	input {
+		transition: opacity 0s ease;
+		opacity: 0;
+		font-size: 20px;
+		font-family: var(--headline-font) !important;
+	}
 
-  .query {
-    position: relative;
-    width: 100%;
+	.query {
+		position: relative;
+		width: 100%;
 
-    input {
-      border: 0px;
-      padding: 1em;
-      background-color: var(--light-gray);
-      outline: none;
-      width: 80%;
+		input {
+			border: 0px;
+			padding: 1em;
+			background-color: var(--light-gray);
+			outline: none;
+			width: 80%;
 
-      @include mixin.mq($until: tablet) {
-        padding: 0.5rem;
-        padding-left: 0;
-        width: 100%;
-        background-color: var(--black);
-        color: var(--white);
-      }
-    }
+			@include mixin.mq($until: tablet) {
+				padding: 0.5rem;
+				padding-left: 0;
+				width: 100%;
+				background-color: var(--black);
+				color: var(--white);
+			}
+		}
 
-    button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 1;
-      border: 0;
-      padding: 0;
-      margin: 0;
-      //width: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
+		button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 1;
+			border: 0;
+			padding: 0;
+			margin: 0;
+			//width: 48px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
 
-  .results {
-    position: relative;
-    margin-top: 1em;
-    padding-top: 1em;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden;
-    overflow-y: scroll;
-    width: 100%;
+	.results {
+		position: relative;
+		margin-top: 1em;
+		padding-top: 1em;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		overflow: hidden;
+		overflow-y: scroll;
+		width: 100%;
 
-    &::-webkit-scrollbar {
-      display: none;
-      width: 0px;
-    }
+		&::-webkit-scrollbar {
+			display: none;
+			width: 0px;
+		}
 
-    h1 {
-      text-transform: capitalize;
-      padding-bottom: 1em;
-    }
+		h1 {
+			text-transform: capitalize;
+			padding-bottom: 1em;
+		}
 
-    ul {
-      list-style: none;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin-bottom: var(--small-margin);
+		ul {
+			list-style: none;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			margin-bottom: var(--small-margin);
 
-      li {
-        flex: 0 0 mixin.spanNestedGrid(12, 3);
-        max-width: mixin.spanNestedGrid(12, 3);
-        margin-right: mixin.nestedGridGutter(12);
-        margin-bottom: mixin.nestedGridGutter(12);
-        @include mixin.resetLastColumn(4);
+			li {
+				flex: 0 0 mixin.spanNestedGrid(12, 3);
+				max-width: mixin.spanNestedGrid(12, 3);
+				margin-right: mixin.nestedGridGutter(12);
+				margin-bottom: mixin.nestedGridGutter(12);
+				@include mixin.resetLastColumn(4);
 
-        &.full {
-          flex: 1 1 100%;
-          margin-right: 0;
-          max-width: 100%;
-        }
+				&.full {
+					flex: 1 1 100%;
+					margin-right: 0;
+					max-width: 100%;
+				}
 
-        .thumb {
-          max-width: 100%;
-        }
-      }
-    }
+				.thumb {
+					max-width: 100%;
+				}
+			}
+		}
 
-    .status {
-      position: absolute;
-      top: 0;
-      left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      display: flex;
-      background-color: var(--white);
-      z-index: 2;
-      align-items: center;
-      justify-content: center;
+		.status {
+			position: absolute;
+			top: 0;
+			left: 0;
+			min-width: 100%;
+			min-height: 100%;
+			display: flex;
+			background-color: var(--white);
+			z-index: 2;
+			align-items: center;
+			justify-content: center;
 
-      @include mixin.mq($until: tablet) {
-        padding-top: 1rem;
-        align-items: flex-start;
-      }
-    }
-  }
+			@include mixin.mq($until: tablet) {
+				padding-top: 1rem;
+				align-items: flex-start;
+			}
+		}
+	}
 
-  .close {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding-top: 0.5rem;
-    right: 0;
-    font-size: 1.3rem;
-    line-height: 0;
-    border: 0;
+	.close {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		height: 100%;
+		padding-top: 0.5rem;
+		right: 0;
+		font-size: 1.3rem;
+		line-height: 0;
+		border: 0;
 
-    svg {
-      width: 16px;
-      height: 16px;
+		svg {
+			width: 16px;
+			height: 16px;
 
-      path {
-        fill: var(--black);
-        stroke: var(--black);
+			path {
+				fill: var(--black);
+				stroke: var(--black);
 
-        @include mixin.mq($until: tablet) {
-          fill: var(--white);
-          stroke: var(--black);
-        }
-      }
-    }
+				@include mixin.mq($until: tablet) {
+					fill: var(--white);
+					stroke: var(--black);
+				}
+			}
+		}
 
-    @include mixin.mq($until: tablet) {
-      background-color: var(--black);
-    }
-  }
+		@include mixin.mq($until: tablet) {
+			background-color: var(--black);
+		}
+	}
 
-  @include mixin.mq($until: tablet) {
-    background-color: var(--black) !important;
-    color: var(--white);
-    transform: translateY(120%);
-    width: 100%;
-    background-color: var(--black);
-    min-height: 100%;
-    height: 100%;
-    background-color: var(--white);
-    margin-bottom: calc(var(--navbar-height)Mobile + 20px);
-    padding-top: 4rem;
+	@include mixin.mq($until: tablet) {
+		background-color: var(--black) !important;
+		color: var(--white);
+		transform: translateY(120%);
+		width: 100%;
+		background-color: var(--black);
+		min-height: 100%;
+		height: 100%;
+		background-color: var(--white);
+		margin-bottom: calc(var(--navbar-height-mobile) + 20px);
+		padding-top: 4rem;
 
-    &.show {
-      transform: translateY(0%);
-    }
+		&.show {
+			transform: translateY(0%);
+		}
 
-    .results {
-      ul>li {
-        flex: 0 0 48%;
-        max-width: 48%;
-        margin-right: 4%;
-        margin-bottom: mixin.nestedGridGutter(16);
-        @include mixin.resetLastColumn(2);
+		.results {
+			ul > li {
+				flex: 0 0 48%;
+				max-width: 48%;
+				margin-right: 4%;
+				margin-bottom: mixin.nestedGridGutter(16);
+				@include mixin.resetLastColumn(2);
 
-        a {
-          color: var(--white);
-        }
-      }
-    }
+				a {
+					color: var(--white);
+				}
+			}
+		}
 
-    .close {
-      color: var(--white);
-    }
+		.close {
+			color: var(--white);
+		}
 
-    .status {
-      background-color: var(--black) !important;
+		.status {
+			background-color: var(--black) !important;
 
-      .spinner {
-        filter: invert(1);
-      }
-    }
-  }
+			.spinner {
+				filter: invert(1);
+			}
+		}
+	}
 }

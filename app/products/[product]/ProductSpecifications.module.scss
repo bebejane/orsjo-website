@@ -1,44 +1,43 @@
 .dimensions {
-  border-top: 1px solid var(--mid-gray);
-  width: 100%;
-  display: flex;
+	padding-top: 1.5em;
+	border-top: 1px solid var(--mid-gray);
+	width: 100%;
+	display: flex;
 
-  span {
-    min-width: mixin.spanNestedGrid(12, 2, true);
+	span {
+		min-width: mixin.spanNestedGrid(12, 2, true);
 
-    @include mixin.mq($until: tablet) {
-      min-width: mixin.spanNestedGrid(16, 6, true);
-    }
+		@include mixin.mq($until: tablet) {
+			min-width: mixin.spanNestedGrid(16, 6, true);
+		}
 
-    flex-basis: auto;
-    color: var(--gray);
-  }
+		flex-basis: auto;
+		color: var(--gray);
+	}
 
-  button {
-    padding: 0;
-    margin: 0;
-
-    font-size: inherit;
-    cursor: pointer;
-    width: mixin.spanNestedGrid(12, 10);
-    text-align: left;
-  }
+	button {
+		padding: 0;
+		margin: 0;
+		font-size: inherit;
+		cursor: pointer;
+		width: mixin.spanNestedGrid(12, 10);
+		text-align: left;
+	}
 }
 
 .specifications {
-  padding-bottom: 1em;
-  padding-top: 1.5em;
-  border-top: 1px solid var(--mid-gray);
+	padding-bottom: 1em;
+	padding-top: 1.5em;
+	border-top: 1px solid var(--mid-gray);
 
-  li {
-    padding-bottom: 0.5em;
-  }
+	li {
+		padding-bottom: 0.5em;
+	}
 
-  tr {
-
-    td:nth-child(1),
-    td:nth-child(3) {
-      color: var(--gray);
-    }
-  }
+	tr {
+		td:nth-child(1),
+		td:nth-child(3) {
+			color: var(--gray);
+		}
+	}
 }

@@ -131,6 +131,7 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 
 	const files = productDownloads(product as ProductRecordWithPdfFiles);
 	const drawings: FileField[] = [];
+
 	product.models.forEach(
 		(m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null } as FileField)
 	);
@@ -152,9 +153,11 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 		product,
 		relatedProducts: relatedProducts
 			.filter((p) => p.id !== product.id)
+			//@ts-ignore
 			.sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
 		productsByCategory: productsByCategory
 			.filter((p) => p.id !== product.id)
+			//@ts-ignore
 			.sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
 		relatedProjects,
 		files,

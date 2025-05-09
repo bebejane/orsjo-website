@@ -1,12 +1,15 @@
-import Link from 'next/link'
-import s from './not-found.module.scss'
+'use client';
+
+import ErrorPage from './error';
+import { useRouter } from 'next/navigation';
 
 export default function NotFound() {
-  return (
-    <div className={s.container}>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
-    </div>
-  )
+	const router = useRouter();
+	return (
+		<ErrorPage
+			error={new Error('404: Not Found')}
+			reset={() => router.push('/')}
+			resetLabel='Go to Homepage'
+		/>
+	);
 }

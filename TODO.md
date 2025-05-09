@@ -3,7 +3,6 @@
 product page
 
 - fix animation product image
-- product search
 
 contact page
 

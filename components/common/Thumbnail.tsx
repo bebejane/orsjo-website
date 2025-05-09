@@ -55,6 +55,7 @@ export default function Thumbnail({
 						className={s.image}
 						layout={'fill'}
 						fadeInDuration={100}
+						intersectionMargin={`0px 0px 2000px 0px`}
 						objectFit={objectFit as any}
 					/>
 				)}
@@ -64,6 +65,7 @@ export default function Thumbnail({
 							data={imageHover.responsiveImage}
 							className={s.image}
 							layout={'fill'}
+							intersectionMargin={`0px 0px 2000px 0px`}
 							objectFit={'cover'}
 						/>
 					</div>

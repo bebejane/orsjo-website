@@ -32,7 +32,7 @@ export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
 			state.setShowSiteSearch,
 		])
 	);
-	console.log(gallery);
+
 	return (
 		<>
 			<PageProvider pathname={pathname}>
@@ -55,6 +55,7 @@ export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
 				<Footer menu={menu} />
 				<CookieConsent />
 				<div id='page-transition' />
+				<div id='page-fade-transition' />
 			</PageProvider>
 		</>
 	);

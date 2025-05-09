@@ -21,6 +21,7 @@ export default function ImageGallery({ data: { gallery }, onClick }: ImageGaller
 							data={image.responsiveImage}
 							layout='fill'
 							objectFit='cover'
+							intersectionMargin={`0px 0px 2000px 0px`}
 						/>
 					)}
 				</figure>

@@ -47,7 +47,11 @@ export default async function Sustainability() {
 							{media.video ? (
 								<VideoPlayer className={s.video} data={media as FileField} />
 							) : media.responsiveImage ? (
-								<Image data={media.responsiveImage} className={s.image} />
+								<Image
+									data={media.responsiveImage}
+									className={s.image}
+									intersectionMargin={`0px 0px 2000px 0px`}
+								/>
 							) : null}
 						</div>
 					</div>

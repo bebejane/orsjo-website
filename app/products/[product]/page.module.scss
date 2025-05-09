@@ -20,7 +20,6 @@
 			max-height: calc(100vh - var(--navbar-height) - var(--small-margin));
 		}
 
-
 		.image {
 			mix-blend-mode: multiply;
 			padding-bottom: 3em;
@@ -363,7 +362,6 @@
 		}
 
 		tr {
-
 			td:nth-child(1),
 			td:nth-child(3) {
 				color: var(--gray);
@@ -373,10 +371,6 @@
 
 	.articles {
 		padding-bottom: 1em;
-		padding-top: 1.5em;
-	}
-
-	.dimensions {
 		padding-top: 1.5em;
 	}
 
@@ -420,7 +414,7 @@
 	padding-top: var(--small-margin);
 	padding-bottom: var(--margin);
 
-	&>div {
+	& > div {
 		padding-bottom: var(--small-margin);
 
 		&:last-child {
