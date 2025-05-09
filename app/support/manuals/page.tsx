@@ -5,6 +5,7 @@ import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import ManualList from '@/app/support/manuals/ManualList';
+import { Metadata } from 'next';
 
 export type ManualsProps = {
 	products: ProductRecord[];
@@ -34,9 +35,8 @@ export default async function Manuals() {
 	);
 }
 
-Manuals.page = {
-	title: 'Manuals',
-	layout: 'normal',
-	color: '--copper',
-	menu: 'inverted',
-} as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Manuals',
+	};
+}

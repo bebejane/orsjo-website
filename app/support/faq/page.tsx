@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import FaqList from '@/app/support/faq/FaqList';
+import { Metadata } from 'next';
 
 export default async function Faqs() {
 	const { faqs, faqStart } = await apiQuery<FaqStartQuery, FaqStartQueryVariables>(
@@ -23,4 +24,8 @@ export default async function Faqs() {
 	);
 }
 
-Faqs.page = { title: 'FAQ', layout: 'normal', color: '--copper', menu: 'inverted' } as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'FAQ',
+	};
+}

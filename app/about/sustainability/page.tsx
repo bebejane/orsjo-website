@@ -3,10 +3,10 @@ import { SustainabilityDocument } from '@/graphql';
 import cn from 'classnames';
 import { Image } from 'react-datocms';
 import { Markdown } from 'next-dato-utils/components';
-import { PageProps } from '@/lib/context/page';
 import { Section, TextReveal, VideoPlayer } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 export default async function Sustainability() {
 	const { sustainability } = await apiQuery<SustainabilityQuery, SustainabilityQueryVariables>(
@@ -61,9 +61,8 @@ export default async function Sustainability() {
 	);
 }
 
-Sustainability.page = {
-	title: 'Sustainability',
-	layout: 'full',
-	color: '--black',
-	menu: 'inverted',
-} as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Sustainability',
+	};
+}

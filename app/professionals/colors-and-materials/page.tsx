@@ -6,6 +6,7 @@ import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import ColorsAndMaterialsList from './ColorsMaterialsList';
+import { Metadata } from 'next';
 
 export default async function ColorsAndMaterials() {
 	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro } = await apiQuery<
@@ -29,9 +30,8 @@ export default async function ColorsAndMaterials() {
 	);
 }
 
-ColorsAndMaterials.page = {
-	title: 'Colors & materials',
-	layout: 'normal',
-	color: '--gray',
-	menu: 'inverted',
-} as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Colors & Materials',
+	};
+}

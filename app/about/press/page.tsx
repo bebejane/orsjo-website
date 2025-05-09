@@ -4,6 +4,7 @@ import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
+import { Metadata } from 'next';
 
 export default async function Press() {
 	const { presses } = await apiQuery<AllPressQuery, AllPressQueryVariables>(AllPressDocument);
@@ -20,10 +21,8 @@ export default async function Press() {
 	);
 }
 
-Press.page = {
-	title: 'Press',
-	layout: 'normal',
-	color: '--black',
-	menu: 'inverted',
-	footerLine: true,
-} as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Press',
+	};
+}

@@ -5,6 +5,7 @@ import { Markdown } from 'next-dato-utils/components';
 import { Section, VideoPlayer, TextReveal } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 export default async function About() {
 	const { about } = await apiQuery<AboutQuery, AboutQueryVariables>(AboutDocument);
@@ -41,4 +42,10 @@ export default async function About() {
 			</Section>
 		</>
 	);
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'About Us',
+	};
 }

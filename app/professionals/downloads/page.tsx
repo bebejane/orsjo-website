@@ -11,6 +11,7 @@ import { Section, Icon } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import DownloadsList from './DownloadsList';
+import { Metadata } from 'next';
 
 export default async function Downloads() {
 	const [{ downloadsStart }, { allProducts }, { allCatalogues }] = await Promise.all([
@@ -72,9 +73,8 @@ export default async function Downloads() {
 	);
 }
 
-Downloads.page = {
-	title: 'Downloads',
-	layout: 'normal',
-	color: '--gray',
-	menu: 'inverted',
-} as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Downloads',
+	};
+}

@@ -16,6 +16,8 @@ import { notFound } from 'next/navigation';
 import ProductIntro from '@/app/products/[product]/ProductIntro';
 import ProductSpecifications from '@/app/products/[product]/ProductSpecifications';
 import ProductDownloads from '@/app/products/[product]/ProductDownloads';
+import { Metadata } from 'next';
+import { buildMetadata } from '@/app/layout';
 
 type Props = {
 	params: Promise<{
@@ -173,4 +175,18 @@ export async function generateStaticParams() {
 	);
 	const paths = allProducts.map(({ slug }) => ({ slug }));
 	return paths;
+}
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+	const { product: slug } = await params;
+	const { product } = await apiQuery<ProductQuery, ProductQueryVariables>(ProductDocument, {
+		variables: { slug },
+	});
+	if (!product) return notFound();
+	return await buildMetadata({
+		title: product.title,
+		description: product.description,
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/products/${slug}`,
+		image: product.image as FileField,
+	});
 }

@@ -5,6 +5,7 @@ import { PageProps } from '@/lib/context/page';
 import { ProjectThumbnail, Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 export default async function Professionals() {
 	const [{ projectStart }, { allProjects }, { allProjectTypes }] = await Promise.all([
@@ -48,9 +49,8 @@ export default async function Professionals() {
 	);
 }
 
-Professionals.page = {
-	title: 'Projects',
-	layout: 'normal',
-	color: '--gray',
-	menu: 'inverted',
-} as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Projects',
+	};
+}

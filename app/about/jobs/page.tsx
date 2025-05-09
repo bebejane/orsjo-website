@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
+import { Metadata } from 'next';
 
 export default async function Jobs() {
 	const { jobs } = await apiQuery<AllJobsQuery, AllJobsQueryVariables>(AllJobsDocument);
@@ -33,10 +34,8 @@ export default async function Jobs() {
 	);
 }
 
-Jobs.page = {
-	title: 'Jobs',
-	layout: 'normal',
-	color: '--black',
-	menu: 'inverted',
-	footerLine: true,
-} as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Jobs',
+	};
+}

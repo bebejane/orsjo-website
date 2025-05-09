@@ -14,6 +14,7 @@ import { PageProps } from '@/lib/context/page';
 import { Markdown } from 'next-dato-utils/components';
 import { notFound } from 'next/navigation';
 import ContactButton from '@/app/contact/ContactButton';
+import { Metadata } from 'next';
 
 export type ContactProps = {
 	contact: ContactRecord;
@@ -244,10 +245,8 @@ export default async function Contact() {
 	);
 }
 
-Contact.page = {
-	title: 'Contact',
-	layout: 'normal',
-	color: '--beige',
-	menu: 'inverted',
-	footerLine: true,
-} as PageProps;
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Contact',
+	};
+}

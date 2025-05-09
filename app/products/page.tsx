@@ -7,6 +7,7 @@ import {
 } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import ProductList from './ProductList';
+import { Metadata } from 'next';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -50,4 +51,10 @@ export default async function Products() {
 			<ProductList productCategories={productCategories} products={allProducts} />
 		</>
 	);
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Products',
+	};
 }

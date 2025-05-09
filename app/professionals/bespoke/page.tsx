@@ -6,6 +6,7 @@ import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import BespokeHeader from './BespokeHeader';
+import { Metadata } from 'next';
 
 export default async function Bespoke() {
 	const { bespoke } = await apiQuery<BespokeQuery, BespokeQueryVariables>(BespokeDocument);
@@ -33,4 +34,10 @@ export default async function Bespoke() {
 			</Section>
 		</>
 	);
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Bespoke',
+	};
 }

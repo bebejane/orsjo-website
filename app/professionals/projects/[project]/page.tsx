@@ -11,6 +11,8 @@ import { Section, FeaturedGallery } from '@/components';
 import ProjectHeader from '@/app/professionals/projects/[project]/ProjectHeader';
 import { notFound } from 'next/navigation';
 import ProjectGallery from '@/app/professionals/projects/[project]/ProjectGallery';
+import { buildMetadata } from '@/app/layout';
+import { Metadata } from 'next';
 
 export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>;
 
@@ -95,8 +97,6 @@ export default async function Project({ params }: ProjectProps) {
 	);
 }
 
-Project.page = { layout: 'normal', color: '--gray', menu: 'inverted' } as PageProps;
-
 export async function generateStaticParams() {
 	const { allProjects } = await apiQuery<AllProjectsQuery, AllProjectsQueryVariables>(
 		AllProjectsDocument,
@@ -104,4 +104,17 @@ export async function generateStaticParams() {
 	);
 	const paths = allProjects.map(({ slug }) => ({ project: slug }));
 	return paths;
+}
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+	const { project: slug } = await params;
+	const { project } = await apiQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, {
+		variables: { slug },
+	});
+	if (!project) return notFound();
+	return await buildMetadata({
+		title: project.title,
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/professionals/projects/${slug}`,
+		image: project.image as FileField,
+	});
 }

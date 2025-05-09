@@ -9,6 +9,8 @@ import { apiQuery } from 'next-dato-utils/api';
 import { Image } from 'react-datocms';
 import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '@/components';
 import { notFound } from 'next/navigation';
+import { buildMetadata } from '@/app/layout';
+import { Metadata } from 'next';
 
 export type Props = {
 	params: Promise<{
@@ -105,4 +107,18 @@ export async function generateStaticParams() {
 	);
 	const paths = allDesigners.map(({ slug: designer }) => ({ designer }));
 	return paths;
+}
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+	const { designer: slug } = await params;
+	const { designer } = await apiQuery<DesignerQuery, DesignerQueryVariables>(DesignerDocument, {
+		variables: { slug },
+	});
+	if (!designer) return notFound();
+	return await buildMetadata({
+		title: designer.name,
+		description: designer.description,
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/designers/${slug}`,
+		image: designer.image,
+	});
 }

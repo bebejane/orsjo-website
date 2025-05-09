@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { Markdown } from 'next-dato-utils/components';
 import { format } from 'date-fns';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+import { buildMetadata } from '@/app/layout';
 
 export type NewsProps = { params: Promise<{ news: string }> };
 
@@ -44,17 +46,23 @@ export default async function NewsPage({ params }: NewsProps) {
 		</>
 	);
 }
-
-NewsPage.page = {
-	layout: 'full',
-	color: '--black',
-	menu: 'inverted',
-	sidebar: false,
-	footerLine: true,
-} as PageProps;
-
 export async function generateStaticParams() {
 	const { allNews } = await apiQuery<AllNewsQuery, AllNewsQueryVariables>(AllNewsDocument);
 	const paths = allNews.map(({ slug }) => ({ news: slug }));
 	return paths;
+}
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+	const { news: slug } = await params;
+	const { news } = await apiQuery<NewsQuery, NewsQueryVariables>(NewsDocument, {
+		variables: { slug },
+	});
+	if (!news) return notFound();
+	const { title, image, text } = news;
+	return await buildMetadata({
+		title,
+		description: text,
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/news/${slug}`,
+		image: image as FileField,
+	});
 }

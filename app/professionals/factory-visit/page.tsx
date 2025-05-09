@@ -4,6 +4,7 @@ import { Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 export default async function FactoryVisit() {
 	const { factoryVisit } = await apiQuery<FactoryVisitQuery, FactoryVisitQueryVariables>(
@@ -18,4 +19,10 @@ export default async function FactoryVisit() {
 			<Markdown content={factoryVisit.intro} />
 		</Section>
 	);
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'Factory Visit',
+	};
 }
