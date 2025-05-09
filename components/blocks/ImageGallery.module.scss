@@ -1,33 +1,34 @@
 .imageGallery {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  padding-top: var(--small-margin) / 1.3;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	padding-top: calc(var(--small-margin) / 1.3);
 
-  @include mixin.mq($from: tablet) {
-    padding-top: var(--small-margin);
-  }
+	@include mixin.mq($from: tablet) {
+		padding-top: var(--small-margin);
+	}
 
-  figure {
-    cursor: pointer;
-    position: relative;
-    margin-right: 3.5%;
+	figure {
+		cursor: pointer;
+		position: relative;
+		margin-right: 3.5%;
 
-    &:last-of-type {
-      margin-right: 0;
-    }
+		&:last-of-type {
+			margin-right: 0;
+		}
 
-    div {
-      aspect-ratio: 4/3;
-      display: flex;
-    }
+		div {
+			aspect-ratio: 4/3;
+			display: flex;
+		}
 
-    img {
-      object-fit: contain;
-    }
+		img {
+			object-fit: contain;
+		}
 
-    background-color: white;
+		background-color: white;
 
-    .image {}
-  }
+		.image {
+		}
+	}
 }
