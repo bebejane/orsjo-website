@@ -12,6 +12,9 @@ export default {
     background: '#fff',
     color: '#000',
   },
+  sitemap: async () => {
+    return []
+  },
   routes: {
     'about': async ({ id }) => ['/about'],
     'bespoke': async ({ id }) => ['/professionals/bespoke'],
@@ -54,9 +57,6 @@ export default {
     'staff': async () => [`/contact`],
     'start': async () => [`/`],
     'sustainability': async () => ['/about/sustainability'],
-  },
-  sitemap: async () => {
-    return []
   }
 } satisfies DatoCmsConfig
 

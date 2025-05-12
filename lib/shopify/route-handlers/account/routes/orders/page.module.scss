@@ -1,0 +1,19 @@
+.container {
+
+  table {
+    tbody {
+      &.cancelled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+
+    th {
+      padding-bottom: 2rem;
+    }
+
+    .total>td {
+      padding-bottom: 2rem;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+fragment UserErrorsFragment on UserError{
+  __typename
+  field
+  message
+}

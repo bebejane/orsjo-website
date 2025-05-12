@@ -10,6 +10,7 @@ import { styleVariables } from '@/lib/utils';
 import { useMediaQuery } from 'usehooks-ts';
 //import { sendContact } from '@/lib/actions/send-contact';
 import { useRouter } from 'next/navigation';
+import { sendContact } from '@/lib/actions/send-contact';
 
 export type Props = {
 	onClose: () => void;
@@ -53,8 +54,8 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 		}
 	};
 	const action: () => void = handleSubmit(async (data: FormData) => {
-		//const response = await sendContact(data);
-		//console.log(response);
+		const response = await sendContact(data);
+		console.log(response);
 	});
 
 	return (
@@ -82,7 +83,7 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 					{error && (
 						<div className={s.error}>{typeof error === 'string' ? error : error.message}</div>
 					)}
-					<form id='contact-form' method='POST'>
+					<form id='contact-form' method='POST' action={action}>
 						<label htmlFor='name' className='medium'>
 							Name
 						</label>

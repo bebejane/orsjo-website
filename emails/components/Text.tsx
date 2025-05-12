@@ -1,20 +1,20 @@
-import { Text as TextComponent } from '@react-email/components';
+import { MjmlText } from "mjml-react";
 
 type TextProps = {
-	maxWidth?: number;
-} & React.ComponentProps<typeof TextComponent>;
+  maxWidth?: number;
+} & React.ComponentProps<typeof MjmlText>;
 
 export default function Text({ children, maxWidth, ...props }: TextProps) {
-	if (maxWidth) {
-		return (
-			<TextComponent {...props} className='text'>
-				<div style={{ maxWidth }}>{children}</div>
-			</TextComponent>
-		);
-	} else
-		return (
-			<TextComponent {...props} className='text'>
-				{children}
-			</TextComponent>
-		);
+  if (maxWidth) {
+    return (
+      <MjmlText {...props} cssClass="text">
+        <div style={{ maxWidth }}>{children}</div>
+      </MjmlText>
+    );
+  } else
+    return (
+      <MjmlText {...props} cssClass="text">
+        {children}
+      </MjmlText>
+    );
 }

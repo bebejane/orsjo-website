@@ -1,0 +1,102 @@
+query AllShopifyProducts($country: CountryCode = SE, $first: Int = 100)
+@inContext(country: $country) {
+	products(first: $first, query: "available_for_sale") {
+		edges {
+			node {
+				...ProductFragment
+			}
+		}
+		pageInfo {
+			hasNextPage
+		}
+	}
+}
+
+query ShopifyProduct($country: CountryCode = SE, $handle: String) @inContext(country: $country) {
+	product(handle: $handle) {
+		...ProductFragment
+	}
+}
+
+query ShopifyVariant($country: CountryCode = SE, $id: ID!) @inContext(country: $country) {
+	variant: node(id: $id) {
+		... on ProductVariant {
+			id
+			title
+			weight
+			availableForSale
+			quantityAvailable
+			selectedOptions {
+				name
+				value
+			}
+			price {
+				amount
+				currencyCode
+			}
+			product {
+				...ProductFragment
+			}
+		}
+	}
+}
+
+fragment ProductFragment on Product {
+	id
+	handle
+	title
+	description
+	featuredImage {
+		id
+		url
+		height
+		width
+		altText
+	}
+	options {
+		id
+		name
+		values
+	}
+	variants(first: 100) {
+		edges {
+			node {
+				id
+				title
+				weight
+				availableForSale
+				quantityAvailable
+				selectedOptions {
+					name
+					value
+				}
+				image {
+					id
+					url(transform: { maxWidth: 400, maxHeight: 400, crop: CENTER })
+					height
+					width
+					altText
+				}
+				price {
+					amount
+					currencyCode
+				}
+			}
+		}
+	}
+}
+
+fragment ProductVariantFragment on ProductVariant {
+	id
+	title
+	weight
+	availableForSale
+	selectedOptions {
+		name
+		value
+	}
+	price {
+		amount
+		currencyCode
+	}
+}

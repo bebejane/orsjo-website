@@ -1,16 +1,14 @@
 import {
-	Body,
-	Container,
-	Head,
-	Heading,
-	Hr,
-	Html,
-	Link,
-	Preview,
-	Font,
-	Text,
-} from '@react-email/components';
-
+	Mjml,
+	MjmlBody,
+	MjmlHead,
+	MjmlFont,
+	MjmlStyle,
+	MjmlAttributes,
+	MjmlAll,
+	MjmlRaw,
+	MjmlPreview,
+} from 'mjml-react';
 import { colors, screens, themeDefaults, spacing } from './theme';
 
 type BaseLayoutProps = {
@@ -21,32 +19,19 @@ type BaseLayoutProps = {
 
 export default function BaseLayout({ width, children, preview }: BaseLayoutProps) {
 	return (
-		<Html>
-			<Head>
-				{preview && <Preview>{preview}</Preview>}
-				<meta name='color-scheme' content='dark' />
-				<meta name='supported-color-schemes' content='dark' />
-
-				<Font
-					fontFamily='Inter'
-					webFont={{
-						url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700',
-						format: 'woff2',
-					}}
-					fallbackFontFamily={['sans-serif']}
-				/>
-				<Font
-					fontFamily='Indivisible'
-					webFont={{ url: 'https://www.orsjo.com/fonts/mail.css', format: 'woff2' }}
-					fallbackFontFamily={['sans-serif']}
-				/>
-
-				{/*
+		<Mjml>
+			<MjmlHead>
+				{preview && <MjmlPreview>{preview}</MjmlPreview>}
+				<MjmlRaw>
+					<meta name='color-scheme' content='dark' />
+					<meta name='supported-color-schemes' content='dark' />
+				</MjmlRaw>
+				<MjmlFont name='Inter' href='https://fonts.googleapis.com/css2?family=Inter:wght@400;700' />
+				<MjmlFont name='Indivisible' href='https://www.orsjo.com/fonts/mail.css' />
 				<MjmlAttributes>
 					<MjmlAll {...themeDefaults} />
 				</MjmlAttributes>
-        
-				<style>
+				<MjmlStyle>{`
 
             .ExternalClass p, 
             .ExternalClass span,
@@ -119,7 +104,7 @@ export default function BaseLayout({ width, children, preview }: BaseLayoutProps
             mso-hide: all;
           }
 
-          
+          /* Large screens */
           @media (min-width:${screens.xs}) {
             .lg-gutter {
               padding-left: ${spacing.s7}px !important;
@@ -146,13 +131,12 @@ export default function BaseLayout({ width, children, preview }: BaseLayoutProps
               mso-hide: none !important;
             }
           }
-      </style>
-          */}
-			</Head>
+      `}</MjmlStyle>
+			</MjmlHead>
 
-			<Body style={{ backgroundColor: colors.black, width }} className='body'>
+			<MjmlBody backgroundColor={colors.black} width={width}>
 				{children}
-			</Body>
-		</Html>
+			</MjmlBody>
+		</Mjml>
 	);
 }
