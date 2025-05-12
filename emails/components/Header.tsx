@@ -1,5 +1,5 @@
 import { MjmlSection, MjmlColumn, MjmlImage } from 'mjml-react';
-import { colors, fontSize, spacing } from '../theme';
+import { colors, fontSize, spacing } from './theme';
 import SubHeading from './SubHeading';
 import Text from './Text';
 import Divider from './Divider';

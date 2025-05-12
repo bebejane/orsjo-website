@@ -1,3 +1,4 @@
+import client from './datocms-client'
 
 export const getShopifyId = (id: string): number => {
   const shopifyId = Buffer.from(id).toString('base64') as string
@@ -14,6 +15,8 @@ export const shopifyGraphqlError = (errors: CustomerUserError[]): string | undef
     return undefined
   return errors.map((e) => e.message).join('\n')
 }
+
+export const itemTypeId = async (type: string) => (await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string
 
 export const cartCookieOptions = {
   path: '/',

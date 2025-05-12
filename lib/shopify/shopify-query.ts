@@ -1,8 +1,7 @@
 
 import type { RequestInit } from 'next/dist/server/web/spec-extension/request'
-import type { DocumentNode } from 'graphql'
 import { print } from 'graphql/language/printer'
-import isInteger from 'is-integer';
+import { DocumentNode } from 'graphql/language/ast';
 
 const shopifyApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/api/${process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION}/graphql.json`;
 
