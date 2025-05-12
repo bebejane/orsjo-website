@@ -12,7 +12,7 @@ import {
 	StaffThumbnail,
 	Loader,
 } from '@/components';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { useDebouncedValue, useKey } from 'rooks';
 import { useMediaQuery } from 'usehooks-ts';
 import { siteSearch, truncateParagraph } from '@/lib/utils';

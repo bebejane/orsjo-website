@@ -1,6 +1,6 @@
 import s from './page.module.scss';
 import { BespokeDocument } from '@/graphql';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';

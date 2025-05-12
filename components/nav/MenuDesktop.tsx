@@ -2,7 +2,7 @@
 
 import s from './MenuDesktop.module.scss';
 import cn from 'classnames';
-//import Link from 'next/link';
+//import Link from '@/components/nav/Link';
 import Link from '@/components/nav/Link';
 
 import { useState, useRef, useEffect, useCallback } from 'react';

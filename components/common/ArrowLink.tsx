@@ -4,7 +4,7 @@ import s from './ArrowLink.module.scss';
 import cn from 'classnames';
 import Arrow from '@/public/images/arrow.svg';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 
 export type ArrowLinkProps = {
 	title?: string;

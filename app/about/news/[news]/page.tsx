@@ -4,7 +4,7 @@ import { apiQuery } from 'next-dato-utils/api';
 import { Image } from 'react-datocms';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { Markdown } from 'next-dato-utils/components';
 import { format } from 'date-fns';
 import { notFound } from 'next/navigation';

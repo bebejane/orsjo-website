@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { SectionListItem } from '@/components';
 import { chunkArray } from '@/lib/utils';
 import { useState, useEffect, useMemo } from 'react';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import React from 'react';
 import { ProductPageDataProps } from './page';
 import useStore, { useShallow } from '@/lib/store';

@@ -2,7 +2,7 @@
 
 import s from './Footer.module.scss';
 import cn from 'classnames';
-//import Link from 'next/link';
+//import Link from '@/components/nav/Link';
 import Link from '@/components/nav/Link';
 import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';

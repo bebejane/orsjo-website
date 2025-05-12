@@ -1,7 +1,7 @@
 'use client';
 
 import s from './NewsList.module.scss';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { Markdown } from 'next-dato-utils/components';
 import { useApiQuery } from 'next-dato-utils/hooks';
 import { AllNewsDocument } from '@/graphql';

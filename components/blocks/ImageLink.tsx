@@ -2,7 +2,7 @@
 
 import s from './ImageLink.module.scss';
 import { Image } from 'react-datocms';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { ArrowLink } from '@/components';
 import { useRef } from 'react';
 

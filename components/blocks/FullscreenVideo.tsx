@@ -3,7 +3,7 @@
 import s from './FullscreenVideo.module.scss';
 import React from 'react';
 import { VideoPlayer, ArrowLink } from '@/components';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { useRef } from 'react';
 
 export type FullscreenVideoProps = { data: FullscreenVideoRecord };

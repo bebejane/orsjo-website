@@ -2,8 +2,8 @@
 
 import nodemailer from 'nodemailer';
 import * as EmailValidator from 'email-validator';
-import sendMail from '@/emails';
-import ContactAutoReply from '@/emails/ContactAutoReply';
+//import sendMail from '@/emails';
+//import ContactAutoReply from '@/emails/ContactAutoReply';
 import { MailOptions } from 'nodemailer/lib/json-transport';
 
 const envKeys = ['SMTP_SERVER', 'SMTP_PORT', 'SMTP_EMAIL', 'SMTP_FROM_EMAIL', 'SMTP_CONTACT_EMAIL'];
@@ -52,7 +52,7 @@ export async function sendContact(formData: FormData) {
 		};
 
 		console.log('sending email...');
-
+		/*
 		await new Promise((resolve, reject) => {
 			transporter.sendMail(mailData, (err, info) => (err ? reject(err) : resolve(info)));
 		});
@@ -60,8 +60,9 @@ export async function sendContact(formData: FormData) {
 			to: email,
 			from: process.env.SMTP_CONTACT_EMAIL,
 			subject: 'Contact (auto-reply)',
-			component: <ContactAutoReply name={name} />,
+			//component: <ContactAutoReply name={name} />,
 		});
+		*/
 		console.log('sent email from', email);
 	} catch (err) {
 		console.log(err);

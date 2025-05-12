@@ -6,11 +6,10 @@ import {
 	AllRelatedProjectsDocument,
 	BespokeThumbnailDocument,
 } from '@/graphql';
-import { PageProps } from '@/lib/context/page';
 import { Section, FeaturedGallery } from '@/components';
-import ProjectHeader from '@/app/professionals/projects/[project]/ProjectHeader';
+import ProjectHeader from './ProjectHeader';
 import { notFound } from 'next/navigation';
-import ProjectGallery from '@/app/professionals/projects/[project]/ProjectGallery';
+import ProjectGallery from './ProjectGallery';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 

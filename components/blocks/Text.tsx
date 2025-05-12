@@ -1,7 +1,7 @@
 import s from './Text.module.scss';
 import React from 'react';
 import cn from 'classnames';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { StructuredText } from 'react-datocms';
 import type { StructuredText as StructuredTextType } from 'datocms-structured-text-utils';
 import { usePage } from '@/lib/context/page';

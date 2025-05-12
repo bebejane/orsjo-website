@@ -2,7 +2,7 @@
 
 import s from './NewsItem.module.scss';
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/components/nav/Link';
 import { Markdown } from 'next-dato-utils/components';
 import { ArrowLink } from '@/components';
 import { useRef } from 'react';
