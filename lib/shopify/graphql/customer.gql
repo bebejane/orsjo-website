@@ -155,3 +155,9 @@ fragment CustomerErrorsFragment on CustomerUserError {
 	message
 	code
 }
+
+fragment UserErrorsFragment on UserError {
+	__typename
+	field
+	message
+}

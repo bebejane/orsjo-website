@@ -74,7 +74,9 @@ fragment CartFragment on Cart {
 		countryCode
 		email
 		phone
-		walletPreferences
+		preferences {
+			wallet
+		}
 		customer {
 			...CustomerFragment
 		}
@@ -137,14 +139,6 @@ fragment CartFragment on Cart {
 			currencyCode
 		}
 		subtotalAmount {
-			amount
-			currencyCode
-		}
-		totalTaxAmount {
-			amount
-			currencyCode
-		}
-		totalDutyAmount {
 			amount
 			currencyCode
 		}

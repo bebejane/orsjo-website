@@ -39,15 +39,7 @@ export const CustomerFragment: DocumentNode;
 export const CustomerFragmentLight: DocumentNode;
 export const CustomerOrderFragment: DocumentNode;
 export const CustomerErrorsFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/UserErrorsFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const UserErrorsFragment: DocumentNode;
+export const UserErrorsFragment: DocumentNode;
 
   export default defaultDocument;
 }
