@@ -1,0 +1,989 @@
+{
+  "webhook_call_id": "151873408",
+  "event_triggered_at": "2025-05-12T06:53:20Z",
+  "attempted_auto_retries_count": 0,
+  "webhook_id": "22295",
+  "site_id": "62617",
+  "environment": "main",
+  "is_environment_primary": true,
+  "entity_type": "item",
+  "event_type": "publish",
+  "entity": {
+    "id": "K5H8g5l5SCe4YFfSuE3Ikg",
+    "type": "item",
+    "attributes": {
+      "categories": [
+        "107175064",
+        "107175067"
+      ],
+      "models": [
+        {
+          "type": "item",
+          "attributes": {
+            "name": "107174987",
+            "variants": [
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36060-01S-000",
+                  "color": "107174797",
+                  "material": null,
+                  "feature": null,
+                  "weight": 2,
+                  "volume": 0,
+                  "price": 5564
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "Iv9JTcKiSt6mZsdNXAoLZg"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36060-15S-000",
+                  "color": "107174742",
+                  "material": null,
+                  "feature": null,
+                  "weight": 2,
+                  "volume": 0,
+                  "price": 5564
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "Tk9oMWEcRa-AvBLjz_dyMQ"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36060-69-000",
+                  "color": "192248565",
+                  "material": null,
+                  "feature": null,
+                  "weight": 2,
+                  "volume": 0,
+                  "price": 6342
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "A0iiqQ9-RWK0w35uCkwI7A"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36060-70-000",
+                  "color": null,
+                  "material": "107174796",
+                  "feature": null,
+                  "weight": null,
+                  "volume": null,
+                  "price": 7894
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "Zk2lU2PKTpCYZSF96vUIxw"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36060-55-000",
+                  "color": null,
+                  "material": "107174815",
+                  "feature": null,
+                  "weight": 2,
+                  "volume": 0,
+                  "price": 5648
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "bl-9SPY5S0aCjeWUWSHCGA"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36060-72-000",
+                  "color": null,
+                  "material": "107174808",
+                  "feature": null,
+                  "weight": 2,
+                  "volume": 0.02,
+                  "price": 6740
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "KTf-ZKzBRoq1jeq-HKhMng"
+              }
+            ],
+            "drawing": {
+              "alt": null,
+              "title": null,
+              "custom_data": {},
+              "focal_point": null,
+              "upload_id": "Ws1-C6U2TdOv3ioQiL1eZg"
+            },
+            "lightsources": [
+              {
+                "type": "item",
+                "attributes": {
+                  "lightsource": "SbEmaybqQ2CTepKLqjz3eg",
+                  "amount": null,
+                  "included": true,
+                  "optional": false
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801306",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "NwfwRhtYSP6VqzPGFUYNDw"
+              }
+            ],
+            "accessories": [
+              {
+                "type": "item",
+                "attributes": {
+                  "accessory": "ThWEOHcCRv27hWX1H94Ytw",
+                  "article_no": "PPP35-3000",
+                  "price": 971
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801309",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "IfgaIvWzTKiL-A53AGlx1w"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "accessory": "111907729",
+                  "article_no": "PPP30-3000",
+                  "price": 580
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801309",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "CuLjQkSoTdysYXZBi29JLQ"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "accessory": "111907699",
+                  "article_no": "PPP36-3000",
+                  "price": 824
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801309",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "BDNAynp3TpyNPo3e67kHuA"
+              }
+            ]
+          },
+          "relationships": {
+            "item_type": {
+              "data": {
+                "id": "1801307",
+                "type": "item_type"
+              }
+            }
+          },
+          "id": "cZ47pvaQRIWIeOoEZ7tGuw"
+        },
+        {
+          "type": "item",
+          "attributes": {
+            "name": "107174979",
+            "variants": [
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36061-01S-000",
+                  "color": "107174797",
+                  "material": null,
+                  "feature": null,
+                  "weight": 4,
+                  "volume": 0.04,
+                  "price": 9808
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "Y5rLQcV8RROoeIx2Fo28vQ"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36061-15S-000",
+                  "color": "107174742",
+                  "material": null,
+                  "feature": null,
+                  "weight": 4,
+                  "volume": 0.04,
+                  "price": 9808
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "Hs2GGu_uShiluB6zR1uhKg"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36061-55-000",
+                  "color": null,
+                  "material": "107174815",
+                  "feature": null,
+                  "weight": 4,
+                  "volume": 0.04,
+                  "price": 9589
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "NXdcUY_1RxGEEIOxJltSsQ"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36061-69-000",
+                  "color": null,
+                  "material": "107174812",
+                  "feature": null,
+                  "weight": 4,
+                  "volume": 0.04,
+                  "price": 11401
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "Htt2YQrAQxaufRal4YH7tA"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36061-70-000",
+                  "color": null,
+                  "material": "107174796",
+                  "feature": null,
+                  "weight": 4,
+                  "volume": 0.04,
+                  "price": 14063
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "cCBlqYlgTTKEO7bQNNeIJw"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "article_no": "36061-72-000",
+                  "color": null,
+                  "material": "107174808",
+                  "feature": null,
+                  "weight": 4,
+                  "volume": 0.04,
+                  "price": 12204
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801308",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "AhBQ644HTVeoZCs9BrnXiQ"
+              }
+            ],
+            "drawing": {
+              "alt": null,
+              "title": null,
+              "custom_data": {},
+              "focal_point": null,
+              "upload_id": "IXW_lWVfQMumgDT1IcpcaA"
+            },
+            "lightsources": [
+              {
+                "type": "item",
+                "attributes": {
+                  "lightsource": "SbEmaybqQ2CTepKLqjz3eg",
+                  "amount": 6,
+                  "included": true,
+                  "optional": false
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801306",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "KMhDovF1TeC_CDtkNuaU3g"
+              }
+            ],
+            "accessories": [
+              {
+                "type": "item",
+                "attributes": {
+                  "accessory": "ThWEOHcCRv27hWX1H94Ytw",
+                  "article_no": "PPP35-3000",
+                  "price": 971
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801309",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "QsUUe5XkRdmoFVxHUojn8g"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "accessory": "111907729",
+                  "article_no": "PPP30-3000",
+                  "price": 580
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801309",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "LRFVZkY2QvitOEk7j8qA4Q"
+              },
+              {
+                "type": "item",
+                "attributes": {
+                  "accessory": "111907699",
+                  "article_no": "PPP36-3000",
+                  "price": 824
+                },
+                "relationships": {
+                  "item_type": {
+                    "data": {
+                      "id": "1801309",
+                      "type": "item_type"
+                    }
+                  }
+                },
+                "id": "VrFc8Lg_RQm9N-TtoMjVlA"
+              }
+            ]
+          },
+          "relationships": {
+            "item_type": {
+              "data": {
+                "id": "1801307",
+                "type": "item_type"
+              }
+            }
+          },
+          "id": "XcrvffEHSgyjaADNFjRjEA"
+        }
+      ],
+      "hide_in_pricelist": false,
+      "image": {
+        "alt": null,
+        "title": null,
+        "custom_data": {},
+        "focal_point": null,
+        "upload_id": "EvfBWucnTDmT80pICm7KhA"
+      },
+      "light_file": null,
+      "title": "Starlight",
+      "color_images": [
+        {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "L4S__KLIQuGmx-c4X20zhg"
+        },
+        {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "Bn2Xn1f-SAWRrcb_gPsTow"
+        },
+        {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "TH0f4FMLTCGMSljg4_4dqg"
+        },
+        {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "EvfBWucnTDmT80pICm7KhA"
+        }
+      ],
+      "mounting_instructions": null,
+      "environment_image": {
+        "alt": null,
+        "title": null,
+        "custom_data": {},
+        "focal_point": null,
+        "upload_id": "ICTd13dvSSqe_wj-bW4_Zg"
+      },
+      "family": "IUhOYbuwTzGWqyPmKuEUrw",
+      "bim_file": {
+        "alt": null,
+        "title": null,
+        "custom_data": {},
+        "focal_point": null,
+        "upload_id": "WIVoRK8FTAW3tbkqPhBnWw"
+      },
+      "product_gallery": [
+        {
+          "type": "item",
+          "attributes": {
+            "gallery": [
+              {
+                "alt": null,
+                "title": null,
+                "custom_data": {},
+                "focal_point": null,
+                "upload_id": "EvfBWucnTDmT80pICm7KhA"
+              },
+              {
+                "alt": null,
+                "title": null,
+                "custom_data": {},
+                "focal_point": null,
+                "upload_id": "TH0f4FMLTCGMSljg4_4dqg"
+              },
+              {
+                "alt": null,
+                "title": null,
+                "custom_data": {},
+                "focal_point": null,
+                "upload_id": "L4S__KLIQuGmx-c4X20zhg"
+              },
+              {
+                "alt": null,
+                "title": null,
+                "custom_data": {},
+                "focal_point": null,
+                "upload_id": "Bn2Xn1f-SAWRrcb_gPsTow"
+              }
+            ]
+          },
+          "relationships": {
+            "item_type": {
+              "data": {
+                "id": "1995888",
+                "type": "item_type"
+              }
+            }
+          },
+          "id": "XYKpwL4tTr2nhHq96GpxKQ"
+        },
+        {
+          "type": "item",
+          "attributes": {
+            "text": {
+              "schema": "dast",
+              "document": {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "span",
+                        "value": "Starlight offers the same functionality, and comes in the same wide range of materials, finishes and configurations, but with an included and integrated GU10 dim to warm light source. Creating a stylish and more discreet design for all types of contemporary interiors"
+                      }
+                    ],
+                    "type": "paragraph"
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "span",
+                        "value": ""
+                      }
+                    ],
+                    "type": "paragraph"
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "span",
+                        "value": ""
+                      }
+                    ],
+                    "type": "paragraph"
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "span",
+                        "value": ""
+                      }
+                    ],
+                    "type": "paragraph"
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "span",
+                        "value": ""
+                      }
+                    ],
+                    "type": "paragraph"
+                  }
+                ],
+                "type": "root"
+              }
+            }
+          },
+          "relationships": {
+            "item_type": {
+              "data": {
+                "id": "1995885",
+                "type": "item_type"
+              }
+            }
+          },
+          "id": "fXKPo5R2Q4SwiDiCISdT8A"
+        },
+        {
+          "type": "item",
+          "attributes": {
+            "image": {
+              "alt": null,
+              "title": null,
+              "custom_data": {},
+              "focal_point": null,
+              "upload_id": "ICTd13dvSSqe_wj-bW4_Zg"
+            }
+          },
+          "relationships": {
+            "item_type": {
+              "data": {
+                "id": "1995883",
+                "type": "item_type"
+              }
+            }
+          },
+          "id": "JQaCLWS0SuuvP5F2LiXF-Q"
+        },
+        {
+          "type": "item",
+          "attributes": {
+            "first_image": {
+              "alt": null,
+              "title": null,
+              "custom_data": {},
+              "focal_point": null,
+              "upload_id": "E5LQeYeGQOSDCQg2eTUvZQ"
+            },
+            "last_image": {
+              "alt": null,
+              "title": null,
+              "custom_data": {},
+              "focal_point": null,
+              "upload_id": "B-ADLvbKQ6qgxgdxQO4E5w"
+            }
+          },
+          "relationships": {
+            "item_type": {
+              "data": {
+                "id": "1995884",
+                "type": "item_type"
+              }
+            }
+          },
+          "id": "fdNue5kaSB63Q2QUx-uiSw"
+        }
+      ],
+      "pdf_file": {
+        "da": {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "V2AEUbeJTNORxgrhTpfTEg"
+        },
+        "en": {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "It6z3r8YTVaFZlF0-gTlCg"
+        },
+        "no": {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "OniJoftjQp-acea_DXJwaA"
+        },
+        "sv": {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "H4HpoFzCSRGaI5Qm1jDuEA"
+        },
+        "en-GB": {
+          "alt": null,
+          "title": null,
+          "custom_data": {},
+          "focal_point": null,
+          "upload_id": "ItP_rHt9To2emxvFta9kJg"
+        }
+      },
+      "designer": "107175042",
+      "mark_as_new": true,
+      "upcycled": false,
+      "bim_link": "",
+      "additional_information": {
+        "da": "",
+        "en": "Cord at end of rail, incl brackets for ceiling or wall attachment. Suspension wire as accessory",
+        "no": "",
+        "sv": "Inkl montageband. Vajerupphängning som tillval ",
+        "en-GB": ""
+      },
+      "note": {
+        "da": "",
+        "en": "Produced from raw and rough surfaces. This means there are variations in color, marks and variations in the surface. The surface will develop a darker and beautiful patina over the years and this is a proof of craftmanship and honest materials",
+        "no": "",
+        "sv": "Tillverkad utifrån råa ytor. Det innebär\nfärgskiftningar, vissa märken och variationer i ytorna. Ytan kommer att skifta mot en mörkare\nnyans över tid och detta är en viktig del av designen och ett kvitto på hantverk och ärliga\nmaterial",
+        "en-GB": ""
+      },
+      "description": {
+        "da": "",
+        "en": "Starlight is a new development based on Jonas Bohlin and Örsjö´ s classic track light \"Star\", which has been a success in various versions and materials for over 20 years.\n\n\n",
+        "no": "",
+        "sv": "Starlight är en vidareutveckling baserad på Jonas Bohlins och Örsjös klassiska familj \"Star\" som har funnits i olika versioner och utföranden i över 20 år.\nStarlight finns i samma versioner och material med samma stora flexibilitet som Star, och har en integrerad GU10 dim to warm ljuskälla vilket skapar en armatur som passar i alla typer av miljöer\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+        "en-GB": ""
+      },
+      "electrical_data": [
+        "107175075"
+      ],
+      "sockets": [
+        "107175085"
+      ],
+      "dimmable": "107175076",
+      "connection": "107174887",
+      "mounting": null,
+      "slug": "starlight",
+      "updated_at": "2025-05-12T08:53:16.972+02:00",
+      "created_at": "2025-01-03T13:10:43.531+01:00"
+    },
+    "relationships": {
+      "item_type": {
+        "data": {
+          "id": "1801291",
+          "type": "item_type"
+        }
+      },
+      "creator": {
+        "data": {
+          "id": "33940",
+          "type": "user"
+        }
+      }
+    },
+    "meta": {
+      "created_at": "2025-01-03T13:10:43.531+01:00",
+      "updated_at": "2025-05-12T08:53:16.972+02:00",
+      "published_at": "2025-05-12T08:53:20.075+02:00",
+      "publication_scheduled_at": null,
+      "unpublishing_scheduled_at": null,
+      "first_published_at": "2025-02-04T10:47:00.548+01:00",
+      "is_valid": true,
+      "is_current_version_valid": true,
+      "is_published_version_valid": true,
+      "status": "published",
+      "current_version": "aJg2JP07TDm2NUv_vNZQ1A",
+      "stage": null
+    }
+  },
+  "related_entities": [
+    {
+      "id": "1801291",
+      "type": "item_type",
+      "attributes": {
+        "name": "Product",
+        "singleton": false,
+        "sortable": false,
+        "api_key": "product",
+        "ordering_direction": "asc",
+        "ordering_meta": null,
+        "tree": false,
+        "modular_block": false,
+        "draft_mode_active": true,
+        "draft_saving_active": false,
+        "all_locales_required": true,
+        "collection_appeareance": "table",
+        "collection_appearance": "table",
+        "has_singleton_item": false,
+        "hint": null,
+        "inverse_relationships_enabled": false
+      },
+      "relationships": {
+        "fields": {
+          "data": [
+            {
+              "id": "9047516",
+              "type": "field"
+            },
+            {
+              "id": "9047513",
+              "type": "field"
+            },
+            {
+              "id": "10441183",
+              "type": "field"
+            },
+            {
+              "id": "9047512",
+              "type": "field"
+            },
+            {
+              "id": "9047510",
+              "type": "field"
+            },
+            {
+              "id": "9047498",
+              "type": "field"
+            },
+            {
+              "id": "9047501",
+              "type": "field"
+            },
+            {
+              "id": "10123312",
+              "type": "field"
+            },
+            {
+              "id": "9047500",
+              "type": "field"
+            },
+            {
+              "id": "9047515",
+              "type": "field"
+            },
+            {
+              "id": "10335260",
+              "type": "field"
+            },
+            {
+              "id": "10123194",
+              "type": "field"
+            },
+            {
+              "id": "9047502",
+              "type": "field"
+            },
+            {
+              "id": "9047503",
+              "type": "field"
+            },
+            {
+              "id": "10157592",
+              "type": "field"
+            },
+            {
+              "id": "DzKBdvghR9WXSpKrfbaiKA",
+              "type": "field"
+            },
+            {
+              "id": "9047509",
+              "type": "field"
+            },
+            {
+              "id": "9047504",
+              "type": "field"
+            },
+            {
+              "id": "djCaEXigTDCsSuSap9kKpw",
+              "type": "field"
+            },
+            {
+              "id": "9047499",
+              "type": "field"
+            },
+            {
+              "id": "9047514",
+              "type": "field"
+            },
+            {
+              "id": "9047505",
+              "type": "field"
+            },
+            {
+              "id": "9047506",
+              "type": "field"
+            },
+            {
+              "id": "9047507",
+              "type": "field"
+            },
+            {
+              "id": "9047508",
+              "type": "field"
+            },
+            {
+              "id": "9047556",
+              "type": "field"
+            }
+          ]
+        },
+        "fieldsets": {
+          "data": [
+            {
+              "id": "509709",
+              "type": "fieldset"
+            },
+            {
+              "id": "509708",
+              "type": "fieldset"
+            },
+            {
+              "id": "492446",
+              "type": "fieldset"
+            },
+            {
+              "id": "492445",
+              "type": "fieldset"
+            },
+            {
+              "id": "558427",
+              "type": "fieldset"
+            }
+          ]
+        },
+        "singleton_item": {
+          "data": null
+        },
+        "ordering_field": {
+          "data": {
+            "id": "9047498",
+            "type": "field"
+          }
+        },
+        "presentation_title_field": {
+          "data": {
+            "id": "9047498",
+            "type": "field"
+          }
+        },
+        "presentation_image_field": {
+          "data": {
+            "id": "9047512",
+            "type": "field"
+          }
+        },
+        "title_field": {
+          "data": {
+            "id": "9047498",
+            "type": "field"
+          }
+        },
+        "image_preview_field": {
+          "data": {
+            "id": "9047512",
+            "type": "field"
+          }
+        },
+        "excerpt_field": {
+          "data": null
+        },
+        "workflow": {
+          "data": null
+        }
+      },
+      "meta": {
+        "has_singleton_item": false
+      }
+    }
+  ]
+}
