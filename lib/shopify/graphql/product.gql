@@ -18,6 +18,12 @@ query ShopifyProduct($country: CountryCode = SE, $handle: String) @inContext(cou
 	}
 }
 
+query ShopifyProductById($id: ID!) {
+	product(id: $id) {
+		...ProductFragment
+	}
+}
+
 query ShopifyVariant($country: CountryCode = SE, $id: ID!) @inContext(country: $country) {
 	variant: node(id: $id) {
 		... on ProductVariant {

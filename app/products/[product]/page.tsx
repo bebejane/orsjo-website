@@ -18,6 +18,9 @@ import ProductSpecifications from '@/app/products/[product]/ProductSpecification
 import ProductDownloads from '@/app/products/[product]/ProductDownloads';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
+import shopifyQuery from '@/lib/shopify/shopify-query';
+import { AllShopifyProductsDocument, ShopifyProductDocument } from '@/lib/shopify/graphql';
+import { DocumentNode } from 'graphql/language/ast';
 
 type Props = {
 	params: Promise<{
@@ -31,6 +34,7 @@ export default async function Product({ params }: Props) {
 	if (!res) return notFound();
 
 	const {
+		shopifyProduct,
 		product,
 		relatedProducts,
 		relatedProjects,
@@ -39,7 +43,7 @@ export default async function Product({ params }: Props) {
 		specsCols,
 		files,
 	} = res;
-
+	console.log(JSON.stringify(shopifyProduct, null, 2));
 	return (
 		<>
 			<ProductIntro product={product} drawings={drawings} />
@@ -85,6 +89,7 @@ export type SpecCol = {
 	slug?: string;
 };
 export type ProductPageDataProps = {
+	shopifyProduct: ShopifyProductQuery['product'];
 	product: ProductQuery['product'];
 	relatedProducts: RelatedProductsQuery['relatedProducts'];
 	relatedProjects: RelatedProjectsForProductQuery['relatedProjects'];
@@ -118,6 +123,11 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 			}
 		),
 	]);
+
+	const { product: shopifyProduct } = await shopifyQuery<
+		ShopifyProductQuery,
+		ShopifyProductQueryVariables
+	>(ShopifyProductDocument as DocumentNode, { variables: { handle: product.slug } });
 
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [
@@ -153,6 +163,7 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 
 	return {
 		product,
+		shopifyProduct,
 		relatedProducts: relatedProducts
 			.filter((p) => p.id !== product.id)
 			//@ts-ignore

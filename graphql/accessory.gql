@@ -1,0 +1,9 @@
+query AllProductAccessories($first: IntType = 100, $skip: IntType = 0) {
+	allProductAccessories(first: $first, skip: $skip) {
+		id
+		name
+	}
+	_allProductAccessoriesMeta {
+		count
+	}
+}

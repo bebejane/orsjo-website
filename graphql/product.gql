@@ -309,6 +309,9 @@ fragment ProductFragment on ProductRecord {
 				name
 			}
 			articleNo
+			image {
+				...ImageFragment
+			}
 		}
 		accessories {
 			articleNo

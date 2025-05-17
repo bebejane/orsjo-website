@@ -1,7 +1,7 @@
 
 import type { RequestInit } from 'next/dist/server/web/spec-extension/request'
 import { print } from 'graphql/language/printer'
-import { DocumentNode } from 'graphql/language/ast';
+import type { DocumentNode } from '@/node_modules/graphql'
 
 const shopifyApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/api/${process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION}/graphql.json`;
 
