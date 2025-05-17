@@ -19,7 +19,7 @@ export const POST = async (req: Request) => {
     title: attributes.title,
     handle: attributes.slug,
     body_html: attributes.description.en,
-    image: attributes.image?.upload_id ?? null
+    //imageUrl: attributes.image?.upload_id ?? null 
   }
 
   if (!products[0])

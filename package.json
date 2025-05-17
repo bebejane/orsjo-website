@@ -6,7 +6,6 @@
 		"dev": "NEXT_PUBLIC_DATOCMS_ENVIRONMENT=dev next dev --turbo & npm run codegen",
 		"build": "next build",
 		"dev:test": "npm run dev & npx mailing",
-		"postbuild": "node ./postbuild.js",
 		"codegen": "chokidar \"./graphql/**/*.gql\" -c \"pnpm codegen:website\" & chokidar \"./lib/shopify/graphql/**/*.gql\" -c \"pnpm codegen:shopify\"",
 		"codegen:website": "graphql-codegen --config graphql.config.ts --project default",
 		"codegen:shopify": "graphql-codegen --config graphql.config.ts --project shopify",

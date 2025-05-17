@@ -34,7 +34,7 @@ export default async function Product({ params }: Props) {
 	if (!res) return notFound();
 
 	const {
-		shopifyProduct,
+		//shopifyProduct,
 		product,
 		relatedProducts,
 		relatedProjects,
@@ -43,7 +43,7 @@ export default async function Product({ params }: Props) {
 		specsCols,
 		files,
 	} = res;
-	console.log(JSON.stringify(shopifyProduct, null, 2));
+
 	return (
 		<>
 			<ProductIntro product={product} drawings={drawings} />
@@ -89,7 +89,7 @@ export type SpecCol = {
 	slug?: string;
 };
 export type ProductPageDataProps = {
-	shopifyProduct: ShopifyProductQuery['product'];
+	//shopifyProduct: ShopifyProductQuery['product'];
 	product: ProductQuery['product'];
 	relatedProducts: RelatedProductsQuery['relatedProducts'];
 	relatedProjects: RelatedProjectsForProductQuery['relatedProjects'];
@@ -124,11 +124,12 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 		),
 	]);
 
+	/*
 	const { product: shopifyProduct } = await shopifyQuery<
 		ShopifyProductQuery,
 		ShopifyProductQueryVariables
 	>(ShopifyProductDocument as DocumentNode, { variables: { handle: product.slug } });
-
+*/
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [
 		{ label: 'Designer', value: specs.designer, slug: `/designers/${product.designer?.slug}` },
@@ -163,7 +164,7 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 
 	return {
 		product,
-		shopifyProduct,
+
 		relatedProducts: relatedProducts
 			.filter((p) => p.id !== product.id)
 			//@ts-ignore
