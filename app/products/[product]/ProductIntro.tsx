@@ -74,7 +74,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 	}, [viewportHeight, scrolledPosition, setPictureStyle, isMobile]);
 
 	if (!product) return null;
-	console.log(pictureStyle);
+
 	return (
 		<>
 			<Section name='Introduction' className={s.product} top={true}>

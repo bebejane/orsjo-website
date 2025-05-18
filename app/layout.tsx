@@ -5,6 +5,9 @@ import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import { buildMenu } from '@/lib/menu';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
+import shopify from '@/lib/shopify/rest-client';
+import shopifyQuery from '@/lib/shopify/shopify-query';
+import { LocalizationDocument } from '@/lib/shopify/graphql';
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -12,11 +15,16 @@ export type LayoutProps = {
 
 export default async function RootLayout({ children }: LayoutProps) {
 	const menu = await buildMenu();
+	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(
+		LocalizationDocument
+	);
 
 	return (
 		<html lang='en-US'>
 			<body id='root'>
-				<Layout menu={menu}>{children}</Layout>
+				<Layout menu={menu} localization={localization}>
+					{children}
+				</Layout>
 			</body>
 		</html>
 	);

@@ -4,7 +4,6 @@ import type { IGraphQLConfig } from 'graphql-config'
 const shopifyStorefrontApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/api/${process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION}/graphql.json`;
 const shopifyAdminApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/admin/api/${process.env.ADMIN_API_VERSION}/graphql.json`;
 
-
 const defaultConfig = {
 	dedupeOperationSuffix: true,
 	dedupeFragments: true,

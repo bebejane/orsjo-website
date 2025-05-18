@@ -17,10 +17,15 @@ import type { MenuItem } from '@/lib/menu';
 import { useStore, useShallow } from '@/lib/store';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Cart from '@/components/shopify/Cart';
 
-export type LayoutProps = { children: React.ReactNode; menu: MenuItem[] };
+export type LayoutProps = {
+	children: React.ReactNode;
+	menu: MenuItem[];
+	localization: LocalizationQuery['localization'];
+};
 
-export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
+export default function Layout({ children, menu: menuFromProps, localization }: LayoutProps) {
 	const pathname = usePathname();
 	const { color, layout, sidebar, title } = getPageAttributes(pathname);
 	const [menu, setMenu] = useState(menuFromProps);
@@ -52,6 +57,7 @@ export default function Layout({ children, menu: menuFromProps }: LayoutProps) {
 						onClose={() => setGallery((g) => ({ ...g, index: -1 }))}
 					/>
 				</div>
+				<Cart localization={localization} />
 				<Footer menu={menu} />
 				<CookieConsent />
 				<div id='page-transition' />

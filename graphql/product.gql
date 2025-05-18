@@ -293,6 +293,7 @@ fragment ProductFragment on ProductRecord {
 			}
 		}
 		variants {
+			id
 			color {
 				id
 				name
@@ -314,6 +315,7 @@ fragment ProductFragment on ProductRecord {
 			}
 		}
 		accessories {
+			id
 			articleNo
 			price
 			accessory {

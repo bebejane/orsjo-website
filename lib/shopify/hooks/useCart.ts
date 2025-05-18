@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useShallow } from 'zustand/react/shallow';
 import shopifyQuery from '../shopify-query'
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { cartCookieOptions } from '../utils'
@@ -45,7 +46,7 @@ const useCart = create<CartState>((set, get) => ({
     if (!cart)
       cart = (await shopifyQuery<CreateCartMutation, CreateCartMutationVariables>(CreateCartDocument, { revalidate: 0, country }))?.cartCreate?.cart;
 
-
+    console.log('createCart', cart)
     if (!cart)
       throw new Error('Cart not found')
 
@@ -61,6 +62,7 @@ const useCart = create<CartState>((set, get) => ({
     return cart
   },
   addToCart: async (line: CartLineInput, country: string) => {
+
     get().update(null, async () => {
 
       const cart = get().cart as Cart
@@ -141,3 +143,4 @@ const useCart = create<CartState>((set, get) => ({
 }));
 
 export default useCart;
+export { useShallow }

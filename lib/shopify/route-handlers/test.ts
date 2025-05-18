@@ -1,4 +1,4 @@
-import { buildClient } from '@datocms/cma-client-node'
+import { buildClient } from '@datocms/cma-client'
 import { NextRequest, NextResponse } from 'next/server'
 
 export default async function test(req: NextRequest) {

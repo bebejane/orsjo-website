@@ -1,0 +1,76 @@
+.form {
+	//display: inline;
+	width: 100%;
+
+	label {
+		display: inline;
+		padding-right: 0.2em;
+	}
+
+	select {
+		display: inline;
+		background-color: transparent;
+	}
+
+	.select {
+		//display: inline;
+		width: 100%;
+
+		.button {
+			width: 100%;
+			display: inline-flex !important;
+			flex-direction: row;
+			text-align: left;
+			align-items: center;
+			padding: 0px;
+			display: inline;
+			background-color: transparent;
+
+			.value {
+				width: 100%;
+			}
+
+			.arrow {
+				font-size: 0.8em;
+				margin-left: 0.5em;
+			}
+		}
+	}
+}
+
+.popover {
+	overflow-y: scroll;
+	scrollbar-width: 10px !important;
+
+	.options {
+		background-color: var(--gray);
+
+		.option {
+			padding: 0.4em;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			&:first-of-type {
+				padding-top: 0.7em;
+			}
+			&:last-of-type {
+				padding-bottom: 0.8em;
+			}
+
+			&.selected {
+				background-color: var(--black);
+				color: var(--white);
+				cursor: normal;
+				pointer-events: none;
+			}
+
+			@include mixin.mq($from: desktop) {
+				&:hover {
+					background-color: var(--black);
+					color: var(--white);
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}

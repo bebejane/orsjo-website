@@ -16,6 +16,7 @@ import { notFound } from 'next/navigation';
 import ProductIntro from '@/app/products/[product]/ProductIntro';
 import ProductSpecifications from '@/app/products/[product]/ProductSpecifications';
 import ProductDownloads from '@/app/products/[product]/ProductDownloads';
+import ProductShop from '@/app/products/[product]/ProductShop';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import shopifyQuery from '@/lib/shopify/shopify-query';
@@ -34,7 +35,7 @@ export default async function Product({ params }: Props) {
 	if (!res) return notFound();
 
 	const {
-		//shopifyProduct,
+		shopifyProduct,
 		product,
 		relatedProducts,
 		relatedProjects,
@@ -44,11 +45,14 @@ export default async function Product({ params }: Props) {
 		files,
 	} = res;
 
+	console.log(shopifyProduct?.variants);
+
 	return (
 		<>
 			<ProductIntro product={product} drawings={drawings} />
 			<ProductSpecifications product={product} drawings={drawings} specsCols={specsCols} />
 			<ProductDownloads files={files} />
+			<ProductShop product={product} shopifyProduct={shopifyProduct} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery
@@ -89,7 +93,7 @@ export type SpecCol = {
 	slug?: string;
 };
 export type ProductPageDataProps = {
-	//shopifyProduct: ShopifyProductQuery['product'];
+	shopifyProduct: ShopifyProductQuery['product'];
 	product: ProductQuery['product'];
 	relatedProducts: RelatedProductsQuery['relatedProducts'];
 	relatedProjects: RelatedProjectsForProductQuery['relatedProjects'];
@@ -124,12 +128,11 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 		),
 	]);
 
-	/*
 	const { product: shopifyProduct } = await shopifyQuery<
 		ShopifyProductQuery,
 		ShopifyProductQueryVariables
-	>(ShopifyProductDocument as DocumentNode, { variables: { handle: product.slug } });
-*/
+	>(ShopifyProductDocument as DocumentNode, { variables: { handle: product.slug }, country: 'US' });
+
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [
 		{ label: 'Designer', value: specs.designer, slug: `/designers/${product.designer?.slug}` },
@@ -164,7 +167,7 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 
 	return {
 		product,
-
+		shopifyProduct,
 		relatedProducts: relatedProducts
 			.filter((p) => p.id !== product.id)
 			//@ts-ignore

@@ -17,10 +17,6 @@ query Localization($country: CountryCode = SE, $language: LanguageCode = EN)
 				name
 				symbol
 			}
-			market {
-				id
-				handle
-			}
 			isoCode
 			name
 			unitSystem

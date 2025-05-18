@@ -12,6 +12,7 @@ export type ProductData = {
   imageUrl?: string | null | undefined
   tags?: string[]
   price?: string
+  published_scope: string
 }
 
 export type VariantData = {
@@ -22,6 +23,7 @@ export type VariantData = {
   grams?: number | null
   imageUrl?: string | null | undefined
   image_id?: number | null | undefined
+  inventory_quantity: number
 }
 
 export const create = async (data: ProductData): Promise<IProduct> => {
@@ -145,7 +147,7 @@ function dedupeByKey<T>(array: T[], key: string) {
 
 export const resyncAll = async () => {
 
-  const shopifyProducts = await shopify_client.product.list()
+  const shopifyProducts = await shopify_client.product.list({ limit: 250 })
 
   const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, { variables: { first: 500, skip: 0 } })
   const { allProductLightsources } = await apiQuery<AllProductLightsourcesQuery, AllProductLightsourcesQueryVariables>(AllProductLightsourcesDocument, { variables: { first: 500, skip: 0 } })
@@ -164,7 +166,8 @@ export const resyncAll = async () => {
       body_html: product.description ?? '',
       handle: product.slug,
       tags: ['lamp'],
-      imageUrl: product.image?.url ?? null
+      imageUrl: product.image?.url ?? null,
+      published_scope: 'global'
     })
 
     for (const model of product.models) {
@@ -177,7 +180,8 @@ export const resyncAll = async () => {
           sku,
           option1: sku,
           price: variant.price ? String(variant.price) : '0',
-          imageUrl: variant.image?.url ?? null
+          imageUrl: variant.image?.url ?? null,
+          inventory_quantity: 10
         })
       }
 
@@ -187,7 +191,8 @@ export const resyncAll = async () => {
           body_html: '',
           handle: accessory.articleNo?.trim() ?? '',
           price: accessory.price,
-          tags: ['accessory']
+          tags: ['accessory'],
+          published_scope: 'global'
         })
       }
     }
@@ -200,6 +205,7 @@ export const resyncAll = async () => {
       body_html: '',
       tags: ['lightsource'],
       price: lightsource.price,
+      published_scope: 'global'
     })
   }
 
@@ -216,4 +222,17 @@ export const resyncAll = async () => {
   const addedLightsources = await batchPromises(lightsources.map((product) => () => create(product)), 5, 5000)
   console.log('added lightsources', addedLightsources.length)
 
+
+  console.log('delete default variants...')
+  const products = await shopify_client.product.list({ limit: 250 })
+  const defaultVariants: { productId: number, variantId: number }[] = []
+  for (const product of products) {
+    for (const variant of product.variants) {
+      if (variant.title.includes('Default')) {
+        console.log('deleting variant', variant.id)
+        defaultVariants.push({ productId: product.id, variantId: variant.id })
+      }
+    }
+  }
+  await batchPromises(defaultVariants.map(({ productId, variantId }) => () => shopify_client.productVariant.delete(productId, variantId)), 5, 5000)
 }

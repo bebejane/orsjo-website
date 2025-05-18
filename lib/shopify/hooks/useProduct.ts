@@ -1,9 +1,9 @@
 'use client'
 
-import shopifyQuery from '@shopify/shopify-query';
+import shopifyQuery from '@/lib/shopify/shopify-query';
 import useCountry from './useCountry';
 import { useEffect, useState } from 'react';
-import { ShopifyProductDocument } from '@shopify/graphql';
+import { ShopifyProductDocument } from '@/lib/shopify/graphql';
 
 export type Props = {
   handle: string | undefined | null

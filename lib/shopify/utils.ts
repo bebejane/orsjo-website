@@ -18,6 +18,10 @@ export const shopifyGraphqlError = (errors: CustomerUserError[]): string | undef
 
 export const itemTypeId = async (type: string) => (await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string
 
+export const formatPrice = (amount: number) => {
+  return !amount ? '' : (Math.round(amount * 100) / 100).toFixed(0);
+}
+
 export const cartCookieOptions = {
   path: '/',
   secure: false,

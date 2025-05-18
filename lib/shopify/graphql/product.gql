@@ -72,6 +72,9 @@ fragment ProductFragment on Product {
 				weight
 				availableForSale
 				quantityAvailable
+				sku
+				weight
+				weightUnit
 				selectedOptions {
 					name
 					value

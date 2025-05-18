@@ -1,5 +1,7 @@
 import { create } from "zustand";
-import { shallow, useShallow } from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
+import { useShallow } from 'zustand/react/shallow'
+
 
 export type SectionId = {
   title: string,
