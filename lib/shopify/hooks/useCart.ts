@@ -46,7 +46,7 @@ const useCart = create<CartState>((set, get) => ({
     if (!cart)
       cart = (await shopifyQuery<CreateCartMutation, CreateCartMutationVariables>(CreateCartDocument, { revalidate: 0, country }))?.cartCreate?.cart;
 
-    console.log('createCart', cart)
+
     if (!cart)
       throw new Error('Cart not found')
 

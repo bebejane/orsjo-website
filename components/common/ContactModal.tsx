@@ -55,7 +55,6 @@ export default function ContactModal({ onClose, show = false, message }: Props) 
 	};
 	const action: () => void = handleSubmit(async (data: FormData) => {
 		const response = await sendContact(data);
-		console.log(response);
 	});
 
 	return (

@@ -81,7 +81,7 @@ const dedupedFetch = async (options: DedupeOptions) => {
     'X-Shopify-Storefront-Access-Token': (process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN || process.env.SHOPIFY_STOREFRONT_API_TOKEN) as string,
     'Content-Type': 'application/json'
   } as unknown as HeadersInit
-  console.log(headers)
+
   const response = await fetch(shopifyApiEndpoint, {
     method: 'POST',
     headers,
