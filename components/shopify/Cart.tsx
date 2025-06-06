@@ -85,10 +85,7 @@ export default function Cart({ localization }: CartProps) {
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)}>
 			<header>
-				<div className={s.currency}>
-					<CountrySelector localization={localization} label='Location' className={s.form} />
-				</div>
-
+				<h1>Cart</h1>
 				<button aria-label='Close cart' className={s.close} onClick={() => setShowCart(false)}>
 					<img src='/images/close.svg' alt='Close' />
 				</button>
@@ -97,7 +94,7 @@ export default function Cart({ localization }: CartProps) {
 				<div className={s.empty}>Your cart is empty</div>
 			) : (
 				<>
-					<ul className={s.items} aria-label='Cart items'>
+					<ul className={cn(s.items, "medium")} aria-label='Cart items'>
 						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => (
 							<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
 								<figure className={s.thumb}>
@@ -114,7 +111,7 @@ export default function Cart({ localization }: CartProps) {
 
 								<div className={s.details}>
 									<div id={id}>{merchandise.product.title}</div>
-									<div className='light'>
+									<div className='medium gray'>
 										{merchandise.selectedOptions.map(({ value }) => value).join(' ')}
 									</div>
 									<div aria-label='Quantity'>
@@ -140,7 +137,7 @@ export default function Cart({ localization }: CartProps) {
 										{formatPrice(cost.subtotalAmount.amount)} {cost.subtotalAmount.currencyCode}
 									</div>
 									<div>
-										<button className={cn(s.remove, 'light')} onClick={() => removeFromCart(id)}>
+										<button className={cn(s.remove, 'medium')} onClick={() => removeFromCart(id)}>
 											Remove
 										</button>
 									</div>
@@ -150,16 +147,19 @@ export default function Cart({ localization }: CartProps) {
 					</ul>
 
 					<div className={s.total}>
-						<div>Total</div>
+						<div className="medium">Total</div>
 						<div className={s.price}>
 							{formatPrice(cart?.cost.totalAmount.amount)} {cart?.cost.totalAmount.currencyCode}
 						</div>
 					</div>
-					<div className={cn(s.extra, 'light')}>Shipping and tax are added at checkout</div>
+					<div className={s.currency}>
+						<CountrySelector localization={localization} label='Location' className={s.form} />
+					</div>
+					<div className={cn(s.extra, 'medium', "gray")}>Shipping and tax are added at checkout</div>
 
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
-						<div className={cn(s.check, 'light')}>
+						<div className={cn(s.check, 'medium')}>
 							<input
 								type='checkbox'
 								name='terms'

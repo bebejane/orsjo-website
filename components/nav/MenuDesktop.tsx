@@ -167,7 +167,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 						<img src={'/images/search.svg'} />
 					</li>
 					<li className={s.cart} onClick={() => setShowCart(true)}>
-						<MdOutlineShoppingBag size={16} />
+						<img src={'/images/cart.svg'} />
 					</li>
 				</ul>
 			</nav>

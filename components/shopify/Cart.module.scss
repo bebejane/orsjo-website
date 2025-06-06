@@ -24,18 +24,8 @@
 		align-items: center;
 		justify-content: baseline;
 
-		h3 {
-			//position: absolute;
-			top: 0;
-			left: 0;
-		}
-
-		.currency {
-			//position: absolute;
-			//top: 0.27em;
-			//left: 6rem;
-			//line-height: 0.95em;
-			width: 50%;
+		h1 {
+			padding-bottom: 0;
 		}
 
 		.close {
@@ -44,15 +34,15 @@
 		}
 	}
 
+	.currency {
+		padding-bottom: 0.35rem;
+	}
+
 	ul.items {
-		padding-top: 1.2rem;
 		list-style: none;
 		display: flex;
 		flex-direction: column;
-
-		@include mixin.mq($from: desktop) {
-			padding-top: 1.6rem;
-		}
+		padding-top: 0.5rem;
 
 		button {
 			all: unset;
@@ -73,8 +63,8 @@
 			}
 
 			.thumb {
-				width: 5rem;
-				height: 5rem;
+				width: 3rem;
+				height: 3rem;
 				background-color: var(--gray);
 
 				img {
@@ -87,21 +77,31 @@
 			.details {
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
+				justify-content: flex-start;
 				margin-left: 1em;
 				line-height: 1.25;
 
+				div {
+					padding-bottom: 0.25em;
+				}
+
+				button {
+					text-align: center;
+					background-color: var(--white);
+					color: var(--black);
+				}
+
 				button.minus {
-					margin-right: 0.25em;
+					margin-right: 0.75em;
 				}
 
 				button.plus {
-					margin-left: 0.25em;
+					margin-left: 0.75em;
 				}
 
 				button.minus,
 				button.plus {
-					width: 1em;
+					width: 1.2em;
 
 					&:hover {
 						background: var(--black);
@@ -120,7 +120,7 @@
 				display: flex;
 				flex-direction: column;
 				text-align: right;
-				padding-top: 0.85em;
+				//padding-top: 0.85em;
 
 				.price {
 					flex: 1 1 auto;
@@ -129,7 +129,7 @@
 				.remove {
 					flex: 0 0;
 					width: auto;
-					padding-bottom: 0.7em;
+					//padding-bottom: 0.7em;
 				}
 			}
 		}

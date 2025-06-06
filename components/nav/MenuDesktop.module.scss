@@ -86,9 +86,20 @@
 		}
 	}
 	li.cart {
-		margin-left: 0.3em;
+		margin-left: 0.8em;
 		margin-top: 0.2em;
 		cursor: pointer;
+		padding-right: 0;
+
+		img {
+			opacity: 0.6;
+			width: 16px;
+			max-width: 16px;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
 	}
 
 	&.open {
@@ -123,7 +134,8 @@
 			color: var(--white) !important;
 		}
 
-		li.searchIcon {
+		li.searchIcon,
+		li.cart {
 			filter: invert(1);
 		}
 	}

@@ -69,19 +69,19 @@ export default function CountrySelector({
 			ref={formRef}
 			aria-label={'Select country'}
 		>
-			<Select className={s.select} onSelectionChange={handleChange} defaultOpen={false}>
+			<Select className={cn("small", s.select)} onSelectionChange={handleChange} defaultOpen={false}>
 				<Button className={s.button} ref={buttonRef}>
 					<SelectValue className={s.value} key={country}>
 						{selectedCountry?.name}
 					</SelectValue>
 					<span aria-hidden='true' className={cn(s.arrow, 'symbol')}>
-						{!selectOpen ? '▼' : '▲'}
+						{!selectOpen ? '›' : '›'}
 					</span>
 				</Button>
 				<Popover placement='top left' className={s.popover} maxHeight={200} ref={popupRef}>
 					<ListBox
 						selectionMode={'single'}
-						className={s.options}
+						className={cn("small", s.options)}
 						style={{ width: selectWidth }}
 						items={availableCountries.map(({ isoCode, name, currency }) => ({
 							id: isoCode,
