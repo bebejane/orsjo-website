@@ -316,10 +316,11 @@ fragment ProductFragment on ProductRecord {
 		}
 		accessories {
 			id
-			articleNo
-			price
-			accessory {
+			product {
+				id
+				articleNo
 				name
+				price
 			}
 		}
 	}

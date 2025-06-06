@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { buildClient } from '@datocms/cma-client';
 export default buildClient({
   apiToken: process.env.DATOCMS_API_TOKEN as string,

@@ -187,10 +187,10 @@ export const resyncAll = async () => {
 
       for (const accessory of model.accessories) {
         accessories.push({
-          title: accessory.accessory?.name ?? '',
+          title: accessory.product?.name ?? '',
           body_html: '',
-          handle: accessory.articleNo?.trim() ?? '',
-          price: accessory.price,
+          handle: accessory.product?.articleNo?.trim() ?? '',
+          price: accessory.product?.price,
           tags: ['accessory'],
           published_scope: 'global'
         })
