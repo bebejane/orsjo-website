@@ -11,7 +11,6 @@ import {
 	MenuMobile,
 	CookieConsent,
 	Underlay,
-	PageTransition,
 } from '@/components';
 import { PageProvider, getPageAttributes } from '@/lib/context/page';
 import type { MenuItem } from '@/lib/menu';
@@ -19,6 +18,7 @@ import { useStore, useShallow } from '@/lib/store';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Cart from '@/components/shopify/Cart';
+import PageTransition from '@/components/layout/PageTransition';
 
 export type LayoutProps = {
 	children: React.ReactNode;
