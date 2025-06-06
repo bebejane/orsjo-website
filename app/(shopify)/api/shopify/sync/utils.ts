@@ -191,6 +191,7 @@ export const resyncAll = async () => {
           body_html: '',
           handle: accessory.product?.articleNo?.trim() ?? '',
           price: accessory.product?.price,
+          imageUrl: accessory.product?.image?.url,
           tags: ['accessory'],
           published_scope: 'global'
         })
@@ -203,8 +204,9 @@ export const resyncAll = async () => {
       title: lightsource.name ?? '',
       handle: slugify(lightsource.name ?? ''),
       body_html: '',
-      tags: ['lightsource'],
       price: lightsource.price,
+      imageUrl: lightsource?.image?.url,
+      tags: ['lightsource'],
       published_scope: 'global'
     })
   }

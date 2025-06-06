@@ -1,26 +1,102 @@
 .shop {
-	ul {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	left: 0;
+	top: 50vh;
+	min-width: mixin.spanGrid(4);
+	max-width: mixin.spanGrid(4);
+	margin-left: var(--outer-margin);
+	padding-right: var(--outer-margin);
+	z-index: 10000;
+
+	header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		.price {
+			font-size: 0.7rem;
+		}
+	}
+	.selected {
+		display: flex;
+		align-items: center;
+		border: 1px solid var(--gray);
+	}
+	.form {
+		&.hide {
+			display: none;
+		}
+		.addons {
+			list-style: none;
+		}
+	}
+	.row {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
 		list-style: none;
-		li {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			margin-bottom: 1rem;
-			div {
-				margin-left: 1rem;
+		width: 100%;
+		font-size: 0.5em;
+		padding-top: 0.3em;
+		padding-bottom: 0.3em;
+
+		cursor: pointer;
+		img {
+			height: 2em;
+			width: 2em;
+			object-fit: cover;
+		}
+		.name {
+			font-weight: bold;
+		}
+		.colors {
+			color: var(--gray);
+			flex: 1 1 auto;
+		}
+		button {
+			all: unset;
+			&:hover {
+				color: var(--black) !important;
+				cursor: pointer;
 			}
-			div:first-child {
-				margin-left: 0rem;
+			&.dropdown {
+				transform: rotate(90deg);
+				margin-right: 1em;
+			}
+		}
+		input[type='checkbox'] {
+			margin-right: 0.5em;
+			cursor: pointer;
+			&:checked {
+				background-color: var(--black);
+				color: var(--white);
+			}
+		}
+	}
+	.models {
+		height: 40vh;
+		overflow-y: scroll;
+		scrollbar-width: 0px !important;
+		border: 1px solid var(--gray);
+		margin-bottom: var(--outer-margin);
+		display: none;
+
+		&.open {
+			display: block;
+		}
+		&::-webkit-scrollbar {
+			display: none;
+			-ms-overflow-style: none;
+		}
+
+		.model {
+			ul {
 				display: flex;
 				flex-direction: column;
-				flex: 1 1 auto;
-			}
-			div:last-child {
-				flex: 0 0 auto;
-			}
-			.articleNo {
-				font-size: 0.6rem;
-				color: var(--black);
+				position: relative;
 			}
 		}
 	}

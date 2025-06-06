@@ -167,13 +167,6 @@ export default function Sidebar({ show }: SidebarProps) {
 			</nav>
 
 			<div className={cn(s.footer, 'medium')}>
-				{pageType === 'product' && (
-					<span onClick={() => router.push('/products')} ref={backRef}>
-						<ArrowLink reversed={true} hoverRef={backRef}>
-							All Products
-						</ArrowLink>
-					</span>
-				)}
 				{pageType === 'project' && (
 					<span onClick={() => router.push('/professionals/projects')} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>

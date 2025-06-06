@@ -290,6 +290,9 @@ fragment ProductFragment on ProductRecord {
 				name
 				price
 				articleNo
+				image {
+					...ImageThumbnailFragment
+				}
 			}
 		}
 		variants {
@@ -321,6 +324,9 @@ fragment ProductFragment on ProductRecord {
 				articleNo
 				name
 				price
+				image {
+					...ImageThumbnailFragment
+				}
 			}
 		}
 	}

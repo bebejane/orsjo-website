@@ -4,6 +4,9 @@ query AllProductLightsources($first: IntType = 100, $skip: IntType = 0) {
 		name
 		price
 		articleNo
+		image {
+			...ImageThumbnailFragment
+		}
 	}
 	_allProductLightsourcesMeta {
 		count
