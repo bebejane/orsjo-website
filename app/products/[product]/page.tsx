@@ -45,8 +45,6 @@ export default async function Product({ params }: Props) {
 		files,
 	} = res;
 
-	console.log(shopifyProduct?.variants);
-
 	return (
 		<>
 			<ProductIntro product={product} drawings={drawings} />
