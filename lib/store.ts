@@ -25,6 +25,7 @@ export interface StoreState {
   gallery?: GalleryProps,
   transitioning: boolean,
   showSiteSearch: boolean,
+  showCart: boolean,
   setCurrentSection: (currentSection: string) => void,
   setShowMenu: (showMenu: boolean) => void,
   setShowSubMenu: (showSubMenu: boolean) => void,
@@ -36,6 +37,7 @@ export interface StoreState {
   setGalleryId: (id: string) => void,
   setTransitioning: (transitioning: boolean) => void,
   setShowSiteSearch: (showSiteSearch: boolean) => void,
+  setShowCart: (showCart: boolean) => void,
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -51,6 +53,7 @@ const useStore = create<StoreState>((set) => ({
   product: undefined,
   transitioning: false,
   showSiteSearch: false,
+  showCart: false,
   setShowMenu: (showMenu: boolean) =>
     set((state) => ({
       showMenu
@@ -113,6 +116,10 @@ const useStore = create<StoreState>((set) => ({
       showSiteSearch
     })
     ),
+  setShowCart: (showCart) =>
+    set((state) => ({
+      showCart
+    }))
 }));
 
 export default useStore;

@@ -1,106 +1,9 @@
-.miniCart {
-	position: fixed;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	right: 0;
-	top: 0;
-	z-index: var(--z-cart);
-	margin: 10px;
-
-	h3 {
-		margin: 0;
-		padding: 0;
-	}
-
-	button {
-		outline: none;
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: none;
-		background-color: transparent;
-		border: 0;
-		padding: 0;
-		margin: 0;
-		box-shadow: none;
-		padding-left: 0.7em !important;
-
-		.icon {
-			position: relative;
-			margin-top: -0.1rem;
-
-			img {
-				position: relative;
-				height: 24px;
-
-				@include mixin.mq($from: desktop) {
-					height: 33px;
-				}
-			}
-
-			.loader {
-				position: absolute;
-				display: none;
-				z-index: 2;
-				top: 0;
-				left: 0;
-				height: 100%;
-				width: 100%;
-				align-items: center;
-				justify-content: center;
-				margin-top: 2px;
-			}
-		}
-
-		&.inverted {
-			.icon > img {
-				@include mixin.mq($from: desktop) {
-					height: 43px;
-				}
-			}
-
-			&:hover {
-				color: var(--white);
-			}
-
-			color: var(--white);
-		}
-
-		.count {
-			position: absolute;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 100%;
-			width: 100%;
-			top: 0.1em;
-
-			@include mixin.mq($until: desktop) {
-				top: 0em;
-				font-size: 0.7rem;
-			}
-		}
-
-		&.loading {
-			.loader {
-				display: flex;
-			}
-
-			.count {
-				display: none;
-			}
-		}
-	}
-}
-
 .cart {
 	position: fixed;
 	display: flex;
 	flex-direction: column;
-	background-color: var(--white);
+	background-color: var(--black);
+	color: var(--white);
 	right: 0;
 	top: 0;
 	z-index: var(--z-cart);
@@ -122,16 +25,16 @@
 		justify-content: baseline;
 
 		h3 {
-			position: absolute;
+			//position: absolute;
 			top: 0;
 			left: 0;
 		}
 
 		.currency {
-			position: absolute;
-			top: 0.27em;
-			left: 6rem;
-			line-height: 0.95em;
+			//position: absolute;
+			//top: 0.27em;
+			//left: 6rem;
+			//line-height: 0.95em;
 			width: 50%;
 		}
 
@@ -152,7 +55,10 @@
 		}
 
 		button {
+			all: unset;
+			cursor: pointer;
 			padding: 0;
+			color: var(--white);
 		}
 
 		li {
@@ -255,7 +161,8 @@
 		width: 100%;
 
 		a {
-			border-bottom: 1px solid var(--black);
+			color: var(--white);
+			border-bottom: 1px solid var(--white);
 		}
 
 		input {
@@ -275,12 +182,14 @@
 		button.checkout {
 			cursor: pointer;
 			width: 100%;
-			background-color: var(--black) !important;
-			color: var(--white);
-
+			background-color: var(--white);
+			color: var(--black);
+			&:hover {
+				color: var(--black) !important;
+			}
 			&[disabled] {
 				pointer-events: none;
-				opacity: 0.5;
+				opacity: 0.2;
 			}
 		}
 	}
@@ -302,11 +211,15 @@
 	all: unset;
 	position: fixed;
 	z-index: 10000000;
-	top: 0.15rem;
+	top: 0;
 	right: 0;
 	margin: var(--outer-margin);
 	pointer-events: all;
 	cursor: pointer;
-	width: 1rem;
+	width: 0.7rem;
 	line-height: 0;
+	filter: invert(1);
+	&:hover {
+		background-color: transparent;
+	}
 }

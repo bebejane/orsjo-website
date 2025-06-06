@@ -13,7 +13,6 @@
 	}
 
 	.select {
-		//display: inline;
 		width: 100%;
 
 		.button {
@@ -22,9 +21,10 @@
 			flex-direction: row;
 			text-align: left;
 			align-items: center;
-			padding: 0px;
+			padding: 10px;
 			display: inline;
 			background-color: transparent;
+			color: var(--white);
 
 			.value {
 				width: 100%;
@@ -43,13 +43,15 @@
 	scrollbar-width: 10px !important;
 
 	.options {
-		background-color: var(--gray);
+		background-color: var(--white);
 
 		.option {
 			padding: 0.4em;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
+			font-size: 0.7rem;
+
 			&:first-of-type {
 				padding-top: 0.7em;
 			}

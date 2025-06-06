@@ -11,6 +11,7 @@ import {
 	MenuMobile,
 	CookieConsent,
 	Underlay,
+	PageTransition,
 } from '@/components';
 import { PageProvider, getPageAttributes } from '@/lib/context/page';
 import type { MenuItem } from '@/lib/menu';
@@ -42,8 +43,12 @@ export default function Layout({ children, menu: menuFromProps, localization }: 
 		<>
 			<PageProvider pathname={pathname}>
 				<div className={s.layout} style={{ backgroundColor: `var(${color})` }}>
-					<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} />
-					<MenuMobile items={menu} />
+					<MenuDesktop
+						items={menu}
+						onShowSiteSearch={() => setShowSiteSearch(true)}
+						localization={localization}
+					/>
+					<MenuMobile items={menu} localization={localization} />
 					<Underlay />
 					<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />
 					<Sidebar key={pathname} title={title} show={layout !== 'full' && sidebar} />
@@ -60,8 +65,7 @@ export default function Layout({ children, menu: menuFromProps, localization }: 
 				<Cart localization={localization} />
 				<Footer menu={menu} />
 				<CookieConsent />
-				<div id='page-transition' />
-				<div id='page-fade-transition' />
+				<PageTransition />
 			</PageProvider>
 		</>
 	);

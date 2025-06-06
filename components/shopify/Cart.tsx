@@ -11,6 +11,8 @@ import Link from '@/components/nav/Link';
 import { usePathname } from 'next/navigation';
 import { formatPrice } from '@/lib/shopify/utils';
 import useCountry from '@/lib/shopify/hooks/useCountry';
+import { MdOutlineShoppingBag } from 'react-icons/md';
+import useStore from '@/lib/store';
 
 export type CartProps = {
 	localization: LocalizationQuery['localization'];
@@ -41,7 +43,9 @@ export default function Cart({ localization }: CartProps) {
 
 	const country = useCountry();
 	const pathname = usePathname();
-	const [showCart, setShowCart] = useState(false);
+	const [showCart, setShowCart] = useStore(
+		useShallow((state) => [state.showCart, state.setShowCart])
+	);
 	const [error, setError] = useState<string | null>(null);
 	const isEmpty = cart && cart?.lines?.edges?.length > 0 ? false : true;
 	const loading = !cart || updating;
@@ -75,29 +79,12 @@ export default function Cart({ localization }: CartProps) {
 	}, [showCart]);
 
 	if (!showCart) {
-		return (
-			<div className={s.miniCart}>
-				<button
-					aria-label='Open cart'
-					className={cn(!isEmpty && s.inverted, loading && s.loading)}
-					onClick={() => setShowCart(true)}
-				>
-					<div className={s.icon}>
-						<img src={`/images/cart${!isEmpty ? '_inverted' : ''}.svg`} alt='Open cart' />
-						{updating && <Loader loading={true} className={s.loader} invert={!isEmpty} />}
-					</div>
-					<div className={s.count} aria-label={`${totalItems} items in cart`}>
-						{!isEmpty && totalItems}
-					</div>
-				</button>
-			</div>
-		);
+		return null;
 	}
 
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)}>
 			<header>
-				<h3>Cart</h3>
 				<div className={s.currency}>
 					<CountrySelector localization={localization} label='Location' className={s.form} />
 				</div>

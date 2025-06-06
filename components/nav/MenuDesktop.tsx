@@ -2,9 +2,7 @@
 
 import s from './MenuDesktop.module.scss';
 import cn from 'classnames';
-//import Link from '@/components/nav/Link';
 import Link from '@/components/nav/Link';
-
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useStore, useShallow } from '@/lib/store';
 import { usePage } from '@/lib/context/page';
@@ -14,10 +12,15 @@ import type { Menu } from '@/lib/menu';
 import { waitForElement } from '@/lib/utils';
 import { Logo } from '@/components';
 import { usePathname } from 'next/navigation';
+import { MdOutlineShoppingBag } from 'react-icons/md';
 
-export type MenuDesktopProps = { items: Menu; onShowSiteSearch: Function };
+export type MenuDesktopProps = {
+	items: Menu;
+	localization: LocalizationQuery['localization'];
+	onShowSiteSearch: Function;
+};
 
-export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProps) {
+export default function MenuDesktop({ items, onShowSiteSearch, localization }: MenuDesktopProps) {
 	const ref = useRef(null);
 	const pathname = usePathname();
 	const [
@@ -28,6 +31,9 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 		setShowMenu,
 		invertMenu,
 		transitioning,
+		showSiteSearch,
+		showCart,
+		setShowCart,
 	] = useStore(
 		useShallow((state) => [
 			state.showMenu,
@@ -38,6 +44,8 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 			state.invertMenu,
 			state.transitioning,
 			state.showSiteSearch,
+			state.showCart,
+			state.setShowCart,
 		])
 	);
 
@@ -157,6 +165,9 @@ export default function MenuDesktop({ items, onShowSiteSearch }: MenuDesktopProp
 					))}
 					<li className={s.searchIcon} onClick={() => onShowSiteSearch()}>
 						<img src={'/images/search.svg'} />
+					</li>
+					<li className={s.cart} onClick={() => setShowCart(true)}>
+						<MdOutlineShoppingBag size={16} />
 					</li>
 				</ul>
 			</nav>

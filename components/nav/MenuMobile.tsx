@@ -12,7 +12,10 @@ import social from '@/lib/social';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from '@/components/nav/Link';
 
-export type MenuMobileProps = { items: MenuItem[] };
+export type MenuMobileProps = {
+	items: MenuItem[];
+	localization: LocalizationQuery['localization'];
+};
 
 export default function MenuMobile({ items }: MenuMobileProps) {
 	const router = useRouter();

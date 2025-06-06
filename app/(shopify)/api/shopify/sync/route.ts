@@ -7,7 +7,6 @@ import { create, update, uploadProductImage, ProductData } from './utils';
 
 export const POST = async (req: Request) => {
 
-
   const { entity: data } = await req.json();
 
   if (!data) return new Response(JSON.stringify({ success: false, message: 'No data' }))
