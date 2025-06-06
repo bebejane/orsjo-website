@@ -72,6 +72,7 @@ import { ApiError, buildBlockRecord } from '@datocms/cma-client'
 
   for (const product of products) {
     if (!product.models) continue;
+    const models: any[] = []
 
     for (const model of product.models) {
       const accessoriesBlocks: any[] = []
@@ -90,22 +91,18 @@ import { ApiError, buildBlockRecord } from '@datocms/cma-client'
           console.log('error updating item', accessory.attributes.article_no)
         }
       }
-
-      if (accessoriesBlocks.length === 0) continue
-
-      const item = await client.items.update(product.id,
-        {
-          models: product.models.map((m: any) => {
-            return {
-              ...m,
-              attributes: {
-                ...m.attributes,
-                accessories: model.id === m.id ? accessoriesBlocks : m.attributes.accessories
-              }
-            }
-          }),
-        })
+      models.push({
+        ...model,
+        attributes: {
+          ...model.attributes,
+          accessories: accessoriesBlocks
+        }
+      })
     }
+    console.log('update', product.slug)
+    const item = await client.items.update(product.id, {
+      models
+    })
   }
   //console.log(tempAccessories)
   // https://www.datocms.com/docs/content-management-api/resources/item/update

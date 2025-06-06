@@ -55,18 +55,18 @@ export default function ProductShop({ product, shopifyProduct }: Props) {
 						})}
 
 						{accessories.length > 0 && <h3>Accessories</h3>}
-						{accessories.map(({ id, articleNo, price, accessory }) => {
+						{accessories.map(({ id, product }) => {
 							const shopifyVariant = shopifyProduct?.variants.edges.find(
-								(v) => v.node.sku === articleNo
+								(v) => v.node.sku === product?.articleNo
 							)?.node;
 
 							return (
 								<ul key={id}>
 									<li>
 										<div>
-											{accessory?.name}
+											{product?.name}
 											<br />
-											<span className={s.articleNo}>{articleNo}</span>
+											<span className={s.articleNo}>{product?.articleNo}</span>
 										</div>
 										<div>{formatPrice(shopifyVariant?.price.amount)}</div>
 										<div>
