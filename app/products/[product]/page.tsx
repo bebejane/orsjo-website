@@ -20,11 +20,7 @@ import ProductShop from '@/app/products/[product]/ProductShop';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import shopifyQuery from '@/lib/shopify/shopify-query';
-import {
-	AllShopifyProductsDocument,
-	ShopifyProductDocument,
-	ShopifyProductsByQueryDocument,
-} from '@/lib/shopify/graphql';
+import { ShopifyProductDocument, ShopifyProductsByQueryDocument } from '@/lib/shopify/graphql';
 import { DocumentNode } from 'graphql/language/ast';
 
 type Props = {
@@ -33,8 +29,11 @@ type Props = {
 	}>;
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function Product({ params }: Props) {
 	const { product: slug } = await params;
+
 	const res = await getProductPageData(slug);
 	if (!res) return notFound();
 
@@ -147,7 +146,6 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 		},
 		[] as (string | null)[]
 	);
-	console.log(relatedArticleNos);
 
 	const query = relatedArticleNos.map((articleNo) => `tag:${articleNo}`).join(' OR ');
 	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(

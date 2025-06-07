@@ -8,7 +8,7 @@
 	max-width: mixin.spanGrid(4);
 	margin-left: var(--outer-margin);
 	padding-right: var(--outer-margin);
-	z-index: var(--z-shop-cart);
+	z-index: var(--z-shop);
 
 	header {
 		display: flex;
@@ -39,20 +39,12 @@
 		height: 30vh;
 		width: 100%;
 		overflow-y: scroll;
-		scrollbar-width: 0px !important;
 		border: 1px solid var(--gray);
 		border-top: 0;
 		display: none;
 
 		&.open {
 			display: block;
-		}
-
-		scrollbar-width: 0;
-
-		&::-webkit-scrollbar {
-			display: none;
-			-ms-overflow-style: none;
 		}
 
 		.model {
@@ -71,11 +63,6 @@
 		> ul {
 			height: 100%;
 			overflow-y: scroll;
-			scrollbar-width: 0;
-			&::-webkit-scrollbar {
-				display: none;
-				-ms-overflow-style: none;
-			}
 		}
 		&.hide {
 			display: none;

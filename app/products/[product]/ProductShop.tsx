@@ -7,6 +7,7 @@ import { ProductPageDataProps } from './page';
 import { formatPrice } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
+import useStore from '@/lib/store';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -14,9 +15,10 @@ type Props = {
 };
 
 export default function ProductShop({ product, shopify }: Props) {
-	const [addToCart] = useCart(
+	const [addToCart, updating, error] = useCart(
 		useShallow((state) => [state.addToCart, state.updating, state.error])
 	);
+	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [open, setOpen] = useState(false);
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
@@ -25,7 +27,7 @@ export default function ProductShop({ product, shopify }: Props) {
 		variants.find((v) => v.id === selected?.id)
 	);
 	const selectedShopifyVariant = shopify.product?.variants.edges.find(
-		(v) => v.node.sku === selected?.articleNo
+		(v) => v.node.sku === selected?.articleNo.trim()
 	)?.node;
 
 	const [totalPrice, setTotalPrice] = useState<MoneyV2>({
@@ -78,10 +80,17 @@ export default function ProductShop({ product, shopify }: Props) {
 		variantsElements?.forEach(
 			(el) => el.dataset.variant && el.checked && variantsIds.push(el.dataset.variant)
 		);
+
 		addToCart(
-			variantsIds.reverse().map((id) => ({ merchandiseId: id, quantity: 1 })),
+			//@ts-ignores
+			variantsIds.reverse().map((id) => ({
+				merchandiseId: id,
+				quantity: 1,
+				attributes: { key: 'group', value: selectedShopifyVariant.id as string },
+			})),
 			'SE'
 		);
+		setShowCart(true);
 	}
 
 	if (!product || !selected || !selectedModel) return null;
@@ -108,7 +117,7 @@ export default function ProductShop({ product, shopify }: Props) {
 					</div>
 				</div>
 
-				<div className={cn(s.models, open && s.open)}>
+				<div className={cn(s.models, 'noscrollbar', open && s.open)}>
 					{product.models.map(({ id, name, variants }) => (
 						<div className={s.model} key={id}>
 							<ul className={cn(s.variants)}>
@@ -138,7 +147,7 @@ export default function ProductShop({ product, shopify }: Props) {
 				</div>
 
 				<form
-					className={cn(s.form, open && s.hide)}
+					className={cn(s.form, 'noscrollbar', open && s.hide)}
 					onSubmit={handleSubmit}
 					ref={formRef}
 					key={selectedShopifyVariant?.id}

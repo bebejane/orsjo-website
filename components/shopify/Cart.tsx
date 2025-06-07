@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import s from './Cart.module.scss';
 import cn from 'classnames';
 import { default as useCart, useShallow } from '@/lib/shopify/hooks/useCart';
@@ -11,8 +11,8 @@ import Link from '@/components/nav/Link';
 import { usePathname } from 'next/navigation';
 import { formatPrice } from '@/lib/shopify/utils';
 import useCountry from '@/lib/shopify/hooks/useCountry';
-import { MdOutlineShoppingBag } from 'react-icons/md';
 import useStore from '@/lib/store';
+import { useClickAway } from 'react-use';
 
 export type CartProps = {
 	localization: LocalizationQuery['localization'];
@@ -54,6 +54,8 @@ export default function Cart({ localization }: CartProps) {
 		0
 	);
 	const [terms, setTerms] = useState(false);
+	const ref = useRef<HTMLDivElement>(null);
+	useClickAway(ref, () => setShowCart(false));
 
 	useEffect(() => {
 		if (!cart) createCart(country);
@@ -81,9 +83,10 @@ export default function Cart({ localization }: CartProps) {
 	if (!showCart) {
 		return null;
 	}
+	console.log(cart);
 
 	return (
-		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)}>
+		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
 				<h1>Cart</h1>
 				<button aria-label='Close cart' className={s.close} onClick={() => setShowCart(false)}>
@@ -91,21 +94,23 @@ export default function Cart({ localization }: CartProps) {
 				</button>
 			</header>
 			{isEmpty ? (
-				<div className={s.empty}>Your cart is empty</div>
+				<div className={s.empty}>{loading ? <Loader /> : 'Your cart is empty'}</div>
 			) : (
 				<>
-					<ul className={cn(s.items, "medium")} aria-label='Cart items'>
+					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
 						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => (
 							<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
 								<figure className={s.thumb}>
 									<Link
 										href={`/products/${merchandise.product.handle}?variant=${parseGid(merchandise.id)}`}
 									>
-										<img
-											role='icon'
-											src={merchandise.image?.url}
-											alt={merchandise.image?.altText ?? ''}
-										/>
+										{merchandise.image?.url && (
+											<img
+												role='icon'
+												src={merchandise.image?.url}
+												alt={merchandise.image?.altText ?? ''}
+											/>
+										)}
 									</Link>
 								</figure>
 
@@ -134,7 +139,7 @@ export default function Cart({ localization }: CartProps) {
 
 								<div className={s.amount}>
 									<div className={s.price} aria-label={'Total'}>
-										{formatPrice(cost.subtotalAmount.amount)} {cost.subtotalAmount.currencyCode}
+										{formatPrice(cost.subtotalAmount)}
 									</div>
 									<div>
 										<button className={cn(s.remove, 'medium')} onClick={() => removeFromCart(id)}>
@@ -147,15 +152,15 @@ export default function Cart({ localization }: CartProps) {
 					</ul>
 
 					<div className={s.total}>
-						<div className="medium">Total</div>
-						<div className={s.price}>
-							{formatPrice(cart?.cost.totalAmount.amount)} {cart?.cost.totalAmount.currencyCode}
-						</div>
+						<div className='medium'>Total</div>
+						<div className={s.price}>{formatPrice(cart?.cost.totalAmount as MoneyV2)}</div>
 					</div>
 					<div className={s.currency}>
 						<CountrySelector localization={localization} label='Location' className={s.form} />
 					</div>
-					<div className={cn(s.extra, 'medium', "gray")}>Shipping and tax are added at checkout</div>
+					<div className={cn(s.extra, 'medium', 'gray')}>
+						Shipping and tax are added at checkout
+					</div>
 
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />

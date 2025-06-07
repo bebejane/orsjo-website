@@ -41,8 +41,8 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	const handleMute = (e) => {
 		e.stopPropagation();
 		e.preventDefault();
-		videoRef.current.muted = !videoRef.current.muted;
-		setMuted(videoRef.current.muted);
+		const muted = videoRef.current?.muted ?? true;
+		setMuted(!muted);
 	};
 
 	useEffect(() => {
@@ -58,7 +58,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	//useEffect(() => { setQuality(innerWidth ? innerWidth < 480 ? 'low' : innerWidth < 767 ? 'med' : 'high' : null) }, [innerWidth])
 
 	useEffect(() => {
-		videoRef.current.addEventListener('loadeddata', () =>
+		videoRef.current?.addEventListener('loadeddata', () =>
 			setHasAudio(videoHasAudio(videoRef.current))
 		);
 		setHasAudio(videoHasAudio(videoRef.current));

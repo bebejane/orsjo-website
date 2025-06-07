@@ -5,8 +5,15 @@ import cn from 'classnames';
 import { useStore, useShallow } from '@/lib/store';
 
 export default function Underlay(props) {
-	const [showSiteSearch, showSubMenu] = useStore(
-		useShallow((state) => [state.showSiteSearch, state.showSubMenu])
+	const [showSiteSearch, showSubMenu, showCart, setShowCart] = useStore(
+		useShallow((state) => [
+			state.showSiteSearch,
+			state.showSubMenu,
+			state.showCart,
+			state.setShowCart,
+		])
 	);
-	return <div className={cn(s.underlay, (showSiteSearch || showSubMenu) && s.show)}></div>;
+	return (
+		<div className={cn(s.underlay, (showSiteSearch || showSubMenu || showCart) && s.show)}></div>
+	);
 }

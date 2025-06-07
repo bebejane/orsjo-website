@@ -107,6 +107,10 @@ fragment CartFragment on Cart {
 						currencyCode
 					}
 				}
+				attributes {
+					key
+					value
+				}
 				merchandise {
 					... on ProductVariant {
 						id

@@ -42,9 +42,10 @@
 	--body-line-height: 1.35em;
 	--headline-line-height: 1.25;
 
-	--z-page-transition: 10000;
+	--z-shop: 100;
+	--z-undelay: 200;
 	--z-cart: 1000;
-	--z-shop-cart: 100;
+	--z-page-transition: 10000;
 }
 
 /*********************
@@ -199,6 +200,14 @@ button {
 input,
 ::placeholder {
 	font-family: var(--headline-font);
+}
+
+.noscrollbar {
+	scrollbar-width: 0px !important;
+	&::-webkit-scrollbar {
+		display: none;
+		-ms-overflow-style: none;
+	}
 }
 
 #error-404,
