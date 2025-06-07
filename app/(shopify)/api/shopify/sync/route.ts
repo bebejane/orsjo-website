@@ -3,13 +3,15 @@ import client from '@/lib/client';
 import data from './data.json';
 import { ProductWebhook } from './types';
 import { IProduct } from 'shopify-api-node';
-import { create, update, uploadProductImage, ProductData } from './utils';
+import { createProduct, updateProduct, uploadProductImage, ProductData } from './utils';
+
 
 export const POST = async (req: Request) => {
+  return new Response('ok', { status: 200 })
 
   const { entity: data } = await req.json();
 
-  if (!data) return new Response(JSON.stringify({ success: false, message: 'No data' }))
+  if (!data) return new Response('ok', { status: 200 })
 
   const attributes = data.attributes
   const datoProduct = data.entity.attributes
@@ -26,9 +28,9 @@ export const POST = async (req: Request) => {
   }
 
   if (!products[0])
-    product = await create(productData)
+    product = await createProduct(productData)
   else
-    product = await update(products[0].id, productData)
+    product = await updateProduct(products[0].id, productData)
 
   return new Response(JSON.stringify(product ?? {}))
 }

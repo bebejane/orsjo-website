@@ -3,6 +3,7 @@ import client from '@/lib/client';
 import { IProduct, IProductImage, IProductVariant } from 'shopify-api-node';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductAccessoriesDocument, AllProductLightsourcesDocument, AllProductsDocument } from '@/graphql';
+import { batchPromises, dedupeByKey } from '@/lib/utils';
 
 export type ProductData = {
   id?: string
@@ -27,7 +28,7 @@ export type VariantData = {
   inventory_quantity: number
 }
 
-export const create = async (data: ProductData): Promise<IProduct> => {
+export const createProduct = async (data: ProductData): Promise<IProduct> => {
   console.log('creating product:', data.handle)
 
   try {
@@ -45,7 +46,7 @@ export const create = async (data: ProductData): Promise<IProduct> => {
   }
 }
 
-export const update = async (shopifyId: number, data: ProductData): Promise<IProduct> => {
+export const updateProduct = async (shopifyId: number, data: ProductData): Promise<IProduct> => {
   if (!data.id)
     throw new Error('Invalid id: ' + data.id)
 
@@ -62,7 +63,7 @@ export const update = async (shopifyId: number, data: ProductData): Promise<IPro
   return product
 }
 
-export const remove = async (shopifyId: number): Promise<void> => {
+export const removeProduct = async (shopifyId: number): Promise<void> => {
   console.log('deleting product: ', shopifyId)
   await shopify_client.product.delete(shopifyId)
 }
@@ -105,48 +106,6 @@ export const createVariant = async (data: VariantData): Promise<IProductVariant>
   }
 }
 
-export const batchPromises = async (tasks: any[], concurrency: number, timeout?: number) => {
-  const results: any[] = [];
-  const executing = new Set();
-
-  for (const task of tasks) {
-    const promise = Promise.resolve().then(() => task());
-    results.push(promise);
-    executing.add(promise);
-
-    const clean = () => executing.delete(promise);
-    promise.then(clean).catch(clean);
-
-    if (executing.size >= concurrency) {
-      await Promise.race(executing);
-      if (timeout)
-        await new Promise((resolve) => setTimeout(resolve, timeout));
-    }
-  }
-
-  return Promise.all(results);
-}
-
-export function slugify(text: string) {
-  return text
-    .toString()
-    .toLowerCase()
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
-    .replace(/^-+/, '') // Trim - from start of text        
-    .replace(/-+$/, '') // Trim - from end of text
-}
-
-export function dedupeByKey<T>(array: T[], key: string) {
-  return array.reduce((acc, item) => {
-    const existingItem = acc.find((i) => i[key] === item[key]);
-    if (!existingItem) {
-      acc.push(item);
-    }
-    return acc;
-  }, [] as T[]);
-}
 
 export const resyncAll = async () => {
 
@@ -162,7 +121,7 @@ export const resyncAll = async () => {
 
 
   console.log('removing all products')
-  await batchPromises(shopifyProducts.map((product) => () => remove(product.id)), 5, 5000)
+  await batchPromises(shopifyProducts.map((product) => () => removeProduct(product.id)), 5, 5000)
 
   for (const product of allProducts) {
 
@@ -234,15 +193,15 @@ export const resyncAll = async () => {
   }
 
   console.log('add products', products.length)
-  const addedProducts = await batchPromises(products.map((p) => () => create(p)), 5, 5000)
+  const addedProducts = await batchPromises(products.map((p) => () => createProduct(p)), 5, 5000)
   console.log('added products', addedProducts.length)
 
   console.log('add accessories', dedupeByKey(accessories, 'handle').length)
-  const shopifyAccessories = await batchPromises(dedupeByKey(accessories, 'handle').map((accessory) => () => create(accessory)), 5, 5000)
+  const shopifyAccessories = await batchPromises(dedupeByKey(accessories, 'handle').map((accessory) => () => createProduct(accessory)), 5, 5000)
   console.log('added accessories', shopifyAccessories.length)
 
   console.log('add lightsources', lightsources.length)
-  const addedLightsources = await batchPromises(lightsources.map((product) => () => create(product)), 5, 5000)
+  const addedLightsources = await batchPromises(lightsources.map((product) => () => createProduct(product)), 5, 5000)
   console.log('added lightsources', addedLightsources.length)
 
   /*
@@ -282,9 +241,9 @@ export const sync = async (itemId: string) => {
         published_scope: 'global'
       }
       if (!shopifyProduct)
-        await create(data)
+        await createProduct(data)
       else {
-        await update(shopifyProduct.id, data)
+        await updateProduct(shopifyProduct.id, data)
       }
       break
     case 'product_accessory':

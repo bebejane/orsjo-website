@@ -304,3 +304,46 @@ export const pathnameToColor = (pathname: string) => {
   if (pathname.startsWith('/support')) return '--copper';
   if (pathname === '/') return '--black';
 };
+
+export const batchPromises = async (tasks: any[], concurrency: number, timeout?: number) => {
+  const results: any[] = [];
+  const executing = new Set();
+
+  for (const task of tasks) {
+    const promise = Promise.resolve().then(() => task());
+    results.push(promise);
+    executing.add(promise);
+
+    const clean = () => executing.delete(promise);
+    promise.then(clean).catch(clean);
+
+    if (executing.size >= concurrency) {
+      await Promise.race(executing);
+      if (timeout)
+        await new Promise((resolve) => setTimeout(resolve, timeout));
+    }
+  }
+
+  return Promise.all(results);
+}
+
+export function slugify(text: string) {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text        
+    .replace(/-+$/, '') // Trim - from end of text
+}
+
+export function dedupeByKey<T>(array: T[], key: string) {
+  return array.reduce((acc, item) => {
+    const existingItem = acc.find((i) => i[key] === item[key]);
+    if (!existingItem) {
+      acc.push(item);
+    }
+    return acc;
+  }, [] as T[]);
+}
