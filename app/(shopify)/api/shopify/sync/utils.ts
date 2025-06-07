@@ -106,7 +106,6 @@ export const createVariant = async (data: VariantData): Promise<IProductVariant>
   }
 }
 
-
 export const resyncAll = async () => {
 
   const shopifyProducts = await shopify_client.product.list({ limit: 250 })
