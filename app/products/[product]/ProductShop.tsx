@@ -2,7 +2,6 @@
 
 import s from './ProductShop.module.scss';
 import cn from 'classnames';
-import { Section } from '@/components';
 import React, { useEffect, useRef, useState } from 'react';
 import { ProductPageDataProps } from './page';
 import { formatPrice } from '@/lib/shopify/utils';
@@ -18,13 +17,10 @@ export default function ProductShop({ product, shopify }: Props) {
 	const [addToCart] = useCart(
 		useShallow((state) => [state.addToCart, state.updating, state.error])
 	);
-	const [toggles, setToggles] = useState<{ [id: string]: { open: boolean; height: number } }>({});
 	const [open, setOpen] = useState(false);
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
-	const [variants, setVariants] = useState<any[]>([allVariants?.[0]]);
 	const formRef = useRef<HTMLFormElement>(null);
-
 	const selectedModel = product?.models.find(({ variants }) =>
 		variants.find((v) => v.id === selected?.id)
 	);
@@ -32,20 +28,11 @@ export default function ProductShop({ product, shopify }: Props) {
 		(v) => v.node.sku === selected?.articleNo
 	)?.node;
 
-	const [totalPrice, setTotalPrice] = useState<number>(0);
+	const [totalPrice, setTotalPrice] = useState<MoneyV2>({
+		amount: 0,
+		currencyCode: 'SEK' as CurrencyCode,
+	});
 	const { width, height } = useWindowSize();
-
-	useEffect(() => {
-		const t = {};
-		allVariants.forEach(
-			(item) =>
-				(t[item.id] = {
-					...toggles[item.id],
-					height: document.getElementById(`variant-${item.id}`)?.scrollHeight ?? 0,
-				})
-		);
-		setToggles(t);
-	}, [width, height]);
 
 	useEffect(() => {
 		setOpen(false);
@@ -65,14 +52,14 @@ export default function ProductShop({ product, shopify }: Props) {
 		);
 		const modelPrice = parseFloat(selectedShopifyVariant?.price.amount ?? '0');
 		const addonsPrice = variantsIds.reduce((acc, id) => {
-			const accessory = shopify.accessories.find((p) => p?.id === id);
-			const lightsource = shopify.lightsources.find((p) => p?.id === id);
+			const accessory = shopify.accessories.find((p) => p?.variants.edges[0].node.id === id);
+			const lightsource = shopify.lightsources.find((p) => p?.variants.edges[0].node.id === id);
 			const lightsourcePrice = parseFloat(accessory?.variants.edges[0].node.price.amount ?? '0');
 			const accessoryPrice = parseFloat(lightsource?.variants.edges[0].node.price.amount ?? '0');
 			return acc + accessoryPrice + lightsourcePrice;
 		}, 0);
 
-		setTotalPrice(addonsPrice + modelPrice);
+		setTotalPrice({ amount: addonsPrice + modelPrice, currencyCode: 'SEK' as CurrencyCode });
 	}
 
 	function handleAddonChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -84,7 +71,6 @@ export default function ProductShop({ product, shopify }: Props) {
 		e.preventDefault();
 		if (!selectedShopifyVariant) return;
 
-		console.log(selectedShopifyVariant);
 		const variantsIds: string[] = [selectedShopifyVariant.id];
 		const variantsElements = formRef.current?.querySelectorAll<HTMLInputElement>(
 			'input[type=checkbox]:checked'
@@ -92,9 +78,6 @@ export default function ProductShop({ product, shopify }: Props) {
 		variantsElements?.forEach(
 			(el) => el.dataset.variant && el.checked && variantsIds.push(el.dataset.variant)
 		);
-
-		console.log(variantsIds);
-
 		addToCart(
 			variantsIds.reverse().map((id) => ({ merchandiseId: id, quantity: 1 })),
 			'SE'
@@ -108,9 +91,7 @@ export default function ProductShop({ product, shopify }: Props) {
 			<div className={s.shop}>
 				<header>
 					<h3>Shop</h3>
-					<span className={s.price}>
-						{totalPrice} {selectedShopifyVariant?.price.currencyCode}
-					</span>
+					<span className={s.price}>{formatPrice(totalPrice as MoneyV2)}</span>
 				</header>
 
 				<div className={s.variant} onClick={() => setOpen(!open)}>
@@ -179,9 +160,7 @@ export default function ProductShop({ product, shopify }: Props) {
 										<span className={s.name}>
 											<strong>{product?.name}</strong>
 										</span>
-										<span className={s.price}>
-											{price?.amount} {price?.currencyCode}
-										</span>
+										<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
 										<div className={s.checkbox}>
 											<input
 												type='checkbox'
@@ -212,9 +191,7 @@ export default function ProductShop({ product, shopify }: Props) {
 										<span className={s.name}>
 											<strong>{lightsource?.name}</strong>
 										</span>
-										<span className={s.price}>
-											{price?.amount} {price?.currencyCode}
-										</span>
+										<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
 										<div className={s.checkbox}>
 											<input
 												key={`${id}-${lightsource.id}`}
