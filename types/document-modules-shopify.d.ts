@@ -59,6 +59,7 @@ declare module '*/product.gql' {
   const defaultDocument: DocumentNode;
   export const AllShopifyProducts: DocumentNode;
 export const ShopifyProduct: DocumentNode;
+export const ShopifyProductsByQuery: DocumentNode;
 export const ShopifyProductById: DocumentNode;
 export const ShopifyVariant: DocumentNode;
 export const ProductFragment: DocumentNode;

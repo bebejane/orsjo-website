@@ -277,24 +277,6 @@ fragment ProductFragment on ProductRecord {
 			id
 			name
 		}
-		drawing {
-			...ImageFragment
-		}
-		lightsources {
-			id
-			included
-			amount
-			optional
-			lightsource {
-				id
-				name
-				price
-				articleNo
-				image {
-					...ImageThumbnailFragment
-				}
-			}
-		}
 		variants {
 			id
 			color {
@@ -315,6 +297,24 @@ fragment ProductFragment on ProductRecord {
 			articleNo
 			image {
 				...ImageFragment
+			}
+		}
+		drawing {
+			...ImageFragment
+		}
+		lightsources {
+			id
+			included
+			amount
+			optional
+			lightsource {
+				id
+				name
+				price
+				articleNo
+				image {
+					...ImageThumbnailFragment
+				}
 			}
 		}
 		accessories {

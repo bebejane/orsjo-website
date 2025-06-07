@@ -20,7 +20,11 @@ import ProductShop from '@/app/products/[product]/ProductShop';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import shopifyQuery from '@/lib/shopify/shopify-query';
-import { AllShopifyProductsDocument, ShopifyProductDocument } from '@/lib/shopify/graphql';
+import {
+	AllShopifyProductsDocument,
+	ShopifyProductDocument,
+	ShopifyProductsByQueryDocument,
+} from '@/lib/shopify/graphql';
 import { DocumentNode } from 'graphql/language/ast';
 
 type Props = {
@@ -35,7 +39,7 @@ export default async function Product({ params }: Props) {
 	if (!res) return notFound();
 
 	const {
-		shopifyProduct,
+		shopify,
 		product,
 		relatedProducts,
 		relatedProjects,
@@ -50,7 +54,7 @@ export default async function Product({ params }: Props) {
 			<ProductIntro product={product} drawings={drawings} />
 			<ProductSpecifications product={product} drawings={drawings} specsCols={specsCols} />
 			<ProductDownloads files={files} />
-			<ProductShop product={product} shopifyProduct={shopifyProduct} />
+			<ProductShop product={product} shopify={shopify} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery
@@ -91,7 +95,11 @@ export type SpecCol = {
 	slug?: string;
 };
 export type ProductPageDataProps = {
-	shopifyProduct: ShopifyProductQuery['product'];
+	shopify: {
+		product: ShopifyProductQuery['product'];
+		accessories: ShopifyProductQuery['product'][];
+		lightsources: ShopifyProductQuery['product'][];
+	};
 	product: ProductQuery['product'];
 	relatedProducts: RelatedProductsQuery['relatedProducts'];
 	relatedProjects: RelatedProjectsForProductQuery['relatedProjects'];
@@ -129,7 +137,29 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 	const { product: shopifyProduct } = await shopifyQuery<
 		ShopifyProductQuery,
 		ShopifyProductQueryVariables
-	>(ShopifyProductDocument as DocumentNode, { variables: { handle: product.slug }, country: 'US' });
+	>(ShopifyProductDocument as DocumentNode, { variables: { handle: product.slug } });
+
+	const relatedArticleNos = product.models.reduce(
+		(acc, model) => {
+			return acc
+				.concat(model.accessories.map(({ product }) => product?.articleNo ?? null))
+				.concat(model.lightsources.map(({ lightsource }) => lightsource?.articleNo ?? null));
+		},
+		[] as (string | null)[]
+	);
+	console.log(relatedArticleNos);
+
+	const query = relatedArticleNos.map((articleNo) => `tag:${articleNo}`).join(' OR ');
+	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(
+		ShopifyProductsByQueryDocument as DocumentNode,
+		{ variables: { query } }
+	);
+	const shopifyAccessories = products.edges
+		.map(({ node }) => node)
+		.filter((p) => p.tags.includes('accessory'));
+	const shopifyLightsources = products.edges
+		.map(({ node }) => node)
+		.filter((p) => p.tags.includes('lightsource'));
 
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [
@@ -165,7 +195,11 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 
 	return {
 		product,
-		shopifyProduct,
+		shopify: {
+			product: shopifyProduct,
+			accessories: shopifyAccessories,
+			lightsources: shopifyLightsources,
+		},
 		relatedProducts: relatedProducts
 			.filter((p) => p.id !== product.id)
 			//@ts-ignore

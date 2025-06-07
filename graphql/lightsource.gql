@@ -7,6 +7,7 @@ query AllProductLightsources($first: IntType = 100, $skip: IntType = 0) {
 		image {
 			...ImageThumbnailFragment
 		}
+		slug
 	}
 	_allProductLightsourcesMeta {
 		count

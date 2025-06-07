@@ -1,4 +1,4 @@
-query AllProductAccessories($first: IntType = 100, $skip: IntType = 0) {
+query AllProductAccessories($first: IntType = 250, $skip: IntType = 0) {
 	allProductAccessories(first: $first, skip: $skip) {
 		id
 		name
@@ -7,6 +7,7 @@ query AllProductAccessories($first: IntType = 100, $skip: IntType = 0) {
 		image {
 			...ImageThumbnailFragment
 		}
+		slug
 	}
 	_allProductAccessoriesMeta {
 		count

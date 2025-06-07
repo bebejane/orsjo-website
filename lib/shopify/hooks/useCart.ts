@@ -22,7 +22,7 @@ export interface CartState {
   clearCart: () => void,
   createCart: (country: string) => void,
   setCart: (cart: Cart) => Promise<Cart>,
-  addToCart: (lines: CartLineInput, country: string) => void,
+  addToCart: (lines: CartLineInput[], country: string) => void,
   removeFromCart: (id: string) => void,
   updateQuantity: (id: string, quantity: number, country: string) => void,
   updateBuyerIdentity: (input: CartBuyerIdentityInput) => void,
@@ -35,8 +35,8 @@ const useCart = create<CartState>((set, get) => ({
   error: undefined,
   country: 'SE',
   createCart: async (country: string) => {
-    const id = getCookie('cart', cartCookieOptions)
-    let cart = null;
+    const id = await getCookie('cart', cartCookieOptions)
+    let cart: CartQuery['cart'] | null = null;
 
     if (id) {
       const res = (await shopifyQuery<CartQuery, CartQueryVariables>(CartDocument, { revalidate: 0, variables: { id }, country }))
@@ -45,7 +45,6 @@ const useCart = create<CartState>((set, get) => ({
 
     if (!cart)
       cart = (await shopifyQuery<CreateCartMutation, CreateCartMutationVariables>(CreateCartDocument, { revalidate: 0, country }))?.cartCreate?.cart;
-
 
     if (!cart)
       throw new Error('Cart not found')
@@ -61,7 +60,7 @@ const useCart = create<CartState>((set, get) => ({
     set((state) => ({ cart }))
     return cart
   },
-  addToCart: async (line: CartLineInput, country: string) => {
+  addToCart: async (lines: CartLineInput[], country: string) => {
 
     get().update(null, async () => {
 
@@ -70,7 +69,7 @@ const useCart = create<CartState>((set, get) => ({
         revalidate: 0,
         variables: {
           cartId: cart.id,
-          lines: [line]
+          lines
         },
         country
       });

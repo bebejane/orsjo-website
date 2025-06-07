@@ -17,6 +17,16 @@ query ShopifyProduct($country: CountryCode = SE, $handle: String) @inContext(cou
 		...ProductFragment
 	}
 }
+query ShopifyProductsByQuery($country: CountryCode = SE, $query: String)
+@inContext(country: $country) {
+	products(first: 250, query: $query) {
+		edges {
+			node {
+				...ProductFragment
+			}
+		}
+	}
+}
 
 query ShopifyProductById($id: ID!) {
 	product(id: $id) {
@@ -62,8 +72,9 @@ fragment ProductFragment on Product {
 	options {
 		id
 		name
-		#values
 	}
+	tags
+
 	variants(first: 100) {
 		edges {
 			node {

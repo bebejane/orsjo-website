@@ -2,7 +2,7 @@ import shopify_client from '@/lib/shopify/rest-client';
 import client from '@/lib/client';
 import { IProduct, IProductImage, IProductVariant } from 'shopify-api-node';
 import { apiQuery } from 'next-dato-utils/api';
-import { AllProductLightsourcesDocument, AllProductsDocument } from '@/graphql';
+import { AllProductAccessoriesDocument, AllProductLightsourcesDocument, AllProductsDocument } from '@/graphql';
 
 export type ProductData = {
   id?: string
@@ -12,11 +12,12 @@ export type ProductData = {
   imageUrl?: string | null | undefined
   tags?: string[]
   price?: string
+  variants?: VariantData[]
   published_scope: string
 }
 
 export type VariantData = {
-  product_id: number
+  product_id?: number
   option1: string
   sku: string
   price?: string
@@ -38,7 +39,8 @@ export const create = async (data: ProductData): Promise<IProduct> => {
 
     return product
   } catch (e) {
-    console.log("error creating product", data.handle, e)
+    console.log(data)
+    console.log("error creating product")
     throw e
   }
 }
@@ -86,6 +88,7 @@ export const createVariant = async (data: VariantData): Promise<IProductVariant>
   console.log('creating variant:', data.product_id, data.sku)
 
   try {
+    if (!data.product_id) throw new Error('Invalid product id: ' + data.product_id)
 
     if (data.imageUrl) {
       const image = await uploadProductImage(data.product_id, { url: data.imageUrl, position: 2 })
@@ -124,7 +127,7 @@ export const batchPromises = async (tasks: any[], concurrency: number, timeout?:
   return Promise.all(results);
 }
 
-function slugify(text: string) {
+export function slugify(text: string) {
   return text
     .toString()
     .toLowerCase()
@@ -135,7 +138,7 @@ function slugify(text: string) {
     .replace(/-+$/, '') // Trim - from end of text
 }
 
-function dedupeByKey<T>(array: T[], key: string) {
+export function dedupeByKey<T>(array: T[], key: string) {
   return array.reduce((acc, item) => {
     const existingItem = acc.find((i) => i[key] === item[key]);
     if (!existingItem) {
@@ -151,32 +154,34 @@ export const resyncAll = async () => {
 
   const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, { variables: { first: 500, skip: 0 } })
   const { allProductLightsources } = await apiQuery<AllProductLightsourcesQuery, AllProductLightsourcesQueryVariables>(AllProductLightsourcesDocument, { variables: { first: 500, skip: 0 } })
+  const { allProductAccessories } = await apiQuery<AllProductAccessoriesQuery, AllProductAccessoriesQueryVariables>(AllProductAccessoriesDocument, { variables: { first: 500, skip: 0 } })
 
+  const products: ProductData[] = []
   const accessories: ProductData[] = []
   const lightsources: ProductData[] = []
-  const variants: VariantData[] = []
+
 
   console.log('removing all products')
-  await batchPromises(shopifyProducts.map((product) => () => remove(product.id)), 10, 5000)
+  await batchPromises(shopifyProducts.map((product) => () => remove(product.id)), 5, 5000)
 
   for (const product of allProducts) {
 
-    const p = await create({
+    const variants: VariantData[] = []
+
+    const productData = {
       title: product.title,
       body_html: product.description ?? '',
       handle: product.slug,
       tags: ['lamp'],
       imageUrl: product.image?.url ?? null,
       published_scope: 'global'
-    })
+    }
 
     for (const model of product.models) {
 
       for (const variant of model.variants) {
         const sku = variant.articleNo?.trim() ?? ''
-
         variants.push({
-          product_id: p.id,
           sku,
           option1: sku,
           price: variant.price ? String(variant.price) : '0',
@@ -184,57 +189,111 @@ export const resyncAll = async () => {
           inventory_quantity: 10
         })
       }
-
-      for (const accessory of model.accessories) {
-        accessories.push({
-          title: accessory.product?.name ?? '',
-          body_html: '',
-          handle: accessory.product?.articleNo?.trim() ?? '',
-          price: accessory.product?.price,
-          imageUrl: accessory.product?.image?.url,
-          tags: ['accessory'],
-          published_scope: 'global'
-        })
-      }
     }
+    products.push({ ...productData, variants: dedupeByKey(variants, 'sku') })
   }
 
-  for (const lightsource of allProductLightsources) {
-    lightsources.push({
-      title: lightsource.name ?? '',
-      handle: slugify(lightsource.name ?? ''),
+  for (const accessory of allProductAccessories) {
+    const articleNo = accessory.articleNo?.trim() ?? ''
+    accessories.push({
+      title: accessory.name ?? '',
       body_html: '',
-      price: lightsource.price,
-      imageUrl: lightsource?.image?.url,
-      tags: ['lightsource'],
-      published_scope: 'global'
+      handle: accessory.slug,
+      price: accessory.price,
+      imageUrl: accessory.image?.url,
+      tags: ['accessory', articleNo],
+      published_scope: 'global',
+      variants: [{
+        sku: articleNo,
+        option1: articleNo,
+        price: accessory.price,
+        imageUrl: accessory.image?.url ?? null,
+        inventory_quantity: 10
+      }]
     })
   }
 
-  console.log('add variants')
-  const shopifyVariants = await batchPromises(dedupeByKey(variants, 'sku').map((variant) => () => createVariant(variant)), 5, 5000)
-  console.log('added variants', shopifyVariants.length)
+  for (const lightsource of allProductLightsources) {
+    const articleNo = lightsource.articleNo?.trim() ?? ''
+    lightsources.push({
+      title: lightsource.name ?? '',
+      handle: lightsource.slug,
+      body_html: '',
+      price: lightsource.price,
+      imageUrl: lightsource?.image?.url,
+      tags: ['lightsource', articleNo],
+      published_scope: 'global',
+      variants: [{
+        sku: articleNo,
+        option1: articleNo,
+        price: lightsource.price,
+        imageUrl: lightsource?.image?.url ?? null,
+        inventory_quantity: 10
+      }]
+    })
+  }
 
-  console.log('add accessories')
+  console.log('add products', products.length)
+  const addedProducts = await batchPromises(products.map((p) => () => create(p)), 5, 5000)
+  console.log('added products', addedProducts.length)
+
+  console.log('add accessories', dedupeByKey(accessories, 'handle').length)
   const shopifyAccessories = await batchPromises(dedupeByKey(accessories, 'handle').map((accessory) => () => create(accessory)), 5, 5000)
   console.log('added accessories', shopifyAccessories.length)
 
-
-  console.log('add lightsources')
+  console.log('add lightsources', lightsources.length)
   const addedLightsources = await batchPromises(lightsources.map((product) => () => create(product)), 5, 5000)
   console.log('added lightsources', addedLightsources.length)
 
-
+  /*
   console.log('delete default variants...')
   const products = await shopify_client.product.list({ limit: 250 })
   const defaultVariants: { productId: number, variantId: number }[] = []
   for (const product of products) {
     for (const variant of product.variants) {
       if (variant.title.includes('Default')) {
-        console.log('deleting variant', variant.id)
+        console.log('deleting default variant', variant.id)
         defaultVariants.push({ productId: product.id, variantId: variant.id })
       }
     }
   }
   await batchPromises(defaultVariants.map(({ productId, variantId }) => () => shopify_client.productVariant.delete(productId, variantId)), 5, 5000)
+  */
+}
+
+export const sync = async (itemId: string) => {
+  const item: any = await client.items.find(itemId);
+
+  if (!item)
+    throw new Error('Invalid item: ' + itemId)
+
+  const itemTypes = await client.itemTypes.list()
+  const apiKey = itemTypes.find(({ id }) => id === item.item_type.id)?.api_key
+
+  switch (apiKey) {
+    case 'product':
+      const shopifyProduct = (await shopify_client.product.list({ limit: 1, handle: item.slug }))?.[0]
+
+      const data: ProductData = {
+        title: item.title,
+        handle: item.slug,
+        body_html: item.description ?? '',
+        imageUrl: item.image?.url ?? null,
+        published_scope: 'global'
+      }
+      if (!shopifyProduct)
+        await create(data)
+      else {
+        await update(shopifyProduct.id, data)
+      }
+      break
+    case 'product_accessory':
+      break
+    case 'product_lightsource':
+      break
+    default:
+      throw new Error('Invalid item type: ' + item.item_type.id)
+  }
+
+
 }
