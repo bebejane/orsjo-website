@@ -2,6 +2,7 @@
 import type { RequestInit } from 'next/dist/server/web/spec-extension/request'
 import { print } from 'graphql/language/printer'
 import type { DocumentNode } from '@/node_modules/graphql'
+import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 
 const shopifyApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/api/${process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION}/graphql.json`;
 
@@ -31,7 +32,7 @@ const defaultOptions: DefaultApiQueryOptions = {
 };
 
 
-export default async function shopifyQuery<T = void, V = void>(query: DocumentNode, options?: ApiQueryOptions<V>): Promise<T> {
+export default async function shopifyQuery<T = void, V = void>(query: TypedDocumentNode, options?: ApiQueryOptions<V>): Promise<T> {
 
   const opt = { ...defaultOptions, ...(options ?? {}) };
 
@@ -42,12 +43,12 @@ export default async function shopifyQuery<T = void, V = void>(query: DocumentNo
   if (!process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN)
     throw new Error('NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN is not set')
 
-  const queryId = (query.definitions?.[0] as any).name?.value as string
+  const queryId = ((query as DocumentNode).definitions?.[0] as any).name?.value as string
   const country = (opt.country as CountryCode ?? 'SE').toUpperCase();
 
   const dedupeOptions: DedupeOptions = {
     body: JSON.stringify({
-      query: print(query),
+      query: print(query as DocumentNode),
       variables: options?.variables ? { ...options.variables } : { country }
     }) as string,
     ...opt,
