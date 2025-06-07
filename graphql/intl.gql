@@ -1,5 +1,5 @@
 query Intl(
-	$locale: SiteLocale = en
+	$locale: SiteLocale = sv
 	$fallbackLocales: [SiteLocale!] = [en]
 	$first: IntType = 100
 	$skip: IntType = 0

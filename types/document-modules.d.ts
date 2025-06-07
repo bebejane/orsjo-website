@@ -20,7 +20,10 @@ export const AllPress: DocumentNode;
 declare module '*/accessory.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const AllProductAccessories: DocumentNode;
+  export const ProductAccessory: DocumentNode;
+export const ProductAccessoryById: DocumentNode;
+export const AllProductAccessories: DocumentNode;
+export const ProductAccessoryFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -135,7 +138,10 @@ declare module '*/intl.gql' {
 declare module '*/lightsource.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const AllProductLightsources: DocumentNode;
+  export const ProductLightsource: DocumentNode;
+export const ProductLightsourceById: DocumentNode;
+export const AllProductLightsources: DocumentNode;
+export const ProductLightsourceFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -155,6 +161,7 @@ declare module '*/product.gql' {
   const defaultDocument: DocumentNode;
   export const ProductStart: DocumentNode;
 export const Product: DocumentNode;
+export const ProductById: DocumentNode;
 export const AllProducts: DocumentNode;
 export const AllProductsLight: DocumentNode;
 export const AllProductManuals: DocumentNode;

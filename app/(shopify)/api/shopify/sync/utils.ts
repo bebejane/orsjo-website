@@ -1,8 +1,10 @@
 import shopify_client from '@/lib/shopify/rest-client';
 import client from '@/lib/client';
+import shopifyQuery from '@/lib/shopify/shopify-query';
 import { IProduct, IProductImage, IProductVariant } from 'shopify-api-node';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductAccessoriesDocument, AllProductLightsourcesDocument, AllProductsDocument } from '@/graphql';
+import { AddProductDocument, UpdateProductDocument, ProductDeleteDocument } from '@/lib/shopify/graphql-admin';
 import { batchPromises, dedupeByKey } from '@/lib/utils';
 
 export type ProductData = {

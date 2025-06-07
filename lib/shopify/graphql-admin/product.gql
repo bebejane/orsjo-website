@@ -1,5 +1,5 @@
-mutation AddProduct($input: ProductCreateInput!) {
-	productCreate(product: $input) {
+mutation AddProduct($product: ProductCreateInput!, $media: [CreateMediaInput!]) {
+	productCreate(product: $product, media: $media) {
 		product {
 			...ProductFragment
 		}
@@ -9,20 +9,14 @@ mutation AddProduct($input: ProductCreateInput!) {
 		}
 	}
 }
-
-mutation ProductCreateMedia($media: [CreateMediaInput!]!, $productId: ID!) {
-	productCreateMedia(media: $media, productId: $productId) {
-		media {
-			alt
-			mediaContentType
-			status
-		}
-		mediaUserErrors {
-			field
-			message
-		}
+mutation UpdateProduct($product: ProductUpdateInput, $media: [CreateMediaInput!]) {
+	productUpdate(product: $product, media: $media) {
 		product {
 			...ProductFragment
+		}
+		userErrors {
+			field
+			message
 		}
 	}
 }
@@ -42,8 +36,7 @@ mutation ProductUpdate($product: ProductUpdateInput!, $media: [CreateMediaInput!
 			}
 		}
 		userErrors {
-			field
-			message
+			...UserErrorFragment
 		}
 	}
 }
@@ -52,9 +45,70 @@ mutation ProductDelete($id: ID!) {
 	productDelete(input: { id: $id }) {
 		deletedProductId
 		userErrors {
+			...UserErrorFragment
+		}
+	}
+}
+
+mutation ProductVariantsBulkCreate($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
+	productVariantsBulkCreate(productId: $productId, variants: $variants) {
+		productVariants {
+			...ProductVariantFragment
+		}
+		product {
+			...ProductFragment
+		}
+		userErrors {
+			__typename
+			code
 			field
 			message
 		}
+	}
+}
+
+mutation ProductVariantsBulkUpdate($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
+	productVariantsBulkUpdate(productId: $productId, variants: $variants) {
+		productVariants {
+			...ProductVariantFragment
+		}
+		product {
+			...ProductFragment
+		}
+		userErrors {
+			__typename
+			code
+			field
+			message
+		}
+	}
+}
+
+mutation RemoveProduct($id: ID!) {
+	productDelete(input: { id: $id }) {
+		deletedProductId
+		userErrors {
+			...UserErrorFragment
+		}
+	}
+}
+
+query AllShopifyProducts($first: Int = 250) {
+	products(first: $first, query: "available_for_sale") {
+		edges {
+			node {
+				...ProductFragment
+			}
+		}
+		pageInfo {
+			hasNextPage
+		}
+	}
+}
+
+query ShopifyProduct($handle: String!) {
+	product: productByHandle(handle: $handle) {
+		...ProductFragment
 	}
 }
 
@@ -63,43 +117,15 @@ fragment ProductFragment on Product {
 	handle
 	title
 	description
-	featuredImage {
-		id
-		url
-		height
-		width
-		altText
-	}
-
 	options {
 		id
 		name
 	}
 	tags
-
 	variants(first: 100) {
 		edges {
 			node {
-				id
-				title
-				availableForSale
-				sku
-				selectedOptions {
-					name
-					value
-				}
-				image {
-					id
-					url(transform: { maxWidth: 400, maxHeight: 400, crop: CENTER })
-					height
-					width
-					altText
-				}
-				price
-				unitPrice {
-					amount
-					currencyCode
-				}
+				...ProductVariantFragment
 			}
 		}
 	}
@@ -109,8 +135,26 @@ fragment ProductVariantFragment on ProductVariant {
 	id
 	title
 	availableForSale
+	sku
 	selectedOptions {
 		name
 		value
 	}
+	image {
+		id
+		url(transform: { maxWidth: 400, maxHeight: 400, crop: CENTER })
+		height
+		width
+		altText
+	}
+	unitPrice {
+		amount
+		currencyCode
+	}
+}
+
+fragment UserErrorFragment on UserError {
+	__typename
+	field
+	message
 }

@@ -12,13 +12,18 @@ query ProductStart {
 	}
 }
 
-query Product($slug: String, $locale: SiteLocale = en) {
+query Product($slug: String, $locale: SiteLocale = sv) {
 	product(locale: $locale, fallbackLocales: [sv, en], filter: { slug: { eq: $slug } }) {
 		...ProductFragment
 	}
 }
+query ProductById($id: ItemId, $locale: SiteLocale = sv) {
+	product(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
+		...ProductFragment
+	}
+}
 
-query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+query AllProducts($locale: SiteLocale = sv, $first: IntType = 100, $skip: IntType = 0) {
 	allProducts(
 		locale: $locale
 		first: $first
@@ -33,7 +38,7 @@ query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntTyp
 	}
 }
 
-query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = sv) {
 	allProducts(
 		first: $first
 		skip: $skip
@@ -48,7 +53,7 @@ query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteL
 	}
 }
 
-query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+query AllProductManuals($locale: SiteLocale = sv, $first: IntType = 100, $skip: IntType = 0) {
 	allProducts(
 		locale: $locale
 		first: $first
@@ -76,7 +81,7 @@ query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: 
 	}
 }
 
-query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+query AllProductDownloads($locale: SiteLocale = sv, $first: IntType = 100, $skip: IntType = 0) {
 	allProducts(
 		locale: $locale
 		first: $first

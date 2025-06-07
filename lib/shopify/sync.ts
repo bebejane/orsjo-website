@@ -1,267 +1,251 @@
-'use server'
-
-import client from './datocms-client'
-import shopify from './rest-client'
-import asyncPromiseBatch from 'async-promise-batch';
-import { isDeepStrictEqual } from 'util';
-import { itemTypeId } from './utils';
-import { IProduct, ISmartCollection, ICustomCollection } from 'shopify-api-node';
+import shopify_client from '@/lib/shopify/rest-client';
+import client from '@/lib/client';
+import shopifyQuery from '@/lib/shopify/shopify-query';
+import { apiQuery } from 'next-dato-utils/api';
+import { AllProductAccessoriesDocument, AllProductLightsourcesDocument, AllProductsDocument, ProductByIdDocument, ProductAccessoryByIdDocument, ProductLightsourceByIdDocument } from '@/graphql';
+import { AddProductDocument, UpdateProductDocument, ProductDeleteDocument, AllShopifyProductsDocument, ShopifyProductDocument, ProductVariantsBulkCreateDocument, ProductVariantsBulkUpdateDocument, RemoveProductDocument } from '@/lib/shopify/graphql-admin';
+import { batchPromises, dedupeByKey } from '@/lib/utils';
 import { Item } from '@datocms/cma-client/dist/types/generated/SimpleSchemaTypes';
-import { ItemInstancesHrefSchema } from '@datocms/cma-client/dist/types/generated/SchemaTypes';
 
-type ObjectType = IProduct | ISmartCollection | ICustomCollection
+export const sync = async (itemId: string) => {
 
-type ObjectMap = {
-  dato_model: 'shopify_product' | 'shopify_collection'
-  shopify_model: 'product' | 'collection'
-  path: 'product' | 'smartCollection' | 'customCollection'
-  fields: { [key: string]: string }
-}
-
-const objects: ObjectMap[] = [
-  {
-    dato_model: 'shopify_collection',
-    shopify_model: 'collection',
-    path: 'smartCollection',
-    fields: {
-      shopify_id: 'id',
-      title: 'title',
-      handle: 'handle',
-      products: 'products'
-    }
-  },
-  {
-    dato_model: 'shopify_collection',
-    shopify_model: 'collection',
-    path: 'customCollection',
-    fields: {
-      shopify_id: 'id',
-      title: 'title',
-      handle: 'handle',
-      products: 'products'
-    }
-  },
-  {
-    dato_model: 'shopify_product',
-    shopify_model: 'product',
-    path: 'product',
-    fields: {
-      shopify_id: 'id',
-      title: 'title',
-      handle: 'handle',
-      collections: 'collections',
-      variants: 'variants',
-      image: 'image',
-      tags: 'tags'
-    }
-  }
-]
-
-export const syncAll = async () => {
-  console.log('sync started...')
-  console.time('sync all')
-
-  for (let i = 0; i < objects.length; i++) {
-    const data = await shopify[objects[i].path].list({ limit: 250 })
-    await syncObjects(data)
-  }
-
-  console.timeEnd('sync all')
-}
-
-export const syncObjects = async (data: ObjectType[] | ObjectType, concurrency = 10) => {
-
-  const records = Array.isArray(data) ? data : [data] as ObjectType[]
-
-  if (records.length === 0)
-    return
-
-  const model = dataToObjectModel(records[0])?.dato_model
-  const object = objects.find((o) => o.dato_model === model) as ObjectMap
-
-  if (typeof object === 'undefined') {
-    throw new Error('Invalid data')
-  }
-
-  const itemType = await itemTypeId(object.dato_model)
-  const reqs = records.map((item) => () => upsertObject(object, itemType, item))
-
-  console.time(`sync ${object.dato_model} ${reqs.length}`)
-  const response = await asyncPromiseBatch(reqs, concurrency)
-  console.timeEnd(`sync ${object.dato_model} ${reqs.length}`)
-  return response
-
-}
-
-export const upsertObject = async (object: ObjectMap, itemType: string, data: any) => {
-
-  console.log('sync', object.dato_model, data.id)
-
-  data.id = String(data.id)
-
-  let record = (await client.items.list({ version: 'latest', filter: { type: itemType, fields: { shopify_id: { eq: data.id } } } }))[0]
-  const item = { ...data }
-
-  if (object.dato_model === 'shopify_collection') {
-    const products = await shopify.collection.products(data.id, { limit: 250 })
-    const datoProducts = (await Promise.all(products.map(({ id }) => client.items.list({ version: 'latest', filter: { type: 'shopify_product', fields: { shopify_id: { eq: id } } } }))))
-    data.products = datoProducts.map((p) => p[0].id)
-  }
-
-  if (object.dato_model === 'shopify_product') {
-    const smartCollections = await shopify.smartCollection.list({ product_id: data.id, limit: 250 })
-    const customCollections = await shopify.customCollection.list({ product_id: data.id, limit: 250 })
-    const collections = [...smartCollections, ...customCollections]
-    const datoCollections = (await Promise.all(collections.map(({ id }) => client.items.list({ version: 'latest', filter: { type: 'shopify_collection', fields: { shopify_id: { eq: id } } } }))))
-    data.collections = datoCollections.map((p) => p[0].id)
-    data.variants = JSON.stringify(data.variants)
-  }
-
-  if (data.image?.src) {
-    const url = data.image.src.split('?')[0]
-    console.log('upload image', url)
-    try {
-      const upload = await client.uploads.createFromUrl({
-        url,
-        skipCreationIfAlreadyExists: true
-      })
-      data.image = { upload_id: upload.id }
-      console.log('uploaded image', data.image.upload_id)
-    } catch (error) {
-      console.log('error uploading image')
-      delete data.image
-    }
-  }
-
-  if (!record)
-    record = await client.items.create({ item_type: { type: 'item_type', id: itemType }, ...mapObject(object, data, item as ObjectType) });
-  else
-    record = await client.items.update(record.id, mapObject(object, data, item));
-
-  //if (object.dato_model === 'shopify_product') await syncProductVariants(data)
-
-  if (item.status === 'draft')
-    await client.items.unpublish(record.id)
-  else
-    await client.items.publish(record.id)
-}
-
-const mapObject = (object: ObjectMap, data: any, item: ObjectType): any => {
-  const mapped: any = {}
-  Object.keys(object.fields).forEach((key) => {
-    mapped[key] = data[object.fields[key]]
-  })
-
-  return mapped
-}
-
-const dataToObjectModel = (data: any): ObjectMap | undefined => {
-  const model = data.admin_graphql_api_id.replace('gid://shopify/', '').split('/')[0].toLowerCase()
-  return objects.find((o) => o.shopify_model === model)
-}
-
-
-export const deleteObject = async (data: any) => {
-
-
-}
-
-export const syncDatoCMSObject = async (item: Item) => {
-
-  throw new Error('syncDatoCMSObject is not implemented')
-
-  if (!item || !item.shopify_data)
-    throw new Error('Invalid item')
 
   try {
-    const itemType = await client.itemTypes.find(item.item_type.id)
-    const object = objects.find((o) => o.dato_model === itemType.api_key) as ObjectMap
+    let item: Item;
 
-    const data: any = {}
-    Object.keys(object.fields).forEach((key) => {
-      data[object.fields[key]] = item[key]
+    try {
+      item = await client.items.find(itemId)
+    } catch (e) {
+      console.log(e)
+      throw new Error('Invalid item: ' + itemId)
+    }
+
+    const itemTypes = await client.itemTypes.list()
+    const apiKey = itemTypes.find(({ id }) => id === item.item_type.id)?.api_key
+
+    switch (apiKey) {
+      case 'product':
+        const { product } = await apiQuery<ProductByIdQuery, ProductByIdQueryVariables>(ProductByIdDocument, { variables: { id: itemId } })
+
+        if (!product)
+          throw new Error('Invalid product: ' + itemId)
+
+        const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
+          variables: { handle: product.slug }
+        })
+
+        const productData: ProductCreateInput | ProductUpdateInput = {
+          id: shopifyProduct?.id,
+          title: product.title,
+          handle: product.slug,
+          descriptionHtml: product.description,
+          tags: ['lamp']
+        }
+
+        //@ts-ignore
+        const productMedia: CreateMediaInput[] | undefined = product.image?.url ? [{
+          originalSource: product.image.url,
+          mediaContentType: 'IMAGE',
+          alt: product.image.title,
+
+        }] : undefined
+
+        const productVariants: ProductVariantsBulkInput[] = product.models.reduce((acc, model) => {
+          model.variants.forEach((variant) => {
+            const id = shopifyProduct?.variants.edges.find((v) => v.node.sku === variant.articleNo)?.node.id ?? undefined
+            acc.push({
+              id,
+              price: variant.price,
+              inventoryItem: {
+                cost: variant.price,
+                sku: variant.articleNo?.trim(),
+              },
+              optionValues: [
+                {
+                  name: model.name?.id,
+                }
+              ]
+            })
+          })
+          return acc
+        }, [] as ProductVariantsBulkInput[])
+
+        await syncProduct({ product: productData, media: productMedia }, dedupeByKey(productVariants, 'sku'))
+        break
+
+      case 'product_accessory':
+
+        const { productAccessory } = await apiQuery<ProductAccessoryByIdQuery, ProductAccessoryByIdQueryVariables>(ProductAccessoryByIdDocument, { variables: { id: itemId } })
+
+        if (!productAccessory)
+          throw new Error('Invalid product: ' + itemId)
+
+        const { product: shopifyAccessory } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
+          admin: true,
+          variables: { handle: productAccessory.slug ?? '' }
+        })
+
+        const accessoryData: ProductCreateInput | ProductUpdateInput = {
+          id: shopifyAccessory?.id,
+          title: productAccessory.name,
+          handle: productAccessory.slug,
+          tags: ['accessory', productAccessory?.articleNo?.trim()].filter(Boolean) as string[],
+        }
+
+        const accessoryMedia: CreateMediaInput[] | undefined = productAccessory.image?.url ? [{
+          originalSource: productAccessory.image.url,
+          mediaContentType: MediaContentType.IMAGE,
+          alt: productAccessory.image.title,
+        }] : undefined
+
+        const accessoryVariants: ProductVariantsBulkInput[] = [
+          {
+            id: shopifyAccessory?.variants.edges.find((v) => v.node.sku === productAccessory?.articleNo?.trim())?.node.id,
+            price: productAccessory.price,
+            inventoryItem: {
+              cost: productAccessory.price,
+              sku: productAccessory?.articleNo?.trim(),
+            },
+            optionValues: [
+              {
+                name: productAccessory.articleNo?.trim(),
+              }
+            ]
+          }
+        ]
+        await syncProduct({ product: accessoryData, media: accessoryMedia }, accessoryVariants)
+        break
+      case 'product_lightsource':
+        const { productLightsource } = await apiQuery<ProductLightsourceByIdQuery, ProductLightsourceByIdQueryVariables>(ProductLightsourceByIdDocument, { variables: { id: itemId } })
+        if (!productLightsource)
+          throw new Error('Invalid product: ' + itemId)
+
+        const { product: shopifyLightsource } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, { admin: true, variables: { handle: productLightsource.slug ?? '' } })
+
+        const lightsourceData: ProductCreateInput | ProductUpdateInput = {
+          id: shopifyLightsource?.id,
+          title: productLightsource.name,
+          handle: productLightsource.slug,
+          tags: ['lightsource', productLightsource?.articleNo?.trim()].filter(Boolean) as string[],
+        }
+
+        const lightsourceMedia: CreateMediaInput[] | undefined = productLightsource.image?.url ? [{
+          originalSource: productLightsource.image.url,
+          mediaContentType: MediaContentType.IMAGE,
+          alt: productLightsource.image.title,
+        }] : undefined
+
+        const lightsourceVariants: ProductVariantsBulkInput[] = [
+          {
+            id: shopifyLightsource?.variants.edges.find((v) => v.node.sku === productLightsource?.articleNo?.trim())?.node.id,
+            price: productLightsource.price,
+            inventoryItem: {
+              cost: productLightsource.price,
+              sku: productLightsource?.articleNo?.trim(),
+            },
+            optionValues: [
+              {
+                name: productLightsource.articleNo?.trim(),
+              }
+            ]
+          }
+        ]
+        await syncProduct({ product: lightsourceData, media: lightsourceMedia }, lightsourceVariants)
+        break
+      default:
+        throw new Error('Invalid item type: ' + item.item_type.id)
+    }
+  } catch (e) {
+    console.log(e)
+    throw e
+  }
+}
+
+export async function syncProduct(data: { product: ProductCreateInput | ProductUpdateInput, media: CreateMediaInput[] | undefined }, variants?: ProductVariantsBulkInput[]) {
+
+  try {
+    console.time('sync-product')
+
+    let product: NonNullable<AddProductMutation['productCreate']>['product'] | NonNullable<UpdateProductMutation['productUpdate']>['product'] = null;
+
+    //@ts-ignore
+    if (!data.product.id) {
+      console.log('creating product', data.product.handle)
+
+      const res = await shopifyQuery<AddProductMutation, AddProductMutationVariables>(AddProductDocument, {
+        admin: true,
+        variables: {
+          product: data.product,
+          media: data.media
+        }
+      })
+      product = res.productCreate?.product
+    }
+    else {
+      console.log('updating product', data.product.handle)
+
+      const res = await shopifyQuery<UpdateProductMutation, UpdateProductMutationVariables>(UpdateProductDocument, {
+        admin: true,
+        variables: {
+          product: data.product,
+          media: data.media
+        }
+      })
+      console.log(res.productUpdate?.userErrors)
+      product = res.productUpdate?.product
+    }
+
+    if (!product) throw new Error('Invalid product: ' + data.product.handle)
+
+    if (variants) {
+      const newVariants: ProductVariantsBulkInput[] = variants.filter((variant) => !variant.id)
+      const updatedVariants: ProductVariantsBulkInput[] = variants.filter((variant) => variant.id)
+
+      console.log('create new variants', newVariants.length)
+      console.log('updated variants', updatedVariants.length)
+
+      const [{ productVariantsBulkCreate }, { productVariantsBulkUpdate }] = await Promise.all([
+        shopifyQuery<ProductVariantsBulkCreateMutation, ProductVariantsBulkCreateMutationVariables>(ProductVariantsBulkCreateDocument, {
+          admin: true,
+          variables: {
+            productId: product.id,
+            variants: newVariants
+          }
+        }),
+        shopifyQuery<ProductVariantsBulkUpdateMutation, ProductVariantsBulkUpdateMutationVariables>(ProductVariantsBulkUpdateDocument, {
+          admin: true,
+          variables: {
+            productId: product.id,
+            variants: updatedVariants
+          }
+        })])
+    }
+  } catch (e) {
+    console.log(data)
+    throw e
+  } finally {
+    console.timeEnd('sync-product')
+  }
+}
+
+export const resyncAll = async () => {
+
+  const shopifyProducts = await shopify_client.product.list({ limit: 250 })
+
+  await batchPromises(shopifyProducts.map((product) => () =>
+    shopifyQuery<RemoveProductMutation, RemoveProductMutationVariables>(ProductByIdDocument, {
+      admin: true,
+      variables: {
+        id: `gid://shopify/Product/${product.id}`
+      }
     })
+  ), 5, 5000)
 
-    if (data.image) {
-      const upload = await client.uploads.find(data.image.upload_id)
-      data.image = { src: upload.url }
-    }
+  const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, { variables: { first: 500, skip: 0 } })
+  const { allProductLightsources } = await apiQuery<AllProductLightsourcesQuery, AllProductLightsourcesQueryVariables>(AllProductLightsourcesDocument, { variables: { first: 500, skip: 0 } })
+  const { allProductAccessories } = await apiQuery<AllProductAccessoriesQuery, AllProductAccessoriesQueryVariables>(AllProductAccessoriesDocument, { variables: { first: 500, skip: 0 } })
 
-    data.status = item.meta.status !== 'published' ? 'draft' : 'active'
+  const itemIds = [...allProducts, ...allProductLightsources, ...allProductAccessories].map(({ id }) => id)
+  await batchPromises(itemIds.map((id) => sync(id)), 5, 5000)
 
-    const shopify_data = JSON.parse(item.shopify_data as string)
-    const current = await shopify[object.path].get(shopify_data.id) as any
-
-    if (isDeepStrictEqual(current, data)) {
-      console.log('no changes')
-      return
-    }
-
-    await shopify[object.path].update(data.id, data)
-  } catch (error) {
-    console.log('syncDatoCMSObject error')
-    console.log(error)
-    throw error
-
-  }
-}
-
-export const syncProductVariants = async (data: IProduct) => {
-
-  const { variants, options } = data
-  const itemTypes = await client.itemTypes.list()
-  const variantOptionTypeId = itemTypes.find(t => t.api_key === 'product_variant_option')?.id as string
-  const variantTypeId = itemTypes.find(t => t.api_key === 'product_variant')?.id as string
-  const productTypeId = itemTypes.find(t => t.api_key === 'product')?.id as string
-
-  const [products, productVariants, productOptions] = await Promise.all([
-    listAll({ filter: { type: productTypeId, fields: { shopify_id: { eq: data.id } } } }),
-    listAll({ filter: { type: variantTypeId, fields: { product_shopify_id: { eq: data.id } } } }),
-    listAll({ filter: { type: variantOptionTypeId, fields: { product_shopify_id: { eq: data.id } } } })
-  ])
-
-  const product = products[0].id
-
-  console.log('sync variants/options', data.id, data.title)
-  console.time('sync variants/options')
-
-  const variantsToDelete = productVariants.filter(({ shopify_id }) => !variants.find((pv) => String(pv.id) === String(shopify_id)))
-  const allDeletedVariants = variantsToDelete.map(({ id }) => client.items.destroy(id))
-
-  const allNewVariants = variants?.filter(({ id }) => !productVariants.find((pv) => String(pv.shopify_id) === String(id)))
-    .map(({ product_id: product_shopify_id, id: shopify_id, title, }) =>
-      client.items.create({
-        item_type: { type: 'item_type', id: variantTypeId },
-        product,
-        title,
-        product_shopify_id: String(product_shopify_id),
-        shopify_id: String(shopify_id)
-      }))
-
-
-  const optionsToDelete = productOptions.filter(({ shopify_id }) => !options.find((pv) => String(pv.id) === String(shopify_id)))
-  const allDeletedOptions = optionsToDelete?.map(({ id }) => client.items.destroy(id))
-  const allNewOptions = options?.filter(({ id }) => !productOptions.find((pv) => String(pv.shopify_id) === String(id)))
-    .map(({ product_id: product_shopify_id, id: shopify_id, name, values }) =>
-      client.items.create({
-        item_type: { type: 'item_type', id: variantOptionTypeId },
-        product,
-        name,
-        values: JSON.stringify(values),
-        product_shopify_id: String(product_shopify_id),
-        shopify_id: String(shopify_id)
-      }))
-
-  await Promise.all([...allDeletedVariants, ...allNewVariants, ...allDeletedOptions, ...allNewOptions])
-
-  console.time('sync variants/options')
-}
-
-const listAll = async function listAll(query: ItemInstancesHrefSchema): Promise<Item[]> {
-  const records = await client.items.list(query);
-
-  for await (const record of client.items.listPagedIterator(query)) {
-    records.push(record)
-  }
-  return records;
 }

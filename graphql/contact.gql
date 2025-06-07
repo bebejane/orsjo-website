@@ -10,13 +10,13 @@ query AllShowrooms {
 	}
 }
 
-query Distributor($id: ItemId, $locale: SiteLocale = en) {
+query Distributor($id: ItemId, $locale: SiteLocale = sv) {
 	distributor(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...DistributorFragment
 	}
 }
 
-query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = sv) {
 	distributors: allDistributors(
 		first: $first
 		skip: $skip
@@ -42,13 +42,13 @@ fragment DistributorFragment on DistributorRecord {
 	url
 }
 
-query Reseller($id: ItemId, $locale: SiteLocale = en) {
+query Reseller($id: ItemId, $locale: SiteLocale = sv) {
 	reseller(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...ResellerFragment
 	}
 }
 
-query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = sv) {
 	resellers: allResellers(
 		first: $first
 		skip: $skip
@@ -60,13 +60,13 @@ query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocal
 	}
 }
 
-query Staff($id: ItemId, $locale: SiteLocale = en) {
+query Staff($id: ItemId, $locale: SiteLocale = sv) {
 	staff(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...StaffFragment
 	}
 }
 
-query AllStaffs($id: ItemId, $locale: SiteLocale = en, $first: IntType = 100) {
+query AllStaffs($id: ItemId, $locale: SiteLocale = sv, $first: IntType = 100) {
 	staffs: allStaffs(
 		first: $first
 		locale: $locale
