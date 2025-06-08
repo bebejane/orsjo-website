@@ -177,14 +177,14 @@ export const sync = async (itemId: string) => {
 }
 
 export async function updateProduct(data: { product: ProductCreateInput | ProductUpdateInput, media?: CreateMediaInput[] | undefined }, variants?: ProductVariantsBulkInput[], variantsMedia?: CreateMediaInput[]) {
-  console.time('sync-product')
+
   const isUpdate = (data.product as ProductUpdateInput)?.id !== undefined
-  console.log(isUpdate)
+
   try {
 
     let product: NonNullable<AddProductMutation['productCreate']>['product'] | NonNullable<UpdateProductMutation['productUpdate']>['product'] = null;
     if (!isUpdate) {
-      console.log('creating product', data.product.handle)
+      console.log('creating product:', data.product.handle)
 
       const res = await shopifyQuery<AddProductMutation, AddProductMutationVariables>(AddProductDocument, {
         admin: true,
@@ -196,7 +196,7 @@ export async function updateProduct(data: { product: ProductCreateInput | Produc
       product = res.productCreate?.product
     }
     else {
-      console.log('updating product', data.product.handle)
+      console.log('updating product:', data.product.handle)
 
       const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
         admin: true,
@@ -210,7 +210,7 @@ export async function updateProduct(data: { product: ProductCreateInput | Produc
       const deleteVariants: string[] = shopifyProduct?.variants.edges.filter(({ node }) => variants?.find((variant) => variant.inventoryItem?.sku === node.sku) === undefined).map(({ node }) => node.id)
 
       if (deleteMedia.length) {
-        console.log('delete all media', shopifyProduct.id)
+        console.log('delete all media:', shopifyProduct.id)
         const { productDeleteMedia } = await shopifyQuery<ProductMediaDeleteMutation, ProductMediaDeleteMutationVariables>(ProductMediaDeleteDocument, {
           admin: true,
           variables: { productId: shopifyProduct.id, mediaIds: deleteMedia }
@@ -221,7 +221,7 @@ export async function updateProduct(data: { product: ProductCreateInput | Produc
       }
 
       if (deleteVariants.length) {
-        console.log('delete variants', deleteVariants.length)
+        console.log('delete variants:', deleteVariants.length)
         const { productVariantsBulkDelete } = await shopifyQuery<ProductVariantsBulkDeleteMutation, ProductVariantsBulkDeleteMutationVariables>(ProductVariantsBulkDeleteDocument, {
           admin: true,
           variables: { productId: shopifyProduct.id, variantsIds: deleteVariants }
@@ -249,8 +249,8 @@ export async function updateProduct(data: { product: ProductCreateInput | Produc
       const updatedVariants: ProductVariantsBulkInput[] = variants.filter((variant) => variant.id)
       const updatedVariantsMedia: CreateMediaInput[] = variantsMedia?.filter(({ alt }) => updatedVariants.find((variant) => variant.inventoryItem?.sku && variant.inventoryItem?.sku === alt)) ?? []
 
-      console.log('create new variants', newVariants.length, newVariantsMedia.length)
-      console.log('updated variants', updatedVariants.length, updatedVariantsMedia.length)
+      console.log('new variants:', newVariants.length, newVariantsMedia.length)
+      console.log('updated variants:', updatedVariants.length, updatedVariantsMedia.length)
 
       const [{ productVariantsBulkCreate }, { productVariantsBulkUpdate }] = await Promise.all([
         shopifyQuery<ProductVariantsBulkCreateMutation, ProductVariantsBulkCreateMutationVariables>(ProductVariantsBulkCreateDocument, {
@@ -270,6 +270,13 @@ export async function updateProduct(data: { product: ProductCreateInput | Produc
           }
         }),
       ])
+
+      if (productVariantsBulkCreate?.userErrors?.length)
+        throw new Error(JSON.stringify(productVariantsBulkCreate.userErrors.join('. '), null, 2))
+
+      if (productVariantsBulkUpdate?.userErrors?.length)
+        throw new Error(JSON.stringify(productVariantsBulkUpdate.userErrors.join('. '), null, 2))
+
       /*
       const ready = await waitForMedia(product.id)
 
@@ -302,7 +309,7 @@ export async function updateProduct(data: { product: ProductCreateInput | Produc
     console.log(JSON.stringify(data, null, 2))
     throw e
   } finally {
-    console.timeEnd('sync-product')
+
   }
 }
 

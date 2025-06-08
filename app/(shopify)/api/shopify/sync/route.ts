@@ -7,12 +7,13 @@ export const POST = async (req: Request) => {
     if (!entity) return new Response('ok', { status: 422 })
 
     const itemId = entity.id
+
     try {
       await sync(itemId)
     } catch (e) {
       console.log(e)
       return new Response(JSON.stringify({ error: e.message }), { status: 200, headers: { 'Content-Type': 'application/json' } })
     }
-    return new Response('ok', { status: 200 })
+    return new Response(JSON.stringify({ success: true }), { status: 200, headers: { 'Content-Type': 'application/json' } })
   })
 }
