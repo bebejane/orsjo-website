@@ -131,11 +131,12 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				break;
 
 			case 'product_accessory':
+				console.log('1');
 				const { productAccessory } = await apiQuery<ProductAccessoryByIdQuery, ProductAccessoryByIdQueryVariables>(
 					ProductAccessoryByIdDocument,
 					{ revalidate: 0, variables: { id: itemId } }
 				);
-
+				console.log('2');
 				if (!productAccessory) throw new Error('Invalid product accessory: ' + itemId);
 
 				const { product: shopifyAccessory } = await shopifyQuery<ShopifyAdminProductQuery, ShopifyAdminProductQueryVariables>(
@@ -145,14 +146,14 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						variables: { handle: productAccessory.slug ?? '' },
 					}
 				);
-
+				console.log('3');
 				const accessoryData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyAccessory?.id,
 					title: productAccessory.name,
 					handle: productAccessory.slug,
 					tags: ['accessory', productAccessory?.articleNo?.trim()].filter(Boolean) as string[],
 				};
-
+				console.log('4');
 				const accessoryVariantsMedia: CreateMediaInput[] | undefined = productAccessory.image?.url
 					? [
 							{
