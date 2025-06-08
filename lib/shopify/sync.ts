@@ -28,7 +28,16 @@ import { batchPromises } from '@/lib/utils';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const sync = async (itemId: string) => {
+export type SyncResult = {
+	id: string;
+	handle: string;
+	itemId: string;
+	itemType: string;
+};
+
+export const sync = async (itemId: string): Promise<SyncResult> => {
+	const syncResult: SyncResult = { id: '', handle: '', itemId, itemType: '' };
+
 	try {
 		let item: Item;
 
@@ -41,6 +50,10 @@ export const sync = async (itemId: string) => {
 
 		const itemTypes = await client.itemTypes.list();
 		const apiKey = itemTypes.find(({ id }) => id === item.item_type.id)?.api_key;
+
+		if (!apiKey) throw new Error('Invalid item type: ' + item.item_type.id);
+
+		syncResult.itemType = apiKey;
 
 		console.log('syncing:', apiKey, itemId);
 
@@ -107,7 +120,11 @@ export const sync = async (itemId: string) => {
 						alt: variant.inventoryItem?.sku,
 					}));
 
+				syncResult.handle = productData.handle as string;
+				syncResult.id = productData.id as string;
+
 				await updateProduct({ product: productData, media: productMedia }, productVariants, variantsMedia);
+
 				break;
 
 			case 'product_accessory':
@@ -222,6 +239,7 @@ export const sync = async (itemId: string) => {
 	} catch (e) {
 		throw e;
 	}
+	return syncResult;
 };
 
 export async function updateProduct(
