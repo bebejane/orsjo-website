@@ -17,8 +17,8 @@ export const POST = async (req: Request) => {
 			console.log('syncing:', id);
 			const syncResult = await sync(id);
 			console.log('synced:', syncResult);
-			//const paths = await config.routes[syncResult.itemType]?.(entity.attributes);
-			//paths?.forEach((path) => revalidatePath(path));
+			const paths = await config.routes[syncResult.itemType]?.(entity.attributes);
+			paths?.forEach((path) => revalidatePath(path));
 
 			return new Response(JSON.stringify({ sync: syncResult }), { status: 200, headers: { 'Content-Type': 'application/json' } });
 		} catch (e) {

@@ -131,12 +131,11 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				break;
 
 			case 'product_accessory':
-				console.log('1');
 				const { productAccessory } = await apiQuery<ProductAccessoryByIdQuery, ProductAccessoryByIdQueryVariables>(
 					ProductAccessoryByIdDocument,
 					{ revalidate: 0, variables: { id: itemId } }
 				);
-				console.log('2');
+
 				if (!productAccessory) throw new Error('Invalid product accessory: ' + itemId);
 
 				const { product: shopifyAccessory } = await shopifyQuery<ShopifyAdminProductQuery, ShopifyAdminProductQueryVariables>(
@@ -146,14 +145,14 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						variables: { handle: productAccessory.slug ?? '' },
 					}
 				);
-				console.log('3');
+
 				const accessoryData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyAccessory?.id,
 					title: productAccessory.name,
 					handle: productAccessory.slug,
 					tags: ['accessory', productAccessory?.articleNo?.trim()].filter(Boolean) as string[],
 				};
-				console.log('4');
+
 				const accessoryVariantsMedia: CreateMediaInput[] | undefined = productAccessory.image?.url
 					? [
 							{
@@ -190,8 +189,8 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 					ProductLightsourceByIdDocument,
 					{ revalidate: 0, variables: { id: itemId } }
 				);
-				console.log('2');
-				if (!productLightsource) throw new Error('Invalid product: ' + itemId);
+
+				if (!productLightsource) throw new Error(`Invalid product: ${itemId}`);
 
 				const { product: shopifyLightsource } = await shopifyQuery<ShopifyAdminProductQuery, ShopifyAdminProductQueryVariables>(
 					ShopifyAdminProductDocument,
@@ -200,14 +199,14 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						variables: { handle: productLightsource.slug ?? '' },
 					}
 				);
-				console.log('3');
+
 				const lightsourceData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyLightsource?.id,
 					title: productLightsource.name,
 					handle: productLightsource.slug,
 					tags: ['lightsource', productLightsource?.articleNo?.trim()].filter(Boolean) as string[],
 				};
-				console.log('4');
+
 				const lightsourceMedia: CreateMediaInput[] | undefined = productLightsource.image?.url
 					? [
 							{
@@ -218,7 +217,6 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						]
 					: undefined;
 
-				console.log('5');
 				const lightsourceVariants: ProductVariantsBulkInput[] = [
 					{
 						id: shopifyLightsource?.variants.edges.find((v) => v.node.sku === productLightsource?.articleNo?.trim())?.node.id,
