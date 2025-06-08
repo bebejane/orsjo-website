@@ -4,6 +4,7 @@ declare module '*/file.gql' {
   const defaultDocument: DocumentNode;
   export const FileUpdate: DocumentNode;
 export const FileDelete: DocumentNode;
+export const Files: DocumentNode;
 
   export default defaultDocument;
 }
@@ -21,10 +22,11 @@ export const ProductVariantDetachMedia: DocumentNode;
 export const ProductVariantAppendMedia: DocumentNode;
 export const ProductVariantsBulkDelete: DocumentNode;
 export const RemoveProduct: DocumentNode;
-export const AllShopifyProducts: DocumentNode;
+export const AllShopifyAdminProducts: DocumentNode;
 export const ProductMediaDelete: DocumentNode;
-export const ShopifyProduct: DocumentNode;
-export const ShopifyProductMediaStatus: DocumentNode;
+export const ShopifyAdminProduct: DocumentNode;
+export const ShopifyAdminProductMediaStatus: DocumentNode;
+export const ProductLightFragment: DocumentNode;
 export const ProductFragment: DocumentNode;
 export const ProductVariantFragment: DocumentNode;
 export const UserErrorFragment: DocumentNode;

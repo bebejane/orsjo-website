@@ -21,7 +21,6 @@ import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import shopifyQuery from '@/lib/shopify/shopify-query';
 import { ShopifyProductDocument, ShopifyProductsByQueryDocument } from '@/lib/shopify/graphql';
-import { DocumentNode } from 'graphql/language/ast';
 
 type Props = {
 	params: Promise<{
@@ -37,24 +36,30 @@ export default async function Product({ params }: Props) {
 	const res = await getProductPageData(slug);
 	if (!res) return notFound();
 
-	const {
-		shopify,
-		product,
-		relatedProducts,
-		relatedProjects,
-		productsByCategory,
-		drawings,
-		specsCols,
-		files,
-	} = res;
+	const { shopify, product, relatedProducts, relatedProjects, productsByCategory, drawings, specsCols, files } = res;
 
 	return (
 		<>
-			<ProductIntro product={product} drawings={drawings} />
-			<ProductSpecifications product={product} drawings={drawings} specsCols={specsCols} />
+			<ProductIntro
+				product={product}
+				drawings={drawings}
+			/>
+			<ProductSpecifications
+				product={product}
+				drawings={drawings}
+				specsCols={specsCols}
+			/>
 			<ProductDownloads files={files} />
-			<ProductShop product={product} shopify={shopify} />
-			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
+			<ProductShop
+				product={product}
+				shopify={shopify}
+			/>
+			<Section
+				name='Related'
+				className={s.related}
+				bgColor='--mid-gray'
+				fadeColor={'#ffffff'}
+			>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery
 						headline={`Related products`}
@@ -96,8 +101,8 @@ export type SpecCol = {
 export type ProductPageDataProps = {
 	shopify: {
 		product: ShopifyProductQuery['product'];
-		accessories: ShopifyProductQuery['product'][];
-		lightsources: ShopifyProductQuery['product'][];
+		accessories: ShopifyProductsByQuery['products']['edges'][0]['node'][];
+		lightsources: ShopifyProductsByQuery['products']['edges'][0]['node'][];
 	};
 	product: ProductQuery['product'];
 	relatedProducts: RelatedProductsQuery['relatedProducts'];
@@ -119,24 +124,17 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 		apiQuery<RelatedProductsQuery, RelatedProductsQueryVariables>(RelatedProductsDocument, {
 			variables: { designerId: product.designer?.id, familyId: product.family.id },
 		}),
-		apiQuery<AllProductsByCategoryQuery, AllProductsByCategoryQueryVariables>(
-			AllProductsByCategoryDocument,
-			{
-				variables: { categoryId: product.categories[0]?.id },
-			}
-		),
-		apiQuery<RelatedProjectsForProductQuery, RelatedProjectsForProductQueryVariables>(
-			RelatedProjectsForProductDocument,
-			{
-				variables: { productId: product.id },
-			}
-		),
+		apiQuery<AllProductsByCategoryQuery, AllProductsByCategoryQueryVariables>(AllProductsByCategoryDocument, {
+			variables: { categoryId: product.categories[0]?.id },
+		}),
+		apiQuery<RelatedProjectsForProductQuery, RelatedProjectsForProductQueryVariables>(RelatedProjectsForProductDocument, {
+			variables: { productId: product.id },
+		}),
 	]);
 
-	const { product: shopifyProduct } = await shopifyQuery<
-		ShopifyProductQuery,
-		ShopifyProductQueryVariables
-	>(ShopifyProductDocument as DocumentNode, { variables: { handle: product.slug } });
+	const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
+		variables: { handle: product.slug },
+	});
 
 	const relatedArticleNos = product.models.reduce(
 		(acc, model) => {
@@ -148,16 +146,11 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 	);
 
 	const query = relatedArticleNos.map((articleNo) => `tag:${articleNo}`).join(' OR ');
-	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(
-		ShopifyProductsByQueryDocument as DocumentNode,
-		{ variables: { query } }
-	);
-	const shopifyAccessories = products.edges
-		.map(({ node }) => node)
-		.filter((p) => p.tags.includes('accessory'));
-	const shopifyLightsources = products.edges
-		.map(({ node }) => node)
-		.filter((p) => p.tags.includes('lightsource'));
+	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(ShopifyProductsByQueryDocument, {
+		variables: { query },
+	});
+	const shopifyAccessories = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('accessory'));
+	const shopifyLightsources = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('lightsource'));
 
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [
@@ -174,21 +167,14 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 	const files = productDownloads(product as ProductRecordWithPdfFiles);
 	const drawings: FileField[] = [];
 
-	product.models.forEach(
-		(m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null } as FileField)
-	);
+	product.models.forEach((m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null } as FileField));
 
 	const sort = {
 		byFamily: (a: ProductRecord, b: ProductRecord) => (a.family.id === b.family.id ? 0 : 1),
 		byTitle: (a: ProductRecord, b: ProductRecord) => (a.title > b.title ? 1 : -1),
 		byCategory: (a: ProductRecord, b: ProductRecord) =>
-			a.categories
-				.map((el) => el.id)
-				.find((id) => product.categories.map((el) => el.id).includes[id])
-				? 1
-				: -1,
-		byDesigner: (a: ProductRecord, b: ProductRecord) =>
-			a.designer?.id === product.designer?.id ? 1 : -1,
+			a.categories.map((el) => el.id).find((id) => product.categories.map((el) => el.id).includes[id]) ? 1 : -1,
+		byDesigner: (a: ProductRecord, b: ProductRecord) => (a.designer?.id === product.designer?.id ? 1 : -1),
 	};
 
 	return {
@@ -214,10 +200,7 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 };
 
 export async function generateStaticParams() {
-	const { allProducts } = await apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(
-		AllProductsLightDocument,
-		{ all: true }
-	);
+	const { allProducts } = await apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(AllProductsLightDocument, { all: true });
 	const paths = allProducts.map(({ slug }) => ({ slug }));
 	return paths;
 }

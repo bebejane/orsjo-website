@@ -21,3 +21,20 @@ mutation FileDelete($id: [ID!]!) {
 		}
 	}
 }
+
+query Files($first: Int = 100, $after: String) {
+	files(first: $first, after: $after) {
+		edges {
+			node {
+				id
+				alt
+			}
+		}
+		pageInfo {
+			hasNextPage
+			hasPreviousPage
+			endCursor
+			startCursor
+		}
+	}
+}

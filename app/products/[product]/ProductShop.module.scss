@@ -4,11 +4,11 @@
 	flex-direction: column;
 	left: 0;
 	bottom: var(--outer-margin);
-	min-width: mixin.spanGrid(4);
-	max-width: mixin.spanGrid(4);
+	min-width: calc(mixin.spanGrid(4) - var(--outer-margin));
+	max-width: calc(mixin.spanGrid(4) - var(--outer-margin));
 	margin-left: var(--outer-margin);
-	padding-right: var(--outer-margin);
 	z-index: var(--z-shop);
+	background-color: var(--white);
 
 	header {
 		display: flex;
@@ -16,8 +16,9 @@
 		align-items: center;
 		justify-content: space-between;
 		.price {
-			font-size: 0.7rem;
+			font-size: 0.6rem;
 		}
+		margin-bottom: 0.2em;
 	}
 
 	.variant {
@@ -102,11 +103,14 @@
 
 			strong {
 				color: var(--black);
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 			display: block;
+			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			max-width: 100px;
+			//max-width: 100px;
 		}
 
 		.price {

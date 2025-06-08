@@ -38,11 +38,7 @@ mutation ProductUpdate($product: ProductUpdateInput!, $media: [CreateMediaInput!
 	}
 }
 
-mutation ProductVariantsBulkCreate(
-	$productId: ID!
-	$variants: [ProductVariantsBulkInput!]!
-	$media: [CreateMediaInput!]
-) {
+mutation ProductVariantsBulkCreate($productId: ID!, $variants: [ProductVariantsBulkInput!]!, $media: [CreateMediaInput!]) {
 	productVariantsBulkCreate(productId: $productId, variants: $variants, media: $media) {
 		productVariants {
 			...ProductVariantFragment
@@ -59,11 +55,7 @@ mutation ProductVariantsBulkCreate(
 	}
 }
 
-mutation ProductVariantsBulkUpdate(
-	$productId: ID!
-	$variants: [ProductVariantsBulkInput!]!
-	$media: [CreateMediaInput!]
-) {
+mutation ProductVariantsBulkUpdate($productId: ID!, $variants: [ProductVariantsBulkInput!]!, $media: [CreateMediaInput!]) {
 	productVariantsBulkUpdate(productId: $productId, variants: $variants, media: $media) {
 		productVariants {
 			...ProductVariantFragment
@@ -81,10 +73,7 @@ mutation ProductVariantsBulkUpdate(
 	}
 }
 
-mutation ProductVariantDetachMedia(
-	$productId: ID!
-	$variantMedia: [ProductVariantDetachMediaInput!]!
-) {
+mutation ProductVariantDetachMedia($productId: ID!, $variantMedia: [ProductVariantDetachMediaInput!]!) {
 	productVariantDetachMedia(productId: $productId, variantMedia: $variantMedia) {
 		product {
 			...ProductFragment
@@ -97,10 +86,7 @@ mutation ProductVariantDetachMedia(
 	}
 }
 
-mutation ProductVariantAppendMedia(
-	$productId: ID!
-	$variantMedia: [ProductVariantAppendMediaInput!]!
-) {
+mutation ProductVariantAppendMedia($productId: ID!, $variantMedia: [ProductVariantAppendMediaInput!]!) {
 	productVariantAppendMedia(productId: $productId, variantMedia: $variantMedia) {
 		userErrors {
 			code
@@ -132,11 +118,11 @@ mutation RemoveProduct($id: ID!) {
 	}
 }
 
-query AllShopifyProducts($first: Int = 250) {
-	products(first: $first, query: "available_for_sale") {
+query AllShopifyAdminProducts($first: Int = 250) {
+	products(first: $first) {
 		edges {
 			node {
-				...ProductFragment
+				...ProductLightFragment
 			}
 		}
 		pageInfo {
@@ -156,13 +142,13 @@ mutation ProductMediaDelete($productId: ID!, $mediaIds: [ID!]!) {
 	}
 }
 
-query ShopifyProduct($handle: String!) {
+query ShopifyAdminProduct($handle: String!) {
 	product: productByHandle(handle: $handle) {
 		...ProductFragment
 	}
 }
 
-query ShopifyProductMediaStatus($id: ID!) {
+query ShopifyAdminProductMediaStatus($id: ID!) {
 	product(id: $id) {
 		media(first: 10) {
 			edges {
@@ -173,6 +159,18 @@ query ShopifyProductMediaStatus($id: ID!) {
 			}
 		}
 	}
+}
+
+fragment ProductLightFragment on Product {
+	id
+	handle
+	title
+	description
+	options {
+		id
+		name
+	}
+	tags
 }
 
 fragment ProductFragment on Product {

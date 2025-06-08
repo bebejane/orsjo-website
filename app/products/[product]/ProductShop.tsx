@@ -15,21 +15,14 @@ type Props = {
 };
 
 export default function ProductShop({ product, shopify }: Props) {
-	const [addToCart, updating, error] = useCart(
-		useShallow((state) => [state.addToCart, state.updating, state.error])
-	);
+	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [open, setOpen] = useState(false);
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
 	const formRef = useRef<HTMLFormElement>(null);
-	const selectedModel = product?.models.find(({ variants }) =>
-		variants.find((v) => v.id === selected?.id)
-	);
-	const selectedShopifyVariant = shopify.product?.variants.edges.find(
-		(v) => v.node.sku === selected?.articleNo.trim()
-	)?.node;
-
+	const selectedModel = product?.models.find(({ variants }) => variants.find((v) => v.id === selected?.id));
+	const selectedShopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku && v.node.sku === selected?.articleNo.trim())?.node;
 	const [totalPrice, setTotalPrice] = useState<MoneyV2>({
 		amount: 0,
 		currencyCode: 'SEK' as CurrencyCode,
@@ -46,12 +39,9 @@ export default function ProductShop({ product, shopify }: Props) {
 
 	function updateTotalPrice() {
 		const variantsIds: string[] = [];
-		const variantsElements = formRef.current?.querySelectorAll<HTMLInputElement>(
-			'input[type=checkbox]:checked'
-		);
-		variantsElements?.forEach(
-			(el) => el.dataset.variant && el.checked && variantsIds.push(el.dataset.variant)
-		);
+		const variantsElements = formRef.current?.querySelectorAll<HTMLInputElement>('input[type=checkbox]:checked');
+		variantsElements?.forEach((el) => el.dataset.variant && el.checked && variantsIds.push(el.dataset.variant));
+
 		const modelPrice = parseFloat(selectedShopifyVariant?.price.amount ?? '0');
 		const addonsPrice = variantsIds.reduce((acc, id) => {
 			const accessory = shopify.accessories.find((p) => p?.variants.edges[0].node.id === id);
@@ -74,12 +64,8 @@ export default function ProductShop({ product, shopify }: Props) {
 		if (!selectedShopifyVariant) return;
 
 		const variantsIds: string[] = [selectedShopifyVariant.id];
-		const variantsElements = formRef.current?.querySelectorAll<HTMLInputElement>(
-			'input[type=checkbox]:checked'
-		);
-		variantsElements?.forEach(
-			(el) => el.dataset.variant && el.checked && variantsIds.push(el.dataset.variant)
-		);
+		const variantsElements = formRef.current?.querySelectorAll<HTMLInputElement>('input[type=checkbox]:checked');
+		variantsElements?.forEach((el) => el.dataset.variant && el.checked && variantsIds.push(el.dataset.variant));
 
 		addToCart(
 			//@ts-ignores
@@ -102,14 +88,15 @@ export default function ProductShop({ product, shopify }: Props) {
 					<h3>Shop</h3>
 					<span className={s.price}>{formatPrice(totalPrice as MoneyV2)}</span>
 				</header>
-
-				<div className={s.variant} onClick={() => setOpen(!open)}>
+				<div
+					className={s.variant}
+					onClick={() => setOpen(!open)}
+				>
 					<div className={s.row}>
-						<div className={s.thumb}>
-							{selected.image?.url && <img src={selected.image?.url} />}
-						</div>
+						<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
 						<span className={s.name}>
 							<strong>{selectedModel?.name?.name}</strong>
+							&nbsp;
 							{[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}
 						</span>
 						<span className={s.price}></span>
@@ -119,10 +106,15 @@ export default function ProductShop({ product, shopify }: Props) {
 
 				<div className={cn(s.models, 'noscrollbar', open && s.open)}>
 					{product.models.map(({ id, name, variants }) => (
-						<div className={s.model} key={id}>
+						<div
+							className={s.model}
+							key={id}
+						>
 							<ul className={cn(s.variants)}>
 								{variants.map((variant) => {
 									const { id, articleNo, color, material, weight, feature, image, price } = variant;
+									const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku === articleNo?.trim())?.node;
+
 									return (
 										<li
 											className={cn(selected?.id === id && s.selected)}
@@ -131,12 +123,13 @@ export default function ProductShop({ product, shopify }: Props) {
 											onClick={() => setSelected(variant)}
 										>
 											<div className={s.row}>
-												<div className={s.thumb}>{image?.url && <img src={image?.url} />}</div>
+												<div className={s.thumb}>{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}</div>
 												<span className={s.name}>
 													<strong>{name?.name}</strong>
 													&nbsp;
 													{[color?.name, material?.name].filter(Boolean).join(', ')}
 												</span>
+												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
 											</div>
 										</li>
 									);
@@ -152,20 +145,22 @@ export default function ProductShop({ product, shopify }: Props) {
 					ref={formRef}
 					key={selectedShopifyVariant?.id}
 				>
-					<input type='hidden' name='model' value={selectedShopifyVariant?.id} />
+					<input
+						type='hidden'
+						name='model'
+						value={selectedShopifyVariant?.id}
+					/>
 					<ul className={cn(s.addons)}>
 						{selectedModel.accessories?.map(({ id, product }) => {
-							const shopifyAccessory = shopify.accessories.find((p) =>
-								p?.tags.includes(product?.articleNo ?? '')
-							);
-
+							const shopifyAccessory = shopify.accessories.find((p) => p?.tags.includes(product?.articleNo ?? ''));
 							const price = shopifyAccessory?.variants.edges[0]?.node?.price;
 							const variantId = shopifyAccessory?.variants.edges[0]?.node?.id;
+							const image = shopifyAccessory?.variants.edges[0]?.node?.image;
 
 							return (
 								<li key={id}>
 									<div className={s.row}>
-										<div className={s.thumb}></div>
+										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
 											<strong>{product?.name}</strong>
 										</span>
@@ -184,19 +179,15 @@ export default function ProductShop({ product, shopify }: Props) {
 						})}
 
 						{selectedModel.lightsources?.map(({ id, lightsource, amount, included, optional }) => {
-							const shopifyLightsource = shopify.lightsources.find((p) =>
-								p?.tags.includes(lightsource?.articleNo ?? '')
-							);
-
+							const shopifyLightsource = shopify.lightsources.find((p) => p?.tags.includes(lightsource?.articleNo ?? ''));
 							const price = shopifyLightsource?.variants.edges[0]?.node?.price;
 							const variantId = shopifyLightsource?.variants.edges[0]?.node?.id;
+							const image = shopifyLightsource?.variants.edges[0]?.node?.image;
 
 							return (
 								<li key={id}>
 									<div className={s.row}>
-										<div className={s.thumb}>
-											{lightsource.image?.url && <img src={lightsource.image?.url} />}
-										</div>
+										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
 											<strong>{lightsource?.name}</strong>
 										</span>

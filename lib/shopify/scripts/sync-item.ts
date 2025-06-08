@@ -4,7 +4,21 @@ import client from '@/lib/client';
 
 (async () => {
   console.time('sync')
-  console.log('syncing...')
+
+  const itemId = process.argv[2]
+
+  if (!itemId)
+    throw new Error('Invalid item id')
+
+  console.log('syncing:', itemId)
+  try {
+
+    await sync(itemId)
+
+  } catch (e) {
+    console.log(e.message)
+  }
+
   // Pebble
   //await sync('107174950')
 
@@ -12,7 +26,7 @@ import client from '@/lib/client';
   //await sync('107174848')
 
   //Cone, black
-  await sync('NwAAPoy6RbC19AQatEtDWw')
+  //await sync('NwAAPoy6RbC19AQatEtDWw')
 
 
   console.timeEnd('sync')
