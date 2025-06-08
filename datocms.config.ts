@@ -35,11 +35,7 @@ export default {
 		manual: async () => ['/support/manuals'],
 		news: async ({ slug }) => [`/about/news/${slug}`, `/`],
 		product: async ({ slug }) => [`/products/${slug}`, `/professionals/downloads`, `/support/manuals`, `/products`, `/`],
-		product_accessory: async (item) => {
-			console.log(item);
-			const { id } = item;
-			return productReferences(id);
-		},
+		product_accessory: async ({ id }) => productReferences(id),
 		product_category: async ({ id }) => productReferences(id),
 		product_color: async ({ id }) => productReferences(id),
 		product_connection: async ({ id }) => productReferences(id),
