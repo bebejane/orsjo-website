@@ -16,6 +16,7 @@ export const POST = async (req: Request) => {
 			const itemId = entity?.id;
 			console.log('syncing:', itemId);
 			const syncResult = await sync(itemId);
+			console.log('synced:', syncResult);
 			const paths = await config.routes[syncResult.itemType]?.(entity.attributes);
 			paths?.forEach((path) => revalidatePath(path));
 
