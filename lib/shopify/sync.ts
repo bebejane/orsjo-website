@@ -185,10 +185,12 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				await updateProduct({ product: accessoryData }, accessoryVariants, accessoryVariantsMedia);
 				break;
 			case 'product_lightsource':
+				console.log('start sync: product_lightsource');
 				const { productLightsource } = await apiQuery<ProductLightsourceByIdQuery, ProductLightsourceByIdQueryVariables>(
 					ProductLightsourceByIdDocument,
 					{ revalidate: 0, variables: { id: itemId } }
 				);
+				console.log('2');
 				if (!productLightsource) throw new Error('Invalid product: ' + itemId);
 
 				const { product: shopifyLightsource } = await shopifyQuery<ShopifyAdminProductQuery, ShopifyAdminProductQueryVariables>(
@@ -198,14 +200,14 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						variables: { handle: productLightsource.slug ?? '' },
 					}
 				);
-
+				console.log('3');
 				const lightsourceData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyLightsource?.id,
 					title: productLightsource.name,
 					handle: productLightsource.slug,
 					tags: ['lightsource', productLightsource?.articleNo?.trim()].filter(Boolean) as string[],
 				};
-
+				console.log('4');
 				const lightsourceMedia: CreateMediaInput[] | undefined = productLightsource.image?.url
 					? [
 							{
@@ -216,6 +218,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						]
 					: undefined;
 
+				console.log('5');
 				const lightsourceVariants: ProductVariantsBulkInput[] = [
 					{
 						id: shopifyLightsource?.variants.edges.find((v) => v.node.sku === productLightsource?.articleNo?.trim())?.node.id,
