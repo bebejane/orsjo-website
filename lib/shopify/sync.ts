@@ -349,6 +349,9 @@ export async function updateProduct(
 			console.log('new variants:', newVariants.length, newVariantsMedia.length);
 			console.log('update variants:', updatedVariants.length, updatedVariantsMedia.length);
 
+			console.log('new variants media:', newVariantsMedia);
+			console.log('update variants media:', updatedVariantsMedia);
+
 			const [{ productVariantsBulkCreate }, { productVariantsBulkUpdate }] = await Promise.all([
 				shopifyQuery<ProductVariantsBulkCreateMutation, ProductVariantsBulkCreateMutationVariables>(ProductVariantsBulkCreateDocument, {
 					admin: true,
