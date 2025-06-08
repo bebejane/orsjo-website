@@ -51,11 +51,11 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 		const itemTypes = await client.itemTypes.list();
 		const apiKey = itemTypes.find(({ id }) => id === item.item_type.id)?.api_key;
 
-		if (!apiKey) throw new Error('Invalid item type: ' + item.item_type.id);
+		if (!apiKey) throw new Error('Invalid item type: ' + item?.item_type?.id);
 
 		syncResult.itemType = apiKey;
 
-		console.log('syncing:', apiKey, itemId);
+		console.log('syncing');
 
 		switch (apiKey) {
 			case 'product':
@@ -420,7 +420,7 @@ export async function updateProduct(
 
 export const resetAll = async () => {
 	console.log('reseting all...');
-	throw new Error('Not implemented');
+	//throw new Error('Not implemented');
 	const { products } = await shopifyQuery<AllShopifyAdminProductsQuery, AllShopifyAdminProductsQueryVariables>(
 		AllShopifyAdminProductsDocument,
 		{
