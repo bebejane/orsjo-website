@@ -59,7 +59,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 		switch (apiKey) {
 			case 'product':
-				const { product } = await apiQuery<ProductByIdQuery, ProductByIdQueryVariables>(ProductByIdDocument, { variables: { id: itemId } });
+				const { product } = await apiQuery<ProductByIdQuery, ProductByIdQueryVariables>(ProductByIdDocument, {
+					revalidate: 0,
+					variables: { id: itemId },
+				});
 
 				if (!product) throw new Error('Invalid product: ' + itemId);
 
@@ -130,7 +133,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 			case 'product_accessory':
 				const { productAccessory } = await apiQuery<ProductAccessoryByIdQuery, ProductAccessoryByIdQueryVariables>(
 					ProductAccessoryByIdDocument,
-					{ variables: { id: itemId } }
+					{ revalidate: 0, variables: { id: itemId } }
 				);
 
 				if (!productAccessory) throw new Error('Invalid product accessory: ' + itemId);
@@ -183,7 +186,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 			case 'product_lightsource':
 				const { productLightsource } = await apiQuery<ProductLightsourceByIdQuery, ProductLightsourceByIdQueryVariables>(
 					ProductLightsourceByIdDocument,
-					{ variables: { id: itemId } }
+					{ revalidate: 0, variables: { id: itemId } }
 				);
 				if (!productLightsource) throw new Error('Invalid product: ' + itemId);
 
@@ -486,14 +489,15 @@ export const resetAll = async () => {
 export const resyncAll = async () => {
 	const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, {
 		variables: { first: 500, skip: 0 },
+		revalidate: 0,
 	});
 	const { allProductLightsources } = await apiQuery<AllProductLightsourcesQuery, AllProductLightsourcesQueryVariables>(
 		AllProductLightsourcesDocument,
-		{ variables: { first: 500, skip: 0 } }
+		{ revalidate: 0, variables: { first: 500, skip: 0 } }
 	);
 	const { allProductAccessories } = await apiQuery<AllProductAccessoriesQuery, AllProductAccessoriesQueryVariables>(
 		AllProductAccessoriesDocument,
-		{ variables: { first: 500, skip: 0 } }
+		{ revalidate: 0, variables: { first: 500, skip: 0 } }
 	);
 
 	const itemIds = [...allProducts, ...allProductLightsources, ...allProductAccessories].map(({ id }) => id);
