@@ -1,7 +1,10 @@
 import { sync } from '@/lib/shopify/sync';
 import { basicAuth, revalidate } from 'next-dato-utils/route-handlers';
+import { sleep } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import config from '@/datocms.config';
+
+export const dynamic = 'force-dynamic';
 
 export const POST = async (req: Request) => {
 	return basicAuth(req, async (req) => {
@@ -11,6 +14,7 @@ export const POST = async (req: Request) => {
 		const itemId = entity?.id;
 
 		try {
+			await sleep(5000);
 			const syncResult = await sync(itemId);
 			const paths = await config.routes[syncResult.itemType]?.(entity.attributes);
 			paths?.forEach((path) => revalidatePath(path));

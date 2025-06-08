@@ -369,10 +369,10 @@ export async function updateProduct(
 			]);
 
 			if (productVariantsBulkCreate?.userErrors?.length)
-				throw new Error(JSON.stringify(productVariantsBulkCreate.userErrors.join('. '), null, 2));
+				throw new Error(JSON.stringify(productVariantsBulkCreate.userErrors.map((e) => e.message).join('. '), null, 2));
 
 			if (productVariantsBulkUpdate?.userErrors?.length)
-				throw new Error(JSON.stringify(productVariantsBulkUpdate.userErrors.join('. '), null, 2));
+				throw new Error(JSON.stringify(productVariantsBulkUpdate.userErrors.map((e) => e.message).join('. '), null, 2));
 
 			console.log(`https://admin.shopify.com/store/orsjo-shop/products/${product.id?.split('/').pop()}`);
 			//console.log(`https://orsjo.admin.datocms.com/environments/dev/editor/item_types/${}/items/${}/edit`)
@@ -414,6 +414,7 @@ export async function updateProduct(
 
 export const resetAll = async () => {
 	console.log('reseting all...');
+	throw new Error('Not implemented');
 	const { products } = await shopifyQuery<AllShopifyAdminProductsQuery, AllShopifyAdminProductsQueryVariables>(
 		AllShopifyAdminProductsDocument,
 		{
