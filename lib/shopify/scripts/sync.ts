@@ -1,10 +1,19 @@
 import 'dotenv/config';
-import { sync } from "@/app/(shopify)/api/shopify/sync/utils";
+import { sync } from "@/lib/shopify/sync";
 import client from '@/lib/client';
 
 (async () => {
   console.time('sync')
   console.log('syncing...')
-  await sync('107174950')
+  // Pebble
+  //await sync('107174950')
+
+  // 5,8W LEDstrip 2700K 600lm CRI90 24V trafo incl
+  //await sync('107174848')
+
+  //Cone, black
+  await sync('NwAAPoy6RbC19AQatEtDWw')
+
+
   console.timeEnd('sync')
 })()

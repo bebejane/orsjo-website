@@ -3,12 +3,13 @@ import client from '@/lib/client';
 import shopifyQuery from '@/lib/shopify/shopify-query';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductAccessoriesDocument, AllProductLightsourcesDocument, AllProductsDocument, ProductByIdDocument, ProductAccessoryByIdDocument, ProductLightsourceByIdDocument } from '@/graphql';
-import { AddProductDocument, UpdateProductDocument, ProductDeleteDocument, AllShopifyProductsDocument, ShopifyProductDocument, ProductVariantsBulkCreateDocument, ProductVariantsBulkUpdateDocument, RemoveProductDocument } from '@/lib/shopify/graphql-admin';
+import { AddProductDocument, UpdateProductDocument, ShopifyProductMediaStatusDocument, ShopifyProductDocument, ProductVariantsBulkCreateDocument, ProductVariantsBulkUpdateDocument, ProductVariantAppendMediaDocument, ProductVariantDetachMediaDocument, ProductMediaDeleteDocument, ProductVariantsBulkDeleteDocument, } from '@/lib/shopify/graphql-admin';
 import { batchPromises, dedupeByKey } from '@/lib/utils';
 import { Item } from '@datocms/cma-client/dist/types/generated/SimpleSchemaTypes';
 
-export const sync = async (itemId: string) => {
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+export const sync = async (itemId: string) => {
 
   try {
     let item: Item;
@@ -31,8 +32,39 @@ export const sync = async (itemId: string) => {
           throw new Error('Invalid product: ' + itemId)
 
         const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
+          admin: true,
           variables: { handle: product.slug }
         })
+
+        const productMedia: CreateMediaInput[] = []
+
+        const productVariants: ProductVariantsBulkInput[] = product.models.reduce((acc, model) => {
+          model.variants.forEach((variant) => {
+            const shopifyVariant = shopifyProduct?.variants.edges.find((v) => v.node.sku === variant.articleNo)?.node
+            const id = shopifyVariant?.id ?? undefined
+            const mediaSrc = variant.image?.url ? [variant.image?.url] : product.image.url ? [product.image.url] : null
+
+            acc.push({
+              id,
+              mediaSrc,
+              price: variant.price,
+              inventoryItem: {
+                cost: variant.price,
+                sku: variant.articleNo?.trim(),
+              },
+              optionValues: [{
+                name: variant.articleNo?.trim(),
+                optionName: 'Title',
+              }]
+            })
+          })
+          return acc
+        }, [] as ProductVariantsBulkInput[]).reduce((acc, variant) => {
+          if (!acc.find((v) => v.inventoryItem && v.inventoryItem?.sku === variant.inventoryItem?.sku))
+            acc.push(variant)
+          return acc
+        }, [] as ProductVariantsBulkInput[])
+
 
         const productData: ProductCreateInput | ProductUpdateInput = {
           id: shopifyProduct?.id,
@@ -42,43 +74,20 @@ export const sync = async (itemId: string) => {
           tags: ['lamp']
         }
 
-        //@ts-ignore
-        const productMedia: CreateMediaInput[] | undefined = product.image?.url ? [{
-          originalSource: product.image.url,
-          mediaContentType: 'IMAGE',
-          alt: product.image.title,
+        const variantsMedia: CreateMediaInput[] = productVariants.filter((variant) => variant.mediaSrc?.[0]).map((variant) => ({
+          originalSource: variant.mediaSrc?.[0] ?? '',
+          mediaContentType: 'IMAGE' as MediaContentType,
+          alt: variant.inventoryItem?.sku
+        }))
 
-        }] : undefined
-
-        const productVariants: ProductVariantsBulkInput[] = product.models.reduce((acc, model) => {
-          model.variants.forEach((variant) => {
-            const id = shopifyProduct?.variants.edges.find((v) => v.node.sku === variant.articleNo)?.node.id ?? undefined
-            acc.push({
-              id,
-              price: variant.price,
-              inventoryItem: {
-                cost: variant.price,
-                sku: variant.articleNo?.trim(),
-              },
-              optionValues: [
-                {
-                  name: model.name?.id,
-                }
-              ]
-            })
-          })
-          return acc
-        }, [] as ProductVariantsBulkInput[])
-
-        await syncProduct({ product: productData, media: productMedia }, dedupeByKey(productVariants, 'sku'))
+        await updateProduct({ product: productData, media: productMedia }, productVariants, variantsMedia)
         break
 
       case 'product_accessory':
-
         const { productAccessory } = await apiQuery<ProductAccessoryByIdQuery, ProductAccessoryByIdQueryVariables>(ProductAccessoryByIdDocument, { variables: { id: itemId } })
 
         if (!productAccessory)
-          throw new Error('Invalid product: ' + itemId)
+          throw new Error('Invalid product accessory: ' + itemId)
 
         const { product: shopifyAccessory } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
           admin: true,
@@ -92,28 +101,30 @@ export const sync = async (itemId: string) => {
           tags: ['accessory', productAccessory?.articleNo?.trim()].filter(Boolean) as string[],
         }
 
-        const accessoryMedia: CreateMediaInput[] | undefined = productAccessory.image?.url ? [{
+        const accessoryVariantsMedia: CreateMediaInput[] | undefined = productAccessory.image?.url ? [{
           originalSource: productAccessory.image.url,
-          mediaContentType: MediaContentType.IMAGE,
-          alt: productAccessory.image.title,
+          mediaContentType: 'IMAGE' as MediaContentType,
+          alt: productAccessory.articleNo?.trim(),
         }] : undefined
 
         const accessoryVariants: ProductVariantsBulkInput[] = [
           {
             id: shopifyAccessory?.variants.edges.find((v) => v.node.sku === productAccessory?.articleNo?.trim())?.node.id,
             price: productAccessory.price,
+            mediaSrc: productAccessory.image?.url ? [productAccessory.image.url] : null,
             inventoryItem: {
               cost: productAccessory.price,
               sku: productAccessory?.articleNo?.trim(),
             },
             optionValues: [
               {
+                optionName: 'Title',
                 name: productAccessory.articleNo?.trim(),
               }
             ]
           }
         ]
-        await syncProduct({ product: accessoryData, media: accessoryMedia }, accessoryVariants)
+        await updateProduct({ product: accessoryData }, accessoryVariants, accessoryVariantsMedia)
         break
       case 'product_lightsource':
         const { productLightsource } = await apiQuery<ProductLightsourceByIdQuery, ProductLightsourceByIdQueryVariables>(ProductLightsourceByIdDocument, { variables: { id: itemId } })
@@ -131,26 +142,30 @@ export const sync = async (itemId: string) => {
 
         const lightsourceMedia: CreateMediaInput[] | undefined = productLightsource.image?.url ? [{
           originalSource: productLightsource.image.url,
-          mediaContentType: MediaContentType.IMAGE,
-          alt: productLightsource.image.title,
+          mediaContentType: 'IMAGE' as MediaContentType,
+          alt: productLightsource.articleNo?.trim(),
         }] : undefined
 
         const lightsourceVariants: ProductVariantsBulkInput[] = [
           {
             id: shopifyLightsource?.variants.edges.find((v) => v.node.sku === productLightsource?.articleNo?.trim())?.node.id,
             price: productLightsource.price,
+            mediaSrc: productLightsource.image?.url ? [productLightsource.image.url] : null,
             inventoryItem: {
               cost: productLightsource.price,
               sku: productLightsource?.articleNo?.trim(),
+              tracked: false,
             },
             optionValues: [
               {
+                optionName: 'Title',
                 name: productLightsource.articleNo?.trim(),
               }
             ]
           }
         ]
-        await syncProduct({ product: lightsourceData, media: lightsourceMedia }, lightsourceVariants)
+
+        await updateProduct({ product: lightsourceData, media: lightsourceMedia }, lightsourceVariants, lightsourceMedia)
         break
       default:
         throw new Error('Invalid item type: ' + item.item_type.id)
@@ -161,15 +176,14 @@ export const sync = async (itemId: string) => {
   }
 }
 
-export async function syncProduct(data: { product: ProductCreateInput | ProductUpdateInput, media: CreateMediaInput[] | undefined }, variants?: ProductVariantsBulkInput[]) {
-
+export async function updateProduct(data: { product: ProductCreateInput | ProductUpdateInput, media?: CreateMediaInput[] | undefined }, variants?: ProductVariantsBulkInput[], variantsMedia?: CreateMediaInput[]) {
+  console.time('sync-product')
+  const isUpdate = (data.product as ProductUpdateInput)?.id !== undefined
+  console.log(isUpdate)
   try {
-    console.time('sync-product')
 
     let product: NonNullable<AddProductMutation['productCreate']>['product'] | NonNullable<UpdateProductMutation['productUpdate']>['product'] = null;
-
-    //@ts-ignore
-    if (!data.product.id) {
+    if (!isUpdate) {
       console.log('creating product', data.product.handle)
 
       const res = await shopifyQuery<AddProductMutation, AddProductMutationVariables>(AddProductDocument, {
@@ -184,48 +198,133 @@ export async function syncProduct(data: { product: ProductCreateInput | ProductU
     else {
       console.log('updating product', data.product.handle)
 
+      const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
+        admin: true,
+        variables: { handle: data.product.handle ?? '' }
+      })
+
+      if (!shopifyProduct)
+        throw new Error('Invalid shopify product: ' + data.product.handle)
+
+      const deleteMedia: string[] = shopifyProduct?.media.nodes.map((media) => media.id)
+      const deleteVariants: string[] = shopifyProduct?.variants.edges.filter(({ node }) => variants?.find((variant) => variant.inventoryItem?.sku === node.sku) === undefined).map(({ node }) => node.id)
+
+      if (deleteMedia.length) {
+        console.log('delete all media', shopifyProduct.id)
+        const { productDeleteMedia } = await shopifyQuery<ProductMediaDeleteMutation, ProductMediaDeleteMutationVariables>(ProductMediaDeleteDocument, {
+          admin: true,
+          variables: { productId: shopifyProduct.id, mediaIds: deleteMedia }
+        })
+
+        if (productDeleteMedia?.mediaUserErrors?.length)
+          throw new Error(JSON.stringify(productDeleteMedia.mediaUserErrors.join('. '), null, 2))
+      }
+
+      if (deleteVariants.length) {
+        console.log('delete variants', deleteVariants.length)
+        const { productVariantsBulkDelete } = await shopifyQuery<ProductVariantsBulkDeleteMutation, ProductVariantsBulkDeleteMutationVariables>(ProductVariantsBulkDeleteDocument, {
+          admin: true,
+          variables: { productId: shopifyProduct.id, variantsIds: deleteVariants }
+        })
+        if (productVariantsBulkDelete?.userErrors?.length)
+          throw new Error(JSON.stringify(productVariantsBulkDelete.userErrors.join('. '), null, 2))
+      }
+
+      delete (data.product as ProductCreateInput).productOptions
+
       const res = await shopifyQuery<UpdateProductMutation, UpdateProductMutationVariables>(UpdateProductDocument, {
         admin: true,
         variables: {
           product: data.product,
-          media: data.media
         }
       })
-      console.log(res.productUpdate?.userErrors)
       product = res.productUpdate?.product
     }
 
     if (!product) throw new Error('Invalid product: ' + data.product.handle)
 
     if (variants) {
-      const newVariants: ProductVariantsBulkInput[] = variants.filter((variant) => !variant.id)
+      const newVariants: ProductVariantsBulkInput[] = variants.filter((variant) => !variant.id).map((variant) => { delete variant.id; return variant })
+      const newVariantsMedia: CreateMediaInput[] = variantsMedia?.filter(({ alt }) => newVariants.find((variant) => variant.inventoryItem?.sku && variant.inventoryItem?.sku === alt)) ?? []
       const updatedVariants: ProductVariantsBulkInput[] = variants.filter((variant) => variant.id)
+      const updatedVariantsMedia: CreateMediaInput[] = variantsMedia?.filter(({ alt }) => updatedVariants.find((variant) => variant.inventoryItem?.sku && variant.inventoryItem?.sku === alt)) ?? []
 
-      console.log('create new variants', newVariants.length)
-      console.log('updated variants', updatedVariants.length)
+      console.log('create new variants', newVariants.length, newVariantsMedia.length)
+      console.log('updated variants', updatedVariants.length, updatedVariantsMedia.length)
 
       const [{ productVariantsBulkCreate }, { productVariantsBulkUpdate }] = await Promise.all([
         shopifyQuery<ProductVariantsBulkCreateMutation, ProductVariantsBulkCreateMutationVariables>(ProductVariantsBulkCreateDocument, {
           admin: true,
           variables: {
             productId: product.id,
-            variants: newVariants
+            variants: newVariants,
+            media: newVariantsMedia
           }
         }),
         shopifyQuery<ProductVariantsBulkUpdateMutation, ProductVariantsBulkUpdateMutationVariables>(ProductVariantsBulkUpdateDocument, {
           admin: true,
           variables: {
             productId: product.id,
-            variants: updatedVariants
+            variants: updatedVariants,
+            media: updatedVariantsMedia
           }
-        })])
+        }),
+      ])
+      /*
+      const ready = await waitForMedia(product.id)
+
+      if (!ready)
+        throw new Error('Product media not ready')
+
+      
+      const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
+        admin: true,
+        variables: { handle: data.product.handle ?? '' }
+      })
+      
+      const appendVariantMedia = shopifyProduct?.variants.edges.map(({ node }) => ({
+        variantId: node.id,
+        mediaIds: [product.media.nodes.find((media) => media.alt === node.sku)?.id ?? ''].filter(Boolean),
+      })).filter(({ mediaIds }) => mediaIds.length) ?? []
+
+      const { productVariantAppendMedia } = await shopifyQuery<ProductVariantAppendMediaMutation, ProductVariantAppendMediaMutationVariables>(ProductVariantAppendMediaDocument, {
+        admin: true,
+        variables: {
+          productId: product.id,
+          variantMedia: appendVariantMedia,
+        }
+      })
+      //console.log(JSON.stringify(productVariantDetachMedia, null, 2))
+      console.log(JSON.stringify(productVariantAppendMedia, null, 2))
+      */
     }
   } catch (e) {
-    console.log(data)
+    console.log(JSON.stringify(data, null, 2))
     throw e
   } finally {
     console.timeEnd('sync-product')
   }
+}
+
+export const waitForMedia = async (productId: string) => {
+
+  async function check() {
+    const { product } = await shopifyQuery<ShopifyProductMediaStatusQuery, ShopifyProductMediaStatusQueryVariables>(ShopifyProductMediaStatusDocument, {
+      admin: true,
+      variables: {
+        id: productId
+      }
+    })
+
+    return product?.media.edges.filter(({ node }) => node.status !== 'READY')?.length === 0
+  }
+
+  for (let i = 0; i < 5000; i += 1000) {
+    if (await check())
+      return true
+    await sleep(1000)
+  }
+  return false
 }
 
 export const resyncAll = async () => {

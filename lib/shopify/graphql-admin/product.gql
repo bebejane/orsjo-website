@@ -29,9 +29,6 @@ mutation ProductUpdate($product: ProductUpdateInput!, $media: [CreateMediaInput!
 				nodes {
 					alt
 					mediaContentType
-					preview {
-						status
-					}
 				}
 			}
 		}
@@ -41,17 +38,12 @@ mutation ProductUpdate($product: ProductUpdateInput!, $media: [CreateMediaInput!
 	}
 }
 
-mutation ProductDelete($id: ID!) {
-	productDelete(input: { id: $id }) {
-		deletedProductId
-		userErrors {
-			...UserErrorFragment
-		}
-	}
-}
-
-mutation ProductVariantsBulkCreate($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
-	productVariantsBulkCreate(productId: $productId, variants: $variants) {
+mutation ProductVariantsBulkCreate(
+	$productId: ID!
+	$variants: [ProductVariantsBulkInput!]!
+	$media: [CreateMediaInput!]
+) {
+	productVariantsBulkCreate(productId: $productId, variants: $variants, media: $media) {
 		productVariants {
 			...ProductVariantFragment
 		}
@@ -67,17 +59,64 @@ mutation ProductVariantsBulkCreate($productId: ID!, $variants: [ProductVariantsB
 	}
 }
 
-mutation ProductVariantsBulkUpdate($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
-	productVariantsBulkUpdate(productId: $productId, variants: $variants) {
+mutation ProductVariantsBulkUpdate(
+	$productId: ID!
+	$variants: [ProductVariantsBulkInput!]!
+	$media: [CreateMediaInput!]
+) {
+	productVariantsBulkUpdate(productId: $productId, variants: $variants, media: $media) {
 		productVariants {
 			...ProductVariantFragment
 		}
 		product {
 			...ProductFragment
 		}
+
 		userErrors {
 			__typename
 			code
+			field
+			message
+		}
+	}
+}
+
+mutation ProductVariantDetachMedia(
+	$productId: ID!
+	$variantMedia: [ProductVariantDetachMediaInput!]!
+) {
+	productVariantDetachMedia(productId: $productId, variantMedia: $variantMedia) {
+		product {
+			...ProductFragment
+		}
+		userErrors {
+			code
+			field
+			message
+		}
+	}
+}
+
+mutation ProductVariantAppendMedia(
+	$productId: ID!
+	$variantMedia: [ProductVariantAppendMediaInput!]!
+) {
+	productVariantAppendMedia(productId: $productId, variantMedia: $variantMedia) {
+		userErrors {
+			code
+			field
+			message
+		}
+	}
+}
+
+mutation ProductVariantsBulkDelete($productId: ID!, $variantsIds: [ID!]!) {
+	productVariantsBulkDelete(productId: $productId, variantsIds: $variantsIds) {
+		product {
+			id
+			title
+		}
+		userErrors {
 			field
 			message
 		}
@@ -106,9 +145,33 @@ query AllShopifyProducts($first: Int = 250) {
 	}
 }
 
+mutation ProductMediaDelete($productId: ID!, $mediaIds: [ID!]!) {
+	productDeleteMedia(productId: $productId, mediaIds: $mediaIds) {
+		deletedMediaIds
+		mediaUserErrors {
+			code
+			field
+			message
+		}
+	}
+}
+
 query ShopifyProduct($handle: String!) {
 	product: productByHandle(handle: $handle) {
 		...ProductFragment
+	}
+}
+
+query ShopifyProductMediaStatus($id: ID!) {
+	product(id: $id) {
+		media(first: 10) {
+			edges {
+				node {
+					id
+					status
+				}
+			}
+		}
 	}
 }
 
@@ -122,6 +185,17 @@ fragment ProductFragment on Product {
 		name
 	}
 	tags
+	featuredMedia {
+		id
+		alt
+	}
+	media(first: 10) {
+		nodes {
+			id
+			alt
+			mediaContentType
+		}
+	}
 	variants(first: 100) {
 		edges {
 			node {
@@ -146,6 +220,14 @@ fragment ProductVariantFragment on ProductVariant {
 		height
 		width
 		altText
+	}
+	media(first: 100) {
+		nodes {
+			id
+			alt
+			mediaContentType
+			status
+		}
 	}
 	unitPrice {
 		amount
