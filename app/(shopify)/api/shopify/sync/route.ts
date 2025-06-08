@@ -11,10 +11,10 @@ export const POST = async (req: Request) => {
 		const { entity } = await req.json();
 		if (!entity) return new Response('ok', { status: 422 });
 
-		const itemId = entity?.id;
-
 		try {
 			await sleep(3000);
+
+			const itemId = entity?.id;
 			const syncResult = await sync(itemId);
 			const paths = await config.routes[syncResult.itemType]?.(entity.attributes);
 			paths?.forEach((path) => revalidatePath(path));
