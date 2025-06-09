@@ -156,8 +156,8 @@ export default function ProductShop({ product, shopify }: Props) {
 						value={selectedShopifyVariant?.id}
 					/>
 					<ul className={cn(s.addons)}>
-						{selectedModel.accessories?.map(({ id, product }) => {
-							const shopifyAccessory = shopify.accessories.find((p) => p?.tags.includes(product?.articleNo ?? ''));
+						{selectedModel.accessories?.map(({ id, accessory }) => {
+							const shopifyAccessory = shopify.accessories.find((p) => p?.tags.includes(accessory?.articleNo ?? ''));
 							const price = shopifyAccessory?.variants.edges[0]?.node?.price;
 							const variantId = shopifyAccessory?.variants.edges[0]?.node?.id;
 							const image = shopifyAccessory?.variants.edges[0]?.node?.image;
@@ -170,7 +170,7 @@ export default function ProductShop({ product, shopify }: Props) {
 									<div className={s.row}>
 										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
-											<strong>{product?.name}</strong>
+											<strong>{accessory?.name}</strong>
 										</span>
 										<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
 										<div className={s.checkbox}>

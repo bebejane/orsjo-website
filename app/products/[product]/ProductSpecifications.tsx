@@ -20,9 +20,7 @@ type Props = {
 export default function ProductIntro({ product, drawings, specsCols }: Props) {
 	const singleModel = product?.models?.length === 1;
 	const [list, setList] = useState({ specifications: false, downloads: false });
-	const [setGallery, setGalleryId] = useStore(
-		useShallow((state) => [state.setGallery, state.setGalleryId])
-	);
+	const [setGallery, setGalleryId] = useStore(useShallow((state) => [state.setGallery, state.setGalleryId]));
 
 	const handleGalleryClick = (type: string, id: string) => {
 		setGallery({
@@ -53,7 +51,10 @@ export default function ProductIntro({ product, drawings, specsCols }: Props) {
 							))
 						: value;
 					return (
-						<li key={idx} data-linebreaks={linebreaks}>
+						<li
+							key={idx}
+							data-linebreaks={linebreaks}
+						>
 							<span>{label}</span>
 							<span>{!slug ? text : <Link href={slug}>{text}</Link>}</span>
 						</li>
@@ -71,16 +72,14 @@ export default function ProductIntro({ product, drawings, specsCols }: Props) {
 					{product?.models.map(({ id, name, variants, lightsources, accessories }, midx) => {
 						const art: any[] = variants.map((v) => ({
 							articleNo: v.articleNo,
-							label: [v.color?.name, v.material?.name, v.feature?.name]
-								.filter((el) => el)
-								.join(', '),
+							label: [v.color?.name, v.material?.name, v.feature?.name].filter((el) => el).join(', '),
 						}));
 
 						const access = accessories
 							.filter((el) => el.accessory)
 							.map((a) => ({
-								articleNo: a.articleNo,
-								label: a.accessory.name,
+								articleNo: a?.accessory?.articleNo,
+								label: a.accessory?.name,
 							}));
 
 						const light = lightsources
@@ -141,11 +140,7 @@ export default function ProductIntro({ product, drawings, specsCols }: Props) {
 					onClick={() => handleGalleryClick('drawings', drawings[0].id)}
 					disabled={drawings.length === 0}
 				>
-					{drawings.length ? (
-						<>View drawing{drawings.length > 1 && 's'} + </>
-					) : (
-						<>No drawings available</>
-					)}
+					{drawings.length ? <>View drawing{drawings.length > 1 && 's'} + </> : <>No drawings available</>}
 				</button>
 			</div>
 		</SectionListItem>

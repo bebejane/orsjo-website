@@ -139,7 +139,7 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 	const relatedArticleNos = product.models.reduce(
 		(acc, model) => {
 			return acc
-				.concat(model.accessories.map(({ product }) => product?.articleNo ?? null))
+				.concat(model.accessories.map(({ accessory }) => accessory?.articleNo ?? null))
 				.concat(model.lightsources.map(({ lightsource }) => lightsource?.articleNo ?? null));
 		},
 		[] as (string | null)[]

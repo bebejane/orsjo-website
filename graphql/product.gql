@@ -295,7 +295,7 @@ fragment ProductFragment on ProductRecord {
 		}
 		accessories {
 			id
-			product {
+			accessory {
 				id
 				articleNo
 				name
