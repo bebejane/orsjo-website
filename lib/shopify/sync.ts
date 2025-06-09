@@ -151,6 +151,8 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				if (!productAccessory) throw new Error('Invalid product accessory: ' + itemId);
 
+				const accessoryArticleNo = productAccessory.articleNo?.trim();
+
 				const { product: shopifyAccessory } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
 					admin: true,
 					variables: { handle: productAccessory.slug ?? '' },
@@ -160,7 +162,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 					id: shopifyAccessory?.id,
 					title: productAccessory.name,
 					handle: productAccessory.slug,
-					tags: ['accessory', productAccessory?.articleNo?.trim()].filter(Boolean) as string[],
+					tags: ['accessory', accessoryArticleNo].filter(Boolean) as string[],
 				};
 
 				const accessoryVariantsMedia: CreateMediaInput[] | undefined = productAccessory.image?.url
@@ -168,7 +170,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							{
 								originalSource: productAccessory.image.url,
 								mediaContentType: 'IMAGE' as MediaContentType,
-								alt: productAccessory.articleNo?.trim(),
+								alt: accessoryArticleNo,
 							},
 						]
 					: undefined;
@@ -186,7 +188,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						metafields: [
 							{
 								key: 'articleNo',
-								value: productAccessory.articleNo?.trim(),
+								value: accessoryArticleNo,
 								type: 'single_line_text_field',
 								namespace: 'variant',
 							},
@@ -200,7 +202,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						optionValues: [
 							{
 								optionName: 'Title',
-								name: productAccessory.name,
+								name: accessoryArticleNo,
 							},
 						],
 					},
@@ -212,13 +214,14 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				await updateProduct({ product: accessoryData }, accessoryVariants, accessoryVariantsMedia);
 				break;
 			case 'product_lightsource':
-				console.log('start sync: product_lightsource');
 				const { productLightsource } = await apiQuery<ProductLightsourceByIdQuery, ProductLightsourceByIdQueryVariables>(
 					ProductLightsourceByIdDocument,
 					{ revalidate: 0, variables: { id: itemId } }
 				);
 
 				if (!productLightsource) throw new Error(`Invalid product: ${itemId}`);
+
+				const lightsourceArticleNo = productLightsource.articleNo?.trim();
 
 				const { product: shopifyLightsource } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
 					admin: true,
@@ -229,7 +232,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 					id: shopifyLightsource?.id,
 					title: productLightsource.name,
 					handle: productLightsource.slug,
-					tags: ['lightsource', productLightsource?.articleNo?.trim()].filter(Boolean) as string[],
+					tags: ['lightsource', lightsourceArticleNo].filter(Boolean) as string[],
 				};
 
 				const lightsourceMedia: CreateMediaInput[] | undefined = productLightsource.image?.url
@@ -237,7 +240,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							{
 								originalSource: productLightsource.image.url,
 								mediaContentType: 'IMAGE' as MediaContentType,
-								alt: productLightsource.articleNo?.trim(),
+								alt: lightsourceArticleNo,
 							},
 						]
 					: undefined;
@@ -255,7 +258,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						metafields: [
 							{
 								key: 'articleNo',
-								value: productLightsource.articleNo?.trim(),
+								value: lightsourceArticleNo,
 								type: 'single_line_text_field',
 								namespace: 'variant',
 							},
@@ -269,7 +272,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						optionValues: [
 							{
 								optionName: 'Title',
-								name: productLightsource.name,
+								name: lightsourceArticleNo,
 							},
 						],
 					},
