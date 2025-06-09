@@ -111,7 +111,7 @@ export default function Cart({ localization }: CartProps) {
 
 								<div className={s.details}>
 									<div id={id}>{merchandise.product.title}</div>
-									<div className='medium gray'>{merchandise.metafields.find((item) => item?.key === 'description')?.value}</div>
+									<div className='medium gray'>{merchandise.selectedOptions[0].value}</div>
 									<div aria-label='Quantity'>
 										<button
 											className={s.minus}
@@ -120,8 +120,7 @@ export default function Cart({ localization }: CartProps) {
 										>
 											-
 										</button>
-										<span>
-											{quantity}</span>
+										<span>{quantity}</span>
 										<button
 											className={s.plus}
 											onClick={() => updateQuantity(id, quantity + 1, country)}

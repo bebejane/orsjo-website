@@ -1,6 +1,7 @@
 import { AllProductsDocument, AllProductsLightDocument } from '@/graphql';
 import 'dotenv/config';
 import { apiQuery } from 'next-dato-utils/api';
+import { parseTitle } from '@/lib/shopify/sync';
 
 (async () => {
 	const products: any[] = [];
@@ -8,22 +9,30 @@ import { apiQuery } from 'next-dato-utils/api';
 	const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, {
 		all: true,
 	});
-	const variants: any[] = [];
+	const models: any[][] = [];
 	for (const product of allProducts) {
 		if (!product.models) continue;
 		for (const model of product.models) {
+			const v: any[] = [];
 			const name = model.name?.name;
 			model.variants.forEach((variant) => {
-				variants.push({
+				v.push({
+					id: variant.id,
 					articleNo: variant.articleNo,
-					title: [name, variant.color?.name, variant.material?.name].filter(Boolean).join(' '),
+					title: parseTitle(product as ProductRecord, variant.id),
 				});
 			});
+			models.push(v);
 		}
 	}
-	variants
-		.filter((variant) => !variant.title)
-		.forEach((variant) => {
-			console.log(variant.articleNo, variant.title);
+
+	let dupes: any[] = [];
+	models.forEach((variants) => {
+		let dupe = false;
+		variants.forEach((variant) => {
+			if (variants.some((v) => v.id !== variant.id && v.title === variant.title)) dupe = true;
 		});
+		if (dupe) dupes.push(variants);
+	});
+	console.log(dupes);
 })();

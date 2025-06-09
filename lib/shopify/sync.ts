@@ -76,10 +76,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				const productVariants: ProductVariantsBulkInput[] = product.models
 					.reduce((acc, model) => {
 						model.variants.forEach((variant) => {
-							const shopifyVariant = shopifyProduct?.variants.edges.find((v) => v.node.sku === variant.articleNo)?.node;
+							const articleNo = variant.articleNo?.trim();
+							const shopifyVariant = shopifyProduct?.variants.edges.find((v) => v.node.sku === articleNo)?.node;
 							const id = shopifyVariant?.id ?? undefined;
 							const mediaSrc = variant.image?.url ? [variant.image?.url] : product.image.url ? [product.image.url] : null;
-							const articleNo = variant.articleNo?.trim();
 							const description = [variant.color?.name, variant.material?.name].filter(Boolean).join(', ');
 
 							acc.push({
@@ -95,19 +95,19 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 									{
 										key: 'articleNo',
 										value: articleNo,
-										type: 'string',
+										type: 'single_line_text_field',
 										namespace: 'variant',
 									},
 									{
 										key: 'description',
 										value: description,
-										type: 'string',
+										type: 'single_line_text_field',
 										namespace: 'variant',
 									},
 								],
 								optionValues: [
 									{
-										name: articleNo,
+										name: parseTitle(product as ProductRecord, variant.id),
 										optionName: 'Title',
 									},
 								],
@@ -187,20 +187,20 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							{
 								key: 'articleNo',
 								value: productAccessory.articleNo?.trim(),
-								type: 'string',
+								type: 'single_line_text_field',
 								namespace: 'variant',
 							},
 							{
 								key: 'description',
 								value: productAccessory.name,
-								type: 'string',
+								type: 'single_line_text_field',
 								namespace: 'variant',
 							},
 						],
 						optionValues: [
 							{
 								optionName: 'Title',
-								name: productAccessory.articleNo?.trim(),
+								name: productAccessory.name,
 							},
 						],
 					},
@@ -256,20 +256,20 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							{
 								key: 'articleNo',
 								value: productLightsource.articleNo?.trim(),
-								type: 'string',
+								type: 'single_line_text_field',
 								namespace: 'variant',
 							},
 							{
 								key: 'description',
 								value: productLightsource.name,
-								type: 'string',
+								type: 'single_line_text_field',
 								namespace: 'variant',
 							},
 						],
 						optionValues: [
 							{
 								optionName: 'Title',
-								name: productLightsource.articleNo?.trim(),
+								name: productLightsource.name,
 							},
 						],
 					},
@@ -455,6 +455,15 @@ export async function updateProduct(
 	} finally {
 	}
 }
+
+export const parseTitle = (product: ProductRecord, variantId: string): string => {
+	const model = product.models.find(({ variants }) => variants.find((v) => v.id === variantId));
+	const variant = model?.variants.find(({ id }) => id === variantId);
+	const title =
+		[model?.name?.name, variant?.color?.name, variant?.material?.name, variant?.feature?.name].filter(Boolean).join(' - ') ??
+		variant?.articleNo?.trim();
+	return title || 'No title';
+};
 
 export const resetAll = async () => {
 	console.log('reseting all...');
