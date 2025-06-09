@@ -120,7 +120,8 @@ export default function Cart({ localization }: CartProps) {
 										>
 											-
 										</button>
-										{quantity}
+										<span>
+											{quantity}</span>
 										<button
 											className={s.plus}
 											onClick={() => updateQuantity(id, quantity + 1, country)}

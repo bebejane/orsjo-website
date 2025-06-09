@@ -71,7 +71,7 @@
 			}
 
 			.thumb {
-				--size: 3em;
+				--size: 3rem;
 				min-width: var(--size);
 				min-height: var(--size);
 				max-width: var(--size);
@@ -91,9 +91,21 @@
 				justify-content: flex-start;
 				margin-left: 1em;
 				line-height: 1.25;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
 
 				div {
 					padding-bottom: 0.25em;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+
+					span {
+						width: 1em;
+						text-align: center;
+						display: inline-block;
+					}
 				}
 
 				button {
