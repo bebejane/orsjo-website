@@ -6,60 +6,6 @@ settings:
 
 importers:
 
-<<<<<<< HEAD
-devDependencies:
-  '@graphql-codegen/cli':
-    specifier: 5.0.0
-    version: 5.0.0(@parcel/watcher@2.5.1)(@types/node@22.15.30)(graphql@16.11.0)(typescript@5.8.3)
-  '@graphql-codegen/introspection':
-    specifier: ^4.0.0
-    version: 4.0.3(graphql@16.11.0)
-  '@graphql-codegen/typed-document-node':
-    specifier: ^5.0.1
-    version: 5.1.1(graphql@16.11.0)
-  '@graphql-codegen/typescript':
-    specifier: 4.0.1
-    version: 4.0.1(graphql@16.11.0)
-  '@graphql-codegen/typescript-graphql-files-modules':
-    specifier: 2.2.1
-    version: 2.2.1(graphql@16.11.0)
-  '@graphql-codegen/typescript-operations':
-    specifier: 4.0.1
-    version: 4.0.1(graphql@16.11.0)
-  '@graphql-codegen/typescript-react-apollo':
-    specifier: ^3.3.7
-    version: 3.3.7(graphql-tag@2.12.6)(graphql@16.11.0)
-  '@graphql-codegen/typescript-resolvers':
-    specifier: ^4.0.1
-    version: 4.5.1(graphql@16.11.0)
-  '@graphql-typed-document-node/core':
-    specifier: ^3.2.0
-    version: 3.2.0(graphql@16.11.0)
-  '@parcel/watcher':
-    specifier: ^2.5.1
-    version: 2.5.1
-  '@svgr/webpack':
-    specifier: ^8.1.0
-    version: 8.1.0(typescript@5.8.3)
-  '@types/mjml-react':
-    specifier: ^2.0.10
-    version: 2.0.10
-  '@types/node':
-    specifier: ^22.15.3
-    version: 22.15.30
-  '@types/nodemailer':
-    specifier: ^6.4.17
-    version: 6.4.17
-  '@types/react-dom':
-    specifier: ^19.1.3
-    version: 19.1.6(@types/react@19.1.6)
-  eslint:
-    specifier: 9.26.0
-    version: 9.26.0
-  eslint-config-next:
-    specifier: 15.3.1
-    version: 15.3.1(eslint@9.26.0)(typescript@5.8.3)
-=======
   .:
     dependencies:
       '@datocms/cma-client':
@@ -264,13 +210,6 @@ devDependencies:
       eslint-config-next:
         specifier: 15.3.1
         version: 15.3.1(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
-<<<<<<< HEAD
-      next-plugin-devtools-json:
-        specifier: ^3.1.5
-        version: 3.1.5(next@15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))
->>>>>>> c5aca780775759d32e975e25df43605c73967575
-=======
->>>>>>> 65ee97b (fix)
 
 packages:
 
@@ -893,36 +832,12 @@ packages:
 
   '@emnapi/core@1.4.3':
     resolution: {integrity: sha512-4m62DuCE07lw01soJwPiBGC0nAww0Q+RY70VZ+n49yDIO13yyinhbWCeNnaob0lakDtWQzSdtNWzJeOJt2ma+g==}
-<<<<<<< HEAD
-    requiresBuild: true
-    dependencies:
-      '@emnapi/wasi-threads': 1.0.2
-      tslib: 2.8.1
-    dev: true
-    optional: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   '@emnapi/runtime@1.4.3':
     resolution: {integrity: sha512-pBPWdu6MLKROBX05wSNKcNb++m5Er+KQ9QkB+WVM+pW2Kx9hoSrVTnu3BdkI5eBLZoKu/J6mW/B6i6bJB2ytXQ==}
-<<<<<<< HEAD
-    requiresBuild: true
-    dependencies:
-      tslib: 2.8.1
-    optional: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   '@emnapi/wasi-threads@1.0.2':
     resolution: {integrity: sha512-5n3nTJblwRi8LlXkJ9eBzu+kZR8Yxcc7ubakyQTFzPMtIhFpUBRbsnc2Dv88IZDIbCDlBiWrknhB4Lsz7mg6BA==}
-<<<<<<< HEAD
-    requiresBuild: true
-    dependencies:
-      tslib: 2.8.1
-    dev: true
-    optional: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   '@emotion/is-prop-valid@0.8.8':
     resolution: {integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==}
@@ -1404,14 +1319,6 @@ packages:
     resolution: {integrity: sha512-WUw506Ql6xzmOORlriNrD6Ugx+HjVgYxt9KCXD9mHAak+eaXSwuGGPyE60hy9xaDEoXKBsG7SkG69ybitaVl6A==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-<<<<<<< HEAD
-    dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.11.0)
-      graphql: 16.11.0
-      tslib: 2.8.1
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   '@graphql-tools/wrap@10.0.35':
     resolution: {integrity: sha512-qBga3wo7+GqY+ClGexiyRz9xgy1RWozZryTuGX8usGWPa4wKi/tJS4rKWQQesgB3Fh//SZUCRA5u2nwZaZQw1Q==}
@@ -1604,8 +1511,6 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
-<<<<<<< HEAD
-=======
 
   '@mux/mux-player@3.4.0':
     resolution: {integrity: sha512-+EK0w+Uw9RPod7VKgMojnUpyE3uK6C37+hwAyuL297wm5aHxsIevWdQMdUOJonsJpQ0MfjnZXMzqLOTEjTgXHQ==}
@@ -8425,7 +8330,6 @@ snapshots:
       - supports-color
 
   '@mux/mux-player-react@3.4.0(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
->>>>>>> c5aca780775759d32e975e25df43605c73967575
     dependencies:
       '@mux/mux-player': 3.4.0(react@19.1.0)
       '@mux/playback-core': 0.29.0
@@ -8572,24 +8476,13 @@ snapshots:
 
   '@peculiar/asn1-schema@2.3.15':
     dependencies:
-<<<<<<< HEAD
-      asn1js: 3.0.5
-      pvtsutils: 1.3.2
-      tslib: 2.8.1
-    dev: true
-=======
       asn1js: 3.0.6
       pvtsutils: 1.3.6
       tslib: 2.8.1
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   '@peculiar/json-schema@1.1.12':
     dependencies:
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   '@peculiar/webcrypto@1.5.0':
     dependencies:
@@ -9880,10 +9773,6 @@ snapshots:
   '@tybys/wasm-util@0.9.0':
     dependencies:
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
     optional: true
 
   '@types/cacheable-request@6.0.3':
@@ -10292,10 +10181,6 @@ snapshots:
       pvtsutils: 1.3.6
       pvutils: 1.1.3
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   assert-plus@1.0.0: {}
 
@@ -10517,10 +10402,6 @@ snapshots:
     dependencies:
       pascal-case: 3.1.2
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   camelcase@5.3.1: {}
 
@@ -11062,10 +10943,6 @@ snapshots:
     dependencies:
       no-case: 3.0.4
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   dotenv@16.5.0: {}
 
@@ -11951,10 +11828,6 @@ snapshots:
     dependencies:
       capital-case: 1.0.4
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   hls.js@1.5.20: {}
 
@@ -13289,20 +13162,7 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  /next-view-transitions@0.3.4(next@15.3.3)(react-dom@19.1.0)(react@19.1.0):
-    resolution: {integrity: sha512-SSiskenQ8JkEFGzPjvFwC5LGGoqgTxM5dxexkeugxvcXFLpWI2ZUh4IsCURD3ovW+8Ue7xXlrtrpy8b7XR7IwQ==}
-    peerDependencies:
-      next: '>=14.0.0'
-      react: ^18.2.0
-      react-dom: ^18.2.0
-=======
-  next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/a029fa06e4406d34cd75b1bc83091e48b17ab3f4(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.30)(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(datocms-structured-text-utils@5.0.0)(graphql@16.11.0)(postmark@4.0.5)(react-datocms@7.2.2(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)(typescript@5.8.3)(zod@3.24.4):
->>>>>>> c5aca780775759d32e975e25df43605c73967575
-=======
   next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/6abd60ae57f1b6a6e71e0776df32710f900988c3(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.30)(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(datocms-structured-text-utils@5.0.0)(graphql@16.11.0)(postmark@4.0.5)(react-datocms@7.2.2(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)(typescript@5.8.3)(zod@3.24.4):
->>>>>>> 65ee97b (fix)
     dependencies:
       '@datocms/cma-client': 4.0.1
       '@datocms/cma-client-browser': 4.0.1
@@ -13387,10 +13247,6 @@ snapshots:
     dependencies:
       lower-case: 2.0.2
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   node-addon-api@7.1.1: {}
 
@@ -13576,10 +13432,6 @@ snapshots:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   parent-module@1.0.1:
     dependencies:
@@ -13628,19 +13480,11 @@ snapshots:
     dependencies:
       no-case: 3.0.4
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   path-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   path-exists@3.0.0: {}
 
@@ -13751,10 +13595,6 @@ snapshots:
   pvtsutils@1.3.6:
     dependencies:
       tslib: 2.8.1
-<<<<<<< HEAD
-    dev: true
-=======
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   pvutils@1.1.3: {}
 
@@ -15015,16 +14855,9 @@ snapshots:
     dependencies:
       '@peculiar/asn1-schema': 2.3.15
       '@peculiar/json-schema': 1.1.12
-<<<<<<< HEAD
-      asn1js: 3.0.5
-      pvtsutils: 1.3.2
-      tslib: 2.8.1
-    dev: true
-=======
       asn1js: 3.0.6
       pvtsutils: 1.3.6
       tslib: 2.8.1
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   webidl-conversions@3.0.1: {}
 
@@ -15191,34 +15024,10 @@ snapshots:
 
   zod@3.24.4: {}
 
-<<<<<<< HEAD
-  /zustand@5.0.5(@types/react@19.1.6)(react@19.1.0):
-    resolution: {integrity: sha512-mILtRfKW9xM47hqxGIxCv12gXusoY/xTSHBYApXozR0HmQv299whhBeeAcRy+KrPPybzosvJBCOmVjq6x12fCg==}
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      '@types/react': '>=18.0.0'
-      immer: '>=9.0.6'
-      react: '>=18.0.0'
-      use-sync-external-store: '>=1.2.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      immer:
-        optional: true
-      react:
-        optional: true
-      use-sync-external-store:
-        optional: true
-    dependencies:
-      '@types/react': 19.1.6
-      react: 19.1.0
-    dev: false
-=======
   zustand@5.0.5(@types/react@19.1.6)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0)):
     optionalDependencies:
       '@types/react': 19.1.6
       react: 19.1.0
       use-sync-external-store: 1.5.0(react@19.1.0)
->>>>>>> c5aca780775759d32e975e25df43605c73967575
 
   zwitch@2.0.4: {}
