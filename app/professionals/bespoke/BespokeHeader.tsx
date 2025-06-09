@@ -12,9 +12,7 @@ import { useMediaQuery } from 'usehooks-ts';
 export type BespokeProps = { bespoke: BespokeQuery['bespoke'] };
 
 export default function BespokeHeader({ bespoke }: BespokeProps) {
-	const [setGallery, setGalleryId] = useStore(
-		useShallow((state) => [state.setGallery, state.setGalleryId])
-	);
+	const [setGallery, setGalleryId] = useStore(useShallow((state) => [state.setGallery, state.setGalleryId]));
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
 	const [imageStyle, setImageStyle] = useState({ opacity: 0.2, filter: 'grayscale(1)' });
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
@@ -35,12 +33,15 @@ export default function BespokeHeader({ bespoke }: BespokeProps) {
 	if (!bespoke) return null;
 
 	return (
-		<Section className={s.bespoke} type={'full'}>
+		<Section
+			className={s.bespoke}
+			type={'full'}
+		>
 			{bespoke.image.responsiveImage && (
 				<Image
 					data={bespoke.image.responsiveImage}
-					layout='fill'
 					objectFit='cover'
+					layout='fill'
 					className={s.image}
 					style={!isMobile ? imageStyle : undefined}
 				/>

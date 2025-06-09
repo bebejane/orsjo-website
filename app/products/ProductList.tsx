@@ -17,8 +17,6 @@ export type ProductListProps = {
 };
 
 export default function ProductList({ productCategories, products }: ProductListProps) {
-	console.log(products);
-	console.log(productCategories);
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), []);
 	productCategories.forEach(({ id, name, namePlural }) => {

@@ -8,5 +8,11 @@ export default function Block({ data, onClick, first = false }: BlockProps) {
 
 	if (!BlockComponent) return <div>No block match {data.__typename}</div>;
 
-	return <BlockComponent data={data} onClick={onClick} first={first} />;
+	return (
+		<BlockComponent
+			data={data}
+			onClick={onClick}
+			first={first}
+		/>
+	);
 }

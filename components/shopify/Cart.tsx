@@ -63,9 +63,7 @@ export default function Cart({ localization }: CartProps) {
 	if (!showCart) {
 		return null;
 	}
-
 	console.log(cart);
-
 	return (
 		<div
 			id='cart'
@@ -113,7 +111,7 @@ export default function Cart({ localization }: CartProps) {
 
 								<div className={s.details}>
 									<div id={id}>{merchandise.product.title}</div>
-									<div className='medium gray'>{}</div>
+									<div className='medium gray'>{merchandise.metafields.find((item) => item?.key === 'description')?.value}</div>
 									<div aria-label='Quantity'>
 										<button
 											className={s.minus}
