@@ -27,7 +27,6 @@ export default function AddToCartButton({
 	);
 
 	const handleAddToCart = () => {
-		console.log('add');
 		if (!disabled && merchandiseId) {
 			addToCart({ merchandiseId, quantity }, country);
 		}

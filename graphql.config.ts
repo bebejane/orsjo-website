@@ -2,7 +2,7 @@ import "dotenv/config"
 import type { IGraphQLConfig } from 'graphql-config'
 
 const shopifyStorefrontApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/api/${process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION}/graphql.json`;
-const shopifyAdminApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/admin/api/${process.env.ADMIN_API_VERSION}/graphql.json`;
+const shopifyAdminApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/admin/api/${process.env.SHOPIFY_ADMIN_API_VERSION}/graphql.json`;
 
 const defaultConfig = {
 	dedupeOperationSuffix: true,
@@ -96,12 +96,12 @@ const config: IGraphQLConfig = {
 			schema: {
 				[shopifyAdminApiEndpoint]: {
 					headers: {
-						"X-Shopify-Storefront-Access-Token": process.env.SHOPIFY_ADMIN_API_TOKEN as string,
+						"X-Shopify-Access-Token": process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN as string,
 						"Content-Type": "application/json",
 					},
 				},
 			},
-			documents: "lib/shopify/graphql/admin/**/*.gql",
+			documents: "lib/shopify/graphql-admin/**/*.gql",
 			extensions: {
 				codegen: {
 					overwrite: true,
@@ -113,7 +113,7 @@ const config: IGraphQLConfig = {
 							],
 							config: { ...defaultConfig, noExport: true }
 						},
-						"lib/shopify/graphql/admin/index.ts": {
+						"lib/shopify/graphql-admin/index.ts": {
 							plugins: ["typed-document-node"],
 							config: { ...defaultConfig }
 						},

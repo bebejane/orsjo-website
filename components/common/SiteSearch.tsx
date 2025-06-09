@@ -4,14 +4,7 @@ import s from './SiteSearch.module.scss';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import {
-	ProductThumbnail,
-	ProjectThumbnail,
-	DesignerThumbnail,
-	NewsThumbnail,
-	StaffThumbnail,
-	Loader,
-} from '@/components';
+import { ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail, Loader } from '@/components';
 import Link from '@/components/nav/Link';
 import { useDebouncedValue, useKey } from 'rooks';
 import { useMediaQuery } from 'usehooks-ts';
@@ -32,26 +25,18 @@ type SiteSearchProps = {
 	onChange?: (query: string | undefined) => void;
 };
 
-export default function SiteSearch({
-	show,
-	onClose,
-	query: queryAsProp,
-	onChange,
-}: SiteSearchProps) {
+export default function SiteSearch({ show, onClose, query: queryAsProp, onChange }: SiteSearchProps) {
 	const ref = useRef<HTMLInputElement | null>(null);
 	const pathname = usePathname();
 	const [query, setQuery] = useState<string | undefined>();
 	const [inputValue, setInputValue] = useState<string | undefined>('');
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
-	const [setShowSiteSearch, transitioning] = useStore(
-		useShallow((state) => [state.setShowSiteSearch, state.transitioning])
-	);
+	const [setShowSiteSearch, transitioning] = useStore(useShallow((state) => [state.setShowSiteSearch, state.transitioning]));
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState<SearchResultCategory | undefined>();
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
-	const noResults =
-		result !== undefined && Object.keys(result).length === 0 && !loading && inputValue;
+	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading && inputValue;
 	const thumbnailTheme = isMobile ? 'dark' : 'light';
 
 	useEffect(() => {
@@ -117,8 +102,14 @@ export default function SiteSearch({
 					className={cn(show && s.show)}
 					onChange={(e) => setInputValue(e.target.value)}
 				/>
-				<button className={s.close} onClick={onClose}>
-					<Close />
+				<button
+					className={s.close}
+					onClick={onClose}
+				>
+					<img
+						src='/images/close.svg'
+						alt='Close'
+					/>
 				</button>
 			</div>
 
@@ -158,14 +149,25 @@ export default function SiteSearch({
 											</li>
 										) : model === 'people' ? (
 											<li key={idx}>
-												<StaffThumbnail staff={item} theme={thumbnailTheme} className={s.thumb} />
+												<StaffThumbnail
+													staff={item}
+													theme={thumbnailTheme}
+													className={s.thumb}
+												/>
 											</li>
 										) : model === 'news' ? (
 											<li key={idx}>
-												<NewsThumbnail news={item} theme={thumbnailTheme} className={s.thumb} />
+												<NewsThumbnail
+													news={item}
+													theme={thumbnailTheme}
+													className={s.thumb}
+												/>
 											</li>
 										) : model === 'faqs' ? (
-											<li key={idx} className={s.full}>
+											<li
+												key={idx}
+												className={s.full}
+											>
 												<Link
 													href={`/support/faq#${item.id}`}
 													style={{ fontWeight: 'bold' }}

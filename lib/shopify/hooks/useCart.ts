@@ -1,146 +1,150 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
-import shopifyQuery from '../shopify-query'
+import shopifyQuery from '../shopify-query';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
-import { cartCookieOptions } from '../utils'
+import { cartCookieOptions } from '../utils';
 import {
-  CreateCartDocument,
-  CartDocument,
-  AddItemToCartDocument,
-  RemoveItemFromCartDocument,
-  UpdateItemFromCartDocument,
-  CartBuyerIdentityUpdateDocument
-} from '../graphql'
+	CreateCartDocument,
+	CartDocument,
+	AddItemToCartDocument,
+	RemoveItemFromCartDocument,
+	UpdateItemFromCartDocument,
+	CartBuyerIdentityUpdateDocument,
+} from '../graphql';
 
 export interface CartState {
-  cart?: Cart,
-  updating: boolean,
-  updatingId: string | null,
-  error: string | undefined,
-  country: string,
-  update: (id: string | null, fn: () => Promise<Cart>) => void,
-  clearCart: () => void,
-  createCart: (country: string) => void,
-  setCart: (cart: Cart) => Promise<Cart>,
-  addToCart: (lines: CartLineInput, country: string) => void,
-  removeFromCart: (id: string) => void,
-  updateQuantity: (id: string, quantity: number, country: string) => void,
-  updateBuyerIdentity: (input: CartBuyerIdentityInput) => void,
+	cart?: CartQuery['cart'];
+	updating: boolean;
+	updatingId: string | null;
+	error: string | undefined;
+	country: string;
+	update: (id: string | null, fn: () => Promise<CartQuery['cart']>) => void;
+	clearCart: () => void;
+	createCart: (country: string) => void;
+	setCart: (cart: CartQuery['cart']) => Promise<CartQuery['cart']>;
+	addToCart: (lines: CartLineInput[], country: string) => void;
+	removeFromCart: (id: string) => void;
+	updateQuantity: (id: string, quantity: number, country: string) => void;
+	updateBuyerIdentity: (input: CartBuyerIdentityInput) => void;
 }
 
 const useCart = create<CartState>((set, get) => ({
-  cart: undefined,
-  updating: false,
-  updatingId: null,
-  error: undefined,
-  country: 'SE',
-  createCart: async (country: string) => {
-    const id = getCookie('cart', cartCookieOptions)
-    let cart = null;
+	cart: undefined,
+	updating: false,
+	updatingId: null,
+	error: undefined,
+	country: 'SE',
+	createCart: async (country: string) => {
+		const id = await getCookie('cart', cartCookieOptions);
+		let cart: CartQuery['cart'] | null = null;
 
-    if (id) {
-      const res = (await shopifyQuery<CartQuery, CartQueryVariables>(CartDocument, { revalidate: 0, variables: { id }, country }))
-      cart = res.cart ?? null
-    }
+		if (id) {
+			const res = await shopifyQuery<CartQuery, CartQueryVariables>(CartDocument, { revalidate: 0, variables: { id }, country });
+			cart = res.cart ?? null;
+		}
 
-    if (!cart)
-      cart = (await shopifyQuery<CreateCartMutation, CreateCartMutationVariables>(CreateCartDocument, { revalidate: 0, country }))?.cartCreate?.cart;
+		if (!cart)
+			cart = (await shopifyQuery<CreateCartMutation, CreateCartMutationVariables>(CreateCartDocument, { revalidate: 0, country }))
+				?.cartCreate?.cart;
 
-    console.log('createCart', cart)
-    if (!cart)
-      throw new Error('Cart not found')
+		if (!cart) throw new Error('Cart not found');
 
-    return get().setCart(cart as Cart)
-  },
-  clearCart: () => {
-    set((state) => ({ cart: undefined }))
-    deleteCookie('cart', cartCookieOptions)
-  },
-  setCart: async (cart: Cart) => {
-    setCookie('cart', cart.id, cartCookieOptions)
-    set((state) => ({ cart }))
-    return cart
-  },
-  addToCart: async (line: CartLineInput, country: string) => {
+		return get().setCart(cart as CartQuery['cart']);
+	},
+	clearCart: () => {
+		set((state) => ({ cart: undefined }));
+		deleteCookie('cart', cartCookieOptions);
+	},
+	setCart: async (cart: CartQuery['cart']) => {
+		setCookie('cart', cart?.id, cartCookieOptions);
+		set((state) => ({ cart }));
+		return cart;
+	},
+	addToCart: async (lines: CartLineInput[], country: string) => {
+		get().update(null, async () => {
+			const cart = get().cart as CartQuery['cart'];
+			const { cartLinesAdd } = await shopifyQuery<AddItemToCartMutation, AddItemToCartMutationVariables>(AddItemToCartDocument, {
+				revalidate: 0,
+				variables: {
+					cartId: cart?.id ?? '',
+					lines,
+				},
+				country,
+			});
 
-    get().update(null, async () => {
+			if (cartLinesAdd?.userErrors && cartLinesAdd?.userErrors.length > 0)
+				throw new Error(cartLinesAdd?.userErrors.map((e) => e.message).join('. '));
 
-      const cart = get().cart as Cart
-      const { cartLinesAdd } = await shopifyQuery<AddItemToCartMutation, AddItemToCartMutationVariables>(AddItemToCartDocument, {
-        revalidate: 0,
-        variables: {
-          cartId: cart.id,
-          lines: [line]
-        },
-        country
-      });
+			if (!cartLinesAdd?.cart) throw new Error('Cart not found');
 
-      if (cartLinesAdd?.userErrors && cartLinesAdd?.userErrors.length > 0)
-        throw new Error(cartLinesAdd?.userErrors.map(e => e.message).join('. '))
+			return cartLinesAdd.cart as CartQuery['cart'];
+		});
+	},
+	removeFromCart: async (id: string) => {
+		get().update(id, async () => {
+			const cart = get().cart as CartQuery['cart'];
 
-      if (!cartLinesAdd?.cart)
-        throw new Error('Cart not found')
+			const { cartLinesRemove } = await shopifyQuery<RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables>(
+				RemoveItemFromCartDocument,
+				{
+					revalidate: 0,
+					variables: {
+						cartId: cart?.id ?? '',
+						lineIds: [id],
+					},
+				}
+			);
 
-      return cartLinesAdd.cart as Cart
-    })
-  },
-  removeFromCart: async (id: string) => {
-    get().update(id, async () => {
-      const cart = get().cart as Cart
-
-      const { cartLinesRemove } = await shopifyQuery<RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables>(RemoveItemFromCartDocument, {
-        revalidate: 0,
-        variables: {
-          cartId: cart.id,
-          lineIds: [id]
-        }
-      });
-
-      if (!cartLinesRemove?.cart) throw new Error('Cart not found')
-      return cartLinesRemove.cart as Cart
-    })
-  },
-  updateQuantity: async (id: string, quantity: number, country: string) => {
-    get().update(id, async () => {
-      const cart = get().cart as Cart
-      const lines = cart.lines.edges.map(l => ({ id: l.node.id, quantity: l.node.id === id ? quantity : l.node.quantity }))
-      const { cartLinesUpdate } = await shopifyQuery<UpdateItemFromCartMutation, UpdateItemFromCartMutationVariables>(UpdateItemFromCartDocument, {
-        revalidate: 0,
-        variables: {
-          cartId: cart?.id,
-          lines
-        },
-        country
-
-      });
-      if (!cartLinesUpdate?.cart) throw new Error('Cart not found')
-      return cartLinesUpdate.cart as Cart
-
-    })
-  },
-  updateBuyerIdentity: async (buyerIdentity: CartBuyerIdentityInput) => {
-    get().update(null, async () => {
-      const id = getCookie('cart', cartCookieOptions) as string
-      const { cartBuyerIdentityUpdate } = await shopifyQuery<CartBuyerIdentityUpdateMutation, CartBuyerIdentityUpdateMutationVariables>(CartBuyerIdentityUpdateDocument, {
-        revalidate: 0,
-        variables: {
-          cartId: id,
-          buyerIdentity
-        }
-      });
-      const cart = cartBuyerIdentityUpdate?.cart as Cart
-      if (!cart) throw new Error('Cart not found')
-      return cart
-    })
-  },
-  update: (id, fn) => {
-    set((state) => ({ updating: true, updatingId: id ?? null, error: undefined }))
-    fn()
-      .then((cart) => get().setCart(cart))
-      .catch((err) => set((state) => ({ error: err.message })))
-      .finally(() => set((state) => ({ updating: false, updatingId: null })))
-  },
+			if (!cartLinesRemove?.cart) throw new Error('Cart not found');
+			return cartLinesRemove.cart as CartQuery['cart'];
+		});
+	},
+	updateQuantity: async (id: string, quantity: number, country: string) => {
+		get().update(id, async () => {
+			const cart = get().cart as CartQuery['cart'];
+			if (!cart) throw new Error('Cart not found');
+			const lines = cart.lines.edges.map((l) => ({ id: l.node.id, quantity: l.node.id === id ? quantity : l.node.quantity }));
+			const { cartLinesUpdate } = await shopifyQuery<UpdateItemFromCartMutation, UpdateItemFromCartMutationVariables>(
+				UpdateItemFromCartDocument,
+				{
+					revalidate: 0,
+					variables: {
+						cartId: cart?.id,
+						lines,
+					},
+					country,
+				}
+			);
+			if (!cartLinesUpdate?.cart) throw new Error('Cart not found');
+			return cartLinesUpdate.cart as CartQuery['cart'];
+		});
+	},
+	updateBuyerIdentity: async (buyerIdentity: CartBuyerIdentityInput) => {
+		get().update(null, async () => {
+			const id = getCookie('cart', cartCookieOptions) as string;
+			const { cartBuyerIdentityUpdate } = await shopifyQuery<CartBuyerIdentityUpdateMutation, CartBuyerIdentityUpdateMutationVariables>(
+				CartBuyerIdentityUpdateDocument,
+				{
+					revalidate: 0,
+					variables: {
+						cartId: id,
+						buyerIdentity,
+					},
+				}
+			);
+			const cart = cartBuyerIdentityUpdate?.cart as CartQuery['cart'];
+			if (!cart) throw new Error('Cart not found');
+			return cart;
+		});
+	},
+	update: (id, fn) => {
+		set((state) => ({ updating: true, updatingId: id ?? null, error: undefined }));
+		fn()
+			.then((cart) => get().setCart(cart))
+			.catch((err) => set((state) => ({ error: err.message })))
+			.finally(() => set((state) => ({ updating: false, updatingId: null })));
+	},
 }));
 
 export default useCart;
-export { useShallow }
+export { useShallow };

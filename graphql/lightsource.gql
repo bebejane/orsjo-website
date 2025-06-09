@@ -1,11 +1,30 @@
+query ProductLightsource($slug: String) {
+	productLightsource(filter: { slug: { eq: $slug } }) {
+		...ProductLightsourceFragment
+	}
+}
+query ProductLightsourceById($id: ItemId) {
+	productLightsource(filter: { id: { eq: $id } }) {
+		...ProductLightsourceFragment
+	}
+}
+
 query AllProductLightsources($first: IntType = 100, $skip: IntType = 0) {
 	allProductLightsources(first: $first, skip: $skip) {
-		id
-		name
-		price
-		articleNo
+		...ProductLightsourceFragment
 	}
 	_allProductLightsourcesMeta {
 		count
 	}
+}
+
+fragment ProductLightsourceFragment on ProductLightsourceRecord {
+	id
+	name
+	articleNo
+	price
+	image {
+		...ImageThumbnailFragment
+	}
+	slug
 }

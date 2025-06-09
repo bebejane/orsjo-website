@@ -20,21 +20,15 @@ type Props = {
 
 export default function ProductIntro({ product, drawings }: Props) {
 	const [imageLoaded, setImageLoaded] = useState(false);
-	const [setGallery, setGalleryId] = useStore(
-		useShallow((state) => [state.setGallery, state.setGalleryId])
-	);
+	const [setGallery, setGalleryId] = useStore(useShallow((state) => [state.setGallery, state.setGalleryId]));
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const [list, setList] = useState({ specifications: false, downloads: false });
 	const [pictureStyle, setPictureStyle] = useState({ paddingBottom: '4em' });
 
 	const images = useMemo(() => {
-		const imgs = product?.image
-			? [product.image, ...(product?.productGallery || [])]
-			: [...(product?.productGallery || [])];
-		return dedupeImages([
-			...imgs.map((block) => recordImages(block)).reduce((acc, curr) => acc.concat(curr), []),
-		]);
+		const imgs = product?.image ? [product.image, ...(product?.productGallery || [])] : [...(product?.productGallery || [])];
+		return dedupeImages([...imgs.map((block) => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]);
 	}, [product]);
 
 	const handleGalleryClick = (type: string, id: string) => {
@@ -74,11 +68,18 @@ export default function ProductIntro({ product, drawings }: Props) {
 	}, [viewportHeight, scrolledPosition, setPictureStyle, isMobile]);
 
 	if (!product) return null;
-
+	console.log(product.productGallery);
 	return (
 		<>
-			<Section name='Introduction' className={s.product} top={true}>
-				<div className={s.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
+			<Section
+				name='Introduction'
+				className={s.product}
+				top={true}
+			>
+				<div
+					className={s.intro}
+					onClick={() => handleGalleryClick('product', product.image?.id)}
+				>
 					{product.image?.responsiveImage && (
 						<Image
 							data={product.image.responsiveImage}
@@ -96,14 +97,10 @@ export default function ProductIntro({ product, drawings }: Props) {
 								<TextReveal>{product.title}</TextReveal>
 							</h1>
 							<h1 className={s.designer}>
-								<TextReveal block={true}>
-									by {formatDesignerName(product.designer?.name as string)}
-								</TextReveal>
+								<TextReveal block={true}>by {formatDesignerName(product.designer?.name as string)}</TextReveal>
 							</h1>
 							<h3 className={s.type}>
-								<TextReveal>
-									{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}
-								</TextReveal>
+								<TextReveal>{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}</TextReveal>
 							</h3>
 						</div>
 						{product.upcycled && (
@@ -114,9 +111,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 					</div>
 				</div>
 			</Section>
-			<Section className={s.description}>
-				{product.description && <Markdown content={product.description} />}
-			</Section>
+			<Section className={s.description}>{product.description && <Markdown content={product.description} />}</Section>
 			<Section>
 				{product.productGallery.map((block, idx) => (
 					<Block

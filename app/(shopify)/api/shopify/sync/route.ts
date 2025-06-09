@@ -1,34 +1,29 @@
-import shopify_client from '@/lib/shopify/rest-client';
-import client from '@/lib/client';
-import data from './data.json';
-import { ProductWebhook } from './types';
-import { IProduct } from 'shopify-api-node';
-import { create, update, uploadProductImage, ProductData } from './utils';
+import { sync } from '@/lib/shopify/sync';
+import { basicAuth } from 'next-dato-utils/route-handlers';
+import { revalidatePath } from 'next/cache';
+import config from '@/datocms.config';
+
+//export const dynamic = 'force-dynamic';
 
 export const POST = async (req: Request) => {
+	return basicAuth(req, async (req) => {
+		const { entity } = await req.json();
+		if (!entity) return new Response('ok', { status: 422 });
 
-  const { entity: data } = await req.json();
+		try {
+			//await sleep(3000);
 
-  if (!data) return new Response(JSON.stringify({ success: false, message: 'No data' }))
+			const id = entity?.id;
+			console.log('syncing:', id);
+			const syncResult = await sync(id);
+			console.log('synced:', syncResult);
+			const paths = await config.routes[syncResult.itemType]?.({ ...entity.attributes, id });
+			paths?.forEach((path) => revalidatePath(path));
 
-  const attributes = data.attributes
-  const datoProduct = data.entity.attributes
-  const handle = datoProduct.slug
-  const products = await shopify_client.product.list({ handle })
-
-  let product: IProduct | null = null
-
-  const productData: ProductData = {
-    title: attributes.title,
-    handle: attributes.slug,
-    body_html: attributes.description.en,
-    published_scope: 'global'
-  }
-
-  if (!products[0])
-    product = await create(productData)
-  else
-    product = await update(products[0].id, productData)
-
-  return new Response(JSON.stringify(product ?? {}))
-}
+			return new Response(JSON.stringify({ sync: syncResult }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+		} catch (e) {
+			console.log(e);
+			return new Response(JSON.stringify({ error: e.message }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+		}
+	});
+};

@@ -5,13 +5,7 @@ query Designer($slug: String, $locale: SiteLocale = en) {
 }
 
 query AllDesigners($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	allDesigners(
-		first: $first
-		skip: $skip
-		orderBy: [name_ASC]
-		locale: $locale
-		fallbackLocales: [sv, en]
-	) {
+	allDesigners(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...DesignerLightFragment
 	}
 	_allDesignersMeta {

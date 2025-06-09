@@ -17,15 +17,14 @@ query Product($slug: String, $locale: SiteLocale = en) {
 		...ProductFragment
 	}
 }
+query ProductById($id: ItemId, $locale: SiteLocale = en) {
+	product(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
+		...ProductFragment
+	}
+}
 
 query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	allProducts(
-		locale: $locale
-		first: $first
-		skip: $skip
-		orderBy: [title_ASC]
-		fallbackLocales: [sv, en]
-	) {
+	allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
 		...ProductFragment
 	}
 	_allProductsMeta {
@@ -34,13 +33,7 @@ query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntTyp
 }
 
 query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	allProducts(
-		first: $first
-		skip: $skip
-		orderBy: [title_ASC]
-		locale: $locale
-		fallbackLocales: [sv, en]
-	) {
+	allProducts(first: $first, skip: $skip, orderBy: [title_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...ProductLightFragment
 	}
 	_allProductsMeta {
@@ -49,13 +42,7 @@ query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteL
 }
 
 query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	allProducts(
-		locale: $locale
-		first: $first
-		skip: $skip
-		orderBy: [title_ASC]
-		fallbackLocales: [sv, en]
-	) {
+	allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
 		id
 		title
 		family {
@@ -77,13 +64,7 @@ query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: 
 }
 
 query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	allProducts(
-		locale: $locale
-		first: $first
-		skip: $skip
-		orderBy: [title_ASC]
-		fallbackLocales: [sv, en]
-	) {
+	allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
 		id
 		image {
 			...ImageThumbnailFragment
@@ -118,7 +99,7 @@ query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip
 }
 
 query ProductCategories {
-	productCategories: allProductCategories {
+	productCategories: allProductCategories(first: 250) {
 		id
 		name
 		namePlural
@@ -136,19 +117,13 @@ query AllProductsByDesigner($id: ItemId, $first: IntType = 100, $skip: IntType =
 }
 
 query RelatedProducts($designerId: ItemId, $familyId: ItemId, $first: IntType = 100) {
-	relatedProducts: allProducts(
-		first: $first
-		filter: { OR: [{ designer: { eq: $designerId } }, { family: { eq: $familyId } }] }
-	) {
+	relatedProducts: allProducts(first: $first, filter: { OR: [{ designer: { eq: $designerId } }, { family: { eq: $familyId } }] }) {
 		...ProductLightFragment
 	}
 }
 
 query RelatedProjectsForProduct($productId: ItemId, $first: IntType = 100) {
-	relatedProjects: allProjects(
-		first: $first
-		filter: { relatedProducts: { anyIn: [$productId] } }
-	) {
+	relatedProjects: allProjects(first: $first, filter: { relatedProducts: { anyIn: [$productId] } }) {
 		...ProjectLightFragment
 	}
 }
@@ -160,6 +135,7 @@ query AllProductsByCategory($categoryId: ItemId, $first: IntType = 100) {
 }
 
 fragment ProductFragment on ProductRecord {
+	__typename
 	id
 	title
 	description(markdown: false)
@@ -277,21 +253,6 @@ fragment ProductFragment on ProductRecord {
 			id
 			name
 		}
-		drawing {
-			...ImageFragment
-		}
-		lightsources {
-			id
-			included
-			amount
-			optional
-			lightsource {
-				id
-				name
-				price
-				articleNo
-			}
-		}
 		variants {
 			id
 			color {
@@ -314,13 +275,34 @@ fragment ProductFragment on ProductRecord {
 				...ImageFragment
 			}
 		}
+		drawing {
+			...ImageFragment
+		}
+		lightsources {
+			id
+			included
+			amount
+			optional
+			lightsource {
+				id
+				name
+				price
+				articleNo
+				image {
+					...ImageThumbnailFragment
+				}
+			}
+		}
 		accessories {
 			id
-			product {
+			accessory {
 				id
 				articleNo
 				name
 				price
+				image {
+					...ImageThumbnailFragment
+				}
 			}
 		}
 	}

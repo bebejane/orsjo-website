@@ -1,9 +1,30 @@
-query AllProductAccessories($first: IntType = 100, $skip: IntType = 0) {
+query ProductAccessory($slug: String) {
+	productAccessory(filter: { slug: { eq: $slug } }) {
+		...ProductAccessoryFragment
+	}
+}
+query ProductAccessoryById($id: ItemId) {
+	productAccessory(filter: { id: { eq: $id } }) {
+		...ProductAccessoryFragment
+	}
+}
+
+query AllProductAccessories($first: IntType = 250, $skip: IntType = 0) {
 	allProductAccessories(first: $first, skip: $skip) {
-		id
-		name
+		...ProductAccessoryFragment
 	}
 	_allProductAccessoriesMeta {
 		count
 	}
+}
+
+fragment ProductAccessoryFragment on ProductAccessoryRecord {
+	id
+	name
+	articleNo
+	price
+	image {
+		...ImageThumbnailFragment
+	}
+	slug
 }

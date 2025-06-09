@@ -1,5 +1,4 @@
-query AllShopifyProducts($country: CountryCode = SE, $first: Int = 100)
-@inContext(country: $country) {
+query AllShopifyProducts($country: CountryCode = SE, $first: Int = 100) @inContext(country: $country) {
 	products(first: $first, query: "available_for_sale") {
 		edges {
 			node {
@@ -15,6 +14,15 @@ query AllShopifyProducts($country: CountryCode = SE, $first: Int = 100)
 query ShopifyProduct($country: CountryCode = SE, $handle: String) @inContext(country: $country) {
 	product(handle: $handle) {
 		...ProductFragment
+	}
+}
+query ShopifyProductsByQuery($country: CountryCode = SE, $query: String) @inContext(country: $country) {
+	products(first: 250, query: $query) {
+		edges {
+			node {
+				...ProductFragment
+			}
+		}
 	}
 }
 
@@ -62,8 +70,8 @@ fragment ProductFragment on Product {
 	options {
 		id
 		name
-		#values
 	}
+	tags
 	variants(first: 100) {
 		edges {
 			node {
@@ -87,6 +95,10 @@ fragment ProductFragment on Product {
 					altText
 				}
 				price {
+					amount
+					currencyCode
+				}
+				unitPrice {
 					amount
 					currencyCode
 				}

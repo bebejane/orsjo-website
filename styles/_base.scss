@@ -1,4 +1,4 @@
-@use "mixin";
+@use 'mixin';
 
 :root {
 	--outer-margin: 1.2rem;
@@ -35,15 +35,18 @@
 		calc((100% - ((var(--columns) - 1) * $gutter)) / var(--columns));
 
 	--body-font: IndivisibleRegular, Helvetica, Sans-Serif;
-	--body-font: "IndivisibleRegular", Arial, Helvetica, Sans-Serif;
-	--headline-font: "IndivisibleMedium", Helvetica, Sans-serif;
-	--logo-font: "Orsjo";
+	--body-font: 'IndivisibleRegular', Arial, Helvetica, Sans-Serif;
+	--headline-font: 'IndivisibleMedium', Helvetica, Sans-serif;
+	--logo-font: 'Orsjo';
 
 	--body-line-height: 1.35em;
 	--headline-line-height: 1.25;
 
-	--z-page-transition: 10000;
+	--z-undelay: 110;
+	--z-shop: 100;
+	--z-menu-desktop: 300;
 	--z-cart: 1000;
+	--z-page-transition: 10000;
 }
 
 /*********************
@@ -56,7 +59,7 @@ body {
 	background-color: var(--white);
 	font-family: var(--body-font);
 	-moz-osx-font-smoothing: grayscale;
-	font-feature-settings: "liga", "kern";
+	font-feature-settings: 'liga', 'kern';
 	overscroll-behavior-y: none;
 	margin: 0;
 	padding: 0;
@@ -179,7 +182,7 @@ button {
 	}
 }
 
-[data-image-zoom="small"] {
+[data-image-zoom='small'] {
 	img {
 		&:hover {
 			transform: scale(1.1);
@@ -187,7 +190,7 @@ button {
 	}
 }
 
-[data-image-zoom="medium"] {
+[data-image-zoom='medium'] {
 	img {
 		&:hover {
 			transform: scale(1.04);
@@ -198,6 +201,14 @@ button {
 input,
 ::placeholder {
 	font-family: var(--headline-font);
+}
+
+.noscrollbar {
+	scrollbar-width: 0px !important;
+	&::-webkit-scrollbar {
+		display: none;
+		-ms-overflow-style: none;
+	}
 }
 
 #error-404,

@@ -17,13 +17,7 @@ query Distributor($id: ItemId, $locale: SiteLocale = en) {
 }
 
 query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	distributors: allDistributors(
-		first: $first
-		skip: $skip
-		orderBy: [name_ASC]
-		locale: $locale
-		fallbackLocales: [sv, en]
-	) {
+	distributors: allDistributors(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...DistributorFragment
 	}
 }
@@ -49,13 +43,7 @@ query Reseller($id: ItemId, $locale: SiteLocale = en) {
 }
 
 query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	resellers: allResellers(
-		first: $first
-		skip: $skip
-		orderBy: [name_ASC]
-		locale: $locale
-		fallbackLocales: [sv, en]
-	) {
+	resellers: allResellers(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...ResellerFragment
 	}
 }
@@ -67,12 +55,7 @@ query Staff($id: ItemId, $locale: SiteLocale = en) {
 }
 
 query AllStaffs($id: ItemId, $locale: SiteLocale = en, $first: IntType = 100) {
-	staffs: allStaffs(
-		first: $first
-		locale: $locale
-		fallbackLocales: [sv, en]
-		filter: { id: { eq: $id } }
-	) {
+	staffs: allStaffs(first: $first, locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...StaffFragment
 	}
 }

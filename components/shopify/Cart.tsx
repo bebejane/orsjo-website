@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import s from './Cart.module.scss';
 import cn from 'classnames';
 import { default as useCart, useShallow } from '@/lib/shopify/hooks/useCart';
@@ -11,24 +11,15 @@ import Link from '@/components/nav/Link';
 import { usePathname } from 'next/navigation';
 import { formatPrice } from '@/lib/shopify/utils';
 import useCountry from '@/lib/shopify/hooks/useCountry';
-import { MdOutlineShoppingBag } from 'react-icons/md';
 import useStore from '@/lib/store';
+import { useClickAway } from 'react-use';
 
 export type CartProps = {
 	localization: LocalizationQuery['localization'];
 };
 
 export default function Cart({ localization }: CartProps) {
-	const [
-		cart,
-		createCart,
-		removeFromCart,
-		updateQuantity,
-		updateBuyerIdentity,
-		updating,
-		updatingId,
-		cartError,
-	] = useCart(
+	const [cart, createCart, removeFromCart, updateQuantity, updateBuyerIdentity, updating, updatingId, cartError] = useCart(
 		useShallow((state) => [
 			state.cart,
 			state.createCart,
@@ -40,20 +31,17 @@ export default function Cart({ localization }: CartProps) {
 			state.error,
 		])
 	);
-
+	const [showCart, setShowCart] = useStore(useShallow((state) => [state.showCart, state.setShowCart]));
 	const country = useCountry();
 	const pathname = usePathname();
-	const [showCart, setShowCart] = useStore(
-		useShallow((state) => [state.showCart, state.setShowCart])
-	);
 	const [error, setError] = useState<string | null>(null);
 	const isEmpty = cart && cart?.lines?.edges?.length > 0 ? false : true;
 	const loading = !cart || updating;
-	const totalItems = cart?.lines.edges.reduce(
-		(total, { node: { quantity } }) => total + quantity,
-		0
-	);
+	const totalItems = cart?.lines.edges.reduce((total, { node: { quantity } }) => total + quantity, 0);
 	const [terms, setTerms] = useState(false);
+	const ref = useRef<HTMLDivElement>(null);
+
+	useClickAway(ref, () => setShowCart(false));
 
 	useEffect(() => {
 		if (!cart) createCart(country);
@@ -71,49 +59,59 @@ export default function Cart({ localization }: CartProps) {
 	useEffect(() => {
 		setShowCart(false);
 	}, [pathname]);
-	useEffect(() => {
-		// Toggle Accessibly App widget button
-		document
-			.getElementById('accessiblyAppWidgetButton')
-			?.style.setProperty('display', showCart ? 'none' : 'block');
-	}, [showCart]);
 
 	if (!showCart) {
 		return null;
 	}
-
+	console.log(cart);
 	return (
-		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)}>
+		<div
+			id='cart'
+			className={cn(s.cart, showCart && s.show, updating && s.updating)}
+			ref={ref}
+		>
 			<header>
 				<h1>Cart</h1>
-				<button aria-label='Close cart' className={s.close} onClick={() => setShowCart(false)}>
-					<img src='/images/close.svg' alt='Close' />
+				<button
+					aria-label='Close cart'
+					className={s.close}
+					onClick={() => setShowCart(false)}
+				>
+					<img
+						src='/images/close.svg'
+						alt='Close'
+					/>
 				</button>
 			</header>
 			{isEmpty ? (
-				<div className={s.empty}>Your cart is empty</div>
+				<div className={s.empty}>{loading ? <Loader /> : 'Your cart is empty'}</div>
 			) : (
 				<>
-					<ul className={cn(s.items, "medium")} aria-label='Cart items'>
+					<ul
+						className={cn(s.items, 'medium')}
+						aria-label='Cart items'
+					>
 						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => (
-							<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
+							<li
+								key={idx}
+								className={cn(updatingId === id && s.updating)}
+								aria-labelledby={id}
+							>
 								<figure className={s.thumb}>
-									<Link
-										href={`/products/${merchandise.product.handle}?variant=${parseGid(merchandise.id)}`}
-									>
-										<img
-											role='icon'
-											src={merchandise.image?.url}
-											alt={merchandise.image?.altText ?? ''}
-										/>
+									<Link href={`/products/${merchandise.product.handle}?variant=${parseGid(merchandise.id)}`}>
+										{merchandise.image?.url && (
+											<img
+												role='icon'
+												src={merchandise.image?.url}
+												alt={merchandise.image?.altText ?? ''}
+											/>
+										)}
 									</Link>
 								</figure>
 
 								<div className={s.details}>
 									<div id={id}>{merchandise.product.title}</div>
-									<div className='medium gray'>
-										{merchandise.selectedOptions.map(({ value }) => value).join(' ')}
-									</div>
+									<div className='medium gray'>{merchandise.metafields.find((item) => item?.key === 'description')?.value}</div>
 									<div aria-label='Quantity'>
 										<button
 											className={s.minus}
@@ -133,11 +131,17 @@ export default function Cart({ localization }: CartProps) {
 								</div>
 
 								<div className={s.amount}>
-									<div className={s.price} aria-label={'Total'}>
-										{formatPrice(cost.subtotalAmount.amount)} {cost.subtotalAmount.currencyCode}
+									<div
+										className={s.price}
+										aria-label={'Total'}
+									>
+										{formatPrice(cost.subtotalAmount)}
 									</div>
 									<div>
-										<button className={cn(s.remove, 'medium')} onClick={() => removeFromCart(id)}>
+										<button
+											className={cn(s.remove, 'medium')}
+											onClick={() => removeFromCart(id)}
+										>
 											Remove
 										</button>
 									</div>
@@ -147,18 +151,28 @@ export default function Cart({ localization }: CartProps) {
 					</ul>
 
 					<div className={s.total}>
-						<div className="medium">Total</div>
-						<div className={s.price}>
-							{formatPrice(cart?.cost.totalAmount.amount)} {cart?.cost.totalAmount.currencyCode}
-						</div>
+						<div className='medium'>Total</div>
+						<div className={s.price}>{formatPrice(cart?.cost.totalAmount as MoneyV2)}</div>
 					</div>
 					<div className={s.currency}>
-						<CountrySelector localization={localization} label='Location' className={s.form} />
+						<CountrySelector
+							localization={localization}
+							label='Location'
+							className={s.form}
+						/>
 					</div>
-					<div className={cn(s.extra, 'medium', "gray")}>Shipping and tax are added at checkout</div>
+					<div className={cn(s.extra, 'medium', 'gray')}>Shipping and tax are added at checkout</div>
 
-					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
-						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
+					<form
+						action={cart?.checkoutUrl.split('?')[0]}
+						method='GET'
+					>
+						<input
+							type='hidden'
+							name='key'
+							id='key'
+							value={cart?.checkoutUrl.split('?key=')[1]}
+						/>
 						<div className={cn(s.check, 'medium')}>
 							<input
 								type='checkbox'
@@ -167,12 +181,15 @@ export default function Cart({ localization }: CartProps) {
 								onChange={(e) => setTerms(e.target.checked)}
 							/>
 							<span>
-								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I
-								have read and understood the{' '}
+								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I have read and understood the{' '}
 								<Link href='/legal/privacy-policy'>privacy policy</Link>.
 							</span>
 						</div>
-						<button disabled={!terms} className={cn(s.checkout, 'full')} type='submit'>
+						<button
+							disabled={!terms}
+							className={cn(s.checkout, 'full')}
+							type='submit'
+						>
 							Checkout & pay
 						</button>
 					</form>

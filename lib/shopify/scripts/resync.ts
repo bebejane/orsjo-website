@@ -1,7 +1,8 @@
 import 'dotenv/config';
-import { resyncAll } from "@/app/(shopify)/api/shopify/sync/utils";
+import { resyncAll, sync } from "../sync";
 
 (async () => {
+
   console.time('resync')
   console.log('resyncing...')
   await resyncAll()

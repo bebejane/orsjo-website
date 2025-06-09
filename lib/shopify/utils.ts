@@ -18,8 +18,11 @@ export const shopifyGraphqlError = (errors: CustomerUserError[]): string | undef
 
 export const itemTypeId = async (type: string) => (await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string
 
-export const formatPrice = (amount: number) => {
-  return !amount ? '' : (Math.round(amount * 100) / 100).toFixed(0);
+export const formatPrice = (price: MoneyV2) => {
+
+  return `${new Intl.NumberFormat("sv-SE", { style: "decimal", currency: price.currencyCode }).format(
+    price.amount,
+  )} ${price.currencyCode}`
 }
 
 export const cartCookieOptions = {

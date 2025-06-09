@@ -17,9 +17,8 @@ export default function ImageGallery({ data: { gallery }, onClick }: ImageGaller
 				>
 					{image.responsiveImage && (
 						<Image
-							className={s.image}
+							imgClassName={s.image}
 							data={image.responsiveImage}
-							layout='fill'
 							objectFit='cover'
 							intersectionMargin={`0px 0px 2000px 0px`}
 						/>

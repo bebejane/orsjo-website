@@ -12,8 +12,8 @@ export type Props = {
 export default function Price({ slug, variantId }: Props) {
 	const { product: shopifyProduct } = useProduct({ handle: slug });
 	const variant =
-		(shopifyProduct?.variants.edges.find(({ node }) => parseGid(node.id) === variantId)
-			?.node as ProductVariant) ?? (shopifyProduct?.variants.edges[0].node as ProductVariant);
+		(shopifyProduct?.variants.edges.find(({ node }) => parseGid(node.id) === variantId)?.node as ProductVariant) ??
+		(shopifyProduct?.variants.edges[0]?.node as ProductVariant);
 	if (!variant) return null;
 	return (
 		<>

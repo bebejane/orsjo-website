@@ -19,17 +19,15 @@ export type ProductListProps = {
 export default function ProductList({ productCategories, products }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), []);
-	productCategories.forEach(({ name, namePlural }) => {
-		productsByCategory[name as string] = {
+	productCategories.forEach(({ id, name, namePlural }) => {
+		productsByCategory[id] = {
 			name,
 			namePlural,
 			products: products.filter(({ categories }) => categories?.find((c) => c.name === name)),
 		};
 	});
 
-	const [productsByCategorySearch, setProductsByCategorySearch] = useState<
-		{ [index: string]: ProductsByCategory } | undefined
-	>();
+	const [productsByCategorySearch, setProductsByCategorySearch] = useState<{ [index: string]: ProductsByCategory } | undefined>();
 
 	useEffect(() => {
 		if (!searchProducts) return setProductsByCategorySearch(undefined);
@@ -39,12 +37,9 @@ export default function ProductList({ productCategories, products }: ProductList
 		Object.keys(productsByCategory).forEach((k) => {
 			const prods = products
 				.filter(({ categories }) => categories?.some((c) => c.name === k))
-				.filter(
-					({ title, designer }) =>
-						searchString(searchProducts, title) ||
-						searchString(searchProducts, designer?.name ?? '')
-				);
+				.filter(({ title, designer }) => searchString(searchProducts, title) || searchString(searchProducts, designer?.name ?? ''));
 			const category = productCategories.find((c) => c.name === k);
+
 			if (prods.length)
 				searchCategories[k] = {
 					products: prods,
@@ -65,12 +60,14 @@ export default function ProductList({ productCategories, products }: ProductList
 		});
 	}, [searchProducts]);
 
-	const isEmptySearch =
-		productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0;
+	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0;
 
 	if (isEmptySearch) {
 		return (
-			<Section className={s.products} top={true}>
+			<Section
+				className={s.products}
+				top={true}
+			>
 				<div className={s.emptySearch}>No products matching &quot;{searchProducts}&quot;...</div>
 			</Section>
 		);
@@ -94,7 +91,10 @@ export default function ProductList({ productCategories, products }: ProductList
 							<ul>
 								{products?.map((product, idx) => (
 									<li key={idx}>
-										<ProductThumbnail product={product} theme='light' />
+										<ProductThumbnail
+											product={product}
+											theme='light'
+										/>
 									</li>
 								))}
 							</ul>
