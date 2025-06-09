@@ -9,7 +9,8 @@
 	margin-left: var(--outer-margin);
 	margin-bottom: var(--outer-margin);
 	z-index: var(--z-shop);
-	background-color: var(--white);
+	background-color: var(--white-real);
+	padding: 0.5rem;
 
 	header {
 		display: flex;
@@ -127,7 +128,7 @@
 			display: flex;
 			justify-content: flex-end;
 
-			input[type='checkbox'] {
+			input[type="checkbox"] {
 				cursor: pointer;
 				&:checked {
 					background-color: var(--black);
@@ -148,6 +149,7 @@
 			}
 		}
 	}
-	button[type='submit'] {
+	button[type="submit"] {
+		width: 100%;
 	}
 }
