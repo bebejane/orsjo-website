@@ -10,20 +10,14 @@ query AllShowrooms {
 	}
 }
 
-query Distributor($id: ItemId, $locale: SiteLocale = sv) {
+query Distributor($id: ItemId, $locale: SiteLocale = en) {
 	distributor(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...DistributorFragment
 	}
 }
 
-query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = sv) {
-	distributors: allDistributors(
-		first: $first
-		skip: $skip
-		orderBy: [name_ASC]
-		locale: $locale
-		fallbackLocales: [sv, en]
-	) {
+query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+	distributors: allDistributors(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...DistributorFragment
 	}
 }
@@ -42,37 +36,26 @@ fragment DistributorFragment on DistributorRecord {
 	url
 }
 
-query Reseller($id: ItemId, $locale: SiteLocale = sv) {
+query Reseller($id: ItemId, $locale: SiteLocale = en) {
 	reseller(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...ResellerFragment
 	}
 }
 
-query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = sv) {
-	resellers: allResellers(
-		first: $first
-		skip: $skip
-		orderBy: [name_ASC]
-		locale: $locale
-		fallbackLocales: [sv, en]
-	) {
+query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+	resellers: allResellers(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...ResellerFragment
 	}
 }
 
-query Staff($id: ItemId, $locale: SiteLocale = sv) {
+query Staff($id: ItemId, $locale: SiteLocale = en) {
 	staff(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...StaffFragment
 	}
 }
 
-query AllStaffs($id: ItemId, $locale: SiteLocale = sv, $first: IntType = 100) {
-	staffs: allStaffs(
-		first: $first
-		locale: $locale
-		fallbackLocales: [sv, en]
-		filter: { id: { eq: $id } }
-	) {
+query AllStaffs($id: ItemId, $locale: SiteLocale = en, $first: IntType = 100) {
+	staffs: allStaffs(first: $first, locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...StaffFragment
 	}
 }

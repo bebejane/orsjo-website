@@ -21,8 +21,8 @@ export default function ProductList({ productCategories, products }: ProductList
 	console.log(productCategories);
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), []);
-	productCategories.forEach(({ name, namePlural }) => {
-		productsByCategory[name as string] = {
+	productCategories.forEach(({ id, name, namePlural }) => {
+		productsByCategory[id] = {
 			name,
 			namePlural,
 			products: products.filter(({ categories }) => categories?.find((c) => c.name === name)),
