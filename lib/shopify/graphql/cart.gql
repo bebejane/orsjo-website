@@ -4,8 +4,7 @@ query Cart($country: CountryCode = SE, $id: ID!) @inContext(country: $country) {
 	}
 }
 
-mutation CreateCart($country: CountryCode = SE, $cartInput: CartInput)
-@inContext(country: $country) {
+mutation CreateCart($country: CountryCode = SE, $cartInput: CartInput) @inContext(country: $country) {
 	cartCreate(input: $cartInput) {
 		cart {
 			...CartFragment
@@ -27,8 +26,7 @@ mutation CartBuyerIdentityUpdate($cartId: ID!, $buyerIdentity: CartBuyerIdentity
 	}
 }
 
-mutation AddItemToCart($country: CountryCode = SE, $cartId: ID!, $lines: [CartLineInput!]!)
-@inContext(country: $country) {
+mutation AddItemToCart($country: CountryCode = SE, $cartId: ID!, $lines: [CartLineInput!]!) @inContext(country: $country) {
 	cartLinesAdd(cartId: $cartId, lines: $lines) {
 		cart {
 			...CartFragment
@@ -50,11 +48,7 @@ mutation RemoveItemFromCart($cartId: ID!, $lineIds: [ID!]!) {
 	}
 }
 
-mutation UpdateItemFromCart(
-	$country: CountryCode = SE
-	$cartId: ID!
-	$lines: [CartLineUpdateInput!]!
-) @inContext(country: $country) {
+mutation UpdateItemFromCart($country: CountryCode = SE, $cartId: ID!, $lines: [CartLineUpdateInput!]!) @inContext(country: $country) {
 	cartLinesUpdate(cartId: $cartId, lines: $lines) {
 		cart {
 			...CartFragment
@@ -132,6 +126,12 @@ fragment CartFragment on Cart {
 							name
 							value
 						}
+						metafields(identifiers: [{ key: "description", namespace: "variant" }]) {
+							id
+							key
+							value
+						}
+						title
 					}
 				}
 			}

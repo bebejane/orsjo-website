@@ -1,14 +1,6 @@
 'use client';
 
-import {
-	Button,
-	ListBox,
-	ListBoxItem,
-	Popover,
-	Select,
-	SelectValue,
-	Key,
-} from 'react-aria-components';
+import { Button, ListBox, ListBoxItem, Popover, Select, SelectValue, Key } from 'react-aria-components';
 import s from './CountrySelector.module.scss';
 import cn from 'classnames';
 import { usePathname, useRouter } from 'next/navigation';
@@ -24,12 +16,7 @@ export type Props = {
 	currency?: boolean;
 };
 
-export default function CountrySelector({
-	className,
-	label,
-	modal = false,
-	localization: { availableCountries },
-}: Props) {
+export default function CountrySelector({ className, label, modal = false, localization: { availableCountries } }: Props) {
 	const pathname = usePathname();
 	const router = useRouter();
 	const country = useCountry();
@@ -69,19 +56,37 @@ export default function CountrySelector({
 			ref={formRef}
 			aria-label={'Select country'}
 		>
-			<Select className={cn("small", s.select)} onSelectionChange={handleChange} defaultOpen={false}>
-				<Button className={s.button} ref={buttonRef}>
-					<SelectValue className={s.value} key={country}>
-						{selectedCountry?.name}
+			<Select
+				className={cn('small', s.select)}
+				onSelectionChange={handleChange}
+				defaultOpen={false}
+			>
+				<Button
+					className={s.button}
+					ref={buttonRef}
+				>
+					<SelectValue
+						className={s.value}
+						key={country}
+					>
+						{selectedCountry?.name} ({selectedCountry?.currency.isoCode})
 					</SelectValue>
-					<span aria-hidden='true' className={cn(s.arrow, 'symbol')}>
+					<span
+						aria-hidden='true'
+						className={cn(s.arrow, 'symbol')}
+					>
 						{!selectOpen ? '›' : '›'}
 					</span>
 				</Button>
-				<Popover placement='top left' className={s.popover} maxHeight={200} ref={popupRef}>
+				<Popover
+					placement='top left'
+					className={s.popover}
+					maxHeight={200}
+					ref={popupRef}
+				>
 					<ListBox
 						selectionMode={'single'}
-						className={cn("small", s.options)}
+						className={cn('small', s.options)}
 						style={{ width: selectWidth }}
 						items={availableCountries.map(({ isoCode, name, currency }) => ({
 							id: isoCode,

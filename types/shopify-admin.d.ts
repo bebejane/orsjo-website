@@ -61940,12 +61940,12 @@ type RemoveProductMutationVariables = Exact<{
 
 type RemoveProductMutation = { __typename?: 'Mutation', productDelete?: { __typename?: 'ProductDeletePayload', deletedProductId?: string | null, userErrors: Array<{ __typename: 'UserError', field?: Array<string> | null, message: string }> } | null };
 
-type AllShopifyAdminProductsQueryVariables = Exact<{
+type AllAdminProductsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-type AllShopifyAdminProductsQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', node: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }> } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } } };
+type AllAdminProductsQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', node: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }> } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } } };
 
 type ProductMediaDeleteMutationVariables = Exact<{
   productId: Scalars['ID']['input'];
@@ -61955,19 +61955,19 @@ type ProductMediaDeleteMutationVariables = Exact<{
 
 type ProductMediaDeleteMutation = { __typename?: 'Mutation', productDeleteMedia?: { __typename?: 'ProductDeleteMediaPayload', deletedMediaIds?: Array<string> | null, mediaUserErrors: Array<{ __typename?: 'MediaUserError', code?: MediaUserErrorCode | null, field?: Array<string> | null, message: string }> } | null };
 
-type ShopifyAdminProductQueryVariables = Exact<{
+type AdminProductQueryVariables = Exact<{
   handle: Scalars['String']['input'];
 }>;
 
 
-type ShopifyAdminProductQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null };
+type AdminProductQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null };
 
-type ShopifyAdminProductMediaStatusQueryVariables = Exact<{
+type AdminProductMediaStatusQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-type ShopifyAdminProductMediaStatusQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', media: { __typename?: 'MediaConnection', edges: Array<{ __typename?: 'MediaEdge', node: { __typename?: 'ExternalVideo', id: string, status: MediaStatus } | { __typename?: 'MediaImage', id: string, status: MediaStatus } | { __typename?: 'Model3d', id: string, status: MediaStatus } | { __typename?: 'Video', id: string, status: MediaStatus } }> } } | null };
+type AdminProductMediaStatusQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', media: { __typename?: 'MediaConnection', edges: Array<{ __typename?: 'MediaEdge', node: { __typename?: 'ExternalVideo', id: string, status: MediaStatus } | { __typename?: 'MediaImage', id: string, status: MediaStatus } | { __typename?: 'Model3d', id: string, status: MediaStatus } | { __typename?: 'Video', id: string, status: MediaStatus } }> } } | null };
 
 type ProductLightFragment = { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }> };
 

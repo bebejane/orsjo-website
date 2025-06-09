@@ -140,6 +140,7 @@
 	}
 
 	.close {
+		all: unset;
 		position: absolute;
 		display: flex;
 		align-items: center;
@@ -149,19 +150,14 @@
 		font-size: 1.3rem;
 		line-height: 0;
 		border: 0;
+		cursor: pointer;
 
-		svg {
+		img {
 			width: 16px;
 			height: 16px;
 
-			path {
-				fill: var(--black);
-				stroke: var(--black);
-
-				@include mixin.mq($until: tablet) {
-					fill: var(--white);
-					stroke: var(--black);
-				}
+			@include mixin.mq($until: tablet) {
+				filter: invert(1);
 			}
 		}
 

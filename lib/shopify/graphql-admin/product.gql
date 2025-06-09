@@ -118,7 +118,7 @@ mutation RemoveProduct($id: ID!) {
 	}
 }
 
-query AllShopifyAdminProducts($first: Int = 250) {
+query AllAdminProducts($first: Int = 250) {
 	products(first: $first) {
 		edges {
 			node {
@@ -142,13 +142,13 @@ mutation ProductMediaDelete($productId: ID!, $mediaIds: [ID!]!) {
 	}
 }
 
-query ShopifyAdminProduct($handle: String!) {
+query AdminProduct($handle: String!) {
 	product: productByHandle(handle: $handle) {
 		...ProductFragment
 	}
 }
 
-query ShopifyAdminProductMediaStatus($id: ID!) {
+query AdminProductMediaStatus($id: ID!) {
 	product(id: $id) {
 		media(first: 10) {
 			edges {

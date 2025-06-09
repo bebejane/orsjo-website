@@ -12,13 +12,13 @@ import {
 import {
 	AddProductDocument,
 	UpdateProductDocument,
-	ShopifyAdminProductMediaStatusDocument,
-	ShopifyAdminProductDocument,
+	AdminProductMediaStatusDocument,
+	AdminProductDocument,
 	ProductVariantsBulkCreateDocument,
 	ProductVariantsBulkUpdateDocument,
 	ProductMediaDeleteDocument,
 	ProductVariantsBulkDeleteDocument,
-	AllShopifyAdminProductsDocument,
+	AllAdminProductsDocument,
 	RemoveProductDocument,
 	FilesDocument,
 	FileDeleteDocument,
@@ -66,13 +66,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				if (!product) throw new Error('Invalid product: ' + itemId);
 
-				const { product: shopifyProduct } = await shopifyQuery<ShopifyAdminProductQuery, ShopifyAdminProductQueryVariables>(
-					ShopifyAdminProductDocument,
-					{
-						admin: true,
-						variables: { handle: product.slug },
-					}
-				);
+				const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
+					admin: true,
+					variables: { handle: product.slug },
+				});
 
 				const productMedia: CreateMediaInput[] = [];
 
@@ -82,6 +79,8 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							const shopifyVariant = shopifyProduct?.variants.edges.find((v) => v.node.sku === variant.articleNo)?.node;
 							const id = shopifyVariant?.id ?? undefined;
 							const mediaSrc = variant.image?.url ? [variant.image?.url] : product.image.url ? [product.image.url] : null;
+							const articleNo = variant.articleNo?.trim();
+							const description = [variant.color?.name, variant.material?.name].filter(Boolean).join(', ');
 
 							acc.push({
 								id,
@@ -89,12 +88,26 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 								price: variant.price,
 								inventoryItem: {
 									cost: variant.price,
-									sku: variant.articleNo?.trim(),
+									sku: articleNo,
 									tracked: false,
 								},
+								metafields: [
+									{
+										key: 'articleNo',
+										value: articleNo,
+										type: 'string',
+										namespace: 'variant',
+									},
+									{
+										key: 'description',
+										value: description,
+										type: 'string',
+										namespace: 'variant',
+									},
+								],
 								optionValues: [
 									{
-										name: variant.articleNo?.trim(),
+										name: articleNo,
 										optionName: 'Title',
 									},
 								],
@@ -138,13 +151,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				if (!productAccessory) throw new Error('Invalid product accessory: ' + itemId);
 
-				const { product: shopifyAccessory } = await shopifyQuery<ShopifyAdminProductQuery, ShopifyAdminProductQueryVariables>(
-					ShopifyAdminProductDocument,
-					{
-						admin: true,
-						variables: { handle: productAccessory.slug ?? '' },
-					}
-				);
+				const { product: shopifyAccessory } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
+					admin: true,
+					variables: { handle: productAccessory.slug ?? '' },
+				});
 
 				const accessoryData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyAccessory?.id,
@@ -173,6 +183,20 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							sku: productAccessory?.articleNo?.trim(),
 							tracked: false,
 						},
+						metafields: [
+							{
+								key: 'articleNo',
+								value: productAccessory.articleNo?.trim(),
+								type: 'string',
+								namespace: 'variant',
+							},
+							{
+								key: 'description',
+								value: productAccessory.name,
+								type: 'string',
+								namespace: 'variant',
+							},
+						],
 						optionValues: [
 							{
 								optionName: 'Title',
@@ -181,6 +205,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						],
 					},
 				];
+
+				syncResult.handle = accessoryData.handle as string;
+				syncResult.id = accessoryData.id as string;
+
 				await updateProduct({ product: accessoryData }, accessoryVariants, accessoryVariantsMedia);
 				break;
 			case 'product_lightsource':
@@ -192,13 +220,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				if (!productLightsource) throw new Error(`Invalid product: ${itemId}`);
 
-				const { product: shopifyLightsource } = await shopifyQuery<ShopifyAdminProductQuery, ShopifyAdminProductQueryVariables>(
-					ShopifyAdminProductDocument,
-					{
-						admin: true,
-						variables: { handle: productLightsource.slug ?? '' },
-					}
-				);
+				const { product: shopifyLightsource } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
+					admin: true,
+					variables: { handle: productLightsource.slug ?? '' },
+				});
 
 				const lightsourceData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyLightsource?.id,
@@ -227,6 +252,20 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							sku: productLightsource?.articleNo?.trim(),
 							tracked: false,
 						},
+						metafields: [
+							{
+								key: 'articleNo',
+								value: productLightsource.articleNo?.trim(),
+								type: 'string',
+								namespace: 'variant',
+							},
+							{
+								key: 'description',
+								value: productLightsource.name,
+								type: 'string',
+								namespace: 'variant',
+							},
+						],
 						optionValues: [
 							{
 								optionName: 'Title',
@@ -235,6 +274,9 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						],
 					},
 				];
+
+				syncResult.handle = lightsourceData.handle as string;
+				syncResult.id = lightsourceData.id as string;
 
 				await updateProduct({ product: lightsourceData, media: lightsourceMedia }, lightsourceVariants, lightsourceMedia);
 				break;
@@ -275,13 +317,10 @@ export async function updateProduct(
 		} else {
 			console.log('updating product:', data.product.handle);
 
-			const { product: shopifyProduct } = await shopifyQuery<ShopifyAdminProductQuery, ShopifyAdminProductQueryVariables>(
-				ShopifyAdminProductDocument,
-				{
-					admin: true,
-					variables: { handle: data.product.handle ?? '' },
-				}
-			);
+			const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
+				admin: true,
+				variables: { handle: data.product.handle ?? '' },
+			});
 
 			if (!shopifyProduct) throw new Error('Invalid shopify product: ' + data.product.handle);
 
@@ -354,9 +393,6 @@ export async function updateProduct(
 			console.log('new variants:', newVariants.length, newVariantsMedia.length);
 			console.log('update variants:', updatedVariants.length, updatedVariantsMedia.length);
 
-			console.log('new variants media:', newVariantsMedia);
-			console.log('update variants media:', updatedVariantsMedia);
-
 			const [{ productVariantsBulkCreate }, { productVariantsBulkUpdate }] = await Promise.all([
 				shopifyQuery<ProductVariantsBulkCreateMutation, ProductVariantsBulkCreateMutationVariables>(ProductVariantsBulkCreateDocument, {
 					admin: true,
@@ -423,12 +459,9 @@ export async function updateProduct(
 export const resetAll = async () => {
 	console.log('reseting all...');
 	//throw new Error('Not implemented');
-	const { products } = await shopifyQuery<AllShopifyAdminProductsQuery, AllShopifyAdminProductsQueryVariables>(
-		AllShopifyAdminProductsDocument,
-		{
-			admin: true,
-		}
-	);
+	const { products } = await shopifyQuery<AllAdminProductsQuery, AllAdminProductsQueryVariables>(AllAdminProductsDocument, {
+		admin: true,
+	});
 
 	console.log('deleting all products:', products?.edges.length);
 
@@ -519,8 +552,8 @@ export const resyncAll = async () => {
 
 export const waitForMedia = async (productId: string) => {
 	async function check() {
-		const { product } = await shopifyQuery<ShopifyAdminProductMediaStatusQuery, ShopifyAdminProductMediaStatusQueryVariables>(
-			ShopifyAdminProductMediaStatusDocument,
+		const { product } = await shopifyQuery<AdminProductMediaStatusQuery, AdminProductMediaStatusQueryVariables>(
+			AdminProductMediaStatusDocument,
 			{
 				admin: true,
 				variables: {
