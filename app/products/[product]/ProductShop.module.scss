@@ -3,10 +3,11 @@
 	display: flex;
 	flex-direction: column;
 	left: 0;
-	bottom: var(--outer-margin);
+	bottom: 0;
 	min-width: calc(mixin.spanGrid(4) - var(--outer-margin));
 	max-width: calc(mixin.spanGrid(4) - var(--outer-margin));
 	margin-left: var(--outer-margin);
+	margin-bottom: var(--outer-margin);
 	z-index: var(--z-shop);
 	background-color: var(--white);
 
@@ -37,7 +38,7 @@
 	}
 
 	.models {
-		height: 30vh;
+		height: 25vh;
 		width: 100%;
 		overflow-y: scroll;
 		border: 1px solid var(--gray);
@@ -56,10 +57,11 @@
 			}
 		}
 	}
+
 	.form {
 		width: 100%;
 		flex: 1 1 auto;
-		height: 30vh;
+		height: 25vh;
 
 		> ul {
 			height: 100%;
@@ -147,6 +149,5 @@
 		}
 	}
 	button[type='submit'] {
-		width: 100%;
 	}
 }

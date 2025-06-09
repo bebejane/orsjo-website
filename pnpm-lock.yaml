@@ -210,6 +210,9 @@ importers:
       eslint-config-next:
         specifier: 15.3.1
         version: 15.3.1(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
+      next-plugin-devtools-json:
+        specifier: ^3.1.5
+        version: 3.1.5(next@15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))
 
 packages:
 
@@ -5197,6 +5200,12 @@ packages:
       react-dom: '>=18.2.0'
       sass: '>=1.69.0'
       zod: '>=3.22.0'
+
+  next-plugin-devtools-json@3.1.5:
+    resolution: {integrity: sha512-doW+oLdlVU4wLUQzuSr7QUoBCnkxddHSdvHgp6UnfwqnFR2a9wJLNKRGm452g/+e8D1K2UacFJH3q4N0vx6ckQ==}
+    hasBin: true
+    peerDependencies:
+      next: '>=12.0.0'
 
   next-view-transitions@0.3.4:
     resolution: {integrity: sha512-SSiskenQ8JkEFGzPjvFwC5LGGoqgTxM5dxexkeugxvcXFLpWI2ZUh4IsCURD3ovW+8Ue7xXlrtrpy8b7XR7IwQ==}
@@ -13199,6 +13208,10 @@ snapshots:
       - '@types/node'
       - supports-color
       - typescript
+
+  next-plugin-devtools-json@3.1.5(next@15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)):
+    dependencies:
+      next: 15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)
 
   next-view-transitions@0.3.4(next@15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:

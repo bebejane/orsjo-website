@@ -1,11 +1,6 @@
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import {
-	ProjectDocument,
-	AllProjectsDocument,
-	AllRelatedProjectsDocument,
-	BespokeThumbnailDocument,
-} from '@/graphql';
+import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, BespokeThumbnailDocument } from '@/graphql';
 import { Section, FeaturedGallery } from '@/components';
 import ProjectHeader from './ProjectHeader';
 import { notFound } from 'next/navigation';
@@ -31,25 +26,19 @@ export default async function Project({ params }: ProjectProps) {
 
 	const [{ bespokeThumbnail }, { allProjects: allRelatedProjects }] = await Promise.all([
 		apiQuery<BespokeThumbnailQuery, BespokeThumbnailQueryVariables>(BespokeThumbnailDocument),
-		apiQuery<AllRelatedProjectsQuery, AllRelatedProjectsQueryVariables>(
-			AllRelatedProjectsDocument,
-			{
-				variables: { projectType: project.projectType.id },
-			}
-		),
+		apiQuery<AllRelatedProjectsQuery, AllRelatedProjectsQueryVariables>(AllRelatedProjectsDocument, {
+			variables: { projectType: project.projectType.id },
+		}),
 	]);
 
-	const relatedProjects = allRelatedProjects
-		.filter((p) => p.id !== project.id)
-		.sort((a, b) => (Math.random() > 0.5 ? 1 : -1));
+	const relatedProjects = allRelatedProjects.filter((p) => p.id !== project.id).sort((a, b) => (Math.random() > 0.5 ? 1 : -1));
 
 	const isOtherProject = project.projectType?.title.toLowerCase() === 'other';
-	const relatedHeadline = !isOtherProject
-		? `Other ${project.projectType.titlePlural.toLowerCase()}`
-		: 'Related projects';
+	const relatedHeadline = !isOtherProject ? `Other ${project.projectType.titlePlural.toLowerCase()}` : 'Related projects';
 
 	// Add bespoke link to related products if project is bespoke.
 	const bespokeProduct = {
+		__typename: 'ProductRecord',
 		title: 'Bespoke',
 		image: bespokeThumbnail?.thumbnail,
 		environmentImage: bespokeThumbnail?.secondaryThumbnail,
@@ -63,11 +52,19 @@ export default async function Project({ params }: ProjectProps) {
 
 	return (
 		<>
-			<ProjectHeader project={project} bespokeThumbnail={bespokeThumbnail} />
+			<ProjectHeader
+				project={project}
+				bespokeThumbnail={bespokeThumbnail}
+			/>
 			<ProjectGallery project={project} />
 			<Section bottom={true} />
 			{(relatedProducts.length > 0 || relatedProjects.length > 0) && (
-				<Section className={s.related} name={'Related'} bgColor={'--mid-gray'} fadeColor={'--gray'}>
+				<Section
+					className={s.related}
+					name={'Related'}
+					bgColor={'--mid-gray'}
+					fadeColor={'--gray'}
+				>
 					{relatedProducts.length > 0 && (
 						<div className={s.gallery}>
 							<FeaturedGallery
@@ -97,10 +94,7 @@ export default async function Project({ params }: ProjectProps) {
 }
 
 export async function generateStaticParams() {
-	const { allProjects } = await apiQuery<AllProjectsQuery, AllProjectsQueryVariables>(
-		AllProjectsDocument,
-		{ all: true }
-	);
+	const { allProjects } = await apiQuery<AllProjectsQuery, AllProjectsQueryVariables>(AllProjectsDocument, { all: true });
 	const paths = allProjects.map(({ slug }) => ({ project: slug }));
 	return paths;
 }

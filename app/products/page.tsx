@@ -1,10 +1,6 @@
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import {
-	ProductStartDocument,
-	AllProductsLightDocument,
-	ProductCategoriesDocument,
-} from '@/graphql';
+import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocument } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import ProductList from './ProductList';
 import { Metadata } from 'next';
@@ -48,7 +44,10 @@ export default async function Products() {
 					/>
 				</Section>
 			))}
-			<ProductList productCategories={productCategories} products={allProducts} />
+			<ProductList
+				productCategories={productCategories}
+				products={allProducts}
+			/>
 		</>
 	);
 }

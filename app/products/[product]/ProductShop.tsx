@@ -59,6 +59,11 @@ export default function ProductShop({ product, shopify }: Props) {
 		updateTotalPrice();
 	}
 
+	function handleAddonClick(e: React.MouseEvent<HTMLLIElement>) {
+		if ((e.target as HTMLElement).tagName === 'INPUT') e.stopPropagation();
+		else e.currentTarget.querySelector<HTMLInputElement>('input[type=checkbox]')?.click();
+	}
+
 	function handleSubmit(e: any) {
 		e.preventDefault();
 		if (!selectedShopifyVariant) return;
@@ -158,7 +163,10 @@ export default function ProductShop({ product, shopify }: Props) {
 							const image = shopifyAccessory?.variants.edges[0]?.node?.image;
 
 							return (
-								<li key={id}>
+								<li
+									key={id}
+									onClick={handleAddonClick}
+								>
 									<div className={s.row}>
 										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
@@ -185,7 +193,10 @@ export default function ProductShop({ product, shopify }: Props) {
 							const image = shopifyLightsource?.variants.edges[0]?.node?.image;
 
 							return (
-								<li key={id}>
+								<li
+									key={id}
+									onClick={handleAddonClick}
+								>
 									<div className={s.row}>
 										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
