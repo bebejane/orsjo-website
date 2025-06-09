@@ -8,6 +8,7 @@ import { formatPrice } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
 import useStore from '@/lib/store';
+import { useScrollInfo } from 'next-dato-utils/hooks';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -18,6 +19,7 @@ export default function ProductShop({ product, shopify }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
+	const [hide, setHide] = useState(true);
 	const [open, setOpen] = useState(false);
 	const [showAddons, setShowAddons] = useState(false);
 	const [showAccessories, setShowAccessories] = useState(false);
@@ -25,6 +27,8 @@ export default function ProductShop({ product, shopify }: Props) {
 	const [addons, setAddons] = useState<any[]>([]);
 	const [totalPrice, setTotalPrice] = useState<MoneyV2>({ amount: 0, currencyCode: 'SEK' as CurrencyCode });
 	const { width, height } = useWindowSize();
+	const { scrolledPosition, viewportHeight } = useScrollInfo();
+	const ref = useRef<HTMLDivElement>(null);
 	const formRef = useRef<HTMLFormElement>(null);
 	const selectedModel = product?.models.find(({ variants }) => variants.find((v) => v.id === selected?.id));
 	const selectedShopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku && v.node.sku === selected?.articleNo.trim())?.node;
@@ -41,6 +45,16 @@ export default function ProductShop({ product, shopify }: Props) {
 	useEffect(() => {
 		updateTotalPrice();
 	}, [addons]);
+
+	useEffect(() => {
+		const section = Array.from(document.querySelectorAll<HTMLElement>(`section`))?.at(-1);
+		console.log(section);
+		if (section) {
+			const top = section.offsetTop;
+			setHide(scrolledPosition + viewportHeight > top || scrolledPosition === 0);
+			//setHide(scrolledPosition + viewportHeight > top);
+		}
+	}, [scrolledPosition]);
 
 	function resetAll() {
 		setOpen(false);
@@ -95,54 +109,69 @@ export default function ProductShop({ product, shopify }: Props) {
 	return (
 		<>
 			<div
-				className={s.shop}
+				ref={ref}
+				className={cn(s.shop, hide && s.hide)}
 				onMouseEnter={() => setShowAccessories(true)}
 				onMouseLeave={() => !showAddons && setShowAccessories(false)}
 			>
 				<header>
 					<h3>Shop</h3>
-					<span className={s.price}>{formatPrice(totalPrice as MoneyV2)}</span>
+					<span
+						key={totalPrice.amount}
+						className={s.price}
+					>
+						{formatPrice(totalPrice as MoneyV2)}
+					</span>
 				</header>
 				<div className={cn(s.models, 'noscrollbar', open && open && s.open)}>
-					{product.models.map(({ id, name, variants }) => (
-						<div
-							className={s.model}
-							key={id}
-						>
-							<ul className={cn(s.variants)}>
-								{variants.map((variant) => {
-									const { id, articleNo, color, material, weight, feature, image, price } = variant;
-									const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku === articleNo?.trim())?.node;
+					{product.models
+						//.filter((m) => m.variants.length > 0 && selectedModel && m.id !== selectedModel.id)
+						.map(({ id, name, variants }) => (
+							<div
+								className={s.model}
+								key={id}
+							>
+								<ul className={cn(s.variants)}>
+									{variants.map((variant) => {
+										const { id, articleNo, color, material, weight, feature, image, price } = variant;
+										const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku === articleNo?.trim())?.node;
 
-									return (
-										<li
-											className={cn(selected?.id === id && s.selected)}
-											key={id}
-											id={`variant-${id}`}
-											onClick={() => setSelected(variant)}
-										>
-											<div className={s.row}>
-												<div className={s.thumb}>{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}</div>
-												<span className={s.name}>
-													<strong>{name?.name}</strong>
-													&nbsp;
-													{[color?.name, material?.name].filter(Boolean).join(', ')}
-												</span>
-												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
-											</div>
-										</li>
-									);
-								})}
-							</ul>
-						</div>
-					))}
+										return (
+											<li
+												className={cn(selected?.id === id && s.selected)}
+												key={id}
+												id={`variant-${id}`}
+												title={`${name?.name ?? ''} ${[color?.name, material?.name].filter(Boolean).join(', ')}`}
+												onClick={() => {
+													setSelected(variant);
+													if (variant.id === selected?.id) setOpen(false);
+												}}
+											>
+												<div className={s.row}>
+													<div className={s.thumb}>{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}</div>
+													<span className={s.name}>
+														<strong>{name?.name}</strong>
+														&nbsp;
+														{[color?.name, material?.name].filter(Boolean).join(', ')}
+													</span>
+													<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
+												</div>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
+						))}
 				</div>
 
 				<div
 					className={cn(s.variant, open && s.top, showAddons && s.bottom)}
 					onClick={() => setOpen(!open)}
 				>
-					<div className={cn(s.row)}>
+					<div
+						className={cn(s.row, s.selected)}
+						title={`${selectedModel?.name?.name ?? ''} ${[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}`}
+					>
 						<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
 						<span className={s.name}>
 							<strong>{selectedModel?.name?.name}</strong>
@@ -178,9 +207,9 @@ export default function ProductShop({ product, shopify }: Props) {
 									key={id}
 									data-variant={variantId}
 									onClick={handleAddonClick}
+									title={accessory?.name ?? undefined}
 								>
 									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
-										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
 											<strong>{accessory?.name}</strong>
 										</span>
@@ -195,19 +224,21 @@ export default function ProductShop({ product, shopify }: Props) {
 							const price = shopifyLightsource?.variants.edges[0]?.node?.price;
 							const variantId = shopifyLightsource?.variants.edges[0]?.node?.id;
 							const image = shopifyLightsource?.variants.edges[0]?.node?.image;
+							const title = `${lightsource?.name ?? ''} (${amount})`;
 
 							return (
 								<li
 									key={id}
+									className={cn(included && s.inactive)}
 									data-variant={variantId}
 									onClick={handleAddonClick}
+									title={title}
 								>
 									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
-										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
-											<strong>{lightsource?.name}</strong>
+											<strong>{title}</strong>
 										</span>
-										<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
+										<span className={s.price}>{!included ? formatPrice(price as MoneyV2) : 'Included'}</span>
 									</div>
 								</li>
 							);
@@ -217,11 +248,11 @@ export default function ProductShop({ product, shopify }: Props) {
 				<div className={s.buttons}>
 					<button
 						type='button'
-						className={cn(s.toggle, !showAccessories && s.hide)}
-						disabled={!haveAvailableAddons || addons.length > 0}
+						className={cn(s.toggle, !showAccessories && !open && s.hide)}
+						disabled={!haveAvailableAddons}
 						onClick={() => setShowAddons(!showAddons)}
 					>
-						Add accessories {!showAddons ? '+' : '-'}
+						Accessories {!showAddons ? '+' : '-'}
 					</button>
 					<button
 						type='submit'

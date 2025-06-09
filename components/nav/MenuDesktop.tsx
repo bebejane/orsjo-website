@@ -13,6 +13,7 @@ import { waitForElement } from '@/lib/utils';
 import { Logo } from '@/components';
 import { usePathname } from 'next/navigation';
 import { MdOutlineShoppingBag } from 'react-icons/md';
+import useCart from '@/lib/shopify/hooks/useCart';
 
 export type MenuDesktopProps = {
 	items: Menu;
@@ -55,6 +56,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 	const { layout, menu, color } = usePage();
 	const { innerWidth } = useWindowSize();
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo();
+	const [cart] = useCart(useShallow((state) => [state.cart]));
 	const isInverted = menu === 'inverted' || invertMenu || showMenuMobile;
 
 	const resetSelected = useCallback(() => {
@@ -76,15 +78,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 		if (hashChanging) return setShowMenu(false);
 
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop);
-	}, [
-		transitioning,
-		scrolledPosition,
-		isPageBottom,
-		isPageTop,
-		isScrolledUp,
-		setShowMenu,
-		hashChanging,
-	]);
+	}, [transitioning, scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
 
 	useEffect(() => {
 		// Hide menu when scrolling to hash
@@ -129,13 +123,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 		setShowSubMenu(selected && showMenu ? true : false);
 	}, [selected, showMenu, setShowSubMenu]);
 
-	const menuStyles = cn(
-		s.desktopMenu,
-		selected && s.open,
-		!showMenu && s.hide,
-		s[layout],
-		isInverted && s.inverted
-	);
+	const menuStyles = cn(s.desktopMenu, selected && s.open, !showMenu && s.hide, s[layout], isInverted && s.inverted);
 
 	const sub = selected ? items.find((i) => i.slug === selected)?.sub : [];
 
@@ -144,7 +132,11 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 	return (
 		<>
 			<Logo inverted={isInverted} />
-			<nav id={'menu'} ref={ref} className={menuStyles}>
+			<nav
+				id={'menu'}
+				ref={ref}
+				className={menuStyles}
+			>
 				<ul className={s.nav}>
 					{items.map(({ label, slug, index }, idx) => (
 						<li
@@ -163,10 +155,16 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 							{!index && <span className={cn(s.arrow, slug == selected && s.active)}>›</span>}
 						</li>
 					))}
-					<li className={s.searchIcon} onClick={() => onShowSiteSearch()}>
+					<li
+						className={s.searchIcon}
+						onClick={() => onShowSiteSearch()}
+					>
 						<img src={'/images/search.svg'} />
 					</li>
-					<li className={s.cart} onClick={() => setShowCart(true)}>
+					<li
+						className={cn(s.cart, cart?.totalQuantity && s.filled)}
+						onClick={() => setShowCart(true)}
+					>
 						<img src={'/images/cart.svg'} />
 					</li>
 				</ul>
@@ -184,8 +182,14 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 					<nav>
 						<ul className={cn(sub && sub.length > 10 && s.columns)}>
 							{sub?.map(({ label, slug }, idx) => (
-								<li key={idx} className={cn(slug === pathname && s.active)}>
-									<Link href={slug} onClick={() => setShowSubMenu(false)}>
+								<li
+									key={idx}
+									className={cn(slug === pathname && s.active)}
+								>
+									<Link
+										href={slug}
+										onClick={() => setShowSubMenu(false)}
+									>
 										{label}
 									</Link>
 								</li>
