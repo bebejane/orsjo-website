@@ -142,7 +142,7 @@ devDependencies:
         version: 15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)
       next-dato-utils:
         specifier: github:bebejane/next-dato-utils#next15
-        version: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/a029fa06e4406d34cd75b1bc83091e48b17ab3f4(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.30)(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(datocms-structured-text-utils@5.0.0)(graphql@16.11.0)(postmark@4.0.5)(react-datocms@7.2.2(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)(typescript@5.8.3)(zod@3.24.4)
+        version: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/6abd60ae57f1b6a6e71e0776df32710f900988c3(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.30)(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(datocms-structured-text-utils@5.0.0)(graphql@16.11.0)(postmark@4.0.5)(react-datocms@7.2.2(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)(typescript@5.8.3)(zod@3.24.4)
       next-view-transitions:
         specifier: ^0.3.4
         version: 0.3.4(next@15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -264,10 +264,13 @@ devDependencies:
       eslint-config-next:
         specifier: 15.3.1
         version: 15.3.1(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
+<<<<<<< HEAD
       next-plugin-devtools-json:
         specifier: ^3.1.5
         version: 3.1.5(next@15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))
 >>>>>>> c5aca780775759d32e975e25df43605c73967575
+=======
+>>>>>>> 65ee97b (fix)
 
 packages:
 
@@ -5270,9 +5273,9 @@ packages:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
 
-  next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/a029fa06e4406d34cd75b1bc83091e48b17ab3f4:
-    resolution: {tarball: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/a029fa06e4406d34cd75b1bc83091e48b17ab3f4}
-    version: 1.0.715
+  next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/6abd60ae57f1b6a6e71e0776df32710f900988c3:
+    resolution: {tarball: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/6abd60ae57f1b6a6e71e0776df32710f900988c3}
+    version: 1.0.720
     engines: {node: '>=0.18'}
     hasBin: true
     peerDependencies:
@@ -5289,12 +5292,6 @@ packages:
       react-dom: '>=18.2.0'
       sass: '>=1.69.0'
       zod: '>=3.22.0'
-
-  next-plugin-devtools-json@3.1.5:
-    resolution: {integrity: sha512-doW+oLdlVU4wLUQzuSr7QUoBCnkxddHSdvHgp6UnfwqnFR2a9wJLNKRGm452g/+e8D1K2UacFJH3q4N0vx6ckQ==}
-    hasBin: true
-    peerDependencies:
-      next: '>=12.0.0'
 
   next-view-transitions@0.3.4:
     resolution: {integrity: sha512-SSiskenQ8JkEFGzPjvFwC5LGGoqgTxM5dxexkeugxvcXFLpWI2ZUh4IsCURD3ovW+8Ue7xXlrtrpy8b7XR7IwQ==}
@@ -13293,6 +13290,7 @@ snapshots:
   negotiator@1.0.0: {}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /next-view-transitions@0.3.4(next@15.3.3)(react-dom@19.1.0)(react@19.1.0):
     resolution: {integrity: sha512-SSiskenQ8JkEFGzPjvFwC5LGGoqgTxM5dxexkeugxvcXFLpWI2ZUh4IsCURD3ovW+8Ue7xXlrtrpy8b7XR7IwQ==}
     peerDependencies:
@@ -13302,6 +13300,9 @@ snapshots:
 =======
   next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/a029fa06e4406d34cd75b1bc83091e48b17ab3f4(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.30)(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(datocms-structured-text-utils@5.0.0)(graphql@16.11.0)(postmark@4.0.5)(react-datocms@7.2.2(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)(typescript@5.8.3)(zod@3.24.4):
 >>>>>>> c5aca780775759d32e975e25df43605c73967575
+=======
+  next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/6abd60ae57f1b6a6e71e0776df32710f900988c3(@datocms/cma-client-browser@4.0.1)(@datocms/cma-client-node@4.0.1)(@datocms/cma-client@4.0.1)(@types/node@22.15.30)(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(datocms-structured-text-utils@5.0.0)(graphql@16.11.0)(postmark@4.0.5)(react-datocms@7.2.2(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)(typescript@5.8.3)(zod@3.24.4):
+>>>>>>> 65ee97b (fix)
     dependencies:
       '@datocms/cma-client': 4.0.1
       '@datocms/cma-client-browser': 4.0.1
@@ -13338,10 +13339,6 @@ snapshots:
       - '@types/node'
       - supports-color
       - typescript
-
-  next-plugin-devtools-json@3.1.5(next@15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)):
-    dependencies:
-      next: 15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1)
 
   next-view-transitions@0.3.4(next@15.3.3(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:

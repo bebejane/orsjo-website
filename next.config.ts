@@ -1,9 +1,8 @@
-import { NextConfig } from "next";
-import withDevToolsJSON from 'next-plugin-devtools-json';
+import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
 	sassOptions: {
-		includePaths: ["./components", "./pages", "./app"],
+		includePaths: ['./components', './pages', './app'],
 		silenceDeprecations: ['legacy-js-api', 'mixed-decls'],
 		prependData: `
 			@use "sass:math";
@@ -40,78 +39,78 @@ const nextConfig: NextConfig = {
 	async redirects() {
 		return [
 			{
-				source: "/produkter",
-				destination: "/products",
+				source: '/produkter',
+				destination: '/products',
 				permanent: true,
 			},
 			{
-				source: "/produkter/:path*",
-				destination: "/products/:path*",
+				source: '/produkter/:path*',
+				destination: '/products/:path*',
 				permanent: true,
 			},
 			{
-				source: "/product/:path*",
-				destination: "/products/:path*",
+				source: '/product/:path*',
+				destination: '/products/:path*',
 				permanent: true,
 			},
 			{
-				source: "/projekt",
-				destination: "/professionals/projects",
+				source: '/projekt',
+				destination: '/professionals/projects',
 				permanent: true,
 			},
 			{
-				source: "/projects",
-				destination: "/professionals/projects",
+				source: '/projects',
+				destination: '/professionals/projects',
 				permanent: true,
 			},
 			{
-				source: "/designers",
-				destination: "/",
+				source: '/designers',
+				destination: '/',
 				permanent: true,
 			},
 			{
-				source: "/designer/:path*",
-				destination: "/designers/:path*",
+				source: '/designer/:path*',
+				destination: '/designers/:path*',
 				permanent: true,
 			},
 			{
-				source: "/nyheter",
-				destination: "/about/news",
+				source: '/nyheter',
+				destination: '/about/news',
 				permanent: true,
 			},
 			{
-				source: "/news",
-				destination: "/about/news",
+				source: '/news',
+				destination: '/about/news',
 				permanent: true,
 			},
 			{
-				source: "/nyheter/:path*",
-				destination: "/about/news",
+				source: '/nyheter/:path*',
+				destination: '/about/news',
 				permanent: true,
 			},
 			{
-				source: "/faq",
-				destination: "/support/faq",
+				source: '/faq',
+				destination: '/support/faq',
 				permanent: true,
 			},
 			{
-				source: "/kontakt",
-				destination: "/contact",
+				source: '/kontakt',
+				destination: '/contact',
 				permanent: true,
 			},
 			{
-				source: "/about-orsjo",
-				destination: "/about",
+				source: '/about-orsjo',
+				destination: '/about',
 				permanent: true,
 			},
 			{
-				source: "/om-orsjo",
-				destination: "/about",
+				source: '/om-orsjo',
+				destination: '/about',
 				permanent: true,
 			},
 			{
-				source: "/manual",
-				destination: "/support/manuals",
+				source: '/manual',
+				destination: '/support/manuals',
 				permanent: true,
 			},
 		];
@@ -119,28 +118,26 @@ const nextConfig: NextConfig = {
 	async headers() {
 		return [
 			{
-				source: "/api/web-previews",
+				source: '/api/web-previews',
 				headers: [
-					{ key: "Access-Control-Allow-Credentials", value: "true" },
-					{ key: "Access-Control-Allow-Origin", value: "*" },
-					{ key: "Access-Control-Allow-Methods", value: "POST,OPTIONS" },
+					{ key: 'Access-Control-Allow-Credentials', value: 'true' },
+					{ key: 'Access-Control-Allow-Origin', value: '*' },
+					{ key: 'Access-Control-Allow-Methods', value: 'POST,OPTIONS' },
 					{
-						key: "Access-Control-Allow-Headers",
-						value:
-							"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+						key: 'Access-Control-Allow-Headers',
+						value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
 					},
 				],
 			},
 			{
-				source: "/api/backup",
+				source: '/api/backup',
 				headers: [
-					{ key: "Access-Control-Allow-Credentials", value: "true" },
-					{ key: "Access-Control-Allow-Origin", value: "*" }, // replace this your actual origin
-					{ key: "Access-Control-Allow-Methods", value: "POST,OPTIONS" },
+					{ key: 'Access-Control-Allow-Credentials', value: 'true' },
+					{ key: 'Access-Control-Allow-Origin', value: '*' }, // replace this your actual origin
+					{ key: 'Access-Control-Allow-Methods', value: 'POST,OPTIONS' },
 					{
-						key: "Access-Control-Allow-Headers",
-						value:
-							"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+						key: 'Access-Control-Allow-Headers',
+						value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
 					},
 				],
 			},
@@ -148,4 +145,4 @@ const nextConfig: NextConfig = {
 	},
 };
 
-export default withDevToolsJSON(nextConfig);
+export default nextConfig;
