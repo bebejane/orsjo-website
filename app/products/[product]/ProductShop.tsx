@@ -18,6 +18,7 @@ export default function ProductShop({ product, shopify }: Props) {
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [open, setOpen] = useState(false);
+	const [showForm, setShowForm] = useState(false);
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
 	const formRef = useRef<HTMLFormElement>(null);
@@ -93,27 +94,12 @@ export default function ProductShop({ product, shopify }: Props) {
 					<h3>Shop</h3>
 					<span className={s.price}>{formatPrice(totalPrice as MoneyV2)}</span>
 				</header>
-				<div
-					className={s.variant}
-					onClick={() => setOpen(!open)}
-				>
-					<div className={s.row}>
-						<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
-						<span className={s.name}>
-							<strong>{selectedModel?.name?.name}</strong>
-							&nbsp;
-							{[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}
-						</span>
-						<span className={s.price}></span>
-						<button className={s.dropdown}>❯</button>
-					</div>
-				</div>
-
-				<div className={cn(s.models, 'noscrollbar', open && s.open)}>
+				<div className={cn(s.models, 'noscrollbar', open && !showForm && s.open)}>
 					{product.models.map(({ id, name, variants }) => (
 						<div
 							className={s.model}
 							key={id}
+							onMouseLeave={() => setOpen(false)}
 						>
 							<ul className={cn(s.variants)}>
 								{variants.map((variant) => {
@@ -143,9 +129,25 @@ export default function ProductShop({ product, shopify }: Props) {
 						</div>
 					))}
 				</div>
+				<div
+					className={s.variant}
+					onClick={() => setShowForm(!showForm)} // TODO: fix this
+					onMouseEnter={() => setOpen(true)}
+				>
+					<div className={s.row}>
+						<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
+						<span className={s.name}>
+							<strong>{selectedModel?.name?.name}</strong>
+							&nbsp;
+							{[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}
+						</span>
+						<span className={s.price}></span>
+						<button className={s.dropdown}>❯</button>
+					</div>
+				</div>
 
 				<form
-					className={cn(s.form, 'noscrollbar', open && s.hide)}
+					className={cn(s.form, 'noscrollbar', !showForm && s.hide)}
 					onSubmit={handleSubmit}
 					ref={formRef}
 					key={selectedShopifyVariant?.id}
