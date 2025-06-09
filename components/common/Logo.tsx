@@ -24,21 +24,22 @@ export default function Logo({ inverted = false }: Props) {
 	const isStatic = prevRoute !== null && pathname !== '/';
 
 	useEffect(() => {
+		//if (pathname !== '/') return;
 		const r = Math.min(1, scrolledPosition / (viewportHeight / 2));
 		const characters = text.length - Math.ceil(4 * r);
 		setCharacters(characters);
-	}, [scrolledPosition, viewportHeight, setCharacters, prevRoute]);
+	}, [pathname, scrolledPosition, viewportHeight, prevRoute]);
 
 	return (
-		<Link href='/' className={s.logo} style={{ fontFamily: "'logo', Helvetica, sans-serif" }}>
+		<Link
+			href='/'
+			className={s.logo}
+			style={{ fontFamily: "'logo', Helvetica, sans-serif" }}
+		>
 			{text.slice(0, isStatic ? 1 : text.length).map((c, idx) => (
 				<span
 					key={idx}
-					className={cn(
-						idx + 1 > characters && s.hide,
-						((idx === 0 && characters === 1) || isStatic) && s.big,
-						inverted && s.inverted
-					)}
+					className={cn(idx + 1 > characters && s.hide, ((idx === 0 && characters === 1) || isStatic) && s.big, inverted && s.inverted)}
 				>
 					{c}
 				</span>

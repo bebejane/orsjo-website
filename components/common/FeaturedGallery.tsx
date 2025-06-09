@@ -5,14 +5,10 @@ import s from './FeaturedGallery.module.scss';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
+import { Mousewheel } from 'swiper';
+
 import type { Swiper } from 'swiper';
-import {
-	DesignerThumbnail,
-	ProductThumbnail,
-	ProjectThumbnail,
-	Thumbnail,
-	ArrowButton,
-} from '@/components';
+import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, Thumbnail, ArrowButton } from '@/components';
 import { useEffect, useRef, useState } from 'react';
 import { usePage } from '@/lib/context/page';
 import { useMediaQuery } from 'usehooks-ts';
@@ -70,9 +66,19 @@ export default function FeaturedGallery({
 			)}
 			<div className={s.gallery}>
 				<SwiperReact
+					modules={[Mousewheel]}
 					id={`${id}-swiper-wrap`}
 					loop={!isShortSlide}
-					noSwiping={isShortSlide}
+					noSwiping={false}
+					direction={'horizontal'}
+					mousewheel={{
+						forceToAxis: true,
+						releaseOnEdges: true,
+						invert: false,
+						sensitivity: 1,
+						//thresholdDelta: 5,
+						//thresholdTime: 100,
+					}}
 					simulateTouch={!isShortSlide}
 					slidesPerView={'auto'}
 					spaceBetween={spaceBetween}
@@ -82,7 +88,10 @@ export default function FeaturedGallery({
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
 				>
 					{items?.map((item: any, idx: number) => (
-						<SwiperSlide key={`${id}-${idx}`} className={cn(s.slide)}>
+						<SwiperSlide
+							key={`${id}-${idx}`}
+							className={cn(s.slide)}
+						>
 							{item.__typename === 'ProductRecord' ? (
 								<ProductThumbnail
 									key={idx}

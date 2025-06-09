@@ -1,115 +1,115 @@
 .featuredGallery {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  max-width: 100%;
-  min-width: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+	min-width: 100%;
 
-  &.inverted {
-    color: var(--white);
+	&.inverted {
+		//color: var(--white);
 
-    button {
-      color: var(--white);
-    }
-  }
+		button {
+			color: var(--white);
+		}
+	}
 
-  &.middle {
-    button {
-      margin-top: 30px;
-    }
-  }
+	&.middle {
+		button {
+			margin-top: 30px;
+		}
+	}
 
-  .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-bottom: 1em;
-    padding-top: 0.5em;
+	.header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding-bottom: 1em;
+		padding-top: 0.5em;
 
-    .headline {
-      flex: 1 1 100%;
-      padding: 0;
-    }
+		.headline {
+			flex: 1 1 100%;
+			padding: 0;
+		}
 
-    .next {
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-      min-width: 40px;
-      min-height: 40px;
-      background-color: var(--light-gray);
-      flex: 0 0 40px;
+		.next {
+			width: 40px;
+			height: 40px;
+			border-radius: 20px;
+			min-width: 40px;
+			min-height: 40px;
+			background-color: var(--light-gray);
+			flex: 0 0 40px;
 
-      &.hide {
-        display: none;
-      }
-    }
-  }
+			&.hide {
+				display: none;
+			}
+		}
+	}
 
-  .gallery {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+	.gallery {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		width: 100%;
 
-    .swiper {
-      min-width: 100%;
+		.swiper {
+			min-width: 100%;
 
-      .slide {
-        max-width: mixin.spanNestedGrid(12, 3);
-        min-width: mixin.spanNestedGrid(12, 3);
-        margin-right: mixin.nestedGridGutter(12);
+			.slide {
+				max-width: mixin.spanNestedGrid(12, 3);
+				min-width: mixin.spanNestedGrid(12, 3);
+				margin-right: mixin.nestedGridGutter(12);
 
-        @include mixin.mq($until: tablet) {
-          max-width: 48%;
-          min-width: 48%;
-          margin-right: 4%;
-        }
-      }
+				@include mixin.mq($until: tablet) {
+					max-width: 48%;
+					min-width: 48%;
+					margin-right: 4%;
+				}
+			}
 
-      &.short {
-        @include mixin.mq($until: tablet) {
-          .slide:nth-child(2) {
-            margin-right: 0;
-          }
-        }
+			&.short {
+				@include mixin.mq($until: tablet) {
+					.slide:nth-child(2) {
+						margin-right: 0;
+					}
+				}
 
-        @include mixin.mq($from: tablet) {
-          .slide:nth-child(4) {
-            margin-right: 0;
-          }
-        }
-      }
-    }
+				@include mixin.mq($from: tablet) {
+					.slide:nth-child(4) {
+						margin-right: 0;
+					}
+				}
+			}
+		}
 
-    .fade {
-      position: absolute;
-      top: 0;
-      right: -1px;
-      height: calc(100%);
-      min-width: 30%;
-      max-width: 30%;
-      pointer-events: none;
-      z-index: 1;
+		.fade {
+			position: absolute;
+			top: 0;
+			right: -1px;
+			height: calc(100%);
+			min-width: 30%;
+			max-width: 30%;
+			pointer-events: none;
+			z-index: 1;
 
-      &.hide {
-        display: none;
-      }
-    }
+			&.hide {
+				display: none;
+			}
+		}
 
-    .arrowMiddle {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 2;
-      display: flex;
-      height: calc(100% - 35px);
-      align-items: center;
+		.arrowMiddle {
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 2;
+			display: flex;
+			height: calc(100% - 35px);
+			align-items: center;
 
-      @include mixin.mq($until: tablet) {
-        display: none;
-        height: calc(100% - 15px);
-      }
-    }
-  }
+			@include mixin.mq($until: tablet) {
+				display: none;
+				height: calc(100% - 15px);
+			}
+		}
+	}
 }

@@ -88,6 +88,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 							imgClassName={cn(s.image, imageLoaded && s.loaded)}
 							imgStyle={!isMobile ? pictureStyle : undefined}
 							placeholderStyle={!isMobile ? pictureStyle : undefined}
+							usePlaceholder={false}
 							onLoad={() => setImageLoaded(true)}
 						/>
 					)}

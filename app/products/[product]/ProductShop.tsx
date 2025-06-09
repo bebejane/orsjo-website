@@ -48,6 +48,7 @@ export default function ProductShop({ product, shopify }: Props) {
 
 	useEffect(() => {
 		const section = Array.from(document.querySelectorAll<HTMLElement>(`section`))?.at(-1);
+		//const section = document.querySelector<HTMLElement>(`footer`);
 		console.log(section);
 		if (section) {
 			const top = section.offsetTop;
