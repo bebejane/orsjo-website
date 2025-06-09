@@ -2,13 +2,12 @@
 
 import s from './ProductShop.module.scss';
 import cn from 'classnames';
-import React, { use, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ProductPageDataProps } from './page';
 import { formatPrice } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
 import useStore from '@/lib/store';
-import { dedupeByKey } from '@/lib/utils';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -20,7 +19,7 @@ export default function ProductShop({ product, shopify }: Props) {
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [open, setOpen] = useState(false);
-	const [showForm, setShowForm] = useState(false);
+	const [showAddons, setShowAddons] = useState(false);
 	const [showAccessories, setShowAccessories] = useState(false);
 	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
 	const [addons, setAddons] = useState<any[]>([]);
@@ -46,7 +45,7 @@ export default function ProductShop({ product, shopify }: Props) {
 	function resetAll() {
 		setOpen(false);
 		setAddons([]);
-		setShowForm(false);
+		setShowAddons(false);
 		setShowAccessories(false);
 	}
 
@@ -72,8 +71,8 @@ export default function ProductShop({ product, shopify }: Props) {
 	}
 
 	function handleSubmit(e: any) {
-		console.log('submit');
 		e.preventDefault();
+
 		if (!selectedShopifyVariant) return;
 
 		const variantsIds: string[] = [selectedShopifyVariant.id, ...addons];
@@ -98,7 +97,7 @@ export default function ProductShop({ product, shopify }: Props) {
 			<div
 				className={s.shop}
 				onMouseEnter={() => setShowAccessories(true)}
-				onMouseLeave={() => !showForm && setShowAccessories(false)}
+				onMouseLeave={() => !showAddons && setShowAccessories(false)}
 			>
 				<header>
 					<h3>Shop</h3>
@@ -138,8 +137,12 @@ export default function ProductShop({ product, shopify }: Props) {
 						</div>
 					))}
 				</div>
-				<div onClick={() => setOpen(!open)}>
-					<div className={s.row}>
+
+				<div
+					className={cn(s.variant, open && s.top, showAddons && s.bottom)}
+					onClick={() => setOpen(!open)}
+				>
+					<div className={cn(s.row)}>
 						<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
 						<span className={s.name}>
 							<strong>{selectedModel?.name?.name}</strong>
@@ -152,7 +155,7 @@ export default function ProductShop({ product, shopify }: Props) {
 				</div>
 
 				<form
-					className={cn(s.addons, !showForm && s.hide)}
+					className={cn(s.addons, !showAddons && s.hide)}
 					onSubmit={handleSubmit}
 					ref={formRef}
 					id={'addons-form'}
@@ -216,9 +219,9 @@ export default function ProductShop({ product, shopify }: Props) {
 						type='button'
 						className={cn(s.toggle, !showAccessories && s.hide)}
 						disabled={!haveAvailableAddons || addons.length > 0}
-						onClick={() => setShowForm(!showForm)}
+						onClick={() => setShowAddons(!showAddons)}
 					>
-						Add accessories {!showForm ? '+' : '-'}
+						Add accessories {!showAddons ? '+' : '-'}
 					</button>
 					<button
 						type='submit'

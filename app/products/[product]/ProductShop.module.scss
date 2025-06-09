@@ -19,13 +19,21 @@
 		.price {
 			font-size: 0.6rem;
 		}
-		margin-bottom: 0.2em;
+		padding-bottom: 0.2em;
 		border-bottom: 2px solid var(--black);
 	}
 
 	.variant {
-		display: flex;
-		align-items: center;
+		&.top {
+			.row {
+				border-top: 2px solid var(--black);
+			}
+		}
+		&.bottom {
+			.row {
+				border-bottom: 2px solid var(--black);
+			}
+		}
 	}
 
 	ul {
@@ -38,12 +46,11 @@
 	}
 
 	.models {
+		display: none;
 		width: 100%;
 		max-height: 30vh;
 		overflow-y: scroll;
-
 		border-bottom: 0;
-		display: none;
 
 		&.open {
 			display: block;
@@ -67,6 +74,7 @@
 			height: 100%;
 			overflow-y: scroll;
 		}
+
 		&.hide {
 			display: none;
 		}
@@ -113,7 +121,6 @@
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			//max-width: 100px;
 		}
 
 		.price {
