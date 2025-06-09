@@ -36,9 +36,9 @@ export default function ProductList({ productCategories, products }: ProductList
 
 		Object.keys(productsByCategory).forEach((k) => {
 			const prods = products
-				.filter(({ categories }) => categories?.some((c) => c.name === k))
+				.filter(({ categories }) => categories?.some((c) => c.id === k))
 				.filter(({ title, designer }) => searchString(searchProducts, title) || searchString(searchProducts, designer?.name ?? ''));
-			const category = productCategories.find((c) => c.name === k);
+			const category = productCategories.find((c) => c.id === k);
 
 			if (prods.length)
 				searchCategories[k] = {
