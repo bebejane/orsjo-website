@@ -2,12 +2,13 @@
 
 import s from './ProductShop.module.scss';
 import cn from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { use, useEffect, useRef, useState } from 'react';
 import { ProductPageDataProps } from './page';
 import { formatPrice } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
 import useStore from '@/lib/store';
+import { dedupeByKey } from '@/lib/utils';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -15,20 +16,19 @@ type Props = {
 };
 
 export default function ProductShop({ product, shopify }: Props) {
+	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [open, setOpen] = useState(false);
 	const [showForm, setShowForm] = useState(false);
-	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
+	const [showAccessories, setShowAccessories] = useState(false);
 	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
+	const [addons, setAddons] = useState<any[]>([]);
+	const [totalPrice, setTotalPrice] = useState<MoneyV2>({ amount: 0, currencyCode: 'SEK' as CurrencyCode });
+	const { width, height } = useWindowSize();
 	const formRef = useRef<HTMLFormElement>(null);
 	const selectedModel = product?.models.find(({ variants }) => variants.find((v) => v.id === selected?.id));
 	const selectedShopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku && v.node.sku === selected?.articleNo.trim())?.node;
-	const [totalPrice, setTotalPrice] = useState<MoneyV2>({
-		amount: 0,
-		currencyCode: 'SEK' as CurrencyCode,
-	});
-	const { width, height } = useWindowSize();
 
 	useEffect(() => {
 		setOpen(false);
@@ -36,13 +36,22 @@ export default function ProductShop({ product, shopify }: Props) {
 
 	useEffect(() => {
 		updateTotalPrice();
+		setAddons([]);
 	}, [selectedShopifyVariant]);
 
-	function updateTotalPrice() {
-		const variantsIds: string[] = [];
-		const variantsElements = formRef.current?.querySelectorAll<HTMLInputElement>('input[type=checkbox]:checked');
-		variantsElements?.forEach((el) => el.dataset.variant && el.checked && variantsIds.push(el.dataset.variant));
+	useEffect(() => {
+		updateTotalPrice();
+	}, [addons]);
 
+	function resetAll() {
+		setOpen(false);
+		setAddons([]);
+		setShowForm(false);
+		setShowAccessories(false);
+	}
+
+	function updateTotalPrice() {
+		const variantsIds: string[] = [...addons, selectedShopifyVariant?.id].filter(Boolean);
 		const modelPrice = parseFloat(selectedShopifyVariant?.price.amount ?? '0');
 		const addonsPrice = variantsIds.reduce((acc, id) => {
 			const accessory = shopify.accessories.find((p) => p?.variants.edges[0].node.id === id);
@@ -55,43 +64,41 @@ export default function ProductShop({ product, shopify }: Props) {
 		setTotalPrice({ amount: addonsPrice + modelPrice, currencyCode: 'SEK' as CurrencyCode });
 	}
 
-	function handleAddonChange(e: React.ChangeEvent<HTMLInputElement>) {
-		e.stopPropagation();
-		updateTotalPrice();
-	}
-
 	function handleAddonClick(e: React.MouseEvent<HTMLLIElement>) {
-		if ((e.target as HTMLElement).tagName === 'INPUT') e.stopPropagation();
-		else e.currentTarget.querySelector<HTMLInputElement>('input[type=checkbox]')?.click();
+		const variantId = (e.currentTarget as HTMLElement).dataset.variant;
+		if (!variantId) throw new Error('Invalid variant id');
+		if (addons.find((id) => id === variantId)) setAddons((addons) => addons.filter((id) => id !== variantId));
+		else setAddons((addons) => [...addons, variantId]);
 	}
 
 	function handleSubmit(e: any) {
+		console.log('submit');
 		e.preventDefault();
 		if (!selectedShopifyVariant) return;
 
-		const variantsIds: string[] = [selectedShopifyVariant.id];
-		const variantsElements = formRef.current?.querySelectorAll<HTMLInputElement>('input[type=checkbox]:checked');
-		variantsElements?.forEach((el) => el.dataset.variant && el.checked && variantsIds.push(el.dataset.variant));
+		const variantsIds: string[] = [selectedShopifyVariant.id, ...addons];
 
 		addToCart(
-			//@ts-ignores
 			variantsIds.reverse().map((id) => ({
 				merchandiseId: id,
 				quantity: 1,
-				attributes: { key: 'group', value: selectedShopifyVariant.id as string },
 			})),
 			'SE'
 		);
 		setShowCart(true);
+		resetAll();
 	}
 
 	if (!product || !selected || !selectedModel) return null;
+
+	const haveAvailableAddons = selectedModel.accessories?.length > 0 || selectedModel.lightsources?.length > 0;
 
 	return (
 		<>
 			<div
 				className={s.shop}
-				onMouseLeave={() => setShowForm(false)}
+				onMouseEnter={() => setShowAccessories(true)}
+				onMouseLeave={() => !showForm && setShowAccessories(false)}
 			>
 				<header>
 					<h3>Shop</h3>
@@ -131,10 +138,7 @@ export default function ProductShop({ product, shopify }: Props) {
 						</div>
 					))}
 				</div>
-				<div
-					onMouseEnter={() => !open && setShowForm(true)}
-					onClick={() => setOpen(!open)}
-				>
+				<div onClick={() => setOpen(!open)}>
 					<div className={s.row}>
 						<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
 						<span className={s.name}>
@@ -143,14 +147,15 @@ export default function ProductShop({ product, shopify }: Props) {
 							{[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}
 						</span>
 						<span className={s.price}></span>
-						<button className={s.dropdown}>❯</button>
+						<button className={cn(s.dropdown, open && s.open)}>❯</button>
 					</div>
 				</div>
 
 				<form
-					className={cn(s.form, 'noscrollbar', !showForm && s.hide)}
+					className={cn(s.addons, !showForm && s.hide)}
 					onSubmit={handleSubmit}
 					ref={formRef}
+					id={'addons-form'}
 					key={selectedShopifyVariant?.id}
 				>
 					<input
@@ -158,7 +163,7 @@ export default function ProductShop({ product, shopify }: Props) {
 						name='model'
 						value={selectedShopifyVariant?.id}
 					/>
-					<ul className={cn(s.addons)}>
+					<ul className={'noscrollbar'}>
 						{selectedModel.accessories?.map(({ id, accessory }) => {
 							const shopifyAccessory = shopify.accessories.find((p) => p?.tags.includes(accessory?.articleNo ?? ''));
 							const price = shopifyAccessory?.variants.edges[0]?.node?.price;
@@ -168,22 +173,15 @@ export default function ProductShop({ product, shopify }: Props) {
 							return (
 								<li
 									key={id}
+									data-variant={variantId}
 									onClick={handleAddonClick}
 								>
-									<div className={s.row}>
+									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
 										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
 											<strong>{accessory?.name}</strong>
 										</span>
 										<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
-										<div className={s.checkbox}>
-											<input
-												type='checkbox'
-												name='addons'
-												data-variant={variantId}
-												onChange={handleAddonChange}
-											/>
-										</div>
 									</div>
 								</li>
 							);
@@ -198,32 +196,37 @@ export default function ProductShop({ product, shopify }: Props) {
 							return (
 								<li
 									key={id}
+									data-variant={variantId}
 									onClick={handleAddonClick}
 								>
-									<div className={s.row}>
+									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
 										<div className={s.thumb}>{image && <img src={image.url} />}</div>
 										<span className={s.name}>
 											<strong>{lightsource?.name}</strong>
 										</span>
 										<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
-										<div className={s.checkbox}>
-											<input
-												key={`${id}-${lightsource.id}`}
-												type='checkbox'
-												name='addons'
-												data-variant={variantId}
-												onChange={handleAddonChange}
-												disabled={included}
-												checked={included || undefined}
-											/>
-										</div>
 									</div>
 								</li>
 							);
 						})}
 					</ul>
-					<button type='submit'>Add to cart</button>
 				</form>
+				<div className={s.buttons}>
+					<button
+						type='button'
+						className={cn(s.toggle, !showAccessories && s.hide)}
+						disabled={!haveAvailableAddons || addons.length > 0}
+						onClick={() => setShowForm(!showForm)}
+					>
+						Add accessories {!showForm ? '+' : '-'}
+					</button>
+					<button
+						type='submit'
+						form='addons-form'
+					>
+						Add to cart
+					</button>
+				</div>
 			</div>
 		</>
 	);
