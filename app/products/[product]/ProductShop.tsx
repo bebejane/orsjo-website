@@ -89,17 +89,19 @@ export default function ProductShop({ product, shopify }: Props) {
 
 	return (
 		<>
-			<div className={s.shop}>
+			<div
+				className={s.shop}
+				onMouseLeave={() => setShowForm(false)}
+			>
 				<header>
 					<h3>Shop</h3>
 					<span className={s.price}>{formatPrice(totalPrice as MoneyV2)}</span>
 				</header>
-				<div className={cn(s.models, 'noscrollbar', open && !showForm && s.open)}>
+				<div className={cn(s.models, 'noscrollbar', open && open && s.open)}>
 					{product.models.map(({ id, name, variants }) => (
 						<div
 							className={s.model}
 							key={id}
-							onMouseLeave={() => setOpen(false)}
 						>
 							<ul className={cn(s.variants)}>
 								{variants.map((variant) => {
@@ -130,9 +132,8 @@ export default function ProductShop({ product, shopify }: Props) {
 					))}
 				</div>
 				<div
-					className={s.variant}
-					onClick={() => setShowForm(!showForm)} // TODO: fix this
-					onMouseEnter={() => setOpen(true)}
+					onMouseEnter={() => !open && setShowForm(true)}
+					onClick={() => setOpen(!open)}
 				>
 					<div className={s.row}>
 						<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
