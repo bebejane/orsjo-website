@@ -14,10 +14,11 @@
 	padding-bottom: 0;
 	margin-bottom: var(--outer-margin);
 	transition: opacity 0.3s ease;
+	box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.05);
 
 	&.hide {
 		opacity: 0;
-		background-color: transparent;
+		//background-color: transparent;
 	}
 
 	header {
@@ -84,7 +85,7 @@
 		}
 
 		.model {
-			ul {
+			ul.variants {
 				display: flex;
 				flex-direction: column;
 				position: relative;
@@ -123,7 +124,7 @@
 		}
 
 		&.selected {
-			background-color: var(--light-gray) !important;
+			background-color: var(--light-gray);
 		}
 
 		.thumb {

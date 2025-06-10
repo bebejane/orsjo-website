@@ -5,7 +5,7 @@ import s from './FeaturedGallery.module.scss';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
-import { Mousewheel } from 'swiper';
+import { Mousewheel } from 'swiper/modules';
 
 import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, Thumbnail, ArrowButton } from '@/components';

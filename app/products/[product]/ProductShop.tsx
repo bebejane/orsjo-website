@@ -47,8 +47,8 @@ export default function ProductShop({ product, shopify }: Props) {
 	}, [addons]);
 
 	useEffect(() => {
-		const section = Array.from(document.querySelectorAll<HTMLElement>(`section`))?.at(-1);
-		//const section = document.querySelector<HTMLElement>(`footer`);
+		//const section = Array.from(document.querySelectorAll<HTMLElement>(`section`))?.at(-1);
+		const section = document.querySelector<HTMLElement>(`footer`);
 		console.log(section);
 		if (section) {
 			const top = section.offsetTop;
@@ -126,7 +126,7 @@ export default function ProductShop({ product, shopify }: Props) {
 				</header>
 				<div className={cn(s.models, 'noscrollbar', open && open && s.open)}>
 					{product.models
-						//.filter((m) => m.variants.length > 0 && selectedModel && m.id !== selectedModel.id)
+						//.filter((m) => m.id !== selectedModel?.id)
 						.map(({ id, name, variants }) => (
 							<div
 								className={s.model}
