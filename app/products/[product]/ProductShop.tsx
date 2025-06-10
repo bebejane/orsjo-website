@@ -12,7 +12,8 @@ import { useScrollInfo } from 'next-dato-utils/hooks';
 import { RiExpandDiagonalFill } from 'react-icons/ri';
 import { BiExpandHorizontal } from 'react-icons/bi';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
-import { Slider } from 'next-dato-utils/components';
+//import { Slider } from 'next-dato-utils/components';
+import Slider from '@/components/common/Slider';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -38,7 +39,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	const formRef = useRef<HTMLFormElement>(null);
 	const selectedModel = product?.models.find(({ variants }) => variants.find((v) => v.id === selected?.id));
 	const selectedShopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku && v.node.sku === selected?.articleNo.trim())?.node;
-
+	console.log(showAddons);
 	useEffect(() => {
 		if (!variantId) return;
 		const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.id.split('/').pop() === variantId)?.node;
@@ -55,6 +56,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	useEffect(() => {
 		updateTotalPrice();
 		setAddons([]);
+		setShowAddons(false);
 	}, [selectedShopifyVariant]);
 
 	useEffect(() => {
@@ -120,7 +122,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	if (!product || !selected || !selectedModel) return null;
 
 	const haveAvailableAddons = selectedModel.accessories?.length > 0 || selectedModel.lightsources?.length > 0;
-
+	console.log(showAddons, showAccessories);
 	return (
 		<div
 			ref={ref}
