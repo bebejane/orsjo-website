@@ -9,6 +9,9 @@ import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
 import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
+import { RiExpandDiagonalFill } from 'react-icons/ri';
+import { BiExpandHorizontal } from 'react-icons/bi';
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -19,8 +22,9 @@ export default function ProductShop({ product, shopify }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
-	const [hide, setHide] = useState(true);
+	const [hide, setHide] = useState<null | boolean>(null);
 	const [open, setOpen] = useState(false);
+	const [expanded, setExpanded] = useState(false);
 	const [showAddons, setShowAddons] = useState(false);
 	const [showAccessories, setShowAccessories] = useState(false);
 	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
@@ -52,7 +56,7 @@ export default function ProductShop({ product, shopify }: Props) {
 		console.log(section);
 		if (section) {
 			const top = section.offsetTop;
-			setHide(scrolledPosition + viewportHeight > top || scrolledPosition === 0);
+			setHide((hide) => (hide === null && scrolledPosition === 0) || scrolledPosition + viewportHeight > top);
 			//setHide(scrolledPosition + viewportHeight > top);
 		}
 	}, [scrolledPosition]);
@@ -111,12 +115,12 @@ export default function ProductShop({ product, shopify }: Props) {
 		<>
 			<div
 				ref={ref}
-				className={cn(s.shop, hide && s.hide)}
+				className={cn(s.shop, hide && s.hide, expanded && s.wide)}
 				onMouseEnter={() => setShowAccessories(true)}
 				onMouseLeave={() => !showAddons && setShowAccessories(false)}
 			>
 				<header>
-					<h3>Shop</h3>
+					<h3>Shop: {product.title}</h3>
 					<span
 						key={totalPrice.amount}
 						className={s.price}
@@ -260,6 +264,15 @@ export default function ProductShop({ product, shopify }: Props) {
 						form='addons-form'
 					>
 						Add to cart
+					</button>
+				</div>
+				<div className={s.expand}>
+					<button
+						type='button'
+						className={cn(s.toggle, s.expand)}
+						onClick={() => setExpanded(!expanded)}
+					>
+						{expanded ? <GoChevronLeft size={16} /> : <GoChevronRight size={16} />}
 					</button>
 				</div>
 			</div>
