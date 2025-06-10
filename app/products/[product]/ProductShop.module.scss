@@ -109,6 +109,9 @@
 
 		&.hide {
 			display: none;
+			> ul {
+				display: none;
+			}
 		}
 	}
 

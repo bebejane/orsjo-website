@@ -216,7 +216,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			>
 				<form
 					id={'addons-form'}
-					className={cn(s.addons, !haveAvailableAddons && s.hide)}
+					className={cn(s.addons)}
 					onSubmit={handleSubmit}
 					ref={formRef}
 					key={selectedShopifyVariant?.id}

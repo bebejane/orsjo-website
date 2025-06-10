@@ -18,12 +18,6 @@ export default function Slider({ children, hide = false, display = 'flex', speed
 	const ref = useRef<HTMLElement | null>(null);
 
 	useEffect(() => {
-		if (!ref.current) return;
-		const element = ref.current;
-		element.style.height = hide ? '0px' : `${elementHeight}px`;
-	}, [hide, elementHeight]);
-
-	useEffect(() => {
 		const element = document.getElementById(id);
 		if (!element) return console.warn(`Slider: No element with id ${id} found`);
 
@@ -41,7 +35,14 @@ export default function Slider({ children, hide = false, display = 'flex', speed
 		element.style.transition = dedupedTransitions.join(',');
 		if (!element.scrollHeight) return console.warn(`Slider: Element with id ${id} has no height`);
 		setElementHeight(element.scrollHeight);
-	}, [id, speed, display, width, height]);
+	}, [id, speed, hide, display, width, height]);
+
+	useEffect(() => {
+		if (!ref.current) return;
+		const element = ref.current;
+		console.log(hide, elementHeight);
+		element.style.height = hide ? '0px' : `${elementHeight}px`;
+	}, [hide, elementHeight]);
 
 	useEffect(() => {
 		if (!ref.current) return;
