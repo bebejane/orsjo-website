@@ -165,7 +165,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 						className={cn(s.cart, cart?.totalQuantity && s.filled)}
 						onClick={() => setShowCart(true)}
 					>
-						<img src={'/images/cart.svg'} />
+						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
 					</li>
 				</ul>
 			</nav>
