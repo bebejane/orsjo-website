@@ -268,6 +268,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 									title={title}
 								>
 									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
+										<div className={s.thumb}></div>
 										<span className={s.name}>
 											<strong>{title}</strong>
 										</span>
@@ -279,10 +280,12 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					</ul>
 				</form>
 			</Slider>
+
 			<div className={s.buttons}>
 				<button
+					id='accessories-button'
 					type='button'
-					className={cn(s.toggle, !showAccessoriesButton && !open && s.hide)}
+					className={cn(s.toggle)}
 					disabled={!haveAvailableAddons}
 					onClick={() => setShowAddons(!showAddons)}
 				>
