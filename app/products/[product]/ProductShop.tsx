@@ -12,6 +12,7 @@ import { useScrollInfo } from 'next-dato-utils/hooks';
 import { RiExpandDiagonalFill } from 'react-icons/ri';
 import { BiExpandHorizontal } from 'react-icons/bi';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
+import Slider from '@/components/common/Slider';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -67,9 +68,8 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		if (section) {
 			const top = section.offsetTop;
 			setHide((hide) => (hide === null && scrolledPosition === 0) || scrolledPosition + viewportHeight > top);
-			//setHide(scrolledPosition + viewportHeight > top);
 		}
-	}, [scrolledPosition]);
+	}, [scrolledPosition, width, height]);
 
 	function resetAll() {
 		setOpen(false);
@@ -137,47 +137,54 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					{formatPrice(totalPrice as MoneyV2)}
 				</span>
 			</header>
-			<div className={cn(s.models, 'noscrollbar', open && open && s.open)}>
-				{product.models
-					//.filter((m) => m.id !== selectedModel?.id)
-					.map(({ id, name, variants }) => (
-						<div
-							className={s.model}
-							key={id}
-						>
-							<ul className={cn(s.variants)}>
-								{variants.map((variant) => {
-									const { id, articleNo, color, material, weight, feature, image, price } = variant;
-									const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku === articleNo?.trim())?.node;
+			<Slider
+				hide={!open}
+				speed={200}
+			>
+				<div
+					id='models'
+					className={cn(s.models, 'noscrollbar')}
+				>
+					{product.models
+						//.filter((m) => m.id !== selectedModel?.id)
+						.map(({ id, name, variants }) => (
+							<div
+								className={s.model}
+								key={id}
+							>
+								<ul className={cn(s.variants)}>
+									{variants.map((variant) => {
+										const { id, articleNo, color, material, weight, feature, image, price } = variant;
+										const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku === articleNo?.trim())?.node;
 
-									return (
-										<li
-											className={cn(selected?.id === id && s.selected)}
-											key={id}
-											id={`variant-${id}`}
-											title={`${name?.name ?? ''} ${[color?.name, material?.name].filter(Boolean).join(', ')}`}
-											onClick={() => {
-												setSelected(variant);
-												if (variant.id === selected?.id) setOpen(false);
-											}}
-										>
-											<div className={s.row}>
-												<div className={s.thumb}>{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}</div>
-												<span className={s.name}>
-													<strong>{name?.name}</strong>
-													&nbsp;
-													{[color?.name, material?.name].filter(Boolean).join(', ')}
-												</span>
-												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
-											</div>
-										</li>
-									);
-								})}
-							</ul>
-						</div>
-					))}
-			</div>
-
+										return (
+											<li
+												className={cn(selected?.id === id && s.selected)}
+												key={id}
+												id={`variant-${id}`}
+												title={`${name?.name ?? ''} ${[color?.name, material?.name].filter(Boolean).join(', ')}`}
+												onClick={() => {
+													setSelected(variant);
+													if (variant.id === selected?.id) setOpen(false);
+												}}
+											>
+												<div className={s.row}>
+													<div className={s.thumb}>{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}</div>
+													<span className={s.name}>
+														<strong>{name?.name}</strong>
+														&nbsp;
+														{[color?.name, material?.name].filter(Boolean).join(', ')}
+													</span>
+													<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
+												</div>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
+						))}
+				</div>
+			</Slider>
 			<div
 				className={cn(s.variant, open && s.top, showAddons && s.bottom)}
 				onClick={() => setOpen(!open)}
@@ -196,69 +203,73 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					<button className={cn(s.dropdown, open && s.open)}>❯</button>
 				</div>
 			</div>
-
-			<form
-				className={cn(s.addons, !showAddons && s.hide)}
-				onSubmit={handleSubmit}
-				ref={formRef}
-				id={'addons-form'}
-				key={selectedShopifyVariant?.id}
+			<Slider
+				hide={!showAddons}
+				speed={200}
 			>
-				<input
-					type='hidden'
-					name='model'
-					value={selectedShopifyVariant?.id}
-				/>
-				<ul className={'noscrollbar'}>
-					{selectedModel.accessories?.map(({ id, accessory }) => {
-						const shopifyAccessory = shopify.accessories.find((p) => p?.tags.includes(accessory?.articleNo ?? ''));
-						const price = shopifyAccessory?.variants.edges[0]?.node?.price;
-						const variantId = shopifyAccessory?.variants.edges[0]?.node?.id;
-						const image = shopifyAccessory?.variants.edges[0]?.node?.image;
+				<form
+					id={'addons-form'}
+					className={cn(s.addons)}
+					onSubmit={handleSubmit}
+					ref={formRef}
+					key={selectedShopifyVariant?.id}
+				>
+					<input
+						type='hidden'
+						name='model'
+						value={selectedShopifyVariant?.id}
+					/>
+					<ul className={'noscrollbar'}>
+						{selectedModel.accessories?.map(({ id, accessory }) => {
+							const shopifyAccessory = shopify.accessories.find((p) => p?.tags.includes(accessory?.articleNo ?? ''));
+							const price = shopifyAccessory?.variants.edges[0]?.node?.price;
+							const variantId = shopifyAccessory?.variants.edges[0]?.node?.id;
+							const image = shopifyAccessory?.variants.edges[0]?.node?.image;
 
-						return (
-							<li
-								key={id}
-								data-variant={variantId}
-								onClick={handleAddonClick}
-								title={accessory?.name ?? undefined}
-							>
-								<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
-									<span className={s.name}>
-										<strong>{accessory?.name}</strong>
-									</span>
-									<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
-								</div>
-							</li>
-						);
-					})}
+							return (
+								<li
+									key={id}
+									data-variant={variantId}
+									onClick={handleAddonClick}
+									title={accessory?.name ?? undefined}
+								>
+									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
+										<span className={s.name}>
+											<strong>{accessory?.name}</strong>
+										</span>
+										<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
+									</div>
+								</li>
+							);
+						})}
 
-					{selectedModel.lightsources?.map(({ id, lightsource, amount, included, optional }) => {
-						const shopifyLightsource = shopify.lightsources.find((p) => p?.tags.includes(lightsource?.articleNo ?? ''));
-						const price = shopifyLightsource?.variants.edges[0]?.node?.price;
-						const variantId = shopifyLightsource?.variants.edges[0]?.node?.id;
-						const image = shopifyLightsource?.variants.edges[0]?.node?.image;
-						const title = `${lightsource?.name ?? ''} (${amount})`;
+						{selectedModel.lightsources?.map(({ id, lightsource, amount, included, optional }) => {
+							const shopifyLightsource = shopify.lightsources.find((p) => p?.tags.includes(lightsource?.articleNo ?? ''));
+							const price = shopifyLightsource?.variants.edges[0]?.node?.price;
+							const variantId = shopifyLightsource?.variants.edges[0]?.node?.id;
+							const image = shopifyLightsource?.variants.edges[0]?.node?.image;
+							const title = `${lightsource?.name ?? ''} ${amount ? `(${amount} pcs)` : ''}`;
 
-						return (
-							<li
-								key={id}
-								className={cn(included && s.inactive)}
-								data-variant={variantId}
-								onClick={handleAddonClick}
-								title={title}
-							>
-								<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
-									<span className={s.name}>
-										<strong>{title}</strong>
-									</span>
-									<span className={s.price}>{!included ? formatPrice(price as MoneyV2) : 'Included'}</span>
-								</div>
-							</li>
-						);
-					})}
-				</ul>
-			</form>
+							return (
+								<li
+									key={id}
+									className={cn(included && s.inactive)}
+									data-variant={variantId}
+									onClick={handleAddonClick}
+									title={title}
+								>
+									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
+										<span className={s.name}>
+											<strong>{title}</strong>
+										</span>
+										<span className={s.price}>{!included ? formatPrice(price as MoneyV2) : 'Included'}</span>
+									</div>
+								</li>
+							);
+						})}
+					</ul>
+				</form>
+			</Slider>
 			<div className={s.buttons}>
 				<button
 					type='button'
