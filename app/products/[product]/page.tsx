@@ -26,13 +26,16 @@ type Props = {
 	params: Promise<{
 		product: string;
 	}>;
+	searchParams?: Promise<{
+		v?: string;
+	}>;
 };
 
 export const dynamic = 'force-dynamic';
 
-export default async function Product({ params }: Props) {
+export default async function Product({ params, searchParams }: Props) {
 	const { product: slug } = await params;
-
+	const { v } = (await searchParams) ?? {};
 	const res = await getProductPageData(slug);
 	if (!res) return notFound();
 
@@ -53,6 +56,7 @@ export default async function Product({ params }: Props) {
 			<ProductShop
 				product={product}
 				shopify={shopify}
+				variantId={v}
 			/>
 			<Section
 				name='Related'

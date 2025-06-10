@@ -16,9 +16,10 @@ import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 type Props = {
 	product: ProductPageDataProps['product'];
 	shopify: ProductPageDataProps['shopify'];
+	variantId?: string;
 };
 
-export default function ProductShop({ product, shopify }: Props) {
+export default function ProductShop({ product, shopify, variantId }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
@@ -38,6 +39,15 @@ export default function ProductShop({ product, shopify }: Props) {
 	const selectedShopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku && v.node.sku === selected?.articleNo.trim())?.node;
 
 	useEffect(() => {
+		if (!variantId) return;
+		const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.id.split('/').pop() === variantId)?.node;
+		if (shopifyVariant) {
+			setSelected(allVariants.find((v) => v.articleNo?.trim() === shopifyVariant?.sku) ?? null);
+			setHide(false);
+		}
+	}, [variantId]);
+
+	useEffect(() => {
 		setOpen(false);
 	}, [selected]);
 
@@ -53,7 +63,7 @@ export default function ProductShop({ product, shopify }: Props) {
 	useEffect(() => {
 		//const section = Array.from(document.querySelectorAll<HTMLElement>(`section`))?.at(-1);
 		const section = document.querySelector<HTMLElement>(`footer`);
-		console.log(section);
+
 		if (section) {
 			const top = section.offsetTop;
 			setHide((hide) => (hide === null && scrolledPosition === 0) || scrolledPosition + viewportHeight > top);
@@ -114,7 +124,7 @@ export default function ProductShop({ product, shopify }: Props) {
 	return (
 		<div
 			ref={ref}
-			className={cn(s.shop, hide && s.hide, expanded && s.wide)}
+			className={cn(s.shop, (hide || hide === null) && s.hide, expanded && s.wide)}
 			onMouseEnter={() => setShowAccessories(true)}
 			onMouseLeave={() => !showAddons && setShowAccessories(false)}
 		>
