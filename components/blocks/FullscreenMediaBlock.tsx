@@ -30,6 +30,7 @@ export default function FullscreenMediaBlock({ data: { media, headline, linkReco
 					className={s.image}
 					data={media?.responsiveImage}
 					objectFit='cover'
+					intersectionMargin={`0px 0px 2000px 0px`}
 				/>
 			) : (
 				<VideoPlayer data={media} />

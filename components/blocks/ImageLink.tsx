@@ -28,6 +28,7 @@ export default function ImageLink({
 							data={firstImage?.responsiveImage}
 							layout='fill'
 							objectFit='cover'
+							intersectionMargin={`0px 0px 2000px 0px`}
 						/>
 					)}
 					<figcaption>

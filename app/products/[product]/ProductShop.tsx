@@ -112,170 +112,168 @@ export default function ProductShop({ product, shopify }: Props) {
 	const haveAvailableAddons = selectedModel.accessories?.length > 0 || selectedModel.lightsources?.length > 0;
 
 	return (
-		<>
+		<div
+			ref={ref}
+			className={cn(s.shop, hide && s.hide, expanded && s.wide)}
+			onMouseEnter={() => setShowAccessories(true)}
+			onMouseLeave={() => !showAddons && setShowAccessories(false)}
+		>
+			<header>
+				<h3>Shop: {product.title}</h3>
+				<span
+					key={totalPrice.amount}
+					className={s.price}
+				>
+					{formatPrice(totalPrice as MoneyV2)}
+				</span>
+			</header>
+			<div className={cn(s.models, 'noscrollbar', open && open && s.open)}>
+				{product.models
+					//.filter((m) => m.id !== selectedModel?.id)
+					.map(({ id, name, variants }) => (
+						<div
+							className={s.model}
+							key={id}
+						>
+							<ul className={cn(s.variants)}>
+								{variants.map((variant) => {
+									const { id, articleNo, color, material, weight, feature, image, price } = variant;
+									const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku === articleNo?.trim())?.node;
+
+									return (
+										<li
+											className={cn(selected?.id === id && s.selected)}
+											key={id}
+											id={`variant-${id}`}
+											title={`${name?.name ?? ''} ${[color?.name, material?.name].filter(Boolean).join(', ')}`}
+											onClick={() => {
+												setSelected(variant);
+												if (variant.id === selected?.id) setOpen(false);
+											}}
+										>
+											<div className={s.row}>
+												<div className={s.thumb}>{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}</div>
+												<span className={s.name}>
+													<strong>{name?.name}</strong>
+													&nbsp;
+													{[color?.name, material?.name].filter(Boolean).join(', ')}
+												</span>
+												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
+											</div>
+										</li>
+									);
+								})}
+							</ul>
+						</div>
+					))}
+			</div>
+
 			<div
-				ref={ref}
-				className={cn(s.shop, hide && s.hide, expanded && s.wide)}
-				onMouseEnter={() => setShowAccessories(true)}
-				onMouseLeave={() => !showAddons && setShowAccessories(false)}
+				className={cn(s.variant, open && s.top, showAddons && s.bottom)}
+				onClick={() => setOpen(!open)}
 			>
-				<header>
-					<h3>Shop: {product.title}</h3>
-					<span
-						key={totalPrice.amount}
-						className={s.price}
-					>
-						{formatPrice(totalPrice as MoneyV2)}
-					</span>
-				</header>
-				<div className={cn(s.models, 'noscrollbar', open && open && s.open)}>
-					{product.models
-						//.filter((m) => m.id !== selectedModel?.id)
-						.map(({ id, name, variants }) => (
-							<div
-								className={s.model}
-								key={id}
-							>
-								<ul className={cn(s.variants)}>
-									{variants.map((variant) => {
-										const { id, articleNo, color, material, weight, feature, image, price } = variant;
-										const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku === articleNo?.trim())?.node;
-
-										return (
-											<li
-												className={cn(selected?.id === id && s.selected)}
-												key={id}
-												id={`variant-${id}`}
-												title={`${name?.name ?? ''} ${[color?.name, material?.name].filter(Boolean).join(', ')}`}
-												onClick={() => {
-													setSelected(variant);
-													if (variant.id === selected?.id) setOpen(false);
-												}}
-											>
-												<div className={s.row}>
-													<div className={s.thumb}>{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}</div>
-													<span className={s.name}>
-														<strong>{name?.name}</strong>
-														&nbsp;
-														{[color?.name, material?.name].filter(Boolean).join(', ')}
-													</span>
-													<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
-												</div>
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						))}
-				</div>
-
 				<div
-					className={cn(s.variant, open && s.top, showAddons && s.bottom)}
-					onClick={() => setOpen(!open)}
+					className={cn(s.row, s.selected)}
+					title={`${selectedModel?.name?.name ?? ''} ${[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}`}
 				>
-					<div
-						className={cn(s.row, s.selected)}
-						title={`${selectedModel?.name?.name ?? ''} ${[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}`}
-					>
-						<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
-						<span className={s.name}>
-							<strong>{selectedModel?.name?.name}</strong>
-							&nbsp;
-							{[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}
-						</span>
-						<span className={s.price}></span>
-						<button className={cn(s.dropdown, open && s.open)}>❯</button>
-					</div>
-				</div>
-
-				<form
-					className={cn(s.addons, !showAddons && s.hide)}
-					onSubmit={handleSubmit}
-					ref={formRef}
-					id={'addons-form'}
-					key={selectedShopifyVariant?.id}
-				>
-					<input
-						type='hidden'
-						name='model'
-						value={selectedShopifyVariant?.id}
-					/>
-					<ul className={'noscrollbar'}>
-						{selectedModel.accessories?.map(({ id, accessory }) => {
-							const shopifyAccessory = shopify.accessories.find((p) => p?.tags.includes(accessory?.articleNo ?? ''));
-							const price = shopifyAccessory?.variants.edges[0]?.node?.price;
-							const variantId = shopifyAccessory?.variants.edges[0]?.node?.id;
-							const image = shopifyAccessory?.variants.edges[0]?.node?.image;
-
-							return (
-								<li
-									key={id}
-									data-variant={variantId}
-									onClick={handleAddonClick}
-									title={accessory?.name ?? undefined}
-								>
-									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
-										<span className={s.name}>
-											<strong>{accessory?.name}</strong>
-										</span>
-										<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
-									</div>
-								</li>
-							);
-						})}
-
-						{selectedModel.lightsources?.map(({ id, lightsource, amount, included, optional }) => {
-							const shopifyLightsource = shopify.lightsources.find((p) => p?.tags.includes(lightsource?.articleNo ?? ''));
-							const price = shopifyLightsource?.variants.edges[0]?.node?.price;
-							const variantId = shopifyLightsource?.variants.edges[0]?.node?.id;
-							const image = shopifyLightsource?.variants.edges[0]?.node?.image;
-							const title = `${lightsource?.name ?? ''} (${amount})`;
-
-							return (
-								<li
-									key={id}
-									className={cn(included && s.inactive)}
-									data-variant={variantId}
-									onClick={handleAddonClick}
-									title={title}
-								>
-									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
-										<span className={s.name}>
-											<strong>{title}</strong>
-										</span>
-										<span className={s.price}>{!included ? formatPrice(price as MoneyV2) : 'Included'}</span>
-									</div>
-								</li>
-							);
-						})}
-					</ul>
-				</form>
-				<div className={s.buttons}>
-					<button
-						type='button'
-						className={cn(s.toggle, !showAccessories && !open && s.hide)}
-						disabled={!haveAvailableAddons}
-						onClick={() => setShowAddons(!showAddons)}
-					>
-						Accessories {!showAddons ? '+' : '-'}
-					</button>
-					<button
-						type='submit'
-						form='addons-form'
-					>
-						Add to cart
-					</button>
-				</div>
-				<div className={s.expand}>
-					<button
-						type='button'
-						className={cn(s.toggle, s.expand)}
-						onClick={() => setExpanded(!expanded)}
-					>
-						{expanded ? <GoChevronLeft size={16} /> : <GoChevronRight size={16} />}
-					</button>
+					<div className={s.thumb}>{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}</div>
+					<span className={s.name}>
+						<strong>{selectedModel?.name?.name}</strong>
+						&nbsp;
+						{[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}
+					</span>
+					<span className={s.price}></span>
+					<button className={cn(s.dropdown, open && s.open)}>❯</button>
 				</div>
 			</div>
-		</>
+
+			<form
+				className={cn(s.addons, !showAddons && s.hide)}
+				onSubmit={handleSubmit}
+				ref={formRef}
+				id={'addons-form'}
+				key={selectedShopifyVariant?.id}
+			>
+				<input
+					type='hidden'
+					name='model'
+					value={selectedShopifyVariant?.id}
+				/>
+				<ul className={'noscrollbar'}>
+					{selectedModel.accessories?.map(({ id, accessory }) => {
+						const shopifyAccessory = shopify.accessories.find((p) => p?.tags.includes(accessory?.articleNo ?? ''));
+						const price = shopifyAccessory?.variants.edges[0]?.node?.price;
+						const variantId = shopifyAccessory?.variants.edges[0]?.node?.id;
+						const image = shopifyAccessory?.variants.edges[0]?.node?.image;
+
+						return (
+							<li
+								key={id}
+								data-variant={variantId}
+								onClick={handleAddonClick}
+								title={accessory?.name ?? undefined}
+							>
+								<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
+									<span className={s.name}>
+										<strong>{accessory?.name}</strong>
+									</span>
+									<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
+								</div>
+							</li>
+						);
+					})}
+
+					{selectedModel.lightsources?.map(({ id, lightsource, amount, included, optional }) => {
+						const shopifyLightsource = shopify.lightsources.find((p) => p?.tags.includes(lightsource?.articleNo ?? ''));
+						const price = shopifyLightsource?.variants.edges[0]?.node?.price;
+						const variantId = shopifyLightsource?.variants.edges[0]?.node?.id;
+						const image = shopifyLightsource?.variants.edges[0]?.node?.image;
+						const title = `${lightsource?.name ?? ''} (${amount})`;
+
+						return (
+							<li
+								key={id}
+								className={cn(included && s.inactive)}
+								data-variant={variantId}
+								onClick={handleAddonClick}
+								title={title}
+							>
+								<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
+									<span className={s.name}>
+										<strong>{title}</strong>
+									</span>
+									<span className={s.price}>{!included ? formatPrice(price as MoneyV2) : 'Included'}</span>
+								</div>
+							</li>
+						);
+					})}
+				</ul>
+			</form>
+			<div className={s.buttons}>
+				<button
+					type='button'
+					className={cn(s.toggle, !showAccessories && !open && s.hide)}
+					disabled={!haveAvailableAddons}
+					onClick={() => setShowAddons(!showAddons)}
+				>
+					Accessories {!showAddons ? '+' : '-'}
+				</button>
+				<button
+					type='submit'
+					form='addons-form'
+				>
+					Add to cart
+				</button>
+			</div>
+			<div className={s.expand}>
+				<button
+					type='button'
+					className={cn(s.toggle, s.expand)}
+					onClick={() => setExpanded(!expanded)}
+				>
+					{expanded ? <GoChevronLeft size={16} /> : <GoChevronRight size={16} />}
+				</button>
+			</div>
+		</div>
 	);
 }

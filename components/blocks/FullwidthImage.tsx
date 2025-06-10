@@ -8,8 +8,17 @@ export type FullwidthImageProps = BlockProps & { data: FullwidthImageRecord };
 
 export default function FullwidthImage({ data: { image }, onClick, first }: FullwidthImageProps) {
 	return (
-		<div className={s.container} onClick={() => onClick?.(image.id)} data-image-zoom={image.id}>
-			<Image className={s.image} data={image?.responsiveImage} priority={first} />
+		<div
+			className={s.container}
+			onClick={() => onClick?.(image.id)}
+			data-image-zoom={image.id}
+		>
+			<Image
+				className={s.image}
+				data={image?.responsiveImage}
+				priority={first}
+				intersectionMargin={`0px 0px 2000px 0px`}
+			/>
 			<CustomMade show={image.customData?.custom} />
 		</div>
 	);

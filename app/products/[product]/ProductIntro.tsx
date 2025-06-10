@@ -68,7 +68,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 	}, [viewportHeight, scrolledPosition, setPictureStyle, isMobile]);
 
 	if (!product) return null;
-	console.log(product.productGallery);
+
 	return (
 		<>
 			<Section

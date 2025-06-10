@@ -6,25 +6,23 @@
 	bottom: 0;
 	width: mixin.spanGrid(4);
 	margin-left: calc(var(--outer-margin) - 1rem);
-	margin-bottom: var(--outer-margin);
+	margin-bottom: calc(var(--outer-margin) - 1rem);
 	z-index: var(--z-shop);
 	background-color: var(--white-real);
 	opacity: 1;
 	padding: 1rem;
-	padding-bottom: 0;
-	margin-bottom: var(--outer-margin);
 	transition:
-		opacity 0.3s ease,
+		opacity 0.1s ease,
 		width 0.3s ease;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-
-	&.hide {
-		opacity: 0;
-		//background-color: transparent;
-	}
+	box-shadow:
+		rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
 	&.wide {
 		width: mixin.spanGrid(6);
+	}
+	&.hide {
+		opacity: 0;
 	}
 
 	header {
