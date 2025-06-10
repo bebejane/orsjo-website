@@ -15,11 +15,7 @@ const nextConfig: NextConfig = {
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
-	logging: {
-		fetches: {
-			fullUrl: true,
-		},
-	},
+	logging: {},
 	reactStrictMode: false,
 	turbopack: {
 		rules: {
@@ -125,7 +121,8 @@ const nextConfig: NextConfig = {
 					{ key: 'Access-Control-Allow-Methods', value: 'POST,OPTIONS' },
 					{
 						key: 'Access-Control-Allow-Headers',
-						value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+						value:
+							'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
 					},
 				],
 			},
@@ -137,7 +134,8 @@ const nextConfig: NextConfig = {
 					{ key: 'Access-Control-Allow-Methods', value: 'POST,OPTIONS' },
 					{
 						key: 'Access-Control-Allow-Headers',
-						value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+						value:
+							'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
 					},
 				],
 			},

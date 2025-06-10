@@ -4,11 +4,15 @@ import { apiQuery } from 'next-dato-utils/api';
 import { parseTitle } from '@/lib/shopify/sync';
 
 (async () => {
+	return;
 	const products: any[] = [];
 
-	const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, {
-		all: true,
-	});
+	const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(
+		AllProductsDocument,
+		{
+			all: true,
+		}
+	);
 	const models: any[][] = [];
 	for (const product of allProducts) {
 		if (!product.models) continue;
