@@ -12,7 +12,7 @@ import { useScrollInfo } from 'next-dato-utils/hooks';
 import { RiExpandDiagonalFill } from 'react-icons/ri';
 import { BiExpandHorizontal } from 'react-icons/bi';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
-import Slider from '@/components/common/Slider';
+import { Slider } from 'next-dato-utils/components';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -137,6 +137,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					{formatPrice(totalPrice as MoneyV2)}
 				</span>
 			</header>
+
 			<Slider
 				hide={!open}
 				speed={200}
@@ -185,6 +186,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 						))}
 				</div>
 			</Slider>
+
 			<div
 				className={cn(s.variant, open && s.top, showAddons && s.bottom)}
 				onClick={() => setOpen(!open)}
@@ -203,6 +205,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					<button className={cn(s.dropdown, open && s.open)}>❯</button>
 				</div>
 			</div>
+
 			<Slider
 				hide={!showAddons}
 				speed={200}
@@ -234,6 +237,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 									title={accessory?.name ?? undefined}
 								>
 									<div className={cn(s.row, addons.find((id) => id === variantId) && s.selected)}>
+										<div className={s.thumb}></div>
 										<span className={s.name}>
 											<strong>{accessory?.name}</strong>
 										</span>

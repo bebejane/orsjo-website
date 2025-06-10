@@ -8,8 +8,7 @@ import social from '@/lib/social';
 import { usePage } from '@/lib/context/page';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { useMediaQuery } from 'usehooks-ts';
-import { styleVariables } from '@/lib/utils';
+import useIsDesktop from '@/lib/hooks/useIsDesktop';
 
 export type FooterProps = { menu: MenuItem[] };
 
@@ -18,7 +17,9 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 	const [menu, setMenu] = useState<MenuItem[]>([...menuFromProps]);
 	const { footerLine } = usePage();
 	const maxLength = menu[0]?.sub?.length ?? 0;
-	const isDesktop = useMediaQuery(`(min-width: ${styleVariables.desktop}px)`);
+	const isDesktop = useIsDesktop();
+
+	//const isDesktop = useMediaQuery(`(min-width: ${styleVariables.desktop}px)`);
 
 	useEffect(() => {
 		setMenu(

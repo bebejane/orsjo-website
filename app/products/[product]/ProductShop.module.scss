@@ -103,6 +103,7 @@
 		> ul {
 			list-style: none;
 			max-height: 20vh;
+			width: 100%;
 			overflow-y: scroll;
 		}
 
@@ -147,17 +148,16 @@
 			font-weight: bold;
 			flex: 1 1 auto;
 			color: var(--gray);
-
+			display: block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 100%;
 			strong {
 				color: var(--black);
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
-			display: block;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			max-width: 100px;
 		}
 
 		.price {
