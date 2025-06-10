@@ -29,7 +29,9 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 			pft.classList.toggle('exit', isSameBase);
 		}
 		router.prefetch(props.href);
+
 		await sleep(isSameBase ? 300 : 500);
+
 		router.push(props.href);
 	};
 
@@ -40,6 +42,7 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 		if (!pt) return;
 		const prevPathname = pt.getAttribute('pathname');
 		const isSameBase = prevPathname?.split('/')[1] === pathname?.split('/')[1];
+
 		if (prevPathname !== pathname) {
 			pt.classList.toggle('enter', !isSameBase);
 			pt.classList.toggle('exit', false);
@@ -51,7 +54,10 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 	}, [pathname]);
 
 	return (
-		<NextLink {...props} onClick={handleClick}>
+		<NextLink
+			{...props}
+			onClick={handleClick}
+		>
 			{props.children}
 		</NextLink>
 	);

@@ -2,7 +2,7 @@
 
 import s from './ProductShop.module.scss';
 import cn from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { use, useEffect, useRef, useState } from 'react';
 import { ProductPageDataProps } from './page';
 import { formatPrice } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
@@ -14,6 +14,7 @@ import { BiExpandHorizontal } from 'react-icons/bi';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 //import { Slider } from 'next-dato-utils/components';
 import Slider from '@/components/common/Slider';
+import { usePathname } from 'next/navigation';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -25,11 +26,12 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
-	const [hide, setHide] = useState<null | boolean>(null);
+	const [hide, setHide] = useState<boolean>(true);
+	const [wasHidden, setWasHidden] = useState<boolean>(false);
 	const [open, setOpen] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [showAddons, setShowAddons] = useState(false);
-	const [showAccessories, setShowAccessories] = useState(false);
+	const [showAccessoriesButton, setShowAccessoriesButton] = useState(false);
 	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
 	const [addons, setAddons] = useState<any[]>([]);
 	const [totalPrice, setTotalPrice] = useState<MoneyV2>({ amount: 0, currencyCode: 'SEK' as CurrencyCode });
@@ -39,7 +41,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	const formRef = useRef<HTMLFormElement>(null);
 	const selectedModel = product?.models.find(({ variants }) => variants.find((v) => v.id === selected?.id));
 	const selectedShopifyVariant = shopify.product?.variants.edges.find((v) => v.node.sku && v.node.sku === selected?.articleNo.trim())?.node;
-	console.log(showAddons);
+
 	useEffect(() => {
 		if (!variantId) return;
 		const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.id.split('/').pop() === variantId)?.node;
@@ -56,7 +58,6 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	useEffect(() => {
 		updateTotalPrice();
 		setAddons([]);
-		setShowAddons(false);
 	}, [selectedShopifyVariant]);
 
 	useEffect(() => {
@@ -64,20 +65,22 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	}, [addons]);
 
 	useEffect(() => {
-		//const section = Array.from(document.querySelectorAll<HTMLElement>(`section`))?.at(-1);
+		setWasHidden((hidden) => hidden || !hide);
+	}, [hide]);
+
+	useEffect(() => {
 		const section = document.querySelector<HTMLElement>(`footer`);
 
 		if (section) {
-			const top = section.offsetTop;
-			setHide((hide) => (hide === null && scrolledPosition === 0) || scrolledPosition + viewportHeight > top);
+			setHide((hide) => (!wasHidden && scrolledPosition === 0) || scrolledPosition + viewportHeight > section.offsetTop);
 		}
-	}, [scrolledPosition, width, height]);
+	}, [width, height, scrolledPosition, viewportHeight, wasHidden]);
 
 	function resetAll() {
 		setOpen(false);
 		setAddons([]);
 		setShowAddons(false);
-		setShowAccessories(false);
+		setShowAccessoriesButton(false);
 	}
 
 	function updateTotalPrice() {
@@ -122,13 +125,13 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	if (!product || !selected || !selectedModel) return null;
 
 	const haveAvailableAddons = selectedModel.accessories?.length > 0 || selectedModel.lightsources?.length > 0;
-	console.log(showAddons, showAccessories);
+
 	return (
 		<div
 			ref={ref}
 			className={cn(s.shop, (hide || hide === null) && s.hide, expanded && s.wide)}
-			onMouseEnter={() => setShowAccessories(true)}
-			onMouseLeave={() => !showAddons && setShowAccessories(false)}
+			onMouseEnter={() => setShowAccessoriesButton(true)}
+			onMouseLeave={() => !showAddons && setShowAccessoriesButton(false)}
 		>
 			<header>
 				<h3>Shop: {product.title}</h3>
@@ -279,7 +282,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			<div className={s.buttons}>
 				<button
 					type='button'
-					className={cn(s.toggle, !showAccessories && !open && s.hide)}
+					className={cn(s.toggle, !showAccessoriesButton && !open && s.hide)}
 					disabled={!haveAvailableAddons}
 					onClick={() => setShowAddons(!showAddons)}
 				>
