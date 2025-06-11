@@ -123,7 +123,7 @@
 		}
 
 		&.selected {
-			//background-color: var(--light-gray);
+			background-color: var(--light-gray);
 		}
 
 		.thumb {
@@ -167,7 +167,7 @@
 			display: flex;
 			justify-content: flex-end;
 
-			input[type="checkbox"] {
+			input[type='checkbox'] {
 				cursor: pointer;
 				&:checked {
 					background-color: var(--black);

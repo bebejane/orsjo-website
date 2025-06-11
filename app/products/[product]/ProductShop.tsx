@@ -134,8 +134,13 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 
 	const availableAddons =
 		selectedModel.accessories?.length ??
-		0 + selectedModel.lightsources.filter((light) => !light.included).length;
+		0 + selectedModel.lightsources.filter(({ included }) => !included).length;
 
+	console.log(
+		selectedModel.lightsources.length,
+		selectedModel.accessories?.length,
+		availableAddons
+	);
 	return (
 		<div
 			ref={ref}
@@ -194,7 +199,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 
 			<div className={cn(s.variant, (open || showAddons) && s.open)} onClick={() => setOpen(!open)}>
 				<div
-					className={cn(s.row, s.selected)}
+					className={cn(s.row)}
 					title={`${selectedModel?.name?.name ?? ''} ${[selected.color?.name, selected.material?.name].filter(Boolean).join(', ')}`}
 				>
 					<div className={s.thumb}>
@@ -280,20 +285,20 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			</div>
 
 			<div className={s.buttons}>
-				<button
-					id='accessories-button'
-					type='button'
-					className={cn(
-						"h3",
-						s.accessories,
-						s.toggle,
-						((!showAccessoriesButton && !open) || availableAddons === 0) && s.hide
-					)}
-					disabled={availableAddons === 0}
-					onClick={() => setShowAddons(!showAddons)}
+				<AnimateHeight
+					height={(!showAccessoriesButton && !open) || availableAddons === 0 ? 0 : 'auto'}
+					duration={200}
 				>
-					Accessories {!showAddons ? '+' : '-'}
-				</button>
+					<button
+						id='accessories-button'
+						type='button'
+						className={cn('h3', s.accessories, s.toggle)}
+						disabled={availableAddons === 0}
+						onClick={() => setShowAddons(!showAddons)}
+					>
+						Accessories {!showAddons ? '+' : '-'}
+					</button>
+				</AnimateHeight>
 				<button id='add-to-cart-button' onClick={handleAddToCart} className={s.addToCart}>
 					Add to cart
 				</button>
