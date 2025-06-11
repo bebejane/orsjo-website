@@ -19,7 +19,16 @@ export type CartProps = {
 };
 
 export default function Cart({ localization }: CartProps) {
-	const [cart, createCart, removeFromCart, updateQuantity, updateBuyerIdentity, updating, updatingId, cartError] = useCart(
+	const [
+		cart,
+		createCart,
+		removeFromCart,
+		updateQuantity,
+		updateBuyerIdentity,
+		updating,
+		updatingId,
+		cartError,
+	] = useCart(
 		useShallow((state) => [
 			state.cart,
 			state.createCart,
@@ -31,13 +40,18 @@ export default function Cart({ localization }: CartProps) {
 			state.error,
 		])
 	);
-	const [showCart, setShowCart] = useStore(useShallow((state) => [state.showCart, state.setShowCart]));
+	const [showCart, setShowCart] = useStore(
+		useShallow((state) => [state.showCart, state.setShowCart])
+	);
 	const country = useCountry();
 	const pathname = usePathname();
 	const [error, setError] = useState<string | null>(null);
 	const isEmpty = cart && cart?.lines?.edges?.length > 0 ? false : true;
 	const loading = !cart || updating;
-	const totalItems = cart?.lines.edges.reduce((total, { node: { quantity } }) => total + quantity, 0);
+	const totalItems = cart?.lines.edges.reduce(
+		(total, { node: { quantity } }) => total + quantity,
+		0
+	);
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -60,45 +74,25 @@ export default function Cart({ localization }: CartProps) {
 		setShowCart(false);
 	}, [pathname]);
 
-	if (!showCart) {
-		return null;
-	}
-	console.log(cart);
 	return (
-		<div
-			id='cart'
-			className={cn(s.cart, showCart && s.show, updating && s.updating)}
-			ref={ref}
-		>
+		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
 				<h1>Cart</h1>
-				<button
-					aria-label='Close cart'
-					className={s.close}
-					onClick={() => setShowCart(false)}
-				>
-					<img
-						src='/images/close.svg'
-						alt='Close'
-					/>
+				<button aria-label='Close cart' className={s.close} onClick={() => setShowCart(false)}>
+					<img src='/images/close.svg' alt='Close' />
 				</button>
 			</header>
 			{isEmpty ? (
 				<div className={s.empty}>{loading ? <Loader /> : 'Your cart is empty'}</div>
 			) : (
 				<>
-					<ul
-						className={cn(s.items, 'medium')}
-						aria-label='Cart items'
-					>
+					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
 						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => (
-							<li
-								key={idx}
-								className={cn(updatingId === id && s.updating)}
-								aria-labelledby={id}
-							>
+							<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
 								<figure className={s.thumb}>
-									<Link href={`/products/${merchandise.product.handle}?variant=${parseGid(merchandise.id)}`}>
+									<Link
+										href={`/products/${merchandise.product.handle}?variant=${parseGid(merchandise.id)}`}
+									>
 										{merchandise.image?.url && (
 											<img
 												role='icon'
@@ -131,17 +125,11 @@ export default function Cart({ localization }: CartProps) {
 								</div>
 
 								<div className={s.amount}>
-									<div
-										className={s.price}
-										aria-label={'Total'}
-									>
+									<div className={s.price} aria-label={'Total'}>
 										{formatPrice(cost.subtotalAmount)}
 									</div>
 									<div>
-										<button
-											className={cn(s.remove, 'medium')}
-											onClick={() => removeFromCart(id)}
-										>
+										<button className={cn(s.remove, 'medium')} onClick={() => removeFromCart(id)}>
 											Remove
 										</button>
 									</div>
@@ -155,24 +143,14 @@ export default function Cart({ localization }: CartProps) {
 						<div className={s.price}>{formatPrice(cart?.cost.totalAmount as MoneyV2)}</div>
 					</div>
 					<div className={s.currency}>
-						<CountrySelector
-							localization={localization}
-							label='Location'
-							className={s.form}
-						/>
+						<CountrySelector localization={localization} label='Location' className={s.form} />
 					</div>
-					<div className={cn(s.extra, 'medium', 'gray')}>Shipping and tax are added at checkout</div>
+					<div className={cn(s.extra, 'medium', 'gray')}>
+						Shipping and tax are added at checkout
+					</div>
 
-					<form
-						action={cart?.checkoutUrl.split('?')[0]}
-						method='GET'
-					>
-						<input
-							type='hidden'
-							name='key'
-							id='key'
-							value={cart?.checkoutUrl.split('?key=')[1]}
-						/>
+					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
+						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
 						<div className={cn(s.check, 'medium')}>
 							<input
 								type='checkbox'
@@ -181,15 +159,12 @@ export default function Cart({ localization }: CartProps) {
 								onChange={(e) => setTerms(e.target.checked)}
 							/>
 							<span>
-								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I have read and understood the{' '}
+								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I
+								have read and understood the{' '}
 								<Link href='/legal/privacy-policy'>privacy policy</Link>.
 							</span>
 						</div>
-						<button
-							disabled={!terms}
-							className={cn(s.checkout, 'full')}
-							type='submit'
-						>
+						<button disabled={!terms} className={cn(s.checkout, 'full')} type='submit'>
 							Checkout & pay
 						</button>
 					</form>

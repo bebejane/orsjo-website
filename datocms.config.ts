@@ -34,7 +34,13 @@ export default {
 		job: async ({ id }) => ['/about/jobs'],
 		manual: async () => ['/support/manuals'],
 		news: async ({ slug }) => [`/about/news/${slug}`, `/`],
-		product: async ({ slug }) => [`/products/${slug}`, `/professionals/downloads`, `/support/manuals`, `/products`, `/`],
+		product: async ({ slug }) => [
+			`/products/${slug}`,
+			`/professionals/downloads`,
+			`/support/manuals`,
+			`/products`,
+			`/`,
+		],
 		product_accessory: async ({ id }) => productReferences(id),
 		product_category: async ({ id }) => productReferences(id),
 		product_color: async ({ id }) => productReferences(id),
@@ -49,7 +55,11 @@ export default {
 		product_mounting: async ({ id }) => productReferences(id),
 		product_socket: async ({ id }) => productReferences(id),
 		product_start: async ({ id }) => ['/products'],
-		project: async ({ slug }) => [`/professionals/projects/${slug}`, `/professionals/projects`, `/`],
+		project: async ({ slug }) => [
+			`/professionals/projects/${slug}`,
+			`/professionals/projects`,
+			`/`,
+		],
 		project_start: async () => ['/professionals/projects'],
 		project_type: async () => ['/professionals/projects'],
 		reseller: async () => ['/contact'],
@@ -63,16 +73,21 @@ export default {
 async function productReferences(itemId: string): Promise<string[]> {
 	if (!itemId) throw new Error('Missing reference: itemId');
 	const paths: string[] = [];
-	const products = await client.items.references(itemId, { version: 'published', limit: 500 });
-	if (products.length) {
-		paths.push(`/products`);
-		paths.push(`/professionals/downloads`);
-		paths.push(`/support/manuals`);
-		paths.push(`/`);
-		paths.push.apply(
-			paths,
-			products.map((product) => `/products/${product.slug}`)
-		);
+	try {
+		const products = await client.items.references(itemId, { version: 'published', limit: 500 });
+
+		if (products.length) {
+			paths.push(`/products`);
+			paths.push(`/professionals/downloads`);
+			paths.push(`/support/manuals`);
+			paths.push(`/`);
+			paths.push.apply(
+				paths,
+				products.map((product) => `/products/${product.slug}`)
+			);
+		}
+	} catch (e) {
+		console.log('error', e.message);
 	}
 	return paths;
 }

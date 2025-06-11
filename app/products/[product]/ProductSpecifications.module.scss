@@ -3,7 +3,7 @@
 	border-top: 1px solid var(--mid-gray);
 	width: 100%;
 	display: flex;
-
+	columns: 2;
 	span {
 		min-width: mixin.spanNestedGrid(12, 2, true);
 
