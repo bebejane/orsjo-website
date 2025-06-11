@@ -144,7 +144,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			onMouseLeave={() => !showAddons && setShowAccessoriesButton(false)}
 		>
 			<header>
-				<h3>Shop: {product.title}</h3>
+				<h3>Shop {product.title}</h3>
 				<span key={totalPrice.amount} className={s.price}>
 					{formatPrice(totalPrice as MoneyV2)}
 				</span>
