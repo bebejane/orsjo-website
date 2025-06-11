@@ -37,7 +37,11 @@
 			}
 		}
 	}
-
+	.line {
+		width: 100%;
+		height: 1px;
+		background-color: var(--black);
+	}
 	header {
 		display: flex;
 		flex-direction: row;
@@ -63,7 +67,7 @@
 			}
 		}
 		padding-bottom: 0.2em;
-		border-bottom: 1px solid var(--gray);
+		//border-bottom: 1px solid var(--gray);
 	}
 
 	.models {
@@ -73,24 +77,39 @@
 		max-height: 30vh;
 		overflow-y: scroll;
 		border-bottom: 0;
+		direction: rtl;
+		scrollbar-width: 5px;
 
+		&::-webkit-scrollbar {
+			width: 10px;
+		}
+		&::-webkit-scrollbar-track {
+			background-color: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: var(--black);
+		}
 		ul.variants {
 			display: flex;
 			flex-direction: column;
 			position: relative;
+			direction: ltr;
 			height: 30vh;
 			flex: 0 0;
 			li {
-				border-top: 1px solid var(--light-gray);
+				//border-top: 1px solid var(--light-gray);
 			}
+		}
+		&.closed {
+			border-bottom: 0;
 		}
 	}
 
 	.variant {
-		&.open {
-			//border-top: 1px solid var(--black);
-			//border-bottom: 1px solid var(--black);
-		}
+		//&.open {
+		//border-top: 1px solid var(--black);
+		//border-bottom: 1px solid var(--black);
+		//}
 	}
 
 	.addons {
@@ -98,11 +117,22 @@
 		flex: 1 1 auto;
 		max-height: 20vh;
 		overflow-y: scroll;
+		direction: rtl;
+		scrollbar-width: 5px;
 
+		&::-webkit-scrollbar {
+			width: 10px;
+		}
+		&::-webkit-scrollbar-track {
+			background-color: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: var(--black);
+		}
 		ul {
 			list-style: none;
 			max-height: 20vh;
-			overflow-y: scroll;
+			direction: ltr;
 			width: 100%;
 		}
 	}
@@ -163,19 +193,6 @@
 			white-space: nowrap;
 		}
 
-		.checkbox {
-			display: flex;
-			justify-content: flex-end;
-
-			input[type='checkbox'] {
-				cursor: pointer;
-				&:checked {
-					background-color: var(--black);
-					color: var(--white);
-				}
-			}
-		}
-
 		button {
 			height: 1.7rem;
 
@@ -196,7 +213,7 @@
 	}
 
 	.buttons {
-		border-top: 1px solid var(--gray);
+		//border-top: 1px solid var(--gray);
 		button {
 			width: 100%;
 			cursor: pointer;
