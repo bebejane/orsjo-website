@@ -37,7 +37,12 @@ export function SectionListItem({
 			</div>
 
 			<div
-				className={cn(s.content, selected && s.selected, 'tableList', idx + 1 === total && s.last)}
+				className={cn(
+					s.content,
+					selected && s.selected,
+					'table-list',
+					typeof idx !== 'undefined' && idx + 1 === total && s.last
+				)}
 			>
 				{selected && title ? children : null}
 			</div>

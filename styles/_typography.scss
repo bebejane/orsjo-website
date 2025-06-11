@@ -1,80 +1,80 @@
-@use "fonts";
-@use "mixin";
+@use 'fonts';
+@use 'mixin';
 
 body,
 html {
-  font-size: var(--body-font-size);
-  line-height: var(--headline-line-height);
-  color: var(--black);
-  font-weight: 570;
-  -webkit-font-smoothing: antialiased;
-  font-variant-numeric: oldstyle-nums;
-  font-family: var(--body-font);
+	font-size: var(--body-font-size);
+	line-height: var(--headline-line-height);
+	color: var(--black);
+	font-weight: 570;
+	-webkit-font-smoothing: antialiased;
+	font-variant-numeric: oldstyle-nums;
+	font-family: var(--body-font);
 
-  @include mixin.mq($from: tablet) {
-    font-size: 26px;
-  }
+	@include mixin.mq($from: tablet) {
+		font-size: 26px;
+	}
 
-  @include mixin.mq($from: wide) {
-    font-size: 30px;
-  }
+	@include mixin.mq($from: wide) {
+		font-size: 30px;
+	}
 }
 
 h1 {
-  @include mixin.mq($until: tablet) {
-    font-size: 1.2rem;
-    line-height: 1.2;
-  }
+	@include mixin.mq($until: tablet) {
+		font-size: 1.2rem;
+		line-height: 1.2;
+	}
 
-  font-size: 1rem;
-  font-weight: normal;
-  font-family: var(--headline-font);
-  padding-bottom: 1rem;
+	font-size: 1rem;
+	font-weight: normal;
+	font-family: var(--headline-font);
+	padding-bottom: 1rem;
 
-  &.topMargin {
-    padding-top: 0.5rem;
-  }
+	&.topMargin {
+		padding-top: 0.5rem;
+	}
 
-  &.bottomMargin {
-    padding-bottom: 1.5em;
-  }
+	&.bottomMargin {
+		padding-bottom: 1.5em;
+	}
 
-  &.start {
-    font-size: 1.5rem;
-    font-family: var(--body-font);
-    padding-bottom: 0.2em;
-    padding-top: 0.2em;
-  }
+	&.start {
+		font-size: 1.5rem;
+		font-family: var(--body-font);
+		padding-bottom: 0.2em;
+		padding-top: 0.2em;
+	}
 }
 
 //Big h1, see mixins
 h2 {
-  font-size: 16px;
+	font-size: 16px;
 
-  @include mixin.mq($from: tablet) {
-    font-size: 0.8em;
-  }
+	@include mixin.mq($from: tablet) {
+		font-size: 0.8em;
+	}
 
-  //letter-spacing: .1em;
-  padding-bottom: 1em;
-  font-weight: normal;
-  font-family: var(--headline-font);
+	//letter-spacing: .1em;
+	padding-bottom: 1em;
+	font-weight: normal;
+	font-family: var(--headline-font);
 
-  &.topMargin {
-    padding-top: 0.5em;
-  }
+	&.topMargin {
+		padding-top: 0.5em;
+	}
 }
 
 h3 {
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding-bottom: 0.5em;
+	font-size: 11px;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	padding-bottom: 0.5em;
 
-  @include mixin.mq($from: tablet) {
-    letter-spacing: 0.1em;
-    font-size: 0.45em;
-  }
+	@include mixin.mq($from: tablet) {
+		letter-spacing: 0.1em;
+		font-size: 0.45em;
+	}
 }
 
 nav,
@@ -82,61 +82,61 @@ nav,
 .medium p,
 button,
 span.medium {
-  font-size: 14px;
+	font-size: 14px;
 
-  @include mixin.mq($from: tablet) {
-    font-size: 0.65rem;
-  }
+	@include mixin.mq($from: tablet) {
+		font-size: 0.65rem;
+	}
 
-  font-family: "IndivisibleMedium";
-  font-weight: normal;
-  line-height: var(--body-line-height);
+	font-family: 'IndivisibleMedium';
+	font-weight: normal;
+	line-height: var(--body-line-height);
 }
 
 p.large,
 .large p {
-  @include mixin.mq($from: tablet) {
-    font-family: "IndivisibleMedium";
-    font-size: 0.65rem;
-  }
+	@include mixin.mq($from: tablet) {
+		font-family: 'IndivisibleMedium';
+		font-size: 0.65rem;
+	}
 
-  @media screen and (min-height: 700px) {
-    font-size: 0.87rem;
-    font-family: "Indivisible";
-  }
+	@media screen and (min-height: 700px) {
+		font-size: 0.87rem;
+		font-family: 'Indivisible';
+	}
 }
 
 nav {
-  line-height: 2em !important;
+	line-height: 2em !important;
 }
 
 figcaption,
 p.small,
 span.small,
-.tableList,
+.table-list,
 footer ul {
-  line-height: var(--body-line-height);
-  font-size: 13px;
+	line-height: var(--body-line-height);
+	font-size: 13px;
 
-  @include mixin.mq($from: tablet) {
-    font-size: 0.57rem;
-  }
+	@include mixin.mq($from: tablet) {
+		font-size: 0.57rem;
+	}
 
-  line-height: 1.4;
-  font-weight: normal;
-  font-family: "IndivisibleMedium";
+	line-height: 1.4;
+	font-weight: normal;
+	font-family: 'IndivisibleMedium';
 }
 
 .icon {
-  font-size: 0.5rem;
-  font-family: "IndivisibleMedium";
+	font-size: 0.5rem;
+	font-family: 'IndivisibleMedium';
 }
 
 .bodyWeight {
-  font-family: var(--body-font) !important;
+	font-family: var(--body-font) !important;
 }
 
 .noMargin {
-  margin-bottom: 0;
-  padding-bottom: 0;
+	margin-bottom: 0;
+	padding-bottom: 0;
 }

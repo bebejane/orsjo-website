@@ -21,7 +21,7 @@
 		opacity 1s ease;
 
 	&.show {
-		transition: transform 0.2s ease-out;
+		transition: transform 0.2s cubic-bezier(0.09, 0.91, 0, 1);
 		transform: translateX(0%);
 		opacity: 1;
 
