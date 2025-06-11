@@ -1,5 +1,5 @@
-@use 'fonts';
-@use 'mixin';
+@use "fonts";
+@use "mixin";
 
 body,
 html {
@@ -65,7 +65,8 @@ h2 {
 	}
 }
 
-h3 {
+h3,
+.h3 {
 	font-size: 11px;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
@@ -73,7 +74,7 @@ h3 {
 
 	@include mixin.mq($from: tablet) {
 		letter-spacing: 0.1em;
-		font-size: 0.45em;
+		font-size: 0.45em !important;
 	}
 }
 
@@ -88,7 +89,7 @@ span.medium {
 		font-size: 0.65rem;
 	}
 
-	font-family: 'IndivisibleMedium';
+	font-family: "IndivisibleMedium";
 	font-weight: normal;
 	line-height: var(--body-line-height);
 }
@@ -96,13 +97,13 @@ span.medium {
 p.large,
 .large p {
 	@include mixin.mq($from: tablet) {
-		font-family: 'IndivisibleMedium';
+		font-family: "IndivisibleMedium";
 		font-size: 0.65rem;
 	}
 
 	@media screen and (min-height: 700px) {
 		font-size: 0.87rem;
-		font-family: 'Indivisible';
+		font-family: "Indivisible";
 	}
 }
 
@@ -124,12 +125,12 @@ footer ul {
 
 	line-height: 1.4;
 	font-weight: normal;
-	font-family: 'IndivisibleMedium';
+	font-family: "IndivisibleMedium";
 }
 
 .icon {
 	font-size: 0.5rem;
-	font-family: 'IndivisibleMedium';
+	font-family: "IndivisibleMedium";
 }
 
 .bodyWeight {

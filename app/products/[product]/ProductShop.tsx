@@ -284,6 +284,8 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					id='accessories-button'
 					type='button'
 					className={cn(
+						"h3",
+						s.accessories,
 						s.toggle,
 						((!showAccessoriesButton && !open) || availableAddons === 0) && s.hide
 					)}
