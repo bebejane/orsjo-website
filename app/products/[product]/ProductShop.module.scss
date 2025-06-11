@@ -62,13 +62,6 @@
 		border-bottom: 2px solid var(--black);
 	}
 
-	.variant {
-		&.open {
-			border-top: 1px solid var(--black);
-			border-bottom: 1px solid var(--black);
-		}
-	}
-
 	.models {
 		display: flex;
 		flex-direction: column;
@@ -83,6 +76,13 @@
 			position: relative;
 			height: 30vh;
 			flex: 0 0;
+		}
+	}
+
+	.variant {
+		&.open {
+			//border-top: 1px solid var(--black);
+			//border-bottom: 1px solid var(--black);
 		}
 	}
 
@@ -187,6 +187,7 @@
 	.buttons {
 		border-top: 2px solid var(--black);
 		button {
+			width: 100%;
 			cursor: pointer;
 			&:hover {
 				background-color: var(--black);
@@ -194,7 +195,6 @@
 			}
 		}
 		button.toggle {
-			width: 100%;
 			text-align: center;
 			font-size: 0.6rem;
 			text-transform: uppercase;
@@ -203,8 +203,7 @@
 				display: none;
 			}
 		}
-		button[type='submit'] {
-			width: 100%;
+		button.addToCart {
 		}
 	}
 

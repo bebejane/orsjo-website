@@ -4,6 +4,10 @@ import { apiQuery } from 'next-dato-utils/api';
 import { parseTitle } from '@/lib/shopify/sync';
 
 (async () => {
+	const articleNo = process.argv.slice(2).join(' ');
+	const regex = new RegExp(`^[0-9A-Z](|[-0-9A-Z]{0,61}[0-9A-Z])$`);
+	console.log(articleNo, regex.test(articleNo));
+
 	return;
 	const products: any[] = [];
 

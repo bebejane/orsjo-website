@@ -114,9 +114,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		else setAddons((addons) => [...addons, variantId]);
 	}
 
-	function handleSubmit(e: any) {
-		e.preventDefault();
-
+	function handleAddToCart(e: any) {
 		if (!selectedShopifyVariant) return;
 
 		const variantsIds: string[] = [selectedShopifyVariant.id, ...addons];
@@ -212,13 +210,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				</div>
 			</div>
 
-			<form
-				id={'addons-form'}
-				className={s.addons}
-				onSubmit={handleSubmit}
-				ref={formRef}
-				key={selectedShopifyVariant?.id}
-			>
+			<div id={'addons'} className={cn(s.addons, 'noscrollbar')} key={selectedShopifyVariant?.id}>
 				<input type='hidden' name='model' value={selectedShopifyVariant?.id} />
 				<AnimateHeight
 					height={!showAddons || availableAddons === 0 ? 0 : 'auto'}
@@ -285,7 +277,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 							})}
 					</ul>
 				</AnimateHeight>
-			</form>
+			</div>
 
 			<div className={s.buttons}>
 				<button
@@ -300,7 +292,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				>
 					Accessories {!showAddons ? '+' : '-'}
 				</button>
-				<button type='submit' form='addons-form'>
+				<button id='add-to-cart-button' onClick={handleAddToCart} className={s.addToCart}>
 					Add to cart
 				</button>
 			</div>

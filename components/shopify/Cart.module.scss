@@ -143,16 +143,15 @@
 				display: flex;
 				flex-direction: column;
 				text-align: right;
-				//padding-top: 0.85em;
 
 				.price {
 					flex: 1 1 auto;
+					white-space: nowrap;
 				}
 
 				.remove {
 					flex: 0 0;
 					width: auto;
-					//padding-bottom: 0.7em;
 				}
 			}
 		}
