@@ -43,7 +43,7 @@
 	--body-line-height: 1.35em;
 	--headline-line-height: 1.25;
 
-	--z-undelay: 110;
+	--z-undelay: 210;
 	--z-shop: 100;
 	--z-menu-desktop: 300;
 	--z-cart: 1000;
@@ -204,6 +204,12 @@ input,
 	&::-webkit-scrollbar {
 		display: none;
 		-ms-overflow-style: none;
+	}
+}
+.smallscrollbar {
+	scrollbar-width: 1px !important;
+	&::-webkit-scrollbar {
+		width: 1px;
 	}
 }
 

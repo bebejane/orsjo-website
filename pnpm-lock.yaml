@@ -101,6 +101,9 @@ importers:
       react:
         specifier: 19.1.0
         version: 19.1.0
+      react-animate-height:
+        specifier: ^3.2.3
+        version: 3.2.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-aria-components:
         specifier: ^1.8.0
         version: 1.10.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5605,6 +5608,13 @@ packages:
   raw-body@3.0.0:
     resolution: {integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==}
     engines: {node: '>= 0.8'}
+
+  react-animate-height@3.2.3:
+    resolution: {integrity: sha512-R6DSvr7ud07oeCixScyvXWEMJY/Mt2+GyOWC1KMaRc69gOBw+SsCg4TJmrp4rKUM1hyd6p+YKw90brjPH93Y2A==}
+    engines: {node: '>= 12.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   react-aria-components@1.10.0:
     resolution: {integrity: sha512-Wu1r14bIj7K1C/TLEJOjo3TMa16Xta46aYhHyupjL6bDNduezXt844hifrD8cwaZmWa9iQQDeKs17dMzLMQcEw==}
@@ -13610,6 +13620,11 @@ snapshots:
       http-errors: 2.0.0
       iconv-lite: 0.6.3
       unpipe: 1.0.0
+
+  react-animate-height@3.2.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   react-aria-components@1.10.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:

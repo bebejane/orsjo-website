@@ -49,6 +49,7 @@
     "nextjs-google-analytics": "^2.3.7",
     "nodemailer": "^7.0.2",
     "react": "19.1.0",
+    "react-animate-height": "^3.2.3",
     "react-aria-components": "^1.8.0",
     "react-datocms": "^7.2.2",
     "react-dom": "19.1.0",
