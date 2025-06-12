@@ -213,12 +213,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				</div>
 				{addons.map(({ id, name, variantId, price, imageUrl }) => {
 					return (
-						<div
-							className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
-							id={id}
-							onClick={handleAddonClick}
-							title={name}
-						>
+						<div className={cn(s.row)} id={id} onClick={handleAddonClick} title={name}>
 							<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
 							<span className={s.name}>
 								<strong>{name}</strong>
