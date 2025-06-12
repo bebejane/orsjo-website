@@ -11,7 +11,6 @@ import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
-import { ShopifyProductByIdDocument } from '@/lib/shopify/graphql';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -27,6 +26,7 @@ type Addon = {
 	name: string;
 	price?: MoneyV2;
 	imageUrl?: string;
+	amount?: number;
 };
 
 export default function ProductShop({ product, shopify, variantId }: Props) {
@@ -40,7 +40,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				variantId: shopify.accessories.find(
 					(p) => p?.variants.edges[0].node.sku === accessory?.articleNo
 				)?.variants.edges[0].node.id,
-				name: accessory?.name,
+				name: `1 x ${accessory?.name}`,
 				price: shopify.accessories.find(
 					(p) => p?.variants.edges[0].node.sku === accessory?.articleNo
 				)?.variants.edges[0].node.price,
@@ -50,20 +50,21 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			})),
 			...lightsources
 				.filter(({ included }) => !included)
-				.map(({ __typename, id, lightsource }) => ({
+				.map(({ __typename, id, lightsource, amount }) => ({
 					__typename,
 					id,
 					modelId,
 					variantId: shopify.lightsources.find(
 						(p) => p?.variants.edges[0].node.sku === lightsource?.articleNo
 					)?.variants.edges[0].node.id,
-					name: lightsource.name,
+					name: `${amount} x ${lightsource?.name}`,
 					price: shopify.lightsources.find(
 						(p) => p?.variants.edges[0].node.sku === lightsource?.articleNo
 					)?.variants.edges[0].node.price,
 					imageUrl: shopify.lightsources.find(
 						(p) => p?.variants.edges[0].node.sku === lightsource?.articleNo
 					)?.variants.edges[0].node.image?.url,
+					amount,
 				})),
 		])
 		.flat() as Addon[];

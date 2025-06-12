@@ -90,8 +90,7 @@
 		max-height: 30vh;
 		overflow-y: auto;
 		border-bottom: 0;
-		//direction: rtl;
-		scrollbar-width: 1px;
+		scrollbar-width: 2px;
 
 		&::-webkit-scrollbar {
 			width: 2px;
@@ -128,17 +127,17 @@
 		flex: 1 1 auto;
 		max-height: 20vh;
 		overflow-y: auto;
-		direction: rtl;
-		scrollbar-width: 0px;
+
+		scrollbar-width: 2px;
 
 		&::-webkit-scrollbar {
-			width: 0px;
+			width: 2px;
 		}
 		&::-webkit-scrollbar-track {
-			background-color: transparent;
+			background-color: var(--light-gray);
 		}
 		&::-webkit-scrollbar-thumb {
-			background-color: var(--black);
+			background-color: var(--mid-gray);
 		}
 		ul {
 			list-style: none;
@@ -215,7 +214,7 @@
 			display: flex;
 			justify-content: flex-end;
 
-			input[type="checkbox"] {
+			input[type='checkbox'] {
 				cursor: pointer;
 				&:checked {
 					background-color: var(--black);
