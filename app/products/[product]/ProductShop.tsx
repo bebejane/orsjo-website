@@ -154,7 +154,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				</span>
 			</header>
 			<div className={s.line} />
-			<AnimateHeight height={!open ? 0 : 'auto'} duration={400}>
+			<AnimateHeight height={!open ? 0 : 'auto'} duration={400} style={{ position: 'relative' }}>
 				<div id='models' className={cn(s.models)}>
 					{product.models.map(({ id, name, variants }) => (
 						<ul className={cn(s.variants)} key={id}>
@@ -194,6 +194,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 						</ul>
 					))}
 				</div>
+				<div className={s.scrollfade} />
 			</AnimateHeight>
 			<div className={cn(s.line, !open && s.hide)} />
 			<div className={cn(s.variant, (open || showAddons) && s.open)} onClick={() => setOpen(!open)}>

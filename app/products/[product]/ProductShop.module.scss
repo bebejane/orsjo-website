@@ -10,11 +10,9 @@
 	z-index: var(--z-shop);
 	background-color: var(--white-real);
 	opacity: 1;
-	//padding: 1rem;
 	transition:
 		opacity 0.1s ease,
 		width 0.2s ease-out;
-	//box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.1);
 
 	&.wide {
 		width: mixin.spanGrid(6);
@@ -65,27 +63,27 @@
 		line-height: 1;
 		padding: 0.5rem;
 		height: 1.7rem;
+		padding-bottom: 0.2em;
 		.price {
 			font-size: 0.57rem;
 			margin-top: -0.2em;
 			animation: blink 0.05s steps(2, start) forwards;
 			@keyframes blink {
 				0% {
-					opacity: 0;
+					opacity: 0.5;
 				}
 				99% {
-					opacity: 0;
+					opacity: 0.5;
 				}
 				100% {
 					opacity: 1;
 				}
 			}
 		}
-		padding-bottom: 0.2em;
-		//border-bottom: 1px solid var(--gray);
 	}
 
 	.models {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
@@ -93,10 +91,10 @@
 		overflow-y: auto;
 		border-bottom: 0;
 		direction: rtl;
-		scrollbar-width: 5px;
+		scrollbar-width: 0px;
 
 		&::-webkit-scrollbar {
-			width: 5px;
+			width: 0px;
 		}
 		&::-webkit-scrollbar-track {
 			background-color: transparent;
@@ -131,10 +129,10 @@
 		max-height: 20vh;
 		overflow-y: auto;
 		direction: rtl;
-		scrollbar-width: 5px;
+		scrollbar-width: 0px;
 
 		&::-webkit-scrollbar {
-			width: 5px;
+			width: 0px;
 		}
 		&::-webkit-scrollbar-track {
 			background-color: transparent;
@@ -244,6 +242,25 @@
 				}
 			}
 		}
+	}
+
+	.scrollfade {
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 2;
+
+		min-height: 1rem;
+		height: 0.5rem;
+		width: 100%;
+		background: linear-gradient(
+			0deg,
+			rgba(255, 255, 255, 0) 0%,
+			rgba(255, 255, 255, 0.4) 20%,
+			rgba(255, 255, 255, 1) 100%
+		);
+
+		//background-color: pink;
 	}
 
 	.buttons {
