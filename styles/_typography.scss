@@ -74,7 +74,7 @@ h3,
 
 	@include mixin.mq($from: tablet) {
 		letter-spacing: 0.1em;
-		font-size: 0.45em !important;
+		font-size: 0.45em;
 	}
 }
 
