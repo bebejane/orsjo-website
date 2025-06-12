@@ -142,9 +142,11 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	}
 
 	function updateTotalPrice() {
-		const variantsIds: string[] = [...addons, selectedShopifyVariant?.id].filter(
-			Boolean
-		) as string[];
+		const variantsIds: string[] = [
+			...addons.map((a) => a.variantId),
+			selectedShopifyVariant?.id,
+		].filter(Boolean) as string[];
+
 		const modelPrice = parseFloat(selectedShopifyVariant?.price.amount ?? '0');
 		const addonsPrice = variantsIds.reduce((acc, id) => {
 			const accessory = shopify.accessories.find((p) => p?.variants.edges[0].node.id === id);
@@ -266,7 +268,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 							onClick={handleAddonClick}
 							title={name}
 						>
-							<div className={s.thumb}></div>
+							<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
 							<span className={s.name}>
 								<strong>{name}</strong>
 							</span>
@@ -293,7 +295,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 												addons.find((a) => a.variantId === variantId) && s.selected
 											)}
 										>
-											<div className={s.thumb}></div>
+											<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
 											<span className={s.name}>
 												<strong>{name}</strong>
 											</span>
