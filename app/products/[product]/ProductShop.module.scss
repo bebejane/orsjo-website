@@ -230,6 +230,7 @@
 			height: 1.7rem;
 
 			all: unset;
+
 			&:hover {
 				color: var(--black) !important;
 				cursor: pointer;
@@ -246,10 +247,10 @@
 	}
 
 	.buttons {
-		//border-top: 1px solid var(--gray);
 		button {
 			width: 100%;
 			cursor: pointer;
+			border: 0 !important;
 			&:hover {
 				background-color: var(--black);
 				color: var(--white);
