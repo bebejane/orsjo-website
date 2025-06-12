@@ -25,6 +25,7 @@ import {
 } from '@/lib/shopify/graphql-admin';
 import { Item } from '@datocms/cma-client/dist/types/generated/SimpleSchemaTypes';
 import { batchPromises } from '@/lib/utils';
+import { generateTitle } from '@/lib/utils';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -66,10 +67,13 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				if (!product) throw new Error('Invalid product: ' + itemId);
 
-				const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
-					admin: true,
-					variables: { handle: product.slug },
-				});
+				const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
+					AdminProductDocument,
+					{
+						admin: true,
+						variables: { handle: product.slug },
+					}
+				);
 
 				const productMedia: CreateMediaInput[] = [];
 
@@ -79,7 +83,11 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							const articleNo = variant.articleNo?.trim();
 							const shopifyVariant = shopifyProduct?.variants.edges.find((v) => v.node.sku === articleNo)?.node;
 							const id = shopifyVariant?.id ?? undefined;
-							const mediaSrc = variant.image?.url ? [variant.image?.url] : product.image.url ? [product.image.url] : null;
+							const mediaSrc = variant.image?.url
+								? [variant.image?.url]
+								: product.image.url
+									? [product.image.url]
+									: null;
 							const description = [variant.color?.name, variant.material?.name].filter(Boolean).join(', ');
 
 							acc.push({
@@ -107,7 +115,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 								],
 								optionValues: [
 									{
-										name: parseTitle(product as ProductRecord, variant.id),
+										name: generateTitle(product as ProductRecord, variant.id),
 										optionName: 'Title',
 									},
 								],
@@ -116,7 +124,8 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						return acc;
 					}, [] as ProductVariantsBulkInput[])
 					.reduce((acc, variant) => {
-						if (!acc.find((v) => v.inventoryItem && v.inventoryItem?.sku === variant.inventoryItem?.sku)) acc.push(variant);
+						if (!acc.find((v) => v.inventoryItem && v.inventoryItem?.sku === variant.inventoryItem?.sku))
+							acc.push(variant);
 						return acc;
 					}, [] as ProductVariantsBulkInput[]);
 
@@ -153,10 +162,13 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				const accessoryArticleNo = productAccessory.articleNo?.trim();
 
-				const { product: shopifyAccessory } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
-					admin: true,
-					variables: { handle: productAccessory.slug ?? '' },
-				});
+				const { product: shopifyAccessory } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
+					AdminProductDocument,
+					{
+						admin: true,
+						variables: { handle: productAccessory.slug ?? '' },
+					}
+				);
 
 				const accessoryData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyAccessory?.id,
@@ -177,7 +189,8 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				const accessoryVariants: ProductVariantsBulkInput[] = [
 					{
-						id: shopifyAccessory?.variants.edges.find((v) => v.node.sku === productAccessory?.articleNo?.trim())?.node.id,
+						id: shopifyAccessory?.variants.edges.find((v) => v.node.sku === productAccessory?.articleNo?.trim())?.node
+							.id,
 						price: productAccessory.price,
 						mediaSrc: productAccessory.image?.url ? [productAccessory.image.url] : null,
 						inventoryItem: {
@@ -214,19 +227,22 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				await updateProduct({ product: accessoryData }, accessoryVariants, accessoryVariantsMedia);
 				break;
 			case 'product_lightsource':
-				const { productLightsource } = await apiQuery<ProductLightsourceByIdQuery, ProductLightsourceByIdQueryVariables>(
-					ProductLightsourceByIdDocument,
-					{ revalidate: 0, variables: { id: itemId } }
-				);
+				const { productLightsource } = await apiQuery<
+					ProductLightsourceByIdQuery,
+					ProductLightsourceByIdQueryVariables
+				>(ProductLightsourceByIdDocument, { revalidate: 0, variables: { id: itemId } });
 
 				if (!productLightsource) throw new Error(`Invalid product: ${itemId}`);
 
 				const lightsourceArticleNo = productLightsource.articleNo?.trim();
 
-				const { product: shopifyLightsource } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
-					admin: true,
-					variables: { handle: productLightsource.slug ?? '' },
-				});
+				const { product: shopifyLightsource } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
+					AdminProductDocument,
+					{
+						admin: true,
+						variables: { handle: productLightsource.slug ?? '' },
+					}
+				);
 
 				const lightsourceData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyLightsource?.id,
@@ -247,7 +263,8 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				const lightsourceVariants: ProductVariantsBulkInput[] = [
 					{
-						id: shopifyLightsource?.variants.edges.find((v) => v.node.sku === productLightsource?.articleNo?.trim())?.node.id,
+						id: shopifyLightsource?.variants.edges.find((v) => v.node.sku === productLightsource?.articleNo?.trim())
+							?.node.id,
 						price: productLightsource.price,
 						mediaSrc: productLightsource.image?.url ? [productLightsource.image.url] : null,
 						inventoryItem: {
@@ -281,7 +298,11 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				syncResult.handle = lightsourceData.handle as string;
 				syncResult.id = lightsourceData.id as string;
 
-				await updateProduct({ product: lightsourceData, media: lightsourceMedia }, lightsourceVariants, lightsourceMedia);
+				await updateProduct(
+					{ product: lightsourceData, media: lightsourceMedia },
+					lightsourceVariants,
+					lightsourceMedia
+				);
 				break;
 			default:
 				throw new Error('Invalid item type: ' + item.item_type.id);
@@ -320,27 +341,32 @@ export async function updateProduct(
 		} else {
 			console.log('updating product:', data.product.handle);
 
-			const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(AdminProductDocument, {
-				admin: true,
-				variables: { handle: data.product.handle ?? '' },
-			});
+			const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
+				AdminProductDocument,
+				{
+					admin: true,
+					variables: { handle: data.product.handle ?? '' },
+				}
+			);
 
 			if (!shopifyProduct) throw new Error('Invalid shopify product: ' + data.product.handle);
 
 			const deleteMedia: string[] = shopifyProduct?.media.nodes.map((media) => media.id);
 			const deleteVariants: string[] = shopifyProduct?.variants.edges
-				.filter(({ node }) => node.sku && variants?.find((variant) => variant.inventoryItem?.sku === node.sku) === undefined)
+				.filter(
+					({ node }) => node.sku && variants?.find((variant) => variant.inventoryItem?.sku === node.sku) === undefined
+				)
 				.map(({ node }) => node.id);
 
 			if (deleteMedia.length) {
 				console.log('delete all media:', shopifyProduct.id);
-				const { productDeleteMedia } = await shopifyQuery<ProductMediaDeleteMutation, ProductMediaDeleteMutationVariables>(
-					ProductMediaDeleteDocument,
-					{
-						admin: true,
-						variables: { productId: shopifyProduct.id, mediaIds: deleteMedia },
-					}
-				);
+				const { productDeleteMedia } = await shopifyQuery<
+					ProductMediaDeleteMutation,
+					ProductMediaDeleteMutationVariables
+				>(ProductMediaDeleteDocument, {
+					admin: true,
+					variables: { productId: shopifyProduct.id, mediaIds: deleteMedia },
+				});
 
 				if (productDeleteMedia?.mediaUserErrors?.length)
 					throw new Error(JSON.stringify(productDeleteMedia.mediaUserErrors.map((e) => e.message).join('. '), null, 2));
@@ -359,7 +385,9 @@ export async function updateProduct(
 					},
 				});
 				if (productVariantsBulkDelete?.userErrors?.length) {
-					throw new Error(JSON.stringify(productVariantsBulkDelete.userErrors.map((e) => e.message).join('. '), null, 2));
+					throw new Error(
+						JSON.stringify(productVariantsBulkDelete.userErrors.map((e) => e.message).join('. '), null, 2)
+					);
 				}
 			}
 
@@ -397,22 +425,28 @@ export async function updateProduct(
 			console.log('update variants:', updatedVariants.length, updatedVariantsMedia.length);
 
 			const [{ productVariantsBulkCreate }, { productVariantsBulkUpdate }] = await Promise.all([
-				shopifyQuery<ProductVariantsBulkCreateMutation, ProductVariantsBulkCreateMutationVariables>(ProductVariantsBulkCreateDocument, {
-					admin: true,
-					variables: {
-						productId: product.id,
-						variants: newVariants,
-						media: newVariantsMedia,
-					},
-				}),
-				shopifyQuery<ProductVariantsBulkUpdateMutation, ProductVariantsBulkUpdateMutationVariables>(ProductVariantsBulkUpdateDocument, {
-					admin: true,
-					variables: {
-						productId: product.id,
-						variants: updatedVariants,
-						media: updatedVariantsMedia,
-					},
-				}),
+				shopifyQuery<ProductVariantsBulkCreateMutation, ProductVariantsBulkCreateMutationVariables>(
+					ProductVariantsBulkCreateDocument,
+					{
+						admin: true,
+						variables: {
+							productId: product.id,
+							variants: newVariants,
+							media: newVariantsMedia,
+						},
+					}
+				),
+				shopifyQuery<ProductVariantsBulkUpdateMutation, ProductVariantsBulkUpdateMutationVariables>(
+					ProductVariantsBulkUpdateDocument,
+					{
+						admin: true,
+						variables: {
+							productId: product.id,
+							variants: updatedVariants,
+							media: updatedVariantsMedia,
+						},
+					}
+				),
 			]);
 
 			if (productVariantsBulkCreate?.userErrors?.length)
@@ -459,21 +493,15 @@ export async function updateProduct(
 	}
 }
 
-export const parseTitle = (product: ProductRecord, variantId: string): string => {
-	const model = product.models.find(({ variants }) => variants.find((v) => v.id === variantId));
-	const variant = model?.variants.find(({ id }) => id === variantId);
-	const title =
-		[model?.name?.name, variant?.color?.name, variant?.material?.name, variant?.feature?.name].filter(Boolean).join(' - ') ??
-		variant?.articleNo?.trim();
-	return title || 'No title';
-};
-
 export const resetAll = async () => {
 	console.log('reseting all...');
 	//throw new Error('Not implemented');
-	const { products } = await shopifyQuery<AllAdminProductsQuery, AllAdminProductsQueryVariables>(AllAdminProductsDocument, {
-		admin: true,
-	});
+	const { products } = await shopifyQuery<AllAdminProductsQuery, AllAdminProductsQueryVariables>(
+		AllAdminProductsDocument,
+		{
+			admin: true,
+		}
+	);
 
 	console.log('deleting all products:', products?.edges.length);
 
