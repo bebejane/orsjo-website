@@ -218,7 +218,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					<button className={cn(s.dropdown, open && s.open)}>❯</button>
 				</div>
 			</div>
-			<div className={cn(s.line, !showAddons && s.hide)} />
+			<div className={cn(s.line)} />
 			<div id={'addons'} className={cn(s.addons)} key={selectedShopifyVariant?.id}>
 				<input type='hidden' name='model' value={selectedShopifyVariant?.id} />
 				<AnimateHeight height={!showAddons || availableAddons === 0 ? 0 : 'auto'} duration={400}>
@@ -283,7 +283,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					</ul>
 				</AnimateHeight>
 			</div>
-			<div className={s.line} />
+
 			<div className={s.buttons}>
 				<AnimateHeight
 					height={(!showAccessoriesButton && !open) || availableAddons === 0 ? 0 : 'auto'}
