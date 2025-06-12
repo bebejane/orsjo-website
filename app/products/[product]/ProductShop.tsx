@@ -12,6 +12,8 @@ import { useScrollInfo } from 'next-dato-utils/hooks';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
 import { generateTitle } from '@/lib/utils';
+import { RiCheckFill } from 'react-icons/ri';
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -28,6 +30,10 @@ type Addon = {
 	price?: MoneyV2;
 	imageUrl?: string;
 	amount?: number;
+};
+
+const MyHandle = (props) => {
+	return <div ref={props.innerRef} {...props} />;
 };
 
 export default function ProductShop({ product, shopify, variantId }: Props) {
@@ -118,6 +124,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		if (!addon) throw new Error('Invalid addon id: ' + id);
 		if (addons.find((a) => a.id === id)) setAddons((addons) => addons.filter((a) => a.id !== id));
 		else setAddons((addons) => [...addons, addon]);
+		setOpen(false);
 	}
 
 	function handleAddToCart(e: any) {
@@ -211,17 +218,26 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					<span className={s.price}></span>
 					<button className={cn(s.dropdown, open && s.open)}>❯</button>
 				</div>
-				{addons.map(({ id, name, variantId, price, imageUrl }) => {
+
+				{/*addons.map(({ id, name, variantId, price, imageUrl }) => {
 					return (
-						<div className={cn(s.row)} id={id} onClick={handleAddonClick} title={name}>
+						<div
+							className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
+							id={id}
+							onClick={handleAddonClick}
+							title={name}
+						>
 							<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
 							<span className={s.name}>
 								<strong>{name}</strong>
 							</span>
 							<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
+							<div className={s.plus}>
+								<button>-</button>
+							</div>
 						</div>
 					);
-				})}
+				})*/}
 			</div>
 
 			<hr />
@@ -231,11 +247,23 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				<AnimateHeight height={!showAddons || allAddons.length === 0 ? 0 : 'auto'} duration={400}>
 					<ul>
 						{selectedModelAddons
-							?.filter((a) => addons.find(({ id }) => a.id === id) === undefined)
+							//?.filter((a) => addons.find(({ id }) => a.id === id) === undefined)
+							//.sort((a, b) => (addons.find((add) => add.variantId === a.variantId) ? -1 : 1))
 							.map(({ id, name, variantId, price, imageUrl }) => {
+								const isSelected = addons.find((a) => a.variantId === variantId) !== undefined;
 								return (
 									<li key={id} id={id} onClick={handleAddonClick} title={name}>
-										<div className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}>
+										<div
+											className={cn(
+												s.row,
+												addons.find((a) => isSelected && s.selected)
+											)}
+										>
+											<div className={cn(s.plus, isSelected && s.checked)}>
+												<button>
+													{isSelected ? <RiCheckFill size={16} color='var(--black)' /> : <AiOutlinePlus size={16} />}
+												</button>
+											</div>
 											<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
 											<span className={s.name}>
 												<strong>{name}</strong>

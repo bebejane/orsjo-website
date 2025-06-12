@@ -20,9 +20,7 @@ type Props = {
 export default function ProductIntro({ product, drawings, specsCols }: Props) {
 	const singleModel = product?.models?.length === 1;
 	const [list, setList] = useState({ specifications: false, downloads: false });
-	const [setGallery, setGalleryId] = useStore(
-		useShallow((state) => [state.setGallery, state.setGalleryId])
-	);
+	const [setGallery, setGalleryId] = useStore(useShallow((state) => [state.setGallery, state.setGalleryId]));
 
 	const handleGalleryClick = (type: string, id: string) => {
 		setGallery({
@@ -71,9 +69,7 @@ export default function ProductIntro({ product, drawings, specsCols }: Props) {
 					{product?.models.map(({ id, name, variants, lightsources, accessories }, midx) => {
 						const art: any[] = variants.map((v) => ({
 							articleNo: v.articleNo,
-							label: [v.color?.name, v.material?.name, v.feature?.name]
-								.filter((el) => el)
-								.join(', '),
+							label: [v.color?.name, v.material?.name, v.feature?.name].filter((el) => el).join(', '),
 						}));
 
 						const access = accessories
@@ -137,15 +133,8 @@ export default function ProductIntro({ product, drawings, specsCols }: Props) {
 
 			<div className={cn(ps.section, s.dimensions)}>
 				<span>Dimensions</span>
-				<button
-					onClick={() => handleGalleryClick('drawings', drawings[0].id)}
-					disabled={drawings.length === 0}
-				>
-					{drawings.length ? (
-						<>View drawing{drawings.length > 1 && 's'} + </>
-					) : (
-						<>No drawings available</>
-					)}
+				<button onClick={() => handleGalleryClick('drawings', drawings[0].id)} disabled={drawings.length === 0}>
+					{drawings.length ? <>View drawing{drawings.length > 1 && 's'} + </> : <>No drawings available</>}
 				</button>
 			</div>
 		</SectionListItem>

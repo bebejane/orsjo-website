@@ -63,19 +63,27 @@
 		padding: 0.5rem;
 		height: 1.7rem;
 		padding-bottom: 0.2em;
+		h3 {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 		.price {
 			font-size: 0.57rem;
 			margin-top: -0.2em;
-			animation: blink 0.05s steps(2, start) forwards;
+			animation: blink 0.5s steps(2, start) forwards;
+			white-space: nowrap;
 			@keyframes blink {
 				0% {
 					opacity: 0.5;
+					font-weight: bold;
 				}
 				99% {
 					opacity: 0.5;
 				}
 				100% {
 					opacity: 1;
+					font-weight: normal;
 				}
 			}
 		}
@@ -124,7 +132,7 @@
 	.addons {
 		width: 100%;
 		flex: 1 1 auto;
-		max-height: 20vh;
+		max-height: 30vh;
 		overflow-y: auto;
 
 		scrollbar-width: 2px;
@@ -140,7 +148,7 @@
 		}
 		ul {
 			list-style: none;
-			max-height: 20vh;
+			max-height: 30vh;
 			direction: ltr;
 			width: 100%;
 
@@ -154,6 +162,7 @@
 	}
 
 	.row {
+		position: relative;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -163,10 +172,6 @@
 		height: 1.7rem;
 		padding: 0.5em;
 		cursor: pointer;
-
-		&:hover {
-			background-color: rgba(0, 0, 0, 0.015);
-		}
 
 		&.selected {
 			border-top: 1px solid var(--gray);
@@ -210,15 +215,58 @@
 			white-space: nowrap;
 		}
 
-		.checkbox {
-			display: flex;
-			justify-content: flex-end;
+		.plus,
+		.minus {
+			//display: flex;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			//position: absolute;
+			top: 0;
+			left: 0;
+			height: 1.7rem;
+			font-size: 0.7rem;
+			width: 0rem;
+			overflow: hidden;
+			transition: width 0.2s ease-out;
+			color: var(--gray);
+			svg {
+				width: 1.7rem;
+				path {
+					color: var(--mid-gray);
+				}
+			}
+			&.checked {
+				display: flex !important;
+				width: 1.7rem;
+				svg {
+					path {
+						color: var(--black);
+					}
+				}
+			}
 
-			input[type="checkbox"] {
+			button {
+				all: unset;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				cursor: pointer;
-				&:checked {
-					background-color: var(--black);
-					color: var(--white);
+				//background-color: var(--light-gray);
+				height: 0.8rem;
+				width: 0.8rem;
+				color: var(--black);
+			}
+		}
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.015);
+			.plus,
+			.minus {
+				display: flex;
+				width: 1.7rem;
+				&.checked {
+					//opacity: 0;
 				}
 			}
 		}

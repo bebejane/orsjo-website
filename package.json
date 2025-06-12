@@ -24,6 +24,7 @@
     "@next/env": "^15.3.1",
     "@react-email/components": "0.0.38",
     "@types/react": "^19.1.2",
+    "@types/react-resizable": "^3.0.8",
     "async-promise-batch": "^1.0.5",
     "base-64": "^1.0.0",
     "chokidar": "^4.0.3",
