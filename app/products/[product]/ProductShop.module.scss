@@ -112,7 +112,7 @@
 			height: 30vh;
 			flex: 0 0;
 			li {
-				border-top: 1px solid var(--light-gray);
+				//border-top: 1px solid var(--light-gray);
 			}
 		}
 		&.closed {
@@ -122,8 +122,6 @@
 
 	.variant {
 		&.open {
-			border-top: 1px solid var(--gray);
-			border-bottom: 1px solid var(--gray);
 		}
 	}
 
@@ -219,7 +217,7 @@
 			display: flex;
 			justify-content: flex-end;
 
-			input[type="checkbox"] {
+			input[type='checkbox'] {
 				cursor: pointer;
 				&:checked {
 					background-color: var(--black);
