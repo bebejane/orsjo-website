@@ -77,6 +77,10 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	}, [hide]);
 
 	useEffect(() => {
+		//		setOpen(!showAddons);
+	}, [showAddons]);
+
+	useEffect(() => {
 		const section = document.querySelector<HTMLElement>(`footer`);
 		setHide(
 			(hide) =>
@@ -155,7 +159,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				</span>
 			</header>
 			<div className={s.line} />
-			<AnimateHeight height={!open ? 0 : 'auto'} duration={500}>
+			<AnimateHeight height={!open ? 0 : 'auto'} duration={400}>
 				<div id='models' className={cn(s.models)}>
 					{product.models.map(({ id, name, variants }) => (
 						<ul className={cn(s.variants)} key={id}>
@@ -196,7 +200,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					))}
 				</div>
 			</AnimateHeight>
-
+			<div className={cn(s.line, !open && s.hide)} />
 			<div className={cn(s.variant, (open || showAddons) && s.open)} onClick={() => setOpen(!open)}>
 				<div
 					className={cn(s.row)}
@@ -214,13 +218,10 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					<button className={cn(s.dropdown, open && s.open)}>❯</button>
 				</div>
 			</div>
-
+			<div className={cn(s.line, !showAddons && s.hide)} />
 			<div id={'addons'} className={cn(s.addons)} key={selectedShopifyVariant?.id}>
 				<input type='hidden' name='model' value={selectedShopifyVariant?.id} />
-				<AnimateHeight
-					height={!showAddons || availableAddons === 0 ? 0 : 'auto'}
-					duration={availableAddons * 100}
-				>
+				<AnimateHeight height={!showAddons || availableAddons === 0 ? 0 : 'auto'} duration={400}>
 					<ul>
 						{selectedModel.accessories?.map(({ id, accessory }) => {
 							const shopifyAccessory = shopify.accessories.find((p) =>

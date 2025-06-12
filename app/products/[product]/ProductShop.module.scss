@@ -40,10 +40,21 @@
 	.line {
 		width: 100%;
 		height: 1px;
-		transition: height 1s linear;
 		background-color: var(--black);
+
+		@keyframes hide {
+			0% {
+				height: 1px;
+			}
+			99% {
+				height: 1px;
+			}
+			100% {
+				height: 0px;
+			}
+		}
 		&.hide {
-			height: 0;
+			animation: hide 400ms linear forwards;
 		}
 	}
 	header {
