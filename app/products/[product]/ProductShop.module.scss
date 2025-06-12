@@ -88,8 +88,8 @@
 
 	.variant {
 		&.open {
-			//border-top: 1px solid var(--black);
-			//border-bottom: 1px solid var(--black);
+			border-top: 1px solid var(--gray);
+			border-bottom: 1px solid var(--gray);
 		}
 	}
 
@@ -104,6 +104,13 @@
 			max-height: 20vh;
 			overflow-y: scroll;
 			width: 100%;
+
+			li {
+				border-top: 1px solid var(--light-gray);
+				&:first-child {
+					border-top: 0px solid var(--gray);
+				}
+			}
 		}
 	}
 
@@ -167,7 +174,7 @@
 			display: flex;
 			justify-content: flex-end;
 
-			input[type='checkbox'] {
+			input[type="checkbox"] {
 				cursor: pointer;
 				&:checked {
 					background-color: var(--black);

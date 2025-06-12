@@ -296,7 +296,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 						disabled={availableAddons === 0}
 						onClick={() => setShowAddons(!showAddons)}
 					>
-						Accessories {!showAddons ? '+' : '-'}
+						Accessories {!showAddons ? '+' : '–'}
 					</button>
 				</AnimateHeight>
 				<button id='add-to-cart-button' onClick={handleAddToCart} className={s.addToCart}>
