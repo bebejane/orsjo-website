@@ -63,7 +63,9 @@ const convertPrice = (price: number, locale: Locale) => {
 
 export const priceIncLight = (prodPrice: number, lightsources: LightsourceRecord[], locale: Locale) => {
 	let price = prodPrice;
-	lightsources.filter((l) => !l.optional && !l.included).forEach((l) => (price += l.lightsource.price * (l.amount ? l.amount : 0)));
+	lightsources
+		.filter((l) => !l.optional && !l.included)
+		.forEach((l) => (price += l.lightsource.price * (l.amount ? l.amount : 0)));
 	return formatPrice(price, locale);
 };
 
@@ -133,9 +135,13 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 			.join(', '),
 		socket: product.sockets.map((el) => el.name).join(', '),
 		weight:
-			product.models.length && product.models?.[0].variants?.[0]?.weight ? `${product.models?.[0].variants?.[0]?.weight} kg` : undefined,
+			product.models.length && product.models?.[0].variants?.[0]?.weight
+				? `${product.models?.[0].variants?.[0]?.weight} kg`
+				: undefined,
 		volume:
-			product.models.length && product.models?.[0].variants?.[0]?.volume ? `${product.models?.[0].variants?.[0]?.volume} m³` : undefined,
+			product.models.length && product.models?.[0].variants?.[0]?.volume
+				? `${product.models?.[0].variants?.[0]?.volume} m³`
+				: undefined,
 		care: null,
 		recycling: null,
 	};
@@ -214,13 +220,17 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
 
 	const files = [
 		{
-			href: pdfFiles.find(({ locale }) => locale === 'sv') && `${pdfFiles.find(({ locale }) => locale === 'sv')?.value?.url}`,
+			href:
+				pdfFiles.find(({ locale }) => locale === 'sv') &&
+				`${pdfFiles.find(({ locale }) => locale === 'sv')?.value?.url}`,
 			label: 'Productsheet (SE)',
 			type: 'pdf',
 			download: true,
 		},
 		{
-			href: pdfFiles.find(({ locale }) => locale === 'en') && `${pdfFiles.find(({ locale }) => locale === 'en')?.value?.url}`,
+			href:
+				pdfFiles.find(({ locale }) => locale === 'en') &&
+				`${pdfFiles.find(({ locale }) => locale === 'en')?.value?.url}`,
 			label: 'Productsheet (EN)',
 			type: 'pdf',
 			download: true,
@@ -270,7 +280,8 @@ export const truncateParagraph = (s: string, sentances: number = 1, ellipsis: bo
 export const remToPx = (rem: string | number): number => {
 	if (isServer) return 0;
 	return (
-		(typeof rem === 'string' ? parseFloat(rem.replace('rem', '')) : rem) * parseFloat(getComputedStyle(document.documentElement).fontSize)
+		(typeof rem === 'string' ? parseFloat(rem.replace('rem', '')) : rem) *
+		parseFloat(getComputedStyle(document.documentElement).fontSize)
 	);
 };
 
@@ -356,7 +367,12 @@ export const pathnameToColor = (pathname: string) => {
 	if (pathname === '/') return '--black';
 };
 
-export const batchPromises = async (tasks: any[], concurrency: number, timeout?: number, callback?: (index: number) => void) => {
+export const batchPromises = async (
+	tasks: any[],
+	concurrency: number,
+	timeout?: number,
+	callback?: (index: number) => void
+) => {
 	const results: any[] = [];
 	const executing = new Set();
 
@@ -401,3 +417,13 @@ export function dedupeByKey<T>(array: T[], key: string) {
 		return acc;
 	}, [] as T[]);
 }
+
+export const generateTitle = (product: ProductRecord, variantId: string): string => {
+	const model = product.models.find(({ variants }) => variants.find((v) => v.id === variantId));
+	const variant = model?.variants.find(({ id }) => id === variantId);
+	const title =
+		[model?.name?.name, variant?.color?.name, variant?.material?.name, variant?.feature?.name]
+			.filter(Boolean)
+			.join(' - ') ?? variant?.articleNo?.trim();
+	return title || 'No title';
+};
