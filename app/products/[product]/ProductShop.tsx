@@ -137,14 +137,9 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	if (!product || !selected || !selectedModel) return null;
 
 	const availableAddons =
-		selectedModel.accessories?.length ??
-		0 + selectedModel.lightsources.filter(({ included }) => !included).length;
+		(selectedModel.accessories?.length ?? 0) +
+		selectedModel.lightsources.filter(({ included }) => !included).length;
 
-	console.log(
-		selectedModel.lightsources.length,
-		selectedModel.accessories?.length,
-		availableAddons
-	);
 	return (
 		<div
 			ref={ref}

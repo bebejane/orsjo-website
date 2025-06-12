@@ -68,7 +68,7 @@
 		.price {
 			font-size: 0.57rem;
 			margin-top: -0.2em;
-			//animation: blink 0.05s steps(2, start) forwards;
+			animation: blink 0.05s steps(2, start) forwards;
 			@keyframes blink {
 				0% {
 					opacity: 0;
