@@ -154,9 +154,9 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					{formatPrice(totalPrice as MoneyV2)}
 				</span>
 			</header>
-
+			<div className={s.line} />
 			<AnimateHeight height={!open ? 0 : 'auto'} duration={500}>
-				<div id='models' className={cn(s.models, 'noscrollbar')}>
+				<div id='models' className={cn(s.models)}>
 					{product.models.map(({ id, name, variants }) => (
 						<ul className={cn(s.variants)} key={id}>
 							{variants.map((variant) => {
@@ -215,14 +215,13 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				</div>
 			</div>
 
-			<div id={'addons'} className={cn(s.addons, 'noscrollbar')} key={selectedShopifyVariant?.id}>
+			<div id={'addons'} className={cn(s.addons)} key={selectedShopifyVariant?.id}>
 				<input type='hidden' name='model' value={selectedShopifyVariant?.id} />
 				<AnimateHeight
 					height={!showAddons || availableAddons === 0 ? 0 : 'auto'}
 					duration={availableAddons * 100}
-					className={'noscrollbar'}
 				>
-					<ul className={'noscrollbar'}>
+					<ul>
 						{selectedModel.accessories?.map(({ id, accessory }) => {
 							const shopifyAccessory = shopify.accessories.find((p) =>
 								p?.tags.includes(accessory?.articleNo ?? '')
@@ -283,7 +282,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					</ul>
 				</AnimateHeight>
 			</div>
-
+			<div className={s.line} />
 			<div className={s.buttons}>
 				<AnimateHeight
 					height={(!showAccessoriesButton && !open) || availableAddons === 0 ? 0 : 'auto'}
