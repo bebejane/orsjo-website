@@ -65,7 +65,6 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	useEffect(() => {
 		updateTotalPrice();
 		setAddons([]);
-		setShowAddons(false);
 	}, [selectedShopifyVariant]);
 
 	useEffect(() => {
@@ -75,10 +74,6 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	useEffect(() => {
 		setWasHidden((hidden) => hidden || !hide);
 	}, [hide]);
-
-	useEffect(() => {
-		//		setOpen(!showAddons);
-	}, [showAddons]);
 
 	useEffect(() => {
 		const section = document.querySelector<HTMLElement>(`footer`);
@@ -194,7 +189,6 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 						</ul>
 					))}
 				</div>
-				<div className={s.scrollfade} />
 			</AnimateHeight>
 			<div className={cn(s.line, !open && s.hide)} />
 			<div className={cn(s.variant, (open || showAddons) && s.open)} onClick={() => setOpen(!open)}>
