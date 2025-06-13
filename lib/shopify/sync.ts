@@ -22,6 +22,7 @@ import {
 	RemoveProductDocument,
 	FilesDocument,
 	FileDeleteDocument,
+	UpdateProductStatusDocument,
 } from '@/lib/shopify/graphql-admin';
 import { Item } from '@datocms/cma-client/dist/types/generated/SimpleSchemaTypes';
 import { batchPromises } from '@/lib/utils';
@@ -327,6 +328,10 @@ export async function updateProduct(
 		let product:
 			| NonNullable<AddProductMutation['productCreate']>['product']
 			| NonNullable<UpdateProductMutation['productUpdate']>['product'] = null;
+
+		//@ts-ignore
+		data.product.status = 'ACTIVE';
+
 		if (!isUpdate) {
 			console.log('creating product:', data.product.handle);
 
@@ -492,6 +497,31 @@ export async function updateProduct(
 	} finally {
 	}
 }
+
+export const syncProductStatus = async (
+	handle: string,
+	status: ProductStatus
+): Promise<UpdateProductStatusMutation['productUpdate']> => {
+	const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
+		AdminProductDocument,
+		{
+			admin: true,
+			variables: { handle },
+		}
+	);
+
+	const { productUpdate } = await shopifyQuery<UpdateProductStatusMutation, UpdateProductStatusMutationVariables>(
+		UpdateProductStatusDocument,
+		{
+			admin: true,
+			variables: {
+				productId: shopifyProduct?.id,
+				status,
+			},
+		}
+	);
+	return productUpdate;
+};
 
 export const resetAll = async () => {
 	console.log('reseting all...');

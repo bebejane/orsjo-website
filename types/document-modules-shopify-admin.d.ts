@@ -15,6 +15,7 @@ declare module '*/product.gql' {
   const defaultDocument: DocumentNode;
   export const AddProduct: DocumentNode;
 export const UpdateProduct: DocumentNode;
+export const UpdateProductStatus: DocumentNode;
 export const ProductUpdate: DocumentNode;
 export const ProductVariantsBulkCreate: DocumentNode;
 export const ProductVariantsBulkUpdate: DocumentNode;

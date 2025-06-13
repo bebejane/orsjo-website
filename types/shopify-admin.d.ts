@@ -2100,6 +2100,14 @@ type AttributeInput = {
   value: Scalars['String']['input'];
 };
 
+/** The intended audience for the order status page. */
+enum Audience {
+  /** Intended for customer notifications. */
+  CUSTOMERVIEW = 'CUSTOMERVIEW',
+  /** Intended for merchant wanting to preview the order status page. Should be used immediately after querying. */
+  MERCHANTVIEW = 'MERCHANTVIEW'
+}
+
 /** The input fields for an author. Either the `name` or `user_id` fields can be supplied, but never both. */
 type AuthorInput = {
   /** The author's full name. */
@@ -9666,6 +9674,19 @@ enum CurrencyCode {
   /** Zambian Kwacha (ZMW). */
   ZMW = 'ZMW'
 }
+
+/** Represents a currency exchange adjustment applied to an order transaction. */
+type CurrencyExchangeAdjustment = Node & {
+  __typename?: 'CurrencyExchangeAdjustment';
+  /** The adjustment amount in both shop and presentment currencies. */
+  adjustment: MoneyV2;
+  /** The final amount in both shop and presentment currencies after the adjustment. */
+  finalAmountSet: MoneyV2;
+  /** A globally-unique ID. */
+  id: Scalars['ID']['output'];
+  /** The original amount in both shop and presentment currencies before the adjustment. */
+  originalAmountSet: MoneyV2;
+};
 
 /** Currency formats configured for the merchant. These formats are available to use within Liquid. */
 type CurrencyFormats = {
@@ -26265,6 +26286,8 @@ enum MarketUserErrorCode {
   MANAGED_MARKETS_CATALOG_NOT_ALLOWED = 'MANAGED_MARKETS_CATALOG_NOT_ALLOWED',
   /** A direct connection catalog can't be attached to a market. */
   MARKET_CANT_HAVE_DIRECT_CONNECTION_CATALOG = 'MARKET_CANT_HAVE_DIRECT_CONNECTION_CATALOG',
+  /** Market and condition types are not compatible with each other. */
+  MARKET_NOT_COMPATIBLE_WITH_CONDITION_TYPES = 'MARKET_NOT_COMPATIBLE_WITH_CONDITION_TYPES',
   /** The market wasn't found. */
   MARKET_NOT_FOUND = 'MARKET_NOT_FOUND',
   /** Can't add another web presence to the market. */
@@ -34360,6 +34383,7 @@ type MutationorderCreateManualPaymentArgs = {
   amount?: InputMaybe<MoneyInput>;
   id: Scalars['ID']['input'];
   paymentMethodName?: InputMaybe<Scalars['String']['input']>;
+  processedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 
@@ -35764,6 +35788,14 @@ type Node = {
   id: Scalars['ID']['output'];
 };
 
+/** The valid values for the notification usage, specifying the intended notification environment usage for certain operations. */
+enum NotificationUsage {
+  /** The notification environment is sms. */
+  SMS = 'SMS',
+  /** The notification environment is web. */
+  WEB = 'WEB'
+}
+
 /** The input fields for dimensions of an object. */
 type ObjectDimensionsInput = {
   /** The height in `unit`s. */
@@ -37007,6 +37039,24 @@ type OrdershippingLinesArgs = {
  *
  * **Caution:** Only use this data if it's required for your app's functionality. Shopify will restrict [access to scopes](https://shopify.dev/api/usage/access-scopes) for apps that don't have a legitimate use for the associated data.
  */
+type OrderstatusPageUrlArgs = {
+  audience?: InputMaybe<Audience>;
+  notificationUsage?: InputMaybe<NotificationUsage>;
+};
+
+
+/**
+ * An order is a customer's request to purchase one or more products from a shop. You can retrieve and update orders using the `Order` object.
+ * Learn more about
+ * [editing an existing order with the GraphQL Admin API](https://shopify.dev/apps/fulfillment/order-management-apps/order-editing).
+ *
+ * Only the last 60 days' worth of orders from a store are accessible from the `Order` object by default. If you want to access older orders,
+ * then you need to [request access to all orders](https://shopify.dev/api/usage/access-scopes#orders-permissions). If your app is granted
+ * access, then you can add the `read_all_orders` scope to your app along with `read_orders` or `write_orders`.
+ * [Private apps](https://shopify.dev/apps/auth/basic-http) are not affected by this change and are automatically granted the scope.
+ *
+ * **Caution:** Only use this data if it's required for your app's functionality. Shopify will restrict [access to scopes](https://shopify.dev/api/usage/access-scopes) for apps that don't have a legitimate use for the associated data.
+ */
 type OrdersuggestedRefundArgs = {
   refundDuties?: InputMaybe<Array<RefundDutyInput>>;
   refundLineItems?: InputMaybe<Array<RefundLineItemInput>>;
@@ -37539,7 +37589,9 @@ enum OrderCreateManualPaymentOrderCreateManualPaymentErrorCode {
   /** Order is temporarily unavailable. */
   ORDER_IS_TEMPORARILY_UNAVAILABLE = 'ORDER_IS_TEMPORARILY_UNAVAILABLE',
   /** Order is not found. */
-  ORDER_NOT_FOUND = 'ORDER_NOT_FOUND'
+  ORDER_NOT_FOUND = 'ORDER_NOT_FOUND',
+  /** Indicates that the processedAt field is invalid, such as when it references a future date. */
+  PROCESSED_AT_INVALID = 'PROCESSED_AT_INVALID'
 }
 
 /** Return type for `orderCreateManualPayment` mutation. */
@@ -38700,6 +38752,10 @@ type OrderTransaction = Node & {
   authorizationExpiresAt?: Maybe<Scalars['DateTime']['output']>;
   /** Date and time when the transaction was created. */
   createdAt: Scalars['DateTime']['output'];
+  /** An adjustment on the transaction showing the amount lost or gained  due to fluctuations in the currency exchange rate. */
+  currencyExchangeAdjustment?: Maybe<CurrencyExchangeAdjustment>;
+  /** The Shopify Point of Sale device used to process the transaction. */
+  device?: Maybe<PointOfSaleDevice>;
   /** A standardized error code, independent of the payment provider. */
   errorCode?: Maybe<OrderTransactionErrorCode>;
   /** The transaction fees charged on the order transaction. Only present for Shopify Payments transactions. */
@@ -38712,6 +38768,8 @@ type OrderTransaction = Node & {
   id: Scalars['ID']['output'];
   /** The kind of transaction. */
   kind: OrderTransactionKind;
+  /** The physical location where the transaction was processed. */
+  location?: Maybe<Location>;
   /** Whether the transaction is processed by manual payment gateway. */
   manualPaymentGateway: Scalars['Boolean']['output'];
   /** Whether the transaction can be manually captured. */
@@ -39747,6 +39805,13 @@ type PaypalWalletPaymentDetails = BasePaymentDetails & {
   __typename?: 'PaypalWalletPaymentDetails';
   /** The name of payment method used by the buyer. */
   paymentMethodName?: Maybe<Scalars['String']['output']>;
+};
+
+/** Represents a mobile device that Shopify Point of Sale has been installed on. */
+type PointOfSaleDevice = Node & {
+  __typename?: 'PointOfSaleDevice';
+  /** A globally-unique ID. */
+  id: Scalars['ID']['output'];
 };
 
 /** The input fields used to include the line items of a specified fulfillment order that should be marked as prepared for pickup by a customer. */
@@ -46683,6 +46748,8 @@ type QueryRoot = {
   paymentTermsTemplates: Array<PaymentTermsTemplate>;
   /** The number of pendings orders. Limited to a maximum of 10000. */
   pendingOrdersCount?: Maybe<Count>;
+  /** Lookup a point of sale device by ID. */
+  pointOfSaleDevice?: Maybe<PointOfSaleDevice>;
   /** Returns a price list resource by ID. */
   priceList?: Maybe<PriceList>;
   /** All price lists for a shop. */
@@ -48336,6 +48403,12 @@ type QueryRootpaymentCustomizationsArgs = {
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 type QueryRootpaymentTermsTemplatesArgs = {
   paymentTermsType?: InputMaybe<PaymentTermsType>;
+};
+
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+type QueryRootpointOfSaleDeviceArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -61882,6 +61955,14 @@ type UpdateProductMutationVariables = Exact<{
 
 
 type UpdateProductMutation = { __typename?: 'Mutation', productUpdate?: { __typename?: 'ProductUpdatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'UserError', field?: Array<string> | null, message: string }> } | null };
+
+type UpdateProductStatusMutationVariables = Exact<{
+  productId?: InputMaybe<Scalars['ID']['input']>;
+  status?: InputMaybe<ProductStatus>;
+}>;
+
+
+type UpdateProductStatusMutation = { __typename?: 'Mutation', productUpdate?: { __typename?: 'ProductUpdatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'UserError', field?: Array<string> | null, message: string }> } | null };
 
 type ProductUpdateMutationVariables = Exact<{
   product: ProductUpdateInput;
