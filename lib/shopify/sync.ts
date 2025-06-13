@@ -53,7 +53,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 		const itemTypes = await client.itemTypes.list();
 		const apiKey = itemTypes.find(({ id }) => id === item.item_type.id)?.api_key;
 
-		if (!apiKey) throw new Error('Invalid item type: ' + item?.item_type?.id);
+		if (!apiKey) throw new Error('Invalid item type (api_key): ' + apiKey);
 
 		syncResult.itemType = apiKey;
 
@@ -306,7 +306,8 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				);
 				break;
 			default:
-				throw new Error('Invalid item type: ' + item.item_type.id);
+				console.log('Unsupported item type(api_key): ' + apiKey);
+				break;
 		}
 	} catch (e) {
 		throw e;
