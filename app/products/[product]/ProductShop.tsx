@@ -222,15 +222,16 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				</div>
 
 				{!showAddons &&
-					addons.map(({ id, name, variantId, price, imageUrl }) => {
+					addons.map(({ id, name, variantId, price, imageUrl }, idx) => {
 						return (
 							<div
+								key={idx}
 								className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
 								id={id}
 								onClick={handleAddonClick}
 								title={name}
 							>
-								<div className={cn(s.plus)}>
+								<div className={s.plusminus}>
 									<AiOutlineMinus size={16} />
 								</div>
 								<div className={cn(s.check, s.checked)}>
@@ -268,7 +269,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 												addons.find((a) => isSelected && s.selected)
 											)}
 										>
-											<div className={cn(s.plus, isSelected && s.hide)}>
+											<div className={cn(s.plusminus, isSelected && s.hide)}>
 												<AiOutlinePlus size={16} />
 											</div>
 											<div className={cn(s.check, isSelected && s.checked)}>

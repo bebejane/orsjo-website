@@ -164,7 +164,7 @@
 	}
 
 	.row {
-		--thumb-size: 1.7rem;
+		--thumb-size: 1.3rem;
 
 		position: relative;
 		display: flex;
@@ -219,7 +219,7 @@
 			white-space: nowrap;
 		}
 
-		.plus {
+		.plusminus {
 			display: flex;
 			position: absolute;
 			top: 0;
@@ -229,7 +229,7 @@
 			align-items: center;
 			justify-content: center;
 			z-index: 2;
-			height: var(--thumb-size);
+			height: 100%;
 			width: var(--thumb-size);
 			background-color: rgba(255, 255, 255, 0.8);
 		}
@@ -264,7 +264,7 @@
 
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.015);
-			.plus {
+			.plusminus {
 				opacity: 1;
 				&.hide {
 					opacity: 0;
