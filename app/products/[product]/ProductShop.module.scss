@@ -164,6 +164,8 @@
 	}
 
 	.row {
+		--thumb-size: 1.7rem;
+
 		position: relative;
 		display: flex;
 		flex-direction: row;
@@ -176,20 +178,20 @@
 		cursor: pointer;
 
 		&.selected {
-			border-top: 1px solid var(--gray);
+			//border-top: 1px solid var(--gray);
 			background-color: var(--white-real);
 		}
 
 		.thumb {
-			min-height: 2em;
-			min-width: 2em;
+			height: var(--thumb-size);
+			width: var(--thumb-size);
+			min-height: var(--thumb-size);
+			min-width: var(--thumb-size);
 			line-height: 1;
-			//background-color: var(--light-gray);
-			margin-right: 0.5em;
 
 			img {
-				height: 2em;
-				width: 2em;
+				height: var(--thumb-size);
+				width: var(--thumb-size);
 				object-fit: cover;
 			}
 		}
@@ -217,59 +219,59 @@
 			white-space: nowrap;
 		}
 
-		.plus,
-		.minus {
+		.plus {
 			display: flex;
-			//display: none;
+			position: absolute;
+			top: 0;
+			left: 0.5em;
+			opacity: 0;
+			display: flex;
 			align-items: center;
 			justify-content: center;
-			//position: absolute;
-			top: 0;
-			left: 0;
-			height: 1.7rem;
+			z-index: 2;
+			height: var(--thumb-size);
+			width: var(--thumb-size);
+			background-color: rgba(255, 255, 255, 0.8);
+		}
+
+		.check {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: var(--thumb-size);
+			width: 0;
 			font-size: 0.7rem;
-			width: 0rem;
-			overflow: hidden;
-			transition: margin-right 0.2s ease-out;
-			margin-right: 0;
+			transition: width 0.2s ease-out;
 			color: var(--gray);
 			opacity: 0;
 			svg {
-				width: 1.7rem;
+				width: var(--thumb-size);
 				path {
 					color: var(--mid-gray);
 				}
 			}
 			&.checked {
 				display: flex !important;
-				margin-right: 0rem;
 				opacity: 1;
-				width: 1.7rem;
+				width: var(--thumb-size);
 				svg {
 					path {
 						color: var(--black);
 					}
 				}
 			}
-
-			button {
-				all: unset;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				cursor: pointer;
-				//background-color: var(--light-gray);
-				height: 0.8rem;
-				width: 0.8rem;
-				color: var(--black);
-			}
 		}
 
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.015);
-			.plus,
-			.minus {
-				display: flex;
+			.plus {
+				opacity: 1;
+				&.hide {
+					opacity: 0;
+				}
+			}
+			.check {
+				//display: flex;
 				//width: 2.7rem;
 				&.checked {
 					//opacity: 0;

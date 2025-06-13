@@ -221,25 +221,32 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					<button className={cn(s.dropdown, open && s.open)}>❯</button>
 				</div>
 
-				{/*addons.map(({ id, name, variantId, price, imageUrl }) => {
-					return (
-						<div
-							className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
-							id={id}
-							onClick={handleAddonClick}
-							title={name}
-						>
-							<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
-							<span className={s.name}>
-								<strong>{name}</strong>
-							</span>
-							<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
-							<div className={s.plus}>
-								<button>-</button>
+				{!showAddons &&
+					addons.map(({ id, name, variantId, price, imageUrl }) => {
+						return (
+							<div
+								className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
+								id={id}
+								onClick={handleAddonClick}
+								title={name}
+							>
+								<div className={cn(s.plus)}>
+									<AiOutlineMinus size={16} />
+								</div>
+								<div className={cn(s.check, s.checked)}>
+									<RiCheckFill size={16} color='var(--black)' />
+								</div>
+								<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
+								<span className={s.name}>
+									<strong>{name}</strong>
+								</span>
+								<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
+								<div className={s.plus}>
+									<button>-</button>
+								</div>
 							</div>
-						</div>
-					);
-				})*/}
+						);
+					})}
 			</div>
 
 			<hr />
@@ -261,10 +268,11 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 												addons.find((a) => isSelected && s.selected)
 											)}
 										>
-											<div className={cn(s.plus, isSelected && s.checked)}>
-												<button>
-													{isSelected ? <RiCheckFill size={16} color='var(--black)' /> : <AiOutlinePlus size={16} />}
-												</button>
+											<div className={cn(s.plus, isSelected && s.hide)}>
+												<AiOutlinePlus size={16} />
+											</div>
+											<div className={cn(s.check, isSelected && s.checked)}>
+												{isSelected && <RiCheckFill size={16} color='var(--black)' />}
 											</div>
 											<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
 											<span className={s.name}>
