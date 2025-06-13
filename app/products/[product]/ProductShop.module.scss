@@ -5,6 +5,7 @@
 	left: 0;
 	bottom: 0;
 	width: mixin.spanGrid(3.5);
+	//width: mixin.spanGrid(8);
 	margin-left: calc(var(--outer-margin));
 	margin-bottom: calc(var(--outer-margin));
 	z-index: var(--z-shop);
@@ -73,6 +74,7 @@
 			margin-top: -0.2em;
 			animation: blink 0.5s steps(2, start) forwards;
 			white-space: nowrap;
+
 			@keyframes blink {
 				0% {
 					opacity: 0.5;
@@ -94,7 +96,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-height: 30vh;
+		max-height: 25vh;
 		overflow-y: auto;
 		border-bottom: 0;
 		scrollbar-width: 2px;
@@ -113,7 +115,7 @@
 			flex-direction: column;
 			position: relative;
 			direction: ltr;
-			height: 30vh;
+			height: 25vh;
 			flex: 0 0;
 			li {
 				border-top: 1px solid var(--light-gray);
@@ -132,7 +134,7 @@
 	.addons {
 		width: 100%;
 		flex: 1 1 auto;
-		max-height: 30vh;
+		max-height: 25vh;
 		overflow-y: auto;
 
 		scrollbar-width: 2px;
@@ -148,7 +150,7 @@
 		}
 		ul {
 			list-style: none;
-			max-height: 30vh;
+			max-height: 25vh;
 			direction: ltr;
 			width: 100%;
 
@@ -217,8 +219,8 @@
 
 		.plus,
 		.minus {
-			//display: flex;
-			display: none;
+			display: flex;
+			//display: none;
 			align-items: center;
 			justify-content: center;
 			//position: absolute;
@@ -228,8 +230,10 @@
 			font-size: 0.7rem;
 			width: 0rem;
 			overflow: hidden;
-			transition: width 0.2s ease-out;
+			transition: margin-right 0.2s ease-out;
+			margin-right: 0;
 			color: var(--gray);
+			opacity: 0;
 			svg {
 				width: 1.7rem;
 				path {
@@ -238,6 +242,8 @@
 			}
 			&.checked {
 				display: flex !important;
+				margin-right: 0rem;
+				opacity: 1;
 				width: 1.7rem;
 				svg {
 					path {
@@ -264,7 +270,7 @@
 			.plus,
 			.minus {
 				display: flex;
-				width: 1.7rem;
+				//width: 2.7rem;
 				&.checked {
 					//opacity: 0;
 				}
