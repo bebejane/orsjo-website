@@ -1,7 +1,7 @@
 'use client';
 
 import ps from './page.module.scss';
-import s from './ProductDownloads.module.scss';
+import s from './Downloads.module.scss';
 import cn from 'classnames';
 import { SectionListItem, Icon } from '@/components';
 import { useState } from 'react';

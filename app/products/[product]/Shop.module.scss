@@ -1,9 +1,9 @@
 .shop {
-	position: fixed;
+	position: sticky;
 	display: flex;
 	flex-direction: column;
 	left: 0;
-	bottom: 0;
+	bottom: var(--outer-margin);
 	width: mixin.spanGrid(3.5);
 	//width: mixin.spanGrid(8);
 	margin-left: calc(var(--outer-margin));

@@ -76,8 +76,11 @@ export default function FeaturedGallery({
 						releaseOnEdges: true,
 						invert: false,
 						sensitivity: 1,
-						//thresholdDelta: 5,
-						//thresholdTime: 100,
+					}}
+					freeMode={{
+						enabled: true,
+						momentum: true,
+						sticky: false,
 					}}
 					simulateTouch={!isShortSlide}
 					slidesPerView={'auto'}
@@ -88,10 +91,7 @@ export default function FeaturedGallery({
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
 				>
 					{items?.map((item: any, idx: number) => (
-						<SwiperSlide
-							key={`${id}-${idx}`}
-							className={cn(s.slide)}
-						>
+						<SwiperSlide key={`${id}-${idx}`} className={cn(s.slide)}>
 							{item.__typename === 'ProductRecord' ? (
 								<ProductThumbnail
 									key={idx}

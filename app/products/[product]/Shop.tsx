@@ -1,6 +1,6 @@
 'use client';
 
-import s from './ProductShop.module.scss';
+import s from './Shop.module.scss';
 import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { ProductPageDataProps } from './page';
@@ -29,11 +29,7 @@ type Addon = {
 	name: string;
 	price?: MoneyV2;
 	imageUrl?: string;
-	amount?: number;
-};
-
-const MyHandle = (props) => {
-	return <div ref={props.innerRef} {...props} />;
+	quantity: number;
 };
 
 export default function ProductShop({ product, shopify, variantId }: Props) {
@@ -130,12 +126,15 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	function handleAddToCart(e: any) {
 		if (!selectedShopifyVariant) return;
 
-		const variantsIds: string[] = [selectedShopifyVariant.id, ...addons.map((a) => a.variantId)];
+		const variants: { id: string; quantity: number }[] = [
+			{ id: selectedShopifyVariant.id, quantity: 1 },
+			...addons.map((a) => ({ id: a.variantId, quantity: a.quantity })),
+		];
 
 		addToCart(
-			variantsIds.reverse().map((id) => ({
+			variants.reverse().map(({ id, quantity }) => ({
 				merchandiseId: id,
-				quantity: 1,
+				quantity,
 			})),
 			'SE'
 		);
@@ -242,9 +241,6 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 									<strong>{name}</strong>
 								</span>
 								<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
-								<div className={s.plus}>
-									<button>-</button>
-								</div>
 							</div>
 						);
 					})}
@@ -330,6 +326,7 @@ function getAllAddons(product: ProductPageDataProps['product'], shopify: Product
 					.edges[0].node.price,
 				imageUrl: shopify.accessories.find((p) => p?.variants.edges[0].node.sku === accessory?.articleNo)?.variants
 					.edges[0].node.image?.url,
+				quantity: 1,
 			})),
 			...lightsources
 				.filter(({ included }) => !included)
@@ -344,7 +341,7 @@ function getAllAddons(product: ProductPageDataProps['product'], shopify: Product
 						.edges[0].node.price,
 					imageUrl: shopify.lightsources.find((p) => p?.variants.edges[0].node.sku === lightsource?.articleNo)?.variants
 						.edges[0].node.image?.url,
-					amount,
+					quantity: amount,
 				})),
 		])
 		.flat() as Addon[];

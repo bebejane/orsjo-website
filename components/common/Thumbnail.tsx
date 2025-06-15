@@ -42,8 +42,7 @@ export default function Thumbnail({
 	lazyload = true,
 }: ThumbnailProps) {
 	const [hovering, setHovering] = useState(false);
-	const isTouch =
-		typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
+	const isTouch = typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
 	const handleMouseOver = ({ type }) => !isTouch && setHovering(type === 'mouseenter');
 
 	const content = (
@@ -134,7 +133,7 @@ export function ProductThumbnail({
 			image={product.image}
 			imageHover={product.environmentImage}
 			title={product.title}
-			subtitle={`by ${product.designer?.name}`}
+			subtitle={product.designer?.name ? product.designer.name : undefined}
 			className={className}
 			inverted={inverted}
 			theme={theme}

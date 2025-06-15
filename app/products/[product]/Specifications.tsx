@@ -1,7 +1,7 @@
 'use client';
 
 import ps from './page.module.scss';
-import s from './ProductSpecifications.module.scss';
+import s from './Specifications.module.scss';
 import cn from 'classnames';
 import { SectionListItem } from '@/components';
 import { chunkArray } from '@/lib/utils';

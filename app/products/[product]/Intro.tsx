@@ -1,6 +1,6 @@
 'use client';
 
-import s from './ProductIntro.module.scss';
+import s from './Intro.module.scss';
 import cn from 'classnames';
 import { Block, Section, TextReveal } from '@/components';
 import { recordImages, dedupeImages, styleVariables } from '@/lib/utils';
@@ -27,7 +27,9 @@ export default function ProductIntro({ product, drawings }: Props) {
 	const [pictureStyle, setPictureStyle] = useState({ paddingBottom: '4em' });
 
 	const images = useMemo(() => {
-		const imgs = product?.image ? [product.image, ...(product?.productGallery || [])] : [...(product?.productGallery || [])];
+		const imgs = product?.image
+			? [product.image, ...(product?.productGallery || [])]
+			: [...(product?.productGallery || [])];
 		return dedupeImages([...imgs.map((block) => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]);
 	}, [product]);
 
@@ -71,15 +73,8 @@ export default function ProductIntro({ product, drawings }: Props) {
 
 	return (
 		<>
-			<Section
-				name='Introduction'
-				className={s.product}
-				top={true}
-			>
-				<div
-					className={s.intro}
-					onClick={() => handleGalleryClick('product', product.image?.id)}
-				>
+			<Section name='Introduction' className={s.product} top={true}>
+				<div className={s.intro} onClick={() => handleGalleryClick('product', product.image?.id)}>
 					{product.image?.responsiveImage && (
 						<Image
 							data={product.image.responsiveImage}
@@ -115,12 +110,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 			<Section className={s.description}>{product.description && <Markdown content={product.description} />}</Section>
 			<Section>
 				{product.productGallery.map((block, idx) => (
-					<Block
-						key={idx}
-						data={block}
-						onClick={(id: string) => handleGalleryClick('product', id)}
-						first={idx === 0}
-					/>
+					<Block key={idx} data={block} onClick={(id: string) => handleGalleryClick('product', id)} first={idx === 0} />
 				))}
 			</Section>
 		</>

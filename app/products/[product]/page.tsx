@@ -13,10 +13,10 @@ import type { ProductDownload } from '@/lib/utils';
 import { firstBy } from 'thenby';
 import React from 'react';
 import { notFound } from 'next/navigation';
-import ProductIntro from '@/app/products/[product]/ProductIntro';
-import ProductSpecifications from '@/app/products/[product]/ProductSpecifications';
-import ProductDownloads from '@/app/products/[product]/ProductDownloads';
-import ProductShop from '@/app/products/[product]/ProductShop';
+import Intro from './Intro';
+import Specifications from './Specifications';
+import Downloads from './Downloads';
+import Shop from './Shop';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import shopifyQuery from '@/lib/shopify/shopify-query';
@@ -43,27 +43,11 @@ export default async function Product({ params, searchParams }: Props) {
 
 	return (
 		<>
-			<ProductIntro
-				product={product}
-				drawings={drawings}
-			/>
-			<ProductSpecifications
-				product={product}
-				drawings={drawings}
-				specsCols={specsCols}
-			/>
-			<ProductDownloads files={files} />
-			<ProductShop
-				product={product}
-				shopify={shopify}
-				variantId={v}
-			/>
-			<Section
-				name='Related'
-				className={s.related}
-				bgColor='--mid-gray'
-				fadeColor={'#ffffff'}
-			>
+			<Intro product={product} drawings={drawings} />
+			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
+			<Downloads files={files} />
+			<Shop product={product} shopify={shopify} variantId={v} />
+			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery
 						headline={`Related products`}
@@ -131,14 +115,20 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 		apiQuery<AllProductsByCategoryQuery, AllProductsByCategoryQueryVariables>(AllProductsByCategoryDocument, {
 			variables: { categoryId: product.categories[0]?.id },
 		}),
-		apiQuery<RelatedProjectsForProductQuery, RelatedProjectsForProductQueryVariables>(RelatedProjectsForProductDocument, {
-			variables: { productId: product.id },
-		}),
+		apiQuery<RelatedProjectsForProductQuery, RelatedProjectsForProductQueryVariables>(
+			RelatedProjectsForProductDocument,
+			{
+				variables: { productId: product.id },
+			}
+		),
 	]);
 
-	const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
-		variables: { handle: product.slug },
-	});
+	const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(
+		ShopifyProductDocument,
+		{
+			variables: { handle: product.slug },
+		}
+	);
 
 	const relatedArticleNos = product.models.reduce(
 		(acc, model) => {
@@ -150,9 +140,12 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 	);
 
 	const query = relatedArticleNos.map((articleNo) => `tag:${articleNo}`).join(' OR ');
-	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(ShopifyProductsByQueryDocument, {
-		variables: { query },
-	});
+	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(
+		ShopifyProductsByQueryDocument,
+		{
+			variables: { query },
+		}
+	);
 	const shopifyAccessories = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('accessory'));
 	const shopifyLightsources = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('lightsource'));
 
@@ -204,7 +197,10 @@ const getProductPageData = async (slug: string): Promise<ProductPageDataProps | 
 };
 
 export async function generateStaticParams() {
-	const { allProducts } = await apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(AllProductsLightDocument, { all: true });
+	const { allProducts } = await apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(
+		AllProductsLightDocument,
+		{ all: true }
+	);
 	const paths = allProducts.map(({ slug }) => ({ slug }));
 	return paths;
 }
