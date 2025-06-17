@@ -13,11 +13,14 @@ import { useEffect, useRef, useState } from 'react';
 import { usePage } from '@/lib/context/page';
 import { useMediaQuery } from 'usehooks-ts';
 
+export type ProductRecordWithShopifyData = ProductRecord & { shopify: ProductVariant };
+
 export type FeaturedGalleryProps = {
 	products?: ProductRecord[];
 	projects?: ProjectRecord[];
 	designers?: DesignerRecord[];
-	items: ProductRecord[] | ProjectRecord[] | DesignerRecord[];
+	items: ProductRecordWithShopifyData[] | ProjectRecord[] | DesignerRecord[];
+	shopifyItems?: Product[];
 	headline?: string;
 	id: string;
 	bgColor?: string;
@@ -37,6 +40,7 @@ export default function FeaturedGallery({
 	arrowAlign = 'top',
 	inverted = false,
 	showMarkAsNew = true,
+	shopifyItems,
 }: FeaturedGalleryProps) {
 	const { menu } = usePage();
 	const swiperRef = useRef<Swiper | null>(null);

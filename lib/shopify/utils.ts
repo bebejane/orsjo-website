@@ -18,6 +18,7 @@ export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
 
 export const formatPrice = (price: MoneyV2) => {
+	if (!price) return '';
 	return `${new Intl.NumberFormat('sv-SE', { style: 'decimal', currency: price.currencyCode }).format(
 		price.amount
 	)} ${price.currencyCode}`;

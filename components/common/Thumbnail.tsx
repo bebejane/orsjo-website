@@ -5,6 +5,8 @@ import cn from 'classnames';
 import { Image } from 'react-datocms';
 import Link from '@/components/nav/Link';
 import { useState } from 'react';
+import { format } from 'path';
+import { formatPrice } from '@/lib/shopify/utils';
 
 export type ThumbnailProps = {
 	slug?: string;
@@ -13,6 +15,7 @@ export type ThumbnailProps = {
 	inverted?: boolean;
 	title?: string;
 	subtitle?: string;
+	price?: string;
 	className?: string;
 	lazyload?: boolean;
 	objectFit?: 'contain' | 'cover';
@@ -31,6 +34,7 @@ export default function Thumbnail({
 	inverted,
 	title,
 	subtitle,
+	price,
 	markAsNew = false,
 	upcycled = false,
 	className,
@@ -79,6 +83,7 @@ export default function Thumbnail({
 				<span className={s.title}>
 					{title} <span className={s.subtitle}>{subtitle}</span>
 				</span>
+				{price !== undefined && <span className={s.price}>{price}</span>}
 			</figcaption>
 		</>
 	);
@@ -117,10 +122,12 @@ export type BaseThumbnailProps = {
 
 export type ProductThumbnailProps = BaseThumbnailProps & {
 	product: ProductRecord;
+	shopifyVariant?: ProductVariant | undefined;
 };
 
 export function ProductThumbnail({
 	product,
+	shopifyVariant,
 	inverted,
 	theme = 'dark',
 	className,
@@ -134,6 +141,7 @@ export function ProductThumbnail({
 			imageHover={product.environmentImage}
 			title={product.title}
 			subtitle={product.designer?.name ? product.designer.name : undefined}
+			price={formatPrice(shopifyVariant?.price as MoneyV2)}
 			className={className}
 			inverted={inverted}
 			theme={theme}

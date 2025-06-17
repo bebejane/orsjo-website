@@ -12,22 +12,25 @@ export type ProductsByCategory = {
 };
 
 export type ProductListProps = {
-	products: AllProductsLightQuery['allProducts'];
+	allProducts: AllProductsLightQuery['allProducts'];
 	productCategories: ProductCategoriesQuery['productCategories'];
+	shopifyPropducts: AllShopifyProductsQuery['products'];
 };
 
-export default function ProductList({ productCategories, products }: ProductListProps) {
+export default function ProductList({ productCategories, allProducts, shopifyPropducts }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), []);
 	productCategories.forEach(({ id, name, namePlural }) => {
 		productsByCategory[id] = {
 			name,
 			namePlural,
-			products: products.filter(({ categories }) => categories?.find((c) => c.name === name)),
+			products: allProducts.filter(({ categories }) => categories?.find((c) => c.name === name)),
 		};
 	});
 
-	const [productsByCategorySearch, setProductsByCategorySearch] = useState<{ [index: string]: ProductsByCategory } | undefined>();
+	const [productsByCategorySearch, setProductsByCategorySearch] = useState<
+		{ [index: string]: ProductsByCategory } | undefined
+	>();
 
 	useEffect(() => {
 		if (!searchProducts) return setProductsByCategorySearch(undefined);
@@ -35,9 +38,12 @@ export default function ProductList({ productCategories, products }: ProductList
 		const searchCategories: { [index: string]: ProductsByCategory } = {};
 
 		Object.keys(productsByCategory).forEach((k) => {
-			const prods = products
+			const prods = allProducts
 				.filter(({ categories }) => categories?.some((c) => c.id === k))
-				.filter(({ title, designer }) => searchString(searchProducts, title) || searchString(searchProducts, designer?.name ?? ''));
+				.filter(
+					({ title, designer }) =>
+						searchString(searchProducts, title) || searchString(searchProducts, designer?.name ?? '')
+				);
 			const category = productCategories.find((c) => c.id === k);
 
 			if (prods.length)
@@ -49,7 +55,7 @@ export default function ProductList({ productCategories, products }: ProductList
 		});
 
 		setProductsByCategorySearch(searchCategories);
-	}, [searchProducts, productsByCategory, products, productCategories]);
+	}, [searchProducts, productsByCategory, allProducts, productCategories]);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -64,10 +70,7 @@ export default function ProductList({ productCategories, products }: ProductList
 
 	if (isEmptySearch) {
 		return (
-			<Section
-				className={s.products}
-				top={true}
-			>
+			<Section className={s.products} top={true}>
 				<div className={s.emptySearch}>No products matching &quot;{searchProducts}&quot;...</div>
 			</Section>
 		);
@@ -81,12 +84,7 @@ export default function ProductList({ productCategories, products }: ProductList
 				.map((name) => items[name])
 				.map(({ products, namePlural }, idx) => {
 					return (
-						<Section
-							className={s.products}
-							key={idx}
-							name={namePlural}
-							top={productsByCategorySearch && idx === 0}
-						>
+						<Section className={s.products} key={idx} name={namePlural} top={productsByCategorySearch && idx === 0}>
 							<h1>{namePlural}</h1>
 							<ul>
 								{products?.map((product, idx) => (
@@ -94,6 +92,7 @@ export default function ProductList({ productCategories, products }: ProductList
 										<ProductThumbnail
 											product={product}
 											theme='light'
+											shopifyVariant={findCheapestVariant(product, shopifyPropducts)}
 										/>
 									</li>
 								))}
@@ -103,6 +102,20 @@ export default function ProductList({ productCategories, products }: ProductList
 				})}
 		</>
 	);
+}
+
+function findCheapestVariant(
+	product: ProductRecord,
+	shopifyProducts: AllShopifyProductsQuery['products']
+): ProductVariant | undefined {
+	const shopifyProduct = shopifyProducts.edges.find(({ node }) => node.handle === product.slug);
+	if (!shopifyProduct) return undefined;
+
+	//@ts-ignore
+	return shopifyProduct.node.variants.edges.reduce<undefined | ProductVariant>((acc, variant) => {
+		if (!acc) return variant.node;
+		return parseFloat(variant.node.price.amount) > parseFloat(acc.price.amount) ? variant.node : acc;
+	}, undefined);
 }
 
 const searchString = (str: string, value: string): boolean => {

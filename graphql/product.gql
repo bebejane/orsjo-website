@@ -117,7 +117,10 @@ query AllProductsByDesigner($id: ItemId, $first: IntType = 100, $skip: IntType =
 }
 
 query RelatedProducts($designerId: ItemId, $familyId: ItemId, $first: IntType = 100) {
-	relatedProducts: allProducts(first: $first, filter: { OR: [{ designer: { eq: $designerId } }, { family: { eq: $familyId } }] }) {
+	relatedProducts: allProducts(
+		first: $first
+		filter: { OR: [{ designer: { eq: $designerId } }, { family: { eq: $familyId } }] }
+	) {
 		...ProductLightFragment
 	}
 }
@@ -358,6 +361,14 @@ fragment ProductLightFragment on ProductRecord {
 	environmentImage {
 		...ImageThumbnailFragment
 	}
+	models {
+		variants {
+			id
+			articleNo
+			price
+		}
+	}
+
 	designer {
 		id
 		name

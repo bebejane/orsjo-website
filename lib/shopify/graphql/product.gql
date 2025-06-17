@@ -1,5 +1,5 @@
-query AllShopifyProducts($country: CountryCode = SE, $first: Int = 100) @inContext(country: $country) {
-	products(first: $first, query: "available_for_sale") {
+query AllShopifyProducts($country: CountryCode = SE, $first: Int = 250) @inContext(country: $country) {
+	products(first: $first) {
 		edges {
 			node {
 				...ProductFragment

@@ -153,7 +153,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		>
 			<header>
 				<h3>
-					Shop {product.title} {addons.length > 0 && <span className={s.addons}>(+{addons.length})</span>}
+					Shop {product.title} {addons.length > 0 && <span className={s.addons}>+{addons.length}</span>}
 				</h3>
 				<span key={totalPrice.amount} className={s.price}>
 					{formatPrice(totalPrice as MoneyV2)}
@@ -227,7 +227,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 								key={idx}
 								className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
 								id={id}
-								onClick={handleAddonClick}
+								onClick={() => setShowAddons(true)}
 								title={name}
 							>
 								<div className={s.plusminus}>

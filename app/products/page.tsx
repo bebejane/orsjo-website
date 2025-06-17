@@ -4,6 +4,9 @@ import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocume
 import { FeaturedGallery, Section } from '@/components';
 import ProductList from './ProductList';
 import { Metadata } from 'next';
+import shopifyQuery from '@/lib/shopify/shopify-query';
+import { AllShopifyProductsDocument, ShopifyProductsByQueryDocument } from '@/lib/shopify/graphql';
+import { ProductRecordWithShopifyData } from '@/components/common/FeaturedGallery';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -18,36 +21,28 @@ export type ProductsStartProps = {
 };
 
 export default async function Products() {
-	const [{ productStart }, { allProducts }, { productCategories }] = await Promise.all([
+	const [{ productStart }, { allProducts }, { productCategories }, { products }] = await Promise.all([
 		apiQuery<ProductStartQuery, ProductStartQueryVariables>(ProductStartDocument),
 		apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(AllProductsLightDocument),
 		apiQuery<ProductCategoriesQuery, ProductCategoriesQueryVariables>(ProductCategoriesDocument),
+		shopifyQuery<AllShopifyProductsQuery, AllShopifyProductsQueryVariables>(AllShopifyProductsDocument),
 	]);
 
 	return (
 		<>
-			{productStart?.featured.slice(0).map((data, idx) => (
-				<Section
-					id={`featured-products-${idx}`}
-					className={s.featured}
-					name={data.headline}
-					top={idx === 0}
-					key={idx}
-				>
+			{productStart?.featured.map((data, idx) => (
+				<Section id={`featured-products-${idx}`} className={s.featured} name={data.headline} top={idx === 0} key={idx}>
 					<FeaturedGallery
+						id={data.id}
 						key={`featured-${idx}`}
 						headline={data.headline}
-						id={data.id}
-						items={data.items as ProductRecord[]}
+						items={data.items as ProductRecordWithShopifyData[]}
 						theme='light'
 						showMarkAsNew={data.showMarkAsNew}
 					/>
 				</Section>
 			))}
-			<ProductList
-				productCategories={productCategories}
-				products={allProducts}
-			/>
+			<ProductList productCategories={productCategories} allProducts={allProducts} shopifyPropducts={products} />
 		</>
 	);
 }

@@ -1,241 +1,250 @@
 .thumbnail {
-  position: relative;
+	position: relative;
 
-  &:hover {
-    figcaption>.title>.subtitle {
-      color: var(--black);
-    }
-  }
+	&:hover {
+		figcaption > .title > .subtitle {
+			color: var(--black);
+		}
+	}
 
-  .wrap {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    aspect-ratio: 4/3;
-    cursor: pointer;
+	.wrap {
+		display: flex;
+		position: relative;
+		flex-direction: column;
+		aspect-ratio: 4/3;
+		cursor: pointer;
 
-    figure {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background-color: var(--light-gray);
-      aspect-ratio: 4/3;
+		figure {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			background-color: var(--light-gray);
+			aspect-ratio: 4/3;
 
-      .image {
-        position: relative !important;
-        flex: 1 1 auto;
-        mix-blend-mode: multiply
-      }
+			.image {
+				position: relative !important;
+				flex: 1 1 auto;
+				mix-blend-mode: multiply;
+			}
 
-      img {
-        aspect-ratio: 4/3;
-      }
+			img {
+				aspect-ratio: 4/3;
+			}
 
-      .imageHover {
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transition: opacity 0s ease;
-        z-index: 2;
+			.imageHover {
+				position: absolute;
+				opacity: 0;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				transition: opacity 0s ease;
+				z-index: 2;
 
-        &.show {
-          opacity: 1;
-        }
-      }
+				&.show {
+					opacity: 1;
+				}
+			}
 
-      .upcycled {
-        position: absolute;
-        bottom: 2.5vw;
-        right: 1.5vw;
+			.upcycled {
+				position: absolute;
+				bottom: 2.5vw;
+				right: 1.5vw;
 
-        @include mixin.mq($from: tablet) {
-          bottom: 0.8vw !important;
-          right: 0.6vw;
-        }
+				@include mixin.mq($from: tablet) {
+					bottom: 0.8vw !important;
+					right: 0.6vw;
+				}
 
-        img {
-          width: 9vw;
+				img {
+					width: 9vw;
 
-          @include mixin.mq($from: tablet) {
-            width: 2.5vw;
-          }
-        }
-      }
-    }
+					@include mixin.mq($from: tablet) {
+						width: 2.5vw;
+					}
+				}
+			}
+		}
 
-    figcaption {
-      flex: 1 1 auto;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: pre;
-      color: var(--gray);
-      padding-top: 1em;
+		figcaption {
+			display: flex;
+			flex-direction: row;
+			flex: 1 1 auto;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: pre;
+			color: var(--gray);
+			padding-top: 1em;
 
-      .title {
-        color: var(--black);
+			.title {
+				color: var(--black);
+				overflow: hidden;
+				text-overflow: ellipsis;
 
-        .subtitle {
-          transition: color 0.2s ease;
-        }
-      }
-    }
-  }
+				.subtitle {
+					transition: color 0.2s ease;
+				}
+			}
+		}
+		.price {
+			flex: 1 1 auto;
+			text-align: right;
+			color: var(--black);
+			padding-left: 0.5em;
+		}
+	}
 
-  &.inverted {
-    a figcaption span {
-      color: var(--white);
-    }
-  }
+	&.inverted {
+		a figcaption span {
+			color: var(--white);
+		}
+	}
 
-  &.product {
-    img[role="presentation"] {
-      //transform: scale(1.1);
-    }
-  }
+	&.product {
+		img[role='presentation'] {
+			//transform: scale(1.1);
+		}
+	}
 
-  &.mid {
-    figcaption>.title {
-      color: var(--light-gray);
-    }
+	&.mid {
+		figcaption > .title {
+			color: var(--light-gray);
+		}
 
-    figcaption>.title>.subtitle {
-      color: var(--black);
-    }
+		figcaption > .title > .subtitle {
+			color: var(--black);
+		}
 
-    &:hover {
-      figcaption>.title>.subtitle {
-        color: var(--light-gray);
-      }
-    }
-  }
+		&:hover {
+			figcaption > .title > .subtitle {
+				color: var(--light-gray);
+			}
+		}
+	}
 
-  a>figcaption>.title {
-    color: var(--white);
+	a > figcaption > .title {
+		color: var(--white);
 
-    .subtitle {
-      color: var(--black);
-    }
-  }
+		.subtitle {
+			color: var(--black);
+		}
+	}
 
-  &.dark {
-    &:hover {
-      figcaption>.title>.subtitle {
-        color: var(--white);
-      }
-    }
+	&.dark {
+		&:hover {
+			figcaption > .title > .subtitle {
+				color: var(--white);
+			}
+		}
 
-    a>figcaption>.title {
-      color: var(--white);
+		a > figcaption > .title {
+			color: var(--white);
 
-      .subtitle {
-        color: var(--gray);
-      }
-    }
-  }
+			.subtitle {
+				color: var(--gray);
+			}
+		}
+	}
 
-  &.light {
-    &:hover {
-      figcaption>.title>.subtitle {
-        color: var(--black);
-      }
-    }
+	&.light {
+		&:hover {
+			figcaption > .title > .subtitle {
+				color: var(--black);
+			}
+		}
 
-    a>figcaption>.title {
-      color: var(--black);
+		a > figcaption > .title {
+			color: var(--black);
 
-      .subtitle {
-        color: var(--gray);
-      }
-    }
-  }
+			.subtitle {
+				color: var(--gray);
+			}
+		}
+	}
 
-  &.black {
-    &:hover {
-      figcaption>.title>.subtitle {
-        color: var(--white);
-      }
-    }
+	&.black {
+		&:hover {
+			figcaption > .title > .subtitle {
+				color: var(--white);
+			}
+		}
 
-    a>figcaption>.title {
-      color: var(--white);
+		a > figcaption > .title {
+			color: var(--white);
 
-      .subtitle {
-        color: var(--gray);
-      }
-    }
-  }
+			.subtitle {
+				color: var(--gray);
+			}
+		}
+	}
 
-  &.project {
-    a>figure>.image {
-      mix-blend-mode: normal;
-    }
+	&.project {
+		a > figure > .image {
+			mix-blend-mode: normal;
+		}
 
-    a>figure img {
-      object-fit: cover !important;
-    }
-  }
+		a > figure img {
+			object-fit: cover !important;
+		}
+	}
 
-  &.designer {
-    a>figure>.image {
-      mix-blend-mode: normal;
-    }
+	&.designer {
+		a > figure > .image {
+			mix-blend-mode: normal;
+		}
 
-    a>figure img {
-      object-fit: cover !important;
-    }
-  }
+		a > figure img {
+			object-fit: cover !important;
+		}
+	}
 
-  &.material {
+	&.material {
+		a > figure > .image,
+		figure > .image {
+			mix-blend-mode: normal;
+			background-color: var(--white);
+		}
 
-    a>figure>.image,
-    figure>.image {
-      mix-blend-mode: normal;
-      background-color: var(--white);
-    }
+		a > figure img,
+		figure img {
+			object-fit: cover !important;
+		}
 
-    a>figure img,
-    figure img {
-      object-fit: cover !important;
-    }
+		> figure div {
+			background-color: var(--white);
+		}
+	}
 
-    >figure div {
-      background-color: var(--white);
-    }
-  }
+	.markAsNew {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		top: 0;
+		left: 0;
+		background-color: var(--copper);
 
-  .markAsNew {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    background-color: var(--copper);
+		border-radius: 50%;
+		line-height: 0;
+		z-index: 3;
+		color: var(--white);
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 0.1em;
+		margin: 8px;
+		width: 28px;
+		height: 28px;
+		font-size: 7px;
 
-    border-radius: 50%;
-    line-height: 0;
-    z-index: 3;
-    color: var(--white);
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    margin: 8px;
-    width: 28px;
-    height: 28px;
-    font-size: 7px;
+		span {
+			padding-top: 1px;
+		}
 
-    span {
-      padding-top: 1px;
-    }
-
-    @include mixin.mq($from: tablet) {
-      margin: 0.8vw;
-      width: 1.9vw;
-      height: 1.9vw;
-      font-size: 0.5vw;
-    }
-  }
+		@include mixin.mq($from: tablet) {
+			margin: 0.8vw;
+			width: 1.9vw;
+			height: 1.9vw;
+			font-size: 0.5vw;
+		}
+	}
 }
