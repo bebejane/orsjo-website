@@ -21,13 +21,13 @@
       }
     </style>
   </defs>
-  <g id="Layer_11" data-name="Layer_1" class="st2">
+  <g id="Layer_11" class="st2">
     <g id="Lager_1">
       <path id="Vector" class="st0" d="M20,6v.8h7v25.2H1V6.8h6.8l.2-.8c.5-2.8,3-5,6-5s5.5,2.2,6,5ZM18.7,6.8h1.3l-.3-1.2c-.7-2.5-3-4.3-5.7-4.3s-5,1.8-5.6,4.3l-.3,1.2h10.6ZM7.9,8.1v-1H1.3v24.7h25.4v-1h0V7.1h-6.6v1M19.8,8.1v-1h-11.6v1"/>
     </g>
   </g>
   <g id="Layer_2">
-    <path d="M28,33H0V7.5h27.9v25.4ZM5.5,27.5h16.9v-14.4H5.5v14.4Z"/>
+    <path d="M28,33H0V7.5h27.9v25.4h.1ZM4.8,28.1h18.3v-15.6H4.8v15.6Z"/>
     <path class="st1" d="M8.4,6.9c0-3.1,2.5-5.6,5.6-5.6s5.6,2.5,5.6,5.6"/>
   </g>
   <line class="st1" x1="8.4" y1="6.9" x2="8.4" y2="8"/>

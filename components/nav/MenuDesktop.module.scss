@@ -74,11 +74,12 @@
 		padding-right: 0;
 		flex: 1 1 100%;
 		cursor: pointer;
+		margin-top: -2px;
 
 		img {
 			opacity: 0.6;
-			width: 16px;
-			max-width: 16px;
+			width: 18px;
+			max-width: 18px;
 
 			&:hover {
 				opacity: 1;
