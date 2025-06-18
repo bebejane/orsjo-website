@@ -102,6 +102,7 @@ export default function FeaturedGallery({
 									product={item as ProductRecord}
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
+									shopifyVariant={item.shopify}
 									lazyload={false}
 									className={s.thumbnail}
 								/>

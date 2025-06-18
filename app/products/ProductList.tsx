@@ -1,5 +1,6 @@
 'use client';
 
+import { findCheapestVariant } from '@/app/products/utils';
 import s from './ProductList.module.scss';
 import { ProductThumbnail, Section } from '@/components';
 import { useStore, useShallow } from '@/lib/store';
@@ -14,10 +15,10 @@ export type ProductsByCategory = {
 export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
 	productCategories: ProductCategoriesQuery['productCategories'];
-	shopifyPropducts: AllShopifyProductsQuery['products'];
+	shopifyProducts: AllShopifyProductsQuery['products'];
 };
 
-export default function ProductList({ productCategories, allProducts, shopifyPropducts }: ProductListProps) {
+export default function ProductList({ productCategories, allProducts, shopifyProducts }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), []);
 	productCategories.forEach(({ id, name, namePlural }) => {
@@ -92,7 +93,7 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 										<ProductThumbnail
 											product={product}
 											theme='light'
-											shopifyVariant={findCheapestVariant(product, shopifyPropducts)}
+											shopifyVariant={findCheapestVariant(product, shopifyProducts)}
 										/>
 									</li>
 								))}
@@ -102,20 +103,6 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 				})}
 		</>
 	);
-}
-
-function findCheapestVariant(
-	product: ProductRecord,
-	shopifyProducts: AllShopifyProductsQuery['products']
-): ProductVariant | undefined {
-	const shopifyProduct = shopifyProducts.edges.find(({ node }) => node.handle === product.slug);
-	if (!shopifyProduct) return undefined;
-
-	//@ts-ignore
-	return shopifyProduct.node.variants.edges.reduce<undefined | ProductVariant>((acc, variant) => {
-		if (!acc) return variant.node;
-		return parseFloat(variant.node.price.amount) > parseFloat(acc.price.amount) ? variant.node : acc;
-	}, undefined);
 }
 
 const searchString = (str: string, value: string): boolean => {

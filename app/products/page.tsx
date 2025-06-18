@@ -3,10 +3,10 @@ import { apiQuery } from 'next-dato-utils/api';
 import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocument } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import ProductList from './ProductList';
-import { Metadata } from 'next';
 import shopifyQuery from '@/lib/shopify/shopify-query';
 import { AllShopifyProductsDocument, ShopifyProductsByQueryDocument } from '@/lib/shopify/graphql';
 import { ProductRecordWithShopifyData } from '@/components/common/FeaturedGallery';
+import { findCheapestVariant } from './utils';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -28,6 +28,21 @@ export default async function Products() {
 		shopifyQuery<AllShopifyProductsQuery, AllShopifyProductsQueryVariables>(AllShopifyProductsDocument),
 	]);
 
+	/*
+	const skus = allProducts
+		.map(({ models }) => models.map(({ variants }) => variants.map(({ articleNo }) => articleNo).flat()).flat())
+		.flat();
+
+	const query = skus.map((sku) => `sku:${sku}`).join(' OR ');
+
+	const { products: variants } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(
+		ShopifyProductsByQueryDocument,
+		{
+			variables: { query },
+		}
+	);
+*/
+
 	return (
 		<>
 			{productStart?.featured.map((data, idx) => (
@@ -36,19 +51,18 @@ export default async function Products() {
 						id={data.id}
 						key={`featured-${idx}`}
 						headline={data.headline}
-						items={data.items as ProductRecordWithShopifyData[]}
+						items={
+							data.items.map((item) => ({
+								...item,
+								shopify: findCheapestVariant(item as ProductRecord, products),
+							})) as ProductRecordWithShopifyData[]
+						}
 						theme='light'
 						showMarkAsNew={data.showMarkAsNew}
 					/>
 				</Section>
 			))}
-			<ProductList productCategories={productCategories} allProducts={allProducts} shopifyPropducts={products} />
+			<ProductList productCategories={productCategories} allProducts={allProducts} shopifyProducts={products} />
 		</>
 	);
-}
-
-export async function generateMetadata(): Promise<Metadata> {
-	return {
-		title: 'Products',
-	};
 }
