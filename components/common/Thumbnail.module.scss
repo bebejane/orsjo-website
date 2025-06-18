@@ -1,12 +1,6 @@
 .thumbnail {
 	position: relative;
 
-	&:hover {
-		figcaption > .title > .subtitle {
-			color: var(--black);
-		}
-	}
-
 	.wrap {
 		display: flex;
 		position: relative;
@@ -87,6 +81,7 @@
 			}
 		}
 		.price {
+			display: none;
 			flex: 1 1 auto;
 			text-align: right;
 			color: var(--black);
@@ -94,15 +89,18 @@
 		}
 	}
 
-	&.inverted {
-		a figcaption span {
-			color: var(--white);
+	&:hover {
+		figcaption > .title > .subtitle {
+			color: var(--black);
+		}
+		.price {
+			display: block;
 		}
 	}
 
-	&.product {
-		img[role='presentation'] {
-			//transform: scale(1.1);
+	&.inverted {
+		a figcaption span {
+			color: var(--white);
 		}
 	}
 
