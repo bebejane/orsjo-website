@@ -15,6 +15,7 @@ export function findCheapestVariant(
 	shopifyProducts: AllShopifyProductsQuery['products']
 ): ProductVariant | undefined {
 	const shopifyProduct = shopifyProducts.edges.find(({ node }) => node.handle === product.slug);
+	if (!shopifyProduct) console.log('no shopify product found for:', product.slug);
 	if (!shopifyProduct) return undefined;
 
 	//@ts-ignore

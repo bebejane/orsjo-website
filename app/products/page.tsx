@@ -42,7 +42,6 @@ export default async function Products() {
 		}
 	);
 */
-
 	return (
 		<>
 			{productStart?.featured.map((data, idx) => (
@@ -51,14 +50,14 @@ export default async function Products() {
 						id={data.id}
 						key={`featured-${idx}`}
 						headline={data.headline}
+						theme='light'
+						showMarkAsNew={data.showMarkAsNew}
 						items={
 							data.items.map((item) => ({
 								...item,
 								shopify: findCheapestVariant(item as ProductRecord, products),
 							})) as ProductRecordWithShopifyData[]
 						}
-						theme='light'
-						showMarkAsNew={data.showMarkAsNew}
 					/>
 				</Section>
 			))}

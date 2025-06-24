@@ -1,4 +1,4 @@
-query AllShopifyProducts($country: CountryCode = SE, $first: Int = 100) @inContext(country: $country) {
+query AllShopifyProducts($country: CountryCode = SE, $first: Int = 250) @inContext(country: $country) {
 	products(first: $first) {
 		edges {
 			node {

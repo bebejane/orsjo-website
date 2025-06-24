@@ -36,7 +36,7 @@ mutation ProductUpdate($product: ProductUpdateInput!, $media: [CreateMediaInput!
 	productUpdate(product: $product, media: $media) {
 		product {
 			...ProductFragment
-			media(first: 10) {
+			media(first: 100) {
 				nodes {
 					alt
 					mediaContentType
@@ -169,7 +169,7 @@ query AdminProduct($handle: String!) {
 
 query AdminProductMediaStatus($id: ID!) {
 	product(id: $id) {
-		media(first: 10) {
+		media(first: 100) {
 			edges {
 				node {
 					id
@@ -206,7 +206,7 @@ fragment ProductFragment on Product {
 		id
 		alt
 	}
-	media(first: 10) {
+	media(first: 100) {
 		nodes {
 			id
 			alt

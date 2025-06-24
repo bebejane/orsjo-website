@@ -1317,6 +1317,8 @@ enum CartErrorCode {
   INVALID_METAFIELDS = 'INVALID_METAFIELDS',
   /** The payment wasn't valid. */
   INVALID_PAYMENT = 'INVALID_PAYMENT',
+  /** The payment is invalid. Deferred payment is required. */
+  INVALID_PAYMENT_DEFERRED_PAYMENT_REQUIRED = 'INVALID_PAYMENT_DEFERRED_PAYMENT_REQUIRED',
   /** Cannot update payment on an empty cart */
   INVALID_PAYMENT_EMPTY_CART = 'INVALID_PAYMENT_EMPTY_CART',
   /** The given zip code is invalid for the provided country. */
@@ -1359,6 +1361,8 @@ enum CartErrorCode {
   PAYMENTS_CREDIT_CARD_YEAR_EXPIRED = 'PAYMENTS_CREDIT_CARD_YEAR_EXPIRED',
   /** Credit card expiry year is invalid. */
   PAYMENTS_CREDIT_CARD_YEAR_INVALID_EXPIRY_YEAR = 'PAYMENTS_CREDIT_CARD_YEAR_INVALID_EXPIRY_YEAR',
+  /** The payment method is not applicable. */
+  PAYMENT_METHOD_NOT_APPLICABLE = 'PAYMENT_METHOD_NOT_APPLICABLE',
   /** The payment method is not supported. */
   PAYMENT_METHOD_NOT_SUPPORTED = 'PAYMENT_METHOD_NOT_SUPPORTED',
   /** The delivery group is in a pending state. */

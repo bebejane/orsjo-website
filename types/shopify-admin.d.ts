@@ -6129,11 +6129,36 @@ enum CodeDiscountSortKeys {
 }
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type Collection = HasEvents & HasMetafieldDefinitions & HasMetafields & HasPublishedTranslations & Node & Publishable & {
   __typename?: 'Collection';
@@ -6276,11 +6301,36 @@ type Collection = HasEvents & HasMetafieldDefinitions & HasMetafields & HasPubli
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectiondescriptionArgs = {
   truncateAt?: InputMaybe<Scalars['Int']['input']>;
@@ -6288,11 +6338,36 @@ type CollectiondescriptionArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectioneventsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -6306,11 +6381,36 @@ type CollectioneventsArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionhasProductArgs = {
   id: Scalars['ID']['input'];
@@ -6318,11 +6418,36 @@ type CollectionhasProductArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionmetafieldArgs = {
   key: Scalars['String']['input'];
@@ -6331,11 +6456,36 @@ type CollectionmetafieldArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionmetafieldDefinitionsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -6351,11 +6501,36 @@ type CollectionmetafieldDefinitionsArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionmetafieldsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -6369,11 +6544,36 @@ type CollectionmetafieldsArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionproductsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -6386,11 +6586,36 @@ type CollectionproductsArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionpublicationCountArgs = {
   onlyPublished?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6398,11 +6623,36 @@ type CollectionpublicationCountArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionpublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -6415,11 +6665,36 @@ type CollectionpublicationsArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionpublishedOnChannelArgs = {
   channelId: Scalars['ID']['input'];
@@ -6427,11 +6702,36 @@ type CollectionpublishedOnChannelArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionpublishedOnPublicationArgs = {
   publicationId: Scalars['ID']['input'];
@@ -6439,11 +6739,36 @@ type CollectionpublishedOnPublicationArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionresourcePublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -6456,11 +6781,36 @@ type CollectionresourcePublicationsArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionresourcePublicationsCountArgs = {
   onlyPublished?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6468,11 +6818,36 @@ type CollectionresourcePublicationsCountArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionresourcePublicationsV2Args = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -6486,11 +6861,36 @@ type CollectionresourcePublicationsV2Args = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectiontranslationsArgs = {
   locale: Scalars['String']['input'];
@@ -6499,11 +6899,36 @@ type CollectiontranslationsArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionunpublishedChannelsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -6515,11 +6940,36 @@ type CollectionunpublishedChannelsArgs = {
 
 
 /**
- * Represents a group of products that can be displayed in online stores and other sales channels in categories, which makes it easy for customers to find them. For example, an athletics store might create different collections for running attire, shoes, and accessories.
+ * The `Collection` object represents a group of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+ * that merchants can organize to make their stores easier to browse and help customers find related products.
+ * Collections serve as the primary way to categorize and display products across
+ * [online stores](https://shopify.dev/docs/apps/build/online-store),
+ * [sales channels](https://shopify.dev/docs/apps/build/sales-channels), and marketing campaigns.
  *
- * Collections can be defined by conditions, such as whether they match certain product tags. These are called smart or automated collections.
+ * There are two types of collections:
  *
- * Collections can also be created for a custom group of products. These are called custom or manual collections.
+ * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You specify the products to include in a collection.
+ * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You define rules, and products matching those rules are automatically included in the collection.
+ *
+ * The `Collection` object provides information to:
+ *
+ * - Organize products by category, season, or promotion.
+ * - Automate product grouping using rules (for example, by tag, type, or price).
+ * - Configure product sorting and display order (for example, alphabetical, best-selling, price, or manual).
+ * - Manage collection visibility and publication across sales channels.
+ * - Add rich descriptions, images, and metadata to enhance discovery.
+ *
+ * > Note:
+ * > Collections are unpublished by default. To make them available to customers,
+ * use the [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish)
+ * mutation after creation.
+ *
+ * Collections can be displayed in a store with Shopify's theme system through [Liquid templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/collection)
+ * and can be customized with [template suffixes](https://shopify.dev/docs/storefronts/themes/architecture/templates/alternate-templates)
+ * for unique layouts. They also support advanced features like translated content, resource feedback,
+ * and contextual publication for location-based catalogs.
+ *
+ * Learn about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
  */
 type CollectionunpublishedPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
@@ -15939,11 +16389,19 @@ type DiscountCustomerGetsValue = DiscountAmount | DiscountOnQuantity | DiscountP
 
 /** The input fields for the quantity of items discounted and the discount value. */
 type DiscountCustomerGetsValueInput = {
-  /** The value of the discount. */
+  /**
+   * The value of the discount.
+   *
+   * Note: BXGY doesn't support discountAmount.
+   */
   discountAmount?: InputMaybe<DiscountAmountInput>;
   /** The quantity of the items that are discounted and the discount value. */
   discountOnQuantity?: InputMaybe<DiscountOnQuantityInput>;
-  /** The percentage value of the discount. Value must be between 0.00 - 1.00. */
+  /**
+   * The percentage value of the discount. Value must be between 0.00 - 1.00.
+   *
+   * Note: BXGY doesn't support percentage.
+   */
   percentage?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -16068,7 +16526,7 @@ type DiscountItems = AllDiscountItems | DiscountCollections | DiscountProducts;
 
 /** The input fields for the items attached to a discount. You can specify the discount items by product ID or collection ID. */
 type DiscountItemsInput = {
-  /** Whether all items should be selected. */
+  /** Whether all items should be selected for the discount. Not supported for Buy X get Y discounts. */
   all?: InputMaybe<Scalars['Boolean']['input']>;
   /** The collections that are attached to a discount. */
   collections?: InputMaybe<DiscountCollectionsInput>;
@@ -16625,6 +17083,23 @@ enum DisputeType {
   INQUIRY = 'INQUIRY'
 }
 
+/** A distance, which includes a numeric value and a unit of measurement. */
+type Distance = {
+  __typename?: 'Distance';
+  /** The unit of measurement for `value`. */
+  unit: DistanceUnit;
+  /** The distance value using the unit system specified with `unit`. */
+  value: Scalars['Float']['output'];
+};
+
+/** Units of measurement for distance. */
+enum DistanceUnit {
+  /** Metric system unit of distance. */
+  KILOMETERS = 'KILOMETERS',
+  /** Imperial system unit of distance. */
+  MILES = 'MILES'
+}
+
 /** A unique string that represents the address of a Shopify store on the Internet. */
 type Domain = Node & {
   __typename?: 'Domain';
@@ -17070,6 +17545,8 @@ type DraftOrderAvailableDeliveryOptions = {
   __typename?: 'DraftOrderAvailableDeliveryOptions';
   /** The available local delivery rates for the draft order. Requires a customer with a valid shipping address and at least one line item. */
   availableLocalDeliveryRates: Array<DraftOrderShippingRate>;
+  /** The available local pickup options for the draft order. Requires a customer with a valid shipping address and at least one line item. */
+  availableLocalPickupOptions: Array<PickupInStoreLocation>;
   /** The available shipping rates for the draft order. Requires a customer with a valid shipping address and at least one line item. */
   availableShippingRates: Array<DraftOrderShippingRate>;
   /** Returns information about pagination of local pickup options. */
@@ -17951,6 +18428,8 @@ enum EventSubjectType {
   DISCOUNT_NODE = 'DISCOUNT_NODE',
   /** A DraftOrder resource generated the event. */
   DRAFT_ORDER = 'DRAFT_ORDER',
+  /** A InventoryTransfer resource generated the event. */
+  INVENTORY_TRANSFER = 'INVENTORY_TRANSFER',
   /** A Order resource generated the event. */
   ORDER = 'ORDER',
   /** A Page resource generated the event. */
@@ -18560,6 +19039,8 @@ enum FilesErrorCode {
   INVALID = 'INVALID',
   /** Duplicate resolution mode is not supported for this file type. */
   INVALID_DUPLICATE_MODE_FOR_TYPE = 'INVALID_DUPLICATE_MODE_FOR_TYPE',
+  /** File cannot be updated in a failed state. */
+  INVALID_FAILED_MEDIA_STATE = 'INVALID_FAILED_MEDIA_STATE',
   /** The provided filename is invalid. */
   INVALID_FILENAME = 'INVALID_FILENAME',
   /** Invalid filename extension. */
@@ -23686,6 +24167,1180 @@ enum InventorySetScheduledChangesUserErrorCode {
   SAME_FROM_TO_NAMES = 'SAME_FROM_TO_NAMES'
 }
 
+/** Represents an inventory shipment. */
+type InventoryShipment = Node & {
+  __typename?: 'InventoryShipment';
+  /** A globally-unique ID. */
+  id: Scalars['ID']['output'];
+  /** The total quantity of all items in the shipment. */
+  lineItemTotalQuantity: Scalars['Int']['output'];
+  /** The line items included in this shipment. */
+  lineItems?: Maybe<InventoryShipmentLineItemConnection>;
+  /** The number of line items associated with the inventory shipment. Limited to a maximum of 10000 by default. */
+  lineItemsCount?: Maybe<Count>;
+  /** The name of the inventory shipment. */
+  name: Scalars['String']['output'];
+  /** The current status of the shipment. */
+  status: InventoryShipmentStatus;
+  /** The total quantity of items accepted across all line items in this shipment. */
+  totalAcceptedQuantity: Scalars['Int']['output'];
+  /** The total quantity of items received (both accepted and rejected) across all line items in this shipment. */
+  totalReceivedQuantity: Scalars['Int']['output'];
+  /** The total quantity of items rejected across all line items in this shipment. */
+  totalRejectedQuantity: Scalars['Int']['output'];
+  /** The tracking information for the shipment. */
+  tracking?: Maybe<InventoryShipmentTracking>;
+};
+
+
+/** Represents an inventory shipment. */
+type InventoryShipmentlineItemsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  sortKey?: InputMaybe<ShipmentLineItemSortKeys>;
+};
+
+
+/** Represents an inventory shipment. */
+type InventoryShipmentlineItemsCountArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Return type for `inventoryShipmentAddItems` mutation. */
+type InventoryShipmentAddItemsPayload = {
+  __typename?: 'InventoryShipmentAddItemsPayload';
+  /** The list of added line items. */
+  addedItems?: Maybe<Array<InventoryShipmentLineItem>>;
+  /** The inventory shipment with the added items. */
+  inventoryShipment?: Maybe<InventoryShipment>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentAddItemsUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentAddItems`. */
+type InventoryShipmentAddItemsUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentAddItemsUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentAddItemsUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentAddItemsUserError`. */
+enum InventoryShipmentAddItemsUserErrorCode {
+  /** A single item can't be listed twice. */
+  DUPLICATE_ITEM = 'DUPLICATE_ITEM',
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** Current shipment status does not support this operation. */
+  INVALID_SHIPMENT_STATUS = 'INVALID_SHIPMENT_STATUS',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The shipment was not found. */
+  SHIPMENT_NOT_FOUND = 'SHIPMENT_NOT_FOUND',
+  /** The item does not track inventory. */
+  UNTRACKED_ITEM = 'UNTRACKED_ITEM'
+}
+
+/** An auto-generated type for paginating through multiple InventoryShipments. */
+type InventoryShipmentConnection = {
+  __typename?: 'InventoryShipmentConnection';
+  /** The connection between the node and its parent. Each edge contains a minimum of the edge's cursor and the node. */
+  edges: Array<InventoryShipmentEdge>;
+  /** A list of nodes that are contained in InventoryShipmentEdge. You can fetch data about an individual node, or you can follow the edges to fetch data about a collection of related nodes. At each node, you specify the fields that you want to retrieve. */
+  nodes: Array<InventoryShipment>;
+  /** An object that’s used to retrieve [cursor information](https://shopify.dev/api/usage/pagination-graphql) about the current page. */
+  pageInfo: PageInfo;
+};
+
+/** Return type for `inventoryShipmentCreateInTransit` mutation. */
+type InventoryShipmentCreateInTransitPayload = {
+  __typename?: 'InventoryShipmentCreateInTransitPayload';
+  /** The created inventory shipment. */
+  inventoryShipment?: Maybe<InventoryShipment>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentCreateInTransitUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentCreateInTransit`. */
+type InventoryShipmentCreateInTransitUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentCreateInTransitUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentCreateInTransitUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentCreateInTransitUserError`. */
+enum InventoryShipmentCreateInTransitUserErrorCode {
+  /** A single item can't be listed twice. */
+  DUPLICATE_ITEM = 'DUPLICATE_ITEM',
+  /** The shipment input cannot be empty. */
+  EMPTY_SHIPMENT_INPUT = 'EMPTY_SHIPMENT_INPUT',
+  /** One or more items are not valid. */
+  INVALID_ITEM = 'INVALID_ITEM',
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** The shipment input is invalid. */
+  INVALID_SHIPMENT_INPUT = 'INVALID_SHIPMENT_INPUT',
+  /** Current transfer status does not support this operation. */
+  INVALID_TRANSFER_STATUS = 'INVALID_TRANSFER_STATUS',
+  /** The URL is invalid. */
+  INVALID_URL = 'INVALID_URL',
+  /** The item is not stocked at the intended location. */
+  INVENTORY_STATE_NOT_ACTIVE = 'INVENTORY_STATE_NOT_ACTIVE',
+  /** The list of line items is empty. */
+  ITEMS_EMPTY = 'ITEMS_EMPTY',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected is not active. */
+  LOCATION_NOT_ACTIVE = 'LOCATION_NOT_ACTIVE',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND',
+  /** The item does not track inventory. */
+  UNTRACKED_ITEM = 'UNTRACKED_ITEM'
+}
+
+/** The input fields to add a shipment. */
+type InventoryShipmentCreateInput = {
+  /** The list of line items for the inventory shipment. */
+  lineItems: Array<InventoryShipmentLineItemInput>;
+  /** The ID of the inventory movement (transfer or purchase order) this shipment belongs to. */
+  movementId: Scalars['ID']['input'];
+  /** The tracking information for the shipment. */
+  trackingInput?: InputMaybe<InventoryShipmentTrackingInput>;
+};
+
+/** Return type for `inventoryShipmentCreate` mutation. */
+type InventoryShipmentCreatePayload = {
+  __typename?: 'InventoryShipmentCreatePayload';
+  /** The created inventory shipment. */
+  inventoryShipment?: Maybe<InventoryShipment>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentCreateUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentCreate`. */
+type InventoryShipmentCreateUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentCreateUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentCreateUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentCreateUserError`. */
+enum InventoryShipmentCreateUserErrorCode {
+  /** Bundled items cannot be used for this operation. */
+  BUNDLED_ITEM = 'BUNDLED_ITEM',
+  /** A single item can't be listed twice. */
+  DUPLICATE_ITEM = 'DUPLICATE_ITEM',
+  /** The shipment input cannot be empty. */
+  EMPTY_SHIPMENT_INPUT = 'EMPTY_SHIPMENT_INPUT',
+  /** One or more items are not valid. */
+  INVALID_ITEM = 'INVALID_ITEM',
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** The shipment input is invalid. */
+  INVALID_SHIPMENT_INPUT = 'INVALID_SHIPMENT_INPUT',
+  /** Current transfer status does not support this operation. */
+  INVALID_TRANSFER_STATUS = 'INVALID_TRANSFER_STATUS',
+  /** The URL is invalid. */
+  INVALID_URL = 'INVALID_URL',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected is not active. */
+  LOCATION_NOT_ACTIVE = 'LOCATION_NOT_ACTIVE',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND',
+  /** The item does not track inventory. */
+  UNTRACKED_ITEM = 'UNTRACKED_ITEM'
+}
+
+/** Return type for `inventoryShipmentDelete` mutation. */
+type InventoryShipmentDeletePayload = {
+  __typename?: 'InventoryShipmentDeletePayload';
+  /** The ID of the inventory shipment that was deleted. */
+  id?: Maybe<Scalars['ID']['output']>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentDeleteUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentDelete`. */
+type InventoryShipmentDeleteUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentDeleteUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentDeleteUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentDeleteUserError`. */
+enum InventoryShipmentDeleteUserErrorCode {
+  /** Current shipment status does not support this operation. */
+  INVALID_SHIPMENT_STATUS = 'INVALID_SHIPMENT_STATUS',
+  /** The shipment was not found. */
+  SHIPMENT_NOT_FOUND = 'SHIPMENT_NOT_FOUND'
+}
+
+/** An auto-generated type which holds one InventoryShipment and a cursor during pagination. */
+type InventoryShipmentEdge = {
+  __typename?: 'InventoryShipmentEdge';
+  /** The position of each node in an array, used in [pagination](https://shopify.dev/api/usage/pagination-graphql). */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of InventoryShipmentEdge. */
+  node: InventoryShipment;
+};
+
+/** Represents a single line item within an inventory shipment. */
+type InventoryShipmentLineItem = Node & {
+  __typename?: 'InventoryShipmentLineItem';
+  /** The quantity of items that were accepted in this shipment line item. */
+  acceptedQuantity: Scalars['Int']['output'];
+  /** A globally-unique ID. */
+  id: Scalars['ID']['output'];
+  /** The inventory item associated with this line item. */
+  inventoryItem?: Maybe<InventoryItem>;
+  /** The quantity of items in this shipment line item. */
+  quantity: Scalars['Int']['output'];
+  /** The quantity of items that were rejected in this shipment line item. */
+  rejectedQuantity: Scalars['Int']['output'];
+  /** The total quantity of units that haven't been received (neither accepted or rejected) in this shipment line item. */
+  unreceivedQuantity: Scalars['Int']['output'];
+};
+
+/** An auto-generated type for paginating through multiple InventoryShipmentLineItems. */
+type InventoryShipmentLineItemConnection = {
+  __typename?: 'InventoryShipmentLineItemConnection';
+  /** The connection between the node and its parent. Each edge contains a minimum of the edge's cursor and the node. */
+  edges: Array<InventoryShipmentLineItemEdge>;
+  /** A list of nodes that are contained in InventoryShipmentLineItemEdge. You can fetch data about an individual node, or you can follow the edges to fetch data about a collection of related nodes. At each node, you specify the fields that you want to retrieve. */
+  nodes: Array<InventoryShipmentLineItem>;
+  /** An object that’s used to retrieve [cursor information](https://shopify.dev/api/usage/pagination-graphql) about the current page. */
+  pageInfo: PageInfo;
+};
+
+/** An auto-generated type which holds one InventoryShipmentLineItem and a cursor during pagination. */
+type InventoryShipmentLineItemEdge = {
+  __typename?: 'InventoryShipmentLineItemEdge';
+  /** The position of each node in an array, used in [pagination](https://shopify.dev/api/usage/pagination-graphql). */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of InventoryShipmentLineItemEdge. */
+  node: InventoryShipmentLineItem;
+};
+
+/** The input fields for a line item on an inventory shipment. */
+type InventoryShipmentLineItemInput = {
+  /** The inventory item ID for the shipment line item. */
+  inventoryItemId: Scalars['ID']['input'];
+  /** The quantity for the shipment line item. */
+  quantity: Scalars['Int']['input'];
+};
+
+/** Return type for `inventoryShipmentMarkInTransit` mutation. */
+type InventoryShipmentMarkInTransitPayload = {
+  __typename?: 'InventoryShipmentMarkInTransitPayload';
+  /** The marked in transit inventory shipment. */
+  inventoryShipment?: Maybe<InventoryShipment>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentMarkInTransitUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentMarkInTransit`. */
+type InventoryShipmentMarkInTransitUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentMarkInTransitUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentMarkInTransitUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentMarkInTransitUserError`. */
+enum InventoryShipmentMarkInTransitUserErrorCode {
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** Current shipment status does not support this operation. */
+  INVALID_SHIPMENT_STATUS = 'INVALID_SHIPMENT_STATUS',
+  /** The item is not stocked at the intended location. */
+  INVENTORY_STATE_NOT_ACTIVE = 'INVENTORY_STATE_NOT_ACTIVE',
+  /** The list of line items is empty. */
+  ITEMS_EMPTY = 'ITEMS_EMPTY',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected is not active. */
+  LOCATION_NOT_ACTIVE = 'LOCATION_NOT_ACTIVE',
+  /** The shipment was not found. */
+  SHIPMENT_NOT_FOUND = 'SHIPMENT_NOT_FOUND',
+  /** The item does not track inventory. */
+  UNTRACKED_ITEM = 'UNTRACKED_ITEM'
+}
+
+/** The input fields to receive an item on an inventory shipment. */
+type InventoryShipmentReceiveItemInput = {
+  /** The quantity for the item to be received. */
+  quantity: Scalars['Int']['input'];
+  /** The reason for received item. */
+  reason: InventoryShipmentReceiveLineItemReason;
+  /** The shipment line item ID to be received. */
+  shipmentLineItemId: Scalars['ID']['input'];
+};
+
+/** The reason for receiving a line item on an inventory shipment. */
+enum InventoryShipmentReceiveLineItemReason {
+  /** The line item was accepted. */
+  ACCEPTED = 'ACCEPTED',
+  /** The line item was rejected. */
+  REJECTED = 'REJECTED'
+}
+
+/** Return type for `inventoryShipmentReceive` mutation. */
+type InventoryShipmentReceivePayload = {
+  __typename?: 'InventoryShipmentReceivePayload';
+  /** The inventory shipment with received items. */
+  inventoryShipment?: Maybe<InventoryShipment>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentReceiveUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentReceive`. */
+type InventoryShipmentReceiveUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentReceiveUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentReceiveUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentReceiveUserError`. */
+enum InventoryShipmentReceiveUserErrorCode {
+  /** Unexpected internal error happened. */
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** Current shipment status does not support this operation. */
+  INVALID_SHIPMENT_STATUS = 'INVALID_SHIPMENT_STATUS',
+  /** The item is not stocked at the intended location. */
+  INVENTORY_STATE_NOT_ACTIVE = 'INVENTORY_STATE_NOT_ACTIVE',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The shipment was not found. */
+  SHIPMENT_NOT_FOUND = 'SHIPMENT_NOT_FOUND'
+}
+
+/** Return type for `inventoryShipmentRemoveItems` mutation. */
+type InventoryShipmentRemoveItemsPayload = {
+  __typename?: 'InventoryShipmentRemoveItemsPayload';
+  /** The inventory shipment with items removed. */
+  inventoryShipment?: Maybe<InventoryShipment>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentRemoveItemsUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentRemoveItems`. */
+type InventoryShipmentRemoveItemsUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentRemoveItemsUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentRemoveItemsUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentRemoveItemsUserError`. */
+enum InventoryShipmentRemoveItemsUserErrorCode {
+  /** Unexpected internal error happened. */
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
+  /** Current shipment status does not support this operation. */
+  INVALID_SHIPMENT_STATUS = 'INVALID_SHIPMENT_STATUS',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The shipment was not found. */
+  SHIPMENT_NOT_FOUND = 'SHIPMENT_NOT_FOUND'
+}
+
+/** Return type for `inventoryShipmentSetTracking` mutation. */
+type InventoryShipmentSetTrackingPayload = {
+  __typename?: 'InventoryShipmentSetTrackingPayload';
+  /** The inventory shipment with the edited tracking info. */
+  inventoryShipment?: Maybe<InventoryShipment>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentSetTrackingUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentSetTracking`. */
+type InventoryShipmentSetTrackingUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentSetTrackingUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentSetTrackingUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentSetTrackingUserError`. */
+enum InventoryShipmentSetTrackingUserErrorCode {
+  /** The URL is invalid. */
+  INVALID_URL = 'INVALID_URL',
+  /** The shipment was not found. */
+  SHIPMENT_NOT_FOUND = 'SHIPMENT_NOT_FOUND'
+}
+
+/** The status of an inventory shipment. */
+enum InventoryShipmentStatus {
+  /** The inventory shipment has been created but not yet shipped. */
+  DRAFT = 'DRAFT',
+  /** The inventory shipment is currently in transit. */
+  IN_TRANSIT = 'IN_TRANSIT',
+  /** Status not included in the current enumeration set. */
+  OTHER = 'OTHER',
+  /** The inventory shipment has been partially received at the destination. */
+  PARTIALLY_RECEIVED = 'PARTIALLY_RECEIVED',
+  /** The inventory shipment has been completely received at the destination. */
+  RECEIVED = 'RECEIVED'
+}
+
+/** Represents the tracking information for an inventory shipment. */
+type InventoryShipmentTracking = {
+  __typename?: 'InventoryShipmentTracking';
+  /** The estimated date and time that the shipment will arrive. */
+  arrivesAt?: Maybe<Scalars['DateTime']['output']>;
+  /** The name of the shipping carrier company. */
+  company?: Maybe<Scalars['String']['output']>;
+  /** The tracking number used by the carrier to identify the shipment. */
+  trackingNumber?: Maybe<Scalars['String']['output']>;
+  /**
+   * The URL to track the shipment.
+   *
+   * Given a tracking number and a shipping carrier company name from
+   * [the list](https://shopify.dev/api/admin-graphql/latest/objects/FulfillmentTrackingInfo#field-company),
+   * Shopify will return a generated tracking URL if no tracking URL was set manually.
+   */
+  trackingUrl?: Maybe<Scalars['URL']['output']>;
+};
+
+/** The input fields for an inventory shipment's tracking information. */
+type InventoryShipmentTrackingInput = {
+  /** The estimated date and time that the shipment will arrive. */
+  arrivesAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /**
+   * The name of the shipping carrier company.
+   *
+   * Given a shipping carrier company name from
+   * [the list](https://shopify.dev/api/admin-graphql/latest/objects/FulfillmentTrackingInfo#field-company),
+   * Shopify can build a tracking URL for a provided tracking number.
+   */
+  company?: InputMaybe<Scalars['String']['input']>;
+  /** The tracking number for the shipment. */
+  trackingNumber?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The URL to track the shipment.
+   *
+   * Use this field to specify a custom tracking URL. If no custom tracking URL is set, Shopify will automatically provide
+   * this field on query for a tracking number and a supported shipping carrier company from
+   * [the list](https://shopify.dev/api/admin-graphql/latest/objects/FulfillmentTrackingInfo#field-company).
+   */
+  trackingUrl?: InputMaybe<Scalars['URL']['input']>;
+};
+
+/** The input fields for a line item on an inventory shipment. */
+type InventoryShipmentUpdateItemQuantitiesInput = {
+  /** The quantity for the shipment line item. */
+  quantity: Scalars['Int']['input'];
+  /** The ID for the inventory shipment line item. */
+  shipmentLineItemId: Scalars['ID']['input'];
+};
+
+/** Return type for `inventoryShipmentUpdateItemQuantities` mutation. */
+type InventoryShipmentUpdateItemQuantitiesPayload = {
+  __typename?: 'InventoryShipmentUpdateItemQuantitiesPayload';
+  /** The inventory shipment with updated item quantities. */
+  shipment?: Maybe<InventoryShipment>;
+  /** The updated item quantities. */
+  updatedLineItems?: Maybe<Array<InventoryShipmentLineItem>>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryShipmentUpdateItemQuantitiesUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryShipmentUpdateItemQuantities`. */
+type InventoryShipmentUpdateItemQuantitiesUserError = DisplayableError & {
+  __typename?: 'InventoryShipmentUpdateItemQuantitiesUserError';
+  /** The error code. */
+  code?: Maybe<InventoryShipmentUpdateItemQuantitiesUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryShipmentUpdateItemQuantitiesUserError`. */
+enum InventoryShipmentUpdateItemQuantitiesUserErrorCode {
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** Current shipment status does not support this operation. */
+  INVALID_SHIPMENT_STATUS = 'INVALID_SHIPMENT_STATUS',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The shipment was not found. */
+  SHIPMENT_NOT_FOUND = 'SHIPMENT_NOT_FOUND'
+}
+
+/** Represents the intention to move inventory between locations. */
+type InventoryTransfer = CommentEventSubject & HasEvents & HasMetafieldDefinitions & HasMetafields & Node & {
+  __typename?: 'InventoryTransfer';
+  /** The date and time the inventory transfer was created in UTC format. */
+  dateCreated?: Maybe<Scalars['DateTime']['output']>;
+  /** Snapshot of the destination location (name, address, when snapped) with an optional link to the live Location object. If the original location is deleted, the snapshot data will still be available but the location link will be nil. */
+  destination?: Maybe<LocationSnapshot>;
+  /** The list of events associated with the inventory transfer. */
+  events: EventConnection;
+  /** Whether the merchant has added timeline comments to the inventory transfer. */
+  hasTimelineComment: Scalars['Boolean']['output'];
+  /** A globally-unique ID. */
+  id: Scalars['ID']['output'];
+  /** The line items associated with the inventory transfer. */
+  lineItems: InventoryTransferLineItemConnection;
+  /** The number of line items associated with the inventory transfer. Limited to a maximum of 10000 by default. */
+  lineItemsCount?: Maybe<Count>;
+  /**
+   * A [custom field](https://shopify.dev/docs/apps/build/custom-data),
+   * including its `namespace` and `key`, that's associated with a Shopify resource
+   * for the purposes of adding and storing additional information.
+   */
+  metafield?: Maybe<Metafield>;
+  /**
+   * List of metafield definitions.
+   * @deprecated This field will be removed in a future version. Use `QueryRoot.metafieldDefinitions` instead.
+   */
+  metafieldDefinitions: MetafieldDefinitionConnection;
+  /**
+   * A list of [custom fields](https://shopify.dev/docs/apps/build/custom-data)
+   * that a merchant associates with a Shopify resource.
+   */
+  metafields: MetafieldConnection;
+  /** The name of the inventory transfer. */
+  name: Scalars['String']['output'];
+  /** Additional note attached to the inventory transfer. */
+  note?: Maybe<Scalars['String']['output']>;
+  /** Snapshot of the origin location (name, address, when snapped) with an optional link to the live Location object. If the original location is deleted, the snapshot data will still be available but the location link will be nil. */
+  origin?: Maybe<LocationSnapshot>;
+  /** The total quantity of items received in the transfer. */
+  receivedQuantity: Scalars['Int']['output'];
+  /** The reference name of the inventory transfer. */
+  referenceName?: Maybe<Scalars['String']['output']>;
+  /** The shipments associated with the inventory transfer. */
+  shipments: InventoryShipmentConnection;
+  /** The current status of the transfer. */
+  status: InventoryTransferStatus;
+  /** A list of tags that have been added to the inventory transfer. */
+  tags: Array<Scalars['String']['output']>;
+  /** The total quantity of items being transferred. */
+  totalQuantity: Scalars['Int']['output'];
+};
+
+
+/** Represents the intention to move inventory between locations. */
+type InventoryTransfereventsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  sortKey?: InputMaybe<EventSortKeys>;
+};
+
+
+/** Represents the intention to move inventory between locations. */
+type InventoryTransferlineItemsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Represents the intention to move inventory between locations. */
+type InventoryTransferlineItemsCountArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Represents the intention to move inventory between locations. */
+type InventoryTransfermetafieldArgs = {
+  key: Scalars['String']['input'];
+  namespace?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Represents the intention to move inventory between locations. */
+type InventoryTransfermetafieldDefinitionsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  namespace?: InputMaybe<Scalars['String']['input']>;
+  pinnedStatus?: InputMaybe<MetafieldDefinitionPinnedStatus>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  sortKey?: InputMaybe<MetafieldDefinitionSortKeys>;
+};
+
+
+/** Represents the intention to move inventory between locations. */
+type InventoryTransfermetafieldsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  keys?: InputMaybe<Array<Scalars['String']['input']>>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  namespace?: InputMaybe<Scalars['String']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Represents the intention to move inventory between locations. */
+type InventoryTransfershipmentsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Return type for `inventoryTransferCancel` mutation. */
+type InventoryTransferCancelPayload = {
+  __typename?: 'InventoryTransferCancelPayload';
+  /** The cancelled inventory transfer. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferCancelUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferCancel`. */
+type InventoryTransferCancelUserError = DisplayableError & {
+  __typename?: 'InventoryTransferCancelUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferCancelUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferCancelUserError`. */
+enum InventoryTransferCancelUserErrorCode {
+  /** Current transfer status does not support this operation. */
+  INVALID_TRANSFER_STATUS = 'INVALID_TRANSFER_STATUS',
+  /** Shipment already exists for the transfer. */
+  SHIPMENT_EXISTS = 'SHIPMENT_EXISTS',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND'
+}
+
+/** An auto-generated type for paginating through multiple InventoryTransfers. */
+type InventoryTransferConnection = {
+  __typename?: 'InventoryTransferConnection';
+  /** The connection between the node and its parent. Each edge contains a minimum of the edge's cursor and the node. */
+  edges: Array<InventoryTransferEdge>;
+  /** A list of nodes that are contained in InventoryTransferEdge. You can fetch data about an individual node, or you can follow the edges to fetch data about a collection of related nodes. At each node, you specify the fields that you want to retrieve. */
+  nodes: Array<InventoryTransfer>;
+  /** An object that’s used to retrieve [cursor information](https://shopify.dev/api/usage/pagination-graphql) about the current page. */
+  pageInfo: PageInfo;
+};
+
+/** The input fields to create an inventory transfer. */
+type InventoryTransferCreateAsReadyToShipInput = {
+  /** The date and time the inventory transfer was created. If left blank, defaults to the current date and time in UTC format. */
+  dateCreated?: InputMaybe<Scalars['DateTime']['input']>;
+  /** The destination location for the inventory transfer. */
+  destinationLocationId: Scalars['ID']['input'];
+  /** The list of line items for the inventory transfer. */
+  lineItems?: Array<InventoryTransferLineItemInput>;
+  /** A note to add to the Inventory Transfer. */
+  note?: InputMaybe<Scalars['String']['input']>;
+  /** The origin location for the inventory transfer. */
+  originLocationId: Scalars['ID']['input'];
+  /** The reference name to add to the inventory transfer. */
+  referenceName?: InputMaybe<Scalars['String']['input']>;
+  /** The tags to add to the inventory transfer. */
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** Return type for `inventoryTransferCreateAsReadyToShip` mutation. */
+type InventoryTransferCreateAsReadyToShipPayload = {
+  __typename?: 'InventoryTransferCreateAsReadyToShipPayload';
+  /** The created inventory transfer. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferCreateAsReadyToShipUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferCreateAsReadyToShip`. */
+type InventoryTransferCreateAsReadyToShipUserError = DisplayableError & {
+  __typename?: 'InventoryTransferCreateAsReadyToShipUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferCreateAsReadyToShipUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferCreateAsReadyToShipUserError`. */
+enum InventoryTransferCreateAsReadyToShipUserErrorCode {
+  /** Bundled items cannot be used for this operation. */
+  BUNDLED_ITEM = 'BUNDLED_ITEM',
+  /** A single item can't be listed twice. */
+  DUPLICATE_ITEM = 'DUPLICATE_ITEM',
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** Current transfer status does not support this operation. */
+  INVALID_TRANSFER_STATUS = 'INVALID_TRANSFER_STATUS',
+  /** The item is not stocked at the intended location. */
+  INVENTORY_STATE_NOT_ACTIVE = 'INVENTORY_STATE_NOT_ACTIVE',
+  /** The list of line items is empty. */
+  ITEMS_EMPTY = 'ITEMS_EMPTY',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected is not active. */
+  LOCATION_NOT_ACTIVE = 'LOCATION_NOT_ACTIVE',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND',
+  /** The origin location cannot be the same as the destination location. */
+  TRANSFER_ORIGIN_CANNOT_BE_THE_SAME_AS_DESTINATION = 'TRANSFER_ORIGIN_CANNOT_BE_THE_SAME_AS_DESTINATION',
+  /** The item does not track inventory. */
+  UNTRACKED_ITEM = 'UNTRACKED_ITEM'
+}
+
+/** The input fields to create an inventory transfer. */
+type InventoryTransferCreateInput = {
+  /** The date and time the inventory transfer was created. If left blank, defaults to the current date and time in UTC format. */
+  dateCreated?: InputMaybe<Scalars['DateTime']['input']>;
+  /** The destination location for the inventory transfer. */
+  destinationLocationId?: InputMaybe<Scalars['ID']['input']>;
+  /** The list of line items for the inventory transfer. */
+  lineItems?: Array<InventoryTransferLineItemInput>;
+  /** A note to add to the Inventory Transfer. */
+  note?: InputMaybe<Scalars['String']['input']>;
+  /** The origin location for the inventory transfer. */
+  originLocationId?: InputMaybe<Scalars['ID']['input']>;
+  /** The reference name to add to the inventory transfer. */
+  referenceName?: InputMaybe<Scalars['String']['input']>;
+  /** The tags to add to the inventory transfer. */
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** Return type for `inventoryTransferCreate` mutation. */
+type InventoryTransferCreatePayload = {
+  __typename?: 'InventoryTransferCreatePayload';
+  /** The created inventory transfer. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferCreateUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferCreate`. */
+type InventoryTransferCreateUserError = DisplayableError & {
+  __typename?: 'InventoryTransferCreateUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferCreateUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferCreateUserError`. */
+enum InventoryTransferCreateUserErrorCode {
+  /** Bundled items cannot be used for this operation. */
+  BUNDLED_ITEM = 'BUNDLED_ITEM',
+  /** A single item can't be listed twice. */
+  DUPLICATE_ITEM = 'DUPLICATE_ITEM',
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** The item is not stocked at the intended location. */
+  INVENTORY_STATE_NOT_ACTIVE = 'INVENTORY_STATE_NOT_ACTIVE',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected is not active. */
+  LOCATION_NOT_ACTIVE = 'LOCATION_NOT_ACTIVE',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND',
+  /** The origin location cannot be the same as the destination location. */
+  TRANSFER_ORIGIN_CANNOT_BE_THE_SAME_AS_DESTINATION = 'TRANSFER_ORIGIN_CANNOT_BE_THE_SAME_AS_DESTINATION',
+  /** The item does not track inventory. */
+  UNTRACKED_ITEM = 'UNTRACKED_ITEM'
+}
+
+/** Return type for `inventoryTransferDelete` mutation. */
+type InventoryTransferDeletePayload = {
+  __typename?: 'InventoryTransferDeletePayload';
+  /** The ID of the deleted inventory transfer. */
+  deletedId?: Maybe<Scalars['ID']['output']>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferDeleteUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferDelete`. */
+type InventoryTransferDeleteUserError = DisplayableError & {
+  __typename?: 'InventoryTransferDeleteUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferDeleteUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferDeleteUserError`. */
+enum InventoryTransferDeleteUserErrorCode {
+  /** Current transfer status does not support this operation. */
+  INVALID_TRANSFER_STATUS = 'INVALID_TRANSFER_STATUS',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND'
+}
+
+/** Return type for `inventoryTransferDuplicate` mutation. */
+type InventoryTransferDuplicatePayload = {
+  __typename?: 'InventoryTransferDuplicatePayload';
+  /** The duplicated inventory transfer. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferDuplicateUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferDuplicate`. */
+type InventoryTransferDuplicateUserError = DisplayableError & {
+  __typename?: 'InventoryTransferDuplicateUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferDuplicateUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferDuplicateUserError`. */
+enum InventoryTransferDuplicateUserErrorCode {
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND'
+}
+
+/** An auto-generated type which holds one InventoryTransfer and a cursor during pagination. */
+type InventoryTransferEdge = {
+  __typename?: 'InventoryTransferEdge';
+  /** The position of each node in an array, used in [pagination](https://shopify.dev/api/usage/pagination-graphql). */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of InventoryTransferEdge. */
+  node: InventoryTransfer;
+};
+
+/** The input fields to edit an inventory transfer. */
+type InventoryTransferEditInput = {
+  /** The date the inventory transfer was created. */
+  dateCreated?: InputMaybe<Scalars['Date']['input']>;
+  /**
+   * The destination location for the inventory transfer. The destination location can only be
+   * changed for draft transfers.
+   */
+  destinationId?: InputMaybe<Scalars['ID']['input']>;
+  /** A note to add to the Inventory Transfer. */
+  note?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The origin location for the inventory transfer. The origin location can only be changed
+   * for draft transfers.
+   */
+  originId?: InputMaybe<Scalars['ID']['input']>;
+  /** The reference name to add to the inventory transfer. */
+  referenceName?: InputMaybe<Scalars['String']['input']>;
+  /** The tags to add to the inventory transfer. */
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** Return type for `inventoryTransferEdit` mutation. */
+type InventoryTransferEditPayload = {
+  __typename?: 'InventoryTransferEditPayload';
+  /** The edited inventory transfer. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferEditUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferEdit`. */
+type InventoryTransferEditUserError = DisplayableError & {
+  __typename?: 'InventoryTransferEditUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferEditUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferEditUserError`. */
+enum InventoryTransferEditUserErrorCode {
+  /** Unexpected internal error happened. */
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
+  /** The item is not stocked at the intended location. */
+  INVENTORY_STATE_NOT_ACTIVE = 'INVENTORY_STATE_NOT_ACTIVE',
+  /** The location selected is not active. */
+  LOCATION_NOT_ACTIVE = 'LOCATION_NOT_ACTIVE',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The location of a transfer cannot be updated. Only Draft Transfers can mutate their locations. */
+  TRANSFER_LOCATION_IMMUTABLE = 'TRANSFER_LOCATION_IMMUTABLE',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND',
+  /** The origin location cannot be the same as the destination location. */
+  TRANSFER_ORIGIN_CANNOT_BE_THE_SAME_AS_DESTINATION = 'TRANSFER_ORIGIN_CANNOT_BE_THE_SAME_AS_DESTINATION'
+}
+
+/** Represents a line item belonging to an inventory transfer. */
+type InventoryTransferLineItem = Node & {
+  __typename?: 'InventoryTransferLineItem';
+  /** A globally-unique ID. */
+  id: Scalars['ID']['output'];
+  /** The inventory item associated with this line item. */
+  inventoryItem?: Maybe<InventoryItem>;
+  /** The quantity of the item that has been picked for a draft shipment but not yet shipped. */
+  pickedForShipmentQuantity: Scalars['Int']['output'];
+  /** The quantity of the item that can be actioned upon, such as editing the item quantity on the transfer or adding to a shipment. */
+  processableQuantity: Scalars['Int']['output'];
+  /** The quantity of the item that can be shipped. */
+  shippableQuantity: Scalars['Int']['output'];
+  /** The quantity of the item that has been shipped. */
+  shippedQuantity: Scalars['Int']['output'];
+  /** The title of the product associated with this line item. */
+  title?: Maybe<Scalars['String']['output']>;
+  /** The total quantity of items being transferred. */
+  totalQuantity: Scalars['Int']['output'];
+};
+
+/** An auto-generated type for paginating through multiple InventoryTransferLineItems. */
+type InventoryTransferLineItemConnection = {
+  __typename?: 'InventoryTransferLineItemConnection';
+  /** The connection between the node and its parent. Each edge contains a minimum of the edge's cursor and the node. */
+  edges: Array<InventoryTransferLineItemEdge>;
+  /** A list of nodes that are contained in InventoryTransferLineItemEdge. You can fetch data about an individual node, or you can follow the edges to fetch data about a collection of related nodes. At each node, you specify the fields that you want to retrieve. */
+  nodes: Array<InventoryTransferLineItem>;
+  /** An object that’s used to retrieve [cursor information](https://shopify.dev/api/usage/pagination-graphql) about the current page. */
+  pageInfo: PageInfo;
+};
+
+/** An auto-generated type which holds one InventoryTransferLineItem and a cursor during pagination. */
+type InventoryTransferLineItemEdge = {
+  __typename?: 'InventoryTransferLineItemEdge';
+  /** The position of each node in an array, used in [pagination](https://shopify.dev/api/usage/pagination-graphql). */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of InventoryTransferLineItemEdge. */
+  node: InventoryTransferLineItem;
+};
+
+/** The input fields for a line item on an inventory transfer. */
+type InventoryTransferLineItemInput = {
+  /** The inventory item ID for the transfer line item. */
+  inventoryItemId: Scalars['ID']['input'];
+  /** The quantity for the transfer line item. */
+  quantity: Scalars['Int']['input'];
+};
+
+/** Represents an update to a single transfer line item. */
+type InventoryTransferLineItemUpdate = {
+  __typename?: 'InventoryTransferLineItemUpdate';
+  /** The delta quantity for the transfer line item. */
+  deltaQuantity?: Maybe<Scalars['Int']['output']>;
+  /** The inventory item ID for the transfer line item. */
+  inventoryItemId?: Maybe<Scalars['ID']['output']>;
+  /** The new quantity for the transfer line item. */
+  newQuantity?: Maybe<Scalars['Int']['output']>;
+};
+
+/** Return type for `inventoryTransferMarkAsReadyToShip` mutation. */
+type InventoryTransferMarkAsReadyToShipPayload = {
+  __typename?: 'InventoryTransferMarkAsReadyToShipPayload';
+  /** The ready to ship inventory transfer. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferMarkAsReadyToShipUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferMarkAsReadyToShip`. */
+type InventoryTransferMarkAsReadyToShipUserError = DisplayableError & {
+  __typename?: 'InventoryTransferMarkAsReadyToShipUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferMarkAsReadyToShipUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferMarkAsReadyToShipUserError`. */
+enum InventoryTransferMarkAsReadyToShipUserErrorCode {
+  /** One or more items are not valid. */
+  INVALID_ITEM = 'INVALID_ITEM',
+  /** Current transfer status does not support this operation. */
+  INVALID_TRANSFER_STATUS = 'INVALID_TRANSFER_STATUS',
+  /** The list of line items is empty. */
+  ITEMS_EMPTY = 'ITEMS_EMPTY',
+  /** The location selected is not active. */
+  LOCATION_NOT_ACTIVE = 'LOCATION_NOT_ACTIVE',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND'
+}
+
+/** The input fields to remove inventory items from a transfer. */
+type InventoryTransferRemoveItemsInput = {
+  /** The ID of the inventory transfer where the items will be removed. */
+  id: Scalars['ID']['input'];
+  /** The IDs of the transfer line items to be removed from the transfer. */
+  transferLineItemIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+/** Return type for `inventoryTransferRemoveItems` mutation. */
+type InventoryTransferRemoveItemsPayload = {
+  __typename?: 'InventoryTransferRemoveItemsPayload';
+  /** The transfer with line items removed. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** The line items that have had their shippable quantity removed. */
+  removedQuantities?: Maybe<Array<InventoryTransferLineItemUpdate>>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferRemoveItemsUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferRemoveItems`. */
+type InventoryTransferRemoveItemsUserError = DisplayableError & {
+  __typename?: 'InventoryTransferRemoveItemsUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferRemoveItemsUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferRemoveItemsUserError`. */
+enum InventoryTransferRemoveItemsUserErrorCode {
+  /** The item cannot have its shippable quantity removed if all of its quantity is fully allocated in one or more shipments. */
+  ALL_QUANTITY_SHIPPED = 'ALL_QUANTITY_SHIPPED',
+  /** A ready to ship transfer must have at least one item. */
+  CANT_REMOVE_ALL_ITEMS_FROM_READY_TO_SHIP_TRANSFER = 'CANT_REMOVE_ALL_ITEMS_FROM_READY_TO_SHIP_TRANSFER',
+  /** Current transfer status does not support this operation. */
+  INVALID_TRANSFER_STATUS = 'INVALID_TRANSFER_STATUS',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The item cannot be removed because it exists in a draft shipment with zero quantity. */
+  ITEM_PRESENT_ON_DRAFT_SHIPMENT_WITH_ZERO_QUANTITY = 'ITEM_PRESENT_ON_DRAFT_SHIPMENT_WITH_ZERO_QUANTITY',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND'
+}
+
+/** The input fields to the InventoryTransferSetItems mutation. */
+type InventoryTransferSetItemsInput = {
+  /** The ID of the inventory transfer where the items will be set. */
+  id: Scalars['ID']['input'];
+  /** The line items to be set on the Transfer. */
+  lineItems: Array<InventoryTransferLineItemInput>;
+};
+
+/** Return type for `inventoryTransferSetItems` mutation. */
+type InventoryTransferSetItemsPayload = {
+  __typename?: 'InventoryTransferSetItemsPayload';
+  /** The Transfer with its line items updated. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** The updated line items. */
+  updatedLineItems?: Maybe<Array<InventoryTransferLineItemUpdate>>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<InventoryTransferSetItemsUserError>;
+};
+
+/** An error that occurs during the execution of `InventoryTransferSetItems`. */
+type InventoryTransferSetItemsUserError = DisplayableError & {
+  __typename?: 'InventoryTransferSetItemsUserError';
+  /** The error code. */
+  code?: Maybe<InventoryTransferSetItemsUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `InventoryTransferSetItemsUserError`. */
+enum InventoryTransferSetItemsUserErrorCode {
+  /** Bundled items cannot be used for this operation. */
+  BUNDLED_ITEM = 'BUNDLED_ITEM',
+  /** A single item can't be listed twice. */
+  DUPLICATE_ITEM = 'DUPLICATE_ITEM',
+  /** The quantity is invalid. */
+  INVALID_QUANTITY = 'INVALID_QUANTITY',
+  /** Current transfer status does not support this operation. */
+  INVALID_TRANSFER_STATUS = 'INVALID_TRANSFER_STATUS',
+  /** The item is not stocked at the intended location. */
+  INVENTORY_STATE_NOT_ACTIVE = 'INVENTORY_STATE_NOT_ACTIVE',
+  /** The item was not found. */
+  ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
+  /** The location selected can't be found. */
+  LOCATION_NOT_FOUND = 'LOCATION_NOT_FOUND',
+  /** The transfer was not found. */
+  TRANSFER_NOT_FOUND = 'TRANSFER_NOT_FOUND',
+  /** The item does not track inventory. */
+  UNTRACKED_ITEM = 'UNTRACKED_ITEM'
+}
+
+/** The status of a transfer. */
+enum InventoryTransferStatus {
+  /** The inventory transfer has been canceled. */
+  CANCELED = 'CANCELED',
+  /** The inventory transfer has been created but not yet finalized. */
+  DRAFT = 'DRAFT',
+  /** The inventory transfer is in progress, with a shipment currently underway or received. */
+  IN_PROGRESS = 'IN_PROGRESS',
+  /** Status not included in the current enumeration set. */
+  OTHER = 'OTHER',
+  /** The inventory transfer has been created, but not yet shipped. */
+  READY_TO_SHIP = 'READY_TO_SHIP',
+  /** The inventory transfer has been completely received at the destination. */
+  TRANSFERRED = 'TRANSFERRED'
+}
+
 /** The financial transfer details for a return outcome that results in an invoice. */
 type InvoiceReturnOutcome = {
   __typename?: 'InvoiceReturnOutcome';
@@ -25233,6 +26888,19 @@ type LocationLocalPickupEnablePayload = {
   userErrors: Array<DeliveryLocationLocalPickupSettingsError>;
 };
 
+/** A snapshot of location details including name and address captured at a specific point in time. Refer to the parent model to know the lifecycle. */
+type LocationSnapshot = {
+  __typename?: 'LocationSnapshot';
+  /** The address details of the location as they were when the snapshot was recorded. */
+  address: LocationAddress;
+  /** A reference to the live Location object, if it still exists and is accessible. This provides current details of the location, which may differ from the snapshotted name and address. */
+  location?: Maybe<Location>;
+  /** The name of the location as it was when the snapshot was recorded. */
+  name: Scalars['String']['output'];
+  /** The date and time when these snapshot details (name and address) were recorded. */
+  snapshottedAt: Scalars['DateTime']['output'];
+};
+
 /** The set of valid sort keys for the Location query. */
 enum LocationSortKeys {
   /** Sort by the `id` value. */
@@ -26684,37 +28352,26 @@ type MarketingActivityCreateExternalPayload = {
   userErrors: Array<MarketingActivityUserError>;
 };
 
-/** The input fields required to create a marketing activity. */
+/** The input fields required to create a marketing activity. Marketing activity app extensions are deprecated and will be removed in the near future. */
 type MarketingActivityCreateInput = {
-  /** The budget for this marketing activity. */
-  budget?: InputMaybe<MarketingActivityBudgetInput>;
-  /** Encoded context containing marketing campaign id. */
-  context?: InputMaybe<Scalars['String']['input']>;
-  /** The form data in JSON serialized as a string. */
-  formData?: InputMaybe<Scalars['String']['input']>;
   /** The ID of the marketing activity extension. */
   marketingActivityExtensionId: Scalars['ID']['input'];
-  /** The title of the marketing activity. */
-  marketingActivityTitle?: InputMaybe<Scalars['String']['input']>;
   /** The current state of the marketing activity. */
   status: MarketingActivityStatus;
-  /** Value for a query parameter that gets inserted into storefront URLs for matching storefront traffic to this activity. This feature is currently available on a limited basis to some partners only. UTMs should continue to be used for most partners. Both the URL parameter value and UTM parameters can be set. */
-  urlParameterValue?: InputMaybe<Scalars['String']['input']>;
-  /**
-   * Specifies the
-   * [Urchin Traffic Module (UTM) parameters](https://en.wikipedia.org/wiki/UTM_parameters)
-   * that are associated with a related marketing campaign. UTMInput is required for all Marketing
-   * tactics except Storefront App.
-   */
-  utm?: InputMaybe<UTMInput>;
 };
 
 /** Return type for `marketingActivityCreate` mutation. */
 type MarketingActivityCreatePayload = {
   __typename?: 'MarketingActivityCreatePayload';
-  /** The created marketing activity. */
+  /**
+   * The created marketing activity.
+   * @deprecated Marketing activity app extensions are deprecated and will be removed in the near future.
+   */
   marketingActivity?: Maybe<MarketingActivity>;
-  /** The path to return back to shopify admin from embedded editor. */
+  /**
+   * The path to return back to shopify admin from embedded editor.
+   * @deprecated Marketing activity app extensions are deprecated and will be removed in the near future.
+   */
   redirectPath?: Maybe<Scalars['String']['output']>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
@@ -26878,49 +28535,10 @@ type MarketingActivityUpdateExternalPayload = {
   userErrors: Array<MarketingActivityUserError>;
 };
 
-/** The input fields required to update a marketing activity. */
+/** The input fields required to update a marketing activity. Marketing activity app extensions are deprecated and will be removed in the near future. */
 type MarketingActivityUpdateInput = {
-  /** The budget for the marketing activity. */
-  budget?: InputMaybe<MarketingActivityBudgetInput>;
-  /**
-   * The error messages that were generated when the app was trying to complete the activity.
-   * Learn more about the
-   * [JSON format expected for error messages](/api/marketing-activities/statuses#failed-status).
-   */
-  errors?: InputMaybe<Scalars['JSON']['input']>;
-  /**
-   * The form data of the marketing activity. This is only used if the marketing activity is
-   *               integrated with the external editor.
-   */
-  formData?: InputMaybe<Scalars['String']['input']>;
   /** The ID of the marketing activity. */
   id: Scalars['ID']['input'];
-  /**
-   * A list of the item IDs that were marketed in this marketing activity. Valid types for these items are:
-   * * `Product`
-   * * `Shop`
-   */
-  marketedResources?: InputMaybe<Array<Scalars['ID']['input']>>;
-  /** The ID of the recommendation that the marketing activity was created from, if one exists. */
-  marketingRecommendationId?: InputMaybe<Scalars['ID']['input']>;
-  /**
-   * The current state of the marketing activity. Learn more about
-   * [marketing activities statuses](/api/marketing-activities/statuses).
-   */
-  status?: InputMaybe<MarketingActivityStatus>;
-  /** The target state that the marketing activity is transitioning to. Learn more about [marketing activities statuses](/api/marketing-activities/statuses). */
-  targetStatus?: InputMaybe<MarketingActivityStatus>;
-  /** The title of the marketing activity. */
-  title?: InputMaybe<Scalars['String']['input']>;
-  /** Value for a query parameter that gets inserted into storefront URLs for matching storefront traffic to this activity. This feature is currently available on a limited basis to some partners only. UTMs should continue to be used for most partners. Both the URL parameter value and UTM parameters can be set. */
-  urlParameterValue?: InputMaybe<Scalars['String']['input']>;
-  /**
-   * Specifies the
-   * [Urchin Traffic Module (UTM) parameters](https://en.wikipedia.org/wiki/UTM_parameters)
-   * that are associated with a related marketing campaign. UTMInput is required for all Marketing
-   * tactics except Storefront App. The utm field can only be set once and never modified.
-   */
-  utm?: InputMaybe<UTMInput>;
 };
 
 /** Return type for `marketingActivityUpdate` mutation. */
@@ -27560,7 +29178,32 @@ enum MediaHost {
   YOUTUBE = 'YOUTUBE'
 }
 
-/** An image hosted on Shopify. */
+/**
+ * The `MediaImage` object represents an image hosted on Shopify's
+ * [content delivery network (CDN)](https://shopify.dev/docs/storefronts/themes/best-practices/performance/platform#shopify-cdn).
+ * Shopify CDN is a content system that serves as the primary way to store,
+ * manage, and deliver visual content for products, variants, and other resources across the Shopify platform.
+ *
+ * The `MediaImage` object provides information to:
+ *
+ * - Store and display product and variant images across online stores, admin interfaces, and mobile apps.
+ * - Retrieve visual branding elements, including logos, banners, favicons, and background images in checkout flows.
+ * - Retrieve signed URLs for secure, time-limited access to original image files.
+ *
+ * Each `MediaImage` object provides both the processed image data (with automatic optimization and CDN delivery)
+ * and access to the original source file. The image processing is handled asynchronously, so images
+ * might not be immediately available after upload. The
+ * [`status`](https://shopify.dev/docs/api/admin-graphql/latest/objects/mediaimage#field-MediaImage.fields.status)
+ * field indicates when processing is complete and the image is ready for use.
+ *
+ * The `MediaImage` object implements the [`Media`](https://shopify.dev/docs/api/admin-graphql/latest/interfaces/Media)
+ * interface alongside other media types, like videos and 3D models.
+ *
+ * Learn about
+ * managing media for [products](https://shopify.dev/docs/apps/build/online-store/product-media),
+ * [product variants](https://shopify.dev/docs/apps/build/online-store/product-variant-media), and
+ * [asynchronous media management](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/product-model-components#asynchronous-media-management).
+ */
 type MediaImage = File & HasMetafields & Media & Node & {
   __typename?: 'MediaImage';
   /** A word or phrase to share the nature or contents of a media. */
@@ -27607,14 +29250,64 @@ type MediaImage = File & HasMetafields & Media & Node & {
 };
 
 
-/** An image hosted on Shopify. */
+/**
+ * The `MediaImage` object represents an image hosted on Shopify's
+ * [content delivery network (CDN)](https://shopify.dev/docs/storefronts/themes/best-practices/performance/platform#shopify-cdn).
+ * Shopify CDN is a content system that serves as the primary way to store,
+ * manage, and deliver visual content for products, variants, and other resources across the Shopify platform.
+ *
+ * The `MediaImage` object provides information to:
+ *
+ * - Store and display product and variant images across online stores, admin interfaces, and mobile apps.
+ * - Retrieve visual branding elements, including logos, banners, favicons, and background images in checkout flows.
+ * - Retrieve signed URLs for secure, time-limited access to original image files.
+ *
+ * Each `MediaImage` object provides both the processed image data (with automatic optimization and CDN delivery)
+ * and access to the original source file. The image processing is handled asynchronously, so images
+ * might not be immediately available after upload. The
+ * [`status`](https://shopify.dev/docs/api/admin-graphql/latest/objects/mediaimage#field-MediaImage.fields.status)
+ * field indicates when processing is complete and the image is ready for use.
+ *
+ * The `MediaImage` object implements the [`Media`](https://shopify.dev/docs/api/admin-graphql/latest/interfaces/Media)
+ * interface alongside other media types, like videos and 3D models.
+ *
+ * Learn about
+ * managing media for [products](https://shopify.dev/docs/apps/build/online-store/product-media),
+ * [product variants](https://shopify.dev/docs/apps/build/online-store/product-variant-media), and
+ * [asynchronous media management](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/product-model-components#asynchronous-media-management).
+ */
 type MediaImagemetafieldArgs = {
   key: Scalars['String']['input'];
   namespace?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** An image hosted on Shopify. */
+/**
+ * The `MediaImage` object represents an image hosted on Shopify's
+ * [content delivery network (CDN)](https://shopify.dev/docs/storefronts/themes/best-practices/performance/platform#shopify-cdn).
+ * Shopify CDN is a content system that serves as the primary way to store,
+ * manage, and deliver visual content for products, variants, and other resources across the Shopify platform.
+ *
+ * The `MediaImage` object provides information to:
+ *
+ * - Store and display product and variant images across online stores, admin interfaces, and mobile apps.
+ * - Retrieve visual branding elements, including logos, banners, favicons, and background images in checkout flows.
+ * - Retrieve signed URLs for secure, time-limited access to original image files.
+ *
+ * Each `MediaImage` object provides both the processed image data (with automatic optimization and CDN delivery)
+ * and access to the original source file. The image processing is handled asynchronously, so images
+ * might not be immediately available after upload. The
+ * [`status`](https://shopify.dev/docs/api/admin-graphql/latest/objects/mediaimage#field-MediaImage.fields.status)
+ * field indicates when processing is complete and the image is ready for use.
+ *
+ * The `MediaImage` object implements the [`Media`](https://shopify.dev/docs/api/admin-graphql/latest/interfaces/Media)
+ * interface alongside other media types, like videos and 3D models.
+ *
+ * Learn about
+ * managing media for [products](https://shopify.dev/docs/apps/build/online-store/product-media),
+ * [product variants](https://shopify.dev/docs/apps/build/online-store/product-variant-media), and
+ * [asynchronous media management](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/product-model-components#asynchronous-media-management).
+ */
 type MediaImagemetafieldsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -30431,7 +32124,33 @@ type Mutation = {
    * @deprecated Use `publishableUnpublish` instead.
    */
   collectionUnpublish?: Maybe<CollectionUnpublishPayload>;
-  /** Updates a collection. */
+  /**
+   * Updates a [collection](https://shopify.dev/docs/api/admin-graphql/latest/objects/Collection),
+   * modifying its properties, products, or publication settings. Collections help organize
+   * [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product) together
+   * in the [online store](https://shopify.dev/docs/apps/build/online-store) and
+   * other [sales channels](https://shopify.dev/docs/apps/build/sales-channels).
+   *
+   * Use the `collectionUpdate` mutation to programmatically modify collections in scenarios such as:
+   *
+   * - Updating collection details, like title, description, or image
+   * - Modifying SEO metadata for better search visibility
+   * - Changing which products are included (using rule updates for smart collections)
+   * - Publishing or unpublishing collections across different sales channels
+   * - Updating custom data using [metafields](https://shopify.dev/docs/apps/build/custom-data/metafields)
+   *
+   * There are two types of collections with different update capabilities:
+   *
+   * - **[Custom (manual) collections](https://help.shopify.com/manual/products/collections/manual-shopify-collection)**: You can update collection properties, but rule sets can't be modified since products are manually selected.
+   * - **[Smart (automated) collections](https://help.shopify.com/manual/products/collections/automated-collections)**: You can update both collection properties and the rules that automatically determine which products are included.
+   * When updating [rule sets](https://shopify.dev/docs/api/admin-graphql/latest/objects/CollectionRuleConditions) for smart collections, the operation might be processed asynchronously. In these cases, the mutation returns a [`job`](https://shopify.dev/docs/api/admin-graphql/latest/objects/Job) object that you can use to track the progress of the update.
+   *
+   * To publish or unpublish collections to specific sales channels, use the dedicated
+   * [`publishablePublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishablePublish) and
+   * [`publishableUnpublish`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/publishableUnpublish) mutations.
+   *
+   * Learn more about [using metafields with smart collections](https://shopify.dev/docs/apps/build/custom-data/metafields/use-metafield-capabilities).
+   */
   collectionUpdate?: Maybe<CollectionUpdatePayload>;
   /**
    * Add, remove and update `CombinedListing`s of a given Product.
@@ -30545,7 +32264,7 @@ type Mutation = {
   /** Update a customer's address information. */
   customerAddressUpdate?: Maybe<CustomerAddressUpdatePayload>;
   /**
-   * Cancels a pending erasure of a customer's data.
+   * Cancels a pending erasure of a customer's data. Read more [here](https://help.shopify.com/manual/privacy-and-security/privacy/processing-customer-data-requests#cancel-customer-data-erasure).
    *
    * To request an erasure of a customer's data use the [customerRequestDataErasure mutation](https://shopify.dev/api/admin-graphql/unstable/mutations/customerRequestDataErasure).
    */
@@ -31012,21 +32731,115 @@ type Mutation = {
   /** Acknowledges file update failure by resetting FAILED status to READY and clearing any media errors. */
   fileAcknowledgeUpdateFailed?: Maybe<FileAcknowledgeUpdateFailedPayload>;
   /**
-   * Creates file assets using an external URL or for files that were previously uploaded using the
-   * [stagedUploadsCreate mutation](https://shopify.dev/api/admin-graphql/latest/mutations/stageduploadscreate).
-   * These files are added to the [Files page](https://shopify.com/admin/settings/files) in Shopify admin.
+   * Creates file assets for a store from external URLs or files that were previously uploaded using the
+   * [`stagedUploadsCreate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/stageduploadscreate)
+   * mutation.
    *
-   * Files are processed asynchronously. Some data is not available until processing is completed.
-   * Check [fileStatus](https://shopify.dev/api/admin-graphql/latest/interfaces/File#field-file-filestatus)
-   * to know when the files are READY or FAILED. See the [FileStatus](https://shopify.dev/api/admin-graphql/latest/enums/filestatus)
-   * for the complete set of possible fileStatus values.
+   * Use the `fileCreate` mutation to add various types of media and documents to your store. These files are added to the
+   * [**Files** page](https://shopify.com/admin/settings/files) in the Shopify admin and can be referenced by other
+   * resources in your store.
    *
-   * To get a list of all files, use the [files query](https://shopify.dev/api/admin-graphql/latest/queries/files).
+   * The `fileCreate` mutation supports multiple file types:
+   *
+   * - **Images**: Product photos, variant images, and general store imagery
+   * - **Videos**: Shopify-hosted videos for product demonstrations and marketing
+   * - **External videos**: YouTube and Vimeo videos for enhanced product experiences
+   * - **3D models**: Interactive 3D representations of products
+   * - **Generic files**: PDFs, documents, and other file types for store resources
+   *
+   * The mutation handles duplicate filenames using configurable resolution modes that automatically append UUIDs,
+   * replace existing files, or raise errors when conflicts occur.
+   *
+   * > Note:
+   * > Files are processed asynchronously. Check the
+   * > [`fileStatus`](https://shopify.dev/docs/api/admin-graphql/latest/interfaces/File#fields-fileStatus)
+   * > field to monitor processing completion. The maximum number of files that can be created in a single batch is 250.
+   *
+   * After creating files, you can make subsequent updates using the following mutations:
+   *
+   * - [`fileUpdate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/fileUpdate):
+   * Update file properties such as alt text or replace file contents while preserving the same URL.
+   * - [`fileDelete`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/fileDelete):
+   * Remove files from your store when they are no longer needed.
+   *
+   * To list all files in your store, use the
+   * [`files`](https://shopify.dev/docs/api/admin-graphql/latest/queries/files) query.
+   *
+   * Learn how to manage
+   * [product media and file assets](https://shopify.dev/docs/apps/build/online-store/product-media)
+   * in your app.
    */
   fileCreate?: Maybe<FileCreatePayload>;
-  /** Deletes existing file assets that were uploaded to Shopify. */
+  /**
+   * Deletes file assets that were previously uploaded to your store.
+   *
+   * Use the `fileDelete` mutation to permanently remove media and file assets from your store when they are no longer needed.
+   * This mutation handles the complete removal of files from both your store's file library and any associated references
+   * to products or other resources.
+   *
+   * The `fileDelete` mutation supports removal of multiple file types:
+   *
+   * - **Images**: Product photos, variant images, and general store imagery
+   * - **Videos**: Shopify-hosted videos for product demonstrations and marketing content
+   * - **External Videos**: YouTube and Vimeo videos linked to your products
+   * - **3D models**: Interactive 3D representations of products
+   * - **Generic files**: PDFs, documents, and other file types stored in your
+   * [**Files** page](https://shopify.com/admin/settings/files)
+   *
+   * When you delete files that are referenced by products, the mutation automatically removes those references and
+   * reorders any remaining media to maintain proper positioning. Product file references are database relationships
+   * managed through a media reference system, not just links in product descriptions. The Shopify admin provides a UI
+   * to manage these relationships, and when files are deleted, the system automatically cleans up all references.
+   * Files that are currently being processed by other operations are rejected to prevent conflicts.
+   *
+   * > Caution:
+   * > File deletion is permanent and can't be undone. When you delete a file that's being used in your store,
+   * > it will immediately stop appearing wherever it was displayed. For example, if you delete a product image,
+   * > that product will show a broken image or placeholder on your storefront and in the admin. The same applies
+   * > to any other files linked from themes, blog posts, or pages. Before deleting files, you can use the
+   * > [`files` query](https://shopify.dev/api/admin-graphql/latest/queries/files) to list and review
+   * > your store's file assets.
+   *
+   * Learn how to manage
+   * [product media and file assets](https://shopify.dev/docs/apps/build/online-store/product-media)
+   * in your app.
+   */
   fileDelete?: Maybe<FileDeletePayload>;
-  /** Updates an existing file asset that was uploaded to Shopify. */
+  /**
+   * Updates properties, content, and metadata associated with an existing file asset that has already been uploaded to Shopify.
+   *
+   * Use the `fileUpdate` mutation to modify various aspects of files already stored in your store.
+   * Files can be updated individually or in batches.
+   *
+   * The `fileUpdate` mutation supports updating multiple file properties:
+   *
+   * - **Alt text**: Update accessibility descriptions for images and other media.
+   * - **File content**: Replace image or generic file content while maintaining the same URL.
+   * - **Filename**: Modify file names (extension must match the original).
+   * - **Product references**: Add or remove associations between files and products. Removing file-product associations
+   * deletes the file from the product's media gallery and clears the image from any product variants that were using it.
+   *
+   * The mutation handles different file types with specific capabilities:
+   *
+   * - **Images**: Update preview images, original source, filename, and alt text.
+   * - **Generic files**: Update original source, filename, and alt text.
+   * - **Videos and 3D models**: Update alt text and product references.
+   *
+   * > Note:
+   * > Files must be in `ready` state before they can be updated. The mutation includes file locking to prevent
+   * > conflicts during updates. You can't simultaneously update both `originalSource` and `previewImageSource`.
+   *
+   * After updating files, you can use related mutations for additional file management:
+   *
+   * - [`fileCreate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/fileCreate):
+   * Create new file assets from external URLs or staged uploads.
+   * - [`fileDelete`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/fileDelete):
+   * Remove files from your store when they are no longer needed.
+   *
+   * Learn how to manage
+   * [product media and file assets](https://shopify.dev/docs/apps/build/online-store/product-media)
+   * in your app.
+   */
   fileUpdate?: Maybe<FileUpdatePayload>;
   /** Generates a signature for a Flow action payload. */
   flowGenerateSignature?: Maybe<FlowGenerateSignaturePayload>;
@@ -31255,6 +33068,48 @@ type Mutation = {
   inventorySetQuantities?: Maybe<InventorySetQuantitiesPayload>;
   /** Set up scheduled changes of inventory items. */
   inventorySetScheduledChanges?: Maybe<InventorySetScheduledChangesPayload>;
+  /** Adds items to an inventory shipment. */
+  inventoryShipmentAddItems?: Maybe<InventoryShipmentAddItemsPayload>;
+  /** Adds a draft shipment to an inventory transfer. */
+  inventoryShipmentCreate?: Maybe<InventoryShipmentCreatePayload>;
+  /** Adds an in-transit shipment to an inventory transfer. */
+  inventoryShipmentCreateInTransit?: Maybe<InventoryShipmentCreateInTransitPayload>;
+  /** Deletes an inventory shipment. Only draft shipments can be deleted. */
+  inventoryShipmentDelete?: Maybe<InventoryShipmentDeletePayload>;
+  /** Marks a draft inventory shipment as in transit. */
+  inventoryShipmentMarkInTransit?: Maybe<InventoryShipmentMarkInTransitPayload>;
+  /** Receive an inventory shipment. */
+  inventoryShipmentReceive?: Maybe<InventoryShipmentReceivePayload>;
+  /** Remove items from an inventory shipment. */
+  inventoryShipmentRemoveItems?: Maybe<InventoryShipmentRemoveItemsPayload>;
+  /** Edits the tracking info on an inventory shipment. */
+  inventoryShipmentSetTracking?: Maybe<InventoryShipmentSetTrackingPayload>;
+  /** Updates items on an inventory shipment. */
+  inventoryShipmentUpdateItemQuantities?: Maybe<InventoryShipmentUpdateItemQuantitiesPayload>;
+  /** Cancels an inventory transfer. */
+  inventoryTransferCancel?: Maybe<InventoryTransferCancelPayload>;
+  /** Creates an inventory transfer. */
+  inventoryTransferCreate?: Maybe<InventoryTransferCreatePayload>;
+  /** Creates an inventory transfer in ready to ship. */
+  inventoryTransferCreateAsReadyToShip?: Maybe<InventoryTransferCreateAsReadyToShipPayload>;
+  /** Deletes an inventory transfer. */
+  inventoryTransferDelete?: Maybe<InventoryTransferDeletePayload>;
+  /**
+   * This mutation allows duplicating an existing inventory transfer. The duplicated transfer will have the same
+   * line items and quantities as the original transfer, but will be in a draft state with no shipments.
+   */
+  inventoryTransferDuplicate?: Maybe<InventoryTransferDuplicatePayload>;
+  /** Edits an inventory transfer. */
+  inventoryTransferEdit?: Maybe<InventoryTransferEditPayload>;
+  /** Sets an inventory transfer to ready to ship. */
+  inventoryTransferMarkAsReadyToShip?: Maybe<InventoryTransferMarkAsReadyToShipPayload>;
+  /**
+   * This mutation allows removing the shippable quantities of line items on a Transfer.
+   * It removes all quantities of the item from the transfer that are not associated with shipments.
+   */
+  inventoryTransferRemoveItems?: Maybe<InventoryTransferRemoveItemsPayload>;
+  /** This mutation allows for the setting of line items on a Transfer. Will replace the items already set, if any. */
+  inventoryTransferSetItems?: Maybe<InventoryTransferSetItemsPayload>;
   /**
    * Activates a location so that you can stock inventory at the location. Refer to the
    * [`isActive`](https://shopify.dev/docs/api/admin-graphql/latest/objects/Location#field-isactive) and
@@ -31322,13 +33177,13 @@ type Mutation = {
   marketWebPresenceUpdate?: Maybe<MarketWebPresenceUpdatePayload>;
   /** Deletes all external marketing activities. Deletion is performed by a background job, as it may take a bit of time to complete if a large number of activities are to be deleted. Attempting to create or modify external activities before the job has completed will result in the create/update/upsert mutation returning an error. */
   marketingActivitiesDeleteAllExternal?: Maybe<MarketingActivitiesDeleteAllExternalPayload>;
-  /** Create new marketing activity. */
+  /** Create new marketing activity. Marketing activity app extensions are deprecated and will be removed in the near future. */
   marketingActivityCreate?: Maybe<MarketingActivityCreatePayload>;
   /** Creates a new external marketing activity. */
   marketingActivityCreateExternal?: Maybe<MarketingActivityCreateExternalPayload>;
   /** Deletes an external marketing activity. */
   marketingActivityDeleteExternal?: Maybe<MarketingActivityDeleteExternalPayload>;
-  /** Updates a marketing activity with the latest information. */
+  /** Updates a marketing activity with the latest information. Marketing activity app extensions are deprecated and will be removed in the near future. */
   marketingActivityUpdate?: Maybe<MarketingActivityUpdatePayload>;
   /** Update an external marketing activity. */
   marketingActivityUpdateExternal?: Maybe<MarketingActivityUpdateExternalPayload>;
@@ -31418,7 +33273,58 @@ type Mutation = {
   mobilePlatformApplicationDelete?: Maybe<MobilePlatformApplicationDeletePayload>;
   /** Update a mobile platform application. */
   mobilePlatformApplicationUpdate?: Maybe<MobilePlatformApplicationUpdatePayload>;
-  /** Cancels an order. */
+  /**
+   * Cancels an order, with options for refunding, restocking inventory, and customer notification.
+   *
+   * > Caution:
+   * > Order cancellation is irreversible. An order that has been cancelled can't be restored to its original state.
+   *
+   * Use the `orderCancel` mutation to programmatically cancel orders in scenarios such as:
+   *
+   * - Customer-requested cancellations due to size, color, or other preference changes
+   * - Payment processing failures or declined transactions
+   * - Fraud detection and prevention
+   * - Insufficient inventory availability
+   * - Staff errors in order processing
+   * - Wholesale or B2B order management workflows
+   *
+   * The `orderCancel` mutation provides flexible refund options including refunding to original payment methods
+   * or issuing store credit. If a payment was only authorized (temporarily held) but not yet charged,
+   * that hold will be automatically released when the order is cancelled, even if you choose not to refund other payments.
+   *
+   * The mutation supports different cancellation reasons: customer requests, payment declines, fraud,
+   * inventory issues, staff errors, or other unspecified reasons. Each cancellation can include optional
+   * staff notes for internal documentation (notes aren't visible to customers).
+   *
+   * An order can only be cancelled if it meets the following criteria:
+   *
+   * - The order hasn't already been cancelled.
+   * - The order has no pending payment authorizations.
+   * - The order has no active returns in progress.
+   * - The order has no outstanding fulfillments that can't be cancelled.
+   *
+   * Orders might be assigned to locations that become
+   * [deactivated](https://help.shopify.com/manual/fulfillment/setup/locations-management#deactivate-and-reactivate-locations)
+   * after the order was created. When cancelling such orders, inventory behavior depends on payment status:
+   *
+   * - **Paid orders**: Cancellation will fail with an error if restocking is enabled, since inventory
+   * can't be returned to deactivated locations.
+   * - **Unpaid orders**: Cancellation succeeds but inventory is not restocked anywhere, even when the
+   * restock option is enabled. The committed inventory effectively becomes unavailable rather than being
+   * returned to stock at the deactivated location.
+   *
+   * After you cancel an order, you can still make limited updates to certain fields (like
+   * notes and tags) using the
+   * [`orderUpdate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/orderUpdate).
+   *
+   * For partial refunds or more complex refund scenarios on active orders,
+   * such as refunding only specific line items while keeping the rest of the order fulfilled,
+   * consider using the [`refundCreate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/refundCreate)
+   * mutation instead of full order cancellation.
+   *
+   * Learn how to build apps that integrate with
+   * [order management and fulfillment processes](https://shopify.dev/docs/apps/build/orders-fulfillment).
+   */
   orderCancel?: Maybe<OrderCancelPayload>;
   /**
    * Captures payment for an authorized transaction on an order. Use this mutation to claim the money that was previously
@@ -31527,7 +33433,30 @@ type Mutation = {
   orderEditUpdateShippingLine?: Maybe<OrderEditUpdateShippingLinePayload>;
   /** Sends an email invoice for an order. */
   orderInvoiceSend?: Maybe<OrderInvoiceSendPayload>;
-  /** Marks an order as paid. You can only mark an order as paid if it isn't already fully paid. */
+  /**
+   * Marks an order as paid by recording a payment transaction for the outstanding amount.
+   *
+   * Use the `orderMarkAsPaid` mutation to record payments received outside the standard checkout
+   * process. The `orderMarkAsPaid` mutation is particularly useful in scenarios where:
+   *
+   * - Orders were created with manual payment methods (cash on delivery, bank deposit, money order)
+   * - Payments were received offline and need to be recorded in the system
+   * - Previously authorized payments need to be captured manually
+   * - Orders require manual payment reconciliation due to external payment processing
+   *
+   * The mutation validates that the order can be marked as paid before processing.
+   * An order can be marked as paid only if it has a positive outstanding balance and its
+   * [financial status](https://shopify.dev/docs/api/admin-graphql/latest/objects/Order#field-Order.fields.displayFinancialStatus)
+   * isn't already `PAID`. The mutation will either create a new sale transaction for the full
+   * outstanding amount or capture an existing authorized transaction, depending on the order's current payment state.
+   *
+   * After successfully marking an order as paid, the order's financial status is updated to
+   * reflect the payment, and payment events are logged for tracking and analytics
+   * purposes.
+   *
+   * Learn more about [managing orders](https://shopify.dev/docs/apps/build/orders-fulfillment/order-management-apps)
+   * in apps.
+   */
   orderMarkAsPaid?: Maybe<OrderMarkAsPaidPayload>;
   /** Opens a closed order. */
   orderOpen?: Maybe<OrderOpenPayload>;
@@ -31643,15 +33572,50 @@ type Mutation = {
    */
   productCreateMedia?: Maybe<ProductCreateMediaPayload>;
   /**
-   * Deletes a product, including all associated variants and media.
+   * Permanently deletes a product and all its associated data, including variants, media, publications, and inventory items.
    *
-   * As of API version `2023-01`, if you need to delete a large product, such as one that has many
-   * [variants](https://shopify.dev/api/admin-graphql/latest/input-objects/ProductVariantInput)
+   * Use the `productDelete` mutation to programmatically remove products from your store when they need to be
+   * permanently deleted from your catalog, such as when removing discontinued items, cleaning up test data, or
+   * synchronizing with external inventory management systems.
+   *
+   * The `productDelete` mutation removes the product from all associated collections,
+   * and removes all associated data for the product, including:
+   *
+   * - All product variants and their inventory items
+   * - Product media (images, videos) that are not referenced by other products
+   * - [Product options](https://shopify.dev/api/admin-graphql/latest/objects/ProductOption) and [option values](https://shopify.dev/api/admin-graphql/latest/objects/ProductOptionValue)
+   * - Product publications across all sales channels
+   * - Product tags and metadata associations
+   *
+   * The `productDelete` mutation also has the following effects on existing orders and transactions:
+   *
+   * - **Draft orders**: Existing draft orders that reference this product will retain the product information as stored data, but the product reference will be removed. Draft orders can still be completed with the stored product details.
+   * - **Completed orders and refunds**: Previously completed orders that included this product aren't affected. The product information in completed orders is preserved for record-keeping, and existing refunds for this product remain valid and processable.
+   *
+   * > Caution:
+   * > Product deletion is irreversible. After a product is deleted, it can't be recovered. Consider archiving
+   * > or unpublishing products instead if you might need to restore them later.
+   *
+   * If you need to delete a large product, such as one that has many
+   * [variants](https://shopify.dev/api/admin-graphql/latest/objects/ProductVariant)
    * that are active at several
-   * [locations](https://shopify.dev/api/admin-graphql/latest/input-objects/InventoryLevelInput),
-   * you may encounter timeout errors. To avoid these timeout errors, you can instead use the asynchronous
-   * [ProductDeleteAsync](https://shopify.dev/api/admin-graphql/latest/mutations/productDeleteAsync)
-   * mutation.
+   * [locations](https://shopify.dev/api/admin-graphql/latest/objects/Location),
+   * you might encounter timeout errors. To avoid these timeout errors, you can set the
+   * [`synchronous`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/productDelete#arguments-synchronous)
+   * parameter to `false` to run the deletion asynchronously, which returns a
+   * [`ProductDeleteOperation`](https://shopify.dev/docs/api/admin-graphql/latest/objects/ProductDeleteOperation)
+   * that you can monitor for completion status.
+   *
+   * If you need more granular control over product cleanup, consider using these alternative mutations:
+   *
+   * - [`productUpdate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/productUpdate):
+   * Update the product status to archived or unpublished instead of deleting.
+   * - [`productVariantsBulkDelete`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/productVariantsBulkDelete):
+   * Delete specific variants while keeping the product.
+   * - [`productOptionsDelete`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/productOptionsDelete):
+   * Delete the choices available for a product, such as size, color, or material.
+   *
+   * Learn more about the [product model](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model).
    */
   productDelete?: Maybe<ProductDeletePayload>;
   /**
@@ -32102,8 +34066,7 @@ type Mutation = {
    * - Issuing store credit refunds (when enabled)
    *
    * You can create both full and partial refunds, and optionally allow over-refunding in specific
-   * cases. The mutation also supports [idempotent requests](https://shopify.dev/docs/api/usage/idempotent-requests)
-   * to safely retry failed refund attempts.
+   * cases.
    *
    * After creating a refund, you can track its status and details through the order's
    * [`refunds`](https://shopify.dev/docs/api/admin-graphql/latest/objects/Order#field-Order.fields.refunds)
@@ -32121,6 +34084,8 @@ type Mutation = {
    * any restocking input.
    */
   refundCreate?: Maybe<RefundCreatePayload>;
+  /** Removes return and/or exchange lines from a return. */
+  removeFromReturn?: Maybe<RemoveFromReturnPayload>;
   /**
    * Approves a customer's return request.
    * If this mutation is successful, then the `Return.status` field of the
@@ -32173,7 +34138,10 @@ type Mutation = {
    * Use the `ReturnCreate` or `ReturnRequest` mutation to initiate a new return.
    */
   returnDeclineRequest?: Maybe<ReturnDeclineRequestPayload>;
-  /** Removes return lines from a return. */
+  /**
+   * Removes return lines from a return.
+   * @deprecated Use `removeFromReturn` instead.
+   */
   returnLineItemRemoveFromReturn?: Maybe<ReturnLineItemRemoveFromReturnPayload>;
   /** Process a return. */
   returnProcess?: Maybe<ReturnProcessPayload>;
@@ -32307,12 +34275,50 @@ type Mutation = {
    */
   stagedUploadTargetsGenerate?: Maybe<StagedUploadTargetsGeneratePayload>;
   /**
-   * Creates staged upload targets for each input. This is the first step in the upload process.
-   * The returned staged upload targets' URL and parameter fields can be used to send a request
-   * to upload the file described in the corresponding input.
+   * Creates staged upload targets for file uploads such as images, videos, and 3D models.
    *
-   * For more information on the upload process, refer to
-   * [Upload media to Shopify](https://shopify.dev/apps/online-store/media/products#step-1-upload-media-to-shopify).
+   * Use the `stagedUploadsCreate` mutation instead of direct file creation mutations when:
+   *
+   * - **Uploading large files**: Files over a few MB benefit from staged uploads for better reliability
+   * - **Uploading media files**: Videos, 3D models, and high-resolution images
+   * - **Bulk importing**: CSV files, product catalogs, or other bulk data
+   * - **Using external file sources**: When files are stored remotely and need to be transferred to Shopify
+   *
+   * For small files or simple use cases, you can use [`fileCreate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/fileCreate)
+   * directly by providing the file content inline.
+   *
+   * The `stagedUploadsCreate` mutation is the first step in Shopify's secure two-step upload process:
+   *
+   * **Step 1: Create staged upload targets** (this mutation)
+   * - Generate secure, temporary upload URLs for your files.
+   * - Receive authentication parameters for the upload.
+   *
+   * **Step 2: Upload files and create assets**
+   * - Upload your files directly to the provided URLs using the authentication parameters.
+   * - Use the returned `resourceUrl` as the `originalSource` in subsequent mutations like `fileCreate`.
+   *
+   * This approach provides better performance for large files, handles network interruptions gracefully,
+   * and ensures secure file transfers to Shopify's storage infrastructure.
+   *
+   * > Note:
+   * > File size is required when uploading
+   * > [`VIDEO`](https://shopify.dev/docs/api/admin-graphql/latest/enums/StagedUploadTargetGenerateUploadResource#enums-VIDEO) or
+   * > [`MODEL_3D`](https://shopify.dev/docs/api/admin-graphql/latest/enums/StagedUploadTargetGenerateUploadResource#enums-MODEL_3D)
+   * > resources.
+   *
+   * After creating staged upload targets, complete the process by:
+   *
+   * 1. **Uploading files**: Send your files to the returned [`url`](https://shopify.dev/docs/api/admin-graphql/latest/objects/StagedMediaUploadTarget#field-StagedMediaUploadTarget.fields.url) using the provided
+   * [`parameters`](https://shopify.dev/docs/api/admin-graphql/latest/objects/StagedMediaUploadTarget#field-StagedMediaUploadTarget.fields.parameters)
+   * for authentication
+   * 2. **Creating file assets**: Use the [`resourceUrl`](https://shopify.dev/docs/api/admin-graphql/latest/objects/StagedMediaUploadTarget#field-StagedMediaUploadTarget.fields.resourceUrl)
+   * as the `originalSource` in mutations such as:
+   *    - [`fileCreate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/fileCreate):
+   *      Creates file assets from staged uploads
+   *    - [`productUpdate`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/productUpdate):
+   *      Updates products with new media from staged uploads
+   *
+   * Learn more about [uploading media to Shopify](https://shopify.dev/apps/online-store/media/products).
    */
   stagedUploadsCreate?: Maybe<StagedUploadsCreatePayload>;
   /**
@@ -34019,6 +36025,121 @@ type MutationinventorySetScheduledChangesArgs = {
 
 
 /** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentAddItemsArgs = {
+  id: Scalars['ID']['input'];
+  lineItems: Array<InventoryShipmentLineItemInput>;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentCreateArgs = {
+  input: InventoryShipmentCreateInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentCreateInTransitArgs = {
+  input: InventoryShipmentCreateInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentDeleteArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentMarkInTransitArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentReceiveArgs = {
+  bulkReceiveAction?: InputMaybe<InventoryShipmentReceiveLineItemReason>;
+  id: Scalars['ID']['input'];
+  lineItems?: InputMaybe<Array<InventoryShipmentReceiveItemInput>>;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentRemoveItemsArgs = {
+  id: Scalars['ID']['input'];
+  lineItems: Array<Scalars['ID']['input']>;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentSetTrackingArgs = {
+  id: Scalars['ID']['input'];
+  tracking: InventoryShipmentTrackingInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryShipmentUpdateItemQuantitiesArgs = {
+  id: Scalars['ID']['input'];
+  items?: InputMaybe<Array<InventoryShipmentUpdateItemQuantitiesInput>>;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferCancelArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferCreateArgs = {
+  input: InventoryTransferCreateInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferCreateAsReadyToShipArgs = {
+  input: InventoryTransferCreateAsReadyToShipInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferDeleteArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferDuplicateArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferEditArgs = {
+  id: Scalars['ID']['input'];
+  input: InventoryTransferEditInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferMarkAsReadyToShipArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferRemoveItemsArgs = {
+  input: InventoryTransferRemoveItemsInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationinventoryTransferSetItemsArgs = {
+  input: InventoryTransferSetItemsInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
 type MutationlocationActivateArgs = {
   locationId: Scalars['ID']['input'];
 };
@@ -34342,7 +36463,7 @@ type MutationorderCancelArgs = {
   notifyCustomer?: InputMaybe<Scalars['Boolean']['input']>;
   orderId: Scalars['ID']['input'];
   reason: OrderCancelReason;
-  refund: Scalars['Boolean']['input'];
+  refundMethod?: InputMaybe<OrderCancelRefundMethodInput>;
   restock: Scalars['Boolean']['input'];
   staffNote?: InputMaybe<Scalars['String']['input']>;
 };
@@ -34982,6 +37103,13 @@ type MutationquantityRulesDeleteArgs = {
 /** The schema's entry point for all mutation operations. */
 type MutationrefundCreateArgs = {
   input: RefundInput;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationremoveFromReturnArgs = {
+  returnId: Scalars['ID']['input'];
+  returnLineItems?: InputMaybe<Array<ReturnLineItemRemoveFromReturnInput>>;
 };
 
 
@@ -37233,6 +39361,20 @@ enum OrderCancelReason {
   STAFF = 'STAFF'
 }
 
+/** The input fields used to specify the refund method for an order cancellation. */
+type OrderCancelRefundMethodInput = {
+  /** Whether to refund to the original payment method. */
+  originalPaymentMethodsRefund?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to refund to store credit. */
+  storeCreditRefund?: InputMaybe<OrderCancelStoreCreditRefundInput>;
+};
+
+/** The input fields used to refund to store credit. */
+type OrderCancelStoreCreditRefundInput = {
+  /** The expiration date of the store credit. */
+  expiresAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
 /** Errors related to order cancellation. */
 type OrderCancelUserError = DisplayableError & {
   __typename?: 'OrderCancelUserError';
@@ -37251,7 +39393,15 @@ enum OrderCancelUserErrorCode {
   /** The record with the ID used as the input value couldn't be found. */
   NOT_FOUND = 'NOT_FOUND',
   /** An order refund was requested but the user does not have the refund_orders permission. */
-  NO_REFUND_PERMISSION = 'NO_REFUND_PERMISSION'
+  NO_REFUND_PERMISSION = 'NO_REFUND_PERMISSION',
+  /** An order refund was requested but the user does not have the refund_to_store_credit permission. */
+  NO_REFUND_TO_STORE_CREDIT_PERMISSION = 'NO_REFUND_TO_STORE_CREDIT_PERMISSION',
+  /** A store credit order refund was requested but the order is a B2B order. */
+  STORE_CREDIT_REFUND_B2B_NOT_SUPPORTED = 'STORE_CREDIT_REFUND_B2B_NOT_SUPPORTED',
+  /** A store credit order refund was requested but the expiration date is in the past. */
+  STORE_CREDIT_REFUND_EXPIRATION_IN_PAST = 'STORE_CREDIT_REFUND_EXPIRATION_IN_PAST',
+  /** A store credit order refund was requested but the order has no customer. */
+  STORE_CREDIT_REFUND_MISSING_CUSTOMER = 'STORE_CREDIT_REFUND_MISSING_CUSTOMER'
 }
 
 /** Details about the order cancellation. */
@@ -38597,7 +40747,7 @@ enum OrderSortKeys {
   RELEVANCE = 'RELEVANCE',
   /** Sort by the total quantity of all line items to identify large purchases or analyze inventory demand patterns. */
   TOTAL_ITEMS_QUANTITY = 'TOTAL_ITEMS_QUANTITY',
-  /** Sort by the `total_price` value. */
+  /** Sorts by the total sold price of an order in the shop currency, excluding any returns/refunds/removals. */
   TOTAL_PRICE = 'TOTAL_PRICE',
   /** Sort by the `updated_at` value. */
   UPDATED_AT = 'UPDATED_AT'
@@ -39278,10 +41428,16 @@ enum PageUpdateUserErrorCode {
   BLANK = 'BLANK',
   /** Can’t set isPublished to true and also set a future publish date. */
   INVALID_PUBLISH_DATE = 'INVALID_PUBLISH_DATE',
+  /** The metafield type is invalid. */
+  INVALID_TYPE = 'INVALID_TYPE',
+  /** The value is invalid for the metafield type or for the definition options. */
+  INVALID_VALUE = 'INVALID_VALUE',
   /** The record with the ID used as the input value couldn't be found. */
   NOT_FOUND = 'NOT_FOUND',
   /** The input value is already taken. */
   TAKEN = 'TAKEN',
+  /** The input value is too big. */
+  TOO_BIG = 'TOO_BIG',
   /** The input value is too long. */
   TOO_LONG = 'TOO_LONG'
 }
@@ -39805,6 +41961,25 @@ type PaypalWalletPaymentDetails = BasePaymentDetails & {
   __typename?: 'PaypalWalletPaymentDetails';
   /** The name of payment method used by the buyer. */
   paymentMethodName?: Maybe<Scalars['String']['output']>;
+};
+
+/** A location for in-store pickup. */
+type PickupInStoreLocation = {
+  __typename?: 'PickupInStoreLocation';
+  /** The code of the pickup location. */
+  code: Scalars['String']['output'];
+  /** Distance from the buyer to the pickup location. */
+  distanceFromBuyer?: Maybe<Distance>;
+  /** A unique identifier for this pickup location. */
+  handle: Scalars['String']['output'];
+  /** Pickup instructions. */
+  instructions: Scalars['String']['output'];
+  /** The location ID of the pickup location. */
+  locationId: Scalars['ID']['output'];
+  /** The source of the pickup location. */
+  source: Scalars['String']['output'];
+  /** Title of the pickup location. */
+  title: Scalars['String']['output'];
 };
 
 /** Represents a mobile device that Shopify Point of Sale has been installed on. */
@@ -46353,7 +48528,26 @@ type QueryRoot = {
    * [perform a bulk operation](https://shopify.dev/docs/api/usage/bulk-operations/queries).
    */
   cashTrackingSessions: CashTrackingSessionConnection;
-  /** Returns a Catalog resource by ID. */
+  /**
+   * Retrieves a [catalog](https://shopify.dev/docs/api/admin-graphql/latest/interfaces/Catalog) by its ID.
+   * A catalog represents a list of products with publishing and pricing information,
+   * and can be associated with a context, such as a market, company location, or app.
+   *
+   * Use the `catalog` query to retrieve information associated with the following workflows:
+   *
+   * - Managing product publications across different contexts
+   * - Setting up contextual pricing with price lists
+   * - Managing market-specific product availability
+   * - Configuring B2B customer catalogs
+   *
+   * There are several types of catalogs:
+   *
+   * - [`MarketCatalog`](https://shopify.dev/docs/api/admin-graphql/latest/objects/MarketCatalog)
+   * - [`AppCatalog`](https://shopify.dev/docs/api/admin-graphql/latest/objects/AppCatalog)
+   * - [`CompanyLocationCatalog`](https://shopify.dev/docs/api/admin-graphql/latest/objects/CompanyLocationCatalog)
+   *
+   * Learn more about [catalogs for different markets](https://shopify.dev/docs/apps/build/markets/catalogs-different-markets).
+   */
   catalog?: Maybe<Catalog>;
   /** Returns the most recent catalog operations for the shop. */
   catalogOperations: Array<ResourceOperation>;
@@ -46391,7 +48585,23 @@ type QueryRoot = {
   codeDiscountNodes: DiscountCodeNodeConnection;
   /** List of the shop's code discount saved searches. */
   codeDiscountSavedSearches: SavedSearchConnection;
-  /** Returns a Collection resource by ID. */
+  /**
+   * Retrieves a [collection](https://shopify.dev/docs/api/admin-graphql/latest/objects/Collection) by its ID.
+   * A collection represents a grouping of [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product)
+   * that merchants can display and sell as a group in their [online store](https://shopify.dev/docs/apps/build/online-store) and
+   * other [sales channels](https://shopify.dev/docs/apps/build/sales-channels).
+   *
+   * Use the `collection` query when you need to:
+   *
+   * - Manage collection publishing across sales channels
+   * - Access collection metadata and SEO information
+   * - Work with collection rules and product relationships
+   *
+   * A collection can be either a custom ([manual](https://help.shopify.com/manual/products/collections/manual-shopify-collection))
+   * collection where products are manually added, or a smart ([automated](https://help.shopify.com/manual/products/collections/automated-collections))
+   * collection where products are automatically included based on defined rules. Each collection has associated metadata including
+   * title, description, handle, image, and [metafields](https://shopify.dev/docs/apps/build/custom-data/metafields).
+   */
   collection?: Maybe<Collection>;
   /**
    * Return a collection by its handle.
@@ -46465,7 +48675,7 @@ type QueryRoot = {
   currentBulkOperation?: Maybe<BulkOperation>;
   /** The staff member making the API request. */
   currentStaffMember?: Maybe<StaffMember>;
-  /** Returns a Customer resource by ID. */
+  /** Returns a `Customer` resource by ID. */
   customer?: Maybe<Customer>;
   /** Returns a customer account page. */
   customerAccountPage?: Maybe<CustomerAccountPage>;
@@ -46539,7 +48749,27 @@ type QueryRoot = {
   disputes: ShopifyPaymentsDisputeConnection;
   /** Lookup a Domain by ID. */
   domain?: Maybe<Domain>;
-  /** Returns a DraftOrder resource by ID. */
+  /**
+   * Retrieves a [draft order](https://shopify.dev/docs/api/admin-graphql/latest/objects/DraftOrder) by its ID.
+   * A draft order is an order created by a merchant on behalf of their
+   * customers. Draft orders contain all necessary order details (products, pricing, customer information)
+   * but require payment to be accepted before they can be converted into
+   * [completed orders](https://shopify.dev/docs/api/admin-graphql/latest/mutations/draftOrderComplete).
+   *
+   * Use the `draftOrder` query to retrieve information associated with the following workflows:
+   *
+   * - Creating orders for phone, in-person, or chat sales
+   * - Sending invoices to customers with secure checkout links
+   * - Managing custom items and additional costs
+   * - Selling products at discount or wholesale rates
+   * - Processing pre-orders and saving drafts for later completion
+   *
+   * A draft order is associated with a
+   * [customer](https://shopify.dev/docs/api/admin-graphql/latest/objects/Customer)
+   * and contains multiple [line items](https://shopify.dev/docs/api/admin-graphql/latest/objects/DraftOrderLineItem).
+   * Each draft order has a [status](https://shopify.dev/docs/api/admin-graphql/latest/objects/DraftOrder#field-DraftOrder.fields.status),
+   * which indicates its progress through the sales workflow.
+   */
   draftOrder?: Maybe<DraftOrder>;
   /** Returns a list of available delivery options for a draft order. */
   draftOrderAvailableDeliveryOptions: DraftOrderAvailableDeliveryOptions;
@@ -46559,7 +48789,25 @@ type QueryRoot = {
   eventsCount?: Maybe<Count>;
   /** A list of the shop's file saved searches. */
   fileSavedSearches: SavedSearchConnection;
-  /** Returns a paginated list of files that have been uploaded to Shopify. */
+  /**
+   * Retrieves a paginated list of files that have been uploaded to a Shopify store. Files represent digital assets
+   * that merchants can upload to their store for various purposes including product images, marketing materials,
+   * documents, and brand assets.
+   *
+   * Use the `files` query to retrieve information associated with the following workflows:
+   *
+   * - [Managing product media and images](https://shopify.dev/docs/apps/build/online-store/product-media)
+   * - [Theme development and asset management](https://shopify.dev/docs/storefronts/themes/store/success/brand-assets)
+   * - Brand asset management and [checkout branding](https://shopify.dev/docs/apps/build/checkout/styling/add-favicon)
+   *
+   * Files can include multiple [content types](https://shopify.dev/docs/api/admin-graphql/latest/enums/FileContentType),
+   * such as images, videos, 3D models, and generic files. Each file has
+   * properties like dimensions, file size, alt text for accessibility, and upload status. Files can be filtered
+   * by [media type](https://shopify.dev/docs/api/admin-graphql/latest/enums/MediaContentType) and can be associated with
+   * [products](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product),
+   * [themes](https://shopify.dev/docs/api/admin-graphql/latest/objects/OnlineStoreTheme),
+   * and other store resources.
+   */
   files: FileConnection;
   /** Returns the access policy for a finance app . */
   financeAppAccessPolicy: FinanceAppAccessPolicy;
@@ -46611,6 +48859,12 @@ type QueryRoot = {
   inventoryLevel?: Maybe<InventoryLevel>;
   /** General inventory properties for the shop. */
   inventoryProperties: InventoryProperties;
+  /** Returns an inventory shipment by ID. */
+  inventoryShipment?: Maybe<InventoryShipment>;
+  /** Returns an inventory transfer by ID. */
+  inventoryTransfer?: Maybe<InventoryTransfer>;
+  /** Returns a paginated list of transfers. */
+  inventoryTransfers: InventoryTransferConnection;
   /** Returns a Job resource by ID. Used to check the status of internal jobs and any applicable changes. */
   job?: Maybe<Job>;
   /** Returns an inventory Location resource by ID. */
@@ -46647,7 +48901,7 @@ type QueryRoot = {
   marketingActivities: MarketingActivityConnection;
   /** Returns a MarketingActivity resource by ID. */
   marketingActivity?: Maybe<MarketingActivity>;
-  /** Returns a MarketingEvent resource by ID. */
+  /** Returns a `MarketingEvent` resource by ID. */
   marketingEvent?: Maybe<MarketingEvent>;
   /** A list of marketing events associated with the marketing app. */
   marketingEvents: MarketingEventConnection;
@@ -46917,7 +49171,27 @@ type QueryRoot = {
   publicationsCount?: Maybe<Count>;
   /** Returns a count of published products by publication ID. Limited to a maximum of 10000 by default. */
   publishedProductsCount?: Maybe<Count>;
-  /** Returns a Refund resource by ID. */
+  /**
+   * Retrieves a [refund](https://shopify.dev/docs/api/admin-graphql/latest/objects/Refund) by its ID.
+   * A refund represents a financial record of money returned to a customer from an order.
+   * It provides a comprehensive view of all refunded amounts, transactions, and restocking
+   * instructions associated with returning products or correcting order issues.
+   *
+   * Use the `refund` query to retrieve information associated with the following workflows:
+   *
+   * - Displaying refund details in order management interfaces
+   * - Building customer service tools for reviewing refund history
+   * - Creating reports on refunded amounts and reasons
+   * - Auditing refund transactions and payment gateway records
+   * - Tracking inventory impacts from refunded items
+   *
+   * A refund is associated with an
+   * [order](https://shopify.dev/docs/api/admin-graphql/latest/objects/Order)
+   * and includes [refund line items](https://shopify.dev/docs/api/admin-graphql/latest/objects/RefundLineItem)
+   * that specify which items were refunded. Each refund processes through
+   * [order transactions](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction)
+   * that handle the actual money transfer back to the customer.
+   */
   refund?: Maybe<Refund>;
   /**
    * Retrieves a return by its ID. A return represents the intent of a buyer to ship one or more items from an
@@ -48033,6 +50307,31 @@ type QueryRootinventoryLevelArgs = {
 
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+type QueryRootinventoryShipmentArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+type QueryRootinventoryTransferArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+type QueryRootinventoryTransfersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  savedSearchId?: InputMaybe<Scalars['ID']['input']>;
+  sortKey?: InputMaybe<TransferSortKeys>;
+};
+
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 type QueryRootjobArgs = {
   id: Scalars['ID']['input'];
 };
@@ -49063,7 +51362,43 @@ type QueryRootwebhookSubscriptionsCountArgs = {
   query?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** The record of the line items and transactions that were refunded to a customer, along with restocking instructions for refunded line items. */
+/**
+ * The `Refund` object represents a financial record of money returned to a customer from an order.
+ * It provides a comprehensive view of all refunded amounts, transactions, and restocking instructions
+ * associated with returning products or correcting order issues.
+ *
+ * The `Refund` object provides information to:
+ *
+ * - Process customer returns and issue payments back to customers
+ * - Handle partial or full refunds for line items with optional inventory restocking
+ * - Refund shipping costs, duties, and additional fees
+ * - Issue store credit refunds as an alternative to original payment method returns
+ * - Track and reconcile all financial transactions related to refunds
+ *
+ * Each `Refund` object maintains detailed records of what was refunded, how much was refunded,
+ * which payment transactions were involved, and any inventory restocking that occurred. The refund
+ * can include multiple components such as product line items, shipping charges, taxes, duties, and
+ * additional fees, all calculated with proper currency handling for international orders.
+ *
+ * Refunds are always associated with an [order](https://shopify.dev/docs/api/admin-graphql/latest/objects/Order)
+ * and can optionally be linked to a [return](https://shopify.dev/docs/api/admin-graphql/latest/objects/Return)
+ * if the refund was initiated through the returns process. The refund tracks both the presentment currency
+ * (what the customer sees) and the shop currency for accurate financial reporting.
+ *
+ * > Note:
+ * > The existence of a `Refund` object doesn't guarantee that the money has been returned to the customer.
+ * > The actual financial processing happens through associated
+ * > [`OrderTransaction`](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction)
+ * > objects, which can be in various states, such as pending, processing, success, or failure.
+ * > To determine if money has actually been refunded, check the
+ * > [status](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction#field-OrderTransaction.fields.status)
+ * > of the associated transactions.
+ *
+ * Learn more about
+ * [managing returns](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/build-return-management),
+ * [refunding duties](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/view-and-refund-duties), and
+ * [processing refunds](https://shopify.dev/docs/api/admin-graphql/latest/mutations/refundCreate).
+ */
 type Refund = LegacyInteroperability & Node & {
   __typename?: 'Refund';
   /** The date and time when the refund was created. */
@@ -49102,7 +51437,43 @@ type Refund = LegacyInteroperability & Node & {
 };
 
 
-/** The record of the line items and transactions that were refunded to a customer, along with restocking instructions for refunded line items. */
+/**
+ * The `Refund` object represents a financial record of money returned to a customer from an order.
+ * It provides a comprehensive view of all refunded amounts, transactions, and restocking instructions
+ * associated with returning products or correcting order issues.
+ *
+ * The `Refund` object provides information to:
+ *
+ * - Process customer returns and issue payments back to customers
+ * - Handle partial or full refunds for line items with optional inventory restocking
+ * - Refund shipping costs, duties, and additional fees
+ * - Issue store credit refunds as an alternative to original payment method returns
+ * - Track and reconcile all financial transactions related to refunds
+ *
+ * Each `Refund` object maintains detailed records of what was refunded, how much was refunded,
+ * which payment transactions were involved, and any inventory restocking that occurred. The refund
+ * can include multiple components such as product line items, shipping charges, taxes, duties, and
+ * additional fees, all calculated with proper currency handling for international orders.
+ *
+ * Refunds are always associated with an [order](https://shopify.dev/docs/api/admin-graphql/latest/objects/Order)
+ * and can optionally be linked to a [return](https://shopify.dev/docs/api/admin-graphql/latest/objects/Return)
+ * if the refund was initiated through the returns process. The refund tracks both the presentment currency
+ * (what the customer sees) and the shop currency for accurate financial reporting.
+ *
+ * > Note:
+ * > The existence of a `Refund` object doesn't guarantee that the money has been returned to the customer.
+ * > The actual financial processing happens through associated
+ * > [`OrderTransaction`](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction)
+ * > objects, which can be in various states, such as pending, processing, success, or failure.
+ * > To determine if money has actually been refunded, check the
+ * > [status](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction#field-OrderTransaction.fields.status)
+ * > of the associated transactions.
+ *
+ * Learn more about
+ * [managing returns](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/build-return-management),
+ * [refunding duties](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/view-and-refund-duties), and
+ * [processing refunds](https://shopify.dev/docs/api/admin-graphql/latest/mutations/refundCreate).
+ */
 type RefundorderAdjustmentsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -49112,7 +51483,43 @@ type RefundorderAdjustmentsArgs = {
 };
 
 
-/** The record of the line items and transactions that were refunded to a customer, along with restocking instructions for refunded line items. */
+/**
+ * The `Refund` object represents a financial record of money returned to a customer from an order.
+ * It provides a comprehensive view of all refunded amounts, transactions, and restocking instructions
+ * associated with returning products or correcting order issues.
+ *
+ * The `Refund` object provides information to:
+ *
+ * - Process customer returns and issue payments back to customers
+ * - Handle partial or full refunds for line items with optional inventory restocking
+ * - Refund shipping costs, duties, and additional fees
+ * - Issue store credit refunds as an alternative to original payment method returns
+ * - Track and reconcile all financial transactions related to refunds
+ *
+ * Each `Refund` object maintains detailed records of what was refunded, how much was refunded,
+ * which payment transactions were involved, and any inventory restocking that occurred. The refund
+ * can include multiple components such as product line items, shipping charges, taxes, duties, and
+ * additional fees, all calculated with proper currency handling for international orders.
+ *
+ * Refunds are always associated with an [order](https://shopify.dev/docs/api/admin-graphql/latest/objects/Order)
+ * and can optionally be linked to a [return](https://shopify.dev/docs/api/admin-graphql/latest/objects/Return)
+ * if the refund was initiated through the returns process. The refund tracks both the presentment currency
+ * (what the customer sees) and the shop currency for accurate financial reporting.
+ *
+ * > Note:
+ * > The existence of a `Refund` object doesn't guarantee that the money has been returned to the customer.
+ * > The actual financial processing happens through associated
+ * > [`OrderTransaction`](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction)
+ * > objects, which can be in various states, such as pending, processing, success, or failure.
+ * > To determine if money has actually been refunded, check the
+ * > [status](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction#field-OrderTransaction.fields.status)
+ * > of the associated transactions.
+ *
+ * Learn more about
+ * [managing returns](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/build-return-management),
+ * [refunding duties](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/view-and-refund-duties), and
+ * [processing refunds](https://shopify.dev/docs/api/admin-graphql/latest/mutations/refundCreate).
+ */
 type RefundrefundLineItemsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -49122,7 +51529,43 @@ type RefundrefundLineItemsArgs = {
 };
 
 
-/** The record of the line items and transactions that were refunded to a customer, along with restocking instructions for refunded line items. */
+/**
+ * The `Refund` object represents a financial record of money returned to a customer from an order.
+ * It provides a comprehensive view of all refunded amounts, transactions, and restocking instructions
+ * associated with returning products or correcting order issues.
+ *
+ * The `Refund` object provides information to:
+ *
+ * - Process customer returns and issue payments back to customers
+ * - Handle partial or full refunds for line items with optional inventory restocking
+ * - Refund shipping costs, duties, and additional fees
+ * - Issue store credit refunds as an alternative to original payment method returns
+ * - Track and reconcile all financial transactions related to refunds
+ *
+ * Each `Refund` object maintains detailed records of what was refunded, how much was refunded,
+ * which payment transactions were involved, and any inventory restocking that occurred. The refund
+ * can include multiple components such as product line items, shipping charges, taxes, duties, and
+ * additional fees, all calculated with proper currency handling for international orders.
+ *
+ * Refunds are always associated with an [order](https://shopify.dev/docs/api/admin-graphql/latest/objects/Order)
+ * and can optionally be linked to a [return](https://shopify.dev/docs/api/admin-graphql/latest/objects/Return)
+ * if the refund was initiated through the returns process. The refund tracks both the presentment currency
+ * (what the customer sees) and the shop currency for accurate financial reporting.
+ *
+ * > Note:
+ * > The existence of a `Refund` object doesn't guarantee that the money has been returned to the customer.
+ * > The actual financial processing happens through associated
+ * > [`OrderTransaction`](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction)
+ * > objects, which can be in various states, such as pending, processing, success, or failure.
+ * > To determine if money has actually been refunded, check the
+ * > [status](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction#field-OrderTransaction.fields.status)
+ * > of the associated transactions.
+ *
+ * Learn more about
+ * [managing returns](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/build-return-management),
+ * [refunding duties](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/view-and-refund-duties), and
+ * [processing refunds](https://shopify.dev/docs/api/admin-graphql/latest/mutations/refundCreate).
+ */
 type RefundrefundShippingLinesArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -49132,7 +51575,43 @@ type RefundrefundShippingLinesArgs = {
 };
 
 
-/** The record of the line items and transactions that were refunded to a customer, along with restocking instructions for refunded line items. */
+/**
+ * The `Refund` object represents a financial record of money returned to a customer from an order.
+ * It provides a comprehensive view of all refunded amounts, transactions, and restocking instructions
+ * associated with returning products or correcting order issues.
+ *
+ * The `Refund` object provides information to:
+ *
+ * - Process customer returns and issue payments back to customers
+ * - Handle partial or full refunds for line items with optional inventory restocking
+ * - Refund shipping costs, duties, and additional fees
+ * - Issue store credit refunds as an alternative to original payment method returns
+ * - Track and reconcile all financial transactions related to refunds
+ *
+ * Each `Refund` object maintains detailed records of what was refunded, how much was refunded,
+ * which payment transactions were involved, and any inventory restocking that occurred. The refund
+ * can include multiple components such as product line items, shipping charges, taxes, duties, and
+ * additional fees, all calculated with proper currency handling for international orders.
+ *
+ * Refunds are always associated with an [order](https://shopify.dev/docs/api/admin-graphql/latest/objects/Order)
+ * and can optionally be linked to a [return](https://shopify.dev/docs/api/admin-graphql/latest/objects/Return)
+ * if the refund was initiated through the returns process. The refund tracks both the presentment currency
+ * (what the customer sees) and the shop currency for accurate financial reporting.
+ *
+ * > Note:
+ * > The existence of a `Refund` object doesn't guarantee that the money has been returned to the customer.
+ * > The actual financial processing happens through associated
+ * > [`OrderTransaction`](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction)
+ * > objects, which can be in various states, such as pending, processing, success, or failure.
+ * > To determine if money has actually been refunded, check the
+ * > [status](https://shopify.dev/docs/api/admin-graphql/latest/objects/OrderTransaction#field-OrderTransaction.fields.status)
+ * > of the associated transactions.
+ *
+ * Learn more about
+ * [managing returns](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/build-return-management),
+ * [refunding duties](https://shopify.dev/docs/apps/build/orders-fulfillment/returns-apps/view-and-refund-duties), and
+ * [processing refunds](https://shopify.dev/docs/api/admin-graphql/latest/mutations/refundCreate).
+ */
 type RefundtransactionsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -49454,6 +51933,15 @@ type RemoteStripePaymentMethodInput = {
    * payment_method_id will become mandatory for all API versions.
    */
   paymentMethodId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Return type for `removeFromReturn` mutation. */
+type RemoveFromReturnPayload = {
+  __typename?: 'RemoveFromReturnPayload';
+  /** The modified return. */
+  return?: Maybe<Return>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<ReturnUserError>;
 };
 
 /** The resolved price inclusivity attributes. */
@@ -51565,6 +54053,10 @@ type SegmentEventFilterParameter = {
   localizedDescription: Scalars['String']['output'];
   /** The localized name of the parameter. */
   localizedName: Scalars['String']['output'];
+  /** The parameter maximum value range. */
+  maxRange?: Maybe<Scalars['Float']['output']>;
+  /** The parameter minimum value range. */
+  minRange?: Maybe<Scalars['Float']['output']>;
   /** Whether the parameter is optional. */
   optional: Scalars['Boolean']['output'];
   /** The type of the parameter. */
@@ -51608,6 +54100,10 @@ type SegmentFloatFilter = SegmentFilter & {
   __typename?: 'SegmentFloatFilter';
   /** The localized name of the filter. */
   localizedName: Scalars['String']['output'];
+  /** The maximum range a filter can have. */
+  maxRange?: Maybe<Scalars['Float']['output']>;
+  /** The minimum range a filter can have. */
+  minRange?: Maybe<Scalars['Float']['output']>;
   /** Whether a file can have multiple values for a single customer. */
   multiValue: Scalars['Boolean']['output'];
   /** The query name of the filter. */
@@ -51619,6 +54115,10 @@ type SegmentIntegerFilter = SegmentFilter & {
   __typename?: 'SegmentIntegerFilter';
   /** The localized name of the filter. */
   localizedName: Scalars['String']['output'];
+  /** The maximum range a filter can have. */
+  maxRange?: Maybe<Scalars['Float']['output']>;
+  /** The minimum range a filter can have. */
+  minRange?: Maybe<Scalars['Float']['output']>;
   /** Whether a file can have multiple values for a single customer. */
   multiValue: Scalars['Boolean']['output'];
   /** The query name of the filter. */
@@ -52910,6 +55410,12 @@ enum ServerPixelStatus {
   DISCONNECTED_UNCONFIGURED = 'DISCONNECTED_UNCONFIGURED'
 }
 
+/** The set of valid sort keys for the ShipmentLineItem query. */
+enum ShipmentLineItemSortKeys {
+  /** Sort by the `id` value. */
+  ID = 'ID'
+}
+
 /**
  * The [discount class](https://help.shopify.com/manual/discounts/combining-discounts/discount-combinations)
  * that's used to control how discounts can be combined.
@@ -53123,7 +55629,7 @@ type ShippingRefundInput = {
 };
 
 /** Represents a collection of general settings and information about the shop. */
-type Shop = HasMetafields & HasPublishedTranslations & Node & {
+type Shop = HasMetafieldDefinitions & HasMetafields & HasPublishedTranslations & Node & {
   __typename?: 'Shop';
   /** Account owner information. */
   accountOwner: StaffMember;
@@ -53270,6 +55776,11 @@ type Shop = HasMetafields & HasPublishedTranslations & Node & {
    * for the purposes of adding and storing additional information.
    */
   metafield?: Maybe<Metafield>;
+  /**
+   * List of metafield definitions.
+   * @deprecated This field will be removed in a future version. Use `QueryRoot.metafieldDefinitions` instead.
+   */
+  metafieldDefinitions: MetafieldDefinitionConnection;
   /**
    * A list of [custom fields](https://shopify.dev/docs/apps/build/custom-data)
    * that a merchant associates with a Shopify resource.
@@ -53520,6 +56031,20 @@ type ShoplocationsArgs = {
 type ShopmetafieldArgs = {
   key: Scalars['String']['input'];
   namespace?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Represents a collection of general settings and information about the shop. */
+type ShopmetafieldDefinitionsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  namespace?: InputMaybe<Scalars['String']['input']>;
+  pinnedStatus?: InputMaybe<MetafieldDefinitionPinnedStatus>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  sortKey?: InputMaybe<MetafieldDefinitionSortKeys>;
 };
 
 
@@ -57160,7 +59685,7 @@ type SubscriptionBillingCycleScheduleEditPayload = {
   userErrors: Array<SubscriptionBillingCycleUserError>;
 };
 
-/** The input fields to select SubscriptionBillingCycle by either date or index. */
+/** The input fields to select SubscriptionBillingCycle by either date or index. Both past and future billing cycles can be selected. */
 type SubscriptionBillingCycleSelector = {
   /** Returns a billing cycle by date. */
   date?: InputMaybe<Scalars['DateTime']['input']>;
@@ -60009,6 +62534,26 @@ enum TransactionVoidUserErrorCode {
   TRANSACTION_NOT_FOUND = 'TRANSACTION_NOT_FOUND'
 }
 
+/** The set of valid sort keys for the Transfer query. */
+enum TransferSortKeys {
+  /** Sort by the `created_at` value. */
+  CREATED_AT = 'CREATED_AT',
+  /** Sort by the `destination_name` value. */
+  DESTINATION_NAME = 'DESTINATION_NAME',
+  /** Sort by the `expected_shipment_arrival` value. */
+  EXPECTED_SHIPMENT_ARRIVAL = 'EXPECTED_SHIPMENT_ARRIVAL',
+  /** Sort by the `id` value. */
+  ID = 'ID',
+  /** Sort by the `name` value. */
+  NAME = 'NAME',
+  /** Sort by the `origin_name` value. */
+  ORIGIN_NAME = 'ORIGIN_NAME',
+  /** Sort by the `source_name` value. */
+  SOURCE_NAME = 'SOURCE_NAME',
+  /** Sort by the `status` value. */
+  STATUS = 'STATUS'
+}
+
 /** Translatable content of a resource's field. */
 type TranslatableContent = {
   __typename?: 'TranslatableContent';
@@ -61664,6 +64209,34 @@ enum WebhookSubscriptionTopic {
   INVENTORY_LEVELS_DISCONNECT = 'INVENTORY_LEVELS_DISCONNECT',
   /** The webhook topic for `inventory_levels/update` events. Occurs whenever an inventory level is updated. Requires the `read_inventory` scope. */
   INVENTORY_LEVELS_UPDATE = 'INVENTORY_LEVELS_UPDATE',
+  /** The webhook topic for `inventory_shipments/add_items` events. Occurs whenever items are added to a shipment. Requires the `read_inventory_shipments` scope. */
+  INVENTORY_SHIPMENTS_ADD_ITEMS = 'INVENTORY_SHIPMENTS_ADD_ITEMS',
+  /** The webhook topic for `inventory_shipments/create` events. Triggers when a shipment is created. Requires the `read_inventory_shipments` scope. */
+  INVENTORY_SHIPMENTS_CREATE = 'INVENTORY_SHIPMENTS_CREATE',
+  /** The webhook topic for `inventory_shipments/delete` events. Triggers when a shipment is deleted. Requires the `read_inventory_shipments` scope. */
+  INVENTORY_SHIPMENTS_DELETE = 'INVENTORY_SHIPMENTS_DELETE',
+  /** The webhook topic for `inventory_shipments/mark_in_transit` events. Triggers when a shipment is marked as in transit. Requires the `read_inventory_shipments` scope. */
+  INVENTORY_SHIPMENTS_MARK_IN_TRANSIT = 'INVENTORY_SHIPMENTS_MARK_IN_TRANSIT',
+  /** The webhook topic for `inventory_shipments/receive_items` events. Triggers when items on a shipment are received. Requires the `read_inventory_shipments_received_items` scope. */
+  INVENTORY_SHIPMENTS_RECEIVE_ITEMS = 'INVENTORY_SHIPMENTS_RECEIVE_ITEMS',
+  /** The webhook topic for `inventory_shipments/remove_items` events. Occurs whenever items are removed from a shipment. Requires the `read_inventory_shipments` scope. */
+  INVENTORY_SHIPMENTS_REMOVE_ITEMS = 'INVENTORY_SHIPMENTS_REMOVE_ITEMS',
+  /** The webhook topic for `inventory_shipments/update_item_quantities` events. Occurs whenever quantities change on a shipment. Requires the `read_inventory_shipments` scope. */
+  INVENTORY_SHIPMENTS_UPDATE_ITEM_QUANTITIES = 'INVENTORY_SHIPMENTS_UPDATE_ITEM_QUANTITIES',
+  /** The webhook topic for `inventory_shipments/update_tracking` events. Triggers when tracking info on a shipment is updated. Requires the `read_inventory_shipments` scope. */
+  INVENTORY_SHIPMENTS_UPDATE_TRACKING = 'INVENTORY_SHIPMENTS_UPDATE_TRACKING',
+  /** The webhook topic for `inventory_transfers/add_items` events. Occurs any time items are added to a transfer. Requires the `read_inventory_transfers` scope. */
+  INVENTORY_TRANSFERS_ADD_ITEMS = 'INVENTORY_TRANSFERS_ADD_ITEMS',
+  /** The webhook topic for `inventory_transfers/cancel` events. Triggers when a transfer is canceled. Requires the `read_inventory_transfers` scope. */
+  INVENTORY_TRANSFERS_CANCEL = 'INVENTORY_TRANSFERS_CANCEL',
+  /** The webhook topic for `inventory_transfers/complete` events. Triggers when a transfer is completed. Requires the `read_inventory_transfers` scope. */
+  INVENTORY_TRANSFERS_COMPLETE = 'INVENTORY_TRANSFERS_COMPLETE',
+  /** The webhook topic for `inventory_transfers/ready_to_ship` events. Triggers when a transfer is marked as ready to ship. Requires the `read_inventory_transfers` scope. */
+  INVENTORY_TRANSFERS_READY_TO_SHIP = 'INVENTORY_TRANSFERS_READY_TO_SHIP',
+  /** The webhook topic for `inventory_transfers/remove_items` events. Occurs any time items are removed from a transfer. Requires the `read_inventory_transfers` scope. */
+  INVENTORY_TRANSFERS_REMOVE_ITEMS = 'INVENTORY_TRANSFERS_REMOVE_ITEMS',
+  /** The webhook topic for `inventory_transfers/update_item_quantities` events. Occurs whenever the quantity of transfer line items changes. Requires the `read_inventory_transfers` scope. */
+  INVENTORY_TRANSFERS_UPDATE_ITEM_QUANTITIES = 'INVENTORY_TRANSFERS_UPDATE_ITEM_QUANTITIES',
   /** The webhook topic for `locales/create` events. Occurs whenever a shop locale is created Requires the `read_locales` scope. */
   LOCALES_CREATE = 'LOCALES_CREATE',
   /** The webhook topic for `locales/update` events. Occurs whenever a shop locale is updated, such as published or unpublished Requires the `read_locales` scope. */
