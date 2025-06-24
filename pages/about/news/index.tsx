@@ -9,23 +9,23 @@ import { PageProps } from '/lib/context/page';
 import { format } from 'date-fns';
 import { Section } from '/components';
 
-export type NewsProps = { news: NewsRecord[]; pagination: CollectionMetadata };
+export type NewsProps = { allNews: NewsRecord[]; pagination: CollectionMetadata };
 
 const pageSize = 5;
 
-export default function News({ news, pagination }: NewsProps) {
-	const { data, loading, error, nextPage, page } = useApiQuery<{ news: NewsRecord[] }>(AllNewsDocument, {
-		initialData: { news, pagination },
+export default function News({ allNews, pagination }: NewsProps) {
+	const { data, loading, error, nextPage, page } = useApiQuery<{ allNews: NewsRecord[] }>(AllNewsDocument, {
+		initialData: { allNews, pagination },
 		variables: { first: 1 },
 		pageSize,
 	});
-	console.log(data);
+
 	return (
 		<>
 			<Section name='Header' top={true}>
 				<h1 className='bottomMargin topMargin white'>News</h1>
 			</Section>
-			{data.news.map(({ title, image, link, linkText, text, createdAt, id, slug }, idx) => (
+			{data.allNews?.map(({ title, image, link, linkText, text, createdAt, id, slug }, idx) => (
 				<Section
 					className={styles.newsItem}
 					type={'margin'}

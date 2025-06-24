@@ -332,8 +332,8 @@ const formatDesignerName = (name?: string) => {
 };
 
 export async function getStaticPaths(context) {
-	const { products } = await apiQuery(AllProductsLightDocument, {});
-	const paths = products.map(({ slug }) => ({ params: { product: slug } }));
+	const { allProducts } = await apiQuery(AllProductsLightDocument, {});
+	const paths = allProducts.map(({ slug }) => ({ params: { product: slug } }));
 	return {
 		paths,
 		fallback: 'blocking',

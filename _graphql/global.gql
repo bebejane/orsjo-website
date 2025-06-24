@@ -1,7 +1,0 @@
-#import "./fragments/SiteFragment.gql"
-
-query Global {
-  site: _site {
-		...SiteFragment
-	}
-}

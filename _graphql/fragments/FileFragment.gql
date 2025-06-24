@@ -1,9 +1,0 @@
-fragment FileFragment on FileField {
-  alt
-  basename
-  filename
-  format
-  id
-  title
-  url
-}

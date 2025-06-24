@@ -1,15 +1,11 @@
-import styles from "./index.module.scss";
-import {
-	ProductStartDocument,
-	AllProductsLightDocument,
-	ProductCategoriesDocument,
-} from "/graphql";
-import withGlobalProps from "/lib/withGlobalProps";
-import { FeaturedGallery, ProductThumbnail, Section } from "/components";
-import { useStore, shallow } from "/lib/store";
-import { useEffect, useState, useMemo } from "react";
+import styles from './index.module.scss';
+import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocument } from '/graphql';
+import withGlobalProps from '/lib/withGlobalProps';
+import { FeaturedGallery, ProductThumbnail, Section } from '/components';
+import { useStore, shallow } from '/lib/store';
+import { useEffect, useState, useMemo } from 'react';
 
-import type { PageProps } from "/lib/context/page";
+import type { PageProps } from '/lib/context/page';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -19,13 +15,13 @@ export type ProductsByCategory = {
 
 export type ProductsStartProps = {
 	productStart: ProductStartRecord;
-	products: ProductRecord[];
+	allProducts: ProductRecord[];
 	productCategories: ProductCategoryRecord[];
 };
 
 const searchString = (str: string, value: string): boolean => {
-	const s = str.toLowerCase().split(" ");
-	const v = value.toLowerCase().split(" ");
+	const s = str.toLowerCase().split(' ');
+	const v = value.toLowerCase().split(' ');
 
 	for (let i = 0; i < s.length; i++) {
 		for (let x = 0; x < v.length; x++) {
@@ -37,17 +33,13 @@ const searchString = (str: string, value: string): boolean => {
 	return false;
 };
 
-export default function Products({
-	productStart: { featured },
-	products,
-	productCategories,
-}: ProductsStartProps) {
+export default function Products({ productStart: { featured }, allProducts, productCategories }: ProductsStartProps) {
 	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), []);
 	productCategories.forEach(({ name, namePlural }) => {
 		productsByCategory[name] = {
 			name,
 			namePlural,
-			products: products.filter(({ categories }) => categories?.find((c) => c.name === name)),
+			products: allProducts.filter(({ categories }) => categories?.find((c) => c.name === name)),
 		};
 	});
 
@@ -62,11 +54,10 @@ export default function Products({
 		const searchCategories: { [index: string]: ProductsByCategory } = {};
 
 		Object.keys(productsByCategory).forEach((k) => {
-			const prods = products
+			const prods = allProducts
 				.filter(({ categories }) => categories?.some((c) => c.name === k))
 				.filter(
-					({ title, designer: { name } }) =>
-						searchString(searchProducts, title) || searchString(searchProducts, name)
+					({ title, designer: { name } }) => searchString(searchProducts, title) || searchString(searchProducts, name)
 				);
 			const category = productCategories.find((c) => c.name === k);
 			if (prods.length)
@@ -77,25 +68,19 @@ export default function Products({
 				};
 		});
 		setProductsByCategorySearch(searchCategories);
-	}, [searchProducts, productsByCategory, products, productCategories]);
+	}, [searchProducts, productsByCategory, allProducts, productCategories]);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [searchProducts]);
 
 	const prodsByCat = productsByCategorySearch || productsByCategory;
-	const isEmptySearch =
-		productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0;
+	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0;
 
 	if (isEmptySearch) {
 		return (
-			<Section
-				className={styles.products}
-				top={true}
-			>
-				<div className={styles.emptySearch}>
-					No products matching &quot;{searchProducts}&quot;...
-				</div>
+			<Section className={styles.products} top={true}>
+				<div className={styles.emptySearch}>No products matching &quot;{searchProducts}&quot;...</div>
 			</Section>
 		);
 	}
@@ -104,12 +89,7 @@ export default function Products({
 		<>
 			{!productsByCategorySearch &&
 				featured.slice(0).map((data, idx) => (
-					<Section
-						className={styles.featured}
-						name={data.headline}
-						top={idx === 0}
-						key={idx}
-					>
+					<Section className={styles.featured} name={data.headline} top={idx === 0} key={idx}>
 						<FeaturedGallery
 							key={`featured-${idx}`}
 							headline={data.headline}
@@ -135,10 +115,7 @@ export default function Products({
 							<ul>
 								{products?.map((product, idx) => (
 									<li key={idx}>
-										<ProductThumbnail
-											product={product}
-											theme='light'
-										/>
+										<ProductThumbnail product={product} theme='light' />
 									</li>
 								))}
 							</ul>
@@ -150,10 +127,10 @@ export default function Products({
 }
 
 Products.page = {
-	title: "Products",
-	layout: "normal",
-	menu: "normal",
-	color: "--white",
+	title: 'Products',
+	layout: 'normal',
+	menu: 'normal',
+	color: '--white',
 } as PageProps;
 
 export const getStaticProps = withGlobalProps(

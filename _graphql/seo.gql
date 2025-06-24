@@ -1,7 +1,0 @@
-#import "./fragments/SiteFragment.gql"
-
-query SiteSEO {
-	site: _site {
-		...SiteFragment
-	}
-}
