@@ -3,7 +3,6 @@
 import s from './Shop.module.scss';
 import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import { ProductPageDataProps } from './page';
 import { formatPrice } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
@@ -13,7 +12,8 @@ import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
 import { generateTitle } from '@/lib/utils';
 import { RiCheckFill } from 'react-icons/ri';
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineMinus, AiOutlineClose } from 'react-icons/ai';
+import { ProductPageDataProps } from '@/app/products/utils';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -167,11 +167,12 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					{product.models.map(({ id, name, variants }) => (
 						<ul className={cn(s.variants)} key={id}>
 							{variants.map((variant) => {
-								const { id, articleNo, color, material, weight, feature, image, price } = variant;
+								const { id, articleNo, color, material, feature } = variant;
 								const shopifyVariant = shopify.product?.variants.edges.find(
-									(v) => v.node.sku === articleNo?.trim()
+									(v) => articleNo && v.node.sku === articleNo
 								)?.node;
 								const title = generateTitle(product as ProductRecord, variant.id);
+
 								return (
 									<li
 										className={cn(selected?.id === id && s.selected)}
@@ -220,30 +221,27 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					<button className={cn(s.dropdown, open && s.open)}>❯</button>
 				</div>
 
-				{!showAddons &&
-					addons.map(({ id, name, variantId, price, imageUrl }, idx) => {
-						return (
-							<div
-								key={idx}
-								className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
-								id={id}
-								onClick={() => setShowAddons(true)}
-								title={name}
-							>
-								<div className={s.plusminus}>
-									<AiOutlineMinus size={16} />
-								</div>
-								<div className={cn(s.check, s.checked)}>
-									<RiCheckFill size={16} color='var(--black)' />
-								</div>
-								<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
-								<span className={s.name}>
-									<strong>{name}</strong>
-								</span>
-								<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
+				{addons.map(({ id, name, variantId, price, imageUrl }, idx) => {
+					return (
+						<div
+							key={idx}
+							className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
+							id={id}
+							onClick={() => setAddons((addons) => addons.filter((a) => a.id !== id))}
+							title={name}
+						>
+							<div className={s.plusminus}>
+								<AiOutlineClose size={16} />
 							</div>
-						);
-					})}
+							<div className={cn(s.check, s.checked)}></div>
+							<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
+							<span className={s.name}>
+								<strong>{name}</strong>
+							</span>
+							<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
+						</div>
+					);
+				})}
 			</div>
 
 			<hr />
@@ -253,8 +251,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				<AnimateHeight height={!showAddons || allAddons.length === 0 ? 0 : 'auto'} duration={400}>
 					<ul>
 						{selectedModelAddons
-							//?.filter((a) => addons.find(({ id }) => a.id === id) === undefined)
-							//.sort((a, b) => (addons.find((add) => add.variantId === a.variantId) ? -1 : 1))
+							?.filter((a) => addons.find(({ id }) => a.id === id) === undefined)
 							.map(({ id, name, variantId, price, imageUrl }) => {
 								const isSelected = addons.find((a) => a.variantId === variantId) !== undefined;
 								return (
@@ -293,7 +290,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 						id='accessories-button'
 						type='button'
 						className={cn('h3', s.accessories, s.toggle)}
-						disabled={allAddons.length === 0}
+						disabled={allAddons.length === 0 || addons.length === selectedModelAddons.length}
 						onClick={() => setShowAddons(!showAddons)}
 					>
 						Accessories {!showAddons ? '+' : '–'}

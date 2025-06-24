@@ -183,6 +183,9 @@
 		}
 
 		.thumb {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			height: var(--thumb-size);
 			width: var(--thumb-size);
 			min-height: var(--thumb-size);

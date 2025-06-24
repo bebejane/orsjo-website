@@ -85,9 +85,9 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							const shopifyVariant = shopifyProduct?.variants.edges.find((v) => v.node.sku === articleNo)?.node;
 							const id = shopifyVariant?.id ?? undefined;
 							const mediaSrc = variant.image?.url
-								? [variant.image?.url]
+								? [generateThumbnailUrl(variant.image?.url)]
 								: product.image.url
-									? [product.image.url]
+									? [generateThumbnailUrl(product.image.url)]
 									: null;
 							const description = [variant.color?.name, variant.material?.name].filter(Boolean).join(', ');
 
@@ -141,7 +141,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				const variantsMedia: CreateMediaInput[] = productVariants
 					.filter((variant) => variant.mediaSrc?.[0])
 					.map((variant) => ({
-						originalSource: variant.mediaSrc?.[0] ?? '',
+						originalSource: generateThumbnailUrl(variant.mediaSrc?.[0] ?? ''),
 						mediaContentType: 'IMAGE' as MediaContentType,
 						alt: variant.inventoryItem?.sku,
 					}));
@@ -150,7 +150,6 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				syncResult.id = productData.id as string;
 
 				await updateProduct({ product: productData, media: productMedia }, productVariants, variantsMedia);
-
 				break;
 
 			case 'product_accessory':
@@ -181,7 +180,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				const accessoryVariantsMedia: CreateMediaInput[] | undefined = productAccessory.image?.url
 					? [
 							{
-								originalSource: productAccessory.image.url,
+								originalSource: generateThumbnailUrl(productAccessory.image.url),
 								mediaContentType: 'IMAGE' as MediaContentType,
 								alt: accessoryArticleNo,
 							},
@@ -255,7 +254,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				const lightsourceMedia: CreateMediaInput[] | undefined = productLightsource.image?.url
 					? [
 							{
-								originalSource: productLightsource.image.url,
+								originalSource: generateThumbnailUrl(productLightsource.image.url),
 								mediaContentType: 'IMAGE' as MediaContentType,
 								alt: lightsourceArticleNo,
 							},
@@ -267,7 +266,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 						id: shopifyLightsource?.variants.edges.find((v) => v.node.sku === productLightsource?.articleNo?.trim())
 							?.node.id,
 						price: productLightsource.price,
-						mediaSrc: productLightsource.image?.url ? [productLightsource.image.url] : null,
+						mediaSrc: productLightsource.image?.url ? [generateThumbnailUrl(productLightsource.image.url)] : null,
 						inventoryItem: {
 							cost: productLightsource.price,
 							sku: productLightsource?.articleNo?.trim(),
@@ -364,20 +363,6 @@ export async function updateProduct(
 				)
 				.map(({ node }) => node.id);
 
-			if (deleteMedia.length) {
-				console.log('delete all media:', shopifyProduct.id);
-				const { productDeleteMedia } = await shopifyQuery<
-					ProductMediaDeleteMutation,
-					ProductMediaDeleteMutationVariables
-				>(ProductMediaDeleteDocument, {
-					admin: true,
-					variables: { productId: shopifyProduct.id, mediaIds: deleteMedia },
-				});
-
-				if (productDeleteMedia?.mediaUserErrors?.length)
-					throw new Error(JSON.stringify(productDeleteMedia.mediaUserErrors.map((e) => e.message).join('. '), null, 2));
-			}
-
 			if (deleteVariants.length) {
 				console.log(shopifyProduct?.variants.edges);
 				const { productVariantsBulkDelete } = await shopifyQuery<
@@ -395,6 +380,20 @@ export async function updateProduct(
 						JSON.stringify(productVariantsBulkDelete.userErrors.map((e) => e.message).join('. '), null, 2)
 					);
 				}
+			}
+
+			if (deleteMedia.length) {
+				console.log('delete all media:', shopifyProduct.id);
+				const { productDeleteMedia } = await shopifyQuery<
+					ProductMediaDeleteMutation,
+					ProductMediaDeleteMutationVariables
+				>(ProductMediaDeleteDocument, {
+					admin: true,
+					variables: { productId: shopifyProduct.id, mediaIds: deleteMedia },
+				});
+
+				if (productDeleteMedia?.mediaUserErrors?.length)
+					throw new Error(JSON.stringify(productDeleteMedia.mediaUserErrors.map((e) => e.message).join('. '), null, 2));
 			}
 
 			delete (data.product as ProductCreateInput).productOptions;
@@ -462,34 +461,6 @@ export async function updateProduct(
 				throw new Error(JSON.stringify(productVariantsBulkUpdate.userErrors.map((e) => e.message).join('. '), null, 2));
 
 			console.log(`https://admin.shopify.com/store/orsjo-shop/products/${product.id?.split('/').pop()}`);
-			//console.log(`https://orsjo.admin.datocms.com/environments/dev/editor/item_types/${}/items/${}/edit`)
-			/*
-      const ready = await waitForMedia(product.id)
-
-      if (!ready)
-        throw new Error('Product media not ready')
-
-      
-      const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(ShopifyProductDocument, {
-        admin: true,
-        variables: { handle: data.product.handle ?? '' }
-      })
-      
-      const appendVariantMedia = shopifyProduct?.variants.edges.map(({ node }) => ({
-        variantId: node.id,
-        mediaIds: [product.media.nodes.find((media) => media.alt === node.sku)?.id ?? ''].filter(Boolean),
-      })).filter(({ mediaIds }) => mediaIds.length) ?? []
-
-      const { productVariantAppendMedia } = await shopifyQuery<ProductVariantAppendMediaMutation, ProductVariantAppendMediaMutationVariables>(ProductVariantAppendMediaDocument, {
-        admin: true,
-        variables: {
-          productId: product.id,
-          variantMedia: appendVariantMedia,
-        }
-      })
-      //console.log(JSON.stringify(productVariantDetachMedia, null, 2))
-      console.log(JSON.stringify(productVariantAppendMedia, null, 2))
-      */
 		}
 	} catch (e) {
 		console.log(e);
@@ -498,6 +469,15 @@ export async function updateProduct(
 	} finally {
 	}
 }
+
+export const generateThumbnailUrl = (url: string | undefined | null): string => {
+	if (!url) return '';
+	const u = new URL(url);
+	const w = 2000;
+	const pad = w * 0.1;
+	const imgixUrl = `${u.origin}${u.pathname}?w=${w}&fit=crop&auto=format&bg=fff&pad=${pad}`;
+	return imgixUrl;
+};
 
 export const syncProductStatus = async (
 	handle: string,
