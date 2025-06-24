@@ -1,14 +1,39 @@
-#import "./fragments/DesignerFragment.gql"
-#import "./fragments/DesignerLightFragment.gql"
-
 query Designer($slug: String, $locale: SiteLocale = en) {
-	designer(locale: $locale, fallbackLocales: [sv, en], filter: {slug: { eq: $slug }}) {
+	designer(locale: $locale, fallbackLocales: [sv, en], filter: { slug: { eq: $slug } }) {
 		...DesignerFragment
 	}
 }
 
 query AllDesigners($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	designers: allDesigners(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
+	allDesigners(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...DesignerLightFragment
 	}
+	_allDesignersMeta {
+		count
+	}
+}
+
+fragment DesignerFragment on DesignerRecord {
+	__typename
+	id
+	name
+	image {
+		...ImageMediumFragment
+	}
+	description
+	slug
+	_seoMetaTags {
+		...SEOFragment
+	}
+}
+
+fragment DesignerLightFragment on DesignerRecord {
+	__typename
+	id
+	name
+	image {
+		...ImageThumbnailFragment
+	}
+	description
+	slug
 }

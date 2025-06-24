@@ -27,11 +27,11 @@ type AboutRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -70,11 +70,11 @@ type AboutSectionRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -105,21 +105,19 @@ type AccessoryRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
   accessory?: Maybe<ProductAccessoryRecord>;
-  articleNo?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
-  price?: Maybe<Scalars['FloatType']>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -135,11 +133,11 @@ type BespokeProjectRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -170,11 +168,11 @@ type BespokeRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -268,11 +266,11 @@ type CatalogueRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -328,11 +326,11 @@ type ColorMaterialIntroRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -411,11 +409,11 @@ type ColorMaterialRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -492,11 +490,11 @@ type ColorMaterialTypeRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -522,11 +520,11 @@ type ContactRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -627,12 +625,12 @@ type CountryRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _locales: Array<SiteLocale>;
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -736,11 +734,11 @@ type DesignerRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -847,11 +845,11 @@ type DistributorRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -889,11 +887,11 @@ type DownloadsStartRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -924,11 +922,11 @@ type FactoryVisitRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1003,11 +1001,11 @@ type FaqCategoryRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1077,11 +1075,11 @@ type FaqRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1113,11 +1111,11 @@ type FaqStartRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1156,11 +1154,11 @@ type FeaturedRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1188,11 +1186,11 @@ type FeaturedStartRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1414,11 +1412,11 @@ type FullscreenMediaBlockRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1447,11 +1445,11 @@ type FullscreenVideoRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1484,11 +1482,11 @@ type FullwidthImageRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1535,11 +1533,11 @@ type ImageGalleryRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1563,11 +1561,11 @@ type ImageLinkRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -1600,7 +1598,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/ar)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/aspect-ratio)
    */
   ar?: InputMaybe<Scalars['String']>;
   /**
@@ -1608,7 +1606,7 @@ type ImgixParams = {
    *
    * Applies automatic enhancements to images.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/auto)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/automatic)
    */
   auto?: InputMaybe<Array<ImgixParamsAuto>>;
   /**
@@ -1616,7 +1614,7 @@ type ImgixParams = {
    *
    * Colors the background of padded and partially-transparent images.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/bg)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/background-color)
    */
   bg?: InputMaybe<Scalars['String']>;
   /**
@@ -1624,7 +1622,7 @@ type ImgixParams = {
    *
    * Removes background from image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/bg-remove)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal)
    */
   bgRemove?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -1632,23 +1630,41 @@ type ImgixParams = {
    *
    * Overrides default fallback behavior for bg-remove failures.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/bg-remove)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal-fallback)
    */
   bgRemoveFallback?: InputMaybe<Scalars['BooleanType']>;
+  /**
+   * Background Removal Foreground Type
+   *
+   * Specifies the image foreground type for background removal.
+   *
+   * Depends on: `bg-remove=true`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal-foreground-type)
+   */
+  bgRemoveFgType?: InputMaybe<Array<ImgixParamsBgRemoveFgType>>;
+  /**
+   * Background Removal Semi Transparency
+   *
+   * Enables background removal while retaining semi-transparent areas.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal-semi-transparency)
+   */
+  bgRemoveSemiTransparency?: InputMaybe<Scalars['BooleanType']>;
   /**
    * Background Replacement
    *
    * Replaces background from image using a string based prompt.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/bg-replace)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replacement)
    */
   bgReplace?: InputMaybe<Scalars['String']>;
   /**
-   * Background Removal Fallback
+   * Background Replace Fallback
    *
    * Overrides default fallback behavior for bg-replace failures.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/bg-replace)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replace-fallback)
    */
   bgReplaceFallback?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -1656,7 +1672,7 @@ type ImgixParams = {
    *
    * Provides a negative text suggestion for background replacement.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/bg-replace-neg-prompt)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replacement-negative-prompt)
    */
   bgReplaceNegPrompt?: InputMaybe<Scalars['String']>;
   /**
@@ -1664,7 +1680,7 @@ type ImgixParams = {
    *
    * Specifies the location of the blend image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend)
    */
   blend?: InputMaybe<Scalars['String']>;
   /**
@@ -1674,7 +1690,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-align)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-align)
    */
   blendAlign?: InputMaybe<Array<ImgixParamsBlendAlign>>;
   /**
@@ -1684,7 +1700,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-alpha)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-alpha)
    */
   blendAlpha?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1692,7 +1708,7 @@ type ImgixParams = {
    *
    * Specifies a color to use when applying the blend.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-color)
    */
   blendColor?: InputMaybe<Scalars['String']>;
   /**
@@ -1702,7 +1718,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-crop)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-crop)
    */
   blendCrop?: InputMaybe<Array<ImgixParamsBlendCrop>>;
   /**
@@ -1712,7 +1728,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-fit)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-fit)
    */
   blendFit?: InputMaybe<ImgixParamsBlendFit>;
   /**
@@ -1722,7 +1738,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-h)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-height)
    */
   blendH?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -1732,7 +1748,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-mode)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-mode)
    */
   blendMode?: InputMaybe<ImgixParamsBlendMode>;
   /**
@@ -1742,7 +1758,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-padding)
    */
   blendPad?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1752,7 +1768,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-size)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-size)
    */
   blendSize?: InputMaybe<ImgixParamsBlendSize>;
   /**
@@ -1762,7 +1778,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-w)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-width)
    */
   blendW?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -1772,7 +1788,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-x-position)
    */
   blendX?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1782,7 +1798,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-y-position)
    */
   blendY?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1790,7 +1806,7 @@ type ImgixParams = {
    *
    * Applies a gaussian blur to an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/blur)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/gaussian-blur)
    */
   blur?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1798,7 +1814,7 @@ type ImgixParams = {
    *
    * Applies a border to an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size)
    */
   border?: InputMaybe<Scalars['String']>;
   /**
@@ -1808,7 +1824,7 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-bottom)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-bottom)
    */
   borderBottom?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1818,7 +1834,7 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-left)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-left)
    */
   borderLeft?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1828,7 +1844,7 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-radius)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/outer-border-radius)
    */
   borderRadius?: InputMaybe<Scalars['String']>;
   /**
@@ -1838,7 +1854,7 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-radius-inner)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/inner-border-radius)
    */
   borderRadiusInner?: InputMaybe<Scalars['String']>;
   /**
@@ -1848,7 +1864,7 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-right)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-right)
    */
   borderRight?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1858,7 +1874,7 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-top)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-top)
    */
   borderTop?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1866,7 +1882,7 @@ type ImgixParams = {
    *
    * Adjusts the brightness of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/bri)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/brightness)
    */
   bri?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1874,7 +1890,7 @@ type ImgixParams = {
    *
    * Sets one or more Client-Hints headers
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/ch)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/client-hints)
    */
   ch?: InputMaybe<Array<ImgixParamsCh>>;
   /**
@@ -1882,7 +1898,7 @@ type ImgixParams = {
    *
    * Specifies the output chroma subsampling rate.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/chromasub)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/chroma-subsampling)
    */
   chromasub?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1890,7 +1906,7 @@ type ImgixParams = {
    *
    * Limits the number of unique colors in an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/colorquant)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/color-quantization)
    */
   colorquant?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1900,7 +1916,7 @@ type ImgixParams = {
    *
    * Depends on: `palette`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/colors)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/color-palette/palette-color-count)
    */
   colors?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1908,7 +1924,7 @@ type ImgixParams = {
    *
    * Adjusts the contrast of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/con)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/contrast)
    */
   con?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1918,7 +1934,7 @@ type ImgixParams = {
    *
    * Depends on: `mask=corners`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask/corner-radius)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-corner-radius)
    */
   cornerRadius?: InputMaybe<Scalars['String']>;
   /**
@@ -1928,7 +1944,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/crop)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/crop-mode)
    */
   crop?: InputMaybe<Array<ImgixParamsCrop>>;
   /**
@@ -1936,7 +1952,7 @@ type ImgixParams = {
    *
    * Specifies the color space of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/cs)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/color-space)
    */
   cs?: InputMaybe<ImgixParamsCs>;
   /**
@@ -1944,7 +1960,7 @@ type ImgixParams = {
    *
    * Forces a URL to use send-file in its response.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/dl)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/download)
    */
   dl?: InputMaybe<Scalars['String']>;
   /**
@@ -1952,7 +1968,7 @@ type ImgixParams = {
    *
    * Sets the DPI value in the EXIF header.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/dpi)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/dots-per-inch)
    */
   dpi?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1960,7 +1976,7 @@ type ImgixParams = {
    *
    * Adjusts the device-pixel ratio of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/dpr)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/device-pixel-ratio)
    */
   dpr?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -1968,7 +1984,7 @@ type ImgixParams = {
    *
    * Applies a duotone effect to the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/duotone)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/duotone)
    */
   duotone?: InputMaybe<Scalars['String']>;
   /**
@@ -1978,7 +1994,7 @@ type ImgixParams = {
    *
    * Depends on: `duotone`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/duotone-alpha)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/duotone-alpha)
    */
   duotoneAlpha?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1986,7 +2002,7 @@ type ImgixParams = {
    *
    * Adjusts the exposure of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/exp)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/exposure)
    */
   exp?: InputMaybe<Scalars['IntType']>;
   /**
@@ -1994,9 +2010,25 @@ type ImgixParams = {
    *
    * A Unix timestamp specifying a UTC time. Requests made to this URL after that time will output a 404 status code.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/expires)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/expiration)
    */
   expires?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Face Blur
+   *
+   * Specifies the amount of blur to apply to detected faces. Defaults to 0.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-blur)
+   */
+  faceBlur?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Face Pixelation
+   *
+   * Specifies the pixelation amount of the face.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-pixelation)
+   */
+  facePixel?: InputMaybe<Scalars['IntType']>;
   /**
    * Face Index
    *
@@ -2004,7 +2036,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=facearea`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/faceindex)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-index)
    */
   faceindex?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2014,7 +2046,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=facearea`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/facepad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-padding)
    */
   facepad?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2024,7 +2056,7 @@ type ImgixParams = {
    *
    * Depends on: `fm=json`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/faces)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/json-face-data)
    */
   faces?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2034,7 +2066,7 @@ type ImgixParams = {
    *
    * Depends on: `fit`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-mode)
    */
   fill?: InputMaybe<ImgixParamsFill>;
   /**
@@ -2044,7 +2076,7 @@ type ImgixParams = {
    *
    * Depends on: `fill=solid`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-color)
    */
   fillColor?: InputMaybe<Scalars['String']>;
   /**
@@ -2054,7 +2086,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gen`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gen-fallback)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-fallback)
    */
   fillGenFallback?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -2064,7 +2096,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gen`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gen-neg-prompt)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-negative-prompt)
    */
   fillGenNegPrompt?: InputMaybe<Scalars['String']>;
   /**
@@ -2074,7 +2106,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gen`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gen-pos)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-position)
    */
   fillGenPos?: InputMaybe<Array<ImgixParamsFillGenPos>>;
   /**
@@ -2084,7 +2116,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gen`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gen-prompt)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-prompt)
    */
   fillGenPrompt?: InputMaybe<Scalars['String']>;
   /**
@@ -2094,7 +2126,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gen`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gen-seed)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-seed)
    */
   fillGenSeed?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2104,7 +2136,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gradient`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gradient-cs)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-color-space)
    */
   fillGradientCs?: InputMaybe<ImgixParamsFillGradientCs>;
   /**
@@ -2114,7 +2146,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gradient`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gradient-linear)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-linear)
    */
   fillGradientLinear?: InputMaybe<Scalars['String']>;
   /**
@@ -2124,7 +2156,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gen`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gradient-linear-direction)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-linear-direction)
    */
   fillGradientLinearDirection?: InputMaybe<Array<ImgixParamsFillGradientLinearDirection>>;
   /**
@@ -2134,7 +2166,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gradient`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gradient-radial)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial)
    */
   fillGradientRadial?: InputMaybe<Scalars['String']>;
   /**
@@ -2144,7 +2176,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gradient`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gradient-radial-radius)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-radius)
    */
   fillGradientRadialRadius?: InputMaybe<Scalars['String']>;
   /**
@@ -2154,7 +2186,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gradient`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gradient-radial-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-x)
    */
   fillGradientRadialX?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2164,7 +2196,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gradient`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gradient-radial-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-y)
    */
   fillGradientRadialY?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2174,7 +2206,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=fill`, `fill=gradient`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-gradient-type)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-type)
    */
   fillGradientType?: InputMaybe<ImgixParamsFillGradientType>;
   /**
@@ -2182,7 +2214,7 @@ type ImgixParams = {
    *
    * Specifies how to map the source image to the output image dimensions.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/fit)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/resize-fit-mode)
    */
   fit?: InputMaybe<ImgixParamsFit>;
   /**
@@ -2190,7 +2222,7 @@ type ImgixParams = {
    *
    * Flips an image on a specified axis.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/flip)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/flip-axis)
    */
   flip?: InputMaybe<ImgixParamsFlip>;
   /**
@@ -2198,7 +2230,7 @@ type ImgixParams = {
    *
    * Changes the format of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/fm)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/output-format)
    */
   fm?: InputMaybe<ImgixParamsFm>;
   /**
@@ -2208,7 +2240,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`, `crop=focalpoint`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-debug)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-debug)
    */
   fpDebug?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -2218,7 +2250,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`, `crop=focalpoint`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-x-position)
    */
   fpX?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2228,7 +2260,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`, `crop=focalpoint`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-y-position)
    */
   fpY?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2238,19 +2270,23 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`, `crop=focalpoint`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-z)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-zoom)
    */
   fpZ?: InputMaybe<Scalars['FloatType']>;
   /**
    * Frames Per Second
    *
    * Specifies the framerate of the generated image.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frames-per-second)
    */
   fps?: InputMaybe<Scalars['IntType']>;
   /**
    * Frame Selection
    *
    * Specifies the frame of an animated image to use.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-selection)
    */
   frame?: InputMaybe<Scalars['String']>;
   /**
@@ -2258,7 +2294,7 @@ type ImgixParams = {
    *
    * Adjusts the gamma of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/gam)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/gamma)
    */
   gam?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2267,6 +2303,8 @@ type ImgixParams = {
    * Specifies the quality of the animated gif. The higher the value, the better more compression is applied.
    *
    * Depends on: `fm=gif`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/animated-gif-quality)
    */
   gifQ?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2275,6 +2313,8 @@ type ImgixParams = {
    * Sets grid colors for the transparency checkerboard grid.
    *
    * Depends on: `transparency`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/grid-colors)
    */
   gridColors?: InputMaybe<Scalars['String']>;
   /**
@@ -2283,6 +2323,8 @@ type ImgixParams = {
    * Sets grid size for the transparency checkerboard grid.
    *
    * Depends on: `transparency`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/grid-size)
    */
   gridSize?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2290,7 +2332,7 @@ type ImgixParams = {
    *
    * Adjusts the height of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/h)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/image-height)
    */
   h?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2298,7 +2340,7 @@ type ImgixParams = {
    *
    * Adjusts the highlights of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/high)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/highlight)
    */
   high?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2306,7 +2348,7 @@ type ImgixParams = {
    *
    * Applies a half-tone effect to the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/htn)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/halftone)
    */
   htn?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2314,13 +2356,15 @@ type ImgixParams = {
    *
    * Adjusts the hue of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/hue)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/hue-shift)
    */
   hue?: InputMaybe<Scalars['IntType']>;
   /**
    * Frame Interval
    *
    * Displays every Nth frame starting with the first frame.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-interval)
    */
   interval?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2328,25 +2372,31 @@ type ImgixParams = {
    *
    * Inverts the colors on the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/invert)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/invert)
    */
   invert?: InputMaybe<Scalars['BooleanType']>;
   /**
    * Iptc Passthrough
    *
    * Determine if IPTC data should be passed for JPEG images.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/iptc-passthrough)
    */
   iptc?: InputMaybe<ImgixParamsIptc>;
   /**
    * Jpg Progressive
    *
    * Specifies whether or not a jpg/jpeg uses progressive (true) or baseline (false)
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/jpg-progressive)
    */
   jpgProgressive?: InputMaybe<Scalars['BooleanType']>;
   /**
    * Animation Loop Count
    *
    * Specifies the number of times an animated image should repeat. A value of 0 means infinite looping.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation)
    */
   loop?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2356,15 +2406,23 @@ type ImgixParams = {
    *
    * Depends on: `fm=webp`, `fm=jxr`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/lossless)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/lossless-compression)
    */
   lossless?: InputMaybe<Scalars['BooleanType']>;
+  /**
+   * License Plate Blur
+   *
+   * Specifies the amount of blur to apply to detected license plates. Defaults to 0.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/license-plate-detection/license-plate-blur)
+   */
+  lpBlur?: InputMaybe<Scalars['IntType']>;
   /**
    * Watermark Image Url
    *
    * Specifies the location of the watermark image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-image-url)
    */
   mark?: InputMaybe<Scalars['String']>;
   /**
@@ -2374,7 +2432,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-align)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-alignment-mode)
    */
   markAlign?: InputMaybe<Array<ImgixParamsMarkAlign>>;
   /**
@@ -2384,7 +2442,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-alpha)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-alpha)
    */
   markAlpha?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2394,7 +2452,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-base)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-base-url)
    */
   markBase?: InputMaybe<Scalars['String']>;
   /**
@@ -2404,7 +2462,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`, `markw`, `markh`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-fit)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-fit-mode)
    */
   markFit?: InputMaybe<ImgixParamsMarkFit>;
   /**
@@ -2414,9 +2472,29 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-h)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-height)
    */
   markH?: InputMaybe<Scalars['FloatType']>;
+  /**
+   * Watermark If Minimum Height
+   *
+   * Displays the watermark if rendered base image pixel height is equal to or larger than the supplied value
+   *
+   * Depends on: `mark`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-if-minimum-height)
+   */
+  markIfMinHeight?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Watermark If Minimum Width
+   *
+   * Displays the watermark if rendered base image pixel width is equal to or larger than the supplied value
+   *
+   * Depends on: `mark`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-if-minimum-width)
+   */
+  markIfMinWidth?: InputMaybe<Scalars['IntType']>;
   /**
    * Watermark Padding
    *
@@ -2424,7 +2502,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-padding)
    */
   markPad?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2432,7 +2510,7 @@ type ImgixParams = {
    *
    * Rotates a watermark or tiled watermarks by a specified number of degrees.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-rot)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-rotation)
    */
   markRot?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2442,7 +2520,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-scale)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-scale)
    */
   markScale?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2452,7 +2530,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-tile)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-tile)
    */
   markTile?: InputMaybe<ImgixParamsMarkTile>;
   /**
@@ -2462,7 +2540,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-w)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-width)
    */
   markW?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2472,7 +2550,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-x-position)
    */
   markX?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2482,7 +2560,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-y-position)
    */
   markY?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2490,7 +2568,7 @@ type ImgixParams = {
    *
    * Defines the type of mask and specifies the URL if that type is selected.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-type)
    */
   mask?: InputMaybe<Scalars['String']>;
   /**
@@ -2500,7 +2578,7 @@ type ImgixParams = {
    *
    * Depends on: `mask`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask/mask-bg)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-background-color)
    */
   maskBg?: InputMaybe<Scalars['String']>;
   /**
@@ -2510,7 +2588,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/max-height)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/maximum-height)
    */
   maxH?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2520,7 +2598,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/max-width)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/maximum-width)
    */
   maxW?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2530,7 +2608,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/min-height)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/minimum-height)
    */
   minH?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2540,7 +2618,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/min-width)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/minimum-width)
    */
   minW?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2548,7 +2626,7 @@ type ImgixParams = {
    *
    * Applies a monochrome effect to the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/monochrome)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/monochrome)
    */
   monochrome?: InputMaybe<Scalars['String']>;
   /**
@@ -2556,7 +2634,7 @@ type ImgixParams = {
    *
    * Reduces the noise in an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/noise-reduction/nr)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/noise-reduction/noise-reduction-bound)
    */
   nr?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2564,15 +2642,53 @@ type ImgixParams = {
    *
    * Provides a threshold by which to sharpen an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/noise-reduction/nrs)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/noise-reduction/noise-reduction-sharpen)
    */
   nrs?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Object Removal Negative Prompt
+   *
+   * Provides a negative text suggestion to object-removal-prompt. Used to reduce the probability of a subject, detail, or object appearing in generative output.
+   *
+   * Depends on: `object-removal-rect`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-negative-prompt)
+   */
+  objectRemovalNegativePrompt?: InputMaybe<Scalars['String']>;
+  /**
+   * Object Removal Prompt
+   *
+   * Suggest auto generative fill for the object-removal-rect parameter
+   *
+   * Depends on: `object-removal-rect`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-prompt)
+   */
+  objectRemovalPrompt?: InputMaybe<Scalars['String']>;
+  /**
+   * Object Removal
+   *
+   * Using a specified rectangle, an object is removed from the image
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal)
+   */
+  objectRemovalRect?: InputMaybe<Scalars['String']>;
+  /**
+   * Object Removal Seed
+   *
+   * Sets the generative seed value for object-removal. Used to generate new outputs from the same prompt
+   *
+   * Depends on: `object-removal-rect`, `object-removal-prompt`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-seed)
+   */
+  objectRemovalSeed?: InputMaybe<Scalars['IntType']>;
   /**
    * Orientation
    *
    * Changes the image orientation.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/orient)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/orientation)
    */
   orient?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2580,7 +2696,7 @@ type ImgixParams = {
    *
    * Pads an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding)
    */
   pad?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2588,7 +2704,7 @@ type ImgixParams = {
    *
    * Sets bottom padding of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad-bottom)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-bottom)
    */
   padBottom?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2596,7 +2712,7 @@ type ImgixParams = {
    *
    * Sets left padding of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad-left)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-left)
    */
   padLeft?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2604,7 +2720,7 @@ type ImgixParams = {
    *
    * Sets right padding of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad-right)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-right)
    */
   padRight?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2612,7 +2728,7 @@ type ImgixParams = {
    *
    * Sets top padding of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad-top)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-top)
    */
   padTop?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2620,7 +2736,7 @@ type ImgixParams = {
    *
    * Selects a page from a PDF for display.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/pdf/page)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/pdf/pdf-page-number)
    */
   page?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2628,7 +2744,7 @@ type ImgixParams = {
    *
    * Specifies an output format for palette-extraction.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/palette)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/color-palette/color-palette-extraction)
    */
   palette?: InputMaybe<ImgixParamsPalette>;
   /**
@@ -2636,7 +2752,7 @@ type ImgixParams = {
    *
    * Enables or disables PDF annotation.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/pdf/pdf-annotation)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/pdf/pdf-annotation)
    */
   pdfAnnotation?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -2646,7 +2762,7 @@ type ImgixParams = {
    *
    * Depends on: `palette=css`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/prefix)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/color-palette/css-prefix)
    */
   prefix?: InputMaybe<Scalars['String']>;
   /**
@@ -2654,7 +2770,7 @@ type ImgixParams = {
    *
    * Applies a pixelation effect to an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/px)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/pixellate)
    */
   px?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2662,23 +2778,31 @@ type ImgixParams = {
    *
    * Adjusts the quality of an output image.
    *
-   * Depends on: `fm=jpg`, `fm=pjpg`, `fm=webp`, `fm=jxr`
+   * Depends on: `fm=avif`, `fm=jpg`, `fm=pjpg`, `fm=webp`, `fm=jxr`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/q)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/output-quality)
    */
   q?: InputMaybe<Scalars['IntType']>;
+  /**
+   * Rasterize Bypass
+   *
+   * Bypasses all rendering parameters (including default parameters) and serves the original image. Works for svg+xml,x-eps,pdf, and vnd.adobe.illustrator.
+   */
+  rasterizeBypass?: InputMaybe<Scalars['BooleanType']>;
   /**
    * Source Rectangle Region
    *
    * Crops an image to a specified rectangle.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/rect)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/source-rectangle-region)
    */
   rect?: InputMaybe<Scalars['String']>;
   /**
    * Reverse
    *
    * Reverses the frame order on the source animation.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/reverse)
    */
   reverse?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -2686,15 +2810,23 @@ type ImgixParams = {
    *
    * Rotates an image by a specified number of degrees.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/rot)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/rotation)
    */
   rot?: InputMaybe<Scalars['FloatType']>;
+  /**
+   * Rotation Type
+   *
+   * Changes the rotation type.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/rotation-type)
+   */
+  rotType?: InputMaybe<ImgixParamsRotType>;
   /**
    * Saturation
    *
    * Adjusts the saturation of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sat)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/saturation)
    */
   sat?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2702,7 +2834,7 @@ type ImgixParams = {
    *
    * Applies a sepia effect to an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/sepia)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/sepia-tone)
    */
   sepia?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2710,7 +2842,7 @@ type ImgixParams = {
    *
    * Adjusts the highlights of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/shad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/shadow)
    */
   shad?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2718,13 +2850,15 @@ type ImgixParams = {
    *
    * Adjusts the sharpness of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sharp)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/sharpen)
    */
   sharp?: InputMaybe<Scalars['FloatType']>;
   /**
    * Frame Skip
    *
    * Skips every Nth frame starting with the first frame.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-skip)
    */
   skip?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2737,6 +2871,8 @@ type ImgixParams = {
    * Sanitize Svg
    *
    * Specifies whether to sanitize an SVG.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/sanitize-svg)
    */
   svgSanitize?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -2744,7 +2880,7 @@ type ImgixParams = {
    *
    * Adds checkerboard behind images which support transparency.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/transparency)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/transparency)
    */
   transparency?: InputMaybe<ImgixParamsTransparency>;
   /**
@@ -2752,9 +2888,19 @@ type ImgixParams = {
    *
    * Trims the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-image)
    */
   trim?: InputMaybe<ImgixParamsTrim>;
+  /**
+   * Trim Alpha
+   *
+   * Specifies a trim alpha on a trim operation.
+   *
+   * Depends on: `trim=alpha`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-alpha)
+   */
+  trimAlpha?: InputMaybe<Scalars['FloatType']>;
   /**
    * Trim Color
    *
@@ -2762,7 +2908,7 @@ type ImgixParams = {
    *
    * Depends on: `trim=color`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-color)
    */
   trimColor?: InputMaybe<Scalars['String']>;
   /**
@@ -2772,7 +2918,7 @@ type ImgixParams = {
    *
    * Depends on: `trim=auto`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-md)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-mean-difference)
    */
   trimMd?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2782,7 +2928,7 @@ type ImgixParams = {
    *
    * Depends on: `trim`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-padding)
    */
   trimPad?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2792,7 +2938,7 @@ type ImgixParams = {
    *
    * Depends on: `trim=auto`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-sd)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-standard-deviation)
    */
   trimSd?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2802,7 +2948,7 @@ type ImgixParams = {
    *
    * Depends on: `trim=color`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-tol)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-tolerance)
    */
   trimTol?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2810,7 +2956,7 @@ type ImgixParams = {
    *
    * Sets the text string to render.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-string)
    */
   txt?: InputMaybe<Scalars['String']>;
   /**
@@ -2820,7 +2966,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-align)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-align)
    */
   txtAlign?: InputMaybe<Array<ImgixParamsTxtAlign>>;
   /**
@@ -2830,7 +2976,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-clip)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-clipping-mode)
    */
   txtClip?: InputMaybe<Array<ImgixParamsTxtClip>>;
   /**
@@ -2840,7 +2986,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-color)
    */
   txtColor?: InputMaybe<Scalars['String']>;
   /**
@@ -2850,7 +2996,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-fit)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-fit-mode)
    */
   txtFit?: InputMaybe<ImgixParamsTxtFit>;
   /**
@@ -2860,7 +3006,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-font)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-font)
    */
   txtFont?: InputMaybe<Scalars['String']>;
   /**
@@ -2870,7 +3016,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/typesetting/txt-lead)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/typesetting-endpoint/text-leading)
    */
   txtLead?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2880,7 +3026,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-line)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-outline)
    */
   txtLine?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2890,7 +3036,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`, `txtline`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-line-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-outline-color)
    */
   txtLineColor?: InputMaybe<Scalars['String']>;
   /**
@@ -2900,7 +3046,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-padding)
    */
   txtPad?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2910,7 +3056,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-shad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-shadow)
    */
   txtShad?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -2920,7 +3066,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-size)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-font-size)
    */
   txtSize?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2930,7 +3076,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/typesetting/txt-track)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/typesetting-endpoint/text-tracking)
    */
   txtTrack?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2940,7 +3086,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-width)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-width)
    */
   txtWidth?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2950,7 +3096,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-x-position)
    */
   txtX?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2960,7 +3106,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-y-position)
    */
   txtY?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2968,7 +3114,7 @@ type ImgixParams = {
    *
    * Uses generative AI fill to upscale low resolution images.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/super-resolution/upscale)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/super-resolution)
    */
   upscale?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -2976,7 +3122,7 @@ type ImgixParams = {
    *
    * Overrides default fallback behavior for super resolution failures
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/super-resolution/upscale-fallback)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/super-resolution)
    */
   upscaleFallback?: InputMaybe<Scalars['BooleanType']>;
   /**
@@ -2984,7 +3130,7 @@ type ImgixParams = {
    *
    * Sharpens the source image using an unsharp mask.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/usm)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/unsharp-mask)
    */
   usm?: InputMaybe<Scalars['IntType']>;
   /**
@@ -2994,7 +3140,7 @@ type ImgixParams = {
    *
    * Depends on: `usm`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/usmrad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/unsharp-mask-radius)
    */
   usmrad?: InputMaybe<Scalars['FloatType']>;
   /**
@@ -3002,7 +3148,7 @@ type ImgixParams = {
    *
    * Adjusts the vibrance of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/vib)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/vibrance)
    */
   vib?: InputMaybe<Scalars['IntType']>;
   /**
@@ -3010,7 +3156,7 @@ type ImgixParams = {
    *
    * Adjusts the width of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/w)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/image-width)
    */
   w?: InputMaybe<Scalars['FloatType']>;
 };
@@ -3020,6 +3166,11 @@ enum ImgixParamsAuto {
   enhance = 'enhance',
   format = 'format',
   redeye = 'redeye'
+}
+
+enum ImgixParamsBgRemoveFgType {
+  auto = 'auto',
+  car = 'car'
 }
 
 enum ImgixParamsBlendAlign {
@@ -3089,6 +3240,7 @@ enum ImgixParamsCrop {
 
 enum ImgixParamsCs {
   adobergb1998 = 'adobergb1998',
+  origin = 'origin',
   srgb = 'srgb',
   strip = 'strip',
   tinysrgb = 'tinysrgb'
@@ -3197,11 +3349,17 @@ enum ImgixParamsPalette {
   json = 'json'
 }
 
+enum ImgixParamsRotType {
+  pivot = 'pivot',
+  straighten = 'straighten'
+}
+
 enum ImgixParamsTransparency {
   grid = 'grid'
 }
 
 enum ImgixParamsTrim {
+  alpha = 'alpha',
   auto = 'auto',
   color = 'color'
 }
@@ -3230,6 +3388,24 @@ enum ImgixParamsTxtFit {
 type InUseFilter = {
   /** Search uploads that are currently used by some record or not */
   eq?: InputMaybe<Scalars['BooleanType']>;
+};
+
+/** Specifies how to filter Integer fields */
+type IntegerFilter = {
+  /** Search for records with an exact match */
+  eq?: InputMaybe<Scalars['IntType']>;
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']>;
+  /** Filter records with a value that's strictly greater than the one specified */
+  gt?: InputMaybe<Scalars['IntType']>;
+  /** Filter records with a value that's greater than or equal to the one specified */
+  gte?: InputMaybe<Scalars['IntType']>;
+  /** Filter records with a value that's less than the one specified */
+  lt?: InputMaybe<Scalars['IntType']>;
+  /** Filter records with a value that's less or equal than the one specified */
+  lte?: InputMaybe<Scalars['IntType']>;
+  /** Exclude records with an exact match */
+  neq?: InputMaybe<Scalars['IntType']>;
 };
 
 /** Specifies how to filter by ID */
@@ -3303,11 +3479,11 @@ type JobRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -3346,11 +3522,11 @@ type LightsourceRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -3415,11 +3591,11 @@ type ManualRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -3456,11 +3632,11 @@ type NewsItemRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -3537,11 +3713,11 @@ type NewsRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -3647,11 +3823,11 @@ type PressRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -3676,14 +3852,19 @@ type ProductAccessoryModelFilter = {
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
   _isValid?: InputMaybe<BooleanFilter>;
+  _locales?: InputMaybe<LocalesFilter>;
   _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
   _publishedAt?: InputMaybe<PublishedAtFilter>;
   _status?: InputMaybe<StatusFilter>;
   _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
   _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  articleNo?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
+  image?: InputMaybe<FileFilter>;
   name?: InputMaybe<StringFilter>;
+  price?: InputMaybe<IntegerFilter>;
+  slug?: InputMaybe<SlugFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
@@ -3704,54 +3885,63 @@ enum ProductAccessoryModelOrderBy {
   _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
   _updatedAt_ASC = '_updatedAt_ASC',
   _updatedAt_DESC = '_updatedAt_DESC',
+  articleNo_ASC = 'articleNo_ASC',
+  articleNo_DESC = 'articleNo_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
   name_ASC = 'name_ASC',
   name_DESC = 'name_DESC',
+  price_ASC = 'price_ASC',
+  price_DESC = 'price_DESC',
   updatedAt_ASC = 'updatedAt_ASC',
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-/** Record of type Product accessory (product_accessory) */
+/** Record of type Product Accessory (product_accessory) */
 type ProductAccessoryRecord = RecordInterface & {
   __typename?: 'ProductAccessoryRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
+  _locales: Array<SiteLocale>;
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
+  articleNo?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
   name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['IntType']>;
+  slug?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
 
-/** Record of type Product accessory (product_accessory) */
+/** Record of type Product Accessory (product_accessory) */
 type ProductAccessoryRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-/** Record of type Product accessory (product_accessory) */
+/** Record of type Product Accessory (product_accessory) */
 type ProductAccessoryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
 
-/** Record of type Product accessory (product_accessory) */
+/** Record of type Product Accessory (product_accessory) */
 type ProductAccessoryRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
@@ -3817,11 +4007,11 @@ type ProductCategoryRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -3937,11 +4127,11 @@ type ProductColorRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4024,11 +4214,11 @@ type ProductConnectionRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4111,11 +4301,11 @@ type ProductDimmableRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4198,11 +4388,11 @@ type ProductElectricalRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4284,11 +4474,11 @@ type ProductFamilyRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4357,11 +4547,11 @@ type ProductFeatureRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4407,8 +4597,10 @@ type ProductLightsourceModelFilter = {
   articleNo?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
+  image?: InputMaybe<FileFilter>;
   name?: InputMaybe<StringFilter>;
   price?: InputMaybe<FloatFilter>;
+  slug?: InputMaybe<SlugFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
@@ -4450,11 +4642,11 @@ type ProductLightsourceRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4463,8 +4655,10 @@ type ProductLightsourceRecord = RecordInterface & {
   articleNo?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['FloatType']>;
+  slug?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -4539,11 +4733,11 @@ type ProductMaterialRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4666,11 +4860,11 @@ type ProductModelNameRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4747,11 +4941,11 @@ type ProductModelRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4824,11 +5018,11 @@ type ProductMountingRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -4870,11 +5064,11 @@ type ProductRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -5027,11 +5221,11 @@ type ProductSocketRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -5055,11 +5249,11 @@ type ProductStartRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -5140,11 +5334,11 @@ type ProjectRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -5176,11 +5370,11 @@ type ProjectStartRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -5261,11 +5455,11 @@ type ProjectTypeRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -6525,11 +6719,11 @@ type RecordInterface = {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -6604,11 +6798,11 @@ type ResellerRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -6736,11 +6930,11 @@ type ShowroomRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -6797,6 +6991,7 @@ type SiteglobalSeoArgs = {
 enum SiteLocale {
   da = 'da',
   en = 'en',
+  en_GB = 'en_GB',
   no = 'no',
   sv = 'sv'
 }
@@ -6819,11 +7014,11 @@ type SocialRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -6904,11 +7099,11 @@ type StaffRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -6939,11 +7134,11 @@ type StartRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -7013,11 +7208,11 @@ type SustainabilityRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -7050,11 +7245,11 @@ type SustainabilityStepRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -7105,6 +7300,7 @@ type TextFilter = {
 type TextModelTextField = {
   __typename?: 'TextModelTextField';
   blocks: Array<Scalars['String']>;
+  inlineBlocks: Array<Scalars['String']>;
   links: Array<TextModelTextLinksField>;
   value: Scalars['JsonField'];
 };
@@ -7117,11 +7313,11 @@ type TextRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -7196,11 +7392,11 @@ type TranslationRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -7240,11 +7436,11 @@ type TwoColumnImageRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -7656,11 +7852,11 @@ type VariantRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -7671,6 +7867,7 @@ type VariantRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   feature?: Maybe<ProductFeatureRecord>;
   id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
   material?: Maybe<ProductMaterialRecord>;
   price?: Maybe<Scalars['FloatType']>;
   updatedAt: Scalars['DateTime'];
@@ -7696,11 +7893,11 @@ type VideoRecord = RecordInterface & {
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _firstPublishedAt: Scalars['DateTime'];
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
   _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
@@ -7752,7 +7949,9 @@ type AllNewsQueryVariables = Exact<{
 }>;
 
 
-type AllNewsQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllNewsQuery = { __typename?: 'Query', allNews: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, _allNewsMeta: { __typename?: 'CollectionMetadata', count: any } };
+
+type NewsFragment = { __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
 
 type JobQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
@@ -7782,6 +7981,30 @@ type AllPressQueryVariables = Exact<{
 
 type AllPressQuery = { __typename?: 'Query', presses: Array<{ __typename?: 'PressRecord', id: any, title?: string, url?: string }> };
 
+type ProductAccessoryQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
+
+
+type ProductAccessoryQuery = { __typename?: 'Query', productAccessory?: { __typename?: 'ProductAccessoryRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
+
+type ProductAccessoryByIdQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ItemId']>;
+}>;
+
+
+type ProductAccessoryByIdQuery = { __typename?: 'Query', productAccessory?: { __typename?: 'ProductAccessoryRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
+
+type AllProductAccessoriesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
+
+
+type AllProductAccessoriesQuery = { __typename?: 'Query', allProductAccessories: Array<{ __typename?: 'ProductAccessoryRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _allProductAccessoriesMeta: { __typename?: 'CollectionMetadata', count: any } };
+
+type ProductAccessoryFragment = { __typename?: 'ProductAccessoryRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
+
 type ShowroomQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -7808,6 +8031,8 @@ type AllDistributorsQueryVariables = Exact<{
 
 
 type AllDistributorsQuery = { __typename?: 'Query', distributors: Array<{ __typename?: 'DistributorRecord', name?: string, address?: string, postalCode?: string, city?: string, contactName?: string, phone?: string, email?: string, url?: string, country?: { __typename?: 'CountryRecord', name?: string } }> };
+
+type DistributorFragment = { __typename?: 'DistributorRecord', name?: string, address?: string, postalCode?: string, city?: string, contactName?: string, phone?: string, email?: string, url?: string, country?: { __typename?: 'CountryRecord', name?: string } };
 
 type ResellerQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
@@ -7848,13 +8073,21 @@ type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 
 type ContactQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactRecord', id: any, email?: string, intro?: string, phone?: string, showroomIntro?: string, contactFormMessage?: string, title?: string, address?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
 
+type ContactFragment = { __typename?: 'ContactRecord', address?: string, email?: string, id: any, intro?: string, phone?: string, showroomIntro?: string, title?: string };
+
+type ResellerFragment = { __typename?: 'ResellerRecord', id: any, name?: string, address?: string, postalCode?: string, city?: string, url?: string, country?: { __typename?: 'CountryRecord', id: any, name?: string } };
+
+type ShowroomFragment = { __typename?: 'ShowroomRecord', additional?: string, address?: string, city?: string, id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
+
+type StaffFragment = { __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
+
 type DesignerQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type DesignerQuery = { __typename?: 'Query', designer?: { __typename?: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
+type DesignerQuery = { __typename?: 'Query', designer?: { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
 
 type AllDesignersQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
@@ -7863,17 +8096,11 @@ type AllDesignersQueryVariables = Exact<{
 }>;
 
 
-type AllDesignersQuery = { __typename?: 'Query', designers: Array<{ __typename?: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
+type AllDesignersQuery = { __typename?: 'Query', allDesigners: Array<{ __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _allDesignersMeta: { __typename?: 'CollectionMetadata', count: any } };
 
-type ContactFragment = { __typename?: 'ContactRecord', address?: string, email?: string, id: any, intro?: string, phone?: string, showroomIntro?: string, title?: string };
+type DesignerFragment = { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
 
-type DesignerFragment = { __typename?: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
-
-type DesignerLightFragment = { __typename?: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
-
-type DistributorFragment = { __typename?: 'DistributorRecord', name?: string, address?: string, postalCode?: string, city?: string, contactName?: string, phone?: string, email?: string, url?: string, country?: { __typename?: 'CountryRecord', name?: string } };
-
-type FaqFragment = { __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } };
+type DesignerLightFragment = { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
 
 type FileFragment = { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string };
 
@@ -7883,32 +8110,14 @@ type ImageMediumFragment = { __typename?: 'FileField', id: any, mimeType: string
 
 type ImageThumbnailFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } };
 
-type NewsFragment = { __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
-
-type ProductFragment = { __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
-
-type ProductLightFragment = { __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } };
-
-type ProjectFragment = { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
-
-type ProjectLightFragment = { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
-
-type ResellerFragment = { __typename?: 'ResellerRecord', id: any, name?: string, address?: string, postalCode?: string, city?: string, url?: string, country?: { __typename?: 'CountryRecord', id: any, name?: string } };
-
 type SEOFragment = { __typename?: 'Tag', attributes?: any, content?: string, tag: string };
-
-type ShowroomFragment = { __typename?: 'ShowroomRecord', additional?: string, address?: string, city?: string, id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
-
-type SiteFragment = { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } } };
-
-type StaffFragment = { __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
 
 type VideoFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } };
 
 type GlobalQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type GlobalQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } } } };
+type GlobalQuery = { __typename?: 'Query', site: { __typename?: 'Site', faviconMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } } } };
 
 type IntlQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
@@ -7920,15 +8129,42 @@ type IntlQueryVariables = Exact<{
 
 type IntlQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'TranslationRecord', key?: string, value?: string }> };
 
-type MenuQueryVariables = Exact<{ [key: string]: never; }>;
+type ProductLightsourceQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
 
 
-type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug?: string, name?: string }>, allProducts: Array<{ __typename?: 'ProductRecord', id: any, designer?: { __typename?: 'DesignerRecord', id: any } }>, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }> };
+type ProductLightsourceQuery = { __typename?: 'Query', productLightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
+
+type ProductLightsourceByIdQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ItemId']>;
+}>;
+
+
+type ProductLightsourceByIdQuery = { __typename?: 'Query', productLightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
+
+type AllProductLightsourcesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
+
+
+type AllProductLightsourcesQuery = { __typename?: 'Query', allProductLightsources: Array<{ __typename?: 'ProductLightsourceRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _allProductLightsourcesMeta: { __typename?: 'CollectionMetadata', count: any } };
+
+type ProductLightsourceFragment = { __typename?: 'ProductLightsourceRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
+
+type MenuQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
+
+
+type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug?: string, name?: string }>, _allDesignersMeta: { __typename?: 'CollectionMetadata', count: any }, allProducts: Array<{ __typename?: 'ProductRecord', id: any, designer?: { __typename?: 'DesignerRecord', id: any } }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any }, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, _allProductCategoriesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ProductStartQuery = { __typename?: 'Query', productStart?: { __typename?: 'ProductStartRecord', id: any, featured: Array<{ __typename?: 'FeaturedRecord', id: any, headline?: string, showMarkAsNew?: any, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename?: 'ProjectRecord' }> }> } };
+type ProductStartQuery = { __typename?: 'Query', productStart?: { __typename?: 'ProductStartRecord', id: any, featured: Array<{ __typename?: 'FeaturedRecord', id: any, headline?: string, showMarkAsNew?: any, items: Array<{ __typename?: 'DesignerRecord' } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename?: 'ProjectRecord' }> }> } };
 
 type ProductQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
@@ -7936,7 +8172,15 @@ type ProductQueryVariables = Exact<{
 }>;
 
 
-type ProductQuery = { __typename?: 'Query', product?: { __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
+type ProductQuery = { __typename?: 'Query', product?: { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
+
+type ProductByIdQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ItemId']>;
+  locale?: InputMaybe<SiteLocale>;
+}>;
+
+
+type ProductByIdQuery = { __typename?: 'Query', product?: { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
 
 type AllProductsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
@@ -7945,7 +8189,7 @@ type AllProductsQueryVariables = Exact<{
 }>;
 
 
-type AllProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
+type AllProductsQuery = { __typename?: 'Query', allProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllProductsLightQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
@@ -7954,7 +8198,7 @@ type AllProductsLightQueryVariables = Exact<{
 }>;
 
 
-type AllProductsLightQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> };
+type AllProductsLightQuery = { __typename?: 'Query', allProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllProductManualsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
@@ -7963,7 +8207,7 @@ type AllProductManualsQueryVariables = Exact<{
 }>;
 
 
-type AllProductManualsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }>, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }> };
+type AllProductManualsQuery = { __typename?: 'Query', allProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, position?: any }>, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllProductDownloadsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
@@ -7972,7 +8216,7 @@ type AllProductDownloadsQueryVariables = Exact<{
 }>;
 
 
-type AllProductDownloadsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', title?: string, bimLink?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, categories: Array<{ __typename?: 'ProductCategoryRecord', name?: string }>, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }> };
+type AllProductDownloadsQuery = { __typename?: 'Query', allProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, bimLink?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, categories: Array<{ __typename?: 'ProductCategoryRecord', name?: string }>, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type ProductCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7982,10 +8226,11 @@ type ProductCategoriesQuery = { __typename?: 'Query', productCategories: Array<{
 type AllProductsByDesignerQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
   first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllProductsByDesignerQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> };
+type AllProductsByDesignerQuery = { __typename?: 'Query', allProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type RelatedProductsQueryVariables = Exact<{
   designerId?: InputMaybe<Scalars['ItemId']>;
@@ -7994,7 +8239,7 @@ type RelatedProductsQueryVariables = Exact<{
 }>;
 
 
-type RelatedProductsQuery = { __typename?: 'Query', relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> };
+type RelatedProductsQuery = { __typename?: 'Query', relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> };
 
 type RelatedProjectsForProductQueryVariables = Exact<{
   productId?: InputMaybe<Scalars['ItemId']>;
@@ -8002,7 +8247,7 @@ type RelatedProjectsForProductQueryVariables = Exact<{
 }>;
 
 
-type RelatedProjectsForProductQuery = { __typename?: 'Query', relatedProjects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
+type RelatedProjectsForProductQuery = { __typename?: 'Query', relatedProjects: Array<{ __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
 
 type AllProductsByCategoryQueryVariables = Exact<{
   categoryId?: InputMaybe<Scalars['ItemId']>;
@@ -8010,44 +8255,53 @@ type AllProductsByCategoryQueryVariables = Exact<{
 }>;
 
 
-type AllProductsByCategoryQuery = { __typename?: 'Query', productsByCategory: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> };
+type AllProductsByCategoryQuery = { __typename?: 'Query', productsByCategory: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> };
+
+type ProductFragment = { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
+
+type ProductLightFragment = { __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } };
 
 type ProjectQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
 
-type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
+type ProjectQuery = { __typename?: 'Query', project?: { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
 
 type AllProjectsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
+type AllProjectsQuery = { __typename?: 'Query', allProjects: Array<{ __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _allProjectsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllRelatedProjectsQueryVariables = Exact<{
   projectType?: InputMaybe<Scalars['ItemId']>;
   first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllRelatedProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
+type AllRelatedProjectsQuery = { __typename?: 'Query', allProjects: Array<{ __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _allProjectsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type ProjectStartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type ProjectStartQuery = { __typename?: 'Query', projectStart?: { __typename?: 'ProjectStartRecord', id: any, intro?: string, title?: string } };
 
-type AllProjectTypesQueryVariables = Exact<{ [key: string]: never; }>;
+type AllProjectTypesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
 
 
-type AllProjectTypesQuery = { __typename?: 'Query', projectTypes: Array<{ __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }> };
+type AllProjectTypesQuery = { __typename?: 'Query', allProjectTypes: Array<{ __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }>, _allProjectTypesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type BespokeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type BespokeQuery = { __typename?: 'Query', bespoke?: { __typename?: 'BespokeRecord', id: any, intro?: string, outro?: string, title?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, examples: Array<{ __typename?: 'BespokeProjectRecord', id: any, summary?: string, project?: { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename?: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } }> } };
+type BespokeQuery = { __typename?: 'Query', bespoke?: { __typename?: 'BespokeRecord', id: any, intro?: string, outro?: string, title?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, examples: Array<{ __typename?: 'BespokeProjectRecord', id: any, summary?: string, project?: { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } }> } };
 
 type BespokeThumbnailQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8066,17 +8320,23 @@ type DownloadsStartQuery = { __typename?: 'Query', downloadsStart?: { __typename
 
 type AllCataloguesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllCataloguesQuery = { __typename?: 'Query', catalogues: Array<{ __typename?: 'CatalogueRecord', id: any, title?: string, pdf?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, thumbnail?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
+type AllCataloguesQuery = { __typename?: 'Query', allCatalogues: Array<{ __typename?: 'CatalogueRecord', id: any, title?: string, pdf?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, thumbnail?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _allCataloguesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllColorsAndMaterialsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllColorsAndMaterialsQuery = { __typename?: 'Query', colorMaterials: Array<{ __typename?: 'ColorMaterialRecord', id: any, description?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, category?: { __typename?: 'ColorMaterialTypeRecord', id: any, category?: string, categoryPlural?: string } }>, colorMaterialTypes: Array<{ __typename?: 'ColorMaterialTypeRecord', id: any, category?: string, categoryPlural?: string }>, colorMaterialIntro?: { __typename?: 'ColorMaterialIntroRecord', id: any, intro?: string } };
+type AllColorsAndMaterialsQuery = { __typename?: 'Query', allColorMaterials: Array<{ __typename?: 'ColorMaterialRecord', id: any, description?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, category?: { __typename?: 'ColorMaterialTypeRecord', id: any, category?: string, categoryPlural?: string } }>, _allColorMaterialsMeta: { __typename?: 'CollectionMetadata', count: any }, allColorMaterialTypes: Array<{ __typename?: 'ColorMaterialTypeRecord', id: any, category?: string, categoryPlural?: string }>, _allColorMaterialTypesMeta: { __typename?: 'CollectionMetadata', count: any }, colorMaterialIntro?: { __typename?: 'ColorMaterialIntroRecord', id: any, intro?: string } };
+
+type ProjectFragment = { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
+
+type ProjectLightFragment = { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
 
 type SiteSearchQueryVariables = Exact<{
   productIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
@@ -8089,17 +8349,19 @@ type SiteSearchQueryVariables = Exact<{
 }>;
 
 
-type SiteSearchQuery = { __typename?: 'Query', products: Array<{ __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }>, designers: Array<{ __typename?: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, projects: Array<{ __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }>, news: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, people: Array<{ __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
+type SiteSearchQuery = { __typename?: 'Query', products: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }>, designers: Array<{ __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, projects: Array<{ __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }>, news: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, people: Array<{ __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
 
 type SiteSEOQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type SiteSEOQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } } } };
+type SiteSEOQuery = { __typename?: 'Query', site: { __typename?: 'Site', faviconMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } } } };
+
+type SiteFragment = { __typename?: 'Site', faviconMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string, siteName?: string, titleSuffix?: string, twitterAccount?: string, fallbackSeo?: { __typename?: 'SeoField', description?: string, title?: string, twitterCard?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } } };
 
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', content: Array<{ __typename: 'FeaturedStartRecord', id: any, headline?: string, items: Array<{ __typename?: 'DesignerRecord' } | { __typename?: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename?: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> } | { __typename: 'FullscreenMediaBlockRecord', id: any, headline?: string, subHeadline?: string, readMore?: string, makeDarker?: any, media?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, linkRecord?: { __typename: 'AboutRecord', id: any, title?: string } | { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } | { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string } }>, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string } }>, accessories: Array<{ __typename?: 'AccessoryRecord', articleNo?: string, price?: any, accessory?: { __typename?: 'ProductAccessoryRecord', name?: string } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } } | { __typename: 'FullscreenVideoRecord', id: any, link?: string, linkText?: string, text?: string, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'ImageLinkRecord', id: any, firstLink?: string, firstLinkText?: string, firstHeadline?: string, secondLink?: string, secondLinkText?: string, secondHeadline?: string, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'NewsItemRecord', news?: { __typename?: 'NewsRecord', id: any, title?: string, text?: string, link?: string, linkText?: string, slug?: string } }> } };
+type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', content: Array<{ __typename: 'FeaturedStartRecord', id: any, headline?: string, items: Array<{ __typename: 'DesignerRecord' } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> } | { __typename: 'FullscreenMediaBlockRecord', id: any, headline?: string, subHeadline?: string, readMore?: string, makeDarker?: any, media?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, linkRecord?: { __typename: 'AboutRecord', id: any, title?: string } | { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } | { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } } | { __typename: 'FullscreenVideoRecord', id: any, link?: string, linkText?: string, text?: string, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'ImageLinkRecord', id: any, firstLink?: string, firstLinkText?: string, firstHeadline?: string, secondLink?: string, secondLinkText?: string, secondHeadline?: string, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'NewsItemRecord', news?: { __typename?: 'NewsRecord', id: any, title?: string, text?: string, link?: string, linkText?: string, slug?: string } }> }, lastNews: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
 
 type FaqQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']>;
@@ -8131,6 +8393,8 @@ type ManualsIntroQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type ManualsIntroQuery = { __typename?: 'Query', manual?: { __typename?: 'ManualRecord', intro?: string, id: any, title?: string } };
+
+type FaqFragment = { __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } };
 
 type TaxonomyQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;

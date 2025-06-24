@@ -1,0 +1,24 @@
+fragment VideoFragment on FileField {
+	id
+	mimeType
+	url
+	title
+	customData
+	responsiveImage(imgixParams: { auto: format }) {
+		src
+		width
+		height
+		alt
+		base64
+		sizes
+	}
+	video {
+		thumbnailUrl
+		streamingUrl
+		mp4high: mp4Url(res: high)
+		mp4med: mp4Url(res: medium)
+		mp4low: mp4Url(res: low)
+		framerate
+		duration
+	}
+}

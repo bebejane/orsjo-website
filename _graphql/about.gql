@@ -1,3 +1,7 @@
+#import "./fragments/ImageFragment.gql"
+#import "./fragments/VideoFragment.gql"
+#import "./fragments/NewsFragment.gql"
+
 query Sustainability {
 	sustainability {
 		id
@@ -50,28 +54,11 @@ query LastNews {
 }
 
 query AllNews($first: IntType = 5, $skip: IntType = 0) {
-	allNews(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
+	news: allNews(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
 		...NewsFragment
 	}
-	_allNewsMeta {
+	pagination: _allNewsMeta {
 		count
-	}
-}
-
-fragment NewsFragment on NewsRecord {
-	__typename
-	id
-	image {
-		...ImageFragment
-	}
-	link
-	linkText
-	text(markdown: false)
-	title
-	slug
-	createdAt
-	_seoMetaTags {
-		...SEOFragment
 	}
 }
 

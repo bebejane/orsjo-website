@@ -1,24 +1,24 @@
-#import "./fragments/ImageFragment.gql"
-#import "./fragments/ImageMediumFragment.gql"
-#import "./fragments/ImageThumbnailFragment.gql"
-#import "./fragments/ProjectFragment.gql"
-#import "./fragments/ProjectLightFragment.gql"
-
 query Project($slug: String) {
 	project(filter: { slug: { eq: $slug } }) {
 		...ProjectFragment
 	}
 }
 
-query AllProjects($first: IntType = 100) {
-	projects: allProjects(first: $first) {
+query AllProjects($first: IntType = 100, $skip: IntType = 0) {
+	allProjects(first: $first, skip: $skip) {
 		...ProjectLightFragment
+	}
+	_allProjectsMeta {
+		count
 	}
 }
 
-query AllRelatedProjects($projectType: ItemId, $first: IntType = 100) {
-	projects: allProjects(first: $first, filter: { projectType: { eq: $projectType } }) {
+query AllRelatedProjects($projectType: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+	allProjects(first: $first, skip: $skip, filter: { projectType: { eq: $projectType } }) {
 		...ProjectLightFragment
+	}
+	_allProjectsMeta {
+		count
 	}
 }
 
@@ -30,11 +30,14 @@ query ProjectStart {
 	}
 }
 
-query AllProjectTypes {
-	projectTypes: allProjectTypes {
+query AllProjectTypes($first: IntType = 100, $skip: IntType = 0) {
+	allProjectTypes(first: $first, skip: $skip) {
 		id
 		title
 		titlePlural
+	}
+	_allProjectTypesMeta {
+		count
 	}
 }
 
@@ -84,8 +87,8 @@ query DownloadsStart {
 	}
 }
 
-query AllCatalogues($first: IntType = 100) {
-	catalogues: allCatalogues(first: $first) {
+query AllCatalogues($first: IntType = 100, $skip: IntType = 0) {
+	allCatalogues(first: $first, skip: $skip) {
 		id
 		title
 		pdf {
@@ -95,10 +98,13 @@ query AllCatalogues($first: IntType = 100) {
 			...ImageThumbnailFragment
 		}
 	}
+	_allCataloguesMeta {
+		count
+	}
 }
 
-query AllColorsAndMaterials($first: IntType = 100) {
-	colorMaterials: allColorMaterials(first: $first) {
+query AllColorsAndMaterials($first: IntType = 100, $skip: IntType = 0) {
+	allColorMaterials(first: $first, skip: $skip) {
 		id
 		image {
 			...ImageFragment
@@ -113,13 +119,122 @@ query AllColorsAndMaterials($first: IntType = 100) {
 			categoryPlural
 		}
 	}
-	colorMaterialTypes: allColorMaterialTypes {
+	_allColorMaterialsMeta {
+		count
+	}
+	allColorMaterialTypes(first: $first, skip: $skip) {
 		id
 		category
 		categoryPlural
 	}
+	_allColorMaterialTypesMeta {
+		count
+	}
 	colorMaterialIntro {
 		id
 		intro
+	}
+}
+
+fragment ProjectFragment on ProjectRecord {
+	__typename
+	id
+	location
+	title
+	slug
+	bespoke
+	projectType {
+		id
+		title
+		titlePlural
+	}
+	image {
+		...ImageFragment
+	}
+	secondaryImage {
+		...ImageFragment
+	}
+	relatedProducts {
+		...ProductFragment
+	}
+	gallery {
+		... on FullwidthImageRecord {
+			__typename
+			id
+			image {
+				...ImageFragment
+			}
+		}
+		... on ImageGalleryRecord {
+			__typename
+			id
+			gallery {
+				...ImageFragment
+			}
+		}
+		... on TextRecord {
+			__typename
+			id
+			text {
+				value
+				links {
+					__typename
+					... on ProductRecord {
+						id
+						title
+						slug
+					}
+					... on DesignerRecord {
+						id
+						name
+						slug
+					}
+					... on ProjectRecord {
+						id
+						title
+						slug
+					}
+				}
+			}
+		}
+		... on TwoColumnImageRecord {
+			__typename
+			id
+			firstImage {
+				...ImageMediumFragment
+			}
+			lastImage {
+				...ImageMediumFragment
+			}
+		}
+		... on VideoRecord {
+			__typename
+			id
+			video {
+				...ImageFragment
+			}
+		}
+	}
+	_seoMetaTags {
+		...SEOFragment
+	}
+}
+
+fragment ProjectLightFragment on ProjectRecord {
+	__typename
+	id
+	location
+	title
+	slug
+	projectType {
+		id
+		title
+		titlePlural
+	}
+	image {
+		...ImageThumbnailFragment
+	}
+	secondaryImage {
+		...ImageThumbnailFragment
 	}
 }

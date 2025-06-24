@@ -1,7 +1,3 @@
-#import "./fragments/ProductFragment.gql"
-#import "./fragments/ProductLightFragment.gql"
-#import "./fragments/ImageFragment.gql"
-
 query ProductStart {
 	productStart {
 		id
@@ -21,39 +17,32 @@ query Product($slug: String, $locale: SiteLocale = en) {
 		...ProductFragment
 	}
 }
-
-query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	products: allProducts(
-		locale: $locale
-		first: $first
-		skip: $skip
-		orderBy: [title_ASC]
-		fallbackLocales: [sv, en]
-	) {
+query ProductById($id: ItemId, $locale: SiteLocale = en) {
+	product(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...ProductFragment
 	}
 }
 
+query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+	allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
+		...ProductFragment
+	}
+	_allProductsMeta {
+		count
+	}
+}
+
 query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	products: allProducts(
-		first: $first
-		skip: $skip
-		orderBy: [title_ASC]
-		locale: $locale
-		fallbackLocales: [sv, en]
-	) {
+	allProducts(first: $first, skip: $skip, orderBy: [title_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...ProductLightFragment
+	}
+	_allProductsMeta {
+		count
 	}
 }
 
 query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	products: allProducts(
-		locale: $locale
-		first: $first
-		skip: $skip
-		orderBy: [title_ASC]
-		fallbackLocales: [sv, en]
-	) {
+	allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
 		id
 		title
 		family {
@@ -69,16 +58,14 @@ query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: 
 			...FileFragment
 		}
 	}
+	_allProductsMeta {
+		count
+	}
 }
 
 query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
-	products: allProducts(
-		locale: $locale
-		first: $first
-		skip: $skip
-		orderBy: [title_ASC]
-		fallbackLocales: [sv, en]
-	) {
+	allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
+		id
 		image {
 			...ImageThumbnailFragment
 		}
@@ -106,10 +93,13 @@ query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip
 			...FileFragment
 		}
 	}
+	_allProductsMeta {
+		count
+	}
 }
 
 query ProductCategories {
-	productCategories: allProductCategories {
+	productCategories: allProductCategories(first: 250) {
 		id
 		name
 		namePlural
@@ -117,9 +107,12 @@ query ProductCategories {
 	}
 }
 
-query AllProductsByDesigner($id: ItemId, $first: IntType = 100) {
-	products: allProducts(first: $first, orderBy: [title_ASC], filter: { designer: { eq: $id } }) {
+query AllProductsByDesigner($id: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+	allProducts(first: $first, skip: $skip, orderBy: [title_ASC], filter: { designer: { eq: $id } }) {
 		...ProductLightFragment
+	}
+	_allProductsMeta(filter: { designer: { eq: $id } }) {
+		count
 	}
 }
 
@@ -133,10 +126,7 @@ query RelatedProducts($designerId: ItemId, $familyId: ItemId, $first: IntType = 
 }
 
 query RelatedProjectsForProduct($productId: ItemId, $first: IntType = 100) {
-	relatedProjects: allProjects(
-		first: $first
-		filter: { relatedProducts: { anyIn: [$productId] } }
-	) {
+	relatedProjects: allProjects(first: $first, filter: { relatedProducts: { anyIn: [$productId] } }) {
 		...ProjectLightFragment
 	}
 }
@@ -144,5 +134,244 @@ query RelatedProjectsForProduct($productId: ItemId, $first: IntType = 100) {
 query AllProductsByCategory($categoryId: ItemId, $first: IntType = 100) {
 	productsByCategory: allProducts(first: $first, filter: { categories: { anyIn: [$categoryId] } }) {
 		...ProductLightFragment
+	}
+}
+
+fragment ProductFragment on ProductRecord {
+	__typename
+	id
+	title
+	description(markdown: false)
+	slug
+	additionalInformation
+	markAsNew
+	upcycled
+	image {
+		...ImageFragment
+	}
+	productGallery {
+		... on FullwidthImageRecord {
+			__typename
+			id
+			image {
+				...ImageFragment
+			}
+		}
+		... on ImageGalleryRecord {
+			__typename
+			id
+			gallery {
+				...ImageFragment
+			}
+		}
+		... on TextRecord {
+			__typename
+			id
+			text {
+				value
+				links {
+					__typename
+					... on ProductRecord {
+						id
+						title
+						slug
+					}
+					... on ProjectRecord {
+						id
+						title
+						slug
+					}
+					... on DesignerRecord {
+						id
+						name
+						slug
+					}
+				}
+			}
+		}
+		... on TwoColumnImageRecord {
+			__typename
+			id
+			firstImage {
+				...ImageFragment
+			}
+			lastImage {
+				...ImageFragment
+			}
+		}
+		... on VideoRecord {
+			__typename
+			id
+			video {
+				...VideoFragment
+			}
+		}
+	}
+	environmentImage {
+		...ImageFragment
+	}
+	colorImages {
+		...ImageFragment
+	}
+	family {
+		id
+		name
+	}
+	categories {
+		id
+		name
+		namePlural
+		position
+	}
+	connection {
+		id
+		name
+	}
+	designer {
+		id
+		name
+		slug
+	}
+	dimmable {
+		id
+		name
+	}
+	electricalData {
+		id
+		name
+	}
+	electricalData {
+		id
+		name
+	}
+	lightFile {
+		...FileFragment
+	}
+	bimFile {
+		...FileFragment
+	}
+	models {
+		id
+		name {
+			id
+			name
+		}
+		variants {
+			id
+			color {
+				id
+				name
+			}
+			id
+			material {
+				id
+				name
+			}
+			price
+			volume
+			weight
+			feature {
+				name
+			}
+			articleNo
+			image {
+				...ImageFragment
+			}
+		}
+		drawing {
+			...ImageFragment
+		}
+		lightsources {
+			id
+			included
+			amount
+			optional
+			lightsource {
+				id
+				name
+				price
+				articleNo
+				image {
+					...ImageThumbnailFragment
+				}
+			}
+		}
+		accessories {
+			id
+			accessory {
+				id
+				articleNo
+				name
+				price
+				image {
+					...ImageThumbnailFragment
+				}
+			}
+		}
+	}
+	mounting {
+		id
+		name
+	}
+	mountingInstructions {
+		...FileFragment
+	}
+	pdfFile {
+		...FileFragment
+	}
+	pdfFiles: _allPdfFileLocales {
+		locale
+		value {
+			...FileFragment
+		}
+	}
+	bimLink
+	bimFile {
+		...FileFragment
+	}
+	sockets {
+		id
+		name
+	}
+	note(markdown: false)
+	_seoMetaTags {
+		...SEOFragment
+	}
+}
+
+fragment ProductLightFragment on ProductRecord {
+	__typename
+	id
+	title
+	slug
+	markAsNew
+	upcycled
+	family {
+		id
+		name
+	}
+	categories {
+		id
+		name
+		namePlural
+	}
+	image {
+		...ImageThumbnailFragment
+	}
+	environmentImage {
+		...ImageThumbnailFragment
+	}
+	models {
+		variants {
+			id
+			articleNo
+			price
+		}
+	}
+
+	designer {
+		id
+		name
+		slug
 	}
 }

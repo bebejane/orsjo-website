@@ -1,3 +1,10 @@
+#import "./fragments/ShowroomFragment.gql"
+#import "./fragments/ContactFragment.gql"
+#import "./fragments/DistributorFragment.gql"
+#import "./fragments/ResellerFragment.gql"
+#import "./fragments/StaffFragment.gql"
+#import "./fragments/ImageFragment.gql"
+
 query Showroom {
 	showroom {
 		...ShowroomFragment
@@ -28,20 +35,6 @@ query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLo
 	}
 }
 
-fragment DistributorFragment on DistributorRecord {
-	name
-	address
-	postalCode
-	city
-	country {
-		name
-	}
-	contactName
-	phone
-	email
-	url
-}
-
 query Reseller($id: ItemId, $locale: SiteLocale = en) {
 	reseller(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...ResellerFragment
@@ -49,7 +42,13 @@ query Reseller($id: ItemId, $locale: SiteLocale = en) {
 }
 
 query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	resellers: allResellers(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
+	resellers: allResellers(
+		first: $first
+		skip: $skip
+		orderBy: [name_ASC]
+		locale: $locale
+		fallbackLocales: [sv, en]
+	) {
 		...ResellerFragment
 	}
 }
@@ -61,7 +60,12 @@ query Staff($id: ItemId, $locale: SiteLocale = en) {
 }
 
 query AllStaffs($id: ItemId, $locale: SiteLocale = en, $first: IntType = 100) {
-	staffs: allStaffs(first: $first, locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
+	staffs: allStaffs(
+		first: $first
+		locale: $locale
+		fallbackLocales: [sv, en]
+		filter: { id: { eq: $id } }
+	) {
 		...StaffFragment
 	}
 }
@@ -80,48 +84,4 @@ query Contact {
 			...ImageFragment
 		}
 	}
-}
-
-fragment ContactFragment on ContactRecord {
-	address(markdown: false)
-	email
-	id
-	intro(markdown: false)
-	phone
-	showroomIntro(markdown: false)
-	title
-}
-
-fragment ResellerFragment on ResellerRecord {
-	id
-	name
-	address
-	postalCode
-	city
-	country {
-		id
-		name
-	}
-	url
-}
-
-fragment ShowroomFragment on ShowroomRecord {
-	additional(markdown: false)
-	address(markdown: false)
-	city
-	id
-	image {
-		...ImageMediumFragment
-	}
-}
-
-fragment StaffFragment on StaffRecord {
-	id
-	name
-	image {
-		...ImageThumbnailFragment
-	}
-	role
-	phone
-	email
 }

@@ -1,0 +1,15 @@
+fragment ImageFragment on FileField {
+	id
+	mimeType
+	url
+	title
+	customData
+	responsiveImage(imgixParams: { auto: format }) {
+		src
+		width
+		height
+		alt
+		base64
+		sizes
+	}
+}
