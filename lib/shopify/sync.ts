@@ -473,9 +473,9 @@ export async function updateProduct(
 export const generateThumbnailUrl = (url: string | undefined | null): string => {
 	if (!url) return '';
 	const u = new URL(url);
-	const w = 2000;
-	const pad = w * 0.1;
-	const imgixUrl = `${u.origin}${u.pathname}?w=${w}&fit=crop&auto=format&bg=fff&pad=${pad}`;
+	const size = 2000;
+	const pad = size * 0.1;
+	const imgixUrl = `${u.origin}${u.pathname}?w=${size}&h=${size}&fit=crop&auto=format&bg=fff&pad=${pad}`;
 	return imgixUrl;
 };
 
