@@ -63,6 +63,16 @@ export const DesignerLightFragment: DocumentNode;
 }
     
 
+declare module '*/family.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllProductFamilies: DocumentNode;
+export const AllProductsByFamily: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/FileFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

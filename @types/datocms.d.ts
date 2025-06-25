@@ -3408,6 +3408,22 @@ type IntegerFilter = {
   neq?: InputMaybe<Scalars['IntType']>;
 };
 
+/** Specifies how to filter by linking fields */
+type InverseRelationshipFieldFilterBetweenProductAndProductFamily = {
+  /** Filter linking records that reference current record in at least one of the specified fields */
+  anyIn?: InputMaybe<Array<ProductModelFieldsReferencingProductFamilyModel>>;
+  /** Filter linking records that do not reference current record in any of the specified fields */
+  notIn?: InputMaybe<Array<ProductModelFieldsReferencingProductFamilyModel>>;
+};
+
+/** Specifies how to filter linking records */
+type InverseRelationshipFilterBetweenProductAndProductFamily = {
+  /** Specifies how to filter by linking fields */
+  fields?: InputMaybe<InverseRelationshipFieldFilterBetweenProductAndProductFamily>;
+  /** Specifies how to filter by linking locales */
+  locales?: InputMaybe<LinkingLocalesFilter>;
+};
+
 /** Specifies how to filter by ID */
 type ItemIdFilter = {
   /** Search the record with the specified ID */
@@ -3559,6 +3575,24 @@ type LinkFilter = {
   neq?: InputMaybe<Scalars['ItemId']>;
   /** Filter records not linked to one of the specified records */
   notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+};
+
+/** Linking locales */
+enum LinkingLocale {
+  _nonLocalized = '_nonLocalized',
+  da = 'da',
+  en = 'en',
+  en_GB = 'en_GB',
+  no = 'no',
+  sv = 'sv'
+}
+
+/** Specifies how to filter by linking locales */
+type LinkingLocalesFilter = {
+  /** Filter linking records that link to current record in at least one of the specified locales */
+  anyIn?: InputMaybe<Array<LinkingLocale>>;
+  /** Filter linking records that do not link to current record in any of the specified locales */
+  notIn?: InputMaybe<Array<LinkingLocale>>;
 };
 
 /** Specifies how to filter Multiple-links fields */
@@ -4438,6 +4472,7 @@ type ProductFamilyModelFilter = {
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   name?: InputMaybe<StringFilter>;
+  slug?: InputMaybe<SlugFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
@@ -4471,6 +4506,9 @@ enum ProductFamilyModelOrderBy {
 /** Record of type Product family (product_family) */
 type ProductFamilyRecord = RecordInterface & {
   __typename?: 'ProductFamilyRecord';
+  _allReferencingProducts: Array<ProductRecord>;
+  /** Returns meta information regarding a record collection */
+  _allReferencingProductsMeta: CollectionMetadata;
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
@@ -4487,7 +4525,28 @@ type ProductFamilyRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Product family (product_family) */
+type ProductFamilyRecord_allReferencingProductsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ProductModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<ProductModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+  through?: InputMaybe<InverseRelationshipFilterBetweenProductAndProductFamily>;
+};
+
+
+/** Record of type Product family (product_family) */
+type ProductFamilyRecord_allReferencingProductsMetaArgs = {
+  filter?: InputMaybe<ProductModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  through?: InputMaybe<InverseRelationshipFilterBetweenProductAndProductFamily>;
 };
 
 
@@ -4768,6 +4827,11 @@ type ProductMaterialRecordnameArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
+
+/** Linking fields */
+enum ProductModelFieldsReferencingProductFamilyModel {
+  product_family = 'product_family'
+}
 
 type ProductModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<ProductModelFilter>>>;
@@ -8101,6 +8165,21 @@ type AllDesignersQuery = { __typename?: 'Query', allDesigners: Array<{ __typenam
 type DesignerFragment = { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
 
 type DesignerLightFragment = { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
+
+type AllProductFamiliesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
+
+
+type AllProductFamiliesQuery = { __typename?: 'Query', allProductFamilies: Array<{ __typename?: 'ProductFamilyRecord', id: any, name?: string, slug?: string, _allReferencingProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+
+type AllProductsByFamilyQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
+
+
+type AllProductsByFamilyQuery = { __typename?: 'Query', productFamily?: { __typename?: 'ProductFamilyRecord', id: any, name?: string, slug?: string, _allReferencingProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> } };
 
 type FileFragment = { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string };
 

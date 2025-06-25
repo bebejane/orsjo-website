@@ -1,215 +1,218 @@
 .sidebar {
-  position: sticky;
-  display: flex;
-  flex-direction: column;
-  top: 0px;
-  padding-top: calc(1rem + $navbarHeight);
-  margin-left: var(--outer-margin);
-  min-width: spanGrid(4);
-  max-width: spanGrid(4);
-  max-height: 100vh;
-  z-index: 98;
-  opacity: 0;
-  animation: fadeIn 0.2s ease-out forwards;
+	position: sticky;
+	display: flex;
+	flex-direction: column;
+	top: 0px;
+	padding-top: calc(1rem + $navbarHeight);
+	margin-left: var(--outer-margin);
+	min-width: spanGrid(4);
+	max-width: spanGrid(4);
+	max-height: 100vh;
+	z-index: 98;
+	opacity: 0;
+	animation: fadeIn 0.2s ease-out forwards;
 
-  @include mq($from: tablet, $until: desktop) {
-    padding-right: 1em;
-  }
+	@include mq($from: tablet, $until: desktop) {
+		padding-right: 1em;
+	}
 
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
+	@keyframes fadeIn {
+		to {
+			opacity: 1;
+		}
+	}
 
-  @include mq($from: tablet) {
-    background-color: transparent !important;
-  }
+	@include mq($from: tablet) {
+		background-color: transparent !important;
+	}
 
-  h3 {
-    flex: 0 0 auto;
+	h3 {
+		flex: 0 0 auto;
 
-    .arrow {
-      display: none;
-    }
-  }
+		.arrow {
+			display: none;
+		}
+	}
 
-  nav {
-    flex: 0 0 auto;
+	nav {
+		flex: 0 0 auto;
+		min-width: spanGrid(4);
+		ul {
+			list-style: none;
+			height: calc(100vh - $navbarHeight - 120px);
+			margin-right: spanGrid(2);
+			overflow: hidden;
+			overflow-y: auto;
 
-    ul {
-      list-style: none;
-      min-width: spanGrid(4);
+			li {
+				a {
+					transition: color 0.3s ease;
+					color: $black-menu;
 
-      li {
-        a {
-          transition: color 0.3s ease;
-          color: $black-menu;
+					&:hover {
+						color: $black;
+					}
 
-          &:hover {
-            color: $black;
-          }
+					&.active {
+						transition: color 0s;
+						transition-delay: 0.1s; // Delay for not showing when scrolling
+						color: $black;
+					}
+				}
 
-          &.active {
-            transition: color 0s;
-            transition-delay: 0.1s; // Delay for not showing when scrolling
-            color: $black;
-          }
-        }
+				&.download {
+					margin-top: 0.5rem;
+				}
 
-        &.download {
-          margin-top: 0.5rem;
-        }
+				&.search {
+					position: relative;
+					width: 200px;
+					opacity: 0;
+					transition: opacity 0.3s ease-out;
 
-        &.search {
-          position: relative;
-          width: 200px;
-          opacity: 0;
-          transition: opacity 0.3s ease-out;
+					&.show {
+						opacity: 1;
+					}
 
-          &.show {
-            opacity: 1;
-          }
+					input {
+						position: absolute;
+						border: 0px;
+						padding-left: 0;
+						padding-top: 0;
+						outline: none;
+						background-color: transparent;
+						padding: 10px;
+						margin-left: -10px;
+						width: 200px;
+						z-index: 1;
 
-          input {
-            position: absolute;
-            border: 0px;
-            padding-left: 0;
-            padding-top: 0;
-            outline: none;
-            background-color: transparent;
-            padding: 10px;
-            margin-left: -10px;
-            width: 200px;
-            z-index: 1;
+						&:focus {
+							background-color: $mid-gray;
+						}
+					}
 
-            &:focus {
-              background-color: $mid-gray;
-            }
-          }
+					.close {
+						position: absolute;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						border: none;
+						right: 13px;
+						top: 4px;
+						height: 30px;
+						width: 30px;
+						z-index: 2;
+						color: $black;
+						visibility: hidden;
+						background-color: transparent;
 
-          .close {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            right: 13px;
-            top: 4px;
-            height: 30px;
-            width: 30px;
-            z-index: 2;
-            color: $black;
-            visibility: hidden;
-            background-color: transparent;
+						&.show {
+							visibility: visible;
+						}
+					}
 
-            &.show {
-              visibility: visible;
-            }
-          }
+					input::placeholder {
+						color: $gray;
+						opacity: 0.7;
+					}
+				}
+			}
+		}
+	}
 
-          input::placeholder {
-            color: $gray;
-            opacity: 0.7;
-          }
-        }
-      }
-    }
-  }
+	.footer {
+		display: flex;
+		flex: 1 1 auto;
+		align-items: flex-end;
+		padding-bottom: var(--outer-margin);
+		cursor: pointer;
 
-  .footer {
-    display: flex;
-    flex: 1 1 auto;
-    align-items: flex-end;
-    padding-bottom: var(--outer-margin);
-    cursor: pointer;
+		span {
+			color: $black-menu;
 
-    span {
-      color: $black-menu;
+			&:hover {
+				color: $black;
+			}
+		}
+	}
 
-      &:hover {
-        color: $black;
-      }
-    }
-  }
+	&.full {
+		display: none;
+	}
 
-  &.full {
-    display: none;
-  }
+	&.inverted {
+		h3 {
+			color: $mid-gray;
+		}
 
-  &.inverted {
-    h3 {
-      color: $mid-gray;
-    }
+		nav ul li a {
+			color: $mid-gray;
 
-    nav ul li a {
-      color: $mid-gray;
+			&.active {
+				color: $white !important;
+			}
+		}
 
-      &.active {
-        color: $white !important;
-      }
-    }
+		.footer a {
+			color: $mid-gray !important;
+		}
+	}
 
-    .footer a {
-      color: $mid-gray !important;
-    }
-  }
+	@include mq($until: tablet) {
+		position: fixed;
+		padding-top: 0;
+		top: 0;
+		left: 0;
+		width: 100%;
+		margin: 0;
+		min-width: 100%;
+		max-width: 100%;
+		text-align: center;
+		background-color: $white;
 
-  @include mq($until: tablet) {
-    position: fixed;
-    padding-top: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    min-width: 100%;
-    max-width: 100%;
-    text-align: center;
-    background-color: $white;
+		h3 {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: $navbarHeightMobile;
+			padding: 0;
+			padding-top: 0.2em;
 
-    h3 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: $navbarHeightMobile;
-      padding: 0;
-      padding-top: 0.2em;
+			cursor: pointer;
 
-      cursor: pointer;
+			.arrow {
+				display: inline;
+				transition: transform 0.3s ease;
+				transform: rotate(0deg);
+				margin-left: 0.1rem;
 
-      .arrow {
-        display: inline;
-        transition: transform 0.3s ease;
-        transform: rotate(0deg);
-        margin-left: 0.1rem;
+				&.open {
+					transform: rotate(90deg);
+				}
+			}
+		}
 
-        &.open {
-          transform: rotate(90deg);
-        }
-      }
-    }
+		nav {
+			display: none;
+			padding-top: var(--outer-margin);
+			padding-bottom: var(--outer-margin);
+			border-top: 1px solid $mid-gray;
 
-    nav {
-      display: none;
-      padding-top: var(--outer-margin);
-      padding-bottom: var(--outer-margin);
-      border-top: 1px solid $mid-gray;
+			&.open {
+				display: block;
+			}
 
-      &.open {
-        display: block;
-      }
+			ul {
+				li {
+					&.search {
+						display: none;
+					}
+				}
+			}
+		}
 
-      ul {
-        li {
-          &.search {
-            display: none;
-          }
-        }
-      }
-    }
-
-    .footer {
-      display: none;
-    }
-  }
+		.footer {
+			display: none;
+		}
+	}
 }
