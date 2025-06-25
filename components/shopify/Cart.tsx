@@ -7,7 +7,7 @@ import { default as useCart, useShallow } from '@/lib/shopify/hooks/useCart';
 import { parseGid } from '@/lib/shopify/utils';
 import CountrySelector from './CountrySelector';
 import Loader from '@/components/common/Loader';
-import Link from '@/components/nav/Link';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { formatPrice } from '@/lib/shopify/utils';
 import useCountry from '@/lib/shopify/hooks/useCountry';
@@ -19,39 +19,26 @@ export type CartProps = {
 };
 
 export default function Cart({ localization }: CartProps) {
-	const [
-		cart,
-		createCart,
-		removeFromCart,
-		updateQuantity,
-		updateBuyerIdentity,
-		updating,
-		updatingId,
-		cartError,
-	] = useCart(
-		useShallow((state) => [
-			state.cart,
-			state.createCart,
-			state.removeFromCart,
-			state.updateQuantity,
-			state.updateBuyerIdentity,
-			state.updating,
-			state.updatingId,
-			state.error,
-		])
-	);
-	const [showCart, setShowCart] = useStore(
-		useShallow((state) => [state.showCart, state.setShowCart])
-	);
+	const [cart, createCart, removeFromCart, updateQuantity, updateBuyerIdentity, updating, updatingId, cartError] =
+		useCart(
+			useShallow((state) => [
+				state.cart,
+				state.createCart,
+				state.removeFromCart,
+				state.updateQuantity,
+				state.updateBuyerIdentity,
+				state.updating,
+				state.updatingId,
+				state.error,
+			])
+		);
+	const [showCart, setShowCart] = useStore(useShallow((state) => [state.showCart, state.setShowCart]));
 	const country = useCountry();
 	const pathname = usePathname();
 	const [error, setError] = useState<string | null>(null);
 	const isEmpty = cart && cart?.lines?.edges?.length > 0 ? false : true;
 	const loading = !cart || updating;
-	const totalItems = cart?.lines.edges.reduce(
-		(total, { node: { quantity } }) => total + quantity,
-		0
-	);
+	const totalItems = cart?.lines.edges.reduce((total, { node: { quantity } }) => total + quantity, 0);
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -91,14 +78,11 @@ export default function Cart({ localization }: CartProps) {
 							<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
 								<figure className={s.thumb}>
 									<Link
-										href={`/products/${merchandise.product.handle}?variant=${parseGid(merchandise.id)}`}
+										href={`/products/${merchandise.product.handle}?v=${parseGid(merchandise.id)}`}
+										onClick={() => setShowCart(false)}
 									>
 										{merchandise.image?.url && (
-											<img
-												role='icon'
-												src={merchandise.image?.url}
-												alt={merchandise.image?.altText ?? ''}
-											/>
+											<img role='icon' src={merchandise.image?.url} alt={merchandise.image?.altText ?? ''} />
 										)}
 									</Link>
 								</figure>
@@ -115,10 +99,7 @@ export default function Cart({ localization }: CartProps) {
 											-
 										</button>
 										<span>{quantity}</span>
-										<button
-											className={s.plus}
-											onClick={() => updateQuantity(id, quantity + 1, country)}
-										>
+										<button className={s.plus} onClick={() => updateQuantity(id, quantity + 1, country)}>
 											+
 										</button>
 									</div>
@@ -146,22 +127,16 @@ export default function Cart({ localization }: CartProps) {
 						<CountrySelector localization={localization} label='Location' className={s.form} />
 					</div>
 					<div className={cn(s.extra, 'small', 'gray')}>
-						<span className="small">Shipping and tax are added at checkout</span>
+						<span className='small'>Shipping and tax are added at checkout</span>
 					</div>
 
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
 						<div className={cn(s.check, 'medium')}>
-							<input
-								type='checkbox'
-								name='terms'
-								required
-								onChange={(e) => setTerms(e.target.checked)}
-							/>
+							<input type='checkbox' name='terms' required onChange={(e) => setTerms(e.target.checked)} />
 							<span>
-								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I
-								have read and understood the{' '}
-								<Link href='/legal/privacy-policy'>privacy policy</Link>.
+								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I have read and
+								understood the <Link href='/legal/privacy-policy'>privacy policy</Link>.
 							</span>
 						</div>
 						<button disabled={!terms} className={cn(s.checkout, 'full')} type='submit'>

@@ -44,7 +44,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	const [showAddons, setShowAddons] = useState(false);
 	const [addons, setAddons] = useState<Addon[]>([]);
 	const [showAccessoriesButton, setShowAccessoriesButton] = useState(false);
-	const [selected, setSelected] = useState<any | null>(allVariants?.[0] ?? null);
+	const [selected, setSelected] = useState<any | null>(null);
 	const [totalPrice, setTotalPrice] = useState<MoneyV2>({ amount: 0, currencyCode: 'SEK' as CurrencyCode });
 	const { width, height } = useWindowSize();
 	const { scrolledPosition, viewportHeight, documentHeight } = useScrollInfo();
@@ -56,8 +56,10 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	)?.node;
 
 	useEffect(() => {
-		if (!variantId) return;
+		if (!variantId) return setSelected(allVariants?.[0] ?? null);
+
 		const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.id.split('/').pop() === variantId)?.node;
+
 		if (shopifyVariant) {
 			setSelected(allVariants.find((v) => v.articleNo?.trim() === shopifyVariant?.sku) ?? null);
 			setHide(false);
