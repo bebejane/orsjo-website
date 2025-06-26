@@ -37,10 +37,11 @@ async function getBrowser(): Promise<Browser> {
 		browser = await puppeteerCore.launch({
 			args: chromium.args,
 			executablePath: await chromium.executablePath(
-				'https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar'
+				'https://github.com/Sparticuz/chromium/releases/download/v137.0.1/chromium-v137.0.1-pack.x64.tar'
 			),
 			headless: true,
 			pipe: false,
+			ignoreDefaultArgs: ['--disable-extensions'],
 		});
 	} else {
 		browser = await puppeteer.launch({
