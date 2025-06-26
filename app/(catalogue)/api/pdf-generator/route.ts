@@ -11,7 +11,8 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
 	const { searchParams } = new URL(request.url);
-	const url = searchParams.get('url');
+	//const url = searchParams.get('url');
+	const url = 'https://orsjo-catalogue.up.railway.app/en/catalogue';
 	if (!url) {
 		return new Response(JSON.stringify({ error: 'URL parameter is required' }), {
 			status: 400,
@@ -64,7 +65,7 @@ async function generatePDF(url: string, title: string, locale = 'en') {
 		});
 
 		console.log('generate pdf from: ', url);
-		const res = await page.goto(`${url}`, { timeout: 60 * 1000, waitUntil: 'networkidle0' });
+		const res = await page.goto(url, { timeout: 60 * 1000, waitUntil: 'networkidle0' });
 
 		if (res?.status() !== 200) throw new Error(`Internal server error. HTTP status: ${res?.status()}`);
 
