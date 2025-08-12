@@ -130,11 +130,15 @@
 
 				button.minus,
 				button.plus {
-					width: 1.2em;
+					width: 1.4em;
 
 					&:hover {
 						background: var(--black);
 						color: var(--white);
+					}
+
+					span {
+						margin-top: 0.2em;
 					}
 				}
 

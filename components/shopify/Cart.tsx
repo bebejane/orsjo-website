@@ -96,11 +96,11 @@ export default function Cart({ localization }: CartProps) {
 											onClick={() => updateQuantity(id, quantity - 1, country)}
 											disabled={quantity === 1}
 										>
-											-
+											<span>–</span>
 										</button>
 										<span>{quantity}</span>
 										<button className={s.plus} onClick={() => updateQuantity(id, quantity + 1, country)}>
-											+
+											<span>+</span>
 										</button>
 									</div>
 								</div>
@@ -121,7 +121,7 @@ export default function Cart({ localization }: CartProps) {
 
 					<div className={s.total}>
 						<div className='medium'>Total</div>
-						<div className={s.price}>{formatPrice(cart?.cost.totalAmount as MoneyV2)}</div>
+						<div className={cn("medium", s.price)}>{formatPrice(cart?.cost.totalAmount as MoneyV2)}</div>
 					</div>
 					<div className={s.currency}>
 						<CountrySelector localization={localization} label='Location' className={s.form} />
@@ -134,7 +134,7 @@ export default function Cart({ localization }: CartProps) {
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
 						<div className={cn(s.check, 'medium')}>
 							<input type='checkbox' name='terms' required onChange={(e) => setTerms(e.target.checked)} />
-							<span>
+							<span className="small">
 								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I have read and
 								understood the <Link href='/legal/privacy-policy'>privacy policy</Link>.
 							</span>
