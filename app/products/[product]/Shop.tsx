@@ -227,7 +227,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					return (
 						<div
 							key={idx}
-							className={cn(s.row, addons.find((a) => a.variantId === variantId) && s.selected)}
+							className={cn(s.row, s.addon, addons.find((a) => a.variantId === variantId) && s.selected)}
 							id={id}
 							onClick={() => setAddons((addons) => addons.filter((a) => a.id !== id))}
 							title={name}
@@ -235,12 +235,11 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 							<div className={s.plusminus}>
 								<AiOutlineClose size={16} />
 							</div>
-							<div className={cn(s.check, s.checked)}></div>
+
 							<div className={s.thumb}>{imageUrl && <img src={imageUrl} />}</div>
 							<span className={s.name}>
 								<strong>{name}</strong>
 							</span>
-							<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
 						</div>
 					);
 				})}
@@ -254,13 +253,14 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					<ul>
 						{selectedModelAddons
 							?.filter((a) => addons.find(({ id }) => a.id === id) === undefined)
-							.map(({ id, name, variantId, price, imageUrl }) => {
+							.map(({ id, name, variantId, price, quantity, imageUrl }) => {
 								const isSelected = addons.find((a) => a.variantId === variantId) !== undefined;
 								return (
 									<li key={id} id={id} onClick={handleAddonClick} title={name}>
 										<div
 											className={cn(
 												s.row,
+												s.addon,
 												addons.find((a) => isSelected && s.selected)
 											)}
 										>
@@ -274,7 +274,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 											<span className={s.name}>
 												<strong>{name}</strong>
 											</span>
-											<span className={s.price}>{formatPrice(price as MoneyV2)}</span>
+											<span className={s.price}>{formatPrice(price as MoneyV2, quantity)}</span>
 										</div>
 									</li>
 								);

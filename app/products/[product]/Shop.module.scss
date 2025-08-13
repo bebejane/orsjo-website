@@ -290,6 +290,9 @@
 					opacity: 0;
 				}
 			}
+			&.addon > .thumb {
+				opacity: 0;
+			}
 			.check {
 				//display: flex;
 				//width: 2.7rem;

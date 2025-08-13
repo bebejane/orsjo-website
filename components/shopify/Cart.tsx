@@ -41,6 +41,7 @@ export default function Cart({ localization }: CartProps) {
 	const totalItems = cart?.lines.edges.reduce((total, { node: { quantity } }) => total + quantity, 0);
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
+	const checkboxRef = useRef<HTMLInputElement>(null);
 
 	useClickAway(ref, () => setShowCart(false));
 
@@ -121,7 +122,7 @@ export default function Cart({ localization }: CartProps) {
 
 					<div className={s.total}>
 						<div className='medium'>Total</div>
-						<div className={cn("medium", s.price)}>{formatPrice(cart?.cost.totalAmount as MoneyV2)}</div>
+						<div className={cn('medium', s.price)}>{formatPrice(cart?.cost.totalAmount as MoneyV2)}</div>
 					</div>
 					<div className={s.currency}>
 						<CountrySelector localization={localization} label='Location' className={s.form} />
@@ -133,13 +134,27 @@ export default function Cart({ localization }: CartProps) {
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
 						<div className={cn(s.check, 'medium')}>
-							<input type='checkbox' name='terms' required onChange={(e) => setTerms(e.target.checked)} />
-							<span className="small">
+							<input
+								ref={checkboxRef}
+								type='checkbox'
+								name='terms'
+								onChange={(e) => setTerms(e.target.checked)}
+								required
+							/>
+							<span className='small'>
 								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I have read and
 								understood the <Link href='/legal/privacy-policy'>privacy policy</Link>.
 							</span>
 						</div>
-						<button disabled={!terms} className={cn(s.checkout, 'full')} type='submit'>
+						<button
+							className={cn(s.checkout, !terms && s.disabled, 'full')}
+							type='submit'
+							onClick={(e) => {
+								if (terms) return;
+								e.preventDefault();
+								checkboxRef.current?.focus();
+							}}
+						>
 							Checkout & pay
 						</button>
 					</form>
