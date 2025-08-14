@@ -1,5 +1,4 @@
-query AllShopifyCollections($country: CountryCode = SE, $first: Int = 100)
-@inContext(country: $country) {
+query AllShopifyCollections($country: CountryCode = SE, $first: Int = 100) @inContext(country: $country) {
 	collections(first: $first) {
 		edges {
 			node {
@@ -12,8 +11,7 @@ query AllShopifyCollections($country: CountryCode = SE, $first: Int = 100)
 	}
 }
 
-query ShopifyCollection($country: CountryCode = SE, $handle: String, $first: Int = 100)
-@inContext(country: $country) {
+query ShopifyCollection($country: CountryCode = SE, $handle: String, $first: Int = 100) @inContext(country: $country) {
 	collection(handle: $handle) {
 		id
 		handle

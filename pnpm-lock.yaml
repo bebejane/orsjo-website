@@ -104,6 +104,9 @@ importers:
       nodemailer:
         specifier: ^7.0.2
         version: 7.0.3
+      onetime:
+        specifier: ^7.0.0
+        version: 7.0.0
       puppeteer:
         specifier: ^24.10.2
         version: 24.10.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@6.0.5)
@@ -178,7 +181,7 @@ importers:
         specifier: 5.0.0
         version: 5.0.0(@parcel/watcher@2.5.1)(@types/node@22.15.30)(bufferutil@4.0.9)(encoding@0.1.13)(enquirer@2.4.1)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5)
       '@graphql-codegen/introspection':
-        specifier: ^4.0.0
+        specifier: ^4.0.3
         version: 4.0.3(encoding@0.1.13)(graphql@16.11.0)
       '@graphql-codegen/typed-document-node':
         specifier: ^5.0.1
