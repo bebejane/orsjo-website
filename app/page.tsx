@@ -1,8 +1,9 @@
+import { PageParams } from '@/app/[country]/page';
 import { apiQuery } from 'next-dato-utils/api';
 import { Block, Section } from '@/components';
 import { StartDocument } from '@/graphql';
 
-export default async function Home({ searchParams }) {
+export default async function Home(params: PageParams) {
 	const { start } = await apiQuery<StartQuery, StartQueryVariables>(StartDocument);
 	return (
 		<>

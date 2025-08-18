@@ -1,13 +1,13 @@
 import s from './page.module.scss';
+import { PageParams } from '@/app/[country]/about/jobs/page';
 import { AllJobsDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { Markdown } from 'next-dato-utils/components';
-import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import { Metadata } from 'next';
 
-export default async function Jobs() {
+export default async function Jobs(params: PageParams) {
 	const { jobs } = await apiQuery<AllJobsQuery, AllJobsQueryVariables>(AllJobsDocument);
 	if (!jobs) return notFound();
 

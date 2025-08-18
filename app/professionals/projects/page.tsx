@@ -1,4 +1,5 @@
 import s from './page.module.scss';
+import { PageParams } from '@/app/[country]/professionals/projects/page';
 import { ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument } from '@/graphql';
 import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
@@ -7,7 +8,7 @@ import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-export default async function Professionals() {
+export default async function Professionals(params: PageParams) {
 	const [{ projectStart }, { allProjects }, { allProjectTypes }] = await Promise.all([
 		apiQuery<ProjectStartQuery, ProjectStartQueryVariables>(ProjectStartDocument),
 		apiQuery<AllProjectsQuery, AllProjectsQueryVariables>(AllProjectsDocument, { all: true }),
@@ -34,12 +35,7 @@ export default async function Professionals() {
 								{allProjects
 									.filter(({ projectType }) => projectType.id === id)
 									.map((p, idx) => (
-										<ProjectThumbnail
-											key={`t-${idx}`}
-											project={p as ProjectRecord}
-											theme='mid'
-											className={s.project}
-										/>
+										<ProjectThumbnail key={`t-${idx}`} project={p as ProjectRecord} theme='mid' className={s.project} />
 									))}
 							</div>
 						</Section>

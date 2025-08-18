@@ -1,6 +1,5 @@
 .form {
-	//display: inline;
-	width: 100%;
+	display: inline;
 
 	label {
 		display: inline;
@@ -17,17 +16,20 @@
 		width: 100%;
 
 		.button {
-			width: 100%;
 			display: inline-flex !important;
 			flex-direction: row;
 			text-align: left;
 			align-items: center;
-			padding: 10px;
+			border: 0;
 			display: inline;
 			background-color: transparent;
-			color: var(--white);
+			color: var(--black);
 			font-size: 0.65rem;
+			padding: 0;
 
+			&.inverted {
+				color: var(--white-real);
+			}
 			.value {
 				width: 100%;
 			}
@@ -53,7 +55,7 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			font-size: 0.65rem;
-			font-family: "IndivisibleMedium";
+			font-family: 'IndivisibleMedium';
 
 			&:first-of-type {
 				padding-top: 0.7em;

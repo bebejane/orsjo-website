@@ -1,8 +1,8 @@
 import s from './page.module.scss';
+import { PageParams } from '@/app/[country]/about/news/[news]/page';
 import { AllNewsDocument, NewsDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { Image } from 'react-datocms';
-import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import Link from '@/components/nav/Link';
 import { Markdown } from 'next-dato-utils/components';
@@ -11,9 +11,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 
-export type NewsProps = { params: Promise<{ news: string }> };
-
-export default async function NewsPage({ params }: NewsProps) {
+export default async function NewsPage({ params }: PageParams) {
 	const { news: slug } = await params;
 	const { news } = await apiQuery<NewsQuery, NewsQueryVariables>(NewsDocument, {
 		variables: { slug },

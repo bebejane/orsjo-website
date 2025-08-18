@@ -1,4 +1,5 @@
 import s from './page.module.scss';
+import { PageParams } from '@/app/[country]/about/sustainability/page';
 import { SustainabilityDocument } from '@/graphql';
 import cn from 'classnames';
 import { Image } from 'react-datocms';
@@ -8,10 +9,8 @@ import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-export default async function Sustainability() {
-	const { sustainability } = await apiQuery<SustainabilityQuery, SustainabilityQueryVariables>(
-		SustainabilityDocument
-	);
+export default async function Sustainability(params: PageParams) {
+	const { sustainability } = await apiQuery<SustainabilityQuery, SustainabilityQueryVariables>(SustainabilityDocument);
 	if (!sustainability) return notFound();
 
 	const { title, intro, steps, image } = sustainability;
@@ -20,9 +19,7 @@ export default async function Sustainability() {
 		<>
 			<Section className={s.sustainability} type='full'>
 				<div className={s.hero}>
-					{image.responsiveImage && (
-						<Image data={image.responsiveImage} className={s.heroImage} objectFit='cover' />
-					)}
+					{image.responsiveImage && <Image data={image.responsiveImage} className={s.heroImage} objectFit='cover' />}
 					<div className={s.header}>
 						<h1>
 							<TextReveal block={true}>{title}</TextReveal>
@@ -47,11 +44,7 @@ export default async function Sustainability() {
 							{media.video ? (
 								<VideoPlayer className={s.video} data={media as FileField} />
 							) : media.responsiveImage ? (
-								<Image
-									data={media.responsiveImage}
-									className={s.image}
-									intersectionMargin={`0px 0px 2000px 0px`}
-								/>
+								<Image data={media.responsiveImage} className={s.image} intersectionMargin={`0px 0px 2000px 0px`} />
 							) : null}
 						</div>
 					</div>

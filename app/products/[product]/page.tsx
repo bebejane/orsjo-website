@@ -1,4 +1,5 @@
 import s from './page.module.scss';
+import { PageParams } from '@/app/[country]/products/[product]/page';
 import { AllProductsLightDocument, ProductDocument } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
@@ -13,9 +14,7 @@ import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 
 type Props = {
-	params: Promise<{
-		product: string;
-	}>;
+	params: PageParams['params'];
 	searchParams?: Promise<{
 		v?: string;
 	}>;

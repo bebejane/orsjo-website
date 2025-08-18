@@ -1,10 +1,11 @@
+import { PageParams } from '@/app/[country]/about/news/page';
 import { AllNewsDocument } from '@/graphql';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import NewsList from './NewsList';
 import { Metadata } from 'next';
 
-export default async function News() {
+export default async function News(params: PageParams) {
 	const { allNews } = await apiQuery<AllNewsQuery, AllNewsQueryVariables>(AllNewsDocument);
 
 	return (

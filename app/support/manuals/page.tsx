@@ -1,4 +1,5 @@
 import s from './page.module.scss';
+import { PageParams } from '@/app/[country]/support/manuals/page';
 import { AllProductManualsDocument, ManualsIntroDocument } from '@/graphql';
 import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
@@ -12,7 +13,7 @@ export type ManualsProps = {
 	manual: ManualRecord;
 };
 
-export default async function Manuals() {
+export default async function Manuals(params: PageParams) {
 	const [{ manual }, { allProducts }] = await Promise.all([
 		apiQuery<ManualsIntroQuery, ManualsIntroQueryVariables>(ManualsIntroDocument),
 		apiQuery<AllProductManualsQuery, AllProductManualsQueryVariables>(AllProductManualsDocument, {
@@ -28,9 +29,7 @@ export default async function Manuals() {
 				<h1 className='topMargin'>{manual.title}</h1>
 				<p>{manual.intro}</p>
 			</Section>
-			<ManualList
-				products={allProducts.filter(({ mountingInstructions }) => mountingInstructions)}
-			/>
+			<ManualList products={allProducts.filter(({ mountingInstructions }) => mountingInstructions)} />
 		</>
 	);
 }

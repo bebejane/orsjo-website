@@ -11,14 +11,9 @@ import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '@/compon
 import { notFound } from 'next/navigation';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
+import { PageParams } from '@/app/[country]/designers/[designer]/page';
 
-export type Props = {
-	params: Promise<{
-		designer: string;
-	}>;
-};
-
-export default async function Designer({ params }: Props) {
+export default async function Designer({ params }: PageParams) {
 	const { designer: slug } = await params;
 
 	const { designer } = await apiQuery<DesignerQuery, DesignerQueryVariables>(DesignerDocument, {
@@ -31,20 +26,15 @@ export default async function Designer({ params }: Props) {
 		apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(AllProductsLightDocument, {
 			all: true,
 		}),
-		apiQuery<AllProductsByDesignerQuery, AllProductsByDesignerQueryVariables>(
-			AllProductsByDesignerDocument,
-			{
-				variables: { id: designer.id },
-				all: true,
-			}
-		),
+		apiQuery<AllProductsByDesignerQuery, AllProductsByDesignerQueryVariables>(AllProductsByDesignerDocument, {
+			variables: { id: designer.id },
+			all: true,
+		}),
 		apiQuery<AllDesignersQuery, AllDesignersQueryVariables>(AllDesignersDocument, { all: true }),
 	]);
 
 	const designers = allDesigners
-		.filter(({ id }) =>
-			allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id)
-		)
+		.filter(({ id }) => allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id))
 		.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
 	return (
@@ -59,9 +49,7 @@ export default async function Designer({ params }: Props) {
 					</div>
 					<figure>
 						<div className={s.fade}></div>
-						{designer.image?.responsiveImage && (
-							<Image data={designer.image.responsiveImage} priority={true} />
-						)}
+						{designer.image?.responsiveImage && <Image data={designer.image.responsiveImage} priority={true} />}
 						<figcaption>
 							<h1>{designer.name}</h1>
 						</figcaption>
@@ -101,10 +89,9 @@ export default async function Designer({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-	const { allDesigners } = await apiQuery<AllDesignersQuery, AllDesignersQueryVariables>(
-		AllDesignersDocument,
-		{ all: true }
-	);
+	const { allDesigners } = await apiQuery<AllDesignersQuery, AllDesignersQueryVariables>(AllDesignersDocument, {
+		all: true,
+	});
 	const paths = allDesigners.map(({ slug: designer }) => ({ designer }));
 	return paths;
 }
@@ -119,6 +106,6 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 		title: designer.name,
 		description: designer.description,
 		url: `${process.env.NEXT_PUBLIC_SITE_URL}/designers/${slug}`,
-		image: designer.image,
+		image: designer.image as FileField,
 	});
 }

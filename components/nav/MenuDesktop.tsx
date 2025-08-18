@@ -14,6 +14,7 @@ import { Logo } from '@/components';
 import { usePathname } from 'next/navigation';
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import useCart from '@/lib/shopify/hooks/useCart';
+import CountrySelector from '@/components/shopify/CountrySelector';
 
 export type MenuDesktopProps = {
 	items: Menu;
@@ -132,11 +133,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 	return (
 		<>
 			<Logo inverted={isInverted} />
-			<nav
-				id={'menu'}
-				ref={ref}
-				className={menuStyles}
-			>
+			<nav id={'menu'} ref={ref} className={menuStyles}>
 				<ul className={s.nav}>
 					{items.map(({ label, slug, index }, idx) => (
 						<li
@@ -155,17 +152,14 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 							{!index && <span className={cn(s.arrow, slug == selected && s.active)}>›</span>}
 						</li>
 					))}
-					<li
-						className={s.searchIcon}
-						onClick={() => onShowSiteSearch()}
-					>
-						<img src={'/images/search.svg'} />
+					<li className={s.country}>
+						<CountrySelector currency={true} label='hej' localization={localization} className={s.selector} />
 					</li>
-					<li
-						className={cn(s.cart, cart?.totalQuantity && s.filled)}
-						onClick={() => setShowCart(true)}
-					>
+					<li className={cn(s.cart, cart?.totalQuantity && s.filled)} onClick={() => setShowCart(true)}>
 						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
+					</li>
+					<li className={s.searchIcon} onClick={() => onShowSiteSearch()}>
+						<img src={'/images/search.svg'} />
 					</li>
 				</ul>
 			</nav>
@@ -182,14 +176,8 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 					<nav>
 						<ul className={cn(sub && sub.length > 10 && s.columns)}>
 							{sub?.map(({ label, slug }, idx) => (
-								<li
-									key={idx}
-									className={cn(slug === pathname && s.active)}
-								>
-									<Link
-										href={slug}
-										onClick={() => setShowSubMenu(false)}
-									>
+								<li key={idx} className={cn(slug === pathname && s.active)}>
+									<Link href={slug} onClick={() => setShowSubMenu(false)}>
 										{label}
 									</Link>
 								</li>

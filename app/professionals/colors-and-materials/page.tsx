@@ -1,4 +1,5 @@
 import s from './page.module.scss';
+import { PageParams } from '@/app/[country]/professionals/colors-and-materials/page';
 import { AllColorsAndMaterialsDocument } from '@/graphql';
 import { Markdown } from 'next-dato-utils/components';
 import { PageProps } from '@/lib/context/page';
@@ -8,7 +9,7 @@ import { notFound } from 'next/navigation';
 import ColorsAndMaterialsList from './ColorsMaterialsList';
 import { Metadata } from 'next';
 
-export default async function ColorsAndMaterials() {
+export default async function ColorsAndMaterials(params: PageParams) {
 	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro } = await apiQuery<
 		AllColorsAndMaterialsQuery,
 		AllColorsAndMaterialsQueryVariables
@@ -22,10 +23,7 @@ export default async function ColorsAndMaterials() {
 				<h1 className='topMargin'>Colors & Materials</h1>
 				<Markdown className={s.intro} content={intro} />
 			</Section>
-			<ColorsAndMaterialsList
-				colorMaterials={allColorMaterials}
-				colorMaterialTypes={allColorMaterialTypes}
-			/>
+			<ColorsAndMaterialsList colorMaterials={allColorMaterials} colorMaterialTypes={allColorMaterialTypes} />
 		</>
 	);
 }

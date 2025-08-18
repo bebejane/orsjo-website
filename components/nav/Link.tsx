@@ -6,10 +6,13 @@ import { HTMLProps, FC } from 'react';
 import { sleep } from '@/lib/utils';
 import { useEffect } from 'react';
 import { pathnameToColor } from '@/lib/utils';
+import useCountry from '@/lib/shopify/hooks/useCountry';
 
 const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 	const router = useRouter();
 	const pathname = usePathname();
+	const country = useCountry();
+	const href = `${country !== 'SE' ? `/${country.toLowerCase()}` : ''}${props.href}`;
 
 	const handleClick = async (e: any) => {
 		e.preventDefault();
@@ -28,11 +31,11 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 			pft.classList.toggle('enter', false);
 			pft.classList.toggle('exit', isSameBase);
 		}
-		router.prefetch(props.href);
+		router.prefetch(href);
 
 		await sleep(isSameBase ? 300 : 500);
 
-		router.push(props.href);
+		router.push(href);
 	};
 
 	useEffect(() => {
@@ -54,10 +57,7 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 	}, [pathname]);
 
 	return (
-		<NextLink
-			{...props}
-			onClick={handleClick}
-		>
+		<NextLink {...props} href={href} onClick={handleClick}>
 			{props.children}
 		</NextLink>
 	);

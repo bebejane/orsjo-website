@@ -20,8 +20,8 @@ const initialState: PageProps = {
 	footerLine: false,
 };
 
-export const getPageAttributes = (pathname: string): PageProps => {
-	const rootPath = pathname.split('/')[1];
+export const getPageAttributes = (pathname: string, country: string): PageProps => {
+	const rootPath = country === 'SE' ? pathname.split('/')[1] : pathname.split('/')[2];
 
 	switch (rootPath) {
 		case 'products':
@@ -111,15 +111,14 @@ export const PageContext = createContext(initialState);
 export type PageProviderProps = {
 	children: React.ReactNode;
 	pathname: string;
+	country: string;
 };
 
 // Context provider
-export const PageProvider = ({ children, pathname }: PageProviderProps) => {
-	const value = getPageAttributes(pathname);
+export const PageProvider = ({ children, pathname, country }: PageProviderProps) => {
+	const value = getPageAttributes(pathname, country);
 	return (
-		<PageContext.Provider value={{ ...initialState, ...value, color: value.color }}>
-			{children}
-		</PageContext.Provider>
+		<PageContext.Provider value={{ ...initialState, ...value, color: value.color }}>{children}</PageContext.Provider>
 	);
 };
 // usePage hook

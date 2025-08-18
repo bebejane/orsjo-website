@@ -1,27 +1,20 @@
 import s from './page.module.scss';
-import {
-	AllProductDownloadsDocument,
-	AllCataloguesDocument,
-	DownloadsStartDocument,
-} from '@/graphql';
+import { PageParams } from '@/app/[country]/professionals/downloads/page';
+import { AllProductDownloadsDocument, AllCataloguesDocument, DownloadsStartDocument } from '@/graphql';
 import { Image } from 'react-datocms';
 import { Markdown } from 'next-dato-utils/components';
-import { PageProps } from '@/lib/context/page';
 import { Section, Icon } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import DownloadsList from './DownloadsList';
 import { Metadata } from 'next';
 
-export default async function Downloads() {
+export default async function Downloads(params: PageParams) {
 	const [{ downloadsStart }, { allProducts }, { allCatalogues }] = await Promise.all([
 		apiQuery<DownloadsStartQuery, DownloadsStartQueryVariables>(DownloadsStartDocument),
-		apiQuery<AllProductDownloadsQuery, AllProductDownloadsQueryVariables>(
-			AllProductDownloadsDocument,
-			{
-				all: true,
-			}
-		),
+		apiQuery<AllProductDownloadsQuery, AllProductDownloadsQueryVariables>(AllProductDownloadsDocument, {
+			all: true,
+		}),
 		apiQuery<AllCataloguesQuery, AllCataloguesQueryVariables>(AllCataloguesDocument, {
 			all: true,
 		}),
@@ -53,11 +46,7 @@ export default async function Downloads() {
 						</tr>
 						{allCatalogues.map(({ id, title, thumbnail, pdf }) => (
 							<tr key={id}>
-								<td>
-									{thumbnail.responsiveImage && (
-										<Image data={thumbnail.responsiveImage} className={s.image} />
-									)}
-								</td>
+								<td>{thumbnail.responsiveImage && <Image data={thumbnail.responsiveImage} className={s.image} />}</td>
 								<td>
 									<a href={`${pdf.url}?dl=${title}.pdf`} download target='_new'>
 										<Icon label={title} />

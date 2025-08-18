@@ -19,6 +19,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Cart from '@/components/shopify/Cart';
 import PageTransition from '@/components/layout/PageTransition';
+import useCountry from '@/lib/shopify/hooks/useCountry';
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -28,26 +29,18 @@ export type LayoutProps = {
 
 export default function Layout({ children, menu: menuFromProps, localization }: LayoutProps) {
 	const pathname = usePathname();
-	const { color, layout, sidebar, title } = getPageAttributes(pathname);
+	const country = useCountry();
+	const { color, layout, sidebar, title } = getPageAttributes(pathname, country);
 	const [menu, setMenu] = useState(menuFromProps);
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(
-		useShallow((state) => [
-			state.gallery,
-			state.setGallery,
-			state.showSiteSearch,
-			state.setShowSiteSearch,
-		])
+		useShallow((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch])
 	);
 
 	return (
 		<>
-			<PageProvider pathname={pathname}>
+			<PageProvider pathname={pathname} country={country}>
 				<div className={s.layout} style={{ backgroundColor: `var(${color})` }}>
-					<MenuDesktop
-						items={menu}
-						onShowSiteSearch={() => setShowSiteSearch(true)}
-						localization={localization}
-					/>
+					<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} localization={localization} />
 					<MenuMobile items={menu} localization={localization} />
 					<Underlay />
 					<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />

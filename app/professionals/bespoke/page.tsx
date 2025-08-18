@@ -1,4 +1,5 @@
 import s from './page.module.scss';
+import { PageParams } from '@/app/[country]/professionals/bespoke/page';
 import { BespokeDocument } from '@/graphql';
 import Link from '@/components/nav/Link';
 import { Markdown } from 'next-dato-utils/components';
@@ -8,7 +9,7 @@ import { notFound } from 'next/navigation';
 import BespokeHeader from './BespokeHeader';
 import { Metadata } from 'next';
 
-export default async function Bespoke() {
+export default async function Bespoke(params: PageParams) {
 	const { bespoke } = await apiQuery<BespokeQuery, BespokeQueryVariables>(BespokeDocument);
 	if (!bespoke) notFound();
 

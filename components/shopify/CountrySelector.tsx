@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import useCountry from '@/lib/shopify/hooks/useCountry';
 import { use, useEffect, useRef, useState } from 'react';
 import { useWindowSize, useClickAway } from 'react-use';
+import { usePage } from '@/lib/context/page';
 
 export type Props = {
 	className?: string;
@@ -16,10 +17,16 @@ export type Props = {
 	currency?: boolean;
 };
 
-export default function CountrySelector({ className, label, modal = false, localization: { availableCountries } }: Props) {
+export default function CountrySelector({
+	className,
+	label,
+	modal = false,
+	localization: { availableCountries },
+}: Props) {
 	const pathname = usePathname();
 	const router = useRouter();
 	const country = useCountry();
+	const { menu } = usePage();
 
 	const [selectOpen, setSelectOpen] = useState(false);
 	const { width, height } = useWindowSize();
@@ -29,18 +36,19 @@ export default function CountrySelector({ className, label, modal = false, local
 	const popupRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		setSelectWidth(buttonRef.current?.scrollWidth ? buttonRef.current?.scrollWidth - 10 : 0);
+		setSelectWidth(buttonRef.current?.scrollWidth ? buttonRef.current?.scrollWidth : 0);
 	}, [width, height]);
 
 	useEffect(() => {
 		setTimeout(() => {
-			setSelectWidth(buttonRef.current?.scrollWidth ? buttonRef.current?.scrollWidth - 10 : 0);
+			setSelectWidth(buttonRef.current?.scrollWidth ? buttonRef.current?.scrollWidth : 0);
 		}, 100);
 	}, []);
 
 	const handleChange = (val: Key) => {
 		const countryCode = val.toString();
-		const path = `/${countryCode}${pathname.replace(`/${country.toLowerCase()}`, `/`)}`;
+		const path = `${countryCode === 'SE' ? '' : `/${countryCode}`}${pathname.replace(`/${country.toLowerCase()}`, ``)}`;
+		console.log(path);
 		const hash = window.location.hash ? '#' + window.location.hash : '';
 		router.replace(`${path}${hash}`.toLowerCase());
 	};
@@ -56,38 +64,19 @@ export default function CountrySelector({ className, label, modal = false, local
 			ref={formRef}
 			aria-label={'Select country'}
 		>
-			<Select
-				className={cn('small', s.select)}
-				onSelectionChange={handleChange}
-				defaultOpen={false}
-			>
-				<Button
-					className={s.button}
-					ref={buttonRef}
-				>
-					<SelectValue
-						className={s.value}
-						key={country}
-					>
-						{selectedCountry?.name} ({selectedCountry?.currency.isoCode})
+			<Select className={cn('small', s.select)} onSelectionChange={handleChange} defaultOpen={false}>
+				<Button className={cn(s.button, menu === 'inverted' && s.inverted)} ref={buttonRef}>
+					<SelectValue className={s.value} key={country}>
+						{selectedCountry?.currency.isoCode}
 					</SelectValue>
-					<span
-						aria-hidden='true'
-						className={cn(s.arrow, 'symbol')}
-					>
+					<span aria-hidden='true' className={cn(s.arrow, 'symbol')}>
 						{!selectOpen ? '›' : '›'}
 					</span>
 				</Button>
-				<Popover
-					placement='top left'
-					className={s.popover}
-					maxHeight={200}
-					ref={popupRef}
-				>
+				<Popover placement='top left' className={s.popover} maxHeight={200} ref={popupRef} isNonModal={false}>
 					<ListBox
 						selectionMode={'single'}
 						className={cn('small', s.options)}
-						style={{ width: selectWidth }}
 						items={availableCountries.map(({ isoCode, name, currency }) => ({
 							id: isoCode,
 							name: `${name} ${currency.isoCode}`,
