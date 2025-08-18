@@ -1,11 +1,10 @@
 .shop {
-	position: sticky;
+	position: fixed;
 	display: flex;
 	flex-direction: column;
 	left: 0;
 	width: 100%;
 	bottom: 0;
-	margin-bottom: calc(var(--outer-margin));
 	z-index: var(--z-shop);
 	background-color: var(--white-real);
 	opacity: 1;
@@ -406,6 +405,48 @@
 
 		svg {
 			color: var(--gray);
+		}
+	}
+}
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: var(--z-shop);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	.wrap {
+		padding: var(--outer-margin);
+		height: 50vh;
+		width: 50vw;
+		background-color: var(--white-real);
+
+		h3 {
+			font-size: 1.2rem;
+			margin-bottom: 1rem;
+		}
+
+		form {
+			all: unset;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			button {
+				margin-top: 1rem;
+				border: 1px solid var(--black);
+				&:hover {
+					background-color: var(--black);
+					color: var(--white);
+				}
+			}
 		}
 	}
 }
