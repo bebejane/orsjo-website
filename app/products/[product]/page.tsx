@@ -35,6 +35,10 @@ export default async function Product({ params, searchParams }: Props) {
 			<Intro product={product} drawings={drawings} />
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
+			<Section name='Shipping' className={s.shipping} bgColor='--white' fadeColor={'#ffffff'}>
+				<p className="small">
+					● In stock, ships within 1-3 days. Free shipping. <span className="gray"> More info ›</span></p>
+			</Section>
 			<Shop product={product} shopify={shopify} variantId={v} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (

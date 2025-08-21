@@ -143,7 +143,7 @@
 	}
 
 	&.bottom {
-		margin-bottom: var(--margin);
+		margin-bottom: var(--small-margin);
 	}
 
 	ul {
@@ -420,5 +420,14 @@
 		&:last-child {
 			padding-bottom: 0;
 		}
+	}
+}
+
+.shipping {
+	margin-bottom: var(--margin);
+	text-align: center;
+
+	span {
+		padding-left: 1em;
 	}
 }
