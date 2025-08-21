@@ -424,27 +424,38 @@
 
 	.wrap {
 		padding: var(--outer-margin);
-		height: 50vh;
-		width: 50vw;
 		background-color: var(--white-real);
+		@include mixin.mq($until: desktop) {
+			width: calc(100% - (2 * var(--outer-margin)));
+		}
 
-		h3 {
-			font-size: 1.2rem;
+		h3,
+		h4 {
 			margin-bottom: 1rem;
+			text-align: center;
 		}
 
 		form {
 			all: unset;
 			display: flex;
-			flex-direction: row;
+			flex-direction: column;
+			@include mixin.mq($from: desktop) {
+				flex-direction: row;
+			}
 			align-items: center;
 			justify-content: center;
 			button {
 				margin-top: 1rem;
+				width: 22ch;
 				border: 1px solid var(--black);
 				&:hover {
 					background-color: var(--black);
 					color: var(--white);
+				}
+				&:first-of-type {
+					@include mixin.mq($from: desktop) {
+						margin-right: 1em;
+					}
 				}
 			}
 		}

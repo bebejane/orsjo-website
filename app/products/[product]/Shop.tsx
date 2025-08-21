@@ -327,11 +327,10 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				<Modal>
 					<div className={s.modal}>
 						<div className={s.wrap}>
-							<h3>Note! This product is sold without light source</h3>
+							<h3>Please Note</h3>
+							<h4>
+								This product is sold without light source.</h4>
 							<form>
-								<button type='button' onClick={handleAddToCart}>
-									Add to cart without light source
-								</button>
 								<button
 									type='button'
 									onClick={() => {
@@ -341,6 +340,9 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 									}}
 								>
 									Add light source
+								</button>
+								<button type='button' onClick={handleAddToCart}>
+									Continue without light source
 								</button>
 							</form>
 						</div>
