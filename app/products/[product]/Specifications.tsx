@@ -8,7 +8,7 @@ import { chunkArray } from '@/lib/utils';
 import { useState, useEffect, useMemo } from 'react';
 import Link from '@/components/nav/Link';
 import React from 'react';
-import { ProductPageDataProps } from './page';
+import { ProductPageDataProps } from '../utils';
 import useStore, { useShallow } from '@/lib/store';
 
 type Props = {
