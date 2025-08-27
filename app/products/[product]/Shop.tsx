@@ -192,6 +192,10 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 									)?.node;
 
 									const title = generateTitle(product as ProductRecord, variant.id);
+									const modelName = name?.name ?? formatColor(color?.name);
+									const description = [name?.name ? formatColor(color?.name) : null, material?.name, feature?.name]
+										.filter(Boolean)
+										.join(', ');
 
 									return (
 										<li
@@ -209,9 +213,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 													{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}
 												</div>
 												<span className={s.name}>
-													<strong>{name?.name}</strong>
-													&nbsp;
-													{[formatColor(color?.name), material?.name, feature?.name].filter(Boolean).join(', ')}
+													<strong>{modelName}</strong> {description}
 												</span>
 												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
 											</div>
@@ -235,9 +237,13 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 							{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}
 						</div>
 						<span className={s.name}>
-							<strong>{selectedModel?.name?.name}</strong>
+							<strong>{selectedModel?.name?.name ?? formatColor(selected.color?.name)}</strong>
 							&nbsp;
-							{[formatColor(selected.color?.name), selected.material?.name, selected.feature?.name]
+							{[
+								selectedModel?.name?.name ? formatColor(selected.color?.name) : null,
+								selected.material?.name,
+								selected.feature?.name,
+							]
 								.filter(Boolean)
 								.join(', ')}
 						</span>
