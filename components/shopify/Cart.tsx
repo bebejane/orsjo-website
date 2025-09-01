@@ -90,8 +90,8 @@ export default function Cart({ localization }: CartProps) {
 
 								<div className={s.details}>
 									<div id={id}>{merchandise.product.title}</div>
-									<div className='medium gray'>{merchandise.selectedOptions[0].value}</div>
-									<div aria-label='Quantity'>
+									<div className={cn(s.descStock, 'small gray')}>{merchandise.selectedOptions[0].value}</div>
+									<div className={s.quantity} aria-label='Quantity'>
 										<button
 											className={s.minus}
 											onClick={() => updateQuantity(id, quantity - 1, country)}
@@ -110,8 +110,9 @@ export default function Cart({ localization }: CartProps) {
 									<div className={s.price} aria-label={'Total'}>
 										{formatPrice(cost.subtotalAmount)}
 									</div>
+									<div className="medium gray">In stock</div>
 									<div>
-										<button className={cn(s.remove, 'medium')} onClick={() => removeFromCart(id)}>
+										<button className={cn(s.remove, 'medium gray')} onClick={() => removeFromCart(id)}>
 											Remove
 										</button>
 									</div>
@@ -159,9 +160,10 @@ export default function Cart({ localization }: CartProps) {
 						</button>
 					</form>
 				</>
-			)}
+			)
+			}
 			{error && <div className={s.error}>{error}</div>}
 			{cartError && <div className={s.error}>{cartError}</div>}
-		</div>
+		</div >
 	);
 }

@@ -113,19 +113,26 @@ nav {
 
 figcaption,
 p.small,
+button.small,
 span.small,
 .table-list,
+div.small,
 footer ul {
 	line-height: var(--body-line-height);
-	font-size: 13px;
+	font-size: 13px !important;
 
 	@include mixin.mq($from: tablet) {
-		font-size: 0.57rem;
+		font-size: 0.57rem !important;
 	}
 
 	line-height: 1.4;
 	font-weight: normal;
 	font-family: "IndivisibleMedium";
+}
+
+.very-small,
+button.very-small {
+	font-size: 0.55rem !important;
 }
 
 .icon {
