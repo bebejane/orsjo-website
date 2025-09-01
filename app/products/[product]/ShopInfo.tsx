@@ -13,7 +13,7 @@ export default function ShopInfo({ files }: Props) {
 	return (
 		<Section name='Shipping' className={s.shipping} bgColor='--white' fadeColor={'#ffffff'}>
 			<p className='small'>
-				● In stock, ships within 1-3 days. Free shipping. <span className='gray'> More info ›</span>
+				● In stock, ships within 1-3 days. Free shipping on all orders over 5000 SEK. <span className='gray'> More info ›</span>
 			</p>
 		</Section>
 	);

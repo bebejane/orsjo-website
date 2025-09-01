@@ -1,3 +1,11 @@
 .shopinfo {
 	width: 100%;
 }
+
+.shipping {
+	text-align: center;
+	padding-bottom: var(--small-margin);
+	span {
+		padding-left: 1em;
+	}
+}
