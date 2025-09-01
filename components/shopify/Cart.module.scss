@@ -118,6 +118,7 @@
 					width: 100%;
 					display: flex;
 					align-items: flex-end;
+					padding-bottom: 0.2em;
 
 					span {
 						width: auto;
@@ -147,7 +148,7 @@
 
 				button.minus,
 				button.plus {
-					width: 1.4em;
+					width: 1.6em;
 
 					&:hover {
 						background: var(--black);

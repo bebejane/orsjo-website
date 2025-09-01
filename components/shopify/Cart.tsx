@@ -89,11 +89,11 @@ export default function Cart({ localization }: CartProps) {
 								</figure>
 
 								<div className={s.details}>
-									<div id={id}>{merchandise.product.title}</div>
+									<div className="small" id={id}>{merchandise.product.title}</div>
 									<div className={cn(s.descStock, 'small gray')}>{merchandise.selectedOptions[0].value}</div>
-									<div className={s.quantity} aria-label='Quantity'>
+									<div className={cn(s.quantity, 'small')} aria-label='Quantity'>
 										<button
-											className={s.minus}
+											className={cn(s.minus)}
 											onClick={() => updateQuantity(id, quantity - 1, country)}
 											disabled={quantity === 1}
 										>
@@ -107,12 +107,12 @@ export default function Cart({ localization }: CartProps) {
 								</div>
 
 								<div className={s.amount}>
-									<div className={s.price} aria-label={'Total'}>
+									<div className={cn(s.price, 'small')} aria-label={'Total'}>
 										{formatPrice(cost.subtotalAmount)}
 									</div>
-									<div className="medium gray">In stock</div>
+									<div className="small gray">In stock</div>
 									<div>
-										<button className={cn(s.remove, 'medium gray')} onClick={() => removeFromCart(id)}>
+										<button className={cn(s.remove, 'small')} onClick={() => removeFromCart(id)}>
 											Remove
 										</button>
 									</div>
