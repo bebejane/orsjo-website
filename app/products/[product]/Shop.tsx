@@ -183,19 +183,16 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 
 				<AnimateHeight height={!open ? 0 : 'auto'} duration={400} style={{ position: 'relative' }}>
 					<div id='models' className={cn(s.models)}>
-						{product.models.map(({ id, name, variants }) => (
-							<ul className={cn(s.variants)} key={id}>
-								{variants.map((variant) => {
+						{product.models.map((model) => (
+							<ul className={cn(s.variants)} key={model.id}>
+								{model.variants.map((variant) => {
 									const { id, articleNo, color, material, feature } = variant;
 									const shopifyVariant = shopify.product?.variants.edges.find(
 										(v) => articleNo && v.node.sku === articleNo
 									)?.node;
 
 									const title = generateTitle(product as ProductRecord, variant.id);
-									const modelName = name?.name ?? formatColor(color?.name);
-									const description = [name?.name ? formatColor(color?.name) : null, material?.name, feature?.name]
-										.filter(Boolean)
-										.join(', ');
+									const { name, description } = parseModelName(model as ProductModelRecord, variant as VariantRecord);
 
 									return (
 										<li
@@ -213,7 +210,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 													{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}
 												</div>
 												<span className={s.name}>
-													<strong>{modelName}</strong> {description}
+													<strong>{name}</strong> {description}
 												</span>
 												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
 											</div>
@@ -237,15 +234,9 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 							{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}
 						</div>
 						<span className={s.name}>
-							<strong>{selectedModel?.name?.name ?? formatColor(selected.color?.name)}</strong>
+							<strong>{parseModelName(selectedModel as ProductModelRecord, selected as VariantRecord).name}</strong>
 							&nbsp;
-							{[
-								selectedModel?.name?.name ? formatColor(selected.color?.name) : null,
-								selected.material?.name,
-								selected.feature?.name,
-							]
-								.filter(Boolean)
-								.join(', ')}
+							{parseModelName(selectedModel as ProductModelRecord, selected as VariantRecord).description}
 						</span>
 						<span className={s.price}></span>
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
@@ -364,6 +355,19 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			)}
 		</>
 	);
+}
+
+function parseModelName(model: ProductModelRecord, variant: VariantRecord) {
+	const name = model.name?.name ?? (formatColor(variant.color?.name) || variant.material?.name);
+	const description = [
+		model.name?.name ? formatColor(variant?.color?.name) : null,
+		model.name?.name || variant?.color?.name ? variant?.material?.name : null,
+		variant?.feature?.name,
+	]
+		.filter(Boolean)
+		.join(', ');
+
+	return { name, description };
 }
 
 function formatColor(color?: string | null | undefined) {
