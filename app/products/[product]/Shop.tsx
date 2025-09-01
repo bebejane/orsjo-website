@@ -128,14 +128,13 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		setOpen(false);
 	}
 
-	function handleAddToCart(e: any) {
-		console.log(selectedModel);
+	function handleAddToCart(withoutLightsource?: boolean) {
 		if (!selectedShopifyVariant || !selectedModel) return;
 
 		const noLightsourceIncluded =
 			selectedModel.lightsources.length && !selectedModel.lightsources.find((l) => l.included);
 
-		if (noLightsourceIncluded && modal !== 'dismiss') {
+		if (noLightsourceIncluded && modal !== 'dismiss' && !withoutLightsource) {
 			setModal('show');
 			return;
 		}
@@ -156,8 +155,13 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		resetAll();
 	}
 
+	function handleAddToCartWithoutLightsource() {
+		setModal('dismiss');
+		handleAddToCart(true);
+	}
+
 	if (!product || !selected || !selectedModel) return null;
-	console.log(selectedShopifyVariant);
+
 	return (
 		<>
 			<div
@@ -186,7 +190,12 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 									const shopifyVariant = shopify.product?.variants.edges.find(
 										(v) => articleNo && v.node.sku === articleNo
 									)?.node;
+
 									const title = generateTitle(product as ProductRecord, variant.id);
+									const modelName = name?.name ?? formatColor(color?.name);
+									const description = [name?.name ? formatColor(color?.name) : null, material?.name, feature?.name]
+										.filter(Boolean)
+										.join(', ');
 
 									return (
 										<li
@@ -204,9 +213,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 													{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}
 												</div>
 												<span className={s.name}>
-													<strong>{name?.name}</strong>
-													&nbsp;
-													{[color?.name, material?.name, feature?.name].filter(Boolean).join(', ')}
+													<strong>{modelName}</strong> {description}
 												</span>
 												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
 											</div>
@@ -230,9 +237,15 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 							{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}
 						</div>
 						<span className={s.name}>
-							<strong>{selectedModel?.name?.name}</strong>
+							<strong>{selectedModel?.name?.name ?? formatColor(selected.color?.name)}</strong>
 							&nbsp;
-							{[selected.color?.name, selected.material?.name, selected.feature?.name].filter(Boolean).join(', ')}
+							{[
+								selectedModel?.name?.name ? formatColor(selected.color?.name) : null,
+								selected.material?.name,
+								selected.feature?.name,
+							]
+								.filter(Boolean)
+								.join(', ')}
 						</span>
 						<span className={s.price}></span>
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
@@ -313,7 +326,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 							Accessories {!showAddons ? '+' : '–'}
 						</button>
 					</AnimateHeight>
-					<button id='add-to-cart-button' onClick={handleAddToCart} className={s.addToCart}>
+					<button id='add-to-cart-button' onClick={() => handleAddToCart(false)} className={s.addToCart}>
 						Add to cart
 					</button>
 				</div>
@@ -323,13 +336,13 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 					</button>
 				</div>
 			</div>
+
 			{modal === 'show' && (
 				<Modal>
 					<div className={s.modal}>
 						<div className={s.wrap}>
 							<h3>Please Note</h3>
-							<h4>
-								This product is sold without light source.</h4>
+							<h4>This product is sold without light source.</h4>
 							<form>
 								<button
 									type='button'
@@ -341,7 +354,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 								>
 									Add light source
 								</button>
-								<button type='button' onClick={handleAddToCart}>
+								<button type='button' onClick={handleAddToCartWithoutLightsource}>
 									Continue without light source
 								</button>
 							</form>
@@ -351,6 +364,10 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			)}
 		</>
 	);
+}
+
+function formatColor(color?: string | null | undefined) {
+	return color?.replace(' structure RAL', '') ?? '';
 }
 
 function getAllAddons(product: ProductPageDataProps['product'], shopify: ProductPageDataProps['shopify']): Addon[] {
