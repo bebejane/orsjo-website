@@ -29,16 +29,15 @@ export default function Sidebar({ show }: SidebarProps) {
 	const router = useRouter();
 	const path = usePathname();
 	const pathname = path.includes('#') ? path.substring(0, path.indexOf('#')) : path;
-	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] =
-		useStore(
-			useShallow((state) => [
-				state.currentSection,
-				state.setCurrentSection,
-				state.invertSidebar,
-				state.searchProducts,
-				state.setSearchProducts,
-			])
-		);
+	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore(
+		useShallow((state) => [
+			state.currentSection,
+			state.setCurrentSection,
+			state.invertSidebar,
+			state.searchProducts,
+			state.setSearchProducts,
+		])
+	);
 	const [setInvertMenu] = useStore(useShallow((state) => [state.setInvertMenu]));
 	const [inverted, setInverted] = useState(menu === 'inverted' || invertSidebar);
 	const [sections, setSections] = useState<{ title: string | undefined; id: string }[]>([]);
@@ -58,9 +57,7 @@ export default function Sidebar({ show }: SidebarProps) {
 
 	const updateSections = () => {
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]');
-		const sections = items.length
-			? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id }))
-			: [];
+		const sections = items.length ? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id })) : [];
 		setSections(sections);
 	};
 
@@ -77,22 +74,12 @@ export default function Sidebar({ show }: SidebarProps) {
 		if (!sections.length) return;
 
 		const calcPos = (el: HTMLElement) =>
-			Math.abs(
-				scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop)
-			) + el.offsetTop;
+			Math.abs(scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop)) + el.offsetTop;
+
 		const { id } = sections.sort((a, b) => (calcPos(a) > calcPos(b) ? 1 : -1))[0];
 
 		setCurrentSection(id);
-	}, [
-		isScrolling,
-		scrolledPosition,
-		documentHeight,
-		setCurrentSection,
-		setInverted,
-		setInvertMenu,
-		layout,
-		menu,
-	]);
+	}, [isScrolling, scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, menu]);
 
 	useEffect(() => {
 		if (!currentSection) return;
@@ -166,7 +153,14 @@ export default function Sidebar({ show }: SidebarProps) {
 				</ul>
 			</nav>
 
-			<div className={cn(s.footer, 'medium')}>
+			<div className={cn(s.footer, pageType && s[pageType], 'medium')}>
+				{pageType === 'product' && (
+					<span onClick={() => router.push('/products')} ref={backRef}>
+						<ArrowLink reversed={true} hoverRef={backRef}>
+							All Products
+						</ArrowLink>
+					</span>
+				)}
 				{pageType === 'project' && (
 					<span onClick={() => router.push('/professionals/projects')} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>

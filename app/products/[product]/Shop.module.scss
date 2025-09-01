@@ -1,5 +1,5 @@
 .shop {
-	position: fixed;
+	position: sticky;
 	display: flex;
 	flex-direction: column;
 	left: 0;
@@ -15,7 +15,7 @@
 	@include mixin.mq($from: desktop) {
 		margin-left: calc(var(--outer-margin));
 		width: mixin.spanGrid(3.5);
-		bottom: var(--outer-margin);
+		padding-bottom: var(--outer-margin);
 	}
 
 	&.wide {
