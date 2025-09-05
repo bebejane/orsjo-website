@@ -8058,14 +8058,14 @@ type ProductAccessoryQueryVariables = Exact<{
 }>;
 
 
-type ProductAccessoryQuery = { __typename?: 'Query', productAccessory?: { __typename?: 'ProductAccessoryRecord', id: any, name?: string | null, articleNo: string, price?: any | null, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null };
+type ProductAccessoryQuery = { __typename?: 'Query', productAccessory?: { __typename: 'ProductAccessoryRecord', id: any, name?: string | null, articleNo: string, price?: any | null, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null };
 
 type ProductAccessoryByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
-type ProductAccessoryByIdQuery = { __typename?: 'Query', productAccessory?: { __typename?: 'ProductAccessoryRecord', id: any, name?: string | null, articleNo: string, price?: any | null, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null };
+type ProductAccessoryByIdQuery = { __typename?: 'Query', productAccessory?: { __typename: 'ProductAccessoryRecord', id: any, name?: string | null, articleNo: string, price?: any | null, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null };
 
 type AllProductAccessoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;
@@ -8073,9 +8073,9 @@ type AllProductAccessoriesQueryVariables = Exact<{
 }>;
 
 
-type AllProductAccessoriesQuery = { __typename?: 'Query', allProductAccessories: Array<{ __typename?: 'ProductAccessoryRecord', id: any, name?: string | null, articleNo: string, price?: any | null, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null }>, _allProductAccessoriesMeta: { __typename?: 'CollectionMetadata', count: any } };
+type AllProductAccessoriesQuery = { __typename?: 'Query', allProductAccessories: Array<{ __typename: 'ProductAccessoryRecord', id: any, name?: string | null, articleNo: string, price?: any | null, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null }>, _allProductAccessoriesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
-type ProductAccessoryFragment = { __typename?: 'ProductAccessoryRecord', id: any, name?: string | null, articleNo: string, price?: any | null, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null };
+type ProductAccessoryFragment = { __typename: 'ProductAccessoryRecord', id: any, name?: string | null, articleNo: string, price?: any | null, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null };
 
 type ShowroomQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8206,14 +8206,14 @@ type ProductLightsourceQueryVariables = Exact<{
 }>;
 
 
-type ProductLightsourceQuery = { __typename?: 'Query', productLightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, articleNo: string, price: any, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null };
+type ProductLightsourceQuery = { __typename?: 'Query', productLightsource?: { __typename: 'ProductLightsourceRecord', id: any, name?: string | null, articleNo: string, price: any, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null };
 
 type ProductLightsourceByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
-type ProductLightsourceByIdQuery = { __typename?: 'Query', productLightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, articleNo: string, price: any, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null };
+type ProductLightsourceByIdQuery = { __typename?: 'Query', productLightsource?: { __typename: 'ProductLightsourceRecord', id: any, name?: string | null, articleNo: string, price: any, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null };
 
 type AllProductLightsourcesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;
@@ -8221,9 +8221,9 @@ type AllProductLightsourcesQueryVariables = Exact<{
 }>;
 
 
-type AllProductLightsourcesQuery = { __typename?: 'Query', allProductLightsources: Array<{ __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, articleNo: string, price: any, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null }>, _allProductLightsourcesMeta: { __typename?: 'CollectionMetadata', count: any } };
+type AllProductLightsourcesQuery = { __typename?: 'Query', allProductLightsources: Array<{ __typename: 'ProductLightsourceRecord', id: any, name?: string | null, articleNo: string, price: any, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null }>, _allProductLightsourcesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
-type ProductLightsourceFragment = { __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, articleNo: string, price: any, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null };
+type ProductLightsourceFragment = { __typename: 'ProductLightsourceRecord', id: any, name?: string | null, articleNo: string, price: any, slug?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null };
 
 type MenuQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;

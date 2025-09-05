@@ -19,6 +19,7 @@ query AllProductLightsources($first: IntType = 100, $skip: IntType = 0) {
 }
 
 fragment ProductLightsourceFragment on ProductLightsourceRecord {
+	__typename
 	id
 	name
 	articleNo
