@@ -36,7 +36,7 @@ export default async function Product({ params, searchParams }: Props) {
 			<Intro product={product} drawings={drawings} />
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
-			<ShopInfo files={files} />
+			<ShopInfo product={product} />
 			<Shop product={product} shopify={shopify} variantId={v} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (

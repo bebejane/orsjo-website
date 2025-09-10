@@ -5,7 +5,7 @@ import 'dotenv/config';
 import { apiQuery } from 'next-dato-utils/api';
 import { buildClient, ApiError, buildBlockRecord } from '@datocms/cma-client';
 
-const environment = 'test';
+const environment = 'main';
 const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, environment });
 
 (async () => {
@@ -93,8 +93,10 @@ const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, 
 	console.timeEnd('delivery days');
 })();
 
-async function readFile(filePath: string): Promise<{ articleNo: string; days: number; item?: any }[]> {
-	const variants: { articleNo: string; days: number }[] = [];
+async function readFile(
+	filePath: string
+): Promise<{ articleNo: string; days: 'short' | 'medium' | 'long'; item?: any }[]> {
+	const variants: { articleNo: string; days: 'short' | 'medium' | 'long' }[] = [];
 	return new Promise((resolve, reject) => {
 		var workBookReader = new XlsxStreamReader();
 		workBookReader.on('error', (err) => reject(err));
@@ -103,9 +105,10 @@ async function readFile(filePath: string): Promise<{ articleNo: string; days: nu
 
 			workSheetReader.on('row', (row) => {
 				if (!row.values[2] || !row.values[4]) return;
+				const days = parseInt(row.values[4]) === 5 ? 'short' : parseInt(row.values[4]) === 30 ? 'medium' : 'long';
 				variants.push({
 					articleNo: String(row.values[2]).trim(),
-					days: parseInt(row.values[4]),
+					days,
 				});
 			});
 

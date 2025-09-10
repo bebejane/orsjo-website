@@ -427,3 +427,9 @@ export const generateTitle = (product: ProductRecord, variantId: string): string
 			.join(' - ') ?? variant?.articleNo?.trim();
 	return title || 'No title';
 };
+
+export const deliveryDaysText = {
+	short: 'In stock, ships within 1-3 days',
+	medium: 'Delivery within 20-30 days',
+	long: 'Delivery within 30-60 days',
+};

@@ -24,6 +24,7 @@ fragment ProductLightsourceFragment on ProductLightsourceRecord {
 	name
 	articleNo
 	price
+	deliveryDays
 	image {
 		...ImageThumbnailFragment
 	}

@@ -13,6 +13,7 @@ import { formatPrice } from '@/lib/shopify/utils';
 import useCountry from '@/lib/shopify/hooks/useCountry';
 import useStore from '@/lib/store';
 import { useClickAway } from 'react-use';
+import { deliveryDaysText } from '@/lib/utils';
 
 export type CartProps = {
 	localization: LocalizationQuery['localization'];
@@ -75,50 +76,56 @@ export default function Cart({ localization }: CartProps) {
 			) : (
 				<>
 					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
-						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => (
-							<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
-								<figure className={s.thumb}>
-									<Link
-										href={`/products/${merchandise.product.handle}?v=${parseGid(merchandise.id)}`}
-										onClick={() => setShowCart(false)}
-									>
-										{merchandise.image?.url && (
-											<img role='icon' src={merchandise.image?.url} alt={merchandise.image?.altText ?? ''} />
-										)}
-									</Link>
-								</figure>
+						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => {
+							const deliveryDays = merchandise.metafields.find((m) => m?.key === 'delivery_days')?.value;
 
-								<div className={s.details}>
-									<div className="small" id={id}>{merchandise.product.title}</div>
-									<div className={cn(s.descStock, 'small gray')}>{merchandise.selectedOptions[0].value}</div>
-									<div className={cn(s.quantity, 'small')} aria-label='Quantity'>
-										<button
-											className={cn(s.minus)}
-											onClick={() => updateQuantity(id, quantity - 1, country)}
-											disabled={quantity === 1}
+							return (
+								<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
+									<figure className={s.thumb}>
+										<Link
+											href={`/products/${merchandise.product.handle}?v=${parseGid(merchandise.id)}`}
+											onClick={() => setShowCart(false)}
 										>
-											<span>–</span>
-										</button>
-										<span>{quantity}</span>
-										<button className={s.plus} onClick={() => updateQuantity(id, quantity + 1, country)}>
-											<span>+</span>
-										</button>
-									</div>
-								</div>
+											{merchandise.image?.url && (
+												<img role='icon' src={merchandise.image?.url} alt={merchandise.image?.altText ?? ''} />
+											)}
+										</Link>
+									</figure>
 
-								<div className={s.amount}>
-									<div className={cn(s.price, 'small')} aria-label={'Total'}>
-										{formatPrice(cost.subtotalAmount)}
+									<div className={s.details}>
+										<div className='small' id={id}>
+											{merchandise.product.title}
+										</div>
+										<div className={cn(s.descStock, 'small gray')}>{merchandise.selectedOptions?.[0]?.value}</div>
+										<div className={cn(s.quantity, 'small')} aria-label='Quantity'>
+											<button
+												className={cn(s.minus)}
+												onClick={() => updateQuantity(id, quantity - 1, country)}
+												disabled={quantity === 1}
+											>
+												<span>–</span>
+											</button>
+											<span>{quantity}</span>
+											<button className={s.plus} onClick={() => updateQuantity(id, quantity + 1, country)}>
+												<span>+</span>
+											</button>
+										</div>
 									</div>
-									<div className="small gray">In stock</div>
-									<div>
-										<button className={cn(s.remove, 'small')} onClick={() => removeFromCart(id)}>
-											Remove
-										</button>
+
+									<div className={s.amount}>
+										<div className={cn(s.price, 'small')} aria-label={'Total'}>
+											{formatPrice(cost.subtotalAmount)}
+										</div>
+										<div className='small gray'>{deliveryDaysText[deliveryDays as string]}</div>
+										<div>
+											<button className={cn(s.remove, 'small')} onClick={() => removeFromCart(id)}>
+												Remove
+											</button>
+										</div>
 									</div>
-								</div>
-							</li>
-						))}
+								</li>
+							);
+						})}
 					</ul>
 
 					<div className={s.total}>
@@ -160,10 +167,9 @@ export default function Cart({ localization }: CartProps) {
 						</button>
 					</form>
 				</>
-			)
-			}
+			)}
 			{error && <div className={s.error}>{error}</div>}
 			{cartError && <div className={s.error}>{cartError}</div>}
-		</div >
+		</div>
 	);
 }

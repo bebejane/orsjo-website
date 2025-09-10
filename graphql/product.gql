@@ -274,6 +274,7 @@ fragment ProductFragment on ProductRecord {
 				name
 			}
 			articleNo
+			deliveryDays
 			image {
 				...ImageFragment
 			}
@@ -287,25 +288,13 @@ fragment ProductFragment on ProductRecord {
 			amount
 			optional
 			lightsource {
-				id
-				name
-				price
-				articleNo
-				image {
-					...ImageThumbnailFragment
-				}
+				...ProductLightsourceFragment
 			}
 		}
 		accessories {
 			id
 			accessory {
-				id
-				articleNo
-				name
-				price
-				image {
-					...ImageThumbnailFragment
-				}
+				...ProductAccessoryFragment
 			}
 		}
 	}

@@ -3,9 +3,10 @@
 }
 
 .shipping {
-	text-align: center;
 	padding-bottom: var(--small-margin);
-	span {
-		padding-left: 1em;
+	ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
 	}
 }

@@ -90,6 +90,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 									? [generateThumbnailUrl(product.image.url)]
 									: null;
 							const description = [variant.color?.name, variant.material?.name].filter(Boolean).join(', ');
+							const deliveryDays = variant.deliveryDays;
 
 							acc.push({
 								id,
@@ -110,6 +111,12 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 									{
 										key: 'description',
 										value: description,
+										type: 'single_line_text_field',
+										namespace: 'variant',
+									},
+									{
+										key: 'deliveryDays',
+										value: deliveryDays,
 										type: 'single_line_text_field',
 										namespace: 'variant',
 									},
@@ -211,6 +218,12 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 								type: 'single_line_text_field',
 								namespace: 'variant',
 							},
+							{
+								key: 'deliveryDays',
+								value: productAccessory.deliveryDays,
+								type: 'single_line_text_field',
+								namespace: 'variant',
+							},
 						],
 						optionValues: [
 							{
@@ -282,6 +295,12 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 							{
 								key: 'description',
 								value: productLightsource.name,
+								type: 'single_line_text_field',
+								namespace: 'variant',
+							},
+							{
+								key: 'deliveryDays',
+								value: productLightsource.deliveryDays,
 								type: 'single_line_text_field',
 								namespace: 'variant',
 							},
@@ -364,7 +383,6 @@ export async function updateProduct(
 				.map(({ node }) => node.id);
 
 			if (deleteVariants.length) {
-				console.log(shopifyProduct?.variants.edges);
 				const { productVariantsBulkDelete } = await shopifyQuery<
 					ProductVariantsBulkDeleteMutation,
 					ProductVariantsBulkDeleteMutationVariables

@@ -24,6 +24,7 @@ fragment ProductAccessoryFragment on ProductAccessoryRecord {
 	name
 	articleNo
 	price
+	deliveryDays
 	image {
 		...ImageThumbnailFragment
 	}
