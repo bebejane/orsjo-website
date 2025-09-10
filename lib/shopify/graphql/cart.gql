@@ -131,8 +131,8 @@ fragment CartFragment on Cart {
 						metafields(
 							identifiers: [
 								{ key: "description", namespace: "variant" }
-								{ key: "articleno", namespace: "variant" }
-								{ key: "delivery_days", namespace: "variant" }
+								{ key: "articleNo", namespace: "variant" }
+								{ key: "deliveryDays", namespace: "variant" }
 							]
 						) {
 							id
