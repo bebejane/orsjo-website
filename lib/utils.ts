@@ -418,7 +418,26 @@ export function dedupeByKey<T>(array: T[], key: string) {
 	}, [] as T[]);
 }
 
-export const generateTitle = (product: ProductRecord, variantId: string): string => {
+export const formatProductColor = (color?: string | null | undefined) => {
+	if (color?.includes('structure RAL')) return color.substring(0, color.indexOf('structure RAL'));
+	return color ?? '';
+};
+
+export const parseProductModelName = (model?: ProductModelRecord, variant?: VariantRecord) => {
+	if (!model || !variant) return {};
+	const name = model.name?.name ?? (formatProductColor(variant.color?.name) || variant.material?.name);
+	const description = [
+		model.name?.name ? formatProductColor(variant?.color?.name) : null,
+		model.name?.name || variant?.color?.name ? variant?.material?.name : null,
+		variant?.feature?.name,
+	]
+		.filter(Boolean)
+		.join(', ');
+
+	return { name, description };
+};
+
+export const generateProductTitle = (product: ProductRecord, variantId: string): string => {
 	const model = product.models.find(({ variants }) => variants.find((v) => v.id === variantId));
 	const variant = model?.variants.find(({ id }) => id === variantId);
 	const title =
@@ -429,7 +448,16 @@ export const generateTitle = (product: ProductRecord, variantId: string): string
 };
 
 export const deliveryDaysText = {
-	short: 'In stock, ships within 1-3 days',
-	medium: 'Delivery within 20-30 days',
-	long: 'Delivery within 30-60 days',
+	short: {
+		full: 'In stock, ships within 1-3 days',
+		label: '1-3 days',
+	},
+	medium: {
+		full: 'Delivery within 20-30 days',
+		label: '20-30 days',
+	},
+	long: {
+		full: 'Delivery within 30-60 days',
+		label: '30-60 days',
+	},
 };

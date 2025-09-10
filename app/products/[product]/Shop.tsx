@@ -10,7 +10,7 @@ import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
-import { generateTitle } from '@/lib/utils';
+import { generateProductTitle, formatProductColor, parseProductModelName } from '@/lib/utils';
 import { RiCheckFill } from 'react-icons/ri';
 import { AiOutlinePlus, AiOutlineMinus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/products/utils';
@@ -191,8 +191,11 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 										(v) => articleNo && v.node.sku === articleNo
 									)?.node;
 
-									const title = generateTitle(product as ProductRecord, variant.id);
-									const { name, description } = parseModelName(model as ProductModelRecord, variant as VariantRecord);
+									const title = generateProductTitle(product as ProductRecord, variant.id);
+									const { name, description } = parseProductModelName(
+										model as ProductModelRecord,
+										variant as VariantRecord
+									);
 
 									return (
 										<li
@@ -234,9 +237,11 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 							{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}
 						</div>
 						<span className={s.name}>
-							<strong>{parseModelName(selectedModel as ProductModelRecord, selected as VariantRecord).name}</strong>
+							<strong>
+								{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).name}
+							</strong>
 							&nbsp;
-							{parseModelName(selectedModel as ProductModelRecord, selected as VariantRecord).description}
+							{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).description}
 						</span>
 						<span className={s.price}></span>
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
@@ -355,23 +360,6 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			)}
 		</>
 	);
-}
-
-function parseModelName(model: ProductModelRecord, variant: VariantRecord) {
-	const name = model.name?.name ?? (formatColor(variant.color?.name) || variant.material?.name);
-	const description = [
-		model.name?.name ? formatColor(variant?.color?.name) : null,
-		model.name?.name || variant?.color?.name ? variant?.material?.name : null,
-		variant?.feature?.name,
-	]
-		.filter(Boolean)
-		.join(', ');
-
-	return { name, description };
-}
-
-function formatColor(color?: string | null | undefined) {
-	return color?.replace(' structure RAL', '') ?? '';
 }
 
 function getAllAddons(product: ProductPageDataProps['product'], shopify: ProductPageDataProps['shopify']): Addon[] {

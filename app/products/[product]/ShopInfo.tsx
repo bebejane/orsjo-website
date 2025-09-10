@@ -4,7 +4,7 @@ import s from './ShopInfo.module.scss';
 import React from 'react';
 import { ProductPageDataProps } from '../utils';
 import { Section } from '@/components';
-import { deliveryDaysText, generateTitle } from '@/lib/utils';
+import { generateProductTitle, formatProductColor, parseProductModelName, deliveryDaysText } from '@/lib/utils';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -17,18 +17,8 @@ export default function ShopInfo({ product }: Props) {
 
 	const short = variants.filter((v) => v.deliveryDays === 'short');
 	const medium = variants.filter((v) => v.deliveryDays === 'medium');
-	const long = variants.filter((v) => v.deliveryDays === 'long');
-	const accessories = product.models.flatMap((m) => m.accessories);
-	const lightsources = product.models.flatMap((m) => m.lightsources);
-
-	const average =
-		short.length > medium.length && short.length > long.length
-			? 'short'
-			: medium.length > long.length
-				? 'medium'
-				: 'long';
-
-	const other = variants.filter((v) => v.deliveryDays !== average);
+	const shortest = short.length > 0 ? 'short' : medium.length > 0 ? 'medium' : 'long';
+	const other = variants.filter((v) => v.deliveryDays !== shortest);
 	const exceptions = {
 		short: other.filter((v) => v.deliveryDays === 'short'),
 		medium: other.filter((v) => v.deliveryDays === 'medium'),
@@ -38,17 +28,25 @@ export default function ShopInfo({ product }: Props) {
 	return (
 		<Section name='Shipping' className={s.shipping} bgColor='--white' fadeColor={'#ffffff'}>
 			<p className='small'>
-				{deliveryDaysText[average]}{' '}
+				{deliveryDaysText[shortest].full}{' '}
 				{other.length &&
 					`(Except: ${Object.keys(exceptions)
-						.filter((k) => k !== average && exceptions[k].length)
+						.filter((k) => k !== shortest && exceptions[k].length)
 						.map(
 							(k) =>
-								`${exceptions[k].map((v) => generateTitle(product as ProductRecord, v.id)).join(', ')} - ${deliveryDaysText[k]}`
+								`${exceptions[k]
+									.map(
+										(v) =>
+											parseProductModelName(
+												product.models.find((m) => m.variants.find(({ id }) => v.id === id)) as ProductModelRecord,
+												v
+											)?.name
+									)
+									.join(', ')} - ${deliveryDaysText[k]}`
 						)
 						.join(', ')})`}
 				<br />
-				Free shipping on all orders over 5000 SEK. <span className='gray'> More info ›</span>
+				Free shipping on all orders over 5000 SEK. <span className='gray'>More info ›</span>
 			</p>
 		</Section>
 	);
