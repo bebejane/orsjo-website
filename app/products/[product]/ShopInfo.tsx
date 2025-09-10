@@ -4,7 +4,7 @@ import s from './ShopInfo.module.scss';
 import React from 'react';
 import { ProductPageDataProps } from '../utils';
 import { Section } from '@/components';
-import { deliveryDaysText } from '@/lib/utils';
+import { deliveryDaysText, generateTitle } from '@/lib/utils';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -20,6 +20,7 @@ export default function ShopInfo({ product }: Props) {
 	const long = variants.filter((v) => v.deliveryDays === 'long');
 	const accessories = product.models.flatMap((m) => m.accessories);
 	const lightsources = product.models.flatMap((m) => m.lightsources);
+
 	const average =
 		short.length > medium.length && short.length > long.length
 			? 'short'
@@ -28,21 +29,24 @@ export default function ShopInfo({ product }: Props) {
 				: 'long';
 
 	const other = variants.filter((v) => v.deliveryDays !== average);
+	const exceptions = {
+		short: other.filter((v) => v.deliveryDays === 'short'),
+		medium: other.filter((v) => v.deliveryDays === 'medium'),
+		long: other.filter((v) => v.deliveryDays === 'long'),
+	};
 
 	return (
 		<Section name='Shipping' className={s.shipping} bgColor='--white' fadeColor={'#ffffff'}>
 			<p className='small'>
-				{other.length === 0 ? (
-					<>{deliveryDaysText[average]}</>
-				) : (
-					<ul>
-						{variants.map((v) => (
-							<li>
-								{v.articleNo}: {deliveryDaysText[v.deliveryDays as string]}
-							</li>
-						))}
-					</ul>
-				)}
+				{deliveryDaysText[average]}{' '}
+				{other.length &&
+					`(Except: ${Object.keys(exceptions)
+						.filter((k) => k !== average && exceptions[k].length)
+						.map(
+							(k) =>
+								`${exceptions[k].map((v) => generateTitle(product as ProductRecord, v.id)).join(', ')} - ${deliveryDaysText[k]}`
+						)
+						.join(', ')})`}
 				<br />
 				Free shipping on all orders over 5000 SEK. <span className='gray'> More info ›</span>
 			</p>
