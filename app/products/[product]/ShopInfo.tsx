@@ -42,7 +42,7 @@ export default function ShopInfo({ product }: Props) {
 												v
 											)?.name
 									)
-									.join(', ')} - ${deliveryDaysText[k]}`
+									.join(', ')} - ${deliveryDaysText[k]?.full}`
 						)
 						.join(', ')})`}
 				<br />

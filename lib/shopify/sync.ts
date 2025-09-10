@@ -26,7 +26,7 @@ import {
 } from '@/lib/shopify/graphql-admin';
 import { Item } from '@datocms/cma-client/dist/types/generated/SimpleSchemaTypes';
 import { batchPromises } from '@/lib/utils';
-import { generateTitle } from '@/lib/utils';
+import { generateProductTitle } from '@/lib/utils';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -123,7 +123,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 								],
 								optionValues: [
 									{
-										name: generateTitle(product as ProductRecord, variant.id),
+										name: generateProductTitle(product as ProductRecord, variant.id),
 										optionName: 'Title',
 									},
 								],
