@@ -29,19 +29,19 @@ export default function ShopInfo({ product }: Props) {
 		<Section name='Shipping' className={s.shipping} bgColor='--white' fadeColor={'#ffffff'}>
 			<p className='small'>
 				{deliveryDaysText[shortest].full}{' '}
-				{other.length &&
+				{other.length > 0 &&
 					`(Except: ${Object.keys(exceptions)
 						.filter((k) => k !== shortest && exceptions[k].length)
 						.map(
 							(k) =>
 								`${exceptions[k]
-									.map(
-										(v) =>
-											parseProductModelName(
-												product.models.find((m) => m.variants.find(({ id }) => v.id === id)) as ProductModelRecord,
-												v
-											)?.name
-									)
+									.map((v: any) => {
+										const { name, description } = parseProductModelName(
+											product.models.find((m) => m.variants.find(({ id }) => v.id === id)) as ProductModelRecord,
+											v
+										);
+										return `${name} ${description}`;
+									})
 									.join(', ')} - ${deliveryDaysText[k]?.full}`
 						)
 						.join(', ')})`}
