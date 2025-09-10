@@ -77,7 +77,7 @@ export default function Cart({ localization }: CartProps) {
 				<>
 					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
 						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => {
-							const deliveryDays = merchandise.metafields.find((m) => m?.key === 'delivery_days')?.value;
+							const deliveryDays = merchandise.metafields.find((m) => m?.key === 'deliveryDays')?.value;
 							console.log(merchandise.metafields);
 							return (
 								<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
