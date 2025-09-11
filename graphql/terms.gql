@@ -7,7 +7,7 @@ query TermsStart {
 	allTerms {
 		id
 		title
-		text
+		text(markdown: false)
 		category {
 			id
 			title

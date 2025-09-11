@@ -2,7 +2,7 @@
 	position: relative;
 	margin-bottom: 2em;
 
-	h2.category {
+	h1.category {
 		margin: 0;
 		padding: 0;
 		border-bottom: 1px solid var(--black);
@@ -24,7 +24,7 @@
 				padding: 0.8em 0.8em 0.8em 0.8em;
 				background-color: var(--white);
 
-				.answer {
+				.text {
 					display: block;
 				}
 			}

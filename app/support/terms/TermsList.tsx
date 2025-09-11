@@ -51,7 +51,7 @@ export default function TermsList({ terms }: Props) {
 										id={id}
 										key={idx}
 										className={cn(list[id] && s.selected)}
-										onClick={() => setList({ ...list, [id]: list[id] ? false : true })}
+										onClick={() => setList((l) => ({ ...l, [id]: l[id] ? false : true }))}
 									>
 										<div className={s.header}>
 											<h2 className={s.title}>{title}</h2>
