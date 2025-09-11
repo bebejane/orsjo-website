@@ -24,6 +24,6 @@ export default async function Terms(params: PageParams) {
 
 export async function generateMetadata(): Promise<Metadata> {
 	return {
-		title: 'FAQ',
+		title: 'Terms & Privacy',
 	};
 }
