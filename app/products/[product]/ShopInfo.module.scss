@@ -6,13 +6,25 @@
 	padding-bottom: var(--small-margin);
 	text-align: center;
 
+	p {
+		line-height: 2em;
+	}
+
+	span {
+		margin-right: 1em;
+	}
+
+	.gray {
+		padding-left: 1em;
+	}
+
 	.delivery {
 		display: inline-block;
 		min-height: 0.5em;
 		min-width: 0.5em;
 		border-radius: 50%;
 		margin-right: 0.5em;
-
+		margin-top: -0.2em;
 		&.short {
 			background-color: var(--delivery-short);
 		}

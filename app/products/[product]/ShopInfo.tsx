@@ -32,7 +32,7 @@ export default function ShopInfo({ product }: Props) {
 				{Object.keys(deliveryDaysText).map((key) => (
 					<React.Fragment key={key}>
 						<span className={cn(s.delivery, s[key])} />
-						<span>{deliveryDaysText[key]?.full}.&nbsp;&nbsp;</span>
+						<span>{deliveryDaysText[key]?.full}</span>
 					</React.Fragment>
 				))}
 				<br />

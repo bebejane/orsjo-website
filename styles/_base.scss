@@ -1,4 +1,4 @@
-@use 'mixin';
+@use "mixin";
 
 :root {
 	--outer-margin: 1.2rem;
@@ -22,9 +22,9 @@
 	--black-menu: color-mix(in srgb, var(--black) 65%, transparent);
 	--white-menu: color-mix(in srgb, var(--white) 65%, transparent);
 
-	--delivery-short: rgb(201, 201, 201);
-	--delivery-medium: rgb(144, 144, 144);
-	--delivery-long: rgb(69, 69, 69);
+	--delivery-short: var(--black);
+	--delivery-medium: var(--gray);
+	--delivery-long: #d5d5d5;
 
 	--line: 1px solid var(--black);
 	--max-width: 1440px;
@@ -40,9 +40,9 @@
 		calc((100% - ((var(--columns) - 1) * $gutter)) / var(--columns));
 
 	--body-font: IndivisibleRegular, Helvetica, Sans-Serif;
-	--body-font: 'IndivisibleRegular', Arial, Helvetica, Sans-Serif;
-	--headline-font: 'IndivisibleMedium', Helvetica, Sans-serif;
-	--logo-font: 'Orsjo';
+	--body-font: "IndivisibleRegular", Arial, Helvetica, Sans-Serif;
+	--headline-font: "IndivisibleMedium", Helvetica, Sans-serif;
+	--logo-font: "Orsjo";
 
 	--body-line-height: 1.35em;
 	--headline-line-height: 1.25;
@@ -64,7 +64,7 @@ body {
 	background-color: var(--white);
 	font-family: var(--body-font);
 	-moz-osx-font-smoothing: grayscale;
-	font-feature-settings: 'liga', 'kern';
+	font-feature-settings: "liga", "kern";
 	overscroll-behavior-y: none;
 	margin: 0;
 	padding: 0;
@@ -183,7 +183,7 @@ button {
 	}
 }
 
-[data-image-zoom='small'] {
+[data-image-zoom="small"] {
 	img {
 		&:hover {
 			transform: scale(1.1);
@@ -191,7 +191,7 @@ button {
 	}
 }
 
-[data-image-zoom='medium'] {
+[data-image-zoom="medium"] {
 	img {
 		&:hover {
 			transform: scale(1.04);
