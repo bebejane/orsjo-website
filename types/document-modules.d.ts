@@ -249,3 +249,12 @@ declare module '*/taxonomy.gql' {
   export default defaultDocument;
 }
     
+
+declare module '*/terms.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const TermsStart: DocumentNode;
+
+  export default defaultDocument;
+}
+    

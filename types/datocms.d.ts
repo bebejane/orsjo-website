@@ -5635,6 +5635,10 @@ type Query = {
   /** Returns meta information regarding a record collection */
   _allStaffsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allTermCategoriesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allTermsMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
   _allTranslationsMeta: CollectionMetadata;
   /** Returns meta information regarding an assets collection */
   _allUploadsMeta: CollectionMetadata;
@@ -5702,6 +5706,10 @@ type Query = {
   allShowrooms: Array<ShowroomRecord>;
   /** Returns a collection of records */
   allStaffs: Array<StaffRecord>;
+  /** Returns a collection of records */
+  allTermCategories: Array<TermCategoryRecord>;
+  /** Returns a collection of records */
+  allTerms: Array<TermRecord>;
   /** Returns a collection of records */
   allTranslations: Array<TranslationRecord>;
   /** Returns a collection of assets */
@@ -5790,6 +5798,12 @@ type Query = {
   start?: Maybe<StartRecord>;
   /** Returns the single instance record */
   sustainability?: Maybe<SustainabilityRecord>;
+  /** Returns a specific record */
+  term?: Maybe<TermRecord>;
+  /** Returns a specific record */
+  termCategory?: Maybe<TermCategoryRecord>;
+  /** Returns the single instance record */
+  termStart?: Maybe<TermStartRecord>;
   /** Returns a specific record */
   translation?: Maybe<TranslationRecord>;
   /** Returns a specific asset */
@@ -6033,6 +6047,22 @@ type Query_allShowroomsMetaArgs = {
 type Query_allStaffsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<StaffModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allTermCategoriesMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermCategoryModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allTermsMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -6392,6 +6422,28 @@ type QueryallStaffsArgs = {
   first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<StaffModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
+type QueryallTermCategoriesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermCategoryModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TermCategoryModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
+type QueryallTermsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TermModelOrderBy>>>;
   skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
@@ -6767,6 +6819,31 @@ type QuerystartArgs = {
 
 /** The query root for this schema */
 type QuerysustainabilityArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type QuerytermArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TermModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerytermCategoryArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermCategoryModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TermCategoryModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerytermStartArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -7361,6 +7438,195 @@ type Tag = {
   attributes?: Maybe<Scalars['MetaTagAttributes']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   tag: Scalars['String']['output'];
+};
+
+type TermCategoryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TermCategoryModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<TermCategoryModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum TermCategoryModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Term Category (term_category) */
+type TermCategoryRecord = RecordInterface & {
+  __typename?: 'TermCategoryRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Term Category (term_category) */
+type TermCategoryRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+type TermModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TermModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<TermModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  category?: InputMaybe<LinkFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  text?: InputMaybe<TextFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum TermModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Term (term) */
+type TermRecord = RecordInterface & {
+  __typename?: 'TermRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  category: TermCategoryRecord;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  text: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Term (term) */
+type TermRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Term (term) */
+type TermRecordtextArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Record of type Term Start (term_start) */
+type TermStartRecord = RecordInterface & {
+  __typename?: 'TermStartRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Term Start (term_start) */
+type TermStartRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Term Start (term_start) */
+type TermStartRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Specifies how to filter text fields */
@@ -8483,3 +8749,8 @@ type TaxonomyQueryVariables = Exact<{
 
 
 type TaxonomyQuery = { __typename?: 'Query', designer: Array<{ __typename?: 'DesignerRecord', name?: string | null, id: any, slug: string }>, category: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null }>, color: Array<{ __typename?: 'ProductColorRecord', id: any, name?: string | null }>, connection: Array<{ __typename?: 'ProductConnectionRecord', id: any, name?: string | null }>, dimmable: Array<{ __typename?: 'ProductDimmableRecord', id: any, name?: string | null }>, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, family: Array<{ __typename?: 'ProductFamilyRecord', id: any, name?: string | null }>, lightsource: Array<{ __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string }>, material: Array<{ __typename?: 'ProductMaterialRecord', id: any, name?: string | null }>, mounting: Array<{ __typename?: 'ProductMountingRecord', id: any, name?: string | null }>, socket: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }> };
+
+type TermsStartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type TermsStartQuery = { __typename?: 'Query', termStart?: { __typename?: 'TermStartRecord', id: any, title: string, intro: string } | null, allTerms: Array<{ __typename?: 'TermRecord', id: any, title: string, text: string, category: { __typename?: 'TermCategoryRecord', id: any, title: string } }> };
