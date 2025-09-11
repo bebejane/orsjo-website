@@ -22,6 +22,10 @@
 	--black-menu: color-mix(in srgb, var(--black) 65%, transparent);
 	--white-menu: color-mix(in srgb, var(--white) 65%, transparent);
 
+	--delivery-short: rgb(201, 201, 201);
+	--delivery-medium: rgb(144, 144, 144);
+	--delivery-long: rgb(69, 69, 69);
+
 	--line: 1px solid var(--black);
 	--max-width: 1440px;
 	--navbar-height: 4rem;

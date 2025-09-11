@@ -1,6 +1,7 @@
 'use client';
 
 import s from './ShopInfo.module.scss';
+import cn from 'classnames';
 import React from 'react';
 import { ProductPageDataProps } from '../utils';
 import { Section } from '@/components';
@@ -28,23 +29,12 @@ export default function ShopInfo({ product }: Props) {
 	return (
 		<Section name='Shipping' className={s.shipping} bgColor='--white' fadeColor={'#ffffff'}>
 			<p className='small'>
-				{deliveryDaysText[shortest].full}{' '}
-				{other.length > 0 &&
-					`(Except: ${Object.keys(exceptions)
-						.filter((k) => k !== shortest && exceptions[k].length)
-						.map(
-							(k) =>
-								`${exceptions[k]
-									.map((v: any) => {
-										const { name, description } = parseProductModelName(
-											product.models.find((m) => m.variants.find(({ id }) => v.id === id)) as ProductModelRecord,
-											v
-										);
-										return `${name} ${description}`;
-									})
-									.join(', ')} - ${deliveryDaysText[k]?.full}`
-						)
-						.join(', ')})`}
+				{Object.keys(deliveryDaysText).map((key) => (
+					<React.Fragment key={key}>
+						<span className={cn(s.delivery, s[key])} />
+						<span>{deliveryDaysText[key]?.full}.&nbsp;&nbsp;</span>
+					</React.Fragment>
+				))}
 				<br />
 				Free shipping on all orders over 5000 SEK. <span className='gray'>More info ›</span>
 			</p>

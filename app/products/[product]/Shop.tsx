@@ -215,6 +215,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 												<span className={s.name}>
 													<strong>{name}</strong> {description}
 												</span>
+												<div className={cn(s.delivery, s[variant.deliveryDays as string])} />
 												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
 											</div>
 										</li>
