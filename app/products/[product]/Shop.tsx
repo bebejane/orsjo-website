@@ -213,7 +213,21 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 													{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}
 												</div>
 												<span className={s.name}>
-													<strong>{name}</strong> {description}
+													<strong>{(() => {
+														console.log('Original name:', name);
+														if (name) {
+															const cleaned = name
+																.replace(/\s+RAL\s+\d+\s+structure$/i, "")
+																.replace(/\s+RAL\s+\d+$/i, "")
+																.replace(/\s+structure$/i, "")
+																.trim();
+															console.log('Cleaned name:', cleaned);
+															return cleaned;
+														}
+														return name;
+													})()}</strong> {
+														description
+													}
 												</span>
 												<div className={cn(s.delivery, s[variant.deliveryDays as string])} />
 												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
@@ -239,7 +253,11 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 						</div>
 						<span className={s.name}>
 							<strong>
-								{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).name}
+								{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).name
+									?.replace(/\s+RAL\s+\d+\s+structure$/i, "")
+									.replace(/\s+RAL\s+\d+$/i, "")
+									.replace(/\s+structure$/i, "")
+									.trim()}
 							</strong>
 							&nbsp;
 							{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).description}
