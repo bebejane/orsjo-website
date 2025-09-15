@@ -63,7 +63,7 @@ export default function Cart({ localization }: CartProps) {
 	useEffect(() => {
 		setShowCart(false);
 	}, [pathname]);
-
+	console.log(terms);
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
@@ -142,8 +142,13 @@ export default function Cart({ localization }: CartProps) {
 
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
-						<div className={cn(s.check, 'medium')}>
-							<Checkbox name='terms' onChange={(checked) => setTerms(checked)} />
+						<div className={cn(s.terms, 'medium')}>
+							<Checkbox
+								name='terms'
+								onChange={(checked) => setTerms(checked)}
+								inputRef={checkboxRef}
+								className={s.checkbox}
+							/>
 							<span className='small'>
 								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I have read and
 								understood the <Link href='/legal/privacy-policy'>privacy policy</Link>.

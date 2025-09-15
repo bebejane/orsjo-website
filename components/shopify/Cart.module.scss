@@ -211,7 +211,7 @@
 		text-align: right;
 	}
 
-	.check {
+	.terms {
 		display: flex;
 		padding-bottom: 1em;
 		text-align: left;
@@ -223,13 +223,8 @@
 			color: var(--white);
 			border-bottom: 1px solid var(--white);
 		}
-
-		input {
-			margin-right: 0.8rem;
-			//width: 1.1rem;
-			//height: 1.1rem;
-			line-height: 1;
-			//margin-top: -0.25em;
+		span {
+			margin-left: 1em;
 		}
 	}
 
@@ -238,7 +233,7 @@
 		flex-direction: column;
 		align-items: flex-end;
 
-		input[type="checkbox"]:not(:checked) {
+		input[type='checkbox']:not(:checked) {
 			&:focus {
 				outline: 2px solid var(--red);
 			}
