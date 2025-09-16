@@ -24,9 +24,10 @@ type Props = {
 export const dynamic = 'force-dynamic';
 
 export default async function Product({ params, searchParams }: Props) {
-	const { product: slug } = await params;
+	const { product: slug, country } = await params;
 	const { v } = (await searchParams) ?? {};
-	const res = await getProductPageData(slug);
+	const res = await getProductPageData(slug, country as CountryCode);
+
 	if (!res) return notFound();
 
 	const { shopify, product, relatedProducts, relatedProjects, productsByCategory, drawings, specsCols, files } = res;

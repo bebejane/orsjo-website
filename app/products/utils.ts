@@ -37,6 +37,10 @@ export type ProductPageDataProps = {
 		product: ShopifyProductQuery['product'];
 		accessories: ShopifyProductsByQuery['products']['edges'][0]['node'][];
 		lightsources: ShopifyProductsByQuery['products']['edges'][0]['node'][];
+		i18n: {
+			countryCode: CountryCode;
+			currencyCode: CurrencyCode;
+		};
 	};
 	product: ProductQuery['product'];
 	relatedProducts: RelatedProductsQuery['relatedProducts'];
@@ -47,7 +51,10 @@ export type ProductPageDataProps = {
 	files: ProductDownload[];
 };
 
-export const getProductPageData = async (slug: string): Promise<ProductPageDataProps | null> => {
+export const getProductPageData = async (
+	slug: string,
+	countryCode: CountryCode
+): Promise<ProductPageDataProps | null> => {
 	const { product } = await apiQuery<ProductQuery, ProductQueryVariables>(ProductDocument, {
 		variables: { slug },
 	});
@@ -73,6 +80,7 @@ export const getProductPageData = async (slug: string): Promise<ProductPageDataP
 		ShopifyProductDocument,
 		{
 			variables: { handle: product.slug },
+			country: countryCode,
 		}
 	);
 
@@ -89,6 +97,7 @@ export const getProductPageData = async (slug: string): Promise<ProductPageDataP
 	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(
 		ShopifyProductsByQueryDocument,
 		{
+			country: countryCode,
 			variables: { query },
 		}
 	);
@@ -120,12 +129,18 @@ export const getProductPageData = async (slug: string): Promise<ProductPageDataP
 		byDesigner: (a: ProductRecord, b: ProductRecord) => (a.designer?.id === product.designer?.id ? 1 : -1),
 	};
 
+	const currencyCode = shopifyProduct?.variants.edges[0].node.price.currencyCode ?? ('SEK' as CurrencyCode);
+
 	return {
 		product,
 		shopify: {
 			product: shopifyProduct,
 			accessories: shopifyAccessories,
 			lightsources: shopifyLightsources,
+			i18n: {
+				countryCode,
+				currencyCode,
+			},
 		},
 		relatedProducts: relatedProducts
 			.filter((p) => p.id !== product.id)
@@ -143,7 +158,8 @@ export const getProductPageData = async (slug: string): Promise<ProductPageDataP
 };
 
 export async function getShopifyProductsBySku(
-	skus: string[]
+	skus: string[],
+	country: string
 ): Promise<ShopifyProductsByQuery['products']['edges'][0]['node'][]> {
 	const query = skus.map((sku) => `sku:${sku}`).join(' OR ');
 
@@ -151,6 +167,7 @@ export async function getShopifyProductsBySku(
 		ShopifyProductsByQueryDocument,
 		{
 			variables: { query },
+			country,
 		}
 	);
 	return products.edges.map(({ node }) => node);

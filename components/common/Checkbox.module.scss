@@ -3,7 +3,6 @@
 .react-aria-Checkbox {
 	--selected-color: var(--black);
 	--selected-color-pressed: var(--white);
-	--checkmark-color: var(--bla);
 
 	display: flex;
 	/* This is needed so the HiddenInput is positioned correctly */
@@ -38,7 +37,7 @@
 	}
 
 	&[data-pressed] .checkbox {
-		border-color: var(--border-color-pressed);
+		border-color: var(--white);
 	}
 
 	&[data-focus-visible] .checkbox {

@@ -36,6 +36,7 @@ type Addon = {
 export default function ProductShop({ product, shopify, variantId }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const allAddons = getAllAddons(product, shopify);
+
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [hide, setHide] = useState<boolean>(false);
@@ -46,11 +47,12 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	const [addons, setAddons] = useState<Addon[]>([]);
 	const [showAddonsButton, setShowAddonsButton] = useState(false);
 	const [selected, setSelected] = useState<any | null>(null);
-	const [totalPrice, setTotalPrice] = useState<MoneyV2>({ amount: 0, currencyCode: 'SEK' as CurrencyCode });
+	const [totalPrice, setTotalPrice] = useState<MoneyV2>({ amount: 0, currencyCode: shopify.i18n.currencyCode });
 	const [modal, setModal] = useState<'show' | 'hide' | 'dismiss'>('hide');
 	const { width, height } = useWindowSize();
 	const { scrolledPosition, viewportHeight, documentHeight } = useScrollInfo();
 	const ref = useRef<HTMLDivElement>(null);
+
 	const selectedModel = product?.models.find(({ variants }) => variants.find((v) => v.id === selected?.id));
 	const selectedModelAddons = allAddons.filter((a) => a.modelId === selectedModel?.id);
 	const selectedShopifyVariant = shopify.product?.variants.edges.find(
@@ -116,7 +118,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			return acc + accessoryPrice + lightsourcePrice;
 		}, 0);
 
-		setTotalPrice({ amount: addonsPrice + modelPrice, currencyCode: 'SEK' as CurrencyCode });
+		setTotalPrice({ amount: addonsPrice + modelPrice, currencyCode: shopify.i18n.currencyCode });
 	}
 
 	function handleAddonClick(e: React.MouseEvent<HTMLElement>) {
@@ -149,7 +151,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				merchandiseId: id,
 				quantity,
 			})),
-			'SE'
+			shopify.i18n.countryCode
 		);
 		setShowCart(true);
 		resetAll();
@@ -213,21 +215,21 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 													{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}
 												</div>
 												<span className={s.name}>
-													<strong>{(() => {
-														console.log('Original name:', name);
-														if (name) {
-															const cleaned = name
-																.replace(/\s+RAL\s+\d+\s+structure$/i, "")
-																.replace(/\s+RAL\s+\d+$/i, "")
-																.replace(/\s+structure$/i, "")
-																.trim();
-															console.log('Cleaned name:', cleaned);
-															return cleaned;
-														}
-														return name;
-													})()}</strong> {
-														description
-													}
+													<strong>
+														{(() => {
+															if (name) {
+																const cleaned = name
+																	.replace(/\s+RAL\s+\d+\s+structure$/i, '')
+																	.replace(/\s+RAL\s+\d+$/i, '')
+																	.replace(/\s+structure$/i, '')
+																	.trim();
+
+																return cleaned;
+															}
+															return name;
+														})()}
+													</strong>{' '}
+													{description}
 												</span>
 												<div className={cn(s.delivery, s[variant.deliveryDays as string])} />
 												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
@@ -253,10 +255,10 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 						</div>
 						<span className={s.name}>
 							<strong>
-								{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).name
-									?.replace(/\s+RAL\s+\d+\s+structure$/i, "")
-									.replace(/\s+RAL\s+\d+$/i, "")
-									.replace(/\s+structure$/i, "")
+								{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord)
+									.name?.replace(/\s+RAL\s+\d+\s+structure$/i, '')
+									.replace(/\s+RAL\s+\d+$/i, '')
+									.replace(/\s+structure$/i, '')
 									.trim()}
 							</strong>
 							&nbsp;

@@ -63,7 +63,7 @@ export default function Cart({ localization }: CartProps) {
 	useEffect(() => {
 		setShowCart(false);
 	}, [pathname]);
-	console.log(terms);
+
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
