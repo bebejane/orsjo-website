@@ -1,10 +1,36 @@
 
+declare module '*/catalog.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllCatalogs: DocumentNode;
+export const CatalogFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/file.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const FileUpdate: DocumentNode;
 export const FileDelete: DocumentNode;
 export const Files: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/pricelist.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllPriceLists: DocumentNode;
+export const PriceList: DocumentNode;
+export const priceListCreate: DocumentNode;
+export const PriceListUpdate: DocumentNode;
+export const PriceListFixedPricesAdd: DocumentNode;
+export const PriceListFixedPricesUpdate: DocumentNode;
+export const PriceListFragment: DocumentNode;
+export const PriceListPriceFragment: DocumentNode;
 
   export default defaultDocument;
 }

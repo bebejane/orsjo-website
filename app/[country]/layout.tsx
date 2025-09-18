@@ -14,6 +14,7 @@ export async function generateStaticParams() {
 		variables: { language: 'SE' as LanguageCode },
 		country: 'SE',
 	});
+
 	return localization.availableCountries.map((country) => ({ country: country.isoCode.toLowerCase() }));
 }
 
