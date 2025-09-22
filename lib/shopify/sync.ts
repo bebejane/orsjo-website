@@ -23,10 +23,13 @@ import {
 	FilesDocument,
 	FileDeleteDocument,
 	UpdateProductStatusDocument,
+	PriceListFixedPricesUpdateDocument,
+	AllPriceListsDocument,
 } from '@/lib/shopify/graphql-admin';
 import { Item } from '@datocms/cma-client/dist/types/generated/SimpleSchemaTypes';
 import { batchPromises } from '@/lib/utils';
 import { generateProductTitle } from '@/lib/utils';
+import { currency, convertPrice } from '@/lib/utils';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -57,7 +60,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 		syncResult.itemType = apiKey;
 
-		console.log('syncing');
+		console.log('syncing', apiKey, itemId);
 
 		switch (apiKey) {
 			case 'product':
@@ -478,6 +481,13 @@ export async function updateProduct(
 			if (productVariantsBulkUpdate?.userErrors?.length)
 				throw new Error(JSON.stringify(productVariantsBulkUpdate.userErrors.map((e) => e.message).join('. '), null, 2));
 
+			const allVariants = (productVariantsBulkCreate?.productVariants ?? []).concat(
+				productVariantsBulkUpdate?.productVariants ?? []
+			);
+
+			console.log('updating prices');
+			await updateVariantPrices(allVariants as ProductVariant[]);
+
 			console.log(`https://admin.shopify.com/store/orsjo-shop/products/${product.id?.split('/').pop()}`);
 		}
 	} catch (e) {
@@ -487,6 +497,48 @@ export async function updateProduct(
 	} finally {
 	}
 }
+
+export const updateVariantPrices = async (variants: ProductVariant[]) => {
+	const { priceLists } = await shopifyQuery<AllPriceListsQuery, AllPriceListsQueryVariables>(AllPriceListsDocument, {
+		admin: true,
+	});
+
+	for (const priceList of priceLists.nodes) {
+		const pricesToAdd: PriceListPriceInput[] = [];
+		const currencyCode = priceList.currency;
+		const c = currency[currencyCode.toLowerCase()];
+
+		if (!c) continue;
+		for (const variant of variants) {
+			pricesToAdd.push({
+				variantId: variant.id,
+				price: {
+					amount: convertPrice(variant.price, currencyCode),
+					currencyCode,
+				},
+			});
+		}
+
+		console.log('updating fixed pricing:', currencyCode);
+
+		const { priceListFixedPricesUpdate } = await shopifyQuery<
+			PriceListFixedPricesUpdateMutation,
+			PriceListFixedPricesUpdateMutationVariables
+		>(PriceListFixedPricesUpdateDocument, {
+			admin: true,
+			variables: {
+				priceListId: priceList.id,
+				pricesToAdd,
+				variantIdsToDelete: [],
+			},
+		});
+
+		if (priceListFixedPricesUpdate?.userErrors?.length)
+			throw new Error(JSON.stringify(priceListFixedPricesUpdate.userErrors.map((e) => e.message).join('. '), null, 2));
+	}
+
+	//return priceListFixedPricesUpdate;
+};
 
 export const generateThumbnailUrl = (url: string | undefined | null): string => {
 	if (!url) return '';

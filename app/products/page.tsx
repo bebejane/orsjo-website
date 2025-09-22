@@ -21,12 +21,13 @@ export type ProductsStartProps = {
 	productCategories: ProductCategoryRecord[];
 };
 
-export default async function Products(params: PageParams) {
+export default async function Products({ params }: PageParams) {
+	const { country } = await params;
 	const [{ productStart }, { allProducts }, { productCategories }, { products }] = await Promise.all([
 		apiQuery<ProductStartQuery, ProductStartQueryVariables>(ProductStartDocument),
 		apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(AllProductsLightDocument),
 		apiQuery<ProductCategoriesQuery, ProductCategoriesQueryVariables>(ProductCategoriesDocument),
-		shopifyQuery<AllShopifyProductsQuery, AllShopifyProductsQueryVariables>(AllShopifyProductsDocument),
+		shopifyQuery<AllShopifyProductsQuery, AllShopifyProductsQueryVariables>(AllShopifyProductsDocument, { country }),
 	]);
 
 	/*

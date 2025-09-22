@@ -14,6 +14,7 @@ import useCountry from '@/lib/shopify/hooks/useCountry';
 import useStore from '@/lib/store';
 import { useClickAway } from 'react-use';
 import { deliveryDaysText } from '@/lib/utils';
+import { Checkbox } from '@/components/common/Checkbox';
 
 export type CartProps = {
 	localization: LocalizationQuery['localization'];
@@ -141,13 +142,12 @@ export default function Cart({ localization }: CartProps) {
 
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
-						<div className={cn(s.check, 'medium')}>
-							<input
-								ref={checkboxRef}
-								type='checkbox'
+						<div className={cn(s.terms, 'medium')}>
+							<Checkbox
 								name='terms'
-								onChange={(e) => setTerms(e.target.checked)}
-								required
+								onChange={(checked) => setTerms(checked)}
+								inputRef={checkboxRef}
+								className={s.checkbox}
 							/>
 							<span className='small'>
 								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I have read and

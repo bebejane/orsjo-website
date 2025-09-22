@@ -19,6 +19,7 @@ export const itemTypeId = async (type: string) =>
 
 export const formatPrice = (price: MoneyV2, quantity = 1): string => {
 	if (!price) return '';
+
 	return `${new Intl.NumberFormat('sv-SE', { style: 'decimal', currency: price.currencyCode }).format(
 		price.amount * quantity
 	)} ${price.currencyCode}`;

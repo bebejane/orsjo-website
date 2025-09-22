@@ -1,7 +1,7 @@
 import shopifyQuery from '@/lib/shopify/shopify-query';
 import { LocalizationDocument } from '@/lib/shopify/graphql';
 
-export type CountryParams = { params: { country: string }; searchParams: any } | undefined;
+export type CountryParams = { params: Promise<{ country: string }>; searchParams: any };
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -14,6 +14,7 @@ export async function generateStaticParams() {
 		variables: { language: 'SE' as LanguageCode },
 		country: 'SE',
 	});
+
 	return localization.availableCountries.map((country) => ({ country: country.isoCode.toLowerCase() }));
 }
 

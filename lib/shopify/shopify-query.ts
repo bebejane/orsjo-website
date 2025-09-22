@@ -49,7 +49,7 @@ export default async function shopifyQuery<T = void, V = void>(
 	const dedupeOptions: DedupeOptions = {
 		body: JSON.stringify({
 			query: print(query as DocumentNode),
-			variables: options?.variables ? { ...options.variables } : { country },
+			variables: options?.variables ? { ...options.variables, country } : { country },
 		}) as string,
 		...opt,
 		queryId,

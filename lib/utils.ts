@@ -19,31 +19,31 @@ export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeou
 type Locale = 'en' | 'sv' | 'no' | 'dk' | 'en-GB';
 
 export const currency = {
-	'en': {
+	eur: {
 		surcharge: 1.1,
 		rate: 11.0391,
 		rateDeduction: 0.95,
 		symbol: '€',
 	},
-	'no': {
+	nok: {
 		surcharge: 1.1,
 		rate: 0.93875,
 		rateDeduction: 1,
 		symbol: 'NOK',
 	},
-	'da': {
-		surcharge: 1.1,
-		rate: 1.48,
-		rateDeduction: 0.95,
+	dkk: {
+		surcharge: 0.7,
+		rate: 1,
+		rateDeduction: 1,
 		symbol: 'DKK',
 	},
-	'sv': {
+	sek: {
 		surcharge: 1,
 		rate: 1,
 		rateDeduction: 1,
 		symbol: ':-',
 	},
-	'en-GB': {
+	gbp: {
 		surcharge: 1.2,
 		rate: 13.24727,
 		rateDeduction: 0.97,
@@ -51,14 +51,15 @@ export const currency = {
 	},
 };
 
-const formatPrice = (price: number, locale: Locale) => {
-	const nf = new Intl.NumberFormat(`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`);
-	return `${nf.format(Math.round(price))} ${currency[locale].symbol}`;
+export const convertPrice = (price: number, currencyCode: CurrencyCode) => {
+	const c = currency[currencyCode?.toLowerCase()];
+	if (!c) throw new Error(`Currency ${currencyCode} not found`);
+	return (price * c.surcharge) / (c.rate * c.rateDeduction);
 };
 
-const convertPrice = (price: number, locale: Locale) => {
-	const c = currency[locale];
-	return formatPrice((price * c.surcharge) / (c.rate * c.rateDeduction), locale);
+export const formatPrice = (price: number, locale: Locale) => {
+	const nf = new Intl.NumberFormat(`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`);
+	return `${nf.format(Math.round(price))} ${currency[locale].symbol}`;
 };
 
 export const priceIncLight = (prodPrice: number, lightsources: LightsourceRecord[], locale: Locale) => {

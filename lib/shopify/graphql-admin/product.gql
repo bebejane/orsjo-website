@@ -246,6 +246,7 @@ fragment ProductVariantFragment on ProductVariant {
 			status
 		}
 	}
+	price
 	unitPrice {
 		amount
 		currencyCode
