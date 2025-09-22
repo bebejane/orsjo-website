@@ -48,7 +48,7 @@ const base: Menu = [
 		sub: [
 			{ type: 'support', label: 'FAQ', slug: '/support/faq' },
 			{ type: 'support', label: 'Manuals', slug: '/support/manuals' },
-			{ type: 'terms', label: 'Terms & Privacy', slug: '/support/terms' },
+			{ type: 'terms', label: 'Terms & Conditions', slug: '/support/terms' },
 		],
 	},
 	{
