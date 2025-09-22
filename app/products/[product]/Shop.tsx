@@ -8,7 +8,7 @@ import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
 import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
-import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
+import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
 import { generateProductTitle, formatProductColor, parseProductModelName } from '@/lib/utils';
 import { RiCheckFill } from 'react-icons/ri';
@@ -135,8 +135,9 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 
 		const noLightsourceIncluded =
 			selectedModel.lightsources.length && !selectedModel.lightsources.find((l) => l.included);
+		const lightsourceAdded = addons.find((a) => a.modelId === selectedModel?.id);
 
-		if (noLightsourceIncluded && modal !== 'dismiss' && !withoutLightsource) {
+		if (noLightsourceIncluded && modal !== 'dismiss' && !lightsourceAdded && !withoutLightsource) {
 			setModal('show');
 			return;
 		}
@@ -375,6 +376,9 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 									Continue without light source
 								</button>
 							</form>
+							<button className={s.close} onClick={() => setModal('hide')}>
+								<img src={'/images/close.svg'} alt='close' />
+							</button>
 						</div>
 					</div>
 				</Modal>

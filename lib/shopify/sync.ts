@@ -503,6 +503,8 @@ export const updateVariantPrices = async (variants: ProductVariant[]) => {
 		admin: true,
 	});
 
+	console.log('updating fixed pricing:', priceLists.nodes.map(({ currency }) => currency).join(','));
+
 	for (const priceList of priceLists.nodes) {
 		const pricesToAdd: PriceListPriceInput[] = [];
 		const currencyCode = priceList.currency;
@@ -519,8 +521,6 @@ export const updateVariantPrices = async (variants: ProductVariant[]) => {
 			});
 		}
 
-		console.log('updating fixed pricing:', currencyCode);
-
 		const { priceListFixedPricesUpdate } = await shopifyQuery<
 			PriceListFixedPricesUpdateMutation,
 			PriceListFixedPricesUpdateMutationVariables
@@ -536,8 +536,6 @@ export const updateVariantPrices = async (variants: ProductVariant[]) => {
 		if (priceListFixedPricesUpdate?.userErrors?.length)
 			throw new Error(JSON.stringify(priceListFixedPricesUpdate.userErrors.map((e) => e.message).join('. '), null, 2));
 	}
-
-	//return priceListFixedPricesUpdate;
 };
 
 export const generateThumbnailUrl = (url: string | undefined | null): string => {

@@ -46,9 +46,12 @@ export default function CountrySelector({
 	}, []);
 
 	const handleChange = (val: Key) => {
-		const countryCode = val.toString();
-		const path = `${countryCode === 'SE' ? '' : `/${countryCode}`}${pathname.replace(`/${country.toLowerCase()}`, ``)}`;
-		console.log(path);
+		const countryCode = val.toString().toLowerCase();
+		const path =
+			`${countryCode === 'se' ? '/' : `/${countryCode}`}${pathname.replace(`/${country.toLowerCase()}`, ``)}`.replace(
+				'//',
+				'/'
+			);
 		const hash = window.location.hash ? '#' + window.location.hash : '';
 		router.replace(`${path}${hash}`.toLowerCase());
 	};

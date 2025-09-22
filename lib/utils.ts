@@ -54,12 +54,12 @@ export const currency = {
 export const convertPrice = (price: number, currencyCode: CurrencyCode) => {
 	const c = currency[currencyCode?.toLowerCase()];
 	if (!c) throw new Error(`Currency ${currencyCode} not found`);
-	return (price * c.surcharge) / (c.rate * c.rateDeduction);
+	return Math.ceil((price * c.surcharge) / (c.rate * c.rateDeduction));
 };
 
 export const formatPrice = (price: number, locale: Locale) => {
 	const nf = new Intl.NumberFormat(`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`);
-	return `${nf.format(Math.round(price))} ${currency[locale].symbol}`;
+	return `${nf.format(Math.ceil(price))} ${currency[locale].symbol}`;
 };
 
 export const priceIncLight = (prodPrice: number, lightsources: LightsourceRecord[], locale: Locale) => {
