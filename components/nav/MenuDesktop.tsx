@@ -153,7 +153,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 						</li>
 					))}
 					<li className={s.country}>
-						<CountrySelector currency={true} label='hej' localization={localization} className={s.selector} />
+						<CountrySelector currency={true} localization={localization} className={s.selector} />
 					</li>
 					<li className={cn(s.cart, cart?.totalQuantity && s.filled)} onClick={() => setShowCart(true)}>
 						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />

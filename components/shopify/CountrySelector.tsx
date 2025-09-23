@@ -76,7 +76,7 @@ export default function CountrySelector({
 						{!selectOpen ? '›' : '›'}
 					</span>
 				</Button>
-				<Popover placement='top left' className={s.popover} maxHeight={200} ref={popupRef} isNonModal={false}>
+				<Popover placement='top right' className={s.popover} maxHeight={300} ref={popupRef} isNonModal={false}>
 					<ListBox
 						selectionMode={'single'}
 						className={cn('small', s.options)}
