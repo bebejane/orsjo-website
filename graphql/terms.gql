@@ -7,7 +7,11 @@ query TermsStart {
 	allTerms {
 		id
 		title
-		text(markdown: false)
+		text {
+			blocks
+			links
+			value
+		}
 		category {
 			id
 			title

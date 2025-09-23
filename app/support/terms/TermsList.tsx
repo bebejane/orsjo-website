@@ -4,6 +4,7 @@ import s from './TermsList.module.scss';
 import cn from 'classnames';
 import { Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';
+import { StructuredContent } from 'next-dato-utils/components';
 import { useState, useEffect } from 'react';
 
 export type TermsByCategory = {
@@ -57,7 +58,7 @@ export default function TermsList({ terms }: Props) {
 											<h2 className={s.title}>{title}</h2>
 											<div className={s.indicator}>{list[id] ? '-' : '+'}</div>
 										</div>
-										<Markdown className={cn(s.text, 'medium')} content={text} />
+										<StructuredContent className={cn(s.text, 'medium')} content={text} />
 									</li>
 								))}
 							</ul>
