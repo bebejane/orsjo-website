@@ -28,15 +28,16 @@
 			padding: 0;
 
 			&.inverted {
-				color: var(--white-real);
+				color: var(--white-menu);
 			}
 			.value {
 				width: 100%;
 			}
 
 			.arrow {
-				font-size: 0.65em;
+				//font-size: 0.65em;
 				margin-left: 0.5em;
+				transform: rotate(90deg);
 			}
 		}
 	}
@@ -66,7 +67,7 @@
 
 			&.selected {
 				background-color: var(--black);
-				color: var(--white);
+				color: var(--white-menu);
 				cursor: normal;
 				pointer-events: none;
 			}
@@ -74,7 +75,7 @@
 			@include mixin.mq($from: desktop) {
 				&:hover {
 					background-color: var(--black);
-					color: var(--white);
+					color: var(--white-menu);
 					cursor: pointer;
 				}
 			}
