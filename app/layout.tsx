@@ -8,6 +8,7 @@ import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import shopify from '@/lib/shopify/rest-client';
 import shopifyQuery from '@/lib/shopify/shopify-query';
 import { LocalizationDocument } from '@/lib/shopify/graphql';
+import * as Sentry from '@sentry/nextjs';
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -15,9 +16,7 @@ export type LayoutProps = {
 
 export default async function RootLayout({ children }: LayoutProps) {
 	const menu = await buildMenu();
-	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(
-		LocalizationDocument
-	);
+	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(LocalizationDocument);
 
 	return (
 		<html lang='en-US'>
@@ -67,17 +66,8 @@ export type BuildMetadataProps = {
 	image?: FileField | null | undefined;
 };
 
-export async function buildMetadata({
-	title,
-	description,
-	url,
-	image,
-}: BuildMetadataProps): Promise<Metadata> {
-	description = !description
-		? ''
-		: description.length > 160
-			? `${description.substring(0, 157)}...`
-			: description;
+export async function buildMetadata({ title, description, url, image }: BuildMetadataProps): Promise<Metadata> {
+	description = !description ? '' : description.length > 160 ? `${description.substring(0, 157)}...` : description;
 
 	return {
 		title,
@@ -111,6 +101,9 @@ export async function buildMetadata({
 			],
 			locale: 'en_US',
 			type: 'website',
+		},
+		other: {
+			...Sentry.getTraceData(),
 		},
 	};
 }
