@@ -89,7 +89,7 @@ fragment ProductFragment on Product {
 				}
 				image {
 					id
-					url(transform: { maxWidth: 400, maxHeight: 400, crop: CENTER })
+					url(transform: { maxWidth: 400, maxHeight: 400 })
 					height
 					width
 					altText

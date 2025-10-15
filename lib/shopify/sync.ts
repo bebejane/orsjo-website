@@ -543,7 +543,7 @@ export const generateThumbnailUrl = (url: string | undefined | null): string => 
 	const u = new URL(url);
 	const size = 2000;
 	const pad = size * 0.1;
-	const imgixUrl = `${u.origin}${u.pathname}?w=${size}&h=${size}&fit=crop&auto=format&bg=fff&pad=${pad}`;
+	const imgixUrl = `${u.origin}${u.pathname}?w=${size}&h=${size}&fit=fill&auto=format&bg=fff&pad=${pad}`;
 	return imgixUrl;
 };
 
