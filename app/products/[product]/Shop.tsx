@@ -10,7 +10,7 @@ import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
-import { generateProductTitle, formatProductColor, parseProductModelName } from '@/lib/utils';
+import { generateProductTitle, formatProductColor, parseProductModelName, deliveryDaysText } from '@/lib/utils';
 import { RiCheckFill } from 'react-icons/ri';
 import { AiOutlinePlus, AiOutlineMinus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/products/utils';
@@ -232,7 +232,12 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 													</strong>{' '}
 													{description}
 												</span>
-												<div className={cn(s.delivery, s[variant.deliveryDays as string])} />
+												{variant.deliveryDays && (
+													<div
+														className={cn(s.delivery, s[variant.deliveryDays])}
+														title={deliveryDaysText[variant.deliveryDays]?.full}
+													/>
+												)}
 												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
 											</div>
 										</li>

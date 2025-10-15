@@ -2,6 +2,7 @@ import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import { print } from 'graphql/language/printer';
 import type { DocumentNode } from '@/node_modules/graphql';
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
+import * as Sentry from '@sentry/nextjs';
 
 export type ApiQueryOptions<V = void> = {
 	variables?: V;
@@ -98,10 +99,17 @@ const dedupedFetch = async (options: DedupeOptions) => {
 
 	const responseBody = await response.json();
 
-	if (!response.ok) throw new Error(`${response.status} ${response.statusText}: ${JSON.stringify(responseBody)}`);
+	if (!response.ok) {
+		console.error(JSON.stringify(response, null, 2));
+		console.error(`${response.status} ${response.statusText}`);
+		Sentry.captureException(new Error(`shopify-query: ${response.status}: ${response.statusText}`));
+		throw new Error(`${response.status} ${response.statusText}`);
+	}
 
 	if (responseBody.errors) {
+		console.error(responseBody.errors);
 		const message = responseBody.errors.map(({ message }: { message: string }) => message).join('. ');
+		Sentry.captureException(new Error(message));
 		throw new Error(message);
 	}
 	logs && console.log(queryId, { ...options, body: undefined }, response.headers.get('x-cache'));

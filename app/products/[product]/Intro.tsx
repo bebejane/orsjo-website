@@ -10,7 +10,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { Markdown } from 'next-dato-utils/components';
 import React from 'react';
-import { ProductPageDataProps } from './page';
+import { ProductPageDataProps } from '../utils';
 import { useMediaQuery } from 'usehooks-ts';
 
 type Props = {
