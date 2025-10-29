@@ -1,10 +1,11 @@
 import { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
+import path from 'path';
 
 const nextConfig: NextConfig = {
 	sassOptions: {
-		includePaths: ['./components', './pages', './app'],
-		silenceDeprecations: ['legacy-js-api', 'mixed-decls'],
+		includePaths: ['./components', './app'],
+		silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'mixed-decls'],
 		prependData: `
 			@use "sass:math";
     	@use "./styles/mixin";
@@ -25,12 +26,17 @@ const nextConfig: NextConfig = {
 				loaders: ['@svgr/webpack'],
 			},
 		},
+		resolveAlias: {
+			'datocms.config': './datocms.config.ts',
+		},
 	},
 	webpack(config) {
 		config.module.rules.push({
 			test: /\.svg$/i,
 			use: ['@svgr/webpack'],
 		});
+		config.module.exprContextCritical = false;
+		config.resolve.alias['datocms.config'] = path.join(__dirname, 'datocms.config.ts');
 		return config;
 	},
 	async redirects() {

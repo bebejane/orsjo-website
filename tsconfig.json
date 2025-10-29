@@ -26,6 +26,9 @@
       ],
       "@/shopify*": [
         "./shopify*"
+      ],
+      "datocms.config": [
+        "./datocms.config.ts"
       ]
     },
     "plugins": [
