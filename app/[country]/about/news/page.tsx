@@ -1,5 +1,3 @@
 import page from '@/app/about/news/page';
-import { CountryParams } from '@/app/[country]/layout';
 export { generateMetadata } from '@/app/about/news/page';
-export type PageParams = CountryParams;
-export default async (params: PageParams) => page(params);
+export default async (params: PageProps<'/about/news'>) => page(params);

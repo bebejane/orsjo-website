@@ -49,7 +49,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 		try {
 			item = await client.items.find(itemId);
 		} catch (e) {
-			console.log(e.message);
+			console.log(e);
 			throw new Error('Invalid item: ' + itemId);
 		}
 
@@ -572,32 +572,32 @@ export const resetAll = async () => {
 		5000
 	);
 
-	const files = [];
+	const allFiles: FilesQuery['files']['edges'][0]['node'][] = [];
 	let first = 100;
-	let after: string | undefined = undefined;
+	let after: string | undefined;
 
 	while (true) {
-		const res = await shopifyQuery(FilesDocument, {
+		const { files } = await shopifyQuery<FilesQuery, FilesQueryVariables>(FilesDocument, {
 			admin: true,
 			variables: {
 				first,
-				after,
+				after: typeof after === 'string' ? after : undefined,
 			},
 		});
 
-		files.push.apply(
-			files,
-			res.files.edges.map(({ node }) => node)
+		allFiles.push.apply(
+			allFiles,
+			files.edges.map(({ node }) => node)
 		);
 
-		if (!res.files.pageInfo.hasNextPage) break;
+		if (!files.pageInfo.hasNextPage) break;
 
-		after = res.files.pageInfo.endCursor;
+		after = files.pageInfo.endCursor ? files.pageInfo.endCursor : undefined;
 	}
-	console.log('deleting all files:', files.length);
+	console.log('deleting all files:', allFiles.length);
 
 	await batchPromises(
-		files.map(
+		allFiles.map(
 			({ id }) =>
 				() =>
 					shopifyQuery(FileDeleteDocument, {
@@ -637,7 +637,8 @@ export const resyncAll = async () => {
 			await sync(id);
 		}
 	} catch (e) {
-		console.log(e.message);
+		console.error(e);
+		throw new Error('sync failed');
 	}
 	//await batchPromises(itemIds.map((id) => () => sync(id)), 5, 5000)
 };

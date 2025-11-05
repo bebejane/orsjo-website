@@ -13,6 +13,7 @@ export type ApiQueryOptions<V = void> = {
 	logs?: boolean;
 	all?: boolean;
 	country?: string;
+	admin?: boolean;
 };
 
 export type DefaultApiQueryOptions = ApiQueryOptions & {
