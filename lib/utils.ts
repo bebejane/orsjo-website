@@ -18,7 +18,7 @@ export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeou
 
 type Locale = 'en' | 'sv' | 'no' | 'dk' | 'en-GB';
 
-export const currency = {
+export const currency: Record<string, { surcharge: number; rate: number; rateDeduction: number; symbol: string }> = {
 	eur: {
 		surcharge: 1.1,
 		rate: 11.0391,
@@ -105,7 +105,7 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 	let allLightsources: (LightsourceRecord & { modelName: string })[] = [];
 
 	product.models
-		.map((m) => m.lightsources.map((l) => ({ ...l, modelName: m.name?.name })))
+		.map((m) => m.lightsources.map((l) => ({ ...l, modelName: m.name?.name as string })))
 		.forEach((l) => allLightsources.push.apply(allLightsources, l));
 
 	let lightsources = allLightsources
@@ -150,7 +150,7 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 	return specs;
 };
 
-export const recordImages = (obj, exclude: string[] = [], images: FileField[] = []): FileField[] => {
+export const recordImages = (obj: any, exclude: string[] = [], images: FileField[] = []): FileField[] => {
 	Object.keys(obj).forEach((key) => {
 		if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video') && !exclude.includes(key))
 			images.push({ ...obj[key], _key: key });
@@ -199,7 +199,7 @@ export const siteSearch = async (q: string | undefined | null) => {
 	});
 
 	Object.keys(data).forEach((type) => {
-		if (!data?.[type]?.length) delete data[type];
+		if (!data?.[type as keyof typeof data]?.length) delete data[type as keyof typeof data];
 	});
 
 	return data;
@@ -290,14 +290,9 @@ export const pxToInt = (px: string): number => {
 	return parseInt(px.replace('px', ''));
 };
 
-export const styleVariables: { [key: string]: number | string } = {};
-Object.keys(scssExports).forEach(
-	(k) =>
-		(styleVariables[k] = scssExports[k].includes('rem')
-			? remToPx(scssExports[k])
-			: scssExports[k].includes('px')
-				? pxToInt(scssExports[k])
-				: scssExports[k])
+export const styleVariables: { [key: string]: number | string } = Object.keys(scssExports).reduce(
+	(acc, key) => ({ ...acc, [key]: scssExports[key as keyof typeof scssExports] }),
+	{} as { [key: string]: number | string }
 );
 
 export const waitForElement = async (id: string, ms: number): Promise<HTMLElement | null> => {
@@ -308,46 +303,6 @@ export const waitForElement = async (id: string, ms: number): Promise<HTMLElemen
 		await sleep(50);
 	}
 	return el;
-};
-
-export const sortSwedish = <T>(arr: T[], key?: string): T[] => {
-	const alfabet = [
-		'A',
-		'B',
-		'C',
-		'D',
-		'E',
-		'F',
-		'G',
-		'H',
-		'I',
-		'J',
-		'K',
-		'L',
-		'M',
-		'N',
-		'O',
-		'P',
-		'Q',
-		'R',
-		'S',
-		'T',
-		'U',
-		'V',
-		'W',
-		'X',
-		'Y',
-		'Z',
-		'Å',
-		'Ä',
-		'Ö',
-	];
-
-	return arr.sort((a, b) => {
-		const ai = alfabet.findIndex((l) => l === (key ? a[key] : a).charAt(0).toUpperCase());
-		const bi = alfabet.findIndex((l) => l === (key ? b[key] : b).charAt(0).toUpperCase());
-		return ai > bi ? 1 : ai === bi ? 0 : -1;
-	});
 };
 
 export const scrollToId = (id: string, behavior: ScrollBehavior = 'smooth') => {
@@ -411,7 +366,7 @@ export function slugify(text: string) {
 
 export function dedupeByKey<T>(array: T[], key: string) {
 	return array.reduce((acc, item) => {
-		const existingItem = acc.find((i) => i[key] === item[key]);
+		const existingItem = acc.find((i) => i[key as keyof T] === item[key as keyof T]);
 		if (!existingItem) {
 			acc.push(item);
 		}
@@ -448,7 +403,7 @@ export const generateProductTitle = (product: ProductRecord, variantId: string):
 	return title || 'No title';
 };
 
-export const deliveryDaysText = {
+export const deliveryDaysText: Record<string, { full: string; label: string }> = {
 	short: {
 		full: 'In stock, ships within 1-3 days',
 		label: '1-3 days',

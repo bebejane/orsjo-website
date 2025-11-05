@@ -94,6 +94,11 @@ fragment ProductFragment on Product {
 					width
 					altText
 				}
+				taxable
+				compareAtPrice {
+					amount
+					currencyCode
+				}
 				price {
 					amount
 					currencyCode

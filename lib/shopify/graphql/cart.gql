@@ -93,6 +93,7 @@ fragment CartFragment on Cart {
 			node {
 				id
 				quantity
+
 				cost {
 					subtotalAmount {
 						amount
@@ -150,6 +151,7 @@ fragment CartFragment on Cart {
 			amount
 			currencyCode
 		}
+
 		subtotalAmount {
 			amount
 			currencyCode

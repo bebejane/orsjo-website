@@ -5,8 +5,7 @@ import cn from 'classnames';
 import { Image } from 'react-datocms';
 import Link from '@/components/nav/Link';
 import { useState } from 'react';
-import { format } from 'path';
-import { formatPrice } from '@/lib/shopify/utils';
+import { formatShopifyPrice } from '@/lib/shopify/utils';
 
 export type ThumbnailProps = {
 	slug?: string;
@@ -141,7 +140,7 @@ export function ProductThumbnail({
 			imageHover={product.environmentImage}
 			title={product.title}
 			subtitle={product.designer?.name ? product.designer.name : undefined}
-			price={formatPrice(shopifyVariant?.price as MoneyV2)}
+			price={formatShopifyPrice(shopifyVariant?.price as MoneyV2)}
 			className={className}
 			inverted={inverted}
 			theme={theme}

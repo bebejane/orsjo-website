@@ -2,7 +2,7 @@
 
 import useProduct from '@/lib/shopify/hooks/useProduct';
 import { parseGid } from '@/lib/shopify/utils';
-import { formatPrice } from '@/lib/shopify/utils';
+import { formatShopifyPrice } from '@/lib/shopify/utils';
 
 export type Props = {
 	slug: string;
@@ -17,7 +17,7 @@ export default function Price({ slug, variantId }: Props) {
 	if (!variant) return null;
 	return (
 		<>
-			{formatPrice(variant.price.amount)} {variant.price.currencyCode}
+			{formatShopifyPrice(variant.price.amount)} {variant.price.currencyCode}
 		</>
 	);
 }

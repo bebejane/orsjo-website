@@ -3,16 +3,16 @@
 import s from './Shop.module.scss';
 import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import { formatPrice } from '@/lib/shopify/utils';
+import { formatShopifyPrice } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
 import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
-import { generateProductTitle, formatProductColor, parseProductModelName, deliveryDaysText } from '@/lib/utils';
+import { generateProductTitle, parseProductModelName, deliveryDaysText } from '@/lib/utils';
 import { RiCheckFill } from 'react-icons/ri';
-import { AiOutlinePlus, AiOutlineMinus, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/products/utils';
 import Modal from '@/components/layout/Modal';
 
@@ -59,6 +59,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		(v) => v.node.sku && v.node.sku === selected?.articleNo.trim()
 	)?.node;
 
+	console.log(shopify);
 	useEffect(() => {
 		if (!variantId) return setSelected(allVariants?.[0] ?? null);
 
@@ -178,7 +179,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 						Shop {product.title} {addons.length > 0 && <span className={s.addons}>+{addons.length}</span>}
 					</h3>
 					<span key={totalPrice.amount} className={s.price}>
-						{formatPrice(totalPrice as MoneyV2)}
+						{formatShopifyPrice(totalPrice as MoneyV2)}
 					</span>
 				</header>
 
@@ -199,6 +200,10 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 										model as ProductModelRecord,
 										variant as VariantRecord
 									);
+
+									let deliveryDays;
+									if (variant.deliveryDays && ['short', 'medium', 'long'].includes(variant.deliveryDays))
+										deliveryDays = deliveryDaysText[variant.deliveryDays]?.full;
 
 									return (
 										<li
@@ -233,12 +238,9 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 													{description}
 												</span>
 												{variant.deliveryDays && (
-													<div
-														className={cn(s.delivery, s[variant.deliveryDays])}
-														title={deliveryDaysText[variant.deliveryDays]?.full}
-													/>
+													<div className={cn(s.delivery, s[variant.deliveryDays])} title={deliveryDays} />
 												)}
-												<span className={s.price}>{formatPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
+												<span className={s.price}>{formatShopifyPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
 											</div>
 										</li>
 									);
@@ -325,7 +327,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 												<span className={s.name}>
 													<strong>{name}</strong>
 												</span>
-												<span className={s.price}>{formatPrice(price as MoneyV2, quantity)}</span>
+												<span className={s.price}>{formatShopifyPrice(price as MoneyV2, quantity)}</span>
 											</div>
 										</li>
 									);

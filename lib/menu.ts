@@ -1,5 +1,5 @@
 import { sectionId } from './utils';
-import { sortSwedish } from './utils';
+import { sortSwedish } from 'next-dato-utils/utils';
 import { apiQuery } from 'next-dato-utils/api';
 import { MenuDocument } from '@/graphql';
 

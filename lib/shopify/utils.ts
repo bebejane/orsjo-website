@@ -17,12 +17,25 @@ export const shopifyGraphqlError = (errors: CustomerUserError[]): string | undef
 export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
 
-export const formatPrice = (price: MoneyV2, quantity = 1): string => {
-	if (!price) return '';
+export const formatShopifyPrice = (money: MoneyV2, quantity = 1): string => {
+	if (!money) return '';
+
+	const price = priceWithVAT(money);
 
 	return `${new Intl.NumberFormat('sv-SE', { style: 'decimal', currency: price.currencyCode }).format(
 		price.amount * quantity
 	)} ${price.currencyCode}`;
+};
+
+export const priceWithVAT = (money: MoneyV2): MoneyV2 => {
+	if (!money) throw new Error('Invalid price');
+	if (money.currencyCode !== 'SEK') return money;
+	else {
+		return {
+			...money,
+			amount: money.amount * 1.25,
+		};
+	}
 };
 
 export const cartCookieOptions = {

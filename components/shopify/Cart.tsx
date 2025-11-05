@@ -9,7 +9,7 @@ import CountrySelector from './CountrySelector';
 import Loader from '@/components/common/Loader';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { formatPrice } from '@/lib/shopify/utils';
+import { formatShopifyPrice } from '@/lib/shopify/utils';
 import useCountry from '@/lib/shopify/hooks/useCountry';
 import useStore from '@/lib/store';
 import { useClickAway } from 'react-use';
@@ -115,7 +115,7 @@ export default function Cart({ localization }: CartProps) {
 
 									<div className={s.amount}>
 										<div className={cn(s.price, 'small')} aria-label={'Total'}>
-											{formatPrice(cost.subtotalAmount)}
+											{formatShopifyPrice(cost.subtotalAmount)}
 										</div>
 										<div className='small gray'>{deliveryDaysText[deliveryDays as string]?.label}</div>
 										<div>
@@ -131,7 +131,7 @@ export default function Cart({ localization }: CartProps) {
 
 					<div className={s.total}>
 						<div className='medium'>Total</div>
-						<div className={cn('medium', s.price)}>{formatPrice(cart?.cost.totalAmount as MoneyV2)}</div>
+						<div className={cn('medium', s.price)}>{formatShopifyPrice(cart?.cost.totalAmount as MoneyV2)}</div>
 					</div>
 					<div className={s.currency}>
 						<CountrySelector localization={localization} label='Location' className={s.form} />

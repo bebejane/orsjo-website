@@ -18,13 +18,7 @@ export type GalleryProps = {
 	padImagesWithTitle?: boolean;
 };
 
-export default function Gallery({
-	images,
-	onClose,
-	index = 0,
-	show,
-	padImagesWithTitle = false,
-}: GalleryProps) {
+export default function Gallery({ images, onClose, index = 0, show, padImagesWithTitle = false }: GalleryProps) {
 	const swiperRef = useRef<SwiperType | null>(null);
 	const [realIndex, setRealIndex] = useState(0);
 	const [title, setTitle] = useState<string | null>(null);
@@ -67,7 +61,7 @@ export default function Gallery({
 			<div className={s.images} onClick={() => !isSingleSlide && swiperRef?.current?.slideNext()}>
 				<Swiper
 					id={`main-gallery`}
-					loop={true}
+					loop={images.length > 1}
 					spaceBetween={500}
 					simulateTouch={!isSingleSlide}
 					slidesPerView={1}
@@ -76,10 +70,7 @@ export default function Gallery({
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
 				>
 					{images.map((image, idx) => (
-						<SwiperSlide
-							key={idx}
-							className={cn(s.slide, padImagesWithTitle && image.title && s.padded)}
-						>
+						<SwiperSlide key={idx} className={cn(s.slide, padImagesWithTitle && image.title && s.padded)}>
 							{image.responsiveImage ? (
 								<Image
 									imgClassName={s.image}
