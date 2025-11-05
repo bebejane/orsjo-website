@@ -19,13 +19,13 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+	return <div>test3</div>;
+
 	const { designer } = await apiQuery(DesignerDocument, {
 		variables: { slug },
 	});
 
 	if (!designer) return notFound();
-
-	return <div>test</div>;
 
 	const [{ allProducts }, { allProducts: products }, { allDesigners }] = await Promise.all([
 		apiQuery(AllProductsLightDocument, {
