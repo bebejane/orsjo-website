@@ -1,4 +1,6 @@
+import shopifyQuery from './shopify-query';
 import client from './datocms-client';
+import { LocalizationDocument } from '@/lib/shopify/graphql';
 
 export const getShopifyId = (id: string): number => {
 	const shopifyId = Buffer.from(id).toString('base64') as string;
@@ -36,6 +38,16 @@ export const priceWithVAT = (money: MoneyV2): MoneyV2 => {
 			amount: money.amount * 1.25,
 		};
 	}
+};
+
+export const getLocalization = async (): Promise<LocalizationQuery['localization']> => {
+	const { localization } = await shopifyQuery(LocalizationDocument, {
+		variables: { language: 'EN' as LanguageCode },
+		revalidate: 3600,
+		country: 'US',
+	});
+
+	return localization;
 };
 
 export const cartCookieOptions = {

@@ -1,3 +1,28 @@
-import page from '@/app/support/faq/page';
-export { generateMetadata } from '@/app/support/faq/page';
-export default async (params: PageProps<'/support/faq'>) => page(params);
+import s from './page.module.scss';
+import { FaqStartDocument } from '@/graphql';
+import { apiQuery } from 'next-dato-utils/api';
+import { notFound } from 'next/navigation';
+import { Section } from '@/components';
+import FaqList from '@/app/[country]/support/faq/FaqList';
+import { Metadata } from 'next';
+
+export default async function Faqs(props: PageProps<'/[country]/support/faq'>) {
+	const { faqs, faqStart } = await apiQuery(FaqStartDocument);
+	if (!faqs || !faqStart) return notFound();
+
+	return (
+		<>
+			<Section className={s.intro} top={true}>
+				<h1 className='topMargin'>{faqStart.title}</h1>
+				<p>{faqStart.intro}</p>
+			</Section>
+			<FaqList faqs={faqs} />
+		</>
+	);
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: 'FAQ',
+	};
+}

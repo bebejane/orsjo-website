@@ -13,7 +13,7 @@ import AnimateHeight from 'react-animate-height';
 import { generateProductTitle, parseProductModelName, deliveryDaysText } from '@/lib/utils';
 import { RiCheckFill } from 'react-icons/ri';
 import { AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
-import { ProductPageDataProps } from '@/app/products/utils';
+import { ProductPageDataProps } from '@/app/[country]/products/utils';
 import Modal from '@/components/layout/Modal';
 
 type Props = {
