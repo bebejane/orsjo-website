@@ -33,7 +33,7 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 			pft.classList.toggle('enter', false);
 			pft.classList.toggle('exit', isSameBase);
 		}
-		router.prefetch(props.href);
+		//router.prefetch(props.href);
 
 		await sleep(isSameBase ? 300 : 500);
 
