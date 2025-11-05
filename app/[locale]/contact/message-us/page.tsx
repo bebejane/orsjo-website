@@ -38,7 +38,7 @@ export default async function ContactModalPage({ params }: PageProps<'/[locale]/
 					</div>
 					<ContactForm contactFormMessage={contact.contactFormMessage} />
 				</div>
-				<Link href='/contact' className={s.close} transition={false}>
+				<Link href='/contact' className={s.close} transition={false} prefetch={true}>
 					×
 				</Link>
 			</div>

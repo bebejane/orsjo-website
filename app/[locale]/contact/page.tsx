@@ -66,7 +66,7 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 								<a href={`mailto:${contact.email}`}>{contact.email}</a>
 							</p>
 						</div>
-						<Link href='/contact/message-us' transition={false}>
+						<Link href='/contact/message-us' transition={false} prefetch={true}>
 							<button>Contact Us</button>
 						</Link>
 					</div>
