@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/professionals/bespoke/page';
 import { BespokeDocument } from '@/graphql';
 import Link from '@/components/nav/Link';
 import { Markdown } from 'next-dato-utils/components';
@@ -8,6 +7,7 @@ import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import BespokeHeader from './BespokeHeader';
 import { Metadata } from 'next';
+import BespokeProjects from './BespokeProjects';
 
 export default async function Bespoke(props: PageProps<'/professionals/bespoke'>) {
 	const { bespoke } = await apiQuery(BespokeDocument);
@@ -20,7 +20,7 @@ export default async function Bespoke(props: PageProps<'/professionals/bespoke'>
 				<h1>{bespoke.title}</h1>
 				<Markdown className={s.text} content={bespoke.intro} />
 			</Section>
-
+			<BespokeProjects bespoke={bespoke} />
 			<Section name='Outro' className={s.outro} type='full' bgColor={'--gray'}>
 				<div className={s.innerWrap}>
 					<Markdown className={s.text} content={bespoke.outro} />

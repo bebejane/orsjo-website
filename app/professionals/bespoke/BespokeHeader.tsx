@@ -5,7 +5,7 @@ import { Image } from 'react-datocms';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { Section, TextReveal } from '@/components';
 import { recordImages, styleVariables } from '@/lib/utils';
-import { useShallow, useStore } from 'lib/store';
+import { useShallow, useStore } from '@/lib/store';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
@@ -33,10 +33,7 @@ export default function BespokeHeader({ bespoke }: BespokeProps) {
 	if (!bespoke) return null;
 
 	return (
-		<Section
-			className={s.bespoke}
-			type={'full'}
-		>
+		<Section className={s.bespoke} type={'full'}>
 			{bespoke.image.responsiveImage && (
 				<Image
 					data={bespoke.image.responsiveImage}

@@ -1,0 +1,72 @@
+.projects {
+	display: flex;
+	flex-direction: column;
+
+	.project {
+		display: flex;
+		flex-direction: row;
+		margin-top: 1em;
+
+		@include mq($from: desktop) {
+			margin-top: var(--margin);
+		}
+
+		@include mq($until: desktop) {
+			flex-wrap: wrap;
+		}
+
+		&:nth-child(even) {
+			flex-direction: row-reverse;
+
+			.description {
+				align-items: flex-start;
+				padding-left: 0;
+
+				@include mq($from: desktop) {
+					padding-right: var(--outer-margin);
+				}
+
+				.text {
+					text-align: left;
+				}
+			}
+		}
+
+		.image {
+			@include mq($until: desktop) {
+				margin-bottom: 1em;
+			}
+
+			@include mq($from: desktop) {
+				flex: 0 0 spanGrid(12);
+			}
+
+			cursor: pointer;
+		}
+
+		.description {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+
+			@include mq($from: desktop) {
+				padding-left: var(--outer-margin);
+			}
+
+			.text {
+				display: flex;
+				align-items: center;
+				flex: 1 1 auto;
+				//text-align: right;
+			}
+
+			.thumbnail {
+				width: 100%;
+
+				@include mq($until: desktop) {
+					display: none;
+				}
+			}
+		}
+	}
+}

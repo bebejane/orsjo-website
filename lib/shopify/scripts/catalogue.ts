@@ -5,11 +5,11 @@ import { sync } from '@/lib/shopify/sync';
 import client from '@/lib/client';
 
 (async () => {
-	const { catalogs } = await shopifyQuery<AllCatalogsQuery, AllCatalogsQueryVariables>(AllCatalogsDocument, {
+	const { catalogs } = await shopifyQuery(AllCatalogsDocument, {
 		country: 'SE',
 		admin: true,
 	});
-	const { priceLists } = await shopifyQuery<AllPriceListsQuery, AllPriceListsQueryVariables>(AllPriceListsDocument, {
+	const { priceLists } = await shopifyQuery(AllPriceListsDocument, {
 		admin: true,
 	});
 

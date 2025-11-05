@@ -39,13 +39,11 @@ const useCart = create<CartState>((set, get) => ({
 		let cart: CartQuery['cart'] | null = null;
 
 		if (id) {
-			const res = await shopifyQuery<CartQuery, CartQueryVariables>(CartDocument, { revalidate: 0, variables: { id }, country });
+			const res = await shopifyQuery(CartDocument, { revalidate: 0, variables: { id }, country });
 			cart = res.cart ?? null;
 		}
 
-		if (!cart)
-			cart = (await shopifyQuery<CreateCartMutation, CreateCartMutationVariables>(CreateCartDocument, { revalidate: 0, country }))
-				?.cartCreate?.cart;
+		if (!cart) cart = (await shopifyQuery(CreateCartDocument, { revalidate: 0, country }))?.cartCreate?.cart;
 
 		if (!cart) throw new Error('Cart not found');
 
@@ -63,7 +61,7 @@ const useCart = create<CartState>((set, get) => ({
 	addToCart: async (lines: CartLineInput[], country: string) => {
 		get().update(null, async () => {
 			const cart = get().cart as CartQuery['cart'];
-			const { cartLinesAdd } = await shopifyQuery<AddItemToCartMutation, AddItemToCartMutationVariables>(AddItemToCartDocument, {
+			const { cartLinesAdd } = await shopifyQuery(AddItemToCartDocument, {
 				revalidate: 0,
 				variables: {
 					cartId: cart?.id ?? '',
@@ -84,16 +82,13 @@ const useCart = create<CartState>((set, get) => ({
 		get().update(id, async () => {
 			const cart = get().cart as CartQuery['cart'];
 
-			const { cartLinesRemove } = await shopifyQuery<RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables>(
-				RemoveItemFromCartDocument,
-				{
-					revalidate: 0,
-					variables: {
-						cartId: cart?.id ?? '',
-						lineIds: [id],
-					},
-				}
-			);
+			const { cartLinesRemove } = await shopifyQuery(RemoveItemFromCartDocument, {
+				revalidate: 0,
+				variables: {
+					cartId: cart?.id ?? '',
+					lineIds: [id],
+				},
+			});
 
 			if (!cartLinesRemove?.cart) throw new Error('Cart not found');
 			return cartLinesRemove.cart as CartQuery['cart'];
@@ -103,18 +98,18 @@ const useCart = create<CartState>((set, get) => ({
 		get().update(id, async () => {
 			const cart = get().cart as CartQuery['cart'];
 			if (!cart) throw new Error('Cart not found');
-			const lines = cart.lines.edges.map((l) => ({ id: l.node.id, quantity: l.node.id === id ? quantity : l.node.quantity }));
-			const { cartLinesUpdate } = await shopifyQuery<UpdateItemFromCartMutation, UpdateItemFromCartMutationVariables>(
-				UpdateItemFromCartDocument,
-				{
-					revalidate: 0,
-					variables: {
-						cartId: cart?.id,
-						lines,
-					},
-					country,
-				}
-			);
+			const lines = cart.lines.edges.map((l) => ({
+				id: l.node.id,
+				quantity: l.node.id === id ? quantity : l.node.quantity,
+			}));
+			const { cartLinesUpdate } = await shopifyQuery(UpdateItemFromCartDocument, {
+				revalidate: 0,
+				variables: {
+					cartId: cart?.id,
+					lines,
+				},
+				country,
+			});
 			if (!cartLinesUpdate?.cart) throw new Error('Cart not found');
 			return cartLinesUpdate.cart as CartQuery['cart'];
 		});
@@ -122,16 +117,13 @@ const useCart = create<CartState>((set, get) => ({
 	updateBuyerIdentity: async (buyerIdentity: CartBuyerIdentityInput) => {
 		get().update(null, async () => {
 			const id = getCookie('cart', cartCookieOptions) as string;
-			const { cartBuyerIdentityUpdate } = await shopifyQuery<CartBuyerIdentityUpdateMutation, CartBuyerIdentityUpdateMutationVariables>(
-				CartBuyerIdentityUpdateDocument,
-				{
-					revalidate: 0,
-					variables: {
-						cartId: id,
-						buyerIdentity,
-					},
-				}
-			);
+			const { cartBuyerIdentityUpdate } = await shopifyQuery(CartBuyerIdentityUpdateDocument, {
+				revalidate: 0,
+				variables: {
+					cartId: id,
+					buyerIdentity,
+				},
+			});
 			const cart = cartBuyerIdentityUpdate?.cart as CartQuery['cart'];
 			if (!cart) throw new Error('Cart not found');
 			return cart;

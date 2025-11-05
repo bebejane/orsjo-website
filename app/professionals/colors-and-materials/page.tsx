@@ -8,10 +8,8 @@ import ColorsAndMaterialsList from './ColorsMaterialsList';
 import { Metadata } from 'next';
 
 export default async function ColorsAndMaterials(props: PageProps<'/professionals/colors-and-materials'>) {
-	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro } = await apiQuery<
-		AllColorsAndMaterialsQuery,
-		AllColorsAndMaterialsQueryVariables
-	>(AllColorsAndMaterialsDocument);
+	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro } =
+		await apiQuery(AllColorsAndMaterialsDocument);
 
 	if (!colorMaterialIntro) notFound();
 	const { intro } = colorMaterialIntro;

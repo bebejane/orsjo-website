@@ -47,7 +47,9 @@ export default async function Designer({ params }: PageProps<'/designers/[design
 					</div>
 					<figure>
 						<div className={s.fade}></div>
-						{designer.image?.responsiveImage && <Image data={designer.image.responsiveImage} priority={true} />}
+						{designer.image?.responsiveImage && (
+							<Image data={designer.image.responsiveImage} priority={true} className={s.wrap} />
+						)}
 						<figcaption>
 							<h1>{designer.name}</h1>
 						</figcaption>

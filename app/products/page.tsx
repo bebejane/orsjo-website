@@ -27,7 +27,7 @@ export default async function Products({ params }: PageProps<'/[country]/product
 		apiQuery(ProductStartDocument),
 		apiQuery(AllProductsLightDocument),
 		apiQuery(ProductCategoriesDocument),
-		shopifyQuery<AllShopifyProductsQuery, AllShopifyProductsQueryVariables>(AllShopifyProductsDocument, { country }),
+		shopifyQuery(AllShopifyProductsDocument, { country }),
 	]);
 
 	/*
@@ -37,7 +37,7 @@ export default async function Products({ params }: PageProps<'/[country]/product
 
 	const query = skus.map((sku) => `sku:${sku}`).join(' OR ');
 
-	const { products: variants } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(
+	const { products: variants } = await shopifyQuery(
 		ShopifyProductsByQueryDocument,
 		{
 			variables: { query },

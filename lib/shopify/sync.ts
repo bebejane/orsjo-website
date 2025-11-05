@@ -26,10 +26,10 @@ import {
 	PriceListFixedPricesUpdateDocument,
 	AllPriceListsDocument,
 } from '@/lib/shopify/graphql-admin';
-import { Item } from '@datocms/cma-client/dist/types/generated/SimpleSchemaTypes';
 import { batchPromises } from '@/lib/utils';
 import { generateProductTitle } from '@/lib/utils';
 import { currency, convertPrice } from '@/lib/utils';
+import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -71,13 +71,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				if (!product) throw new Error('Invalid product: ' + itemId);
 
-				const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
-					AdminProductDocument,
-					{
-						admin: true,
-						variables: { handle: product.slug },
-					}
-				);
+				const { product: shopifyProduct } = await shopifyQuery(AdminProductDocument, {
+					admin: true,
+					variables: { handle: product.slug },
+				});
 
 				const productMedia: CreateMediaInput[] = [];
 
@@ -172,13 +169,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				const accessoryArticleNo = productAccessory.articleNo?.trim();
 
-				const { product: shopifyAccessory } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
-					AdminProductDocument,
-					{
-						admin: true,
-						variables: { handle: productAccessory.slug ?? '' },
-					}
-				);
+				const { product: shopifyAccessory } = await shopifyQuery(AdminProductDocument, {
+					admin: true,
+					variables: { handle: productAccessory.slug ?? '' },
+				});
 
 				const accessoryData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyAccessory?.id,
@@ -243,22 +237,19 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				await updateProduct({ product: accessoryData }, accessoryVariants, accessoryVariantsMedia);
 				break;
 			case 'product_lightsource':
-				const { productLightsource } = await apiQuery<
-					ProductLightsourceByIdQuery,
-					ProductLightsourceByIdQueryVariables
-				>(ProductLightsourceByIdDocument, { revalidate: 0, variables: { id: itemId } });
+				const { productLightsource } = await apiQuery(ProductLightsourceByIdDocument, {
+					revalidate: 0,
+					variables: { id: itemId },
+				});
 
 				if (!productLightsource) throw new Error(`Invalid product: ${itemId}`);
 
 				const lightsourceArticleNo = productLightsource.articleNo?.trim();
 
-				const { product: shopifyLightsource } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
-					AdminProductDocument,
-					{
-						admin: true,
-						variables: { handle: productLightsource.slug ?? '' },
-					}
-				);
+				const { product: shopifyLightsource } = await shopifyQuery(AdminProductDocument, {
+					admin: true,
+					variables: { handle: productLightsource.slug ?? '' },
+				});
 
 				const lightsourceData: ProductCreateInput | ProductUpdateInput = {
 					id: shopifyLightsource?.id,
@@ -357,7 +348,7 @@ export async function updateProduct(
 		if (!isUpdate) {
 			console.log('creating product:', data.product.handle);
 
-			const res = await shopifyQuery<AddProductMutation, AddProductMutationVariables>(AddProductDocument, {
+			const res = await shopifyQuery(AddProductDocument, {
 				admin: true,
 				variables: {
 					product: data.product,
@@ -368,13 +359,10 @@ export async function updateProduct(
 		} else {
 			console.log('updating product:', data.product.handle);
 
-			const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
-				AdminProductDocument,
-				{
-					admin: true,
-					variables: { handle: data.product.handle ?? '' },
-				}
-			);
+			const { product: shopifyProduct } = await shopifyQuery(AdminProductDocument, {
+				admin: true,
+				variables: { handle: data.product.handle ?? '' },
+			});
 
 			if (!shopifyProduct) throw new Error('Invalid shopify product: ' + data.product.handle);
 
@@ -419,7 +407,7 @@ export async function updateProduct(
 
 			delete (data.product as ProductCreateInput).productOptions;
 
-			const res = await shopifyQuery<UpdateProductMutation, UpdateProductMutationVariables>(UpdateProductDocument, {
+			const res = await shopifyQuery(UpdateProductDocument, {
 				admin: true,
 				variables: {
 					product: data.product,
@@ -451,28 +439,22 @@ export async function updateProduct(
 			console.log('update variants:', updatedVariants.length, updatedVariantsMedia.length);
 
 			const [{ productVariantsBulkCreate }, { productVariantsBulkUpdate }] = await Promise.all([
-				shopifyQuery<ProductVariantsBulkCreateMutation, ProductVariantsBulkCreateMutationVariables>(
-					ProductVariantsBulkCreateDocument,
-					{
-						admin: true,
-						variables: {
-							productId: product.id,
-							variants: newVariants,
-							media: newVariantsMedia,
-						},
-					}
-				),
-				shopifyQuery<ProductVariantsBulkUpdateMutation, ProductVariantsBulkUpdateMutationVariables>(
-					ProductVariantsBulkUpdateDocument,
-					{
-						admin: true,
-						variables: {
-							productId: product.id,
-							variants: updatedVariants,
-							media: updatedVariantsMedia,
-						},
-					}
-				),
+				shopifyQuery(ProductVariantsBulkCreateDocument, {
+					admin: true,
+					variables: {
+						productId: product.id,
+						variants: newVariants,
+						media: newVariantsMedia,
+					},
+				}),
+				shopifyQuery(ProductVariantsBulkUpdateDocument, {
+					admin: true,
+					variables: {
+						productId: product.id,
+						variants: updatedVariants,
+						media: updatedVariantsMedia,
+					},
+				}),
 			]);
 
 			if (productVariantsBulkCreate?.userErrors?.length)
@@ -499,7 +481,7 @@ export async function updateProduct(
 }
 
 export const updateVariantPrices = async (variants: ProductVariant[]) => {
-	const { priceLists } = await shopifyQuery<AllPriceListsQuery, AllPriceListsQueryVariables>(AllPriceListsDocument, {
+	const { priceLists } = await shopifyQuery(AllPriceListsDocument, {
 		admin: true,
 	});
 
@@ -551,36 +533,27 @@ export const syncProductStatus = async (
 	handle: string,
 	status: ProductStatus
 ): Promise<UpdateProductStatusMutation['productUpdate']> => {
-	const { product: shopifyProduct } = await shopifyQuery<AdminProductQuery, AdminProductQueryVariables>(
-		AdminProductDocument,
-		{
-			admin: true,
-			variables: { handle },
-		}
-	);
+	const { product: shopifyProduct } = await shopifyQuery(AdminProductDocument, {
+		admin: true,
+		variables: { handle },
+	});
 
-	const { productUpdate } = await shopifyQuery<UpdateProductStatusMutation, UpdateProductStatusMutationVariables>(
-		UpdateProductStatusDocument,
-		{
-			admin: true,
-			variables: {
-				productId: shopifyProduct?.id,
-				status,
-			},
-		}
-	);
+	const { productUpdate } = await shopifyQuery(UpdateProductStatusDocument, {
+		admin: true,
+		variables: {
+			productId: shopifyProduct?.id,
+			status,
+		},
+	});
 	return productUpdate;
 };
 
 export const resetAll = async () => {
 	console.log('reseting all...');
 	//throw new Error('Not implemented');
-	const { products } = await shopifyQuery<AllAdminProductsQuery, AllAdminProductsQueryVariables>(
-		AllAdminProductsDocument,
-		{
-			admin: true,
-		}
-	);
+	const { products } = await shopifyQuery(AllAdminProductsDocument, {
+		admin: true,
+	});
 
 	console.log('deleting all products:', products?.edges.length);
 
@@ -588,7 +561,7 @@ export const resetAll = async () => {
 		products?.edges.map(
 			({ node: { id } }) =>
 				() =>
-					shopifyQuery<RemoveProductMutation, RemoveProductMutationVariables>(RemoveProductDocument, {
+					shopifyQuery(RemoveProductDocument, {
 						admin: true,
 						variables: {
 							id,
@@ -604,7 +577,7 @@ export const resetAll = async () => {
 	let after: string | undefined = undefined;
 
 	while (true) {
-		const res = await shopifyQuery<FilesQuery, FilesQueryVariables>(FilesDocument, {
+		const res = await shopifyQuery(FilesDocument, {
 			admin: true,
 			variables: {
 				first,
@@ -627,7 +600,7 @@ export const resetAll = async () => {
 		files.map(
 			({ id }) =>
 				() =>
-					shopifyQuery<FileDeleteMutation, FileDeleteMutationVariables>(FileDeleteDocument, {
+					shopifyQuery(FileDeleteDocument, {
 						admin: true,
 						variables: {
 							id,
@@ -671,15 +644,12 @@ export const resyncAll = async () => {
 
 export const waitForMedia = async (productId: string) => {
 	async function check() {
-		const { product } = await shopifyQuery<AdminProductMediaStatusQuery, AdminProductMediaStatusQueryVariables>(
-			AdminProductMediaStatusDocument,
-			{
-				admin: true,
-				variables: {
-					id: productId,
-				},
-			}
-		);
+		const { product } = await shopifyQuery(AdminProductMediaStatusDocument, {
+			admin: true,
+			variables: {
+				id: productId,
+			},
+		});
 
 		return product?.media.edges.filter(({ node }) => node.status !== 'READY')?.length === 0;
 	}

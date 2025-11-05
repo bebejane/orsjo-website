@@ -49,6 +49,10 @@
 			height: 100%;
 			mix-blend-mode: screen;
 
+			.wrap {
+				max-width: 100% !important;
+			}
+
 			img {
 				object-fit: cover;
 				height: 100vh;

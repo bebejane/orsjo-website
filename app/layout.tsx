@@ -11,7 +11,7 @@ import * as Sentry from '@sentry/nextjs';
 
 export default async function RootLayout({ children }: LayoutProps<'/'>) {
 	const menu = await buildMenu();
-	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(LocalizationDocument);
+	const { localization } = await shopifyQuery(LocalizationDocument);
 
 	return (
 		<html lang='en-US'>

@@ -10,7 +10,7 @@ export type LayoutProps = {
 export const dynamic = 'force-static';
 
 export async function generateStaticParams() {
-	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(LocalizationDocument, {
+	const { localization } = await shopifyQuery(LocalizationDocument, {
 		variables: { language: 'SE' as LanguageCode },
 		country: 'SE',
 	});

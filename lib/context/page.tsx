@@ -2,7 +2,7 @@
 
 import { useContext, createContext } from 'react';
 
-export type PageProps = {
+export type UsePageProps = {
 	title: string | undefined;
 	layout: 'normal' | 'full';
 	menu: 'normal' | 'inverted';
@@ -11,7 +11,7 @@ export type PageProps = {
 	footerLine?: boolean;
 };
 
-const initialState: PageProps = {
+const initialState: UsePageProps = {
 	title: undefined,
 	layout: 'normal',
 	menu: 'normal',
@@ -20,7 +20,7 @@ const initialState: PageProps = {
 	footerLine: false,
 };
 
-export const getPageAttributes = (pathname: string, country: string): PageProps => {
+export const getPageAttributes = (pathname: string, country: string): UsePageProps => {
 	const rootPath = country === 'SE' ? pathname.split('/')[1] : pathname.split('/')[2];
 
 	switch (rootPath) {
@@ -102,8 +102,6 @@ export const getPageAttributes = (pathname: string, country: string): PageProps 
 		default:
 			return { title: 'Home', layout: 'full', color: '--black', menu: 'inverted', sidebar: false };
 	}
-
-	//return { title: 'Home', layout: 'normal', menu: 'inverted', color: '--white', sidebar: false };
 };
 
 export const PageContext = createContext(initialState);
@@ -122,6 +120,6 @@ export const PageProvider = ({ children, pathname, country }: PageProviderProps)
 	);
 };
 // usePage hook
-export const usePage = (): PageProps => {
+export const usePage = (): UsePageProps => {
 	return useContext(PageContext);
 };

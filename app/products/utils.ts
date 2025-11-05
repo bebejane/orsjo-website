@@ -73,13 +73,10 @@ export const getProductPageData = async (
 		}),
 	]);
 
-	const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(
-		ShopifyProductDocument,
-		{
-			variables: { handle: product.slug },
-			country: countryCode,
-		}
-	);
+	const { product: shopifyProduct } = await shopifyQuery(ShopifyProductDocument, {
+		variables: { handle: product.slug },
+		country: countryCode,
+	});
 
 	const relatedArticleNos = product.models.reduce(
 		(acc, model) => {
@@ -91,13 +88,10 @@ export const getProductPageData = async (
 	);
 
 	const query = relatedArticleNos.map((articleNo) => `tag:${articleNo}`).join(' OR ');
-	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(
-		ShopifyProductsByQueryDocument,
-		{
-			country: countryCode,
-			variables: { query },
-		}
-	);
+	const { products } = await shopifyQuery(ShopifyProductsByQueryDocument, {
+		country: countryCode,
+		variables: { query },
+	});
 	const shopifyAccessories = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('accessory'));
 	const shopifyLightsources = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('lightsource'));
 
@@ -160,12 +154,9 @@ export async function getShopifyProductsBySku(
 ): Promise<ShopifyProductsByQuery['products']['edges'][0]['node'][]> {
 	const query = skus.map((sku) => `sku:${sku}`).join(' OR ');
 
-	const { products } = await shopifyQuery<ShopifyProductsByQuery, ShopifyProductsByQueryVariables>(
-		ShopifyProductsByQueryDocument,
-		{
-			variables: { query },
-			country,
-		}
-	);
+	const { products } = await shopifyQuery(ShopifyProductsByQueryDocument, {
+		variables: { query },
+		country,
+	});
 	return products.edges.map(({ node }) => node);
 }
