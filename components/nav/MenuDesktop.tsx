@@ -3,7 +3,7 @@
 import s from './MenuDesktop.module.scss';
 import cn from 'classnames';
 import Link from '@/components/nav/Link';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useStore, useShallow } from '@/lib/store';
 import { usePage } from '@/lib/context/page';
 import { useWindowSize } from 'rooks';
@@ -82,9 +82,11 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 	}, [transitioning, scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
 
 	useEffect(() => {
+		console.log('hashchange');
 		// Hide menu when scrolling to hash
-		const handleHashChangeStart = async (url) => {
-			const id = url.split('#')[1];
+		const handleHashChangeStart = async (e: HashChangeEvent) => {
+			console.log(e);
+			const id = e.newURL.split('#')[1];
 			const el = await waitForElement(id, 400);
 			if (!(el ? el.getBoundingClientRect().top + window.scrollY : false)) return; // If element is at page top, ignore.
 
@@ -94,8 +96,10 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 				setTimeout(() => setShowMenu(false), 0);
 			}, 1000);
 		};
-		document.addEventListener('hashchange', handleHashChangeStart);
-		return () => document.removeEventListener('hashChangeStart', handleHashChangeStart);
+		window.addEventListener('hashchange', handleHashChangeStart);
+		return () => {
+			window.removeEventListener('hashChangeStart', handleHashChangeStart);
+		};
 	}, [setHashChanging, setShowMenu]);
 
 	useEffect(() => {
@@ -177,7 +181,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 						<ul className={cn(sub && sub.length > 10 && s.columns)}>
 							{sub?.map(({ label, slug }, idx) => (
 								<li key={idx} className={cn(slug === pathname && s.active)}>
-									<Link href={slug} onClick={() => setShowSubMenu(false)}>
+									<Link href={slug} onClick={() => setShowSubMenu(false)} prefetch={true}>
 										{label}
 									</Link>
 								</li>

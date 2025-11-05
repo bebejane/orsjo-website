@@ -40,6 +40,7 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 		.filter(({ id }) => allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id))
 		.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
+	return <div>test</div>;
 	return (
 		<>
 			<Section type='full' className={s.designer}>
@@ -77,18 +78,20 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 				</div>
 			</Section>
 
-			<Section type='margin' className={s.otherDesigners} bgColor='--green'>
-				<h1>Other designers</h1>
-				<div className={s.gallery}>
-					<FeaturedGallery
-						id='all-designers'
-						items={designers as DesignerRecord[]}
-						theme='light'
-						arrowAlign='middle'
-						fadeColor={'--green'}
-					/>
-				</div>
-			</Section>
+			{
+				<Section type='margin' className={s.otherDesigners} bgColor='--green'>
+					<h1>Other designers</h1>
+					<div className={s.gallery}>
+						<FeaturedGallery
+							id='all-designers'
+							items={designers as DesignerRecord[]}
+							theme='light'
+							arrowAlign='middle'
+							fadeColor={'--green'}
+						/>
+					</div>
+				</Section>
+			}
 		</>
 	);
 }
@@ -98,6 +101,7 @@ export async function generateStaticParams() {
 		all: true,
 	});
 	const paths = allDesigners.map(({ slug: designer }) => ({ designer }));
+	console.log(paths);
 	return paths;
 }
 
