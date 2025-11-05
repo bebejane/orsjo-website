@@ -1,8 +1,9 @@
 import { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
 import path from 'path';
-import { LocalizationDocument } from '@/lib/shopify/graphql';
-import shopifyQuery from '@/lib/shopify/shopify-query';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
 	sassOptions: {
@@ -41,17 +42,6 @@ const nextConfig: NextConfig = {
 		config.module.exprContextCritical = false;
 		config.resolve.alias['datocms.config'] = path.join(__dirname, 'datocms.config.ts');
 		return config;
-	},
-	async rewrites() {
-		const { localization } = await shopifyQuery(LocalizationDocument, {
-			variables: { language: 'EN' as LanguageCode },
-			revalidate: 3600,
-			country: 'US',
-		});
-		return localization.availableCountries.map(({ isoCode }) => ({
-			source: isoCode === 'SE' ? '/:path*' : `/${isoCode}/:path*`,
-			destination: `/${isoCode}/:path*`,
-		}));
 	},
 	async redirects() {
 		return [
@@ -164,7 +154,7 @@ const nextConfig: NextConfig = {
 	},
 };
 
-export default withSentryConfig(nextConfig, {
+export default withSentryConfig(withNextIntl(nextConfig), {
 	// For all available options, see:
 	// https://www.npmjs.com/package/@sentry/webpack-plugin#options
 

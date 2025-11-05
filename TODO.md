@@ -8,6 +8,7 @@
   - styling
 
 - contact page
+  - slide
   - side menu color
 
 # Cart

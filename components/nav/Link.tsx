@@ -1,26 +1,28 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
-import NextLink, { LinkProps } from 'next/link';
-import { HTMLProps, FC } from 'react';
+import { HTMLProps, FC, ComponentProps } from 'react';
 import { sleep } from '@/lib/utils';
 import { useEffect } from 'react';
 import { pathnameToColor } from '@/lib/utils';
-import useCountry from '@/lib/shopify/hooks/useCountry';
+import { useRouter, usePathname, Link as NextIntlLink } from '@/i18n/routing';
 
-const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
+type LinkProp = ComponentProps<typeof NextIntlLink> & {
+	transition?: boolean;
+};
+
+const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, ...props }) => {
 	const router = useRouter();
 	const pathname = usePathname();
-	const country = useCountry();
-	const href = `${country !== 'SE' ? `/${country.toLowerCase()}` : ''}${props.href}`;
 
 	const handleClick = async (e: any) => {
+		if (!transition) return true;
 		e.preventDefault();
 		const pt = document.getElementById('page-transition');
 		const pft = document.getElementById('page-fade-transition');
 		const root = document.querySelector<HTMLDivElement>(':root');
-		root?.style.setProperty('--page-color', `var(${pathnameToColor(props.href) ?? '--white'})`);
 		const isSameBase = pathname?.split('/')[1] === props.href?.split('/')[1];
+
+		root?.style.setProperty('--page-color', `var(${pathnameToColor(props.href) ?? '--white'})`);
 
 		if (pt) {
 			pt.setAttribute('pathname', pathname);
@@ -31,11 +33,11 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 			pft.classList.toggle('enter', false);
 			pft.classList.toggle('exit', isSameBase);
 		}
-		router.prefetch(href);
+		router.prefetch(props.href);
 
 		await sleep(isSameBase ? 300 : 500);
 
-		router.push(href);
+		router.push(props.href);
 	};
 
 	useEffect(() => {
@@ -57,9 +59,9 @@ const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = (props) => {
 	}, [pathname]);
 
 	return (
-		<NextLink {...props} href={href} onClick={handleClick}>
+		<NextIntlLink {...props} onClick={handleClick}>
 			{props.children}
-		</NextLink>
+		</NextIntlLink>
 	);
 };
 

@@ -44,7 +44,7 @@ export default function useProduct({ handle, initialData = null }: Props) {
 			.finally(() => {
 				setLoading(false);
 			});
-	}, [country]);
+	}, [locale]);
 
 	return { product, loading, error };
 }
