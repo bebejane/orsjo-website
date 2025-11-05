@@ -1,5 +1,5 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/about/news/[news]/page';
+
 import { AllNewsDocument, NewsDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { Image } from 'react-datocms';
@@ -11,9 +11,9 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 
-export default async function NewsPage({ params }: PageParams) {
+export default async function NewsPage({ params }: PageProps<'/about/news/[news]'>) {
 	const { news: slug } = await params;
-	const { news } = await apiQuery<NewsQuery, NewsQueryVariables>(NewsDocument, {
+	const { news } = await apiQuery(NewsDocument, {
 		variables: { slug },
 	});
 	if (!news) return notFound();
@@ -45,14 +45,14 @@ export default async function NewsPage({ params }: PageParams) {
 	);
 }
 export async function generateStaticParams() {
-	const { allNews } = await apiQuery<AllNewsQuery, AllNewsQueryVariables>(AllNewsDocument);
+	const { allNews } = await apiQuery(AllNewsDocument);
 	const paths = allNews.map(({ slug }) => ({ news: slug }));
 	return paths;
 }
 
-export async function generateMetadata({ params }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<'/about/news/[news]'>): Promise<Metadata> {
 	const { news: slug } = await params;
-	const { news } = await apiQuery<NewsQuery, NewsQueryVariables>(NewsDocument, {
+	const { news } = await apiQuery(NewsDocument, {
 		variables: { slug },
 	});
 	if (!news) return notFound();

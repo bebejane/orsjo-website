@@ -1,5 +1,7 @@
 # Shopify
 
+new apiQuery
+
 # DatoCMS
 
 # Pages

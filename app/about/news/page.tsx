@@ -5,8 +5,8 @@ import { apiQuery } from 'next-dato-utils/api';
 import NewsList from './NewsList';
 import { Metadata } from 'next';
 
-export default async function News(params: PageParams) {
-	const { allNews } = await apiQuery<AllNewsQuery, AllNewsQueryVariables>(AllNewsDocument);
+export default async function News(props: PageProps<'/about/news'>) {
+	const { allNews } = await apiQuery(AllNewsDocument);
 
 	return (
 		<>

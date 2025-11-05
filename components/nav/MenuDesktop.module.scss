@@ -16,10 +16,10 @@
 	transition: transform 0.3s ease;
 
 	ul {
-		width: mixin.spanGrid(12);
+		width: spanGrid(12);
 		padding-top: 1em;
 		height: 100%;
-		margin-left: mixin.spanGridWithGutter(4);
+		margin-left: spanGridWithGutter(4);
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -161,11 +161,11 @@
 	&.hide {
 		pointer-events: none;
 
-		@include mixin.mq($until: tablet) {
+		@include mq($until: tablet) {
 			transform: translateY(-var(--navbar-height));
 		}
 
-		@include mixin.mq($from: tablet) {
+		@include mq($from: tablet) {
 			li {
 				opacity: 0;
 			}
@@ -258,7 +258,7 @@
 	}
 }
 
-@include mixin.mq($until: nav-break) {
+@include mq($until: nav-break) {
 	.logo,
 	.desktopMenu,
 	.sub {

@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/about/page';
 import cn from 'classnames';
 import { AboutDocument } from '@/graphql';
 import { Markdown } from 'next-dato-utils/components';
@@ -8,8 +7,8 @@ import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-export default async function About(params: PageParams) {
-	const { about } = await apiQuery<AboutQuery, AboutQueryVariables>(AboutDocument);
+export default async function About(props: PageProps<'/about'>) {
+	const { about } = await apiQuery(AboutDocument);
 	if (!about) return notFound();
 
 	const { title, intro, sections, video } = about;

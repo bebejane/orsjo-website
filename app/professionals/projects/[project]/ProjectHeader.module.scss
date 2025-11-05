@@ -1,69 +1,69 @@
 .intro {
-  position: relative;
-  width: 100%;
+	position: relative;
+	width: 100%;
 
-  .wrap {
-    display: flex;
-    position: relative;
-    cursor: pointer;
+	.wrap {
+		display: flex;
+		position: relative;
+		cursor: pointer;
 
-    @include mixin.mq($until: tablet) {
-      min-height: 60vh;
-    }
+		@include mq($until: tablet) {
+			min-height: 60vh;
+		}
 
-    @include mixin.mq($from: tablet) {
-      min-height: calc(100vh - var(--navbar-height) - var(--outer-margin));
-      max-height: calc(100vh - var(--navbar-height) - var(--outer-margin));
-    }
+		@include mq($from: tablet) {
+			min-height: calc(100vh - var(--navbar-height) - var(--outer-margin));
+			max-height: calc(100vh - var(--navbar-height) - var(--outer-margin));
+		}
 
-    .image {
-      @include mixin.mq($until: tablet) {
-        height: 50vh;
-        width: calc(100% + calc(var(--outer-margin) * 2)) !important;
-        margin-left: calc(var(--outer-margin) * -1);
-        margin-right: calc(var(--outer-margin) * -1);
-      }
-    }
+		.image {
+			@include mq($until: tablet) {
+				height: 50vh;
+				width: calc(100% + calc(var(--outer-margin) * 2)) !important;
+				margin-left: calc(var(--outer-margin) * -1);
+				margin-right: calc(var(--outer-margin) * -1);
+			}
+		}
 
-    .title,
-    .location {
-      padding-bottom: 0;
+		.title,
+		.location {
+			padding-bottom: 0;
 
-      @include mixin.mq($from: tablet) {
-        margin: 0.5em;
-        position: absolute;
-      }
+			@include mq($from: tablet) {
+				margin: 0.5em;
+				position: absolute;
+			}
 
-      z-index: 1;
-      @include mixin.h1Big();
-      color: var(--black);
-    }
+			z-index: 1;
+			@include h1Big();
+			color: var(--black);
+		}
 
-    .title {
-      top: 0;
-      left: 0;
+		.title {
+			top: 0;
+			left: 0;
 
-      @include mixin.mq($until: tablet) {
-        position: absolute;
-        top: 0.4em;
-        color: white;
-      }
-    }
+			@include mq($until: tablet) {
+				position: absolute;
+				top: 0.4em;
+				color: white;
+			}
+		}
 
-    .location {
-      @include mixin.mq($until: tablet) {
-        display: none;
-      }
+		.location {
+			@include mq($until: tablet) {
+				display: none;
+			}
 
-      bottom: 0;
-      right: 0;
-    }
-  }
+			bottom: 0;
+			right: 0;
+		}
+	}
 
-  @include mixin.mq($until: tablet) {
-    .wrap {
-      min-height: auto;
-      flex-direction: column;
-    }
-  }
+	@include mq($until: tablet) {
+		.wrap {
+			min-height: auto;
+			flex-direction: column;
+		}
+	}
 }

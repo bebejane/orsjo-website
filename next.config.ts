@@ -5,10 +5,11 @@ import path from 'path';
 const nextConfig: NextConfig = {
 	sassOptions: {
 		includePaths: ['./components', './app'],
-		silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'mixed-decls'],
 		prependData: `
 			@use "sass:math";
-    	@use "./styles/mixin";
+			@use "@/styles/mediaqueries" as *;
+			@use "@/styles/functions" as *;
+			@use "@/styles/mixin" as *;
   	`,
 	},
 	typescript: {

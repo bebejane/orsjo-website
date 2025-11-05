@@ -20,7 +20,7 @@
 		min-height: 100vh;
 		overflow: hidden;
 
-		@include mixin.mq($until: desktop) {
+		@include mq($until: desktop) {
 			max-width: 100vw;
 			min-width: 100vw;
 		}
@@ -53,7 +53,7 @@
 				}
 
 				.svg {
-					@include mixin.mq($until: tablet) {
+					@include mq($until: tablet) {
 						padding-bottom: 0;
 						min-height: calc(100vh - 8rem);
 						max-height: calc(100vh - 8rem);
@@ -75,7 +75,7 @@
 				max-height: 100vh;
 				padding: var(--small-margin);
 
-				@include mixin.mq($until: tablet) {
+				@include mq($until: tablet) {
 					min-height: calc(80vh - var(--small-margin));
 					max-height: calc(80vh - var(--small-margin));
 				}
@@ -169,7 +169,7 @@
 		}
 	}
 
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		background-color: var(--white);
 
 		.close {

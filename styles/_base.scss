@@ -1,9 +1,9 @@
-@use 'mixin';
+@use 'mediaqueries' as *;
 
 :root {
 	--outer-margin: 1.2rem;
 
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		--outer-margin: 1.5rem;
 	}
 
@@ -165,11 +165,11 @@ button {
 
 // Achor link scroll margin from top of page
 [id] {
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		scroll-margin-top: 4.5rem;
 	}
 
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		scroll-margin-top: var(--navbar-height-mobile);
 	}
 }

@@ -67,10 +67,7 @@ const base: Menu = [
 ];
 
 export const buildMenu = async () => {
-	const { allDesigners, allProductCategories, allProducts } = await apiQuery<MenuQuery, MenuQueryVariables>(
-		MenuDocument,
-		{ all: true }
-	);
+	const { allDesigners, allProductCategories, allProducts } = await apiQuery(MenuDocument, { all: true });
 
 	const menu = base.map((item) => {
 		let sub: MenuItem[] | null = null;

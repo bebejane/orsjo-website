@@ -64,7 +64,7 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 		switch (apiKey) {
 			case 'product':
-				const { product } = await apiQuery<ProductByIdQuery, ProductByIdQueryVariables>(ProductByIdDocument, {
+				const { product } = await apiQuery(ProductByIdDocument, {
 					revalidate: 0,
 					variables: { id: itemId },
 				});
@@ -163,10 +163,10 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 				break;
 
 			case 'product_accessory':
-				const { productAccessory } = await apiQuery<ProductAccessoryByIdQuery, ProductAccessoryByIdQueryVariables>(
-					ProductAccessoryByIdDocument,
-					{ revalidate: 0, variables: { id: itemId } }
-				);
+				const { productAccessory } = await apiQuery(ProductAccessoryByIdDocument, {
+					revalidate: 0,
+					variables: { id: itemId },
+				});
 
 				if (!productAccessory) throw new Error('Invalid product accessory: ' + itemId);
 
@@ -641,18 +641,18 @@ export const resetAll = async () => {
 };
 
 export const resyncAll = async () => {
-	const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, {
+	const { allProducts } = await apiQuery(AllProductsDocument, {
 		variables: { first: 500, skip: 0 },
 		revalidate: 0,
 	});
-	const { allProductLightsources } = await apiQuery<AllProductLightsourcesQuery, AllProductLightsourcesQueryVariables>(
-		AllProductLightsourcesDocument,
-		{ revalidate: 0, variables: { first: 500, skip: 0 } }
-	);
-	const { allProductAccessories } = await apiQuery<AllProductAccessoriesQuery, AllProductAccessoriesQueryVariables>(
-		AllProductAccessoriesDocument,
-		{ revalidate: 0, variables: { first: 500, skip: 0 } }
-	);
+	const { allProductLightsources } = await apiQuery(AllProductLightsourcesDocument, {
+		revalidate: 0,
+		variables: { first: 500, skip: 0 },
+	});
+	const { allProductAccessories } = await apiQuery(AllProductAccessoriesDocument, {
+		revalidate: 0,
+		variables: { first: 500, skip: 0 },
+	});
 
 	const itemIds = [...allProducts, ...allProductLightsources, ...allProductAccessories].map(({ id }) => id);
 

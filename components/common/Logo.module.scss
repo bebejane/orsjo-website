@@ -9,7 +9,7 @@
 	color: var(--black);
 	line-height: 1.5;
 
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		font-size: 1.1rem;
 		margin-top: 0;
 		display: flex;
@@ -18,7 +18,7 @@
 	}
 
 	span {
-		@include mixin.mq($until: tablet) {
+		@include mq($until: tablet) {
 			padding-top: 0.25em;
 		}
 

@@ -17,7 +17,7 @@
 
 	--size: 3rem;
 
-	@include mixin.mq($until: desktop) {
+	@include mq($until: desktop) {
 		width: 100%;
 	}
 

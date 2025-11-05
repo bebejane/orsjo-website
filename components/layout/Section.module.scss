@@ -7,7 +7,7 @@
 
 	.wrap {
 		position: relative;
-		padding-left: mixin.spanGridWithGutter(4);
+		padding-left: spanGridWithGutter(4);
 		width: 100%;
 	}
 
@@ -41,7 +41,7 @@
 	&[data-top='true'] {
 		margin-top: var(--navbar-height-mobile);
 
-		@include mixin.mq($from: tablet) {
+		@include mq($from: tablet) {
 			margin-top: 4rem;
 		}
 	}
@@ -50,7 +50,7 @@
 		margin-bottom: var(--margin);
 	}
 
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		.wrap {
 			padding-left: 0;
 			padding-right: 0;

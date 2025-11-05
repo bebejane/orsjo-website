@@ -5,10 +5,10 @@
 	display: flex;
 	columns: 2;
 	span {
-		min-width: mixin.spanNestedGrid(12, 2, true);
+		min-width: spanNestedGrid(12, 2, true);
 
-		@include mixin.mq($until: tablet) {
-			min-width: mixin.spanNestedGrid(16, 6, true);
+		@include mq($until: tablet) {
+			min-width: spanNestedGrid(16, 6, true);
 		}
 
 		flex-basis: auto;
@@ -20,7 +20,7 @@
 		margin: 0;
 		font-size: inherit;
 		cursor: pointer;
-		width: mixin.spanNestedGrid(12, 10);
+		width: spanNestedGrid(12, 10);
 		text-align: left;
 	}
 }

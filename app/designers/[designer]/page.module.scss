@@ -15,11 +15,11 @@
 			padding: 5%;
 			margin-top: 0.5rem;
 
-			@include mixin.mq($until: tablet) {
+			@include mq($until: tablet) {
 				padding-bottom: var(--small-margin);
 			}
 
-			@include mixin.mq($from: tablet) {
+			@include mq($from: tablet) {
 				margin-top: 4rem;
 			}
 
@@ -28,11 +28,11 @@
 			h1 {
 				left: 1em;
 
-				@include mixin.mq($from: tablet) {
+				@include mq($from: tablet) {
 					margin-bottom: 0.5em !important;
 				}
 
-				@include mixin.h1Big();
+				@include h1Big();
 				color: var(--white);
 			}
 
@@ -75,13 +75,13 @@
 				}
 			}
 
-			div>img[role="presentation"] {
+			div > img[role='presentation'] {
 				//height: 100vh;
 			}
 		}
 	}
 
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		header {
 			flex-direction: column-reverse;
 			height: auto;
@@ -94,9 +94,7 @@
 				min-height: 60vh;
 
 				img {
-
 					height: 60vh;
-
 				}
 
 				figcaption {
@@ -125,30 +123,30 @@
 	flex-direction: row;
 
 	h1 {
-		min-width: mixin.spanGridWithGutter(4);
+		min-width: spanGridWithGutter(4);
 	}
 
 	.gallery {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
-		min-width: mixin.spanGrid(12);
+		min-width: spanGrid(12);
 	}
 
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		flex-direction: column;
 
 		h1 {
 			width: 100%;
 
 			br {
-				content: " ";
+				content: ' ';
 				display: none;
 			}
 		}
 
 		.gallery {
-			min-width: mixin.spanGrid(16);
+			min-width: spanGrid(16);
 
 			ul {
 				li {
@@ -168,20 +166,20 @@
 		list-style: none;
 
 		li {
-			@include mixin.mq($until: tablet) {
+			@include mq($until: tablet) {
 				width: 48%;
 				min-width: 48%;
 
-				@include mixin.resetLastColumn(2);
+				@include resetLastColumn(2);
 				margin-right: 4%;
 			}
 
-			@include mixin.mq($from: tablet) {
-				width: mixin.spanNestedGrid(12, 3);
-				@include mixin.resetLastColumn(4);
+			@include mq($from: tablet) {
+				width: spanNestedGrid(12, 3);
+				@include resetLastColumn(4);
 			}
 
-			margin-right: mixin.nestedGridGutter(12);
+			margin-right: nestedGridGutter(12);
 			margin-bottom: 2rem;
 			overflow: hidden;
 		}
@@ -191,7 +189,7 @@
 .otherDesigners {
 	padding-bottom: var(--margin);
 
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		overflow-x: hidden;
 	}
 }

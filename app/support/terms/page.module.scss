@@ -1,10 +1,10 @@
 .intro {
-  p {
-    color: var(--white);
-    padding-bottom: 1em;
+	p {
+		color: var(--white);
+		padding-bottom: 1em;
 
-    @include mixin.mq($from: desktop) {
-      padding-right: 20%;
-    }
-  }
+		@include mq($from: desktop) {
+			padding-right: 20%;
+		}
+	}
 }

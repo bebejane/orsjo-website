@@ -11,7 +11,6 @@ import {
 
 import { Section, TextReveal } from '@/components';
 import { Image } from 'react-datocms';
-import { PageProps } from '@/lib/context/page';
 import { Markdown } from 'next-dato-utils/components';
 import { notFound } from 'next/navigation';
 import ContactButton from '@/app/contact/ContactButton';
@@ -25,13 +24,13 @@ export type ContactProps = {
 	distributors: DistributorRecord[];
 };
 
-export default async function Contact(params: PageParams) {
+export default async function Contact(props: PageProps<'/contact'>) {
 	const [{ contact }, { resellers }, { staffs }, { showrooms }, { distributors }] = await Promise.all([
-		apiQuery<ContactQuery, ContactQueryVariables>(ContactDocument),
-		apiQuery<AllResellersQuery, AllResellersQueryVariables>(AllResellersDocument),
-		apiQuery<AllStaffsQuery, AllStaffsQueryVariables>(AllStaffsDocument),
-		apiQuery<AllShowroomsQuery, AllShowroomsQueryVariables>(AllShowroomsDocument),
-		apiQuery<AllDistributorsQuery, AllDistributorsQueryVariables>(AllDistributorsDocument),
+		apiQuery(ContactDocument),
+		apiQuery(AllResellersDocument),
+		apiQuery(AllStaffsDocument),
+		apiQuery(AllShowroomsDocument),
+		apiQuery(AllDistributorsDocument),
 	]);
 
 	if (!contact) return notFound();

@@ -23,7 +23,7 @@ type Props = {
 
 export const dynamic = 'force-dynamic';
 
-export default async function Product({ params, searchParams }: Props) {
+export default async function Product({ params, searchParams }: PageProps<'/[country]/products/[product]'>) {
 	const { product: slug, country } = await params;
 	const { v } = (await searchParams) ?? {};
 	const res = await getProductPageData(slug, country as CountryCode);
@@ -73,17 +73,14 @@ export default async function Product({ params, searchParams }: Props) {
 }
 
 export async function generateStaticParams() {
-	const { allProducts } = await apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(
-		AllProductsLightDocument,
-		{ all: true }
-	);
+	const { allProducts } = await apiQuery(AllProductsLightDocument, { all: true });
 	const paths = allProducts.map(({ slug }) => ({ slug }));
 	return paths;
 }
 
-export async function generateMetadata({ params }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<'/[country]/products/[product]'>): Promise<Metadata> {
 	const { product: slug } = await params;
-	const { product } = await apiQuery<ProductQuery, ProductQueryVariables>(ProductDocument, {
+	const { product } = await apiQuery(ProductDocument, {
 		variables: { slug },
 	});
 	if (!product) return notFound();

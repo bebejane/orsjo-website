@@ -9,8 +9,8 @@ import { notFound } from 'next/navigation';
 import BespokeHeader from './BespokeHeader';
 import { Metadata } from 'next';
 
-export default async function Bespoke(params: PageParams) {
-	const { bespoke } = await apiQuery<BespokeQuery, BespokeQueryVariables>(BespokeDocument);
+export default async function Bespoke(props: PageProps<'/professionals/bespoke'>) {
+	const { bespoke } = await apiQuery(BespokeDocument);
 	if (!bespoke) notFound();
 
 	return (

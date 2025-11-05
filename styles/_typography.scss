@@ -1,5 +1,4 @@
-@use "fonts";
-@use "mixin";
+@use 'mediaqueries' as *;
 
 body,
 html {
@@ -11,17 +10,17 @@ html {
 	font-variant-numeric: oldstyle-nums;
 	font-family: var(--body-font);
 
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		font-size: 26px;
 	}
 
-	@include mixin.mq($from: wide) {
+	@include mq($from: wide) {
 		font-size: 30px;
 	}
 }
 
 h1 {
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		font-size: 1.2rem;
 		line-height: 1.2;
 	}
@@ -51,7 +50,7 @@ h1 {
 h2 {
 	font-size: 16px;
 
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		font-size: 0.8em;
 	}
 
@@ -72,7 +71,7 @@ h3,
 	text-transform: uppercase;
 	padding-bottom: 0.5em;
 
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		letter-spacing: 0.1em;
 		font-size: 0.45em;
 	}
@@ -85,25 +84,25 @@ button,
 span.medium {
 	font-size: 14px;
 
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		font-size: 0.65rem;
 	}
 
-	font-family: "IndivisibleMedium";
+	font-family: 'IndivisibleMedium';
 	font-weight: normal;
 	line-height: var(--body-line-height);
 }
 
 p.large,
 .large p {
-	@include mixin.mq($from: tablet) {
-		font-family: "IndivisibleMedium";
+	@include mq($from: tablet) {
+		font-family: 'IndivisibleMedium';
 		font-size: 0.65rem;
 	}
 
 	@media screen and (min-height: 700px) {
 		font-size: 0.87rem;
-		font-family: "Indivisible";
+		font-family: 'Indivisible';
 	}
 }
 
@@ -121,13 +120,13 @@ footer ul {
 	line-height: var(--body-line-height);
 	font-size: 13px !important;
 
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		font-size: 0.57rem !important;
 	}
 
 	line-height: 1.4;
 	font-weight: normal;
-	font-family: "IndivisibleMedium";
+	font-family: 'IndivisibleMedium';
 }
 
 .very-small,
@@ -137,7 +136,7 @@ button.very-small {
 
 .icon {
 	font-size: 0.5rem;
-	font-family: "IndivisibleMedium";
+	font-family: 'IndivisibleMedium';
 }
 
 .bodyWeight {

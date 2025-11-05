@@ -7,8 +7,8 @@ import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-export default async function FactoryVisit(params: PageParams) {
-	const { factoryVisit } = await apiQuery<FactoryVisitQuery, FactoryVisitQueryVariables>(FactoryVisitDocument);
+export default async function FactoryVisit(props: PageProps<'/professionals/factory-visit'>) {
+	const { factoryVisit } = await apiQuery(FactoryVisitDocument);
 
 	if (!factoryVisit) notFound();
 

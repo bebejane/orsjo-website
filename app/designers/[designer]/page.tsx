@@ -11,26 +11,24 @@ import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '@/compon
 import { notFound } from 'next/navigation';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
-import { PageParams } from '@/app/[country]/designers/[designer]/page';
 
-export default async function Designer({ params }: PageParams) {
+export default async function Designer({ params }: PageProps<'/designers/[designer]'>) {
 	const { designer: slug } = await params;
-
-	const { designer } = await apiQuery<DesignerQuery, DesignerQueryVariables>(DesignerDocument, {
+	const { designer } = await apiQuery(DesignerDocument, {
 		variables: { slug },
 	});
 
 	if (!designer) return notFound();
 
 	const [{ allProducts }, { allProducts: products }, { allDesigners }] = await Promise.all([
-		apiQuery<AllProductsLightQuery, AllProductsLightQueryVariables>(AllProductsLightDocument, {
+		apiQuery(AllProductsLightDocument, {
 			all: true,
 		}),
-		apiQuery<AllProductsByDesignerQuery, AllProductsByDesignerQueryVariables>(AllProductsByDesignerDocument, {
+		apiQuery(AllProductsByDesignerDocument, {
 			variables: { id: designer.id },
 			all: true,
 		}),
-		apiQuery<AllDesignersQuery, AllDesignersQueryVariables>(AllDesignersDocument, { all: true }),
+		apiQuery(AllDesignersDocument, { all: true }),
 	]);
 
 	const designers = allDesigners
@@ -89,16 +87,16 @@ export default async function Designer({ params }: PageParams) {
 }
 
 export async function generateStaticParams() {
-	const { allDesigners } = await apiQuery<AllDesignersQuery, AllDesignersQueryVariables>(AllDesignersDocument, {
+	const { allDesigners } = await apiQuery(AllDesignersDocument, {
 		all: true,
 	});
 	const paths = allDesigners.map(({ slug: designer }) => ({ designer }));
 	return paths;
 }
 
-export async function generateMetadata({ params }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<'/designers/[designer]'>): Promise<Metadata> {
 	const { designer: slug } = await params;
-	const { designer } = await apiQuery<DesignerQuery, DesignerQueryVariables>(DesignerDocument, {
+	const { designer } = await apiQuery(DesignerDocument, {
 		variables: { slug },
 	});
 	if (!designer) return notFound();

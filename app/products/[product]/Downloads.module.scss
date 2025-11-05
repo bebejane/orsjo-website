@@ -12,14 +12,14 @@
 		flex: 0 0 33.333%;
 		padding-top: 1.5em;
 
-		@include mixin.mq($until: desktop) {
+		@include mq($until: desktop) {
 			//padding-top: 0em;
 		}
-		@include mixin.mq($from: tablet, $until: desktop) {
+		@include mq($from: tablet, $until: desktop) {
 			flex: 0 0 50%;
 			margin-top: 1.5em;
 		}
-		@include mixin.mq($until: tablet) {
+		@include mq($until: tablet) {
 			flex: 0 0 100%;
 		}
 

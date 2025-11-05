@@ -54,7 +54,7 @@
 			padding-left: var(--outer-margin);
 			padding-right: var(--outer-margin);
 
-			@include mixin.mq($from: tablet) {
+			@include mq($from: tablet) {
 				column-count: 2;
 				column-gap: 5%;
 			}
@@ -72,7 +72,7 @@
 		form {
 			width: 100%;
 
-			@include mixin.mq($from: tablet) {
+			@include mq($from: tablet) {
 				columns: 2;
 				column-gap: 5%;
 			}
@@ -86,7 +86,7 @@
 				margin-bottom: 1em;
 				font-size: 14px;
 
-				@include mixin.mq($from: tablet) {
+				@include mq($from: tablet) {
 					font-size: 0.65rem;
 				}
 			}
@@ -121,7 +121,7 @@
 			height: 100%;
 			background-color: var(--black);
 
-			@include mixin.mq($until: tablet) {
+			@include mq($until: tablet) {
 				text-align: center;
 			}
 		}

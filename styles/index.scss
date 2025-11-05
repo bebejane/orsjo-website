@@ -1,9 +1,13 @@
-@use "sass:meta";
-@use "normalize";
-@use "fonts";
-@use "typography";
-@use "base";
+@use 'sass:meta';
+
+@use 'normalize';
+
+@use 'fonts';
+
+@use 'typography';
+
+@use 'base';
 
 @media print {
-	@include meta.load-css("print");
+	@include meta.load-css('print');
 }

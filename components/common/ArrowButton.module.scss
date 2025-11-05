@@ -1,5 +1,5 @@
 .arrowButton {
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		display: none;
 	}
 

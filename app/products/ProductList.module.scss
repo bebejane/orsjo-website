@@ -10,16 +10,16 @@
 			margin-bottom: var(--small-margin);
 			aspect-ratio: 4/3;
 
-			@include mixin.mq($from: tablet) {
-				width: mixin.spanNestedGrid(12, 3);
-				margin-right: mixin.nestedGridGutter(12);
-				@include mixin.resetLastColumn(4);
+			@include mq($from: tablet) {
+				width: spanNestedGrid(12, 3);
+				margin-right: nestedGridGutter(12);
+				@include resetLastColumn(4);
 			}
 
-			@include mixin.mq($until: tablet) {
+			@include mq($until: tablet) {
 				width: 48%;
 				margin-right: 4%;
-				@include mixin.resetLastColumn(2);
+				@include resetLastColumn(2);
 			}
 		}
 	}

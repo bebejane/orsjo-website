@@ -1,7 +1,5 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/support/manuals/page';
 import { AllProductManualsDocument, ManualsIntroDocument } from '@/graphql';
-import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
@@ -13,10 +11,10 @@ export type ManualsProps = {
 	manual: ManualRecord;
 };
 
-export default async function Manuals(params: PageParams) {
+export default async function Manuals(props: PageProps<'/support/manuals'>) {
 	const [{ manual }, { allProducts }] = await Promise.all([
-		apiQuery<ManualsIntroQuery, ManualsIntroQueryVariables>(ManualsIntroDocument),
-		apiQuery<AllProductManualsQuery, AllProductManualsQueryVariables>(AllProductManualsDocument, {
+		apiQuery(ManualsIntroDocument),
+		apiQuery(AllProductManualsDocument, {
 			all: true,
 		}),
 	]);

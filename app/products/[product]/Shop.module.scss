@@ -12,14 +12,14 @@
 		opacity 0.1s ease,
 		width 0.2s ease-out;
 
-	@include mixin.mq($from: desktop) {
+	@include mq($from: desktop) {
 		margin-left: calc(var(--outer-margin));
-		width: mixin.spanGrid(3.5);
+		width: spanGrid(3.5);
 		bottom: var(--outer-margin);
 	}
 
 	&.wide {
-		width: mixin.spanGrid(6);
+		width: spanGrid(6);
 	}
 	&.hide {
 		opacity: 0;
@@ -68,7 +68,7 @@
 		height: 2.2rem;
 		padding-bottom: 0.5em;
 
-		@include mixin.mq($from: desktop) {
+		@include mq($from: desktop) {
 			padding: 0.5rem;
 			padding-bottom: 0.2em;
 			height: 1.7rem;
@@ -186,7 +186,7 @@
 		padding: 1em;
 		cursor: pointer;
 
-		@include mixin.mq($from: desktop) {
+		@include mq($from: desktop) {
 			height: 1.7rem;
 			padding: 0.5em;
 			font-size: 0.5em;
@@ -381,7 +381,7 @@
 			line-height: 0;
 			border-top: 1px solid var(--light-gray);
 
-			@include mixin.mq($from: desktop) {
+			@include mq($from: desktop) {
 				border-top: 0;
 
 				height: 1.8rem;
@@ -394,7 +394,7 @@
 			padding-bottom: 1em;
 			font-size: 0.55rem;
 
-			@include mixin.mq($from: desktop) {
+			@include mq($from: desktop) {
 				height: 1.5rem;
 				font-size: 0.45rem;
 			}
@@ -444,7 +444,7 @@
 		position: relative;
 		padding: var(--outer-margin);
 		background-color: var(--white-real);
-		@include mixin.mq($until: desktop) {
+		@include mq($until: desktop) {
 			width: calc(100% - (2 * var(--outer-margin)));
 		}
 
@@ -458,7 +458,7 @@
 			all: unset;
 			display: flex;
 			flex-direction: column;
-			@include mixin.mq($from: desktop) {
+			@include mq($from: desktop) {
 				flex-direction: row;
 			}
 			align-items: center;
@@ -472,7 +472,7 @@
 					color: var(--white);
 				}
 				&:first-of-type {
-					@include mixin.mq($from: desktop) {
+					@include mq($from: desktop) {
 						margin-right: 1em;
 					}
 				}

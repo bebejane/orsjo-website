@@ -56,11 +56,11 @@
 			min-width: 100%;
 
 			.slide {
-				max-width: mixin.spanNestedGrid(12, 3);
-				min-width: mixin.spanNestedGrid(12, 3);
-				margin-right: mixin.nestedGridGutter(12);
+				max-width: spanNestedGrid(12, 3);
+				min-width: spanNestedGrid(12, 3);
+				margin-right: nestedGridGutter(12);
 
-				@include mixin.mq($until: tablet) {
+				@include mq($until: tablet) {
 					max-width: 48%;
 					min-width: 48%;
 					margin-right: 4%;
@@ -68,13 +68,13 @@
 			}
 
 			&.short {
-				@include mixin.mq($until: tablet) {
+				@include mq($until: tablet) {
 					.slide:nth-child(2) {
 						margin-right: 0;
 					}
 				}
 
-				@include mixin.mq($from: tablet) {
+				@include mq($from: tablet) {
 					.slide:nth-child(4) {
 						margin-right: 0;
 					}
@@ -106,7 +106,7 @@
 			height: calc(100% - 35px);
 			align-items: center;
 
-			@include mixin.mq($until: tablet) {
+			@include mq($until: tablet) {
 				display: none;
 				height: calc(100% - 15px);
 			}

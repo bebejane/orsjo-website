@@ -14,14 +14,11 @@ const pageSize = 5;
 export type Props = { allNews: AllNewsQuery['allNews'] };
 
 export default function NewsList({ allNews }: Props) {
-	const { data, loading, error, nextPage, page } = useApiQuery<AllNewsQuery, AllNewsQueryVariables>(
-		AllNewsDocument,
-		{
-			initialData: { allNews },
-			variables: { first: 1 },
-			pageSize,
-		}
-	);
+	const { data, loading, error, nextPage, page } = useapiQuery(AllNewsDocument, {
+		initialData: { allNews },
+		variables: { first: 1 },
+		pageSize,
+	});
 
 	return (
 		<>
@@ -49,11 +46,7 @@ export default function NewsList({ allNews }: Props) {
 			{!page?.end && (
 				<Section className={s.more} bottom={true}>
 					<button onClick={nextPage}>{!loading ? 'Load more +' : '···'}</button>
-					{error && (
-						<div className={s.error}>
-							Error: {typeof error === 'string' ? error : error.message}
-						</div>
-					)}
+					{error && <div className={s.error}>Error: {typeof error === 'string' ? error : error.message}</div>}
 				</Section>
 			)}
 		</>

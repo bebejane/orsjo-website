@@ -1,163 +1,160 @@
 .intro {
-  @include mixin.mq($from: desktop) {
-    width: 80%;
-  }
+	@include mq($from: desktop) {
+		width: 80%;
+	}
 }
 
 .related {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+	position: relative;
+	display: flex;
+	flex-direction: column;
 
-  .search {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0.5em 1em 0.5em 1em;
+	.search {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding: 0.5em 1em 0.5em 1em;
 
-    @include mixin.mq($from: tablet) {
-      padding: var(--gutter) 1em var(--gutter) 1em;
-    }
+		@include mq($from: tablet) {
+			padding: var(--gutter) 1em var(--gutter) 1em;
+		}
 
-    background-color: var(--mid-gray);
-    margin-bottom: 1em;
+		background-color: var(--mid-gray);
+		margin-bottom: 1em;
 
-    img {
-      max-width: 14px;
-      margin-right: 0.5rem;
-    }
+		img {
+			max-width: 14px;
+			margin-right: 0.5rem;
+		}
 
-    input {
-      margin: 0;
-      margin-bottom: var(--gutter);
-      background-color: transparent;
-      border: 0;
-      outline: none;
-      margin: 0;
-      width: 100%;
-    }
-  }
+		input {
+			margin: 0;
+			margin-bottom: var(--gutter);
+			background-color: transparent;
+			border: 0;
+			outline: none;
+			margin: 0;
+			width: 100%;
+		}
+	}
 
-  table {
-    tbody {
-      tr {
-        margin-top: 0.2em;
-        padding-bottom: 2em;
+	table {
+		tbody {
+			tr {
+				margin-top: 0.2em;
+				padding-bottom: 2em;
 
-        &:not(:first-child) {
-          cursor: pointer;
-        }
+				&:not(:first-child) {
+					cursor: pointer;
+				}
 
+				@include mq($from: tablet) {
+					&:hover:not(:first-child) {
+						background-color: var(--white) !important;
+					}
+				}
 
-        @include mixin.mq($from: tablet) {
-          &:hover:not(:first-child) {
-            background-color: var(--white) !important;
-          }
+				&.active {
+					td {
+						background-color: var(--white) !important;
+						padding-bottom: 0em;
+					}
+				}
 
+				th {
+					text-align: left;
+					color: var(--white);
+					padding-bottom: 0.6em;
 
-        }
+					&:nth-child(2) {
+						padding-left: 1em;
+						min-width: 120px;
+					}
+				}
 
-        &.active {
-          td {
-            background-color: var(--white) !important;
-            padding-bottom: 0em;
-          }
-        }
+				td {
+					padding: 0;
+					padding-top: 0.8em;
+					padding-bottom: 0.8em;
+					border-top: 1px solid var(--white);
+					white-space: pre;
+					vertical-align: middle;
 
-        th {
-          text-align: left;
-          color: var(--white);
-          padding-bottom: 0.6em;
+					&:first-child {
+						width: 2em;
+						max-width: 2em;
+						min-width: 2em;
+						padding-left: 1em;
+					}
 
-          &:nth-child(2) {
-            padding-left: 1em;
-            min-width: 120px;
-          }
-        }
+					&:nth-child(2) {
+						padding-left: 1em;
+						width: 20%;
+					}
+				}
 
-        td {
-          padding: 0;
-          padding-top: 0.8em;
-          padding-bottom: 0.8em;
-          border-top: 1px solid var(--white);
-          white-space: pre;
-          vertical-align: middle;
+				td.toggle {
+					text-align: center;
+					vertical-align: middle;
+					width: 60px;
+				}
 
-          &:first-child {
-            width: 2em;
-            max-width: 2em;
-            min-width: 2em;
-            padding-left: 1em;
-          }
+				td.content {
+					background-color: var(--white);
 
-          &:nth-child(2) {
-            padding-left: 1em;
-            width: 20%;
-          }
-        }
+					.list {
+						display: flex;
+						flex-direction: row;
+						flex-wrap: wrap;
+						margin-bottom: 1.8em;
+						border-top: 1px solid var(--black);
 
-        td.toggle {
-          text-align: center;
-          vertical-align: middle;
-          width: 60px;
-        }
+						.item {
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							flex: 0 0 50%;
+							padding-top: 0.5em;
+							padding-bottom: 0.5em;
 
-        td.content {
-          background-color: var(--white);
+							a {
+								flex: 1 1 auto;
+								padding-right: 1em;
+							}
+						}
 
-          .list {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            margin-bottom: 1.8em;
-            border-top: 1px solid var(--black);
+						hr {
+							min-height: 1px;
+							max-height: 1px;
+							margin: 0;
+							width: 100%;
+							background-color: var(--black);
+							border: 0;
 
-            .item {
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              flex: 0 0 50%;
-              padding-top: 0.5em;
-              padding-bottom: 0.5em;
+							&.hide {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
 
-              a {
-                flex: 1 1 auto;
-                padding-right: 1em;
-              }
-            }
+		* > .image {
+			position: relative !important;
+			margin: 0 !important;
+			aspect-ratio: 1, 1;
+			height: 2em;
+			mix-blend-mode: multiply;
+			display: flex;
 
-            hr {
-              min-height: 1px;
-              max-height: 1px;
-              margin: 0;
-              width: 100%;
-              background-color: var(--black);
-              border: 0;
+			img {
+				object-fit: contain;
+			}
+		}
+	}
 
-              &.hide {
-                display: none;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    *>.image {
-      position: relative !important;
-      margin: 0 !important;
-      aspect-ratio: 1, 1;
-      height: 2em;
-      mix-blend-mode: multiply;
-      display: flex;
-
-      img {
-        object-fit: contain;
-      }
-    }
-  }
-
-  .noMatches {
-    margin-bottom: 1rem;
-  }
+	.noMatches {
+		margin-bottom: 1rem;
+	}
 }

@@ -1,29 +1,29 @@
 .materials {
-  display: flex;
-  flex-wrap: wrap;
-  padding-bottom: var(--small-margin);
+	display: flex;
+	flex-wrap: wrap;
+	padding-bottom: var(--small-margin);
 
-  h1 {
-    width: 100%;
-  }
+	h1 {
+		width: 100%;
+	}
 }
 
 .material {
-  margin-bottom: 1rem;
-  margin-right: mixin.nestedGridGutter(12);
+	margin-bottom: 1rem;
+	margin-right: nestedGridGutter(12);
 
-  figure {
-    background-color: var(--gray) !important;
-  }
+	figure {
+		background-color: var(--gray) !important;
+	}
 
-  @include mixin.mq($from: tablet) {
-    width: mixin.spanNestedGrid(12, 3);
-    @include mixin.resetLastColumn(4);
-  }
+	@include mq($from: tablet) {
+		width: spanNestedGrid(12, 3);
+		@include resetLastColumn(4);
+	}
 
-  @include mixin.mq($until: tablet) {
-    width: 48%;
-    margin-right: 4%;
-    @include mixin.resetLastColumn(2);
-  }
+	@include mq($until: tablet) {
+		width: 48%;
+		margin-right: 4%;
+		@include resetLastColumn(2);
+	}
 }

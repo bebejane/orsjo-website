@@ -5,14 +5,14 @@
 	top: 0px;
 	padding-top: calc(1rem + var(--navbar-height));
 	margin-left: var(--outer-margin);
-	min-width: mixin.spanGrid(4);
-	max-width: mixin.spanGrid(4);
+	min-width: spanGrid(4);
+	max-width: spanGrid(4);
 	max-height: 100vh;
 	z-index: 98;
 	opacity: 0;
 	animation: fadeIn 0.2s ease-out forwards;
 
-	@include mixin.mq($from: tablet, $until: desktop) {
+	@include mq($from: tablet, $until: desktop) {
 		padding-right: 1em;
 	}
 
@@ -22,7 +22,7 @@
 		}
 	}
 
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		background-color: transparent !important;
 	}
 
@@ -39,7 +39,7 @@
 
 		ul {
 			list-style: none;
-			min-width: mixin.spanGrid(4);
+			min-width: spanGrid(4);
 
 			li {
 				a {
@@ -160,7 +160,7 @@
 		}
 	}
 
-	@include mixin.mq($until: tablet) {
+	@include mq($until: tablet) {
 		position: fixed;
 		padding-top: 0;
 		top: 0;

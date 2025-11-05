@@ -3,7 +3,7 @@
 	flex-direction: row;
 	margin-top: calc(var(--small-margin) / 1.3);
 
-	@include mixin.mq($from: tablet) {
+	@include mq($from: tablet) {
 		margin-top: var(--small-margin);
 	}
 

@@ -55,25 +55,22 @@ export const getProductPageData = async (
 	slug: string,
 	countryCode: CountryCode
 ): Promise<ProductPageDataProps | null> => {
-	const { product } = await apiQuery<ProductQuery, ProductQueryVariables>(ProductDocument, {
+	const { product } = await apiQuery(ProductDocument, {
 		variables: { slug },
 	});
 
 	if (!product) return null;
 
 	const [{ relatedProducts }, { productsByCategory }, { relatedProjects }] = await Promise.all([
-		apiQuery<RelatedProductsQuery, RelatedProductsQueryVariables>(RelatedProductsDocument, {
+		apiQuery(RelatedProductsDocument, {
 			variables: { designerId: product.designer?.id, familyId: product.family.id },
 		}),
-		apiQuery<AllProductsByCategoryQuery, AllProductsByCategoryQueryVariables>(AllProductsByCategoryDocument, {
+		apiQuery(AllProductsByCategoryDocument, {
 			variables: { categoryId: product.categories[0]?.id },
 		}),
-		apiQuery<RelatedProjectsForProductQuery, RelatedProjectsForProductQueryVariables>(
-			RelatedProjectsForProductDocument,
-			{
-				variables: { productId: product.id },
-			}
-		),
+		apiQuery(RelatedProjectsForProductDocument, {
+			variables: { productId: product.id },
+		}),
 	]);
 
 	const { product: shopifyProduct } = await shopifyQuery<ShopifyProductQuery, ShopifyProductQueryVariables>(

@@ -1,14 +1,12 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/about/press/page';
 import { AllPressDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
-import { PageProps } from '@/lib/context/page';
 import { Section } from '@/components';
 import { Metadata } from 'next';
 
-export default async function Press(params: PageParams) {
-	const { presses } = await apiQuery<AllPressQuery, AllPressQueryVariables>(AllPressDocument);
+export default async function PressPage(params: PageProps<'/about/press'>) {
+	const { presses } = await apiQuery(AllPressDocument);
 	if (!presses) return notFound();
 	return (
 		<Section className={s.press} top={true} name='Introduction'>

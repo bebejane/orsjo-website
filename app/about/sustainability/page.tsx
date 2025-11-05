@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/about/sustainability/page';
 import { SustainabilityDocument } from '@/graphql';
 import cn from 'classnames';
 import { Image } from 'react-datocms';
@@ -9,8 +8,8 @@ import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-export default async function Sustainability(params: PageParams) {
-	const { sustainability } = await apiQuery<SustainabilityQuery, SustainabilityQueryVariables>(SustainabilityDocument);
+export default async function Sustainability(props: PageProps<'/about/sustainability'>) {
+	const { sustainability } = await apiQuery(SustainabilityDocument);
 	if (!sustainability) return notFound();
 
 	const { title, intro, steps, image } = sustainability;

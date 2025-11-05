@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/professionals/downloads/page';
 import { AllProductDownloadsDocument, AllCataloguesDocument, DownloadsStartDocument } from '@/graphql';
 import { Image } from 'react-datocms';
 import { Markdown } from 'next-dato-utils/components';
@@ -9,13 +8,13 @@ import { notFound } from 'next/navigation';
 import DownloadsList from './DownloadsList';
 import { Metadata } from 'next';
 
-export default async function Downloads(params: PageParams) {
+export default async function Downloads(props: PageProps<'/professionals/downloads'>) {
 	const [{ downloadsStart }, { allProducts }, { allCatalogues }] = await Promise.all([
-		apiQuery<DownloadsStartQuery, DownloadsStartQueryVariables>(DownloadsStartDocument),
-		apiQuery<AllProductDownloadsQuery, AllProductDownloadsQueryVariables>(AllProductDownloadsDocument, {
+		apiQuery(DownloadsStartDocument),
+		apiQuery(AllProductDownloadsDocument, {
 			all: true,
 		}),
-		apiQuery<AllCataloguesQuery, AllCataloguesQueryVariables>(AllCataloguesDocument, {
+		apiQuery(AllCataloguesDocument, {
 			all: true,
 		}),
 	]);

@@ -1,141 +1,142 @@
 .intro {
-  display: flex;
-  flex-direction: row;
-  color: var(--white) !important;
-  padding-top: 2rem;
+	display: flex;
+	flex-direction: row;
+	color: var(--white) !important;
+	padding-top: 2rem;
 
-  p {
-    margin-bottom: 0;
-  }
+	p {
+		margin-bottom: 0;
+	}
 
-  h1 {
-    @include mixin.mq($until: desktop) {
-      display: none;
-    }
+	h1 {
+		@include mq($until: desktop) {
+			display: none;
+		}
 
-    color: var(--black);
-    flex: 0 0 mixin.spanGridWithGutter(4);
-    @include mixin.h1Small();
-  }
+		color: var(--black);
+		flex: 0 0 spanGridWithGutter(4);
+		@include h1Small();
+	}
 
-  .text {
-    @include mixin.mq($until: desktop) {
-      padding-bottom: 2em;
-    }
+	.text {
+		@include mq($until: desktop) {
+			padding-bottom: 2em;
+		}
 
-    @include mixin.mq($from: desktop) {
-      padding-right: 20%;
-    }
-  }
+		@include mq($from: desktop) {
+			padding-right: 20%;
+		}
+	}
 }
 
 .projects {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-  .project {
-    display: flex;
-    flex-direction: row;
-    margin-top: 1em;
+	.project {
+		display: flex;
+		flex-direction: row;
+		margin-top: 1em;
 
-    @include mixin.mq($from: desktop) {
-      margin-top: var(--margin);
-    }
+		@include mq($from: desktop) {
+			margin-top: var(--margin);
+		}
 
-    @include mixin.mq($until: desktop) {
-      flex-wrap: wrap;
-    }
+		@include mq($until: desktop) {
+			flex-wrap: wrap;
+		}
 
-    &:nth-child(even) {
-      flex-direction: row-reverse;
+		&:nth-child(even) {
+			flex-direction: row-reverse;
 
-      .description {
-        align-items: flex-start;
-        padding-left: 0;
+			.description {
+				align-items: flex-start;
+				padding-left: 0;
 
-        @include mixin.mq($from: desktop) {
-          padding-right: var(--outer-margin);
-        }
+				@include mq($from: desktop) {
+					padding-right: var(--outer-margin);
+				}
 
-        .text {
-          text-align: left;
-        }
-      }
-    }
+				.text {
+					text-align: left;
+				}
+			}
+		}
 
-    .image {
-      @include mixin.mq($until: desktop) {
-        margin-bottom: 1em;
-      }
+		.image {
+			@include mq($until: desktop) {
+				margin-bottom: 1em;
+			}
 
-      @include mixin.mq($from: desktop) {
-        flex: 0 0 mixin.spanGrid(12);
-      }
+			@include mq($from: desktop) {
+				flex: 0 0 spanGrid(12);
+			}
 
-      cursor: pointer;
+			cursor: pointer;
 
-      .big {}
-    }
+			.big {
+			}
+		}
 
-    .description {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+		.description {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
 
-      @include mixin.mq($from: desktop) {
-        padding-left: var(--outer-margin);
-      }
+			@include mq($from: desktop) {
+				padding-left: var(--outer-margin);
+			}
 
-      .text {
-        display: flex;
-        align-items: center;
-        flex: 1 1 auto;
-        //text-align: right;
-      }
+			.text {
+				display: flex;
+				align-items: center;
+				flex: 1 1 auto;
+				//text-align: right;
+			}
 
-      .thumbnail {
-        width: 100%;
+			.thumbnail {
+				width: 100%;
 
-        @include mixin.mq($until: desktop) {
-          display: none;
-        }
-      }
-    }
-  }
+				@include mq($until: desktop) {
+					display: none;
+				}
+			}
+		}
+	}
 }
 
 .outro {
-  color: var(--white) !important;
+	color: var(--white) !important;
 
-  @include mixin.mq($from: desktop) {
-    margin-top: 2rem;
-  }
+	@include mq($from: desktop) {
+		margin-top: 2rem;
+	}
 
-  .text {
-    @include mixin.mq($from: desktop) {
-      margin-left: mixin.spanGridWithGutter(4);
-      margin-right: mixin.spanGrid(4);
-    }
-  }
+	.text {
+		@include mq($from: desktop) {
+			margin-left: spanGridWithGutter(4);
+			margin-right: spanGrid(4);
+		}
+	}
 }
 
 .more {
-  margin-top: 2rem;
+	margin-top: 2rem;
 
-  button {
-    color: var(--white);
-    cursor: pointer;
-    width: 100%;
+	button {
+		color: var(--white);
+		cursor: pointer;
+		width: 100%;
 
-    @include mixin.mq($from: desktop) {
-      width: mixin.spanGrid(8);
-      margin-right: mixin.spanGrid(4);
-      margin-left: mixin.spanGridWithGutter(4);
-    }
-  }
+		@include mq($from: desktop) {
+			width: spanGrid(8);
+			margin-right: spanGrid(4);
+			margin-left: spanGridWithGutter(4);
+		}
+	}
 }
 
 .innerWrap {
-  padding-left: var(--outer-margin) !important;
-  padding-right: var(--outer-margin) !important;
+	padding-left: var(--outer-margin) !important;
+	padding-right: var(--outer-margin) !important;
 }

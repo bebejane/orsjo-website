@@ -58,7 +58,7 @@
 				p {
 					margin: 0;
 
-					@include mixin.mq($from: tablet) {
+					@include mq($from: tablet) {
 						padding-right: 20%;
 					}
 				}

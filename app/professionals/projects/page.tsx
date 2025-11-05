@@ -1,18 +1,16 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/professionals/projects/page';
 import { ProjectStartDocument, AllProjectsDocument, AllProjectTypesDocument } from '@/graphql';
 import { Markdown } from 'next-dato-utils/components';
-import { PageProps } from '@/lib/context/page';
 import { ProjectThumbnail, Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-export default async function Professionals(params: PageParams) {
+export default async function Professionals(props: PageProps<'/professionals/projects'>) {
 	const [{ projectStart }, { allProjects }, { allProjectTypes }] = await Promise.all([
-		apiQuery<ProjectStartQuery, ProjectStartQueryVariables>(ProjectStartDocument),
-		apiQuery<AllProjectsQuery, AllProjectsQueryVariables>(AllProjectsDocument, { all: true }),
-		apiQuery<AllProjectTypesQuery, AllProjectTypesQueryVariables>(AllProjectTypesDocument, {
+		apiQuery(ProjectStartDocument),
+		apiQuery(AllProjectsDocument, { all: true }),
+		apiQuery(AllProjectTypesDocument, {
 			all: true,
 		}),
 	]);

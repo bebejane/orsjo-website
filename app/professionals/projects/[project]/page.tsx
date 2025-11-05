@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/professionals/projects/[project]/page';
 import { apiQuery } from 'next-dato-utils/api';
 import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, BespokeThumbnailDocument } from '@/graphql';
 import { Section, FeaturedGallery } from '@/components';
@@ -11,21 +10,17 @@ import { Metadata } from 'next';
 
 export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>;
 
-export type ProjectProps = {
-	params: PageParams['params'];
-};
-
-export default async function Project({ params }: ProjectProps) {
+export default async function Project({ params }: PageProps<'/professionals/projects/[project]'>) {
 	const { project: slug } = await params;
-	const { project } = await apiQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, {
+	const { project } = await apiQuery(ProjectDocument, {
 		variables: { slug },
 	});
 
 	if (!project) return notFound();
 
 	const [{ bespokeThumbnail }, { allProjects: allRelatedProjects }] = await Promise.all([
-		apiQuery<BespokeThumbnailQuery, BespokeThumbnailQueryVariables>(BespokeThumbnailDocument),
-		apiQuery<AllRelatedProjectsQuery, AllRelatedProjectsQueryVariables>(AllRelatedProjectsDocument, {
+		apiQuery(BespokeThumbnailDocument),
+		apiQuery(AllRelatedProjectsDocument, {
 			variables: { projectType: project.projectType.id },
 		}),
 	]);
@@ -89,16 +84,16 @@ export default async function Project({ params }: ProjectProps) {
 }
 
 export async function generateStaticParams() {
-	const { allProjects } = await apiQuery<AllProjectsQuery, AllProjectsQueryVariables>(AllProjectsDocument, {
+	const { allProjects } = await apiQuery(AllProjectsDocument, {
 		all: true,
 	});
 	const paths = allProjects.map(({ slug }) => ({ project: slug }));
 	return paths;
 }
 
-export async function generateMetadata({ params }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<'/professionals/projects/[project]'>): Promise<Metadata> {
 	const { project: slug } = await params;
-	const { project } = await apiQuery<ProjectQuery, ProjectQueryVariables>(ProjectDocument, {
+	const { project } = await apiQuery(ProjectDocument, {
 		variables: { slug },
 	});
 	if (!project) return notFound();

@@ -10,25 +10,19 @@ const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, 
 
 (async () => {
 	console.time('delivery days');
-	const { allProducts } = await apiQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, {
+	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
 		environment,
 		includeDrafts: true,
 	});
-	const { allProductLightsources } = await apiQuery<AllProductLightsourcesQuery, AllProductLightsourcesQueryVariables>(
-		AllProductLightsourcesDocument,
-		{
-			all: true,
-			environment,
-		}
-	);
-	const { allProductAccessories } = await apiQuery<AllProductAccessoriesQuery, AllProductAccessoriesQueryVariables>(
-		AllProductAccessoriesDocument,
-		{
-			all: true,
-			environment,
-		}
-	);
+	const { allProductLightsources } = await apiQuery(AllProductLightsourcesDocument, {
+		all: true,
+		environment,
+	});
+	const { allProductAccessories } = await apiQuery(AllProductAccessoriesDocument, {
+		all: true,
+		environment,
+	});
 
 	const variants = await readFile('./Leveranstid per produkt.xlsx');
 	variants.forEach((variant, idx) => {

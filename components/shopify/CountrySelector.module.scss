@@ -56,7 +56,7 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			font-size: 0.65rem;
-			font-family: "IndivisibleMedium";
+			font-family: 'IndivisibleMedium';
 
 			&:first-of-type {
 				padding-top: 0.7em;
@@ -72,7 +72,7 @@
 				pointer-events: none;
 			}
 
-			@include mixin.mq($from: desktop) {
+			@include mq($from: desktop) {
 				&:hover {
 					background-color: var(--black);
 					color: var(--white-menu);

@@ -5,16 +5,11 @@ import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import { buildMenu } from '@/lib/menu';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
-import shopify from '@/lib/shopify/rest-client';
 import shopifyQuery from '@/lib/shopify/shopify-query';
 import { LocalizationDocument } from '@/lib/shopify/graphql';
 import * as Sentry from '@sentry/nextjs';
 
-export type LayoutProps = {
-	children: React.ReactNode;
-};
-
-export default async function RootLayout({ children }: LayoutProps) {
+export default async function RootLayout({ children }: LayoutProps<'/'>) {
 	const menu = await buildMenu();
 	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(LocalizationDocument);
 
@@ -32,7 +27,7 @@ export default async function RootLayout({ children }: LayoutProps) {
 export async function generateMetadata(): Promise<Metadata> {
 	const {
 		site: { globalSeo, faviconMetaTags },
-	} = await apiQuery<GlobalQuery, GlobalQueryVariables>(GlobalDocument, {
+	} = await apiQuery(GlobalDocument, {
 		variables: {},
 		revalidate: 60 * 60,
 	});
