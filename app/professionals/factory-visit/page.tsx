@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/professionals/factory-visit/page';
 import { FactoryVisitDocument } from '@/graphql';
 import { Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';

@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/products/[product]/page';
 import { AllProductsLightDocument, ProductDocument } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
@@ -13,13 +12,6 @@ import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/products/[product]/ShopInfo';
-
-type Props = {
-	params: PageParams['params'];
-	searchParams?: Promise<{
-		v?: string;
-	}>;
-};
 
 export const dynamic = 'force-dynamic';
 

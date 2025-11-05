@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/products/page';
 import { apiQuery } from 'next-dato-utils/api';
 import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocument } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';

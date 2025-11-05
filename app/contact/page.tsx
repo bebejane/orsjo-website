@@ -1,5 +1,4 @@
 import s from './page.module.scss';
-import { PageParams } from '@/app/[country]/contact/page';
 import { apiQuery } from 'next-dato-utils/api';
 import {
 	ContactDocument,
@@ -8,20 +7,18 @@ import {
 	AllShowroomsDocument,
 	AllDistributorsDocument,
 } from '@/graphql';
-
 import { Section, TextReveal } from '@/components';
 import { Image } from 'react-datocms';
 import { Markdown } from 'next-dato-utils/components';
 import { notFound } from 'next/navigation';
-import ContactButton from '@/app/contact/ContactButton';
 import { Metadata } from 'next';
+import Link from '@/components/nav/Link';
 
-export type ContactProps = {
-	contact: ContactRecord;
-	resellers: ResellerRecord[];
-	staffs: StaffRecord[];
-	showrooms: ShowroomRecord[];
-	distributors: DistributorRecord[];
+type ResellersByCountry = {
+	[country: string]: {
+		resellers: AllResellersQuery['resellers'][0][];
+		country: string;
+	};
 };
 
 export default async function Contact(props: PageProps<'/contact'>) {
@@ -35,7 +32,7 @@ export default async function Contact(props: PageProps<'/contact'>) {
 
 	if (!contact) return notFound();
 
-	const resellesByCountry = {};
+	const resellesByCountry: ResellersByCountry = {};
 	resellers.forEach((r, i) => {
 		if (!resellesByCountry[r.country.id]) resellesByCountry[r.country.id] = { resellers: [], country: r.country.name };
 		resellesByCountry[r.country.id].resellers.push(r);
@@ -63,7 +60,9 @@ export default async function Contact(props: PageProps<'/contact'>) {
 								<a href={`mailto:${contact.email}`}>{contact.email}</a>
 							</p>
 						</div>
-						<ContactButton contact={contact} />
+						<Link href='/contact/message-us'>
+							<button>Contact Us</button>
+						</Link>
 					</div>
 				</div>
 				<div className={s.imageWrap}>
@@ -185,7 +184,7 @@ export default async function Contact(props: PageProps<'/contact'>) {
 							<div key={idx} className={s.country}>
 								<h2 className='topMargin'>{country}</h2>
 								<div className={s.wrap}>
-									{items.map(({ name, address, postalCode, city, phone, email, url }, ridx) => (
+									{items.map(({ name, address, postalCode, city, url }, ridx) => (
 										<div key={ridx} className={s.reseller}>
 											<p className='medium'>
 												<span className='red'>{name}</span>
@@ -205,18 +204,6 @@ export default async function Contact(props: PageProps<'/contact'>) {
 												{city && (
 													<>
 														{city}
-														<br />
-													</>
-												)}
-												{phone && (
-													<>
-														{phone}
-														<br />
-													</>
-												)}
-												{email && (
-													<>
-														<a href={`mailto:${email}`}>{email}</a>
 														<br />
 													</>
 												)}

@@ -60,8 +60,11 @@
 		button {
 			margin-top: 1em;
 			color: var(--black);
-			//border-color: var(--black);
 			cursor: pointer;
+			&:hover {
+				background-color: var(--white);
+				color: var(--black);
+			}
 
 			@include mq($until: tablet) {
 				width: 100%;

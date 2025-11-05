@@ -14,7 +14,7 @@ const pageSize = 5;
 export type Props = { allNews: AllNewsQuery['allNews'] };
 
 export default function NewsList({ allNews }: Props) {
-	const { data, loading, error, nextPage, page } = useapiQuery(AllNewsDocument, {
+	const { data, loading, error, nextPage, page } = useApiQuery(AllNewsDocument, {
 		initialData: { allNews },
 		variables: { first: 1 },
 		pageSize,

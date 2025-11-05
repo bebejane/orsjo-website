@@ -1,4 +1,3 @@
-import { PageParams } from '@/app/[country]/about/news/page';
 import { AllNewsDocument } from '@/graphql';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
