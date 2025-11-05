@@ -1,14 +1,14 @@
 'use server';
 
 import { sleep } from '@/lib/utils';
-import sendPostmarkEmail from 'next-dato-utils/server-actions/sendPostmarkEmail.js';
+import { sendPostmarkEmail } from 'next-dato-utils/utils';
 import { z, ZodError } from 'zod';
 
 const ContactForm = z.object({
 	name: z.string().min(2, { message: 'Name is required' }),
 	email: z.string().email({ message: 'E-mail address is invalid' }),
 	subject: z.string().min(2, { message: 'Subject is required' }),
-	message: z.string().min(2, { message: 'M' }),
+	message: z.string().min(2, { message: 'Message is required' }),
 });
 
 type ContactForm = z.infer<typeof ContactForm>;
@@ -31,7 +31,8 @@ export default async function sendContactMessage(
 		const subject = formData.get('subject') as string;
 		const message = formData.get('message') as string;
 
-		await sleep(2000);
+		console.log({ name, email, subject, message });
+		await sleep(1000);
 
 		try {
 			ContactForm.parse({ name, email, subject, message });
@@ -43,7 +44,13 @@ export default async function sendContactMessage(
 		}
 
 		console.log({ name, email, subject, message });
-		//await sendPostmarkEmail(record.email as string, 'member-confirmation', {
+		await sleep(2000);
+
+		await sendPostmarkEmail({
+			to: 'bjornthief@gmail.com',
+			subject,
+			text: `${message} \n\n${name}\n${email} `,
+		});
 
 		return { success: true };
 	} catch (e) {
