@@ -25,6 +25,8 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 
 	if (!designer) return notFound();
 
+	return <div>test</div>;
+
 	const [{ allProducts }, { allProducts: products }, { allDesigners }] = await Promise.all([
 		apiQuery(AllProductsLightDocument, {
 			all: true,
@@ -40,7 +42,6 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 		.filter(({ id }) => allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id))
 		.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
-	return <div>test</div>;
 	return (
 		<>
 			<Section type='full' className={s.designer}>
@@ -101,7 +102,6 @@ export async function generateStaticParams() {
 		all: true,
 	});
 	const paths = allDesigners.map(({ slug: designer }) => ({ designer }));
-	console.log(paths);
 	return paths;
 }
 
