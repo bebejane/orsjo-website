@@ -43,6 +43,7 @@ const nextConfig: NextConfig = {
 		config.resolve.alias['datocms.config'] = path.join(__dirname, 'datocms.config.ts');
 		return config;
 	},
+	/*
 	async redirects() {
 		return [
 			{
@@ -122,6 +123,7 @@ const nextConfig: NextConfig = {
 			},
 		];
 	},
+	*/
 	async headers() {
 		return [
 			{

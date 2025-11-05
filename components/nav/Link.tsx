@@ -17,6 +17,7 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 	const handleClick = async (e: any) => {
 		if (!transition) return true;
 		e.preventDefault();
+
 		const pt = document.getElementById('page-transition');
 		const pft = document.getElementById('page-fade-transition');
 		const root = document.querySelector<HTMLDivElement>(':root');
