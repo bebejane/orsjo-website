@@ -62,7 +62,7 @@ const useCart = create<CartState>((set, get) => ({
 		get().update(null, async () => {
 			const cart = get().cart as CartQuery['cart'];
 			const { cartLinesAdd } = await shopifyQuery(AddItemToCartDocument, {
-				revalidate: 0,
+				revalidate: 10,
 				variables: {
 					cartId: cart?.id ?? '',
 					lines,

@@ -14,8 +14,6 @@ import { setRequestLocale } from 'next-intl/server';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 
-export const dynamic = 'force-static';
-
 export default async function Designer({ params }: PageProps<'/[locale]/designers/[designer]'>) {
 	const { locale, designer: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();

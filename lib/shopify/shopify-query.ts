@@ -27,7 +27,7 @@ export type DefaultApiQueryOptions = ApiQueryOptions & {
 
 const defaultOptions: DefaultApiQueryOptions = {
 	variables: undefined,
-	revalidate: 0,
+	revalidate: 60,
 	tags: undefined,
 	logs: false,
 	all: false,
