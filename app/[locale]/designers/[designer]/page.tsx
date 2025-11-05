@@ -15,11 +15,10 @@ import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 
 export default async function Designer({ params }: PageProps<'/[locale]/designers/[designer]'>) {
+	return <div>test3</div>;
 	const { locale, designer: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
-
-	return <div>test3</div>;
 
 	const { designer } = await apiQuery(DesignerDocument, {
 		variables: { slug },
