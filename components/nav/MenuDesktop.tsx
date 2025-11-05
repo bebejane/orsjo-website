@@ -12,7 +12,6 @@ import type { Menu } from '@/lib/menu';
 import { waitForElement } from '@/lib/utils';
 import { Logo } from '@/components';
 import { usePathname } from 'next/navigation';
-import { MdOutlineShoppingBag } from 'react-icons/md';
 import useCart from '@/lib/shopify/hooks/useCart';
 import CountrySelector from '@/components/shopify/CountrySelector';
 
@@ -149,7 +148,9 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 							className={cn(pathname.startsWith(`${slug}`) && s.selected)}
 						>
 							{index === true ? ( // Direct links
-								<Link href={slug}>{label}</Link>
+								<Link href={slug} prefetch={true}>
+									{label}
+								</Link>
 							) : (
 								<>{label}</>
 							)}

@@ -78,10 +78,6 @@
 					width: 100%;
 				}
 			}
-
-			div > img[role='presentation'] {
-				//height: 100vh;
-			}
 		}
 	}
 
@@ -106,16 +102,6 @@
 				}
 			}
 		}
-	}
-}
-
-@keyframes fade {
-	from {
-		opacity: 0;
-	}
-
-	to {
-		opacity: 1;
 	}
 }
 
