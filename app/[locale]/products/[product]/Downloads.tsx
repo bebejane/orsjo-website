@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { SectionListItem, Icon } from '@/components';
 import { useState } from 'react';
 import React from 'react';
-import { ProductPageDataProps } from './page';
+import { ProductPageDataProps } from '../utils';
 
 type Props = {
 	files: ProductPageDataProps['files'];

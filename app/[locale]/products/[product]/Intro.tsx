@@ -127,7 +127,7 @@ const formatDesignerName = (name?: string) => {
 		if (i - 1 >= 0) row.push(words[i - 1]);
 		rows.push(row);
 	}
-	return rows.reverse().map((el: string[], i) => (
+	return rows.reverse().map((el: string[], i: number) => (
 		<React.Fragment key={i}>
 			{el.reverse().join(' ')}
 			{i < rows.length - 1 && <br />}

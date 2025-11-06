@@ -70,10 +70,6 @@ export default async function Product({ params, searchParams }: PageProps<'/[loc
 	);
 }
 
-export async function generateStaticParams() {
-	return [];
-}
-
 /*
 export async function generateStaticParams() {
 	const { allProducts } = await apiQuery(AllProductsLightDocument, { all: true });

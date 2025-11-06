@@ -17,9 +17,7 @@ export type ProjectProps = {
 };
 
 export default function ProjectHeader({ project, bespokeThumbnail }: ProjectProps) {
-	const [setGallery, setGalleryId] = useStore(
-		useShallow((state) => [state.setGallery, state.setGalleryId])
-	);
+	const [setGallery, setGalleryId] = useStore(useShallow((state) => [state.setGallery, state.setGalleryId]));
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
 	const [imageStyle, setImageStyle] = useState({});
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
@@ -62,8 +60,8 @@ export default function ProjectHeader({ project, bespokeThumbnail }: ProjectProp
 
 const galleryImages = (project: ProjectRecord): FileField[] => {
 	const images = [project.image, project.secondaryImage] as FileField[];
-	project.gallery.forEach((el) =>
-		Object.keys(el).forEach((k) => el[k].responsiveImage && images.push(el[k]))
+	project.gallery.forEach((image) => {
+		Object.keys(image).forEach((k) => image[k]?.responsiveImage && images.push(image[k]))
 	);
 	return dedupeImages(images);
 };
