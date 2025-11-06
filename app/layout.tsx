@@ -24,7 +24,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/'>)
 	return (
 		<html lang='en-US'>
 			<body id='root'>
-				<NextIntlClientProvider>
+				<NextIntlClientProvider key={locale}>
 					<Layout menu={menu} localization={localization}>
 						{children}
 					</Layout>

@@ -20,7 +20,7 @@ export type ProductListProps = {
 
 export default function ProductList({ productCategories, allProducts, shopifyProducts }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
-	const productsByCategory: ProductsByCategory = useMemo<any>(() => ({}), []);
+	const productsByCategory: ProductsByCategory = useMemo<{}>(() => ({}), []);
 	productCategories.forEach(({ id, name, namePlural }) => {
 		productsByCategory[id] = {
 			name,

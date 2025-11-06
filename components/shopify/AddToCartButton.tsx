@@ -4,7 +4,7 @@ import s from './AddToCartButton.module.scss';
 import React, { useEffect } from 'react';
 import { default as useCart, useShallow } from '@/lib/shopify/hooks/useCart';
 import cn from 'classnames';
-import useCountry from '@/lib/shopify/hooks/useCountry';
+import { useLocale } from 'next-intl';
 
 export type AddToCartButtonProps = {
 	merchandiseId?: string;
@@ -21,13 +21,11 @@ export default function AddToCartButton({
 	quantity = 1,
 	disabled = false,
 }: AddToCartButtonProps) {
-	const country = useCountry();
-	const [addToCart] = useCart(
-		useShallow((state) => [state.addToCart, state.updating, state.error])
-	);
+	const country = useLocale();
+	const [addToCart] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 
 	const handleAddToCart = () => {
-		if (!disabled && merchandiseId) {
+		if (!disabled && typeof merchandiseId === 'string') {
 			addToCart({ merchandiseId, quantity }, country);
 		}
 	};

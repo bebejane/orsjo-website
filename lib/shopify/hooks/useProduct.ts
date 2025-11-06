@@ -1,7 +1,7 @@
 'use client';
 
 import shopifyQuery from '@/lib/shopify/shopify-query';
-import useCountry from './useCountry';
+import { useLocale } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { ShopifyProductDocument } from '@/lib/shopify/graphql';
 
@@ -11,7 +11,7 @@ export type Props = {
 };
 
 export default function useProduct({ handle, initialData = null }: Props) {
-	const country = useCountry();
+	const country = useLocale();
 	const [product, setProduct] = useState<ShopifyProductQuery['product'] | null>(initialData);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<Error | null>(null);
@@ -44,7 +44,7 @@ export default function useProduct({ handle, initialData = null }: Props) {
 			.finally(() => {
 				setLoading(false);
 			});
-	}, [locale]);
+	}, [country]);
 
 	return { product, loading, error };
 }

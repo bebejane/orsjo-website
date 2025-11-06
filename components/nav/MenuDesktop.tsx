@@ -14,6 +14,7 @@ import { Logo } from '@/components';
 import { usePathname } from 'next/navigation';
 import useCart from '@/lib/shopify/hooks/useCart';
 import CountrySelector from '@/components/shopify/CountrySelector';
+import { useLocale } from 'next-intl';
 
 export type MenuDesktopProps = {
 	items: Menu;
@@ -58,6 +59,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo();
 	const [cart] = useCart(useShallow((state) => [state.cart]));
 	const isInverted = menu === 'inverted' || invertMenu || showMenuMobile;
+	const locale = useLocale();
 
 	const resetSelected = useCallback(() => {
 		if (transitioning) return;
@@ -83,7 +85,7 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 	useEffect(() => {
 		console.log('hashchange');
 		// Hide menu when scrolling to hash
-		const handleHashChangeStart = async (e: HashChangeEvent) => {
+		const handleHashChange = async (e: HashChangeEvent) => {
 			console.log(e);
 			const id = e.newURL.split('#')[1];
 			const el = await waitForElement(id, 400);
@@ -95,9 +97,9 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 				setTimeout(() => setShowMenu(false), 0);
 			}, 1000);
 		};
-		window.addEventListener('hashchange', handleHashChangeStart);
+		window.addEventListener('hashchange', handleHashChange);
 		return () => {
-			window.removeEventListener('hashChangeStart', handleHashChangeStart);
+			window.removeEventListener('hashchange', handleHashChange);
 		};
 	}, [setHashChanging, setShowMenu]);
 

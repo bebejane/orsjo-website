@@ -54,7 +54,7 @@ export default async function shopifyQuery<TResult = any, TVariables = Record<st
 		throw new Error('NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN is not set');
 
 	const queryId = (query.definitions?.[0] as any).name?.value as string;
-	const country = ((opt.country as CountryCode) ?? 'SE').toUpperCase();
+	const country = ((opt.country as CountryCode) ?? 'se').toUpperCase();
 
 	const dedupeOptions: DedupeOptions = {
 		body: JSON.stringify({

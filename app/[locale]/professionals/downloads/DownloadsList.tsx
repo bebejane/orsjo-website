@@ -17,15 +17,13 @@ export default function Downloads({ products }: DownloadsListProps) {
 	const [search, setSearch] = useState<string>('');
 	const [results, setResults] = useState<AllProductDownloadsQuery['allProducts']>(products);
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
-	const [list, setList] = useState({});
+	const [list, setList] = useState<Partial<{ [key: string]: boolean }>>({});
 	const ref = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
 		if (!search || !products) return setResults(products);
 
-		const res = products.filter(({ title }) =>
-			title.toLowerCase().startsWith(search.toLowerCase())
-		);
+		const res = products.filter(({ title }) => title.toLowerCase().startsWith(search.toLowerCase()));
 		setResults(res);
 	}, [search, products, setResults]);
 
@@ -66,9 +64,7 @@ export default function Downloads({ products }: DownloadsListProps) {
 						</tr>
 
 						{(results ?? products).map(({ id, image, title, categories }, idx) => {
-							const files = productDownloads(
-								(results ?? products)[idx] as ProductRecordWithPdfFiles
-							);
+							const files = productDownloads((results ?? products)[idx] as ProductRecordWithPdfFiles);
 							return (
 								<React.Fragment key={idx}>
 									<tr
@@ -76,18 +72,12 @@ export default function Downloads({ products }: DownloadsListProps) {
 										className={list[idx] ? s.active : undefined}
 										onClick={() => setList({ ...list, [idx]: list[idx] ? false : true })}
 									>
-										<td>
-											{image.responsiveImage && (
-												<Image data={image.responsiveImage} className={s.image} />
-											)}
-										</td>
+										<td>{image.responsiveImage && <Image data={image.responsiveImage} className={s.image} />}</td>
 										<td>
 											<h2 className='noMargin'>{title}</h2>
 										</td>
 										<td>
-											<span className='medium'>
-												{categories.map((c, idx) => c.name).join(', ')}
-											</span>
+											<span className='medium'>{categories.map((c, idx) => c.name).join(', ')}</span>
 										</td>
 										<td className={s.toggle}>{list[idx] ? '–' : '+'}</td>
 									</tr>
@@ -103,9 +93,7 @@ export default function Downloads({ products }: DownloadsListProps) {
 																	<Icon type={type} label={label} />
 																</a>
 															</div>
-															{idx % 2 === 1 && (
-																<hr key={`hr-${idx}`} className={cn(isMobile && s.hide)} />
-															)}
+															{idx % 2 === 1 && <hr key={`hr-${idx}`} className={cn(isMobile && s.hide)} />}
 														</React.Fragment>
 													))}
 												</div>

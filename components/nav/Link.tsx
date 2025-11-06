@@ -5,6 +5,7 @@ import { sleep } from '@/lib/utils';
 import { useEffect } from 'react';
 import { pathnameToColor } from '@/lib/utils';
 import { useRouter, usePathname, Link as NextIntlLink } from '@/i18n/routing';
+import { useLocale } from 'next-intl';
 
 type LinkProp = ComponentProps<typeof NextIntlLink> & {
 	transition?: boolean;
@@ -13,6 +14,7 @@ type LinkProp = ComponentProps<typeof NextIntlLink> & {
 const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, ...props }) => {
 	const router = useRouter();
 	const pathname = usePathname();
+	const locale = useLocale();
 
 	const handleClick = async (e: any) => {
 		if (!transition) return true;
@@ -21,8 +23,8 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 		const pt = document.getElementById('page-transition');
 		const pft = document.getElementById('page-fade-transition');
 		const root = document.querySelector<HTMLDivElement>(':root');
-		const isSameBase = pathname?.split('/')[1] === props.href?.split('/')[1];
 
+		const isSameBase = pathname?.split('/')[0] === props.href?.split('/')[0];
 		root?.style.setProperty('--page-color', `var(${pathnameToColor(props.href) ?? '--white'})`);
 
 		if (pt) {
@@ -34,11 +36,9 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 			pft.classList.toggle('enter', false);
 			pft.classList.toggle('exit', isSameBase);
 		}
-		//router.prefetch(props.href);
 
 		await sleep(isSameBase ? 300 : 500);
-
-		router.push(props.href);
+		router.push(props.href, { locale });
 	};
 
 	useEffect(() => {
@@ -60,7 +60,7 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 	}, [pathname]);
 
 	return (
-		<NextIntlLink {...props} onClick={handleClick}>
+		<NextIntlLink {...props} locale={locale} onClick={handleClick}>
 			{props.children}
 		</NextIntlLink>
 	);
