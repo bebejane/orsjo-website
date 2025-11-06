@@ -16,6 +16,7 @@ import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export default async function Product({ params, searchParams }: PageProps<'/[locale]/products/[product]'>) {
 	const { locale, product: slug } = await params;
