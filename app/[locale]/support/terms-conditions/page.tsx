@@ -5,7 +5,7 @@ import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Section } from '@/components';
-import TermList from '@/app/[locale]/support/terms/TermsList';
+import TermList from '@/app/[locale]/support/terms-conditions/TermsList';
 import { Metadata } from 'next';
 
 export default async function Terms({ params }: PageProps<'/[locale]/support/terms'>) {

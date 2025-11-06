@@ -193,7 +193,7 @@ const base: Menu = [
 			{
 				type: 'support',
 				title: 'Terms & Conditions',
-				slug: '/support/terms',
+				slug: '/support/terms-conditions',
 				layout: 'normal',
 				inverted: true,
 				color: 'copper',

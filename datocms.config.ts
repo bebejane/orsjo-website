@@ -91,7 +91,7 @@ export default {
 			'/about/jobs',
 			'/support/faq',
 			'/support/manuals',
-			'/support/terms',
+			'/support/terms-conditions',
 			'/contact',
 		].map((p) => ({
 			url: `${process.env.NEXT_PUBLIC_SITE_URL}${p}`,

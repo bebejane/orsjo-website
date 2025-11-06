@@ -26,7 +26,7 @@ export default function ShopInfo({ product }: Props) {
 				))}
 				<br />
 				Free shipping on all orders over 5000 SEK. &nbsp;
-				<Link href='/support/terms'>
+				<Link href='/support/terms-conditions'>
 					<span className='gray'>More info ›</span>
 				</Link>
 			</p>
