@@ -32,17 +32,19 @@ export const PageContext = createContext(initialState);
 
 export const PageProvider = ({ children, pathname, country, menu }: PageProviderProps) => {
 	const item = findMenuItem(pathname, menu);
-	if (!item) throw new Error('Invalid page (PageProvider): ' + pathname);
+	if (!item) console.error('Invalid page (PageProvider): ' + pathname);
 
-	const state = {
-		...initialState,
-		title: item.title,
-		layout: item.layout,
-		inverted: item.inverted,
-		color: item.color,
-		sidebar: item.sidebar,
-		footerLine: item.footerLine,
-	} as UsePageProps;
+	const state = !item
+		? initialState
+		: ({
+				...initialState,
+				title: item.title,
+				layout: item.layout,
+				inverted: item.inverted,
+				color: item.color,
+				sidebar: item.sidebar,
+				footerLine: item.footerLine,
+			} as UsePageProps);
 
 	return <PageContext.Provider value={state}>{children}</PageContext.Provider>;
 };
