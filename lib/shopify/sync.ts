@@ -615,14 +615,17 @@ export const resetAll = async () => {
 
 export const resyncAll = async () => {
 	const { allProducts } = await apiQuery(AllProductsDocument, {
+		all: true,
 		variables: { first: 500, skip: 0 },
 		revalidate: 0,
 	});
 	const { allProductLightsources } = await apiQuery(AllProductLightsourcesDocument, {
+		all: true,
 		revalidate: 0,
 		variables: { first: 500, skip: 0 },
 	});
 	const { allProductAccessories } = await apiQuery(AllProductAccessoriesDocument, {
+		all: true,
 		revalidate: 0,
 		variables: { first: 500, skip: 0 },
 	});

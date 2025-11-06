@@ -16,8 +16,10 @@ export default async function ColorsAndMaterials({
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro } =
-		await apiQuery(AllColorsAndMaterialsDocument);
+	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro } = await apiQuery(
+		AllColorsAndMaterialsDocument,
+		{ all: true }
+	);
 
 	if (!colorMaterialIntro) notFound();
 	const { intro } = colorMaterialIntro;

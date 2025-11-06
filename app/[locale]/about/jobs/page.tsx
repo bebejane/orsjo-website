@@ -13,8 +13,7 @@ export default async function Jobs({ params }: PageProps<'/[locale]/about/jobs'>
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { jobs } = await apiQuery(AllJobsDocument);
-	if (!jobs) return notFound();
+	const { allJobs } = await apiQuery(AllJobsDocument, { all: true });
 
 	return (
 		<>
@@ -22,15 +21,15 @@ export default async function Jobs({ params }: PageProps<'/[locale]/about/jobs'>
 				<h1 className='topMargin'>Jobs</h1>
 			</Section>
 
-			{jobs.map(({ id, title, summary, text }, idx) => (
-				<Section key={id} className={s.jobs} name={title} bottom={idx === jobs.length - 1}>
+			{allJobs.map(({ id, title, summary, text }, idx) => (
+				<Section key={id} className={s.jobs} name={title} bottom={idx === allJobs.length - 1}>
 					<h1 className='copper'>{title}</h1>
 					<Markdown className={s.summary} content={summary} />
 					<Markdown className={s.text} content={text} />
 				</Section>
 			))}
 
-			{jobs.length === 0 && (
+			{allJobs.length === 0 && (
 				<Section className={s.jobs} bottom={true}>
 					<p className={s.nojobs}>We don&apos;t have any job offers at the moment.</p>
 				</Section>

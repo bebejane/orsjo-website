@@ -3,28 +3,19 @@
 import { Button, ListBox, ListBoxItem, Popover, Select, SelectValue, Key } from 'react-aria-components';
 import s from './CountrySelector.module.scss';
 import cn from 'classnames';
-//import { usePathname, useRouter } from 'next/navigation';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { useWindowSize, useClickAway } from 'react-use';
 import { usePage } from '@/lib/context/page';
-import { pathnameToCountry } from '@/lib/utils';
 
-export type Props = {
+type CountrySelectProps = {
 	className?: string;
 	localization: LocalizationQuery['localization'];
-	label?: string;
-	modal?: boolean;
 	currency?: boolean;
 };
 
-export default function CountrySelector({
-	className,
-	label,
-	modal = false,
-	localization: { availableCountries },
-}: Props) {
+export default function CountrySelector({ className, localization: { availableCountries } }: CountrySelectProps) {
 	const pathname = usePathname();
 	const router = useRouter();
 	const country = useLocale();
@@ -46,9 +37,9 @@ export default function CountrySelector({
 		}, 100);
 	}, []);
 
-	const handleChange = (val: Key) => {
+	const handleChange = (val: Key | null) => {
+		if (!val) return;
 		const newCountryCode = val.toString().toLowerCase();
-		const hash = window.location.hash ? '#' + window.location.hash : '';
 		router.replace(pathname.replace(`/${country}`, '/'), { locale: newCountryCode });
 		router.refresh();
 	};
@@ -63,7 +54,7 @@ export default function CountrySelector({
 			ref={formRef}
 			aria-label={'Select country'}
 		>
-			<Select className={cn('small', s.select)} onSelectionChange={handleChange} defaultOpen={false}>
+			<Select className={cn('small', s.select)} onChange={handleChange} defaultOpen={false}>
 				<Button className={cn(s.button, menu === 'inverted' && s.inverted)} ref={buttonRef}>
 					<SelectValue className={s.value} key={country}>
 						{selectedCountry?.currency.isoCode}

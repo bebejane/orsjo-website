@@ -84,12 +84,15 @@ query Job($id: ItemId) {
 	}
 }
 
-query AllJobs($first: IntType = 100) {
-	jobs: allJobs(first: $first) {
+query AllJobs($first: IntType = 100, $skip: IntType = 0) {
+	allJobs(first: $first, skip: $skip) {
 		id
 		summary(markdown: false)
 		text(markdown: false)
 		title
+	}
+	_allJobsMeta {
+		count
 	}
 }
 
@@ -101,10 +104,13 @@ query Press($id: ItemId) {
 	}
 }
 
-query AllPress($first: IntType = 100) {
-	presses: allPresses(first: $first) {
+query AllPress($first: IntType = 100, $skip: IntType = 0) {
+	allPresses(first: $first, skip: $skip) {
 		id
 		title
 		url
+	}
+	_allPressesMeta {
+		count
 	}
 }

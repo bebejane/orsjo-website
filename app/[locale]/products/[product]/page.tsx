@@ -15,14 +15,15 @@ import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
 
-export const dynamic = 'force-dynamic';
+//export const dynamic = 'auto';
 
-export default async function Product({ params, searchParams }: PageProps<'/[locale]/products/[product]'>) {
+export default async function Product({ params }: PageProps<'/[locale]/products/[product]'>) {
 	const { locale, product: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { v } = (await searchParams) ?? {};
+	//const { v } = searchParams ? await searchParams : {};
+	const v = '';
 	const res = await getProductPageData(slug, locale as CountryCode);
 
 	if (!res) return notFound();
@@ -35,7 +36,7 @@ export default async function Product({ params, searchParams }: PageProps<'/[loc
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
 			<ShopInfo product={product} />
-			<Shop product={product} shopify={shopify} variantId={v as string} />
+			<Shop product={product} shopify={shopify} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery

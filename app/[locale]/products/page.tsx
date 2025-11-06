@@ -1,6 +1,6 @@
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { ProductStartDocument, AllProductsLightDocument, ProductCategoriesDocument } from '@/graphql';
+import { ProductStartDocument, AllProductsLightDocument, AllProductCategoriesDocument } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import ProductList from './ProductList';
 import shopifyQuery from '@/lib/shopify/shopify-query';
@@ -30,11 +30,11 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const [{ productStart }, { allProducts }, { productCategories }, { products }] = await Promise.all([
+	const [{ productStart }, { allProducts }, { allProductCategories }, { products }] = await Promise.all([
 		apiQuery(ProductStartDocument),
-		apiQuery(AllProductsLightDocument),
-		apiQuery(ProductCategoriesDocument),
-		shopifyQuery(AllShopifyProductsDocument, { country: locale }),
+		apiQuery(AllProductsLightDocument, { all: true }),
+		apiQuery(AllProductCategoriesDocument, { all: true }),
+		shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
 	]);
 
 	/*
@@ -70,7 +70,7 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 					/>
 				</Section>
 			))}
-			<ProductList productCategories={productCategories} allProducts={allProducts} shopifyProducts={products} />
+			<ProductList productCategories={allProductCategories} allProducts={allProducts} shopifyProducts={products} />
 		</>
 	);
 }

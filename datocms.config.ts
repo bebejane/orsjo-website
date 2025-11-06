@@ -1,11 +1,11 @@
 import { DatoCmsConfig, getItemReferenceRoutes, getUploadReferenceRoutes } from 'next-dato-utils/config';
 import { MetadataRoute } from 'next';
-import localization from './localization.json';
+import { defaultLocale, locales } from '@/i18n/routing';
 
 export default {
 	i18n: {
-		defaultLocale: 'se',
-		locales: localization.availableCountries.map(({ isoCode }) => isoCode.toLowerCase()),
+		defaultLocale,
+		locales,
 	},
 	routes: {
 		about: async () => ['/about'],
