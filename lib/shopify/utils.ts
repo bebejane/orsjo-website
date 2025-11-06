@@ -55,5 +55,5 @@ export const cartCookieOptions = {
 	secure: false,
 	maxAge: 60 * 60 * 24,
 	sameSite: true,
-	domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'humaneight.com',
+	domain: new URL(process.env.NEXT_PUBLIC_SITE_URL as string).hostname,
 };

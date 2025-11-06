@@ -56,7 +56,7 @@ export default function Cart({ localization }: CartProps) {
 	}, [pathname]);
 
 	useEffect(() => {
-		if (cart && country && cart?.buyerIdentity.countryCode.toLowerCase() !== country)
+		if (cart && country && cart?.buyerIdentity?.countryCode?.toLowerCase() !== country)
 			updateBuyerIdentity({ countryCode: country.toUpperCase() } as CartBuyerIdentityInput);
 	}, [country, cart]);
 
