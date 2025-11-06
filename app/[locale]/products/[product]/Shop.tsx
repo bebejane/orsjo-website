@@ -3,7 +3,7 @@
 import s from './Shop.module.scss';
 import cn from 'classnames';
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { formatShopifyPrice } from '@/lib/shopify/utils';
+import { formatShopifyPrice, parseGid } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
 import useStore from '@/lib/store';
@@ -65,8 +65,12 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	useEffect(() => {
 		if (!variantId) return setSelected(allVariants?.[0] ?? null);
 
-		const shopifyVariant = shopify.product?.variants.edges.find((v) => v.node.id.split('/').pop() === variantId)?.node;
-
+		const shopifyVariant = shopify.product?.variants.edges.find((v) => parseGid(v.node.id) === variantId)?.node;
+		console.log(
+			'found variant',
+			shopifyVariant?.id,
+			allVariants.find((v) => v.articleNo?.trim() === shopifyVariant?.sku) ?? null
+		);
 		if (shopifyVariant) {
 			setSelected(allVariants.find((v) => v.articleNo?.trim() === shopifyVariant?.sku) ?? null);
 			setHide(false);

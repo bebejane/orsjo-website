@@ -72,6 +72,9 @@ fragment ProductFragment on Product {
 		name
 	}
 	tags
+	selectedOrFirstAvailableVariant {
+		...ProductVariantFragment
+	}
 	variants(first: 100) {
 		edges {
 			node {

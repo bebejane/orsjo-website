@@ -78,7 +78,7 @@ export const sortProductsByCategory = (products: ProductRecord[]) => {
 	return sortedProducts;
 };
 
-export const sectionId = (title?: string, id?: string) => {
+export const sectionId = (title?: string | null, id?: string) => {
 	if (!title) return {};
 	id = id
 		? id

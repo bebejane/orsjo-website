@@ -10,7 +10,7 @@ export type SectionProps = {
 	children?: React.ReactNode;
 	className?: string;
 	type?: string;
-	name?: string;
+	name?: string | null | undefined;
 	id?: string;
 	top?: boolean;
 	bottom?: boolean;

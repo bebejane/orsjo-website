@@ -14,18 +14,19 @@ import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
+import { parseGid } from '@/lib/shopify/utils';
 
-//export const dynamic = 'auto';
+//export const dynamic = 'force-dynamic'; // disable for now
 
 export default async function Product({ params }: PageProps<'/[locale]/products/[product]'>) {
 	const { locale, product: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	//const { v } = searchParams ? await searchParams : {};
-	const v = '';
 	const res = await getProductPageData(slug, locale as CountryCode);
-
+	//const { v } = searchParams ? await searchParams : {}; // disable for now
+	const v = parseGid(res?.shopify.product?.selectedOrFirstAvailableVariant?.id as string);
+	console.log(v);
 	if (!res) return notFound();
 
 	const { shopify, product, relatedProducts, relatedProjects, productsByCategory, drawings, specsCols, files } = res;
@@ -36,7 +37,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
 			<ShopInfo product={product} />
-			<Shop product={product} shopify={shopify} />
+			<Shop product={product} shopify={shopify} variantId={v} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery
