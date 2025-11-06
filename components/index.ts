@@ -32,7 +32,6 @@ export {
 } from './common/Thumbnail';
 export { default as Underlay } from './common/Underlay';
 export { default as VideoPlayer } from './common/VideoPlayer';
-export { default as Content } from './layout/Content';
 export { default as Layout } from './layout/Layout';
 export { default as Modal } from './layout/Modal';
 export { default as Section } from './layout/Section';

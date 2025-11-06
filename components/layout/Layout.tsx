@@ -1,21 +1,10 @@
 'use client';
 
 import s from './Layout.module.scss';
-import {
-	Content,
-	Sidebar,
-	Footer,
-	Gallery,
-	SiteSearch,
-	MenuDesktop,
-	MenuMobile,
-	CookieConsent,
-	Underlay,
-} from '@/components';
-import { PageProvider, getPageAttributes } from '@/lib/context/page';
-import type { MenuItem } from '@/lib/menu';
+import { Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, CookieConsent, Underlay } from '@/components';
+import { PageProvider } from '@/lib/context/page';
+import { findMenuItem, type MenuItem } from '@/lib/menu';
 import { useStore, useShallow } from '@/lib/store';
-import { useState } from 'react';
 import { usePathname } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import Cart from '@/components/shopify/Cart';
@@ -27,31 +16,32 @@ export type LayoutProps = {
 	localization: LocalizationQuery['localization'];
 };
 
-export default function Layout({ children, menu: menuFromProps, localization }: LayoutProps) {
+export default function Layout({ children, menu, localization }: LayoutProps) {
 	const pathname = usePathname();
 	const country = useLocale();
-	const { color, layout, sidebar, title } = getPageAttributes(pathname, country);
-	const [menu] = useState(menuFromProps);
+	const page = findMenuItem(pathname, menu);
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(
 		useShallow((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch])
 	);
 
 	return (
 		<>
-			<PageProvider pathname={pathname} country={country}>
-				<div className={s.layout} style={{ backgroundColor: `var(${color})` }}>
-					<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} localization={localization} />
-					<MenuMobile items={menu} localization={localization} />
+			<PageProvider pathname={pathname} country={country} menu={menu}>
+				<div className={s.layout} style={{ backgroundColor: `var(--${page?.color})` }}>
+					<Sidebar key={pathname} />
+					<main id='content' className={s.content} data-type={page?.layout}>
+						<article>{children}</article>
+					</main>
+					<MenuDesktop menu={menu} onShowSiteSearch={() => setShowSiteSearch(true)} localization={localization} />
+					<MenuMobile menu={menu} localization={localization} />
 					<Underlay />
 					<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />
-					<Sidebar key={pathname} title={title} show={layout !== 'full' && sidebar} />
-					<Content>{children}</Content>
 					<Gallery
 						show={gallery?.index !== undefined && gallery.index > -1}
 						images={gallery?.images ?? []}
 						index={gallery?.index ?? 0}
 						padImagesWithTitle={gallery?.padImagesWithTitle}
-						onClose={() => setGallery((g) => ({ ...g, index: -1 }))}
+						onClose={() => gallery && setGallery({ ...gallery, index: -1 })}
 					/>
 				</div>
 				<Cart localization={localization} />

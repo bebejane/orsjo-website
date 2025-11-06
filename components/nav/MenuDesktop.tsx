@@ -17,48 +17,36 @@ import CountrySelector from '@/components/shopify/CountrySelector';
 import { useLocale } from 'next-intl';
 
 export type MenuDesktopProps = {
-	items: Menu;
+	menu: Menu;
 	localization: LocalizationQuery['localization'];
 	onShowSiteSearch: Function;
 };
 
-export default function MenuDesktop({ items, onShowSiteSearch, localization }: MenuDesktopProps) {
+export default function MenuDesktop({ menu, onShowSiteSearch, localization }: MenuDesktopProps) {
 	const ref = useRef(null);
 	const pathname = usePathname();
-	const [
-		showMenu,
-		showSubMenu,
-		setShowSubMenu,
-		showMenuMobile,
-		setShowMenu,
-		invertMenu,
-		transitioning,
-		showSiteSearch,
-		showCart,
-		setShowCart,
-	] = useStore(
-		useShallow((state) => [
-			state.showMenu,
-			state.showSubMenu,
-			state.setShowSubMenu,
-			state.showMenuMobile,
-			state.setShowMenu,
-			state.invertMenu,
-			state.transitioning,
-			state.showSiteSearch,
-			state.showCart,
-			state.setShowCart,
-		])
-	);
+	const [showMenu, showSubMenu, setShowSubMenu, showMenuMobile, setShowMenu, invertMenu, transitioning, setShowCart] =
+		useStore(
+			useShallow((state) => [
+				state.showMenu,
+				state.showSubMenu,
+				state.setShowSubMenu,
+				state.showMenuMobile,
+				state.setShowMenu,
+				state.invertMenu,
+				state.transitioning,
+				state.setShowCart,
+			])
+		);
 
 	const [selected, setSelected] = useState<string | null>(null);
 	const [hashChanging, setHashChanging] = useState(false);
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 });
-	const { layout, menu, color } = usePage();
+	const { layout, inverted, color } = usePage();
 	const { innerWidth } = useWindowSize();
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo();
 	const [cart] = useCart(useShallow((state) => [state.cart]));
-	const isInverted = menu === 'inverted' || invertMenu || showMenuMobile;
+	const isInverted = inverted || invertMenu || showMenuMobile;
 	const locale = useLocale();
 
 	const resetSelected = useCallback(() => {
@@ -129,17 +117,16 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 	}, [selected, showMenu, setShowSubMenu]);
 
 	const menuStyles = cn(s.desktopMenu, selected && s.open, !showMenu && s.hide, s[layout], isInverted && s.inverted);
+	const sub = selected ? menu.find((i) => i.slug === selected)?.sub : [];
 
-	const sub = selected ? items.find((i) => i.slug === selected)?.sub : [];
-
-	if (!items) return null;
+	if (!menu) return null;
 
 	return (
 		<>
 			<Logo inverted={isInverted} />
 			<nav id={'menu'} ref={ref} className={menuStyles}>
 				<ul className={s.nav}>
-					{items.map(({ label, slug, index }, idx) => (
+					{menu.slice(1).map(({ title, slug, index }, idx) => (
 						<li
 							data-slug={slug}
 							data-index={idx}
@@ -150,10 +137,10 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 						>
 							{index === true ? ( // Direct links
 								<Link href={slug} prefetch={true}>
-									{label}
+									{title}
 								</Link>
 							) : (
-								<>{label}</>
+								<>{title}</>
 							)}
 							{!index && <span className={cn(s.arrow, slug == selected && s.active)}>›</span>}
 						</li>
@@ -172,19 +159,19 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 
 			<div
 				className={cn(s.sub, showSubMenu && s.show)}
-				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: `var(${color})` }}
+				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: `var(--${color})` }}
 				onMouseLeave={resetSelected}
 			>
 				<div
-					className={cn(s.subPad, s[menu])}
-					style={{ backgroundColor: `var(${color})`, paddingLeft: `${menuMargin.padding}px` }}
+					className={cn(s.subPad, isInverted && s.inverted)}
+					style={{ backgroundColor: `var(--${color})`, paddingLeft: `${menuMargin.padding}px` }}
 				>
 					<nav>
 						<ul className={cn(sub && sub.length > 10 && s.columns)}>
-							{sub?.map(({ label, slug }, idx) => (
+							{sub?.map(({ title, slug }, idx) => (
 								<li key={idx} className={cn(slug === pathname && s.active)}>
 									<Link href={slug} onClick={() => setShowSubMenu(false)} prefetch={true}>
-										{label}
+										{title}
 									</Link>
 								</li>
 							))}

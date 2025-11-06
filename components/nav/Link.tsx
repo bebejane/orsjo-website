@@ -24,7 +24,7 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 		const pft = document.getElementById('page-fade-transition');
 		const root = document.querySelector<HTMLDivElement>(':root');
 
-		const isSameBase = pathname?.split('/')[0] === props.href?.split('/')[0];
+		const isSameBase = pathname?.split('/')[1] === props.href?.split('/')[1];
 		root?.style.setProperty('--page-color', `var(${pathnameToColor(props.href) ?? '--white'})`);
 
 		if (pt) {
@@ -40,24 +40,6 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 		await sleep(isSameBase ? 300 : 500);
 		router.push(props.href, { locale });
 	};
-
-	useEffect(() => {
-		const pt = document.getElementById('page-transition');
-		const pft = document.getElementById('page-fade-transition');
-
-		if (!pt) return;
-		const prevPathname = pt.getAttribute('pathname');
-		const isSameBase = prevPathname?.split('/')[1] === pathname?.split('/')[1];
-
-		if (prevPathname !== pathname) {
-			pt.classList.toggle('enter', !isSameBase);
-			pt.classList.toggle('exit', false);
-		}
-		if (pft) {
-			pft.classList.toggle('enter', isSameBase);
-			pft.classList.toggle('exit', false);
-		}
-	}, [pathname]);
 
 	return (
 		<NextIntlLink {...props} locale={locale} onClick={handleClick}>

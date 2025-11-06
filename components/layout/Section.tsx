@@ -32,12 +32,12 @@ export default function Section({
 	disableSidebar = false,
 }: SectionProps) {
 	const color = bgColor?.startsWith('--') ? `var(${bgColor})` : bgColor ? bgColor : undefined;
+	fadeColor = fadeColor?.startsWith('--') ? `var(${fadeColor})` : (fadeColor ?? undefined);
 	const { ref, inView } = useInView({ threshold: 0.05, triggerOnce: false });
-	fadeColor = fadeColor?.startsWith('--') ? `var(${fadeColor})` : fadeColor;
 
 	return (
 		<section
-			className={cn(s.section)}
+			className={s.section}
 			style={{ backgroundColor: fadeColor && !inView ? fadeColor : color }}
 			data-type={type}
 			data-top={top}

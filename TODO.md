@@ -19,3 +19,4 @@ handle cart errors better
 
 - resync shopify
 - check web previews/revalidate
+- sentry

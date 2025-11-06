@@ -152,6 +152,8 @@ type AbandonedCheckoutLineItem = Node & {
   originalTotalPriceSet: MoneyBag;
   /** Original price for a single unit of this line item, before discounts. */
   originalUnitPriceSet: MoneyBag;
+  /** The parent relationship for this line item. */
+  parentRelationship?: Maybe<AbandonedCheckoutLineItemParentRelationship>;
   /**
    * Product for this line item.
    * NULL for custom line items and products that were deleted after checkout began.
@@ -221,6 +223,13 @@ type AbandonedCheckoutLineItemEdge = {
   cursor: Scalars['String']['output'];
   /** The item at the end of AbandonedCheckoutLineItemEdge. */
   node: AbandonedCheckoutLineItem;
+};
+
+/** The line relationship between two line items in an abandoned checkout. */
+type AbandonedCheckoutLineItemParentRelationship = {
+  __typename?: 'AbandonedCheckoutLineItemParentRelationship';
+  /** The parent line item of the current line item. */
+  parent: AbandonedCheckoutLineItem;
 };
 
 /** The set of valid sort keys for the AbandonedCheckout query. */
@@ -2794,6 +2803,8 @@ enum BulkMutationErrorCode {
   INVALID_MUTATION = 'INVALID_MUTATION',
   /** The JSONL file submitted via the `stagedUploadsCreate` mutation is invalid. Update the file and try again. */
   INVALID_STAGED_UPLOAD_FILE = 'INVALID_STAGED_UPLOAD_FILE',
+  /** Bulk operations limit reached. Please try again later. */
+  LIMIT_REACHED = 'LIMIT_REACHED',
   /** The JSONL file could not be found. Try [uploading the file](https://shopify.dev/api/usage/bulk-operations/imports#generate-the-uploaded-url-and-parameters) again, and check that you've entered the URL correctly for the `stagedUploadPath` mutation argument. */
   NO_SUCH_FILE = 'NO_SUCH_FILE',
   /** The operation did not run because another bulk mutation is already running. [Wait for the operation to finish](https://shopify.dev/api/usage/bulk-operations/imports#wait-for-the-operation-to-finish) before retrying this operation. */
@@ -2956,6 +2967,8 @@ type BulkOperationUserError = DisplayableError & {
 enum BulkOperationUserErrorCode {
   /** The input value is invalid. */
   INVALID = 'INVALID',
+  /** Bulk operations limit reached. Please try again later. */
+  LIMIT_REACHED = 'LIMIT_REACHED',
   /** A bulk operation is already in progress. */
   OPERATION_IN_PROGRESS = 'OPERATION_IN_PROGRESS'
 }
@@ -4012,7 +4025,11 @@ enum CartTransformCreateUserErrorCode {
   /** Failed to create cart transform due to invalid input. */
   INPUT_INVALID = 'INPUT_INVALID',
   /** Could not create or update metafields. */
-  INVALID_METAFIELDS = 'INVALID_METAFIELDS'
+  INVALID_METAFIELDS = 'INVALID_METAFIELDS',
+  /** Either function_id or function_handle must be provided. */
+  MISSING_FUNCTION_IDENTIFIER = 'MISSING_FUNCTION_IDENTIFIER',
+  /** Only one of function_id or function_handle can be provided, not both. */
+  MULTIPLE_FUNCTION_IDENTIFIERS = 'MULTIPLE_FUNCTION_IDENTIFIERS'
 }
 
 /** Return type for `cartTransformDelete` mutation. */
@@ -4543,20 +4560,7 @@ type Channel = Node & {
   productPublicationsV3: ResourcePublicationConnection;
   /** The list of products published to the channel. */
   products: ProductConnection;
-  /**
-   * Retrieves the total count of products that are currently published to a specific sales channel. This provides a quick way to understand channel inventory without fetching the full product list.
-   *
-   * For example, when building channel management dashboards, you can display how many products are available in each channel like "150 products in Online Store" or "75 products in Facebook Shop."
-   *
-   * Use `ChannelProductsCount` to:
-   * - Display inventory summaries in channel management interfaces
-   * - Monitor product distribution across sales channels
-   * - Validate channel setup and product availability
-   *
-   * The count reflects only published products and updates as merchants add or remove products from channels.
-   *
-   * Learn more about [sales channels](https://shopify.dev/docs/api/admin-graphql/latest/objects/Channel). Limited to a maximum of 10000 by default.
-   */
+  /** Retrieves the total count of [`products`](https://shopify.dev/docs/api/admin-graphql/latest/objects/Product) published to a specific sales channel. Limited to a maximum of 10000 by default. */
   productsCount?: Maybe<Count>;
   /** Whether the channel supports future publishing. */
   supportsFuturePublishing: Scalars['Boolean']['output'];
@@ -4705,10 +4709,20 @@ type ChannelInformation = Node & {
 };
 
 /**
- * The settings of checkout visual customizations.
+ * Creates a unified visual identity for your checkout that keeps customers engaged and reinforces your brand throughout the purchase process. This comprehensive branding system lets you control every visual aspect of checkout, from colors and fonts to layouts and imagery, so your checkout feels like a natural extension of your store.
  *
- * To learn more about updating checkout branding settings, refer to the
- * [checkoutBrandingUpsert](https://shopify.dev/api/admin-graphql/unstable/mutations/checkoutBrandingUpsert) mutation.
+ * For example, a luxury fashion retailer can configure their checkout with custom color palettes, premium typography, rounded corners for a softer feel, and branded imagery that matches their main website aesthetic.
+ *
+ * Use the `Branding` object to:
+ * - Configure comprehensive checkout visual identity
+ * - Coordinate color schemes across all checkout elements
+ * - Apply consistent typography and spacing standards
+ * - Manage background imagery and layout customizations
+ * - Control visibility of various checkout components
+ *
+ * The branding configuration includes design system foundations like color roles, typography scales, and spacing units, plus specific customizations for sections, dividers, and interactive elements. This allows merchants to create cohesive checkout experiences that reinforce their brand identity while maintaining usability standards.
+ *
+ * Different color schemes can be defined for various contexts, ensuring optimal contrast and accessibility across different checkout states and customer preferences.
  */
 type CheckoutBranding = {
   __typename?: 'CheckoutBranding';
@@ -4789,7 +4803,18 @@ type CheckoutBrandingButton = {
   typography?: Maybe<CheckoutBrandingTypographyStyle>;
 };
 
-/** Colors for buttons. */
+/**
+ * Defines the color palette specifically for button elements within checkout branding, including hover states. These color roles ensure buttons maintain proper contrast and visual hierarchy throughout the checkout experience.
+ *
+ * For example, a sports brand might configure bright accent colors for primary action buttons, with darker hover states and contrasting text colors that maintain accessibility standards.
+ *
+ * Use the `ButtonColorRoles` object to:
+ * - Define button color schemes for different states
+ * - Ensure proper contrast for accessibility compliance
+ * - Coordinate button colors with overall brand palette
+ *
+ * Button color roles include background, border, text, icon, accent (for focused states), and decorative elements, plus specific hover state colors that provide clear interactive feedback to customers.
+ */
 type CheckoutBrandingButtonColorRoles = {
   __typename?: 'CheckoutBrandingButtonColorRoles';
   /** The color of accented objects (links and focused state). */
@@ -4842,7 +4867,15 @@ type CheckoutBrandingButtonInput = {
   typography?: InputMaybe<CheckoutBrandingTypographyStyleInput>;
 };
 
-/** The customizations for the breadcrumbs that represent a buyer's journey to the checkout. */
+/**
+ * Controls the visibility settings for checkout breadcrumb navigation that shows customers their progress through the purchase journey. This simple customization allows merchants to show or hide the breadcrumb trail based on their checkout flow preferences.
+ *
+ * For example, a single-page checkout experience might hide breadcrumbs to create a more streamlined appearance, while multi-step checkouts can display them to help customers understand their progress.
+ *
+ * The visibility setting provides merchants flexibility in how they present checkout navigation to match their specific user experience strategy.
+ *
+ * Learn more about [checkout customization](https://shopify.dev/docs/api/admin-graphql/latest/objects/CheckoutBranding).
+ */
 type CheckoutBrandingBuyerJourney = {
   __typename?: 'CheckoutBrandingBuyerJourney';
   /** An option to display or hide the breadcrumbs that represent the buyer's journey on 3-page checkout. */
@@ -4855,7 +4888,13 @@ type CheckoutBrandingBuyerJourneyInput = {
   visibility?: InputMaybe<CheckoutBrandingVisibility>;
 };
 
-/** The customizations that you can make to cart links at checkout. */
+/**
+ * Controls the visibility of cart links displayed during checkout. These links allow customers to return to their cart or continue shopping.
+ *
+ * For example, an electronics store might hide cart links during final checkout steps to reduce distractions, or show them prominently to encourage customers to add accessories before completing their purchase.
+ *
+ * The `CartLink` object provides visibility settings to control when and how these navigation elements appear based on the merchant's checkout flow strategy.
+ */
 type CheckoutBrandingCartLink = {
   __typename?: 'CheckoutBrandingCartLink';
   /** Whether the cart link is visible at checkout. */
@@ -4878,7 +4917,13 @@ type CheckoutBrandingCartLinkInput = {
   visibility?: InputMaybe<CheckoutBrandingVisibility>;
 };
 
-/** The checkboxes customizations. */
+/**
+ * Defines the visual styling for checkbox elements throughout the checkout interface, focusing on corner radius customization. This allows merchants to align checkbox appearance with their overall design aesthetic.
+ *
+ * For example, a modern minimalist brand might prefer sharp, square checkboxes while a friendly consumer brand could opt for rounded corners to create a softer, more approachable feel.
+ *
+ * The corner radius setting ensures checkboxes integrate seamlessly with the overall checkout design language and brand identity.
+ */
 type CheckoutBrandingCheckbox = {
   __typename?: 'CheckoutBrandingCheckbox';
   /** The corner radius used for checkboxes. */
@@ -4891,14 +4936,24 @@ type CheckoutBrandingCheckboxInput = {
   cornerRadius?: InputMaybe<CheckoutBrandingCornerRadius>;
 };
 
-/** The choice list customizations. */
+/**
+ * Controls spacing customization for the grouped variant of choice list components in checkout forms.
+ *
+ * The `ChoiceList` object contains settings specifically for the 'group' variant styling through the [`ChoiceListGroup`](https://shopify.dev/docs/api/admin-graphql/latest/objects/CheckoutBrandingChoiceListGroup) field, which determines the spacing between choice options.
+ */
 type CheckoutBrandingChoiceList = {
   __typename?: 'CheckoutBrandingChoiceList';
   /** The settings that apply to the 'group' variant of ChoiceList. */
   group?: Maybe<CheckoutBrandingChoiceListGroup>;
 };
 
-/** The settings that apply to the 'group' variant of ChoiceList. */
+/**
+ * Controls the spacing between options in the 'group' variant of [`ChoiceList`](https://shopify.dev/docs/api/admin-graphql/latest/objects/CheckoutBrandingChoiceList) components.
+ *
+ * This setting adjusts the vertical spacing between choice options to improve readability and visual organization. The spacing value helps create clear separation between options, making it easier for customers to scan and select from available choices.
+ *
+ * Learn more about [checkout customization](https://shopify.dev/docs/api/admin-graphql/latest/objects/CheckoutBranding).
+ */
 type CheckoutBrandingChoiceListGroup = {
   __typename?: 'CheckoutBrandingChoiceListGroup';
   /** The spacing between UI elements in the list. */
@@ -4917,7 +4972,19 @@ type CheckoutBrandingChoiceListInput = {
   group?: InputMaybe<CheckoutBrandingChoiceListGroupInput>;
 };
 
-/** A set of colors for customizing the overall look and feel of the checkout. */
+/**
+ * Defines the global color roles for checkout branding. These semantic colors maintain consistency across all checkout elements and provide the foundation for the checkout's visual design system.
+ *
+ * Use global colors to:
+ * - Set brand colors for primary actions and buttons
+ * - Define accent colors for links and interactive elements
+ * - Configure semantic colors for success, warning, and error states
+ * - Apply decorative colors for visual highlights
+ *
+ * For example, a merchant might set their brand blue for primary buttons, green for success messages, amber for warnings, and red for critical errors, creating a consistent color language throughout checkout.
+ *
+ * Learn more about [checkout customization](https://shopify.dev/docs/api/admin-graphql/latest/objects/CheckoutBranding).
+ */
 type CheckoutBrandingColorGlobal = {
   __typename?: 'CheckoutBrandingColorGlobal';
   /** A color used for interaction, like links and focus states. */
@@ -7376,8 +7443,31 @@ type CollectionReorderProductsPayload = {
   /** The asynchronous job reordering the products. */
   job?: Maybe<Job>;
   /** The list of errors that occurred from executing the mutation. */
-  userErrors: Array<UserError>;
+  userErrors: Array<CollectionReorderProductsUserError>;
 };
+
+/** Errors related to order customer removal. */
+type CollectionReorderProductsUserError = DisplayableError & {
+  __typename?: 'CollectionReorderProductsUserError';
+  /** The error code. */
+  code?: Maybe<CollectionReorderProductsUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `CollectionReorderProductsUserError`. */
+enum CollectionReorderProductsUserErrorCode {
+  /** The collection was not found. Please check the collection ID and try again. */
+  COLLECTION_NOT_FOUND = 'COLLECTION_NOT_FOUND',
+  /** The move is invalid. */
+  INVALID_MOVE = 'INVALID_MOVE',
+  /** The collection is not manually sorted. Can't reorder products unless collection is manually sorted. */
+  MANUALLY_SORTED_COLLECTION = 'MANUALLY_SORTED_COLLECTION',
+  /** Products are currently being reordered. Please try again later. */
+  TOO_MANY_ATTEMPTS_TO_REORDER_PRODUCTS = 'TOO_MANY_ATTEMPTS_TO_REORDER_PRODUCTS'
+}
 
 /** Represents at rule that's used to assign products to a collection. */
 type CollectionRule = {
@@ -7626,6 +7716,66 @@ type CollectionUpdatePayload = {
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
 };
+
+/** The data type of a column. */
+enum ColumnDataType {
+  /** Represents an array of values. */
+  ARRAY = 'ARRAY',
+  /** Represents a boolean value. */
+  BOOLEAN = 'BOOLEAN',
+  /** Represents a duration in days. */
+  DAY_DURATION = 'DAY_DURATION',
+  /** Represents a day of week value. */
+  DAY_OF_WEEK = 'DAY_OF_WEEK',
+  /** Represents a day-level timestamp value. */
+  DAY_TIMESTAMP = 'DAY_TIMESTAMP',
+  /** Represents a decimal value. */
+  DECIMAL = 'DECIMAL',
+  /** Represents a floating point value. */
+  FLOAT = 'FLOAT',
+  /** Represents a duration in hours. */
+  HOUR_DURATION = 'HOUR_DURATION',
+  /** Represents an hour of day value. */
+  HOUR_OF_DAY = 'HOUR_OF_DAY',
+  /** Represents a hour-level timestamp value. */
+  HOUR_TIMESTAMP = 'HOUR_TIMESTAMP',
+  /** Represents an identity value. */
+  IDENTITY = 'IDENTITY',
+  /** Represents an integer value. */
+  INTEGER = 'INTEGER',
+  /** Represents a duration in milliseconds. */
+  MILLISECOND_DURATION = 'MILLISECOND_DURATION',
+  /** Represents a duration in minutes. */
+  MINUTE_DURATION = 'MINUTE_DURATION',
+  /** Represents a minute-level timestamp value. */
+  MINUTE_TIMESTAMP = 'MINUTE_TIMESTAMP',
+  /** Represents a monetary value. */
+  MONEY = 'MONEY',
+  /** Represents a month of year value. */
+  MONTH_OF_YEAR = 'MONTH_OF_YEAR',
+  /** Represents a month-level timestamp value. */
+  MONTH_TIMESTAMP = 'MONTH_TIMESTAMP',
+  /** Represents a percentage value. */
+  PERCENT = 'PERCENT',
+  /** Represents a quarter-level timestamp value. */
+  QUARTER_TIMESTAMP = 'QUARTER_TIMESTAMP',
+  /** Represents a duration in seconds. */
+  SECOND_DURATION = 'SECOND_DURATION',
+  /** Represents a second-level timestamp value. */
+  SECOND_TIMESTAMP = 'SECOND_TIMESTAMP',
+  /** Represents a string value. */
+  STRING = 'STRING',
+  /** Represents a timestamp value in seconds. */
+  TIMESTAMP = 'TIMESTAMP',
+  /** Represents an unspecified data type. */
+  UNSPECIFIED = 'UNSPECIFIED',
+  /** Represents a week of year value. */
+  WEEK_OF_YEAR = 'WEEK_OF_YEAR',
+  /** Represents a week-level timestamp value. */
+  WEEK_TIMESTAMP = 'WEEK_TIMESTAMP',
+  /** Represents a year-level timestamp value. */
+  YEAR_TIMESTAMP = 'YEAR_TIMESTAMP'
+}
 
 /** A combined listing of products. */
 type CombinedListing = {
@@ -8731,7 +8881,7 @@ type CompanyInput = {
 };
 
 /** A location or branch of a [company that's a customer](https://shopify.dev/api/admin-graphql/latest/objects/company) of the shop. Configuration of B2B relationship, for example prices lists and checkout settings, may be done for a location. */
-type CompanyLocation = CommentEventSubject & HasEvents & HasMetafieldDefinitions & HasMetafields & Navigable & Node & {
+type CompanyLocation = CommentEventSubject & HasEvents & HasMetafieldDefinitions & HasMetafields & HasStoreCreditAccounts & Navigable & Node & {
   __typename?: 'CompanyLocation';
   /** The address used as billing address for the location. */
   billingAddress?: Maybe<CompanyAddress>;
@@ -8805,6 +8955,11 @@ type CompanyLocation = CommentEventSubject & HasEvents & HasMetafieldDefinitions
   shippingAddress?: Maybe<CompanyAddress>;
   /** The list of staff members assigned to the company location. */
   staffMemberAssignments: CompanyLocationStaffMemberAssignmentConnection;
+  /**
+   * Returns a list of store credit accounts that belong to the owner resource.
+   * A store credit account owner can hold multiple accounts each with a different currency.
+   */
+  storeCreditAccounts: StoreCreditAccountConnection;
   /**
    * The list of tax exemptions applied to the location.
    * @deprecated Use `taxSettings` instead.
@@ -8935,6 +9090,16 @@ type CompanyLocationstaffMemberAssignmentsArgs = {
   query?: InputMaybe<Scalars['String']['input']>;
   reverse?: InputMaybe<Scalars['Boolean']['input']>;
   sortKey?: InputMaybe<CompanyLocationStaffMemberAssignmentSortKeys>;
+};
+
+
+/** A location or branch of a [company that's a customer](https://shopify.dev/api/admin-graphql/latest/objects/company) of the shop. Configuration of B2B relationship, for example prices lists and checkout settings, may be done for a location. */
+type CompanyLocationstoreCreditAccountsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Return type for `companyLocationAssignAddress` mutation. */
@@ -9965,8 +10130,8 @@ type CountryHarmonizedSystemCodeEdge = {
 
 /** The input fields required to specify a harmonized system code. */
 type CountryHarmonizedSystemCodeInput = {
-  /** The ISO 3166-1 alpha-2 country code for the country that issued the specified harmonized system code. */
-  countryCode: CountryCode;
+  /** The ISO 3166-1 alpha-2 country code for the country that issued the specified harmonized system code. Represents global harmonized system code when set to null. */
+  countryCode?: InputMaybe<CountryCode>;
   /** Country specific harmonized system code. */
   harmonizedSystemCode: Scalars['String']['input'];
 };
@@ -11203,6 +11368,8 @@ type CustomerInput = {
   locale?: InputMaybe<Scalars['String']['input']>;
   /** Additional metafields to associate to the customer. */
   metafields?: InputMaybe<Array<MetafieldInput>>;
+  /** A unique identifier for the customer that's used with Multipass login. */
+  multipassIdentifier?: InputMaybe<Scalars['String']['input']>;
   /** A note about the customer. */
   note?: InputMaybe<Scalars['String']['input']>;
   /** The unique phone number for the customer. */
@@ -11620,12 +11787,24 @@ type CustomerPaymentMethod = Node & {
   id: Scalars['ID']['output'];
   /** The instrument for this payment method. */
   instrument?: Maybe<CustomerPaymentInstrument>;
+  /** The mandates associated with the payment method. */
+  mandates: PaymentMandateResourceConnection;
   /** The time that the payment method was revoked. */
   revokedAt?: Maybe<Scalars['DateTime']['output']>;
   /** The revocation reason for this payment method. */
   revokedReason?: Maybe<CustomerPaymentMethodRevocationReason>;
   /** List Subscription Contracts. */
   subscriptionContracts: SubscriptionContractConnection;
+};
+
+
+/** A customer's payment method. */
+type CustomerPaymentMethodmandatesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -13439,6 +13618,10 @@ enum DeliveryCustomizationErrorCode {
   INVALID_METAFIELDS = 'INVALID_METAFIELDS',
   /** Maximum delivery customizations are already enabled. */
   MAXIMUM_ACTIVE_DELIVERY_CUSTOMIZATIONS = 'MAXIMUM_ACTIVE_DELIVERY_CUSTOMIZATIONS',
+  /** Either function_id or function_handle must be provided. */
+  MISSING_FUNCTION_IDENTIFIER = 'MISSING_FUNCTION_IDENTIFIER',
+  /** Only one of function_id or function_handle can be provided, not both. */
+  MULTIPLE_FUNCTION_IDENTIFIERS = 'MULTIPLE_FUNCTION_IDENTIFIERS',
   /** Required input field must be present. */
   REQUIRED_INPUT_FIELD = 'REQUIRED_INPUT_FIELD',
   /** Unauthorized app scope. */
@@ -13449,8 +13632,8 @@ enum DeliveryCustomizationErrorCode {
 type DeliveryCustomizationInput = {
   /** The enabled status of the delivery customization. */
   enabled?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the function providing the delivery customization. */
-  functionId?: InputMaybe<Scalars['String']['input']>;
+  /** Function handle scoped to your current app ID. Only finds functions within your app. */
+  functionHandle?: InputMaybe<Scalars['String']['input']>;
   /** Additional metafields to associate to the delivery customization. */
   metafields?: InputMaybe<Array<MetafieldInput>>;
   /** The title of the delivery customization. */
@@ -13867,6 +14050,8 @@ type DeliveryProfile = Node & {
   unassignedLocations: Array<Location>;
   /** List of locations that have not been assigned to a location group for this profile. */
   unassignedLocationsPaginated: LocationConnection;
+  /** The version of the delivery profile. */
+  version: Scalars['Int']['output'];
   /** The number of countries with active rates to deliver to. */
   zoneCountryCount: Scalars['Int']['output'];
 };
@@ -14546,6 +14731,8 @@ type DiscountAutomaticApp = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith: DiscountCombinesWith;
+  /** The context defining which buyers can use the discount. */
+  context: DiscountContext;
   /** The date and time when the discount was created. */
   createdAt: Scalars['DateTime']['output'];
   /**
@@ -14626,6 +14813,12 @@ type DiscountAutomaticAppInput = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith?: InputMaybe<DiscountCombinesWithInput>;
+  /**
+   * The context defining which buyers can use the discount.
+   * You can target specific customer IDs, customer segments, or make the discount available to all buyers.
+   * Discounts automatically apply on Point of Sale (POS) for Pro locations. For app discounts using Admin UI Extensions, merchants can control POS eligibility when the context is set to ALL.
+   */
+  context?: InputMaybe<DiscountContextInput>;
   /** Determines which discount effects the discount can apply. */
   discountClasses?: InputMaybe<Array<DiscountClass>>;
   /**
@@ -14633,13 +14826,8 @@ type DiscountAutomaticAppInput = {
    * For discounts without a fixed expiration date, specify `null`.
    */
   endsAt?: InputMaybe<Scalars['DateTime']['input']>;
-  /**
-   * The
-   * [function ID](https://shopify.dev/docs/apps/build/functions/input-output/metafields-for-input-queries)
-   * associated with the app extension providing the
-   * [discount type](https://help.shopify.com/manual/discounts/discount-types).
-   */
-  functionId?: InputMaybe<Scalars['String']['input']>;
+  /** The handle of the function providing the discount. */
+  functionHandle?: InputMaybe<Scalars['String']['input']>;
   /**
    * Additional metafields to associate to the discount.
    * [Metafields](https://shopify.dev/docs/apps/build/custom-data)
@@ -14710,6 +14898,8 @@ type DiscountAutomaticBasic = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith: DiscountCombinesWith;
+  /** The context defining which buyers can use the discount. */
+  context: DiscountContext;
   /** The date and time when the discount was created. */
   createdAt: Scalars['DateTime']['output'];
   /** The items in the order that qualify for the discount, their quantities, and the total value of the discount. */
@@ -14788,6 +14978,12 @@ type DiscountAutomaticBasicInput = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith?: InputMaybe<DiscountCombinesWithInput>;
+  /**
+   * The context defining which buyers can use the discount.
+   * You can target specific customer IDs, customer segments, or make the discount available to all buyers.
+   * Discounts automatically apply on Point of Sale (POS) for Pro locations when the context is not set to ALL.
+   */
+  context?: InputMaybe<DiscountContextInput>;
   /** Information about the qualifying items and their discount. */
   customerGets?: InputMaybe<DiscountCustomerGetsInput>;
   /**
@@ -14868,6 +15064,8 @@ type DiscountAutomaticBxgy = HasEvents & Node & {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith: DiscountCombinesWith;
+  /** The context defining which buyers can use the discount. */
+  context: DiscountContext;
   /** The date and time when the discount was created. */
   createdAt: Scalars['DateTime']['output'];
   /** The items eligible for the discount and the required quantity of each to receive the discount. */
@@ -14974,6 +15172,12 @@ type DiscountAutomaticBxgyInput = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith?: InputMaybe<DiscountCombinesWithInput>;
+  /**
+   * The context defining which buyers can use the discount.
+   * You can target specific customer IDs, customer segments, or make the discount available to all buyers.
+   * Discounts automatically apply on Point of Sale (POS) for Pro locations when the context is not set to ALL.
+   */
+  context?: InputMaybe<DiscountContextInput>;
   /** The items eligible for the discount and the required quantity of each to receive the discount. */
   customerBuys?: InputMaybe<DiscountCustomerBuysInput>;
   /** The items in the order that qualify for the discount, their quantities, and the total value of the discount. */
@@ -15092,6 +15296,8 @@ type DiscountAutomaticFreeShipping = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith: DiscountCombinesWith;
+  /** The context defining which buyers can use the discount. */
+  context: DiscountContext;
   /** The date and time when the discount was created. */
   createdAt: Scalars['DateTime']['output'];
   /**
@@ -15189,6 +15395,12 @@ type DiscountAutomaticFreeShippingInput = {
    * that you can use in combination with the shipping discount.
    */
   combinesWith?: InputMaybe<DiscountCombinesWithInput>;
+  /**
+   * The context defining which buyers can use the discount.
+   * You can target specific customer IDs, customer segments, or make the discount available to all buyers.
+   * Discounts automatically apply on Point of Sale (POS) for Pro locations when the context is not set to ALL.
+   */
+  context?: InputMaybe<DiscountContextInput>;
   /** A list of destinations where the discount will apply. */
   destination?: InputMaybe<DiscountShippingDestinationSelectionInput>;
   /**
@@ -15339,6 +15551,25 @@ type DiscountAutomaticNodeEdge = {
   node: DiscountAutomaticNode;
 };
 
+/** All buyers are eligible for the discount. */
+enum DiscountBuyerSelection {
+  /** All buyers are eligible for the discount. */
+  ALL = 'ALL'
+}
+
+/**
+ * Indicates that a discount applies to all buyers without restrictions, enabling universal promotions that reach every customer. This selection removes buyer-specific limitations from discount eligibility.
+ *
+ * For example, a flash sale or grand opening promotion would target all buyers to maximize participation and store visibility.
+ *
+ * Learn more about [discount targeting](https://shopify.dev/docs/api/admin-graphql/latest/objects/DiscountApplication).
+ */
+type DiscountBuyerSelectionAll = {
+  __typename?: 'DiscountBuyerSelectionAll';
+  /** All buyers are eligible for the discount. */
+  all: DiscountBuyerSelection;
+};
+
 /**
  * The [discount class](https://help.shopify.com/manual/discounts/combining-discounts/discount-combinations)
  * that's used to control how discounts can be combined.
@@ -15432,6 +15663,8 @@ type DiscountCodeApp = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith: DiscountCombinesWith;
+  /** The context defining which buyers can use the discount. */
+  context: DiscountContext;
   /** The date and time when the discount was created. */
   createdAt: Scalars['DateTime']['output'];
   /**
@@ -15557,6 +15790,11 @@ type DiscountCodeAppInput = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith?: InputMaybe<DiscountCombinesWithInput>;
+  /**
+   * The context defining which buyers can use the discount.
+   * You can target specific customer IDs, customer segments, or make the discount available to all buyers.
+   */
+  context?: InputMaybe<DiscountContextInput>;
   /** Determines which discount effects the discount can apply. */
   discountClasses?: InputMaybe<Array<DiscountClass>>;
   /**
@@ -15564,8 +15802,8 @@ type DiscountCodeAppInput = {
    * For discounts without a fixed expiration date, specify `null`.
    */
   endsAt?: InputMaybe<Scalars['DateTime']['input']>;
-  /** The [function ID](https://shopify.dev/docs/apps/build/functions/input-output/metafields-for-input-queries) associated with the app extension that's providing the [discount type](https://help.shopify.com/manual/discounts/discount-types). */
-  functionId?: InputMaybe<Scalars['String']['input']>;
+  /** The handle of the function providing the discount. */
+  functionHandle?: InputMaybe<Scalars['String']['input']>;
   /** Additional metafields to associate to the discount. [Metafields](https://shopify.dev/docs/apps/build/custom-data) provide dynamic function configuration with different parameters, such as `percentage` for a percentage discount. Merchants can set metafield values in the Shopify admin, which makes the discount function more flexible and customizable. */
   metafields?: InputMaybe<Array<MetafieldInput>>;
   /** The number of times a discount applies on recurring purchases (subscriptions).         0 will apply infinitely whereas 1 will only apply to the first checkout. */
@@ -15659,6 +15897,8 @@ type DiscountCodeBasic = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith: DiscountCombinesWith;
+  /** The context defining which buyers can use the discount. */
+  context: DiscountContext;
   /** The date and time when the discount was created. */
   createdAt: Scalars['DateTime']['output'];
   /** The items in the order that qualify for the discount, their quantities, and the total value of the discount. */
@@ -15783,6 +16023,11 @@ type DiscountCodeBasicInput = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith?: InputMaybe<DiscountCombinesWithInput>;
+  /**
+   * The context defining which buyers can use the discount.
+   * You can target specific customer IDs, customer segments, or make the discount available to all buyers.
+   */
+  context?: InputMaybe<DiscountContextInput>;
   /** The items in the order that qualify for the discount, their quantities, and the total value of the discount. */
   customerGets?: InputMaybe<DiscountCustomerGetsInput>;
   /**
@@ -15886,6 +16131,8 @@ type DiscountCodeBxgy = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith: DiscountCombinesWith;
+  /** The context defining which buyers can use the discount. */
+  context: DiscountContext;
   /** The date and time when the discount was created. */
   createdAt: Scalars['DateTime']['output'];
   /** The items eligible for the discount and the required quantity of each to receive the discount. */
@@ -16004,6 +16251,11 @@ type DiscountCodeBxgyInput = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith?: InputMaybe<DiscountCombinesWithInput>;
+  /**
+   * The context defining which buyers can use the discount.
+   * You can target specific customer IDs, customer segments, or make the discount available to all buyers.
+   */
+  context?: InputMaybe<DiscountContextInput>;
   /** The items eligible for the discount and the required quantity of each to receive the discount. */
   customerBuys?: InputMaybe<DiscountCustomerBuysInput>;
   /** The items in the order that qualify for the discount, their quantities, and the total value of the discount. */
@@ -16112,6 +16364,8 @@ type DiscountCodeFreeShipping = {
    * [Shopify discount types](https://help.shopify.com/manual/discounts/discount-types).
    */
   combinesWith: DiscountCombinesWith;
+  /** The context defining which buyers can use the discount. */
+  context: DiscountContext;
   /** The date and time when the discount was created. */
   createdAt: Scalars['DateTime']['output'];
   /**
@@ -16248,6 +16502,11 @@ type DiscountCodeFreeShippingInput = {
    * that you can use in combination with the shipping discount.
    */
   combinesWith?: InputMaybe<DiscountCombinesWithInput>;
+  /**
+   * The context defining which buyers can use the discount.
+   * You can target specific customer IDs, customer segments, or make the discount available to all buyers.
+   */
+  context?: InputMaybe<DiscountContextInput>;
   /** The shipping destinations where the free shipping discount can be applied. You can specify whether the discount applies to all countries, or specify individual countries. */
   destination?: InputMaybe<DiscountShippingDestinationSelectionInput>;
   /**
@@ -16503,6 +16762,19 @@ type DiscountCombinesWithInput = {
    * class.
    */
   shippingDiscounts?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** The type used to define which buyers can use the discount. */
+type DiscountContext = DiscountBuyerSelectionAll | DiscountCustomerSegments | DiscountCustomers;
+
+/** The input fields for the buyers who can use this discount. */
+type DiscountContextInput = {
+  /** All buyers are eligible for this discount. */
+  all?: InputMaybe<DiscountBuyerSelection>;
+  /** The list of customer segment IDs to add or remove from the list of customer segments. */
+  customerSegments?: InputMaybe<DiscountCustomerSegmentsInput>;
+  /** The list of customer IDs to add or remove from the list of customers. */
+  customers?: InputMaybe<DiscountCustomersInput>;
 };
 
 /**
@@ -16766,6 +17038,10 @@ enum DiscountErrorCode {
   MINIMUM_SUBTOTAL_AND_QUANTITY_RANGE_BOTH_PRESENT = 'MINIMUM_SUBTOTAL_AND_QUANTITY_RANGE_BOTH_PRESENT',
   /** Missing a required argument. */
   MISSING_ARGUMENT = 'MISSING_ARGUMENT',
+  /** Either function ID or function handle must be provided. */
+  MISSING_FUNCTION_IDENTIFIER = 'MISSING_FUNCTION_IDENTIFIER',
+  /** Only one of function ID or function handle is allowed. */
+  MULTIPLE_FUNCTION_IDENTIFIERS = 'MULTIPLE_FUNCTION_IDENTIFIERS',
   /** Recurring cycle limit must be 1 when discount does not apply to subscription items. */
   MULTIPLE_RECURRING_CYCLE_LIMIT_FOR_NON_SUBSCRIPTION_ITEMS = 'MULTIPLE_RECURRING_CYCLE_LIMIT_FOR_NON_SUBSCRIPTION_ITEMS',
   /** The input value needs to be blank. */
@@ -19692,7 +19968,11 @@ enum FulfillmentConstraintRuleCreateUserErrorCode {
   /** Failed to create fulfillment constraint rule due to invalid input. */
   INPUT_INVALID = 'INPUT_INVALID',
   /** Maximum number of fulfillment constraint rules reached. Limit is 10. */
-  MAXIMUM_FULFILLMENT_CONSTRAINT_RULES_REACHED = 'MAXIMUM_FULFILLMENT_CONSTRAINT_RULES_REACHED'
+  MAXIMUM_FULFILLMENT_CONSTRAINT_RULES_REACHED = 'MAXIMUM_FULFILLMENT_CONSTRAINT_RULES_REACHED',
+  /** Either function_id or function_handle must be provided. */
+  MISSING_FUNCTION_IDENTIFIER = 'MISSING_FUNCTION_IDENTIFIER',
+  /** Only one of function_id or function_handle can be provided, not both. */
+  MULTIPLE_FUNCTION_IDENTIFIERS = 'MULTIPLE_FUNCTION_IDENTIFIERS'
 }
 
 /** Return type for `fulfillmentConstraintRuleDelete` mutation. */
@@ -19775,6 +20055,8 @@ enum FulfillmentDisplayStatus {
   ATTEMPTED_DELIVERY = 'ATTEMPTED_DELIVERY',
   /** Displayed as **Canceled**. */
   CANCELED = 'CANCELED',
+  /** Displayed as **Picked up by carrier**. */
+  CARRIER_PICKED_UP = 'CARRIER_PICKED_UP',
   /** Displayed as **Confirmed**. */
   CONFIRMED = 'CONFIRMED',
   /** Displayed as **Delayed**. */
@@ -19916,6 +20198,8 @@ enum FulfillmentEventSortKeys {
 enum FulfillmentEventStatus {
   /** A delivery was attempted. */
   ATTEMPTED_DELIVERY = 'ATTEMPTED_DELIVERY',
+  /** The fulfillment has been picked up by the carrier. */
+  CARRIER_PICKED_UP = 'CARRIER_PICKED_UP',
   /** The fulfillment is confirmed. This is the default value when no other information is available. */
   CONFIRMED = 'CONFIRMED',
   /** The fulfillment is delayed. */
@@ -22027,6 +22311,46 @@ type FulfillmentOrderSupportedAction = {
   externalUrl?: Maybe<Scalars['URL']['output']>;
 };
 
+/** Return type for `fulfillmentOrdersReroute` mutation. */
+type FulfillmentOrdersReroutePayload = {
+  __typename?: 'FulfillmentOrdersReroutePayload';
+  /** The fulfillment orders which contains the moved line items. */
+  movedFulfillmentOrders?: Maybe<Array<FulfillmentOrder>>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<FulfillmentOrdersRerouteUserError>;
+};
+
+/** An error that occurs during the execution of `FulfillmentOrdersReroute`. */
+type FulfillmentOrdersRerouteUserError = DisplayableError & {
+  __typename?: 'FulfillmentOrdersRerouteUserError';
+  /** The error code. */
+  code?: Maybe<FulfillmentOrdersRerouteUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `FulfillmentOrdersRerouteUserError`. */
+enum FulfillmentOrdersRerouteUserErrorCode {
+  /** Cannot reassign location for fulfillment orders. */
+  CANNOT_REASSIGN_LOCATION_FOR_FULFILLMENT_ORDERS = 'CANNOT_REASSIGN_LOCATION_FOR_FULFILLMENT_ORDERS',
+  /** The delivery method type is not supported. */
+  DELIVERY_METHOD_TYPE_NOT_SUPPORTED = 'DELIVERY_METHOD_TYPE_NOT_SUPPORTED',
+  /** Fulfillment orders must belong to the same location. */
+  FULFILLMENT_ORDERS_MUST_BELONG_TO_SAME_LOCATION = 'FULFILLMENT_ORDERS_MUST_BELONG_TO_SAME_LOCATION',
+  /** Fulfillment orders are not from the same order. */
+  FULFILLMENT_ORDERS_NOT_FROM_THE_SAME_ORDER = 'FULFILLMENT_ORDERS_NOT_FROM_THE_SAME_ORDER',
+  /** All fulfillment orders must have status and request status compatible with reroutable states. */
+  FULFILLMENT_ORDERS_STATE_NOT_SUPPORTED = 'FULFILLMENT_ORDERS_STATE_NOT_SUPPORTED',
+  /** Fulfillment order could not be found. */
+  FULFILLMENT_ORDER_NOT_FOUND = 'FULFILLMENT_ORDER_NOT_FOUND',
+  /** No fulfillment order IDs were provided. */
+  NO_FULFILLMENT_ORDER_IDS = 'NO_FULFILLMENT_ORDER_IDS',
+  /** This feature is only supported for multi-location shops. */
+  SINGLE_LOCATION_SHOP_NOT_SUPPORTED = 'SINGLE_LOCATION_SHOP_NOT_SUPPORTED'
+}
+
 /** Return type for `fulfillmentOrdersSetFulfillmentDeadline` mutation. */
 type FulfillmentOrdersSetFulfillmentDeadlinePayload = {
   __typename?: 'FulfillmentOrdersSetFulfillmentDeadlinePayload';
@@ -22180,7 +22504,12 @@ type FulfillmentService = {
   inventoryManagement: Scalars['Boolean']['output'];
   /** Location associated with the fulfillment service. */
   location?: Maybe<Location>;
-  /** Whether the fulfillment service can stock inventory alongside other locations. */
+  /**
+   * Whether the fulfillment service can stock inventory alongside other locations.
+   * @deprecated Fulfillment services are all migrating to permit SKU sharing.
+   * Setting permits SKU sharing to false [is no longer supported](https://shopify.dev/changelog/setting-permitsskusharing-argument-to-false-when-creating-a-fulfillment-service-returns-an-error).
+   *
+   */
   permitsSkuSharing: Scalars['Boolean']['output'];
   /** Whether the fulfillment service requires products to be physically shipped. */
   requiresShippingMethod: Scalars['Boolean']['output'];
@@ -23360,7 +23689,7 @@ type HasStoreCreditAccountsstoreCreditAccountsArgs = {
 };
 
 /** Represents an image resource. */
-type Image = HasMetafields & {
+type Image = HasMetafields & HasPublishedTranslations & {
   __typename?: 'Image';
   /** A word or phrase to share the nature or contents of an image. */
   altText?: Maybe<Scalars['String']['output']>;
@@ -23405,6 +23734,8 @@ type Image = HasMetafields & {
    * @deprecated Use `url(transform:)` instead
    */
   transformedSrc: Scalars['URL']['output'];
+  /** The published translations associated with the resource. */
+  translations: Array<Translation>;
   /**
    * The location of the image as a URL.
    *
@@ -23446,6 +23777,13 @@ type ImagetransformedSrcArgs = {
   maxWidth?: InputMaybe<Scalars['Int']['input']>;
   preferredContentType?: InputMaybe<ImageContentType>;
   scale?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** Represents an image resource. */
+type ImagetranslationsArgs = {
+  locale: Scalars['String']['input'];
+  marketId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -23950,6 +24288,8 @@ type InventoryItemMeasurement = Node & {
 
 /** The input fields for an inventory item measurement. */
 type InventoryItemMeasurementInput = {
+  /** Shipping package associated with inventory item. */
+  shippingPackageId?: InputMaybe<Scalars['ID']['input']>;
   /** The weight of the inventory item. */
   weight?: InputMaybe<WeightInput>;
 };
@@ -24378,6 +24718,8 @@ type InventorySetOnHandQuantitiesUserError = DisplayableError & {
 
 /** Possible error codes that can be returned by `InventorySetOnHandQuantitiesUserError`. */
 enum InventorySetOnHandQuantitiesUserErrorCode {
+  /** The compareQuantity value does not match persisted value. */
+  COMPARE_QUANTITY_STALE = 'COMPARE_QUANTITY_STALE',
   /** The specified inventory item could not be found. */
   INVALID_INVENTORY_ITEM = 'INVALID_INVENTORY_ITEM',
   /** The specified location could not be found. */
@@ -24572,6 +24914,12 @@ enum InventorySetScheduledChangesUserErrorCode {
 /** Represents an inventory shipment. */
 type InventoryShipment = Node & {
   __typename?: 'InventoryShipment';
+  /** The date the shipment was created in UTC. */
+  dateCreated?: Maybe<Scalars['DateTime']['output']>;
+  /** The date the shipment was initially received in UTC. */
+  dateReceived?: Maybe<Scalars['DateTime']['output']>;
+  /** The date the shipment was shipped in UTC. */
+  dateShipped?: Maybe<Scalars['DateTime']['output']>;
   /** A globally-unique ID. */
   id: Scalars['ID']['output'];
   /** The total quantity of all items in the shipment. */
@@ -24718,6 +25066,8 @@ enum InventoryShipmentCreateInTransitUserErrorCode {
 
 /** The input fields to add a shipment. */
 type InventoryShipmentCreateInput = {
+  /** The date the shipment was created. */
+  dateCreated?: InputMaybe<Scalars['DateTime']['input']>;
   /** The list of line items for the inventory shipment. */
   lineItems: Array<InventoryShipmentLineItemInput>;
   /** The ID of the inventory movement (transfer or purchase order) this shipment belongs to. */
@@ -27523,6 +27873,20 @@ enum MailingAddressValidationResult {
   WARNING = 'WARNING'
 }
 
+/** The type of resource a payment mandate can be used for. */
+enum MandateResourceType {
+  /** A credential stored on file for checkout. */
+  CHECKOUT = 'CHECKOUT',
+  /** A credential stored on file for merchant and customer initiated transactions. */
+  CREDENTIAL_ON_FILE = 'CREDENTIAL_ON_FILE',
+  /** A credential stored on file for a Draft Order. */
+  DRAFT_ORDER = 'DRAFT_ORDER',
+  /** A credential stored on file for an Order. */
+  ORDER = 'ORDER',
+  /** A credential stored for subscription billing attempts. */
+  SUBSCRIPTIONS = 'SUBSCRIPTIONS'
+}
+
 /**
  * Manual discount applications capture the intentions of a discount that was manually created for an order.
  *
@@ -28379,6 +28743,11 @@ enum MarketUserErrorCode {
   INVALID = 'INVALID',
   /** The province format is invalid. */
   INVALID_PROVINCE_FORMAT = 'INVALID_PROVINCE_FORMAT',
+  /**
+   * Can't add selected responders to a province driven market.
+   * @deprecated No longer used
+   */
+  INVALID_RESPONDER_FOR_PROVINCE_DRIVEN_MARKET = 'INVALID_RESPONDER_FOR_PROVINCE_DRIVEN_MARKET',
   /** Invalid combination of status and enabled. */
   INVALID_STATUS_AND_ENABLED_COMBINATION = 'INVALID_STATUS_AND_ENABLED_COMBINATION',
   /** Location match all is only valid with one non-match all region. */
@@ -29484,6 +29853,8 @@ enum MarketsSortKeys {
   MARKET_TYPE = 'MARKET_TYPE',
   /** Sort by the `name` value. */
   NAME = 'NAME',
+  /** Sort by the `status` value. */
+  STATUS = 'STATUS',
   /** Sort by the `updated_at` value. */
   UPDATED_AT = 'UPDATED_AT'
 }
@@ -29676,7 +30047,7 @@ enum MediaHost {
  * [product variants](https://shopify.dev/docs/apps/build/online-store/product-variant-media), and
  * [asynchronous media management](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/product-model-components#asynchronous-media-management).
  */
-type MediaImage = File & HasMetafields & Media & Node & {
+type MediaImage = File & HasMetafields & HasPublishedTranslations & Media & Node & {
   __typename?: 'MediaImage';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']['output']>;
@@ -29717,6 +30088,8 @@ type MediaImage = File & HasMetafields & Media & Node & {
   preview?: Maybe<MediaPreviewImage>;
   /** Current status of the media. */
   status: MediaStatus;
+  /** The published translations associated with the resource. */
+  translations: Array<Translation>;
   /** The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) when the file was last updated. */
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -29788,6 +30161,38 @@ type MediaImagemetafieldsArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   namespace?: InputMaybe<Scalars['String']['input']>;
   reverse?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/**
+ * The `MediaImage` object represents an image hosted on Shopify's
+ * [content delivery network (CDN)](https://shopify.dev/docs/storefronts/themes/best-practices/performance/platform#shopify-cdn).
+ * Shopify CDN is a content system that serves as the primary way to store,
+ * manage, and deliver visual content for products, variants, and other resources across the Shopify platform.
+ *
+ * The `MediaImage` object provides information to:
+ *
+ * - Store and display product and variant images across online stores, admin interfaces, and mobile apps.
+ * - Retrieve visual branding elements, including logos, banners, favicons, and background images in checkout flows.
+ * - Retrieve signed URLs for secure, time-limited access to original image files.
+ *
+ * Each `MediaImage` object provides both the processed image data (with automatic optimization and CDN delivery)
+ * and access to the original source file. The image processing is handled asynchronously, so images
+ * might not be immediately available after upload. The
+ * [`status`](https://shopify.dev/docs/api/admin-graphql/latest/objects/mediaimage#field-MediaImage.fields.status)
+ * field indicates when processing is complete and the image is ready for use.
+ *
+ * The `MediaImage` object implements the [`Media`](https://shopify.dev/docs/api/admin-graphql/latest/interfaces/Media)
+ * interface alongside other media types, like videos and 3D models.
+ *
+ * Learn about
+ * managing media for [products](https://shopify.dev/docs/apps/build/online-store/product-media),
+ * [product variants](https://shopify.dev/docs/apps/build/online-store/product-variant-media), and
+ * [asynchronous media management](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/product-model-components#asynchronous-media-management).
+ */
+type MediaImagetranslationsArgs = {
+  locale: Scalars['String']['input'];
+  marketId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 /** The original source for an image. */
@@ -30659,6 +31064,8 @@ enum MetafieldDefinitionCreateUserErrorCode {
   RESERVED_NAMESPACE_KEY = 'RESERVED_NAMESPACE_KEY',
   /** The definition limit per owner type has exceeded. */
   RESOURCE_TYPE_LIMIT_EXCEEDED = 'RESOURCE_TYPE_LIMIT_EXCEEDED',
+  /** The definition limit per owner type for the app has exceeded. */
+  RESOURCE_TYPE_LIMIT_EXCEEDED_BY_APP = 'RESOURCE_TYPE_LIMIT_EXCEEDED_BY_APP',
   /** The input value is already taken. */
   TAKEN = 'TAKEN',
   /** The input value is too long. */
@@ -30714,7 +31121,9 @@ enum MetafieldDefinitionDeleteUserErrorCode {
   /** Deleting a reference type metafield definition requires deletion of its associated metafields. */
   REFERENCE_TYPE_DELETION_ERROR = 'REFERENCE_TYPE_DELETION_ERROR',
   /** Deleting a definition in a reserved namespace requires deletion of its associated metafields. */
-  RESERVED_NAMESPACE_ORPHANED_METAFIELDS = 'RESERVED_NAMESPACE_ORPHANED_METAFIELDS'
+  RESERVED_NAMESPACE_ORPHANED_METAFIELDS = 'RESERVED_NAMESPACE_ORPHANED_METAFIELDS',
+  /** Definition is required by an installed app and cannot be deleted. */
+  STANDARD_METAFIELD_DEFINITION_DEPENDENT_ON_APP = 'STANDARD_METAFIELD_DEFINITION_DEPENDENT_ON_APP'
 }
 
 /** An auto-generated type which holds one MetafieldDefinition and a cursor during pagination. */
@@ -31012,6 +31421,8 @@ enum MetafieldDefinitionUpdateUserErrorCode {
   DUPLICATE_OPTION = 'DUPLICATE_OPTION',
   /** An internal error occurred. */
   INTERNAL_ERROR = 'INTERNAL_ERROR',
+  /** The input value is invalid. */
+  INVALID = 'INVALID',
   /** The metafield definition capability is invalid. */
   INVALID_CAPABILITY = 'INVALID_CAPABILITY',
   /** The metafield definition constraints are invalid. */
@@ -31211,7 +31622,7 @@ enum MetafieldOwnerType {
 }
 
 /** The resource referenced by the metafield value. */
-type MetafieldReference = Collection | Company | Customer | GenericFile | MediaImage | Metaobject | Model3d | Order | Page | Product | ProductVariant | TaxonomyValue | Video;
+type MetafieldReference = Article | Collection | Company | Customer | GenericFile | MediaImage | Metaobject | Model3d | Order | Page | Product | ProductVariant | TaxonomyValue | Video;
 
 /** An auto-generated type for paginating through multiple MetafieldReferences. */
 type MetafieldReferenceConnection = {
@@ -31935,12 +32346,29 @@ type MetaobjectFieldreferencesArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
 };
 
+/** Information about the admin filterable capability. */
+type MetaobjectFieldCapabilityAdminFilterable = {
+  __typename?: 'MetaobjectFieldCapabilityAdminFilterable';
+  /** Indicates if the definition is eligible to have the capability. */
+  eligible: Scalars['Boolean']['output'];
+  /** Indicates if the capability is enabled. */
+  enabled: Scalars['Boolean']['output'];
+};
+
+/** The input fields for enabling and disabling the admin filterable capability. */
+type MetaobjectFieldCapabilityAdminFilterableInput = {
+  /** Indicates whether the capability should be enabled or disabled. */
+  enabled: Scalars['Boolean']['input'];
+};
+
 /**
  * Defines a field for a MetaobjectDefinition with properties
  * such as the field's data type and validations.
  */
 type MetaobjectFieldDefinition = {
   __typename?: 'MetaobjectFieldDefinition';
+  /** Capabilities available for this metaobject field definition. */
+  capabilities: MetaobjectFieldDefinitionCapabilities;
   /** The administrative description. */
   description?: Maybe<Scalars['String']['output']>;
   /** A key name used to identify the field within the metaobject composition. */
@@ -31958,8 +32386,23 @@ type MetaobjectFieldDefinition = {
   validations: Array<MetafieldDefinitionValidation>;
 };
 
+/** Capabilities available for a metaobject field definition. */
+type MetaobjectFieldDefinitionCapabilities = {
+  __typename?: 'MetaobjectFieldDefinitionCapabilities';
+  /** Indicate whether a metaobject field definition is configured for filtering. */
+  adminFilterable: MetaobjectFieldCapabilityAdminFilterable;
+};
+
+/** The input fields for creating capabilities on a metaobject field definition. */
+type MetaobjectFieldDefinitionCapabilityCreateInput = {
+  /** The input for configuring the admin filterable capability. */
+  adminFilterable?: InputMaybe<MetaobjectFieldCapabilityAdminFilterableInput>;
+};
+
 /** The input fields for creating a metaobject field definition. */
 type MetaobjectFieldDefinitionCreateInput = {
+  /** Capabilities configuration for this field. */
+  capabilities?: InputMaybe<MetaobjectFieldDefinitionCapabilityCreateInput>;
   /** An administrative description of the field. */
   description?: InputMaybe<Scalars['String']['input']>;
   /**
@@ -31996,6 +32439,8 @@ type MetaobjectFieldDefinitionOperationInput = {
 
 /** The input fields for updating a metaobject field definition. */
 type MetaobjectFieldDefinitionUpdateInput = {
+  /** Capabilities configuration for this field. */
+  capabilities?: InputMaybe<MetaobjectFieldDefinitionCapabilityCreateInput>;
   /** An administrative description of the field. */
   description?: InputMaybe<Scalars['String']['input']>;
   /** The key of the field definition to update. */
@@ -32156,6 +32601,8 @@ enum MetaobjectUserErrorCode {
   REFERENCE_EXISTS_ERROR = 'REFERENCE_EXISTS_ERROR',
   /** The provided name is reserved for system use. */
   RESERVED_NAME = 'RESERVED_NAME',
+  /** Definition is required by an installed app and cannot be deleted. */
+  STANDARD_METAOBJECT_DEFINITION_DEPENDENT_ON_APP = 'STANDARD_METAOBJECT_DEFINITION_DEPENDENT_ON_APP',
   /** The input value is already taken. */
   TAKEN = 'TAKEN',
   /** The input value is too long. */
@@ -32488,7 +32935,19 @@ type Mutation = {
    * Explore one-time billing options on the [app purchases page](https://shopify.dev/docs/apps/launch/billing/support-one-time-purchases).
    */
   appPurchaseOneTimeCreate?: Maybe<AppPurchaseOneTimeCreatePayload>;
-  /** Revokes access scopes previously granted for an app installation. */
+  /**
+   * Revokes previously granted access scopes from an app installation, allowing merchants to reduce an app's permissions without completely uninstalling it. This provides granular control over what data and functionality apps can access.
+   *
+   * For example, if a merchant no longer wants an app to access customer information but still wants to use its inventory features, they can revoke the customer-related scopes while keeping inventory permissions active.
+   *
+   * Use the `appRevokeAccessScopes` mutation to:
+   * - Remove specific permissions from installed apps
+   * - Maintain app functionality while minimizing data exposure
+   *
+   * The mutation returns details about which scopes were successfully revoked and any errors that prevented certain permissions from being removed.
+   *
+   * Learn more about [managing app permissions](https://shopify.dev/docs/apps/build/authentication-authorization/app-installation/manage-access-scopes#revoke-granted-scopes-dynamically).
+   */
   appRevokeAccessScopes?: Maybe<AppRevokeAccessScopesPayload>;
   /**
    * Cancels an active app subscription, stopping future billing cycles. The cancellation behavior depends on the `replacementBehavior` setting - it can either disable auto-renewal (allowing the subscription to continue until the end of the current billing period) or immediately cancel with prorated refunds.
@@ -32526,7 +32985,17 @@ type Mutation = {
    * Trial extension strategies and conversion techniques are covered in the [offer free trials guide](https://shopify.dev/docs/apps/launch/billing/offer-free-trials).
    */
   appSubscriptionTrialExtend?: Maybe<AppSubscriptionTrialExtendPayload>;
-  /** Uninstalls an app. */
+  /**
+   * Uninstalls an app from a shop.
+   *
+   * This mutation can only be used by apps to uninstall themselves. Apps with the `apps` access scope can uninstall other apps by providing the app ID in the input parameter.
+   *
+   * Use the `appUninstall` mutation to programmatically remove apps from shops.
+   *
+   * The mutation returns the uninstalled app and any errors that occurred during the uninstallation process.
+   *
+   * Learn more about [app lifecycle management](https://shopify.dev/docs/apps/build/authentication-authorization/app-installation/uninstall-app-api-request).
+   */
   appUninstall?: Maybe<AppUninstallPayload>;
   /**
    * Enables an app to charge a store for features or services on a per-use basis.
@@ -32615,7 +33084,7 @@ type Mutation = {
   cartTransformDelete?: Maybe<CartTransformDeletePayload>;
   /** Updates the context of a catalog. */
   catalogContextUpdate?: Maybe<CatalogContextUpdatePayload>;
-  /** Creates a new catalog. */
+  /** Creates a new catalog. For a complete explanation of a [`Catalog`](https://shopify.dev/api/admin-graphql/latest/interfaces/catalog)'s behaviour, and how you can use it with [`Publication`s](https://shopify.dev/api/admin-graphql/latest/objects/Publication) and [`PriceList`s](https://shopify.dev/api/admin-graphql/latest/objects/PriceList), see [here](https://shopify.dev/docs/apps/build/markets/catalogs-different-markets). */
   catalogCreate?: Maybe<CatalogCreatePayload>;
   /** Delete a catalog. */
   catalogDelete?: Maybe<CatalogDeletePayload>;
@@ -33635,7 +34104,11 @@ type Mutation = {
    * in a new fulfillment order.
    */
   fulfillmentOrderMove?: Maybe<FulfillmentOrderMovePayload>;
-  /** Marks a scheduled fulfillment order as open. */
+  /**
+   * Marks a scheduled fulfillment order as open.
+   *
+   * From API version 2026-01, this will also mark a fulfillment order as open when it is assigned to a merchant managed location and has had progress reported.
+   */
   fulfillmentOrderOpen?: Maybe<FulfillmentOrderOpenPayload>;
   /** Rejects a cancellation request sent to a fulfillment service for a fulfillment order. */
   fulfillmentOrderRejectCancellationRequest?: Maybe<FulfillmentOrderRejectCancellationRequestPayload>;
@@ -33657,6 +34130,12 @@ type Mutation = {
   fulfillmentOrderSubmitCancellationRequest?: Maybe<FulfillmentOrderSubmitCancellationRequestPayload>;
   /** Sends a fulfillment request to the fulfillment service of a fulfillment order. */
   fulfillmentOrderSubmitFulfillmentRequest?: Maybe<FulfillmentOrderSubmitFulfillmentRequestPayload>;
+  /**
+   * Route the fulfillment orders to an alternative location, according to the shop's order routing settings. This involves:
+   * * Finding an alternate location that can fulfill the fulfillment orders.
+   * * Assigning the fulfillment orders to the new location.
+   */
+  fulfillmentOrdersReroute?: Maybe<FulfillmentOrdersReroutePayload>;
   /** Sets the latest date and time by which the fulfillment orders need to be fulfilled. */
   fulfillmentOrdersSetFulfillmentDeadline?: Maybe<FulfillmentOrdersSetFulfillmentDeadlinePayload>;
   /**
@@ -33680,12 +34159,7 @@ type Mutation = {
   /**
    * Updates a fulfillment service.
    *
-   * If you are using API version `2023-10` or later,
-   * and you need to update the location managed by the fulfillment service
-   * (for example, to change the address of a fulfillment service),
-   * use the
-   * [LocationEdit](https://shopify.dev/api/admin-graphql/latest/mutations/locationEdit)
-   * mutation.
+   * If you need to update the location managed by the fulfillment service (for example, to change the address of a fulfillment service), use the [LocationEdit](https://shopify.dev/api/admin-graphql/latest/mutations/locationEdit) mutation.
    */
   fulfillmentServiceUpdate?: Maybe<FulfillmentServiceUpdatePayload>;
   /** Updates tracking information for a fulfillment. */
@@ -34206,9 +34680,9 @@ type Mutation = {
   priceListUpdate?: Maybe<PriceListUpdatePayload>;
   /** Disable a shop's privacy features. */
   privacyFeaturesDisable?: Maybe<PrivacyFeaturesDisablePayload>;
-  /** Creates a new componentized product. */
+  /** Creates a new product bundle or componentized product. */
   productBundleCreate?: Maybe<ProductBundleCreatePayload>;
-  /** Updates a componentized product. */
+  /** Updates a product bundle or componentized product. */
   productBundleUpdate?: Maybe<ProductBundleUpdatePayload>;
   /**
    * Changes the status of a product. This allows you to set the availability of the product across all channels.
@@ -34399,9 +34873,7 @@ type Mutation = {
    * > Note:
    * > The `productOptionsCreate` mutation enforces strict data integrity for product options and variants.
    * All option positions must be sequential, and every option should be used by at least one variant.
-   * If you use the [`CREATE` variant strategy](https://shopify.dev/docs/api/admin-graphql/latest/mutations/productOptionsCreate#arguments-variantStrategy.enums.CREATE), consider the maximum allowed number of variants for each product
-   * (100 by default, and 2,048 if you've
-   * [enabled the **Extended Variants** developer preview](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/migrate-and-test#create-a-development-store-that-allows-2-048-variants-per-product)).
+   * If you use the [`CREATE` variant strategy](https://shopify.dev/docs/api/admin-graphql/latest/mutations/productOptionsCreate#arguments-variantStrategy.enums.CREATE), consider the maximum allowed number of variants for each product is 2048.
    *
    * After you create product options, you can further manage a product's configuration using related mutations:
    *
@@ -34551,9 +35023,7 @@ type Mutation = {
    * - **For all other field types**: Updates only the included fields. Any omitted fields will remain unchanged.
    *
    * > Note:
-   * > By default, stores have a limit of 100 product variants for each product. You can create a development store and
-   * > [enable the **Extended Variants** developer preview](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/migrate-and-test#create-a-development-store-that-allows-2-048-variants-per-product)
-   * > to create or update a maximum of 2,048 product variants in a single operation.
+   * > By default, stores have a limit of 2048 product variants for each product.
    *
    * You can run `productSet` in one of the following modes:
    *
@@ -34658,9 +35128,7 @@ type Mutation = {
    * - Handling complex product configurations
    *
    * > Note:
-   * > By default, stores have a limit of 100 product variants for each product. You can create a development store and
-   * > [enable the **Extended Variants** developer preview](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/migrate-and-test#create-a-development-store-that-allows-2-048-variants-per-product)
-   * > to create a maximum of 2,048 product variants in a single operation.
+   * > By default, stores have a limit of 2048 product variants for each product.
    *
    * After creating variants, you can make additional changes using one of the following mutations:
    *
@@ -34701,9 +35169,7 @@ type Mutation = {
    * - Handling complex product configurations
    *
    * > Note:
-   * > By default, stores have a limit of 100 product variants for each product. You can create a development store and
-   * > [enable the **Extended Variants** developer preview](https://shopify.dev/docs/apps/build/graphql/migrate/new-product-model/migrate-and-test#create-a-development-store-that-allows-2-048-variants-per-product)
-   * > to update a maximum of 2,048 product variants in a single operation.
+   * > By default, stores have a limit of 2048 product variants for each product.
    *
    * After creating variants, you can make additional changes using the
    * [`productSet`](https://shopify.dev/docs/api/admin-graphql/latest/mutations/productSet) mutation,
@@ -35151,6 +35617,8 @@ type Mutation = {
   themeCreate?: Maybe<ThemeCreatePayload>;
   /** Deletes a theme. */
   themeDelete?: Maybe<ThemeDeletePayload>;
+  /** Duplicates a theme. */
+  themeDuplicate?: Maybe<ThemeDuplicatePayload>;
   /** Copy theme files. Copying to existing theme files will overwrite them. */
   themeFilesCopy?: Maybe<ThemeFilesCopyPayload>;
   /** Deletes a theme's files. */
@@ -35233,19 +35701,65 @@ type Mutation = {
   /** Updates a web presence. */
   webPresenceUpdate?: Maybe<WebPresenceUpdatePayload>;
   /**
-   * Creates a new webhook subscription.
+   * Set up webhook subscriptions so your app gets notified instantly when things happen in a merchant's store. Instead of constantly checking for changes, webhooks push updates to your app the moment they occur, making integrations faster and more efficient.
+   *
+   * For example, an inventory management app might create subscriptions for `orders/paid` and `inventory_levels/update` events to automatically adjust stock levels and trigger fulfillment processes when customers complete purchases.
+   *
+   * Use `webhookSubscriptionCreate` to:
+   * - Set up real-time event notifications for your app
+   * - Configure specific topics like order creation, product updates, or customer changes
+   * - Define endpoint destinations (HTTPS, EventBridge, or Pub/Sub)
+   * - Filter events using Shopify search syntax to receive notifications only for relevant events
+   * - Configure field inclusion to control which data fields are included in webhook payloads
+   *
+   * The mutation supports multiple endpoint types and advanced filtering options, allowing you to create precisely targeted webhook subscriptions that match your app's integration needs. The API version is inherited from the app configuration and cannot be specified per subscription. Filters use Shopify search syntax to determine which events trigger notifications.
+   *
+   * Successful creation returns the webhook subscription fields that you request in your query. The mutation validates topic availability, filter syntax, and endpoint configuration.
+   *
+   * Learn more about [creating webhook subscriptions](https://shopify.dev/docs/apps/build/webhooks/subscribe).
+   *
    *
    * Building an app? If you only use app-specific webhooks, you won't need this. App-specific webhook subscriptions specified in your `shopify.app.toml` may be easier. They are automatically kept up to date by Shopify & require less maintenance. Please read [About managing webhook subscriptions](https://shopify.dev/docs/apps/build/webhooks/subscribe).
    */
   webhookSubscriptionCreate?: Maybe<WebhookSubscriptionCreatePayload>;
   /**
-   * Deletes a webhook subscription.
+   * Removes an existing webhook subscription, stopping all future event notifications for that subscription. This mutation provides a clean way to deactivate webhooks when they're no longer needed.
+   *
+   * For example, when an app feature is disabled or when you need to change webhook configurations, you can delete
+   * the old webhook subscription to prevent unnecessary event delivery and potential errors. Alternatively, for
+   * endpoint changes, you might consider updating the existing subscription instead of deleting and recreating it.
+   *
+   * Use `webhookSubscriptionDelete` to:
+   * - Clean up unused webhook subscriptions
+   * - Stop event delivery to deprecated endpoints
+   * - Remove subscriptions during app uninstallation
+   * - Reduce unnecessary resource usage by removing unused subscriptions
+   *
+   * The mutation returns the deleted subscription's ID for confirmation when successful. Validation errors are included in the response if you request them in your query, as with all GraphQL mutations.
+   *
+   * Learn more about [managing webhook subscriptions](https://shopify.dev/docs/apps/build/webhooks/subscribe).
+   *
    *
    * Building an app? If you only use app-specific webhooks, you won't need this. App-specific webhook subscriptions specified in your `shopify.app.toml` may be easier. They are automatically kept up to date by Shopify & require less maintenance. Please read [About managing webhook subscriptions](https://shopify.dev/docs/apps/build/webhooks/subscribe).
    */
   webhookSubscriptionDelete?: Maybe<WebhookSubscriptionDeletePayload>;
   /**
-   * Updates a webhook subscription.
+   * Updates an existing webhook subscription's configuration, allowing you to modify endpoints, topics, filters, and other subscription settings without recreating the entire subscription. This mutation provides flexible webhook management for evolving app requirements.
+   *
+   * For example, when migrating from HTTP endpoints to EventBridge, you can update the subscription's endpoint configuration while preserving the same topic subscriptions and filters, ensuring continuity of event delivery during infrastructure changes.
+   *
+   * Use `webhookSubscriptionUpdate` to:
+   * - Change webhook endpoint URLs or destination types
+   * - Modify event filtering criteria to refine event relevance
+   * - Adjust field inclusion settings to optimize payload sizes
+   * - Configure metafield namespace access for extended data
+   *
+   * The mutation supports comprehensive configuration changes including endpoint type switching (HTTP to Pub/Sub, for instance), topic modifications, and advanced filtering updates. The API version is inherited from the app configuration and cannot be changed per subscription.
+   *
+   * Updates are applied atomically, ensuring that webhook delivery continues uninterrupted during configuration changes. The response includes the updated subscription fields that you request in your query, and validation errors if requested.
+   *
+   * Learn more about [updating webhook configurations](https://shopify.dev/docs/apps/build/webhooks/subscribe).
+   *
    *
    * Building an app? If you only use app-specific webhooks, you won't need this. App-specific webhook subscriptions specified in your `shopify.app.toml` may be easier. They are automatically kept up to date by Shopify & require less maintenance. Please read [About managing webhook subscriptions](https://shopify.dev/docs/apps/build/webhooks/subscribe).
    */
@@ -35423,7 +35937,7 @@ type MutationcarrierServiceUpdateArgs = {
 /** The schema's entry point for all mutation operations. */
 type MutationcartTransformCreateArgs = {
   blockOnFailure?: InputMaybe<Scalars['Boolean']['input']>;
-  functionId: Scalars['String']['input'];
+  functionHandle?: InputMaybe<Scalars['String']['input']>;
   metafields?: InputMaybe<Array<MetafieldInput>>;
 };
 
@@ -36428,7 +36942,7 @@ type MutationfulfillmentCancelArgs = {
 /** The schema's entry point for all mutation operations. */
 type MutationfulfillmentConstraintRuleCreateArgs = {
   deliveryMethodTypes: Array<DeliveryMethodType>;
-  functionId: Scalars['String']['input'];
+  functionHandle?: InputMaybe<Scalars['String']['input']>;
   metafields?: InputMaybe<Array<MetafieldInput>>;
 };
 
@@ -36577,6 +37091,14 @@ type MutationfulfillmentOrderSubmitFulfillmentRequestArgs = {
   id: Scalars['ID']['input'];
   message?: InputMaybe<Scalars['String']['input']>;
   notifyCustomer?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** The schema's entry point for all mutation operations. */
+type MutationfulfillmentOrdersRerouteArgs = {
+  excludedLocationIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  fulfillmentOrderIds: Array<Scalars['ID']['input']>;
+  includedLocationIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 
@@ -36764,6 +37286,7 @@ type MutationinventoryShipmentDeleteArgs = {
 
 /** The schema's entry point for all mutation operations. */
 type MutationinventoryShipmentMarkInTransitArgs = {
+  dateShipped?: InputMaybe<Scalars['DateTime']['input']>;
   id: Scalars['ID']['input'];
 };
 
@@ -36771,6 +37294,7 @@ type MutationinventoryShipmentMarkInTransitArgs = {
 /** The schema's entry point for all mutation operations. */
 type MutationinventoryShipmentReceiveArgs = {
   bulkReceiveAction?: InputMaybe<InventoryShipmentReceiveLineItemReason>;
+  dateReceived?: InputMaybe<Scalars['DateTime']['input']>;
   id: Scalars['ID']['input'];
   lineItems?: InputMaybe<Array<InventoryShipmentReceiveItemInput>>;
 };
@@ -38397,6 +38921,13 @@ type MutationthemeDeleteArgs = {
 
 
 /** The schema's entry point for all mutation operations. */
+type MutationthemeDuplicateArgs = {
+  id: Scalars['ID']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** The schema's entry point for all mutation operations. */
 type MutationthemeFilesCopyArgs = {
   files: Array<ThemeFilesCopyFileInput>;
   themeId: Scalars['ID']['input'];
@@ -39368,6 +39899,8 @@ type Order = CommentEventSubject & HasEvents & HasLocalizationExtensions & HasLo
    * This date and time might not match the date and time when the order was created.
    */
   processedAt: Scalars['DateTime']['output'];
+  /** Whether the customer also purchased items from other stores in the network. */
+  productNetwork: Scalars['Boolean']['output'];
   /** The sales channel that the order was created from, such as the [Online Store](https://shopify.dev/docs/apps/build/app-surfaces#online-store) or [Shopify POS](https://shopify.dev/docs/apps/build/app-surfaces#point-of-sale). */
   publication?: Maybe<Publication>;
   /**
@@ -41224,6 +41757,8 @@ type OrderEditAddCustomItemPayload = {
   calculatedLineItem?: Maybe<CalculatedLineItem>;
   /** An order with the edits applied but not saved. */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
 };
@@ -41237,6 +41772,8 @@ type OrderEditAddLineItemDiscountPayload = {
   calculatedLineItem?: Maybe<CalculatedLineItem>;
   /** An order with the edits applied but not saved. */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
 };
@@ -41262,6 +41799,8 @@ type OrderEditAddShippingLinePayload = {
    * that's added during this order edit.
    */
   calculatedShippingLine?: Maybe<CalculatedShippingLine>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<OrderEditAddShippingLineUserError>;
 };
@@ -41296,6 +41835,8 @@ type OrderEditAddVariantPayload = {
    * with the edits applied but not saved.
    */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
 };
@@ -41342,6 +41883,8 @@ type OrderEditBeginPayload = {
   __typename?: 'OrderEditBeginPayload';
   /** The order that will be edited. */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session that was created. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
 };
@@ -41351,6 +41894,8 @@ type OrderEditCommitPayload = {
   __typename?: 'OrderEditCommitPayload';
   /** The order with changes applied. */
   order?: Maybe<Order>;
+  /** Messages to display to the user after the staged changes are commmitted. */
+  successMessages?: Maybe<Array<Scalars['String']['output']>>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
 };
@@ -41360,6 +41905,8 @@ type OrderEditRemoveDiscountPayload = {
   __typename?: 'OrderEditRemoveDiscountPayload';
   /** An order with the edits applied but not saved. */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<OrderEditRemoveDiscountUserError>;
 };
@@ -41388,6 +41935,8 @@ type OrderEditRemoveLineItemDiscountPayload = {
   calculatedLineItem?: Maybe<CalculatedLineItem>;
   /** An order with the edits applied but not saved. */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
 };
@@ -41400,6 +41949,8 @@ type OrderEditRemoveShippingLinePayload = {
    * with the edits applied but not saved.
    */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<OrderEditRemoveShippingLineUserError>;
 };
@@ -41421,6 +41972,13 @@ enum OrderEditRemoveShippingLineUserErrorCode {
   INVALID = 'INVALID'
 }
 
+/** An edit session for an order. */
+type OrderEditSession = Node & {
+  __typename?: 'OrderEditSession';
+  /** The unique ID of the order edit session. */
+  id: Scalars['ID']['output'];
+};
+
 /** Return type for `orderEditSetQuantity` mutation. */
 type OrderEditSetQuantityPayload = {
   __typename?: 'OrderEditSetQuantityPayload';
@@ -41428,6 +41986,8 @@ type OrderEditSetQuantityPayload = {
   calculatedLineItem?: Maybe<CalculatedLineItem>;
   /** The calculated order with the edits applied but not saved. */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
 };
@@ -41437,6 +41997,8 @@ type OrderEditUpdateDiscountPayload = {
   __typename?: 'OrderEditUpdateDiscountPayload';
   /** An order with the edits applied but not saved. */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<OrderEditUpdateDiscountUserError>;
 };
@@ -41471,6 +42033,8 @@ type OrderEditUpdateShippingLinePayload = {
   __typename?: 'OrderEditUpdateShippingLinePayload';
   /** An order with the edits applied but not saved. */
   calculatedOrder?: Maybe<CalculatedOrder>;
+  /** The order edit session with the edits applied but not saved. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<OrderEditUpdateShippingLineUserError>;
 };
@@ -41784,6 +42348,8 @@ type OrderRiskSummary = {
 enum OrderSortKeys {
   /** Sorts by the date and time the order was created. */
   CREATED_AT = 'CREATED_AT',
+  /** Sorts by the current total price of an order in the shop currency, including any returns/refunds/removals. */
+  CURRENT_TOTAL_PRICE = 'CURRENT_TOTAL_PRICE',
   /** Sorts by the customer's name. */
   CUSTOMER_NAME = 'CUSTOMER_NAME',
   /** Sort by shipping address to analyze regional sales patterns or plan logistics. */
@@ -41814,7 +42380,7 @@ enum OrderSortKeys {
 }
 
 /** A change that has been applied to an order. */
-type OrderStagedChange = OrderStagedChangeAddCustomItem | OrderStagedChangeAddLineItemDiscount | OrderStagedChangeAddShippingLine | OrderStagedChangeAddVariant | OrderStagedChangeDecrementItem | OrderStagedChangeIncrementItem | OrderStagedChangeRemoveShippingLine;
+type OrderStagedChange = OrderStagedChangeAddCustomItem | OrderStagedChangeAddLineItemDiscount | OrderStagedChangeAddShippingLine | OrderStagedChangeAddVariant | OrderStagedChangeDecrementItem | OrderStagedChangeIncrementItem | OrderStagedChangeRemoveDiscount | OrderStagedChangeRemoveShippingLine;
 
 /**
  * A change to the order representing the addition of a
@@ -41905,6 +42471,13 @@ type OrderStagedChangeIncrementItem = {
   delta: Scalars['Int']['output'];
   /** The original line item. */
   lineItem: LineItem;
+};
+
+/** A discount application removed during an order edit. */
+type OrderStagedChangeRemoveDiscount = {
+  __typename?: 'OrderStagedChangeRemoveDiscount';
+  /** The removed discount application. */
+  discountApplication: DiscountApplication;
 };
 
 /** A shipping line removed during an order edit. */
@@ -42650,6 +43223,10 @@ enum PaymentCustomizationErrorCode {
   INVALID_METAFIELDS = 'INVALID_METAFIELDS',
   /** Maximum payment customizations are already enabled. */
   MAXIMUM_ACTIVE_PAYMENT_CUSTOMIZATIONS = 'MAXIMUM_ACTIVE_PAYMENT_CUSTOMIZATIONS',
+  /** Either function_id or function_handle must be provided. */
+  MISSING_FUNCTION_IDENTIFIER = 'MISSING_FUNCTION_IDENTIFIER',
+  /** Only one of function_id or function_handle can be provided, not both. */
+  MULTIPLE_FUNCTION_IDENTIFIERS = 'MULTIPLE_FUNCTION_IDENTIFIERS',
   /** Shop must be on a Shopify Plus plan to activate payment customizations from a custom app. */
   PAYMENT_CUSTOMIZATION_FUNCTION_NOT_ELIGIBLE = 'PAYMENT_CUSTOMIZATION_FUNCTION_NOT_ELIGIBLE',
   /** Payment customization not found. */
@@ -42662,8 +43239,8 @@ enum PaymentCustomizationErrorCode {
 type PaymentCustomizationInput = {
   /** The enabled status of the payment customization. */
   enabled?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the function providing the payment customization. */
-  functionId?: InputMaybe<Scalars['String']['input']>;
+  /** Function handle scoped to your app ID. */
+  functionHandle?: InputMaybe<Scalars['String']['input']>;
   /** Additional metafields to associate to the payment customization. */
   metafields?: InputMaybe<Array<MetafieldInput>>;
   /** The title of the payment customization. */
@@ -42695,6 +43272,39 @@ type PaymentMandate = Node & {
   id: Scalars['ID']['output'];
   /** The outputs details of the payment instrument. */
   paymentInstrument: PaymentInstrument;
+};
+
+/**
+ * A payment mandate with resource information, representing the permission
+ * the owner of the payment instrument gives to the merchant to debit it
+ * for specific resources (e.g., Order, Subscriptions).
+ */
+type PaymentMandateResource = {
+  __typename?: 'PaymentMandateResource';
+  /** The ID of the resource that this payment method was created for. */
+  resourceId?: Maybe<Scalars['ID']['output']>;
+  /** The resource type that this payment method was created for (e.g., Order, Subscriptions). */
+  resourceType?: Maybe<MandateResourceType>;
+};
+
+/** An auto-generated type for paginating through multiple PaymentMandateResources. */
+type PaymentMandateResourceConnection = {
+  __typename?: 'PaymentMandateResourceConnection';
+  /** The connection between the node and its parent. Each edge contains a minimum of the edge's cursor and the node. */
+  edges: Array<PaymentMandateResourceEdge>;
+  /** A list of nodes that are contained in PaymentMandateResourceEdge. You can fetch data about an individual node, or you can follow the edges to fetch data about a collection of related nodes. At each node, you specify the fields that you want to retrieve. */
+  nodes: Array<PaymentMandateResource>;
+  /** An object that’s used to retrieve [cursor information](https://shopify.dev/api/usage/pagination-graphql) about the current page. */
+  pageInfo: PageInfo;
+};
+
+/** An auto-generated type which holds one PaymentMandateResource and a cursor during pagination. */
+type PaymentMandateResourceEdge = {
+  __typename?: 'PaymentMandateResourceEdge';
+  /** The position of each node in an array, used in [pagination](https://shopify.dev/api/usage/pagination-graphql). */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of PaymentMandateResourceEdge. */
+  node: PaymentMandateResource;
 };
 
 /** Some of the payment methods used in Shopify. */
@@ -42761,8 +43371,12 @@ type PaymentSchedule = Node & {
    * @deprecated Use `balanceDue`, `totalBalance`, or `Order.totalOutstandingSet` instead.
    */
   amount: MoneyV2;
+  /** Remaining balance to be captured for this payment schedule. */
+  balanceDue: MoneyV2;
   /** Date and time when the payment schedule is paid or fulfilled. */
   completedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** Whether the payment schedule is due. */
+  due: Scalars['Boolean']['output'];
   /** Date and time when the payment schedule is due. */
   dueAt?: Maybe<Scalars['DateTime']['output']>;
   /** A globally-unique ID. */
@@ -42771,6 +43385,8 @@ type PaymentSchedule = Node & {
   issuedAt?: Maybe<Scalars['DateTime']['output']>;
   /** The payment terms the payment schedule belongs to. */
   paymentTerms: PaymentTerms;
+  /** Remaining balance to be paid or authorized by the customer for this payment schedule. */
+  totalBalance: MoneyV2;
 };
 
 /** An auto-generated type for paginating through multiple PaymentSchedules. */
@@ -42813,6 +43429,8 @@ type PaymentTerms = Node & {
   __typename?: 'PaymentTerms';
   /** The draft order associated with the payment terms. */
   draftOrder?: Maybe<DraftOrder>;
+  /** Whether payment terms have a payment schedule that's due. */
+  due: Scalars['Boolean']['output'];
   /** Duration of payment terms in days based on the payment terms template used to create the payment terms. */
   dueInDays?: Maybe<Scalars['Int']['output']>;
   /** A globally-unique ID. */
@@ -44949,7 +45567,7 @@ type Product = HasEvents & HasMetafieldDefinitions & HasMetafields & HasPublishe
   updatedAt: Scalars['DateTime']['output'];
   /**
    * A list of [variants](https://shopify.dev/docs/api/admin-graphql/latest/objects/ProductVariant) associated with the product.
-   * If querying a single product at the root, you can fetch up to 2000 variants.
+   * If querying a single product at the root, you can fetch up to 2048 variants.
    */
   variants: ProductVariantConnection;
   /**
@@ -45671,7 +46289,7 @@ type ProductBundleCreateInput = {
 /** Return type for `productBundleCreate` mutation. */
 type ProductBundleCreatePayload = {
   __typename?: 'ProductBundleCreatePayload';
-  /** The asynchronous ProductBundleOperation creating the componentized product. */
+  /** The asynchronous ProductBundleOperation creating the product bundle or componentized product. */
   productBundleOperation?: Maybe<ProductBundleOperation>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
@@ -45740,7 +46358,7 @@ type ProductBundleUpdateInput = {
 /** Return type for `productBundleUpdate` mutation. */
 type ProductBundleUpdatePayload = {
   __typename?: 'ProductBundleUpdatePayload';
-  /** The asynchronous ProductBundleOperation updating the componentized product. */
+  /** The asynchronous ProductBundleOperation updating the product bundle or componentized product. */
   productBundleOperation?: Maybe<ProductBundleOperation>;
   /** The list of errors that occurred from executing the mutation. */
   userErrors: Array<UserError>;
@@ -47021,7 +47639,11 @@ type ProductSetInput = {
    * For example, the description might include bold `<strong></strong>` and italic `<i></i>` text.
    */
   descriptionHtml?: InputMaybe<Scalars['String']['input']>;
-  /** The files to associate with the product. */
+  /**
+   * The files to associate with the product.
+   *
+   * Complexity cost: 1.9 per file.
+   */
   files?: InputMaybe<Array<FileSetInput>>;
   /** Whether the product is a gift card. */
   giftCard?: InputMaybe<Scalars['Boolean']['input']>;
@@ -47034,7 +47656,11 @@ type ProductSetInput = {
    * is already taken, in which case a suffix is added to make the handle unique).
    */
   handle?: InputMaybe<Scalars['String']['input']>;
-  /** The metafields to associate with this product. */
+  /**
+   * The metafields to associate with this product.
+   *
+   * Complexity cost: 0.4 per metafield.
+   */
   metafields?: InputMaybe<Array<MetafieldInput>>;
   /** List of custom product options and option values (maximum of 3 per product). */
   productOptions?: InputMaybe<Array<OptionSetInput>>;
@@ -47075,7 +47701,11 @@ type ProductSetInput = {
    * For example, if a product is titled "Black Sunglasses" and no handle is provided, then the handle `black-sunglasses` is generated.
    */
   title?: InputMaybe<Scalars['String']['input']>;
-  /** A list of variants associated with the product. */
+  /**
+   * A list of variants associated with the product.
+   *
+   * Complexity cost: 0.2 per variant.
+   */
   variants?: InputMaybe<Array<ProductVariantSetInput>>;
   /** The name of the product's vendor. */
   vendor?: InputMaybe<Scalars['String']['input']>;
@@ -47179,6 +47809,8 @@ enum ProductSetUserErrorCode {
   INVALID_PRODUCT = 'INVALID_PRODUCT',
   /** Product variant is not valid. */
   INVALID_VARIANT = 'INVALID_VARIANT',
+  /** Inventory quantity input exceeds the limit of 50000. Consider using separate `inventorySetQuantities` mutations. */
+  INVENTORY_QUANTITIES_LIMIT_EXCEEDED = 'INVENTORY_QUANTITIES_LIMIT_EXCEEDED',
   /** Error processing request in the background job. */
   JOB_ERROR = 'JOB_ERROR',
   /** No valid metafield definition found for linked option. */
@@ -47247,7 +47879,9 @@ enum ProductStatus {
   /** The product is no longer being sold and isn't available to customers on sales channels and apps. */
   ARCHIVED = 'ARCHIVED',
   /** The product isn't ready to sell and is unavailable to customers on sales channels and apps. By default, duplicated and unarchived products are set to draft. */
-  DRAFT = 'DRAFT'
+  DRAFT = 'DRAFT',
+  /** The product is active but you need a direct link to view it. The product doesn't show up in search, collections, or product recommendations. It will be returned in Storefront API and Liquid only when referenced individually by handle, id, or metafield reference.This status is only visible from 2025-10 and up, is translated to active in older versions and can't be changed from unlisted in older versions. */
+  UNLISTED = 'UNLISTED'
 }
 
 /** Represents a [Shopify product taxonomy](https://shopify.github.io/product-taxonomy/releases/unstable/?categoryId=sg-4-17-2-17) node. */
@@ -47446,7 +48080,10 @@ type ProductVariant = HasEvents & HasMetafieldDefinitions & HasMetafields & HasP
   events: EventConnection;
   /** A globally-unique ID. */
   id: Scalars['ID']['output'];
-  /** The featured image for the variant. */
+  /**
+   * The featured image for the variant.
+   * @deprecated Use `media` instead.
+   */
   image?: Maybe<Image>;
   /** The inventory item, which is used to query for inventory information. */
   inventoryItem: InventoryItem;
@@ -48262,6 +48899,9 @@ type ProductVariantSetInput = {
   compareAtPrice?: InputMaybe<Scalars['Money']['input']>;
   /**
    * The file to associate with the variant.
+   *
+   * Complexity cost: 0.6 per variant file.
+   *
    * Any file specified here must also be specified in the `files` input for the product.
    */
   file?: InputMaybe<FileSetInput>;
@@ -48275,9 +48915,15 @@ type ProductVariantSetInput = {
    * The inventory quantities at each location where the variant is stocked.
    * If you're updating an existing variant, then you can only update the
    * quantities at locations where the variant is already stocked.
+   *
+   * The total number of inventory quantities across all variants in the mutation can't exceed 50000.
    */
   inventoryQuantities?: InputMaybe<Array<ProductSetInventoryInput>>;
-  /** Additional customizable information about the product variant. */
+  /**
+   * Additional customizable information about the product variant.
+   *
+   * Complexity cost: 0.4 per variant metafield.
+   */
   metafields?: InputMaybe<Array<MetafieldInput>>;
   /** The custom properties that a shop owner uses to define product variants. */
   optionValues: Array<VariantOptionValueInput>;
@@ -48352,6 +48998,8 @@ type ProductVariantsBulkCreatePayload = {
 enum ProductVariantsBulkCreateStrategy {
   /** The default strategy. Deletes the standalone default ("Default Title") variant when it's the only variant on the product. Preserves the standalone custom variant. */
   DEFAULT = 'DEFAULT',
+  /** Preserves the existing standalone variant when the product has only a single default ("Default Title") or a single custom variant. */
+  PRESERVE_STANDALONE_VARIANT = 'PRESERVE_STANDALONE_VARIANT',
   /** Deletes the existing standalone variant when the product has only a single default ("Default Title") or custom variant. */
   REMOVE_STANDALONE_VARIANT = 'REMOVE_STANDALONE_VARIANT'
 }
@@ -48377,6 +49025,8 @@ enum ProductVariantsBulkCreateUserErrorCode {
   INVALID = 'INVALID',
   /** Input is invalid. */
   INVALID_INPUT = 'INVALID_INPUT',
+  /** Inventory quantity input exceeds the limit of 50000. Consider using separate `inventorySetQuantities` mutations. */
+  INVENTORY_QUANTITIES_LIMIT_EXCEEDED = 'INVENTORY_QUANTITIES_LIMIT_EXCEEDED',
   /** Input must be for this product. */
   MUST_BE_FOR_THIS_PRODUCT = 'MUST_BE_FOR_THIS_PRODUCT',
   /** Variant options are not enough. */
@@ -48555,6 +49205,8 @@ enum ProductVariantsBulkUpdateUserErrorCode {
   INVALID_INPUT = 'INVALID_INPUT',
   /** Metafield value is invalid. */
   INVALID_VALUE = 'INVALID_VALUE',
+  /** Inventory quantity input exceeds the limit of 50000. Consider using separate `inventorySetQuantities` mutations. */
+  INVENTORY_QUANTITIES_LIMIT_EXCEEDED = 'INVENTORY_QUANTITIES_LIMIT_EXCEEDED',
   /** Input must be for this product. */
   MUST_BE_FOR_THIS_PRODUCT = 'MUST_BE_FOR_THIS_PRODUCT',
   /** Mandatory field input field missing. */
@@ -48727,6 +49379,8 @@ type Publication = Node & {
   id: Scalars['ID']['output'];
   /** The list of products included, but not necessarily published, in the publication. */
   includedProducts: ProductConnection;
+  /** The count of products included in the publication. Limited to a maximum of 10000 by default. */
+  includedProductsCount?: Maybe<Count>;
   /**
    * Name of the publication.
    * @deprecated Use [Catalog.title](https://shopify.dev/api/admin-graphql/unstable/interfaces/Catalog#field-catalog-title) instead.
@@ -48775,7 +49429,18 @@ type PublicationincludedProductsArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
   reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  savedSearchId?: InputMaybe<Scalars['ID']['input']>;
+  sortKey?: InputMaybe<ProductSortKeys>;
+};
+
+
+/** A publication is a group of products and collections that is published to an app. */
+type PublicationincludedProductsCountArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  savedSearchId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -48795,7 +49460,10 @@ type PublicationproductsArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
   reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  savedSearchId?: InputMaybe<Scalars['ID']['input']>;
+  sortKey?: InputMaybe<ProductSortKeys>;
 };
 
 /** An auto-generated type for paginating through multiple Publications. */
@@ -49518,9 +50186,25 @@ type QueryRoot = {
   appDiscountTypes: Array<AppDiscountType>;
   /** A list of app discount types installed by apps. */
   appDiscountTypesNodes: AppDiscountTypeConnection;
-  /** Lookup an AppInstallation by ID or return the AppInstallation for the currently authenticated App. */
+  /**
+   * Look up an app installation by ID or return the app installation for the currently authenticated app.
+   *
+   * Use the `appInstallation` query to:
+   * - Fetch current access scope permissions for your app
+   * - Retrieve active subscription details and billing status
+   * - Validate installation state during app initialization
+   * - Display installation-specific information in your app interface
+   *
+   * Learn more about [app installation](https://shopify.dev/docs/apps/build/authentication-authorization/app-installation).
+   */
   appInstallation?: Maybe<AppInstallation>;
-  /** A list of app installations. To use this query, you need to contact [Shopify Support](https://partners.shopify.com/current/support/) to grant your custom app the `read_apps` access scope. Public apps can't be granted this access scope. */
+  /**
+   * A list of app installations. To use this query, your app needs the `read_apps` access scope, which can only be requested after you're granted approval from [Shopify Support](https://partners.shopify.com/current/support/). This scope can be granted to custom and public apps.
+   *
+   * Returns a paginated connection of `AppInstallation` objects across multiple stores.
+   *
+   * Learn more about [app installation](https://shopify.dev/docs/apps/build/authentication-authorization/app-installation).
+   */
   appInstallations: AppInstallationConnection;
   /** Returns a `Article` resource by ID. */
   article?: Maybe<Article>;
@@ -49553,7 +50237,7 @@ type QueryRoot = {
    */
   assignedFulfillmentOrders: FulfillmentOrderConnection;
   /**
-   * Returns an automatic discount resource by ID.
+   * Returns a `DiscountAutomatic` resource by ID.
    * @deprecated Use `automaticDiscountNode` instead.
    */
   automaticDiscount?: Maybe<DiscountAutomatic>;
@@ -49763,7 +50447,10 @@ type QueryRoot = {
   consentPolicyRegions: Array<ConsentPolicyRegion>;
   /** Return the AppInstallation for the currently authenticated App. */
   currentAppInstallation: AppInstallation;
-  /** Returns the current app's most recent BulkOperation. Apps can run one bulk query and one bulk mutation operation at a time, by shop. */
+  /**
+   * Returns the current app's most recent BulkOperation. Apps can run one bulk query and one bulk mutation operation at a time, by shop.
+   * @deprecated Use `bulkOperations` with status filter instead.
+   */
   currentBulkOperation?: Maybe<BulkOperation>;
   /** The staff member making the API request. */
   currentStaffMember?: Maybe<StaffMember>;
@@ -50068,6 +50755,8 @@ type QueryRoot = {
   order?: Maybe<Order>;
   /** Return an order by an identifier. */
   orderByIdentifier?: Maybe<Order>;
+  /** Returns a `OrderEditSession` resource by ID. */
+  orderEditSession?: Maybe<OrderEditSession>;
   /** Returns a payment status by payment reference ID. Used to check the status of a deferred payment. */
   orderPaymentStatus?: Maybe<OrderPaymentStatus>;
   /** List of the shop's order saved searches. */
@@ -50325,7 +51014,7 @@ type QueryRoot = {
   return?: Maybe<Return>;
   /** The calculated monetary value to be exchanged due to the return. */
   returnCalculate?: Maybe<CalculatedReturn>;
-  /** Lookup a returnable fulfillment by ID. */
+  /** Returns a `ReturnableFulfillment` resource by ID. */
   returnableFulfillment?: Maybe<ReturnableFulfillment>;
   /** List of returnable fulfillments. */
   returnableFulfillments: ReturnableFulfillmentConnection;
@@ -50398,6 +51087,8 @@ type QueryRoot = {
   shopifyFunctions: ShopifyFunctionConnection;
   /** Shopify Payments account information, including balances and payouts. */
   shopifyPaymentsAccount?: Maybe<ShopifyPaymentsAccount>;
+  /** Returns the results of a ShopifyQL query. */
+  shopifyqlQuery?: Maybe<ShopifyqlQueryResponse>;
   /** The StaffMember resource, by ID. */
   staffMember?: Maybe<StaffMember>;
   /** The shop staff members. */
@@ -50410,7 +51101,7 @@ type QueryRoot = {
   standardMetafieldDefinitionTemplates: StandardMetafieldDefinitionTemplateConnection;
   /** Returns a store credit account resource by ID. */
   storeCreditAccount?: Maybe<StoreCreditAccount>;
-  /** Returns a SubscriptionBillingAttempt by ID. */
+  /** Returns a `SubscriptionBillingAttempt` resource by ID. */
   subscriptionBillingAttempt?: Maybe<SubscriptionBillingAttempt>;
   /** Returns subscription billing attempts on a store. */
   subscriptionBillingAttempts: SubscriptionBillingAttemptConnection;
@@ -50445,7 +51136,7 @@ type QueryRoot = {
   translatableResourcesByIds: TranslatableResourceConnection;
   /** Returns a `UrlRedirect` resource by ID. */
   urlRedirect?: Maybe<UrlRedirect>;
-  /** Returns a redirect import resource by ID. */
+  /** Returns a `UrlRedirectImport` resource by ID. */
   urlRedirectImport?: Maybe<UrlRedirectImport>;
   /** A list of the shop's URL redirect saved searches. */
   urlRedirectSavedSearches: SavedSearchConnection;
@@ -50472,7 +51163,25 @@ type QueryRoot = {
    */
   webhookSubscription?: Maybe<WebhookSubscription>;
   /**
-   * Returns a list of webhook subscriptions.
+   * Retrieves a paginated list of shop-scoped webhook subscriptions configured for the current app. This query returns webhook subscriptions created via the API for this shop, not including app-scoped subscriptions configured via TOML files.
+   *
+   * For example, an app dashboard might use this query to display all configured webhooks, showing which events trigger notifications and their delivery endpoints for troubleshooting integration issues.
+   *
+   * Use the `webhookSubscriptions` query to:
+   * - Audit all active shop-scoped webhook configurations
+   * - View and manage webhook subscription configurations
+   * - Display subscription details in app dashboards
+   * - Retrieve existing webhook configurations for dynamic integration setups
+   * - Check which subscriptions already exist before creating new ones
+   *
+   * The query returns comprehensive subscription data including event topics, endpoint configurations, filtering rules, API versions, and metafield namespace permissions. Each subscription includes creation and modification timestamps for tracking configuration changes.
+   *
+   * Results support standard GraphQL pagination patterns with cursor-based navigation, allowing efficient retrieval of large webhook subscription lists. The response includes detailed endpoint information varying by type - HTTP callback URLs, EventBridge ARNs, or Pub/Sub project and topic specifications.
+   *
+   * Advanced subscription features like event filtering using Shopify search syntax, field inclusion rules, and metafield namespace access are fully exposed, providing complete visibility into webhook configuration.
+   *
+   * Learn more about [webhook subscription queries](https://shopify.dev/docs/apps/build/webhooks/subscribe).
+   *
    *
    * Building an app? If you only use app-specific webhooks, you won't need this. App-specific webhook subscriptions specified in your `shopify.app.toml` may be easier. They are automatically kept up to date by Shopify & require less maintenance. Please read [About managing webhook subscriptions](https://shopify.dev/docs/apps/build/webhooks/subscribe).
    */
@@ -51733,6 +52442,12 @@ type QueryRootorderByIdentifierArgs = {
 
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+type QueryRootorderEditSessionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 type QueryRootorderPaymentStatusArgs = {
   orderId: Scalars['ID']['input'];
   paymentReferenceId: Scalars['String']['input'];
@@ -52206,6 +52921,12 @@ type QueryRootshopifyFunctionsArgs = {
 
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+type QueryRootshopifyqlQueryArgs = {
+  query: Scalars['String']['input'];
+};
+
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 type QueryRootstaffMemberArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -52465,6 +53186,7 @@ type QueryRootwebhookSubscriptionsArgs = {
   reverse?: InputMaybe<Scalars['Boolean']['input']>;
   sortKey?: InputMaybe<WebhookSubscriptionSortKeys>;
   topics?: InputMaybe<Array<WebhookSubscriptionTopic>>;
+  uri?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -53396,6 +54118,7 @@ type ReturnexchangeLineItemsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   includeRemovedItems?: InputMaybe<Scalars['Boolean']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  processingStatus?: InputMaybe<ReturnProcessingStatusFilterInput>;
   reverse?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -53450,6 +54173,7 @@ type ReturnreturnLineItemsArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  processingStatus?: InputMaybe<ReturnProcessingStatusFilterInput>;
   reverse?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -53505,6 +54229,7 @@ type ReturnsuggestedFinancialOutcomeArgs = {
   refundMethodAllocation?: InputMaybe<RefundMethodAllocation>;
   refundShipping?: InputMaybe<RefundShippingInput>;
   returnLineItems: Array<SuggestedOutcomeReturnLineItemInput>;
+  tipLineId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -53926,6 +54651,14 @@ type ReturnProcessReturnLineItemInput = {
   /** The quantity of the return line item. */
   quantity: Scalars['Int']['input'];
 };
+
+/** Filter line items based on processing status. */
+enum ReturnProcessingStatusFilterInput {
+  /** Only include line items that have some processable quantity. */
+  PROCESSABLE = 'PROCESSABLE',
+  /** Only include line items that have been processed. */
+  PROCESSED = 'PROCESSED'
+}
 
 /** The reason for returning the return line item. */
 enum ReturnReason {
@@ -55130,7 +55863,18 @@ type SegmentEdge = {
   node: Segment;
 };
 
-/** A filter with a set of possible values that's been added to a segment query. */
+/**
+ * Categorical filter options for building customer segments using predefined value sets like countries, subscription statuses, or order frequencies.
+ *
+ * For example, a "Customer Location" enum filter provides options like "United States," "Canada," and "United Kingdom."
+ *
+ * Use this object to:
+ * - Access available categorical filter options
+ * - Understand filter capabilities and constraints
+ * - Build user interfaces for segment creation
+ *
+ * Includes localized display names, indicates whether multiple values can be selected, and provides technical query names for API operations.
+ */
 type SegmentEnumFilter = SegmentFilter & {
   __typename?: 'SegmentEnumFilter';
   /** The localized name of the filter. */
@@ -56837,7 +57581,7 @@ type Shop = HasMetafieldDefinitions & HasMetafields & HasPublishedTranslations &
   draftOrderTags: StringConnection;
   /**
    * List of saved draft orders on the shop.
-   * @deprecated Use `QueryRoot.draftOrders` instead.
+   * @deprecated Removed as of 2026-01. Use `QueryRoot.draftOrders` instead.
    */
   draftOrders: DraftOrderConnection;
   /**
@@ -57816,7 +58560,7 @@ type ShopPlan = {
   displayName: Scalars['String']['output'];
   /** Whether the shop is a partner development shop for testing purposes. */
   partnerDevelopment: Scalars['Boolean']['output'];
-  /** The public display name of the shop's billing plan. Possible values are: Advanced, Basic, Development, Grow, Inactive, Lite, Other, Paused, Plus, Plus Trial, Retail, Shop Component, Staff Business, Starter, and Trial. */
+  /** The public display name of the shop's billing plan. Possible values are: Advanced, Basic, Development, Grow, Inactive, Lite, Other, Paused, Plus, Plus Trial, Retail, Shop Component, Shopify Finance, Staff Business, Starter, and Trial. */
   publicDisplayName: Scalars['String']['output'];
   /** Whether the shop has a Shopify Plus subscription. */
   shopifyPlus: Scalars['Boolean']['output'];
@@ -58406,6 +59150,8 @@ type ShopifyPaymentsDispute = LegacyInteroperability & Node & {
   __typename?: 'ShopifyPaymentsDispute';
   /** The total amount disputed by the cardholder. */
   amount: MoneyV2;
+  /** The evidence associated with the dispute. */
+  disputeEvidence: ShopifyPaymentsDisputeEvidence;
   /** The deadline for evidence submission. */
   evidenceDueBy?: Maybe<Scalars['Date']['output']>;
   /** The date when evidence was sent. Returns null if evidence hasn't yet been sent. */
@@ -58509,6 +59255,8 @@ enum ShopifyPaymentsDisputeEvidenceFileType {
   CUSTOMER_COMMUNICATION_FILE = 'CUSTOMER_COMMUNICATION_FILE',
   /** Refund Policy File. */
   REFUND_POLICY_FILE = 'REFUND_POLICY_FILE',
+  /** Response Summary File. */
+  RESPONSE_SUMMARY_FILE = 'RESPONSE_SUMMARY_FILE',
   /** Service Documentation File. */
   SERVICE_DOCUMENTATION_FILE = 'SERVICE_DOCUMENTATION_FILE',
   /** Shipping Documentation File. */
@@ -58684,6 +59432,8 @@ type ShopifyPaymentsPayout = LegacyInteroperability & Node & {
   bankAccount?: Maybe<ShopifyPaymentsBankAccount>;
   /** The business entity associated with the payout. */
   businessEntity: BusinessEntity;
+  /** A unique trace ID from the financial institution. Use this reference number to track the payout with your provider. */
+  externalTraceId?: Maybe<Scalars['String']['output']>;
   /**
    * The total amount and currency of the payout.
    * @deprecated Use `net` instead.
@@ -58846,6 +59596,8 @@ type ShopifyPaymentsPayoutSummary = {
   retriedPayoutsFee: MoneyV2;
   /** Total gross amount for all retried payouts. */
   retriedPayoutsGross: MoneyV2;
+  /** Total amount for all usdc rebate credit balance adjustments. */
+  usdcRebateCreditAmount: MoneyV2;
 };
 
 /** The possible transaction types for a payout. */
@@ -58926,8 +59678,16 @@ type ShopifyPaymentsTransactionSet = {
 
 /** The possible types of transactions. */
 enum ShopifyPaymentsTransactionType {
+  /** The ach_bank_failure_debit_fee transaction type. */
+  ACH_BANK_FAILURE_DEBIT_FEE = 'ACH_BANK_FAILURE_DEBIT_FEE',
+  /** The ach_bank_failure_debit_reversal_fee transaction type. */
+  ACH_BANK_FAILURE_DEBIT_REVERSAL_FEE = 'ACH_BANK_FAILURE_DEBIT_REVERSAL_FEE',
   /** The adjustment transaction type. */
   ADJUSTMENT = 'ADJUSTMENT',
+  /** The ads_publisher_credit transaction type. */
+  ADS_PUBLISHER_CREDIT = 'ADS_PUBLISHER_CREDIT',
+  /** The ads_publisher_credit_reversal transaction type. */
+  ADS_PUBLISHER_CREDIT_REVERSAL = 'ADS_PUBLISHER_CREDIT_REVERSAL',
   /** The advance transaction type. */
   ADVANCE = 'ADVANCE',
   /** The advance funding transaction type. */
@@ -59185,6 +59945,37 @@ enum ShopifyProtectStatus {
   /** The order received a fraudulent chargeback and it was protected. */
   PROTECTED = 'PROTECTED'
 }
+
+/** A response to a ShopifyQL query. */
+type ShopifyqlQueryResponse = {
+  __typename?: 'ShopifyqlQueryResponse';
+  /** A list of parse errors, if parsing fails. */
+  parseErrors: Array<Scalars['String']['output']>;
+  /** The result in a tabular format with column and row data. */
+  tableData?: Maybe<ShopifyqlTableData>;
+};
+
+/** The result of a ShopifyQL query. */
+type ShopifyqlTableData = {
+  __typename?: 'ShopifyqlTableData';
+  /** The columns of the table. */
+  columns: Array<ShopifyqlTableDataColumn>;
+  /** The rows of the table. */
+  rows: Scalars['JSON']['output'];
+};
+
+/** Represents a column in a ShopifyQL query response. */
+type ShopifyqlTableDataColumn = {
+  __typename?: 'ShopifyqlTableDataColumn';
+  /** The data type of the column. */
+  dataType: ColumnDataType;
+  /** The human-readable display name of the column. */
+  displayName: Scalars['String']['output'];
+  /** The name of the column. */
+  name: Scalars['String']['output'];
+  /** The sub type of an array column. */
+  subType?: Maybe<ColumnDataType>;
+};
 
 /** Represents the data about a staff member's Shopify account. Merchants can use staff member data to get more information about the staff members in their store. */
 type StaffMember = Node & {
@@ -59518,6 +60309,13 @@ enum StagedUploadTargetGenerateUploadResource {
    * to add the image to a collection.
    */
   COLLECTION_IMAGE = 'COLLECTION_IMAGE',
+  /**
+   * Represents a file associated with a dispute.
+   *
+   * For example, after uploading the file, you can add the file to a dispute using the
+   * [disputeEvidenceUpdate mutation](https://shopify.dev/api/admin-graphql/latest/mutations/disputeEvidenceUpdate).
+   */
+  DISPUTE_FILE_UPLOAD = 'DISPUTE_FILE_UPLOAD',
   /**
    * Represents any file other than HTML.
    *
@@ -63433,6 +64231,32 @@ enum ThemeDeleteUserErrorCode {
   NOT_FOUND = 'NOT_FOUND'
 }
 
+/** Return type for `themeDuplicate` mutation. */
+type ThemeDuplicatePayload = {
+  __typename?: 'ThemeDuplicatePayload';
+  /** The newly duplicated theme. */
+  newTheme?: Maybe<OnlineStoreTheme>;
+  /** The list of errors that occurred from executing the mutation. */
+  userErrors: Array<ThemeDuplicateUserError>;
+};
+
+/** An error that occurs during the execution of `ThemeDuplicate`. */
+type ThemeDuplicateUserError = DisplayableError & {
+  __typename?: 'ThemeDuplicateUserError';
+  /** The error code. */
+  code?: Maybe<ThemeDuplicateUserErrorCode>;
+  /** The path to the input field that caused the error. */
+  field?: Maybe<Array<Scalars['String']['output']>>;
+  /** The error message. */
+  message: Scalars['String']['output'];
+};
+
+/** Possible error codes that can be returned by `ThemeDuplicateUserError`. */
+enum ThemeDuplicateUserErrorCode {
+  /** The record with the ID used as the input value couldn't be found. */
+  NOT_FOUND = 'NOT_FOUND'
+}
+
 /** The input fields for the file copy. */
 type ThemeFilesCopyFileInput = {
   /** The new file where the content is copied to. */
@@ -63746,6 +64570,8 @@ enum TranslatableResourceType {
   FILTER = 'FILTER',
   /** A link to direct users. Translatable fields: `title`. */
   LINK = 'LINK',
+  /** An image. Translatable fields: `alt`. */
+  MEDIA_IMAGE = 'MEDIA_IMAGE',
   /** A category of links. Translatable fields: `title`. */
   MENU = 'MENU',
   /** A Metafield. Translatable fields: `value`. */
@@ -64470,8 +65296,8 @@ type ValidationCreateInput = {
   blockOnFailure?: InputMaybe<Scalars['Boolean']['input']>;
   /** Whether the validation should be live on the merchant checkout. */
   enable?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The function ID representing the extension to install. */
-  functionId: Scalars['String']['input'];
+  /** The function handle representing the extension to install. */
+  functionHandle?: InputMaybe<Scalars['String']['input']>;
   /** Additional metafields to associate to the validation. */
   metafields?: InputMaybe<Array<MetafieldInput>>;
   /** The title of the validation. */
@@ -64573,6 +65399,10 @@ enum ValidationUserErrorCode {
   INVALID_VALUE = 'INVALID_VALUE',
   /** Cannot have more than 25 active validation functions. */
   MAX_VALIDATIONS_ACTIVATED = 'MAX_VALIDATIONS_ACTIVATED',
+  /** Either function_id or function_handle must be provided. */
+  MISSING_FUNCTION_IDENTIFIER = 'MISSING_FUNCTION_IDENTIFIER',
+  /** Only one of function_id or function_handle can be provided, not both. */
+  MULTIPLE_FUNCTION_IDENTIFIERS = 'MULTIPLE_FUNCTION_IDENTIFIERS',
   /** Validation not found. */
   NOT_FOUND = 'NOT_FOUND',
   /** The input value needs to be blank. */
@@ -64836,21 +65666,45 @@ type WebPresenceUpdatePayload = {
   webPresence?: Maybe<MarketWebPresence>;
 };
 
-/** An Amazon EventBridge partner event source to which webhook subscriptions publish events. */
+/**
+ * Connects your app to Amazon EventBridge so you can receive Shopify webhook events and process them through AWS's event-driven architecture. This gives you enterprise-grade scalability and lets you tap into the full AWS ecosystem for handling webhook traffic.
+ *
+ * For example, when a customer places an order, Shopify can publish the order creation event directly to your EventBridge partner source, allowing your AWS infrastructure to process the event through Lambda functions, SQS queues, or other AWS services.
+ *
+ * EventBridge endpoints provide enterprise-grade event routing and processing capabilities, making them ideal for apps that need to handle high-volume webhook traffic or integrate deeply with AWS services.
+ *
+ * Learn more about [webhook endpoints](https://shopify.dev/docs/apps/build/webhooks/subscribe/get-started).
+ */
 type WebhookEventBridgeEndpoint = {
   __typename?: 'WebhookEventBridgeEndpoint';
   /** The ARN of this EventBridge partner event source. */
   arn: Scalars['ARN']['output'];
 };
 
-/** An HTTPS endpoint to which webhook subscriptions send POST requests. */
+/**
+ * An HTTPS endpoint that receives webhook events as POST requests, letting your app respond to Shopify events in real-time. This is the most common webhook endpoint type, allowing apps to process Shopify events through standard HTTP callbacks.
+ *
+ * For example, when setting up order notifications, your app would provide an HTTPS URL like `https://yourapp.com/webhooks/orders/create` to receive order creation events as JSON payloads.
+ *
+ * HTTP endpoints offer straightforward webhook integration with immediate event delivery, making them suitable for apps that need real-time notifications without complex infrastructure requirements.
+ *
+ * Learn more about [HTTP webhook configuration](https://shopify.dev/docs/apps/build/webhooks/subscribe/https).
+ */
 type WebhookHttpEndpoint = {
   __typename?: 'WebhookHttpEndpoint';
   /** The URL to which the webhooks events are sent. */
   callbackUrl: Scalars['URL']['output'];
 };
 
-/** A Google Cloud Pub/Sub topic to which webhook subscriptions publish events. */
+/**
+ * Individual Google Cloud Pub/Sub topics that receive webhook events for reliable, asynchronous processing. This endpoint type lets your app tap into Google Cloud's messaging infrastructure to handle events at scale.
+ *
+ * For example, when inventory levels change, Shopify can publish these events to your Pub/Sub topic `projects/your-project/topics/inventory-updates`, allowing your Google Cloud functions or services to process inventory changes at their own pace.
+ *
+ * Pub/Sub endpoints provide reliable message delivery to Google Cloud Pub/Sub, making them excellent for apps that need to handle variable webhook volumes or integrate with Google Cloud Platform services.
+ *
+ * Learn more about [Pub/Sub webhook configuration](https://shopify.dev/docs/apps/build/webhooks/subscribe/get-started).
+ */
 type WebhookPubSubEndpoint = {
   __typename?: 'WebhookPubSubEndpoint';
   /** The Google Cloud Pub/Sub project ID. */
@@ -64899,6 +65753,8 @@ type WebhookSubscription = LegacyInteroperability & Node & {
   topic: WebhookSubscriptionTopic;
   /** The date and time when the webhook subscription was updated. */
   updatedAt: Scalars['DateTime']['output'];
+  /** The URI to which the webhook subscription will send events. */
+  uri: Scalars['String']['output'];
 };
 
 /** An auto-generated type for paginating through multiple WebhookSubscriptions. */
@@ -64960,9 +65816,33 @@ type WebhookSubscriptionInput = {
   metafieldNamespaces?: InputMaybe<Array<Scalars['String']['input']>>;
   /** A list of identifiers specifying metafields to include in the webhook payload. */
   metafields?: InputMaybe<Array<HasMetafieldsMetafieldIdentifierInput>>;
+  /** The URI where the webhook subscription should send events. Supports an HTTPS URL, a Google Pub/Sub URI (pubsub://{project-id}:{topic-id}) or an Amazon EventBridge event source ARN. */
+  uri?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** Identifies metafields by their namespace, and key. */
+/**
+ * Webhook subscriptions let you receive instant notifications when important events happen in a merchant's store, so you can automate workflows and keep your systems in sync without constantly polling for updates.
+ *
+ * For example, a subscription might monitor `orders/create` events and send JSON payloads to `https://yourapp.com/webhooks/orders` whenever customers place new orders, enabling immediate order processing workflows.
+ *
+ * Use the `WebhookSubscription` object to:
+ * - Monitor active webhook configurations
+ * - Access subscription details like topics, endpoints, and filtering rules
+ * - Retrieve creation and update timestamps for audit purposes
+ * - Review API versions and format settings
+ * - Examine metafield namespace configurations for extended data access
+ *
+ * Each subscription includes comprehensive configuration details such as the specific Shopify events being monitored, the destination endpoint (HTTP, EventBridge, or Pub/Sub), event filtering criteria, and payload customization settings. The subscription tracks its creation and modification history.
+ *
+ * Subscriptions can include advanced features like Shopify search syntax for event filtering to control
+ * which events trigger notifications, specific field inclusion rules to control which fields are included
+ * in the webhook payload, and metafield namespace access to capture custom store data. The API version
+ * is inherited from the app that created the webhook subscription.
+ *
+ * The endpoint configuration varies by type - HTTP subscriptions include callback URLs, EventBridge subscriptions reference AWS ARNs, and Pub/Sub subscriptions specify Google Cloud project and topic details. This flexibility allows apps to integrate webhooks with their preferred infrastructure and event processing systems.
+ *
+ * Learn more about [webhook subscription management](https://shopify.dev/docs/apps/webhooks).
+ */
 type WebhookSubscriptionMetafieldIdentifier = {
   __typename?: 'WebhookSubscriptionMetafieldIdentifier';
   /** The unique identifier for the metafield definition within its namespace. */
@@ -65271,6 +66151,8 @@ enum WebhookSubscriptionTopic {
   INVENTORY_TRANSFERS_UPDATE_ITEM_QUANTITIES = 'INVENTORY_TRANSFERS_UPDATE_ITEM_QUANTITIES',
   /** The webhook topic for `locales/create` events. Occurs whenever a shop locale is created Requires the `read_locales` scope. */
   LOCALES_CREATE = 'LOCALES_CREATE',
+  /** The webhook topic for `locales/destroy` events. Occurs whenever a shop locale is destroyed Requires the `read_locales` scope. */
+  LOCALES_DESTROY = 'LOCALES_DESTROY',
   /** The webhook topic for `locales/update` events. Occurs whenever a shop locale is updated, such as published or unpublished Requires the `read_locales` scope. */
   LOCALES_UPDATE = 'LOCALES_UPDATE',
   /** The webhook topic for `locations/activate` events. Occurs whenever a deactivated location is re-activated. Requires the `read_locations` scope. */
@@ -65526,22 +66408,60 @@ enum WeightUnit {
 type AllCatalogsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllCatalogsQuery = { __typename?: 'QueryRoot', catalogs: { __typename?: 'CatalogConnection', nodes: Array<{ __typename?: 'AppCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null } | { __typename?: 'CompanyLocationCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null } | { __typename?: 'MarketCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null }> } };
+type AllCatalogsQuery = { __typename?: 'QueryRoot', catalogs: { __typename?: 'CatalogConnection', nodes: Array<
+      | { __typename?: 'AppCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+            | { __typename?: 'AppCatalog', id: string, title: string }
+            | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+            | { __typename?: 'MarketCatalog', id: string, title: string }
+           | null } | null }
+      | { __typename?: 'CompanyLocationCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+            | { __typename?: 'AppCatalog', id: string, title: string }
+            | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+            | { __typename?: 'MarketCatalog', id: string, title: string }
+           | null } | null }
+      | { __typename?: 'MarketCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+            | { __typename?: 'AppCatalog', id: string, title: string }
+            | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+            | { __typename?: 'MarketCatalog', id: string, title: string }
+           | null } | null }
+    > } };
 
-type CatalogFragment_AppCatalog_ = { __typename?: 'AppCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null };
+type CatalogFragment_AppCatalog = { __typename?: 'AppCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+      | { __typename?: 'AppCatalog', id: string, title: string }
+      | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+      | { __typename?: 'MarketCatalog', id: string, title: string }
+     | null } | null };
 
-type CatalogFragment_CompanyLocationCatalog_ = { __typename?: 'CompanyLocationCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null };
+type CatalogFragment_CompanyLocationCatalog = { __typename?: 'CompanyLocationCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+      | { __typename?: 'AppCatalog', id: string, title: string }
+      | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+      | { __typename?: 'MarketCatalog', id: string, title: string }
+     | null } | null };
 
-type CatalogFragment_MarketCatalog_ = { __typename?: 'MarketCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null };
+type CatalogFragment_MarketCatalog = { __typename?: 'MarketCatalog', id: string, title: string, status: CatalogStatus, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+      | { __typename?: 'AppCatalog', id: string, title: string }
+      | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+      | { __typename?: 'MarketCatalog', id: string, title: string }
+     | null } | null };
 
-type CatalogFragment = CatalogFragment_AppCatalog_ | CatalogFragment_CompanyLocationCatalog_ | CatalogFragment_MarketCatalog_;
+type CatalogFragment =
+  | CatalogFragment_AppCatalog
+  | CatalogFragment_CompanyLocationCatalog
+  | CatalogFragment_MarketCatalog
+;
 
 type FileUpdateMutationVariables = Exact<{
   input: Array<FileUpdateInput> | FileUpdateInput;
 }>;
 
 
-type FileUpdateMutation = { __typename?: 'Mutation', fileUpdate?: { __typename?: 'FileUpdatePayload', userErrors: Array<{ __typename?: 'FilesUserError', code?: FilesErrorCode | null, field?: Array<string> | null, message: string }>, files?: Array<{ __typename?: 'ExternalVideo', alt?: string | null } | { __typename?: 'GenericFile', alt?: string | null } | { __typename?: 'MediaImage', alt?: string | null } | { __typename?: 'Model3d', alt?: string | null } | { __typename?: 'Video', alt?: string | null }> | null } | null };
+type FileUpdateMutation = { __typename?: 'Mutation', fileUpdate?: { __typename?: 'FileUpdatePayload', userErrors: Array<{ __typename?: 'FilesUserError', code?: FilesErrorCode | null, field?: Array<string> | null, message: string }>, files?: Array<
+      | { __typename?: 'ExternalVideo', alt?: string | null }
+      | { __typename?: 'GenericFile', alt?: string | null }
+      | { __typename?: 'MediaImage', alt?: string | null }
+      | { __typename?: 'Model3d', alt?: string | null }
+      | { __typename?: 'Video', alt?: string | null }
+    > | null } | null };
 
 type FileDeleteMutationVariables = Exact<{
   id: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
@@ -65556,26 +66476,44 @@ type FilesQueryVariables = Exact<{
 }>;
 
 
-type FilesQuery = { __typename?: 'QueryRoot', files: { __typename?: 'FileConnection', edges: Array<{ __typename?: 'FileEdge', node: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'GenericFile', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, endCursor?: string | null, startCursor?: string | null } } };
+type FilesQuery = { __typename?: 'QueryRoot', files: { __typename?: 'FileConnection', edges: Array<{ __typename?: 'FileEdge', node:
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+        | { __typename?: 'GenericFile', id: string, alt?: string | null }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null }
+        | { __typename?: 'Model3d', id: string, alt?: string | null }
+        | { __typename?: 'Video', id: string, alt?: string | null }
+       }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, endCursor?: string | null, startCursor?: string | null } } };
 
 type AllPriceListsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AllPriceListsQuery = { __typename?: 'QueryRoot', priceLists: { __typename?: 'PriceListConnection', nodes: Array<{ __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null }> } };
+type AllPriceListsQuery = { __typename?: 'QueryRoot', priceLists: { __typename?: 'PriceListConnection', nodes: Array<{ __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+        | { __typename?: 'AppCatalog', id: string, title: string }
+        | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+        | { __typename?: 'MarketCatalog', id: string, title: string }
+       | null }> } };
 
 type PriceListQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-type PriceListQuery = { __typename?: 'QueryRoot', priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null };
+type PriceListQuery = { __typename?: 'QueryRoot', priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+      | { __typename?: 'AppCatalog', id: string, title: string }
+      | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+      | { __typename?: 'MarketCatalog', id: string, title: string }
+     | null } | null };
 
 type priceListCreateMutationVariables = Exact<{
   input: PriceListCreateInput;
 }>;
 
 
-type priceListCreateMutation = { __typename?: 'Mutation', priceListCreate?: { __typename?: 'PriceListCreatePayload', priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null, userErrors: Array<{ __typename?: 'PriceListUserError', field?: Array<string> | null, message: string }> } | null };
+type priceListCreateMutation = { __typename?: 'Mutation', priceListCreate?: { __typename?: 'PriceListCreatePayload', priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+        | { __typename?: 'AppCatalog', id: string, title: string }
+        | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+        | { __typename?: 'MarketCatalog', id: string, title: string }
+       | null } | null, userErrors: Array<{ __typename?: 'PriceListUserError', field?: Array<string> | null, message: string }> } | null };
 
 type PriceListUpdateMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -65583,7 +66521,11 @@ type PriceListUpdateMutationVariables = Exact<{
 }>;
 
 
-type PriceListUpdateMutation = { __typename?: 'Mutation', priceListUpdate?: { __typename?: 'PriceListUpdatePayload', priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null, userErrors: Array<{ __typename?: 'PriceListUserError', field?: Array<string> | null, message: string }> } | null };
+type PriceListUpdateMutation = { __typename?: 'Mutation', priceListUpdate?: { __typename?: 'PriceListUpdatePayload', priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+        | { __typename?: 'AppCatalog', id: string, title: string }
+        | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+        | { __typename?: 'MarketCatalog', id: string, title: string }
+       | null } | null, userErrors: Array<{ __typename?: 'PriceListUserError', field?: Array<string> | null, message: string }> } | null };
 
 type PriceListFixedPricesAddMutationVariables = Exact<{
   priceListId: Scalars['ID']['input'];
@@ -65600,11 +66542,29 @@ type PriceListFixedPricesUpdateMutationVariables = Exact<{
 }>;
 
 
-type PriceListFixedPricesUpdateMutation = { __typename?: 'Mutation', priceListFixedPricesUpdate?: { __typename?: 'PriceListFixedPricesUpdatePayload', deletedFixedPriceVariantIds?: Array<string> | null, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null } | null, pricesAdded?: Array<{ __typename?: 'PriceListPrice', originType: PriceListPriceOriginType, variant: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null }, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }> | null, userErrors: Array<{ __typename?: 'PriceListPriceUserError', field?: Array<string> | null, message: string }> } | null };
+type PriceListFixedPricesUpdateMutation = { __typename?: 'Mutation', priceListFixedPricesUpdate?: { __typename?: 'PriceListFixedPricesUpdatePayload', deletedFixedPriceVariantIds?: Array<string> | null, priceList?: { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+        | { __typename?: 'AppCatalog', id: string, title: string }
+        | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+        | { __typename?: 'MarketCatalog', id: string, title: string }
+       | null } | null, pricesAdded?: Array<{ __typename?: 'PriceListPrice', originType: PriceListPriceOriginType, variant: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+            | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+            | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+            | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+            | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+          > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null }, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }> | null, userErrors: Array<{ __typename?: 'PriceListPriceUserError', field?: Array<string> | null, message: string }> } | null };
 
-type PriceListFragment = { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?: { __typename?: 'AppCatalog', id: string, title: string } | { __typename?: 'CompanyLocationCatalog', id: string, title: string } | { __typename?: 'MarketCatalog', id: string, title: string } | null };
+type PriceListFragment = { __typename?: 'PriceList', id: string, name: string, currency: CurrencyCode, catalog?:
+    | { __typename?: 'AppCatalog', id: string, title: string }
+    | { __typename?: 'CompanyLocationCatalog', id: string, title: string }
+    | { __typename?: 'MarketCatalog', id: string, title: string }
+   | null };
 
-type PriceListPriceFragment = { __typename?: 'PriceListPrice', originType: PriceListPriceOriginType, variant: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null }, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } };
+type PriceListPriceFragment = { __typename?: 'PriceListPrice', originType: PriceListPriceOriginType, variant: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+        | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+        | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+      > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null }, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } };
 
 type AddProductMutationVariables = Exact<{
   product: ProductCreateInput;
@@ -65612,7 +66572,22 @@ type AddProductMutationVariables = Exact<{
 }>;
 
 
-type AddProductMutation = { __typename?: 'Mutation', productCreate?: { __typename?: 'ProductCreatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'UserError', field?: Array<string> | null, message: string }> } | null };
+type AddProductMutation = { __typename?: 'Mutation', productCreate?: { __typename?: 'ProductCreatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null }
+        | { __typename?: 'Model3d', id: string, alt?: string | null }
+        | { __typename?: 'Video', id: string, alt?: string | null }
+       | null, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        > }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+                | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'UserError', field?: Array<string> | null, message: string }> } | null };
 
 type UpdateProductMutationVariables = Exact<{
   product?: InputMaybe<ProductUpdateInput>;
@@ -65620,7 +66595,22 @@ type UpdateProductMutationVariables = Exact<{
 }>;
 
 
-type UpdateProductMutation = { __typename?: 'Mutation', productUpdate?: { __typename?: 'ProductUpdatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'UserError', field?: Array<string> | null, message: string }> } | null };
+type UpdateProductMutation = { __typename?: 'Mutation', productUpdate?: { __typename?: 'ProductUpdatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null }
+        | { __typename?: 'Model3d', id: string, alt?: string | null }
+        | { __typename?: 'Video', id: string, alt?: string | null }
+       | null, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        > }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+                | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'UserError', field?: Array<string> | null, message: string }> } | null };
 
 type UpdateProductStatusMutationVariables = Exact<{
   productId?: InputMaybe<Scalars['ID']['input']>;
@@ -65628,7 +66618,22 @@ type UpdateProductStatusMutationVariables = Exact<{
 }>;
 
 
-type UpdateProductStatusMutation = { __typename?: 'Mutation', productUpdate?: { __typename?: 'ProductUpdatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'UserError', field?: Array<string> | null, message: string }> } | null };
+type UpdateProductStatusMutation = { __typename?: 'Mutation', productUpdate?: { __typename?: 'ProductUpdatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null }
+        | { __typename?: 'Model3d', id: string, alt?: string | null }
+        | { __typename?: 'Video', id: string, alt?: string | null }
+       | null, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        > }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+                | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'UserError', field?: Array<string> | null, message: string }> } | null };
 
 type ProductUpdateMutationVariables = Exact<{
   product: ProductUpdateInput;
@@ -65636,7 +66641,22 @@ type ProductUpdateMutationVariables = Exact<{
 }>;
 
 
-type ProductUpdateMutation = { __typename?: 'Mutation', productUpdate?: { __typename?: 'ProductUpdatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', alt?: string | null, mediaContentType: MediaContentType, id: string } | { __typename?: 'MediaImage', alt?: string | null, mediaContentType: MediaContentType, id: string } | { __typename?: 'Model3d', alt?: string | null, mediaContentType: MediaContentType, id: string } | { __typename?: 'Video', alt?: string | null, mediaContentType: MediaContentType, id: string }> }, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename: 'UserError', field?: Array<string> | null, message: string }> } | null };
+type ProductUpdateMutation = { __typename?: 'Mutation', productUpdate?: { __typename?: 'ProductUpdatePayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', alt?: string | null, mediaContentType: MediaContentType, id: string }
+          | { __typename?: 'MediaImage', alt?: string | null, mediaContentType: MediaContentType, id: string }
+          | { __typename?: 'Model3d', alt?: string | null, mediaContentType: MediaContentType, id: string }
+          | { __typename?: 'Video', alt?: string | null, mediaContentType: MediaContentType, id: string }
+        > }, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null }
+        | { __typename?: 'Model3d', id: string, alt?: string | null }
+        | { __typename?: 'Video', id: string, alt?: string | null }
+       | null, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+                | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename: 'UserError', field?: Array<string> | null, message: string }> } | null };
 
 type ProductVariantsBulkCreateMutationVariables = Exact<{
   productId: Scalars['ID']['input'];
@@ -65645,7 +66665,27 @@ type ProductVariantsBulkCreateMutationVariables = Exact<{
 }>;
 
 
-type ProductVariantsBulkCreateMutation = { __typename?: 'Mutation', productVariantsBulkCreate?: { __typename?: 'ProductVariantsBulkCreatePayload', productVariants?: Array<{ __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null }> | null, product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename: 'ProductVariantsBulkCreateUserError', code?: ProductVariantsBulkCreateUserErrorCode | null, field?: Array<string> | null, message: string }> } | null };
+type ProductVariantsBulkCreateMutation = { __typename?: 'Mutation', productVariantsBulkCreate?: { __typename?: 'ProductVariantsBulkCreatePayload', productVariants?: Array<{ __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+          | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+          | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+          | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+        > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null }> | null, product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null }
+        | { __typename?: 'Model3d', id: string, alt?: string | null }
+        | { __typename?: 'Video', id: string, alt?: string | null }
+       | null, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        > }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+                | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename: 'ProductVariantsBulkCreateUserError', code?: ProductVariantsBulkCreateUserErrorCode | null, field?: Array<string> | null, message: string }> } | null };
 
 type ProductVariantsBulkUpdateMutationVariables = Exact<{
   productId: Scalars['ID']['input'];
@@ -65654,7 +66694,27 @@ type ProductVariantsBulkUpdateMutationVariables = Exact<{
 }>;
 
 
-type ProductVariantsBulkUpdateMutation = { __typename?: 'Mutation', productVariantsBulkUpdate?: { __typename?: 'ProductVariantsBulkUpdatePayload', productVariants?: Array<{ __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null }> | null, product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename: 'ProductVariantsBulkUpdateUserError', code?: ProductVariantsBulkUpdateUserErrorCode | null, field?: Array<string> | null, message: string }> } | null };
+type ProductVariantsBulkUpdateMutation = { __typename?: 'Mutation', productVariantsBulkUpdate?: { __typename?: 'ProductVariantsBulkUpdatePayload', productVariants?: Array<{ __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+          | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+          | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+          | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+        > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null }> | null, product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null }
+        | { __typename?: 'Model3d', id: string, alt?: string | null }
+        | { __typename?: 'Video', id: string, alt?: string | null }
+       | null, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        > }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+                | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename: 'ProductVariantsBulkUpdateUserError', code?: ProductVariantsBulkUpdateUserErrorCode | null, field?: Array<string> | null, message: string }> } | null };
 
 type ProductVariantDetachMediaMutationVariables = Exact<{
   productId: Scalars['ID']['input'];
@@ -65662,7 +66722,22 @@ type ProductVariantDetachMediaMutationVariables = Exact<{
 }>;
 
 
-type ProductVariantDetachMediaMutation = { __typename?: 'Mutation', productVariantDetachMedia?: { __typename?: 'ProductVariantDetachMediaPayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'MediaUserError', code?: MediaUserErrorCode | null, field?: Array<string> | null, message: string }> } | null };
+type ProductVariantDetachMediaMutation = { __typename?: 'Mutation', productVariantDetachMedia?: { __typename?: 'ProductVariantDetachMediaPayload', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null }
+        | { __typename?: 'Model3d', id: string, alt?: string | null }
+        | { __typename?: 'Video', id: string, alt?: string | null }
+       | null, media: { __typename?: 'MediaConnection', nodes: Array<
+          | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType }
+          | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        > }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+                | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+                | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null, userErrors: Array<{ __typename?: 'MediaUserError', code?: MediaUserErrorCode | null, field?: Array<string> | null, message: string }> } | null };
 
 type ProductVariantAppendMediaMutationVariables = Exact<{
   productId: Scalars['ID']['input'];
@@ -65707,19 +66782,59 @@ type AdminProductQueryVariables = Exact<{
 }>;
 
 
-type AdminProductQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null };
+type AdminProductQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+      | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+      | { __typename?: 'MediaImage', id: string, alt?: string | null }
+      | { __typename?: 'Model3d', id: string, alt?: string | null }
+      | { __typename?: 'Video', id: string, alt?: string | null }
+     | null, media: { __typename?: 'MediaConnection', nodes: Array<
+        | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType }
+        | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }
+      > }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+              | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+              | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+            > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } } | null };
 
 type AdminProductMediaStatusQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-type AdminProductMediaStatusQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', media: { __typename?: 'MediaConnection', edges: Array<{ __typename?: 'MediaEdge', node: { __typename?: 'ExternalVideo', id: string, status: MediaStatus } | { __typename?: 'MediaImage', id: string, status: MediaStatus } | { __typename?: 'Model3d', id: string, status: MediaStatus } | { __typename?: 'Video', id: string, status: MediaStatus } }> } } | null };
+type AdminProductMediaStatusQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', media: { __typename?: 'MediaConnection', edges: Array<{ __typename?: 'MediaEdge', node:
+          | { __typename?: 'ExternalVideo', id: string, status: MediaStatus }
+          | { __typename?: 'MediaImage', id: string, status: MediaStatus }
+          | { __typename?: 'Model3d', id: string, status: MediaStatus }
+          | { __typename?: 'Video', id: string, status: MediaStatus }
+         }> } } | null };
 
 type ProductLightFragment = { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }> };
 
-type ProductFragment = { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?: { __typename?: 'ExternalVideo', id: string, alt?: string | null } | { __typename?: 'MediaImage', id: string, alt?: string | null } | { __typename?: 'Model3d', id: string, alt?: string | null } | { __typename?: 'Video', id: string, alt?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } };
+type ProductFragment = { __typename?: 'Product', id: string, handle: string, title: string, description: string, tags: Array<string>, options: Array<{ __typename?: 'ProductOption', id: string, name: string }>, featuredMedia?:
+    | { __typename?: 'ExternalVideo', id: string, alt?: string | null }
+    | { __typename?: 'MediaImage', id: string, alt?: string | null }
+    | { __typename?: 'Model3d', id: string, alt?: string | null }
+    | { __typename?: 'Video', id: string, alt?: string | null }
+   | null, media: { __typename?: 'MediaConnection', nodes: Array<
+      | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType }
+      | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType }
+      | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType }
+      | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType }
+    > }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+            | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+            | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+            | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+            | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+          > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null } }> } };
 
-type ProductVariantFragment = { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<{ __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus } | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }> }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null };
+type ProductVariantFragment = { __typename?: 'ProductVariant', id: string, title: string, availableForSale: boolean, sku?: string | null, price: any, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, image?: { __typename?: 'Image', id?: string | null, url: any, height?: number | null, width?: number | null, altText?: string | null } | null, media: { __typename?: 'MediaConnection', nodes: Array<
+      | { __typename?: 'ExternalVideo', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+      | { __typename?: 'MediaImage', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+      | { __typename?: 'Model3d', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+      | { __typename?: 'Video', id: string, alt?: string | null, mediaContentType: MediaContentType, status: MediaStatus }
+    > }, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null };
 
 type UserErrorFragment = { __typename: 'UserError', field?: Array<string> | null, message: string };

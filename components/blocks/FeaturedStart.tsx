@@ -9,11 +9,11 @@ import { usePage } from '@/lib/context/page';
 export type ImageGalleryProps = { data: FeaturedRecord; fadeColor?: number[] };
 
 export default function FeaturedStart({ data: { headline, items, id } }: ImageGalleryProps) {
-	const { menu } = usePage();
+	const { inverted } = usePage();
 	const isProducts = items[0].__typename === 'ProductRecord';
 
 	return (
-		<div className={cn(s.featuredStart, s[menu])}>
+		<div className={cn(s.featuredStart, inverted && s.inverted)}>
 			<div className={s.wrapper}>
 				<div className={s.header}>
 					<h1 className={s.headline}>{headline}</h1>

@@ -39,7 +39,7 @@ export default function BespokeHeader({ bespoke }: BespokeProps) {
 					data={bespoke.image.responsiveImage}
 					objectFit='cover'
 					layout='fill'
-					className={s.image}
+					imgClassName={s.image}
 					style={!isMobile ? imageStyle : undefined}
 				/>
 			)}

@@ -1,6 +1,6 @@
 import '@/styles/index.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { GlobalDocument } from '@/graphql';
+import { AllProductCategoriesDocument, GlobalDocument } from '@/graphql';
 import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import { buildMenu } from '@/lib/menu';
@@ -19,6 +19,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/'>)
 	setRequestLocale(locale);
 
 	const menu = await buildMenu();
+	const { allProductCategories } = await apiQuery(AllProductCategoriesDocument, { all: true });
 	const { localization } = await shopifyQuery(LocalizationDocument);
 
 	return (

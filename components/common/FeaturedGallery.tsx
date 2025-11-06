@@ -38,11 +38,10 @@ export default function FeaturedGallery({
 	theme,
 	fadeColor = '--white',
 	arrowAlign = 'top',
-	inverted = false,
+	inverted: _inverted = false,
 	showMarkAsNew = true,
-	shopifyItems,
 }: FeaturedGalleryProps) {
-	const { menu } = usePage();
+	const { inverted } = usePage();
 	const swiperRef = useRef<Swiper | null>(null);
 	const [index, setIndex] = useState(0);
 	const [isShortSlide, setIsShortSlide] = useState(false);
@@ -56,7 +55,7 @@ export default function FeaturedGallery({
 	}, [isMobile, numSlides]);
 
 	return (
-		<div className={cn(s.featuredGallery, s[menu])}>
+		<div className={cn(s.featuredGallery, inverted || (_inverted && s.inverted))}>
 			{headline && arrowAlign === 'top' && (
 				<div className={s.header}>
 					<h1 className={s.headline}>{headline}</h1>
