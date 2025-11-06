@@ -19,7 +19,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Cart from '@/components/shopify/Cart';
 import PageTransition from '@/components/layout/PageTransition';
-import useCountry from '@/lib/shopify/hooks/useCountry';
+import { useLocale } from 'next-intl';
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -29,7 +29,7 @@ export type LayoutProps = {
 
 export default function Layout({ children, menu: menuFromProps, localization }: LayoutProps) {
 	const pathname = usePathname();
-	const country = useCountry();
+	const country = useLocale();
 	const { color, layout, sidebar, title } = getPageAttributes(pathname, country);
 	const [menu, setMenu] = useState(menuFromProps);
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(

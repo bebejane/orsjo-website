@@ -59,7 +59,6 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		(v) => v.node.sku && v.node.sku === selected?.articleNo.trim()
 	)?.node;
 
-	console.log(shopify);
 	useEffect(() => {
 		if (!variantId) return setSelected(allVariants?.[0] ?? null);
 

@@ -417,3 +417,8 @@ export const deliveryDaysText: Record<string, { full: string; label: string }> =
 		label: '30-60 days',
 	},
 };
+
+export const pathnameToCountry = (pathname: string): string => {
+	if (pathname === '/') return 'se';
+	return pathname.split('/')[1].toLowerCase();
+};

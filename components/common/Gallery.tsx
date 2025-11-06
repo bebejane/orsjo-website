@@ -22,7 +22,7 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
 	const swiperRef = useRef<SwiperType | null>(null);
 	const [realIndex, setRealIndex] = useState(0);
 	const [title, setTitle] = useState<string | null>(null);
-	const [loaded, setLoaded] = useState<any>({});
+	const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
 	const [initLoaded, setInitLoaded] = useState(false);
 	const isSingleSlide = images?.length === 1;
 	const isHidden = !images || !show;
@@ -36,8 +36,8 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
 	}, [index]);
 
 	useEffect(() => {
-		// handle  keys
-		const handleKeys = ({ key }) => {
+		const handleKeys = (e: KeyboardEvent) => {
+			const key = e.key;
 			if (isHidden) return;
 			if (key === 'ArrowRight') swiperRef?.current?.slideNext();
 			if (key === 'ArrowLeft') swiperRef?.current?.slidePrev();

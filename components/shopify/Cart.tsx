@@ -10,7 +10,7 @@ import Loader from '@/components/common/Loader';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { formatShopifyPrice } from '@/lib/shopify/utils';
-import useCountry from '@/lib/shopify/hooks/useCountry';
+import { useLocale } from 'next-intl';
 import useStore from '@/lib/store';
 import { useClickAway } from 'react-use';
 import { deliveryDaysText } from '@/lib/utils';
@@ -35,7 +35,7 @@ export default function Cart({ localization }: CartProps) {
 			])
 		);
 	const [showCart, setShowCart] = useStore(useShallow((state) => [state.showCart, state.setShowCart]));
-	const country = useCountry();
+	const country = useLocale();
 	const pathname = usePathname();
 	const [error, setError] = useState<string | null>(null);
 	const isEmpty = cart && cart?.lines?.edges?.length > 0 ? false : true;
@@ -56,8 +56,8 @@ export default function Cart({ localization }: CartProps) {
 	}, [pathname]);
 
 	useEffect(() => {
-		if (cart && country && cart?.buyerIdentity.countryCode !== country)
-			updateBuyerIdentity({ countryCode: country } as CartBuyerIdentityInput);
+		if (cart && country && cart?.buyerIdentity.countryCode.toLowerCase() !== country)
+			updateBuyerIdentity({ countryCode: country.toUpperCase() } as CartBuyerIdentityInput);
 	}, [country, cart]);
 
 	useEffect(() => {
@@ -79,7 +79,7 @@ export default function Cart({ localization }: CartProps) {
 					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
 						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => {
 							const deliveryDays = merchandise.metafields.find((m) => m?.key === 'deliveryDays')?.value;
-							console.log(merchandise.metafields);
+
 							return (
 								<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
 									<figure className={s.thumb}>
@@ -136,10 +136,11 @@ export default function Cart({ localization }: CartProps) {
 					<div className={s.currency}>
 						<CountrySelector localization={localization} label='Location' className={s.form} />
 					</div>
+					{/*}
 					<div className={cn(s.extra, 'small', 'gray')}>
 						<span className='small'>Shipping is added at checkout</span>
 					</div>
-
+					*/}
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
 						<div className={cn(s.terms, 'medium')}>

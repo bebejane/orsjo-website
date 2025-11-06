@@ -3,11 +3,13 @@
 import { Button, ListBox, ListBoxItem, Popover, Select, SelectValue, Key } from 'react-aria-components';
 import s from './CountrySelector.module.scss';
 import cn from 'classnames';
-import { usePathname, useRouter } from 'next/navigation';
-import useCountry from '@/lib/shopify/hooks/useCountry';
-import { use, useEffect, useRef, useState } from 'react';
+//import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/routing';
+import { useLocale } from 'next-intl';
+import { useEffect, useRef, useState } from 'react';
 import { useWindowSize, useClickAway } from 'react-use';
 import { usePage } from '@/lib/context/page';
+import { pathnameToCountry } from '@/lib/utils';
 
 export type Props = {
 	className?: string;
@@ -25,9 +27,8 @@ export default function CountrySelector({
 }: Props) {
 	const pathname = usePathname();
 	const router = useRouter();
-	const country = useCountry();
+	const country = useLocale();
 	const { menu } = usePage();
-
 	const [selectOpen, setSelectOpen] = useState(false);
 	const { width, height } = useWindowSize();
 	const [selectWidth, setSelectWidth] = useState(0);
@@ -46,17 +47,12 @@ export default function CountrySelector({
 	}, []);
 
 	const handleChange = (val: Key) => {
-		const countryCode = val.toString().toLowerCase();
-		const path =
-			`${countryCode === 'se' ? '/' : `/${countryCode}`}${pathname.replace(`/${country.toLowerCase()}`, ``)}`.replace(
-				'//',
-				'/'
-			);
+		const newCountryCode = val.toString().toLowerCase();
 		const hash = window.location.hash ? '#' + window.location.hash : '';
-		router.replace(`${path}${hash}`.toLowerCase());
+		router.replace(pathname.replace(`/${country}`, '/'), { locale: newCountryCode });
+		router.refresh();
 	};
-
-	const selectedCountry = availableCountries.find(({ isoCode }) => isoCode === country);
+	const selectedCountry = availableCountries.find(({ isoCode }) => isoCode.toLowerCase() === country.toLowerCase());
 
 	return (
 		<form

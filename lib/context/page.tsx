@@ -21,7 +21,7 @@ const initialState: UsePageProps = {
 };
 
 export const getPageAttributes = (pathname: string, country: string): UsePageProps => {
-	const rootPath = country === 'SE' ? pathname.split('/')[1] : pathname.split('/')[2];
+	const rootPath = country === 'se' ? pathname.split('/')[1] : pathname.split('/')[2];
 
 	switch (rootPath) {
 		case 'products':

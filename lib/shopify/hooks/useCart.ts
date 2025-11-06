@@ -33,7 +33,7 @@ const useCart = create<CartState>((set, get) => ({
 	updating: false,
 	updatingId: null,
 	error: undefined,
-	country: 'SE',
+	country: 'se',
 	createCart: async (country: string) => {
 		const id = await getCookie('cart', cartCookieOptions);
 		let cart: CartQuery['cart'] | null = null;

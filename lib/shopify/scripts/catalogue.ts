@@ -1,8 +1,6 @@
 import 'dotenv/config';
 import shopifyQuery from '../shopify-query';
 import { AllCatalogsDocument, AllPriceListsDocument } from '../graphql-admin';
-import { sync } from '@/lib/shopify/sync';
-import client from '@/lib/client';
 
 (async () => {
 	const { catalogs } = await shopifyQuery(AllCatalogsDocument, {

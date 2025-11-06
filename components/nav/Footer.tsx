@@ -19,13 +19,12 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 	const maxLength = menu[0]?.sub?.length ?? 0;
 	const isDesktop = useIsDesktop();
 
-	//const isDesktop = useMediaQuery(`(min-width: ${styleVariables.desktop}px)`);
-
 	useEffect(() => {
 		setMenu(
 			JSON.parse(JSON.stringify(menuFromProps)).map((item) => ({
 				...item,
-				sub: item.type === 'designer' ? item.sub.sort(() => (Math.random() > 0.5 ? 1 : -1)).slice(0, maxLength) : item.sub,
+				sub:
+					item.type === 'designer' ? item.sub.sort(() => (Math.random() > 0.5 ? 1 : -1)).slice(0, maxLength) : item.sub,
 			}))
 		);
 	}, [menuFromProps, setMenu, maxLength]);
@@ -33,10 +32,7 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 	return (
 		<>
 			{isDesktop && (
-				<footer
-					className={cn(s.footer, footerLine && s.line)}
-					id='footer'
-				>
+				<footer className={cn(s.footer, footerLine && s.line)} id='footer'>
 					<div className={s.wrapperTop}>
 						<div className={s.brand}>
 							<div className={s.tagline}>
@@ -63,20 +59,14 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 													<li>{item.label}</li>
 													{item.sub?.map((subItem, subidx) => {
 														const localAnchorLink =
-															subItem.slug.indexOf('#') > -1 && ['/products', '/contact'].includes(pathname.split('#')[0]);
+															subItem.slug.indexOf('#') > -1 &&
+															['/products', '/contact'].includes(pathname.split('#')[0]);
 														return localAnchorLink ? (
-															<a
-																href={subItem.slug}
-																key={subidx}
-															>
+															<a href={subItem.slug} key={subidx}>
 																<li>{subItem.label}</li>
 															</a>
 														) : (
-															<Link
-																key={subidx}
-																href={subItem.slug}
-																passHref={true}
-															>
+															<Link key={subidx} href={subItem.slug} passHref={true}>
 																<li>{subItem.label}</li>
 															</Link>
 														);
@@ -97,14 +87,8 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 						<nav className={s.lastRow}>
 							<div className={s.social}>
 								{social.map(({ name, icon, url }, idx) => (
-									<a
-										key={idx}
-										href={url}
-									>
-										<img
-											src={icon}
-											alt={name}
-										/>
+									<a key={idx} href={url}>
+										<img src={icon} alt={name} />
 									</a>
 								))}
 							</div>
@@ -129,14 +113,8 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 					</span>
 					<div className={s.social}>
 						{social.map(({ name, icon, url }, idx) => (
-							<a
-								key={idx}
-								href={url}
-							>
-								<img
-									src={icon}
-									alt={name}
-								/>
+							<a key={idx} href={url}>
+								<img src={icon} alt={name} />
 							</a>
 						))}
 					</div>
