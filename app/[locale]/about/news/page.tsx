@@ -12,7 +12,7 @@ export default async function News({ params }: PageProps<'/[locale]/about/news'>
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { allNews } = await apiQuery(AllNewsDocument);
+	const { allNews } = await apiQuery(AllNewsDocument, { all: true });
 
 	return (
 		<>

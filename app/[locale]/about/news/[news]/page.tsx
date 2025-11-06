@@ -50,7 +50,7 @@ export default async function NewsPage({ params }: PageProps<'/[locale]/about/ne
 	);
 }
 export async function generateStaticParams() {
-	const { allNews } = await apiQuery(AllNewsDocument);
+	const { allNews } = await apiQuery(AllNewsDocument, { all: true });
 	const paths = allNews.map(({ slug }) => ({ news: slug }));
 	return paths;
 }

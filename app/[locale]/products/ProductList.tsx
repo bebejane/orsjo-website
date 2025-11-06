@@ -14,7 +14,7 @@ export type ProductsByCategory = {
 
 export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
-	productCategories: ProductCategoriesQuery['productCategories'];
+	productCategories: ProductCategoriesQuery['allProductCategories'];
 	shopifyProducts: AllShopifyProductsQuery['products'];
 };
 

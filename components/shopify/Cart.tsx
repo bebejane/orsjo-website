@@ -7,7 +7,6 @@ import { default as useCart, useShallow } from '@/lib/shopify/hooks/useCart';
 import { parseGid } from '@/lib/shopify/utils';
 import CountrySelector from './CountrySelector';
 import Loader from '@/components/common/Loader';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { formatShopifyPrice } from '@/lib/shopify/utils';
 import { useLocale } from 'next-intl';
@@ -15,6 +14,7 @@ import useStore from '@/lib/store';
 import { useClickAway } from 'react-use';
 import { deliveryDaysText } from '@/lib/utils';
 import { Checkbox } from '@/components/common/Checkbox';
+import { Link } from '@/i18n/routing';
 
 export type CartProps = {
 	localization: LocalizationQuery['localization'];

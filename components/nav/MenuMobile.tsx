@@ -48,8 +48,8 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	useEffect(() => {
 		handleClose();
-		document.addEventListener('hashchange', handleClose);
-		return () => document.removeEventListener('hashchange', handleClose);
+		window.addEventListener('hashchange', handleClose);
+		return () => window.removeEventListener('hashchange', handleClose);
 	}, [pathname]);
 
 	useEffect(() => {
@@ -62,9 +62,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 
 	useEffect(() => {
 		if (!showMenuMobile) return;
-		items
-			.filter(({ index, type }) => index || selected?.type === type)
-			.forEach(({ slug }) => router.prefetch(slug));
+		items.filter(({ index, type }) => index || selected?.type === type).forEach(({ slug }) => router.prefetch(slug));
 	}, [showMenuMobile, items, router, selected]);
 
 	useEffect(() => {
@@ -92,17 +90,11 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 				<nav className={s.main}>
 					<ul className={s.nav}>
 						{items.map((item, idx) => (
-							<li
-								data-slug={item.slug}
-								key={idx}
-								className={cn(selected?.slug === item.slug && s.active)}
-							>
+							<li data-slug={item.slug} key={idx} className={cn(selected?.slug === item.slug && s.active)}>
 								{item.index ? (
 									<Link href={item.slug}>{item.label}</Link>
 								) : (
-									<span onClick={() => setSelected(selected?.type === item.type ? null : item)}>
-										{item.label}
-									</span>
+									<span onClick={() => setSelected(selected?.type === item.type ? null : item)}>{item.label}</span>
 								)}
 							</li>
 						))}
@@ -112,12 +104,7 @@ export default function MenuMobile({ items }: MenuMobileProps) {
 					<div className={s.search}>
 						<img src={'/images/search.svg'} />
 						<form onSubmit={handleSubmitSearch}>
-							<input
-								ref={searchRef}
-								type='text'
-								placeholder='Search'
-								onFocus={() => setShowSearch(true)}
-							/>
+							<input ref={searchRef} type='text' placeholder='Search' onFocus={() => setShowSearch(true)} />
 							<input type='submit' style={{ visibility: 'hidden', position: 'absolute' }} />
 						</form>
 					</div>

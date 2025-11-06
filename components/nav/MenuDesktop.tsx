@@ -83,15 +83,14 @@ export default function MenuDesktop({ items, onShowSiteSearch, localization }: M
 	}, [transitioning, scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
 
 	useEffect(() => {
-		console.log('hashchange');
 		// Hide menu when scrolling to hash
 		const handleHashChange = async (e: HashChangeEvent) => {
-			console.log(e);
 			const id = e.newURL.split('#')[1];
 			const el = await waitForElement(id, 400);
 			if (!(el ? el.getBoundingClientRect().top + window.scrollY : false)) return; // If element is at page top, ignore.
 
 			setHashChanging(true);
+
 			setTimeout(() => {
 				setHashChanging(false);
 				setTimeout(() => setShowMenu(false), 0);

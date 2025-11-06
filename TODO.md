@@ -1,15 +1,13 @@
 # Stuff
 
-- Typescript erors
 - Bespoke page styling
-- contact page
-- slide
-- side menu color
+- contact page side menu color
 - contact form weird error message
 - check mobile
 - sentry /monitoring 404
 - sitemaap
-- sEO stuff
+- SEO check, reuse buildSeo from jemac
+- Typescript errors
 
 # Cart
 

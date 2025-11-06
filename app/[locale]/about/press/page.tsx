@@ -12,7 +12,7 @@ export default async function PressPage({ params }: PageProps<'/[locale]/about/p
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { presses } = await apiQuery(AllPressDocument);
+	const { presses } = await apiQuery(AllPressDocument, { all: true });
 	if (!presses) return notFound();
 	return (
 		<Section className={s.press} top={true} name='Introduction'>

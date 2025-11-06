@@ -44,7 +44,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 
 	useEffect(() => {
 		// Toggle specs/downloads on sidebar click
-		const handleHashChange = (e: any) => {
+		const handleHashChange = (e: HashChangeEvent) => {
 			const {
 				location: { hash, href },
 			} = window;
@@ -56,8 +56,8 @@ export default function ProductIntro({ product, drawings }: Props) {
 			}));
 		};
 
-		document.addEventListener('hashchange', handleHashChange);
-		return () => document.removeEventListener('hashchange', handleHashChange);
+		window.addEventListener('hashchange', handleHashChange);
+		return () => window.removeEventListener('hashchange', handleHashChange);
 	}, []);
 
 	useEffect(() => {

@@ -1,8 +1,8 @@
 import {
 	ProductDocument,
-	RelatedProductsDocument,
+	AllRelatedProductsDocument,
 	AllProductsByCategoryDocument,
-	RelatedProjectsForProductDocument,
+	AllRelatedProjectsForProductDocument,
 } from '@/graphql';
 import { parseSpecifications, ProductDownload, productDownloads, ProductRecordWithPdfFiles } from '@/lib/utils';
 import { apiQuery } from 'next-dato-utils/api';
@@ -43,9 +43,9 @@ export type ProductPageDataProps = {
 		};
 	};
 	product: ProductQuery['product'];
-	relatedProducts: RelatedProductsQuery['relatedProducts'];
-	relatedProjects: RelatedProjectsForProductQuery['relatedProjects'];
-	productsByCategory: AllProductsByCategoryQuery['productsByCategory'];
+	relatedProducts: AllRelatedProductsQuery['allProducts'];
+	relatedProjects: AllRelatedProjectsForProductQuery['allProjects'];
+	productsByCategory: AllProductsByCategoryQuery['allProducts'];
 	drawings: FileField[];
 	specsCols: SpecCol[];
 	files: ProductDownload[];
@@ -61,14 +61,17 @@ export const getProductPageData = async (
 
 	if (!product) return null;
 
-	const [{ relatedProducts }, { productsByCategory }, { relatedProjects }] = await Promise.all([
-		apiQuery(RelatedProductsDocument, {
+	const [{ allProducts }, { allProducts: allProductCategories }, { allProjects }] = await Promise.all([
+		apiQuery(AllRelatedProductsDocument, {
+			all: true,
 			variables: { designerId: product.designer?.id, familyId: product.family.id },
 		}),
 		apiQuery(AllProductsByCategoryDocument, {
 			variables: { categoryId: product.categories[0]?.id },
+			all: true,
 		}),
-		apiQuery(RelatedProjectsForProductDocument, {
+		apiQuery(AllRelatedProjectsForProductDocument, {
+			all: true,
 			variables: { productId: product.id },
 		}),
 	]);
@@ -133,15 +136,15 @@ export const getProductPageData = async (
 				currencyCode,
 			},
 		},
-		relatedProducts: relatedProducts
+		relatedProducts: allProducts
 			.filter((p) => p.id !== product.id)
 			//@ts-ignore
 			.sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
-		productsByCategory: productsByCategory
+		productsByCategory: allProductCategories
 			.filter((p) => p.id !== product.id)
 			//@ts-ignore
 			.sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
-		relatedProjects,
+		relatedProjects: allProjects,
 		files,
 		drawings,
 		specsCols,

@@ -35,7 +35,7 @@ export const priceWithVAT = (money: MoneyV2): MoneyV2 => {
 	else {
 		return {
 			...money,
-			amount: money.amount * 1.25,
+			amount: Math.ceil(money.amount * 1.25),
 		};
 	}
 };

@@ -98,12 +98,15 @@ query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip
 	}
 }
 
-query ProductCategories {
-	productCategories: allProductCategories(first: 250) {
+query AllProductCategories($first: IntType = 250, $skip: IntType = 0) {
+	allProductCategories(first: $first, skip: $skip) {
 		id
 		name
 		namePlural
 		position
+	}
+	_allProductCategoriesMeta {
+		count
 	}
 }
 
@@ -116,24 +119,34 @@ query AllProductsByDesigner($id: ItemId, $first: IntType = 100, $skip: IntType =
 	}
 }
 
-query RelatedProducts($designerId: ItemId, $familyId: ItemId, $first: IntType = 100) {
-	relatedProducts: allProducts(
+query AllRelatedProducts($designerId: ItemId, $familyId: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+	allProducts(
 		first: $first
+		skip: $skip
 		filter: { OR: [{ designer: { eq: $designerId } }, { family: { eq: $familyId } }] }
 	) {
 		...ProductLightFragment
 	}
-}
-
-query RelatedProjectsForProduct($productId: ItemId, $first: IntType = 100) {
-	relatedProjects: allProjects(first: $first, filter: { relatedProducts: { anyIn: [$productId] } }) {
-		...ProjectLightFragment
+	_allProductsMeta(filter: { OR: [{ designer: { eq: $designerId } }, { family: { eq: $familyId } }] }) {
+		count
 	}
 }
 
-query AllProductsByCategory($categoryId: ItemId, $first: IntType = 100) {
-	productsByCategory: allProducts(first: $first, filter: { categories: { anyIn: [$categoryId] } }) {
+query AllRelatedProjectsForProduct($productId: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+	allProjects(first: $first, skip: $skip, filter: { relatedProducts: { anyIn: [$productId] } }) {
+		...ProjectLightFragment
+	}
+	_allProjectsMeta(filter: { relatedProducts: { anyIn: [$productId] } }) {
+		count
+	}
+}
+
+query AllProductsByCategory($categoryId: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+	allProducts(first: $first, skip: $skip, filter: { categories: { anyIn: [$categoryId] } }) {
 		...ProductLightFragment
+	}
+	_allProductsMeta(filter: { categories: { anyIn: [$categoryId] } }) {
+		count
 	}
 }
 

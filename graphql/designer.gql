@@ -8,7 +8,7 @@ query AllDesigners($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocal
 	allDesigners(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
 		...DesignerLightFragment
 	}
-	_allDesignersMeta {
+	_allDesignersMeta(locale: $locale, fallbackLocales: [sv, en]) {
 		count
 	}
 }
