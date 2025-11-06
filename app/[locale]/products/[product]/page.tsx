@@ -15,7 +15,7 @@ import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
 
 export default async function Product({ params, searchParams }: PageProps<'/[locale]/products/[product]'>) {
 	const { locale, product: slug } = await params;
@@ -35,7 +35,7 @@ export default async function Product({ params, searchParams }: PageProps<'/[loc
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
 			<ShopInfo product={product} />
-			<Shop product={product} shopify={shopify} variantId={v} />
+			<Shop product={product} shopify={shopify} variantId={v as string} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery

@@ -10,6 +10,8 @@ import { findCheapestVariant } from './utils';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
+import { buildMetadata } from '@/app/layout';
+import { Metadata } from 'next';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -71,4 +73,11 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 			<ProductList productCategories={productCategories} allProducts={allProducts} shopifyProducts={products} />
 		</>
 	);
+}
+
+export async function generateMetadata({ params }: PageProps<'/[locale]/products'>): Promise<Metadata> {
+	return await buildMetadata({
+		title: 'Products',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/products`,
+	});
 }

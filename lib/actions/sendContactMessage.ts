@@ -1,6 +1,5 @@
 'use server';
 
-import { sleep } from '@/lib/utils';
 import { sendPostmarkEmail } from 'next-dato-utils/utils';
 import { z, ZodError } from 'zod';
 
@@ -31,23 +30,15 @@ export default async function sendContactMessage(
 		const subject = formData.get('subject') as string;
 		const message = formData.get('message') as string;
 
-		console.log({ name, email, subject, message });
-		await sleep(1000);
-
 		try {
 			ContactForm.parse({ name, email, subject, message });
 		} catch (e) {
 			console.log(e);
 			const invalid = JSON.parse((e as ZodError).message) as any[];
-			console.log(invalid);
 			return { name, email, subject, message, invalid, success: false };
 		}
 
-		console.log({ name, email, subject, message });
-		await sleep(2000);
-
 		await sendPostmarkEmail({
-			to: 'bjornthief@gmail.com',
 			subject,
 			text: `${message} \n\n${name}\n${email} `,
 		});

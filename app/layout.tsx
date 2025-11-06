@@ -10,9 +10,9 @@ import { LocalizationDocument } from '@/lib/shopify/graphql';
 import * as Sentry from '@sentry/nextjs';
 import { getLocalization } from '@/lib/shopify/utils';
 import { NextIntlClientProvider } from 'next-intl';
-import { locales } from '@/i18n/routing';
-import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
+
+export const dynamic = 'force-static';
 
 export default async function RootLayout({ children, params }: LayoutProps<'/'>) {
 	const { locale } = await (params as any);
