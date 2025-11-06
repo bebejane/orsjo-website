@@ -93,7 +93,7 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 								))}
 							</div>
 							<div className={s.copyright}>
-								<figcaption>Copyright ©2023 Örsjö Belysning AB. All rights reserved.</figcaption>
+								<figcaption>Copyright ©{new Date().getFullYear()} Örsjö Belysning AB. All rights reserved.</figcaption>
 							</div>
 						</nav>
 					</div>
