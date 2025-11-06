@@ -19,7 +19,7 @@ export default function ProductIntro({ files }: Props) {
 		<>
 			<SectionListItem
 				title={'Downloads'}
-				className={cn(ps.listItemContent, ps.bottom)}
+				className={cn(ps.listItemContent)}
 				selected={list.downloads === true}
 				idx={1}
 				total={2}

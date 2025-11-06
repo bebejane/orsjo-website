@@ -16,10 +16,10 @@ import { PageProvider, getPageAttributes } from '@/lib/context/page';
 import type { MenuItem } from '@/lib/menu';
 import { useStore, useShallow } from '@/lib/store';
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/i18n/routing';
+import { useLocale } from 'next-intl';
 import Cart from '@/components/shopify/Cart';
 import PageTransition from '@/components/layout/PageTransition';
-import { useLocale } from 'next-intl';
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -31,7 +31,7 @@ export default function Layout({ children, menu: menuFromProps, localization }: 
 	const pathname = usePathname();
 	const country = useLocale();
 	const { color, layout, sidebar, title } = getPageAttributes(pathname, country);
-	const [menu, setMenu] = useState(menuFromProps);
+	const [menu] = useState(menuFromProps);
 	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(
 		useShallow((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch])
 	);
@@ -51,7 +51,6 @@ export default function Layout({ children, menu: menuFromProps, localization }: 
 						images={gallery?.images ?? []}
 						index={gallery?.index ?? 0}
 						padImagesWithTitle={gallery?.padImagesWithTitle}
-						//@ts-ignore
 						onClose={() => setGallery((g) => ({ ...g, index: -1 }))}
 					/>
 				</div>

@@ -2,7 +2,7 @@
 
 import s from './Shop.module.scss';
 import cn from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { formatShopifyPrice } from '@/lib/shopify/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
@@ -14,7 +14,8 @@ import { generateProductTitle, parseProductModelName, deliveryDaysText } from '@
 import { RiCheckFill } from 'react-icons/ri';
 import { AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/[locale]/products/utils';
-import Modal from '@/components/layout/Modal';
+import { Modal } from 'next-dato-utils/components';
+import useIsDesktop from '@/lib/hooks/useIsDesktop';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -37,6 +38,8 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const allAddons = getAllAddons(product, shopify);
 
+	const isDesktop = useIsDesktop();
+	const [desktopStyles, setDesktopStyles] = useState<CSSProperties>({});
 	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [hide, setHide] = useState<boolean>(false);
@@ -48,16 +51,16 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 	const [showAddonsButton, setShowAddonsButton] = useState(false);
 	const [selected, setSelected] = useState<any | null>(null);
 	const [totalPrice, setTotalPrice] = useState<MoneyV2>({ amount: 0, currencyCode: shopify.i18n.currencyCode });
-	const [modal, setModal] = useState<'show' | 'hide' | 'dismiss'>('hide');
-	const { width, height } = useWindowSize();
-	const { scrolledPosition, viewportHeight, documentHeight } = useScrollInfo();
-	const ref = useRef<HTMLDivElement>(null);
-
 	const selectedModel = product?.models.find(({ variants }) => variants.find((v) => v.id === selected?.id));
 	const selectedModelAddons = allAddons.filter((a) => a.modelId === selectedModel?.id);
 	const selectedShopifyVariant = shopify.product?.variants.edges.find(
 		(v) => v.node.sku && v.node.sku === selected?.articleNo.trim()
 	)?.node;
+
+	const [modal, setModal] = useState<'show' | 'hide' | 'dismiss'>('hide');
+	const { width, height } = useWindowSize();
+	const { scrolledPosition, viewportHeight, documentHeight } = useScrollInfo();
+	const ref = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (!variantId) return setSelected(allVariants?.[0] ?? null);
@@ -95,6 +98,12 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 				scrolledPosition + viewportHeight > (section?.offsetTop || documentHeight - viewportHeight)
 		);
 	}, [width, height, scrolledPosition, documentHeight, viewportHeight, wasHidden]);
+
+	useEffect(() => {
+		setDesktopStyles({
+			marginTop: isDesktop ? `-${ref.current?.clientHeight}px` : undefined,
+		});
+	}, [hide, isDesktop, expanded, ref]);
 
 	function resetAll() {
 		setOpen(false);
@@ -170,6 +179,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 			<div
 				ref={ref}
 				className={cn(s.shop, (hide || hide === null) && s.hide, expanded && s.wide)}
+				style={desktopStyles}
 				onMouseEnter={() => setShowAddonsButton(true)}
 				onMouseLeave={() => !showAddons && setShowAddonsButton(false)}
 			>

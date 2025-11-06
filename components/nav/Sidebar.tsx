@@ -3,7 +3,7 @@
 import s from './Sidebar.module.scss';
 import cn from 'classnames';
 import { useStore, useShallow } from '@/lib/store';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from '@/i18n/routing';
 import { usePage } from '@/lib/context/page';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { ArrowLink } from '@/components';
@@ -26,6 +26,7 @@ const getPageType = (pathname: string) => {
 
 export default function Sidebar({ show }: SidebarProps) {
 	const { menu, layout, color, title } = usePage();
+
 	const router = useRouter();
 	const path = usePathname();
 	const pathname = path.includes('#') ? path.substring(0, path.indexOf('#')) : path;
@@ -82,7 +83,7 @@ export default function Sidebar({ show }: SidebarProps) {
 	}, [isScrolling, scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, menu]);
 
 	useEffect(() => {
-		if (!currentSection) return;
+		if (!currentSection || !innerWidth) return;
 
 		const isDesktop = innerWidth > parseInt(styleVariables.tablet as string);
 		const section = document.getElementById(currentSection);

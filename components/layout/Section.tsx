@@ -37,7 +37,7 @@ export default function Section({
 
 	return (
 		<section
-			className={s.section}
+			className={cn(s.section)}
 			style={{ backgroundColor: fadeColor && !inView ? fadeColor : color }}
 			data-type={type}
 			data-top={top}

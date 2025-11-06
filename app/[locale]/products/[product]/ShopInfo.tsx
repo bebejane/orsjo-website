@@ -16,7 +16,7 @@ export default function ShopInfo({ product }: Props) {
 	if (!product) return null;
 
 	return (
-		<Section name='Shipping' className={s.shipping} bgColor='--white' fadeColor={'#ffffff'}>
+		<Section name='Shipping' className={s.shopinfo} bgColor='--white' fadeColor={'#ffffff'} bottom={true}>
 			<p className='small'>
 				{Object.keys(deliveryDaysText).map((key) => (
 					<React.Fragment key={key}>

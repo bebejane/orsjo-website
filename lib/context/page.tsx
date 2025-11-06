@@ -21,7 +21,7 @@ const initialState: UsePageProps = {
 };
 
 export const getPageAttributes = (pathname: string, country: string): UsePageProps => {
-	const rootPath = country === 'se' ? pathname.split('/')[1] : pathname.split('/')[2];
+	const rootPath = pathname.split('/')[1];
 
 	switch (rootPath) {
 		case 'products':
@@ -112,14 +112,13 @@ export type PageProviderProps = {
 	country: string;
 };
 
-// Context provider
 export const PageProvider = ({ children, pathname, country }: PageProviderProps) => {
 	const value = getPageAttributes(pathname, country);
 	return (
 		<PageContext.Provider value={{ ...initialState, ...value, color: value.color }}>{children}</PageContext.Provider>
 	);
 };
-// usePage hook
+
 export const usePage = (): UsePageProps => {
 	return useContext(PageContext);
 };
