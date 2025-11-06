@@ -8,6 +8,8 @@
 - sitemaap
 - SEO check, reuse buildSeo from jemac
 - Typescript errors
+- AllQueryies
+- bugg cart on back from checkout
 
 # Cart
 

@@ -131,10 +131,10 @@ export default function Cart({ localization }: CartProps) {
 
 					<div className={s.total}>
 						<div className='medium'>Total</div>
-						<div className={cn('medium', s.price)}>{formatShopifyPrice(cart?.cost.totalAmount as MoneyV2)}</div>
+						<div className={cn('medium', s.price)}>{formatShopifyPrice(cart?.cost.subtotalAmount as MoneyV2)}</div>
 					</div>
 					<div className={s.currency}>
-						<CountrySelector localization={localization} label='Location' className={s.form} />
+						<CountrySelector localization={localization} className={s.form} />
 					</div>
 					{/*}
 					<div className={cn(s.extra, 'small', 'gray')}>
