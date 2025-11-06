@@ -36,7 +36,7 @@ export default function ShopInfo({ product }: Props) {
 					</React.Fragment>
 				))}
 				<br />
-				Free shipping on all orders over 5000 SEK. <span className='gray'>More info ›</span>
+				Free shipping on all orders over 5000 SEK. &nbsp;<span className='gray'>More info ›</span>
 			</p>
 		</Section>
 	);

@@ -137,7 +137,7 @@ export default function Cart({ localization }: CartProps) {
 						<CountrySelector localization={localization} label='Location' className={s.form} />
 					</div>
 					<div className={cn(s.extra, 'small', 'gray')}>
-						<span className='small'>Shipping and tax are added at checkout</span>
+						<span className='small'>Shipping is added at checkout</span>
 					</div>
 
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
