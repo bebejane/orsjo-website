@@ -15,8 +15,7 @@ import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
 
-//export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 
 export default async function Product({ params, searchParams }: PageProps<'/[locale]/products/[product]'>) {
 	const { locale, product: slug } = await params;
@@ -70,13 +69,12 @@ export default async function Product({ params, searchParams }: PageProps<'/[loc
 	);
 }
 
-/*
 export async function generateStaticParams() {
 	const { allProducts } = await apiQuery(AllProductsLightDocument, { all: true });
 	const paths = allProducts.map(({ slug }) => ({ slug }));
 	return paths;
 }
-*/
+
 export async function generateMetadata({ params }: PageProps<'/[locale]/products/[product]'>): Promise<Metadata> {
 	const { product: slug } = await params;
 	const { product } = await apiQuery(ProductDocument, {

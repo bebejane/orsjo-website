@@ -61,7 +61,10 @@ export default function ProjectHeader({ project, bespokeThumbnail }: ProjectProp
 const galleryImages = (project: ProjectRecord): FileField[] => {
 	const images = [project.image, project.secondaryImage] as FileField[];
 	project.gallery.forEach((image) => {
-		Object.keys(image).forEach((k) => image[k]?.responsiveImage && images.push(image[k]))
-	);
+		Object.keys(image).forEach((k) => {
+			const img = (image as { [key: string]: any })[k];
+			if (img?.responsiveImage) images.push(img);
+		});
+	});
 	return dedupeImages(images);
 };
