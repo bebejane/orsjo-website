@@ -17,7 +17,7 @@
 		width: 1rem;
 		height: 1rem;
 		border: 2px solid var(--white);
-		border-radius: 4px;
+		//border-radius: 4px;
 		transition: all 200ms;
 		display: flex;
 		align-items: center;
@@ -45,7 +45,7 @@
 		outline-offset: 2px;
 	}
 
-	&[data-focused='true'] .checkbox {
+	&[data-focused="true"] .checkbox {
 		border: 2px solid var(--red);
 	}
 

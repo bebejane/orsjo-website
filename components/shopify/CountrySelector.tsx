@@ -89,7 +89,7 @@ export default function CountrySelector({
 									key={idx}
 									className={cn(s.option, selectedCountry?.isoCode === isoCode && s.selected)}
 								>
-									{name} ({currency.isoCode})
+									{name} <span className="small">{currency.isoCode}</span>
 								</ListBoxItem>
 							))}
 					</ListBox>

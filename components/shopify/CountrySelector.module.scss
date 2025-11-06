@@ -56,7 +56,14 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			font-size: 0.65rem;
-			font-family: 'IndivisibleMedium';
+			font-family: "IndivisibleMedium";
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+
+			span {
+				padding-left: 0.5em;
+			}
 
 			&:first-of-type {
 				padding-top: 0.7em;
@@ -67,7 +74,7 @@
 
 			&.selected {
 				background-color: var(--black);
-				color: var(--white-menu);
+				color: var(--white) !important;
 				cursor: normal;
 				pointer-events: none;
 			}
