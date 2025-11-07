@@ -6,19 +6,18 @@
 	"scripts": {
 		"dev": "NEXT_PUBLIC_DATOCMS_ENVIRONMENT=dev next dev --turbo & npm run codegen",
 		"build": "npm run prebuild && next build --turbo",
+		"start": "next start",
+		"preview": "npm run build && npm run start",
+		"lint": "next lint",
 		"prebuild": "tsx prebuild",
-		"dev:test": "npm run dev & npx mailing",
+		"reset": "rm -rf ./node_modules && rm -rf pnpm-lock.yaml && rm -rf .next && pnpm i",
 		"codegen": "chokidar \"./graphql/**/*.gql\" -c \"pnpm codegen:website\" & chokidar \"./lib/shopify/graphql/**/*.gql\" -c \"pnpm codegen:shopify\" & chokidar \"./lib/shopify/graphql-admin//**/*.gql\" -c \"pnpm codegen:shopify_admin\"",
 		"codegen:website": "graphql-codegen --config graphql.config.ts --project default",
 		"codegen:shopify": "graphql-codegen --config graphql.config.ts --project shopify",
 		"codegen:shopify_admin": "graphql-codegen --config graphql.config.ts --project shopify_admin",
 		"codegen:datocms": "datocms schema:generate ./types/datocms-cma.ts",
-		"start": "next start",
-		"lint": "next lint",
-		"mailing": "mailing --typescript",
-		"preview": "npm run build && npm run start",
-		"email": "email dev --dir emails",
-		"reset": "rm -rf ./node_modules && rm -rf pnpm-lock.yaml && rm -rf .next && pnpm i"
+		"shopify:sync": "tsx lib/shopify/scripts/sync-item.ts",
+		"shopify:sync-all": "tsx lib/shopify/scripts/sync-all.ts"
 	},
 	"dependencies": {
 		"@datocms/cma-client": "^5.1.26",
