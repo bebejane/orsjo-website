@@ -1,0 +1,10 @@
+query Currency {
+	currency {
+		__typename
+		symbol
+		rate
+		rateDeduction
+		surcharge
+		vatRate
+	}
+}
