@@ -48,10 +48,13 @@
 	scrollbar-width: 10px !important;
 
 	.options {
-		background-color: var(--white);
+		background-color: var(--black);
+		color: var(--white);
 
 		.option {
-			padding: 0.4em;
+			padding: 0.5em;
+			padding-left: 0.75em;
+			padding-right: 0.75em;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -83,6 +86,7 @@
 				&:hover {
 					background-color: var(--black);
 					color: var(--white-menu);
+					border: none;
 					cursor: pointer;
 				}
 			}
