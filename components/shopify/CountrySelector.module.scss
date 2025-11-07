@@ -14,6 +14,7 @@
 
 	.select {
 		width: 100%;
+		outline: none !important;
 
 		.button {
 			display: inline-flex !important;
@@ -46,10 +47,12 @@
 .popover {
 	overflow-y: scroll;
 	scrollbar-width: 10px !important;
+	outline: none !important;
 
 	.options {
 		background-color: var(--black);
 		color: var(--white);
+		outline: none !important;
 
 		.option {
 			padding: 0.5em;
@@ -63,6 +66,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: baseline;
+			outline: none !important;
 
 			span {
 				padding-left: 0.5em;
