@@ -14,7 +14,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 export const dynamic = 'force-static';
 
-export default async function RootLayout({ children, params }: LayoutProps<'/'>) {
+export default async function RootLayout({ children, params, modals }: LayoutProps<'/'>) {
 	const { locale } = await (params as any);
 	setRequestLocale(locale);
 
@@ -29,6 +29,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/'>)
 						{children}
 					</Layout>
 				</NextIntlClientProvider>
+				{modals}
 			</body>
 		</html>
 	);

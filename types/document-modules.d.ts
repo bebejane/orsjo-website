@@ -51,6 +51,15 @@ export const StaffFragment: DocumentNode;
 }
     
 
+declare module '*/currency.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Currency: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/designer.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

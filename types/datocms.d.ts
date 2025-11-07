@@ -682,6 +682,113 @@ type CreatedAtFilter = {
   neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+/** Record of type Currency (currency) */
+type CurrencyRecord = RecordInterface & {
+  __typename?: 'CurrencyRecord';
+  _allRateDeductionLocales?: Maybe<Array<FloatTypeNonNullMultiLocaleField>>;
+  _allRateLocales?: Maybe<Array<FloatTypeNonNullMultiLocaleField>>;
+  _allSurchargeLocales?: Maybe<Array<FloatTypeNonNullMultiLocaleField>>;
+  _allSymbolLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
+  _allVatRateLocales?: Maybe<Array<FloatTypeNonNullMultiLocaleField>>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  rate: Scalars['FloatType']['output'];
+  rateDeduction: Scalars['FloatType']['output'];
+  surcharge: Scalars['FloatType']['output'];
+  symbol: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  vatRate: Scalars['FloatType']['output'];
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allRateDeductionLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allRateLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allSurchargeLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allSymbolLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allVatRateLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordrateArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordrateDeductionArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordsurchargeArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordsymbolArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordvatRateArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
 type DesignerModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
@@ -1404,6 +1511,12 @@ type FloatFilter = {
   lte?: InputMaybe<Scalars['FloatType']['input']>;
   /** Exclude records with an exact match */
   neq?: InputMaybe<Scalars['FloatType']['input']>;
+};
+
+type FloatTypeNonNullMultiLocaleField = {
+  __typename?: 'FloatTypeNonNullMultiLocaleField';
+  locale?: Maybe<SiteLocale>;
+  value: Scalars['FloatType']['output'];
 };
 
 type FullscreenMediaBlockModelLinkRecordField = AboutRecord | DesignerRecord | ProductRecord;
@@ -5728,6 +5841,8 @@ type Query = {
   contact?: Maybe<ContactRecord>;
   /** Returns a specific record */
   country?: Maybe<CountryRecord>;
+  /** Returns the single instance record */
+  currency?: Maybe<CurrencyRecord>;
   /** Returns a specific record */
   designer?: Maybe<DesignerRecord>;
   /** Returns a specific record */
@@ -6524,6 +6639,13 @@ type QuerycountryArgs = {
   filter?: InputMaybe<CountryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<CountryModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerycurrencyArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -8449,6 +8571,11 @@ type ResellerFragment = { __typename?: 'ResellerRecord', id: any, name: string, 
 type ShowroomFragment = { __typename?: 'ShowroomRecord', additional?: string | null, address: string, city: string, id: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } };
 
 type StaffFragment = { __typename?: 'StaffRecord', id: any, name: string, role: string, phone?: string | null, email?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } };
+
+type CurrencyQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type CurrencyQuery = { __typename?: 'Query', currency?: { __typename: 'CurrencyRecord', symbol: string, rate: any, rateDeduction: any, surcharge: any, vatRate: any } | null };
 
 type DesignerQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']['input']>;
