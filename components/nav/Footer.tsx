@@ -6,28 +6,17 @@ import Link from '@/components/nav/Link';
 import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';
 import { usePage } from '@/lib/context/page';
-import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import useIsDesktop from '@/lib/hooks/useIsDesktop';
 
-export type FooterProps = { menu: MenuItem[] };
+export type FooterProps = {
+	menu: MenuItem[];
+};
 
-export default function Footer({ menu: menuFromProps }: FooterProps) {
+export default function Footer({ menu }: FooterProps) {
 	const pathname = usePathname();
-	const [menu, setMenu] = useState<MenuItem[]>([...menuFromProps]);
 	const { footerLine } = usePage();
-	const maxLength = menu[0]?.sub?.length ?? 0;
 	const isDesktop = useIsDesktop();
-
-	useEffect(() => {
-		setMenu(
-			JSON.parse(JSON.stringify(menuFromProps)).map((item) => ({
-				...item,
-				sub:
-					item.type === 'designer' ? item.sub.sort(() => (Math.random() > 0.5 ? 1 : -1)).slice(0, maxLength) : item.sub,
-			}))
-		);
-	}, [menuFromProps, setMenu, maxLength]);
 
 	return (
 		<>
@@ -51,23 +40,21 @@ export default function Footer({ menu: menuFromProps }: FooterProps) {
 						</div>
 						<nav className={s.menu}>
 							<ul>
-								{menu.map((item, idx) => {
+								{menu.slice(1).map((item, idx) => {
 									return (
 										<li key={idx}>
 											<ul className={s.category}>
 												<>
-													<li>{item.label}</li>
-													{item.sub?.map((subItem, subidx) => {
-														const localAnchorLink =
-															subItem.slug.indexOf('#') > -1 &&
-															['/products', '/contact'].includes(pathname.split('#')[0]);
-														return localAnchorLink ? (
-															<a href={subItem.slug} key={subidx}>
-																<li>{subItem.label}</li>
-															</a>
+													<li>{item.title}</li>
+													{(item.footerSub ?? item.sub)?.map((subItem, subidx) => {
+														const isHash = ['/products', '/contact'].includes(pathname.split('#')[0]);
+														return isHash ? (
+															<Link href={subItem.slug} key={subidx} scroll={true} transition={false}>
+																<li>{subItem.title}</li>
+															</Link>
 														) : (
 															<Link key={subidx} href={subItem.slug} passHref={true}>
-																<li>{subItem.label}</li>
+																<li>{subItem.title}</li>
 															</Link>
 														);
 													})}

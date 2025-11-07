@@ -13,16 +13,20 @@
 		width 0.2s ease-out;
 
 	@include mq($from: desktop) {
+		margin-top: 0px;
 		margin-left: calc(var(--outer-margin));
 		width: spanGrid(3.5);
-		bottom: var(--outer-margin);
+		padding-bottom: var(--outer-margin);
 	}
 
 	&.wide {
 		width: spanGrid(6);
 	}
+
 	&.hide {
-		opacity: 0;
+		@include mq($from: desktop) {
+			opacity: 0;
+		}
 	}
 
 	ul {

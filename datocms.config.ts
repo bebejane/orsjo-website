@@ -1,6 +1,8 @@
 import { DatoCmsConfig, getItemReferenceRoutes, getUploadReferenceRoutes } from 'next-dato-utils/config';
 import { MetadataRoute } from 'next';
 import { defaultLocale, locales } from '@/i18n/routing';
+import { SitemapDocument } from '@/graphql';
+import { apiQuery } from 'next-dato-utils/api';
 
 export default {
 	i18n: {
@@ -61,7 +63,80 @@ export default {
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
 	sitemap: async () => {
-		return [] as MetadataRoute.Sitemap;
+		const { allProducts, allDesigners, allProjects, allNews } = await apiQuery(SitemapDocument, {
+			revalidate: 60 * 60,
+			all: true,
+		});
+
+		function generateAlternates(path: string): { languages: any } {
+			const languages: any = {};
+
+			locales
+				.filter((locale) => locale !== defaultLocale)
+				.forEach((l) => {
+					languages[`en-${l.toUpperCase()}`] = `${process.env.NEXT_PUBLIC_SITE_URL}/${l}${path}`;
+				});
+			return { languages };
+		}
+
+		const staticRoutes: MetadataRoute.Sitemap = [
+			'/',
+			'/professionals/projects',
+			'/professionals/bespoke',
+			'/professionals/downloads',
+			'/professionals/colors-and-materials',
+			'/about',
+			'/about/sustainability',
+			'/about/news',
+			'/about/jobs',
+			'/support/faq',
+			'/support/manuals',
+			'/support/terms-conditions',
+			'/contact',
+		].map((p) => ({
+			url: `${process.env.NEXT_PUBLIC_SITE_URL}${p}`,
+			lastModified: new Date(),
+			changeFrequency: p === '/' ? 'weekly' : 'monthly',
+			priority: p === '/' ? 1 : 0.8,
+		}));
+
+		const productRoutes = allProducts.map(({ slug, _updatedAt }) => ({
+			url: `${process.env.NEXT_PUBLIC_SITE_URL}/products/${slug}`,
+			alternates: generateAlternates(`/products/${slug}`),
+			lastModified: new Date(_updatedAt).toISOString(),
+			changeFrequency: 'monthly',
+			priority: 0.8,
+		}));
+
+		const designerRoutes = allDesigners.map(({ slug, _updatedAt }) => ({
+			url: `${process.env.NEXT_PUBLIC_SITE_URL}/designers/${slug}`,
+			lastModified: new Date(_updatedAt).toISOString(),
+			changeFrequency: 'yearly',
+			priority: 0.8,
+		}));
+
+		const projectRoutes = allProjects.map(({ slug, _updatedAt }) => ({
+			url: `${process.env.NEXT_PUBLIC_SITE_URL}/professionals/projects/${slug}`,
+			alternates: generateAlternates(`/professionals/projects/${slug}`),
+			lastModified: new Date(_updatedAt).toISOString(),
+			changeFrequency: 'monthly',
+			priority: 0.8,
+		}));
+
+		const newsRoutes = allNews.map(({ slug, _updatedAt }) => ({
+			url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/news/${slug}`,
+			lastModified: new Date(_updatedAt).toISOString(),
+			changeFrequency: 'monthly',
+			priority: 0.8,
+		}));
+
+		return [
+			...staticRoutes,
+			...productRoutes,
+			...designerRoutes,
+			...projectRoutes,
+			...newsRoutes,
+		] as MetadataRoute.Sitemap;
 	},
 	manifest: async () => {
 		return {

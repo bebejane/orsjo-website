@@ -8528,7 +8528,7 @@ type MenuQueryVariables = Exact<{
 }>;
 
 
-type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug: string, name?: string | null }>, _allDesignersMeta: { __typename?: 'CollectionMetadata', count: any }, allProducts: Array<{ __typename?: 'ProductRecord', id: any, designer?: { __typename?: 'DesignerRecord', id: any } | null }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any }, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, _allProductCategoriesMeta: { __typename?: 'CollectionMetadata', count: any } };
+type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug: string, name?: string | null }>, _allDesignersMeta: { __typename?: 'CollectionMetadata', count: any }, allProducts: Array<{ __typename?: 'ProductRecord', id: any, title: string, slug: string, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, designer?: { __typename?: 'DesignerRecord', id: any } | null }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any }, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, _allProductCategoriesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8836,6 +8836,14 @@ type SiteSEOQueryVariables = Exact<{ [key: string]: never; }>;
 type SiteSEOQuery = { __typename?: 'Query', site: { __typename?: 'Site', faviconMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null } | null } };
 
 type SiteFragment = { __typename?: 'Site', faviconMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null } | null };
+
+type SitemapQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+}>;
+
+
+type SitemapQuery = { __typename?: 'Query', allProducts: Array<{ __typename?: 'ProductRecord', slug: string, title: string, _updatedAt: any }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any }, allDesigners: Array<{ __typename?: 'DesignerRecord', slug: string, name?: string | null, _updatedAt: any }>, _allDesignersMeta: { __typename?: 'CollectionMetadata', count: any }, allProjects: Array<{ __typename?: 'ProjectRecord', slug: string, title: string, _updatedAt: any }>, _allProjectsMeta: { __typename?: 'CollectionMetadata', count: any }, allNews: Array<{ __typename?: 'NewsRecord', slug: string, title: string, _updatedAt: any }>, _allNewsMeta: { __typename?: 'CollectionMetadata', count: any }, allJobs: Array<{ __typename?: 'JobRecord', slug: string, title: string, _updatedAt: any }>, _allJobsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -3,15 +3,13 @@
 import s from './Sidebar.module.scss';
 import cn from 'classnames';
 import { useStore, useShallow } from '@/lib/store';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from '@/i18n/routing';
 import { usePage } from '@/lib/context/page';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { ArrowLink } from '@/components';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { styleVariables } from '@/lib/utils';
 import { useWindowSize } from 'rooks';
-
-export type SidebarProps = { title?: string; show: boolean };
 
 const getPageType = (pathname: string) => {
 	const p = pathname.toLowerCase();
@@ -24,8 +22,8 @@ const getPageType = (pathname: string) => {
 				: undefined;
 };
 
-export default function Sidebar({ show }: SidebarProps) {
-	const { menu, layout, color, title } = usePage();
+export default function Sidebar() {
+	const { inverted: _inverted, layout, color, title, sidebar } = usePage();
 	const router = useRouter();
 	const path = usePathname();
 	const pathname = path.includes('#') ? path.substring(0, path.indexOf('#')) : path;
@@ -39,7 +37,7 @@ export default function Sidebar({ show }: SidebarProps) {
 		])
 	);
 	const [setInvertMenu] = useStore(useShallow((state) => [state.setInvertMenu]));
-	const [inverted, setInverted] = useState(menu === 'inverted' || invertSidebar);
+	const [inverted, setInverted] = useState(_inverted || invertSidebar);
 	const [sections, setSections] = useState<{ title: string | undefined; id: string }[]>([]);
 	const [pageType, setPageType] = useState<string | undefined>(getPageType(pathname));
 	const [open, setOpen] = useState(false);
@@ -68,7 +66,7 @@ export default function Sidebar({ show }: SidebarProps) {
 
 	useEffect(() => {
 		if (isScrolling) return;
-		// Highlight nav section on scroll\
+		// Highlight nav section on scroll
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-section-id]'));
 
 		if (!sections.length) return;
@@ -79,10 +77,10 @@ export default function Sidebar({ show }: SidebarProps) {
 		const { id } = sections.sort((a, b) => (calcPos(a) > calcPos(b) ? 1 : -1))[0];
 
 		setCurrentSection(id);
-	}, [isScrolling, scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, menu]);
+	}, [isScrolling, scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, _inverted]);
 
 	useEffect(() => {
-		if (!currentSection) return;
+		if (!currentSection || !innerWidth) return;
 
 		const isDesktop = innerWidth > parseInt(styleVariables.tablet as string);
 		const section = document.getElementById(currentSection);
@@ -93,9 +91,9 @@ export default function Sidebar({ show }: SidebarProps) {
 		const bg = getComputedStyle(section, null).backgroundColor;
 		const fg = getComputedStyle(header, null).color;
 
-		if (menu === 'inverted' && bg === fg) setInverted(false);
-		else setInverted(menu === 'inverted');
-	}, [currentSection, setInverted, menu, innerWidth]);
+		if (_inverted && bg === fg) setInverted(false);
+		else setInverted(_inverted);
+	}, [currentSection, setInverted, _inverted, innerWidth]);
 
 	useEffect(() => {
 		if (pageType) return;
@@ -107,14 +105,14 @@ export default function Sidebar({ show }: SidebarProps) {
 		setTimeout(() => resetSearch(), 100);
 	}, [path, resetSearch]);
 
-	if (!show) return null;
+	if (!sidebar) return null;
 
 	return (
 		<aside
 			id='sidebar'
 			key={path}
 			className={cn(s.sidebar, inverted && s.inverted, pageType === 'products' && s.short)}
-			style={{ backgroundColor: color, maxHeight }}
+			style={{ backgroundColor: `--${color}`, maxHeight }}
 		>
 			<h3 id='sidebar-header' className={cn(open && s.open)} onClick={() => setOpen(!open)}>
 				{title}

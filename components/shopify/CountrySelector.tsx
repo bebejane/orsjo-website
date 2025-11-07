@@ -19,7 +19,7 @@ export default function CountrySelector({ className, localization: { availableCo
 	const pathname = usePathname();
 	const router = useRouter();
 	const country = useLocale();
-	const { menu } = usePage();
+	const { inverted } = usePage();
 	const [selectOpen, setSelectOpen] = useState(false);
 	const { width, height } = useWindowSize();
 	const [selectWidth, setSelectWidth] = useState(0);
@@ -55,7 +55,7 @@ export default function CountrySelector({ className, localization: { availableCo
 			aria-label={'Select country'}
 		>
 			<Select className={cn('small', s.select)} onChange={handleChange} defaultOpen={false}>
-				<Button className={cn(s.button, menu === 'inverted' && s.inverted)} ref={buttonRef}>
+				<Button className={cn(s.button, inverted && s.inverted)} ref={buttonRef}>
 					<SelectValue className={s.value} key={country}>
 						{selectedCountry?.currency.isoCode}
 					</SelectValue>
@@ -80,7 +80,7 @@ export default function CountrySelector({ className, localization: { availableCo
 									key={idx}
 									className={cn(s.option, selectedCountry?.isoCode === isoCode && s.selected)}
 								>
-									{name} <span className="small">{currency.isoCode}</span>
+									{name} <span className='small'>{currency.isoCode}</span>
 								</ListBoxItem>
 							))}
 					</ListBox>

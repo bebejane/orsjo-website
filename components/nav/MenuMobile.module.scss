@@ -5,8 +5,8 @@
 	top: 0;
 	right: 0;
 	margin-right: calc(var(--outer-margin) - 12px);
-	max-height: var(--navbar-height) Mobile;
-	min-height: var(--navbar-height) Mobile;
+	height: calc(var(--navbar-height) - 8px);
+
 	color: #000;
 	z-index: 300;
 

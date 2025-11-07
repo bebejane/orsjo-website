@@ -16,7 +16,7 @@ export default function ShopInfo({ product }: Props) {
 	if (!product) return null;
 
 	return (
-		<Section name='Shipping' className={s.shipping} bgColor='--white' fadeColor={'#ffffff'}>
+		<Section name='Shipping' className={s.shopinfo} bgColor='--white' fadeColor={'#ffffff'} bottom={true}>
 			<p className='small'>
 				{Object.keys(deliveryDaysText).map((key) => (
 					<React.Fragment key={key}>
@@ -26,7 +26,7 @@ export default function ShopInfo({ product }: Props) {
 				))}
 				<br />
 				Free shipping on all orders over 5000 SEK. &nbsp;
-				<Link href='/support/terms'>
+				<Link href='/support/terms-conditions'>
 					<span className='gray'>More info ›</span>
 				</Link>
 			</p>

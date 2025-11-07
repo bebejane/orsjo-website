@@ -8,24 +8,24 @@ import { useEffect, useState, useMemo } from 'react';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
-	name?: string;
-	namePlural?: string;
+	name?: string | null | undefined;
+	namePlural?: string | null | undefined;
 };
 
 export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
-	productCategories: ProductCategoriesQuery['allProductCategories'];
+	productCategories: AllProductCategoriesQuery['allProductCategories'];
 	shopifyProducts: AllShopifyProductsQuery['products'];
 };
 
 export default function ProductList({ productCategories, allProducts, shopifyProducts }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
-	const productsByCategory: ProductsByCategory = useMemo<{}>(() => ({}), []);
+	const productsByCategory: { [index: string]: ProductsByCategory } = useMemo(() => ({}), []);
 	productCategories.forEach(({ id, name, namePlural }) => {
 		productsByCategory[id] = {
 			name,
 			namePlural,
-			products: allProducts.filter(({ categories }) => categories?.find((c) => c.name === name)),
+			products: allProducts.filter(({ categories }) => categories?.find((c) => c.name === name)) as ProductRecord[],
 		};
 	});
 
@@ -83,7 +83,7 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 		<>
 			{Object.keys(items)
 				.map((name) => items[name])
-				.map(({ products, namePlural }, idx) => {
+				.map(({ products, namePlural }: ProductsByCategory, idx: number) => {
 					return (
 						<Section className={s.products} key={idx} name={namePlural} top={productsByCategorySearch && idx === 0}>
 							<h1>{namePlural}</h1>
@@ -93,7 +93,10 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 										<ProductThumbnail
 											product={product}
 											theme='light'
-											shopifyVariant={findCheapestVariant(product, shopifyProducts)}
+											shopifyVariant={
+												shopifyProducts.edges.find((v) => v.node.handle === product.slug)?.node
+													.selectedOrFirstAvailableVariant as ProductVariant
+											}
 										/>
 									</li>
 								))}

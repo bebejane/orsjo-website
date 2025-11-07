@@ -39,7 +39,7 @@ export async function generateStaticParams() {
 	return localization.availableCountries.map((country) => ({ country: country.isoCode.toLowerCase() }));
 }
 
-export async function generateMetadata(props: PageProps<'/[locale]'>): Promise<Metadata> {
+export async function generateMetadata(props: LayoutProps<'/'>): Promise<Metadata> {
 	const {
 		site: { globalSeo, faviconMetaTags },
 	} = await apiQuery(GlobalDocument, {

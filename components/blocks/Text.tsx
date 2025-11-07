@@ -13,10 +13,10 @@ export type TextBlockProps = {
 };
 
 export default function Text({ data: { text } }: TextBlockProps) {
-	const { menu } = usePage();
+	const { inverted } = usePage();
 
 	return (
-		<div className={cn(s.text, menu === 'inverted' && s.inverted)}>
+		<div className={cn(s.text, inverted && s.inverted)}>
 			<StructuredText
 				data={text}
 				renderInlineRecord={({ record }) => {

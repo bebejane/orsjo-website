@@ -30,12 +30,13 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const [{ productStart }, { allProducts }, { allProductCategories }, { products }] = await Promise.all([
-		apiQuery(ProductStartDocument),
-		apiQuery(AllProductsLightDocument, { all: true }),
-		apiQuery(AllProductCategoriesDocument, { all: true }),
-		shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
-	]);
+	const [{ productStart }, { allProducts }, { allProductCategories }, { products: allShopifyProducts }] =
+		await Promise.all([
+			apiQuery(ProductStartDocument),
+			apiQuery(AllProductsLightDocument, { all: true }),
+			apiQuery(AllProductCategoriesDocument, { all: true }),
+			shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
+		]);
 
 	/*
 	const skus = allProducts
@@ -62,15 +63,20 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 						theme='light'
 						showMarkAsNew={data.showMarkAsNew}
 						items={
-							data.items.map((item) => ({
-								...item,
-								shopify: findCheapestVariant(item as ProductRecord, products),
+							data.items.map((product) => ({
+								...product,
+								shopify: allShopifyProducts.edges.find((v) => v.node.handle === (product as ProductRecord).slug)?.node
+									.selectedOrFirstAvailableVariant as ProductVariant,
 							})) as ProductRecordWithShopifyData[]
 						}
 					/>
 				</Section>
 			))}
-			<ProductList productCategories={allProductCategories} allProducts={allProducts} shopifyProducts={products} />
+			<ProductList
+				productCategories={allProductCategories}
+				allProducts={allProducts}
+				shopifyProducts={allShopifyProducts}
+			/>
 		</>
 	);
 }
