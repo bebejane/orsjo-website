@@ -55,6 +55,8 @@ declare module '*/currency.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const Currency: DocumentNode;
+export const AllCurrencies: DocumentNode;
+export const CurrencyFragment: DocumentNode;
 
   export default defaultDocument;
 }

@@ -685,6 +685,7 @@ type CreatedAtFilter = {
 /** Record of type Currency (currency) */
 type CurrencyRecord = RecordInterface & {
   __typename?: 'CurrencyRecord';
+  _allIsoCodeLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _allRateDeductionLocales?: Maybe<Array<FloatTypeNonNullMultiLocaleField>>;
   _allRateLocales?: Maybe<Array<FloatTypeNonNullMultiLocaleField>>;
   _allSurchargeLocales?: Maybe<Array<FloatTypeNonNullMultiLocaleField>>;
@@ -705,12 +706,20 @@ type CurrencyRecord = RecordInterface & {
   _updatedAt: Scalars['DateTime']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ItemId']['output'];
+  isoCode: Scalars['String']['output'];
   rate: Scalars['FloatType']['output'];
   rateDeduction: Scalars['FloatType']['output'];
   surcharge: Scalars['FloatType']['output'];
   symbol: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   vatRate: Scalars['FloatType']['output'];
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allIsoCodeLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -751,6 +760,13 @@ type CurrencyRecord_allVatRateLocalesArgs = {
 
 /** Record of type Currency (currency) */
 type CurrencyRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordisoCodeArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -8572,10 +8588,19 @@ type ShowroomFragment = { __typename?: 'ShowroomRecord', additional?: string | n
 
 type StaffFragment = { __typename?: 'StaffRecord', id: any, name: string, role: string, phone?: string | null, email?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } };
 
-type CurrencyQueryVariables = Exact<{ [key: string]: never; }>;
+type CurrencyQueryVariables = Exact<{
+  locale?: InputMaybe<SiteLocale>;
+}>;
 
 
-type CurrencyQuery = { __typename?: 'Query', currency?: { __typename: 'CurrencyRecord', symbol: string, rate: any, rateDeduction: any, surcharge: any, vatRate: any } | null };
+type CurrencyQuery = { __typename?: 'Query', currency?: { __typename: 'CurrencyRecord', isoCode: string, symbol: string, rate: any, rateDeduction: any, surcharge: any, vatRate: any } | null };
+
+type AllCurrenciesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type AllCurrenciesQuery = { __typename?: 'Query', currency?: { __typename: 'CurrencyRecord', isoCode?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, symbol?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, rate?: Array<{ __typename?: 'FloatTypeNonNullMultiLocaleField', locale?: SiteLocale | null, value: any }> | null, rateDeduction?: Array<{ __typename?: 'FloatTypeNonNullMultiLocaleField', locale?: SiteLocale | null, value: any }> | null, surcharge?: Array<{ __typename?: 'FloatTypeNonNullMultiLocaleField', locale?: SiteLocale | null, value: any }> | null, vatRate?: Array<{ __typename?: 'FloatTypeNonNullMultiLocaleField', locale?: SiteLocale | null, value: any }> | null } | null };
+
+type CurrencyFragment = { __typename: 'CurrencyRecord', isoCode: string, symbol: string, rate: any, rateDeduction: any, surcharge: any, vatRate: any };
 
 type DesignerQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']['input']>;

@@ -1,6 +1,6 @@
 import { buildClient } from '@datocms/cma-client-browser';
 import { apiQuery } from 'next-dato-utils/api';
-import { SiteSearchDocument } from '@/graphql';
+import { SiteSearchDocument, CurrencyDocument, AllCurrenciesDocument } from '@/graphql';
 
 const scssExports = {
 	'navbarHeight': '4rem',
@@ -18,56 +18,68 @@ export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeou
 
 type Locale = 'en' | 'sv' | 'no' | 'dk' | 'en-GB';
 
-export const currency: Record<string, { surcharge: number; rate: number; rateDeduction: number; symbol: string }> = {
-	eur: {
-		surcharge: 1.1,
-		rate: 11.0391,
-		rateDeduction: 0.95,
-		symbol: '€',
-	},
-	nok: {
-		surcharge: 1.1,
-		rate: 0.93875,
-		rateDeduction: 1,
-		symbol: 'NOK',
-	},
-	dkk: {
-		surcharge: 0.7,
-		rate: 1,
-		rateDeduction: 1,
-		symbol: 'DKK',
-	},
-	sek: {
-		surcharge: 1,
-		rate: 1,
-		rateDeduction: 1,
-		symbol: ':-',
-	},
-	gbp: {
-		surcharge: 1.2,
-		rate: 13.24727,
-		rateDeduction: 0.97,
-		symbol: 'GBP',
-	},
+export type CurrencyRate = {
+	isoCode: string;
+	symbol: string;
+	rate: number;
+	rateDeduction: number;
+	surcharge: number;
+	vatRate: number;
 };
 
-export const convertPrice = (price: number, currencyCode: CurrencyCode) => {
-	const c = currency[currencyCode?.toLowerCase()];
-	if (!c) throw new Error(`Currency ${currencyCode} not found`);
+export const getAllCurrencyRates = async (): Promise<CurrencyRate[]> => {
+	const { currency } = await apiQuery(AllCurrenciesDocument, {
+		revalidate: 60,
+	});
+
+	if (!currency) throw new Error('Currency not found');
+
+	const currencies: CurrencyRate[] = [];
+
+	for (const { value, locale } of currency.isoCode ?? []) {
+		currencies.push({
+			isoCode: value ?? '',
+			symbol: currency.symbol?.find(({ locale: l }) => l === locale)?.value ?? '',
+			rate: currency.rate?.find(({ locale: l }) => l === locale)?.value ?? 0,
+			rateDeduction: currency.rateDeduction?.find(({ locale: l }) => l === locale)?.value ?? 0,
+			surcharge: currency.surcharge?.find(({ locale: l }) => l === locale)?.value ?? 0,
+			vatRate: currency.vatRate?.find(({ locale: l }) => l === locale)?.value ?? 0,
+		});
+	}
+
+	return currencies;
+};
+
+export const getCurrencyRateByISO = async (currencyCode: CurrencyCode): Promise<CurrencyRate> => {
+	const allCurrencies = await getAllCurrencyRates();
+	const currency = allCurrencies.find((c) => c.isoCode === currencyCode);
+	if (!currency) throw new Error(`Currency ${currencyCode} not found`);
+	return currency as CurrencyRate;
+};
+
+export const getCurrencyRateByLocale = async (locale: SiteLocale): Promise<CurrencyRate> => {
+	const { currency } = await apiQuery(CurrencyDocument, {
+		revalidate: 60,
+		variables: { locale },
+	});
+
+	if (!currency) throw new Error('Currency not found');
+	return currency as CurrencyRate;
+};
+
+export const getPriceWithRatesAndTaxes = async (price: number, currencyCode: CurrencyCode): Promise<number> => {
+	const c = await getCurrencyRateByISO(currencyCode);
+	return convertPriceWithRatesAndTaxes(price, c);
+};
+
+export const convertPriceWithRatesAndTaxes = async (price: number, c: CurrencyRate) => {
 	return Math.ceil((price * c.surcharge) / (c.rate * c.rateDeduction));
 };
 
-export const formatPrice = (price: number, locale: Locale) => {
+export const formatPrice = async (price: number, locale: SiteLocale) => {
+	const c = await getCurrencyRateByLocale(locale);
 	const nf = new Intl.NumberFormat(`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`);
-	return `${nf.format(Math.ceil(price))} ${currency[locale].symbol}`;
-};
-
-export const priceIncLight = (prodPrice: number, lightsources: LightsourceRecord[], locale: Locale) => {
-	let price = prodPrice;
-	lightsources
-		.filter((l) => !l.optional && !l.included)
-		.forEach((l) => (price += l.lightsource.price * (l.amount ? l.amount : 0)));
-	return formatPrice(price, locale);
+	return `${nf.format(Math.ceil(price))} ${c.symbol}`;
 };
 
 export const sortProductsByCategory = (products: ProductRecord[]) => {

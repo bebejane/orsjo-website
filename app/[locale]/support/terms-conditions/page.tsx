@@ -8,7 +8,7 @@ import { Section } from '@/components';
 import TermList from '@/app/[locale]/support/terms-conditions/TermsList';
 import { Metadata } from 'next';
 
-export default async function Terms({ params }: PageProps<'/[locale]/support/terms'>) {
+export default async function Terms({ params }: PageProps<'/[locale]/support/terms-conditions'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);

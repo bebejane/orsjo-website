@@ -28,8 +28,9 @@ import {
 } from '@/lib/shopify/graphql-admin';
 import { batchPromises } from '@/lib/utils';
 import { generateProductTitle } from '@/lib/utils';
-import { currency, convertPrice } from '@/lib/utils';
+import { convertPriceWithRatesAndTaxes, getAllCurrencyRates, CurrencyRate } from '@/lib/utils';
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
+import { get } from 'http';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -485,19 +486,20 @@ export const updateVariantPrices = async (variants: ProductVariant[]) => {
 		admin: true,
 	});
 
+	const allCurrencies = await getAllCurrencyRates();
 	console.log('updating fixed pricing:', priceLists.nodes.map(({ currency }) => currency).join(','));
 
 	for (const priceList of priceLists.nodes) {
 		const pricesToAdd: PriceListPriceInput[] = [];
 		const currencyCode = priceList.currency;
-		const c = currency[currencyCode.toLowerCase()];
+		const currencyRate = allCurrencies.find((c) => c.isoCode === currencyCode);
 
-		if (!c) continue;
+		if (!currencyRate) continue;
 		for (const variant of variants) {
 			pricesToAdd.push({
 				variantId: variant.id,
 				price: {
-					amount: convertPrice(variant.price, currencyCode),
+					amount: convertPriceWithRatesAndTaxes(variant.price, currencyRate),
 					currencyCode,
 				},
 			});
