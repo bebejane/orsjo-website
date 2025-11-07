@@ -72,7 +72,7 @@ export const getPriceWithRatesAndTaxes = async (price: number, currencyCode: Cur
 	return convertPriceWithRatesAndTaxes(price, c);
 };
 
-export const convertPriceWithRatesAndTaxes = async (price: number, c: CurrencyRate) => {
+export const convertPriceWithRatesAndTaxes = (price: number, c: CurrencyRate) => {
 	return Math.ceil((price * c.surcharge) / (c.rate * c.rateDeduction));
 };
 

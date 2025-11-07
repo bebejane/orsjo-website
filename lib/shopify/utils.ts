@@ -22,11 +22,11 @@ export const itemTypeId = async (type: string) =>
 export const formatShopifyPrice = (money: MoneyV2, quantity = 1): string => {
 	if (!money) return '';
 
-	const price = priceWithVAT(money);
+	//const price = priceWithVAT(money);
 
-	return `${new Intl.NumberFormat('sv-SE', { style: 'decimal', currency: price.currencyCode }).format(
-		price.amount * quantity
-	)} ${price.currencyCode}`;
+	return `${new Intl.NumberFormat('sv-SE', { style: 'decimal', currency: money.currencyCode }).format(
+		money.amount * quantity
+	)} ${money.currencyCode}`;
 };
 
 export const priceWithVAT = (money: MoneyV2): MoneyV2 => {

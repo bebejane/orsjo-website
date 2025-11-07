@@ -1,7 +1,6 @@
 # Stuff
 
 - contact form weird error message style
-- check mobile
 - SEO check, reuse buildSeo from jemac
 - Typescript errors
 - links fullscreen video
@@ -9,10 +8,11 @@
 
 # Cart
 
-handle cart errors better
+CartError component
 
 # Live
 
 - resync shopify
 - check web previews/revalidate
 - sentry
+- check mobile

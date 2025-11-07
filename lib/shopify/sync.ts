@@ -459,10 +459,18 @@ export async function updateProduct(
 			]);
 
 			if (productVariantsBulkCreate?.userErrors?.length)
-				throw new Error(JSON.stringify(productVariantsBulkCreate.userErrors.map((e) => e.message).join('. '), null, 2));
+				throw new Error(
+					productVariantsBulkCreate.userErrors
+						.map((e) => `${e.code}: "${e.message}" (${e.field?.join(', ')})`)
+						.join('. ')
+				);
 
 			if (productVariantsBulkUpdate?.userErrors?.length)
-				throw new Error(JSON.stringify(productVariantsBulkUpdate.userErrors.map((e) => e.message).join('. '), null, 2));
+				throw new Error(
+					productVariantsBulkUpdate.userErrors
+						.map((e) => `${e.code}: "${e.message}" (${e.field?.join(', ')})`)
+						.join('. ')
+				);
 
 			const allVariants = (productVariantsBulkCreate?.productVariants ?? []).concat(
 				productVariantsBulkUpdate?.productVariants ?? []
@@ -494,7 +502,8 @@ export const updateVariantPrices = async (variants: ProductVariant[]) => {
 		const currencyCode = priceList.currency;
 		const currencyRate = allCurrencies.find((c) => c.isoCode === currencyCode);
 
-		if (!currencyRate) continue;
+		if (!currencyRate) throw new Error('Currency not found: ' + currencyCode);
+
 		for (const variant of variants) {
 			pricesToAdd.push({
 				variantId: variant.id,
@@ -615,7 +624,7 @@ export const resetAll = async () => {
 	);
 };
 
-export const resyncAll = async () => {
+export const resyncAll = async (index: number = 0) => {
 	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
 		variables: { first: 500, skip: 0 },
@@ -632,7 +641,9 @@ export const resyncAll = async () => {
 		variables: { first: 500, skip: 0 },
 	});
 
-	const itemIds = [...allProducts, ...allProductLightsources, ...allProductAccessories].map(({ id }) => id);
+	const itemIds = [...allProducts, ...allProductLightsources, ...allProductAccessories]
+		.map(({ id }) => id)
+		.slice(index);
 
 	try {
 		for (let x = 0; x < itemIds.length; x++) {
