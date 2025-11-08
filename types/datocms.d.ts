@@ -3919,6 +3919,43 @@ type OrientationFilter = {
   neq?: InputMaybe<UploadOrientation>;
 };
 
+type PolicyItemModelContentField = {
+  __typename?: 'PolicyItemModelContentField';
+  blocks: Array<Scalars['String']['output']>;
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
+};
+
+/** Block of type Policy Item (policy_item) */
+type PolicyItemRecord = RecordInterface & {
+  __typename?: 'PolicyItemRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  content: PolicyItemModelContentField;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Block of type Policy Item (policy_item) */
+type PolicyItemRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 /** Specifies how to filter by position (sorted and tree-like collections) */
 type PositionFilter = {
   /** Search for records with an exact match */
@@ -4008,6 +4045,36 @@ type PressRecord = RecordInterface & {
 
 /** Record of type Press (press) */
 type PressRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Record of type Privacy Policy (privacy_policy) */
+type PrivacyPolicyRecord = RecordInterface & {
+  __typename?: 'PrivacyPolicyRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro: Scalars['String']['output'];
+  policies: Array<PolicyItemRecord>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Privacy Policy (privacy_policy) */
+type PrivacyPolicyRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -5881,6 +5948,8 @@ type Query = {
   news?: Maybe<NewsRecord>;
   /** Returns a specific record */
   press?: Maybe<PressRecord>;
+  /** Returns the single instance record */
+  privacyPolicy?: Maybe<PrivacyPolicyRecord>;
   /** Returns a specific record */
   product?: Maybe<ProductRecord>;
   /** Returns a specific record */
@@ -6753,6 +6822,13 @@ type QuerypressArgs = {
   filter?: InputMaybe<PressModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<PressModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QueryprivacyPolicyArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -9061,12 +9137,10 @@ type ManualsIntroQuery = { __typename?: 'Query', manual?: { __typename?: 'Manual
 
 type FaqFragment = { __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer: string, id: any, question: string, category: { __typename?: 'FaqCategoryRecord', id: any, title: string } };
 
-type TaxonomyQueryVariables = Exact<{
-  locale?: InputMaybe<SiteLocale>;
-}>;
+type PrivacyPolicyQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type TaxonomyQuery = { __typename?: 'Query', designer: Array<{ __typename?: 'DesignerRecord', name?: string | null, id: any, slug: string }>, category: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null }>, color: Array<{ __typename?: 'ProductColorRecord', id: any, name?: string | null }>, connection: Array<{ __typename?: 'ProductConnectionRecord', id: any, name?: string | null }>, dimmable: Array<{ __typename?: 'ProductDimmableRecord', id: any, name?: string | null }>, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string | null }>, family: Array<{ __typename?: 'ProductFamilyRecord', id: any, name?: string | null }>, lightsource: Array<{ __typename?: 'ProductLightsourceRecord', id: any, name?: string | null, price: any, articleNo: string }>, material: Array<{ __typename?: 'ProductMaterialRecord', id: any, name?: string | null }>, mounting: Array<{ __typename?: 'ProductMountingRecord', id: any, name?: string | null }>, socket: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string | null }> };
+type PrivacyPolicyQuery = { __typename?: 'Query', privacyPolicy?: { __typename: 'PrivacyPolicyRecord', id: any, intro: string, title: string, policies: Array<{ __typename: 'PolicyItemRecord', id: any, title: string, content: { __typename?: 'PolicyItemModelContentField', blocks: Array<string>, inlineBlocks: Array<string>, links: Array<string>, value: any } }> } | null };
 
 type TermsStartQueryVariables = Exact<{ [key: string]: never; }>;
 

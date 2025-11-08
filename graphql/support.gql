@@ -53,3 +53,26 @@ fragment FaqFragment on FaqRecord {
 		title
 	}
 }
+
+query PrivacyPolicy {
+	privacyPolicy {
+		__typename
+		id
+		intro
+		title
+		policies {
+			__typename
+			... on PolicyItemRecord {
+				__typename
+				id
+				title
+				content {
+					blocks
+					inlineBlocks
+					links
+					value
+				}
+			}
+		}
+	}
+}

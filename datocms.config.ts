@@ -28,6 +28,7 @@ export default {
 		term: async () => ['/support/terms'],
 		term_category: async () => ['/support/terms'],
 		term_start: async () => ['/support/terms'],
+		privacy_policy: async () => ['/support/privacy-policy'],
 		job: async () => ['/about/jobs'],
 		manual: async () => ['/support/manuals'],
 		news: async ({ slug }) => [`/about/news/${slug}`, `/`],
@@ -92,6 +93,7 @@ export default {
 			'/support/faq',
 			'/support/manuals',
 			'/support/terms-conditions',
+			'/support/privacy-policy',
 			'/contact',
 		].map((p) => ({
 			url: `${process.env.NEXT_PUBLIC_SITE_URL}${p}`,

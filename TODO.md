@@ -4,6 +4,7 @@
 - SEO check, reuse buildSeo from jemac
 - Typescript errors
 - links fullscreen video
+- footer product links
 - news sidebar...
 
 # Cart

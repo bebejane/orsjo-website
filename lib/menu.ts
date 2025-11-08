@@ -6,7 +6,7 @@ import { sectionId } from '@/lib/utils';
 export type MenuColor = 'white' | 'black' | 'green' | 'gray' | 'copper' | 'beige';
 export type Menu = MenuItem[];
 export type MenuItem = {
-	type: 'home' | 'product' | 'designer' | 'professional' | 'about' | 'support' | 'contact';
+	type: 'home' | 'product' | 'designer' | 'professional' | 'about' | 'support' | 'contact' | 'privacy';
 	title: string;
 	slug: string;
 	layout: 'normal' | 'full';
@@ -194,6 +194,16 @@ const base: Menu = [
 				type: 'support',
 				title: 'Terms & Conditions',
 				slug: '/support/terms-conditions',
+				layout: 'normal',
+				inverted: true,
+				color: 'copper',
+				sidebar: true,
+				footerLine: false,
+			},
+			{
+				type: 'privacy',
+				title: 'Privacy Policy',
+				slug: '/support/privacy-policy',
 				layout: 'normal',
 				inverted: true,
 				color: 'copper',

@@ -256,15 +256,7 @@ export const AllFaqCategories: DocumentNode;
 export const FaqStart: DocumentNode;
 export const ManualsIntro: DocumentNode;
 export const FaqFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/taxonomy.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const Taxonomy: DocumentNode;
+export const PrivacyPolicy: DocumentNode;
 
   export default defaultDocument;
 }
