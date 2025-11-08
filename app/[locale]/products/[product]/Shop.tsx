@@ -66,11 +66,6 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 		if (!variantId) return setSelected(allVariants?.[0] ?? null);
 
 		const shopifyVariant = shopify.product?.variants.edges.find((v) => parseGid(v.node.id) === variantId)?.node;
-		console.log(
-			'found variant',
-			shopifyVariant?.id,
-			allVariants.find((v) => v.articleNo?.trim() === shopifyVariant?.sku) ?? null
-		);
 		if (shopifyVariant) {
 			setSelected(allVariants.find((v) => v.articleNo?.trim() === shopifyVariant?.sku) ?? null);
 			setHide(false);

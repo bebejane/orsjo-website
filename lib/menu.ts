@@ -308,10 +308,10 @@ export const buildMenu = async () => {
 					color: 'white',
 				})) as MenuItem[];
 
-				footerSub = allProductCategories.map(({ id, name }) => ({
+				footerSub = allProductCategories.map(({ id, name, namePlural }) => ({
 					...item,
-					title: name as string,
-					slug: `/products#${sectionId(name as string).id}`,
+					title: namePlural as string,
+					slug: `/products#${sectionId(namePlural as string).id}`,
 				}));
 
 				break;

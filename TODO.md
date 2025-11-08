@@ -1,19 +1,18 @@
 # Stuff
 
-- contact form weird error message style
-- SEO check, reuse buildSeo from jemac
 - Typescript errors
-- links fullscreen video
-- footer product links
 - news sidebar...
 
-# Cart
+# Styling
 
-CartError component
+CartError component styling
+Contact form weird error message style
 
 # Live
 
 - resync shopify
 - check web previews/revalidate
+- links fullscreen video start?
+
 - sentry
 - check mobile

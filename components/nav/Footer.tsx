@@ -47,9 +47,11 @@ export default function Footer({ menu }: FooterProps) {
 												<>
 													<li>{item.title}</li>
 													{(item.footerSub ?? item.sub)?.map((subItem, subidx) => {
-														const isHash = ['/products', '/contact'].includes(pathname.split('#')[0]);
-														return isHash ? (
-															<Link href={subItem.slug} key={subidx} scroll={true} transition={false}>
+														const isLocalHash =
+															item.slug.startsWith(`/${pathname.split('/')[1]}`) && subItem.slug.includes('#');
+
+														return isLocalHash ? (
+															<Link href={subItem.slug} key={subidx} transition={false} scroll={true}>
 																<li>{subItem.title}</li>
 															</Link>
 														) : (

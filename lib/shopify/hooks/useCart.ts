@@ -26,6 +26,7 @@ export interface CartState {
 	removeFromCart: (id: string) => void;
 	updateQuantity: (id: string, quantity: number, country: string) => void;
 	updateBuyerIdentity: (input: CartBuyerIdentityInput) => void;
+	clearError: () => void;
 }
 
 const useCart = create<CartState>((set, get) => ({
@@ -43,7 +44,12 @@ const useCart = create<CartState>((set, get) => ({
 			cart = res.cart ?? null;
 		}
 
-		if (!cart) cart = (await shopifyQuery(CreateCartDocument, { revalidate: 0, country }))?.cartCreate?.cart;
+		if (!cart) {
+			const { cartCreate } = await shopifyQuery(CreateCartDocument, { revalidate: 0, country });
+			if (cartCreate?.userErrors.length) throw cartCreate.userErrors;
+
+			cart = cartCreate?.cart;
+		}
 
 		if (!cart) throw new Error('Cart not found');
 
@@ -70,8 +76,7 @@ const useCart = create<CartState>((set, get) => ({
 				country,
 			});
 
-			if (cartLinesAdd?.userErrors && cartLinesAdd?.userErrors.length > 0)
-				throw new Error(cartLinesAdd?.userErrors.map((e) => e.message).join('. '));
+			if (cartLinesAdd?.userErrors && cartLinesAdd?.userErrors.length > 0) throw cartLinesAdd.userErrors;
 
 			if (!cartLinesAdd?.cart) throw new Error('Cart not found');
 
@@ -89,6 +94,8 @@ const useCart = create<CartState>((set, get) => ({
 					lineIds: [id],
 				},
 			});
+
+			if (cartLinesRemove?.userErrors && cartLinesRemove?.userErrors.length > 0) throw cartLinesRemove.userErrors;
 
 			if (!cartLinesRemove?.cart) throw new Error('Cart not found');
 			return cartLinesRemove.cart as CartQuery['cart'];
@@ -110,6 +117,9 @@ const useCart = create<CartState>((set, get) => ({
 				},
 				country,
 			});
+
+			if (cartLinesUpdate?.userErrors && cartLinesUpdate?.userErrors.length > 0) throw cartLinesUpdate.userErrors;
+
 			if (!cartLinesUpdate?.cart) throw new Error('Cart not found');
 			return cartLinesUpdate.cart as CartQuery['cart'];
 		});
@@ -124,6 +134,10 @@ const useCart = create<CartState>((set, get) => ({
 					buyerIdentity,
 				},
 			});
+
+			if (cartBuyerIdentityUpdate?.userErrors && cartBuyerIdentityUpdate?.userErrors.length > 0)
+				throw cartBuyerIdentityUpdate?.userErrors;
+
 			const cart = cartBuyerIdentityUpdate?.cart as CartQuery['cart'];
 			if (!cart) throw new Error('Cart not found');
 			return cart;
@@ -133,8 +147,11 @@ const useCart = create<CartState>((set, get) => ({
 		set((state) => ({ updating: true, updatingId: id ?? null, error: undefined }));
 		fn()
 			.then((cart) => get().setCart(cart))
-			.catch((err) => set((state) => ({ error: err.message })))
+			.catch((err) => set((state) => ({ error: err })))
 			.finally(() => set((state) => ({ updating: false, updatingId: null })));
+	},
+	clearError: () => {
+		set(() => ({ error: undefined }));
 	},
 }));
 

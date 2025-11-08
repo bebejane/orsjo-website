@@ -9288,7 +9288,7 @@ type CartFragment = { __typename?: 'Cart', id: string, createdAt: any, updatedAt
         | { __typename?: 'ComponentizableCartLine', id: string, quantity: number, cost: { __typename?: 'CartLineCost', subtotalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalAmount: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, attributes: Array<{ __typename?: 'Attribute', key: string, value?: string | null }>, merchandise: { __typename?: 'ProductVariant', id: string, title: string, price: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, image?: { __typename?: 'Image', url: any, altText?: string | null } | null, product: { __typename?: 'Product', id: string, title: string, handle: string }, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, metafields: Array<{ __typename?: 'Metafield', id: string, key: string, value: string } | null> } }
        }> }, attributes: Array<{ __typename?: 'Attribute', key: string, value?: string | null }> };
 
-type CartErrorsFragment = { __typename: 'CartUserError', field?: Array<string> | null, message: string, code?: CartErrorCode | null };
+type CartUserErrorFragment = { __typename: 'CartUserError', field?: Array<string> | null, message: string, code?: CartErrorCode | null };
 
 type AllShopifyCollectionsQueryVariables = Exact<{
   country?: InputMaybe<CountryCode>;

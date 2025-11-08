@@ -11,39 +11,55 @@ import { usePathname } from 'next/navigation';
 import { formatShopifyPrice } from '@/lib/shopify/utils';
 import { useLocale } from 'next-intl';
 import useStore from '@/lib/store';
-import { useClickAway } from 'react-use';
+import { useClickAway, useFavicon } from 'react-use';
 import { deliveryDaysText } from '@/lib/utils';
 import { Checkbox } from '@/components/common/Checkbox';
 import { Link } from '@/i18n/routing';
+import CartError from '@/components/shopify/CartError';
 
 export type CartProps = {
 	localization: LocalizationQuery['localization'];
 };
 
 export default function Cart({ localization }: CartProps) {
-	const [cart, createCart, removeFromCart, updateQuantity, updateBuyerIdentity, updating, updatingId, cartError] =
-		useCart(
-			useShallow((state) => [
-				state.cart,
-				state.createCart,
-				state.removeFromCart,
-				state.updateQuantity,
-				state.updateBuyerIdentity,
-				state.updating,
-				state.updatingId,
-				state.error,
-			])
-		);
+	const [
+		cart,
+		createCart,
+		removeFromCart,
+		updateQuantity,
+		updateBuyerIdentity,
+		updating,
+		updatingId,
+		cartError,
+		clearError,
+	] = useCart(
+		useShallow((state) => [
+			state.cart,
+			state.createCart,
+			state.removeFromCart,
+			state.updateQuantity,
+			state.updateBuyerIdentity,
+			state.updating,
+			state.updatingId,
+			state.error,
+			state.clearError,
+		])
+	);
 	const [showCart, setShowCart] = useStore(useShallow((state) => [state.showCart, state.setShowCart]));
 	const country = useLocale();
 	const pathname = usePathname();
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<CartUserError[] | Error | string | null | undefined>(null);
 	const isEmpty = cart && cart?.lines?.edges?.length > 0 ? false : true;
 	const loading = !cart || updating;
 	const totalItems = cart?.lines.edges.reduce((total, { node: { quantity } }) => total + quantity, 0);
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 	const checkboxRef = useRef<HTMLInputElement>(null);
+
+	function handleCloseError() {
+		if (cartError) clearError();
+		if (error) setError(null);
+	}
 
 	useClickAway(ref, () => setShowCart(false));
 
@@ -52,17 +68,30 @@ export default function Cart({ localization }: CartProps) {
 	}, [cart, createCart]);
 
 	useEffect(() => {
-		createCart(country);
+		try {
+			createCart(country);
+		} catch (err) {
+			setError(err as Error);
+		}
 	}, [pathname]);
 
 	useEffect(() => {
-		if (cart && country && cart?.buyerIdentity?.countryCode?.toLowerCase() !== country)
-			updateBuyerIdentity({ countryCode: country.toUpperCase() } as CartBuyerIdentityInput);
+		if (cart && country && cart?.buyerIdentity?.countryCode?.toLowerCase() !== country) {
+			try {
+				updateBuyerIdentity({ countryCode: country.toUpperCase() } as CartBuyerIdentityInput);
+			} catch (err) {
+				setError(err as Error);
+			}
+		}
 	}, [country, cart]);
 
 	useEffect(() => {
 		setShowCart(false);
 	}, [pathname]);
+
+	useEffect(() => {
+		//setError(new Error('Error message from useEffect. Blah blah blah.'));
+	}, [showCart]);
 
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
@@ -169,8 +198,7 @@ export default function Cart({ localization }: CartProps) {
 					</form>
 				</>
 			)}
-			{error && <div className={s.error}>{error}</div>}
-			{cartError && <div className={s.error}>{cartError}</div>}
+			{(error || cartError) && <CartError error={error ?? cartError} closeLabel='Close' onClose={handleCloseError} />}
 		</div>
 	);
 }

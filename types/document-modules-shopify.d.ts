@@ -9,7 +9,7 @@ export const AddItemToCart: DocumentNode;
 export const RemoveItemFromCart: DocumentNode;
 export const UpdateItemFromCart: DocumentNode;
 export const CartFragment: DocumentNode;
-export const CartErrorsFragment: DocumentNode;
+export const CartUserErrorFragment: DocumentNode;
 
   export default defaultDocument;
 }

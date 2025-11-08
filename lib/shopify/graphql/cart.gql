@@ -10,7 +10,7 @@ mutation CreateCart($country: CountryCode = SE, $cartInput: CartInput) @inContex
 			...CartFragment
 		}
 		userErrors {
-			...CartErrorsFragment
+			...CartUserErrorFragment
 		}
 	}
 }
@@ -21,7 +21,7 @@ mutation CartBuyerIdentityUpdate($cartId: ID!, $buyerIdentity: CartBuyerIdentity
 			...CartFragment
 		}
 		userErrors {
-			...CartErrorsFragment
+			...CartUserErrorFragment
 		}
 	}
 }
@@ -33,7 +33,7 @@ mutation AddItemToCart($country: CountryCode = SE, $cartId: ID!, $lines: [CartLi
 			...CartFragment
 		}
 		userErrors {
-			...CartErrorsFragment
+			...CartUserErrorFragment
 		}
 	}
 }
@@ -44,7 +44,7 @@ mutation RemoveItemFromCart($cartId: ID!, $lineIds: [ID!]!) {
 			...CartFragment
 		}
 		userErrors {
-			...CartErrorsFragment
+			...CartUserErrorFragment
 		}
 	}
 }
@@ -56,7 +56,7 @@ mutation UpdateItemFromCart($country: CountryCode = SE, $cartId: ID!, $lines: [C
 			...CartFragment
 		}
 		userErrors {
-			...CartErrorsFragment
+			...CartUserErrorFragment
 		}
 	}
 }
@@ -163,7 +163,7 @@ fragment CartFragment on Cart {
 	}
 }
 
-fragment CartErrorsFragment on CartUserError {
+fragment CartUserErrorFragment on CartUserError {
 	__typename
 	field
 	message
