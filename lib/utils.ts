@@ -417,16 +417,16 @@ export const generateProductTitle = (product: ProductRecord, variantId: string):
 
 export const deliveryDaysText: Record<string, { full: string; label: string }> = {
 	short: {
-		full: 'In stock, ships within 1-3 days',
-		label: '1-3 days',
+		full: 'In stock, ships within 3-5 days',
+		label: '3-5 days',
 	},
 	medium: {
-		full: 'Delivery within 20-30 days',
-		label: '20-30 days',
+		full: 'Delivery within 6 weeks',
+		label: '6 weeks',
 	},
 	long: {
-		full: 'Delivery within 30-60 days',
-		label: '30-60 days',
+		full: 'Delivery within 12 weeks',
+		label: '12 weeks',
 	},
 };
 
