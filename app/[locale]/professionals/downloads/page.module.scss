@@ -66,6 +66,12 @@
 					color: var(--white);
 					padding-bottom: 0.6em;
 
+					&:first-child {
+						width: 2em;
+						max-width: 2em;
+						min-width: 2em;
+						padding-left: 1em;
+					}
 					&:nth-child(2) {
 						padding-left: 1em;
 						min-width: 120px;
@@ -79,7 +85,6 @@
 					border-top: 1px solid var(--white);
 					white-space: pre;
 					vertical-align: middle;
-
 					&:first-child {
 						width: 2em;
 						max-width: 2em;
@@ -90,6 +95,12 @@
 					&:nth-child(2) {
 						padding-left: 1em;
 						width: 20%;
+					}
+					&:nth-child(3) {
+						overflow: hidden;
+						text-overflow: ellipsis;
+						width: 100%;
+						max-width: 1px;
 					}
 				}
 

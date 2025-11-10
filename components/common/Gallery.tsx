@@ -76,6 +76,7 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
 									imgClassName={s.image}
 									data={image.responsiveImage}
 									usePlaceholder={false}
+									priority={true}
 									onLoad={() => setLoaded((prevState) => ({ ...prevState, [image.id]: true }))}
 								/>
 							) : (

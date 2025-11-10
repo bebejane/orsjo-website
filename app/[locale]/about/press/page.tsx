@@ -12,12 +12,12 @@ export default async function PressPage({ params }: PageProps<'/[locale]/about/p
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { presses } = await apiQuery(AllPressDocument, { all: true });
-	if (!presses) return notFound();
+	const { allPresses } = await apiQuery(AllPressDocument, { all: true });
+
 	return (
 		<Section className={s.press} top={true} name='Introduction'>
 			<h1>Press</h1>
-			{presses.map(({ title, url }, idx) => (
+			{allPresses.map(({ title, url }, idx) => (
 				<a key={idx} href={url}>
 					{title}
 				</a>

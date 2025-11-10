@@ -139,13 +139,9 @@ export const getProductPageData = async (
 				currencyCode,
 			},
 		},
-		relatedProducts: allProducts
-			.filter((p) => p.id !== product.id)
-			//@ts-ignore
-			.sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
+		relatedProducts: allProducts.filter((p) => p.id !== product.id).sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
 		productsByCategory: allProductCategories
 			.filter((p) => p.id !== product.id)
-			//@ts-ignore
 			.sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
 		relatedProjects: allProjects,
 		files,

@@ -61,6 +61,7 @@ export default {
 		staff: async () => [`/contact`],
 		start: async () => [`/`],
 		sustainability: async () => ['/about/sustainability'],
+		shipping: async () => ['/products'],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
 	sitemap: async () => {

@@ -1,5 +1,6 @@
 import { AllProductsDocument, AllProductLightsourcesDocument, AllProductAccessoriesDocument } from '@/graphql';
 import fs from 'fs';
+//@ts-expect-error
 import XlsxStreamReader from 'xlsx-stream-reader';
 import 'dotenv/config';
 import { apiQuery } from 'next-dato-utils/api';

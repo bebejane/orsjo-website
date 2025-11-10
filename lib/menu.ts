@@ -154,7 +154,7 @@ const base: Menu = [
 				layout: 'full',
 				inverted: true,
 				color: 'black',
-				sidebar: true,
+				sidebar: false,
 				footerLine: true,
 			},
 			{

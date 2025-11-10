@@ -1,6 +1,6 @@
 import * as Blocks from '@/components/blocks';
 
-export type BlockProps = { data: any; onClick: (id: string) => void; first?: boolean };
+export type BlockProps = { data: any; onClick?: (id: string) => void; first?: boolean };
 
 export default function Block({ data, onClick, first = false }: BlockProps) {
 	const key = data.__typename?.replace('Record', '') as keyof typeof Blocks;

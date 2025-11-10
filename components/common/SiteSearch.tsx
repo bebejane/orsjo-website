@@ -37,8 +37,8 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 	const [query, setQuery] = useState<string | undefined>();
 	const [inputValue, setInputValue] = useState<string | undefined>('');
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
-	const [setShowSiteSearch, transitioning, isMounted] = useStore(
-		useShallow((state) => [state.setShowSiteSearch, state.transitioning, state.isMounted])
+	const [setShowSiteSearch, setShowMenuMobile, transitioning, isMounted] = useStore(
+		useShallow((state) => [state.setShowSiteSearch, state.setShowMenuMobile, state.transitioning, state.isMounted])
 	);
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(false);
@@ -125,7 +125,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 						return (
 							<React.Fragment key={model}>
 								<h1>{model}</h1>
-								<ul>
+								<ul onClick={onClose}>
 									{items.map((item: any, idx: number) =>
 										model === 'products' ? (
 											<li key={idx}>

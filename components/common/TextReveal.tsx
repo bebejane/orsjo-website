@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { styleVariables } from '@/lib/utils';
 import React, { Children } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
+import Balancer from 'react-wrap-balancer';
 
 type Props = {
 	children: React.ReactNode | undefined;
@@ -33,16 +34,18 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 		<>
 			{text?.split('\n').map((p, key) => (
 				<p key={key} className={s.paragraph}>
-					{p.split(' ').map((word, widx) => (
-						<span key={widx} className={cn(s.word, block && s.block)}>
-							{word.split('').map((c, idx) => (
-								<span key={idx} className={cn(s.letter, ++count > chars && s.hide)}>
-									{c === '\n' ? <br /> : c}
-								</span>
-							))}
-							{widx < text.split(' ').length - 1 ? <>&nbsp;</> : undefined}
-						</span>
-					))}
+					<Balancer>
+						{p.split(' ').map((word, widx) => (
+							<span key={widx} className={cn(s.word, block && s.block)}>
+								{word.split('').map((c, idx) => (
+									<span key={idx} className={cn(s.letter, ++count > chars && s.hide)}>
+										{c === '\n' ? <br /> : c}
+									</span>
+								))}
+								{widx < text.split(' ').length - 1 ? <>&nbsp;</> : undefined}
+							</span>
+						))}
+					</Balancer>
 				</p>
 			))}
 		</>

@@ -9,13 +9,13 @@ type TwoColumnImageBlockProps = { data: TwoColumnImageRecord; onClick: BlockProp
 export default function TwoColumnImage({ data: { firstImage, lastImage }, onClick }: TwoColumnImageBlockProps) {
 	return (
 		<div className={s.twoColumnImage}>
-			<figure onClick={() => onClick(firstImage.id)} data-image-zoom={firstImage.id}>
+			<figure onClick={() => onClick?.(firstImage.id)} data-image-zoom={firstImage.id}>
 				{firstImage.responsiveImage && (
 					<Image data={firstImage.responsiveImage} className={s.image} intersectionMargin={`0px 0px 200% 0px`} />
 				)}
 				<CustomMade show={firstImage.customData?.custom} />
 			</figure>
-			<figure onClick={() => onClick(lastImage.id)} data-image-zoom={lastImage.id}>
+			<figure onClick={() => onClick?.(lastImage.id)} data-image-zoom={lastImage.id}>
 				{lastImage.responsiveImage && (
 					<Image data={lastImage.responsiveImage} className={s.image} intersectionMargin={`0px 0px 200% 0px`} />
 				)}

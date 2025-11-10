@@ -52,7 +52,7 @@ export default function Downloads({ products }: DownloadsListProps) {
 					<tbody>
 						<tr>
 							<th>
-								<span className='small'>Image</span>
+								<span className='small'></span>
 							</th>
 							<th>
 								<span className='small'>Product</span>
