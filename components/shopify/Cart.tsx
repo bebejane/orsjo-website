@@ -94,6 +94,7 @@ export default function Cart({ localization, shipping }: CartProps) {
 		//setError(new Error('Error message from useEffect. Blah blah blah.'));
 	}, [showCart]);
 
+	console.log(terms);
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
@@ -185,7 +186,7 @@ export default function Cart({ localization, shipping }: CartProps) {
 							className={cn(s.checkout, !terms && s.disabled, 'full')}
 							type='submit'
 							onClick={(e) => {
-								if (terms) return;
+								if (terms) return true;
 								e.preventDefault();
 								checkboxRef.current?.focus();
 							}}

@@ -6,7 +6,6 @@ import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import { Mousewheel } from 'swiper/modules';
-
 import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, Thumbnail, ArrowButton } from '@/components';
 import { useEffect, useRef, useState } from 'react';
@@ -53,9 +52,9 @@ export default function FeaturedGallery({
 		const slidesPerView = isMobile ? 2 : 4;
 		setIsShortSlide(numSlides <= slidesPerView);
 	}, [isMobile, numSlides]);
-
+	console.log(fadeColor);
 	return (
-		<div className={cn(s.featuredGallery, inverted || (_inverted && s.inverted))}>
+		<div className={cn(s.featuredGallery, (inverted || _inverted) && s.inverted)}>
 			{headline && arrowAlign === 'top' && (
 				<div className={s.header}>
 					<h1 className={s.headline}>{headline}</h1>

@@ -9,14 +9,14 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
-
 	const { start } = await apiQuery(StartDocument);
+
+	if (!start) return notFound();
+
 	return (
 		<>
 			{start?.content.map((block, idx) => (
-				<Section key={idx} type='full'>
-					<Block data={block} first={idx === 0} />
-				</Section>
+				<Block key={idx} data={block} first={idx === 0} />
 			))}
 		</>
 	);

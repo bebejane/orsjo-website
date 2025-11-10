@@ -14,6 +14,12 @@
 	object-fit: cover;
 	pointer-events: none;
 	z-index: 0;
+
+	&[poster] {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+	}
 }
 
 .mute {
