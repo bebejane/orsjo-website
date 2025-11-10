@@ -22,19 +22,22 @@ export default function ShopInfo({ product, shipping, currencyCode }: Props) {
 
 	return (
 		<Section name='Shipping' className={s.shopinfo} bgColor='--white' fadeColor={'#ffffff'} bottom={true}>
-			<p className='small'>
+			<div className='small'>
 				{shipping?.deliveryDays.map(({ time, text, textShort }) => (
-					<React.Fragment key={time}>
-						<span className={cn(s.delivery, s[time])} />
-						<span>{text}</span>
-					</React.Fragment>
+					<p>
+						<React.Fragment key={time}>
+							<span className={cn(s.delivery, s[time])} />
+							<span>{text}</span>
+						</React.Fragment>
+					</p>
 				))}
-				<br />
-				{deliverTerms}&nbsp;
-				<Link href='/support/terms-conditions'>
-					<span className='gray'>More info ›</span>
-				</Link>
-			</p>
+				{deliverTerms}
+				<p>
+					<Link href='/support/terms-conditions'>
+						<span className='gray'>&nbsp;&nbsp; More info ›</span>
+					</Link>
+				</p>
+			</div>
 		</Section>
 	);
 }
