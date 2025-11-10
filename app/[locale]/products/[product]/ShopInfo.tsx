@@ -17,19 +17,22 @@ export default function ShopInfo({ product }: Props) {
 
 	return (
 		<Section name='Shipping' className={s.shopinfo} bgColor='--white' fadeColor={'#ffffff'} bottom={true}>
-			<p className='small'>
+			<div className='small'>
 				{Object.keys(deliveryDaysText).map((key) => (
 					<React.Fragment key={key}>
-						<span className={cn(s.delivery, s[key])} />
-						<span>{deliveryDaysText[key]?.full}</span>
+						<p>
+							<span className={cn(s.delivery, s[key])} />
+							<span>{deliveryDaysText[key]?.full}</span>
+						</p>
 					</React.Fragment>
 				))}
-				<br />
-				Free shipping on all orders over 5000 SEK. &nbsp;
-				<Link href='/support/terms-conditions'>
-					<span className='gray'>More info ›</span>
-				</Link>
-			</p>
+				<p>
+					Free shipping on all orders over 5000 SEK. &nbsp;
+					<Link href='/support/terms-conditions'>
+						<span className='gray'>More info ›</span>
+					</Link>
+				</p>
+			</div>
 		</Section>
 	);
 }

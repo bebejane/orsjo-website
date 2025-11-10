@@ -4,7 +4,7 @@
 	flex-direction: column;
 	left: 0;
 	width: 100%;
-	bottom: var(--outer-margin);
+	bottom: 0px;
 	z-index: var(--z-shop);
 	background-color: var(--white-real);
 	opacity: 1;
@@ -17,6 +17,7 @@
 		margin-left: calc(var(--outer-margin));
 		width: spanGrid(3.5);
 		margin-bottom: var(--outer-margin);
+		bottom: var(--outer-margin);
 	}
 
 	&.wide {

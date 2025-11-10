@@ -4,7 +4,12 @@
 	margin-top: var(--margin);
 
 	p {
-		line-height: 2em;
+		line-height: 1.5em;
+		margin: 0;
+		@include mq($from: desktop) {
+			display: inline-block;
+			line-height: 2em;
+		}
 		//margin-top: -100px;
 	}
 
