@@ -21,11 +21,12 @@
 
 		padding: var(--outer-margin);
 		h3 {
-			color: var(--white);
+			color: var(--red);
 		}
 		.message {
-			font-size: 0.5rem;
-			color: var(--red);
+			margin-top: 1rem;
+			margin-bottom: 1.5rem;
+			color: var(--white);
 		}
 		button {
 			width: 100%;

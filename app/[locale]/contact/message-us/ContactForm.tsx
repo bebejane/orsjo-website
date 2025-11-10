@@ -31,29 +31,34 @@ export default function ContactForm({ contactFormMessage }: Props) {
 	return (
 		<>
 			<form id='contact-form' action={formAction} className={s.form}>
-				<label htmlFor='name' className='medium'>
-					Name
-				</label>
-				<input id='name' name='name' type='text' autoComplete='off' defaultValue={state.name} />
-				{errors('name')}
-
-				<label htmlFor='email' className='medium'>
-					E-mail
-				</label>
-				<input id='email' type='email' name='email' defaultValue={state.email} />
-				{errors('email')}
-
-				<label htmlFor='subject' className='medium'>
-					Subject
-				</label>
-				<input id='subject' type='text' name='subject' autoComplete='off' defaultValue={state.subject} />
-				{errors('subject')}
-
-				<label htmlFor='message' className='medium'>
-					Message
-				</label>
-				<textarea id='message' name='message' defaultValue={state.message} />
-				{errors('message')}
+				<div className={s.wrap}>
+					<label htmlFor='name' className='medium'>
+						Name
+					</label>
+					<input id='name' name='name' type='text' autoComplete='off' defaultValue={state.name} />
+					{errors('name')}
+				</div>
+				<div className={s.wrap}>
+					<label htmlFor='email' className='medium'>
+						E-mail
+					</label>
+					<input id='email' type='email' name='email' defaultValue={state.email} />
+					{errors('email')}
+				</div>
+				<div className={s.wrap}>
+					<label htmlFor='subject' className='medium'>
+						Subject
+					</label>
+					<input id='subject' type='text' name='subject' autoComplete='off' defaultValue={state.subject} />
+					{errors('subject')}
+				</div>
+				<div className={s.wrap}>
+					<label htmlFor='message' className='medium'>
+						Message
+					</label>
+					<textarea id='message' name='message' defaultValue={state.message} />
+					{errors('message')}
+				</div>
 
 				<button type='submit'>Send message</button>
 			</form>

@@ -9,6 +9,12 @@
 	padding-left: var(--outer-margin);
 	padding-right: var(--outer-margin);
 
+	.wrap {
+		break-inside: avoid; /* standard */
+		page-break-inside: avoid; /* för utskrift */
+		-webkit-column-break-inside: avoid; /* äldre WebKit/Safari */
+	}
+
 	input,
 	textarea {
 		margin-bottom: 1em;
