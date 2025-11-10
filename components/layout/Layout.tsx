@@ -40,7 +40,11 @@ export default function Layout({ children, menu, localization, shipping }: Layou
 	return (
 		<>
 			<PageProvider pathname={pathname} country={country} menu={menu}>
-				<div className={s.layout} style={isMounted ? { backgroundColor: `var(--${page?.color})` } : undefined}>
+				<div
+					className={s.layout}
+					style={isMounted ? { backgroundColor: `var(--${page?.color})` } : undefined}
+					suppressHydrationWarning
+				>
 					<Sidebar key={pathname} />
 					<main id='content' className={s.content} data-type={page?.layout}>
 						<article>{children}</article>

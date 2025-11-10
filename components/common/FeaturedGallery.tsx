@@ -52,7 +52,7 @@ export default function FeaturedGallery({
 		const slidesPerView = isMobile ? 2 : 4;
 		setIsShortSlide(numSlides <= slidesPerView);
 	}, [isMobile, numSlides]);
-	console.log(fadeColor);
+
 	return (
 		<div className={cn(s.featuredGallery, (inverted || _inverted) && s.inverted)}>
 			{headline && arrowAlign === 'top' && (
