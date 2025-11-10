@@ -11,6 +11,7 @@ import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from '@/components/nav/Link';
+import { useCart } from '@/lib/shopify';
 
 export type MenuMobileProps = {
 	menu: MenuItem[];
@@ -20,14 +21,16 @@ export type MenuMobileProps = {
 export default function MenuMobile({ menu }: MenuMobileProps) {
 	const router = useRouter();
 	const pathname = usePathname();
+
 	const { inverted } = usePage();
 	const searchRef = useRef<HTMLInputElement>(null);
 	const [query, setQuery] = useState<string | null>(null);
 	const [showSearch, setShowSearch] = useState(false);
 	const [selected, setSelected] = useState<MenuItem | null>(null);
-	const [showMenuMobile, setShowMenuMobile, transitioning] = useStore(
-		useShallow((state) => [state.showMenuMobile, state.setShowMenuMobile, state.transitioning])
+	const [showMenuMobile, setShowMenuMobile, transitioning, setShowCart] = useStore(
+		useShallow((state) => [state.showMenuMobile, state.setShowMenuMobile, state.transitioning, state.setShowCart])
 	);
+	const [cart] = useCart(useShallow((state) => [state.cart]));
 	const sub = menu.find((item) => item.type === selected?.type)?.sub;
 	const subHeader = selected ? menu.find((i) => i.type === selected?.type)?.title : null;
 
@@ -85,6 +88,12 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 					label={'Menu'}
 					size={24}
 				/>
+			</div>
+			<div
+				className={cn(s.cart, cart?.totalQuantity && s.filled, showMenuMobile && s.invert)}
+				onClick={() => setShowCart(true)}
+			>
+				<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
 			</div>
 			<nav className={cn(s.mobileMenu, showMenuMobile ? s.open : s.hide)}>
 				<nav className={s.main}>
