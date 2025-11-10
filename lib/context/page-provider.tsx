@@ -1,16 +1,9 @@
 'use client';
 
 import { useContext, createContext } from 'react';
-import { findMenuItem, Menu, MenuItem } from '@/lib/menu';
+import { findMenuItem, Menu, MenuItem, MenuSection } from '@/lib/menu';
 
-export type UsePageProps = {
-	title: string | undefined;
-	layout: 'normal' | 'full';
-	inverted: boolean;
-	color: string;
-	sidebar: boolean;
-	footerLine: boolean;
-};
+export type UsePageProps = MenuItem;
 
 export type PageProviderProps = {
 	children: React.ReactNode;
@@ -19,12 +12,15 @@ export type PageProviderProps = {
 	menu: Menu;
 };
 
-const initialState: UsePageProps = {
-	title: undefined,
-	layout: 'normal',
+const initialState: MenuItem = {
+	section: 'home',
+	parent: undefined,
+	title: 'Home',
+	layout: 'full',
 	inverted: false,
 	color: 'white',
-	sidebar: true,
+	sidebar: false,
+	slug: '/',
 	footerLine: false,
 };
 
@@ -33,19 +29,7 @@ export const PageContext = createContext(initialState);
 export const PageProvider = ({ children, pathname, country, menu }: PageProviderProps) => {
 	const item = findMenuItem(pathname, menu);
 	if (!item) console.warn(`Invalid page (PageProvider): ${pathname}`);
-
-	const state = !item
-		? initialState
-		: ({
-				...initialState,
-				title: item.title,
-				layout: item.layout,
-				inverted: item.inverted,
-				color: item.color,
-				sidebar: item.sidebar,
-				footerLine: item.footerLine,
-			} as UsePageProps);
-
+	const state = !item ? initialState : item;
 	return <PageContext.Provider value={state}>{children}</PageContext.Provider>;
 };
 

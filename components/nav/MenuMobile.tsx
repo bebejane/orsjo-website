@@ -27,12 +27,19 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 	const [query, setQuery] = useState<string | null>(null);
 	const [showSearch, setShowSearch] = useState(false);
 	const [selected, setSelected] = useState<MenuItem | null>(null);
-	const [showMenuMobile, setShowMenuMobile, transitioning, setShowCart] = useStore(
-		useShallow((state) => [state.showMenuMobile, state.setShowMenuMobile, state.transitioning, state.setShowCart])
-	);
 	const [cart] = useCart(useShallow((state) => [state.cart]));
-	const sub = menu.find((item) => item.type === selected?.type)?.sub;
-	const subHeader = selected ? menu.find((i) => i.type === selected?.type)?.title : null;
+	const [showMenuMobile, setShowMenuMobile, transitioning, setShowCart, isMounted] = useStore(
+		useShallow((state) => [
+			state.showMenuMobile,
+			state.setShowMenuMobile,
+			state.transitioning,
+			state.setShowCart,
+			state.isMounted,
+		])
+	);
+
+	const sub = menu.find((item) => item.section === selected?.section)?.sub;
+	const subHeader = selected ? menu.find((i) => i.section === selected?.section)?.title : null;
 
 	const handleSubmitSearch = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -65,7 +72,9 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 
 	useEffect(() => {
 		if (!showMenuMobile) return;
-		menu.filter(({ index, type }) => index || selected?.type === type).forEach(({ slug }) => router.prefetch(slug));
+		menu
+			.filter(({ index, section }) => index || selected?.section === section)
+			.forEach(({ slug }) => router.prefetch(slug));
 	}, [showMenuMobile, menu, router, selected]);
 
 	useEffect(() => {
@@ -75,7 +84,7 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 		}
 	}, [showMenuMobile, router, setSelected, menu]);
 
-	if (!menu) return null;
+	if (!menu || !isMounted) return null;
 
 	return (
 		<>
@@ -90,7 +99,7 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 				/>
 			</div>
 			<div
-				className={cn(s.cart, cart?.totalQuantity && s.filled, showMenuMobile && s.invert)}
+				className={cn(s.cart, cart?.totalQuantity && s.filled, (showMenuMobile || inverted) && s.invert)}
 				onClick={() => setShowCart(true)}
 			>
 				<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
@@ -103,7 +112,9 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 								{item.index ? (
 									<Link href={item.slug}>{item.title}</Link>
 								) : (
-									<span onClick={() => setSelected(selected?.type === item.type ? null : item)}>{item.title}</span>
+									<span onClick={() => setSelected(selected?.section === item.section ? null : item)}>
+										{item.title}
+									</span>
 								)}
 							</li>
 						))}

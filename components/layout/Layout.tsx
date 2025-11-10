@@ -9,6 +9,7 @@ import { usePathname } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import Cart from '@/components/shopify/Cart';
 import PageTransition from '@/components/layout/PageTransition';
+import { useEffect } from 'react';
 
 export type LayoutProps = {
 	children: React.ReactNode;
@@ -21,14 +22,25 @@ export default function Layout({ children, menu, localization, shipping }: Layou
 	const pathname = usePathname();
 	const country = useLocale();
 	const page = findMenuItem(pathname, menu);
-	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore(
-		useShallow((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch])
+	const [gallery, setGallery, showSiteSearch, setShowSiteSearch, isMounted, setIsMounted] = useStore(
+		useShallow((state) => [
+			state.gallery,
+			state.setGallery,
+			state.showSiteSearch,
+			state.setShowSiteSearch,
+			state.isMounted,
+			state.setIsMounted,
+		])
 	);
+
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
 
 	return (
 		<>
 			<PageProvider pathname={pathname} country={country} menu={menu}>
-				<div className={s.layout} style={{ backgroundColor: `var(--${page?.color})` }}>
+				<div className={s.layout} style={isMounted ? { backgroundColor: `var(--${page?.color})` } : undefined}>
 					<Sidebar key={pathname} />
 					<main id='content' className={s.content} data-type={page?.layout}>
 						<article>{children}</article>

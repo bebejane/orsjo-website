@@ -37,6 +37,10 @@
 	nav {
 		flex: 0 0 auto;
 
+		@include mq($from: desktop) {
+			background-color: transparent !important;
+		}
+
 		ul {
 			list-style: none;
 			min-width: spanGrid(4);
@@ -125,6 +129,7 @@
 		padding-bottom: var(--outer-margin);
 		cursor: pointer;
 		align-items: flex-end;
+
 		&.product {
 			align-items: flex-start;
 		}

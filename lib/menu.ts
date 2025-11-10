@@ -3,12 +3,20 @@ import { apiQuery } from 'next-dato-utils/api';
 import { MenuDocument } from '@/graphql';
 import { sectionId } from '@/lib/utils';
 
-export type MenuType = 'home' | 'product' | 'designer' | 'professional' | 'about' | 'support' | 'contact' | 'project';
+export type MenuSection =
+	| 'home'
+	| 'product'
+	| 'designer'
+	| 'professional'
+	| 'about'
+	| 'support'
+	| 'contact'
+	| 'project';
 export type MenuColor = 'white' | 'black' | 'green' | 'gray' | 'copper' | 'beige';
 export type Menu = MenuItem[];
 export type MenuItem = {
-	type?: MenuType;
-	parent?: MenuType;
+	section?: MenuSection;
+	parent?: MenuSection;
 	title: string;
 	slug: string;
 	layout: 'normal' | 'full';
@@ -25,7 +33,7 @@ export type MenuItem = {
 
 const base: Menu = [
 	{
-		type: 'home',
+		section: 'home',
 		title: 'Home',
 		slug: '/',
 		layout: 'full',
@@ -36,7 +44,7 @@ const base: Menu = [
 		index: true,
 	},
 	{
-		type: 'product',
+		section: 'product',
 		title: 'Products',
 		slug: '/products',
 		layout: 'normal',
@@ -47,7 +55,7 @@ const base: Menu = [
 		index: true,
 	},
 	{
-		type: 'designer',
+		section: 'designer',
 		title: 'Designers',
 		slug: '/designers',
 		layout: 'full',
@@ -57,7 +65,7 @@ const base: Menu = [
 		color: 'green',
 	},
 	{
-		type: 'professional',
+		section: 'professional',
 		title: 'Professionals',
 		slug: '/professionals',
 		layout: 'normal',
@@ -67,7 +75,7 @@ const base: Menu = [
 		color: 'gray',
 		sub: [
 			{
-				type: 'project',
+				section: 'project',
 				parent: 'professional',
 				title: 'Projects',
 				slug: '/professionals/projects',
@@ -110,7 +118,7 @@ const base: Menu = [
 		],
 	},
 	{
-		type: 'about',
+		section: 'about',
 		title: 'About',
 		slug: '/about',
 		layout: 'full',
@@ -162,7 +170,7 @@ const base: Menu = [
 		],
 	},
 	{
-		type: 'support',
+		section: 'support',
 		title: 'Support',
 		slug: '/support',
 		layout: 'normal',
@@ -214,7 +222,7 @@ const base: Menu = [
 		],
 	},
 	{
-		type: 'contact',
+		section: 'contact',
 		title: 'Contact',
 		slug: '/contact',
 		layout: 'normal',
@@ -298,7 +306,7 @@ export const buildMenu = async () => {
 		let sub: MenuItem[] | undefined = undefined;
 		let footerSub: MenuItem[] | undefined = undefined;
 
-		switch (item.type) {
+		switch (item.section) {
 			case 'product':
 				sub = allProducts.map(({ title, slug }) => ({
 					parent: 'product',
@@ -312,7 +320,7 @@ export const buildMenu = async () => {
 
 				footerSub = allProductCategories.map(({ id, name, namePlural }) => ({
 					...item,
-					type: undefined,
+					section: undefined,
 					parent: 'product',
 					title: namePlural as string,
 					slug: `/products#${sectionId(namePlural as string).id}`,
@@ -342,7 +350,7 @@ export const buildMenu = async () => {
 				break;
 			case 'project':
 				sub = allProjects.map(({ title, slug }) => ({
-					parent: 'professional',
+					parent: 'project',
 					title,
 					slug: `/professionals/projects/${slug}`,
 					layout: 'normal',
@@ -360,7 +368,10 @@ export const buildMenu = async () => {
 			footerSub,
 		} as MenuItem;
 	}
-	return base.map((item) => transformMenuItem(item)) as Menu;
+
+	const menu = base.map((item) => transformMenuItem(item)) as Menu;
+
+	return menu;
 };
 
 export const findMenuItem = (pathname: string, menu: MenuItem[]): MenuItem | null => {

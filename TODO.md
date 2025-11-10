@@ -3,11 +3,6 @@
 - Typescript errors
 - news sidebar...
 
-# Styling
-
-CartError component styling
-Contact form weird error message style
-
 # Live
 
 - resync shopify

@@ -2,7 +2,6 @@
 
 import { HTMLProps, FC, ComponentProps } from 'react';
 import { sleep } from '@/lib/utils';
-import { useEffect } from 'react';
 import { pathnameToColor } from '@/lib/utils';
 import { useRouter, usePathname, Link as NextIntlLink } from '@/i18n/routing';
 import { useLocale } from 'next-intl';

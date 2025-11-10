@@ -37,8 +37,8 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 	const [query, setQuery] = useState<string | undefined>();
 	const [inputValue, setInputValue] = useState<string | undefined>('');
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
-	const [setShowSiteSearch, transitioning] = useStore(
-		useShallow((state) => [state.setShowSiteSearch, state.transitioning])
+	const [setShowSiteSearch, transitioning, isMounted] = useStore(
+		useShallow((state) => [state.setShowSiteSearch, state.transitioning, state.isMounted])
 	);
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(false);
@@ -95,6 +95,8 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 	useEffect(() => {
 		setShowSiteSearch(false);
 	}, [pathname]);
+
+	if (!isMounted) return null;
 
 	return (
 		<div className={cn(s.search, show && s.show)}>

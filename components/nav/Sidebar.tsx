@@ -11,22 +11,12 @@ import { useScrollInfo } from 'next-dato-utils/hooks';
 import { styleVariables } from '@/lib/utils';
 import { useWindowSize } from 'rooks';
 
-const getPageType = (pathname: string) => {
-	const p = pathname.toLowerCase();
-	return p === '/products'
-		? 'products'
-		: p.startsWith('/products/')
-			? 'product'
-			: p.startsWith('/professionals/projects/')
-				? 'project'
-				: undefined;
-};
-
 export default function Sidebar() {
-	const { inverted: _inverted, layout, color, title, sidebar } = usePage();
+	const { inverted: _inverted, layout, color, title, sidebar, section, parent } = usePage();
 	const router = useRouter();
 	const path = usePathname();
 	const pathname = path.includes('#') ? path.substring(0, path.indexOf('#')) : path;
+	const backRef = useRef(null);
 	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore(
 		useShallow((state) => [
 			state.currentSection,
@@ -39,13 +29,15 @@ export default function Sidebar() {
 	const [setInvertMenu] = useStore(useShallow((state) => [state.setInvertMenu]));
 	const [inverted, setInverted] = useState(_inverted || invertSidebar);
 	const [sections, setSections] = useState<{ title: string | undefined; id: string }[]>([]);
-	const [pageType, setPageType] = useState<string | undefined>(getPageType(pathname));
 	const [open, setOpen] = useState(false);
 	const [searchFocus, setSearchFocus] = useState(false);
 	const [maxHeight, setMaxHeight] = useState<string | undefined>();
 	const { scrolledPosition, documentHeight, isScrolling } = useScrollInfo();
 	const { innerWidth } = useWindowSize();
-	const backRef = useRef(null);
+
+	const isProductsPage = section === 'product' && !parent;
+	const isProductPage = parent === 'product';
+	const isProjectPage = parent === 'project';
 
 	const resetSearch = useCallback(() => {
 		setSearchProducts('');
@@ -96,10 +88,10 @@ export default function Sidebar() {
 	}, [currentSection, setInverted, _inverted, innerWidth]);
 
 	useEffect(() => {
-		if (pageType) return;
+		if (section) return;
 		const footer = document.getElementById('footer');
 		setMaxHeight(`calc(100vh - ${footer?.clientHeight}px`);
-	}, [pageType, setMaxHeight]);
+	}, [section, setMaxHeight]);
 
 	useEffect(() => {
 		setTimeout(() => resetSearch(), 100);
@@ -111,7 +103,7 @@ export default function Sidebar() {
 		<aside
 			id='sidebar'
 			key={path}
-			className={cn(s.sidebar, inverted && s.inverted, pageType === 'products' && s.short)}
+			className={cn(s.sidebar, inverted && s.inverted, isProductsPage && s.short)}
 			style={{ backgroundColor: `var(--${color})`, maxHeight }}
 		>
 			<h3 id='sidebar-header' className={cn(open && s.open)} onClick={() => setOpen(!open)}>
@@ -135,7 +127,7 @@ export default function Sidebar() {
 							</a>
 						</li>
 					))}
-					<li className={cn(s.search, pageType === 'products' && s.show)}>
+					<li className={cn(s.search, isProductsPage && s.show)}>
 						<input
 							type='text'
 							placeholder='Search'
@@ -151,15 +143,15 @@ export default function Sidebar() {
 				</ul>
 			</nav>
 
-			<div className={cn(s.footer, pageType && s[pageType], 'medium')}>
-				{pageType === 'product' && (
+			<div className={cn(s.footer, isProductPage && s.product, 'medium')}>
+				{isProductPage && (
 					<span onClick={() => router.push('/products')} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>
 							All Products
 						</ArrowLink>
 					</span>
 				)}
-				{pageType === 'project' && (
+				{isProjectPage && (
 					<span onClick={() => router.push('/professionals/projects')} ref={backRef}>
 						<ArrowLink reversed={true} hoverRef={backRef}>
 							All Projects
