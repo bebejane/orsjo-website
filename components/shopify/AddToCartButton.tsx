@@ -26,7 +26,7 @@ export default function AddToCartButton({
 
 	const handleAddToCart = () => {
 		if (!disabled && typeof merchandiseId === 'string') {
-			addToCart([{ merchandiseId, quantity }], country);
+			addToCart({ merchandiseId, quantity }, country);
 		}
 	};
 

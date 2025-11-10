@@ -22,7 +22,7 @@ export interface CartState {
 	clearCart: () => void;
 	createCart: (country: string) => void;
 	setCart: (cart: CartQuery['cart']) => Promise<CartQuery['cart']>;
-	addToCart: (lines: CartLineInput[], country: string) => void;
+	addToCart: (lines: CartLineInput | CartLineInput[], country: string) => void;
 	removeFromCart: (id: string) => void;
 	updateQuantity: (id: string, quantity: number, country: string) => void;
 	updateBuyerIdentity: (input: CartBuyerIdentityInput) => void;
@@ -64,7 +64,7 @@ const useCart = create<CartState>((set, get) => ({
 		set((state) => ({ cart }));
 		return cart;
 	},
-	addToCart: async (lines: CartLineInput[], country: string) => {
+	addToCart: async (lines: CartLineInput | CartLineInput[], country: string) => {
 		get().update(null, async () => {
 			const cart = get().cart as CartQuery['cart'];
 			const { cartLinesAdd } = await shopifyQuery(AddItemToCartDocument, {
