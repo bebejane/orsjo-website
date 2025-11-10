@@ -21,7 +21,8 @@ const nextConfig: NextConfig = {
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
-	logging: {},
+	logging: false,
+	devIndicators: false,
 	reactStrictMode: false,
 	turbopack: {
 		rules: {
