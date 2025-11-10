@@ -42,11 +42,10 @@ export default function Thumbnail({
 	theme = 'light',
 	type = 'product',
 	showMarkAsNew = true,
-	lazyload = true,
 }: ThumbnailProps) {
 	const [hovering, setHovering] = useState(false);
 	const isTouch = typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
-	const handleMouseOver = ({ type }) => !isTouch && setHovering(type === 'mouseenter');
+	const handleMouseOver = ({ type }: React.MouseEvent<HTMLElement>) => !isTouch && setHovering(type === 'mouseenter');
 
 	const content = (
 		<>
@@ -57,7 +56,7 @@ export default function Thumbnail({
 						className={s.image}
 						layout={'fill'}
 						fadeInDuration={100}
-						intersectionMargin={`0px 0px 2000px 0px`}
+						intersectionMargin={`0px 0px 200% 0px`}
 						objectFit={objectFit as any}
 					/>
 				)}
@@ -67,7 +66,7 @@ export default function Thumbnail({
 							data={imageHover.responsiveImage}
 							className={s.image}
 							layout={'fill'}
-							intersectionMargin={`0px 0px 2000px 0px`}
+							intersectionMargin={`0px 0px 200% 0px`}
 							objectFit={'cover'}
 						/>
 					</div>

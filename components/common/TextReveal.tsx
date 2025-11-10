@@ -1,28 +1,15 @@
 'use client';
 
 import s from './TextReveal.module.scss';
+import cn from 'classnames';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { useEffect, useState } from 'react';
 import { styleVariables } from '@/lib/utils';
-import cn from 'classnames';
 import React, { Children } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
-const childrenToText = (children: React.ReactNode) => {
-	const chars = Children.toArray(children).map((c) =>
-		//@ts-ignore
-		typeof c === 'string' || typeof c === 'number'
-			? [c]
-			: c.props.children.map((c2) => (typeof c2 === 'string' ? c2 : c2.type === 'br' ? '\n' : ''))
-	);
-	return chars
-		.filter((arr) => arr.join(''))
-		.map((arr) => arr.join(''))
-		.join('');
-};
-
 type Props = {
-	children: React.ReactNode;
+	children: React.ReactNode | undefined;
 	speed?: number;
 	block?: boolean;
 };
@@ -60,4 +47,22 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 			))}
 		</>
 	);
+}
+
+function childrenToText(children: React.ReactNode | undefined): string {
+	const chars = Children.toArray(children).map((c) => {
+		if (typeof c === 'string' || typeof c === 'number') {
+			return [c];
+		}
+		if (React.isValidElement(c) && (c as React.ReactElement<any>).props.children) {
+			return Children.toArray((c as React.ReactElement<any>).props.children).map((c2: React.ReactNode) =>
+				typeof c2 === 'string' ? c2 : React.isValidElement(c2) && c2.type === 'br' ? '\n' : ''
+			);
+		}
+		return [];
+	});
+	return chars
+		.filter((arr) => arr.join(''))
+		.map((arr) => arr.join(''))
+		.join('');
 }

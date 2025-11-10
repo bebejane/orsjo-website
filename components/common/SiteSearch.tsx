@@ -26,8 +26,8 @@ export type SearchResultCategory = {
 
 type SiteSearchProps = {
 	show: boolean;
-	onClose?: () => void;
 	query?: string;
+	onClose?: () => void;
 	onChange?: (query: string | undefined) => void;
 };
 
@@ -126,7 +126,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 							<React.Fragment key={model}>
 								<h1>{model}</h1>
 								<ul>
-									{items.map((item, idx) =>
+									{items.map((item: any, idx: number) =>
 										model === 'products' ? (
 											<li key={idx}>
 												<ProductThumbnail product={item} theme={thumbnailTheme} className={s.thumb} />

@@ -19,7 +19,7 @@ export type FeaturedGalleryProps = {
 	products?: ProductRecord[];
 	projects?: ProjectRecord[];
 	designers?: DesignerRecord[];
-	items: ProductRecordWithShopifyData[] | ProjectRecord[] | DesignerRecord[];
+	items: ProductRecordWithShopifyData[] | ProjectRecord[] | DesignerRecord[] | ProductRecord[];
 	shopifyItems?: Product[];
 	headline?: string;
 	id: string;

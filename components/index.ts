@@ -5,7 +5,7 @@ export { default as FullscreenVideo } from './blocks/FullscreenVideo';
 export { default as FullwidthImage } from './blocks/FullwidthImage';
 export { default as ImageGallery } from './blocks/ImageGallery';
 export { default as ImageLink } from './blocks/ImageLink';
-export { default as Block } from './blocks';
+export { default as Block } from './layout/Block';
 export { default as NewsItem } from './blocks/NewsItem';
 export { default as Text } from './blocks/Text';
 export { default as TwoColumnImage } from './blocks/TwoColumnImage';
@@ -22,14 +22,6 @@ export { default as Logo } from './common/Logo';
 export { SectionListItem } from './common/SectionListItem';
 export { default as SiteSearch } from './common/SiteSearch';
 export { default as TextReveal } from './common/TextReveal';
-export {
-	default as Thumbnail,
-	ProductThumbnail,
-	ProjectThumbnail,
-	DesignerThumbnail,
-	NewsThumbnail,
-	StaffThumbnail,
-} from './common/Thumbnail';
 export { default as Underlay } from './common/Underlay';
 export { default as VideoPlayer } from './common/VideoPlayer';
 export { default as Layout } from './layout/Layout';
@@ -39,3 +31,11 @@ export { default as Footer } from './nav/Footer';
 export { default as MenuDesktop } from './nav/MenuDesktop';
 export { default as MenuMobile } from './nav/MenuMobile';
 export { default as Sidebar } from './nav/Sidebar';
+export {
+	default as Thumbnail,
+	ProductThumbnail,
+	ProjectThumbnail,
+	DesignerThumbnail,
+	NewsThumbnail,
+	StaffThumbnail,
+} from './common/Thumbnail';
