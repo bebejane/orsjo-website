@@ -31,6 +31,7 @@ export default function ShopInfo({ product, shipping, currencyCode }: Props) {
 						</React.Fragment>
 					</p>
 				))}
+				<br />
 				{deliverTerms}
 				<p>
 					<Link href='/support/terms-conditions'>
@@ -38,6 +39,6 @@ export default function ShopInfo({ product, shipping, currencyCode }: Props) {
 					</Link>
 				</p>
 			</div>
-		</Section>
+		</Section >
 	);
 }
