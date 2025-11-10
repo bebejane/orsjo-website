@@ -10,7 +10,7 @@ import { Mousewheel } from 'swiper/modules';
 import type { Swiper } from 'swiper';
 import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, Thumbnail, ArrowButton } from '@/components';
 import { useEffect, useRef, useState } from 'react';
-import { usePage } from '@/lib/context/page';
+import { usePage } from '@/lib/context/page-provider';
 import { useMediaQuery } from 'usehooks-ts';
 
 export type ProductRecordWithShopifyData = ProductRecord & { shopify: ProductVariant };

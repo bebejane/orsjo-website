@@ -19,9 +19,10 @@ import CartError from '@/components/shopify/CartError';
 
 export type CartProps = {
 	localization: LocalizationQuery['localization'];
+	shipping: ShippingQuery['shipping'];
 };
 
-export default function Cart({ localization }: CartProps) {
+export default function Cart({ localization, shipping }: CartProps) {
 	const [
 		cart,
 		createCart,
@@ -108,7 +109,8 @@ export default function Cart({ localization }: CartProps) {
 					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
 						{cart?.lines.edges.map(({ node: { id, quantity, cost, merchandise } }, idx) => {
 							const deliveryDays = merchandise.metafields.find((m) => m?.key === 'deliveryDays')?.value;
-
+							const deliveryDaysText =
+								shipping?.deliveryDays.find(({ time }) => time === deliveryDays)?.textShort ?? '';
 							return (
 								<li key={idx} className={cn(updatingId === id && s.updating)} aria-labelledby={id}>
 									<figure className={s.thumb}>
@@ -146,7 +148,7 @@ export default function Cart({ localization }: CartProps) {
 										<div className={cn(s.price, 'small')} aria-label={'Total'}>
 											{formatShopifyPrice(cost.subtotalAmount)}
 										</div>
-										<div className='small gray'>{deliveryDaysText[deliveryDays as string]?.label}</div>
+										<div className='small gray'>{deliveryDaysText}</div>
 										<div>
 											<button className={cn(s.remove, 'small')} onClick={() => removeFromCart(id)}>
 												Remove
@@ -165,11 +167,6 @@ export default function Cart({ localization }: CartProps) {
 					<div className={s.currency}>
 						<CountrySelector localization={localization} className={s.form} />
 					</div>
-					{/*}
-					<div className={cn(s.extra, 'small', 'gray')}>
-						<span className='small'>Shipping is added at checkout</span>
-					</div>
-					*/}
 					<form action={cart?.checkoutUrl.split('?')[0]} method='GET'>
 						<input type='hidden' name='key' id='key' value={cart?.checkoutUrl.split('?key=')[1]} />
 						<div className={cn(s.terms, 'medium')}>
@@ -180,8 +177,8 @@ export default function Cart({ localization }: CartProps) {
 								className={s.checkbox}
 							/>
 							<span className='small'>
-								I accept the <Link href='/legal/terms-conditions'>terms & conditions</Link> and I have read and
-								understood the <Link href='/legal/privacy-policy'>privacy policy</Link>.
+								I accept the <Link href='/support/terms-conditions'>terms & conditions</Link> and I have read and
+								understood the <Link href='/support/privacy-policy'>privacy policy</Link>.
 							</span>
 						</div>
 						<button
@@ -198,7 +195,7 @@ export default function Cart({ localization }: CartProps) {
 					</form>
 				</>
 			)}
-			{(error || cartError) && <CartError error={error ?? cartError} closeLabel='Close' onClose={handleCloseError} />}
+			{(error ?? cartError) && <CartError error={error ?? cartError} closeLabel='Close' onClose={handleCloseError} />}
 		</div>
 	);
 }

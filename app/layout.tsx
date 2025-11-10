@@ -1,6 +1,6 @@
 import '@/styles/index.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { GlobalDocument } from '@/graphql';
+import { GlobalDocument, ShippingDocument } from '@/graphql';
 import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import { buildMenu } from '@/lib/menu';
@@ -20,12 +20,13 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 
 	const menu = await buildMenu();
 	const { localization } = await shopifyQuery(LocalizationDocument);
+	const { shipping } = await apiQuery(ShippingDocument);
 
 	return (
 		<html lang='en-US'>
 			<body id='root'>
 				<NextIntlClientProvider key={locale}>
-					<Layout menu={menu} localization={localization}>
+					<Layout menu={menu} localization={localization} shipping={shipping}>
 						{children}
 					</Layout>
 				</NextIntlClientProvider>

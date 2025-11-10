@@ -5,7 +5,7 @@ import cn from 'classnames';
 import Link from '@/components/nav/Link';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useStore, useShallow } from '@/lib/store';
-import { usePage } from '@/lib/context/page';
+import { usePage } from '@/lib/context/page-provider';
 import { useWindowSize } from 'rooks';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import type { Menu } from '@/lib/menu';

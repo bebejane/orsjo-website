@@ -3,7 +3,7 @@
 import s from './MenuMobile.module.scss';
 import cn from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
-import { usePage } from '@/lib/context/page';
+import { usePage } from '@/lib/context/page-provider';
 import { useStore, useShallow } from '@/lib/store';
 import { Twirl as Hamburger } from 'hamburger-react';
 import { SiteSearch } from '@/components';

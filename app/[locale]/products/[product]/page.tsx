@@ -26,18 +26,28 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 	const res = await getProductPageData(slug, locale as CountryCode);
 	//const { v } = searchParams ? await searchParams : {}; // disable for now
 	const v = parseGid(res?.shopify.product?.selectedOrFirstAvailableVariant?.id as string);
-	console.log(v);
+
 	if (!res) return notFound();
 
-	const { shopify, product, relatedProducts, relatedProjects, productsByCategory, drawings, specsCols, files } = res;
+	const {
+		shopify,
+		product,
+		relatedProducts,
+		relatedProjects,
+		productsByCategory,
+		drawings,
+		specsCols,
+		files,
+		shipping,
+	} = res;
 
 	return (
 		<>
 			<Intro product={product} drawings={drawings} />
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
-			<ShopInfo product={product} />
-			<Shop product={product} shopify={shopify} variantId={v} />
+			<ShopInfo product={product} shipping={shipping} currencyCode={shopify.i18n.currencyCode} />
+			<Shop product={product} shopify={shopify} variantId={v} shipping={shipping} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery

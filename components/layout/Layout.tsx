@@ -2,7 +2,7 @@
 
 import s from './Layout.module.scss';
 import { Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, CookieConsent, Underlay } from '@/components';
-import { PageProvider } from '@/lib/context/page';
+import { PageProvider } from '@/lib/context/page-provider';
 import { findMenuItem, type MenuItem } from '@/lib/menu';
 import { useStore, useShallow } from '@/lib/store';
 import { usePathname } from '@/i18n/routing';
@@ -14,9 +14,10 @@ export type LayoutProps = {
 	children: React.ReactNode;
 	menu: MenuItem[];
 	localization: LocalizationQuery['localization'];
+	shipping: ShippingQuery['shipping'];
 };
 
-export default function Layout({ children, menu, localization }: LayoutProps) {
+export default function Layout({ children, menu, localization, shipping }: LayoutProps) {
 	const pathname = usePathname();
 	const country = useLocale();
 	const page = findMenuItem(pathname, menu);
@@ -44,7 +45,7 @@ export default function Layout({ children, menu, localization }: LayoutProps) {
 						onClose={() => gallery && setGallery({ ...gallery, index: -1 })}
 					/>
 				</div>
-				<Cart localization={localization} />
+				<Cart localization={localization} shipping={shipping} />
 				<Footer menu={menu} />
 				<CookieConsent />
 				<PageTransition />

@@ -17,7 +17,7 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 	const locale = useLocale();
 
 	const handleClick = async (e: any) => {
-		if (!transition) return true;
+		if (!transition || pathname === props.href) return true;
 		e.preventDefault();
 
 		const pt = document.getElementById('page-transition');

@@ -31,4 +31,12 @@ query Menu($first: IntType = 100, $skip: IntType = 0) {
 	_allProductCategoriesMeta {
 		count
 	}
+	allProjects(first: $first, skip: $skip) {
+		id
+		title
+		slug
+	}
+	_allProjectsMeta {
+		count
+	}
 }
