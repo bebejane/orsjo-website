@@ -3,6 +3,7 @@ import {
 	AllRelatedProductsDocument,
 	AllProductsByCategoryDocument,
 	AllRelatedProjectsForProductDocument,
+	ShippingDocument,
 } from '@/graphql';
 import { parseSpecifications, ProductDownload, productDownloads, ProductRecordWithPdfFiles } from '@/lib/utils';
 import { apiQuery } from 'next-dato-utils/api';
@@ -49,6 +50,7 @@ export type ProductPageDataProps = {
 	drawings: FileField[];
 	specsCols: SpecCol[];
 	files: ProductDownload[];
+	shipping: ShippingQuery['shipping'];
 };
 
 export const getProductPageData = async (
@@ -61,7 +63,7 @@ export const getProductPageData = async (
 
 	if (!product) return null;
 
-	const [{ allProducts }, { allProducts: allProductCategories }, { allProjects }] = await Promise.all([
+	const [{ allProducts }, { allProducts: allProductCategories }, { allProjects }, { shipping }] = await Promise.all([
 		apiQuery(AllRelatedProductsDocument, {
 			all: true,
 			variables: { designerId: product.designer?.id, familyId: product.family.id },
@@ -74,6 +76,7 @@ export const getProductPageData = async (
 			all: true,
 			variables: { productId: product.id },
 		}),
+		apiQuery(ShippingDocument),
 	]);
 
 	const { product: shopifyProduct } = await shopifyQuery(ShopifyProductDocument, {
@@ -148,6 +151,7 @@ export const getProductPageData = async (
 		files,
 		drawings,
 		specsCols,
+		shipping,
 	};
 };
 

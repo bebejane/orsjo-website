@@ -7,7 +7,7 @@ import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { useWindowSize, useClickAway } from 'react-use';
-import { usePage } from '@/lib/context/page';
+import { usePage } from '@/lib/context/page-provider';
 
 type CountrySelectProps = {
 	className?: string;

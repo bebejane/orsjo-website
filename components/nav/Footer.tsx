@@ -5,7 +5,7 @@ import cn from 'classnames';
 import Link from '@/components/nav/Link';
 import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';
-import { usePage } from '@/lib/context/page';
+import { usePage } from '@/lib/context/page-provider';
 import { usePathname } from 'next/navigation';
 import useIsDesktop from '@/lib/hooks/useIsDesktop';
 

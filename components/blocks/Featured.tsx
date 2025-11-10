@@ -1,6 +1,6 @@
 import s from './Featured.module.scss';
 import cn from 'classnames';
-import { usePage } from '@/lib/context/page';
+import { usePage } from '@/lib/context/page-provider';
 import { FeaturedGallery } from '@/components';
 
 export type FeaturedProps = { data: FeaturedRecord };

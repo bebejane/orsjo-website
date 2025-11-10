@@ -4,7 +4,7 @@ import 'swiper/css';
 import s from './FeaturedStart.module.scss';
 import cn from 'classnames';
 import { FeaturedGallery } from '@/components';
-import { usePage } from '@/lib/context/page';
+import { usePage } from '@/lib/context/page-provider';
 
 export type ImageGalleryProps = { data: FeaturedRecord; fadeColor?: number[] };
 

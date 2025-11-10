@@ -10,29 +10,31 @@ import { Link } from '@/i18n/routing';
 
 type Props = {
 	product: ProductPageDataProps['product'];
+	shipping: ShippingQuery['shipping'];
+	currencyCode: CurrencyCode;
 };
 
-export default function ShopInfo({ product }: Props) {
+export default function ShopInfo({ product, shipping, currencyCode }: Props) {
 	if (!product) return null;
+
+	const deliverTerms =
+		shipping?.deliveryTerms.find(({ isoCode }) => isoCode === currencyCode)?.text ?? shipping?.deliveryTermsOther;
 
 	return (
 		<Section name='Shipping' className={s.shopinfo} bgColor='--white' fadeColor={'#ffffff'} bottom={true}>
-			<div className='small'>
-				{Object.keys(deliveryDaysText).map((key) => (
-					<React.Fragment key={key}>
-						<p>
-							<span className={cn(s.delivery, s[key])} />
-							<span>{deliveryDaysText[key]?.full}</span>
-						</p>
+			<p className='small'>
+				{shipping?.deliveryDays.map(({ time, text, textShort }) => (
+					<React.Fragment key={time}>
+						<span className={cn(s.delivery, s[time])} />
+						<span>{text}</span>
 					</React.Fragment>
 				))}
-				<p>
-					Free shipping on all orders over 5000 SEK. &nbsp;
-					<Link href='/support/terms-conditions'>
-						<span className='gray'>More info ›</span>
-					</Link>
-				</p>
-			</div>
+				<br />
+				{deliverTerms}&nbsp;
+				<Link href='/support/terms-conditions'>
+					<span className='gray'>More info ›</span>
+				</Link>
+			</p>
 		</Section>
 	);
 }

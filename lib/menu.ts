@@ -3,10 +3,12 @@ import { apiQuery } from 'next-dato-utils/api';
 import { MenuDocument } from '@/graphql';
 import { sectionId } from '@/lib/utils';
 
+export type MenuType = 'home' | 'product' | 'designer' | 'professional' | 'about' | 'support' | 'contact' | 'project';
 export type MenuColor = 'white' | 'black' | 'green' | 'gray' | 'copper' | 'beige';
 export type Menu = MenuItem[];
 export type MenuItem = {
-	type: 'home' | 'product' | 'designer' | 'professional' | 'about' | 'support' | 'contact' | 'privacy';
+	type?: MenuType;
+	parent?: MenuType;
 	title: string;
 	slug: string;
 	layout: 'normal' | 'full';
@@ -42,7 +44,6 @@ const base: Menu = [
 		footerLine: false,
 		sidebar: true,
 		color: 'white',
-		sub: [],
 		index: true,
 	},
 	{
@@ -54,7 +55,6 @@ const base: Menu = [
 		footerLine: false,
 		sidebar: false,
 		color: 'green',
-		sub: [],
 	},
 	{
 		type: 'professional',
@@ -67,7 +67,8 @@ const base: Menu = [
 		color: 'gray',
 		sub: [
 			{
-				type: 'professional',
+				type: 'project',
+				parent: 'professional',
 				title: 'Projects',
 				slug: '/professionals/projects',
 				layout: 'normal',
@@ -77,7 +78,7 @@ const base: Menu = [
 				color: 'gray',
 			},
 			{
-				type: 'professional',
+				parent: 'professional',
 				title: 'Bespoke',
 				slug: '/professionals/bespoke',
 				layout: 'full',
@@ -87,7 +88,7 @@ const base: Menu = [
 				color: 'gray',
 			},
 			{
-				type: 'professional',
+				parent: 'professional',
 				title: 'Downloads',
 				slug: '/professionals/downloads',
 				layout: 'normal',
@@ -97,7 +98,7 @@ const base: Menu = [
 				color: 'gray',
 			},
 			{
-				type: 'professional',
+				parent: 'professional',
 				title: 'Colors & Materials',
 				slug: '/professionals/colors-and-materials',
 				layout: 'normal',
@@ -119,7 +120,7 @@ const base: Menu = [
 		footerLine: true,
 		sub: [
 			{
-				type: 'about',
+				parent: 'about',
 				title: 'About Us',
 				slug: '/about',
 				layout: 'full',
@@ -129,7 +130,7 @@ const base: Menu = [
 				footerLine: true,
 			},
 			{
-				type: 'about',
+				parent: 'about',
 				title: 'Sustainability',
 				slug: '/about/sustainability',
 				layout: 'full',
@@ -139,7 +140,7 @@ const base: Menu = [
 				footerLine: true,
 			},
 			{
-				type: 'about',
+				parent: 'about',
 				title: 'News',
 				slug: '/about/news',
 				layout: 'full',
@@ -149,7 +150,7 @@ const base: Menu = [
 				footerLine: true,
 			},
 			{
-				type: 'about',
+				parent: 'about',
 				title: 'Jobs',
 				slug: '/about/jobs',
 				layout: 'normal',
@@ -171,7 +172,7 @@ const base: Menu = [
 		footerLine: false,
 		sub: [
 			{
-				type: 'support',
+				parent: 'support',
 				title: 'FAQ',
 				slug: '/support/faq',
 				layout: 'normal',
@@ -181,7 +182,7 @@ const base: Menu = [
 				footerLine: false,
 			},
 			{
-				type: 'support',
+				parent: 'support',
 				title: 'Manuals',
 				slug: '/support/manuals',
 				layout: 'normal',
@@ -191,7 +192,7 @@ const base: Menu = [
 				footerLine: false,
 			},
 			{
-				type: 'support',
+				parent: 'support',
 				title: 'Terms & Conditions',
 				slug: '/support/terms-conditions',
 				layout: 'normal',
@@ -201,7 +202,7 @@ const base: Menu = [
 				footerLine: false,
 			},
 			{
-				type: 'privacy',
+				parent: 'support',
 				title: 'Privacy Policy',
 				slug: '/support/privacy-policy',
 				layout: 'normal',
@@ -224,7 +225,7 @@ const base: Menu = [
 		index: true,
 		sub: [
 			{
-				type: 'contact',
+				parent: 'contact',
 				title: 'Information',
 				slug: '/contact#information',
 				layout: 'normal',
@@ -234,7 +235,7 @@ const base: Menu = [
 				footerLine: false,
 			},
 			{
-				type: 'contact',
+				parent: 'contact',
 				title: 'People',
 				slug: '/contact#people',
 				layout: 'normal',
@@ -244,7 +245,7 @@ const base: Menu = [
 				footerLine: false,
 			},
 			{
-				type: 'contact',
+				parent: 'contact',
 				title: 'Showrooms',
 				slug: '/contact#showrooms',
 				layout: 'normal',
@@ -254,7 +255,7 @@ const base: Menu = [
 				footerLine: false,
 			},
 			{
-				type: 'contact',
+				parent: 'contact',
 				title: 'Agents & Distributors',
 				slug: '/contact#agentsdistributors',
 				layout: 'normal',
@@ -264,7 +265,7 @@ const base: Menu = [
 				footerLine: false,
 			},
 			{
-				type: 'contact',
+				parent: 'contact',
 				title: 'Retailers',
 				slug: '/contact#retailers',
 				layout: 'normal',
@@ -274,7 +275,7 @@ const base: Menu = [
 				footerLine: false,
 			},
 			{
-				type: 'contact',
+				parent: 'contact',
 				title: 'Contact Us',
 				slug: '/contact/message-us',
 				layout: 'normal',
@@ -289,17 +290,18 @@ const base: Menu = [
 ];
 
 export const buildMenu = async () => {
-	const { allDesigners, allProductCategories, allProducts } = await apiQuery(MenuDocument, { all: true });
+	const { allDesigners, allProductCategories, allProducts, allProjects } = await apiQuery(MenuDocument, { all: true });
 
 	const footerMaxLength = 8;
 
-	const menu = base.map((item) => {
-		let sub: MenuItem[] | null = null;
-		let footerSub: MenuItem[] | null = null;
+	function transformMenuItem(item: MenuItem): MenuItem {
+		let sub: MenuItem[] | undefined = undefined;
+		let footerSub: MenuItem[] | undefined = undefined;
+
 		switch (item.type) {
 			case 'product':
 				sub = allProducts.map(({ title, slug }) => ({
-					type: item.type,
+					parent: 'product',
 					title,
 					slug: `/products/${slug}`,
 					inverted: false,
@@ -310,16 +312,18 @@ export const buildMenu = async () => {
 
 				footerSub = allProductCategories.map(({ id, name, namePlural }) => ({
 					...item,
+					type: undefined,
+					parent: 'product',
 					title: namePlural as string,
 					slug: `/products#${sectionId(namePlural as string).id}`,
-				}));
+				})) as MenuItem[];
 
 				break;
 			case 'designer':
 				sub = sortSwedish<MenuQuery['allDesigners'][0]>(allDesigners, 'name')
 					.filter(({ id }) => allProducts.find((p) => p.designer?.id === id))
 					.map((el) => ({
-						type: item.type,
+						parent: 'designer',
 						title: el.name,
 						slug: `/designers/${el.slug}`,
 						layout: 'full',
@@ -329,26 +333,46 @@ export const buildMenu = async () => {
 						color: 'green',
 					})) as MenuItem[];
 
-				footerSub = structuredClone(sub)
+				footerSub = structuredClone(sub ?? [])
 					.sort(() => (Math.random() > 0.5 ? 1 : -1))
 					.slice(0, footerMaxLength);
 				break;
+			case 'professional':
+				sub = item.sub?.map((s) => transformMenuItem(s));
+				break;
+			case 'project':
+				sub = allProjects.map(({ title, slug }) => ({
+					parent: 'professional',
+					title,
+					slug: `/professionals/projects/${slug}`,
+					layout: 'normal',
+					inverted: false,
+					footerLine: false,
+					sidebar: true,
+					color: 'gray',
+				}));
+				break;
 		}
-		return { ...item, sub: sub ? sub : item.sub, footerSub };
-	});
 
-	return menu as Menu;
+		return {
+			...item,
+			sub: sub ? sub?.map((s) => transformMenuItem(s)) : item.sub,
+			footerSub,
+		} as MenuItem;
+	}
+	return base.map((item) => transformMenuItem(item)) as Menu;
 };
 
-export const findMenuItem = (pathname: string, menu: Menu): MenuItem | null => {
-	const item = menu
-		.map((m) => [m, ...(m.sub ? m.sub : [])])
-		.flat()
-		.reduce((acc: MenuItem | null, item: MenuItem): MenuItem | null => {
-			if (acc) return acc;
-			if (item.slug === pathname) return item;
-			return null;
-		}, null);
+export const findMenuItem = (pathname: string, menu: MenuItem[]): MenuItem | null => {
+	function flattenMenu(items: MenuItem[]): MenuItem[] {
+		return items.map((m) => [m, ...(m.sub ? flattenMenu(m.sub) : [])]).flat();
+	}
+
+	const item = flattenMenu(menu).reduce((acc: MenuItem | null, item: MenuItem | null) => {
+		if (acc) return acc;
+		if (item?.slug === pathname) return item;
+		return null;
+	}, null);
 
 	return item;
 };

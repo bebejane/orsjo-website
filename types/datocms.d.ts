@@ -805,6 +805,65 @@ type CurrencyRecordvatRateArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+/** Block of type Delivery term (delivery_term) */
+type DeliveryTermRecord = RecordInterface & {
+  __typename?: 'DeliveryTermRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  isoCode: Scalars['String']['output'];
+  text: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Block of type Delivery term (delivery_term) */
+type DeliveryTermRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Block of type Delivery time (delivery_time) */
+type DeliveryTimeRecord = RecordInterface & {
+  __typename?: 'DeliveryTimeRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  text: Scalars['String']['output'];
+  textShort: Scalars['String']['output'];
+  time: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Block of type Delivery time (delivery_time) */
+type DeliveryTimeRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 type DesignerModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<DesignerModelFilter>>>;
@@ -5988,6 +6047,8 @@ type Query = {
   projectType?: Maybe<ProjectTypeRecord>;
   /** Returns a specific record */
   reseller?: Maybe<ResellerRecord>;
+  /** Returns the single instance record */
+  shipping?: Maybe<ShippingRecord>;
   /** Returns a specific record */
   showroom?: Maybe<ShowroomRecord>;
   /** Returns the single instance record */
@@ -7000,6 +7061,13 @@ type QueryresellerArgs = {
 
 
 /** The query root for this schema */
+type QueryshippingArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
 type QueryshowroomArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ShowroomModelFilter>;
@@ -7237,6 +7305,36 @@ type SeoField = {
   noIndex?: Maybe<Scalars['BooleanType']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   twitterCard?: Maybe<Scalars['String']['output']>;
+};
+
+/** Record of type Shipping (shipping) */
+type ShippingRecord = RecordInterface & {
+  __typename?: 'ShippingRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  deliveryDays: Array<DeliveryTimeRecord>;
+  deliveryTerms: Array<DeliveryTermRecord>;
+  deliveryTermsOther: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Shipping (shipping) */
+type ShippingRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
 };
 
 type ShowroomModelFilter = {
@@ -8756,7 +8854,7 @@ type MenuQueryVariables = Exact<{
 }>;
 
 
-type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug: string, name?: string | null }>, _allDesignersMeta: { __typename?: 'CollectionMetadata', count: any }, allProducts: Array<{ __typename?: 'ProductRecord', id: any, title: string, slug: string, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, designer?: { __typename?: 'DesignerRecord', id: any } | null }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any }, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, _allProductCategoriesMeta: { __typename?: 'CollectionMetadata', count: any } };
+type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug: string, name?: string | null }>, _allDesignersMeta: { __typename?: 'CollectionMetadata', count: any }, allProducts: Array<{ __typename?: 'ProductRecord', id: any, title: string, slug: string, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, designer?: { __typename?: 'DesignerRecord', id: any } | null }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any }, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, _allProductCategoriesMeta: { __typename?: 'CollectionMetadata', count: any }, allProjects: Array<{ __typename?: 'ProjectRecord', id: any, title: string, slug: string }>, _allProjectsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -9064,6 +9162,11 @@ type SiteSEOQueryVariables = Exact<{ [key: string]: never; }>;
 type SiteSEOQuery = { __typename?: 'Query', site: { __typename?: 'Site', faviconMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null } | null } };
 
 type SiteFragment = { __typename?: 'Site', faviconMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null } | null } | null };
+
+type ShippingQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ShippingQuery = { __typename?: 'Query', shipping?: { __typename?: 'ShippingRecord', deliveryTermsOther: string, deliveryDays: Array<{ __typename: 'DeliveryTimeRecord', id: any, time: string, text: string, textShort: string }>, deliveryTerms: Array<{ __typename: 'DeliveryTermRecord', id: any, text: string, isoCode: string }> } | null };
 
 type SitemapQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;

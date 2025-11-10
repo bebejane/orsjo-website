@@ -4,7 +4,7 @@ import s from './Sidebar.module.scss';
 import cn from 'classnames';
 import { useStore, useShallow } from '@/lib/store';
 import { useRouter, usePathname } from '@/i18n/routing';
-import { usePage } from '@/lib/context/page';
+import { usePage } from '@/lib/context/page-provider';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { ArrowLink } from '@/components';
 import { useScrollInfo } from 'next-dato-utils/hooks';

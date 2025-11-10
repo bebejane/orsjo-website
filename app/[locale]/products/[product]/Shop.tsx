@@ -21,6 +21,7 @@ type Props = {
 	product: ProductPageDataProps['product'];
 	shopify: ProductPageDataProps['shopify'];
 	variantId?: string;
+	shipping: ShippingQuery['shipping'];
 };
 
 type Addon = {
@@ -34,7 +35,7 @@ type Addon = {
 	quantity: number;
 };
 
-export default function ProductShop({ product, shopify, variantId }: Props) {
+export default function ProductShop({ product, shopify, variantId, shipping }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const allAddons = getAllAddons(product, shopify);
 
@@ -211,7 +212,7 @@ export default function ProductShop({ product, shopify, variantId }: Props) {
 
 									let deliveryDays;
 									if (variant.deliveryDays && ['short', 'medium', 'long'].includes(variant.deliveryDays))
-										deliveryDays = deliveryDaysText[variant.deliveryDays]?.full;
+										deliveryDays = shipping?.deliveryDays.find(({ time }) => time === variant.deliveryDays)?.text ?? '';
 
 									return (
 										<li
