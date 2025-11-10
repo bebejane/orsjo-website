@@ -23,8 +23,8 @@ export default function ShopInfo({ product, shipping, currencyCode }: Props) {
 	return (
 		<Section name='Shipping' className={s.shopinfo} bgColor='--white' fadeColor={'#ffffff'} bottom={true}>
 			<div className='small'>
-				{shipping?.deliveryDays.map(({ time, text, textShort }) => (
-					<p>
+				{shipping?.deliveryDays.map(({ time, text }, idx) => (
+					<p key={idx}>
 						<React.Fragment key={time}>
 							<span className={cn(s.delivery, s[time])} />
 							<span>{text}</span>

@@ -199,7 +199,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 						{product.models.map((model) => (
 							<ul className={cn(s.variants)} key={model.id}>
 								{model.variants.map((variant) => {
-									const { id, articleNo, color, material, feature } = variant;
+									const { id, articleNo } = variant;
 									const shopifyVariant = shopify.product?.variants.edges.find(
 										(v) => articleNo && v.node.sku === articleNo
 									)?.node;
@@ -230,21 +230,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 													{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}
 												</div>
 												<span className={s.name}>
-													<strong>
-														{(() => {
-															if (name) {
-																const cleaned = name
-																	.replace(/\s+RAL\s+\d+\s+structure$/i, '')
-																	.replace(/\s+RAL\s+\d+$/i, '')
-																	.replace(/\s+structure$/i, '')
-																	.trim();
-
-																return cleaned;
-															}
-															return name;
-														})()}
-													</strong>{' '}
-													{description}
+													<strong>{name}</strong> {description}
 												</span>
 												{variant.deliveryDays && (
 													<div className={cn(s.delivery, s[variant.deliveryDays])} title={deliveryDays} />
@@ -272,11 +258,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 						</div>
 						<span className={s.name}>
 							<strong>
-								{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord)
-									.name?.replace(/\s+RAL\s+\d+\s+structure$/i, '')
-									.replace(/\s+RAL\s+\d+$/i, '')
-									.replace(/\s+structure$/i, '')
-									.trim()}
+								{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).name}
 							</strong>
 							&nbsp;
 							{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).description}

@@ -400,7 +400,11 @@ export const parseProductModelName = (model?: ProductModelRecord, variant?: Vari
 		variant?.feature?.name,
 	]
 		.filter(Boolean)
-		.join(', ');
+		.join(', ')
+		.replace(/\s+RAL\s+\d+\s+structure$/i, '')
+		.replace(/\s+RAL\s+\d+$/i, '')
+		.replace(/\s+structure$/i, '')
+		.trim();
 
 	return { name, description };
 };
