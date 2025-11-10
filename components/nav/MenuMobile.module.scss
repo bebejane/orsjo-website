@@ -6,12 +6,29 @@
 	right: 0;
 	margin-right: calc(var(--outer-margin) - 12px);
 	height: calc(var(--navbar-height) - 8px);
-
 	color: #000;
 	z-index: 300;
 
 	@include mq($from: tablet, $until: nav-break) {
 		top: 20px;
+	}
+}
+
+.cart {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	top: 0;
+	right: 60px;
+	z-index: 300;
+	height: var(--navbar-height);
+	img {
+		height: 1rem;
+	}
+	&.invert {
+		img {
+			filter: invert(1);
+		}
 	}
 }
 
