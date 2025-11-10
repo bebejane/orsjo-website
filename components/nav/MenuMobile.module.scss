@@ -6,7 +6,7 @@
 	right: 0;
 	margin-right: calc(var(--outer-margin) - 12px);
 	height: calc(var(--navbar-height) - 8px);
-	color: #000;
+	color: var(--black);
 	z-index: 300;
 
 	@include mq($from: tablet, $until: nav-break) {
@@ -15,15 +15,21 @@
 }
 
 .cart {
+	@include mq($from: desktop) {
+		display: none !important;
+	}
 	position: fixed;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	top: 0;
 	right: 60px;
+	width: 40px;
 	z-index: 300;
 	height: var(--navbar-height);
 	img {
 		height: 1rem;
+		margin-top: -0.6rem;
 	}
 	&.invert {
 		img {
