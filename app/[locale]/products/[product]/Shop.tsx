@@ -185,7 +185,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 			>
 				<header>
 					<h3>
-						Shop {product.title} {addons.length > 0 && <span className={s.addons}>+{addons.length}</span>}
+						Shop {product.title} {addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
 					</h3>
 					<span key={totalPrice.amount} className={s.price}>
 						{formatShopifyPrice(totalPrice as MoneyV2)}

@@ -112,13 +112,13 @@ export default function Sidebar() {
 			id='sidebar'
 			key={path}
 			className={cn(s.sidebar, inverted && s.inverted, pageType === 'products' && s.short)}
-			style={{ backgroundColor: `--${color}`, maxHeight }}
+			style={{ backgroundColor: `var(--${color})`, maxHeight }}
 		>
 			<h3 id='sidebar-header' className={cn(open && s.open)} onClick={() => setOpen(!open)}>
 				{title}
 				<span className={cn(s.arrow, open && s.open)}>›</span>
 			</h3>
-			<nav className={cn(open && s.open)}>
+			<nav className={cn(open && s.open)} style={{ backgroundColor: `var(--${color})` }}>
 				<ul>
 					{sections?.map((section, idx) => (
 						<li key={idx}>
