@@ -3,7 +3,7 @@ export { default as FeaturedStart } from './FeaturedStart';
 export { default as FullscreenMediaBlock } from './FullscreenMediaBlock';
 export { default as FullscreenVideo } from './FullscreenVideo';
 export { default as FullwidthImage } from './FullwidthImage';
-export { default as ImgeGallery } from './ImageGallery';
+export { default as ImageGallery } from './ImageGallery';
 export { default as ImageLink } from './ImageLink';
 export { default as NewsItem } from './NewsItem';
 export { default as Text } from './Text';

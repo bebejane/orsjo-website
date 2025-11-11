@@ -1,6 +1,5 @@
 # Stuff
 
-- Typescript errors
 - news sidebar...
 
 # Live
