@@ -10,19 +10,17 @@ import { useWindowSize } from 'rooks';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import type { Menu } from '@/lib/menu';
 import { waitForElement } from '@/lib/utils';
-import { Logo } from '@/components';
+import { Logo, SiteSearch } from '@/components';
 import { usePathname } from 'next/navigation';
 import useCart from '@/lib/shopify/hooks/useCart';
 import CountrySelector from '@/components/shopify/CountrySelector';
-import { useLocale } from 'next-intl';
 
 export type MenuDesktopProps = {
 	menu: Menu;
 	localization: LocalizationQuery['localization'];
-	onShowSiteSearch: Function;
 };
 
-export default function MenuDesktop({ menu, onShowSiteSearch, localization }: MenuDesktopProps) {
+export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 	const ref = useRef(null);
 	const pathname = usePathname();
 	const [showMenu, showSubMenu, setShowSubMenu, showMenuMobile, setShowMenu, invertMenu, transitioning, setShowCart] =
@@ -42,12 +40,12 @@ export default function MenuDesktop({ menu, onShowSiteSearch, localization }: Me
 	const [selected, setSelected] = useState<string | null>(null);
 	const [hashChanging, setHashChanging] = useState(false);
 	const [menuMargin, setMenuMargin] = useState({ position: 0, padding: 0 });
+	const [showSearch, setShowSearch] = useState(false);
 	const { layout, inverted, color } = usePage();
 	const { innerWidth } = useWindowSize();
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo();
 	const [cart] = useCart(useShallow((state) => [state.cart]));
 	const isInverted = inverted || invertMenu || showMenuMobile;
-	const locale = useLocale();
 
 	const resetSelected = useCallback(() => {
 		if (transitioning) return;
@@ -151,7 +149,7 @@ export default function MenuDesktop({ menu, onShowSiteSearch, localization }: Me
 					<li className={cn(s.cart, cart?.totalQuantity && s.filled)} onClick={() => setShowCart(true)}>
 						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
 					</li>
-					<li className={s.searchIcon} onClick={() => onShowSiteSearch()}>
+					<li className={s.searchIcon} onClick={() => setShowSearch(true)}>
 						<img src={'/images/search.svg'} />
 					</li>
 				</ul>
@@ -179,6 +177,7 @@ export default function MenuDesktop({ menu, onShowSiteSearch, localization }: Me
 					</nav>
 				</div>
 			</div>
+			<SiteSearch show={showSearch} onClose={() => setShowSearch(false)} />
 		</>
 	);
 }

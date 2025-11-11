@@ -1,7 +1,16 @@
 'use client';
 
 import s from './Layout.module.scss';
-import { Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, CookieConsent, Underlay } from '@/components';
+import {
+	Sidebar,
+	Footer,
+	FullscreenGallery,
+	SiteSearch,
+	MenuDesktop,
+	MenuMobile,
+	CookieConsent,
+	Underlay,
+} from '@/components';
 import { PageProvider } from '@/lib/context/page-provider';
 import { findMenuItem, type MenuItem } from '@/lib/menu';
 import { useStore, useShallow } from '@/lib/store';
@@ -34,9 +43,10 @@ export default function Layout({ children, menu, localization, shipping }: Layou
 	);
 
 	useEffect(() => {
-		//setIsMounted(true);
+		setIsMounted(true);
 	}, []);
 
+	console.log(page?.color, page?.layout);
 	return (
 		<>
 			<PageProvider pathname={pathname} country={country} menu={menu}>
@@ -45,17 +55,10 @@ export default function Layout({ children, menu, localization, shipping }: Layou
 					<main id='content' className={s.content} data-type={page?.layout}>
 						<article>{children}</article>
 					</main>
-					<MenuDesktop menu={menu} onShowSiteSearch={() => setShowSiteSearch(true)} localization={localization} />
+					<MenuDesktop menu={menu} localization={localization} />
 					<MenuMobile menu={menu} localization={localization} />
 					<Underlay />
-					<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />
-					<Gallery
-						show={gallery?.index !== undefined && gallery.index > -1}
-						images={gallery?.images ?? []}
-						index={gallery?.index ?? 0}
-						padImagesWithTitle={gallery?.padImagesWithTitle}
-						onClose={() => gallery && setGallery({ ...gallery, index: -1 })}
-					/>
+					<FullscreenGallery />
 				</div>
 				<Cart localization={localization} shipping={shipping} />
 				<Footer menu={menu} />

@@ -15,7 +15,7 @@
 }
 
 .cart {
-	@include mq($from: desktop) {
+	@include mq($from: nav-break) {
 		display: none !important;
 	}
 	position: fixed;
@@ -27,6 +27,12 @@
 	width: 40px;
 	z-index: 300;
 	height: var(--navbar-height);
+
+	@include mq($from: tablet, $until: nav-break) {
+		top: 20px;
+		right: 90px;
+	}
+
 	img {
 		height: 1rem;
 		margin-top: -0.6rem;

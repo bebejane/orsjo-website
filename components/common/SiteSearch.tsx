@@ -25,7 +25,7 @@ export type SearchResultCategory = {
 };
 
 type SiteSearchProps = {
-	show: boolean;
+	show?: boolean;
 	query?: string;
 	onClose?: () => void;
 	onChange?: (query: string | undefined) => void;
@@ -37,8 +37,8 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 	const [query, setQuery] = useState<string | undefined>();
 	const [inputValue, setInputValue] = useState<string | undefined>('');
 	const [debouncedQuery, setQueryImmediate] = useDebouncedValue(inputValue, 350);
-	const [setShowSiteSearch, setShowMenuMobile, transitioning, isMounted] = useStore(
-		useShallow((state) => [state.setShowSiteSearch, state.setShowMenuMobile, state.transitioning, state.isMounted])
+	const [setShowSiteSearch, transitioning, isMounted] = useStore(
+		useShallow((state) => [state.setShowSiteSearch, state.transitioning, state.isMounted])
 	);
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(false);
@@ -46,6 +46,11 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const noResults = result !== undefined && Object.keys(result).length === 0 && !loading && inputValue;
 	const thumbnailTheme = isMobile ? 'dark' : 'light';
+
+	function handleClose() {
+		if (onClose) onClose();
+		else setShowSiteSearch(false);
+	}
 
 	useEffect(() => {
 		if (!debouncedQuery) {
@@ -87,6 +92,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 	}, [loading, setResult]);
 	useEffect(() => {
 		show && ref.current?.focus();
+		!show && setInputValue('');
 	}, [show, ref]);
 	useEffect(() => {
 		queryAsProp && setInputValue(queryAsProp);
@@ -112,7 +118,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 					className={cn(show && s.show)}
 					onChange={(e) => setInputValue(e.target.value)}
 				/>
-				<button className={s.close} onClick={onClose}>
+				<button className={s.close} onClick={handleClose}>
 					<img src='/images/close.svg' alt='Close' />
 				</button>
 			</div>

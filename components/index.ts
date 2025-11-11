@@ -15,7 +15,7 @@ export { default as ArrowLink } from './common/ArrowLink';
 export { default as CookieConsent } from './common/CookieConsent';
 export { default as CustomMade } from './common/CustomMade';
 export { default as FeaturedGallery } from './common/FeaturedGallery';
-export { default as Gallery } from './common/Gallery';
+export { default as FullscreenGallery } from './common/FullscreenGallery';
 export { default as Icon } from './common/Icon';
 export { default as Loader } from './common/Loader';
 export { default as Logo } from './common/Logo';

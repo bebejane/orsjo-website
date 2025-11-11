@@ -1,7 +1,7 @@
 'use client';
 
 import 'swiper/css';
-import s from './Gallery.module.scss';
+import s from './FullscreenGallery.module.scss';
 import cn from 'classnames';
 import React from 'react';
 import { Image } from 'react-datocms';
@@ -9,23 +9,23 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Loader } from '@/components';
+import useStore, { useShallow } from '@/lib/store';
 
-export type GalleryProps = {
-	images: FileField[];
-	onClose: (event?: React.MouseEvent) => void;
-	index: number;
-	show: boolean;
-	padImagesWithTitle?: boolean;
-};
-
-export default function Gallery({ images, onClose, index = 0, show, padImagesWithTitle = false }: GalleryProps) {
+export default function Gallery() {
+	const [gallery, setGallery] = useStore(useShallow((state) => [state.gallery, state.setGallery]));
 	const swiperRef = useRef<SwiperType | null>(null);
 	const [realIndex, setRealIndex] = useState(0);
 	const [title, setTitle] = useState<string | null>(null);
 	const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
 	const [initLoaded, setInitLoaded] = useState(false);
+	const { images, index = -1, padImagesWithTitle } = gallery ?? {};
+	const show = gallery?.index !== undefined && index > -1;
 	const isSingleSlide = images?.length === 1;
 	const isHidden = !images || !show;
+
+	function handleClose() {
+		setGallery({ images: [], index: -1 });
+	}
 
 	useEffect(() => {
 		if (images) setTitle(images[realIndex]?.title ?? null);
@@ -41,11 +41,11 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
 			if (isHidden) return;
 			if (key === 'ArrowRight') swiperRef?.current?.slideNext();
 			if (key === 'ArrowLeft') swiperRef?.current?.slidePrev();
-			if (key === 'Escape') onClose();
+			if (key === 'Escape') handleClose();
 		};
 		document.addEventListener('keydown', handleKeys);
 		return () => document.removeEventListener('keydown', handleKeys);
-	}, [onClose, isHidden]);
+	}, [isHidden]);
 
 	useEffect(() => {
 		setTimeout(() => setInitLoaded(true), 300);
@@ -102,7 +102,7 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
 				<img src='/images/arrow-light.svg' className={s.arrow} />
 			</div>
 			<div className={s.caption}>{title && <p className='medium'>{title}</p>}</div>
-			<div className={s.close} onClick={onClose}>
+			<div className={s.close} onClick={handleClose}>
 				×
 			</div>
 		</div>
