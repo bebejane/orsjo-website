@@ -67,9 +67,11 @@ export const getProductPageData = async (
 		apiQuery(AllRelatedProductsDocument, {
 			all: true,
 			variables: { designerId: product.designer?.id, familyId: product.family.id },
+			tags: ['shipping', 'accessory', 'lightsource'],
 		}),
 		apiQuery(AllProductsByCategoryDocument, {
 			variables: { categoryId: product.categories[0]?.id },
+			tags: ['shipping', 'accessory', 'lightsource'],
 			all: true,
 		}),
 		apiQuery(AllRelatedProjectsForProductDocument, {

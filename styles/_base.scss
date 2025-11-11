@@ -22,6 +22,10 @@
 	--black-menu: color-mix(in srgb, var(--black) 65%, transparent);
 	--white-menu: color-mix(in srgb, var(--white) 65%, transparent);
 
+	//--black-fade: 18, 18, 18;
+	--black-fade: color-mix(in rgb, var(--black) 100%, transparent);
+	--white-fade: color-mix(in srgb, var(--white) 100%, transparent);
+
 	--delivery-short: var(--black);
 	--delivery-medium: var(--gray);
 	--delivery-long: #d5d5d5;

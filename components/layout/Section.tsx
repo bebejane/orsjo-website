@@ -28,11 +28,11 @@ export default function Section({
 	top,
 	bottom,
 	bgColor,
-	fadeColor,
+	fadeColor: _fadeColor,
 	disableSidebar = false,
 }: SectionProps) {
 	const color = bgColor?.startsWith('--') ? `var(${bgColor})` : bgColor ? bgColor : undefined;
-	fadeColor = fadeColor?.startsWith('--') ? `var(${fadeColor})` : (fadeColor ?? undefined);
+	const fadeColor = _fadeColor?.startsWith('--') ? `var(${_fadeColor})` : (_fadeColor ?? undefined);
 	const { ref, inView } = useInView({ threshold: 0.05, triggerOnce: false });
 
 	return (

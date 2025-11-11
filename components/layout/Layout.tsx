@@ -34,17 +34,13 @@ export default function Layout({ children, menu, localization, shipping }: Layou
 	);
 
 	useEffect(() => {
-		setIsMounted(true);
+		//setIsMounted(true);
 	}, []);
 
 	return (
 		<>
 			<PageProvider pathname={pathname} country={country} menu={menu}>
-				<div
-					className={s.layout}
-					style={isMounted ? { backgroundColor: `var(--${page?.color})` } : undefined}
-					suppressHydrationWarning
-				>
+				<div className={s.layout} style={{ backgroundColor: `var(--${page?.color})` }} suppressHydrationWarning>
 					<Sidebar key={pathname} />
 					<main id='content' className={s.content} data-type={page?.layout}>
 						<article>{children}</article>

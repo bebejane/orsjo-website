@@ -142,7 +142,11 @@ export default function FeaturedGallery({
 				<div
 					className={cn(s.fade, isShortSlide && s.hide)}
 					style={{
-						background: `linear-gradient(-90deg, rgba(var(${fadeColor}),1) 0%, rgba(var(${fadeColor}),0) 100%, rgba(var(${fadeColor}),1) 100%)`,
+						background: `linear-gradient(-90deg, 
+						color-mix(in srgb, var(${fadeColor}) 100%, transparent) 0%, 
+						color-mix(in srgb, var(${fadeColor}) 0%, transparent) 100%, 
+						color-mix(in srgb, var(${fadeColor}) 100%, transparent) 100%
+					`,
 					}}
 				></div>
 				{arrowAlign === 'middle' && !isShortSlide && (

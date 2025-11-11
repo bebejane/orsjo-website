@@ -18,9 +18,11 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 	const { locale } = await (params as any);
 	setRequestLocale(locale);
 
-	const menu = await buildMenu();
-	const { localization } = await shopifyQuery(LocalizationDocument);
-	const { shipping } = await apiQuery(ShippingDocument);
+	const [menu, { localization }, { shipping }] = await Promise.all([
+		buildMenu(),
+		shopifyQuery(LocalizationDocument),
+		apiQuery(ShippingDocument),
+	]);
 
 	return (
 		<html lang='en-US'>
