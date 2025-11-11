@@ -102,8 +102,6 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 		setShowSiteSearch(false);
 	}, [pathname]);
 
-	if (!isMounted) return null;
-
 	return (
 		<div className={cn(s.search, show && s.show)}>
 			<div className={s.query}>

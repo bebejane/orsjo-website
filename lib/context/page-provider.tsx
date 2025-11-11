@@ -1,14 +1,13 @@
 'use client';
 
-import { useContext, createContext } from 'react';
+import { useContext, createContext, useEffect } from 'react';
 import { findMenuItem, Menu, MenuItem, MenuSection } from '@/lib/menu';
+import { usePathname } from '@/i18n/routing';
 
 export type UsePageProps = MenuItem;
 
 export type PageProviderProps = {
 	children: React.ReactNode;
-	pathname: string;
-	country: string;
 	menu: Menu;
 };
 
@@ -26,10 +25,21 @@ const initialState: MenuItem = {
 
 export const PageContext = createContext(initialState);
 
-export const PageProvider = ({ children, pathname, country, menu }: PageProviderProps) => {
+function handlePageChange(page: MenuItem) {
+	console.log('set page');
+	document.getElementById('layout')?.style.setProperty('background-color', `var(--${page.color})`);
+	document.getElementById('content')?.setAttribute('data-type', page.layout);
+}
+
+export const PageProvider = ({ children, menu }: PageProviderProps) => {
+	const pathname = usePathname();
 	const item = findMenuItem(pathname, menu);
-	//if (!item) console.warn(`Invalid page (PageProvider): ${pathname}`);
 	const state = !item ? initialState : item;
+
+	useEffect(() => {
+		handlePageChange(state);
+	}, [pathname]);
+
 	return <PageContext.Provider value={state}>{children}</PageContext.Provider>;
 };
 

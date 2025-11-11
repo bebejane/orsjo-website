@@ -1,9 +1,11 @@
-'use client';
-
-import ErrorPage from './error';
-import { useRouter } from '@/i18n/routing';
+import Link from '@/components//nav/Link';
+import s from './not-found.module.scss';
 
 export default function NotFound() {
-	const router = useRouter();
-	return <ErrorPage error={new Error('404: Not Found')} reset={() => router.push('/')} resetLabel='Go to Homepage' />;
+	return (
+		<div className={s.container}>
+			<h3>404 Not Found</h3>
+			<Link href='/'>Return home</Link>
+		</div>
+	);
 }

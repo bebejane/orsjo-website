@@ -1,34 +1,20 @@
 'use client';
 
 import s from './error.module.scss';
-import { useEffect, useState } from 'react';
+import * as Sentry from '@sentry/nextjs';
+import { useEffect } from 'react';
 
-export default function ErrorPage({
-	error,
-	reset,
-	resetLabel = 'Try again',
-}: {
-	error: Error & { digest?: string };
-	reset?: () => void;
-	resetLabel?: string;
-}) {
-	const [show, setShow] = useState(true);
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
 	useEffect(() => {
-		console.error(error);
+		Sentry.captureException(error);
 	}, [error]);
-
-	if (!show) return null;
 
 	return (
 		<div className={s.error}>
-			<div className={s.wrap}>
-				<h1>Something went wrong!</h1>
-				<p>{error.message ?? error}</p>
-				{reset && <button onClick={() => reset()}>{resetLabel}</button>}
-				<button className={s.close} onClick={() => setShow(false)}>
-					Close
-				</button>
-			</div>
+			<h1>Something went wrong!</h1>
+			<p>{error.message}</p>
+			<p>Digest: {error.digest}</p>
+			<button onClick={() => reset()}>Try again</button>
 		</div>
 	);
 }

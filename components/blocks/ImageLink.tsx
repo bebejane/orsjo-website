@@ -2,9 +2,9 @@
 
 import s from './ImageLink.module.scss';
 import { Image } from 'react-datocms';
-import { Link } from '@/i18n/routing';
 import { ArrowLink } from '@/components';
 import { useRef } from 'react';
+import Link from '@/components/nav/Link';
 
 export type LayoutProps = { data: ImageLinkRecord };
 

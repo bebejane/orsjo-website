@@ -84,7 +84,7 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 		}
 	}, [showMenuMobile, router, setSelected, menu]);
 
-	if (!menu || !isMounted) return null;
+	if (!menu) return null;
 
 	return (
 		<>

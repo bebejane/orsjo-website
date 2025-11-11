@@ -8,6 +8,5 @@ export default function Underlay() {
 	const [showSiteSearch, showSubMenu, showCart, isMounted] = useStore(
 		useShallow((state) => [state.showSiteSearch, state.showSubMenu, state.showCart, state.isMounted])
 	);
-	if (!isMounted) return null;
 	return <div className={cn(s.underlay, (showSiteSearch || showSubMenu || showCart) && s.show)}></div>;
 }
