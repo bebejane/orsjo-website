@@ -1,6 +1,5 @@
-'use client';
-
 import s from './ImageGallery.module.scss';
+import cn from 'classnames';
 import React from 'react';
 import { Image } from 'react-datocms';
 import type { BlockProps } from '../layout/Block';
@@ -9,7 +8,7 @@ type ImageGalleryBlockProps = { data: ImageGalleryRecord; onClick: BlockProps['o
 
 export default function ImageGallery({ data: { gallery }, onClick }: ImageGalleryBlockProps) {
 	return (
-		<div className={s.imageGallery}>
+		<div className={cn(s.imageGallery)}>
 			{gallery.map((image, idx) => (
 				<figure
 					key={idx}

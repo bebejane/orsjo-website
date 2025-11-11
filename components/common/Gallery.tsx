@@ -68,6 +68,7 @@ export default function Gallery({ images, onClose, index = 0, show, padImagesWit
 					initialSlide={index}
 					onSlideChange={({ realIndex }) => setRealIndex(realIndex)}
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
+					onTouchEnd={() => {}}
 				>
 					{images.map((image, idx) => (
 						<SwiperSlide key={idx} className={cn(s.slide, padImagesWithTitle && image.title && s.padded)}>

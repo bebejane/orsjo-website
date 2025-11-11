@@ -130,6 +130,11 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 		setTotalPrice({ amount: addonsPrice + modelPrice, currencyCode: shopify.i18n.currencyCode });
 	}
 
+	function handleToggleOpen(e: React.MouseEvent<HTMLElement>) {
+		setOpen(!open);
+		if (!isDesktop) setShowAddons(true);
+	}
+
 	function handleAddonClick(e: React.MouseEvent<HTMLElement>) {
 		const id = (e.currentTarget as HTMLElement).id;
 		const addon = allAddons.find((a) => a.id === id);
@@ -249,9 +254,9 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 
 				<div className={cn(s.variant, (open || showAddons) && s.open)}>
 					<div
-						className={cn(s.row)}
+						className={s.row}
 						title={`${selectedModel?.name?.name ?? ''} ${[selected.color?.name, selected.material?.name, selected.feature?.name].filter(Boolean).join(', ')}`}
-						onClick={() => setOpen(!open)}
+						onClick={handleToggleOpen}
 					>
 						<div className={s.thumb}>
 							{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}
@@ -267,7 +272,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
 					</div>
 
-					{addons.map(({ id, name, variantId, price, imageUrl }, idx) => {
+					{addons.map(({ id, name, variantId, imageUrl }, idx) => {
 						return (
 							<div
 								key={idx}
@@ -355,7 +360,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 
 			{modal === 'show' && (
 				<Modal>
-					<div className={s.modal}>
+					<div className={s.modal} role='alert'>
 						<div className={s.wrap}>
 							<h3>Please Note</h3>
 							<h4>This product is sold without light source.</h4>
@@ -374,7 +379,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 									Continue without light source
 								</button>
 							</form>
-							<button className={s.close} onClick={() => setModal('hide')}>
+							<button className={s.close} onClick={() => setModal('hide')} aria-label='Close'>
 								<img src={'/images/close.svg'} alt='close' />
 							</button>
 						</div>

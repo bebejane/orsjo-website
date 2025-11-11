@@ -265,7 +265,6 @@
 			position: absolute;
 			top: 0;
 			left: 0.5em;
-			opacity: 0;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -273,6 +272,9 @@
 			height: 100%;
 			width: var(--thumb-size);
 			background-color: rgba(255, 255, 255, 0.8);
+			@include mq($from: desktop) {
+				opacity: 0;
+			}
 		}
 
 		.check {
@@ -284,7 +286,10 @@
 			font-size: 0.7rem;
 			transition: width 0.2s ease-out;
 			color: var(--gray);
-			opacity: 0;
+
+			@include mq($from: desktop) {
+				opacity: 0;
+			}
 			svg {
 				width: var(--thumb-size);
 				path {

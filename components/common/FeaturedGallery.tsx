@@ -91,6 +91,7 @@ export default function FeaturedGallery({
 					className={cn(s.swiper, isShortSlide && s.short)}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
+					onTouchEnd={() => {}}
 				>
 					{items?.map((item: any, idx: number) => (
 						<SwiperSlide key={`${id}-${idx}`} className={cn(s.slide)}>

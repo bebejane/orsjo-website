@@ -54,7 +54,7 @@ export default function CountrySelector({ className, localization: { availableCo
 			ref={formRef}
 			aria-label={'Select country'}
 		>
-			<Select className={cn('small', s.select)} onChange={handleChange} defaultOpen={false}>
+			<Select className={cn('small', s.select)} onChange={handleChange} defaultOpen={false} aria-label='Select country'>
 				<Button className={cn(s.button, inverted && s.inverted)} ref={buttonRef}>
 					<SelectValue className={s.value} key={country}>
 						{selectedCountry?.currency.isoCode}

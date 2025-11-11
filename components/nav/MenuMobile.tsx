@@ -124,7 +124,13 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 					<div className={s.search}>
 						<img src={'/images/search.svg'} />
 						<form onSubmit={handleSubmitSearch}>
-							<input ref={searchRef} type='text' placeholder='Search' onFocus={() => setShowSearch(true)} />
+							<input
+								ref={searchRef}
+								type='text'
+								placeholder='Search'
+								aria-label='Search'
+								onFocus={() => setShowSearch(true)}
+							/>
 							<input type='submit' style={{ visibility: 'hidden', position: 'absolute' }} />
 						</form>
 					</div>
