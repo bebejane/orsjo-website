@@ -7,7 +7,14 @@ import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import { Mousewheel } from 'swiper/modules';
 import type { Swiper } from 'swiper';
-import { DesignerThumbnail, ProductThumbnail, ProjectThumbnail, Thumbnail, ArrowButton } from '@/components';
+import {
+	ProfessionalThumbnail,
+	DesignerThumbnail,
+	ProductThumbnail,
+	ProjectThumbnail,
+	Thumbnail,
+	ArrowButton,
+} from '@/components';
 import { useEffect, useRef, useState } from 'react';
 import { usePage } from '@/lib/context/page-provider';
 import { useMediaQuery } from 'usehooks-ts';
@@ -109,6 +116,15 @@ export default function FeaturedGallery({
 								<ProjectThumbnail
 									key={idx}
 									project={item as ProjectRecord}
+									theme={theme}
+									showMarkAsNew={showMarkAsNew}
+									lazyload={false}
+									className={s.thumbnail}
+								/>
+							) : item.__typename === 'ProfessionalRecord' ? (
+								<ProfessionalThumbnail
+									key={idx}
+									professional={item as ProjectRecord}
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
 									lazyload={false}

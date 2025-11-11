@@ -38,4 +38,5 @@ export {
 	DesignerThumbnail,
 	NewsThumbnail,
 	StaffThumbnail,
+	ProfessionalThumbnail,
 } from './common/Thumbnail';

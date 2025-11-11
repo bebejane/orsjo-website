@@ -1,7 +1,7 @@
 import s from './Layout.module.scss';
 import { Sidebar, Footer, FullscreenGallery, MenuDesktop, MenuMobile, CookieConsent, Underlay } from '@/components';
 import { PageProvider } from '@/lib/context/page-provider';
-import { findMenuItem, type MenuItem } from '@/lib/menu';
+import { type MenuItem } from '@/lib/menu';
 import Cart from '@/components/shopify/Cart';
 import PageTransition from '@/components/layout/PageTransition';
 
@@ -16,17 +16,9 @@ export default function Layout({ children, menu, localization, shipping }: Layou
 	return (
 		<>
 			<PageProvider menu={menu}>
-				<div
-					id='layout'
-					className={s.layout}
-					//</PageProvider>style={{ backgroundColor: `var(--${page?.color})` }} suppressHydrationWarning
-				>
+				<div id='layout' className={s.layout}>
 					<Sidebar />
-					<main
-						id='content'
-						className={s.content}
-						//</div>data-type={page?.layout}
-					>
+					<main id='content' className={s.content}>
 						<article>{children}</article>
 					</main>
 					<MenuDesktop menu={menu} localization={localization} />

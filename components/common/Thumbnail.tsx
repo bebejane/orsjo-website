@@ -22,7 +22,7 @@ export type ThumbnailProps = {
 	upcycled?: boolean;
 	onClick?: () => void;
 	theme?: 'dark' | 'light' | 'mid';
-	type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material';
+	type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material' | 'professional';
 	showMarkAsNew?: boolean;
 };
 
@@ -175,6 +175,35 @@ export function ProjectThumbnail({
 			className={className}
 			theme={theme}
 			type='project'
+			lazyload={lazyload}
+			showMarkAsNew={showMarkAsNew}
+		/>
+	);
+}
+
+export type ProfessionalThumbnailProps = BaseThumbnailProps & {
+	professional: ProjectRecord;
+};
+
+export function ProfessionalThumbnail({
+	professional,
+	inverted,
+	theme = 'dark',
+	className,
+	showMarkAsNew,
+	lazyload,
+}: ProfessionalThumbnailProps) {
+	return (
+		<Thumbnail
+			slug={`/professionals/${professional.slug}`}
+			image={professional.image}
+			imageHover={professional.secondaryImage as FileField}
+			title={professional.title}
+			subtitle={professional.location}
+			inverted={inverted}
+			className={className}
+			theme={theme}
+			type='professional'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
 		/>

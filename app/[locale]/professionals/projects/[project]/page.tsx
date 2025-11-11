@@ -41,12 +41,12 @@ export default async function Project({ params }: PageProps<'/[locale]/professio
 
 	// Add bespoke link to related products if project is bespoke.
 	const bespokeProduct = {
-		__typename: 'ProductRecord',
+		__typename: 'ProfessionalRecord',
 		title: 'Bespoke',
 		image: bespokeThumbnail?.thumbnail,
 		environmentImage: bespokeThumbnail?.secondaryThumbnail,
-		slug: '/professionals/bespoke',
-	} as ProductRecord;
+		slug: `bespoke`,
+	} as unknown as ProductRecord;
 
 	const relatedProducts = project.bespoke
 		? //@ts-ignore
