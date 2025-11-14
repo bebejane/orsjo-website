@@ -1,6 +1,7 @@
 # Stuff
 
 - news sidebar...
+- auto-response contact email
 
 # Live
 
