@@ -9,6 +9,7 @@ import { sync } from '@/lib/shopify/sync';
 	if (!itemId) throw new Error('Invalid item id');
 
 	console.log('syncing:', itemId);
+
 	try {
 		await sync(itemId);
 	} catch (e) {
