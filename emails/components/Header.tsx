@@ -14,8 +14,8 @@ const Header: React.FC<HeaderProps> = ({ title, openInBrowser = false }) => {
 		<>
 			<Section style={{ paddingTop: spacing.s9, backgroundColor: colors.black }}>
 				<Row>
-					<Column style={{ width: '100%' }}>
-						<Img style={{ width: '45px' }} src='https://www.datocms-assets.com/62617/1673342405-logo-email.png' />
+					<Column style={{ width: '100%', textAlign: 'center' }} align='center'>
+						<Img style={{ width: '45px', margin: '0 auto' }} src='https://www.datocms-assets.com/62617/1673342405-logo-email.png' />
 					</Column>
 				</Row>
 			</Section>
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ title, openInBrowser = false }) => {
 					</Column>
 				</Row>
 			</Section>
-			<Section>
+			<Section style={{ paddingBottom: spacing.s3 }}>
 				<Row>
 					<Column>
 						<Divider />

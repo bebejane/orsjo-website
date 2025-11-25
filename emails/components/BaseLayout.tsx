@@ -1,37 +1,37 @@
-import { Html, Body, Head, Font, Preview } from '@react-email/components';
+import { Html, Body, Head, Font, Preview, Container } from '@react-email/components';
 import { colors, screens, themeDefaults, spacing } from './theme';
 
 type BaseLayoutProps = {
-	width: number;
-	children: React.ReactNode;
-	preview?: string;
+  width: number;
+  children: React.ReactNode;
+  preview?: string;
 };
 
 export default function BaseLayout({ width, children, preview }: BaseLayoutProps) {
-	return (
-		<Html>
-			<Head>
-				{preview && <Preview>{preview}</Preview>}
-				<meta name='color-scheme' content='dark' />
-				<meta name='supported-color-schemes' content='dark' />
+  return (
+    <Html>
+      <Head>
+        {preview && <Preview>{preview}</Preview>}
+        <meta name='color-scheme' content='dark' />
+        <meta name='supported-color-schemes' content='dark' />
 
-				<Font
-					fontFamily='Inter'
-					fallbackFontFamily={'Arial'}
-					webFont={{
-						format: 'woff2',
-						url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700',
-					}}
-				/>
-				<Font
-					fontFamily='Indivisible'
-					fallbackFontFamily={'Arial'}
-					webFont={{
-						format: 'woff2',
-						url: `${process.env.NEXT_PUBLIC_SITE_URL}/fonts/IndivisibleWebMedium.woff2`,
-					}}
-				/>
-				<style>{`
+        <Font
+          fontFamily='Inter'
+          fallbackFontFamily={'Arial'}
+          webFont={{
+            format: 'woff2',
+            url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700',
+          }}
+        />
+        <Font
+          fontFamily='Indivisible'
+          fallbackFontFamily={'Arial'}
+          webFont={{
+            format: 'woff2',
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/fonts/IndivisibleWebMedium.woff2`,
+          }}
+        />
+        <style>{`
 
           body {
             -webkit-font-smoothing: antialiased;
@@ -140,10 +140,12 @@ export default function BaseLayout({ width, children, preview }: BaseLayoutProps
             }
           }
       `}</style>
-			</Head>
-			<Body style={{ backgroundColor: colors.black, width }} className='body'>
-				{children}
-			</Body>
-		</Html>
-	);
+      </Head>
+      <Body style={{ backgroundColor: colors.black }} className='body'>
+        <Container style={{ maxWidth: width, margin: '0 auto', width: '100%' }} align='center'>
+          {children}
+        </Container>
+      </Body>
+    </Html>
+  );
 }

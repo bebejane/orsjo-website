@@ -4,8 +4,8 @@ import { colors, spacing } from './theme';
 const defaultStyles = {
 	borderColor: colors.white,
 	borderWidth: '1px',
-	paddingTop: spacing.s9,
-	paddingBottom: spacing.s9,
+	paddingTop: spacing.s5,
+	paddingBottom: spacing.s8,
 };
 
 export default function Divider(props: HrProps) {

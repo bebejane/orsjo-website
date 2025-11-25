@@ -19,16 +19,15 @@ const ContactAutoReply = ({ name }: ContactAutoReplyProps) => (
 					<Text style={{ paddingTop: spacing.s7 }}>
 						Vi återkommer med svar så snart vi har möjlighet.
 						<br />
-						<br />
-						Notera att vi tyvärr inte kan hantera frågor kring våra produkter från privatpersoner. Vänligen kontakta
-						istället någon av våra <a href='https://www.orsjo.com/contact#retailers'>återförsäljare</a>. Du hittar även
-						de vanligaste frågorna kring våra produkter med svar på vår{' '}
+						Du hittar de vanligaste frågorna kring våra produkter med svar på vår{' '}
 						<a href='https://www.orsjo.com/support/faq'>FAQ-sida</a>.
 						<br />
 						<br />
 						Hälsningar
 						<br />
 						Örsjö Belysning AB
+						<br />
+						<br />
 					</Text>
 				</Column>
 			</Row>
@@ -50,16 +49,11 @@ const ContactAutoReply = ({ name }: ContactAutoReplyProps) => (
 						We will get back to you as soon as possible.
 						<br />
 						<br />
-						Note that we are unable to handle questions regarding our products from private persons. If you reach out as
-						a private person we kindly ask you to contact an{' '}
-						<a href='https://www.orsjo.com/contact#retailers'>Örsjö retailer</a>. If you reach out as a professional
-						buyer or retailer please fell free to directly contact anyone in our{' '}
-						<a href='https://www.orsjo.com/contact#people'>sales team</a>.
-						<br />
-						<br />
 						Regards
 						<br />
 						Örsjö Belysning AB
+						<br />
+						<br />
 					</Text>
 				</Column>
 			</Row>

@@ -20,8 +20,8 @@ export default function Footer({ includeUnsubscribe }: FooterProps) {
 			</Section>
 			<Section>
 				<Row>
-					<Column style={{ width: '100%' }}>
-						<Img style={{ width: '45px' }} src='https://www.datocms-assets.com/62617/1673342405-logo-email.png' />
+					<Column style={{ width: '100%', textAlign: 'center' }} align='center'>
+						<Img style={{ width: '45px', margin: '0 auto' }} src='https://www.datocms-assets.com/62617/1673342405-logo-email.png' />
 					</Column>
 				</Row>
 			</Section>
