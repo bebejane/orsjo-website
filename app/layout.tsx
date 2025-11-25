@@ -27,12 +27,12 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 	return (
 		<html lang='en-US'>
 			<body id='root'>
+				{modals}
 				<NextIntlClientProvider key={locale}>
 					<Layout menu={menu} localization={localization} shipping={shipping}>
 						{children}
 					</Layout>
 				</NextIntlClientProvider>
-				{modals}
 			</body>
 		</html>
 	);

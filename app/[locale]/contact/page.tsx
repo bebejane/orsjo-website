@@ -14,7 +14,7 @@ import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
-import Link from '@/components/nav/Link';
+import Link from 'next/link';
 
 type ResellersByCountry = {
 	[country: string]: {
@@ -66,7 +66,7 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 								<a href={`mailto:${contact.email}`}>{contact.email}</a>
 							</p>
 						</div>
-						<Link href='/contact/message-us' transition={false} prefetch={true}>
+						<Link href='/contact/message-us' prefetch={true}>
 							<button>Contact Us</button>
 						</Link>
 					</div>
