@@ -1,38 +1,3 @@
-<<<<<<< HEAD
-import styles from './Sidebar.module.scss';
-import cn from 'classnames';
-import { useStore, shallow } from '/lib/store';
-import { useRouter } from 'next/router';
-import { usePage } from '/lib/context/page';
-import { useEffect, useState, useCallback, useRef } from 'react';
-import { ArrowLink } from '/components';
-import { useScrollInfo } from 'dato-nextjs-utils/hooks';
-import { styleVariables } from '/lib/utils';
-import { useWindowSize } from 'rooks';
-
-export type SidebarProps = { title: string; show: boolean };
-type PageType = 'products' | 'product' | 'project' | 'family';
-
-const getPageType = (pathname: string): PageType | undefined => {
-	const p = pathname.toLowerCase();
-	return p === '/products'
-		? 'products'
-		: p.startsWith('/products/family/')
-		? 'family'
-		: p.startsWith('/products/')
-		? 'product'
-		: p.startsWith('/professionals/projects/')
-		? 'project'
-		: undefined;
-};
-
-export default function Sidebar({ title, show }: SidebarProps) {
-	const { menu, layout, color } = usePage();
-	const router = useRouter();
-	const pathname = router.asPath.includes('#') ? router.asPath.substring(0, router.asPath.indexOf('#')) : router.asPath;
-	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore(
-		(state) => [
-=======
 'use client';
 
 import s from './Sidebar.module.scss';
@@ -54,27 +19,16 @@ export default function Sidebar() {
 	const backRef = useRef(null);
 	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore(
 		useShallow((state) => [
->>>>>>> 5bf943c (/products/families)
 			state.currentSection,
 			state.setCurrentSection,
 			state.invertSidebar,
 			state.searchProducts,
 			state.setSearchProducts,
-<<<<<<< HEAD
-		],
-		shallow
-	);
-	const [setInvertMenu] = useStore((state) => [state.setInvertMenu], shallow);
-	const [inverted, setInverted] = useState(menu === 'inverted' || invertSidebar);
-	const [sections, setSections] = useState([]);
-	const [pageType, setPageType] = useState<string | undefined>(getPageType(router.pathname));
-=======
 		])
 	);
 	const [setInvertMenu] = useStore(useShallow((state) => [state.setInvertMenu]));
 	const [inverted, setInverted] = useState(_inverted || invertSidebar);
 	const [sections, setSections] = useState<{ title: string | undefined; id: string }[]>([]);
->>>>>>> 5bf943c (/products/families)
 	const [open, setOpen] = useState(false);
 	const [searchFocus, setSearchFocus] = useState(false);
 	const [maxHeight, setMaxHeight] = useState<string | undefined>();
@@ -89,22 +43,15 @@ export default function Sidebar() {
 		setSearchProducts('');
 	}, [setSearchProducts]);
 
-<<<<<<< HEAD
-	useEffect(() => {
-=======
 	const handleClick = (e: any) => setOpen(false);
 
 	const updateSections = () => {
->>>>>>> 5bf943c (/products/families)
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]');
 		const sections = items.length ? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id })) : [];
 		setSections(sections);
 	};
 
 	useEffect(() => {
-<<<<<<< HEAD
-		// Highlight nav section on scroll\
-=======
 		setTimeout(() => updateSections(), 0);
 		setTimeout(() => updateSections(), 300);
 	}, [path]);
@@ -112,25 +59,17 @@ export default function Sidebar() {
 	useEffect(() => {
 		if (isScrolling) return;
 		// Highlight nav section on scroll
->>>>>>> 5bf943c (/products/families)
 		const sections = Array.from(document.querySelectorAll<HTMLElement>('section[data-section-id]'));
 
 		if (!sections.length) return;
 
 		const calcPos = (el: HTMLElement) =>
 			Math.abs(scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop)) + el.offsetTop;
-<<<<<<< HEAD
-		const { id } = sections.sort((a, b) => (calcPos(a) > calcPos(b) ? 1 : -1))[0];
-
-		setCurrentSection(id);
-	}, [scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, menu]);
-=======
 
 		const { id } = sections.sort((a, b) => (calcPos(a) > calcPos(b) ? 1 : -1))[0];
 
 		setCurrentSection(id);
 	}, [isScrolling, scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, _inverted]);
->>>>>>> 5bf943c (/products/families)
 
 	useEffect(() => {
 		if (!currentSection || !innerWidth) return;

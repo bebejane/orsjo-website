@@ -42,20 +42,6 @@ fragment DistributorFragment on DistributorRecord {
 	url
 }
 
-fragment DistributorFragment on DistributorRecord {
-	name
-	address
-	postalCode
-	city
-	country {
-		name
-	}
-	contactName
-	phone
-	email
-	url
-}
-
 query Reseller($id: ItemId, $locale: SiteLocale = en) {
 	reseller(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
 		...ResellerFragment
