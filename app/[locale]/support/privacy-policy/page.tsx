@@ -30,7 +30,9 @@ export default async function PrivacyPolicy({ params }: PageProps<'/[locale]/sup
 							<div className={s.header}>
 								<h2 className={s.title}>{title}</h2>
 							</div>
-							<StructuredContent className={cn(s.text, 'medium')} content={content} />
+							<div className="medium">
+								<StructuredContent className={cn(s.text, 'medium')} content={content} />
+							</div>
 						</li>
 					))}
 				</ul>

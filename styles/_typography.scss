@@ -1,4 +1,4 @@
-@use 'mediaqueries' as *;
+@use "mediaqueries" as *;
 
 body,
 html {
@@ -81,14 +81,15 @@ nav,
 .medium,
 .medium p,
 button,
-span.medium {
+span.medium,
+.medium ul li p {
 	font-size: 14px;
 
 	@include mq($from: tablet) {
-		font-size: 0.65rem;
+		font-size: 0.65rem !important;
 	}
 
-	font-family: 'IndivisibleMedium';
+	font-family: "IndivisibleMedium";
 	font-weight: normal;
 	line-height: var(--body-line-height);
 }
@@ -96,13 +97,13 @@ span.medium {
 p.large,
 .large p {
 	@include mq($from: tablet) {
-		font-family: 'IndivisibleMedium';
+		font-family: "IndivisibleMedium";
 		font-size: 0.65rem;
 	}
 
 	@media screen and (min-height: 700px) {
 		font-size: 0.87rem;
-		font-family: 'Indivisible';
+		font-family: "Indivisible";
 	}
 }
 
@@ -126,7 +127,7 @@ footer ul {
 
 	line-height: 1.4;
 	font-weight: normal;
-	font-family: 'IndivisibleMedium';
+	font-family: "IndivisibleMedium";
 }
 
 .very-small,
@@ -136,7 +137,7 @@ button.very-small {
 
 .icon {
 	font-size: 0.5rem;
-	font-family: 'IndivisibleMedium';
+	font-family: "IndivisibleMedium";
 }
 
 .bodyWeight {
