@@ -1,5 +1,5 @@
 import { Text as ExtendedText, TextProps } from '@react-email/components';
-import { spacing } from './theme';
+import { spacing, colors } from './theme';
 
 type Props = TextProps & {
 	maxWidth?: number;
@@ -7,6 +7,7 @@ type Props = TextProps & {
 
 const defaultStyles = {
 	paddingBottom: spacing.s4,
+	color: colors.white,
 };
 
 export default function Text({ children, maxWidth, ...props }: Props) {

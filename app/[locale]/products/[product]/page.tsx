@@ -25,7 +25,8 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 
 	const res = await getProductPageData(slug, locale as CountryCode);
 	//const { v } = searchParams ? await searchParams : {}; // disable for now
-	const v = parseGid(res?.shopify.product?.selectedOrFirstAvailableVariant?.id as string);
+	const id = res?.shopify.product?.selectedOrFirstAvailableVariant?.id;
+	const v = id ? parseGid(id) : undefined;
 
 	if (!res) return notFound();
 

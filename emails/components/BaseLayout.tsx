@@ -67,8 +67,28 @@ export default function BaseLayout({ width, children, preview }: BaseLayoutProps
             margin: 0 !important;
           }
 
-          a {
+          a,
+          a[href],
+          a:link,
+          a:visited {
             color: ${colors.white} !important;
+            text-decoration: underline !important;
+            text-decoration-color: ${colors.white} !important;
+            text-underline-offset: 2px;
+          }
+          
+          a:hover {
+            color: ${colors.white} !important;
+            text-decoration-color: ${colors.white} !important;
+          }
+          
+          .text a,
+          .text a[href],
+          .text a:link,
+          .text a:visited {
+            color: ${colors.white} !important;
+            text-decoration: underline !important;
+            text-decoration-color: ${colors.white} !important;
             text-underline-offset: 2px;
           }
           .gutter {
