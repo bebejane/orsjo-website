@@ -1,248 +1,248 @@
 .thumbnail {
-  position: relative;
+	position: relative;
 
-  &:hover {
-    figcaption>.title>.subtitle {
-      color: $black;
-    }
-  }
+	.wrap {
+		display: flex;
+		position: relative;
+		flex-direction: column;
+		aspect-ratio: 4/3;
+		cursor: pointer;
 
-  .wrap {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    aspect-ratio: 4/3;
-    cursor: pointer;
+		figure {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			background-color: var(--light-gray);
+			aspect-ratio: 4/3;
 
-    figure {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background-color: $light-gray;
-      aspect-ratio: 4/3;
+			.image {
+				position: relative !important;
+				flex: 1 1 auto;
+				mix-blend-mode: multiply;
+			}
 
-      .image {
-        position: relative !important;
-        flex: 1 1 auto;
-        mix-blend-mode: multiply;
+			img {
+				aspect-ratio: 4/3;
+			}
 
-        img[role="presentation"] {
-          //height: 100%;
-          //width: 100% !important;
-          //object-fit: fill;
-          //background-color: transparent !important;
-        }
-      }
+			.imageHover {
+				position: absolute;
+				opacity: 0;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				transition: opacity 0s ease;
+				z-index: 2;
 
-      img {
-        aspect-ratio: 4/3;
-      }
+				&.show {
+					opacity: 1;
+				}
+			}
 
-      .imageHover {
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transition: opacity 0s ease;
-        z-index: 2;
+			.upcycled {
+				position: absolute;
+				bottom: 2.5vw;
+				right: 1.5vw;
 
-        &.show {
-          opacity: 1;
-        }
-      }
+				@include mq($from: tablet) {
+					bottom: 0.8vw !important;
+					right: 0.6vw;
+				}
 
-      .upcycled {
-        position: absolute;
-        bottom: 2.5vw;
-        right: 1.5vw;
+				img {
+					width: 9vw;
 
-        @include mq($from: tablet) {
-          bottom: 0.8vw !important;
-          right: 0.6vw;
-        }
+					@include mq($from: tablet) {
+						width: 2.5vw;
+					}
+				}
+			}
+		}
 
-        img {
-          width: 9vw;
+		figcaption {
+			display: flex;
+			flex-direction: row;
+			flex: 1 1 auto;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: pre;
+			color: var(--gray);
+			padding-top: 1em;
 
-          @include mq($from: tablet) {
-            width: 2.5vw;
-          }
-        }
-      }
-    }
+			.title {
+				color: var(--black);
+				overflow: hidden;
+				text-overflow: ellipsis;
 
-    figcaption {
-      flex: 1 1 auto;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: pre;
-      color: $gray;
-      padding-top: 1em;
+				.subtitle {
+					transition: color 0.2s ease;
+				}
+			}
+		}
+		.price {
+			display: none;
+			flex: 1 1 auto;
+			text-align: right;
+			color: var(--black);
+			padding-left: 0.5em;
+		}
+	}
 
-      .title {
-        color: $black;
+	&:hover {
+		figcaption > .title > .subtitle {
+			color: var(--black);
+		}
+		.price {
+			display: block;
+		}
+	}
 
-        .subtitle {
-          transition: color 0.2s ease;
-        }
-      }
-    }
-  }
+	&.inverted {
+		a figcaption span {
+			color: var(--white);
+		}
+	}
 
-  &.inverted {
-    a figcaption span {
-      color: $white;
-    }
-  }
+	&.mid {
+		figcaption > .title {
+			color: var(--light-gray);
+		}
 
-  &.product {
-    img[role="presentation"] {
-      //transform: scale(1.1);
-    }
-  }
+		figcaption > .title > .subtitle {
+			color: var(--black);
+		}
 
-  &.mid {
-    figcaption>.title {
-      color: $light-gray;
-    }
+		&:hover {
+			figcaption > .title > .subtitle {
+				color: var(--light-gray);
+			}
+		}
+	}
 
-    figcaption>.title>.subtitle {
-      color: $black;
-    }
+	a > figcaption > .title {
+		color: var(--white);
 
-    &:hover {
-      figcaption>.title>.subtitle {
-        color: $light-gray;
-      }
-    }
-  }
+		.subtitle {
+			color: var(--black);
+		}
+	}
 
-  a>figcaption>.title {
-    color: $white;
+	&.dark {
+		&:hover {
+			figcaption > .title > .subtitle {
+				color: var(--white);
+			}
+		}
 
-    .subtitle {
-      color: $black;
-    }
-  }
+		a > figcaption > .title {
+			color: var(--white);
 
-  &.dark {
-    &:hover {
-      figcaption>.title>.subtitle {
-        color: $white;
-      }
-    }
+			.subtitle {
+				color: var(--gray);
+			}
+		}
+	}
 
-    a>figcaption>.title {
-      color: $white;
+	&.light {
+		&:hover {
+			figcaption > .title > .subtitle {
+				color: var(--black);
+			}
+		}
 
-      .subtitle {
-        color: $gray;
-      }
-    }
-  }
+		a > figcaption > .title {
+			color: var(--black);
 
-  &.light {
-    &:hover {
-      figcaption>.title>.subtitle {
-        color: $black;
-      }
-    }
+			.subtitle {
+				color: var(--gray);
+			}
+		}
+	}
 
-    a>figcaption>.title {
-      color: $black;
+	&.black {
+		&:hover {
+			figcaption > .title > .subtitle {
+				color: var(--white);
+			}
+		}
 
-      .subtitle {
-        color: $gray;
-      }
-    }
-  }
+		a > figcaption > .title {
+			color: var(--white);
 
-  &.black {
-    &:hover {
-      figcaption>.title>.subtitle {
-        color: $white;
-      }
-    }
+			.subtitle {
+				color: var(--gray);
+			}
+		}
+	}
 
-    a>figcaption>.title {
-      color: $white;
+	&.project {
+		a > figure > .image {
+			mix-blend-mode: normal;
+		}
 
-      .subtitle {
-        color: $gray;
-      }
-    }
-  }
+		a > figure img {
+			object-fit: cover !important;
+		}
+	}
 
-  &.project {
-    a>figure>.image {
-      mix-blend-mode: normal;
-    }
+	&.designer {
+		a > figure > .image {
+			mix-blend-mode: normal;
+		}
 
-    a>figure img {
-      object-fit: cover !important;
-    }
-  }
+		a > figure img {
+			object-fit: cover !important;
+		}
+	}
 
-  &.designer {
-    a>figure>.image {
-      mix-blend-mode: normal;
-    }
+	&.material {
+		a > figure > .image,
+		figure > .image {
+			mix-blend-mode: normal;
+			background-color: var(--white);
+		}
 
-    a>figure img {
-      object-fit: cover !important;
-    }
-  }
+		a > figure img,
+		figure img {
+			object-fit: cover !important;
+		}
 
-  &.material {
+		> figure div {
+			background-color: var(--white);
+		}
+	}
 
-    a>figure>.image,
-    figure>.image {
-      mix-blend-mode: normal;
-      background-color: $white;
-    }
+	.markAsNew {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		top: 0;
+		left: 0;
+		background-color: var(--copper);
 
-    a>figure img,
-    figure img {
-      object-fit: cover !important;
-    }
+		border-radius: 50%;
+		line-height: 0;
+		z-index: 3;
+		color: var(--white);
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 0.1em;
+		margin: 8px;
+		width: 28px;
+		height: 28px;
+		font-size: 7px;
 
-    >figure div {
-      background-color: $white;
-    }
-  }
+		span {
+			padding-top: 1px;
+		}
 
-  .markAsNew {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    background-color: $copper;
-
-    border-radius: 50%;
-    line-height: 0;
-    z-index: 3;
-    color: $white;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    margin: 8px;
-    width: 28px;
-    height: 28px;
-    font-size: 7px;
-
-    span {
-      padding-top: 1px;
-    }
-
-    @include mq($from: tablet) {
-      margin: 0.8vw;
-      width: 1.9vw;
-      height: 1.9vw;
-      font-size: 0.5vw;
-    }
-  }
+		@include mq($from: tablet) {
+			margin: 0.8vw;
+			width: 1.9vw;
+			height: 1.9vw;
+			font-size: 0.5vw;
+		}
+	}
 }

@@ -19,10 +19,12 @@ query AllProductAccessories($first: IntType = 250, $skip: IntType = 0) {
 }
 
 fragment ProductAccessoryFragment on ProductAccessoryRecord {
+	__typename
 	id
 	name
 	articleNo
 	price
+	deliveryDays
 	image {
 		...ImageThumbnailFragment
 	}

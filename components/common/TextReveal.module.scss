@@ -1,28 +1,28 @@
 .paragraph {
-  margin: 0;
-  padding: 0;
-  line-height: 1.1;
-  display: inline;
+	margin: 0;
+	padding: 0;
+	line-height: 1.1;
+	display: inline;
 
-  @include mq($from: desktop, $until: wide) {
-    display: inline-block;
-  }
+	@include mq($from: desktop, $until: wide) {
+		display: inline-block;
+	}
 
-  .word {
-    display: inline;
+	.word {
+		display: inline;
 
-    &.block {
-      display: inline-block;
-    }
+		&.block {
+			display: inline-block;
+		}
 
-    .letter {
-      display: inline;
-      opacity: 1;
-      transition: opacity 0.25s ease-in-out;
+		.letter {
+			display: inline;
+			opacity: 1;
+			transition: opacity 0.25s ease-in-out;
 
-      &.hide {
-        opacity: 0;
-      }
-    }
-  }
+			&.hide {
+				opacity: 0;
+			}
+		}
+	}
 }

@@ -1,46 +1,58 @@
-import styles from './ArrowLink.module.scss'
-import cn from 'classnames'
-import Arrow from '/public/images/arrow.svg'
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
+'use client';
 
-export type ArrowLinkProps = { 
-  title?:string,
-  href?:string,
-  inverted?: boolean,
-  reversed?: boolean,
-  hoverRef?: React.MutableRefObject<HTMLElement>
-  children?: string
-}
+import s from './ArrowLink.module.scss';
+import cn from 'classnames';
+import Arrow from '@/public/images/arrow.svg';
+import { useEffect, useState } from 'react';
 
-export default function ArrowLink({ children, title, href, hoverRef, inverted = false, reversed = false }: ArrowLinkProps) {
-  
-  const [hover, setHover] = useState(false)
-  const handleHover = ({type}) => setHover(['mousemove', 'mouseenter'].includes(type))
+export type ArrowLinkProps = {
+	title?: string;
+	href?: string;
+	inverted?: boolean;
+	reversed?: boolean;
+	hoverRef?: React.MutableRefObject<HTMLSpanElement | null>;
+	children?: string | undefined;
+};
 
-  useEffect(()=>{
-    if(!hoverRef?.current) return 
-    
-    const ref = hoverRef.current;
+export default function ArrowLink({
+	children,
+	title,
+	href,
+	hoverRef,
+	inverted = false,
+	reversed = false,
+}: ArrowLinkProps) {
+	const [hover, setHover] = useState(false);
 
-    ref.addEventListener('mousemove', handleHover)
-    ref.addEventListener('mouseenter', handleHover)
-    ref.addEventListener('mouseleave', handleHover)
+	function handleHover(e: MouseEvent | React.MouseEvent<HTMLSpanElement>) {
+		const type = e.type;
+		setHover(['mousemove', 'mouseenter'].includes(type));
+	}
 
-    return () => {
-      ref.removeEventListener('mousemove', handleHover)
-      ref.removeEventListener('mouseenter', handleHover)
-      ref.removeEventListener('mouseleave', handleHover)
-    }
-  }, [hoverRef])
+	useEffect(() => {
+		if (!hoverRef?.current) return;
 
-  const className = cn(styles.arrowLink, 'medium', inverted && styles.inverted, reversed && styles.reversed, hover && styles.hover)
-  
-  return (
-    <div className={className}>
-      <span  onMouseEnter={handleHover} onMouseLeave={handleHover}>
-        <Arrow className={styles.arrow} />{title || children}
-      </span>
-    </div>
-	)
+		const ref = hoverRef.current;
+
+		ref.addEventListener('mousemove', (e) => handleHover(e as MouseEvent));
+		ref.addEventListener('mouseenter', (e) => handleHover(e as MouseEvent));
+		ref.addEventListener('mouseleave', (e) => handleHover(e as MouseEvent));
+
+		return () => {
+			ref.removeEventListener('mousemove', (e) => handleHover(e as MouseEvent));
+			ref.removeEventListener('mouseenter', (e) => handleHover(e as MouseEvent));
+			ref.removeEventListener('mouseleave', (e) => handleHover(e as MouseEvent));
+		};
+	}, [hoverRef]);
+
+	const className = cn(s.arrowLink, 'medium', inverted && s.inverted, reversed && s.reversed, hover && s.hover);
+
+	return (
+		<div className={className}>
+			<span onMouseEnter={handleHover} onMouseLeave={handleHover}>
+				<Arrow className={s.arrow} />
+				{title || children}
+			</span>
+		</div>
+	);
 }

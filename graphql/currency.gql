@@ -1,0 +1,45 @@
+query Currency($locale: SiteLocale) {
+	currency(locale: $locale) {
+		...CurrencyFragment
+	}
+}
+
+query AllCurrencies {
+	currency {
+		__typename
+		isoCode: _allIsoCodeLocales {
+			locale
+			value
+		}
+		symbol: _allSymbolLocales {
+			locale
+			value
+		}
+		rate: _allRateLocales {
+			locale
+			value
+		}
+		rateDeduction: _allRateDeductionLocales {
+			locale
+			value
+		}
+		surcharge: _allSurchargeLocales {
+			locale
+			value
+		}
+		vatRate: _allVatRateLocales {
+			locale
+			value
+		}
+	}
+}
+
+fragment CurrencyFragment on CurrencyRecord {
+	__typename
+	isoCode
+	symbol
+	rate
+	rateDeduction
+	surcharge
+	vatRate
+}

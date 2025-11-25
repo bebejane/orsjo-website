@@ -1,235 +1,267 @@
 .desktopMenu {
-  position: fixed;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: var(--outer-margin);
-  padding-right: var(--outer-margin);
-  min-height: $navbarHeight;
-  max-height: $navbarHeight;
-  transition: transform 0.3s ease;
+	position: fixed;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: row;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: var(--z-menu-desktop);
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: var(--outer-margin);
+	padding-right: var(--outer-margin);
+	min-height: var(--navbar-height);
+	max-height: var(--navbar-height);
+	transition: transform 0.3s ease;
 
-  ul {
-    width: spanGrid(12);
-    padding-top: 1em;
-    height: 100%;
-    margin-left: spanGridWithGutter(4);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    list-style: none;
-    opacity: 1;
-    transition: opacity 0.3s ease;
+	ul {
+		width: spanGrid(12);
+		padding-top: 1em;
+		height: 100%;
+		margin-left: spanGridWithGutter(4);
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		list-style: none;
+		opacity: 1;
 
+		li {
+			position: relative;
+			cursor: pointer;
+			user-select: none;
+			padding-right: 4em;
+			white-space: pre;
+			color: var(--black-menu);
+			transition: opacity 0.3s ease;
 
-    li {
-      position: relative;
-      cursor: default;
-      user-select: none;
-      padding-right: 4em;
-      white-space: pre;
-      color: $black-menu;
+			&.selected {
+				color: var(--black) !important;
 
-      &.selected {
-        color: $black !important;
+				a {
+					color: var(--black) !important;
+				}
+			}
 
-        a {
-          color: $black !important;
-        }
-      }
+			a,
+			a:visited {
+				color: var(--black-menu);
+			}
 
-      a,
-      a:visited {
-        color: $black-menu;
-      }
+			a:hover {
+				color: var(--black);
+			}
 
-      a:hover {
-        color: $black;
-      }
+			.arrow {
+				display: inline-block;
+				transition: transform 0.3s ease-out;
+				transform: rotate(90deg);
+				margin-left: 0.2rem;
 
-      .arrow {
-        display: inline-block;
-        transition: transform 0.3s ease-out;
-        transform: rotate(90deg);
-        margin-left: 0.2rem;
+				&.active {
+				}
 
-        &.active {}
+				&.hover {
+					visibility: visible;
+				}
+			}
 
-        &.hover {
-          visibility: visible;
-        }
-      }
-    }
-  }
+			&:nth-last-child(4) {
+				padding-right: 0;
+				flex: 1 1;
+			}
+		}
+	}
 
-  li.searchIcon {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 0;
-    flex: 1 1 100%;
-    cursor: pointer;
+	.searchIcon,
+	.cart,
+	.country {
+		margin-left: 0.4em;
+		padding-right: 0;
+		margin-left: 0.8em;
+	}
+	li.searchIcon {
+		display: flex;
+		justify-content: flex-end;
+		//flex: 1 1 100%;
+		cursor: pointer;
+		margin-top: -2px;
 
-    img {
-      opacity: 0.6;
-      width: 16px;
-      max-width: 16px;
+		img {
+			opacity: 0.6;
+			width: 18px;
+			max-width: 18px;
 
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+	li.country {
+	}
+	li.cart {
+		margin-top: 0.1em;
+		cursor: pointer;
 
-  &.open {
-    min-height: 100vh;
-    pointer-events: none;
+		img {
+			opacity: 0.6;
+			width: 16px;
+			max-width: 16px;
 
-    *>li {
-      //color: $black  !important;
-    }
+			&:hover {
+				opacity: 1;
+			}
+		}
 
-    ul {
-      pointer-events: all;
-    }
-  }
+		&.filled {
+			opacity: 1 !important;
+			pointer-events: all;
+			//transform: scale(1.5);
+		}
+	}
 
-  &.inverted {
+	&.open {
+		min-height: 100vh;
+		pointer-events: none;
 
-    *>li,
-    *>a {
-      color: $white-menu;
-    }
+		* > li {
+			//color: var(--black)  !important;
+		}
 
-    a:hover {
-      color: $white !important;
-    }
+		ul {
+			pointer-events: all;
+		}
+	}
 
-    a:visited {
-      color: $white-menu;
-    }
+	&.inverted {
+		* > li,
+		* > a {
+			color: var(--white-menu);
+		}
 
-    ul>li.selected,
-    ul>li.selected>a {
-      color: $white !important;
-    }
+		a:hover {
+			color: var(--white) !important;
+		}
 
-    li.searchIcon {
-      filter: invert(1);
-    }
-  }
+		a:visited {
+			color: var(--white-menu);
+		}
 
-  &.hide {
-    pointer-events: none;
+		ul > li.selected,
+		ul > li.selected > a {
+			color: var(--white) !important;
+		}
 
-    @include mq($until: tablet) {
-      transform: translateY(-$navbarHeight);
-    }
+		li.searchIcon,
+		li.cart {
+			filter: invert(1);
+		}
+	}
 
-    @include mq($from: tablet) {
-      ul {
-        opacity: 0;
-      }
-    }
-  }
+	&.hide {
+		pointer-events: none;
+
+		@include mq($until: tablet) {
+			transform: translateY(-var(--navbar-height));
+		}
+
+		@include mq($from: tablet) {
+			li {
+				opacity: 0;
+			}
+		}
+	}
 }
 
 .sub {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 100vh;
-  z-index: 99;
-  background-color: rgb(255, 255, 255);
-  transition: opacity 0.3s ease;
-  opacity: 0;
-  pointer-events: none;
-  box-shadow: -1px 0px 10px rgba(gray, 0.1);
-  color: $black-menu;
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 100vh;
+	z-index: calc(var(--z-menu-desktop) - 1);
+	background-color: rgb(255, 255, 255);
+	transition: opacity 0.3s ease;
+	opacity: 0;
+	pointer-events: none;
+	box-shadow: -1px 0px 10px rgba(gray, 0.1);
+	color: var(--black-menu);
 
+	&.show {
+		pointer-events: all;
+		height: 100vh;
+		opacity: 0.95;
+	}
 
-  &.show {
-    pointer-events: all;
-    height: 100vh;
-    opacity: 0.95;
-  }
+	.subPad {
+		padding-right: var(--outer-margin);
+		padding-top: 4rem;
+		background-color: var(--white);
 
-  .subPad {
-    padding-right: var(--outer-margin);
-    padding-top: 4rem;
-    background-color: $white;
+		&.inverted {
+			* {
+				color: var(--white-menu) !important;
 
-    &.inverted {
-      * {
-        color: $white-menu !important;
+				&.active {
+					color: var(--white) !important;
+				}
 
-        &.active {
-          color: $white !important;
-        }
+				&:hover {
+					color: var(--white) !important;
+				}
+			}
 
-        &:hover {
-          color: $white !important;
-        }
-      }
+			nav ul {
+				border-top: 1px solid var(--light-gray);
+			}
+		}
 
-      nav ul {
-        border-top: 1px solid $light-gray;
-      }
-    }
+		nav {
+			ul {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				list-style: none;
+				padding-top: 1rem;
+				border-top: 1px solid var(--gray);
+				max-height: calc(100vh - 4rem);
 
-    nav {
-      ul {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        list-style: none;
-        padding-top: 1rem;
-        border-top: 1px solid $gray;
-        max-height: calc(100vh - 4rem);
+				&::-webkit-scrollbar {
+					display: none;
+					-ms-overflow-style: none;
+				}
 
-        &::-webkit-scrollbar {
-          display: none;
-          -ms-overflow-style: none;
-        }
+				li {
+					line-height: 1.25rem;
 
-        li {
-          line-height: 1.25rem;
+					a {
+						transition: color 0.3s;
+						color: var(--black-menu);
 
-          a {
-            transition: color 0.3s;
-            color: $black-menu;
+						&:hover {
+							color: var(--black);
+						}
 
-            &:hover {
-              color: $black;
-            }
+						&.active {
+							color: var(--black) !important;
+						}
+					}
+				}
 
-            &.active {
-              color: $black !important;
-            }
-          }
-        }
-
-        &.columns {
-          display: block;
-          column-count: 2;
-          column-gap: 10px;
-        }
-      }
-    }
-  }
+				&.columns {
+					display: block;
+					column-count: 2;
+					column-gap: 10px;
+				}
+			}
+		}
+	}
 }
 
 @include mq($until: nav-break) {
-
-  .logo,
-  .desktopMenu,
-  .sub {
-    display: none;
-  }
+	.logo,
+	.desktopMenu,
+	.sub {
+		display: none;
+	}
 }

@@ -1,0 +1,23 @@
+.jobs {
+	position: relative;
+	color: var(--white);
+
+	a {
+		color: var(--white);
+	}
+
+	p {
+		@include mq($from: tablet) {
+			padding-right: 20%;
+		}
+	}
+
+	ul {
+		padding-bottom: 1em;
+		padding-left: 1em;
+
+		li {
+			padding-bottom: 0.5em;
+		}
+	}
+}

@@ -1,12 +1,14 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+*.xlsx
+.react-email
 yarn.lock
 package-lock.json
 /public/sitemap*
 /public/robots.txt
 /uploads*
 /migrations/data
-docs
+/docs
 .vscode
 
 # dependencies
@@ -44,3 +46,4 @@ yarn-error.log*
 .vercel
 
 .mailing
+TODO.md

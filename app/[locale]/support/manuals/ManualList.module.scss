@@ -1,0 +1,63 @@
+.manuals {
+	position: relative;
+
+	p {
+		color: var(--white);
+	}
+
+	.search {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding: 0.5em 1em 0.5em 1em;
+
+		@include mq($from: tablet) {
+			padding: var(--gutter) 1em var(--gutter) 1em;
+		}
+
+		margin-bottom: 1em;
+		background-color: var(--light-gray);
+
+		img {
+			max-width: 0.7em;
+			margin-right: 0.5rem;
+		}
+
+		input {
+			margin: 0;
+			margin-bottom: var(--gutter);
+			background-color: transparent;
+			border: 0;
+			outline: none;
+			margin: 0;
+			width: 100%;
+		}
+	}
+
+	.result {
+		list-style: none;
+
+		li {
+			display: flex;
+			flex-direction: row;
+			padding: 0.8em;
+			border-top: 1px var(--light-gray) solid;
+
+			&:nth-child(odd) {
+				background-color: var(--white);
+			}
+
+			&:nth-child(even) {
+				background-color: var(--white);
+			}
+
+			a {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				width: 100%;
+				font-size: 18px;
+			}
+		}
+	}
+}

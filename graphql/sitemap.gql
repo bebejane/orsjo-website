@@ -1,0 +1,42 @@
+query Sitemap($first: IntType = 200, $skip: IntType = 0) {
+	allProducts(first: $first, skip: $skip) {
+		slug
+		title
+		_updatedAt
+	}
+	_allProductsMeta {
+		count
+	}
+	allDesigners(first: $first, skip: $skip) {
+		slug
+		name
+		_updatedAt
+	}
+	_allDesignersMeta {
+		count
+	}
+	allProjects(first: $first, skip: $skip) {
+		slug
+		title
+		_updatedAt
+	}
+	_allProjectsMeta {
+		count
+	}
+	allNews(first: $first, skip: $skip) {
+		slug
+		title
+		_updatedAt
+	}
+	_allNewsMeta {
+		count
+	}
+	allJobs(first: $first, skip: $skip) {
+		slug
+		title
+		_updatedAt
+	}
+	_allJobsMeta {
+		count
+	}
+}

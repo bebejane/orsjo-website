@@ -1,0 +1,43 @@
+.dimensions {
+	padding-top: 1.5em;
+	border-top: 1px solid var(--mid-gray);
+	width: 100%;
+	display: flex;
+	columns: 2;
+	span {
+		min-width: spanNestedGrid(12, 2, true);
+
+		@include mq($until: tablet) {
+			min-width: spanNestedGrid(16, 6, true);
+		}
+
+		flex-basis: auto;
+		color: var(--gray);
+	}
+
+	button {
+		padding: 0;
+		margin: 0;
+		font-size: inherit;
+		cursor: pointer;
+		width: spanNestedGrid(12, 10);
+		text-align: left;
+	}
+}
+
+.specifications {
+	padding-bottom: 1em;
+	padding-top: 1.5em;
+	border-top: 1px solid var(--mid-gray);
+
+	li {
+		padding-bottom: 0.5em;
+	}
+
+	tr {
+		td:nth-child(1),
+		td:nth-child(3) {
+			color: var(--gray);
+		}
+	}
+}

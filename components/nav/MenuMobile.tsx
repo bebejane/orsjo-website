@@ -1,141 +1,169 @@
-import styles from './MenuMobile.module.scss'
-import cn from 'classnames'
-import { useRouter } from 'next/router'
-import React, { useState, useEffect, useRef } from 'react'
-import { usePage } from '/lib/context/page'
-import { useStore, shallow } from '/lib/store'
-import { Twirl as Hamburger } from "hamburger-react";
-import { SiteSearch } from '/components'
-import type { Menu } from '/lib/menu'
-import social from '/lib/social'
+'use client';
 
-export type MenuMobileProps = { items: Menu }
+import s from './MenuMobile.module.scss';
+import cn from 'classnames';
+import React, { useState, useEffect, useRef } from 'react';
+import { usePage } from '@/lib/context/page-provider';
+import { useStore, useShallow } from '@/lib/store';
+import { Twirl as Hamburger } from 'hamburger-react';
+import { SiteSearch } from '@/components';
+import type { MenuItem } from '@/lib/menu';
+import social from '@/lib/social';
+import { usePathname, useRouter } from 'next/navigation';
+import Link from '@/components/nav/Link';
+import { useCart } from '@/lib/shopify';
 
-export default function MenuMobile({ items }: MenuMobileProps) {
+export type MenuMobileProps = {
+	menu: MenuItem[];
+	localization: LocalizationQuery['localization'];
+};
 
-	const router = useRouter()
-	const { menu } = usePage()
-	const searchRef = useRef<HTMLInputElement>()
-	const [query, setQuery] = useState<string>('');
+export default function MenuMobile({ menu }: MenuMobileProps) {
+	const router = useRouter();
+	const pathname = usePathname();
+
+	const { inverted } = usePage();
+	const searchRef = useRef<HTMLInputElement>(null);
+	const [query, setQuery] = useState<string | null>(null);
 	const [showSearch, setShowSearch] = useState(false);
-	const [selected, setSelected] = useState(undefined)
-	const [showMenuMobile, setShowMenuMobile, transitioning] = useStore((state) => [state.showMenuMobile, state.setShowMenuMobile, state.transitioning], shallow)
-	const sub = items.find((item) => item.type === selected?.type)?.sub
-	const subHeader = selected ? items.find(i => i.type === selected?.type).label : null
+	const [selected, setSelected] = useState<MenuItem | null>(null);
+	const [cart] = useCart(useShallow((state) => [state.cart]));
+	const [showMenuMobile, setShowMenuMobile, transitioning, setShowCart, isMounted] = useStore(
+		useShallow((state) => [
+			state.showMenuMobile,
+			state.setShowMenuMobile,
+			state.transitioning,
+			state.setShowCart,
+			state.isMounted,
+		])
+	);
+
+	const sub = menu.find((item) => item.section === selected?.section)?.sub;
+	const subHeader = selected ? menu.find((i) => i.section === selected?.section)?.title : null;
 
 	const handleSubmitSearch = (e: React.FormEvent) => {
 		e.preventDefault();
 		searchRef.current?.blur();
-	}
+	};
 
 	const closeSearch = () => {
-		setShowSearch(false)
-		setQuery(undefined)
-	}
+		setShowSearch(false);
+		setQuery(null);
+	};
 
 	const handleClose = () => {
-		setSelected(undefined)
-		setShowMenuMobile(false)
-	}
+		setSelected(null);
+		setShowMenuMobile(false);
+	};
 
 	useEffect(() => {
-		router.events.on("hashChangeStart", handleClose);
-
-		return () => router.events.off("hashChangeStart", handleClose)
-	}, [router.events]);
-
-	useEffect(() => {
-		setShowSearch(!!query)
-	}, [query])
+		handleClose();
+		window.addEventListener('hashchange', handleClose);
+		return () => window.removeEventListener('hashchange', handleClose);
+	}, [pathname]);
 
 	useEffect(() => {
-		!transitioning && handleClose()
-	}, [transitioning])
+		setShowSearch(!!query);
+	}, [query]);
 
 	useEffect(() => {
-		if (!showMenuMobile)
-			return
-		items.filter(({ index, type }) => index || selected?.type === type).forEach(({ slug }) => router.prefetch(slug))
-	}, [showMenuMobile, items, router, selected])
+		!transitioning && handleClose();
+	}, [transitioning]);
 
 	useEffect(() => {
-		if (showMenuMobile && router.asPath !== '/') {
-			const item = items.find(({ slug, index }) => router.asPath.startsWith(slug))
-			setSelected(item)
+		if (!showMenuMobile) return;
+		menu
+			.filter(({ index, section }) => index || selected?.section === section)
+			.forEach(({ slug }) => router.prefetch(slug));
+	}, [showMenuMobile, menu, router, selected]);
+
+	useEffect(() => {
+		if (showMenuMobile && pathname !== '/') {
+			const item = menu.find(({ slug, index }) => pathname.startsWith(slug));
+			setSelected(item ?? null);
 		}
-	}, [showMenuMobile, router, setSelected, items])
+	}, [showMenuMobile, router, setSelected, menu]);
 
-	if (!items) return null
+	if (!menu) return null;
 
 	return (
 		<>
-			<div className={styles.hamburger}>
+			<div className={s.hamburger}>
 				<Hamburger
 					toggled={showMenuMobile}
 					duration={0.5}
 					onToggle={setShowMenuMobile}
-					color={menu === 'inverted' || showMenuMobile ? "#fff" : "#000"}
-					label={"Menu"}
+					color={inverted || showMenuMobile ? '#fff' : '#000'}
+					label={'Menu'}
 					size={24}
 				/>
 			</div>
-			<nav className={cn(styles.mobileMenu, showMenuMobile ? styles.open : styles.hide)}>
-				<nav className={styles.main}>
-					<ul className={styles.nav}>
-						{items.map((item, idx) =>
-							<li
-								data-slug={item.slug}
-								key={idx}
-								className={cn(selected?.slug === item.slug && styles.active)}
-								onClick={() => item.index ? router.push(item.slug) : setSelected(selected?.type === item.type ? undefined : item)}
-							>
-								{item.label}
+			<div
+				className={cn(s.cart, cart?.totalQuantity && s.filled, (showMenuMobile || inverted) && s.invert)}
+				onClick={() => setShowCart(true)}
+			>
+				<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
+			</div>
+			<nav className={cn(s.mobileMenu, showMenuMobile ? s.open : s.hide)}>
+				<nav className={s.main}>
+					<ul className={s.nav}>
+						{menu.slice(1).map((item, idx) => (
+							<li data-slug={item.slug} key={idx} className={cn(selected?.slug === item.slug && s.active)}>
+								{item.index ? (
+									<Link href={item.slug}>{item.title}</Link>
+								) : (
+									<span onClick={() => setSelected(selected?.section === item.section ? null : item)}>
+										{item.title}
+									</span>
+								)}
 							</li>
-						)}
+						))}
 					</ul>
 				</nav>
-				<div className={styles.footer}>
-					<div className={styles.search}>
+				<div className={s.footer}>
+					<div className={s.search}>
 						<img src={'/images/search.svg'} />
 						<form onSubmit={handleSubmitSearch}>
 							<input
 								ref={searchRef}
-								type="text"
+								type='text'
 								placeholder='Search'
+								aria-label='Search'
 								onFocus={() => setShowSearch(true)}
 							/>
-							<input type="submit" style={{ visibility: 'hidden', position: 'absolute' }} />
+							<input type='submit' style={{ visibility: 'hidden', position: 'absolute' }} />
 						</form>
 					</div>
-					<div className={styles.social}>
-						{social.map(({ name, icon, url }, idx) =>
-							<a key={idx} href={url}><img src={icon} alt={name} /></a>
-						)}
+					<div className={s.social}>
+						{social.map(({ name, icon, url }, idx) => (
+							<a key={idx} href={url}>
+								<img src={icon} alt={name} />
+							</a>
+						))}
 					</div>
 				</div>
-
 			</nav>
-			<nav className={cn(styles.sub, (!selected || selected?.index) && styles.hide)}>
-				<div className={styles.subHeader}>
-					<p className={cn(styles.title)}>{subHeader}</p>
-					<span className={styles.back} onClick={() => setSelected(undefined)}>❮</span>
+			<nav className={cn(s.sub, (!selected || selected?.index) && s.hide)}>
+				<div className={s.subHeader}>
+					<p className={cn(s.title)}>{subHeader}</p>
+					<span className={s.back} onClick={() => setSelected(null)}>
+						❮
+					</span>
 				</div>
 				<ul>
-					{sub?.map(({ label, slug, type, isHash }, idx) =>
-						<a onClick={() => router.push(slug)} key={idx}>
-							<li className={cn(slug === router.asPath && styles.active)}>
-								{label}
-							</li>
-						</a>
-					)}
+					{sub?.map(({ title, slug }, idx) => (
+						<li className={cn(slug === pathname && s.active)} key={idx}>
+							<Link href={slug}>{title}</Link>
+						</li>
+					))}
 				</ul>
 			</nav>
 			<SiteSearch
 				show={showSearch}
-				query={query}
-				onChange={(q) => (searchRef.current.value = q || '')}
+				query={query ?? undefined}
+				onChange={(q) => searchRef.current && (searchRef.current.value = q || '')}
 				onClose={closeSearch}
 			/>
 		</>
-	)
+	);
 }

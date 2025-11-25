@@ -1,0 +1,171 @@
+query Cart($country: CountryCode = SE, $id: ID!) @inContext(country: $country) {
+	cart(id: $id) {
+		...CartFragment
+	}
+}
+
+mutation CreateCart($country: CountryCode = SE, $cartInput: CartInput) @inContext(country: $country) {
+	cartCreate(input: $cartInput) {
+		cart {
+			...CartFragment
+		}
+		userErrors {
+			...CartUserErrorFragment
+		}
+	}
+}
+
+mutation CartBuyerIdentityUpdate($cartId: ID!, $buyerIdentity: CartBuyerIdentityInput!) {
+	cartBuyerIdentityUpdate(cartId: $cartId, buyerIdentity: $buyerIdentity) {
+		cart {
+			...CartFragment
+		}
+		userErrors {
+			...CartUserErrorFragment
+		}
+	}
+}
+
+mutation AddItemToCart($country: CountryCode = SE, $cartId: ID!, $lines: [CartLineInput!]!)
+@inContext(country: $country) {
+	cartLinesAdd(cartId: $cartId, lines: $lines) {
+		cart {
+			...CartFragment
+		}
+		userErrors {
+			...CartUserErrorFragment
+		}
+	}
+}
+
+mutation RemoveItemFromCart($cartId: ID!, $lineIds: [ID!]!) {
+	cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+		cart {
+			...CartFragment
+		}
+		userErrors {
+			...CartUserErrorFragment
+		}
+	}
+}
+
+mutation UpdateItemFromCart($country: CountryCode = SE, $cartId: ID!, $lines: [CartLineUpdateInput!]!)
+@inContext(country: $country) {
+	cartLinesUpdate(cartId: $cartId, lines: $lines) {
+		cart {
+			...CartFragment
+		}
+		userErrors {
+			...CartUserErrorFragment
+		}
+	}
+}
+
+fragment CartFragment on Cart {
+	id
+	createdAt
+	updatedAt
+	checkoutUrl
+	buyerIdentity {
+		countryCode
+		email
+		phone
+		preferences {
+			wallet
+		}
+		customer {
+			...CustomerFragment
+		}
+	}
+	totalQuantity
+	cost {
+		totalAmount {
+			amount
+			currencyCode
+		}
+		subtotalAmount {
+			amount
+			currencyCode
+		}
+	}
+	lines(first: 100) {
+		edges {
+			node {
+				id
+				quantity
+
+				cost {
+					subtotalAmount {
+						amount
+						currencyCode
+					}
+					totalAmount {
+						amount
+						currencyCode
+					}
+				}
+				attributes {
+					key
+					value
+				}
+				merchandise {
+					... on ProductVariant {
+						id
+						title
+						price {
+							amount
+							currencyCode
+						}
+						image {
+							url(transform: { maxWidth: 400, maxHeight: 400, crop: CENTER })
+							altText
+						}
+						product {
+							id
+							title
+							handle
+						}
+						selectedOptions {
+							name
+							value
+						}
+						metafields(
+							identifiers: [
+								{ key: "description", namespace: "variant" }
+								{ key: "articleNo", namespace: "variant" }
+								{ key: "deliveryDays", namespace: "variant" }
+							]
+						) {
+							id
+							key
+							value
+						}
+						title
+					}
+				}
+			}
+		}
+	}
+	cost {
+		totalAmount {
+			amount
+			currencyCode
+		}
+
+		subtotalAmount {
+			amount
+			currencyCode
+		}
+	}
+	attributes {
+		key
+		value
+	}
+}
+
+fragment CartUserErrorFragment on CartUserError {
+	__typename
+	field
+	message
+	code
+}

@@ -1,0 +1,50 @@
+.image {
+	max-width: 100%;
+
+	@include mq($from: tablet) {
+		max-width: 50%;
+	}
+}
+
+.news {
+	color: var(--white);
+	display: flex;
+	flex-direction: row;
+
+	.date {
+		flex: 0 0 spanGridWithGutter(4);
+
+		p {
+			color: var(--white);
+		}
+	}
+
+	.content p {
+		margin-top: 1rem;
+		padding-right: 20%;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	@include mq($until: tablet) {
+		flex-direction: column;
+
+		.content p {
+			padding-right: 0;
+		}
+	}
+
+	@include mq($from: tablet, $until: desktop) {
+		.content p {
+			padding-right: 0;
+		}
+	}
+}
+
+.more button {
+	margin-top: var(--small-margin);
+	width: 100%;
+	color: var(--white);
+}

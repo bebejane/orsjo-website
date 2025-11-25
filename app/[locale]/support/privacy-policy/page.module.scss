@@ -1,0 +1,59 @@
+.intro {
+	p {
+		color: var(--white);
+		padding-bottom: 1em;
+
+		@include mq($from: desktop) {
+			padding-right: 20%;
+		}
+	}
+}
+
+.policies {
+	position: relative;
+	margin-bottom: 2em;
+
+	> ul {
+		list-style: none;
+		border-top: 1px solid var(--white);
+
+		> li {
+			display: flex;
+			position: relative;
+			flex-direction: column;
+			padding: 0.8em 0.8em 0.8em 0em;
+			border-bottom: 1px solid var(--white);
+			padding: 0.8em 0.8em 0.8em 0.8em;
+			background-color: var(--white);
+			border-bottom: 1px solid var(--copper);
+
+			.text {
+				display: block;
+			}
+			p {
+				font-size: var(--body-font-size);
+				font-family: var(--body-font);
+				padding-top: 0.5em !important;
+				margin: 0;
+				padding-right: 20%;
+				&:last-child {
+					padding-bottom: 0.5em;
+				}
+			}
+
+			ul {
+				margin-left: 0.8em;
+			}
+
+			.text {
+				p {
+					margin: 0;
+
+					@include mq($from: tablet) {
+						padding-right: 20%;
+					}
+				}
+			}
+		}
+	}
+}

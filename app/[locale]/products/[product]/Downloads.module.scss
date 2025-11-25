@@ -1,0 +1,32 @@
+.downloads {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	border-top: 1px solid var(--mid-gray);
+	column-count: unset !important;
+	column-gap: unset !important;
+
+	li {
+		flex: 0 0 33.333%;
+		padding-top: 1.5em;
+
+		@include mq($until: desktop) {
+			//padding-top: 0em;
+		}
+		@include mq($from: tablet, $until: desktop) {
+			flex: 0 0 50%;
+			margin-top: 1.5em;
+		}
+		@include mq($until: tablet) {
+			flex: 0 0 100%;
+		}
+
+		a {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+	}
+}

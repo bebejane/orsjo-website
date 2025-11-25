@@ -1,37 +1,67 @@
-import styles from './ImageLink.module.scss'
-import { Image } from 'react-datocms'
-import Link from 'next/link'
-import { ArrowLink } from '/components'
-import { useRef } from 'react'
+'use client';
 
-export type LayoutProps = { data: ImageLinkRecord }
+import s from './ImageLink.module.scss';
+import { Image } from 'react-datocms';
+import { ArrowLink } from '@/components';
+import { useRef } from 'react';
+import Link from '@/components/nav/Link';
 
-export default function ImageLink({ data: { firstImage, firstHeadline, firstLink, firstLinkText, secondImage, secondHeadline, secondLink, secondLinkText, }, data }: LayoutProps) {
+export type LayoutProps = { data: ImageLinkRecord };
 
-	const refOne = useRef()
-	const refTwo = useRef()
-
+export default function ImageLink({
+	data: {
+		firstImage,
+		firstHeadline,
+		firstLink,
+		firstLinkText,
+		secondImage,
+		secondHeadline,
+		secondLink,
+		secondLinkText,
+	},
+}: LayoutProps) {
+	const refOne = useRef(null);
+	const refTwo = useRef(null);
 
 	return (
-		<section className={styles.imageLink}>
-			<Link scroll={false} href={firstLink} ref={refOne} passHref={true}>
+		<section className={s.imageLink}>
+			<Link href={firstLink ?? '/'} ref={refOne} passHref={true}>
 				<figure>
-					<Image className={styles.image} data={firstImage?.responsiveImage} layout="fill" objectFit="cover" />
+					{firstImage?.responsiveImage && (
+						<Image
+							className={s.image}
+							data={firstImage?.responsiveImage}
+							layout='fill'
+							objectFit='cover'
+							intersectionMargin={`0px 0px 200% 0px`}
+						/>
+					)}
 					<figcaption>
 						<h1>{firstHeadline}</h1>
-						<ArrowLink hoverRef={refOne} inverted={true}>{firstLinkText}</ArrowLink>
+						{firstLinkText && (
+							<ArrowLink hoverRef={refOne} inverted={true}>
+								{firstLinkText}
+							</ArrowLink>
+						)}
 					</figcaption>
 				</figure>
 			</Link>
-			<Link scroll={false} href={secondLink} ref={refTwo} passHref={true}>
+			<Link href={secondLink ?? '/'} ref={refTwo} passHref={true}>
 				<figure>
-					<Image className={styles.image} data={secondImage?.responsiveImage} layout="fill" objectFit="cover" />
+					{secondImage?.responsiveImage && (
+						<Image className={s.image} data={secondImage?.responsiveImage} layout='fill' objectFit='cover' />
+					)}
+
 					<figcaption>
 						<h1>{secondHeadline}</h1>
-						<ArrowLink hoverRef={refTwo} inverted={true}>{secondLinkText}</ArrowLink>
+						{secondLinkText && (
+							<ArrowLink hoverRef={refTwo} inverted={true}>
+								{secondLinkText}
+							</ArrowLink>
+						)}
 					</figcaption>
 				</figure>
 			</Link>
 		</section>
-	)
+	);
 }

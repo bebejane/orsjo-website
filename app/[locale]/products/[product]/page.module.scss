@@ -1,0 +1,433 @@
+.product {
+	position: relative;
+	background-color: var(--white);
+
+	.intro {
+		position: relative;
+		width: 100%;
+		background-color: white;
+		cursor: pointer;
+
+		@include mq($until: tablet) {
+			min-height: 55vh;
+			width: calc(100% + calc(var(--outer-margin) * 2)) !important;
+			margin-left: calc(var(--outer-margin) * -1);
+			margin-right: calc(var(--outer-margin) * -1);
+		}
+
+		@include mq($from: tablet) {
+			min-height: calc(100vh - var(--navbar-height) - var(--small-margin));
+			max-height: calc(100vh - var(--navbar-height) - var(--small-margin));
+		}
+
+		.image {
+			mix-blend-mode: multiply;
+			padding-bottom: 3em;
+			filter: blur(50px);
+
+			&.loaded {
+				animation: blurout 0.7s ease-out forwards;
+
+				@keyframes blurout {
+					to {
+						filter: blur(0px);
+					}
+				}
+			}
+
+			@include mq($until: tablet) {
+				padding-bottom: 0;
+			}
+		}
+
+		.overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			animation: reveal 1s ease-out forwards;
+
+			@keyframes reveal {
+				to {
+					opacity: 1;
+				}
+			}
+
+			.text {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				max-width: 100%;
+
+				.title {
+					position: absolute;
+					top: 0;
+					left: var(--outer-margin);
+
+					@include mq($from: tablet) {
+						left: 0.5em;
+					}
+
+					padding-top: 0.4em;
+					@include h1Big();
+				}
+
+				.designer {
+					position: absolute;
+					padding-left: var(--outer-margin);
+					padding-right: 0.5em;
+
+					@include mq($from: tablet) {
+						left: auto;
+						right: 0.5em;
+						padding-left: 0.5em;
+						text-align: right;
+						padding-right: 0;
+					}
+
+					bottom: 0;
+					@include h1Big();
+					width: 100%;
+				}
+
+				.type {
+					position: absolute;
+					text-align: right;
+					top: 1.5rem;
+					right: 1rem;
+
+					@include mq($from: tablet) {
+						top: 2rem;
+						right: 2rem;
+					}
+				}
+			}
+
+			.upcycled {
+				position: absolute;
+				top: calc(2.5rem + var(--outer-margin));
+				right: 2rem;
+				z-index: 2;
+				width: 15vw;
+
+				@include mq($from: desktop) {
+					width: 10vw;
+				}
+
+				line-height: 0;
+				//animation: rotating 30s linear infinite;
+			}
+
+			@keyframes rotating {
+				from {
+					transform: rotate(0deg);
+				}
+
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		}
+	}
+}
+
+.listItemContent {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	&.top {
+		margin-top: var(--margin);
+	}
+
+	&.bottom {
+		margin-bottom: var(--small-margin);
+	}
+
+	ul {
+		list-style: none;
+		width: 100%;
+		column-count: 2;
+		column-gap: nestedGridGutter(12);
+
+		@include mq($until: tablet) {
+			column-count: 1;
+		}
+
+		li {
+			display: flex;
+			flex-direction: row;
+			break-inside: avoid-column;
+			width: 100%;
+
+			@include mq($until: tablet) {
+				padding-bottom: 0 !important;
+			}
+
+			span {
+				&:nth-child(odd) {
+					color: var(--gray);
+					flex: 1 1 spanNestedGrid(6, 2, true);
+				}
+
+				&:nth-child(even) {
+					flex: 1 1 spanNestedGrid(6, 4, false);
+					padding-right: 1em;
+				}
+
+				@include mq($until: tablet) {
+					&:nth-child(odd) {
+						flex: 0 0 calc(spanGrid(6) + var(--gutter));
+					}
+
+					&:nth-child(even) {
+						flex: 1 1 auto;
+					}
+				}
+			}
+		}
+	}
+
+	.articles {
+		width: 100%;
+		border-top: 1px solid var(--mid-gray);
+
+		header {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			color: var(--gray);
+			margin-bottom: 0.5em;
+
+			span {
+				&:nth-child(odd) {
+					flex: 0 0 spanNestedGrid(12, 2, true);
+				}
+
+				&:nth-child(even) {
+					flex: 0 0 spanNestedGrid(12, 4, true);
+				}
+
+				@include mq($until: tablet) {
+					&:nth-child(1) {
+						flex: 0 0 calc(spanGrid(6) + var(--gutter));
+					}
+
+					&:nth-child(2) {
+						flex: 0 0 calc(spanGrid(10));
+					}
+
+					&:nth-child(3),
+					&:nth-child(4) {
+						display: none;
+					}
+				}
+			}
+		}
+
+		.content {
+			width: 100%;
+
+			ul {
+				list-style: none;
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				break-inside: avoid-column;
+
+				li {
+					display: flex;
+					flex-direction: row;
+					font-weight: normal;
+					flex: 0 0 100%;
+					padding-bottom: 0.5em;
+
+					@include mq($until: tablet) {
+						flex-wrap: wrap;
+					}
+
+					span {
+						&:nth-child(odd) {
+							flex: 0 0 spanNestedGrid(12, 2, true);
+						}
+
+						&:nth-child(even) {
+							flex: 0 0 spanNestedGrid(12, 4, true);
+						}
+
+						@include mq($until: tablet) {
+							&:nth-child(odd) {
+								flex: 0 0 calc(spanGrid(6) + var(--gutter));
+							}
+
+							&:nth-child(even) {
+								flex: 0 0 calc(spanGrid(10));
+								padding: 0;
+							}
+						}
+
+						&.header {
+							color: var(--gray);
+						}
+					}
+
+					&.subheader {
+						color: var(--black);
+					}
+				}
+			}
+
+			&.multi {
+				column-count: 2;
+				column-gap: nestedGridGutter(12);
+
+				@include mq($until: tablet) {
+					column-count: 1;
+				}
+
+				ul {
+					flex-direction: column;
+
+					li {
+						span {
+							&:nth-child(odd) {
+								flex: 0 0 spanNestedGrid(6, 2, true);
+							}
+
+							&:nth-child(even) {
+								flex: 0 0 spanNestedGrid(6, 4, true);
+							}
+
+							@include mq($until: tablet) {
+								&:nth-child(odd) {
+									flex: 0 0 calc(spanGrid(6) + var(--gutter));
+								}
+
+								&:nth-child(even) {
+									flex: 0 0 calc(spanGrid(10));
+									padding: 0;
+								}
+							}
+
+							&.header {
+								color: var(--gray);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+
+	.dimensions {
+		border-top: 1px solid var(--mid-gray);
+		width: 100%;
+		display: flex;
+
+		span {
+			min-width: spanNestedGrid(12, 2, true);
+
+			@include mq($until: tablet) {
+				min-width: spanNestedGrid(16, 6, true);
+			}
+
+			flex-basis: auto;
+			color: var(--gray);
+		}
+
+		button {
+			padding: 0;
+			margin: 0;
+
+			font-size: inherit;
+			cursor: pointer;
+			width: spanNestedGrid(12, 10);
+			text-align: left;
+		}
+	}
+
+	.specifications {
+		padding-bottom: 1em;
+		padding-top: 1.5em;
+		border-top: 1px solid var(--mid-gray);
+
+		li {
+			padding-bottom: 0.5em;
+		}
+
+		tr {
+			td:nth-child(1),
+			td:nth-child(3) {
+				color: var(--gray);
+			}
+		}
+	}
+
+	.articles {
+		padding-bottom: 1em;
+		padding-top: 1.5em;
+	}
+
+	.downloads {
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		width: 100%;
+		border-top: 1px solid var(--mid-gray);
+		column-count: unset;
+		column-gap: unset;
+
+		li {
+			flex: 1 1 auto;
+			width: auto;
+
+			@include mq($from: tablet) {
+				padding-top: 1.5em;
+			}
+
+			a {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+		}
+
+		@include mq($until: tablet) {
+			padding-top: 0em;
+
+			li {
+				flex: 0 0 50% !important;
+				margin-top: 1.5em;
+			}
+		}
+	}
+}
+
+.related {
+	padding-top: var(--small-margin);
+	padding-bottom: var(--margin);
+
+	& > div {
+		padding-bottom: var(--small-margin);
+
+		&:last-child {
+			padding-bottom: 0;
+		}
+	}
+}
+
+.shipping {
+	margin-bottom: var(--margin);
+	text-align: center;
+
+	span {
+		padding-left: 1em;
+	}
+}

@@ -1,22 +1,20 @@
-import Text from "./Text";
-import { fontFamily, lineHeight, fontWeight, fontSize, letterSpacing, textTransform, textAlign } from "../theme";
+import Text from './Text';
+import { TextProps } from '@react-email/components';
+import { fontFamily, lineHeight, fontWeight, fontSize, letterSpacing, textTransform } from './theme';
 
-type SubHeadingProps = React.ComponentProps<typeof Text>;
-
-const defaultProps = {
-  fontFamily: fontFamily.sans,
-  fontWeight: fontWeight.normal,
-  lineHeight: lineHeight.tight,
-  fontSize: fontSize.sm,
-  letterSpacing: letterSpacing.wide,
-  textTransform: textTransform.big,
-  //align: textAlign.left,
+const defaultStyles = {
+	fontFamily: fontFamily.sans,
+	fontWeight: fontWeight.normal,
+	lineHeight: lineHeight.tight,
+	fontSize: fontSize.sm,
+	letterSpacing: letterSpacing.wide,
+	textTransform: textTransform.big,
 };
 
-export default function SubHeading(props: SubHeadingProps) {
-  return (
-    <Text {...defaultProps} {...props}>
-      {props.children}
-    </Text>
-  );
+export default function SubHeading(props: TextProps) {
+	return (
+		<Text {...props} style={{ ...defaultStyles, ...props.style }}>
+			{props.children}
+		</Text>
+	);
 }

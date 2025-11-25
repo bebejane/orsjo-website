@@ -1,0 +1,99 @@
+.form {
+	display: inline;
+
+	label {
+		display: inline;
+		padding-right: 0.2em;
+	}
+
+	select {
+		display: inline;
+		background-color: transparent;
+		font-size: 0.65rem;
+	}
+
+	.select {
+		width: 100%;
+		outline: none !important;
+
+		.button {
+			display: inline-flex !important;
+			flex-direction: row;
+			text-align: left;
+			align-items: center;
+			border: 0;
+			display: inline;
+			background-color: transparent;
+			color: var(--black-menu);
+			font-size: 0.65rem;
+			padding: 0;
+
+			&.inverted {
+				color: var(--white-menu);
+			}
+			.value {
+				width: 100%;
+			}
+
+			.arrow {
+				//font-size: 0.65em;
+				margin-left: 0.5em;
+				transform: rotate(90deg);
+			}
+		}
+	}
+}
+
+.popover {
+	overflow-y: scroll;
+	scrollbar-width: 10px !important;
+	outline: none !important;
+
+	.options {
+		background-color: var(--black);
+		color: var(--white);
+		outline: none !important;
+
+		.option {
+			padding: 0.5em;
+			padding-left: 0.75em;
+			padding-right: 0.75em;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			font-size: 0.65rem;
+			font-family: "IndivisibleMedium";
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			outline: none !important;
+
+			span {
+				padding-left: 0.5em;
+			}
+
+			&:first-of-type {
+				padding-top: 0.7em;
+			}
+			&:last-of-type {
+				padding-bottom: 0.8em;
+			}
+
+			&.selected {
+				background-color: var(--black);
+				color: var(--white) !important;
+				cursor: normal;
+				pointer-events: none;
+			}
+
+			@include mq($from: desktop) {
+				&:hover {
+					background-color: var(--black);
+					color: var(--white-menu);
+					border: none;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,45 @@
+.introduction {
+	padding-bottom: var(--small-margin);
+}
+
+.intro {
+	@include mq($from: desktop) {
+		width: 80%;
+	}
+
+	color: white;
+
+	p {
+		margin-bottom: 0;
+	}
+}
+
+.materials {
+	display: flex;
+	flex-wrap: wrap;
+	padding-bottom: var(--small-margin);
+
+	h1 {
+		width: 100%;
+	}
+}
+
+.material {
+	margin-bottom: 1rem;
+	margin-right: nestedGridGutter(12);
+
+	figure {
+		background-color: var(--gray) !important;
+	}
+
+	@include mq($from: tablet) {
+		width: spanNestedGrid(12, 3);
+		@include resetLastColumn(4);
+	}
+
+	@include mq($until: tablet) {
+		width: 48%;
+		margin-right: 4%;
+		@include resetLastColumn(2);
+	}
+}

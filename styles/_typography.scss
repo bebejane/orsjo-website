@@ -1,0 +1,149 @@
+@use 'mediaqueries' as *;
+
+body,
+html {
+	font-size: var(--body-font-size);
+	line-height: var(--headline-line-height);
+	color: var(--black);
+	font-weight: 570;
+	-webkit-font-smoothing: antialiased;
+	font-variant-numeric: oldstyle-nums;
+	font-family: var(--body-font);
+
+	@include mq($from: tablet) {
+		font-size: 26px;
+	}
+
+	@include mq($from: wide) {
+		font-size: 30px;
+	}
+}
+
+h1 {
+	@include mq($until: tablet) {
+		font-size: 1.2rem;
+		line-height: 1.2;
+	}
+
+	font-size: 1rem;
+	font-weight: normal;
+	font-family: var(--headline-font);
+	padding-bottom: 1rem;
+
+	&.topMargin {
+		padding-top: 0.5rem;
+	}
+
+	&.bottomMargin {
+		padding-bottom: 1.5em;
+	}
+
+	&.start {
+		font-size: 1.5rem;
+		font-family: var(--body-font);
+		padding-bottom: 0.2em;
+		padding-top: 0.2em;
+	}
+}
+
+//Big h1, see mixins
+h2 {
+	font-size: 16px;
+
+	@include mq($from: tablet) {
+		font-size: 0.8em;
+	}
+
+	//letter-spacing: .1em;
+	padding-bottom: 1em;
+	font-weight: normal;
+	font-family: var(--headline-font);
+
+	&.topMargin {
+		padding-top: 0.5em;
+	}
+}
+
+h3,
+.h3 {
+	font-size: 11px;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	padding-bottom: 0.5em;
+
+	@include mq($from: tablet) {
+		letter-spacing: 0.1em;
+		font-size: 0.45em;
+	}
+}
+
+nav,
+.medium,
+.medium p,
+button,
+span.medium {
+	font-size: 14px;
+
+	@include mq($from: tablet) {
+		font-size: 0.65rem;
+	}
+
+	font-family: 'IndivisibleMedium';
+	font-weight: normal;
+	line-height: var(--body-line-height);
+}
+
+p.large,
+.large p {
+	@include mq($from: tablet) {
+		font-family: 'IndivisibleMedium';
+		font-size: 0.65rem;
+	}
+
+	@media screen and (min-height: 700px) {
+		font-size: 0.87rem;
+		font-family: 'Indivisible';
+	}
+}
+
+nav {
+	line-height: 2em !important;
+}
+
+figcaption,
+p.small,
+button.small,
+span.small,
+.table-list,
+div.small,
+footer ul {
+	line-height: var(--body-line-height);
+	font-size: 13px !important;
+
+	@include mq($from: tablet) {
+		font-size: 0.57rem !important;
+	}
+
+	line-height: 1.4;
+	font-weight: normal;
+	font-family: 'IndivisibleMedium';
+}
+
+.very-small,
+button.very-small {
+	font-size: 0.55rem !important;
+}
+
+.icon {
+	font-size: 0.5rem;
+	font-family: 'IndivisibleMedium';
+}
+
+.bodyWeight {
+	font-family: var(--body-font) !important;
+}
+
+.noMargin {
+	margin-bottom: 0;
+	padding-bottom: 0;
+}

@@ -1,80 +1,79 @@
 .icon {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex: 1 1 auto;
-  color: $black;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	flex: 1 1 auto;
+	color: var(--black);
 
-  &.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
+	&.disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
 
-  @include mq($from: desktop) {
+	@include mq($from: desktop) {
+		&:hover {
+			span {
+				&.type {
+					color: var(--white);
+					background-color: var(--gray);
+				}
+			}
 
-    &:hover {
-      span {
-        &.type {
-          color: $white;
-          background-color: $gray;
-        }
-      }
+			.arrow {
+				opacity: 1;
+			}
+		}
+	}
 
-      .arrow {
-        opacity: 1;
-      }
-    }
-  }
+	.corner {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 0 0.3rem 0.3rem 0;
+		border-color: transparent var(--white) transparent transparent;
+	}
 
-  .corner {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 .3rem .3rem 0;
-    border-color: transparent $white transparent transparent;
-  }
+	span {
+		display: block;
+		position: relative;
 
-  span {
-    display: block;
-    position: relative;
+		&.type {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1.6rem;
+			max-width: 1.6rem;
+			min-width: 1.6rem;
+			height: 2rem;
+			min-height: 2rem;
+			flex: 0 0 1.6em;
+			margin-right: 1em;
+			background-color: var(--light-gray);
+			text-transform: uppercase;
+		}
 
-    &.type {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 1.6rem;
-      max-width: 1.6rem;
-      min-width: 1.6rem;
-      height: 2rem;
-      min-height: 2rem;
-      flex: 0 0 1.6em;
-      margin-right: 1em;
-      background-color: $light-gray;
-      text-transform: uppercase;
-    }
+		&.label {
+			flex: 0 1 auto;
+			white-space: pre;
+		}
+	}
 
-    &.label {
-      flex: 0 1 auto;
-      white-space: pre;
-    }
-  }
+	.arrow {
+		display: flex;
+		justify-content: flex-start;
+		transform: opacity 0.2 ease;
+		opacity: 0;
+		flex: 1 1 auto;
+		color: var(--black);
+		margin-left: 0.1em;
+		padding-bottom: 0.15em;
 
-  .arrow {
-    display: flex;
-    justify-content: flex-start;
-    transform: opacity .2 ease;
-    opacity: 0;
-    flex: 1 1 auto;
-    color: $black;
-    margin-left: .1em;
-    padding-bottom: .15em;
-
-    div {
-      transform: rotate(90deg);
-    }
-  }
+		div {
+			transform: rotate(90deg);
+		}
+	}
 }

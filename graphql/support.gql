@@ -4,16 +4,22 @@ query Faq($id: ItemId) {
 	}
 }
 
-query AllFaqs($first: IntType = 100) {
-	faqs: allFaqs(first: $first) {
+query AllFaqs($first: IntType = 100, $skip: IntType = 0) {
+	allFaqs(first: $first, skip: $skip) {
 		...FaqFragment
+	}
+	_allFaqsMeta {
+		count
 	}
 }
 
-query AllFaqCategories($first: IntType = 100) {
-	faqCategories: allFaqCategories(first: $first) {
+query AllFaqCategories($first: IntType = 100, $skip: IntType = 0) {
+	allFaqCategories(first: $first, skip: $skip) {
 		id
 		title
+	}
+	_allFaqCategoriesMeta {
+		count
 	}
 }
 
@@ -23,7 +29,7 @@ query FaqStart {
 		id
 		title
 	}
-	faqs: allFaqs {
+	faqs: allFaqs(first: 500, skip: 0) {
 		...FaqFragment
 	}
 }
@@ -45,5 +51,28 @@ fragment FaqFragment on FaqRecord {
 	category {
 		id
 		title
+	}
+}
+
+query PrivacyPolicy {
+	privacyPolicy {
+		__typename
+		id
+		intro
+		title
+		policies {
+			__typename
+			... on PolicyItemRecord {
+				__typename
+				id
+				title
+				content {
+					blocks
+					inlineBlocks
+					links
+					value
+				}
+			}
+		}
 	}
 }

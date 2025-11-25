@@ -1,0 +1,69 @@
+.intro {
+	position: relative;
+	width: 100%;
+
+	.wrap {
+		display: flex;
+		position: relative;
+		cursor: pointer;
+
+		@include mq($until: tablet) {
+			min-height: 60vh;
+		}
+
+		@include mq($from: tablet) {
+			min-height: calc(100vh - var(--navbar-height) - var(--outer-margin));
+			max-height: calc(100vh - var(--navbar-height) - var(--outer-margin));
+		}
+
+		.image {
+			@include mq($until: tablet) {
+				height: 50vh;
+				width: calc(100% + calc(var(--outer-margin) * 2)) !important;
+				margin-left: calc(var(--outer-margin) * -1);
+				margin-right: calc(var(--outer-margin) * -1);
+			}
+		}
+
+		.title,
+		.location {
+			padding-bottom: 0;
+
+			@include mq($from: tablet) {
+				margin: 0.5em;
+				position: absolute;
+			}
+
+			z-index: 1;
+			@include h1Big();
+			color: var(--black);
+		}
+
+		.title {
+			top: 0;
+			left: 0;
+
+			@include mq($until: tablet) {
+				position: absolute;
+				top: 0.4em;
+				color: white;
+			}
+		}
+
+		.location {
+			@include mq($until: tablet) {
+				display: none;
+			}
+
+			bottom: 0;
+			right: 0;
+		}
+	}
+
+	@include mq($until: tablet) {
+		.wrap {
+			min-height: auto;
+			flex-direction: column;
+		}
+	}
+}

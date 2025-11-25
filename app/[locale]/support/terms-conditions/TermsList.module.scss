@@ -1,0 +1,68 @@
+.terms {
+	position: relative;
+	margin-bottom: 2em;
+
+	h1.category {
+		//border-bottom: 1px solid var(--black);
+	}
+
+	ul {
+		list-style: none;
+		border-top: 1px solid var(--white);
+
+		li {
+			display: flex;
+			position: relative;
+			flex-direction: column;
+			cursor: pointer;
+			padding: 0.8em 0.8em 0.8em 0em;
+			border-bottom: 1px solid var(--white);
+
+			&.selected {
+				padding: 0.8em 0.8em 0.8em 0.8em;
+				background-color: var(--white);
+				border-bottom: 1px solid var(--copper);
+
+				.text {
+					display: block;
+				}
+				p {
+					padding-top: 0.5em !important;
+					margin: 0;
+					padding-right: 20%;
+					&:last-child {
+						padding-bottom: 0.5em;
+					}
+				}
+			}
+
+			.header {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+
+				.title {
+					flex: 1 1 100%;
+					padding: 0;
+					padding-right: 1em;
+				}
+
+				.indicator {
+					margin-right: var(--gutter);
+				}
+			}
+
+			.text {
+				display: none;
+
+				p {
+					margin: 0;
+
+					@include mq($from: tablet) {
+						padding-right: 20%;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,88 @@
+.form {
+	width: 100%;
+
+	@include mq($from: tablet) {
+		columns: 2;
+		column-gap: 5%;
+	}
+
+	padding-left: var(--outer-margin);
+	padding-right: var(--outer-margin);
+
+	.wrap {
+		break-inside: avoid; /* standard */
+		page-break-inside: avoid; /* för utskrift */
+		-webkit-column-break-inside: avoid; /* äldre WebKit/Safari */
+	}
+
+	input,
+	textarea {
+		margin-bottom: 1em;
+	}
+
+	input {
+		padding: 0.63em;
+		display: block;
+		font-size: 14px;
+
+		@include mq($from: tablet) {
+			font-size: 0.65rem;
+		}
+	}
+
+	textarea {
+		display: block;
+		min-height: 6em;
+		padding: 0.4em;
+		font-size: var(--body-font-size);
+	}
+
+	button,
+	input,
+	textarea {
+		width: 100%;
+	}
+}
+
+.success,
+.loading {
+	position: absolute;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding-left: var(--outer-margin);
+	padding-right: var(--outer-margin);
+	height: 100%;
+	background-color: var(--black);
+
+	@include mq($until: tablet) {
+		text-align: center;
+	}
+}
+
+.error {
+	color: var(--red);
+	font-size: var(--body-font-size);
+	margin-top: -0.7em;
+}
+
+.formerror {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: var(--red);
+	padding-top: var(--small-margin);
+	font-size: var(--body-font-size);
+	width: 100%;
+	h2 {
+		color: var(--beige);
+	}
+}

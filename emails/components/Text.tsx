@@ -1,20 +1,25 @@
-import { MjmlText } from "mjml-react";
+import { Text as ExtendedText, TextProps } from '@react-email/components';
+import { spacing } from './theme';
 
-type TextProps = {
-  maxWidth?: number;
-} & React.ComponentProps<typeof MjmlText>;
+type Props = TextProps & {
+	maxWidth?: number;
+};
 
-export default function Text({ children, maxWidth, ...props }: TextProps) {
-  if (maxWidth) {
-    return (
-      <MjmlText {...props} cssClass="text">
-        <div style={{ maxWidth }}>{children}</div>
-      </MjmlText>
-    );
-  } else
-    return (
-      <MjmlText {...props} cssClass="text">
-        {children}
-      </MjmlText>
-    );
+const defaultStyles = {
+	paddingBottom: spacing.s4,
+};
+
+export default function Text({ children, maxWidth, ...props }: Props) {
+	if (maxWidth) {
+		return (
+			<ExtendedText {...props} className='text' style={{ ...defaultStyles, ...props.style }}>
+				<div style={{ maxWidth }}>{children}</div>
+			</ExtendedText>
+		);
+	} else
+		return (
+			<ExtendedText {...props} className='text' style={{ ...defaultStyles, ...props.style }}>
+				{children}
+			</ExtendedText>
+		);
 }

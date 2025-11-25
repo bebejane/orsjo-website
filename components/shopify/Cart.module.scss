@@ -1,0 +1,286 @@
+.cart {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--black);
+	color: var(--white);
+	right: 0;
+	top: 0;
+	z-index: var(--z-cart);
+	overflow: hidden;
+	width: 40vw;
+	transform: translateX(100%);
+	transition: transform 0.3s cubic-bezier(0.09, 0.91, 0, 1);
+	padding: var(--outer-margin);
+	height: 100vh;
+	font-size: 0.7rem;
+
+	--size: 3rem;
+
+	@include mq($until: desktop) {
+		width: 100%;
+		height: 100%;
+		--size: 4rem;
+	}
+
+	&.show {
+		transform: translateX(0);
+	}
+	header {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: baseline;
+
+		h1 {
+			padding-bottom: 0;
+		}
+
+		.close {
+			cursor: pointer;
+			font-size: 3rem;
+		}
+	}
+
+	.currency {
+		padding-bottom: 0.35rem;
+		display: none;
+	}
+
+	ul.items {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		padding-top: 0.5rem;
+		flex: 1 1 auto;
+		overflow: hidden;
+		overflow-y: scroll;
+
+		scrollbar-width: 0px !important;
+		&::-webkit-scrollbar {
+			display: none;
+			-ms-overflow-style: none;
+		}
+		button {
+			all: unset;
+			cursor: pointer;
+			padding: 0;
+			color: var(--white);
+		}
+
+		li {
+			display: flex;
+			flex-direction: row;
+			margin-top: 1em;
+			border-top: 1px solid var(--white);
+			padding-top: 1em;
+
+			&.updating {
+				opacity: 0.5;
+			}
+
+			.thumb {
+				min-width: var(--size);
+				min-height: var(--size);
+				max-width: var(--size);
+				max-height: var(--size);
+				background-color: var(--gray);
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+
+			.details {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				margin-left: 1em;
+				line-height: 1.25;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				height: var(--size);
+				div {
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+
+					span {
+						width: 1em;
+						text-align: center;
+						display: inline-block;
+					}
+				}
+
+				.descStock {
+					width: 100%;
+					display: flex;
+					align-items: flex-end;
+					padding-bottom: 0.2em;
+
+					span {
+						width: auto;
+						&:last-child {
+							text-align: right;
+						}
+					}
+				}
+
+				.quantity {
+					padding-bottom: 0;
+				}
+
+				button {
+					text-align: center;
+					background-color: var(--white);
+					color: var(--black);
+				}
+
+				button.minus {
+					margin-right: 0.75em;
+				}
+
+				button.plus {
+					margin-left: 0.75em;
+				}
+
+				button.minus,
+				button.plus {
+					width: 1.6em;
+
+					&:hover {
+						background: var(--black);
+						color: var(--white);
+					}
+
+					span {
+						margin-top: 0.2em;
+					}
+				}
+
+				button[disabled] {
+					opacity: 0.5;
+					pointer-events: none;
+				}
+			}
+
+			.amount {
+				flex: 1 1 auto;
+				display: flex;
+				flex-direction: column;
+				text-align: right;
+				justify-content: space-between;
+
+				white-space: nowrap;
+
+				.price {
+					//flex: 1 1 auto;
+					white-space: nowrap;
+					padding-bottom: 3px;
+				}
+
+				.remove {
+					padding-top: 3px;
+					flex: 0 0;
+					width: auto;
+					&:hover {
+						color: var(--white) !important;
+					}
+				}
+			}
+		}
+	}
+
+	.total {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		flex: 1 1 auto;
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+
+		div:first-child {
+			flex: 1 1 auto;
+		}
+	}
+
+	.extra {
+		padding-bottom: 1em;
+		text-align: right;
+	}
+
+	.terms {
+		display: flex;
+		padding-bottom: 1em;
+		text-align: left;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: 100%;
+
+		a {
+			color: var(--white);
+			border-bottom: 1px solid var(--white);
+		}
+		span {
+			margin-left: 1em;
+		}
+	}
+
+	> form {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+
+		input[type="checkbox"]:not(:checked) {
+			&:focus {
+				outline: 2px solid var(--red);
+			}
+		}
+		button.checkout {
+			cursor: pointer;
+			width: 100%;
+			background-color: var(--white);
+			color: var(--black);
+			&:hover {
+				color: var(--black) !important;
+			}
+			&[disabled] {
+				pointer-events: none;
+				opacity: 0.2;
+			}
+		}
+	}
+}
+
+.empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	text-align: center;
+}
+
+.error {
+	color: var(--red);
+}
+
+.close {
+	all: unset;
+	position: fixed;
+	z-index: 10000000;
+	top: 0;
+	right: 0;
+	margin: var(--outer-margin);
+	pointer-events: all;
+	cursor: pointer;
+	width: 0.7rem;
+	line-height: 0;
+	filter: invert(1);
+	&:hover {
+		background-color: transparent;
+	}
+}

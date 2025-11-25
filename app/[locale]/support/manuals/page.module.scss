@@ -1,0 +1,11 @@
+.intro {
+	position: relative;
+
+	p {
+		color: var(--white);
+
+		@include mq($from: desktop) {
+			padding-right: 35%;
+		}
+	}
+}

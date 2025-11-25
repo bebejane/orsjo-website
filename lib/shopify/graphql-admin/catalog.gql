@@ -1,0 +1,16 @@
+query AllCatalogs {
+	catalogs(first: 100, type: MARKET) {
+		nodes {
+			...CatalogFragment
+		}
+	}
+}
+
+fragment CatalogFragment on Catalog {
+	id
+	title
+	status
+	priceList {
+		...PriceListFragment
+	}
+}

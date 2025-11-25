@@ -1,0 +1,22 @@
+query Shipping {
+	shipping {
+		deliveryDays {
+			__typename
+			... on DeliveryTimeRecord {
+				id
+				time
+				text
+				textShort
+			}
+		}
+		deliveryTerms {
+			__typename
+			... on DeliveryTermRecord {
+				id
+				text
+				isoCode
+			}
+		}
+		deliveryTermsOther
+	}
+}

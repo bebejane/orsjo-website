@@ -1,0 +1,518 @@
+.shop {
+	position: sticky;
+	display: flex;
+	flex-direction: column;
+	left: 0;
+	width: 100%;
+	bottom: 0px;
+	z-index: var(--z-shop);
+	background-color: var(--white-real);
+	opacity: 1;
+	transition:
+		opacity 0.1s ease,
+		width 0.2s ease-out;
+
+	@include mq($from: desktop) {
+		margin-top: 0px;
+		margin-left: calc(var(--outer-margin));
+		width: spanGrid(3.5);
+		margin-bottom: var(--outer-margin);
+		bottom: var(--outer-margin);
+	}
+
+	&.wide {
+		width: spanGrid(6);
+	}
+
+	&.hide {
+		@include mq($from: desktop) {
+			opacity: 0;
+		}
+	}
+
+	ul {
+		list-style: none;
+		li {
+			&.selected {
+				background-color: var(--white-real);
+			}
+
+			&.inactive {
+				cursor: default;
+				background-color: var(--white-real) !important;
+				pointer-events: none !important;
+			}
+		}
+	}
+	hr {
+		all: unset;
+		width: 100%;
+		height: 1px;
+		background-color: var(--black);
+
+		@keyframes hide {
+			from {
+				height: 1px;
+			}
+
+			to {
+				height: 0px;
+			}
+		}
+		&.hide {
+			animation: hide 400ms steps(2, end) forwards;
+		}
+	}
+	header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		line-height: 1;
+		padding: 1rem;
+		height: 2.2rem;
+		padding-bottom: 0.5em;
+
+		@include mq($from: desktop) {
+			padding: 0.5rem;
+			padding-bottom: 0.2em;
+			height: 1.7rem;
+		}
+
+		h3 {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.price {
+			font-size: 0.57rem;
+			margin-top: -0.2em;
+			animation: blink 0.5s steps(2, start) forwards;
+			white-space: nowrap;
+
+			@keyframes blink {
+				0% {
+					opacity: 0.5;
+					font-weight: bold;
+				}
+				99% {
+					opacity: 0.5;
+				}
+				100% {
+					opacity: 1;
+					font-weight: normal;
+				}
+			}
+		}
+	}
+
+	.models {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-height: 25vh;
+		overflow-y: auto;
+		border-bottom: 0;
+		scrollbar-width: 2px;
+
+		&::-webkit-scrollbar {
+			width: 2px;
+		}
+		&::-webkit-scrollbar-track {
+			background-color: var(--light-gray);
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: var(--mid-gray);
+		}
+		ul.variants {
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			direction: ltr;
+			height: 25vh;
+			flex: 0 0;
+			li {
+				border-top: 1px solid var(--light-gray);
+			}
+		}
+		&.closed {
+			border-bottom: 0;
+		}
+	}
+
+	.variant {
+		&.open {
+		}
+	}
+
+	.addons {
+		width: 100%;
+		flex: 1 1 auto;
+		max-height: 25vh;
+		overflow-y: auto;
+
+		scrollbar-width: 2px;
+
+		&::-webkit-scrollbar {
+			width: 2px;
+		}
+		&::-webkit-scrollbar-track {
+			background-color: var(--light-gray);
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: var(--mid-gray);
+		}
+		ul {
+			list-style: none;
+			max-height: 25vh;
+			direction: ltr;
+			width: 100%;
+
+			li {
+				border-top: 1px solid var(--light-gray);
+				&:first-child {
+					border-top: 0px solid var(--gray);
+				}
+			}
+		}
+	}
+
+	.row {
+		--thumb-size: 1.3rem;
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		list-style: none;
+		width: 100%;
+		font-size: 0.7em;
+		height: 2.5rem;
+		padding: 1em;
+		cursor: pointer;
+
+		@include mq($from: desktop) {
+			height: 1.7rem;
+			padding: 0.5em;
+			font-size: 0.5em;
+		}
+
+		&.selected {
+			border-top: 1px solid var(--light-gray);
+			background-color: var(--white-real);
+		}
+
+		.thumb {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: var(--thumb-size);
+			width: var(--thumb-size);
+			min-height: var(--thumb-size);
+			min-width: var(--thumb-size);
+			line-height: 1;
+
+			img {
+				height: var(--thumb-size);
+				width: var(--thumb-size);
+				object-fit: cover;
+			}
+		}
+
+		.name {
+			font-weight: bold;
+			flex: 1 1 auto;
+			color: var(--gray);
+			display: block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 100%;
+			strong {
+				padding-left: 0.25em;
+				color: var(--black);
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+		.delivery {
+			display: inline-block;
+			min-height: 0.5em;
+			min-width: 0.5em;
+			border-radius: 50%;
+			margin-right: 0.5em;
+			margin-left: 0.5em;
+
+			&.short {
+				background-color: var(--delivery-short);
+			}
+			&.medium {
+				background-color: var(--delivery-medium);
+			}
+			&.long {
+				background-color: var(--delivery-long);
+			}
+		}
+		.price {
+			display: flex;
+			flex: 1 1 auto;
+			justify-content: flex-end;
+			white-space: nowrap;
+		}
+
+		.plusminus {
+			display: flex;
+			position: absolute;
+			top: 0;
+			left: 0.5em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 2;
+			height: 100%;
+			width: var(--thumb-size);
+			background-color: rgba(255, 255, 255, 0.8);
+			@include mq($from: desktop) {
+				opacity: 0;
+			}
+		}
+
+		.check {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: var(--thumb-size);
+			width: 0;
+			font-size: 0.7rem;
+			transition: width 0.2s ease-out;
+			color: var(--gray);
+
+			@include mq($from: desktop) {
+				opacity: 0;
+			}
+			svg {
+				width: var(--thumb-size);
+				path {
+					color: var(--mid-gray);
+				}
+			}
+			&.checked {
+				display: flex !important;
+				opacity: 1;
+				width: var(--thumb-size);
+				svg {
+					path {
+						color: var(--black);
+					}
+				}
+			}
+		}
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.015);
+			.plusminus {
+				opacity: 1;
+				&.hide {
+					opacity: 0;
+				}
+			}
+			&.addon > .thumb {
+				opacity: 0;
+			}
+			.check {
+				//display: flex;
+				//width: 2.7rem;
+				&.checked {
+					//opacity: 0;
+				}
+			}
+		}
+
+		button {
+			height: 1.7rem;
+
+			all: unset;
+
+			&:hover {
+				color: var(--black) !important;
+				cursor: pointer;
+			}
+			&.dropdown {
+				transform: rotate(-90deg);
+				font-size: 0.4rem !important;
+				margin-right: 1em;
+				&.open {
+					transform: rotate(90deg);
+				}
+			}
+		}
+	}
+
+	.scrollfade {
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 2;
+		display: none;
+		min-height: 1rem;
+		height: 0.5rem;
+		width: 100%;
+		background: linear-gradient(
+			0deg,
+			rgba(255, 255, 255, 0) 0%,
+			rgba(255, 255, 255, 0.4) 20%,
+			rgba(255, 255, 255, 1) 100%
+		);
+
+		//background-color: pink;
+	}
+
+	.buttons {
+		button {
+			width: 100%;
+			cursor: pointer;
+			border: 0 !important;
+			&:hover {
+				background-color: var(--black);
+				color: var(--white);
+			}
+		}
+		button.toggle {
+			text-align: center;
+			font-size: 0.6rem;
+			text-transform: uppercase;
+
+			&.hide {
+				display: none;
+			}
+		}
+		button.addToCart {
+			height: 2.6rem;
+			line-height: 0;
+			border-top: 1px solid var(--light-gray);
+
+			@include mq($from: desktop) {
+				border-top: 0;
+
+				height: 1.8rem;
+			}
+		}
+
+		button.accessories {
+			height: 2rem;
+			line-height: 0;
+			padding-bottom: 1em;
+			font-size: 0.55rem;
+
+			@include mq($from: desktop) {
+				height: 1.5rem;
+				font-size: 0.45rem;
+			}
+
+			&:hover {
+				background-color: var(--light-gray);
+				color: var(--black);
+			}
+		}
+	}
+
+	.expand {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		transform: translateY(-50%);
+		width: 1rem;
+		height: 1rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		padding: 0;
+		display: none;
+
+		svg {
+			color: var(--gray);
+		}
+	}
+}
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: var(--z-shop);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	z-index: var(--z-modal);
+
+	.wrap {
+		position: relative;
+		padding: var(--outer-margin);
+		background-color: var(--white-real);
+		@include mq($until: desktop) {
+			width: calc(100% - (2 * var(--outer-margin)));
+		}
+
+		h3,
+		h4 {
+			margin-bottom: 1rem;
+			text-align: center;
+		}
+
+		form {
+			all: unset;
+			display: flex;
+			flex-direction: column;
+			@include mq($from: desktop) {
+				flex-direction: row;
+			}
+			align-items: center;
+			justify-content: center;
+			button {
+				margin-top: 1rem;
+				width: 22ch;
+				border: 1px solid var(--black);
+				&:hover {
+					background-color: var(--black);
+					color: var(--white);
+				}
+				&:first-of-type {
+					@include mq($from: desktop) {
+						margin-right: 1em;
+					}
+				}
+			}
+		}
+
+		.close {
+			all: unset;
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 1rem;
+			height: 1rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			margin: 0.5rem;
+			padding: 0;
+			z-index: var(--z-modal);
+
+			img {
+				width: 0.5rem;
+				height: 0.5rem;
+				opacity: 0.5;
+				transition: opacity 0.2s ease-out;
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}

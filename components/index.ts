@@ -1,38 +1,42 @@
-export { default as Featured } from './blocks/Featured'
-export { default as FeaturedStart } from './blocks/FeaturedStart'
-export { default as FullscreenMediaBlock } from './blocks/FullscreenMediaBlock'
-export { default as FullscreenVideo } from './blocks/FullscreenVideo'
-export { default as FullwidthImage } from './blocks/FullwidthImage'
-export { default as ImageGallery } from './blocks/ImageGallery'
-export { default as ImageLink } from './blocks/ImageLink'
-export { default as Block } from './blocks'
-export { default as NewsItem } from './blocks/NewsItem'
-export { default as Text } from './blocks/Text'
-export { default as TwoColumnImage } from './blocks/TwoColumnImage'
-export { default as Video } from './blocks/Video'
-export { default as ArrowButton } from './common/ArrowButton'
-export { default as ArrowLink } from './common/ArrowLink'
-export { default as ContactModal } from './common/ContactModal'
-export { default as CookieConsent } from './common/CookieConsent'
-export { default as CustomMade } from './common/CustomMade'
-export { default as FeaturedGallery } from './common/FeaturedGallery'
-export { default as Gallery } from './common/Gallery'
-export { default as Icon } from './common/Icon'
-export { default as Loader } from './common/Loader'
-export { default as Logo } from './common/Logo'
-export { SectionListItem } from './common/SectionListItem'
-export { default as SiteSearch } from './common/SiteSearch'
-export { default as TextReveal } from './common/TextReveal'
-export { default as Thumbnail, ProductThumbnail, ProjectThumbnail, DesignerThumbnail, NewsThumbnail, StaffThumbnail } from './common/Thumbnail'
-export { default as Underlay } from './common/Underlay'
-export { default as VideoPlayer } from './common/VideoPlayer'
-export { default as Content } from './layout/Content'
-export { default as Grid } from './layout/Grid'
-export { default as Layout } from './layout/Layout'
-export { default as Modal } from './layout/Modal'
-export { default as PageTransition } from './layout/PageTransition'
-export { default as Section } from './layout/Section'
-export { default as Footer } from './nav/Footer'
-export { default as MenuDesktop } from './nav/MenuDesktop'
-export { default as MenuMobile } from './nav/MenuMobile'
-export { default as Sidebar } from './nav/Sidebar'
+export { default as Featured } from './blocks/Featured';
+export { default as FeaturedStart } from './blocks/FeaturedStart';
+export { default as FullscreenMediaBlock } from './blocks/FullscreenMediaBlock';
+export { default as FullscreenVideo } from './blocks/FullscreenVideo';
+export { default as FullwidthImage } from './blocks/FullwidthImage';
+export { default as ImageGallery } from './blocks/ImageGallery';
+export { default as ImageLink } from './blocks/ImageLink';
+export { default as Block } from './layout/Block';
+export { default as NewsItem } from './blocks/NewsItem';
+export { default as Text } from './blocks/Text';
+export { default as TwoColumnImage } from './blocks/TwoColumnImage';
+export { default as Video } from './blocks/Video';
+export { default as ArrowButton } from './common/ArrowButton';
+export { default as ArrowLink } from './common/ArrowLink';
+export { default as CookieConsent } from './common/CookieConsent';
+export { default as CustomMade } from './common/CustomMade';
+export { default as FeaturedGallery } from './common/FeaturedGallery';
+export { default as FullscreenGallery } from './common/FullscreenGallery';
+export { default as Icon } from './common/Icon';
+export { default as Loader } from './common/Loader';
+export { default as Logo } from './common/Logo';
+export { SectionListItem } from './common/SectionListItem';
+export { default as SiteSearch } from './common/SiteSearch';
+export { default as TextReveal } from './common/TextReveal';
+export { default as Underlay } from './common/Underlay';
+export { default as VideoPlayer } from './common/VideoPlayer';
+export { default as Layout } from './layout/Layout';
+export { default as Modal } from './layout/Modal';
+export { default as Section } from './layout/Section';
+export { default as Footer } from './nav/Footer';
+export { default as MenuDesktop } from './nav/MenuDesktop';
+export { default as MenuMobile } from './nav/MenuMobile';
+export { default as Sidebar } from './nav/Sidebar';
+export {
+	default as Thumbnail,
+	ProductThumbnail,
+	ProjectThumbnail,
+	DesignerThumbnail,
+	NewsThumbnail,
+	StaffThumbnail,
+	ProfessionalThumbnail,
+} from './common/Thumbnail';

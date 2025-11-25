@@ -1,0 +1,41 @@
+.shopinfo {
+	width: 100%;
+	text-align: center;
+	margin-top: var(--margin);
+
+	p {
+		line-height: 1.5em;
+		margin: 0;
+		@include mq($from: desktop) {
+			display: inline-block;
+			line-height: 2em;
+		}
+		//margin-top: -100px;
+	}
+
+	span {
+		margin-right: 1em;
+	}
+
+	.gray {
+		padding-left: 1em;
+	}
+
+	.delivery {
+		display: inline-block;
+		min-height: 0.5em;
+		min-width: 0.5em;
+		border-radius: 50%;
+		margin-right: 0.5em;
+		margin-top: -0.2em;
+		&.short {
+			background-color: var(--delivery-short);
+		}
+		&.medium {
+			background-color: var(--delivery-medium);
+		}
+		&.long {
+			background-color: var(--delivery-long);
+		}
+	}
+}

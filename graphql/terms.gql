@@ -1,0 +1,20 @@
+query TermsStart {
+	termStart {
+		id
+		title
+		intro
+	}
+	allTerms {
+		id
+		title
+		text {
+			blocks
+			links
+			value
+		}
+		category {
+			id
+			title
+		}
+	}
+}

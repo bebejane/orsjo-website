@@ -1,15 +1,5 @@
-import {
-  Mjml,
-  MjmlBody,
-  MjmlHead,
-  MjmlFont,
-  MjmlStyle,
-  MjmlAttributes,
-  MjmlAll,
-  MjmlRaw,
-  MjmlPreview,
-} from "mjml-react";
-import { colors, screens, themeDefaults, spacing } from "../theme";
+import { Html, Body, Head, Font, Preview, Container } from '@react-email/components';
+import { colors, screens, themeDefaults, spacing } from './theme';
 
 type BaseLayoutProps = {
   width: number;
@@ -17,42 +7,51 @@ type BaseLayoutProps = {
   preview?: string;
 };
 
-export default function BaseLayout({
-  width,
-  children,
-  preview,
-}: BaseLayoutProps) {
+export default function BaseLayout({ width, children, preview }: BaseLayoutProps) {
   return (
-    <Mjml>
-      <MjmlHead>
-        {preview && <MjmlPreview>{preview}</MjmlPreview>}
-        <MjmlRaw>
-          <meta name="color-scheme" content="dark" />
-          <meta name="supported-color-schemes" content="dark" />
-        </MjmlRaw>
-        <MjmlFont
-          name="Inter"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700" />
-        <MjmlFont
-          name="Indivisible"
-          href="https://www.orsjo.com/fonts/mail.css"
-        />
-        <MjmlAttributes>
-          <MjmlAll {...themeDefaults} />
-        </MjmlAttributes>
-        <MjmlStyle>{`
+    <Html>
+      <Head>
+        {preview && <Preview>{preview}</Preview>}
+        <meta name='color-scheme' content='dark' />
+        <meta name='supported-color-schemes' content='dark' />
 
-            .ExternalClass p, 
-            .ExternalClass span,
-            .ExternalClass font,
-            .ExternalClass td
-            {line-height: 100%} 
+        <Font
+          fontFamily='Inter'
+          fallbackFontFamily={'Arial'}
+          webFont={{
+            format: 'woff2',
+            url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700',
+          }}
+        />
+        <Font
+          fontFamily='Indivisible'
+          fallbackFontFamily={'Arial'}
+          webFont={{
+            format: 'woff2',
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/fonts/IndivisibleWebMedium.woff2`,
+          }}
+        />
+        <style>{`
 
           body {
             -webkit-font-smoothing: antialiased;
             background: ${colors.black};
-            color: ${colors.white};
+            font-family: ${themeDefaults.fontFamily};
+            line-height: ${themeDefaults.lineHeight};
+            font-weight: ${themeDefaults.fontWeight};
+            font-size: ${themeDefaults.fontSize};
+            color: ${themeDefaults.color};
+            padding: ${themeDefaults.padding};
           }
+
+          .ExternalClass p, 
+          .ExternalClass span,
+          .ExternalClass font,
+          .ExternalClass td {
+            line-height: 100%
+          } 
+
+          
           
           table, td {
             -webkit-font-smoothing: antialiased;
@@ -113,7 +112,6 @@ export default function BaseLayout({
             mso-hide: all;
           }
 
-          /* Large screens */
           @media (min-width:${screens.xs}) {
             .lg-gutter {
               padding-left: ${spacing.s7}px !important;
@@ -132,6 +130,7 @@ export default function BaseLayout({
               overflow: hidden;
               mso-hide: all;
             }
+
             .lg-hidden {
               display: block !important;
               max-width: none !important;
@@ -140,10 +139,13 @@ export default function BaseLayout({
               mso-hide: none !important;
             }
           }
-      `}</MjmlStyle>
-      </MjmlHead>
-
-      <MjmlBody backgroundColor={colors.black} width={width}>{children}</MjmlBody>
-    </Mjml>
+      `}</style>
+      </Head>
+      <Body style={{ backgroundColor: colors.black }} className='body'>
+        <Container style={{ maxWidth: width, margin: '0 auto', width: '100%' }} align='center'>
+          {children}
+        </Container>
+      </Body>
+    </Html>
   );
 }

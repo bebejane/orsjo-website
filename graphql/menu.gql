@@ -9,6 +9,13 @@ query Menu($first: IntType = 100, $skip: IntType = 0) {
 	}
 	allProducts(first: $first, skip: $skip) {
 		id
+		title
+		slug
+		categories {
+			id
+			name
+			namePlural
+		}
 		designer {
 			id
 		}
@@ -22,6 +29,14 @@ query Menu($first: IntType = 100, $skip: IntType = 0) {
 		namePlural
 	}
 	_allProductCategoriesMeta {
+		count
+	}
+	allProjects(first: $first, skip: $skip) {
+		id
+		title
+		slug
+	}
+	_allProjectsMeta {
 		count
 	}
 }

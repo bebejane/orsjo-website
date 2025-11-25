@@ -1,0 +1,85 @@
+.downloads {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  table {
+    tbody {
+      tr {
+
+        &.active {
+          td {
+            background-color: var(--white) !important;
+          }
+        }
+
+        th {
+          text-align: left;
+          color: var(--white);
+        }
+
+        td {
+          padding: 0;
+          border-top: 1px solid var(--white);
+          white-space: pre;
+          cursor: pointer;
+          vertical-align: middle;
+
+          &:first-child {
+            width: 60px;
+            max-width: 60px;
+            min-width: 60px;
+          }
+        }
+
+        td.toggle {
+          text-align: center;
+          vertical-align: middle;
+          width: 60px;
+        }
+
+        td.content {
+          background-color: var(--white);
+
+          .list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .item {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              flex: 0 0 50%;
+
+              .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 60px;
+                height: 60px;
+                flex: 0 0 60px;
+                background-color: var(--gray);
+                color: var(--black);
+              }
+
+              .title {
+                fles: 1 1 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    *>.image {
+      position: relative !important;
+      background-color: var(--white);
+      max-height: 60px;
+      max-width: 60px;
+      margin: 0 !important;
+    }
+  }
+
+}

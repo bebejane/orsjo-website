@@ -1,64 +1,74 @@
 .arrowButton {
-  @include mq($until: tablet) {
-    display: none;
-  }
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  min-width: 40px;
-  min-height: 40px;
-  background-color: $light-gray;
-  flex: 0 0 40px;
-  border: 0px solid $gray;
-  color: $black;
-  padding: 0 !important;
-  cursor: pointer;
+	@include mq($until: tablet) {
+		display: none;
+	}
 
-  &:hover {
-    border-color: $black !important;
-    .arrow {
-      path {
-        fill: $black;
-      }
-    }
-  }
-  .arrow {
-    width: 12px;
-    height: 12px;
-    margin-top: 5px;
-    transform: rotate(0deg);
-    transition: transform 0.3s;
-    path {
-      fill: $gray;
-    }
-    &.reverse {
-      transform: rotate(180deg);
-    }
-  }
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	min-width: 40px;
+	min-height: 40px;
+	background-color: var(--light-gray);
+	flex: 0 0 40px;
+	border: 0px solid var(--gray);
+	color: var(--black);
+	padding: 0 !important;
+	cursor: pointer;
 
-  &.hide {
-    display: none;
-  }
-  &.inverted {
-    &:hover {
-      border-color: $white !important;
-      .arrow {
-        path {
-          fill: $black;
-        }
-      }
-    }
-    .arrow {
-      path {
-        fill: $gray;
-      }
-    }
-  }
-  &:disabled {
-    color: $gray;
-    border: 1px solid $gray;
-    .arrow {
-      color: $gray;
-    }
-  }
+	&:hover {
+		border-color: var(--black) !important;
+
+		.arrow {
+			path {
+				fill: var(--black);
+			}
+		}
+	}
+
+	.arrow {
+		width: 12px;
+		height: 12px;
+		margin-top: 5px;
+		transform: rotate(0deg);
+		transition: transform 0.3s;
+
+		path {
+			fill: var(--gray);
+		}
+
+		&.reverse {
+			transform: rotate(180deg);
+		}
+	}
+
+	&.hide {
+		display: none;
+	}
+
+	&.inverted {
+		&:hover {
+			border-color: var(--white) !important;
+
+			.arrow {
+				path {
+					//fill: var(--black);
+				}
+			}
+		}
+
+		.arrow {
+			path {
+				fill: var(--gray);
+			}
+		}
+	}
+
+	&:disabled {
+		color: var(--gray);
+		border: 1px solid var(--gray);
+
+		.arrow {
+			color: var(--gray);
+		}
+	}
 }

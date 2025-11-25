@@ -1,46 +1,36 @@
-import styles from './Layout.module.scss'
-import React, { useEffect } from 'react'
-import { Content, Sidebar, Footer, Gallery, SiteSearch, MenuDesktop, MenuMobile, Grid, CookieConsent, Underlay } from '/components'
-import { usePage } from '/lib/context/page'
-import type { MenuItem } from '/lib/menu'
-import { useStore, shallow } from '/lib/store'
-import { useState } from 'react'
-import { buildMenu } from '/lib/menu'
+import s from './Layout.module.scss';
+import { Sidebar, Footer, FullscreenGallery, MenuDesktop, MenuMobile, CookieConsent, Underlay } from '@/components';
+import { PageProvider } from '@/lib/context/page-provider';
+import { type MenuItem } from '@/lib/menu';
+import Cart from '@/components/shopify/Cart';
+import PageTransition from '@/components/layout/PageTransition';
 
-export type LayoutProps = { children: React.ReactNode, menu: MenuItem[], title: string }
+export type LayoutProps = {
+	children: React.ReactNode;
+	menu: MenuItem[];
+	localization: LocalizationQuery['localization'];
+	shipping: ShippingQuery['shipping'];
+};
 
-export default function Layout({ children, menu: menuFromProps, title }: LayoutProps) {
-
-	const { color, layout, sidebar } = usePage()
-	const [gallery, setGallery, showSiteSearch, setShowSiteSearch] = useStore((state) => [state.gallery, state.setGallery, state.showSiteSearch, state.setShowSiteSearch], shallow)
-	const [menu, setMenu] = useState(menuFromProps)
-
-	useEffect(() => { // Refresh menu on load.
-		buildMenu().then(res => setMenu(res)).catch(err => console.error(err))
-	}, [])
-
+export default function Layout({ children, menu, localization, shipping }: LayoutProps) {
 	return (
 		<>
-			<div className={styles.layout} style={{ backgroundColor: color || undefined }}>
-				<MenuDesktop items={menu} onShowSiteSearch={() => setShowSiteSearch(true)} />
-				<MenuMobile items={menu} />
-				<Underlay />
-				<SiteSearch show={showSiteSearch} onClose={() => setShowSiteSearch(false)} />
-				<Sidebar title={title} show={layout !== 'full' && sidebar} />
-				<Content>
-					{children}
-				</Content>
-				<Gallery
-					show={gallery?.index > -1}
-					images={gallery?.images}
-					index={gallery?.index}
-					padImagesWithTitle={gallery?.padImagesWithTitle}
-					onClose={() => setGallery({ ...gallery, index: -1 })}
-				/>
-			</div>
-			<Footer menu={menu} />
-			<CookieConsent />
-			<Grid />
+			<PageProvider menu={menu}>
+				<div id='layout' className={s.layout}>
+					<Sidebar />
+					<main id='content' className={s.content}>
+						<article>{children}</article>
+					</main>
+					<MenuDesktop menu={menu} localization={localization} />
+					<MenuMobile menu={menu} localization={localization} />
+					<Underlay />
+					<FullscreenGallery />
+				</div>
+				<Cart localization={localization} shipping={shipping} />
+				<Footer menu={menu} />
+				<CookieConsent />
+				<PageTransition />
+			</PageProvider>
 		</>
-	)
+	);
 }

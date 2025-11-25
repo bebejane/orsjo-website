@@ -1,13 +1,11 @@
-import * as Components from '/components'
-
-export type BlockProps = { data: any, onClick?: Function, first?: boolean }
-
-export default function Block({ data, onClick, first = false }: BlockProps) {
-  const type = data.__typename.replace('Record', '');
-  const BlockComponent = Components[type]
-
-  if (!BlockComponent)
-    return <div>No block match {data.__typename}</div>
-
-  return <BlockComponent data={data} onClick={onClick} first={first} />
-}
+export { default as Featured } from './Featured';
+export { default as FeaturedStart } from './FeaturedStart';
+export { default as FullscreenMediaBlock } from './FullscreenMediaBlock';
+export { default as FullscreenVideo } from './FullscreenVideo';
+export { default as FullwidthImage } from './FullwidthImage';
+export { default as ImageGallery } from './ImageGallery';
+export { default as ImageLink } from './ImageLink';
+export { default as NewsItem } from './NewsItem';
+export { default as Text } from './Text';
+export { default as TwoColumnImage } from './TwoColumnImage';
+export { default as Video } from './Video';

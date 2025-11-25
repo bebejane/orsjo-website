@@ -1,39 +1,47 @@
-import styles from './FullscreenMediaBlock.module.scss'
-import React, { useRef } from 'react'
-import { Image } from 'react-datocms'
-import Link from 'next/link'
-import { VideoPlayer, ArrowLink } from '/components'
+'use client';
 
-export type LayoutProps = { data: FullscreenMediaBlockRecord }
+import s from './FullscreenMediaBlock.module.scss';
+import React, { useRef } from 'react';
+import { Image } from 'react-datocms';
+import Link from '@/components/nav/Link';
+import { VideoPlayer, ArrowLink } from '@/components';
 
-export default function FullscreenMediaBlock({ data: { media, headline, linkRecord, subHeadline, makeDarker, readMore }, data }: LayoutProps) {
+export type LayoutProps = { data: FullscreenMediaBlockRecord };
 
+export default function FullscreenMediaBlock({
+	data: { media, headline, linkRecord, subHeadline, makeDarker, readMore },
+}: LayoutProps) {
 	const { __typename } = linkRecord;
-	const path = __typename === 'DesignerRecord' ? 'designer' : linkRecord.__typename === 'AboutRecord' ? 'about' : 'products'
-	const slug = `${path}/${linkRecord.__typename !== 'AboutRecord' ? linkRecord.slug : ''}`
-	const ref = useRef()
+	const path =
+		__typename === 'DesignerRecord' ? 'designer' : linkRecord.__typename === 'AboutRecord' ? 'about' : 'products';
+
+	//@ts-ignore
+	const slug = `${path}/${linkRecord.__typename !== 'AboutRecord' ? linkRecord.slug : ''}`;
+	const ref = useRef(null);
 
 	return (
-		<Link scroll={false} href={`/${slug}`} className={styles.fullScreenImage} ref={ref} passHref={true}>
-			{makeDarker && <div className={styles.fadeTop}></div>}
-			<div className={styles.fade}></div>
-			{!media.mimeType.includes('video') ?
+		<Link href={`/${slug}`} className={s.fullScreenImage} ref={ref} passHref={true}>
+			{makeDarker && <div className={s.fadeTop}></div>}
+			<div className={s.fade}></div>
+			{!media.mimeType.includes('video') && media?.responsiveImage ? (
 				<Image
-					className={styles.image}
+					className={s.image}
 					data={media?.responsiveImage}
-					layout="fill"
-					objectFit="cover"
+					objectFit='cover'
+					intersectionMargin={`0px 0px 200% 0px`}
 				/>
-				:
+			) : (
 				<VideoPlayer data={media} />
-			}
-			<div className={styles.wrapper}>
-				<div className={styles.headline}>
-					<span className="medium">{subHeadline}</span>
-					<h1 className="start">{headline}</h1>
-					<ArrowLink hoverRef={ref} inverted={true}>{readMore}</ArrowLink>
+			)}
+			<div className={s.wrapper}>
+				<div className={s.headline}>
+					<span className='medium'>{subHeadline}</span>
+					<h1 className='start'>{headline}</h1>
+					<ArrowLink hoverRef={ref} inverted={true}>
+						{readMore}
+					</ArrowLink>
 				</div>
 			</div>
 		</Link>
-	)
+	);
 }

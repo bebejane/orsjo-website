@@ -17,7 +17,7 @@ query AllRelatedProjects($projectType: ItemId, $first: IntType = 100, $skip: Int
 	allProjects(first: $first, skip: $skip, filter: { projectType: { eq: $projectType } }) {
 		...ProjectLightFragment
 	}
-	_allProjectsMeta {
+	_allProjectsMeta(filter: { projectType: { eq: $projectType } }) {
 		count
 	}
 }

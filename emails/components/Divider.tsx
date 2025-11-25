@@ -1,15 +1,13 @@
-import { MjmlDivider } from "mjml-react";
-import { colors, spacing } from "../theme";
+import { Hr as ExtendedHr, HrProps } from '@react-email/components';
+import { colors, spacing } from './theme';
 
-type DividerProps = React.ComponentProps<typeof MjmlDivider>;
-
-const defaultProps = {
-  borderColor: colors.white,
-  borderWidth: "1px",
-  paddingTop: spacing.s9,
-  paddingBottom: spacing.s9,
+const defaultStyles = {
+	borderColor: colors.white,
+	borderWidth: '1px',
+	paddingTop: spacing.s5,
+	paddingBottom: spacing.s8,
 };
 
-export default function Divider(props: DividerProps) {
-  return <MjmlDivider {...defaultProps} {...props} />;
+export default function Divider(props: HrProps) {
+	return <ExtendedHr {...props} style={{ ...defaultStyles, ...props.style }} />;
 }

@@ -1,0 +1,66 @@
+.intro {
+	display: flex;
+	flex-direction: row;
+	color: var(--white) !important;
+	padding-top: 2rem;
+
+	p {
+		margin-bottom: 0;
+	}
+
+	h1 {
+		@include mq($until: desktop) {
+			display: none;
+		}
+
+		color: var(--black);
+		flex: 0 0 spanGridWithGutter(4);
+		@include h1Small();
+	}
+
+	.text {
+		@include mq($until: desktop) {
+			padding-bottom: 2em;
+		}
+
+		@include mq($from: desktop) {
+			padding-right: 20%;
+		}
+	}
+}
+
+.outro {
+	color: var(--white) !important;
+
+	@include mq($from: desktop) {
+		margin-top: 2rem;
+	}
+
+	.text {
+		@include mq($from: desktop) {
+			margin-left: spanGridWithGutter(4);
+			margin-right: spanGrid(4);
+		}
+	}
+}
+
+.more {
+	margin-top: 2rem;
+
+	button {
+		color: var(--white);
+		cursor: pointer;
+		width: 100%;
+
+		@include mq($from: desktop) {
+			width: spanGrid(8);
+			margin-right: spanGrid(4);
+			margin-left: spanGridWithGutter(4);
+		}
+	}
+}
+
+.innerWrap {
+	padding-left: var(--outer-margin) !important;
+	padding-right: var(--outer-margin) !important;
+}

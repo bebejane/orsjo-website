@@ -1,0 +1,28 @@
+.related {
+	padding-top: var(--small-margin);
+	display: flex;
+	flex-direction: column;
+
+	.gallery {
+		flex: 1 1 auto;
+		max-width: 100%;
+		margin-bottom: var(--small-margin);
+
+		&:last-of-type {
+			margin-bottom: var(--margin);
+		}
+	}
+
+	@include mq($until: tablet) {
+		flex-direction: column;
+
+		h1,
+		.gallery {
+			flex: 1 1 auto;
+		}
+	}
+}
+
+.other {
+	padding-bottom: var(--margin);
+}

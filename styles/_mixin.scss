@@ -1,0 +1,62 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:math';
+@use 'mediaqueries';
+
+$gutter: 1.47%;
+$columns: 16;
+$column-width: math.div(100% - (($columns - 1) * $gutter), $columns) or
+	calc((100% - (($columns - 1) * $gutter)) / $columns);
+
+// REMOVE MARGIN FROM LAST COLUMN IN GRID
+@mixin resetLastColumn($lastColumn) {
+	$lastColumn: $lastColumn + n;
+
+	&:nth-of-type(#{$lastColumn}) {
+		margin-right: 0;
+	}
+}
+
+//Typography
+@mixin h1Big() {
+	@include mediaqueries.mq($until: nav-break) {
+		font-size: 2rem;
+	}
+
+	font-size: 3rem;
+	font-family: var(--body-font);
+	line-height: 1em;
+}
+
+@mixin h1Small() {
+	font-size: 0.45em;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	padding-bottom: 0.5em;
+}
+
+@mixin textWidth() {
+	padding-left: $small-space;
+	padding-right: $small-space;
+
+	@include mediaqueries.mq($from: tablet) {
+		padding-left: $outer-margin;
+		padding-right: $outer-margin;
+	}
+
+	@include mediaqueries.mq($from: wide) {
+		padding-left: $outer-margin * 1.3;
+		padding-right: $outer-margin * 1.3;
+	}
+}
+
+@mixin fullWidth() {
+	margin: $space;
+}
+
+@mixin maxWidth() {
+	max-width: var(--max-width);
+	margin: auto;
+}
