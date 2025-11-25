@@ -1,16 +1,8 @@
 import Text from './Text';
-import {
-	fontFamily,
-	lineHeight,
-	fontWeight,
-	fontSize,
-	letterSpacing,
-	textTransform,
-} from './theme';
+import { TextProps } from '@react-email/components';
+import { fontFamily, lineHeight, fontWeight, fontSize, letterSpacing, textTransform } from './theme';
 
-type HeadingProps = React.ComponentProps<typeof Text>;
-
-const defaultProps = {
+const defaultStyles = {
 	fontFamily: fontFamily.sans,
 	fontWeight: fontWeight.normal,
 	lineHeight: lineHeight.tight,
@@ -19,9 +11,9 @@ const defaultProps = {
 	textTransform: textTransform.normal,
 };
 
-export default function Heading(props: HeadingProps) {
+export default function Heading(props: TextProps) {
 	return (
-		<Text {...defaultProps} {...props}>
+		<Text {...props} style={{ ...defaultStyles, ...props.style }}>
 			{props.children}
 		</Text>
 	);

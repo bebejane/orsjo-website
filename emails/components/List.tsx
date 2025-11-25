@@ -1,14 +1,13 @@
-import { MjmlRaw } from 'mjml-react';
-
+import { CodeInline, CodeInlineProps } from '@react-email/code-inline';
 import { themeDefaults } from './theme';
 
 type ListProps = {
 	items: string[];
-} & React.ComponentProps<typeof MjmlRaw>;
+} & CodeInlineProps;
 
 export default function List({ items }: ListProps) {
 	return (
-		<MjmlRaw>
+		<CodeInline>
 			<tr>
 				<td>
 					<table border={0} cellPadding={0} cellSpacing={0} role='presentation' width='100%'>
@@ -23,6 +22,6 @@ export default function List({ items }: ListProps) {
 					</table>
 				</td>
 			</tr>
-		</MjmlRaw>
+		</CodeInline>
 	);
 }
