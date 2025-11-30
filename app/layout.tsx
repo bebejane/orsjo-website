@@ -40,7 +40,9 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 
 export async function generateStaticParams() {
 	const localization = await getLocalization();
-	return localization.availableCountries.map((country) => ({ country: country.isoCode.toLowerCase() }));
+	return localization.availableCountries.map((country) => ({
+		country: country.isoCode.toLowerCase(),
+	}));
 }
 
 export async function generateMetadata(props: LayoutProps<'/'>): Promise<Metadata> {
@@ -80,8 +82,17 @@ export type BuildMetadataProps = {
 	image?: FileField | null | undefined;
 };
 
-export async function buildMetadata({ title, description, url, image }: BuildMetadataProps): Promise<Metadata> {
-	description = !description ? '' : description.length > 160 ? `${description.substring(0, 157)}...` : description;
+export async function buildMetadata({
+	title,
+	description,
+	url,
+	image,
+}: BuildMetadataProps): Promise<Metadata> {
+	description = !description
+		? ''
+		: description.length > 160
+			? `${description.substring(0, 157)}...`
+			: description;
 
 	return {
 		title,
