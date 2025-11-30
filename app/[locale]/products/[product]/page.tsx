@@ -48,7 +48,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
 			<ShopInfo product={product} shipping={shipping} currencyCode={shopify.i18n.currencyCode} />
-			<Shop product={product} shopify={shopify} variantId={v} shipping={shipping} />
+			{/* <Shop product={product} shopify={shopify} variantId={v} shipping={shipping} /> */}
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery
@@ -88,7 +88,9 @@ export async function generateStaticParams() {
 	return paths;
 }
 
-export async function generateMetadata({ params }: PageProps<'/[locale]/products/[product]'>): Promise<Metadata> {
+export async function generateMetadata({
+	params,
+}: PageProps<'/[locale]/products/[product]'>): Promise<Metadata> {
 	const { product: slug } = await params;
 	const { product } = await apiQuery(ProductDocument, {
 		variables: { slug },

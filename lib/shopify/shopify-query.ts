@@ -34,8 +34,10 @@ const defaultOptions: DefaultApiQueryOptions = {
 	admin: false,
 };
 
-export interface TypedDocumentNode<TResult = { [key: string]: any }, TVariables = { [key: string]: any }>
-	extends DocumentNode {
+export interface TypedDocumentNode<
+	TResult = { [key: string]: any },
+	TVariables = { [key: string]: any },
+> extends DocumentNode {
 	__apiType?: (variables: TVariables) => TResult;
 	__resultType?: TResult;
 	__variablesType?: TVariables;
@@ -47,7 +49,8 @@ export default async function shopifyQuery<TResult = any, TVariables = Record<st
 ): Promise<TResult> {
 	const opt = { ...defaultOptions, ...(options ?? {}) };
 
-	if (!process.env.NEXT_PUBLIC_SHOPIFY_STORE) throw new Error('NEXT_PUBLIC_SHOPIFY_STORE is not set');
+	if (!process.env.NEXT_PUBLIC_SHOPIFY_STORE)
+		throw new Error('NEXT_PUBLIC_SHOPIFY_STORE is not set');
 	if (!process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION)
 		throw new Error('NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION is not set');
 	if (!process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN)
@@ -93,7 +96,8 @@ const dedupedFetch = async (options: DedupeOptions) => {
 		headers['X-Shopify-Access-Token'] = process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN as string;
 		endpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/admin/api/${process.env.SHOPIFY_ADMIN_API_VERSION}/graphql.json`;
 	} else
-		headers['X-Shopify-Storefront-Access-Token'] = (process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN ||
+		headers['X-Shopify-Storefront-Access-Token'] = (process.env
+			.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN ||
 			process.env.SHOPIFY_STOREFRONT_API_TOKEN) as string;
 
 	const response = await fetch(endpoint, {
@@ -121,7 +125,9 @@ const dedupedFetch = async (options: DedupeOptions) => {
 
 	if (responseBody.errors) {
 		console.error(responseBody.errors);
-		const message = responseBody.errors.map(({ message }: { message: string }) => message).join('. ');
+		const message = responseBody.errors
+			.map(({ message }: { message: string }) => message)
+			.join('. ');
 		Sentry.captureException(new Error(message));
 		throw new Error(message);
 	}

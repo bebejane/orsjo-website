@@ -1,6 +1,10 @@
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { ProductStartDocument, AllProductsLightDocument, AllProductCategoriesDocument } from '@/graphql';
+import {
+	ProductStartDocument,
+	AllProductsLightDocument,
+	AllProductCategoriesDocument,
+} from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import ProductList from './ProductList';
 import shopifyQuery from '@/lib/shopify/shopify-query';
@@ -30,13 +34,17 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const [{ productStart }, { allProducts }, { allProductCategories }, { products: allShopifyProducts }] =
-		await Promise.all([
-			apiQuery(ProductStartDocument),
-			apiQuery(AllProductsLightDocument, { all: true }),
-			apiQuery(AllProductCategoriesDocument, { all: true }),
-			shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
-		]);
+	const [
+		{ productStart },
+		{ allProducts },
+		{ allProductCategories },
+		{ products: allShopifyProducts },
+	] = await Promise.all([
+		apiQuery(ProductStartDocument),
+		apiQuery(AllProductsLightDocument, { all: true }),
+		apiQuery(AllProductCategoriesDocument, { all: true }),
+		shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
+	]);
 
 	/*
 	const skus = allProducts
@@ -55,7 +63,13 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 	return (
 		<>
 			{productStart?.featured.map((data, idx) => (
-				<Section id={`featured-products-${idx}`} className={s.featured} name={data.headline} top={idx === 0} key={idx}>
+				<Section
+					id={`featured-products-${idx}`}
+					className={s.featured}
+					name={data.headline}
+					top={idx === 0}
+					key={idx}
+				>
 					<FeaturedGallery
 						id={data.id}
 						key={`featured-${idx}`}
@@ -65,8 +79,8 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 						items={
 							data.items.map((product) => ({
 								...product,
-								shopify: allShopifyProducts.edges.find((v) => v.node.handle === (product as ProductRecord).slug)?.node
-									.selectedOrFirstAvailableVariant as ProductVariant,
+								// shopify: allShopifyProducts.edges.find((v) => v.node.handle === (product as ProductRecord).slug)?.node
+								// 	.selectedOrFirstAvailableVariant as ProductVariant,
 							})) as ProductRecordWithShopifyData[]
 						}
 					/>
@@ -81,7 +95,9 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 	);
 }
 
-export async function generateMetadata({ params }: PageProps<'/[locale]/products'>): Promise<Metadata> {
+export async function generateMetadata({
+	params,
+}: PageProps<'/[locale]/products'>): Promise<Metadata> {
 	return await buildMetadata({
 		title: 'Products',
 		url: `${process.env.NEXT_PUBLIC_SITE_URL}/products`,

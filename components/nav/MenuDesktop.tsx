@@ -23,19 +23,27 @@ export type MenuDesktopProps = {
 export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 	const ref = useRef(null);
 	const pathname = usePathname();
-	const [showMenu, showSubMenu, setShowSubMenu, showMenuMobile, setShowMenu, invertMenu, transitioning, setShowCart] =
-		useStore(
-			useShallow((state) => [
-				state.showMenu,
-				state.showSubMenu,
-				state.setShowSubMenu,
-				state.showMenuMobile,
-				state.setShowMenu,
-				state.invertMenu,
-				state.transitioning,
-				state.setShowCart,
-			])
-		);
+	const [
+		showMenu,
+		showSubMenu,
+		setShowSubMenu,
+		showMenuMobile,
+		setShowMenu,
+		invertMenu,
+		transitioning,
+		setShowCart,
+	] = useStore(
+		useShallow((state) => [
+			state.showMenu,
+			state.showSubMenu,
+			state.setShowSubMenu,
+			state.showMenuMobile,
+			state.setShowMenu,
+			state.invertMenu,
+			state.transitioning,
+			state.setShowCart,
+		])
+	);
 
 	const [selected, setSelected] = useState<string | null>(null);
 	const [hashChanging, setHashChanging] = useState(false);
@@ -66,7 +74,15 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 		if (hashChanging) return setShowMenu(false);
 
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop);
-	}, [transitioning, scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
+	}, [
+		transitioning,
+		scrolledPosition,
+		isPageBottom,
+		isPageTop,
+		isScrolledUp,
+		setShowMenu,
+		hashChanging,
+	]);
 
 	useEffect(() => {
 		// Hide menu when scrolling to hash
@@ -114,7 +130,13 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 		setShowSubMenu(selected && showMenu ? true : false);
 	}, [selected, showMenu, setShowSubMenu]);
 
-	const menuStyles = cn(s.desktopMenu, selected && s.open, !showMenu && s.hide, s[layout], isInverted && s.inverted);
+	const menuStyles = cn(
+		s.desktopMenu,
+		selected && s.open,
+		!showMenu && s.hide,
+		s[layout],
+		isInverted && s.inverted
+	);
 	const sub = selected ? menu.find((i) => i.slug === selected)?.sub : [];
 
 	if (!menu) return null;
@@ -143,12 +165,12 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 							{!index && <span className={cn(s.arrow, slug == selected && s.active)}>›</span>}
 						</li>
 					))}
-					<li className={s.country}>
+					{/* <li className={s.country}>
 						<CountrySelector currency={true} localization={localization} className={s.selector} />
 					</li>
 					<li className={cn(s.cart, cart?.totalQuantity && s.filled)} onClick={() => setShowCart(true)}>
 						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
-					</li>
+					</li> */}
 					<li className={s.searchIcon} onClick={() => setShowSearch(true)}>
 						<img src={'/images/search.svg'} />
 					</li>
@@ -157,7 +179,10 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 
 			<div
 				className={cn(s.sub, showSubMenu && s.show)}
-				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: `var(--${color})` }}
+				style={{
+					width: `calc(100% - ${menuMargin.position}px)`,
+					backgroundColor: `var(--${color})`,
+				}}
 				onMouseLeave={resetSelected}
 			>
 				<div
