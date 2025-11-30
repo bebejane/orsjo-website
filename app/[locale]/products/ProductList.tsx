@@ -15,13 +15,13 @@ export type ProductsByCategory = {
 export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
 	productCategories: AllProductCategoriesQuery['allProductCategories'];
-	//shopifyProducts: AllShopifyProductsQuery['products'];
+	shopifyProducts: AllShopifyProductsQuery['products'];
 };
 
 export default function ProductList({
 	productCategories,
 	allProducts,
-	//shopifyProducts,
+	shopifyProducts,
 }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: { [index: string]: ProductsByCategory } = useMemo(() => ({}), []);
@@ -106,10 +106,10 @@ export default function ProductList({
 										<ProductThumbnail
 											product={product}
 											theme='light'
-											// shopifyVariant={
-											// 	// shopifyProducts.edges.find((v) => v.node.handle === product.slug)?.node
-											// 	// 	.selectedOrFirstAvailableVariant as ProductVariant
-											// }
+											shopifyVariant={
+												shopifyProducts.edges.find((v) => v.node.handle === product.slug)?.node
+													.selectedOrFirstAvailableVariant as ProductVariant
+											}
 										/>
 									</li>
 								))}

@@ -38,12 +38,12 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 		{ productStart },
 		{ allProducts },
 		{ allProductCategories },
-		//{ products: allShopifyProducts },
+		{ products: allShopifyProducts },
 	] = await Promise.all([
 		apiQuery(ProductStartDocument),
 		apiQuery(AllProductsLightDocument, { all: true }),
 		apiQuery(AllProductCategoriesDocument, { all: true }),
-		//shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
+		shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
 	]);
 
 	/*
@@ -79,8 +79,9 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 						items={
 							data.items.map((product) => ({
 								...product,
-								// shopify: allShopifyProducts.edges.find((v) => v.node.handle === (product as ProductRecord).slug)?.node
-								// 	.selectedOrFirstAvailableVariant as ProductVariant,
+								shopify: allShopifyProducts.edges.find(
+									(v) => v.node.handle === (product as ProductRecord).slug
+								)?.node.selectedOrFirstAvailableVariant as ProductVariant,
 							})) as ProductRecordWithShopifyData[]
 						}
 					/>
@@ -89,7 +90,7 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 			<ProductList
 				productCategories={allProductCategories}
 				allProducts={allProducts}
-				//shopifyProducts={allShopifyProducts}
+				shopifyProducts={allShopifyProducts}
 			/>
 		</>
 	);

@@ -4,7 +4,6 @@ import shopifyQuery from '@/lib/shopify/shopify-query';
 import { LocalizationDocument } from '@/lib/shopify/graphql';
 
 (async () => {
-	return;
 	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(
 		LocalizationDocument,
 		{
