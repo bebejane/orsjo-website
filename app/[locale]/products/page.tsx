@@ -38,12 +38,12 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 		{ productStart },
 		{ allProducts },
 		{ allProductCategories },
-		{ products: allShopifyProducts },
+		//{ products: allShopifyProducts },
 	] = await Promise.all([
 		apiQuery(ProductStartDocument),
 		apiQuery(AllProductsLightDocument, { all: true }),
 		apiQuery(AllProductCategoriesDocument, { all: true }),
-		shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
+		//shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
 	]);
 
 	/*
@@ -89,7 +89,7 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 			<ProductList
 				productCategories={allProductCategories}
 				allProducts={allProducts}
-				shopifyProducts={allShopifyProducts}
+				//shopifyProducts={allShopifyProducts}
 			/>
 		</>
 	);

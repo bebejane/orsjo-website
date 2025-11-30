@@ -15,17 +15,23 @@ export type ProductsByCategory = {
 export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
 	productCategories: AllProductCategoriesQuery['allProductCategories'];
-	shopifyProducts: AllShopifyProductsQuery['products'];
+	//shopifyProducts: AllShopifyProductsQuery['products'];
 };
 
-export default function ProductList({ productCategories, allProducts, shopifyProducts }: ProductListProps) {
+export default function ProductList({
+	productCategories,
+	allProducts,
+	//shopifyProducts,
+}: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: { [index: string]: ProductsByCategory } = useMemo(() => ({}), []);
 	productCategories.forEach(({ id, name, namePlural }) => {
 		productsByCategory[id] = {
 			name,
 			namePlural,
-			products: allProducts.filter(({ categories }) => categories?.find((c) => c.name === name)) as ProductRecord[],
+			products: allProducts.filter(({ categories }) =>
+				categories?.find((c) => c.name === name)
+			) as ProductRecord[],
 		};
 	});
 
@@ -43,7 +49,8 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 				.filter(({ categories }) => categories?.some((c) => c.id === k))
 				.filter(
 					({ title, designer }) =>
-						searchString(searchProducts, title) || searchString(searchProducts, designer?.name ?? '')
+						searchString(searchProducts, title) ||
+						searchString(searchProducts, designer?.name ?? '')
 				);
 			const category = productCategories.find((c) => c.id === k);
 
@@ -67,7 +74,8 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 		});
 	}, [searchProducts]);
 
-	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0;
+	const isEmptySearch =
+		productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0;
 
 	if (isEmptySearch) {
 		return (
@@ -85,7 +93,12 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 				.map((name) => items[name])
 				.map(({ products, namePlural }: ProductsByCategory, idx: number) => {
 					return (
-						<Section className={s.products} key={idx} name={namePlural} top={productsByCategorySearch && idx === 0}>
+						<Section
+							className={s.products}
+							key={idx}
+							name={namePlural}
+							top={productsByCategorySearch && idx === 0}
+						>
 							<h1>{namePlural}</h1>
 							<ul>
 								{products?.map((product, idx) => (
@@ -93,10 +106,10 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 										<ProductThumbnail
 											product={product}
 											theme='light'
-											shopifyVariant={
-												shopifyProducts.edges.find((v) => v.node.handle === product.slug)?.node
-													.selectedOrFirstAvailableVariant as ProductVariant
-											}
+											// shopifyVariant={
+											// 	// shopifyProducts.edges.find((v) => v.node.handle === product.slug)?.node
+											// 	// 	.selectedOrFirstAvailableVariant as ProductVariant
+											// }
 										/>
 									</li>
 								))}
