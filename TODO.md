@@ -19,3 +19,6 @@
 # Reanble shop
 
 - prebuild script
+- getLocalization
+- /products
+- /products/[product]
