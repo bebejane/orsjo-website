@@ -1,7 +1,3 @@
-import useCart from "./hooks/useCart";
-import useCustomer from "./hooks/useCustomer";
+import useCart from './hooks/useCart';
 
-export {
-  useCart,
-  useCustomer
-}
+export { useCart };

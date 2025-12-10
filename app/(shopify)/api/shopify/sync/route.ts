@@ -16,7 +16,9 @@ export const POST = async (req: Request) => {
 			if (event_type === 'delete' || event_type === 'unpublish') {
 				await syncProductStatus(entity.attributes.slug, 'DRAFT' as ProductStatus);
 				return new Response(
-					JSON.stringify({ sync: { id: entity.id, handle: entity.attributes.slug, status: 'DRAFT' } }),
+					JSON.stringify({
+						sync: { id: entity.id, handle: entity.attributes.slug, status: 'DRAFT' },
+					}),
 					{
 						status: 200,
 						headers: { 'Content-Type': 'application/json' },
