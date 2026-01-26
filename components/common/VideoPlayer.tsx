@@ -1,5 +1,5 @@
-import styles from './VideoPlayer.module.scss'
 import cn from 'classnames'
+import styles from './VideoPlayer.module.scss'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useWindowSize } from 'rooks'
 import { useInView } from 'react-intersection-observer'
