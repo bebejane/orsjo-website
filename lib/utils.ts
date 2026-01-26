@@ -205,12 +205,13 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
     label: 'Light file',
     type: 'zip',
     download: true
-  }, {
+  }/*, {
     href: bimLink,
     label: 'Download at BIM Objects',
     type: 'cad',
     download: false
-  },
+  },*/
+  ,
   {
     href: bimFile?.url,
     label: 'Download CAD files',

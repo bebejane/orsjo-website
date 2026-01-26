@@ -3,46 +3,48 @@ type InputMaybe<T> = T;
 type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  BooleanType: any;
-  CustomData: any;
-  DateTime: any;
-  FloatType: any;
-  IntType: any;
-  ItemId: any;
-  JsonField: any;
-  MetaTagAttributes: any;
-  UploadId: any;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  BooleanType: { input: any; output: any; }
+  CustomData: { input: any; output: any; }
+  DateTime: { input: any; output: any; }
+  FloatType: { input: any; output: any; }
+  IntType: { input: any; output: any; }
+  ItemId: { input: any; output: any; }
+  JsonField: { input: any; output: any; }
+  MetaTagAttributes: { input: any; output: any; }
+  UploadId: { input: any; output: any; }
 };
 
 /** Record of type About us (about) */
 type AboutRecord = RecordInterface & {
   __typename?: 'AboutRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  intro?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
   sections: Array<AboutSectionRecord>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
   video?: Maybe<FileField>;
 };
 
@@ -55,35 +57,35 @@ type AboutRecord_seoMetaTagsArgs = {
 
 /** Record of type About us (about) */
 type AboutRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type About us (about) */
 type AboutRecordtitleArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Block of type About section (about_section) */
 type AboutSectionRecord = RecordInterface & {
   __typename?: 'AboutSectionRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  text?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  text?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
   video?: Maybe<FileField>;
 };
 
@@ -96,29 +98,29 @@ type AboutSectionRecord_seoMetaTagsArgs = {
 
 /** Block of type About section (about_section) */
 type AboutSectionRecordtextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Block of type Accessory (accessory) */
 type AccessoryRecord = RecordInterface & {
   __typename?: 'AccessoryRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   accessory?: Maybe<ProductAccessoryRecord>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -130,24 +132,24 @@ type AccessoryRecord_seoMetaTagsArgs = {
 /** Block of type Bespoke project (bespoke_project) */
 type BespokeProjectRecord = RecordInterface & {
   __typename?: 'BespokeProjectRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   project?: Maybe<ProjectRecord>;
-  summary?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  summary?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -159,35 +161,35 @@ type BespokeProjectRecord_seoMetaTagsArgs = {
 
 /** Block of type Bespoke project (bespoke_project) */
 type BespokeProjectRecordsummaryArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Record of type Bespoke (bespoke) */
 type BespokeRecord = RecordInterface & {
   __typename?: 'BespokeRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   examples: Array<BespokeProjectRecord>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  intro?: Maybe<Scalars['String']>;
-  outro?: Maybe<Scalars['String']>;
+  intro?: Maybe<Scalars['String']['output']>;
+  outro?: Maybe<Scalars['String']['output']>;
   secondaryThumbnail?: Maybe<FileField>;
   thumbnail?: Maybe<FileField>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -199,19 +201,19 @@ type BespokeRecord_seoMetaTagsArgs = {
 
 /** Record of type Bespoke (bespoke) */
 type BespokeRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Bespoke (bespoke) */
 type BespokeRecordoutroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Specifies how to filter Boolean fields */
 type BooleanFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['BooleanType']>;
+  eq?: InputMaybe<Scalars['BooleanType']['input']>;
 };
 
 type CatalogueModelFilter = {
@@ -263,25 +265,25 @@ enum CatalogueModelOrderBy {
 /** Record of type Catalogue (catalogue) */
 type CatalogueRecord = RecordInterface & {
   __typename?: 'CatalogueRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   pdf?: Maybe<FileField>;
   thumbnail?: Maybe<FileField>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -292,7 +294,7 @@ type CatalogueRecord_seoMetaTagsArgs = {
 
 type CollectionMetadata = {
   __typename?: 'CollectionMetadata';
-  count: Scalars['IntType'];
+  count: Scalars['IntType']['output'];
 };
 
 enum ColorBucketType {
@@ -312,34 +314,34 @@ enum ColorBucketType {
 
 type ColorField = {
   __typename?: 'ColorField';
-  alpha: Scalars['IntType'];
-  blue: Scalars['IntType'];
-  cssRgb: Scalars['String'];
-  green: Scalars['IntType'];
-  hex: Scalars['String'];
-  red: Scalars['IntType'];
+  alpha: Scalars['IntType']['output'];
+  blue: Scalars['IntType']['output'];
+  cssRgb: Scalars['String']['output'];
+  green: Scalars['IntType']['output'];
+  hex: Scalars['String']['output'];
+  red: Scalars['IntType']['output'];
 };
 
 /** Record of type Color & material intro (color_material_intro) */
 type ColorMaterialIntroRecord = RecordInterface & {
   __typename?: 'ColorMaterialIntroRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  intro?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -351,7 +353,7 @@ type ColorMaterialIntroRecord_seoMetaTagsArgs = {
 
 /** Record of type Color & material intro (color_material_intro) */
 type ColorMaterialIntroRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type ColorMaterialModelFilter = {
@@ -406,26 +408,26 @@ enum ColorMaterialModelOrderBy {
 /** Record of type Color & material (color_material) */
 type ColorMaterialRecord = RecordInterface & {
   __typename?: 'ColorMaterialRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   category?: Maybe<ColorMaterialTypeRecord>;
-  createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  position?: Maybe<Scalars['IntType']>;
-  updatedAt: Scalars['DateTime'];
+  position?: Maybe<Scalars['IntType']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -487,25 +489,25 @@ enum ColorMaterialTypeModelOrderBy {
 /** Record of type Color & material type (color_material_type) */
 type ColorMaterialTypeRecord = RecordInterface & {
   __typename?: 'ColorMaterialTypeRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  category?: Maybe<Scalars['String']>;
-  categoryPlural?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  position?: Maybe<Scalars['IntType']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  category?: Maybe<Scalars['String']['output']>;
+  categoryPlural?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  position?: Maybe<Scalars['IntType']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -517,30 +519,30 @@ type ColorMaterialTypeRecord_seoMetaTagsArgs = {
 /** Record of type Contact (contact) */
 type ContactRecord = RecordInterface & {
   __typename?: 'ContactRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  address?: Maybe<Scalars['String']>;
-  contactFormMessage?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
-  email?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  address?: Maybe<Scalars['String']['output']>;
+  contactFormMessage?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  intro?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  showroomIntro?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  intro?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  showroomIntro?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -552,25 +554,25 @@ type ContactRecord_seoMetaTagsArgs = {
 
 /** Record of type Contact (contact) */
 type ContactRecordaddressArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Contact (contact) */
 type ContactRecordcontactFormMessageArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Contact (contact) */
 type ContactRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Contact (contact) */
 type ContactRecordshowroomIntroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type CountryModelFilter = {
@@ -622,24 +624,24 @@ enum CountryModelOrderBy {
 type CountryRecord = RecordInterface & {
   __typename?: 'CountryRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
   _locales: Array<SiteLocale>;
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -665,19 +667,201 @@ type CountryRecordnameArgs = {
 /** Specifies how to filter by creation datetime */
 type CreatedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's greater than or equal to than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less or equal than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+/** Record of type Currency (currency) */
+type CurrencyRecord = RecordInterface & {
+  __typename?: 'CurrencyRecord';
+  _allIsoCodeLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _allRateDeductionLocales?: Maybe<Array<FloatTypeMultiLocaleField>>;
+  _allRateLocales?: Maybe<Array<FloatTypeMultiLocaleField>>;
+  _allSurchargeLocales?: Maybe<Array<FloatTypeMultiLocaleField>>;
+  _allSymbolLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _allVatRateLocales?: Maybe<Array<FloatTypeMultiLocaleField>>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  isoCode?: Maybe<Scalars['String']['output']>;
+  rate?: Maybe<Scalars['FloatType']['output']>;
+  rateDeduction?: Maybe<Scalars['FloatType']['output']>;
+  surcharge?: Maybe<Scalars['FloatType']['output']>;
+  symbol?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+  vatRate?: Maybe<Scalars['FloatType']['output']>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allIsoCodeLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allRateDeductionLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allRateLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allSurchargeLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allSymbolLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_allVatRateLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordisoCodeArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordrateArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordrateDeductionArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordsurchargeArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordsymbolArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Currency (currency) */
+type CurrencyRecordvatRateArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Block of type Delivery term (delivery_term) */
+type DeliveryTermRecord = RecordInterface & {
+  __typename?: 'DeliveryTermRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  isoCode?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Block of type Delivery term (delivery_term) */
+type DeliveryTermRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Block of type Delivery time (delivery_time) */
+type DeliveryTimeRecord = RecordInterface & {
+  __typename?: 'DeliveryTimeRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  text?: Maybe<Scalars['String']['output']>;
+  textShort?: Maybe<Scalars['String']['output']>;
+  time?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Block of type Delivery time (delivery_time) */
+type DeliveryTimeRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
 };
 
 type DesignerModelFilter = {
@@ -731,26 +915,26 @@ enum DesignerModelOrderBy {
 type DesignerRecord = RecordInterface & {
   __typename?: 'DesignerRecord';
   _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  name?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  name?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -758,7 +942,7 @@ type DesignerRecord = RecordInterface & {
 type DesignerRecord_allDescriptionLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -772,7 +956,7 @@ type DesignerRecord_seoMetaTagsArgs = {
 type DesignerRecorddescriptionArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type DistributorModelFilter = {
@@ -842,31 +1026,31 @@ enum DistributorModelOrderBy {
 /** Record of type Distributor (distributor) */
 type DistributorRecord = RecordInterface & {
   __typename?: 'DistributorRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  address?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  contactName?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  address?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  contactName?: Maybe<Scalars['String']['output']>;
   country?: Maybe<CountryRecord>;
-  createdAt: Scalars['DateTime'];
-  email?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -878,30 +1062,30 @@ type DistributorRecord_seoMetaTagsArgs = {
 
 /** Record of type Distributor (distributor) */
 type DistributorRecordaddressArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Record of type Downloads (downloads_start) */
 type DownloadsStartRecord = RecordInterface & {
   __typename?: 'DownloadsStartRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  intro?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -913,30 +1097,30 @@ type DownloadsStartRecord_seoMetaTagsArgs = {
 
 /** Record of type Downloads (downloads_start) */
 type DownloadsStartRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Record of type Factory visit (factory_visit) */
 type FactoryVisitRecord = RecordInterface & {
   __typename?: 'FactoryVisitRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  intro?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -948,7 +1132,7 @@ type FactoryVisitRecord_seoMetaTagsArgs = {
 
 /** Record of type Factory visit (factory_visit) */
 type FactoryVisitRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type FaqCategoryModelFilter = {
@@ -998,23 +1182,23 @@ enum FaqCategoryModelOrderBy {
 /** Record of type FAQ Category (faq_category) */
 type FaqCategoryRecord = RecordInterface & {
   __typename?: 'FaqCategoryRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1072,25 +1256,25 @@ enum FaqModelOrderBy {
 /** Record of type FAQ (faq) */
 type FaqRecord = RecordInterface & {
   __typename?: 'FaqRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  answer?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  answer?: Maybe<Scalars['String']['output']>;
   category?: Maybe<FaqCategoryRecord>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  question?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  question?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1102,30 +1286,30 @@ type FaqRecord_seoMetaTagsArgs = {
 
 /** Record of type FAQ (faq) */
 type FaqRecordanswerArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Record of type FAQ start (faq_start) */
 type FaqStartRecord = RecordInterface & {
   __typename?: 'FaqStartRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  intro?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1137,7 +1321,7 @@ type FaqStartRecord_seoMetaTagsArgs = {
 
 /** Record of type FAQ start (faq_start) */
 type FaqStartRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 enum FaviconType {
@@ -1151,25 +1335,25 @@ type FeaturedModelItemsField = DesignerRecord | ProductRecord | ProjectRecord;
 /** Block of type Featured (featured) */
 type FeaturedRecord = RecordInterface & {
   __typename?: 'FeaturedRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  headline?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  headline?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   items: Array<FeaturedModelItemsField>;
-  showMarkAsNew?: Maybe<Scalars['BooleanType']>;
-  updatedAt: Scalars['DateTime'];
+  showMarkAsNew?: Maybe<Scalars['BooleanType']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1183,24 +1367,24 @@ type FeaturedStartModelItemsField = DesignerRecord | ProductRecord | ProjectReco
 /** Block of type Featured start (featured_start) */
 type FeaturedStartRecord = RecordInterface & {
   __typename?: 'FeaturedStartRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  headline?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  headline?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   items: Array<FeaturedStartModelItemsField>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1211,36 +1395,36 @@ type FeaturedStartRecord_seoMetaTagsArgs = {
 
 type FileField = FileFieldInterface & {
   __typename?: 'FileField';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _updatedAt: Scalars['DateTime'];
-  alt?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
-  basename: Scalars['String'];
-  blurUpThumb?: Maybe<Scalars['String']>;
-  blurhash?: Maybe<Scalars['String']>;
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  alt?: Maybe<Scalars['String']['output']>;
+  author?: Maybe<Scalars['String']['output']>;
+  basename: Scalars['String']['output'];
+  blurUpThumb?: Maybe<Scalars['String']['output']>;
+  blurhash?: Maybe<Scalars['String']['output']>;
   colors: Array<ColorField>;
-  copyright?: Maybe<Scalars['String']>;
-  customData: Scalars['CustomData'];
-  exifInfo: Scalars['CustomData'];
-  filename: Scalars['String'];
+  copyright?: Maybe<Scalars['String']['output']>;
+  customData: Scalars['CustomData']['output'];
+  exifInfo: Scalars['CustomData']['output'];
+  filename: Scalars['String']['output'];
   focalPoint?: Maybe<focalPoint>;
-  format: Scalars['String'];
-  height?: Maybe<Scalars['IntType']>;
-  id: Scalars['UploadId'];
-  md5: Scalars['String'];
-  mimeType: Scalars['String'];
-  notes?: Maybe<Scalars['String']>;
+  format: Scalars['String']['output'];
+  height?: Maybe<Scalars['IntType']['output']>;
+  id: Scalars['UploadId']['output'];
+  md5: Scalars['String']['output'];
+  mimeType: Scalars['String']['output'];
+  notes?: Maybe<Scalars['String']['output']>;
   responsiveImage?: Maybe<ResponsiveImage>;
-  size: Scalars['IntType'];
-  smartTags: Array<Scalars['String']>;
-  tags: Array<Scalars['String']>;
-  thumbhash?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  url: Scalars['String'];
+  size: Scalars['IntType']['output'];
+  smartTags: Array<Scalars['String']['output']>;
+  tags: Array<Scalars['String']['output']>;
+  thumbhash?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  url: Scalars['String']['output'];
   video?: Maybe<UploadVideoField>;
-  width?: Maybe<Scalars['IntType']>;
+  width?: Maybe<Scalars['IntType']['output']>;
 };
 
 
@@ -1252,9 +1436,9 @@ type FileFieldaltArgs = {
 
 type FileFieldblurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
-  punch?: Scalars['Float'];
-  quality?: Scalars['Int'];
-  size?: Scalars['Int'];
+  punch?: Scalars['Float']['input'];
+  quality?: Scalars['Int']['input'];
+  size?: Scalars['Int']['input'];
 };
 
 
@@ -1274,7 +1458,7 @@ type FileFieldresponsiveImageArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   imgixParams?: InputMaybe<ImgixParams>;
   locale?: InputMaybe<SiteLocale>;
-  sizes?: InputMaybe<Scalars['String']>;
+  sizes?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1289,36 +1473,36 @@ type FileFieldurlArgs = {
 };
 
 type FileFieldInterface = {
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _updatedAt: Scalars['DateTime'];
-  alt?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
-  basename: Scalars['String'];
-  blurUpThumb?: Maybe<Scalars['String']>;
-  blurhash?: Maybe<Scalars['String']>;
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  alt?: Maybe<Scalars['String']['output']>;
+  author?: Maybe<Scalars['String']['output']>;
+  basename: Scalars['String']['output'];
+  blurUpThumb?: Maybe<Scalars['String']['output']>;
+  blurhash?: Maybe<Scalars['String']['output']>;
   colors: Array<ColorField>;
-  copyright?: Maybe<Scalars['String']>;
-  customData: Scalars['CustomData'];
-  exifInfo: Scalars['CustomData'];
-  filename: Scalars['String'];
+  copyright?: Maybe<Scalars['String']['output']>;
+  customData: Scalars['CustomData']['output'];
+  exifInfo: Scalars['CustomData']['output'];
+  filename: Scalars['String']['output'];
   focalPoint?: Maybe<focalPoint>;
-  format: Scalars['String'];
-  height?: Maybe<Scalars['IntType']>;
-  id: Scalars['UploadId'];
-  md5: Scalars['String'];
-  mimeType: Scalars['String'];
-  notes?: Maybe<Scalars['String']>;
+  format: Scalars['String']['output'];
+  height?: Maybe<Scalars['IntType']['output']>;
+  id: Scalars['UploadId']['output'];
+  md5: Scalars['String']['output'];
+  mimeType: Scalars['String']['output'];
+  notes?: Maybe<Scalars['String']['output']>;
   responsiveImage?: Maybe<ResponsiveImage>;
-  size: Scalars['IntType'];
-  smartTags: Array<Scalars['String']>;
-  tags: Array<Scalars['String']>;
-  thumbhash?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  url: Scalars['String'];
+  size: Scalars['IntType']['output'];
+  smartTags: Array<Scalars['String']['output']>;
+  tags: Array<Scalars['String']['output']>;
+  thumbhash?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  url: Scalars['String']['output'];
   video?: Maybe<UploadVideoField>;
-  width?: Maybe<Scalars['IntType']>;
+  width?: Maybe<Scalars['IntType']['output']>;
 };
 
 
@@ -1330,9 +1514,9 @@ type FileFieldInterfacealtArgs = {
 
 type FileFieldInterfaceblurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
-  punch?: Scalars['Float'];
-  quality?: Scalars['Int'];
-  size?: Scalars['Int'];
+  punch?: Scalars['Float']['input'];
+  quality?: Scalars['Int']['input'];
+  size?: Scalars['Int']['input'];
 };
 
 
@@ -1352,7 +1536,7 @@ type FileFieldInterfaceresponsiveImageArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   imgixParams?: InputMaybe<ImgixParams>;
   locale?: InputMaybe<SiteLocale>;
-  sizes?: InputMaybe<Scalars['String']>;
+  sizes?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1375,33 +1559,39 @@ type FileFieldMultiLocaleField = {
 /** Specifies how to filter Single-file/image fields */
 type FileFilter = {
   /** Search for records with an exact match. The specified value must be an Upload ID */
-  eq?: InputMaybe<Scalars['UploadId']>;
+  eq?: InputMaybe<Scalars['UploadId']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records that have one of the specified uploads */
-  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
   /** Exclude records with an exact match. The specified value must be an Upload ID */
-  neq?: InputMaybe<Scalars['UploadId']>;
+  neq?: InputMaybe<Scalars['UploadId']['input']>;
   /** Filter records that do not have one of the specified uploads */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
 };
 
 /** Specifies how to filter Floating-point fields */
 type FloatFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['FloatType']>;
+  eq?: InputMaybe<Scalars['FloatType']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['FloatType']>;
+  gt?: InputMaybe<Scalars['FloatType']['input']>;
   /** Filter records with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['FloatType']>;
+  gte?: InputMaybe<Scalars['FloatType']['input']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['FloatType']>;
+  lt?: InputMaybe<Scalars['FloatType']['input']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['FloatType']>;
+  lte?: InputMaybe<Scalars['FloatType']['input']>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['FloatType']>;
+  neq?: InputMaybe<Scalars['FloatType']['input']>;
+};
+
+type FloatTypeMultiLocaleField = {
+  __typename?: 'FloatTypeMultiLocaleField';
+  locale?: Maybe<SiteLocale>;
+  value?: Maybe<Scalars['FloatType']['output']>;
 };
 
 type FullscreenMediaBlockModelLinkRecordField = AboutRecord | DesignerRecord | ProductRecord;
@@ -1409,28 +1599,28 @@ type FullscreenMediaBlockModelLinkRecordField = AboutRecord | DesignerRecord | P
 /** Block of type Fullscreen media (fullscreen_media_block) */
 type FullscreenMediaBlockRecord = RecordInterface & {
   __typename?: 'FullscreenMediaBlockRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  headline?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  headline?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   linkRecord?: Maybe<FullscreenMediaBlockModelLinkRecordField>;
-  makeDarker?: Maybe<Scalars['BooleanType']>;
+  makeDarker?: Maybe<Scalars['BooleanType']['output']>;
   media?: Maybe<FileField>;
-  readMore?: Maybe<Scalars['String']>;
-  subHeadline?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  readMore?: Maybe<Scalars['String']['output']>;
+  subHeadline?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1442,25 +1632,25 @@ type FullscreenMediaBlockRecord_seoMetaTagsArgs = {
 /** Block of type Fullscreen video (fullscreen_video) */
 type FullscreenVideoRecord = RecordInterface & {
   __typename?: 'FullscreenVideoRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  link?: Maybe<Scalars['String']>;
-  linkText?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  link?: Maybe<Scalars['String']['output']>;
+  linkText?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
   video?: Maybe<FileField>;
 };
 
@@ -1473,29 +1663,29 @@ type FullscreenVideoRecord_seoMetaTagsArgs = {
 
 /** Block of type Fullscreen video (fullscreen_video) */
 type FullscreenVideoRecordtextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Block of type Fullwidth image (fullwidth_image) */
 type FullwidthImageRecord = RecordInterface & {
   __typename?: 'FullwidthImageRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1507,46 +1697,46 @@ type FullwidthImageRecord_seoMetaTagsArgs = {
 /** Specifies how to filter Multiple files/images field */
 type GalleryFilter = {
   /** Filter records that have all of the specified uploads. The specified values must be Upload IDs */
-  allIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  allIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
   /** Filter records that have one of the specified uploads. The specified values must be Upload IDs */
-  anyIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  anyIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
   /** Search for records with an exact match. The specified values must be Upload IDs */
-  eq?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  eq?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records that do not have any of the specified uploads. The specified values must be Upload IDs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
 };
 
 type GlobalSeoField = {
   __typename?: 'GlobalSeoField';
-  facebookPageUrl?: Maybe<Scalars['String']>;
+  facebookPageUrl?: Maybe<Scalars['String']['output']>;
   fallbackSeo?: Maybe<SeoField>;
-  siteName?: Maybe<Scalars['String']>;
-  titleSuffix?: Maybe<Scalars['String']>;
-  twitterAccount?: Maybe<Scalars['String']>;
+  siteName?: Maybe<Scalars['String']['output']>;
+  titleSuffix?: Maybe<Scalars['String']['output']>;
+  twitterAccount?: Maybe<Scalars['String']['output']>;
 };
 
 /** Block of type Image gallery (image_gallery) */
 type ImageGalleryRecord = RecordInterface & {
   __typename?: 'ImageGalleryRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   gallery: Array<FileField>;
-  id: Scalars['ItemId'];
-  updatedAt: Scalars['DateTime'];
+  id: Scalars['ItemId']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1558,30 +1748,30 @@ type ImageGalleryRecord_seoMetaTagsArgs = {
 /** Block of type Image links (image_link) */
 type ImageLinkRecord = RecordInterface & {
   __typename?: 'ImageLinkRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  firstHeadline?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  firstHeadline?: Maybe<Scalars['String']['output']>;
   firstImage?: Maybe<FileField>;
-  firstLink?: Maybe<Scalars['String']>;
-  firstLinkText?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
-  secondHeadline?: Maybe<Scalars['String']>;
+  firstLink?: Maybe<Scalars['String']['output']>;
+  firstLinkText?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
+  secondHeadline?: Maybe<Scalars['String']['output']>;
   secondImage?: Maybe<FileField>;
-  secondLink?: Maybe<Scalars['String']>;
-  secondLinkText?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  secondLink?: Maybe<Scalars['String']['output']>;
+  secondLinkText?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -1600,7 +1790,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/aspect-ratio)
    */
-  ar?: InputMaybe<Scalars['String']>;
+  ar?: InputMaybe<Scalars['String']['input']>;
   /**
    * Automatic
    *
@@ -1616,7 +1806,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/background-color)
    */
-  bg?: InputMaybe<Scalars['String']>;
+  bg?: InputMaybe<Scalars['String']['input']>;
   /**
    * Background Removal
    *
@@ -1624,7 +1814,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal)
    */
-  bgRemove?: InputMaybe<Scalars['BooleanType']>;
+  bgRemove?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Background Removal Fallback
    *
@@ -1632,7 +1822,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal-fallback)
    */
-  bgRemoveFallback?: InputMaybe<Scalars['BooleanType']>;
+  bgRemoveFallback?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Background Removal Foreground Type
    *
@@ -1650,7 +1840,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal-semi-transparency)
    */
-  bgRemoveSemiTransparency?: InputMaybe<Scalars['BooleanType']>;
+  bgRemoveSemiTransparency?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Background Replacement
    *
@@ -1658,7 +1848,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replacement)
    */
-  bgReplace?: InputMaybe<Scalars['String']>;
+  bgReplace?: InputMaybe<Scalars['String']['input']>;
   /**
    * Background Replace Fallback
    *
@@ -1666,7 +1856,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replace-fallback)
    */
-  bgReplaceFallback?: InputMaybe<Scalars['BooleanType']>;
+  bgReplaceFallback?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Background Replacement Negative Prompt
    *
@@ -1674,7 +1864,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replacement-negative-prompt)
    */
-  bgReplaceNegPrompt?: InputMaybe<Scalars['String']>;
+  bgReplaceNegPrompt?: InputMaybe<Scalars['String']['input']>;
   /**
    * Blend
    *
@@ -1682,7 +1872,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend)
    */
-  blend?: InputMaybe<Scalars['String']>;
+  blend?: InputMaybe<Scalars['String']['input']>;
   /**
    * Blend Align
    *
@@ -1702,7 +1892,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-alpha)
    */
-  blendAlpha?: InputMaybe<Scalars['IntType']>;
+  blendAlpha?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Blend Color
    *
@@ -1710,7 +1900,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-color)
    */
-  blendColor?: InputMaybe<Scalars['String']>;
+  blendColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Blend Crop
    *
@@ -1740,7 +1930,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-height)
    */
-  blendH?: InputMaybe<Scalars['FloatType']>;
+  blendH?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Blend Mode
    *
@@ -1760,7 +1950,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-padding)
    */
-  blendPad?: InputMaybe<Scalars['IntType']>;
+  blendPad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Blend Size
    *
@@ -1780,7 +1970,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-width)
    */
-  blendW?: InputMaybe<Scalars['FloatType']>;
+  blendW?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Blend X Position
    *
@@ -1790,7 +1980,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-x-position)
    */
-  blendX?: InputMaybe<Scalars['IntType']>;
+  blendX?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Blend Y Position
    *
@@ -1800,7 +1990,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-y-position)
    */
-  blendY?: InputMaybe<Scalars['IntType']>;
+  blendY?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Gaussian Blur
    *
@@ -1808,7 +1998,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/gaussian-blur)
    */
-  blur?: InputMaybe<Scalars['IntType']>;
+  blur?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Border Size & Color
    *
@@ -1816,7 +2006,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size)
    */
-  border?: InputMaybe<Scalars['String']>;
+  border?: InputMaybe<Scalars['String']['input']>;
   /**
    * Border Bottom
    *
@@ -1826,7 +2016,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-bottom)
    */
-  borderBottom?: InputMaybe<Scalars['IntType']>;
+  borderBottom?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Border Left
    *
@@ -1836,7 +2026,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-left)
    */
-  borderLeft?: InputMaybe<Scalars['IntType']>;
+  borderLeft?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Outer Border Radius
    *
@@ -1846,7 +2036,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/outer-border-radius)
    */
-  borderRadius?: InputMaybe<Scalars['String']>;
+  borderRadius?: InputMaybe<Scalars['String']['input']>;
   /**
    * Inner Border Radius
    *
@@ -1856,7 +2046,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/inner-border-radius)
    */
-  borderRadiusInner?: InputMaybe<Scalars['String']>;
+  borderRadiusInner?: InputMaybe<Scalars['String']['input']>;
   /**
    * Border Right
    *
@@ -1866,7 +2056,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-right)
    */
-  borderRight?: InputMaybe<Scalars['IntType']>;
+  borderRight?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Border Top
    *
@@ -1876,7 +2066,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-top)
    */
-  borderTop?: InputMaybe<Scalars['IntType']>;
+  borderTop?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Brightness
    *
@@ -1884,7 +2074,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/brightness)
    */
-  bri?: InputMaybe<Scalars['IntType']>;
+  bri?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Client Hints
    *
@@ -1900,7 +2090,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/chroma-subsampling)
    */
-  chromasub?: InputMaybe<Scalars['IntType']>;
+  chromasub?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Color Quantization
    *
@@ -1908,7 +2098,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/color-quantization)
    */
-  colorquant?: InputMaybe<Scalars['IntType']>;
+  colorquant?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Palette Color Count
    *
@@ -1918,7 +2108,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/color-palette/palette-color-count)
    */
-  colors?: InputMaybe<Scalars['IntType']>;
+  colors?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Contrast
    *
@@ -1926,7 +2116,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/contrast)
    */
-  con?: InputMaybe<Scalars['IntType']>;
+  con?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Mask Corner Radius
    *
@@ -1936,7 +2126,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-corner-radius)
    */
-  cornerRadius?: InputMaybe<Scalars['String']>;
+  cornerRadius?: InputMaybe<Scalars['String']['input']>;
   /**
    * Crop Mode
    *
@@ -1962,7 +2152,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/download)
    */
-  dl?: InputMaybe<Scalars['String']>;
+  dl?: InputMaybe<Scalars['String']['input']>;
   /**
    * Dots Per Inch
    *
@@ -1970,7 +2160,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/dots-per-inch)
    */
-  dpi?: InputMaybe<Scalars['IntType']>;
+  dpi?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Device Pixel Ratio
    *
@@ -1978,7 +2168,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/device-pixel-ratio)
    */
-  dpr?: InputMaybe<Scalars['FloatType']>;
+  dpr?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Duotone
    *
@@ -1986,7 +2176,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/duotone)
    */
-  duotone?: InputMaybe<Scalars['String']>;
+  duotone?: InputMaybe<Scalars['String']['input']>;
   /**
    * Duotone Alpha
    *
@@ -1996,7 +2186,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/duotone-alpha)
    */
-  duotoneAlpha?: InputMaybe<Scalars['IntType']>;
+  duotoneAlpha?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Exposure
    *
@@ -2004,7 +2194,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/exposure)
    */
-  exp?: InputMaybe<Scalars['IntType']>;
+  exp?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Url Expiration Timestamp
    *
@@ -2012,7 +2202,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/expiration)
    */
-  expires?: InputMaybe<Scalars['IntType']>;
+  expires?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Face Blur
    *
@@ -2020,7 +2210,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-blur)
    */
-  faceBlur?: InputMaybe<Scalars['IntType']>;
+  faceBlur?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Face Pixelation
    *
@@ -2028,7 +2218,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-pixelation)
    */
-  facePixel?: InputMaybe<Scalars['IntType']>;
+  facePixel?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Face Index
    *
@@ -2038,7 +2228,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-index)
    */
-  faceindex?: InputMaybe<Scalars['IntType']>;
+  faceindex?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Face Padding
    *
@@ -2048,7 +2238,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-padding)
    */
-  facepad?: InputMaybe<Scalars['FloatType']>;
+  facepad?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Json Face Data
    *
@@ -2058,7 +2248,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/json-face-data)
    */
-  faces?: InputMaybe<Scalars['IntType']>;
+  faces?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Fill Mode
    *
@@ -2078,7 +2268,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-color)
    */
-  fillColor?: InputMaybe<Scalars['String']>;
+  fillColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Fill Generative Fallback
    *
@@ -2088,7 +2278,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-fallback)
    */
-  fillGenFallback?: InputMaybe<Scalars['BooleanType']>;
+  fillGenFallback?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Fill Generative Negative Prompt
    *
@@ -2098,7 +2288,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-negative-prompt)
    */
-  fillGenNegPrompt?: InputMaybe<Scalars['String']>;
+  fillGenNegPrompt?: InputMaybe<Scalars['String']['input']>;
   /**
    * Fill Generative Position
    *
@@ -2118,7 +2308,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-prompt)
    */
-  fillGenPrompt?: InputMaybe<Scalars['String']>;
+  fillGenPrompt?: InputMaybe<Scalars['String']['input']>;
   /**
    * Fill Generative Seed
    *
@@ -2128,7 +2318,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-seed)
    */
-  fillGenSeed?: InputMaybe<Scalars['IntType']>;
+  fillGenSeed?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Fill Gradient Color Space
    *
@@ -2148,7 +2338,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-linear)
    */
-  fillGradientLinear?: InputMaybe<Scalars['String']>;
+  fillGradientLinear?: InputMaybe<Scalars['String']['input']>;
   /**
    * Fill Gradient Linear Direction
    *
@@ -2168,7 +2358,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial)
    */
-  fillGradientRadial?: InputMaybe<Scalars['String']>;
+  fillGradientRadial?: InputMaybe<Scalars['String']['input']>;
   /**
    * Fill Gradient Radial Radius
    *
@@ -2178,7 +2368,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-radius)
    */
-  fillGradientRadialRadius?: InputMaybe<Scalars['String']>;
+  fillGradientRadialRadius?: InputMaybe<Scalars['String']['input']>;
   /**
    * Fill Gradient Radial X
    *
@@ -2188,7 +2378,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-x)
    */
-  fillGradientRadialX?: InputMaybe<Scalars['FloatType']>;
+  fillGradientRadialX?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Fill Gradient Radial Y
    *
@@ -2198,7 +2388,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-y)
    */
-  fillGradientRadialY?: InputMaybe<Scalars['FloatType']>;
+  fillGradientRadialY?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Fill Gradient Type
    *
@@ -2242,7 +2432,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-debug)
    */
-  fpDebug?: InputMaybe<Scalars['BooleanType']>;
+  fpDebug?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Focal Point X Position
    *
@@ -2252,7 +2442,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-x-position)
    */
-  fpX?: InputMaybe<Scalars['FloatType']>;
+  fpX?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Focal Point Y Position
    *
@@ -2262,7 +2452,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-y-position)
    */
-  fpY?: InputMaybe<Scalars['FloatType']>;
+  fpY?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Focal Point Zoom
    *
@@ -2272,7 +2462,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-zoom)
    */
-  fpZ?: InputMaybe<Scalars['FloatType']>;
+  fpZ?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Frames Per Second
    *
@@ -2280,7 +2470,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frames-per-second)
    */
-  fps?: InputMaybe<Scalars['IntType']>;
+  fps?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Frame Selection
    *
@@ -2288,7 +2478,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-selection)
    */
-  frame?: InputMaybe<Scalars['String']>;
+  frame?: InputMaybe<Scalars['String']['input']>;
   /**
    * Gamma
    *
@@ -2296,7 +2486,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/gamma)
    */
-  gam?: InputMaybe<Scalars['IntType']>;
+  gam?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Animated Gif Quality
    *
@@ -2306,7 +2496,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/animated-gif-quality)
    */
-  gifQ?: InputMaybe<Scalars['IntType']>;
+  gifQ?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Grid Colors
    *
@@ -2316,7 +2506,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/grid-colors)
    */
-  gridColors?: InputMaybe<Scalars['String']>;
+  gridColors?: InputMaybe<Scalars['String']['input']>;
   /**
    * Grid Size
    *
@@ -2326,7 +2516,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/grid-size)
    */
-  gridSize?: InputMaybe<Scalars['IntType']>;
+  gridSize?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Image Height
    *
@@ -2334,7 +2524,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/image-height)
    */
-  h?: InputMaybe<Scalars['FloatType']>;
+  h?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Highlight
    *
@@ -2342,7 +2532,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/highlight)
    */
-  high?: InputMaybe<Scalars['IntType']>;
+  high?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Halftone
    *
@@ -2350,7 +2540,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/halftone)
    */
-  htn?: InputMaybe<Scalars['IntType']>;
+  htn?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Hue Shift
    *
@@ -2358,7 +2548,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/hue-shift)
    */
-  hue?: InputMaybe<Scalars['IntType']>;
+  hue?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Frame Interval
    *
@@ -2366,7 +2556,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-interval)
    */
-  interval?: InputMaybe<Scalars['IntType']>;
+  interval?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Invert
    *
@@ -2374,7 +2564,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/invert)
    */
-  invert?: InputMaybe<Scalars['BooleanType']>;
+  invert?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Iptc Passthrough
    *
@@ -2390,7 +2580,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/jpg-progressive)
    */
-  jpgProgressive?: InputMaybe<Scalars['BooleanType']>;
+  jpgProgressive?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Animation Loop Count
    *
@@ -2398,7 +2588,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation)
    */
-  loop?: InputMaybe<Scalars['IntType']>;
+  loop?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Lossless Compression
    *
@@ -2408,7 +2598,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/lossless-compression)
    */
-  lossless?: InputMaybe<Scalars['BooleanType']>;
+  lossless?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * License Plate Blur
    *
@@ -2416,7 +2606,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/license-plate-detection/license-plate-blur)
    */
-  lpBlur?: InputMaybe<Scalars['IntType']>;
+  lpBlur?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Image Url
    *
@@ -2424,7 +2614,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-image-url)
    */
-  mark?: InputMaybe<Scalars['String']>;
+  mark?: InputMaybe<Scalars['String']['input']>;
   /**
    * Watermark Alignment Mode
    *
@@ -2444,7 +2634,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-alpha)
    */
-  markAlpha?: InputMaybe<Scalars['IntType']>;
+  markAlpha?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Base Url
    *
@@ -2454,7 +2644,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-base-url)
    */
-  markBase?: InputMaybe<Scalars['String']>;
+  markBase?: InputMaybe<Scalars['String']['input']>;
   /**
    * Watermark Fit Mode
    *
@@ -2474,7 +2664,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-height)
    */
-  markH?: InputMaybe<Scalars['FloatType']>;
+  markH?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Watermark If Minimum Height
    *
@@ -2484,7 +2674,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-if-minimum-height)
    */
-  markIfMinHeight?: InputMaybe<Scalars['IntType']>;
+  markIfMinHeight?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark If Minimum Width
    *
@@ -2494,7 +2684,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-if-minimum-width)
    */
-  markIfMinWidth?: InputMaybe<Scalars['IntType']>;
+  markIfMinWidth?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Padding
    *
@@ -2504,7 +2694,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-padding)
    */
-  markPad?: InputMaybe<Scalars['IntType']>;
+  markPad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Rotation
    *
@@ -2512,7 +2702,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-rotation)
    */
-  markRot?: InputMaybe<Scalars['FloatType']>;
+  markRot?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Watermark Scale
    *
@@ -2522,7 +2712,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-scale)
    */
-  markScale?: InputMaybe<Scalars['IntType']>;
+  markScale?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Tile
    *
@@ -2542,7 +2732,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-width)
    */
-  markW?: InputMaybe<Scalars['FloatType']>;
+  markW?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Watermark X Position
    *
@@ -2552,7 +2742,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-x-position)
    */
-  markX?: InputMaybe<Scalars['IntType']>;
+  markX?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Y Position
    *
@@ -2562,7 +2752,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-y-position)
    */
-  markY?: InputMaybe<Scalars['IntType']>;
+  markY?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Mask Type
    *
@@ -2570,7 +2760,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-type)
    */
-  mask?: InputMaybe<Scalars['String']>;
+  mask?: InputMaybe<Scalars['String']['input']>;
   /**
    * Mask Background Color
    *
@@ -2580,7 +2770,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-background-color)
    */
-  maskBg?: InputMaybe<Scalars['String']>;
+  maskBg?: InputMaybe<Scalars['String']['input']>;
   /**
    * Maximum Height
    *
@@ -2590,7 +2780,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/maximum-height)
    */
-  maxH?: InputMaybe<Scalars['IntType']>;
+  maxH?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Maximum Width
    *
@@ -2600,7 +2790,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/maximum-width)
    */
-  maxW?: InputMaybe<Scalars['IntType']>;
+  maxW?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Minimum Height
    *
@@ -2610,7 +2800,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/minimum-height)
    */
-  minH?: InputMaybe<Scalars['IntType']>;
+  minH?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Minimum Width
    *
@@ -2620,7 +2810,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/minimum-width)
    */
-  minW?: InputMaybe<Scalars['IntType']>;
+  minW?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Monochrome
    *
@@ -2628,7 +2818,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/monochrome)
    */
-  monochrome?: InputMaybe<Scalars['String']>;
+  monochrome?: InputMaybe<Scalars['String']['input']>;
   /**
    * Noise Reduction Bound
    *
@@ -2636,7 +2826,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/noise-reduction/noise-reduction-bound)
    */
-  nr?: InputMaybe<Scalars['IntType']>;
+  nr?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Noise Reduction Sharpen
    *
@@ -2644,7 +2834,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/noise-reduction/noise-reduction-sharpen)
    */
-  nrs?: InputMaybe<Scalars['IntType']>;
+  nrs?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Object Removal Negative Prompt
    *
@@ -2654,7 +2844,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-negative-prompt)
    */
-  objectRemovalNegativePrompt?: InputMaybe<Scalars['String']>;
+  objectRemovalNegativePrompt?: InputMaybe<Scalars['String']['input']>;
   /**
    * Object Removal Prompt
    *
@@ -2664,7 +2854,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-prompt)
    */
-  objectRemovalPrompt?: InputMaybe<Scalars['String']>;
+  objectRemovalPrompt?: InputMaybe<Scalars['String']['input']>;
   /**
    * Object Removal
    *
@@ -2672,7 +2862,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal)
    */
-  objectRemovalRect?: InputMaybe<Scalars['String']>;
+  objectRemovalRect?: InputMaybe<Scalars['String']['input']>;
   /**
    * Object Removal Seed
    *
@@ -2682,7 +2872,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-seed)
    */
-  objectRemovalSeed?: InputMaybe<Scalars['IntType']>;
+  objectRemovalSeed?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Orientation
    *
@@ -2690,7 +2880,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/orientation)
    */
-  orient?: InputMaybe<Scalars['IntType']>;
+  orient?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding
    *
@@ -2698,7 +2888,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding)
    */
-  pad?: InputMaybe<Scalars['IntType']>;
+  pad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding Bottom
    *
@@ -2706,7 +2896,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-bottom)
    */
-  padBottom?: InputMaybe<Scalars['IntType']>;
+  padBottom?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding Left
    *
@@ -2714,7 +2904,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-left)
    */
-  padLeft?: InputMaybe<Scalars['IntType']>;
+  padLeft?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding Right
    *
@@ -2722,7 +2912,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-right)
    */
-  padRight?: InputMaybe<Scalars['IntType']>;
+  padRight?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding Top
    *
@@ -2730,7 +2920,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-top)
    */
-  padTop?: InputMaybe<Scalars['IntType']>;
+  padTop?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Pdf Page Number
    *
@@ -2738,7 +2928,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/pdf/pdf-page-number)
    */
-  page?: InputMaybe<Scalars['IntType']>;
+  page?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Color Palette Extraction
    *
@@ -2754,7 +2944,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/pdf/pdf-annotation)
    */
-  pdfAnnotation?: InputMaybe<Scalars['BooleanType']>;
+  pdfAnnotation?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Css Prefix
    *
@@ -2764,7 +2954,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/color-palette/css-prefix)
    */
-  prefix?: InputMaybe<Scalars['String']>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
   /**
    * Pixellate
    *
@@ -2772,7 +2962,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/pixellate)
    */
-  px?: InputMaybe<Scalars['IntType']>;
+  px?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Output Quality
    *
@@ -2782,13 +2972,13 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/output-quality)
    */
-  q?: InputMaybe<Scalars['IntType']>;
+  q?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Rasterize Bypass
    *
    * Bypasses all rendering parameters (including default parameters) and serves the original image. Works for svg+xml,x-eps,pdf, and vnd.adobe.illustrator.
    */
-  rasterizeBypass?: InputMaybe<Scalars['BooleanType']>;
+  rasterizeBypass?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Source Rectangle Region
    *
@@ -2796,7 +2986,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/source-rectangle-region)
    */
-  rect?: InputMaybe<Scalars['String']>;
+  rect?: InputMaybe<Scalars['String']['input']>;
   /**
    * Reverse
    *
@@ -2804,7 +2994,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/reverse)
    */
-  reverse?: InputMaybe<Scalars['BooleanType']>;
+  reverse?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Rotation
    *
@@ -2812,7 +3002,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/rotation)
    */
-  rot?: InputMaybe<Scalars['FloatType']>;
+  rot?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Rotation Type
    *
@@ -2828,7 +3018,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/saturation)
    */
-  sat?: InputMaybe<Scalars['IntType']>;
+  sat?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Sepia Tone
    *
@@ -2836,7 +3026,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/sepia-tone)
    */
-  sepia?: InputMaybe<Scalars['IntType']>;
+  sepia?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Shadow
    *
@@ -2844,7 +3034,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/shadow)
    */
-  shad?: InputMaybe<Scalars['FloatType']>;
+  shad?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Sharpen
    *
@@ -2852,7 +3042,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/sharpen)
    */
-  sharp?: InputMaybe<Scalars['FloatType']>;
+  sharp?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Frame Skip
    *
@@ -2860,13 +3050,13 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-skip)
    */
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Bypasses any [DatoCMS Automatic Image Optimization](https://www.datocms.com/docs/cdn-settings/advanced-asset-settings) that might be set up for the project.
    *
    * Exercise caution when using this parameter, as it could significantly increase your bandwidth costs.
    */
-  skipDefaultOptimizations?: InputMaybe<Scalars['BooleanType']>;
+  skipDefaultOptimizations?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Sanitize Svg
    *
@@ -2874,7 +3064,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/sanitize-svg)
    */
-  svgSanitize?: InputMaybe<Scalars['BooleanType']>;
+  svgSanitize?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Transparency
    *
@@ -2900,7 +3090,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-alpha)
    */
-  trimAlpha?: InputMaybe<Scalars['FloatType']>;
+  trimAlpha?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Trim Color
    *
@@ -2910,7 +3100,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-color)
    */
-  trimColor?: InputMaybe<Scalars['String']>;
+  trimColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Trim Mean Difference
    *
@@ -2920,7 +3110,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-mean-difference)
    */
-  trimMd?: InputMaybe<Scalars['FloatType']>;
+  trimMd?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Trim Padding
    *
@@ -2930,7 +3120,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-padding)
    */
-  trimPad?: InputMaybe<Scalars['IntType']>;
+  trimPad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Trim Standard Deviation
    *
@@ -2940,7 +3130,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-standard-deviation)
    */
-  trimSd?: InputMaybe<Scalars['FloatType']>;
+  trimSd?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Trim Tolerance
    *
@@ -2950,7 +3140,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-tolerance)
    */
-  trimTol?: InputMaybe<Scalars['FloatType']>;
+  trimTol?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Text String
    *
@@ -2958,7 +3148,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-string)
    */
-  txt?: InputMaybe<Scalars['String']>;
+  txt?: InputMaybe<Scalars['String']['input']>;
   /**
    * Text Align
    *
@@ -2988,7 +3178,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-color)
    */
-  txtColor?: InputMaybe<Scalars['String']>;
+  txtColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Text Fit Mode
    *
@@ -3008,7 +3198,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-font)
    */
-  txtFont?: InputMaybe<Scalars['String']>;
+  txtFont?: InputMaybe<Scalars['String']['input']>;
   /**
    * Text Leading
    *
@@ -3018,7 +3208,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/typesetting-endpoint/text-leading)
    */
-  txtLead?: InputMaybe<Scalars['IntType']>;
+  txtLead?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Outline
    *
@@ -3028,7 +3218,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-outline)
    */
-  txtLine?: InputMaybe<Scalars['IntType']>;
+  txtLine?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Outline Color
    *
@@ -3038,7 +3228,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-outline-color)
    */
-  txtLineColor?: InputMaybe<Scalars['String']>;
+  txtLineColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Text Padding
    *
@@ -3048,7 +3238,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-padding)
    */
-  txtPad?: InputMaybe<Scalars['IntType']>;
+  txtPad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Shadow
    *
@@ -3058,7 +3248,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-shadow)
    */
-  txtShad?: InputMaybe<Scalars['FloatType']>;
+  txtShad?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Text Font Size
    *
@@ -3068,7 +3258,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-font-size)
    */
-  txtSize?: InputMaybe<Scalars['IntType']>;
+  txtSize?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Tracking
    *
@@ -3078,7 +3268,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/typesetting-endpoint/text-tracking)
    */
-  txtTrack?: InputMaybe<Scalars['IntType']>;
+  txtTrack?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Width
    *
@@ -3088,7 +3278,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-width)
    */
-  txtWidth?: InputMaybe<Scalars['IntType']>;
+  txtWidth?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text X Position
    *
@@ -3098,7 +3288,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-x-position)
    */
-  txtX?: InputMaybe<Scalars['IntType']>;
+  txtX?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Y Position
    *
@@ -3108,7 +3298,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-y-position)
    */
-  txtY?: InputMaybe<Scalars['IntType']>;
+  txtY?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Super Resolution
    *
@@ -3116,7 +3306,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/super-resolution)
    */
-  upscale?: InputMaybe<Scalars['BooleanType']>;
+  upscale?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Super Resolution Fallback
    *
@@ -3124,7 +3314,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/super-resolution)
    */
-  upscaleFallback?: InputMaybe<Scalars['BooleanType']>;
+  upscaleFallback?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Unsharp Mask
    *
@@ -3132,7 +3322,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/unsharp-mask)
    */
-  usm?: InputMaybe<Scalars['IntType']>;
+  usm?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Unsharp Mask Radius
    *
@@ -3142,7 +3332,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/unsharp-mask-radius)
    */
-  usmrad?: InputMaybe<Scalars['FloatType']>;
+  usmrad?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Vibrance
    *
@@ -3150,7 +3340,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/vibrance)
    */
-  vib?: InputMaybe<Scalars['IntType']>;
+  vib?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Image Width
    *
@@ -3158,7 +3348,7 @@ type ImgixParams = {
    *
    * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/image-width)
    */
-  w?: InputMaybe<Scalars['FloatType']>;
+  w?: InputMaybe<Scalars['FloatType']['input']>;
 };
 
 enum ImgixParamsAuto {
@@ -3387,25 +3577,25 @@ enum ImgixParamsTxtFit {
 /** Specifies how to filter by usage */
 type InUseFilter = {
   /** Search uploads that are currently used by some record or not */
-  eq?: InputMaybe<Scalars['BooleanType']>;
+  eq?: InputMaybe<Scalars['BooleanType']['input']>;
 };
 
 /** Specifies how to filter Integer fields */
 type IntegerFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 /** Specifies how to filter by linking fields */
@@ -3427,13 +3617,13 @@ type InverseRelationshipFilterBetweenProductAndProductFamily = {
 /** Specifies how to filter by ID */
 type ItemIdFilter = {
   /** Search the record with the specified ID */
-  eq?: InputMaybe<Scalars['ItemId']>;
+  eq?: InputMaybe<Scalars['ItemId']['input']>;
   /** Search records with the specified IDs */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Exclude the record with the specified ID */
-  neq?: InputMaybe<Scalars['ItemId']>;
+  neq?: InputMaybe<Scalars['ItemId']['input']>;
   /** Search records that do not have the specified IDs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
 };
 
 enum ItemStatus {
@@ -3492,26 +3682,26 @@ enum JobModelOrderBy {
 /** Record of type Jobs (job) */
 type JobRecord = RecordInterface & {
   __typename?: 'JobRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  slug?: Maybe<Scalars['String']>;
-  summary?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+  summary?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -3523,38 +3713,38 @@ type JobRecord_seoMetaTagsArgs = {
 
 /** Record of type Jobs (job) */
 type JobRecordsummaryArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Jobs (job) */
 type JobRecordtextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Block of type Lightsource (lightsource) */
 type LightsourceRecord = RecordInterface & {
   __typename?: 'LightsourceRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  amount?: Maybe<Scalars['IntType']>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  included?: Maybe<Scalars['BooleanType']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  amount?: Maybe<Scalars['IntType']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  included?: Maybe<Scalars['BooleanType']['output']>;
   lightsource?: Maybe<ProductLightsourceRecord>;
-  optional?: Maybe<Scalars['BooleanType']>;
-  updatedAt: Scalars['DateTime'];
+  optional?: Maybe<Scalars['BooleanType']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -3566,15 +3756,15 @@ type LightsourceRecord_seoMetaTagsArgs = {
 /** Specifies how to filter Single-link fields */
 type LinkFilter = {
   /** Search for records with an exact match. The specified value must be a Record ID */
-  eq?: InputMaybe<Scalars['ItemId']>;
+  eq?: InputMaybe<Scalars['ItemId']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records linked to one of the specified records */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Exclude records with an exact match. The specified value must be a Record ID */
-  neq?: InputMaybe<Scalars['ItemId']>;
+  neq?: InputMaybe<Scalars['ItemId']['input']>;
   /** Filter records not linked to one of the specified records */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
 };
 
 /** Linking locales */
@@ -3598,15 +3788,15 @@ type LinkingLocalesFilter = {
 /** Specifies how to filter Multiple-links fields */
 type LinksFilter = {
   /** Filter records linked to all of the specified records. The specified values must be Record IDs */
-  allIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  allIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Filter records linked to at least one of the specified records. The specified values must be Record IDs */
-  anyIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  anyIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Search for records with an exact match. The specified values must be Record IDs */
-  eq?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  eq?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records not linked to any of the specified records. The specified values must be Record IDs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
 };
 
 /** Specifies how to filter by locale */
@@ -3622,24 +3812,24 @@ type LocalesFilter = {
 /** Record of type Manuals (manual) */
 type ManualRecord = RecordInterface & {
   __typename?: 'ManualRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  intro?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -3651,7 +3841,7 @@ type ManualRecord_seoMetaTagsArgs = {
 
 /** Record of type Manuals (manual) */
 type ManualRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 enum MuxThumbnailFormatType {
@@ -3663,23 +3853,23 @@ enum MuxThumbnailFormatType {
 /** Block of type News item (news_item) */
 type NewsItemRecord = RecordInterface & {
   __typename?: 'NewsItemRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   news?: Maybe<NewsRecord>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -3744,28 +3934,28 @@ enum NewsModelOrderBy {
 /** Record of type News (news) */
 type NewsRecord = RecordInterface & {
   __typename?: 'NewsRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  link?: Maybe<Scalars['String']>;
-  linkText?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  link?: Maybe<Scalars['String']['output']>;
+  linkText?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -3777,7 +3967,7 @@ type NewsRecord_seoMetaTagsArgs = {
 
 /** Record of type News (news) */
 type NewsRecordtextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Specifies how to filter by image orientation */
@@ -3788,20 +3978,57 @@ type OrientationFilter = {
   neq?: InputMaybe<UploadOrientation>;
 };
 
+type PolicyItemModelContentField = {
+  __typename?: 'PolicyItemModelContentField';
+  blocks: Array<Scalars['String']['output']>;
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
+};
+
+/** Block of type Policy Item (policy_item) */
+type PolicyItemRecord = RecordInterface & {
+  __typename?: 'PolicyItemRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  content?: Maybe<PolicyItemModelContentField>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Block of type Policy Item (policy_item) */
+type PolicyItemRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 /** Specifies how to filter by position (sorted and tree-like collections) */
 type PositionFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 type PressModelFilter = {
@@ -3854,29 +4081,59 @@ enum PressModelOrderBy {
 /** Record of type Press (press) */
 type PressRecord = RecordInterface & {
   __typename?: 'PressRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** Record of type Press (press) */
 type PressRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Record of type Privacy Policy (privacy_policy) */
+type PrivacyPolicyRecord = RecordInterface & {
+  __typename?: 'PrivacyPolicyRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  policies: Array<PolicyItemRecord>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Privacy Policy (privacy_policy) */
+type PrivacyPolicyRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -3894,6 +4151,7 @@ type ProductAccessoryModelFilter = {
   _updatedAt?: InputMaybe<UpdatedAtFilter>;
   articleNo?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
+  deliveryDays?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
   name?: InputMaybe<StringFilter>;
@@ -3923,6 +4181,8 @@ enum ProductAccessoryModelOrderBy {
   articleNo_DESC = 'articleNo_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
+  deliveryDays_ASC = 'deliveryDays_ASC',
+  deliveryDays_DESC = 'deliveryDays_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
   name_ASC = 'name_ASC',
@@ -3937,28 +4197,29 @@ enum ProductAccessoryModelOrderBy {
 type ProductAccessoryRecord = RecordInterface & {
   __typename?: 'ProductAccessoryRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
   _locales: Array<SiteLocale>;
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  articleNo?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  articleNo?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  deliveryDays?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['IntType']>;
-  slug?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  name?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['IntType']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4038,26 +4299,26 @@ type ProductCategoryRecord = RecordInterface & {
   _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
   _allNamePluralLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  namePlural?: Maybe<Scalars['String']>;
-  position?: Maybe<Scalars['IntType']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  namePlural?: Maybe<Scalars['String']['output']>;
+  position?: Maybe<Scalars['IntType']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4065,7 +4326,7 @@ type ProductCategoryRecord = RecordInterface & {
 type ProductCategoryRecord_allDescriptionLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -4093,7 +4354,7 @@ type ProductCategoryRecord_seoMetaTagsArgs = {
 type ProductCategoryRecorddescriptionArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -4158,23 +4419,23 @@ enum ProductColorModelOrderBy {
 type ProductColorRecord = RecordInterface & {
   __typename?: 'ProductColorRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4245,23 +4506,23 @@ enum ProductConnectionModelOrderBy {
 type ProductConnectionRecord = RecordInterface & {
   __typename?: 'ProductConnectionRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4332,23 +4593,23 @@ enum ProductDimmableModelOrderBy {
 type ProductDimmableRecord = RecordInterface & {
   __typename?: 'ProductDimmableRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4419,23 +4680,23 @@ enum ProductElectricalModelOrderBy {
 type ProductElectricalRecord = RecordInterface & {
   __typename?: 'ProductElectricalRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4509,24 +4770,24 @@ type ProductFamilyRecord = RecordInterface & {
   _allReferencingProducts: Array<ProductRecord>;
   /** Returns meta information regarding a record collection */
   _allReferencingProductsMeta: CollectionMetadata;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4534,10 +4795,10 @@ type ProductFamilyRecord = RecordInterface & {
 type ProductFamilyRecord_allReferencingProductsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenProductAndProductFamily>;
 };
 
@@ -4603,23 +4864,23 @@ enum ProductFeatureModelOrderBy {
 type ProductFeatureRecord = RecordInterface & {
   __typename?: 'ProductFeatureRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4655,6 +4916,7 @@ type ProductLightsourceModelFilter = {
   _updatedAt?: InputMaybe<UpdatedAtFilter>;
   articleNo?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
+  deliveryDays?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
   name?: InputMaybe<StringFilter>;
@@ -4684,6 +4946,8 @@ enum ProductLightsourceModelOrderBy {
   articleNo_DESC = 'articleNo_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
+  deliveryDays_ASC = 'deliveryDays_ASC',
+  deliveryDays_DESC = 'deliveryDays_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
   name_ASC = 'name_ASC',
@@ -4698,27 +4962,28 @@ enum ProductLightsourceModelOrderBy {
 type ProductLightsourceRecord = RecordInterface & {
   __typename?: 'ProductLightsourceRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  articleNo?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  articleNo?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  deliveryDays?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['FloatType']>;
-  slug?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  name?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['FloatType']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4789,23 +5054,23 @@ enum ProductMaterialModelOrderBy {
 type ProductMaterialRecord = RecordInterface & {
   __typename?: 'ProductMaterialRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -4921,23 +5186,23 @@ enum ProductModelNameModelOrderBy {
 type ProductModelNameRecord = RecordInterface & {
   __typename?: 'ProductModelNameRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -5002,26 +5267,26 @@ type ProductModelProductGalleryField = FullwidthImageRecord | ImageGalleryRecord
 /** Block of type Model (product_model) */
 type ProductModelRecord = RecordInterface & {
   __typename?: 'ProductModelRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   accessories: Array<AccessoryRecord>;
-  createdAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
   drawing?: Maybe<FileField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   lightsources: Array<LightsourceRecord>;
   name?: Maybe<ProductModelNameRecord>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
   variants: Array<VariantRecord>;
 };
 
@@ -5079,23 +5344,23 @@ enum ProductMountingModelOrderBy {
 type ProductMountingRecord = RecordInterface & {
   __typename?: 'ProductMountingRecord';
   _allNameLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -5125,48 +5390,48 @@ type ProductRecord = RecordInterface & {
   _allDescriptionLocales?: Maybe<Array<StringMultiLocaleField>>;
   _allNoteLocales?: Maybe<Array<StringMultiLocaleField>>;
   _allPdfFileLocales?: Maybe<Array<FileFieldMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  additionalInformation?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  additionalInformation?: Maybe<Scalars['String']['output']>;
   bimFile?: Maybe<FileField>;
-  bimLink?: Maybe<Scalars['String']>;
+  bimLink?: Maybe<Scalars['String']['output']>;
   categories: Array<ProductCategoryRecord>;
   colorImages: Array<FileField>;
   connection?: Maybe<ProductConnectionRecord>;
-  createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   designer?: Maybe<DesignerRecord>;
   dimmable?: Maybe<ProductDimmableRecord>;
   electricalData: Array<ProductElectricalRecord>;
   environmentImage?: Maybe<FileField>;
   family?: Maybe<ProductFamilyRecord>;
-  hideInPricelist?: Maybe<Scalars['BooleanType']>;
-  id: Scalars['ItemId'];
+  hideInPricelist?: Maybe<Scalars['BooleanType']['output']>;
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
   lightFile?: Maybe<FileField>;
-  markAsNew?: Maybe<Scalars['BooleanType']>;
+  markAsNew?: Maybe<Scalars['BooleanType']['output']>;
   models: Array<ProductModelRecord>;
   mounting?: Maybe<ProductMountingRecord>;
   mountingInstructions?: Maybe<FileField>;
-  note?: Maybe<Scalars['String']>;
+  note?: Maybe<Scalars['String']['output']>;
   pdfFile?: Maybe<FileField>;
   productGallery: Array<ProductModelProductGalleryField>;
-  slug?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']['output']>;
   sockets: Array<ProductSocketRecord>;
-  title?: Maybe<Scalars['String']>;
-  upcycled?: Maybe<Scalars['BooleanType']>;
-  updatedAt: Scalars['DateTime'];
+  title?: Maybe<Scalars['String']['output']>;
+  upcycled?: Maybe<Scalars['BooleanType']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -5181,7 +5446,7 @@ type ProductRecord_allAdditionalInformationLocalesArgs = {
 type ProductRecord_allDescriptionLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5189,7 +5454,7 @@ type ProductRecord_allDescriptionLocalesArgs = {
 type ProductRecord_allNoteLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5217,7 +5482,7 @@ type ProductRecordadditionalInformationArgs = {
 type ProductRecorddescriptionArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5225,7 +5490,7 @@ type ProductRecorddescriptionArgs = {
 type ProductRecordnoteArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5282,23 +5547,23 @@ enum ProductSocketModelOrderBy {
 /** Record of type Product socket (product_socket) */
 type ProductSocketRecord = RecordInterface & {
   __typename?: 'ProductSocketRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -5310,23 +5575,23 @@ type ProductSocketRecord_seoMetaTagsArgs = {
 /** Record of type Product start (product_start) */
 type ProductStartRecord = RecordInterface & {
   __typename?: 'ProductStartRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   featured: Array<FeaturedRecord>;
-  id: Scalars['ItemId'];
-  updatedAt: Scalars['DateTime'];
+  id: Scalars['ItemId']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -5395,31 +5660,31 @@ enum ProjectModelOrderBy {
 /** Record of type Project (project) */
 type ProjectRecord = RecordInterface & {
   __typename?: 'ProjectRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  bespoke?: Maybe<Scalars['BooleanType']>;
-  createdAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  bespoke?: Maybe<Scalars['BooleanType']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   gallery: Array<ProjectModelGalleryField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  location?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']['output']>;
   projectType?: Maybe<ProjectTypeRecord>;
   relatedProducts: Array<ProductRecord>;
   secondaryImage?: Maybe<FileField>;
-  slug?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  slug?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -5431,24 +5696,24 @@ type ProjectRecord_seoMetaTagsArgs = {
 /** Record of type Project start (project_start) */
 type ProjectStartRecord = RecordInterface & {
   __typename?: 'ProjectStartRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  intro?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -5460,7 +5725,7 @@ type ProjectStartRecord_seoMetaTagsArgs = {
 
 /** Record of type Project start (project_start) */
 type ProjectStartRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type ProjectTypeModelFilter = {
@@ -5516,25 +5781,25 @@ enum ProjectTypeModelOrderBy {
 /** Record of type Project type (project_type) */
 type ProjectTypeRecord = RecordInterface & {
   __typename?: 'ProjectTypeRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  position?: Maybe<Scalars['IntType']>;
-  title?: Maybe<Scalars['String']>;
-  titlePlural?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  position?: Maybe<Scalars['IntType']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  titlePlural?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -5546,19 +5811,19 @@ type ProjectTypeRecord_seoMetaTagsArgs = {
 /** Specifies how to filter by publication datetime */
 type PublishedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's greater than or equal to than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less or equal than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 /** The query root for this schema */
@@ -5624,6 +5889,10 @@ type Query = {
   _allShowroomsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allStaffsMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allTermCategoriesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allTermsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allTranslationsMeta: CollectionMetadata;
   /** Returns meta information regarding an assets collection */
@@ -5693,6 +5962,10 @@ type Query = {
   /** Returns a collection of records */
   allStaffs: Array<StaffRecord>;
   /** Returns a collection of records */
+  allTermCategories: Array<TermCategoryRecord>;
+  /** Returns a collection of records */
+  allTerms: Array<TermRecord>;
+  /** Returns a collection of records */
   allTranslations: Array<TranslationRecord>;
   /** Returns a collection of assets */
   allUploads: Array<FileField>;
@@ -5710,6 +5983,8 @@ type Query = {
   contact?: Maybe<ContactRecord>;
   /** Returns a specific record */
   country?: Maybe<CountryRecord>;
+  /** Returns the single instance record */
+  currency?: Maybe<CurrencyRecord>;
   /** Returns a specific record */
   designer?: Maybe<DesignerRecord>;
   /** Returns a specific record */
@@ -5732,6 +6007,8 @@ type Query = {
   news?: Maybe<NewsRecord>;
   /** Returns a specific record */
   press?: Maybe<PressRecord>;
+  /** Returns the single instance record */
+  privacyPolicy?: Maybe<PrivacyPolicyRecord>;
   /** Returns a specific record */
   product?: Maybe<ProductRecord>;
   /** Returns a specific record */
@@ -5770,6 +6047,8 @@ type Query = {
   projectType?: Maybe<ProjectTypeRecord>;
   /** Returns a specific record */
   reseller?: Maybe<ResellerRecord>;
+  /** Returns the single instance record */
+  shipping?: Maybe<ShippingRecord>;
   /** Returns a specific record */
   showroom?: Maybe<ShowroomRecord>;
   /** Returns the single instance record */
@@ -5780,6 +6059,12 @@ type Query = {
   start?: Maybe<StartRecord>;
   /** Returns the single instance record */
   sustainability?: Maybe<SustainabilityRecord>;
+  /** Returns a specific record */
+  term?: Maybe<TermRecord>;
+  /** Returns a specific record */
+  termCategory?: Maybe<TermCategoryRecord>;
+  /** Returns the single instance record */
+  termStart?: Maybe<TermStartRecord>;
   /** Returns a specific record */
   translation?: Maybe<TranslationRecord>;
   /** Returns a specific asset */
@@ -6028,6 +6313,22 @@ type Query_allStaffsMetaArgs = {
 
 
 /** The query root for this schema */
+type Query_allTermCategoriesMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermCategoryModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allTermsMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
 type Query_allTranslationsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<TranslationModelFilter>;
@@ -6060,10 +6361,10 @@ type QueryaboutArgs = {
 type QueryallCataloguesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CatalogueModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<CatalogueModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6071,10 +6372,10 @@ type QueryallCataloguesArgs = {
 type QueryallColorMaterialTypesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ColorMaterialTypeModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ColorMaterialTypeModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6082,10 +6383,10 @@ type QueryallColorMaterialTypesArgs = {
 type QueryallColorMaterialsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ColorMaterialModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ColorMaterialModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6093,10 +6394,10 @@ type QueryallColorMaterialsArgs = {
 type QueryallCountriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CountryModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<CountryModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6104,10 +6405,10 @@ type QueryallCountriesArgs = {
 type QueryallDesignersArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DesignerModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<DesignerModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6115,10 +6416,10 @@ type QueryallDesignersArgs = {
 type QueryallDistributorsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<DistributorModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<DistributorModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6126,10 +6427,10 @@ type QueryallDistributorsArgs = {
 type QueryallFaqCategoriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<FaqCategoryModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<FaqCategoryModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6137,10 +6438,10 @@ type QueryallFaqCategoriesArgs = {
 type QueryallFaqsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<FaqModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<FaqModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6148,10 +6449,10 @@ type QueryallFaqsArgs = {
 type QueryallJobsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<JobModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<JobModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6159,10 +6460,10 @@ type QueryallJobsArgs = {
 type QueryallNewsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<NewsModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<NewsModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6170,10 +6471,10 @@ type QueryallNewsArgs = {
 type QueryallPressesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<PressModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<PressModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6181,10 +6482,10 @@ type QueryallPressesArgs = {
 type QueryallProductAccessoriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductAccessoryModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductAccessoryModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6192,10 +6493,10 @@ type QueryallProductAccessoriesArgs = {
 type QueryallProductCategoriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductCategoryModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductCategoryModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6203,10 +6504,10 @@ type QueryallProductCategoriesArgs = {
 type QueryallProductColorsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductColorModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductColorModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6214,10 +6515,10 @@ type QueryallProductColorsArgs = {
 type QueryallProductConnectionsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductConnectionModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductConnectionModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6225,10 +6526,10 @@ type QueryallProductConnectionsArgs = {
 type QueryallProductDimmablesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductDimmableModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductDimmableModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6236,10 +6537,10 @@ type QueryallProductDimmablesArgs = {
 type QueryallProductElectricalsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductElectricalModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductElectricalModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6247,10 +6548,10 @@ type QueryallProductElectricalsArgs = {
 type QueryallProductFamiliesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductFamilyModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductFamilyModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6258,10 +6559,10 @@ type QueryallProductFamiliesArgs = {
 type QueryallProductFeaturesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductFeatureModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductFeatureModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6269,10 +6570,10 @@ type QueryallProductFeaturesArgs = {
 type QueryallProductLightsourcesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductLightsourceModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductLightsourceModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6280,10 +6581,10 @@ type QueryallProductLightsourcesArgs = {
 type QueryallProductMaterialsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductMaterialModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductMaterialModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6291,10 +6592,10 @@ type QueryallProductMaterialsArgs = {
 type QueryallProductModelNamesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelNameModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductModelNameModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6302,10 +6603,10 @@ type QueryallProductModelNamesArgs = {
 type QueryallProductMountingsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductMountingModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductMountingModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6313,10 +6614,10 @@ type QueryallProductMountingsArgs = {
 type QueryallProductSocketsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductSocketModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductSocketModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6324,10 +6625,10 @@ type QueryallProductSocketsArgs = {
 type QueryallProductsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProductModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProductModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6335,10 +6636,10 @@ type QueryallProductsArgs = {
 type QueryallProjectTypesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProjectTypeModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProjectTypeModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6346,10 +6647,10 @@ type QueryallProjectTypesArgs = {
 type QueryallProjectsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProjectModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProjectModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6357,10 +6658,10 @@ type QueryallProjectsArgs = {
 type QueryallResellersArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ResellerModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ResellerModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6368,10 +6669,10 @@ type QueryallResellersArgs = {
 type QueryallShowroomsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ShowroomModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ShowroomModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6379,10 +6680,32 @@ type QueryallShowroomsArgs = {
 type QueryallStaffsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<StaffModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<StaffModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
+type QueryallTermCategoriesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermCategoryModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TermCategoryModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
+type QueryallTermsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TermModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6390,10 +6713,10 @@ type QueryallStaffsArgs = {
 type QueryallTranslationsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<TranslationModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<TranslationModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6401,10 +6724,10 @@ type QueryallTranslationsArgs = {
 type QueryallUploadsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<UploadFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -6462,6 +6785,13 @@ type QuerycountryArgs = {
   filter?: InputMaybe<CountryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<CountryModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerycurrencyArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -6553,6 +6883,13 @@ type QuerypressArgs = {
   filter?: InputMaybe<PressModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<PressModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QueryprivacyPolicyArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -6724,6 +7061,13 @@ type QueryresellerArgs = {
 
 
 /** The query root for this schema */
+type QueryshippingArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
 type QueryshowroomArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ShowroomModelFilter>;
@@ -6763,6 +7107,31 @@ type QuerysustainabilityArgs = {
 
 
 /** The query root for this schema */
+type QuerytermArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TermModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerytermCategoryArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<TermCategoryModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<TermCategoryModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerytermStartArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
 type QuerytranslationArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<TranslationModelFilter>;
@@ -6780,20 +7149,20 @@ type QueryuploadArgs = {
 };
 
 type RecordInterface = {
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
 };
 
 
@@ -6859,28 +7228,28 @@ enum ResellerModelOrderBy {
 /** Record of type Reseller (reseller) */
 type ResellerRecord = RecordInterface & {
   __typename?: 'ResellerRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  address?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  address?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
   country?: Maybe<CountryRecord>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  name?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -6892,7 +7261,7 @@ type ResellerRecord_seoMetaTagsArgs = {
 
 /** Record of type Reseller (reseller) */
 type ResellerRecordaddressArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Specifies how to filter by upload type */
@@ -6916,26 +7285,56 @@ enum ResolutionType {
 
 type ResponsiveImage = {
   __typename?: 'ResponsiveImage';
-  alt?: Maybe<Scalars['String']>;
-  aspectRatio: Scalars['FloatType'];
-  base64?: Maybe<Scalars['String']>;
-  bgColor?: Maybe<Scalars['String']>;
-  height: Scalars['IntType'];
-  sizes: Scalars['String'];
-  src: Scalars['String'];
-  srcSet: Scalars['String'];
-  title?: Maybe<Scalars['String']>;
-  webpSrcSet: Scalars['String'];
-  width: Scalars['IntType'];
+  alt?: Maybe<Scalars['String']['output']>;
+  aspectRatio: Scalars['FloatType']['output'];
+  base64?: Maybe<Scalars['String']['output']>;
+  bgColor?: Maybe<Scalars['String']['output']>;
+  height: Scalars['IntType']['output'];
+  sizes: Scalars['String']['output'];
+  src: Scalars['String']['output'];
+  srcSet: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  webpSrcSet: Scalars['String']['output'];
+  width: Scalars['IntType']['output'];
 };
 
 type SeoField = {
   __typename?: 'SeoField';
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   image?: Maybe<FileField>;
-  noIndex?: Maybe<Scalars['BooleanType']>;
-  title?: Maybe<Scalars['String']>;
-  twitterCard?: Maybe<Scalars['String']>;
+  noIndex?: Maybe<Scalars['BooleanType']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  twitterCard?: Maybe<Scalars['String']['output']>;
+};
+
+/** Record of type Shipping (shipping) */
+type ShippingRecord = RecordInterface & {
+  __typename?: 'ShippingRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  deliveryDays: Array<DeliveryTimeRecord>;
+  deliveryTerms: Array<DeliveryTermRecord>;
+  deliveryTermsOther?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Shipping (shipping) */
+type ShippingRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
 };
 
 type ShowroomModelFilter = {
@@ -6991,27 +7390,27 @@ enum ShowroomModelOrderBy {
 /** Record of type Showroom (showroom) */
 type ShowroomRecord = RecordInterface & {
   __typename?: 'ShowroomRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  additional?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  additional?: Maybe<Scalars['String']['output']>;
+  address?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  position?: Maybe<Scalars['IntType']>;
-  updatedAt: Scalars['DateTime'];
+  position?: Maybe<Scalars['IntType']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -7023,13 +7422,13 @@ type ShowroomRecord_seoMetaTagsArgs = {
 
 /** Record of type Showroom (showroom) */
 type ShowroomRecordadditionalArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Showroom (showroom) */
 type ShowroomRecordaddressArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type Site = {
@@ -7038,7 +7437,7 @@ type Site = {
   faviconMetaTags: Array<Tag>;
   globalSeo?: Maybe<GlobalSeoField>;
   locales: Array<SiteLocale>;
-  noIndex?: Maybe<Scalars['BooleanType']>;
+  noIndex?: Maybe<Scalars['BooleanType']['output']>;
 };
 
 
@@ -7063,35 +7462,35 @@ enum SiteLocale {
 /** Specifies how to filter Slug fields */
 type SlugFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Filter records that have one of the specified slugs */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Filter records that do have one of the specified slugs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 /** Record of type Social (social) */
 type SocialRecord = RecordInterface & {
   __typename?: 'SocialRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  instagram?: Maybe<Scalars['JsonField']>;
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  instagram?: Maybe<Scalars['JsonField']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -7160,28 +7559,28 @@ enum StaffModelOrderBy {
 /** Record of type Staff (staff) */
 type StaffRecord = RecordInterface & {
   __typename?: 'StaffRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  email?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  name?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  position?: Maybe<Scalars['IntType']>;
-  role?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  name?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  position?: Maybe<Scalars['IntType']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -7195,23 +7594,23 @@ type StartModelContentField = FeaturedStartRecord | FullscreenMediaBlockRecord |
 /** Record of type Start (start) */
 type StartRecord = RecordInterface & {
   __typename?: 'StartRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   content: Array<StartModelContentField>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -7235,60 +7634,74 @@ type StatusFilter = {
 /** Specifies how to filter Single-line string fields */
 type StringFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records that equal one of the specified values */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Filter records with the specified field set as blank (null or empty string) */
-  isBlank?: InputMaybe<Scalars['BooleanType']>;
+  isBlank?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with the specified field present (neither null, nor empty string) */
-  isPresent?: InputMaybe<Scalars['BooleanType']>;
+  isPresent?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Filter records that do not equal one of the specified values */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude records based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
 type StringMatchesFilter = {
-  caseSensitive?: InputMaybe<Scalars['BooleanType']>;
-  pattern: Scalars['String'];
-  regexp?: InputMaybe<Scalars['BooleanType']>;
+  caseSensitive?: InputMaybe<Scalars['BooleanType']['input']>;
+  pattern: Scalars['String']['input'];
+  regexp?: InputMaybe<Scalars['BooleanType']['input']>;
 };
 
 type StringMultiLocaleField = {
   __typename?: 'StringMultiLocaleField';
   locale?: Maybe<SiteLocale>;
-  value?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+/** Specifies how to filter Structured Text fields values */
+type StructuredTextFilter = {
+  /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records with the specified field set as blank (null or single empty paragraph) */
+  isBlank?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records with the specified field present (neither null, nor empty string) */
+  isPresent?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records based on a regular expression */
+  matches?: InputMaybe<StringMatchesFilter>;
+  /** Exclude records based on a regular expression */
+  notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
 /** Record of type Sustainability (sustainability) */
 type SustainabilityRecord = RecordInterface & {
   __typename?: 'SustainabilityRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  intro?: Maybe<Scalars['String']>;
+  intro?: Maybe<Scalars['String']['output']>;
   steps: Array<SustainabilityStepRecord>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -7300,32 +7713,32 @@ type SustainabilityRecord_seoMetaTagsArgs = {
 
 /** Record of type Sustainability (sustainability) */
 type SustainabilityRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Block of type Sustainability step (sustainability_step) */
 type SustainabilityStepRecord = RecordInterface & {
   __typename?: 'SustainabilityStepRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  fullWidthImage?: Maybe<Scalars['BooleanType']>;
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  fullWidthImage?: Maybe<Scalars['BooleanType']['output']>;
+  id: Scalars['ItemId']['output'];
   media?: Maybe<FileField>;
-  text?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  text?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -7337,24 +7750,215 @@ type SustainabilityStepRecord_seoMetaTagsArgs = {
 
 /** Block of type Sustainability step (sustainability_step) */
 type SustainabilityStepRecordtextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type Tag = {
   __typename?: 'Tag';
-  attributes?: Maybe<Scalars['MetaTagAttributes']>;
-  content?: Maybe<Scalars['String']>;
-  tag: Scalars['String'];
+  attributes?: Maybe<Scalars['MetaTagAttributes']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  tag: Scalars['String']['output'];
+};
+
+type TermCategoryModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TermCategoryModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<TermCategoryModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum TermCategoryModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Term Category (term_category) */
+type TermCategoryRecord = RecordInterface & {
+  __typename?: 'TermCategoryRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Term Category (term_category) */
+type TermCategoryRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+type TermModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TermModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<TermModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  category?: InputMaybe<LinkFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  text?: InputMaybe<StructuredTextFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum TermModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+type TermModelTextField = {
+  __typename?: 'TermModelTextField';
+  blocks: Array<Scalars['String']['output']>;
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
+};
+
+/** Record of type Term (term) */
+type TermRecord = RecordInterface & {
+  __typename?: 'TermRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  category?: Maybe<TermCategoryRecord>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  text?: Maybe<TermModelTextField>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Term (term) */
+type TermRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Record of type Term Start (term_start) */
+type TermStartRecord = RecordInterface & {
+  __typename?: 'TermStartRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Term Start (term_start) */
+type TermStartRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Term Start (term_start) */
+type TermStartRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Specifies how to filter text fields */
 type TextFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with the specified field set as blank (null or empty string) */
-  isBlank?: InputMaybe<Scalars['BooleanType']>;
+  isBlank?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with the specified field present (neither null, nor empty string) */
-  isPresent?: InputMaybe<Scalars['BooleanType']>;
+  isPresent?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude records based on a regular expression */
@@ -7363,10 +7967,10 @@ type TextFilter = {
 
 type TextModelTextField = {
   __typename?: 'TextModelTextField';
-  blocks: Array<Scalars['String']>;
-  inlineBlocks: Array<Scalars['String']>;
+  blocks: Array<Scalars['String']['output']>;
+  inlineBlocks: Array<Scalars['String']['output']>;
   links: Array<TextModelTextLinksField>;
-  value: Scalars['JsonField'];
+  value: Scalars['JsonField']['output'];
 };
 
 type TextModelTextLinksField = DesignerRecord | ProductRecord | ProjectRecord;
@@ -7374,23 +7978,23 @@ type TextModelTextLinksField = DesignerRecord | ProductRecord | ProjectRecord;
 /** Block of type Text (text) */
 type TextRecord = RecordInterface & {
   __typename?: 'TextRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   text?: Maybe<TextModelTextField>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -7453,25 +8057,25 @@ enum TranslationModelOrderBy {
 type TranslationRecord = RecordInterface & {
   __typename?: 'TranslationRecord';
   _allValueLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  key?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
-  value?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  key?: Maybe<Scalars['String']['output']>;
+  page?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+  value?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -7497,24 +8101,24 @@ type TranslationRecordvalueArgs = {
 /** Block of type Two column images (two_column_image) */
 type TwoColumnImageRecord = RecordInterface & {
   __typename?: 'TwoColumnImageRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   firstImage?: Maybe<FileField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   lastImage?: Maybe<FileField>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 
@@ -7538,35 +8142,35 @@ type TypeFilter = {
 /** Specifies how to filter by update datetime */
 type UpdatedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's greater than or equal to than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less or equal than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 /** Specifies how to filter by default alt */
 type UploadAltFilter = {
   /** Search the uploads with the specified alt */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Filter uploads with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Search uploads with the specified values as default alt */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude the uploads with the specified alt */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search uploads that do not have the specified values as default alt */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude uploads based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
@@ -7574,7 +8178,7 @@ type UploadAltFilter = {
 /** Specifies how to filter by auhtor */
 type UploadAuthorFilter = {
   /** Filter uploads with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
@@ -7606,7 +8210,7 @@ type UploadColorsFilter = {
 /** Specifies how to filter by copyright */
 type UploadCopyrightFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
@@ -7616,17 +8220,17 @@ type UploadCopyrightFilter = {
 /** Specifies how to filter by creation datetime */
 type UploadCreatedAtFilter = {
   /** Search for uploads with an exact match */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Exclude uploads with an exact match */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 /** Specifies how to filter by filename */
@@ -7656,6 +8260,7 @@ type UploadFilter = {
   mimeType?: InputMaybe<UploadMimeTypeFilter>;
   notes?: InputMaybe<UploadNotesFilter>;
   orientation?: InputMaybe<OrientationFilter>;
+  path?: InputMaybe<UploadPathFilter>;
   resolution?: InputMaybe<ResolutionFilter>;
   size?: InputMaybe<UploadSizeFilter>;
   smartTags?: InputMaybe<UploadTagsFilter>;
@@ -7668,67 +8273,67 @@ type UploadFilter = {
 /** Specifies how to filter by format */
 type UploadFormatFilter = {
   /** Search the asset with the specified format */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets with the specified formats */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude the asset with the specified format */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets that do not have the specified formats */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 /** Specifies how to filter by height */
 type UploadHeightFilter = {
   /** Search assets with the specified height */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger than the specified height */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified height */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets smaller than the specified height */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified height */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search assets that do not have the specified height */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 /** Specifies how to filter by ID */
 type UploadIdFilter = {
   /** Search the asset with the specified ID */
-  eq?: InputMaybe<Scalars['UploadId']>;
+  eq?: InputMaybe<Scalars['UploadId']['input']>;
   /** Search assets with the specified IDs */
-  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
   /** Exclude the asset with the specified ID */
-  neq?: InputMaybe<Scalars['UploadId']>;
+  neq?: InputMaybe<Scalars['UploadId']['input']>;
   /** Search assets that do not have the specified IDs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
 };
 
 /** Specifies how to filter by MD5 */
 type UploadMd5Filter = {
   /** Search the asset with the specified MD5 */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets with the specified MD5s */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude the asset with the specified MD5 */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets that do not have the specified MD5s */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 /** Specifies how to filter by mime type */
 type UploadMimeTypeFilter = {
   /** Search the asset with the specified mime type */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets with the specified mime types */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude the asset with the specified mime type */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets that do not have the specified mime types */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude uploads based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
@@ -7736,7 +8341,7 @@ type UploadMimeTypeFilter = {
 /** Specifies how to filter by notes */
 type UploadNotesFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
@@ -7770,50 +8375,62 @@ enum UploadOrientation {
   square = 'square'
 }
 
+/** Specifies how to filter by path */
+type UploadPathFilter = {
+  /** Search the asset with the specified path */
+  eq?: InputMaybe<Scalars['String']['input']>;
+  /** Search assets with the specified paths */
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Exclude the asset with the specified path */
+  neq?: InputMaybe<Scalars['String']['input']>;
+  /** Search assets that do not have the specified paths */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 /** Specifies how to filter by size */
 type UploadSizeFilter = {
   /** Search assets with the specified size (in bytes) */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger than the specified size (in bytes) */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified size (in bytes) */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets smaller than the specified size (in bytes) */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified size (in bytes) */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search assets that do not have the specified size (in bytes) */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 /** Specifies how to filter by tags */
 type UploadTagsFilter = {
   /** Filter uploads linked to all of the specified tags */
-  allIn?: InputMaybe<Array<Scalars['String']>>;
+  allIn?: InputMaybe<Array<Scalars['String']['input']>>;
   /** Filter uploads linked to at least one of the specified tags */
-  anyIn?: InputMaybe<Array<Scalars['String']>>;
+  anyIn?: InputMaybe<Array<Scalars['String']['input']>>;
   /** Filter uploads linked to the specified tag */
-  contains?: InputMaybe<Scalars['String']>;
+  contains?: InputMaybe<Scalars['String']['input']>;
   /** Search for uploads with an exact match */
-  eq?: InputMaybe<Array<Scalars['String']>>;
+  eq?: InputMaybe<Array<Scalars['String']['input']>>;
   /** Filter uploads not linked to any of the specified tags */
-  notIn?: InputMaybe<Array<Scalars['String']>>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 /** Specifies how to filter by default title */
 type UploadTitleFilter = {
   /** Search the asset with the specified title */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Filter assets with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Search assets with the specified as default title */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude the asset with the specified title */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets that do not have the specified as default title */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude uploads based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
@@ -7832,35 +8449,35 @@ enum UploadType {
 /** Specifies how to filter by update datetime */
 type UploadUpdatedAtFilter = {
   /** Search for uploads with an exact match */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Exclude uploads with an exact match */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 type UploadVideoField = {
   __typename?: 'UploadVideoField';
-  alt?: Maybe<Scalars['String']>;
-  blurUpThumb?: Maybe<Scalars['String']>;
-  blurhash?: Maybe<Scalars['String']>;
-  duration?: Maybe<Scalars['Int']>;
-  framerate?: Maybe<Scalars['Int']>;
-  height: Scalars['IntType'];
-  mp4Url?: Maybe<Scalars['String']>;
-  muxAssetId: Scalars['String'];
-  muxPlaybackId: Scalars['String'];
-  streamingUrl: Scalars['String'];
-  thumbhash?: Maybe<Scalars['String']>;
-  thumbnailUrl: Scalars['String'];
-  title?: Maybe<Scalars['String']>;
-  width: Scalars['IntType'];
+  alt?: Maybe<Scalars['String']['output']>;
+  blurUpThumb?: Maybe<Scalars['String']['output']>;
+  blurhash?: Maybe<Scalars['String']['output']>;
+  duration?: Maybe<Scalars['Int']['output']>;
+  framerate?: Maybe<Scalars['Int']['output']>;
+  height: Scalars['IntType']['output'];
+  mp4Url?: Maybe<Scalars['String']['output']>;
+  muxAssetId: Scalars['String']['output'];
+  muxPlaybackId: Scalars['String']['output'];
+  streamingUrl: Scalars['String']['output'];
+  thumbhash?: Maybe<Scalars['String']['output']>;
+  thumbnailUrl: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  width: Scalars['IntType']['output'];
 };
 
 
@@ -7872,9 +8489,9 @@ type UploadVideoFieldaltArgs = {
 
 type UploadVideoFieldblurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
-  punch?: Scalars['Float'];
-  quality?: Scalars['Int'];
-  size?: Scalars['Int'];
+  punch?: Scalars['Float']['input'];
+  quality?: Scalars['Int']['input'];
+  size?: Scalars['Int']['input'];
 };
 
 
@@ -7897,46 +8514,47 @@ type UploadVideoFieldtitleArgs = {
 /** Specifies how to filter by width */
 type UploadWidthFilter = {
   /** Search assets with the specified width */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger than the specified width */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified width */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets smaller than the specified width */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified width */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search assets that do not have the specified width */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 /** Block of type Variant (variant) */
 type VariantRecord = RecordInterface & {
   __typename?: 'VariantRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  articleNo?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  articleNo?: Maybe<Scalars['String']['output']>;
   color?: Maybe<ProductColorRecord>;
-  createdAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
+  deliveryDays?: Maybe<Scalars['String']['output']>;
   feature?: Maybe<ProductFeatureRecord>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
   material?: Maybe<ProductMaterialRecord>;
-  price?: Maybe<Scalars['FloatType']>;
-  updatedAt: Scalars['DateTime'];
-  volume?: Maybe<Scalars['FloatType']>;
-  weight?: Maybe<Scalars['FloatType']>;
+  price?: Maybe<Scalars['FloatType']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+  volume?: Maybe<Scalars['FloatType']['output']>;
+  weight?: Maybe<Scalars['FloatType']['output']>;
 };
 
 
@@ -7954,22 +8572,22 @@ enum VideoMp4Res {
 /** Block of type Video (video) */
 type VideoRecord = RecordInterface & {
   __typename?: 'VideoRecord';
-  _createdAt: Scalars['DateTime'];
+  _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
   /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   video?: Maybe<FileField>;
 };
 
@@ -7981,8 +8599,8 @@ type VideoRecord_seoMetaTagsArgs = {
 
 type focalPoint = {
   __typename?: 'focalPoint';
-  x: Scalars['FloatType'];
-  y: Scalars['FloatType'];
+  x: Scalars['FloatType']['output'];
+  y: Scalars['FloatType']['output'];
 };
 
 type SustainabilityQueryVariables = Exact<{ [key: string]: never; }>;
@@ -7996,7 +8614,7 @@ type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 type AboutQuery = { __typename?: 'Query', about?: { __typename?: 'AboutRecord', id: any, intro?: string, title?: string, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, sections: Array<{ __typename?: 'AboutSectionRecord', id: any, text?: string, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }> } };
 
 type NewsQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -8008,8 +8626,8 @@ type LastNewsQueryVariables = Exact<{ [key: string]: never; }>;
 type LastNewsQuery = { __typename?: 'Query', lastNews: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
 
 type AllNewsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8018,50 +8636,50 @@ type AllNewsQuery = { __typename?: 'Query', allNews: Array<{ __typename: 'NewsRe
 type NewsFragment = { __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
 
 type JobQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type JobQuery = { __typename?: 'Query', job?: { __typename?: 'JobRecord', id: any, summary?: string, text?: string, title?: string } };
 
 type AllJobsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllJobsQuery = { __typename?: 'Query', jobs: Array<{ __typename?: 'JobRecord', id: any, summary?: string, text?: string, title?: string }> };
 
 type PressQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type PressQuery = { __typename?: 'Query', press?: { __typename?: 'PressRecord', id: any, title?: string, url?: string } };
 
 type AllPressQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllPressQuery = { __typename?: 'Query', presses: Array<{ __typename?: 'PressRecord', id: any, title?: string, url?: string }> };
 
 type ProductAccessoryQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 type ProductAccessoryQuery = { __typename?: 'Query', productAccessory?: { __typename?: 'ProductAccessoryRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
 
 type ProductAccessoryByIdQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type ProductAccessoryByIdQuery = { __typename?: 'Query', productAccessory?: { __typename?: 'ProductAccessoryRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
 
 type AllProductAccessoriesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8080,7 +8698,7 @@ type AllShowroomsQueryVariables = Exact<{ [key: string]: never; }>;
 type AllShowroomsQuery = { __typename?: 'Query', showrooms: Array<{ __typename?: 'ShowroomRecord', additional?: string, address?: string, city?: string, id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
 
 type DistributorQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -8088,8 +8706,8 @@ type DistributorQueryVariables = Exact<{
 type DistributorQuery = { __typename?: 'Query', distributor?: { __typename?: 'DistributorRecord', name?: string, address?: string, postalCode?: string, city?: string, contactName?: string, phone?: string, email?: string, url?: string, country?: { __typename?: 'CountryRecord', name?: string } } };
 
 type AllDistributorsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -8099,7 +8717,7 @@ type AllDistributorsQuery = { __typename?: 'Query', distributors: Array<{ __type
 type DistributorFragment = { __typename?: 'DistributorRecord', name?: string, address?: string, postalCode?: string, city?: string, contactName?: string, phone?: string, email?: string, url?: string, country?: { __typename?: 'CountryRecord', name?: string } };
 
 type ResellerQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -8107,8 +8725,8 @@ type ResellerQueryVariables = Exact<{
 type ResellerQuery = { __typename?: 'Query', reseller?: { __typename?: 'ResellerRecord', id: any, name?: string, address?: string, postalCode?: string, city?: string, url?: string, country?: { __typename?: 'CountryRecord', id: any, name?: string } } };
 
 type AllResellersQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -8116,7 +8734,7 @@ type AllResellersQueryVariables = Exact<{
 type AllResellersQuery = { __typename?: 'Query', resellers: Array<{ __typename?: 'ResellerRecord', id: any, name?: string, address?: string, postalCode?: string, city?: string, url?: string, country?: { __typename?: 'CountryRecord', id: any, name?: string } }> };
 
 type StaffQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -8124,9 +8742,9 @@ type StaffQueryVariables = Exact<{
 type StaffQuery = { __typename?: 'Query', staff?: { __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
 
 type AllStaffsQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
   locale?: InputMaybe<SiteLocale>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8146,7 +8764,7 @@ type ShowroomFragment = { __typename?: 'ShowroomRecord', additional?: string, ad
 type StaffFragment = { __typename?: 'StaffRecord', id: any, name?: string, role?: string, phone?: string, email?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
 
 type DesignerQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -8154,8 +8772,8 @@ type DesignerQueryVariables = Exact<{
 type DesignerQuery = { __typename?: 'Query', designer?: { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
 
 type AllDesignersQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -8167,15 +8785,15 @@ type DesignerFragment = { __typename: 'DesignerRecord', id: any, name?: string, 
 type DesignerLightFragment = { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
 
 type AllProductFamiliesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllProductFamiliesQuery = { __typename?: 'Query', allProductFamilies: Array<{ __typename?: 'ProductFamilyRecord', id: any, name?: string, slug?: string, _allReferencingProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllProductsByFamilyQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -8201,30 +8819,30 @@ type GlobalQuery = { __typename?: 'Query', site: { __typename?: 'Site', faviconM
 type IntlQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
   fallbackLocales?: InputMaybe<Array<SiteLocale> | SiteLocale>;
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type IntlQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'TranslationRecord', key?: string, value?: string }> };
 
 type ProductLightsourceQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 type ProductLightsourceQuery = { __typename?: 'Query', productLightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
 
 type ProductLightsourceByIdQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type ProductLightsourceByIdQuery = { __typename?: 'Query', productLightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } };
 
 type AllProductLightsourcesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8233,8 +8851,8 @@ type AllProductLightsourcesQuery = { __typename?: 'Query', allProductLightsource
 type ProductLightsourceFragment = { __typename?: 'ProductLightsourceRecord', id: any, name?: string, articleNo?: string, price?: any, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
 
 type MenuQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8243,36 +8861,70 @@ type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'Des
 type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ProductStartQuery = { __typename?: 'Query', productStart?: { __typename?: 'ProductStartRecord', id: any, featured: Array<{ __typename?: 'FeaturedRecord', id: any, headline?: string, showMarkAsNew?: any, items: Array<{ __typename?: 'DesignerRecord' } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename?: 'ProjectRecord' }> }> } };
+type ProductStartQuery = { __typename?: 'Query', productStart?: { __typename?: 'ProductStartRecord', id: any, featured: Array<{ __typename?: 'FeaturedRecord', id: any, headline?: string, showMarkAsNew?: any, items: Array<
+        | { __typename?: 'DesignerRecord' }
+        | { __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }
+        | { __typename?: 'ProjectRecord' }
+      > }> } };
 
 type ProductQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type ProductQuery = { __typename?: 'Query', product?: { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
+type ProductQuery = { __typename?: 'Query', product?: { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<
+      | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+      | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+            | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+            | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+            | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+          > } }
+      | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+    >, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
 
 type ProductByIdQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type ProductByIdQuery = { __typename?: 'Query', product?: { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
+type ProductByIdQuery = { __typename?: 'Query', product?: { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<
+      | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+      | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+            | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+            | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+            | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+          > } }
+      | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+    >, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
 
 type AllProductsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
-type AllProductsQuery = { __typename?: 'Query', allProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any } };
+type AllProductsQuery = { __typename?: 'Query', allProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<
+      | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+      | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+            | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+            | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+            | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+          > } }
+      | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+    >, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllProductsLightQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -8281,8 +8933,8 @@ type AllProductsLightQuery = { __typename?: 'Query', allProducts: Array<{ __type
 
 type AllProductManualsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8290,8 +8942,8 @@ type AllProductManualsQuery = { __typename?: 'Query', allProducts: Array<{ __typ
 
 type AllProductDownloadsQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8303,62 +8955,92 @@ type ProductCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 type ProductCategoriesQuery = { __typename?: 'Query', productCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }> };
 
 type AllProductsByDesignerQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllProductsByDesignerQuery = { __typename?: 'Query', allProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type RelatedProductsQueryVariables = Exact<{
-  designerId?: InputMaybe<Scalars['ItemId']>;
-  familyId?: InputMaybe<Scalars['ItemId']>;
-  first?: InputMaybe<Scalars['IntType']>;
+  designerId?: InputMaybe<Scalars['ItemId']['input']>;
+  familyId?: InputMaybe<Scalars['ItemId']['input']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type RelatedProductsQuery = { __typename?: 'Query', relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> };
 
 type RelatedProjectsForProductQueryVariables = Exact<{
-  productId?: InputMaybe<Scalars['ItemId']>;
-  first?: InputMaybe<Scalars['IntType']>;
+  productId?: InputMaybe<Scalars['ItemId']['input']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type RelatedProjectsForProductQuery = { __typename?: 'Query', relatedProjects: Array<{ __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> };
 
 type AllProductsByCategoryQueryVariables = Exact<{
-  categoryId?: InputMaybe<Scalars['ItemId']>;
-  first?: InputMaybe<Scalars['IntType']>;
+  categoryId?: InputMaybe<Scalars['ItemId']['input']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllProductsByCategoryQuery = { __typename?: 'Query', productsByCategory: Array<{ __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }> };
 
-type ProductFragment = { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
+type ProductFragment = { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<
+    | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+    | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+    | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+          | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+          | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+          | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+        > } }
+    | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+    | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+  >, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
 
 type ProductLightFragment = { __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } };
 
 type ProjectQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-type ProjectQuery = { __typename?: 'Query', project?: { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
+type ProjectQuery = { __typename?: 'Query', project?: { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<
+        | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+        | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+        | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+              | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+              | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+              | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+            > } }
+        | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+        | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+      >, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<
+      | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+      | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+            | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+            | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+            | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+          > } }
+      | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+    >, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } };
 
 type AllProjectsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllProjectsQuery = { __typename?: 'Query', allProjects: Array<{ __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _allProjectsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllRelatedProjectsQueryVariables = Exact<{
-  projectType?: InputMaybe<Scalars['ItemId']>;
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  projectType?: InputMaybe<Scalars['ItemId']['input']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8370,8 +9052,8 @@ type ProjectStartQueryVariables = Exact<{ [key: string]: never; }>;
 type ProjectStartQuery = { __typename?: 'Query', projectStart?: { __typename?: 'ProjectStartRecord', id: any, intro?: string, title?: string } };
 
 type AllProjectTypesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8380,7 +9062,27 @@ type AllProjectTypesQuery = { __typename?: 'Query', allProjectTypes: Array<{ __t
 type BespokeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type BespokeQuery = { __typename?: 'Query', bespoke?: { __typename?: 'BespokeRecord', id: any, intro?: string, outro?: string, title?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, examples: Array<{ __typename?: 'BespokeProjectRecord', id: any, summary?: string, project?: { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } }> } };
+type BespokeQuery = { __typename?: 'Query', bespoke?: { __typename?: 'BespokeRecord', id: any, intro?: string, outro?: string, title?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, examples: Array<{ __typename?: 'BespokeProjectRecord', id: any, summary?: string, project?: { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<
+            | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+            | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+            | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+                  | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+                  | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+                  | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+                > } }
+            | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+            | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+          >, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<
+          | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+          | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+          | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+                | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+                | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+                | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+              > } }
+          | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+          | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+        >, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } }> } };
 
 type BespokeThumbnailQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8398,33 +9100,53 @@ type DownloadsStartQueryVariables = Exact<{ [key: string]: never; }>;
 type DownloadsStartQuery = { __typename?: 'Query', downloadsStart?: { __typename?: 'DownloadsStartRecord', id: any, intro?: string, title?: string } };
 
 type AllCataloguesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllCataloguesQuery = { __typename?: 'Query', allCatalogues: Array<{ __typename?: 'CatalogueRecord', id: any, title?: string, pdf?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, thumbnail?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _allCataloguesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllColorsAndMaterialsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllColorsAndMaterialsQuery = { __typename?: 'Query', allColorMaterials: Array<{ __typename?: 'ColorMaterialRecord', id: any, description?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, category?: { __typename?: 'ColorMaterialTypeRecord', id: any, category?: string, categoryPlural?: string } }>, _allColorMaterialsMeta: { __typename?: 'CollectionMetadata', count: any }, allColorMaterialTypes: Array<{ __typename?: 'ColorMaterialTypeRecord', id: any, category?: string, categoryPlural?: string }>, _allColorMaterialTypesMeta: { __typename?: 'CollectionMetadata', count: any }, colorMaterialIntro?: { __typename?: 'ColorMaterialIntroRecord', id: any, intro?: string } };
 
-type ProjectFragment = { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
+type ProjectFragment = { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, bespoke?: any, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, relatedProducts: Array<{ __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<
+      | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+      | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+            | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+            | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+            | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+          > } }
+      | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+    >, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }>, gallery: Array<
+    | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+    | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+    | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+          | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+          | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+          | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+        > } }
+    | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+    | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+  >, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> };
 
 type ProjectLightFragment = { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } };
 
 type SiteSearchQueryVariables = Exact<{
-  productIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  designerIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  faqIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  newsIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  projectIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  staffIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  first?: InputMaybe<Scalars['IntType']>;
+  productIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  designerIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  faqIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  newsIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  projectIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  staffIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
@@ -8440,24 +9162,48 @@ type SiteFragment = { __typename?: 'Site', faviconMetaTags: Array<{ __typename?:
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', content: Array<{ __typename: 'FeaturedStartRecord', id: any, headline?: string, items: Array<{ __typename: 'DesignerRecord' } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } } | { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }> } | { __typename: 'FullscreenMediaBlockRecord', id: any, headline?: string, subHeadline?: string, readMore?: string, makeDarker?: any, media?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, linkRecord?: { __typename: 'AboutRecord', id: any, title?: string } | { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } | { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<{ __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> } | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<{ __typename: 'DesignerRecord', id: any, name?: string, slug?: string } | { __typename: 'ProductRecord', id: any, title?: string, slug?: string } | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }> } } | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }>, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> } } | { __typename: 'FullscreenVideoRecord', id: any, link?: string, linkText?: string, text?: string, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } } | { __typename: 'ImageLinkRecord', id: any, firstLink?: string, firstLinkText?: string, firstHeadline?: string, secondLink?: string, secondLinkText?: string, secondHeadline?: string, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } | { __typename: 'NewsItemRecord', news?: { __typename?: 'NewsRecord', id: any, title?: string, text?: string, link?: string, linkText?: string, slug?: string } }> }, lastNews: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
+type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', content: Array<
+      | { __typename: 'FeaturedStartRecord', id: any, headline?: string, items: Array<
+          | { __typename: 'DesignerRecord' }
+          | { __typename: 'ProductRecord', id: any, title?: string, slug?: string, markAsNew?: any, upcycled?: any, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string }>, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, models: Array<{ __typename?: 'ProductModelRecord', variants: Array<{ __typename?: 'VariantRecord', id: any, articleNo?: string, price?: any }> }>, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string } }
+          | { __typename: 'ProjectRecord', id: any, location?: string, title?: string, slug?: string, projectType?: { __typename?: 'ProjectTypeRecord', id: any, title?: string, titlePlural?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondaryImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+        > }
+      | { __typename: 'FullscreenMediaBlockRecord', id: any, headline?: string, subHeadline?: string, readMore?: string, makeDarker?: any, media?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } }, linkRecord?:
+          | { __typename: 'AboutRecord', id: any, title?: string }
+          | { __typename: 'DesignerRecord', id: any, name?: string, description?: string, slug?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }
+          | { __typename: 'ProductRecord', id: any, title?: string, description?: string, slug?: string, additionalInformation?: string, markAsNew?: any, upcycled?: any, bimLink?: string, note?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, productGallery: Array<
+              | { __typename: 'FullwidthImageRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+              | { __typename: 'ImageGalleryRecord', id: any, gallery: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }> }
+              | { __typename: 'TextRecord', id: any, text?: { __typename?: 'TextModelTextField', value: any, links: Array<
+                    | { __typename: 'DesignerRecord', id: any, name?: string, slug?: string }
+                    | { __typename: 'ProductRecord', id: any, title?: string, slug?: string }
+                    | { __typename: 'ProjectRecord', id: any, title?: string, slug?: string }
+                  > } }
+              | { __typename: 'TwoColumnImageRecord', id: any, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lastImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+              | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+            >, environmentImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, colorImages: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }>, family?: { __typename?: 'ProductFamilyRecord', id: any, name?: string }, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string, namePlural?: string, position?: any }>, connection?: { __typename?: 'ProductConnectionRecord', id: any, name?: string }, designer?: { __typename?: 'DesignerRecord', id: any, name?: string, slug?: string }, dimmable?: { __typename?: 'ProductDimmableRecord', id: any, name?: string }, electricalData: Array<{ __typename?: 'ProductElectricalRecord', id: any, name?: string }>, lightFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, bimFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, models: Array<{ __typename?: 'ProductModelRecord', id: any, name?: { __typename?: 'ProductModelNameRecord', id: any, name?: string }, variants: Array<{ __typename?: 'VariantRecord', id: any, price?: any, volume?: any, weight?: any, articleNo?: string, color?: { __typename?: 'ProductColorRecord', id: any, name?: string }, material?: { __typename?: 'ProductMaterialRecord', id: any, name?: string }, feature?: { __typename?: 'ProductFeatureRecord', name?: string }, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }>, drawing?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, lightsources: Array<{ __typename?: 'LightsourceRecord', id: any, included?: any, amount?: any, optional?: any, lightsource?: { __typename?: 'ProductLightsourceRecord', id: any, name?: string, price?: any, articleNo?: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }>, accessories: Array<{ __typename?: 'AccessoryRecord', id: any, accessory?: { __typename?: 'ProductAccessoryRecord', id: any, articleNo?: string, name?: string, price?: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } } }> }>, mounting?: { __typename?: 'ProductMountingRecord', id: any, name?: string }, mountingInstructions?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFile?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string }, pdfFiles?: Array<{ __typename?: 'FileFieldMultiLocaleField', locale?: SiteLocale, value?: { __typename?: 'FileField', alt?: string, basename: string, filename: string, format: string, id: any, title?: string, url: string } }>, sockets: Array<{ __typename?: 'ProductSocketRecord', id: any, name?: string }>, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }
+         }
+      | { __typename: 'FullscreenVideoRecord', id: any, link?: string, linkText?: string, text?: string, video?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string }, video?: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number, duration?: number, mp4high?: string, mp4med?: string, mp4low?: string } } }
+      | { __typename: 'ImageLinkRecord', id: any, firstLink?: string, firstLinkText?: string, firstHeadline?: string, secondLink?: string, secondLinkText?: string, secondHeadline?: string, firstImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, secondImage?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } } }
+      | { __typename: 'NewsItemRecord', news?: { __typename?: 'NewsRecord', id: any, title?: string, text?: string, link?: string, linkText?: string, slug?: string } }
+    > }, lastNews: Array<{ __typename: 'NewsRecord', id: any, link?: string, linkText?: string, text?: string, title?: string, slug?: string, createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string, customData: any, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string, base64?: string, sizes: string } }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any, content?: string, tag: string }> }> };
 
 type FaqQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ItemId']>;
+  id?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type FaqQuery = { __typename?: 'Query', faq?: { __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } } };
 
 type AllFaqsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 
 type AllFaqsQuery = { __typename?: 'Query', faqs: Array<{ __typename?: 'FaqRecord', updatedAt: any, createdAt: any, answer?: string, id: any, question?: string, category?: { __typename?: 'FaqCategoryRecord', id: any, title?: string } }> };
 
 type AllFaqCategoriesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
 }>;
 
 

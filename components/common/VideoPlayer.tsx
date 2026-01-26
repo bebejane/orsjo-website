@@ -3,8 +3,6 @@ import cn from 'classnames'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useWindowSize } from 'rooks'
 import { useInView } from 'react-intersection-observer'
-import SoundOn from '/public/images/sound-on.svg'
-import SondOff from '/public/images/sound-off.svg'
 
 export type VideoPlayerProps = { data: FileField, className?: string }
 
@@ -75,7 +73,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 			/>
 			{hasAudio &&
 				<div ref={muteRef} className={cn(styles.mute, !muted && styles.enabled)} onClick={handleMute}>
-					{muted ? <SondOff /> : <SoundOn />}
+					{muted ? <img src={'/images/sound-off.svg'} /> : <img src={'/images/sound-on.svg'} />}
 				</div>
 			}
 		</div>
