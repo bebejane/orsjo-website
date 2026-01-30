@@ -1,0 +1,5 @@
+query GeinsProduct {
+	product(productId: 1) {
+		productId
+	}
+}
