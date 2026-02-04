@@ -2423,7 +2423,9 @@ type VatGroupType = {
   rate: Scalars['Int']['output'];
 };
 
-type GeinsProductQueryVariables = Exact<{ [key: string]: never; }>;
+type GeinsProductQueryVariables = Exact<{
+  productId: Scalars['Int']['input'];
+}>;
 
 
 type GeinsProductQuery = { __typename?: 'GeinsMerchantApiQuery', product?: { __typename?: 'ProductType', productId: number } | null };

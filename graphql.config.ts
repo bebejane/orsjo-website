@@ -14,46 +14,46 @@ const defaultConfig = {
 
 const config: IGraphQLConfig = {
 	projects: {
-		default: {
-			schema: {
-				'https://graphql.datocms.com': {
-					headers: {
-						'Authorization': process.env.DATOCMS_API_TOKEN as string,
-						'X-Environment': process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT as string,
-						'X-Exclude-Invalid': 'true',
-					},
-				},
-			},
-			documents: 'graphql/**/*.gql',
-			extensions: {
-				endpoints: {
-					default: {
-						url: 'https://graphql.datocms.com',
-						headers: {
-							'Authorization': process.env.DATOCMS_API_TOKEN as string,
-							'X-Exclude-Invalid': 'true',
-						},
-					},
-				},
-				codegen: {
-					overwrite: true,
-					generates: {
-						'types/datocms.d.ts': {
-							plugins: ['typescript', 'typescript-operations'],
-							config: { ...defaultConfig, noExport: true },
-						},
-						'graphql/index.ts': {
-							plugins: ['typed-document-node'],
-							config: { ...defaultConfig },
-						},
-						'types/document-modules.d.ts': {
-							plugins: ['typescript-graphql-files-modules'],
-							config: { ...defaultConfig },
-						},
-					},
-				},
-			},
-		},
+		// default: {
+		// 	schema: {
+		// 		'https://graphql.datocms.com': {
+		// 			headers: {
+		// 				'Authorization': process.env.DATOCMS_API_TOKEN as string,
+		// 				'X-Environment': process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT as string,
+		// 				'X-Exclude-Invalid': 'true',
+		// 			},
+		// 		},
+		// 	},
+		// 	documents: 'graphql/**/*.gql',
+		// 	extensions: {
+		// 		endpoints: {
+		// 			default: {
+		// 				url: 'https://graphql.datocms.com',
+		// 				headers: {
+		// 					'Authorization': process.env.DATOCMS_API_TOKEN as string,
+		// 					'X-Exclude-Invalid': 'true',
+		// 				},
+		// 			},
+		// 		},
+		// 		codegen: {
+		// 			overwrite: true,
+		// 			generates: {
+		// 				'types/datocms.d.ts': {
+		// 					plugins: ['typescript', 'typescript-operations'],
+		// 					config: { ...defaultConfig, noExport: true },
+		// 				},
+		// 				'graphql/index.ts': {
+		// 					plugins: ['typed-document-node'],
+		// 					config: { ...defaultConfig },
+		// 				},
+		// 				'types/document-modules.d.ts': {
+		// 					plugins: ['typescript-graphql-files-modules'],
+		// 					config: { ...defaultConfig },
+		// 				},
+		// 			},
+		// 		},
+		// 	},
+		// },
 		geins: {
 			schema: {
 				'https://merchantapi.geins.io/graphql': {

@@ -1,5 +1,5 @@
-query GeinsProduct {
-	product(productId: 1) {
+query GeinsProduct($productId: Int!) {
+	product(productId: $productId) {
 		productId
 	}
 }

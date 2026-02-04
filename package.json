@@ -25,6 +25,7 @@
 		"@datocms/cma-client-node": "^5.1.29",
 		"@geins/core": "^0.5.0",
 		"@geins/oms": "^0.5.0",
+		"@geins/sdk-api-mgmt-typescript": "^2.0.1",
 		"@react-email/components": "0.0.38",
 		"@react-email/preview-server": "^5.0.5",
 		"@sentry/nextjs": "^10.19.0",
