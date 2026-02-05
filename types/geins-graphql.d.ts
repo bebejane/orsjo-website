@@ -1032,7 +1032,7 @@ type GeinsMerchantApiQuery = {
    * @deprecated Use Checkout instead
    */
   getCheckoutAndOrder?: Maybe<CheckoutAndOrderType>;
-  /** Get the most suitable menu in a specific location based on the current context. */
+  /** Get a menu */
   getMenuAtLocation?: Maybe<MenuType>;
   /** Get a specific order with details */
   getOrder?: Maybe<OrderType>;
@@ -2423,9 +2423,23 @@ type VatGroupType = {
   rate: Scalars['Int']['output'];
 };
 
+type AllGeinsProductsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type AllGeinsProductsQuery = { __typename?: 'GeinsMerchantApiQuery', products?: { __typename?: 'ProductsResultType', count: any, products?: Array<{ __typename?: 'ProductType', productId: number, type?: string | null, articleNumber?: string | null, categoryId: number, canonicalUrl?: string | null, skus?: Array<{ __typename?: 'SkuType', skuId: number, weight: number, productId: number, articleNumber: string, externalId?: string | null, gtin?: string | null, shelf?: string | null, incoming?: any | null, stock?: { __typename?: 'StockType', totalStock: number, inStock: number, oversellable: number, static?: number | null } | null, dimensions?: { __typename?: 'DimensionsType', length: number, width: number, height: number } | null } | null> | null, brand?: { __typename?: 'BrandType', brandId: number } | null, categories?: Array<{ __typename?: 'CategoryType', categoryId: number, name: string, alias?: string | null, description?: string | null } | null> | null, unitPrice?: { __typename?: 'PriceType', vatFormatted?: string | null, sellingPriceIncVat: any, currency?: { __typename?: 'CurrencyType', name: string, symbol: string, code: string, rate: any } | null } | null, productImages?: Array<{ __typename?: 'ProductImageType', fileName: string, tags?: Array<string | null> | null } | null> | null } | null> | null } | null };
+
 type GeinsProductQueryVariables = Exact<{
   productId: Scalars['Int']['input'];
 }>;
 
 
-type GeinsProductQuery = { __typename?: 'GeinsMerchantApiQuery', product?: { __typename?: 'ProductType', productId: number } | null };
+type GeinsProductQuery = { __typename?: 'GeinsMerchantApiQuery', product?: { __typename?: 'ProductType', productId: number, type?: string | null, articleNumber?: string | null, categoryId: number, canonicalUrl?: string | null, skus?: Array<{ __typename?: 'SkuType', skuId: number, weight: number, productId: number, articleNumber: string, externalId?: string | null, gtin?: string | null, shelf?: string | null, incoming?: any | null, stock?: { __typename?: 'StockType', totalStock: number, inStock: number, oversellable: number, static?: number | null } | null, dimensions?: { __typename?: 'DimensionsType', length: number, width: number, height: number } | null } | null> | null, brand?: { __typename?: 'BrandType', brandId: number } | null, categories?: Array<{ __typename?: 'CategoryType', categoryId: number, name: string, alias?: string | null, description?: string | null } | null> | null, unitPrice?: { __typename?: 'PriceType', vatFormatted?: string | null, sellingPriceIncVat: any, currency?: { __typename?: 'CurrencyType', name: string, symbol: string, code: string, rate: any } | null } | null, productImages?: Array<{ __typename?: 'ProductImageType', fileName: string, tags?: Array<string | null> | null } | null> | null } | null };
+
+type GeinsProductBySKUQueryVariables = Exact<{
+  articleNumbers?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+type GeinsProductBySKUQuery = { __typename?: 'GeinsMerchantApiQuery', products?: { __typename?: 'ProductsResultType', count: any, products?: Array<{ __typename?: 'ProductType', productId: number, type?: string | null, articleNumber?: string | null, categoryId: number, canonicalUrl?: string | null, skus?: Array<{ __typename?: 'SkuType', skuId: number, weight: number, productId: number, articleNumber: string, externalId?: string | null, gtin?: string | null, shelf?: string | null, incoming?: any | null, stock?: { __typename?: 'StockType', totalStock: number, inStock: number, oversellable: number, static?: number | null } | null, dimensions?: { __typename?: 'DimensionsType', length: number, width: number, height: number } | null } | null> | null, brand?: { __typename?: 'BrandType', brandId: number } | null, categories?: Array<{ __typename?: 'CategoryType', categoryId: number, name: string, alias?: string | null, description?: string | null } | null> | null, unitPrice?: { __typename?: 'PriceType', vatFormatted?: string | null, sellingPriceIncVat: any, currency?: { __typename?: 'CurrencyType', name: string, symbol: string, code: string, rate: any } | null } | null, productImages?: Array<{ __typename?: 'ProductImageType', fileName: string, tags?: Array<string | null> | null } | null> | null } | null> | null } | null };
+
+type ProductFragment = { __typename?: 'ProductType', productId: number, type?: string | null, articleNumber?: string | null, categoryId: number, canonicalUrl?: string | null, skus?: Array<{ __typename?: 'SkuType', skuId: number, weight: number, productId: number, articleNumber: string, externalId?: string | null, gtin?: string | null, shelf?: string | null, incoming?: any | null, stock?: { __typename?: 'StockType', totalStock: number, inStock: number, oversellable: number, static?: number | null } | null, dimensions?: { __typename?: 'DimensionsType', length: number, width: number, height: number } | null } | null> | null, brand?: { __typename?: 'BrandType', brandId: number } | null, categories?: Array<{ __typename?: 'CategoryType', categoryId: number, name: string, alias?: string | null, description?: string | null } | null> | null, unitPrice?: { __typename?: 'PriceType', vatFormatted?: string | null, sellingPriceIncVat: any, currency?: { __typename?: 'CurrencyType', name: string, symbol: string, code: string, rate: any } | null } | null, productImages?: Array<{ __typename?: 'ProductImageType', fileName: string, tags?: Array<string | null> | null } | null> | null };

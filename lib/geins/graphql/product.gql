@@ -1,5 +1,74 @@
+query AllGeinsProducts {
+	products {
+		count
+		products {
+			...ProductFragment
+		}
+	}
+}
 query GeinsProduct($productId: Int!) {
 	product(productId: $productId) {
-		productId
+		...ProductFragment
 	}
+}
+
+query GeinsProductBySKU($articleNumbers: [String!]) {
+	products(filter: { articleNumbers: $articleNumbers }, channelId: "mystore1.orsjo") {
+		count
+		products {
+			...ProductFragment
+		}
+	}
+}
+
+fragment ProductFragment on ProductType {
+	productId
+	type
+	skus {
+		skuId
+		weight
+		productId
+		articleNumber
+		externalId
+		gtin
+		stock {
+			totalStock
+			inStock
+			oversellable
+			static
+		}
+		dimensions {
+			length
+			width
+			height
+		}
+		shelf
+		incoming
+	}
+	brand {
+		brandId
+	}
+	categories {
+		categoryId
+		name
+		alias
+		description
+	}
+	unitPrice {
+		currency {
+			name
+			symbol
+			code
+			rate
+		}
+		vatFormatted
+		sellingPriceIncVat
+	}
+	productImages {
+		fileName
+		tags
+	}
+	articleNumber
+	categoryId
+	canonicalUrl
 }
