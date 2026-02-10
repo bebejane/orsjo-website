@@ -12,7 +12,7 @@ query GeinsProduct($productId: Int!) {
 	}
 }
 
-query GeinsProductBySKU($articleNumbers: [String!]) {
+query GeinsProductByArticleNo($articleNumbers: [String!]) {
 	products(filter: { articleNumbers: $articleNumbers }, channelId: "mystore1.orsjo") {
 		count
 		products {

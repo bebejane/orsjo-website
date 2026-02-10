@@ -4,7 +4,7 @@ declare module '*/product.gql' {
   const defaultDocument: DocumentNode;
   export const AllGeinsProducts: DocumentNode;
 export const GeinsProduct: DocumentNode;
-export const GeinsProductBySKU: DocumentNode;
+export const GeinsProductByArticleNo: DocumentNode;
 export const ProductFragment: DocumentNode;
 
   export default defaultDocument;
