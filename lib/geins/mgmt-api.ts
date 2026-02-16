@@ -111,6 +111,16 @@ export async function createPriceList(pricelist: any) {
 	return c;
 }
 
+export async function updatePriceList(id: string, pricelist: any) {
+	const c = await request(`/API/PriceList/${id}`, 'PUT', pricelist);
+	return c;
+}
+
+export async function updatePriceListPrices(id: string, price: any) {
+	const c = await request(`/API/PriceList/Price`, 'PUT', price);
+	return c;
+}
+
 export async function getMarkets() {
 	const c = await request('/Market/List', 'GET');
 	return c;

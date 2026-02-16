@@ -9,14 +9,22 @@ import { AllProductsDocument } from '@/graphql';
 
 const main = async () => {
 	console.log('main: test');
-
+	const lampId = '167791073';
+	const accessoryId = '107174797';
+	const lightsourceId = '107174798';
 	try {
 		const { allProducts } = await apiQuery(AllProductsDocument, {
 			all: true,
 		});
 		const ids = allProducts.map(({ id }) => id);
-		await resetAll();
-		for (const id of ids) await sync(id);
+		// await resetAll();
+		//console.time('sync');
+		//for (const id of ids) await sync(id);
+		//console.timeEnd('sync');
+
+		//await sync(lampId);
+		//await sync(accessoryId);
+		await sync(lightsourceId);
 
 		// const prods = await mgmt.getProductByArticleNo([
 		// 	'36124-30S-000',
