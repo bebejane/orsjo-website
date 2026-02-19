@@ -1,0 +1,16 @@
+------------------- 1/156 -----------------------
+GET /Market/List
+POST /Category/Query
+syncing { apiKey: 'product', itemId: '167791073', categoryId: 309 }
+POST /Product/Query
+PUT /Product/4258?include=Items,Images
+PUT /Product/4259?include=Items,Images
+PUT /Product/4260?include=Items,Images
+POST /Product/4258/Parameter/2
+POST /Product/4260/Parameter/2
+PUT /Product/Item/4219
+PUT /Product/Item/4221
+PUT /Product/4258/Image/1695203058-andromedia-green.jpg?isPrimaryImage=true
+PUT /Product/4260/Image/1695203168-andromedia-white.jpg?isPrimaryImage=true
+POST /Product/4259/Parameter/2
+PUT /Product/Item/4220

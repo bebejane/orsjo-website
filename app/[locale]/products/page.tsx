@@ -16,6 +16,8 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
+import geinsQuery from '@/lib/geins/geins-query';
+import { AllGeinsProductsDocument } from '@/lib/geins/graphql';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -38,12 +40,12 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 		{ productStart },
 		{ allProducts },
 		{ allProductCategories },
-		{ products: allShopifyProducts },
+		{ products: allGeinsProducts },
 	] = await Promise.all([
 		apiQuery(ProductStartDocument),
 		apiQuery(AllProductsLightDocument, { all: true }),
 		apiQuery(AllProductCategoriesDocument, { all: true }),
-		shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
+		geinsQuery(AllGeinsProductsDocument),
 	]);
 
 	/*
@@ -70,7 +72,7 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 					top={idx === 0}
 					key={idx}
 				>
-					<FeaturedGallery
+					{/* <FeaturedGallery
 						id={data.id}
 						key={`featured-${idx}`}
 						headline={data.headline}
@@ -79,18 +81,18 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 						items={
 							data.items.map((product) => ({
 								...product,
-								shopify: allShopifyProducts.edges.find(
-									(v) => v.node.handle === (product as ProductRecord).slug
+								geins: allGeinsProducts.products.find(
+									(p) => p?.articleNumber === (product as ProductRecord).slug,
 								)?.node.selectedOrFirstAvailableVariant as ProductVariant,
 							})) as ProductRecordWithShopifyData[]
 						}
-					/>
+					/> */}
 				</Section>
 			))}
 			<ProductList
 				productCategories={allProductCategories}
 				allProducts={allProducts}
-				shopifyProducts={allShopifyProducts}
+				geinsProducts={allGeinsProducts?.products}
 			/>
 		</>
 	);

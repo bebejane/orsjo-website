@@ -13,8 +13,8 @@
 		"prebuild": "tsx prebuild",
 		"reset": "rm -rf ./node_modules && rm -rf pnpm-lock.yaml && rm -rf .next && pnpm i",
 		"codegen": "chokidar \"./graphql/**/*.gql\" -c \"pnpm codegen:website\" & chokidar \"./lib/geins/graphql/**/*.gql\" -c \"pnpm codegen:geins\"",
-		"codegen:website": "graphql-codegen --config graphql.config.ts --project default",
-		"codegen:geins": "graphql-codegen --config graphql.config.ts --project geins",
+		"codegen:website": "graphql-codegen --config graphql.config.ts --project datocms --verbose",
+		"codegen:geins": "graphql-codegen --config graphql.config.ts --project geins --verbose",
 		"codegen:datocms": "datocms schema:generate ./types/datocms-cma.ts",
 		"shopify:sync": "tsx lib/shopify/scripts/sync-item.ts",
 		"shopify:sync-all": "tsx lib/shopify/scripts/sync-all.ts"

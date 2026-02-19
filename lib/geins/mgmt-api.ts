@@ -40,13 +40,13 @@ export async function removeProduct(id: string) {
 }
 
 export async function getProduct(id: number) {
-	const p = await request(`/Product/${id}`);
+	const p = await request(`/Product/${id}?include=Prices`);
 	console.log('product', p);
 	return p;
 }
 
 export async function getProducts() {
-	const p = await request('/Product/Query', 'POST', {});
+	const p = await request('/Product/Query?include=Prices,Urls', 'POST', {});
 	return p?.Resource;
 }
 
@@ -66,11 +66,7 @@ export async function updateProductImage(productId: number, url: string) {
 	const fileName = url.split('/').pop()?.split('?')[0];
 	const res = await fetch(url);
 	const blob = await res.blob();
-	const c = await request(
-		`/Product/${productId}/Image/${fileName}?isPrimaryImage=true`,
-		'PUT',
-		blob,
-	);
+	const c = await request(`/Product/${productId}/Image/${fileName}`, 'PUT', blob);
 	return c;
 }
 
@@ -91,8 +87,42 @@ export async function getProductByArticleNo(artNos: string[]) {
 	return p?.Resource;
 }
 
+export async function updateProductParameterValue(
+	productId: number,
+	parameterId: number,
+	value: string,
+) {
+	const c = await request(`/Product/${productId}/Parameter/${parameterId}`, 'POST', {
+		Value: value,
+	});
+	return c.Resource;
+}
+
 export async function getCategories() {
 	const c = await request('/Category/Query', 'POST');
+	return c;
+}
+
+export async function createCategory(name: string, title: string) {
+	const c = await request('/Category', 'POST', {
+		Names: [{ LanguageCode: 'sv', Content: name }],
+		Meta: { Titles: [{ LanguageCode: 'sv', Content: title }] },
+		Active: true,
+	});
+	return c.Resource;
+}
+
+export async function updateCategory(id: number, name: string, title: string) {
+	const c = await request(`/Category/${id}`, 'PUT', {
+		Names: [{ LanguageCode: 'sv', Content: name }],
+		Meta: { Titles: [{ LanguageCode: 'sv', Content: title }] },
+		Active: true,
+	});
+	return c;
+}
+
+export async function deleteCategory(id: string) {
+	const c = await request(`/Category/${id}`, 'DELETE');
 	return c;
 }
 
@@ -112,18 +142,52 @@ export async function createPriceList(pricelist: any) {
 }
 
 export async function updatePriceList(id: string, pricelist: any) {
-	const c = await request(`/API/PriceList/${id}`, 'PUT', pricelist);
+	const c = await request(`/PriceList/${id}`, 'PUT', pricelist);
 	return c;
 }
 
-export async function updatePriceListPrices(id: string, price: any) {
-	const c = await request(`/API/PriceList/Price`, 'PUT', price);
+export async function deletePriceList(id: string) {
+	const c = await request(`/PriceList/${id}`, 'DELETE');
+	return c;
+}
+
+export async function updatePriceListPrices(id: number, price: any) {
+	const c = await request(`/PriceList/Price`, 'PUT', price);
 	return c;
 }
 
 export async function getMarkets() {
 	const c = await request('/Market/List', 'GET');
 	return c;
+}
+
+export async function getVariantGroup(id: number) {
+	const c = await request(`/VariantGroup/${id}`, 'GET');
+	return c.Resource;
+}
+export async function getVariantGroupProducts(id: number) {
+	const c = await request(`/VariantGroup/${id}?include=Products`, 'GET');
+	return c.Resource.Products;
+}
+
+export async function createVariantGroup(group: any) {
+	const c = await request('/VariantGroup', 'POST', group);
+	return c.Resource;
+}
+
+export async function updateVariantGroups(id: string, group: any) {
+	const c = await request(`/VariantGroup/${id}`, 'PUT', group);
+	return c.Resource;
+}
+
+export async function deleteVariantGroups(id: string) {
+	const c = await request(`/VariantGroup/${id}`, 'DELETE');
+	return c.Resource;
+}
+
+export async function addProductToVariantGroup(id: string, productId: string) {
+	const c = await request(`/API/VariantGroup/${id}/${productId}`, 'PUT');
+	return c.Resource;
 }
 
 export function generateThumbnailUrl(url: string | undefined | null): string {

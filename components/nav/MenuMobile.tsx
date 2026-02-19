@@ -15,7 +15,6 @@ import { useCart } from '@/lib/shopify';
 
 export type MenuMobileProps = {
 	menu: MenuItem[];
-	localization: LocalizationQuery['localization'];
 };
 
 export default function MenuMobile({ menu }: MenuMobileProps) {
@@ -35,7 +34,7 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 			state.transitioning,
 			state.setShowCart,
 			state.isMounted,
-		])
+		]),
 	);
 
 	const sub = menu.find((item) => item.section === selected?.section)?.sub;
@@ -99,7 +98,11 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 				/>
 			</div>
 			<div
-				className={cn(s.cart, cart?.totalQuantity && s.filled, (showMenuMobile || inverted) && s.invert)}
+				className={cn(
+					s.cart,
+					cart?.totalQuantity && s.filled,
+					(showMenuMobile || inverted) && s.invert,
+				)}
 				onClick={() => setShowCart(true)}
 			>
 				<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
@@ -108,11 +111,17 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 				<nav className={s.main}>
 					<ul className={s.nav}>
 						{menu.slice(1).map((item, idx) => (
-							<li data-slug={item.slug} key={idx} className={cn(selected?.slug === item.slug && s.active)}>
+							<li
+								data-slug={item.slug}
+								key={idx}
+								className={cn(selected?.slug === item.slug && s.active)}
+							>
 								{item.index ? (
 									<Link href={item.slug}>{item.title}</Link>
 								) : (
-									<span onClick={() => setSelected(selected?.section === item.section ? null : item)}>
+									<span
+										onClick={() => setSelected(selected?.section === item.section ? null : item)}
+									>
 										{item.title}
 									</span>
 								)}

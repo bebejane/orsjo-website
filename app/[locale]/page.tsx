@@ -4,6 +4,8 @@ import { StartDocument } from '@/graphql';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
+import geinsQuery from '@/lib/geins/geins-query';
+import { AllGeinsProductsDocument } from '@/lib/geins/graphql';
 
 export default async function Home({ params }: PageProps<'/[locale]'>) {
 	const { locale } = await params;
@@ -13,6 +15,8 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
 
 	if (!start) return notFound();
 
+	const { products } = await geinsQuery(AllGeinsProductsDocument);
+	console.log(products);
 	return (
 		<>
 			{start?.content.map((block, idx) => (

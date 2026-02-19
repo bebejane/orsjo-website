@@ -1,31 +1,64 @@
 import 'dotenv/config';
 import * as mgmt from '@/lib/geins/mgmt-api';
+import * as merchant from '@/lib/geins/merchant-api';
 import geinsQuery from '@/lib/geins/geins-query';
-import { AllGeinsProductsDocument, GeinsProductDocument } from '@/lib/geins/graphql';
+import {
+	AllGeinsChannelsDocument,
+	AllGeinsProductsDocument,
+	GeinsProductByCategoryDocument,
+} from '@/lib/geins/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { sleep } from 'next-dato-utils/utils';
-import { sync, resetAll } from '@/lib/geins/sync';
+import { sync, resetAll, resyncAll } from '@/lib/geins/sync';
 import { AllProductsDocument } from '@/graphql';
 
+const resync = async () => {
+	console.time('sync');
+	await resetAll();
+	await resyncAll();
+	console.timeEnd('sync');
+};
+
 const main = async () => {
-	console.log('main: test');
+	//console.log('main: test');
 	const lampId = '167791073';
-	const accessoryId = '107174797';
+	const accessoryId = 'AxA_MbC2RWqrhWYh7DQyNQ';
 	const lightsourceId = '107174798';
 	try {
-		const { allProducts } = await apiQuery(AllProductsDocument, {
-			all: true,
-		});
-		const ids = allProducts.map(({ id }) => id);
-		// await resetAll();
-		//console.time('sync');
-		//for (const id of ids) await sync(id);
-		//console.timeEnd('sync');
-
+		//await resyncAll();
+		//await resync();
+		//await resetAll();
 		//await sync(lampId);
+		//const products = await mgmt.getVariantGroupProducts(22);
+		//console.log(products);
+		//await reset();
+		//await resetAll();
+		//await sync('167791073');
+		const products = await merchant.getProducts();
+		//console.log(JSON.stringify(products, null, 2));
+		//await resetAll();
+		//await resyncAll();
 		//await sync(accessoryId);
-		await sync(lightsourceId);
-
+		// const { allProducts } = await apiQuery(AllProductsDocument, {
+		// 	all: true,
+		// });
+		// const ids = allProducts.map(({ id }) => id);
+		// console.time('sync');
+		// for (const id of ids) await sync(id);
+		// console.timeEnd('sync');
+		//const products = await mgmt.getProducts();
+		//console.log(JSON.stringify(products, null, 2));
+		//const markets = await mgmt.getMarkets();
+		//console.log(JSON.stringify(markets, null, 2));
+		//const lists = await mgmt.getPriceLists();
+		//console.log(lists);
+		//for (const list of lists) {
+		//console.log(list.Id);
+		//await mgmt.deletePriceList(list.Id);
+		//}
+		//
+		// await sync(accessoryId);
+		// await sync(lightsourceId);
 		// const prods = await mgmt.getProductByArticleNo([
 		// 	'36124-30S-000',
 		// 	'36124-88S-000',
@@ -77,4 +110,16 @@ const main = async () => {
 	}
 };
 
+const gql = async () => {
+	// const data = await geinsQuery(GeinsProductDocument, {
+	// 	variables: {
+	// 		alias: 'andromeda',
+	// 	},
+	// });
+	//const data = await mgmt.getCategories();
+	//const data = await merchant.getProduct('andromeda');
+	//await syncAll();
+};
+
 main();
+//syncAll();

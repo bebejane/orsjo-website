@@ -76,8 +76,8 @@ const nextConfig: NextConfig = {
 	},
 };
 
-//export default withNextIntl(nextConfig);
-
+export default withNextIntl(nextConfig);
+/*
 export default withSentryConfig(withNextIntl(nextConfig), {
 	// For all available options, see:
 	// https://www.npmjs.com/package/@sentry/webpack-plugin#options
@@ -110,3 +110,4 @@ export default withSentryConfig(withNextIntl(nextConfig), {
 	// https://vercel.com/docs/cron-jobs
 	automaticVercelMonitors: true,
 });
+*/

@@ -1,4 +1,3 @@
-//@ts-nocheck
 import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import type { DocumentNode } from 'graphql';
 import { print } from 'graphql/language/printer';
@@ -25,7 +24,7 @@ export type DefaultApiQueryOptions = ApiQueryOptions & {
 
 const defaultOptions: DefaultApiQueryOptions = {
 	variables: undefined,
-	revalidate: 60,
+	revalidate: 0,
 	tags: undefined,
 	logs: false,
 	all: false,
@@ -47,20 +46,19 @@ export default async function geinsQuery<TResult = any, TVariables = Record<stri
 ): Promise<TResult> {
 	const opt = { ...defaultOptions, ...(options ?? {}) };
 
-	if (!process.env.GEINS_MANAGEMENT_API_KEY) throw new Error('GEINS_MANAGEMENT_API_KEY is not set');
+	if (!process.env.GEINS_MERCHANT_API_KEY) throw new Error('GEINS_MERCHANT_API_KEY is not set');
 
 	const queryId = (query.definitions?.[0] as any).name?.value as string;
-	const country = ((opt.country as CountryCode) ?? 'se').toUpperCase();
 
-	console.log(options?.variables ? { ...options.variables, country } : { country });
 	const dedupeOptions: DedupeOptions = {
 		body: JSON.stringify({
 			query: print(query),
-			variables: options?.variables ? { ...options.variables, country } : { country },
+			variables: options?.variables ? { ...options.variables } : {},
 		}) as string,
 		...opt,
 		queryId,
 	};
+	console.log(queryId, options?.variables);
 
 	const { data } = await dedupedFetch({ ...dedupeOptions, tags: [] });
 	return { ...data };
@@ -76,7 +74,7 @@ export type DedupeOptions = {
 };
 
 const dedupedFetch = async (options: DedupeOptions) => {
-	const { body, revalidate, tags, queryId, logs, admin } = options;
+	const { body, revalidate, tags, queryId, logs } = options;
 
 	const headers = {
 		'X-ApiKey': process.env.GEINS_MERCHANT_API_KEY,
@@ -89,13 +87,12 @@ const dedupedFetch = async (options: DedupeOptions) => {
 		headers,
 		body,
 		next: {
-			revalidate,
+			revalidate: revalidate ?? 0,
 			cache: 'no-store',
 			tags: Array.isArray(tags) ? tags : undefined,
 		},
 	} as RequestInit);
 
-	console.log(response.status);
 	const responseBody = await response.json();
 
 	if (!response.ok) {
@@ -104,7 +101,7 @@ const dedupedFetch = async (options: DedupeOptions) => {
 			console.error(JSON.stringify(response, null, 2));
 		} catch (e) {}
 
-		Sentry.captureException(new Error(`shopify-query: ${response.status}: ${response.statusText}`));
+		Sentry.captureException(new Error(`geins-query: ${response.status}: ${response.statusText}`));
 		throw new Error(`${response.status} ${response.statusText}`);
 	}
 

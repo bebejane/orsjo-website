@@ -17,10 +17,9 @@ import CountrySelector from '@/components/shopify/CountrySelector';
 
 export type MenuDesktopProps = {
 	menu: Menu;
-	localization: LocalizationQuery['localization'];
 };
 
-export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
+export default function MenuDesktop({ menu }: MenuDesktopProps) {
 	const ref = useRef(null);
 	const pathname = usePathname();
 	const [
@@ -42,7 +41,7 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 			state.invertMenu,
 			state.transitioning,
 			state.setShowCart,
-		])
+		]),
 	);
 
 	const [selected, setSelected] = useState<string | null>(null);
@@ -135,7 +134,7 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 		selected && s.open,
 		!showMenu && s.hide,
 		s[layout],
-		isInverted && s.inverted
+		isInverted && s.inverted,
 	);
 	const sub = selected ? menu.find((i) => i.slug === selected)?.sub : [];
 

@@ -1,19 +1,38 @@
-query AllGeinsProducts {
-	products {
+query AllGeinsProducts($skip: Int = 0, $take: Int = 200) {
+	products(skip: $skip, take: $take, filter: { sort: ALPHABETICAL }) {
 		count
 		products {
 			...ProductFragment
 		}
 	}
 }
-query GeinsProduct($productId: Int!) {
-	product(productId: $productId) {
-		...ProductFragment
+
+# query GeinsProductVariants($groupId: Int) {
+# 	products(filter:  {
+
+# 	}, channelId: "mystore1.orsjo", marketId: "1") {
+# 		count
+# 		products {
+# 			...ProductFragment
+# 		}
+# 	}
+# }
+
+query GeinsProductByCategory($categoryAlias: String) {
+	products(categoryAlias: $categoryAlias, channelId: "mystore1.orsjo", marketId: "1") {
+		count
+		products {
+			...ProductFragment
+		}
 	}
 }
 
 query GeinsProductByArticleNo($articleNumbers: [String!]) {
-	products(filter: { articleNumbers: $articleNumbers }, channelId: "mystore1.orsjo") {
+	products(
+		filter: { articleNumbers: $articleNumbers }
+		channelId: "mystore1.orsjo"
+		marketId: "1"
+	) {
 		count
 		products {
 			...ProductFragment
@@ -23,6 +42,9 @@ query GeinsProductByArticleNo($articleNumbers: [String!]) {
 
 fragment ProductFragment on ProductType {
 	productId
+	articleNumber
+	categoryId
+	canonicalUrl
 	type
 	skus {
 		skuId
@@ -68,7 +90,17 @@ fragment ProductFragment on ProductType {
 		fileName
 		tags
 	}
-	articleNumber
-	categoryId
-	canonicalUrl
+	parameterGroups {
+		parameterGroupId
+		parameters {
+			parameterValueId
+			facetId
+			identifier
+			facetId
+			parameterValueId
+			type
+			name
+			value
+		}
+	}
 }

@@ -1,4 +1,3 @@
-//@ts-nocheck
 import client from '@/lib/client';
 import { apiQuery } from 'next-dato-utils/api';
 import geinsQuery from '@/lib/geins/geins-query';
@@ -16,54 +15,24 @@ import { batchPromises } from '@/lib/utils';
 import { generateProductTitle } from '@/lib/utils';
 import { convertPriceWithRatesAndTaxes, getAllCurrencyRates, CurrencyRate } from '@/lib/utils';
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
-import { GeinsProductByArticleNoDocument } from '@/lib/geins/graphql';
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export type SyncResult = {
-	id: string;
-	handle: string;
-	itemId: string;
-	itemType: string;
-};
-
-type Product = {
-	product: ProductData;
-	productItem: ProductItemData;
-	productImage: string | null;
-	price: number;
-	//productPrices: ProductPriceData[];
-};
 
 type ProductData = {
-	ProductId?: string;
-	ArticleNumber: string;
-	ExternalId: string;
-	Names: { LanguageCode: string; Content: string }[];
-	Active: boolean;
-	BrandId: number;
-	CategoryIds: number[];
-	Markets: { Id: string; ChannelId: string }[];
-};
-
-type ProductItemData = {
-	ArticleNumber: string;
-	Name: string;
-	Active: boolean;
-};
-
-type ProductPriceData = {
-	PriceListId: string;
-	Price: number;
-	ProductId: string;
-	Currency: string;
+	apiKey: string;
+	slug: string;
+	productId: string | null;
+	categoryId: number | null;
+	title: string;
+	name: string;
+	description: string;
+	articleNo: string;
+	price: number;
+	image?: string | null | undefined;
 };
 
 const channelId = 'mystore1.orsjo';
+const slugParameterId = 2;
 
-export const sync = async (itemId: string): Promise<SyncResult> => {
-	const syncResult: SyncResult = { id: '', handle: '', itemId, itemType: '' };
-
+export const sync = async (itemId: string): Promise<void> => {
 	try {
 		let item: Item;
 
@@ -77,19 +46,25 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 		const itemTypes = await client.itemTypes.list();
 		const apiKey = itemTypes.find(({ id }) => id === item.item_type.id)?.api_key;
 		const markets = await mgmt.getMarkets();
-		const priceLists = await mgmt.getPriceLists();
 		const categories = await mgmt.getCategories();
-		const allCurrencies = await getAllCurrencyRates();
+		const categorySlug =
+			apiKey === 'product'
+				? item.slug
+				: apiKey === 'product_lightsource'
+					? 'lightsource'
+					: 'accessory';
+
+		const categoryId =
+			categories.find((c: any) =>
+				c.Names.find((n: any) => n.Content.toLowerCase() === categorySlug),
+			)?.CategoryId ?? null;
 
 		if (!apiKey) throw new Error('Invalid item type (api_key): ' + apiKey);
 
-		syncResult.itemType = apiKey;
+		console.log('syncing', { apiKey, itemId, categoryId });
 
-		console.log('syncing', apiKey, itemId);
-
-		let articleNumbers = [];
-		let categoryId = 1;
-		let name = '';
+		let products: ProductData[] = [];
+		const slug = item.slug as string;
 
 		switch (apiKey) {
 			case 'product':
@@ -100,49 +75,41 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				if (!product) throw new Error('Invalid product: ' + itemId);
 
-				articleNumbers = product.models
+				const articleNumbers = product.models
 					.map((model) => model.variants.map((v) => v.articleNo?.trim()).filter(Boolean))
 					.flat() as string[];
 
-				categoryId = await getCatgegoryId('Lamp');
-
 				const geinsProducts = await mgmt.getProductByArticleNo(articleNumbers);
-				const products: Product[] = product.models.reduce((acc, model) => {
+
+				products = product.models.reduce((acc, model) => {
 					model.variants.forEach((variant) => {
-						const articleNo = variant.articleNo?.trim();
+						const articleNo = variant.articleNo?.trim() as string;
 						const geinsProduct = geinsProducts?.find((p: any) => p?.ArticleNumber === articleNo);
-						name = `${product.title} - ${generateProductTitle(product as ProductRecord, variant.id)}`;
+						const productId = geinsProduct?.ProductId ?? null;
+						const description = generateProductTitle(product as ProductRecord, variant.id);
+						const title = `${product.title} - ${description}`;
+						const name = product.title;
+						const price = variant.price;
+						const image = generateThumbnailUrl(variant.image?.url);
+
 						const deliveryDays = variant.deliveryDays;
 
 						acc.push({
-							product: {
-								ProductId: geinsProduct?.ProductId,
-								ArticleNumber: articleNo,
-								ExternalId: itemId,
-								Names: [
-									{
-										LanguageCode: 'sv',
-										Content: name,
-									},
-								],
-								Active: true,
-								BrandId: 1,
-								CategoryIds: [categoryId],
-								Markets: markets.map((m: any) => ({ Id: m.Id, ChannelId: channelId })),
-							},
-							productItem: {
-								Active: true,
-								ArticleNumber: articleNo,
-								Name: name.length > 50 ? name.slice(0, 47) + '...' : name,
-							},
-							productImage: generateThumbnailUrl(variant.image?.url),
-							price: variant.price,
+							apiKey,
+							slug,
+							productId,
+							categoryId,
+							title,
+							name,
+							description,
+							articleNo,
+							price,
+							image,
 						});
 					});
 					return acc;
-				}, [] as any[]);
+				}, [] as ProductData[]);
 
-				await Promise.all(products.map((p) => updateProduct(p)));
 				break;
 
 			case 'product_accessory':
@@ -153,39 +120,28 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				if (!productAccessory) throw new Error('Invalid product accessory: ' + itemId);
 
-				articleNumbers = [productAccessory.articleNo?.trim()];
-				categoryId = await getCatgegoryId('Accessory');
-				name = productAccessory.name ?? '';
-				const [geinsAccessory] = await mgmt.getProductByArticleNo(articleNumbers);
+				const [geinsAccessory] = await mgmt.getProductByArticleNo([
+					productAccessory.articleNo?.trim(),
+				]);
 
-				console.log(categoryId);
-
-				const accessory: Product = {
-					product: {
-						ProductId: geinsAccessory?.ProductId,
-						ArticleNumber: articleNumbers[0],
-						ExternalId: itemId,
-						Names: [
-							{
-								LanguageCode: 'sv',
-								Content: name,
-							},
-						],
-						Active: true,
-						BrandId: 1,
-						CategoryIds: [categoryId],
-						Markets: markets.map((m: any) => ({ Id: m.Id, ChannelId: channelId })),
+				products = [
+					{
+						apiKey,
+						slug,
+						productId: geinsAccessory?.ProductId ?? null,
+						categoryId,
+						title: productAccessory.name ?? '',
+						name: productAccessory.name ?? '',
+						description: productAccessory.name
+							? productAccessory.name?.length > 50
+								? productAccessory.name.slice(0, 47) + '...'
+								: productAccessory.name
+							: '',
+						articleNo: productAccessory.articleNo?.trim(),
+						price: productAccessory.price,
+						image: generateThumbnailUrl(productAccessory.image?.url),
 					},
-					productItem: {
-						Active: true,
-						ArticleNumber: articleNumbers[0],
-						Name: name,
-					},
-					productImage: generateThumbnailUrl(productAccessory.image?.url),
-					price: productAccessory.price,
-				};
-
-				await updateProduct(accessory);
+				];
 				break;
 
 			case 'product_lightsource':
@@ -198,82 +154,117 @@ export const sync = async (itemId: string): Promise<SyncResult> => {
 
 				const lightsourceArticleNo = productLightsource.articleNo?.trim();
 				const [geinsLightsource] = await mgmt.getProductByArticleNo([lightsourceArticleNo]);
-				categoryId = await getCatgegoryId('Lightsource');
-				name = productLightsource.name ?? '';
 
-				const lightsource: Product = {
-					product: {
-						ProductId: geinsLightsource?.ProductId,
-						ArticleNumber: lightsourceArticleNo,
-						ExternalId: itemId,
-						Names: [
-							{
-								LanguageCode: 'sv',
-								Content: name,
-							},
-						],
-						Active: true,
-						BrandId: 1,
-						CategoryIds: [categoryId],
-						Markets: markets.map((m: any) => ({ Id: m.Id, ChannelId: channelId })),
+				products = [
+					{
+						apiKey,
+						slug,
+						productId: geinsLightsource?.ProductId ?? null,
+						categoryId,
+						title: productLightsource.name ?? '',
+						name: productLightsource.name ?? '',
+						description: productLightsource.name
+							? productLightsource.name?.length > 50
+								? productLightsource.name.slice(0, 47) + '...'
+								: productLightsource.name
+							: '',
+						articleNo: productLightsource.articleNo?.trim(),
+						price: productLightsource.price,
+						image: generateThumbnailUrl(productLightsource.image?.url),
 					},
-					productItem: {
-						Active: true,
-						ArticleNumber: lightsourceArticleNo,
-						Name: name.length > 50 ? name.slice(0, 47) + '...' : name,
-					},
-					productImage: generateThumbnailUrl(productLightsource.image?.url),
-					price: productLightsource.price,
-				};
-				await updateProduct(lightsource);
+				];
+
 				break;
 			default:
 				console.log('Unsupported item type(api_key): ' + apiKey);
 				break;
 		}
+
+		await updateProduct(itemId, products, markets);
 	} catch (e) {
 		throw e;
 	}
-	return syncResult;
 };
 
-export async function updateProduct(p: Product) {
-	const { product, productItem, productImage } = p;
-	const updatedProduct = await (!product.ProductId
-		? mgmt.createProduct(product)
-		: mgmt.updateProduct(product));
-
-	const updatedProductItem = await (!updatedProduct.Items?.length
-		? mgmt.createProductItem({ ...productItem, ProductId: updatedProduct.ProductId })
-		: mgmt.updateProductItem({ ...productItem, ItemId: updatedProduct.Items[0].ItemId }));
-
-	if (productImage) {
-		await (!updatedProduct.Images?.length
-			? mgmt.createProductImage(updatedProduct.ProductId, productImage)
-			: mgmt.updateProductImage(updatedProduct.ProductId, productImage));
+export async function updateProduct(itemId: string, p: ProductData[], markets: any) {
+	let categoryId = p[0].categoryId;
+	const categorySlug =
+		p[0].apiKey === 'product'
+			? p[0].slug
+			: p[0].apiKey === 'product_lightsource'
+				? 'lightsource'
+				: 'accessory';
+	const categoryTitle =
+		p[0].apiKey === 'product'
+			? p[0].name
+			: p[0].apiKey === 'product_lightsource'
+				? 'Lightsource'
+				: 'Accessory';
+	if (!categoryId) {
+		const category = await mgmt.createCategory(categorySlug, categoryTitle);
+		categoryId = category.CategoryId;
+	} else {
+		await mgmt.updateCategory(categoryId, categorySlug, categoryTitle);
 	}
-	const priceLists = await mgmt.getPriceLists();
-	const allCurrencies = await getAllCurrencyRates();
-	const priceListPrices = priceLists.map(({ Id: PriceListId, Currency }) => ({
-		PriceListId,
-		Price: convertPriceWithRatesAndTaxes(
-			p.price,
-			allCurrencies.find((c) => c.isoCode === Currency),
-		),
-		ProductId: updatedProduct.ProductId,
-		Currency,
-	}));
-	console.log(priceListPrices);
-	console.log(priceLists);
+
+	await Promise.all(
+		p.map(async ({ slug, productId, title, description, articleNo, price, image }) => {
+			const product = {
+				ProductId: productId,
+				ArticleNumber: articleNo,
+				Names: [
+					{
+						LanguageCode: 'sv',
+						Content: title,
+					},
+				],
+				Active: true,
+				BrandId: 1,
+				CategoryIds: [categoryId],
+				Markets: markets.map((m: any) => ({ Id: m.Id, ChannelId: channelId })),
+			};
+
+			const productItem = {
+				Active: true,
+				ArticleNumber: articleNo,
+				Name: description.length > 50 ? description.slice(0, 47) + '...' : description,
+			};
+
+			const updatedProduct = await (!product.ProductId
+				? mgmt.createProduct(product)
+				: mgmt.updateProduct(product));
+
+			await mgmt.updateProductParameterValue(updatedProduct.ProductId, slugParameterId, slug);
+
+			const updatedProductItem = await (!updatedProduct.Items?.length
+				? mgmt.createProductItem({ ...productItem, ProductId: updatedProduct.ProductId })
+				: mgmt.updateProductItem({ ...productItem, ItemId: updatedProduct.Items[0].ItemId }));
+
+			if (image) {
+				await (!updatedProduct.Images?.length
+					? mgmt.createProductImage(updatedProduct.ProductId, image)
+					: mgmt.updateProductImage(updatedProduct.ProductId, image));
+			}
+
+			const allCurrencies = await getAllCurrencyRates();
+			const PriceListId = 1000000;
+			const priceListPrices = allCurrencies.map((c) => ({
+				PriceListId,
+				Price: convertPriceWithRatesAndTaxes(price, c),
+				ProductId: updatedProduct.ProductId,
+				Currency: c.isoCode,
+			}));
+
+			await mgmt.updatePriceListPrices(PriceListId, priceListPrices);
+		}),
+	);
+
+	//await client.items.update(itemId, { geins_group_id: variantGroupId });
+	//await client.items.publish(itemId);
 }
 
-export async function getCatgegoryId(name: string) {
-	const categories = await mgmt.getCategories();
-	return categories.find(({ Names }) => Names.find(({ Content }) => Content === name))?.CategoryId;
-}
-
-export const generateThumbnailUrl = (url: string | undefined | null): string | null => {
-	if (!url) return null;
+export const generateThumbnailUrl = (url: string | undefined | null): string | null | undefined => {
+	if (!url) return;
 	const u = new URL(url);
 	const size = 2000;
 	const pad = size * 0.1;
@@ -282,7 +273,7 @@ export const generateThumbnailUrl = (url: string | undefined | null): string | n
 };
 
 export const resetAll = async () => {
-	console.log('reseting all...');
+	console.log('resetting all...');
 	const products = await mgmt.getProducts();
 	console.log('deleting all products:', products.length);
 	for (const product of products) await mgmt.removeProduct(product.ProductId);
@@ -320,22 +311,3 @@ export const resyncAll = async (index: number = 0) => {
 		throw new Error('sync failed');
 	}
 };
-
-// export const syncProductStatus = async (
-// 	handle: string,
-// 	status: ProductStatus,
-// ): Promise<UpdateProductStatusMutation['productUpdate']> => {
-// 	const { product: geinsProduct } = await geinsQuery(AdminProductDocument, {
-// 		admin: true,
-// 		variables: { handle },
-// 	});
-
-// 	const { productUpdate } = await geinsQuery(UpdateProductStatusDocument, {
-// 		admin: true,
-// 		variables: {
-// 			productId: geinsProduct?.id,
-// 			status,
-// 		},
-// 	});
-// 	return productUpdate;
-// };

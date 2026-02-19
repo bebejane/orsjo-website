@@ -1,6 +1,4 @@
-import shopifyQuery from './shopify-query';
 import client from './datocms-client';
-import { LocalizationDocument } from '@/lib/shopify/graphql';
 import geinsQuery from '@/lib/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/lib/geins/graphql';
 
@@ -43,9 +41,30 @@ export const priceWithVAT = (money: MoneyV2): MoneyV2 => {
 	}
 };
 
-export const getChannels = async (): Promise<AllGeinsChannelsQuery['channels']> => {
+export const getChannel = async (): Promise<
+	NonNullable<AllGeinsChannelsQuery['channels']>[number] | undefined
+> => {
 	const { channels } = await geinsQuery(AllGeinsChannelsDocument);
-	return channels;
+	return channels?.[0];
+};
+
+export type Market = {
+	id: string;
+	country: {
+		name: string;
+		code: string;
+	};
+	currency: {
+		name: string;
+		symbol: string;
+		code: string;
+		rate: number;
+	};
+};
+export const getMarkets = async (): Promise<Market[]> => {
+	const channel = await getChannel();
+	if (!channel) return [];
+	return channel.markets as Market[];
 };
 
 export const cartCookieOptions = {

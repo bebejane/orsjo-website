@@ -15,13 +15,13 @@ export type ProductsByCategory = {
 export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
 	productCategories: AllProductCategoriesQuery['allProductCategories'];
-	shopifyProducts: AllShopifyProductsQuery['products'];
+	geinsProducts: NonNullable<AllGeinsProductsQuery['products']>['products'];
 };
 
 export default function ProductList({
 	productCategories,
 	allProducts,
-	shopifyProducts,
+	geinsProducts,
 }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: { [index: string]: ProductsByCategory } = useMemo(() => ({}), []);
@@ -30,7 +30,7 @@ export default function ProductList({
 			name,
 			namePlural,
 			products: allProducts.filter(({ categories }) =>
-				categories?.find((c) => c.name === name)
+				categories?.find((c) => c.name === name),
 			) as ProductRecord[],
 		};
 	});
@@ -50,7 +50,7 @@ export default function ProductList({
 				.filter(
 					({ title, designer }) =>
 						searchString(searchProducts, title) ||
-						searchString(searchProducts, designer?.name ?? '')
+						searchString(searchProducts, designer?.name ?? ''),
 				);
 			const category = productCategories.find((c) => c.id === k);
 
@@ -106,8 +106,8 @@ export default function ProductList({
 										<ProductThumbnail
 											product={product}
 											theme='light'
-											shopifyVariant={
-												shopifyProducts.edges.find((v) => v.node.handle === product.slug)?.node
+											geinsVariant={
+												geinsProducts.find((v) => v.node.handle === product.slug)?.node
 													.selectedOrFirstAvailableVariant as ProductVariant
 											}
 										/>

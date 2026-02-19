@@ -5,12 +5,11 @@ import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import { buildMenu } from '@/lib/menu';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
-import shopifyQuery from '@/lib/shopify/shopify-query';
-import { LocalizationDocument } from '@/lib/shopify/graphql';
 import * as Sentry from '@sentry/nextjs';
-import { getLocalization } from '@/lib/shopify/utils';
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
+import geinsQuery from '@/lib/geins/geins-query';
+import { getMarkets } from '@/lib/geins/utils';
 
 export const dynamic = 'force-static';
 
@@ -18,9 +17,9 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 	const { locale } = await (params as any);
 	setRequestLocale(locale);
 
-	const [menu, { localization }, { shipping }] = await Promise.all([
+	const [menu, markets, { shipping }] = await Promise.all([
 		buildMenu(),
-		shopifyQuery(LocalizationDocument),
+		getMarkets(),
 		apiQuery(ShippingDocument),
 	]);
 
@@ -29,7 +28,7 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 			<body id='root'>
 				{modals}
 				<NextIntlClientProvider key={locale}>
-					<Layout menu={menu} localization={localization} shipping={shipping}>
+					<Layout menu={menu} markets={markets} shipping={shipping}>
 						{children}
 					</Layout>
 				</NextIntlClientProvider>
@@ -39,9 +38,9 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 }
 
 export async function generateStaticParams() {
-	const localization = await getLocalization();
-	return localization.availableCountries.map((country) => ({
-		country: country.isoCode.toLowerCase(),
+	const markets = await getMarkets();
+	return markets.map((market) => ({
+		country: market.country.code,
 	}));
 }
 
