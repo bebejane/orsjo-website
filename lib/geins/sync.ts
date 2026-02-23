@@ -10,8 +10,6 @@ import {
 	ProductLightsourceByIdDocument,
 } from '@/graphql';
 import * as mgmt from '@/lib/geins/mgmt-api';
-
-import { batchPromises } from '@/lib/utils';
 import { generateProductTitle } from '@/lib/utils';
 import { convertPriceWithRatesAndTaxes, getAllCurrencyRates, CurrencyRate } from '@/lib/utils';
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
@@ -93,7 +91,9 @@ export const sync = async (itemId: string): Promise<void> => {
 						const image = generateThumbnailUrl(variant.image?.url);
 
 						const deliveryDays = variant.deliveryDays;
-
+						if (!price) {
+							console.log(variant);
+						}
 						acc.push({
 							apiKey,
 							slug,
@@ -207,64 +207,60 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 		await mgmt.updateCategory(categoryId, categorySlug, categoryTitle);
 	}
 
-	await Promise.all(
-		p.map(async ({ slug, productId, title, description, articleNo, price, image }) => {
-			const product = {
-				ProductId: productId,
-				ArticleNumber: articleNo,
-				Names: [
-					{
-						LanguageCode: 'sv',
-						Content: title,
-					},
-				],
-				Active: true,
-				BrandId: 1,
-				CategoryIds: [categoryId],
-				Markets: markets.map((m: any) => ({ Id: m.Id, ChannelId: channelId })),
-			};
+	for (const { slug, productId, title, description, articleNo, price, image } of p) {
+		const product = {
+			ProductId: productId,
+			ArticleNumber: articleNo,
+			Names: [
+				{
+					LanguageCode: 'sv',
+					Content: title,
+				},
+			],
+			Active: true,
+			BrandId: 1,
+			CategoryIds: [categoryId],
+			Markets: markets.map((m: any) => ({ Id: m.Id, ChannelId: channelId })),
+		};
 
-			const productItem = {
-				Active: true,
-				ArticleNumber: articleNo,
-				Name: description.length > 50 ? description.slice(0, 47) + '...' : description,
-			};
+		const productItem = {
+			Active: true,
+			ArticleNumber: articleNo,
+			Name: description.length > 50 ? description.slice(0, 47) + '...' : description,
+		};
 
-			const updatedProduct = await (!product.ProductId
-				? mgmt.createProduct(product)
-				: mgmt.updateProduct(product));
+		const updatedProduct = await (!product.ProductId
+			? mgmt.createProduct(product)
+			: mgmt.updateProduct(product));
 
-			await mgmt.updateProductParameterValue(updatedProduct.ProductId, slugParameterId, slug);
+		await mgmt.updateProductParameterValue(updatedProduct.ProductId, slugParameterId, slug);
 
-			const updatedProductItem = await (!updatedProduct.Items?.length
-				? mgmt.createProductItem({ ...productItem, ProductId: updatedProduct.ProductId })
-				: mgmt.updateProductItem({ ...productItem, ItemId: updatedProduct.Items[0].ItemId }));
+		const updatedProductItem = await (!updatedProduct.Items?.length
+			? mgmt.createProductItem({ ...productItem, ProductId: updatedProduct.ProductId })
+			: mgmt.updateProductItem({ ...productItem, ItemId: updatedProduct.Items[0].ItemId }));
 
-			if (image) {
-				await (!updatedProduct.Images?.length
-					? mgmt.createProductImage(updatedProduct.ProductId, image)
-					: mgmt.updateProductImage(updatedProduct.ProductId, image));
-			}
+		if (image) {
+			await (!updatedProduct.Images?.length
+				? mgmt.createProductImage(updatedProduct.ProductId, image)
+				: mgmt.updateProductImage(updatedProduct.ProductId, image));
+		}
 
-			const allCurrencies = await getAllCurrencyRates();
-			const PriceListId = 1000000;
-			const priceListPrices = allCurrencies.map((c) => ({
-				PriceListId,
-				Price: convertPriceWithRatesAndTaxes(price, c),
-				ProductId: updatedProduct.ProductId,
-				Currency: c.isoCode,
-			}));
+		const allCurrencies = await getAllCurrencyRates();
+		const PriceListId = 100000;
+		const priceListPrices = allCurrencies.map((c) => ({
+			PriceListId,
+			Price: convertPriceWithRatesAndTaxes(price, c),
+			ProductId: updatedProduct.ProductId,
+			Currency: c.isoCode,
+		}));
+		console.log(priceListPrices);
 
-			await mgmt.updatePriceListPrices(PriceListId, priceListPrices);
-		}),
-	);
-
-	//await client.items.update(itemId, { geins_group_id: variantGroupId });
-	//await client.items.publish(itemId);
+		await mgmt.updatePriceListPrices(priceListPrices);
+	}
 }
 
 export const generateThumbnailUrl = (url: string | undefined | null): string | null | undefined => {
-	if (!url) return;
+	if (!url) url = 'https://www.datocms-assets.com/62617/1771852945-no-product-image.png';
 	const u = new URL(url);
 	const size = 2000;
 	const pad = size * 0.1;

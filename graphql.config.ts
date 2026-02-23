@@ -88,6 +88,7 @@ const geins = {
 const config: IGraphQLConfig = {
 	projects: {
 		geins,
+		//datocms,
 	},
 };
 export default config;

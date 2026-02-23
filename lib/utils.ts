@@ -67,7 +67,10 @@ export const getCurrencyRateByLocale = async (locale: SiteLocale): Promise<Curre
 	return currency as CurrencyRate;
 };
 
-export const getPriceWithRatesAndTaxes = async (price: number, currencyCode: CurrencyCode): Promise<number> => {
+export const getPriceWithRatesAndTaxes = async (
+	price: number,
+	currencyCode: CurrencyCode,
+): Promise<number> => {
 	const c = await getCurrencyRateByISO(currencyCode);
 	return convertPriceWithRatesAndTaxes(price, c);
 };
@@ -78,13 +81,16 @@ export const convertPriceWithRatesAndTaxes = (price: number, c: CurrencyRate) =>
 
 export const formatPrice = async (price: number, locale: SiteLocale) => {
 	const c = await getCurrencyRateByLocale(locale);
-	const nf = new Intl.NumberFormat(`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`);
+	const nf = new Intl.NumberFormat(
+		`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`,
+	);
 	return `${nf.format(Math.ceil(price))} ${c.symbol}`;
 };
 
 export const sortProductsByCategory = (products: ProductRecord[]) => {
 	const sortedProducts = [...products].sort((a, b) => {
-		if (a.family?.id === b.family?.id) return a.categories[0].position < b.categories[0].position ? -1 : 1;
+		if (a.family?.id === b.family?.id)
+			return a.categories[0].position < b.categories[0].position ? -1 : 1;
 		else return 0;
 	});
 	return sortedProducts;
@@ -112,7 +118,13 @@ export const chunkArray = (array: any[], chunkSize: number) => {
 };
 
 export const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => {
-	type LightsourcePick = { id: string; amount?: number; name: string; included: boolean; modelName: string };
+	type LightsourcePick = {
+		id: string;
+		amount?: number;
+		name: string;
+		included: boolean;
+		modelName: string;
+	};
 
 	let allLightsources: (LightsourceRecord & { modelName: string })[] = [];
 
@@ -135,7 +147,8 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 		designer: product.designer?.name,
 		electricalData: product.electricalData.map((el) => el.name).join(', '),
 		additionalInformation: product.additionalInformation
-			? product.additionalInformation + (product.dimmable?.name ? `. ${product.dimmable?.name}` : '')
+			? product.additionalInformation +
+				(product.dimmable?.name ? `. ${product.dimmable?.name}` : '')
 			: undefined,
 		dimmable: product.dimmable?.name,
 		connection: product.connection?.name,
@@ -143,7 +156,7 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 		lightsource: lightsources
 			.map(
 				({ included, name, modelName }) =>
-					`${lightsources.length && product.models.length > 1 && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`
+					`${lightsources.length && product.models.length > 1 && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`,
 			)
 			.join(', '),
 		socket: product.sockets.map((el) => el.name).join(', '),
@@ -162,9 +175,17 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 	return specs;
 };
 
-export const recordImages = (obj: any, exclude: string[] = [], images: FileField[] = []): FileField[] => {
+export const recordImages = (
+	obj: any,
+	exclude: string[] = [],
+	images: FileField[] = [],
+): FileField[] => {
 	Object.keys(obj).forEach((key) => {
-		if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video') && !exclude.includes(key))
+		if (
+			obj[key]?.responsiveImage !== undefined &&
+			!obj[key]?.mimeType.includes('video') &&
+			!exclude.includes(key)
+		)
 			images.push({ ...obj[key], _key: key });
 
 		if (typeof obj[key] === 'object' && obj[key] !== null) recordImages(obj[key], exclude, images);
@@ -304,7 +325,7 @@ export const pxToInt = (px: string): number => {
 
 export const styleVariables: { [key: string]: number | string } = Object.keys(scssExports).reduce(
 	(acc, key) => ({ ...acc, [key]: scssExports[key as keyof typeof scssExports] }),
-	{} as { [key: string]: number | string }
+	{} as { [key: string]: number | string },
 );
 
 export const waitForElement = async (id: string, ms: number): Promise<HTMLElement | null> => {
@@ -339,7 +360,7 @@ export const batchPromises = async (
 	tasks: any[],
 	concurrency: number,
 	timeout?: number,
-	callback?: (index: number) => void
+	callback?: (index: number) => void,
 ) => {
 	const results: any[] = [];
 	const executing = new Set();
@@ -393,7 +414,8 @@ export const formatProductColor = (color?: string | null | undefined) => {
 
 export const parseProductModelName = (model?: ProductModelRecord, variant?: VariantRecord) => {
 	if (!model || !variant) return {};
-	const name = model.name?.name ?? (formatProductColor(variant.color?.name) || variant.material?.name);
+	const name =
+		model.name?.name ?? (formatProductColor(variant.color?.name) || variant.material?.name);
 	const description = [
 		model.name?.name ? formatProductColor(variant?.color?.name) : null,
 		model.name?.name || variant?.color?.name ? variant?.material?.name : null,

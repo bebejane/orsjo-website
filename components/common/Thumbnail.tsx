@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Image } from 'react-datocms';
 import Link from '@/components/nav/Link';
 import { useState } from 'react';
-import { formatShopifyPrice } from '@/lib/shopify/utils';
+import { formatGeinsPrice } from '@/lib/geins/utils';
 
 export type ThumbnailProps = {
 	slug?: string;
@@ -44,8 +44,10 @@ export default function Thumbnail({
 	showMarkAsNew = true,
 }: ThumbnailProps) {
 	const [hovering, setHovering] = useState(false);
-	const isTouch = typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
-	const handleMouseOver = ({ type }: React.MouseEvent<HTMLElement>) => !isTouch && setHovering(type === 'mouseenter');
+	const isTouch =
+		typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
+	const handleMouseOver = ({ type }: React.MouseEvent<HTMLElement>) =>
+		!isTouch && setHovering(type === 'mouseenter');
 
 	const content = (
 		<>
@@ -120,12 +122,12 @@ export type BaseThumbnailProps = {
 
 export type ProductThumbnailProps = BaseThumbnailProps & {
 	product: ProductRecord;
-	shopifyVariant?: ProductVariant | undefined;
+	geinsVariant?: ProductType;
 };
 
 export function ProductThumbnail({
 	product,
-	shopifyVariant,
+	geinsVariant,
 	inverted,
 	theme = 'dark',
 	className,
@@ -139,7 +141,10 @@ export function ProductThumbnail({
 			imageHover={product.environmentImage}
 			title={product.title}
 			subtitle={product.designer?.name ? product.designer.name : undefined}
-			price={formatShopifyPrice(shopifyVariant?.price as MoneyV2)}
+			price={formatGeinsPrice(
+				geinsVariant?.unitPrice?.regularPriceIncVat,
+				geinsVariant?.unitPrice?.currency?.code,
+			)}
 			className={className}
 			inverted={inverted}
 			theme={theme}

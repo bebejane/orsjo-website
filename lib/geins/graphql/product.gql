@@ -18,8 +18,14 @@ query AllGeinsProducts($skip: Int = 0, $take: Int = 200) {
 # 	}
 # }
 
-query GeinsProductByCategory($categoryAlias: String) {
-	products(categoryAlias: $categoryAlias, channelId: "mystore1.orsjo", marketId: "1") {
+query GeinsProductsByCategory($categoryAlias: String, $skip: Int = 0, $take: Int = 200) {
+	products(
+		skip: $skip
+		take: $take
+		categoryAlias: $categoryAlias
+		channelId: "mystore1.orsjo"
+		marketId: "1"
+	) {
 		count
 		products {
 			...ProductFragment
@@ -77,6 +83,8 @@ fragment ProductFragment on ProductType {
 		description
 	}
 	unitPrice {
+		sellingPriceIncVat
+		sellingPriceExVat
 		currency {
 			name
 			symbol
@@ -84,7 +92,6 @@ fragment ProductFragment on ProductType {
 			rate
 		}
 		vatFormatted
-		sellingPriceIncVat
 	}
 	productImages {
 		fileName

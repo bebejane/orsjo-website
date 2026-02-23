@@ -1,22 +1,19 @@
 import geinsQuery from '@/lib/geins/geins-query';
-import { AllGeinsProductsDocument, GeinsProductByCategoryDocument } from '@/lib/geins/graphql';
+import { AllGeinsProductsDocument, GeinsProductsByCategoryDocument } from '@/lib/geins/graphql';
 
 export async function getProduct(slug: string): Promise<ProductType[]> {
-	const { products } = await geinsQuery(GeinsProductByCategoryDocument, {
+	const { products } = await geinsQuery(GeinsProductsByCategoryDocument, {
 		variables: { categoryAlias: slug },
 	});
 
 	return (products?.products as ProductType[]) ?? [];
 }
 
-type GeinsProduct = {
-	slug: string;
-	variants: ProductType[];
-	accessories: ProductType[];
+export async function getAllProducts(categoryAlias?: string): Promise<{
+	products: ProductType[];
 	lightsources: ProductType[];
-};
-
-export async function getProducts(): Promise<GeinsProduct[]> {
+	accessories: ProductType[];
+}> {
 	const all: ProductType[] = [];
 
 	let skip = 0;
@@ -24,109 +21,74 @@ export async function getProducts(): Promise<GeinsProduct[]> {
 
 	let res = await geinsQuery(AllGeinsProductsDocument, {
 		variables: { skip, take },
+		logs: true,
 	});
 
 	let count = res?.products?.count ?? 0;
 
 	while (count > skip) {
 		const items = (res.products?.products ?? []) as ProductType[];
-		all.push.apply(all, items);
-		skip = all.length - 1;
+		all.push(...items);
+		skip = all.length;
 		take = Math.min(count - skip, take);
+
 		if (skip >= count) break;
 
 		res = await geinsQuery(AllGeinsProductsDocument, {
 			variables: { skip, take },
+			logs: true,
 		});
 	}
 	const accessories = all.filter((p) => p?.categories?.find((c) => c?.alias === 'accessory'));
 	const lightsources = all.filter((p) => p?.categories?.find((c) => c?.alias === 'lightsource'));
 	const products = all.filter(
-		(p) => !p?.categories?.some((c) => ['accessory', 'lightsource'].includes(c?.alias ?? '')),
+		(p) => !p?.categories?.find((c) => ['lightsource', 'accessory'].includes(c?.alias ?? '')),
 	);
 
-	console.log(JSON.stringify(all, null, 2));
-	console.log('Count:', count);
-	console.log('All:', all.length);
-	console.log('Products:', products.length);
-	console.log('Accessories:', accessories.length);
-	console.log('Lightsources:', lightsources.length);
-
-	const result: GeinsProduct[] = [];
-	products.forEach((p) => {
-		const slug = p.categories?.find((c) => c?.alias === 'product')?.alias as string;
-		const index = result.findIndex((r) => r.slug === slug);
-
-		if (index === -1) {
-			result.push({
-				slug,
-				variants: [p],
-				accessories: [],
-				lightsources: [],
-			});
-		} else result[index].variants.push(p);
-	});
-
-	return result;
+	return { products, lightsources, accessories };
 }
 
-export async function getProducts2(): Promise<GeinsProduct[]> {
+export async function getProductsByCategory(categoryAlias: string): Promise<ProductType[]> {
 	const all: ProductType[] = [];
 
 	let skip = 0;
 	let take = 200;
 
-	let res = await geinsQuery(AllGeinsProductsDocument, {
-		variables: { skip, take },
+	let res = await geinsQuery(GeinsProductsByCategoryDocument, {
+		variables: { skip, take, categoryAlias },
+		logs: true,
 	});
 
 	let count = res?.products?.count ?? 0;
-	console.log('count:', count);
 
 	while (count > skip) {
 		const items = (res.products?.products ?? []) as ProductType[];
-		all.push.apply(all, items);
+		all.push(...items);
 		skip = all.length;
 		take = Math.min(count - skip, take);
+
 		if (skip >= count) break;
 
-		res = await geinsQuery(AllGeinsProductsDocument, {
-			variables: { skip, take },
+		res = await geinsQuery(GeinsProductsByCategoryDocument, {
+			variables: { skip, take, categoryAlias },
+			logs: true,
 		});
 	}
-	console.log(JSON.stringify(all, null, 2));
-	const accessories = all.filter((p) =>
-		p?.parameterGroups
-			?.find((p) => p?.parameterGroupId === 2)
-			?.parameters?.find((p) => p?.identifier === 'accessory'),
-	);
-	const lightsources = all.filter((p) =>
-		p?.parameterGroups
-			?.find((p) => p?.parameterGroupId === 2)
-			?.parameters?.find((p) => p?.identifier === 'lightsource'),
-	);
-	const products = all.filter(
-		(p) => ![...accessories, ...lightsources].find(({ productId }) => productId === p.productId),
-	);
 
-	console.log('Total products:', products.length);
-	console.log('Accessories:', accessories.length);
-	console.log('Lightsources:', lightsources.length);
+	return all;
+}
 
-	const result: GeinsProduct[] = [];
-	products.forEach((p) => {
-		const slug = p.categories?.find((c) => c?.alias === 'product')?.alias as string;
-		const index = result.findIndex((r) => r.slug === slug);
+export async function getProducts(): Promise<ProductType[]> {
+	const { products } = await getAllProducts();
+	return products;
+}
 
-		if (index === -1) {
-			result.push({
-				slug,
-				variants: [p],
-				accessories: [],
-				lightsources: [],
-			});
-		} else result[index].variants.push(p);
-	});
+export async function getAccessories(): Promise<ProductType[]> {
+	const accessories = await getProductsByCategory('accessory');
+	return accessories;
+}
 
-	return result;
+export async function getLightsources(): Promise<ProductType[]> {
+	const lightsources = await getProductsByCategory('lightsource');
+	return lightsources;
 }

@@ -370,7 +370,6 @@ fragment ProductFragment on ProductRecord {
 	_seoMetaTags {
 		...SEOFragment
 	}
-	geinsGroupId
 }
 
 fragment ProductLightFragment on ProductRecord {
@@ -407,5 +406,4 @@ fragment ProductLightFragment on ProductRecord {
 		name
 		slug
 	}
-	geinsGroupId
 }

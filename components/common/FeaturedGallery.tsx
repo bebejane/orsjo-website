@@ -19,13 +19,13 @@ import { useEffect, useRef, useState } from 'react';
 import { usePage } from '@/lib/context/page-provider';
 import { useMediaQuery } from 'usehooks-ts';
 
-export type ProductRecordWithShopifyData = ProductRecord & { shopify: ProductVariant };
+export type ProductRecordWithGeinsData = ProductRecord & { geins?: ProductType };
 
 export type FeaturedGalleryProps = {
 	products?: ProductRecord[];
 	projects?: ProjectRecord[];
 	designers?: DesignerRecord[];
-	items: ProductRecordWithShopifyData[] | ProjectRecord[] | DesignerRecord[] | ProductRecord[];
+	items: ProductRecordWithGeinsData[] | ProjectRecord[] | DesignerRecord[] | ProductRecord[];
 	shopifyItems?: Product[];
 	headline?: string;
 	id: string;
@@ -59,7 +59,7 @@ export default function FeaturedGallery({
 		const slidesPerView = isMobile ? 2 : 4;
 		setIsShortSlide(numSlides <= slidesPerView);
 	}, [isMobile, numSlides]);
-
+	console.log(items);
 	return (
 		<div className={cn(s.featuredGallery, (inverted || _inverted) && s.inverted)}>
 			{headline && arrowAlign === 'top' && (
@@ -108,7 +108,7 @@ export default function FeaturedGallery({
 									product={item as ProductRecord}
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
-									shopifyVariant={item.shopify}
+									geinsVariant={item.geins}
 									lazyload={false}
 									className={s.thumbnail}
 								/>

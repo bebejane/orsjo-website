@@ -5,15 +5,19 @@ import {
 	AllRelatedProjectsForProductDocument,
 	ShippingDocument,
 } from '@/graphql';
-import { parseSpecifications, ProductDownload, productDownloads, ProductRecordWithPdfFiles } from '@/lib/utils';
+import {
+	parseSpecifications,
+	ProductDownload,
+	productDownloads,
+	ProductRecordWithPdfFiles,
+} from '@/lib/utils';
 import { apiQuery } from 'next-dato-utils/api';
 import { firstBy } from 'thenby';
-import shopifyQuery from '@/lib/shopify/shopify-query';
-import { ShopifyProductDocument, ShopifyProductsByQueryDocument } from '@/lib/shopify/graphql';
+import * as geins from '@/lib/geins/merchant-api';
 
 export function findCheapestVariant(
 	product: ProductRecord,
-	shopifyProducts: AllShopifyProductsQuery['products']
+	shopifyProducts: AllShopifyProductsQuery['products'],
 ): ProductVariant | undefined {
 	const shopifyProduct = shopifyProducts.edges.find(({ node }) => node.handle === product.slug);
 	if (!shopifyProduct) console.log('no shopify product found for:', product.slug);
@@ -22,7 +26,9 @@ export function findCheapestVariant(
 	//@ts-ignore
 	return shopifyProduct.node.variants.edges.reduce<undefined | ProductVariant>((acc, variant) => {
 		if (!acc) return variant.node;
-		return parseFloat(variant.node.price.amount) > parseFloat(acc.price.amount) ? variant.node : acc;
+		return parseFloat(variant.node.price.amount) > parseFloat(acc.price.amount)
+			? variant.node
+			: acc;
 	}, undefined);
 }
 
@@ -34,10 +40,10 @@ export type SpecCol = {
 };
 
 export type ProductPageDataProps = {
-	shopify: {
-		product: ShopifyProductQuery['product'];
-		accessories: ShopifyProductsByQuery['products']['edges'][0]['node'][];
-		lightsources: ShopifyProductsByQuery['products']['edges'][0]['node'][];
+	geins: {
+		products: ProductType[];
+		accessories: ProductType[];
+		lightsources: ProductType[];
 		i18n: {
 			countryCode: CountryCode;
 			currencyCode: CurrencyCode;
@@ -55,7 +61,7 @@ export type ProductPageDataProps = {
 
 export const getProductPageData = async (
 	slug: string,
-	countryCode: CountryCode
+	countryCode: CountryCode,
 ): Promise<ProductPageDataProps | null> => {
 	const { product } = await apiQuery(ProductDocument, {
 		variables: { slug },
@@ -63,28 +69,24 @@ export const getProductPageData = async (
 
 	if (!product) return null;
 
-	const [{ allProducts }, { allProducts: allProductCategories }, { allProjects }, { shipping }] = await Promise.all([
-		apiQuery(AllRelatedProductsDocument, {
-			all: true,
-			variables: { designerId: product.designer?.id, familyId: product.family.id },
-			tags: ['shipping', 'accessory', 'lightsource'],
-		}),
-		apiQuery(AllProductsByCategoryDocument, {
-			variables: { categoryId: product.categories[0]?.id },
-			tags: ['shipping', 'accessory', 'lightsource'],
-			all: true,
-		}),
-		apiQuery(AllRelatedProjectsForProductDocument, {
-			all: true,
-			variables: { productId: product.id },
-		}),
-		apiQuery(ShippingDocument),
-	]);
-
-	const { product: shopifyProduct } = await shopifyQuery(ShopifyProductDocument, {
-		variables: { handle: product.slug },
-		country: countryCode,
-	});
+	const [{ allProducts }, { allProducts: allProductCategories }, { allProjects }, { shipping }] =
+		await Promise.all([
+			apiQuery(AllRelatedProductsDocument, {
+				all: true,
+				variables: { designerId: product.designer?.id, familyId: product.family.id },
+				tags: ['shipping', 'accessory', 'lightsource'],
+			}),
+			apiQuery(AllProductsByCategoryDocument, {
+				variables: { categoryId: product.categories[0]?.id },
+				tags: ['shipping', 'accessory', 'lightsource'],
+				all: true,
+			}),
+			apiQuery(AllRelatedProjectsForProductDocument, {
+				all: true,
+				variables: { productId: product.id },
+			}),
+			apiQuery(ShippingDocument),
+		]);
 
 	const relatedArticleNos = product.models.reduce(
 		(acc, model) => {
@@ -92,16 +94,27 @@ export const getProductPageData = async (
 				.concat(model.accessories.map(({ accessory }) => accessory?.articleNo ?? null))
 				.concat(model.lightsources.map(({ lightsource }) => lightsource?.articleNo ?? null));
 		},
-		[] as (string | null)[]
+		[] as (string | null)[],
 	);
 
-	const query = relatedArticleNos.map((articleNo) => `tag:${articleNo}`).join(' OR ');
-	const { products } = await shopifyQuery(ShopifyProductsByQueryDocument, {
-		country: countryCode,
-		variables: { query },
-	});
-	const shopifyAccessories = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('accessory'));
-	const shopifyLightsources = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('lightsource'));
+	const products = await geins.getProductsByCategory(slug);
+	const accessories = await geins.getProductsByCategory('accessory');
+	const lightsources = await geins.getProductsByCategory('lightsource');
+
+	const geinsAccessories = accessories.filter((a) =>
+		a.skus?.some(
+			(s) => s?.articleNumber === products.find((p) => p.productId === a.productId)?.articleNumber,
+		),
+	);
+	const geinsLightsources = lightsources.filter((a) =>
+		a.skus?.some(
+			(s) => s?.articleNumber === products.find((p) => p.productId === a.productId)?.articleNumber,
+		),
+	);
+	/*products.edges
+		.map(({ node }) => node)
+		.filter((p) => p.tags.includes('lightsource'));
+		*/
 
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [
@@ -118,30 +131,39 @@ export const getProductPageData = async (
 	const files = productDownloads(product as ProductRecordWithPdfFiles);
 	const drawings: FileField[] = [];
 
-	product.models.forEach((m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null } as FileField));
+	product.models.forEach(
+		(m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null } as FileField),
+	);
 
 	const sort = {
 		byFamily: (a: ProductRecord, b: ProductRecord) => (a.family.id === b.family.id ? 0 : 1),
 		byTitle: (a: ProductRecord, b: ProductRecord) => (a.title > b.title ? 1 : -1),
 		byCategory: (a: ProductRecord, b: ProductRecord) =>
-			a.categories.map((el) => el.id).find((id) => product.categories.map((el) => el.id).includes[id]) ? 1 : -1,
-		byDesigner: (a: ProductRecord, b: ProductRecord) => (a.designer?.id === product.designer?.id ? 1 : -1),
+			a.categories
+				.map((el) => el.id)
+				.find((id) => product.categories.map((el) => el.id).includes[id])
+				? 1
+				: -1,
+		byDesigner: (a: ProductRecord, b: ProductRecord) =>
+			a.designer?.id === product.designer?.id ? 1 : -1,
 	};
 
-	const currencyCode = shopifyProduct?.variants.edges[0].node.price.currencyCode ?? ('SEK' as CurrencyCode);
+	const currencyCode = 'SEK' as CurrencyCode;
 
 	return {
 		product,
-		shopify: {
-			product: shopifyProduct,
-			accessories: shopifyAccessories,
-			lightsources: shopifyLightsources,
+		geins: {
+			products: products,
+			accessories: geinsAccessories,
+			lightsources: geinsLightsources,
 			i18n: {
 				countryCode,
 				currencyCode,
 			},
 		},
-		relatedProducts: allProducts.filter((p) => p.id !== product.id).sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
+		relatedProducts: allProducts
+			.filter((p) => p.id !== product.id)
+			.sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
 		productsByCategory: allProductCategories
 			.filter((p) => p.id !== product.id)
 			.sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
@@ -152,16 +174,3 @@ export const getProductPageData = async (
 		shipping,
 	};
 };
-
-export async function getShopifyProductsBySku(
-	skus: string[],
-	country: string
-): Promise<ShopifyProductsByQuery['products']['edges'][0]['node'][]> {
-	const query = skus.map((sku) => `sku:${sku}`).join(' OR ');
-
-	const { products } = await shopifyQuery(ShopifyProductsByQueryDocument, {
-		variables: { query },
-		country,
-	});
-	return products.edges.map(({ node }) => node);
-}

@@ -151,7 +151,7 @@ export async function deletePriceList(id: string) {
 	return c;
 }
 
-export async function updatePriceListPrices(id: number, price: any) {
+export async function updatePriceListPrices(price: any[]) {
 	const c = await request(`/PriceList/Price`, 'PUT', price);
 	return c;
 }

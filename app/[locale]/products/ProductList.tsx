@@ -15,7 +15,7 @@ export type ProductsByCategory = {
 export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
 	productCategories: AllProductCategoriesQuery['allProductCategories'];
-	geinsProducts: NonNullable<AllGeinsProductsQuery['products']>['products'];
+	geinsProducts: ProductType[];
 };
 
 export default function ProductList({
@@ -106,10 +106,9 @@ export default function ProductList({
 										<ProductThumbnail
 											product={product}
 											theme='light'
-											geinsVariant={
-												geinsProducts.find((v) => v.node.handle === product.slug)?.node
-													.selectedOrFirstAvailableVariant as ProductVariant
-											}
+											geinsVariant={geinsProducts?.find((v) =>
+												v?.categories?.find((c) => c?.alias === product.slug),
+											)}
 										/>
 									</li>
 								))}

@@ -29,5 +29,4 @@ fragment ProductLightsourceFragment on ProductLightsourceRecord {
 		...ImageThumbnailFragment
 	}
 	slug
-	geinsGroupId
 }

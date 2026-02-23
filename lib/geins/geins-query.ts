@@ -86,11 +86,11 @@ const dedupedFetch = async (options: DedupeOptions) => {
 		method: 'POST',
 		headers,
 		body,
-		next: {
-			revalidate: revalidate ?? 0,
-			cache: 'no-store',
-			tags: Array.isArray(tags) ? tags : undefined,
-		},
+		// next: {
+		// 	revalidate: revalidate ?? 0,
+		// 	cache: 'no-store',
+		// 	tags: Array.isArray(tags) ? tags : undefined,
+		// },
 	} as RequestInit);
 
 	const responseBody = await response.json();
@@ -113,6 +113,6 @@ const dedupedFetch = async (options: DedupeOptions) => {
 		Sentry.captureException(new Error(message));
 		throw new Error(message);
 	}
-	logs && console.log(queryId, { ...options, body: undefined }, response.headers.get('x-cache'));
+
 	return responseBody;
 };

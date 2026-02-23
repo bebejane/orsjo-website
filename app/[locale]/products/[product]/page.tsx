@@ -14,7 +14,7 @@ import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
-import { parseGid } from '@/lib/shopify/utils';
+import * as geins from '@/lib/geins/merchant-api';
 
 //export const dynamic = 'force-dynamic'; // disable for now
 
@@ -25,13 +25,12 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 
 	const res = await getProductPageData(slug, locale as CountryCode);
 	//const { v } = searchParams ? await searchParams : {}; // disable for now
-	const id = res?.shopify.product?.selectedOrFirstAvailableVariant?.id;
-	const v = id ? parseGid(id) : undefined;
+	const variantId = res?.geins.products?.[0]?.productId;
 
 	if (!res) return notFound();
 
 	const {
-		shopify,
+		geins,
 		product,
 		relatedProducts,
 		relatedProjects,
@@ -47,8 +46,8 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 			<Intro product={product} drawings={drawings} />
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
-			<ShopInfo product={product} shipping={shipping} currencyCode={shopify.i18n.currencyCode} />
-			<Shop product={product} shopify={shopify} variantId={v} shipping={shipping} />
+			<ShopInfo product={product} shipping={shipping} currencyCode={geins.i18n.currencyCode} />
+			<Shop product={product} geins={geins} variantId={variantId} shipping={shipping} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery

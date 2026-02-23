@@ -29,5 +29,4 @@ fragment ProductAccessoryFragment on ProductAccessoryRecord {
 		...ImageThumbnailFragment
 	}
 	slug
-	geinsGroupId
 }

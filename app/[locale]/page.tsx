@@ -15,8 +15,6 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
 
 	if (!start) return notFound();
 
-	const { products } = await geinsQuery(AllGeinsProductsDocument);
-	console.log(products);
 	return (
 		<>
 			{start?.content.map((block, idx) => (
