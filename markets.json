@@ -1,0 +1,67 @@
+[
+  {
+    "id": "SE|SEK",
+    "country": {
+      "name": "Sweden",
+      "code": "SE"
+    },
+    "currency": {
+      "name": "Svenska Kronor",
+      "symbol": "kr",
+      "code": "SEK",
+      "rate": 1
+    }
+  },
+  {
+    "id": "GB|GBP",
+    "country": {
+      "name": "United Kingdom",
+      "code": "GB"
+    },
+    "currency": {
+      "name": "British Pound",
+      "symbol": "£",
+      "code": "GBP",
+      "rate": 1
+    }
+  },
+  {
+    "id": "DE|EUR",
+    "country": {
+      "name": "Germany",
+      "code": "DE"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "NO|NOK",
+    "country": {
+      "name": "Norway",
+      "code": "NO"
+    },
+    "currency": {
+      "name": "Norsk Krone",
+      "symbol": "kr",
+      "code": "NOK",
+      "rate": 1
+    }
+  },
+  {
+    "id": "DK|DKK",
+    "country": {
+      "name": "Denmark",
+      "code": "DK"
+    },
+    "currency": {
+      "name": "Dansk Krone",
+      "symbol": "kr",
+      "code": "DKK",
+      "rate": 1
+    }
+  }
+]

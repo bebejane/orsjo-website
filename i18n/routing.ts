@@ -1,8 +1,8 @@
 import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
-import localization from '../localization.json';
+import markets from '../markets.json';
 
-export const locales = localization.availableCountries.map(({ isoCode }) => isoCode.toLowerCase());
+export const locales = markets.map(({ country }) => country.code.toLowerCase());
 export const defaultLocale = 'se';
 export const localePrefix = 'as-needed';
 export const routing = defineRouting({

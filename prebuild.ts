@@ -1,16 +1,9 @@
 import 'dotenv/config';
 import fs from 'fs';
-import shopifyQuery from '@/lib/shopify/shopify-query';
-import { LocalizationDocument } from '@/lib/shopify/graphql';
+import { getMarkets } from '@/lib/geins/utils';
 
 (async () => {
-	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(
-		LocalizationDocument,
-		{
-			variables: { language: 'EN' as LanguageCode },
-			country: 'US',
-		}
-	);
-	const localizationJson = JSON.stringify(localization, null, 2);
-	fs.writeFileSync('./localization.json', localizationJson);
+	const markets = await getMarkets();
+	const localizationJson = JSON.stringify(markets, null, 2);
+	fs.writeFileSync('./markets.json', localizationJson);
 })();

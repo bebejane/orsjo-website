@@ -58,8 +58,8 @@ export default async function geinsQuery<TResult = any, TVariables = Record<stri
 		...opt,
 		queryId,
 	};
-	console.log(queryId, options?.variables);
 
+	options?.logs && console.log(queryId, options?.variables);
 	const { data } = await dedupedFetch({ ...dedupeOptions, tags: [] });
 	return { ...data };
 }

@@ -8,7 +8,6 @@ import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import * as Sentry from '@sentry/nextjs';
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import geinsQuery from '@/lib/geins/geins-query';
 import { getMarkets } from '@/lib/geins/utils';
 
 export const dynamic = 'force-static';
