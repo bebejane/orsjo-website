@@ -14,7 +14,7 @@ import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
-import * as geins from '@/lib/geins/merchant-api';
+import * as geins from '@/geins/merchant-api';
 
 //export const dynamic = 'force-dynamic'; // disable for now
 

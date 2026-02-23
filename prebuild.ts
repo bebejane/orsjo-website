@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import fs from 'fs';
-import { getMarkets } from '@/lib/geins/utils';
+import { getMarkets } from '@/geins/utils';
 
 (async () => {
 	const markets = await getMarkets();

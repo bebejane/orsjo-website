@@ -13,7 +13,7 @@ import {
 } from '@/lib/utils';
 import { apiQuery } from 'next-dato-utils/api';
 import { firstBy } from 'thenby';
-import * as geins from '@/lib/geins/merchant-api';
+import * as geins from '@/geins/merchant-api';
 
 export function findCheapestVariant(
 	product: ProductRecord,

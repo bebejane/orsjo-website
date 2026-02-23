@@ -46,8 +46,6 @@ export default async function geinsQuery<TResult = any, TVariables = Record<stri
 ): Promise<TResult> {
 	const opt = { ...defaultOptions, ...(options ?? {}) };
 
-	if (!process.env.GEINS_MERCHANT_API_KEY) throw new Error('GEINS_MERCHANT_API_KEY is not set');
-
 	const queryId = (query.definitions?.[0] as any).name?.value as string;
 
 	const dedupeOptions: DedupeOptions = {
@@ -76,8 +74,12 @@ export type DedupeOptions = {
 const dedupedFetch = async (options: DedupeOptions) => {
 	const { body, revalidate, tags, queryId, logs } = options;
 
+	const apiKey =
+		process.env.GEINS_MERCHANT_API_KEY || process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY;
+	if (!apiKey) throw new Error('GEINS_MERCHANT_API_KEY is not set');
+
 	const headers = {
-		'X-ApiKey': process.env.GEINS_MERCHANT_API_KEY,
+		'X-ApiKey': apiKey,
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
 	} as unknown as HeadersInit;

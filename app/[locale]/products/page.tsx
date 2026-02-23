@@ -12,7 +12,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
-import * as geins from '@/lib/geins/merchant-api';
+import * as geins from '@/geins/merchant-api';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];

@@ -1,6 +1,6 @@
 import client from './datocms-client';
-import geinsQuery from '@/lib/geins/geins-query';
-import { AllGeinsChannelsDocument } from '@/lib/geins/graphql';
+import geinsQuery from '@/geins/geins-query';
+import { AllGeinsChannelsDocument } from '@/geins/graphql';
 
 export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
@@ -45,10 +45,10 @@ export type Market = {
 		rate: number;
 	};
 };
-export const getMarkets = async (): Promise<Market[]> => {
+export const getMarkets = async (): Promise<MarketType[]> => {
 	const channel = await getChannel();
 	if (!channel) return [];
-	return channel.markets as Market[];
+	return channel.markets as MarketType[];
 };
 
 export const cartCookieOptions = {

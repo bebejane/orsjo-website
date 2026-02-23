@@ -1,5 +1,18 @@
 
-declare module '*/market.gql' {
+declare module '*/cart.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Cart: DocumentNode;
+export const AddToCart: DocumentNode;
+export const UpdateCartItem: DocumentNode;
+export const ClearCart: DocumentNode;
+export const CartFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/channels.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const AllGeinsChannels: DocumentNode;

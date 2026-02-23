@@ -1,11 +1,11 @@
 import 'dotenv/config';
-import * as mgmt from '@/lib/geins/mgmt-api';
-import * as merchant from '@/lib/geins/merchant-api';
-import geinsQuery from '@/lib/geins/geins-query';
-import { AllGeinsChannelsDocument, AllGeinsProductsDocument } from '@/lib/geins/graphql';
+import * as mgmt from '@/geins/mgmt-api';
+import * as merchant from '@/geins/merchant-api';
+import geinsQuery from '@/geins/geins-query';
+import { AllGeinsChannelsDocument, AllGeinsProductsDocument } from '@/geins/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { sleep } from 'next-dato-utils/utils';
-import { sync, resetAll, resyncAll } from '@/lib/geins/sync';
+import { sync, resetAll, resyncAll } from '@/geins/sync';
 import { AllProductsDocument } from '@/graphql';
 import { getAllCurrencyRates } from '@/lib/utils';
 

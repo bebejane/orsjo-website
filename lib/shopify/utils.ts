@@ -1,8 +1,8 @@
 import shopifyQuery from './shopify-query';
 import client from './datocms-client';
 import { LocalizationDocument } from '@/lib/shopify/graphql';
-import geinsQuery from '@/lib/geins/geins-query';
-import { AllGeinsChannelsDocument } from '@/lib/geins/graphql';
+import geinsQuery from '@/geins/geins-query';
+import { AllGeinsChannelsDocument } from '@/geins/graphql';
 
 export const getShopifyId = (id: string): number => {
 	const shopifyId = Buffer.from(id).toString('base64') as string;

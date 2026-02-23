@@ -3,9 +3,9 @@
 import s from './Shop.module.scss';
 import cn from 'classnames';
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { formatGeinsPrice } from '@/lib/geins/utils';
+import { formatGeinsPrice } from '@/geins/utils';
 import { useWindowSize } from 'usehooks-ts';
-import useCart, { useShallow } from '@/lib/geins/hooks/useCart';
+import useCart, { useShallow } from '@/geins/hooks/useCart';
 import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
@@ -41,9 +41,9 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 	const allAddons = getAllAddons(product, geins);
 	const isDesktop = useIsDesktop();
 	const [desktopStyles, setDesktopStyles] = useState<CSSProperties>({});
-	// const [addToCart, updating, error] = useCart(
-	// 	useShallow((state) => [state.addToCart, state.updating, state.error]),
-	// );
+	const [addToCart, updating, error] = useCart(
+		useShallow((state) => [state.addToCart, state.updating, state.error]),
+	);
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [hide, setHide] = useState<boolean>(false);
 	const [wasHidden, setWasHidden] = useState<boolean>(false);

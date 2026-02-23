@@ -63,7 +63,7 @@ const geins = {
 			},
 		},
 	},
-	documents: ['lib/geins/graphql/**/*.gql'],
+	documents: ['geins/graphql/**/*.gql'],
 	extensions: {
 		codegen: {
 			overwrite: true,
@@ -72,7 +72,7 @@ const geins = {
 					plugins: ['typescript', 'typescript-operations'],
 					config: { ...defaultConfig, noExport: true },
 				},
-				'lib/geins/graphql/index.ts': {
+				'geins/graphql/index.ts': {
 					plugins: ['typed-document-node'],
 					config: { ...defaultConfig },
 				},

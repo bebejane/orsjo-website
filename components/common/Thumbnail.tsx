@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Image } from 'react-datocms';
 import Link from '@/components/nav/Link';
 import { useState } from 'react';
-import { formatGeinsPrice } from '@/lib/geins/utils';
+import { formatGeinsPrice } from '@/geins/utils';
 
 export type ThumbnailProps = {
 	slug?: string;

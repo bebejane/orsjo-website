@@ -12,7 +12,7 @@
 		"lint": "next lint",
 		"prebuild": "tsx prebuild",
 		"reset": "rm -rf ./node_modules && rm -rf pnpm-lock.yaml && rm -rf .next && pnpm i",
-		"codegen": "chokidar \"./graphql/**/*.gql\" -c \"pnpm codegen:website\" & chokidar \"./lib/geins/graphql/**/*.gql\" -c \"pnpm codegen:geins\"",
+		"codegen": "chokidar \"./graphql/**/*.gql\" -c \"pnpm codegen:website\" & chokidar \"./geins/graphql/**/*.gql\" -c \"pnpm codegen:geins\"",
 		"codegen:website": "graphql-codegen --config graphql.config.ts --project datocms --verbose",
 		"codegen:geins": "graphql-codegen --config graphql.config.ts --project geins --verbose",
 		"codegen:datocms": "datocms schema:generate ./types/datocms-cma.ts",

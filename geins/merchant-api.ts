@@ -1,5 +1,5 @@
-import geinsQuery from '@/lib/geins/geins-query';
-import { AllGeinsProductsDocument, GeinsProductsByCategoryDocument } from '@/lib/geins/graphql';
+import geinsQuery from '@/geins/geins-query';
+import { AllGeinsProductsDocument, GeinsProductsByCategoryDocument } from '@/geins/graphql';
 
 export async function getProduct(slug: string): Promise<ProductType[]> {
 	const { products } = await geinsQuery(GeinsProductsByCategoryDocument, {

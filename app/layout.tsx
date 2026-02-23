@@ -8,7 +8,7 @@ import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import * as Sentry from '@sentry/nextjs';
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import { getMarkets } from '@/lib/geins/utils';
+import { getMarkets } from '@/geins/utils';
 
 export const dynamic = 'force-static';
 
@@ -39,7 +39,7 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 export async function generateStaticParams() {
 	const markets = await getMarkets();
 	return markets.map((market) => ({
-		country: market.country.code,
+		country: market?.country?.code,
 	}));
 }
 

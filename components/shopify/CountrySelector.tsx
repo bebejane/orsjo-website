@@ -1,6 +1,14 @@
 'use client';
 
-import { Button, ListBox, ListBoxItem, Popover, Select, SelectValue, Key } from 'react-aria-components';
+import {
+	Button,
+	ListBox,
+	ListBoxItem,
+	Popover,
+	Select,
+	SelectValue,
+	Key,
+} from 'react-aria-components';
 import s from './CountrySelector.module.scss';
 import cn from 'classnames';
 import { usePathname, useRouter } from '@/i18n/routing';
@@ -11,11 +19,11 @@ import { usePage } from '@/lib/context/page-provider';
 
 type CountrySelectProps = {
 	className?: string;
-	localization: LocalizationQuery['localization'];
+	markets: MarketType[];
 	currency?: boolean;
 };
 
-export default function CountrySelector({ className, localization: { availableCountries } }: CountrySelectProps) {
+export default function CountrySelector({ className, markets }: CountrySelectProps) {
 	const pathname = usePathname();
 	const router = useRouter();
 	const country = useLocale();
@@ -43,7 +51,9 @@ export default function CountrySelector({ className, localization: { availableCo
 		router.replace(pathname.replace(`/${country}`, '/'), { locale: newCountryCode });
 		router.refresh();
 	};
-	const selectedCountry = availableCountries.find(({ isoCode }) => isoCode.toLowerCase() === country.toLowerCase());
+	const selectedCountry = markets.find(
+		(c) => c.country?.code.toLowerCase() === country.toLowerCase(),
+	);
 
 	return (
 		<form
@@ -54,33 +64,49 @@ export default function CountrySelector({ className, localization: { availableCo
 			ref={formRef}
 			aria-label={'Select country'}
 		>
-			<Select className={cn('small', s.select)} onChange={handleChange} defaultOpen={false} aria-label='Select country'>
+			<Select
+				className={cn('small', s.select)}
+				onChange={handleChange}
+				defaultOpen={false}
+				aria-label='Select country'
+			>
 				<Button className={cn(s.button, inverted && s.inverted)} ref={buttonRef}>
 					<SelectValue className={s.value} key={country}>
-						{selectedCountry?.currency.isoCode}
+						{selectedCountry?.currency?.code}
 					</SelectValue>
 					<span aria-hidden='true' className={cn(s.arrow, 'symbol')}>
 						{!selectOpen ? '›' : '›'}
 					</span>
 				</Button>
-				<Popover placement='top right' className={s.popover} maxHeight={300} ref={popupRef} isNonModal={false}>
+				<Popover
+					placement='top right'
+					className={s.popover}
+					maxHeight={300}
+					ref={popupRef}
+					isNonModal={false}
+				>
 					<ListBox
 						selectionMode={'single'}
 						className={cn('small', s.options)}
-						items={availableCountries.map(({ isoCode, name, currency }) => ({
-							id: isoCode,
-							name: `${name} ${currency.isoCode}`,
+						items={markets.map(({ country, currency }) => ({
+							id: country?.code,
+							name: `${name} ${currency?.code}`,
 						}))}
 					>
-						{availableCountries
-							.sort((a, b) => (a.name > b.name ? 1 : -1))
-							.map(({ isoCode, name, currency }, idx) => (
+						{markets
+							.sort((a, b) =>
+								a.country && b.country && a.country?.name > b.country?.name ? 1 : -1 || 1,
+							)
+							.map(({ country, currency }, idx) => (
 								<ListBoxItem
-									id={isoCode}
+									id={country?.code}
 									key={idx}
-									className={cn(s.option, selectedCountry?.isoCode === isoCode && s.selected)}
+									className={cn(
+										s.option,
+										selectedCountry?.country?.code === country?.code && s.selected,
+									)}
 								>
-									{name} <span className='small'>{currency.isoCode}</span>
+									{country?.name} <span className='small'>{currency?.code}</span>
 								</ListBoxItem>
 							))}
 					</ListBox>

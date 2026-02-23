@@ -1,6 +1,6 @@
 import client from '@/lib/client';
 import { apiQuery } from 'next-dato-utils/api';
-import geinsQuery from '@/lib/geins/geins-query';
+import geinsQuery from '@/geins/geins-query';
 import {
 	AllProductAccessoriesDocument,
 	AllProductLightsourcesDocument,
@@ -9,7 +9,7 @@ import {
 	ProductAccessoryByIdDocument,
 	ProductLightsourceByIdDocument,
 } from '@/graphql';
-import * as mgmt from '@/lib/geins/mgmt-api';
+import * as mgmt from '@/geins/mgmt-api';
 import { generateProductTitle } from '@/lib/utils';
 import { convertPriceWithRatesAndTaxes, getAllCurrencyRates, CurrencyRate } from '@/lib/utils';
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';

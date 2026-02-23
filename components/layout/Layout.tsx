@@ -10,14 +10,14 @@ import {
 } from '@/components';
 import { PageProvider } from '@/lib/context/page-provider';
 import { type MenuItem } from '@/lib/menu';
-import type { Market } from '@/lib/geins/utils';
+import type { Market } from '@/geins/utils';
 import Cart from '@/components/shopify/Cart';
 import PageTransition from '@/components/layout/PageTransition';
 
 export type LayoutProps = {
 	children: React.ReactNode;
 	menu: MenuItem[];
-	markets: Market[];
+	markets: MarketType[];
 	shipping: ShippingQuery['shipping'];
 };
 
@@ -35,7 +35,7 @@ export default function Layout({ children, menu, markets, shipping }: LayoutProp
 					<Underlay />
 					<FullscreenGallery />
 				</div>
-				{/* <Cart localization={localization} shipping={shipping} /> */}
+				<Cart markets={markets} shipping={shipping} />
 				<Footer menu={menu} />
 				<CookieConsent />
 				<PageTransition />
