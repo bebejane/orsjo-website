@@ -15,9 +15,10 @@ import { useCart } from '@/lib/shopify';
 
 export type MenuMobileProps = {
 	menu: MenuItem[];
+	markets: MarketType[];
 };
 
-export default function MenuMobile({ menu }: MenuMobileProps) {
+export default function MenuMobile({ menu, markets }: MenuMobileProps) {
 	const router = useRouter();
 	const pathname = usePathname();
 

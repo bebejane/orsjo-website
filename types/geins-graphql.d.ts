@@ -2424,7 +2424,7 @@ type VatGroupType = {
 };
 
 type CartQueryVariables = Exact<{
-  id: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
   channelId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
 }>;

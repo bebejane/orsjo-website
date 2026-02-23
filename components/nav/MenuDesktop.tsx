@@ -17,9 +17,10 @@ import CountrySelector from '@/components/shopify/CountrySelector';
 
 export type MenuDesktopProps = {
 	menu: Menu;
+	markets: MarketType[];
 };
 
-export default function MenuDesktop({ menu }: MenuDesktopProps) {
+export default function MenuDesktop({ menu, markets }: MenuDesktopProps) {
 	const ref = useRef(null);
 	const pathname = usePathname();
 	const [
@@ -164,12 +165,15 @@ export default function MenuDesktop({ menu }: MenuDesktopProps) {
 							{!index && <span className={cn(s.arrow, slug == selected && s.active)}>›</span>}
 						</li>
 					))}
-					{/* <li className={s.country}>
-						<CountrySelector currency={true} localization={localization} className={s.selector} />
+					<li className={s.country}>
+						<CountrySelector currency={true} markets={markets} className={s.selector} />
 					</li>
-					<li className={cn(s.cart, cart?.totalQuantity && s.filled)} onClick={() => setShowCart(true)}>
+					<li
+						className={cn(s.cart, cart?.totalQuantity && s.filled)}
+						onClick={() => setShowCart(true)}
+					>
 						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
-					</li> */}
+					</li>
 					<li className={s.searchIcon} onClick={() => setShowSearch(true)}>
 						<img src={'/images/search.svg'} />
 					</li>

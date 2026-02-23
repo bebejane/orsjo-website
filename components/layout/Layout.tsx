@@ -30,8 +30,8 @@ export default function Layout({ children, menu, markets, shipping }: LayoutProp
 					<main id='content' className={s.content}>
 						<article>{children}</article>
 					</main>
-					<MenuDesktop menu={menu} />
-					<MenuMobile menu={menu} />
+					<MenuDesktop menu={menu} markets={markets} />
+					<MenuMobile menu={menu} markets={markets} />
 					<Underlay />
 					<FullscreenGallery />
 				</div>

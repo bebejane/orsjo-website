@@ -141,7 +141,7 @@ export const getProductPageData = async (
 		byCategory: (a: ProductRecord, b: ProductRecord) =>
 			a.categories
 				.map((el) => el.id)
-				.find((id) => product.categories.map((el) => el.id).includes[id])
+				.find((id: string) => product?.categories?.map((el) => el.id).includes[id])
 				? 1
 				: -1,
 		byDesigner: (a: ProductRecord, b: ProductRecord) =>
@@ -163,9 +163,11 @@ export const getProductPageData = async (
 		},
 		relatedProducts: allProducts
 			.filter((p) => p.id !== product.id)
+			//@ts-ignore
 			.sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
 		productsByCategory: allProductCategories
 			.filter((p) => p.id !== product.id)
+			//@ts-ignore
 			.sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
 		relatedProjects: allProjects,
 		files,

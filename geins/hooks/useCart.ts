@@ -3,22 +3,29 @@ import { useShallow } from 'zustand/react/shallow';
 import geinsQuery from '../geins-query';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { cartCookieOptions } from '../utils';
-import { CartDocument, AddToCartDocument, ClearCartDocument } from '../graphql';
+import {
+	CartDocument,
+	AddToCartDocument,
+	ClearCartDocument,
+	UpdateCartItemDocument,
+} from '../graphql';
+
+type Cart = CartQuery['getCart'] | undefined;
 
 export interface CartState {
-	cart?: CartQuery['getCart'];
+	cart?: Cart;
 	updating: boolean;
 	updatingId: string | null;
 	error: string | undefined;
 	country: string;
-	update: (id: string | null, fn: () => Promise<CartQuery['getCart']>) => void;
+	update: (id: string | null, fn: (cart: Cart | undefined) => Promise<Cart>) => Promise<Cart>;
 	clearCart: () => void;
 	createCart: (country: string) => void;
-	setCart: (cart: CartQuery['getCart']) => Promise<CartQuery['getCart']>;
-	addToCart: (lines: CartItemInputType, country: string) => void;
-	removeFromCart: (id: string) => void;
-	updateQuantity: (id: string, quantity: number, country: string) => void;
-	updateBuyerIdentity: (input: CartBuyerIdentityInput) => void;
+	setCart: (cart: Cart) => Promise<Cart>;
+	addToCart: (item: CartItemInputType, country: string) => Promise<Cart>;
+	removeFromCart: (skuId: string) => Promise<Cart>;
+	updateQuantity: (skuId: string, quantity: number, country: string) => Promise<Cart>;
+	updateBuyerIdentity: (input: CartBuyerIdentityInput) => Promise<Cart>;
 	clearError: () => void;
 }
 
@@ -30,7 +37,7 @@ const useCart = create<CartState>((set, get) => ({
 	country: 'se',
 	createCart: async (country: string) => {
 		const id = await getCookie('cart', cartCookieOptions);
-		let cart: CartQuery['getCart'] | null = null;
+		let cart: Cart | null = null;
 
 		if (id) {
 			const res = await geinsQuery(CartDocument, { revalidate: 0, variables: { id }, country });
@@ -38,14 +45,18 @@ const useCart = create<CartState>((set, get) => ({
 		}
 
 		if (!cart) {
-			const { getCart } = await geinsQuery(CartDocument, { revalidate: 0, country });
+			const { getCart } = await geinsQuery(CartDocument, {
+				revalidate: 0,
+				country,
+				variables: { id: null },
+			});
 			cart = getCart;
 		}
 
 		console.log(cart);
 		if (!cart) throw new Error('Cart not found');
 
-		return get().setCart(cart as CartQuery['getCart']);
+		return get().setCart(cart as Cart);
 	},
 	clearCart: async () => {
 		const cartId = get().cart?.id;
@@ -54,65 +65,51 @@ const useCart = create<CartState>((set, get) => ({
 		deleteCookie('cart', cartCookieOptions);
 		await geinsQuery(ClearCartDocument, { revalidate: 0, variables: { id: cartId } });
 	},
-	setCart: async (cart: CartQuery['getCart']) => {
+	setCart: async (cart: Cart) => {
 		setCookie('cart', cart?.id, cartCookieOptions);
 		set((state) => ({ cart }));
 		return cart;
 	},
 	addToCart: async (item: CartItemInputType, country: string) => {
-		return get().update(null, async () => {
-			const cart = get().cart as CartQuery['getCart'];
+		return get().update(null, async (cart) => {
+			console.log({
+				id: cart?.id ?? '',
+				item,
+			});
 			const { addToCart } = await geinsQuery(AddToCartDocument, {
-				revalidate: 10,
+				revalidate: 0,
 				variables: {
 					id: cart?.id ?? '',
 					item,
 				},
 			});
-			return addToCart as CartQuery['getCart'];
+			console.log(addToCart);
+			return addToCart as Cart;
 		});
 	},
-	removeFromCart: async (id: string) => {
-		get().update(id, async () => {
-			const cart = get().cart as CartQuery['getCart'];
-			return cart;
-			// const { cartLinesRemove } = await geinsQuery(RemoveItemFromCartDocument, {
-			// 	revalidate: 0,
-			// 	variables: {
-			// 		cartId: cart?.id ?? '',
-			// 		lineIds: [id],
-			// 	},
-			// });
-
-			// if (!cartLinesRemove?.cart) throw new Error('Cart not found');
-			// return cartLinesRemove.cart as CartQuery['getCart'];
+	removeFromCart: async (skuId: string) => {
+		return get().update(null, async (cart) => {
+			return get().addToCart({ id: skuId, quantity: 0 }, get().country);
 		});
 	},
-	updateQuantity: async (id: string, quantity: number, country: string) => {
-		get().update(id, async () => {
-			const cart = get().cart as CartQuery['getCart'];
-			if (!cart) throw new Error('Cart not found');
-			return cart;
-			// const lines = cart.lines.edges.map((l) => ({
-			// 	id: l.node.id,
-			// 	quantity: l.node.id === id ? quantity : l.node.quantity,
-			// }));
-			// const { cartLinesUpdate } = await geinsQuery(UpdateItemFromCartDocument, {
-			// 	revalidate: 0,
-			// 	variables: {
-			// 		cartId: cart?.id,
-			// 		lines,
-			// 	},
-			// 	country,
-			// });
-
-			// return cartLinesUpdate.cart as CartQuery['getCart'];
+	updateQuantity: async (skuId: string, quantity: number, country: string) => {
+		return get().update(skuId, async (cart) => {
+			const { updateCartItem } = await geinsQuery(UpdateCartItemDocument, {
+				revalidate: 0,
+				variables: {
+					id: cart?.id ?? '',
+					item: {
+						id: skuId,
+						quantity,
+					},
+				},
+			});
+			return updateCartItem;
 		});
 	},
 	updateBuyerIdentity: async (buyerIdentity: CartBuyerIdentityInput) => {
-		get().update(null, async () => {
-			const id = getCookie('cart', cartCookieOptions) as string;
-
+		return get().update(null, async (cart) => {
+			console.log('updatebuyeridenti');
 			// const { cartBuyerIdentityUpdate } = await geinsQuery(CartBuyerIdentityUpdateDocument, {
 			// 	revalidate: 0,
 			// 	variables: {
@@ -124,17 +121,21 @@ const useCart = create<CartState>((set, get) => ({
 			// if (cartBuyerIdentityUpdate?.userErrors && cartBuyerIdentityUpdate?.userErrors.length > 0)
 			// 	throw cartBuyerIdentityUpdate?.userErrors;
 
-			// const cart = cartBuyerIdentityUpdate?.cart as CartQuery['getCart'];
+			// const cart = cartBuyerIdentityUpdate?.cart as Cart;
 			// if (!cart) throw new Error('Cart not found');
 			return get().cart;
 		});
 	},
-	update: (id, fn) => {
+	update: async (id, fn) => {
 		set((state) => ({ updating: true, updatingId: id ?? null, error: undefined }));
-		fn()
-			.then((cart) => get().setCart(cart))
+		return fn(get().cart)
+			.then((cart) => {
+				get().setCart(cart);
+				return cart;
+			})
 			.catch((err) => set((state) => ({ error: err })))
-			.finally(() => set((state) => ({ updating: false, updatingId: null })));
+			.finally(() => set((state) => ({ updating: false, updatingId: null })))
+			.then();
 	},
 	clearError: () => {
 		set(() => ({ error: undefined }));

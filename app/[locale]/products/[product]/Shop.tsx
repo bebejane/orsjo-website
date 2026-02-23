@@ -163,19 +163,20 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 			return;
 		}
 
-		const variants: { id: number; quantity: number }[] = [
-			{ id: selectedGeinsVariant.productId, quantity: 1 },
-			...addons.map((a) => ({ id: a.variantId, quantity: a.quantity })),
+		const variants: CartItemInputType[] = [
+			{
+				skuId: selectedGeinsVariant?.skus?.[0]?.skuId ?? null,
+				quantity: 1,
+			},
+			...addons.map((a) => ({ skuId: a.variantId, quantity: a.quantity })),
 		];
 
-		// addToCart(
-		// 	variants.reverse().map(({ id, quantity }) => ({
-		// 		merchandiseId: id,
-		// 		quantity,
-		// 	})),
-		// 	countryCode,
-		// );
-		// setShowCart(true);
+		variants
+			.filter(({ skuId }) => skuId !== undefined)
+			.reverse()
+			.forEach((item) => addToCart(item, countryCode));
+
+		setShowCart(true);
 		resetAll();
 	}
 
@@ -450,7 +451,7 @@ function getAllAddons(
 				id,
 				modelId,
 				variantId: geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo)
-					?.productId,
+					?.skus?.[0]?.skuId,
 				name: `1 x ${accessory?.name}`,
 				price: geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo)?.unitPrice
 					?.regularPriceIncVat,
@@ -465,7 +466,7 @@ function getAllAddons(
 					id,
 					modelId,
 					variantId: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
-						?.productId,
+						?.skus?.[0]?.skuId,
 					name: `${amount} x ${lightsource?.name}`,
 					price: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
 						?.unitPrice?.regularPriceIncVat,

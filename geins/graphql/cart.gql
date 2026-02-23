@@ -1,4 +1,4 @@
-query Cart($id: String!, $channelId: String = "mystore1.orsjo", $marketId: String = "1") {
+query Cart($id: String, $channelId: String = "mystore1.orsjo", $marketId: String = "1") {
 	getCart(id: $id, channelId: $channelId, marketId: $marketId) {
 		...CartFragment
 	}
