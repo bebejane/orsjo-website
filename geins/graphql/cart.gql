@@ -47,6 +47,12 @@ fragment CartFragment on CartType {
 		}
 		unitPrice {
 			sellingPriceIncVat
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
 		}
 		quantity
 		groupKey

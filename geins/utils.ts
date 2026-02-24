@@ -10,6 +10,7 @@ export const formatGeinsPrice = (price: number, currencyCode = 'SEK', quantity =
 
 	return `${new Intl.NumberFormat('sv-SE', {
 		style: 'decimal',
+		maximumFractionDigits: 0,
 		currency: currencyCode,
 	}).format(price * quantity)} ${currencyCode}`;
 };

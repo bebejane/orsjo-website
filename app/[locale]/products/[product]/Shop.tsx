@@ -41,8 +41,8 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 	const allAddons = getAllAddons(product, geins);
 	const isDesktop = useIsDesktop();
 	const [desktopStyles, setDesktopStyles] = useState<CSSProperties>({});
-	const [addToCart, updating, error] = useCart(
-		useShallow((state) => [state.addToCart, state.updating, state.error]),
+	const [cart, addToCart, updating, error] = useCart(
+		useShallow((state) => [state.cart, state.addToCart, state.updating, state.error]),
 	);
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [hide, setHide] = useState<boolean>(false);
@@ -125,12 +125,12 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 			selectedGeinsVariant?.productId,
 		].filter(Boolean) as number[];
 
-		const modelPrice = parseFloat(selectedGeinsVariant?.unitPrice?.regularPriceIncVat ?? '0');
+		const modelPrice = parseFloat(selectedGeinsVariant?.unitPrice?.sellingPriceIncVat ?? '0');
 		const addonsPrice = variantsIds.reduce((acc, id) => {
 			const accessory = geins.accessories.find((p) => p?.productId === id);
 			const lightsource = geins.lightsources.find((p) => p?.productId === id);
-			const lightsourcePrice = parseFloat(accessory?.unitPrice?.regularPriceIncVat ?? '0');
-			const accessoryPrice = parseFloat(lightsource?.unitPrice?.regularPriceIncVat ?? '0');
+			const lightsourcePrice = parseFloat(accessory?.unitPrice?.sellingPriceIncVat ?? '0');
+			const accessoryPrice = parseFloat(lightsource?.unitPrice?.sellingPriceIncVat ?? '0');
 			return acc + accessoryPrice + lightsourcePrice;
 		}, 0);
 
@@ -202,7 +202,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 						{addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
 					</h3>
 					<span key={totalPrice} className={s.price}>
-						{formatGeinsPrice(totalPrice, countryCode)}
+						{formatGeinsPrice(totalPrice, geins.i18n.currencyCode)}
 					</span>
 				</header>
 
@@ -261,8 +261,8 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 												)}
 												<span className={s.price}>
 													{formatGeinsPrice(
-														geinsVariant?.unitPrice?.regularPriceIncVat,
-														countryCode,
+														geinsVariant?.unitPrice?.sellingPriceIncVat,
+														geinsVariant?.unitPrice?.currency?.code,
 													)}
 												</span>{' '}
 											</div>

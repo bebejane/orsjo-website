@@ -142,7 +142,7 @@ export function ProductThumbnail({
 			title={product.title}
 			subtitle={product.designer?.name ? product.designer.name : undefined}
 			price={formatGeinsPrice(
-				geinsVariant?.unitPrice?.regularPriceIncVat,
+				geinsVariant?.unitPrice?.sellingPriceIncVat,
 				geinsVariant?.unitPrice?.currency?.code,
 			)}
 			className={className}

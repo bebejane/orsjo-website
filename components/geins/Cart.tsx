@@ -161,7 +161,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 
 									<div className={s.amount}>
 										<div className={cn(s.price, 'small')} aria-label={'Total'}>
-											{formatGeinsPrice(unitPrice?.sellingPriceIncVat, 'SEK')}
+											{formatGeinsPrice(unitPrice?.sellingPriceIncVat, unitPrice?.currency?.code)}
 										</div>
 										<div className='small gray'>{deliveryDaysText}</div>
 										<div>

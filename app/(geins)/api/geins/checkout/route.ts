@@ -1,6 +1,7 @@
 import { GeinsCore, GeinsLogLevel } from '@geins/core';
 import { GeinsOMS } from '@geins/oms';
 import type { GenerateCheckoutTokenOptions, GeinsSettings } from '@geins/types';
+import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,12 +52,8 @@ export const GET = async (req: Request) => {
 		const url = `https://checkout.geins.services/v0/checkout/${token}`;
 		console.log('checkout url', url);
 
-		return new Response(null, {
-			status: 302,
-			headers: {
-				Location: url,
-			},
-		});
+		const response = NextResponse.redirect(url);
+		return response;
 	} catch (e) {
 		const message = e instanceof Error ? e.message : e;
 		return new Response(JSON.stringify({ error: message }), {
