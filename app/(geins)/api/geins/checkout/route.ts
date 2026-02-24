@@ -1,18 +1,21 @@
-import { GeinsCore } from '@geins/core';
+import { GeinsCore, GeinsLogLevel } from '@geins/core';
 import { GeinsOMS } from '@geins/oms';
 import type { GenerateCheckoutTokenOptions, GeinsSettings } from '@geins/types';
 
-const geinsSettings: GeinsSettings = {
-	apiKey: process.env.GEINS_MERCHANT_API_KEY!,
-	accountName: 'orsjo',
-	channel: 'mystore1.orsjo',
-	tld: 'com',
-	locale: 'sv-SE',
-	market: 'se',
-};
+export const dynamic = 'force-dynamic';
 
 export const GET = async (req: Request) => {
 	try {
+		const geinsSettings: GeinsSettings = {
+			apiKey: process.env.GEINS_MERCHANT_API_KEY!,
+			accountName: 'orsjo',
+			channel: 'mystore1.orsjo',
+			tld: 'app',
+			locale: 'sv-SE',
+			market: 'se',
+			logLevel: 'DEBUG' as GeinsLogLevel,
+		};
+
 		const geinsCore = new GeinsCore(geinsSettings);
 		const geinsOMS = new GeinsOMS(geinsCore);
 		const cartId = new URL(req.url).searchParams.get('cart_id') as string;
@@ -25,12 +28,10 @@ export const GET = async (req: Request) => {
 
 		const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
 			cartId: cart?.id as string,
-			//selectedPaymentMethodId: 23,
-			//selectedShippingMethodId: 1,
 			copyCart: true,
 			customerType: 'PERSON' as CustomerType.PERSON,
 			redirectUrls: {
-				cancel: `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
+				cancel: `${process.env.NEXT_PUBLIC_SITE_URL}`,
 				continue: `${process.env.NEXT_PUBLIC_SITE_URL}/products`,
 				terms: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
 			},
