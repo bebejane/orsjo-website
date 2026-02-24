@@ -399,6 +399,7 @@ fragment ProductLightFragment on ProductRecord {
 			id
 			articleNo
 			price
+			deliveryDays
 		}
 	}
 	designer {

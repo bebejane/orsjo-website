@@ -1,6 +1,5 @@
 import client from '@/lib/client';
 import { apiQuery } from 'next-dato-utils/api';
-import geinsQuery from '@/geins/geins-query';
 import {
 	AllProductAccessoriesDocument,
 	AllProductLightsourcesDocument,
@@ -13,22 +12,24 @@ import * as mgmt from '@/geins/mgmt-api';
 import { generateProductTitle } from '@/lib/utils';
 import { convertPriceWithRatesAndTaxes, getAllCurrencyRates, CurrencyRate } from '@/lib/utils';
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
+import {
+	GEINS_CHANNEL_ID,
+	GEINS_DELIVERY_PARAMETER_ID,
+	GEINS_SLUG_PARAMETER_ID,
+} from '@/geins/constants';
 
 type ProductData = {
 	apiKey: string;
 	slug: string;
 	productId: string | null;
 	categoryId: number | null;
-	title: string;
 	name: string;
 	description: string;
 	articleNo: string;
 	price: number;
 	image?: string | null | undefined;
+	deliveryDays?: string;
 };
-
-const channelId = 'mystore1.orsjo';
-const slugParameterId = 2;
 
 export const sync = async (itemId: string): Promise<void> => {
 	try {
@@ -85,26 +86,22 @@ export const sync = async (itemId: string): Promise<void> => {
 						const geinsProduct = geinsProducts?.find((p: any) => p?.ArticleNumber === articleNo);
 						const productId = geinsProduct?.ProductId ?? null;
 						const description = generateProductTitle(product as ProductRecord, variant.id);
-						const title = `${product.title} - ${description}`;
 						const name = product.title;
 						const price = variant.price;
 						const image = mgmt.generateThumbnailUrl(variant.image?.url);
+						const deliveryDays = variant.deliveryDays ?? undefined;
 
-						const deliveryDays = variant.deliveryDays;
-						if (!price) {
-							console.log(variant);
-						}
 						acc.push({
 							apiKey,
 							slug,
 							productId,
 							categoryId,
-							title,
 							name,
 							description,
 							articleNo,
 							price,
 							image,
+							deliveryDays,
 						});
 					});
 					return acc;
@@ -130,7 +127,6 @@ export const sync = async (itemId: string): Promise<void> => {
 						slug,
 						productId: geinsAccessory?.ProductId ?? null,
 						categoryId,
-						title: productAccessory.name ?? '',
 						name: productAccessory.name ?? '',
 						description: productAccessory.name
 							? productAccessory.name?.length > 50
@@ -161,7 +157,6 @@ export const sync = async (itemId: string): Promise<void> => {
 						slug,
 						productId: geinsLightsource?.ProductId ?? null,
 						categoryId,
-						title: productLightsource.name ?? '',
 						name: productLightsource.name ?? '',
 						description: productLightsource.name
 							? productLightsource.name?.length > 50
@@ -207,20 +202,20 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 		await mgmt.updateCategory(categoryId, categorySlug, categoryTitle);
 	}
 
-	for (const { slug, productId, title, description, articleNo, price, image } of p) {
+	for (const { slug, productId, name, description, articleNo, price, image, deliveryDays } of p) {
 		const product = {
 			ProductId: productId,
 			ArticleNumber: articleNo,
 			Names: [
 				{
 					LanguageCode: 'sv',
-					Content: title,
+					Content: name,
 				},
 			],
 			Active: true,
 			BrandId: 1,
 			CategoryIds: [categoryId],
-			Markets: markets.map((m: any) => ({ Id: m.Id, ChannelId: channelId })),
+			Markets: markets.map((m: any) => ({ Id: m.Id, ChannelId: GEINS_CHANNEL_ID })),
 		};
 
 		const productItem = {
@@ -233,7 +228,14 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 			? mgmt.createProduct(product)
 			: mgmt.updateProduct(product));
 
-		await mgmt.updateProductParameterValue(updatedProduct.ProductId, slugParameterId, slug);
+		await mgmt.updateProductParameterValue(updatedProduct.ProductId, GEINS_SLUG_PARAMETER_ID, slug);
+
+		if (deliveryDays)
+			await mgmt.updateProductParameterValue(
+				updatedProduct.ProductId,
+				GEINS_DELIVERY_PARAMETER_ID,
+				deliveryDays,
+			);
 
 		const updatedProductItem = await (!updatedProduct.Items?.length
 			? mgmt.createProductItem({ ...productItem, ProductId: updatedProduct.ProductId })
@@ -246,15 +248,15 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 		}
 
 		const allCurrencies = await getAllCurrencyRates();
-		const PriceListId = 100000;
+		const PriceListId = 1000000;
 		const priceListPrices = allCurrencies.map((c) => ({
 			PriceListId,
 			Price: convertPriceWithRatesAndTaxes(price, c),
-			ProductId: String(updatedProduct.ProductId),
+			ProductId: updatedProduct.ProductId,
 			Currency: c.isoCode,
 		}));
 
-		const stock = await mgmt.updateStock([
+		await mgmt.updateStock([
 			{
 				Id: updatedProductItem.ItemId as string,
 				Stock: 100,
@@ -263,7 +265,7 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 			},
 		]);
 
-		const prices = await mgmt.updatePriceListPrices(priceListPrices);
+		await mgmt.updatePriceListPrices(priceListPrices);
 	}
 }
 

@@ -1,4 +1,4 @@
-import client from './datocms-client';
+import client from '@/lib/client';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 

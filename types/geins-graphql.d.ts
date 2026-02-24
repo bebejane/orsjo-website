@@ -2497,9 +2497,9 @@ type AllGeinsProductsQueryVariables = Exact<{
 type AllGeinsProductsQuery = { __typename?: 'GeinsMerchantApiQuery', products?: { __typename?: 'ProductsResultType', count: any, products?: Array<{ __typename?: 'ProductType', productId: number, name?: string | null, articleNumber?: string | null, categoryId: number, canonicalUrl?: string | null, type?: string | null, skus?: Array<{ __typename?: 'SkuType', skuId: number, weight: number, productId: number, articleNumber: string, externalId?: string | null, gtin?: string | null, name?: string | null, shelf?: string | null, incoming?: any | null, stock?: { __typename?: 'StockType', totalStock: number, inStock: number, oversellable: number, static?: number | null } | null, dimensions?: { __typename?: 'DimensionsType', length: number, width: number, height: number } | null } | null> | null, brand?: { __typename?: 'BrandType', brandId: number } | null, categories?: Array<{ __typename?: 'CategoryType', categoryId: number, name: string, alias?: string | null, description?: string | null } | null> | null, unitPrice?: { __typename?: 'PriceType', sellingPriceIncVat: any, sellingPriceExVat: any, vatFormatted?: string | null, currency?: { __typename?: 'CurrencyType', name: string, symbol: string, code: string, rate: any } | null } | null, productImages?: Array<{ __typename?: 'ProductImageType', fileName: string, tags?: Array<string | null> | null } | null> | null, parameterGroups?: Array<{ __typename?: 'ParameterGroupType', parameterGroupId?: number | null, parameters?: Array<{ __typename?: 'ParameterType', parameterValueId?: number | null, facetId?: string | null, identifier?: string | null, type?: string | null, name?: string | null, value?: string | null } | null> | null } | null> | null } | null> | null } | null };
 
 type GeinsProductsByCategoryQueryVariables = Exact<{
-  categoryAlias?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
+  categoryAlias?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 

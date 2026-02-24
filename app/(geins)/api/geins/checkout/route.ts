@@ -1,3 +1,4 @@
+import { GEINS_MGMT_CHANNEL_ID, GEINS_MGMT_MARKET_ID } from '@/geins/constants';
 import { GeinsCore, GeinsLogLevel } from '@geins/core';
 import { GeinsOMS } from '@geins/oms';
 import type { GenerateCheckoutTokenOptions, GeinsSettings } from '@geins/types';
@@ -10,10 +11,10 @@ export const GET = async (req: Request) => {
 		const geinsSettings: GeinsSettings = {
 			apiKey: process.env.GEINS_MERCHANT_API_KEY!,
 			accountName: 'orsjo',
-			channel: 'mystore1.orsjo',
+			channel: GEINS_MGMT_CHANNEL_ID,
+			market: GEINS_MGMT_MARKET_ID,
 			tld: 'app',
 			locale: 'sv-SE',
-			market: 'se',
 			logLevel: 'DEBUG' as GeinsLogLevel,
 		};
 

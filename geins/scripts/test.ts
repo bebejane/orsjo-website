@@ -6,7 +6,11 @@ import type { GenerateCheckoutTokenOptions, GeinsSettings, CartType } from '@gei
 import * as mgmt from '@/geins/mgmt-api';
 import * as merchant from '@/geins/merchant-api';
 import geinsQuery from '@/geins/geins-query';
-import { AllGeinsChannelsDocument, AllGeinsProductsDocument } from '@/geins/graphql';
+import {
+	AllGeinsChannelsDocument,
+	AllGeinsProductsDocument,
+	GeinsProductsByCategoryDocument,
+} from '@/geins/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { sleep } from 'next-dato-utils/utils';
 import { sync, resetAll, resyncAll, syncProductStatus } from '@/geins/sync';
@@ -38,6 +42,8 @@ const main = async () => {
 	const lampId = '167791073';
 	const accessoryId = 'AxA_MbC2RWqrhWYh7DQyNQ';
 	const lightsourceId = '107174798';
+	const arg = process.argv[2];
+
 	try {
 		//await syncProductStatus('andromeda', 'publish');
 		//const d = await merchant.getAccessories();
@@ -45,9 +51,14 @@ const main = async () => {
 		//const d = await mgmt.getPriceLists();console.log(JSON.stringify(d, null, 2));
 		//await sync(lampId);
 		//const pricelists = await mgmt.getPriceLists();
+
 		//console.log(JSON.stringify(pricelists, null, 2));
 		//await resync();
-		await resyncAll();
+		//await resyncAll(111);
+		//await resyncAll();
+		console.log(arg);
+		const data = await merchant.getProductsByCategory(arg);
+		console.log(data);
 		//await resyncAll();
 		//const allCurrencies = await getAllCurrencyRates();
 		//await resyncAll();

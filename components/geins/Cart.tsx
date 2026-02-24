@@ -15,6 +15,7 @@ import { Checkbox } from '@/components/common/Checkbox';
 import { Link } from '@/i18n/routing';
 import CartError from '@/components/geins/CartError';
 import { formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
+import { GEINS_DELIVERY_PARAMETER_ID } from '@/geins/constants';
 
 export type CartProps = {
 	markets: MarketType[];
@@ -115,7 +116,10 @@ export default function Cart({ markets, shipping }: CartProps) {
 							if (!item) return null;
 							const { id, quantity, product, unitPrice } = item;
 							const skuId = product?.skus?.[0]?.skuId;
-							const deliveryDays = '';
+							const articleNo = product?.skus?.[0]?.articleNumber;
+							const deliveryDays = product?.parameterGroups?.find(
+								(p) => p?.parameterGroupId === GEINS_DELIVERY_PARAMETER_ID,
+							)?.parameters?.[0]?.value;
 							const deliveryDaysText =
 								shipping?.deliveryDays.find(({ time }) => time === deliveryDays)?.textShort ?? '';
 							const slug = product?.categories?.[0]?.alias;
@@ -137,10 +141,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 										<div className='small' id={id}>
 											{product?.name}
 										</div>
-										<div className={cn(s.descStock, 'small gray')}>
-											{/* {merchandise.selectedOptions?.[0]?.value} */}
-											Text
-										</div>
+										<div className={cn(s.descStock, 'small gray')}>{articleNo}</div>
 										<div className={cn(s.quantity, 'small')} aria-label='Quantity'>
 											<button
 												className={cn(s.minus)}

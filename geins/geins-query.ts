@@ -45,7 +45,6 @@ export default async function geinsQuery<TResult = any, TVariables = Record<stri
 	options?: ApiQueryOptions<TVariables>,
 ): Promise<TResult> {
 	const opt = { ...defaultOptions, ...(options ?? {}) };
-
 	const queryId = (query.definitions?.[0] as any).name?.value as string;
 
 	const dedupeOptions: DedupeOptions = {
@@ -88,11 +87,11 @@ const dedupedFetch = async (options: DedupeOptions) => {
 		method: 'POST',
 		headers,
 		body,
-		// next: {
-		// 	revalidate: revalidate ?? 0,
-		// 	cache: 'no-store',
-		// 	tags: Array.isArray(tags) ? tags : undefined,
-		// },
+		next: {
+			revalidate: revalidate ?? 0,
+			cache: 'no-store',
+			tags: Array.isArray(tags) ? tags : undefined,
+		},
 	} as RequestInit);
 
 	const responseBody = await response.json();

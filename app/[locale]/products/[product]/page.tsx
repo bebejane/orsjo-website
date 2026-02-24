@@ -2,7 +2,6 @@ import s from './page.module.scss';
 import { AllProductsLightDocument, ProductDocument } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
-import React from 'react';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
@@ -14,7 +13,6 @@ import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
-import * as geins from '@/geins/merchant-api';
 
 //export const dynamic = 'force-dynamic'; // disable for now
 
@@ -24,7 +22,6 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 	setRequestLocale(locale);
 
 	const res = await getProductPageData(slug, locale as CountryCode);
-	//const { v } = searchParams ? await searchParams : {}; // disable for now
 	const variantId = res?.geins.products?.[0]?.productId;
 
 	if (!res) return notFound();
@@ -41,6 +38,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 		shipping,
 	} = res;
 
+	console.log(product);
 	return (
 		<>
 			<Intro product={product} drawings={drawings} />

@@ -64,10 +64,7 @@ export async function getProductsBySlug(slug: string) {
 	return p?.Resource;
 }
 
-export async function generateImageBlob(
-	productId: number,
-	url: string,
-): Promise<{ blob: Blob; fileName: string }> {
+export async function generateImageBlob(url: string): Promise<{ blob: Blob; fileName: string }> {
 	const fileName = url.split('/').pop()?.split('?')[0];
 	const res = await fetch(url);
 	const blob = await res.blob();
@@ -75,14 +72,15 @@ export async function generateImageBlob(
 	if (!fileName) throw new Error('Invalid file name');
 	return { blob, fileName };
 }
+
 export async function createProductImage(productId: number, url: string) {
-	const { blob, fileName } = await generateImageBlob(productId, url);
+	const { blob, fileName } = await generateImageBlob(url);
 	const c = await request(`/Product/${productId}/Image/${fileName}`, 'POST', blob);
 	return c;
 }
 
 export async function updateProductImage(productId: number, url: string) {
-	const { blob, fileName } = await generateImageBlob(productId, url);
+	const { blob, fileName } = await generateImageBlob(url);
 	const c = await request(`/Product/${productId}/Image/${fileName}`, 'PUT', blob);
 	return c;
 }

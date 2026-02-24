@@ -39,7 +39,6 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 			geins.getProducts(),
 		]);
 
-	console.log(allGeinsProducts);
 	return (
 		<>
 			{productStart?.featured.map((data, idx) => (

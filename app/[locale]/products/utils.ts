@@ -88,15 +88,6 @@ export const getProductPageData = async (
 			apiQuery(ShippingDocument),
 		]);
 
-	const relatedArticleNos = product.models.reduce(
-		(acc, model) => {
-			return acc
-				.concat(model.accessories.map(({ accessory }) => accessory?.articleNo ?? null))
-				.concat(model.lightsources.map(({ lightsource }) => lightsource?.articleNo ?? null));
-		},
-		[] as (string | null)[],
-	);
-
 	const products = await geins.getProductsByCategory(slug);
 	const accessories = await geins.getProductsByCategory('accessory');
 	const lightsources = await geins.getProductsByCategory('lightsource');
@@ -111,10 +102,6 @@ export const getProductPageData = async (
 			(s) => s?.articleNumber === products.find((p) => p.productId === a.productId)?.articleNumber,
 		),
 	);
-	/*products.edges
-		.map(({ node }) => node)
-		.filter((p) => p.tags.includes('lightsource'));
-		*/
 
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [

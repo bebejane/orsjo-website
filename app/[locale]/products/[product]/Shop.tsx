@@ -225,6 +225,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 									);
 
 									let deliveryDays;
+
 									if (
 										variant.deliveryDays &&
 										['short', 'medium', 'long'].includes(variant.deliveryDays)
@@ -304,7 +305,12 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 								).description
 							}
 						</span>
-						<span className={s.price}></span>
+						<span className={s.price}>
+							{formatGeinsPrice(
+								selectedGeinsVariant?.unitPrice?.sellingPriceIncVat,
+								selectedGeinsVariant?.unitPrice?.currency?.code,
+							)}
+						</span>
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
 					</div>
 
