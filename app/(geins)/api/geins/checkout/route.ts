@@ -3,7 +3,7 @@ import { GeinsOMS } from '@geins/oms';
 import type { GenerateCheckoutTokenOptions, GeinsSettings } from '@geins/types';
 
 const geinsSettings: GeinsSettings = {
-	apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
+	apiKey: process.env.GEINS_MERCHANT_API_KEY!,
 	accountName: 'orsjo',
 	channel: 'mystore1.orsjo',
 	tld: 'com',
@@ -25,8 +25,8 @@ export const GET = async (req: Request) => {
 
 		const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
 			cartId: cart?.id as string,
-			selectedPaymentMethodId: 23,
-			selectedShippingMethodId: 1,
+			//selectedPaymentMethodId: 23,
+			//selectedShippingMethodId: 1,
 			copyCart: true,
 			customerType: 'PERSON' as CustomerType.PERSON,
 			redirectUrls: {
@@ -44,9 +44,11 @@ export const GET = async (req: Request) => {
 					accentForeground: '#000000',
 				},
 			},
+			geinsSettings,
 		};
 		const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
-		const url = `https://checkout.geins.services/${token}`;
+		const url = `https://checkout.geins.services/v0/checkout/${token}`;
+		console.log('checkout url', url);
 
 		return new Response(null, {
 			status: 302,

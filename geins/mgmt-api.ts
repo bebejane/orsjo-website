@@ -89,12 +89,12 @@ export async function updateProductImage(productId: number, url: string) {
 
 export async function createProductItem(item: any) {
 	const c = await request(`/Product/${item.ProductId}/Item`, 'POST', item);
-	return c;
+	return c.Resource;
 }
 
 export async function updateProductItem(item: any) {
 	const c = await request(`/Product/Item/${item.ItemId}`, 'PUT', item);
-	return c;
+	return c.Resource;
 }
 
 export async function getProductByArticleNo(artNos: string[]) {
@@ -203,7 +203,14 @@ export async function deleteVariantGroups(id: string) {
 }
 
 export async function addProductToVariantGroup(id: string, productId: string) {
-	const c = await request(`/API/VariantGroup/${id}/${productId}`, 'PUT');
+	const c = await request(`/VariantGroup/${id}/${productId}`, 'PUT');
+	return c.Resource;
+}
+
+export async function updateStock(
+	stock: { Id: string; Stock: number; StockSellable: number; StockType: number }[],
+) {
+	const c = await request(`/Product/Stock`, 'PUT', stock);
 	return c.Resource;
 }
 

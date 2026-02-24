@@ -43,11 +43,11 @@ const main = async () => {
 		//const d = await merchant.getAccessories();
 		//console.log(JSON.stringify(d, null, 2));
 		//const d = await mgmt.getPriceLists();console.log(JSON.stringify(d, null, 2));
-		await sync(lampId);
+		//await sync(lampId);
 		//const pricelists = await mgmt.getPriceLists();
 		//console.log(JSON.stringify(pricelists, null, 2));
 		//await resync();
-		//await resyncAll();
+		await resyncAll();
 		//await resyncAll();
 		//const allCurrencies = await getAllCurrencyRates();
 		//await resyncAll();
