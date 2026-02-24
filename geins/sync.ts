@@ -88,7 +88,7 @@ export const sync = async (itemId: string): Promise<void> => {
 						const title = `${product.title} - ${description}`;
 						const name = product.title;
 						const price = variant.price;
-						const image = generateThumbnailUrl(variant.image?.url);
+						const image = mgmt.generateThumbnailUrl(variant.image?.url);
 
 						const deliveryDays = variant.deliveryDays;
 						if (!price) {
@@ -139,7 +139,7 @@ export const sync = async (itemId: string): Promise<void> => {
 							: '',
 						articleNo: productAccessory.articleNo?.trim(),
 						price: productAccessory.price,
-						image: generateThumbnailUrl(productAccessory.image?.url),
+						image: mgmt.generateThumbnailUrl(productAccessory.image?.url),
 					},
 				];
 				break;
@@ -170,7 +170,7 @@ export const sync = async (itemId: string): Promise<void> => {
 							: '',
 						articleNo: productLightsource.articleNo?.trim(),
 						price: productLightsource.price,
-						image: generateThumbnailUrl(productLightsource.image?.url),
+						image: mgmt.generateThumbnailUrl(productLightsource.image?.url),
 					},
 				];
 
@@ -282,15 +282,6 @@ export const syncProductStatus = async (
 	}
 
 	return _products;
-};
-
-export const generateThumbnailUrl = (url: string | undefined | null): string | null | undefined => {
-	if (!url) url = 'https://www.datocms-assets.com/62617/1771852945-no-product-image.png';
-	const u = new URL(url);
-	const size = 2000;
-	const pad = size * 0.1;
-	const imgixUrl = `${u.origin}${u.pathname}?w=${size}&h=${size}&fit=fill&auto=format&bg=fff&pad=${pad}`;
-	return imgixUrl;
 };
 
 export const resetAll = async () => {

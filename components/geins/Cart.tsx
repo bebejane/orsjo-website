@@ -198,7 +198,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 							// }
 						}}
 					>
-						<input type='hidden' name='cart_id' value={cart?.id} />
+						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
 						<div className={cn(s.terms, 'medium')}>
 							<Checkbox
 								name='terms'

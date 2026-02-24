@@ -1,5 +1,3 @@
-'use client';
-
 import s from './CartError.module.scss';
 import React, { useEffect, useRef, useState } from 'react';
 

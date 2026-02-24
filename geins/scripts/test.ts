@@ -44,8 +44,8 @@ const main = async () => {
 		//console.log(JSON.stringify(d, null, 2));
 		//const d = await mgmt.getPriceLists();console.log(JSON.stringify(d, null, 2));
 		await sync(lampId);
-		const pricelists = await mgmt.getPriceLists();
-		console.log(JSON.stringify(pricelists, null, 2));
+		//const pricelists = await mgmt.getPriceLists();
+		//console.log(JSON.stringify(pricelists, null, 2));
 		//await resync();
 		//await resyncAll();
 		//await resyncAll();

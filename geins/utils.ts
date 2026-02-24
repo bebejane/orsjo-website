@@ -53,6 +53,7 @@ export const getMarkets = async (): Promise<MarketType[]> => {
 };
 
 export const getProductImageUrl = (product: ProductType): string | undefined => {
+	if (!product) return undefined;
 	const productImages = product.productImages as ProductImageType[];
 	const imageUrl = productImages[0]?.fileName
 		? `https://orsjo.commerce.services/product/raw/${productImages[0].fileName}`
