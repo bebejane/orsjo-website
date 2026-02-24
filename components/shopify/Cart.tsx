@@ -32,6 +32,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 		updatingId,
 		cartError,
 		clearError,
+		createCheckoutToken,
 	] = useCart(
 		useShallow((state) => [
 			state.cart,
@@ -43,6 +44,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 			state.updatingId,
 			state.error,
 			state.clearError,
+			state.createCheckoutToken,
 		]),
 	);
 	const [showCart, setShowCart] = useStore(
@@ -56,6 +58,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 	const checkboxRef = useRef<HTMLInputElement>(null);
+	const [checkoutToken, setCheckoutToken] = useState('');
 
 	function handleCloseError() {
 		if (cartError) clearError();
@@ -77,14 +80,15 @@ export default function Cart({ markets, shipping }: CartProps) {
 	}, [pathname]);
 
 	useEffect(() => {
-		// if (cart && country && cart?.buyerIdentity?.countryCode?.toLowerCase() !== country) {
-		// 	try {
-		// 		updateBuyerIdentity({ countryCode: country.toUpperCase() } as CartBuyerIdentityInput);
-		// 	} catch (err) {
-		// 		setError(err as Error);
-		// 	}
-		// }
-	}, [country, cart]);
+		if (cart && country) {
+			try {
+				//@ts-ignore
+				updateBuyerIdentity({ countryCode: country.toUpperCase() });
+			} catch (err) {
+				setError(err as Error);
+			}
+		}
+	}, [country]);
 
 	useEffect(() => {
 		setShowCart(false);
@@ -110,6 +114,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 						{cart?.items?.map((item, idx) => {
 							if (!item) return null;
 							const { id, quantity, product, unitPrice } = item;
+							const skuId = product?.skus?.[0]?.skuId;
 							const deliveryDays = '';
 							const deliveryDaysText =
 								shipping?.deliveryDays.find(({ time }) => time === deliveryDays)?.textShort ?? '';
@@ -134,6 +139,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 										</div>
 										<div className={cn(s.descStock, 'small gray')}>
 											{/* {merchandise.selectedOptions?.[0]?.value} */}
+											Text
 										</div>
 										<div className={cn(s.quantity, 'small')} aria-label='Quantity'>
 											<button
@@ -159,7 +165,10 @@ export default function Cart({ markets, shipping }: CartProps) {
 										</div>
 										<div className='small gray'>{deliveryDaysText}</div>
 										<div>
-											<button className={cn(s.remove, 'small')} onClick={() => removeFromCart(id)}>
+											<button
+												className={cn(s.remove, 'small')}
+												onClick={() => skuId && removeFromCart(id, skuId)}
+											>
 												Remove
 											</button>
 										</div>
@@ -176,7 +185,20 @@ export default function Cart({ markets, shipping }: CartProps) {
 					<div className={s.currency}>
 						<CountrySelector markets={markets} className={s.form} />
 					</div>
-					<form action={'/checkout'} method='GET'>
+					<form
+						action={`https://checkout.geins.services/${checkoutToken}`}
+						method='GET'
+						onSubmit={async (e) => {
+							e.preventDefault();
+							try {
+								const token = await createCheckoutToken();
+								console.log(token);
+								window.open(`https://checkout.geins.services/${token}`);
+							} catch (err) {
+								console.log(err);
+							}
+						}}
+					>
 						<div className={cn(s.terms, 'medium')}>
 							<Checkbox
 								name='terms'

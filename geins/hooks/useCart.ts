@@ -1,3 +1,5 @@
+'use client';
+
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 import geinsQuery from '../geins-query';
@@ -8,7 +10,9 @@ import {
 	AddToCartDocument,
 	ClearCartDocument,
 	UpdateCartItemDocument,
+	PlaceOrderDocument,
 } from '../graphql';
+import { GenerateCheckoutTokenOptions } from '@geins/types';
 
 type Cart = CartQuery['getCart'] | undefined;
 
@@ -23,10 +27,11 @@ export interface CartState {
 	createCart: (country: string) => void;
 	setCart: (cart: Cart) => Promise<Cart>;
 	addToCart: (item: CartItemInputType, country: string) => Promise<Cart>;
-	removeFromCart: (skuId: string) => Promise<Cart>;
+	removeFromCart: (itemId: string, skuId: number) => Promise<Cart>;
 	updateQuantity: (skuId: string, quantity: number, country: string) => Promise<Cart>;
 	updateBuyerIdentity: (input: CartBuyerIdentityInput) => Promise<Cart>;
 	clearError: () => void;
+	createCheckoutToken: () => Promise<string | undefined>;
 }
 
 const useCart = create<CartState>((set, get) => ({
@@ -72,10 +77,6 @@ const useCart = create<CartState>((set, get) => ({
 	},
 	addToCart: async (item: CartItemInputType, country: string) => {
 		return get().update(null, async (cart) => {
-			console.log({
-				id: cart?.id ?? '',
-				item,
-			});
 			const { addToCart } = await geinsQuery(AddToCartDocument, {
 				revalidate: 0,
 				variables: {
@@ -83,13 +84,22 @@ const useCart = create<CartState>((set, get) => ({
 					item,
 				},
 			});
-			console.log(addToCart);
 			return addToCart as Cart;
 		});
 	},
-	removeFromCart: async (skuId: string) => {
+	removeFromCart: async (itemId: string, skuId: number) => {
 		return get().update(null, async (cart) => {
-			return get().addToCart({ id: skuId, quantity: 0 }, get().country);
+			const { updateCartItem } = await geinsQuery(UpdateCartItemDocument, {
+				revalidate: 0,
+				variables: {
+					id: cart?.id ?? '',
+					item: {
+						skuId,
+						quantity: 0,
+					},
+				},
+			});
+			return updateCartItem as Cart;
 		});
 	},
 	updateQuantity: async (skuId: string, quantity: number, country: string) => {
@@ -139,6 +149,69 @@ const useCart = create<CartState>((set, get) => ({
 	},
 	clearError: () => {
 		set(() => ({ error: undefined }));
+	},
+	createCheckoutToken: async () => {
+		const cart = await get().cart;
+		if (!cart) throw new Error('Cart not found');
+
+		// const { placeOrder } = await geinsQuery(PlaceOrderDocument, {
+		// 	revalidate: 0,
+		// 	variables: {
+		// 		cartId: cart.id as string,
+
+		// 		checkout: {
+		// 			checkoutUrls: {
+		// 				checkoutPageUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
+		// 				redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
+		// 				termsPageUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
+		// 			},
+		// 			customerType: 'PERSON' as CustomerType.PERSON,
+		// 			email: 'bjorn@konst-teknik.se',
+		// 			billingAddress: {
+		// 				firstName: 'Björn',
+		// 				lastName: 'Berglund',
+		// 			},
+		// 			shippingAddress: {
+		// 				firstName: 'Björn',
+		// 				lastName: 'Berglund',
+		// 				//email: 'bjorn@konst-teknik.se',
+		// 			},
+		// 		},
+		// 	},
+		// });
+
+		//console.log(placeOrder);
+		//return placeOrder?.redirectUrl;
+		// const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
+		// 	cartId: cart.id as string,
+		// 	//user: { email: 'user@test.se' },
+		// 	selectedPaymentMethodId: 23,
+		// 	selectedShippingMethodId: 1,
+		// 	copyCart: true,
+		// 	//customerType: CustomerType.PERSON,
+		// 	redirectUrls: {
+		// 		cancel: `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
+		// 		continue: `${process.env.NEXT_PUBLIC_SITE_URL}/products`,
+		// 		terms: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
+		// 	},
+		// 	branding: {
+		// 		title: 'Örsjo',
+		// 		logo: `${process.env.NEXT_PUBLIC_SITE_URL}/images/logo.svg`,
+		// 		styles: {
+		// 			logoSize: '2.5rem',
+		// 			radius: '5px',
+		// 			accent: '#ffcc00',
+		// 			accentForeground: '#000000',
+		// 		},
+		// 	},
+		// };
+
+		// // Generate checkout token
+		//const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
+
+		// // Redirect to the checkout page
+		//window.open(`https://checkout.geins.services/${token}`);
+		return 'test';
 	},
 }));
 

@@ -90,7 +90,7 @@ export default function CountrySelector({ className, markets }: CountrySelectPro
 						className={cn('small', s.options)}
 						items={markets.map(({ country, currency }) => ({
 							id: country?.code,
-							name: `${name} ${currency?.code}`,
+							name: `${country?.name} ${currency?.code}`,
 						}))}
 					>
 						{markets

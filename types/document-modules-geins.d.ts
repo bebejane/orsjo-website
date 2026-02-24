@@ -21,6 +21,24 @@ declare module '*/channels.gql' {
 }
     
 
+declare module '*/checkout.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Checkout: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/order.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const PlaceOrder: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/product.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

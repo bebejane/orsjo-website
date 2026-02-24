@@ -5,9 +5,10 @@ export async function request(
 ) {
 	console.log(method, path);
 	const isBinary = body instanceof Blob;
+	const _body = !body ? undefined : !isBinary ? JSON.stringify(body) : body;
 	const response = await fetch(`https://mgmtapi.geins.io/API${path}`, {
 		method,
-		body: !body ? undefined : !isBinary ? JSON.stringify(body) : body,
+		body: _body,
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
@@ -17,6 +18,7 @@ export async function request(
 	});
 	const data = await response.json();
 	if (!response.ok) {
+		console.log(body);
 		console.log(data, response.status);
 		throw new Error(data.Details ?? data.Message);
 	}
@@ -47,6 +49,16 @@ export async function getProduct(id: number) {
 
 export async function getProducts() {
 	const p = await request('/Product/Query?include=Prices,Urls', 'POST', {});
+	return p?.Resource;
+}
+
+export async function getProductsBySlug(slug: string) {
+	const facet = `p_2_2_${slug}`;
+	const c = await getCategories();
+	const CategoryIds = c.filter((c) => c.Names[0].Content === slug).map((c) => c.CategoryId);
+	const p = await request(`/Product/Query?include=Prices,Categories`, 'POST', {
+		CategoryIds,
+	});
 	return p?.Resource;
 }
 

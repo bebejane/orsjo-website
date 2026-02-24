@@ -2468,6 +2468,26 @@ type AllGeinsChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 type AllGeinsChannelsQuery = { __typename?: 'GeinsMerchantApiQuery', channels?: Array<{ __typename?: 'ChannelType', id: string, name: string, type: string, defaultLanguageId: string, languages?: Array<{ __typename?: 'LanguageType', id: string, name: string, code: string } | null> | null, markets?: Array<{ __typename?: 'MarketType', id: string, country?: { __typename?: 'CountryType', name: string, code: string } | null, currency?: { __typename?: 'CurrencyType', name: string, symbol: string, code: string, rate: any } | null } | null> | null } | null> | null };
 
+type CheckoutQueryVariables = Exact<{
+  orderId: Scalars['String']['input'];
+  cartId?: InputMaybe<Scalars['String']['input']>;
+  paymentType: PaymentType;
+}>;
+
+
+type CheckoutQuery = { __typename?: 'GeinsMerchantApiQuery', checkout?: { __typename?: 'CheckoutDataType', htmlSnippet?: string | null, newCheckoutSession: boolean, completed?: boolean | null, cart?: { __typename?: 'CartType', id?: string | null } | null } | null };
+
+type PlaceOrderMutationVariables = Exact<{
+  cartId: Scalars['String']['input'];
+  checkout: CheckoutInputType;
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+type PlaceOrderMutation = { __typename?: 'GeinsMerchantApiMutation', placeOrder?: { __typename?: 'PlaceOrderResponseType', orderId?: string | null, publicId?: string | null, redirectUrl?: string | null, status?: string | null } | null };
+
 type AllGeinsProductsQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;

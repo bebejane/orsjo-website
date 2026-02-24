@@ -250,14 +250,39 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 		const priceListPrices = allCurrencies.map((c) => ({
 			PriceListId,
 			Price: convertPriceWithRatesAndTaxes(price, c),
-			ProductId: updatedProduct.ProductId,
+			ProductId: String(updatedProduct.ProductId),
 			Currency: c.isoCode,
 		}));
+
 		console.log(priceListPrices);
 
-		await mgmt.updatePriceListPrices(priceListPrices);
+		const prices = await mgmt.updatePriceListPrices(priceListPrices);
 	}
 }
+
+export const syncProductStatus = async (
+	slug: string,
+	status: 'draft' | 'published' | 'update',
+): Promise<any[]> => {
+	if (!['draft', 'published', 'update'].includes(status))
+		throw new Error('Invalid status: ' + status);
+
+	const active = status !== 'draft';
+	const products = await mgmt.getProductsBySlug(slug);
+	if (!products?.length) throw new Error('Invalid product slug: ' + slug);
+
+	const _products = [];
+
+	for (const product of products) {
+		const productUpdate = await mgmt.updateProduct({
+			ProductId: product.ProductId,
+			Active: active,
+		});
+		_products.push(productUpdate);
+	}
+
+	return _products;
+};
 
 export const generateThumbnailUrl = (url: string | undefined | null): string | null | undefined => {
 	if (!url) url = 'https://www.datocms-assets.com/62617/1771852945-no-product-image.png';

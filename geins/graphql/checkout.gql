@@ -1,15 +1,10 @@
-# query Checkout(
-# 	$cartId: String!
-# 	$checkout: CheckoutInputType
-# 	$channelId: String = "mystore1.orsjo"
-# 	$marketId: String = "1"
-# ) {
-# 	createOrUpdateCheckout(
-# 		cartId: $cartId
-# 		checkout: $checkout
-# 		channelId: $channelId
-# 		marketId: $marketId
-# 	) {
-# 		id
-# 	}
-# }
+query Checkout($orderId: String!, $cartId: String, $paymentType: PaymentType!) {
+	checkout(id: $orderId, cartId: $cartId, paymentType: $paymentType) {
+		htmlSnippet
+		newCheckoutSession
+		completed
+		cart {
+			id
+		}
+	}
+}
