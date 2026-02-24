@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
 import s from './Cart.module.scss';
 import cn from 'classnames';
+import { useEffect, useRef, useState } from 'react';
 import { default as useCart, useShallow } from '@/geins/hooks/useCart';
 import CountrySelector from './CountrySelector';
 import Loader from '@/components/common/Loader';
@@ -10,7 +10,6 @@ import { usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import useStore from '@/lib/store';
 import { useClickAway } from 'react-use';
-import { deliveryDaysText } from '@/lib/utils';
 import { Checkbox } from '@/components/common/Checkbox';
 import { Link } from '@/i18n/routing';
 import CartError from '@/components/geins/CartError';
@@ -33,7 +32,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 		updatingId,
 		cartError,
 		clearError,
-		createCheckoutToken,
 	] = useCart(
 		useShallow((state) => [
 			state.cart,
@@ -45,7 +43,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 			state.updatingId,
 			state.error,
 			state.clearError,
-			state.createCheckoutToken,
 		]),
 	);
 	const [showCart, setShowCart] = useStore(
@@ -59,7 +56,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 	const checkboxRef = useRef<HTMLInputElement>(null);
-	const [checkoutToken, setCheckoutToken] = useState('');
 
 	function handleCloseError() {
 		if (cartError) clearError();
@@ -98,7 +94,8 @@ export default function Cart({ markets, shipping }: CartProps) {
 	useEffect(() => {
 		//setError(new Error('Error message from useEffect. Blah blah blah.'));
 	}, [showCart]);
-	console.log(cart);
+
+	console.log('cart', cart);
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
@@ -117,11 +114,12 @@ export default function Cart({ markets, shipping }: CartProps) {
 							const { id, quantity, product, unitPrice } = item;
 							const skuId = product?.skus?.[0]?.skuId;
 							const articleNo = product?.skus?.[0]?.articleNumber;
-							const deliveryDays = product?.parameterGroups?.find(
+							const deliveryDaysType = product?.parameterGroups?.find(
 								(p) => p?.parameterGroupId === GEINS_DELIVERY_PARAMETER_ID,
 							)?.parameters?.[0]?.value;
-							const deliveryDaysText =
-								shipping?.deliveryDays.find(({ time }) => time === deliveryDays)?.textShort ?? '';
+							const deliveryDays =
+								shipping?.deliveryDays.find(({ time }) => time === deliveryDaysType)?.textShort ??
+								'';
 							const slug = product?.categories?.[0]?.alias;
 							const imageUrl = getProductImageUrl(product as ProductType);
 
@@ -164,7 +162,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 										<div className={cn(s.price, 'small')} aria-label={'Total'}>
 											{formatGeinsPrice(unitPrice?.sellingPriceIncVat, unitPrice?.currency?.code)}
 										</div>
-										<div className='small gray'>{deliveryDaysText}</div>
+										<div className='small gray'>{deliveryDays}</div>
 										<div>
 											<button
 												className={cn(s.remove, 'small')}
@@ -186,19 +184,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 					<div className={s.currency}>
 						<CountrySelector markets={markets} className={s.form} />
 					</div>
-					<form
-						action={`/api/geins/checkout`}
-						method='GET'
-						onSubmit={async (e) => {
-							// e.preventDefault();
-							// try {
-							// 	const urls =
-							// 	window.open(token);
-							// } catch (err) {
-							// 	console.log(err);
-							// }
-						}}
-					>
+					<form action={`/api/geins/checkout`} method='GET'>
 						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
 						<div className={cn(s.terms, 'medium')}>
 							<Checkbox
@@ -214,7 +200,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 							</span>
 						</div>
 						<button
-							className={cn(s.checkout, !terms && s.disabled, 'full')}
+							className={cn(s.checkout, !terms || (!cart && s.disabled), 'full')}
 							type='submit'
 							onClick={(e) => {
 								if (terms) return true;

@@ -1,11 +1,5 @@
 query AllGeinsProducts($skip: Int = 0, $take: Int = 200) {
-	products(
-		skip: $skip
-		take: $take
-		channelId: "mystore1.orsjo"
-		marketId: "1"
-		filter: { sort: ALPHABETICAL }
-	) {
+	products(skip: $skip, take: $take, filter: { sort: ALPHABETICAL }) {
 		count
 		products {
 			...ProductFragment
@@ -14,13 +8,7 @@ query AllGeinsProducts($skip: Int = 0, $take: Int = 200) {
 }
 
 query GeinsProductsByCategory($skip: Int = 0, $take: Int = 200, $categoryAlias: String) {
-	products(
-		skip: $skip
-		take: $take
-		categoryAlias: $categoryAlias
-		channelId: "mystore1.orsjo"
-		marketId: "1"
-	) {
+	products(skip: $skip, take: $take, categoryAlias: $categoryAlias) {
 		count
 		products {
 			...ProductFragment
@@ -29,11 +17,7 @@ query GeinsProductsByCategory($skip: Int = 0, $take: Int = 200, $categoryAlias: 
 }
 
 query GeinsProductByArticleNo($articleNumbers: [String!]) {
-	products(
-		filter: { articleNumbers: $articleNumbers }
-		channelId: "mystore1.orsjo"
-		marketId: "1"
-	) {
+	products(filter: { articleNumbers: $articleNumbers }) {
 		count
 		products {
 			...ProductFragment
