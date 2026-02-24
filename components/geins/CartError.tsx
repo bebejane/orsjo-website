@@ -1,7 +1,6 @@
 'use client';
 
 import s from './CartError.module.scss';
-import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 
 type CartErrorProps = {

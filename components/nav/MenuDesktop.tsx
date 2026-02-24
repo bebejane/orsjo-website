@@ -13,7 +13,7 @@ import { waitForElement } from '@/lib/utils';
 import { Logo, SiteSearch } from '@/components';
 import { usePathname } from 'next/navigation';
 import useCart from '@/lib/shopify/hooks/useCart';
-import CountrySelector from '@/components/shopify/CountrySelector';
+import CountrySelector from '@/components/geins/CountrySelector';
 
 export type MenuDesktopProps = {
 	menu: Menu;

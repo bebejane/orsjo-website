@@ -3,7 +3,7 @@
 import s from './Shop.module.scss';
 import cn from 'classnames';
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { formatGeinsPrice } from '@/geins/utils';
+import { formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
 import { useWindowSize } from 'usehooks-ts';
 import useCart, { useShallow } from '@/geins/hooks/useCart';
 import useStore from '@/lib/store';
@@ -246,8 +246,8 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 										>
 											<div className={s.row}>
 												<div className={s.thumb}>
-													{geinsVariant?.productImages?.[0] && (
-														<img src={geinsVariant?.productImages?.[0].fileName} />
+													{getProductImageUrl(geinsVariant as ProductType) && (
+														<img src={getProductImageUrl(geinsVariant as ProductType)} />
 													)}
 												</div>
 												<span className={s.name}>
@@ -283,8 +283,8 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 						onClick={handleToggleOpen}
 					>
 						<div className={s.thumb}>
-							{selectedGeinsVariant?.productImages?.[0] && (
-								<img src={selectedGeinsVariant?.productImages?.[0].fileName} />
+							{getProductImageUrl(selectedGeinsVariant as ProductType) && (
+								<img src={getProductImageUrl(selectedGeinsVariant as ProductType)} />
 							)}
 						</div>
 						<span className={s.name}>
@@ -455,8 +455,10 @@ function getAllAddons(
 				name: `1 x ${accessory?.name}`,
 				price: geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo)?.unitPrice
 					?.regularPriceIncVat,
-				imageUrl: geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo)
-					?.productImages?.[0]?.fileName,
+				imageUrl: getProductImageUrl(
+					geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo) as ProductType,
+				),
+
 				quantity: 1,
 			})),
 			...lightsources
@@ -470,8 +472,11 @@ function getAllAddons(
 					name: `${amount} x ${lightsource?.name}`,
 					price: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
 						?.unitPrice?.regularPriceIncVat,
-					imageUrl: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
-						?.productImages?.[0]?.fileName,
+					imageUrl: getProductImageUrl(
+						geins.lightsources.find(
+							(p) => p?.articleNumber === lightsource?.articleNo,
+						) as ProductType,
+					),
 					quantity: amount,
 				})),
 		])

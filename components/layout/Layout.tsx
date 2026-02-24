@@ -11,7 +11,7 @@ import {
 import { PageProvider } from '@/lib/context/page-provider';
 import { type MenuItem } from '@/lib/menu';
 import type { Market } from '@/geins/utils';
-import Cart from '@/components/shopify/Cart';
+import Cart from '@/components/geins/Cart';
 import PageTransition from '@/components/layout/PageTransition';
 
 export type LayoutProps = {

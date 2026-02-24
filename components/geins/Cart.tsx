@@ -13,8 +13,8 @@ import { useClickAway } from 'react-use';
 import { deliveryDaysText } from '@/lib/utils';
 import { Checkbox } from '@/components/common/Checkbox';
 import { Link } from '@/i18n/routing';
-import CartError from '@/components/shopify/CartError';
-import { formatGeinsPrice } from '@/geins/utils';
+import CartError from '@/components/geins/CartError';
+import { formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
 
 export type CartProps = {
 	markets: MarketType[];
@@ -97,7 +97,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	useEffect(() => {
 		//setError(new Error('Error message from useEffect. Blah blah blah.'));
 	}, [showCart]);
-
+	console.log(cart);
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
@@ -119,7 +119,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 							const deliveryDaysText =
 								shipping?.deliveryDays.find(({ time }) => time === deliveryDays)?.textShort ?? '';
 							const slug = product?.categories?.[0]?.alias;
-							const imageUrl = product?.productImages?.[0]?.fileName;
+							const imageUrl = getProductImageUrl(product as ProductType);
 
 							return (
 								<li
@@ -186,19 +186,19 @@ export default function Cart({ markets, shipping }: CartProps) {
 						<CountrySelector markets={markets} className={s.form} />
 					</div>
 					<form
-						action={`https://checkout.geins.services/${checkoutToken}`}
+						action={`/api/geins/checkout`}
 						method='GET'
 						onSubmit={async (e) => {
-							e.preventDefault();
-							try {
-								const token = await createCheckoutToken();
-								console.log(token);
-								window.open(`https://checkout.geins.services/${token}`);
-							} catch (err) {
-								console.log(err);
-							}
+							// e.preventDefault();
+							// try {
+							// 	const urls =
+							// 	window.open(token);
+							// } catch (err) {
+							// 	console.log(err);
+							// }
 						}}
 					>
+						<input type='hidden' name='cart_id' value={cart?.id} />
 						<div className={cn(s.terms, 'medium')}>
 							<Checkbox
 								name='terms'

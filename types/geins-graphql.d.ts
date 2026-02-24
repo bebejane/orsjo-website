@@ -2471,11 +2471,11 @@ type AllGeinsChannelsQuery = { __typename?: 'GeinsMerchantApiQuery', channels?: 
 type CheckoutQueryVariables = Exact<{
   orderId: Scalars['String']['input'];
   cartId?: InputMaybe<Scalars['String']['input']>;
-  paymentType: PaymentType;
+  paymentType?: InputMaybe<PaymentType>;
 }>;
 
 
-type CheckoutQuery = { __typename?: 'GeinsMerchantApiQuery', checkout?: { __typename?: 'CheckoutDataType', htmlSnippet?: string | null, newCheckoutSession: boolean, completed?: boolean | null, cart?: { __typename?: 'CartType', id?: string | null } | null } | null };
+type CheckoutQuery = { __typename?: 'GeinsMerchantApiQuery', checkout?: { __typename?: 'CheckoutDataType', htmlSnippet?: string | null, newCheckoutSession: boolean, completed?: boolean | null, order?: { __typename?: 'CheckoutOrderType', orderId?: string | null, currency?: string | null, status?: string | null } | null, cart?: { __typename?: 'CartType', id?: string | null } | null } | null };
 
 type PlaceOrderMutationVariables = Exact<{
   cartId: Scalars['String']['input'];

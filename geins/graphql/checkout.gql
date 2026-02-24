@@ -1,5 +1,10 @@
-query Checkout($orderId: String!, $cartId: String, $paymentType: PaymentType!) {
+query Checkout($orderId: String!, $cartId: String, $paymentType: PaymentType = STANDARD) {
 	checkout(id: $orderId, cartId: $cartId, paymentType: $paymentType) {
+		order {
+			orderId
+			currency
+			status
+		}
 		htmlSnippet
 		newCheckoutSession
 		completed

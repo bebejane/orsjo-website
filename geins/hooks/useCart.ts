@@ -11,6 +11,7 @@ import {
 	ClearCartDocument,
 	UpdateCartItemDocument,
 	PlaceOrderDocument,
+	CheckoutDocument,
 } from '../graphql';
 import { GenerateCheckoutTokenOptions } from '@geins/types';
 
@@ -170,6 +171,11 @@ const useCart = create<CartState>((set, get) => ({
 					billingAddress: {
 						firstName: 'Björn',
 						lastName: 'Berglund',
+						addressLine1: 'Test',
+						addressLine2: 'Test',
+						city: 'Test',
+						country: 'SE',
+						zip: '12345',
 					},
 					shippingAddress: {
 						firstName: 'Björn',
@@ -179,7 +185,17 @@ const useCart = create<CartState>((set, get) => ({
 				},
 			},
 		});
-		//placeOrder?.redirectUrl
+		if (!placeOrder?.orderId) throw new Error('Invalid order id');
+
+		const { checkout } = await geinsQuery(CheckoutDocument, {
+			variables: {
+				orderId: placeOrder?.orderId,
+				cartId: cart?.id,
+				paymentType: 'STANDARD' as PaymentType,
+			},
+		});
+		return `${process.env.NEXT_PUBLIC_SITE_URL}/checkout?order_id=${checkout?.order?.orderId}`;
+		//return placeOrder?.redirectUrl;
 		//console.log(placeOrder);
 		//return placeOrder?.redirectUrl;
 		// const checkoutTokenOptions: GenerateCheckoutTokenOptions = {

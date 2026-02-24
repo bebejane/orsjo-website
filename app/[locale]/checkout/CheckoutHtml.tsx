@@ -5,14 +5,14 @@ import geinsQuery from '@/geins/geins-query';
 import { CheckoutDocument } from '@/geins/graphql';
 import useCart from '@/geins/hooks/useCart';
 
-export default function CheckoutHtml() {
+export default function CheckoutHtml({ orderId }: { orderId: string | null }) {
 	const [html, setHtml] = useState<string | null>(null);
 	const { cart } = useCart();
-	const orderId = '1';
 
 	useEffect(() => {
+		if (!orderId) return;
 		geinsQuery(CheckoutDocument, {
-			variables: { id: orderId, cartId: cart?.id, paymentType: 'STANDARD' },
+			variables: { orderId, cartId: cart?.id },
 		})
 			.then((res) => {
 				setHtml(res.checkout?.htmlSnippet ?? null);

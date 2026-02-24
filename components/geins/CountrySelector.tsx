@@ -51,6 +51,7 @@ export default function CountrySelector({ className, markets }: CountrySelectPro
 		router.replace(pathname.replace(`/${country}`, '/'), { locale: newCountryCode });
 		router.refresh();
 	};
+
 	const selectedCountry = markets.find(
 		(c) => c.country?.code.toLowerCase() === country.toLowerCase(),
 	);

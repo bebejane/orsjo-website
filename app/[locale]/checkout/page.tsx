@@ -13,6 +13,7 @@ import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 import * as geins from '@/geins/merchant-api';
 import { CheckoutDocument } from '@/geins/graphql';
+import CheckoutHtml from '@/app/[locale]/checkout/CheckoutHtml';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -30,12 +31,9 @@ export default async function Checkout({ params }: PageProps<'/[locale]/checkout
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
+	const orderId = new URL(window.location.href).searchParams.get('order_id');
 
-	return (
-		<div className={s.page} id='checkout'>
-			Checkout
-		</div>
-	);
+	return <CheckoutHtml orderId={orderId} />;
 }
 
 export async function generateMetadata({

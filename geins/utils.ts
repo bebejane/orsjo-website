@@ -45,10 +45,19 @@ export type Market = {
 		rate: number;
 	};
 };
+
 export const getMarkets = async (): Promise<MarketType[]> => {
 	const channel = await getChannel();
 	if (!channel) return [];
 	return channel.markets as MarketType[];
+};
+
+export const getProductImageUrl = (product: ProductType): string | undefined => {
+	const productImages = product.productImages as ProductImageType[];
+	const imageUrl = productImages[0]?.fileName
+		? `https://orsjo.commerce.services/product/raw/${productImages[0].fileName}`
+		: undefined;
+	return imageUrl;
 };
 
 export const cartCookieOptions = {
