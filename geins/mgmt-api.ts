@@ -17,6 +17,7 @@ export async function request(
 		},
 	});
 	const data = await response.json();
+
 	if (!response.ok) {
 		console.log(body);
 		console.log(data, response.status);
@@ -64,8 +65,11 @@ export async function getProductsBySlug(slug: string) {
 	return p?.Resource;
 }
 
-export async function generateImageBlob(url: string): Promise<{ blob: Blob; fileName: string }> {
-	const fileName = url.split('/').pop()?.split('?')[0];
+export async function generateImageBlob(
+	url: string,
+	fileName?: string,
+): Promise<{ blob: Blob; fileName: string }> {
+	fileName = fileName ?? url.split('/').pop()?.split('?')[0];
 	const res = await fetch(url);
 	const blob = await res.blob();
 	if (!blob) throw new Error('Invalid blob');
@@ -73,15 +77,23 @@ export async function generateImageBlob(url: string): Promise<{ blob: Blob; file
 	return { blob, fileName };
 }
 
-export async function createProductImage(productId: number, url: string) {
-	const { blob, fileName } = await generateImageBlob(url);
-	const c = await request(`/Product/${productId}/Image/${fileName}`, 'POST', blob);
+export async function createProductImage(productId: number, url: string, name?: string) {
+	const { blob, fileName } = await generateImageBlob(url, name);
+	const c = await request(
+		`/Product/${productId}/Image/${fileName}?isPrimaryImage=true`,
+		'POST',
+		blob,
+	);
 	return c;
 }
 
-export async function updateProductImage(productId: number, url: string) {
-	const { blob, fileName } = await generateImageBlob(url);
-	const c = await request(`/Product/${productId}/Image/${fileName}`, 'PUT', blob);
+export async function updateProductImage(productId: number, url: string, name?: string) {
+	const { blob, fileName } = await generateImageBlob(url, name);
+	const c = await request(
+		`/Product/${productId}/Image/${fileName}?isPrimaryImage=true`,
+		'PUT',
+		blob,
+	);
 	return c;
 }
 

@@ -242,9 +242,10 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 			: mgmt.updateProductItem({ ...productItem, ItemId: updatedProduct.Items[0].ItemId }));
 
 		if (image) {
+			const fileName = updatedProduct.Images?.[0]?.Url?.split('/').pop()?.split('?')[0];
 			await (!updatedProduct.Images?.length
-				? mgmt.createProductImage(updatedProduct.ProductId, image)
-				: mgmt.updateProductImage(updatedProduct.ProductId, image));
+				? mgmt.createProductImage(updatedProduct.ProductId, image, fileName)
+				: mgmt.updateProductImage(updatedProduct.ProductId, image, fileName));
 		}
 
 		const allCurrencies = await getAllCurrencyRates();

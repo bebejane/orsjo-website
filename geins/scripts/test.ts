@@ -30,9 +30,12 @@ const main = async () => {
 		//await resync();
 		//await resyncAll();
 		console.log(arg);
-		//const data = await merchant.getProductsByCategory(arg);
-		const data = await mgmt.getPaymentMethods();
+		//await resync();
+		const data = await merchant.getProductsByCategory(arg);
+		//await sync(lampId);
+		//const data = await mgmt.getPaymentMethods();
 		console.log(data);
+		console.log(data?.length);
 	} catch (error) {
 		console.log(error);
 	}
