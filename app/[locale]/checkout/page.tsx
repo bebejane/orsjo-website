@@ -31,7 +31,11 @@ export default async function Checkout({ params }: PageProps<'/[locale]/checkout
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	return <div className={s.page} id='checkout' dangerouslySetInnerHTML={}></div>;
+	return (
+		<div className={s.page} id='checkout'>
+			Checkout
+		</div>
+	);
 }
 
 export async function generateMetadata({

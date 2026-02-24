@@ -154,32 +154,32 @@ const useCart = create<CartState>((set, get) => ({
 		const cart = await get().cart;
 		if (!cart) throw new Error('Cart not found');
 
-		// const { placeOrder } = await geinsQuery(PlaceOrderDocument, {
-		// 	revalidate: 0,
-		// 	variables: {
-		// 		cartId: cart.id as string,
+		const { placeOrder } = await geinsQuery(PlaceOrderDocument, {
+			revalidate: 0,
+			variables: {
+				cartId: cart.id as string,
 
-		// 		checkout: {
-		// 			checkoutUrls: {
-		// 				checkoutPageUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
-		// 				redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
-		// 				termsPageUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
-		// 			},
-		// 			customerType: 'PERSON' as CustomerType.PERSON,
-		// 			email: 'bjorn@konst-teknik.se',
-		// 			billingAddress: {
-		// 				firstName: 'Björn',
-		// 				lastName: 'Berglund',
-		// 			},
-		// 			shippingAddress: {
-		// 				firstName: 'Björn',
-		// 				lastName: 'Berglund',
-		// 				//email: 'bjorn@konst-teknik.se',
-		// 			},
-		// 		},
-		// 	},
-		// });
-
+				checkout: {
+					checkoutUrls: {
+						checkoutPageUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
+						redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
+						termsPageUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
+					},
+					customerType: 'PERSON' as CustomerType.PERSON,
+					email: 'bjorn@konst-teknik.se',
+					billingAddress: {
+						firstName: 'Björn',
+						lastName: 'Berglund',
+					},
+					shippingAddress: {
+						firstName: 'Björn',
+						lastName: 'Berglund',
+						//email: 'bjorn@konst-teknik.se',
+					},
+				},
+			},
+		});
+		//placeOrder?.redirectUrl
 		//console.log(placeOrder);
 		//return placeOrder?.redirectUrl;
 		// const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
