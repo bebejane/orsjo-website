@@ -1,24 +1,10 @@
-# Stuff
+# Cart
 
-- news sidebar...
-- auto-response contact email
+- addToCart multiple
+- CartError
+- loading indicator checkout button
+- country selector hidden
 
-# Live
+# Site
 
-- resync shopify
-- check web previews/revalidate
-- links fullscreen video start?
-- sentry
-- check mobile
-
-# After Live
-
-- rewite orsjo-catalogue
-- monorepo eller api route
-
-# Reanble shop
-
-- prebuild script
-- getLocalization
-- /products
-- /products/[product]
+- Change country homepage bug

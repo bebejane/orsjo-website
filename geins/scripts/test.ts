@@ -28,7 +28,7 @@ const main = async () => {
 
 	try {
 		//await resync();
-		//await resyncAll();
+		await resyncAll();
 
 		//await resync(false);
 		//await resync();
@@ -36,7 +36,7 @@ const main = async () => {
 		//const data = await mgmt.getMarkets();
 		//const data = await merchant.getAllProducts(arg ?? 'se');
 		//console.log(data.products[0]?.unitPrice);
-		const paymentTypes = await mgmt.getPaymentMethods();
+		//const paymentTypes = await mgmt.getPaymentMethods();
 
 		//await sync(lampId);
 		//const data = await mgmt.getPaymentMethods();
