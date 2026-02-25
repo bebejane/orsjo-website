@@ -17,7 +17,6 @@ export const GET = async (req: Request) => {
 		if (!cartId) throw new Error('No cart id');
 
 		const url = await createCheckoutUrl(cartId, marketId, locale);
-		console.log(url);
 		const response = NextResponse.redirect(url);
 		return response;
 	} catch (e) {
@@ -82,8 +81,7 @@ async function createCheckoutUrl(
 			},
 		},
 	};
-	console.log(checkoutTokenOptions);
-
+	//console.log(checkoutTokenOptions);
 	const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
 	return url;
