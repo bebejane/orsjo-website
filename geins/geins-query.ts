@@ -2,6 +2,7 @@ import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import type { DocumentNode } from 'graphql';
 import { print } from 'graphql/language/printer';
 import * as Sentry from '@sentry/nextjs';
+import { GEINS_MARKET_ID } from '@/geins/constants';
 
 export type ApiQueryOptions<V = void> = {
 	variables?: V;
@@ -9,7 +10,7 @@ export type ApiQueryOptions<V = void> = {
 	tags?: string[] | undefined;
 	logs?: boolean;
 	all?: boolean;
-	country?: string;
+	marketId?: string;
 	admin?: boolean;
 };
 
@@ -46,11 +47,11 @@ export default async function geinsQuery<TResult = any, TVariables = Record<stri
 ): Promise<TResult> {
 	const opt = { ...defaultOptions, ...(options ?? {}) };
 	const queryId = (query.definitions?.[0] as any).name?.value as string;
-
+	const vars = options?.variables ? { ...options.variables } : {};
 	const dedupeOptions: DedupeOptions = {
 		body: JSON.stringify({
 			query: print(query),
-			variables: options?.variables ? { ...options.variables } : {},
+			variables: { ...vars, marketId: opt.marketId ?? GEINS_MARKET_ID },
 		}) as string,
 		...opt,
 		queryId,

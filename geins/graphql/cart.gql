@@ -1,32 +1,22 @@
-query Cart($id: String, $channelId: String = "mystore1.orsjo", $marketId: String = "1") {
-	getCart(id: $id, channelId: $channelId, marketId: $marketId) {
+query Cart($id: String, $marketId: String = "1") {
+	getCart(id: $id, marketId: $marketId) {
 		...CartFragment
 	}
 }
 
-mutation AddToCart(
-	$id: String!
-	$item: CartItemInputType!
-	$channelId: String = "mystore1.orsjo"
-	$marketId: String = "1"
-) {
-	addToCart(id: $id, item: $item, channelId: $channelId, marketId: $marketId) {
+mutation AddToCart($id: String!, $item: CartItemInputType!, $marketId: String = "1") {
+	addToCart(id: $id, item: $item, marketId: $marketId) {
 		...CartFragment
 	}
 }
-mutation UpdateCartItem(
-	$id: String!
-	$item: CartItemInputType!
-	$channelId: String = "mystore1.orsjo"
-	$marketId: String = "1"
-) {
-	updateCartItem(id: $id, item: $item, channelId: $channelId, marketId: $marketId) {
+mutation UpdateCartItem($id: String!, $item: CartItemInputType!, $marketId: String = "1") {
+	updateCartItem(id: $id, item: $item, marketId: $marketId) {
 		...CartFragment
 	}
 }
 
-mutation ClearCart($id: String!, $channelId: String = "mystore1.orsjo", $marketId: String = "1") {
-	clearCart(id: $id, channelId: $channelId, marketId: $marketId) {
+mutation ClearCart($id: String!, $marketId: String = "1") {
+	clearCart(id: $id, marketId: $marketId) {
 		...CartFragment
 	}
 }

@@ -1,9 +1,10 @@
 import 'dotenv/config';
 import fs from 'fs';
-import { getMarkets } from '@/geins/utils';
+import geinsQuery from '@/geins/geins-query';
+import { AllGeinsChannelsDocument } from '@/geins/graphql';
 
 (async () => {
-	const markets = await getMarkets();
-	const localizationJson = JSON.stringify(markets, null, 2);
-	fs.writeFileSync('./markets.json', localizationJson);
+	const channels = await geinsQuery(AllGeinsChannelsDocument);
+	const markets = channels.channels?.map((c) => c?.markets ?? []).flat() as any[];
+	fs.writeFileSync('./markets.json', JSON.stringify(markets, null, 2));
 })();

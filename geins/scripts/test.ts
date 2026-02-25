@@ -31,10 +31,11 @@ const main = async () => {
 		//await resyncAll();
 		console.log(arg);
 		//await resync();
-		const data = await merchant.getProductsByCategory(arg);
+		//const data = await merchant.getProductsByCategory(arg);
+		const data = await mgmt.getMarkets();
 		//await sync(lampId);
 		//const data = await mgmt.getPaymentMethods();
-		console.log(data);
+		console.log(JSON.stringify(data, null, 2));
 		console.log(data?.length);
 	} catch (error) {
 		console.log(error);

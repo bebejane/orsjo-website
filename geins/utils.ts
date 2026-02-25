@@ -47,12 +47,6 @@ export type Market = {
 	};
 };
 
-export const getMarkets = async (): Promise<MarketType[]> => {
-	const channel = await getChannel();
-	if (!channel) return [];
-	return channel.markets as MarketType[];
-};
-
 export const getProductImageUrl = (product: ProductType): string | undefined => {
 	if (!product) return undefined;
 	const productImages = product.productImages as ProductImageType[];

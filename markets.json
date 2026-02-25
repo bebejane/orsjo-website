@@ -39,6 +39,318 @@
     }
   },
   {
+    "id": "AT|EUR",
+    "country": {
+      "name": "Austria",
+      "code": "AT"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "BE|EUR",
+    "country": {
+      "name": "Belgium",
+      "code": "BE"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "BG|EUR",
+    "country": {
+      "name": "Bulgaria",
+      "code": "BG"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "HR|EUR",
+    "country": {
+      "name": "Croatia",
+      "code": "HR"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "CY|EUR",
+    "country": {
+      "name": "Cyprus",
+      "code": "CY"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "CZ|EUR",
+    "country": {
+      "name": "Czech Republic",
+      "code": "CZ"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "EE|EUR",
+    "country": {
+      "name": "Estonia",
+      "code": "EE"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "FI|EUR",
+    "country": {
+      "name": "Finland",
+      "code": "FI"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "FR|EUR",
+    "country": {
+      "name": "France",
+      "code": "FR"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "GR|EUR",
+    "country": {
+      "name": "Greece",
+      "code": "GR"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "HU|EUR",
+    "country": {
+      "name": "Hungary",
+      "code": "HU"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "IE|EUR",
+    "country": {
+      "name": "Ireland",
+      "code": "IE"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "IT|EUR",
+    "country": {
+      "name": "Italy",
+      "code": "IT"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "LV|EUR",
+    "country": {
+      "name": "Latvia",
+      "code": "LV"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "LT|EUR",
+    "country": {
+      "name": "Lithuania",
+      "code": "LT"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "LU|EUR",
+    "country": {
+      "name": "Luxembourg",
+      "code": "LU"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "MT|EUR",
+    "country": {
+      "name": "Malta",
+      "code": "MT"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "NL|EUR",
+    "country": {
+      "name": "Netherlands",
+      "code": "NL"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "PL|EUR",
+    "country": {
+      "name": "Poland",
+      "code": "PL"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "PT|EUR",
+    "country": {
+      "name": "Portugal",
+      "code": "PT"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "RO|EUR",
+    "country": {
+      "name": "Romania",
+      "code": "RO"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "SK|EUR",
+    "country": {
+      "name": "Slovakia",
+      "code": "SK"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "SI|EUR",
+    "country": {
+      "name": "Slovenia",
+      "code": "SI"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
+    "id": "ES|EUR",
+    "country": {
+      "name": "Spain",
+      "code": "ES"
+    },
+    "currency": {
+      "name": "Euro",
+      "symbol": "€",
+      "code": "EUR",
+      "rate": 1
+    }
+  },
+  {
     "id": "NO|NOK",
     "country": {
       "name": "Norway",

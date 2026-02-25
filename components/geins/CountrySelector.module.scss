@@ -62,11 +62,18 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			font-size: 0.65rem;
-			font-family: "IndivisibleMedium";
+			font-family: 'IndivisibleMedium';
 			display: flex;
 			justify-content: space-between;
 			align-items: baseline;
 			outline: none !important;
+
+			&.selected {
+				background-color: var(--white);
+				color: var(--black) !important;
+				cursor: normal;
+				pointer-events: none;
+			}
 
 			span {
 				padding-left: 0.5em;
@@ -77,13 +84,6 @@
 			}
 			&:last-of-type {
 				padding-bottom: 0.8em;
-			}
-
-			&.selected {
-				background-color: var(--black);
-				color: var(--white) !important;
-				cursor: normal;
-				pointer-events: none;
 			}
 
 			@include mq($from: desktop) {

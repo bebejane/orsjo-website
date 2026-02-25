@@ -1,5 +1,5 @@
-query AllGeinsProducts($skip: Int = 0, $take: Int = 200) {
-	products(skip: $skip, take: $take, filter: { sort: ALPHABETICAL }) {
+query AllGeinsProducts($skip: Int = 0, $take: Int = 200, $marketId: String = "1") {
+	products(skip: $skip, take: $take, marketId: $marketId, filter: { sort: ALPHABETICAL }) {
 		count
 		products {
 			...ProductFragment
@@ -7,8 +7,13 @@ query AllGeinsProducts($skip: Int = 0, $take: Int = 200) {
 	}
 }
 
-query GeinsProductsByCategory($skip: Int = 0, $take: Int = 200, $categoryAlias: String) {
-	products(skip: $skip, take: $take, categoryAlias: $categoryAlias) {
+query GeinsProductsByCategory(
+	$skip: Int = 0
+	$take: Int = 200
+	$categoryAlias: String
+	$marketId: String = "1"
+) {
+	products(skip: $skip, take: $take, marketId: $marketId, categoryAlias: $categoryAlias) {
 		count
 		products {
 			...ProductFragment
@@ -16,8 +21,8 @@ query GeinsProductsByCategory($skip: Int = 0, $take: Int = 200, $categoryAlias: 
 	}
 }
 
-query GeinsProductByArticleNo($articleNumbers: [String!]) {
-	products(filter: { articleNumbers: $articleNumbers }) {
+query GeinsProductByArticleNo($articleNumbers: [String!], $marketId: String = "1") {
+	products(marketId: $marketId, filter: { articleNumbers: $articleNumbers }) {
 		count
 		products {
 			...ProductFragment

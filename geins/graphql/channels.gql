@@ -22,5 +22,10 @@ query AllGeinsChannels {
 				rate
 			}
 		}
+		languages {
+			id
+			name
+			code
+		}
 	}
 }

@@ -115,7 +115,7 @@ export const getProductPageData = async (
 		byCategory: (a: ProductRecord, b: ProductRecord) =>
 			a.categories
 				.map((el) => el.id)
-				.find((id: string) => product?.categories?.map((el) => el.id).includes[id])
+				.find((id: string) => product?.categories?.map((el) => el.id).includes(id))
 				? 1
 				: -1,
 		byDesigner: (a: ProductRecord, b: ProductRecord) =>

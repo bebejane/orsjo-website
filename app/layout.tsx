@@ -5,10 +5,11 @@ import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import { buildMenu } from '@/lib/menu';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
-import * as Sentry from '@sentry/nextjs';
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import { getMarkets } from '@/geins/utils';
+import geinsQuery from '@/geins/geins-query';
+import { AllGeinsChannelsDocument } from '@/geins/graphql';
+import * as Sentry from '@sentry/nextjs';
 
 export const dynamic = 'force-static';
 
@@ -16,11 +17,13 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 	const { locale } = await (params as any);
 	setRequestLocale(locale);
 
-	const [menu, markets, { shipping }] = await Promise.all([
+	const [menu, channels, { shipping }] = await Promise.all([
 		buildMenu(),
-		getMarkets(),
+		geinsQuery(AllGeinsChannelsDocument),
 		apiQuery(ShippingDocument),
 	]);
+
+	const markets = channels.channels?.map((c) => c?.markets ?? []).flat() as any[];
 
 	return (
 		<html lang='en-US'>
@@ -37,7 +40,8 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 }
 
 export async function generateStaticParams() {
-	const markets = await getMarkets();
+	const channels = await geinsQuery(AllGeinsChannelsDocument);
+	const markets = channels.channels?.map((c) => c?.markets ?? []).flat() as any[];
 	return markets.map((market) => ({
 		country: market?.country?.code,
 	}));

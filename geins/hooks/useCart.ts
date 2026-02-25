@@ -10,10 +10,8 @@ import {
 	AddToCartDocument,
 	ClearCartDocument,
 	UpdateCartItemDocument,
-	PlaceOrderDocument,
-	CheckoutDocument,
 } from '../graphql';
-import { GenerateCheckoutTokenOptions } from '@geins/types';
+import { GEINS_MARKET_ID } from '@/geins/constants';
 
 type Cart = CartQuery['getCart'] | undefined;
 
@@ -22,7 +20,7 @@ export interface CartState {
 	updating: boolean;
 	updatingId: string | null;
 	error: string | undefined;
-	country: string;
+	marketId: string;
 	update: (id: string | null, fn: (cart: Cart | undefined) => Promise<Cart>) => Promise<Cart>;
 	clearCart: () => void;
 	createCart: (country: string) => void;
@@ -30,9 +28,8 @@ export interface CartState {
 	addToCart: (item: CartItemInputType, country: string) => Promise<Cart>;
 	removeFromCart: (itemId: string, skuId: number) => Promise<Cart>;
 	updateQuantity: (skuId: string, quantity: number, country: string) => Promise<Cart>;
-	updateBuyerIdentity: (input: CartBuyerIdentityInput) => Promise<Cart>;
 	clearError: () => void;
-	createCheckoutToken: () => Promise<string | undefined>;
+	setMarketId: (id: string) => void;
 }
 
 const useCart = create<CartState>((set, get) => ({
@@ -40,20 +37,26 @@ const useCart = create<CartState>((set, get) => ({
 	updating: false,
 	updatingId: null,
 	error: undefined,
-	country: 'se',
-	createCart: async (country: string) => {
+	marketId: GEINS_MARKET_ID,
+	createCart: async (marketId?: string) => {
 		const id = await getCookie('cart', cartCookieOptions);
 		let cart: Cart | null = null;
 
+		marketId = marketId ?? get().marketId;
+
 		if (id) {
-			const res = await geinsQuery(CartDocument, { revalidate: 0, variables: { id }, country });
+			const res = await geinsQuery(CartDocument, {
+				revalidate: 0,
+				variables: { id },
+				marketId: marketId ?? get().marketId,
+			});
 			cart = res.getCart ?? null;
 		}
 
 		if (!cart) {
 			const { getCart } = await geinsQuery(CartDocument, {
 				revalidate: 0,
-				country,
+				marketId: get().marketId,
 				variables: { id: null },
 			});
 			cart = getCart;
@@ -69,7 +72,10 @@ const useCart = create<CartState>((set, get) => ({
 		if (!cartId) return;
 		set((state) => ({ cart: undefined }));
 		deleteCookie('cart', cartCookieOptions);
-		await geinsQuery(ClearCartDocument, { revalidate: 0, variables: { id: cartId } });
+		await geinsQuery(ClearCartDocument, {
+			revalidate: 0,
+			variables: { id: cartId, marketId: get().marketId },
+		});
 	},
 	setCart: async (cart: Cart) => {
 		setCookie('cart', cart?.id, cartCookieOptions);
@@ -83,6 +89,7 @@ const useCart = create<CartState>((set, get) => ({
 				variables: {
 					id: cart?.id ?? '',
 					item,
+					marketId: get().marketId,
 				},
 			});
 			return addToCart as Cart;
@@ -98,6 +105,7 @@ const useCart = create<CartState>((set, get) => ({
 						skuId,
 						quantity: 0,
 					},
+					marketId: get().marketId,
 				},
 			});
 			return updateCartItem as Cart;
@@ -113,30 +121,20 @@ const useCart = create<CartState>((set, get) => ({
 						id: skuId,
 						quantity,
 					},
+					marketId: get().marketId,
 				},
 			});
 			return updateCartItem;
 		});
 	},
-	updateBuyerIdentity: async (buyerIdentity: CartBuyerIdentityInput) => {
-		return get().update(null, async (cart) => {
-			console.log('updatebuyeridenti');
-			// const { cartBuyerIdentityUpdate } = await geinsQuery(CartBuyerIdentityUpdateDocument, {
-			// 	revalidate: 0,
-			// 	variables: {
-			// 		cartId: id,
-			// 		buyerIdentity,
-			// 	},
-			// });
-
-			// if (cartBuyerIdentityUpdate?.userErrors && cartBuyerIdentityUpdate?.userErrors.length > 0)
-			// 	throw cartBuyerIdentityUpdate?.userErrors;
-
-			// const cart = cartBuyerIdentityUpdate?.cart as Cart;
-			// if (!cart) throw new Error('Cart not found');
-			return get().cart;
-		});
+	clearError: () => {
+		set(() => ({ error: undefined }));
 	},
+	setMarketId: (id: string) => {
+		set(() => ({ marketId: id }));
+		get().createCart(id);
+	},
+
 	update: async (id, fn) => {
 		set((state) => ({ updating: true, updatingId: id ?? null, error: undefined }));
 		return fn(get().cart)
@@ -147,87 +145,6 @@ const useCart = create<CartState>((set, get) => ({
 			.catch((err) => set((state) => ({ error: err })))
 			.finally(() => set((state) => ({ updating: false, updatingId: null })))
 			.then();
-	},
-	clearError: () => {
-		set(() => ({ error: undefined }));
-	},
-	createCheckoutToken: async () => {
-		const cart = await get().cart;
-		if (!cart) throw new Error('Cart not found');
-
-		const { placeOrder } = await geinsQuery(PlaceOrderDocument, {
-			revalidate: 0,
-			variables: {
-				cartId: cart.id as string,
-
-				checkout: {
-					checkoutUrls: {
-						checkoutPageUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
-						redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
-						termsPageUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
-					},
-					customerType: 'PERSON' as CustomerType.PERSON,
-					email: 'bjorn@konst-teknik.se',
-					billingAddress: {
-						firstName: 'Björn',
-						lastName: 'Berglund',
-						addressLine1: 'Test',
-						addressLine2: 'Test',
-						city: 'Test',
-						country: 'SE',
-						zip: '12345',
-					},
-					shippingAddress: {
-						firstName: 'Björn',
-						lastName: 'Berglund',
-						//email: 'bjorn@konst-teknik.se',
-					},
-				},
-			},
-		});
-		if (!placeOrder?.orderId) throw new Error('Invalid order id');
-
-		const { checkout } = await geinsQuery(CheckoutDocument, {
-			variables: {
-				orderId: placeOrder?.orderId,
-				cartId: cart?.id,
-				paymentType: 'STANDARD' as PaymentType,
-			},
-		});
-		return `${process.env.NEXT_PUBLIC_SITE_URL}/checkout?order_id=${checkout?.order?.orderId}`;
-		//return placeOrder?.redirectUrl;
-		//console.log(placeOrder);
-		//return placeOrder?.redirectUrl;
-		// const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
-		// 	cartId: cart.id as string,
-		// 	//user: { email: 'user@test.se' },
-		// 	selectedPaymentMethodId: 23,
-		// 	selectedShippingMethodId: 1,
-		// 	copyCart: true,
-		// 	//customerType: CustomerType.PERSON,
-		// 	redirectUrls: {
-		// 		cancel: `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
-		// 		continue: `${process.env.NEXT_PUBLIC_SITE_URL}/products`,
-		// 		terms: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
-		// 	},
-		// 	branding: {
-		// 		title: 'Örsjo',
-		// 		logo: `${process.env.NEXT_PUBLIC_SITE_URL}/images/logo.svg`,
-		// 		styles: {
-		// 			logoSize: '2.5rem',
-		// 			radius: '5px',
-		// 			accent: '#ffcc00',
-		// 			accentForeground: '#000000',
-		// 		},
-		// 	},
-		// };
-
-		// // Generate checkout token
-		//const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
-
-		// // Redirect to the checkout page
-		//window.open(`https://checkout.geins.services/${token}`);
-		return 'test';
 	},
 }));
 

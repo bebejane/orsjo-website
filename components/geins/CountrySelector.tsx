@@ -13,8 +13,7 @@ import s from './CountrySelector.module.scss';
 import cn from 'classnames';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
-import { useWindowSize, useClickAway } from 'react-use';
+import { useRef } from 'react';
 import { usePage } from '@/lib/context/page-provider';
 
 type CountrySelectProps = {
@@ -26,34 +25,21 @@ type CountrySelectProps = {
 export default function CountrySelector({ className, markets }: CountrySelectProps) {
 	const pathname = usePathname();
 	const router = useRouter();
-	const country = useLocale();
+	const locale = useLocale();
 	const { inverted } = usePage();
-	const [selectOpen, setSelectOpen] = useState(false);
-	const { width, height } = useWindowSize();
-	const [selectWidth, setSelectWidth] = useState(0);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const formRef = useRef<HTMLFormElement>(null);
 	const popupRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		setSelectWidth(buttonRef.current?.scrollWidth ? buttonRef.current?.scrollWidth : 0);
-	}, [width, height]);
-
-	useEffect(() => {
-		setTimeout(() => {
-			setSelectWidth(buttonRef.current?.scrollWidth ? buttonRef.current?.scrollWidth : 0);
-		}, 100);
-	}, []);
-
 	const handleChange = (val: Key | null) => {
 		if (!val) return;
 		const newCountryCode = val.toString().toLowerCase();
-		router.replace(pathname.replace(`/${country}`, '/'), { locale: newCountryCode });
+		router.replace(pathname.replace(`/${locale}`, '/'), { locale: newCountryCode });
 		router.refresh();
 	};
 
 	const selectedCountry = markets.find(
-		(c) => c.country?.code.toLowerCase() === country.toLowerCase(),
+		(c) => c.country?.code.toLowerCase() === locale.toLowerCase(),
 	);
 
 	return (
@@ -72,11 +58,11 @@ export default function CountrySelector({ className, markets }: CountrySelectPro
 				aria-label='Select country'
 			>
 				<Button className={cn(s.button, inverted && s.inverted)} ref={buttonRef}>
-					<SelectValue className={s.value} key={country}>
+					<SelectValue className={s.value} key={locale}>
 						{selectedCountry?.currency?.code}
 					</SelectValue>
 					<span aria-hidden='true' className={cn(s.arrow, 'symbol')}>
-						{!selectOpen ? '›' : '›'}
+						›
 					</span>
 				</Button>
 				<Popover
@@ -104,7 +90,8 @@ export default function CountrySelector({ className, markets }: CountrySelectPro
 									key={idx}
 									className={cn(
 										s.option,
-										selectedCountry?.country?.code === country?.code && s.selected,
+										selectedCountry?.country?.code.toLowerCase() === country?.code.toLowerCase() &&
+											s.selected,
 									)}
 								>
 									{country?.name} <span className='small'>{currency?.code}</span>

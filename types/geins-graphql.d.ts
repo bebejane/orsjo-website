@@ -2425,7 +2425,6 @@ type VatGroupType = {
 
 type CartQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']['input']>;
-  channelId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -2435,7 +2434,6 @@ type CartQuery = { __typename?: 'GeinsMerchantApiQuery', getCart?: { __typename?
 type AddToCartMutationVariables = Exact<{
   id: Scalars['String']['input'];
   item: CartItemInputType;
-  channelId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -2445,7 +2443,6 @@ type AddToCartMutation = { __typename?: 'GeinsMerchantApiMutation', addToCart?: 
 type UpdateCartItemMutationVariables = Exact<{
   id: Scalars['String']['input'];
   item: CartItemInputType;
-  channelId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -2454,7 +2451,6 @@ type UpdateCartItemMutation = { __typename?: 'GeinsMerchantApiMutation', updateC
 
 type ClearCartMutationVariables = Exact<{
   id: Scalars['String']['input'];
-  channelId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -2491,6 +2487,7 @@ type PlaceOrderMutation = { __typename?: 'GeinsMerchantApiMutation', placeOrder?
 type AllGeinsProductsQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -2500,6 +2497,7 @@ type GeinsProductsByCategoryQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   categoryAlias?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -2507,6 +2505,7 @@ type GeinsProductsByCategoryQuery = { __typename?: 'GeinsMerchantApiQuery', prod
 
 type GeinsProductByArticleNoQueryVariables = Exact<{
   articleNumbers?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
