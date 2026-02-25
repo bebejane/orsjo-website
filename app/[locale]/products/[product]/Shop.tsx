@@ -151,6 +151,11 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 		setOpen(false);
 	}
 
+	function handleAddToCartWithoutLightsource() {
+		setModal('dismiss');
+		handleAddToCart(true);
+	}
+
 	function handleAddToCart(withoutLightsource?: boolean) {
 		if (!selectedGeinsVariant || !selectedModel) return;
 
@@ -178,11 +183,6 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 
 		setShowCart(true);
 		resetAll();
-	}
-
-	function handleAddToCartWithoutLightsource() {
-		setModal('dismiss');
-		handleAddToCart(true);
 	}
 
 	if (!product || !selected || !selectedModel) return null;
@@ -305,12 +305,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 								).description
 							}
 						</span>
-						<span className={s.price}>
-							{formatGeinsPrice(
-								selectedGeinsVariant?.unitPrice?.sellingPriceIncVat,
-								selectedGeinsVariant?.unitPrice?.currency?.code,
-							)}
-						</span>
+						<span className={s.price}></span>
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
 					</div>
 

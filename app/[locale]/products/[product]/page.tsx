@@ -38,7 +38,6 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 		shipping,
 	} = res;
 
-	console.log(product);
 	return (
 		<>
 			<Intro product={product} drawings={drawings} />

@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { sync } from '@/lib/shopify/sync';
+import { sync } from '@/geins/sync';
 
 (async () => {
 	console.time('sync');

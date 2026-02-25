@@ -26,7 +26,6 @@ const initialState: MenuItem = {
 export const PageContext = createContext(initialState);
 
 function handlePageChange(page: MenuItem) {
-	console.log('set page');
 	document.getElementById('layout')?.style.setProperty('background-color', `var(--${page.color})`);
 	document.getElementById('content')?.setAttribute('data-type', page.layout);
 }

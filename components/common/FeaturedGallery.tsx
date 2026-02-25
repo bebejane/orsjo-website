@@ -26,7 +26,6 @@ export type FeaturedGalleryProps = {
 	projects?: ProjectRecord[];
 	designers?: DesignerRecord[];
 	items: ProductRecordWithGeinsData[] | ProjectRecord[] | DesignerRecord[] | ProductRecord[];
-	shopifyItems?: Product[];
 	headline?: string;
 	id: string;
 	bgColor?: string;

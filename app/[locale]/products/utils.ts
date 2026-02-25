@@ -15,23 +15,6 @@ import { apiQuery } from 'next-dato-utils/api';
 import { firstBy } from 'thenby';
 import * as geins from '@/geins/merchant-api';
 
-export function findCheapestVariant(
-	product: ProductRecord,
-	shopifyProducts: AllShopifyProductsQuery['products'],
-): ProductVariant | undefined {
-	const shopifyProduct = shopifyProducts.edges.find(({ node }) => node.handle === product.slug);
-	if (!shopifyProduct) console.log('no shopify product found for:', product.slug);
-	if (!shopifyProduct) return undefined;
-
-	//@ts-ignore
-	return shopifyProduct.node.variants.edges.reduce<undefined | ProductVariant>((acc, variant) => {
-		if (!acc) return variant.node;
-		return parseFloat(variant.node.price.amount) > parseFloat(acc.price.amount)
-			? variant.node
-			: acc;
-	}, undefined);
-}
-
 export type SpecCol = {
 	label: string;
 	value: string;
@@ -92,15 +75,19 @@ export const getProductPageData = async (
 	const accessories = await geins.getProductsByCategory('accessory');
 	const lightsources = await geins.getProductsByCategory('lightsource');
 
-	const geinsAccessories = accessories.filter((a) =>
-		a.skus?.some(
-			(s) => s?.articleNumber === products.find((p) => p.productId === a.productId)?.articleNumber,
-		),
+	const articleNumbers = product.models
+		.map((m) => [
+			...m.accessories.map((a) => a.accessory?.articleNo),
+			...m.lightsources.map((l) => l.lightsource.articleNo),
+		])
+		.flat()
+		.filter(Boolean) as string[];
+
+	const geinsLightsources = lightsources.filter(
+		(a) => a.articleNumber && articleNumbers.includes(a.articleNumber),
 	);
-	const geinsLightsources = lightsources.filter((a) =>
-		a.skus?.some(
-			(s) => s?.articleNumber === products.find((p) => p.productId === a.productId)?.articleNumber,
-		),
+	const geinsAccessories = accessories.filter(
+		(a) => a.articleNumber && articleNumbers.includes(a.articleNumber),
 	);
 
 	const specs = parseSpecifications(product as any, 'en', null);

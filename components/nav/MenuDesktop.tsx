@@ -12,7 +12,7 @@ import type { Menu } from '@/lib/menu';
 import { waitForElement } from '@/lib/utils';
 import { Logo, SiteSearch } from '@/components';
 import { usePathname } from 'next/navigation';
-import useCart from '@/lib/shopify/hooks/useCart';
+import useCart from '@/geins/hooks/useCart';
 import CountrySelector from '@/components/geins/CountrySelector';
 
 export type MenuDesktopProps = {
@@ -54,6 +54,7 @@ export default function MenuDesktop({ menu, markets }: MenuDesktopProps) {
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo();
 	const [cart] = useCart(useShallow((state) => [state.cart]));
 	const isInverted = inverted || invertMenu || showMenuMobile;
+	const isEmpty = !cart?.items?.length || cart?.items?.length === 0;
 
 	const resetSelected = useCallback(() => {
 		if (transitioning) return;
@@ -168,11 +169,8 @@ export default function MenuDesktop({ menu, markets }: MenuDesktopProps) {
 					<li className={s.country}>
 						<CountrySelector currency={true} markets={markets} className={s.selector} />
 					</li>
-					<li
-						className={cn(s.cart, cart?.totalQuantity && s.filled)}
-						onClick={() => setShowCart(true)}
-					>
-						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
+					<li className={cn(s.cart, !isEmpty && s.filled)} onClick={() => setShowCart(true)}>
+						<img src={`/images/cart${!isEmpty ? '-filled' : ''}.svg`} />
 					</li>
 					<li className={s.searchIcon} onClick={() => setShowSearch(true)}>
 						<img src={'/images/search.svg'} />
