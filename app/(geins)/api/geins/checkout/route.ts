@@ -1,4 +1,5 @@
 import {
+	GEINS_CHANNEL,
 	GEINS_CHANNEL_ID,
 	GEINS_MARKET_ID,
 	GEINS_MGMT_CHANNEL_ID,
@@ -6,7 +7,7 @@ import {
 } from '@/geins/constants';
 import { GeinsCore, GeinsLogLevel } from '@geins/core';
 import { GeinsOMS } from '@geins/oms';
-import type { GenerateCheckoutTokenOptions, GeinsSettings } from '@geins/types';
+import type { GenerateCheckoutTokenOptions, GeinsSettings, RuntimeContext } from '@geins/types';
 import * as crypto from 'crypto';
 import { NextResponse } from 'next/server';
 
@@ -17,10 +18,8 @@ export const GET = async (req: Request) => {
 		const geinsSettings: GeinsSettings = {
 			apiKey: process.env.GEINS_MERCHANT_API_KEY!,
 			accountName: 'orsjo',
-			channel: GEINS_MGMT_CHANNEL_ID,
-			market: GEINS_MGMT_MARKET_ID,
-			// channel: GEINS_CHANNEL_ID,
-			// market: GEINS_MARKET_ID,
+			channel: String(GEINS_CHANNEL_ID),
+			market: 'se',
 			tld: 'com',
 			locale: 'sv-SE',
 			logLevel: 'DEBUG' as GeinsLogLevel,
@@ -32,7 +31,11 @@ export const GET = async (req: Request) => {
 
 		if (!cartId) throw new Error('No cart id');
 
-		const cart = await geinsOMS.cart.get(cartId);
+		let cart = await geinsOMS.cart.create();
+		cart = await geinsOMS.cart.addItem(cart.id, {
+			skuId: 7523,
+			quantity: 1,
+		});
 
 		if (!cart) throw new Error('No cart found');
 
@@ -41,10 +44,10 @@ export const GET = async (req: Request) => {
 			cartId: cart?.id as string,
 			copyCart: true,
 			customerType: 'PERSON' as CustomerType.PERSON,
-			selectedPaymentMethodId: 0,
+			selectedPaymentMethodId: 23,
 			selectedShippingMethodId: 0,
 			isCartEditable: true,
-			availablePaymentMethodIds: [],
+			availablePaymentMethodIds: [23],
 			availableShippingMethodIds: [],
 			redirectUrls: {
 				success: `${process.env.NEXT_PUBLIC_SITE_URL}`,
@@ -68,11 +71,11 @@ export const GET = async (req: Request) => {
 		const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
 		const token2 = encodeJWT(checkoutTokenOptions);
 		const url = `https://checkout.geins.services/v0/checkout/${token}`;
-		console.log(geinsSettings);
-		//console.log('checkout url', url);
-		console.log(token);
-		console.log('');
-		console.log(token2);
+		const url2 = `https://checkout.geins.services/v0/checkout/${token2}`;
+		console.log(url === url2);
+		console.log(url);
+		console.log(url2);
+		console.log(checkoutTokenOptions);
 
 		const response = NextResponse.redirect(url);
 		return response;

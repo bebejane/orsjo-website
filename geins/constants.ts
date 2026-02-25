@@ -1,4 +1,5 @@
-export const GEINS_CHANNEL_ID = 'mystore1.orsjo';
+export const GEINS_CHANNEL_ID = 1;
+export const GEINS_CHANNEL = 'mystore1.orsjo';
 export const GEINS_MARKET_ID = '1';
 export const GEINS_SLUG_PARAMETER_ID = 2;
 export const GEINS_DELIVERY_PARAMETER_ID = 3;
