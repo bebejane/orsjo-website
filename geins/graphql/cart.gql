@@ -23,6 +23,26 @@ mutation ClearCart($id: String!, $marketId: String = "1") {
 
 fragment CartFragment on CartType {
 	id
+	summary {
+		total {
+			sellingPriceIncVat
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
+		}
+		subTotal {
+			sellingPriceIncVat
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
+		}
+	}
 	items {
 		__typename
 		id

@@ -1,85 +1,24 @@
-import {
-	GEINS_CHANNEL,
-	GEINS_CHANNEL_ID,
-	GEINS_MARKET_ID,
-	GEINS_MGMT_CHANNEL_ID,
-	GEINS_MGMT_MARKET_ID,
-} from '@/geins/constants';
+import { GEINS_CHANNEL_ID } from '@/geins/constants';
 import { GeinsCore, GeinsLogLevel } from '@geins/core';
 import { GeinsOMS } from '@geins/oms';
-import type { GenerateCheckoutTokenOptions, GeinsSettings, RuntimeContext } from '@geins/types';
-import * as crypto from 'crypto';
+import type { GenerateCheckoutTokenOptions, GeinsSettings } from '@geins/types';
+import * as mgmt from '@/geins/mgmt-api';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
 export const GET = async (req: Request) => {
 	try {
-		const geinsSettings: GeinsSettings = {
-			apiKey: process.env.GEINS_MERCHANT_API_KEY!,
-			accountName: 'orsjo',
-			channel: String(GEINS_CHANNEL_ID),
-			market: 'se',
-			tld: 'com',
-			locale: 'sv-SE',
-			logLevel: 'DEBUG' as GeinsLogLevel,
-		};
-
-		const geinsCore = new GeinsCore(geinsSettings);
-		const geinsOMS = new GeinsOMS(geinsCore);
 		const cartId = new URL(req.url).searchParams.get('cart_id') as string;
 
 		if (!cartId) throw new Error('No cart id');
 
-		let cart = await geinsOMS.cart.create();
-		cart = await geinsOMS.cart.addItem(cart.id, {
-			skuId: 7523,
-			quantity: 1,
-		});
-
-		if (!cart) throw new Error('No cart found');
-
-		const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
-			geinsSettings,
-			cartId: cart?.id as string,
-			copyCart: true,
-			customerType: 'PERSON' as CustomerType.PERSON,
-			selectedPaymentMethodId: 23,
-			selectedShippingMethodId: 0,
-			isCartEditable: true,
-			availablePaymentMethodIds: [23],
-			availableShippingMethodIds: [],
-			redirectUrls: {
-				success: `${process.env.NEXT_PUBLIC_SITE_URL}`,
-				cancel: `${process.env.NEXT_PUBLIC_SITE_URL}`,
-				continue: `${process.env.NEXT_PUBLIC_SITE_URL}/products`,
-				terms: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
-				privacy: `${process.env.NEXT_PUBLIC_SITE_URL}/support/privacy-policy`,
-			},
-			branding: {
-				title: 'Örsjo',
-				icon: `${process.env.NEXT_PUBLIC_SITE_URL}/images/logo.svg`,
-				logo: `${process.env.NEXT_PUBLIC_SITE_URL}/images/logo.svg`,
-				styles: {
-					logoSize: '2.5rem',
-					radius: '5px',
-					accent: '#ffcc00',
-					accentForeground: '#000000',
-				},
-			},
-		};
-		const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
-		const token2 = encodeJWT(checkoutTokenOptions);
-		const url = `https://checkout.geins.services/v0/checkout/${token}`;
-		const url2 = `https://checkout.geins.services/v0/checkout/${token2}`;
-		console.log(url === url2);
+		const url = await createCheckoutUrl(cartId);
 		console.log(url);
-		console.log(url2);
-		console.log(checkoutTokenOptions);
-
 		const response = NextResponse.redirect(url);
 		return response;
 	} catch (e) {
+		console.log(e);
 		const message = e instanceof Error ? e.message : e;
 		return new Response(JSON.stringify({ error: message }), {
 			status: 500,
@@ -88,38 +27,57 @@ export const GET = async (req: Request) => {
 	}
 };
 
-export function encodeJWT(payload: Record<string, unknown>, secretKey?: string): string {
-	if (!payload || typeof payload !== 'object') {
-		throw new Error('Payload must be a valid object.');
-	}
-
-	const base64UrlEncode = (data: string): string =>
-		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-
-	// JWT header
-	const header = {
-		alg: secretKey ? 'HS256' : 'none',
-		typ: 'JWT',
+async function createCheckoutUrl(cartId?: string): Promise<string> {
+	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
+	const geinsSettings: GeinsSettings = {
+		apiKey: process.env.GEINS_MERCHANT_API_KEY!,
+		accountName: 'orsjo',
+		channel: String(GEINS_CHANNEL_ID),
+		market: 'se',
+		tld: 'com',
+		locale: 'sv-SE',
 	};
 
-	// Encode header and payload
-	const encodedHeader = base64UrlEncode(JSON.stringify(header));
-	const encodedPayload = base64UrlEncode(JSON.stringify(payload));
+	const geinsCore = new GeinsCore(geinsSettings);
+	const geinsOMS = new GeinsOMS(geinsCore);
+	const paymentTypes = await mgmt.getPaymentMethods();
+	const shippingOptions = await mgmt.getShippingOptions();
+	const availablePaymentMethodIds = paymentTypes.map((p: any) => p.PaymentId);
+	const selectedPaymentMethodId = availablePaymentMethodIds?.[0] ?? 0;
+	const availableShippingMethodIds = shippingOptions.map((p: any) => p.Id);
+	const selectedShippingMethodId = availableShippingMethodIds?.[0] ?? 0;
 
-	if (!secretKey) {
-		// Return unsigned token if no secretKey is provided
-		return `${encodedHeader}.${encodedPayload}`;
-	}
+	const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
+		geinsSettings,
+		cartId: cartId as string,
+		copyCart: true,
+		customerType: 'PERSON' as CustomerType.PERSON,
+		availablePaymentMethodIds,
+		selectedPaymentMethodId,
+		availableShippingMethodIds,
+		selectedShippingMethodId,
+		isCartEditable: false,
+		redirectUrls: {
+			success: `${siteUrl}`,
+			cancel: `${siteUrl}/products`,
+			continue: `${siteUrl}/products`,
+			terms: `${siteUrl}/support/terms-conditions`,
+			privacy: `${siteUrl}/support/privacy-policy`,
+		},
+		branding: {
+			title: 'Orsjo Checkout',
+			logo: `${siteUrl}/images/logo.svg`,
+			styles: {
+				logoSize: '2.5rem',
+				radius: '5px',
+				accent: '#ffcc00',
+				accentForeground: '#000000',
+			},
+		},
+	};
+	console.log(checkoutTokenOptions);
 
-	// Create the signature
-	const signature = crypto
-		.createHmac('sha256', secretKey)
-		.update(`${encodedHeader}.${encodedPayload}`)
-		.digest('base64')
-		.replace(/=/g, '')
-		.replace(/\+/g, '-')
-		.replace(/\//g, '_');
-
-	// Combine header, payload, and signature
-	return `${encodedHeader}.${encodedPayload}.${signature}`;
+	const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
+	const url = `https://checkout.geins.services/v0/checkout/${token}`;
+	return url;
 }

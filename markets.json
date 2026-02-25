@@ -1,6 +1,7 @@
 [
   {
     "id": "SE|SEK",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Sweden",
       "code": "SE"
@@ -14,6 +15,7 @@
   },
   {
     "id": "GB|GBP",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "United Kingdom",
       "code": "GB"
@@ -27,6 +29,7 @@
   },
   {
     "id": "DE|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Germany",
       "code": "DE"
@@ -40,6 +43,7 @@
   },
   {
     "id": "AT|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Austria",
       "code": "AT"
@@ -53,6 +57,7 @@
   },
   {
     "id": "BE|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Belgium",
       "code": "BE"
@@ -66,6 +71,7 @@
   },
   {
     "id": "BG|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Bulgaria",
       "code": "BG"
@@ -79,6 +85,7 @@
   },
   {
     "id": "HR|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Croatia",
       "code": "HR"
@@ -92,6 +99,7 @@
   },
   {
     "id": "CY|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Cyprus",
       "code": "CY"
@@ -105,6 +113,7 @@
   },
   {
     "id": "CZ|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Czech Republic",
       "code": "CZ"
@@ -118,6 +127,7 @@
   },
   {
     "id": "EE|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Estonia",
       "code": "EE"
@@ -131,6 +141,7 @@
   },
   {
     "id": "FI|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Finland",
       "code": "FI"
@@ -144,6 +155,7 @@
   },
   {
     "id": "FR|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "France",
       "code": "FR"
@@ -157,6 +169,7 @@
   },
   {
     "id": "GR|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Greece",
       "code": "GR"
@@ -170,6 +183,7 @@
   },
   {
     "id": "HU|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Hungary",
       "code": "HU"
@@ -183,6 +197,7 @@
   },
   {
     "id": "IE|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Ireland",
       "code": "IE"
@@ -196,6 +211,7 @@
   },
   {
     "id": "IT|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Italy",
       "code": "IT"
@@ -209,6 +225,7 @@
   },
   {
     "id": "LV|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Latvia",
       "code": "LV"
@@ -222,6 +239,7 @@
   },
   {
     "id": "LT|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Lithuania",
       "code": "LT"
@@ -235,6 +253,7 @@
   },
   {
     "id": "LU|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Luxembourg",
       "code": "LU"
@@ -248,6 +267,7 @@
   },
   {
     "id": "MT|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Malta",
       "code": "MT"
@@ -261,6 +281,7 @@
   },
   {
     "id": "NL|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Netherlands",
       "code": "NL"
@@ -274,6 +295,7 @@
   },
   {
     "id": "PL|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Poland",
       "code": "PL"
@@ -287,6 +309,7 @@
   },
   {
     "id": "PT|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Portugal",
       "code": "PT"
@@ -300,6 +323,7 @@
   },
   {
     "id": "RO|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Romania",
       "code": "RO"
@@ -313,6 +337,7 @@
   },
   {
     "id": "SK|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Slovakia",
       "code": "SK"
@@ -326,6 +351,7 @@
   },
   {
     "id": "SI|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Slovenia",
       "code": "SI"
@@ -339,6 +365,7 @@
   },
   {
     "id": "ES|EUR",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Spain",
       "code": "ES"
@@ -352,6 +379,7 @@
   },
   {
     "id": "NO|NOK",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Norway",
       "code": "NO"
@@ -365,6 +393,7 @@
   },
   {
     "id": "DK|DKK",
+    "defaultLanguageId": "sv-SE",
     "country": {
       "name": "Denmark",
       "code": "DK"

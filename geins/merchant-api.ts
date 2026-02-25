@@ -1,15 +1,19 @@
 import geinsQuery from '@/geins/geins-query';
-import { AllGeinsProductsDocument, GeinsProductsByCategoryDocument } from '@/geins/graphql';
+import {
+	AllGeinsChannelsDocument,
+	AllGeinsProductsDocument,
+	GeinsProductsByCategoryDocument,
+} from '@/geins/graphql';
 
-export async function getProduct(slug: string): Promise<ProductType[]> {
+export async function getProduct(slug: string, marketId?: string): Promise<ProductType[]> {
 	const { products } = await geinsQuery(GeinsProductsByCategoryDocument, {
-		variables: { categoryAlias: slug },
+		variables: { categoryAlias: slug, marketId },
 	});
 
 	return (products?.products as ProductType[]) ?? [];
 }
 
-export async function getAllProducts(categoryAlias?: string): Promise<{
+export async function getAllProducts(marketId?: string): Promise<{
 	products: ProductType[];
 	lightsources: ProductType[];
 	accessories: ProductType[];
@@ -21,6 +25,7 @@ export async function getAllProducts(categoryAlias?: string): Promise<{
 
 	let res = await geinsQuery(AllGeinsProductsDocument, {
 		variables: { skip, take },
+		marketId,
 		logs: true,
 	});
 
@@ -36,6 +41,7 @@ export async function getAllProducts(categoryAlias?: string): Promise<{
 
 		res = await geinsQuery(AllGeinsProductsDocument, {
 			variables: { skip, take },
+			marketId,
 			logs: true,
 		});
 	}
@@ -48,7 +54,15 @@ export async function getAllProducts(categoryAlias?: string): Promise<{
 	return { products, lightsources, accessories };
 }
 
-export async function getProductsByCategory(categoryAlias: string): Promise<ProductType[]> {
+export async function getProducts(marketId: string): Promise<ProductType[]> {
+	const { products } = await getAllProducts(marketId);
+	return products;
+}
+
+export async function getProductsByCategory(
+	categoryAlias: string,
+	marketId: string,
+): Promise<ProductType[]> {
 	const all: ProductType[] = [];
 
 	let skip = 0;
@@ -56,6 +70,7 @@ export async function getProductsByCategory(categoryAlias: string): Promise<Prod
 
 	let res = await geinsQuery(GeinsProductsByCategoryDocument, {
 		variables: { skip, take, categoryAlias },
+		marketId,
 		logs: true,
 	});
 
@@ -71,6 +86,7 @@ export async function getProductsByCategory(categoryAlias: string): Promise<Prod
 
 		res = await geinsQuery(GeinsProductsByCategoryDocument, {
 			variables: { skip, take, categoryAlias },
+			marketId,
 			logs: true,
 		});
 	}
@@ -78,17 +94,22 @@ export async function getProductsByCategory(categoryAlias: string): Promise<Prod
 	return all;
 }
 
-export async function getProducts(): Promise<ProductType[]> {
-	const { products } = await getAllProducts();
-	return products;
-}
-
-export async function getAccessories(): Promise<ProductType[]> {
-	const accessories = await getProductsByCategory('accessory');
+export async function getAccessories(marketId: string): Promise<ProductType[]> {
+	const accessories = await getProductsByCategory('accessory', marketId);
 	return accessories;
 }
 
-export async function getLightsources(): Promise<ProductType[]> {
-	const lightsources = await getProductsByCategory('lightsource');
+export async function getLightsources(marketId: string): Promise<ProductType[]> {
+	const lightsources = await getProductsByCategory('lightsource', marketId);
 	return lightsources;
+}
+
+export async function getMarketId(locale: string): Promise<string> {
+	const { channels } = await geinsQuery(AllGeinsChannelsDocument);
+	console.log(channels);
+	const marketId = channels?.[0]?.markets?.find(
+		(m) => m?.country?.code.toLowerCase() === locale.toLowerCase(),
+	)?.id;
+	if (!marketId) throw new Error('Invalid market locale: ' + locale);
+	return marketId;
 }

@@ -13,6 +13,7 @@ import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
+import { GEINS_MARKET_CURRENCY } from '@/geins/constants';
 
 //export const dynamic = 'force-dynamic'; // disable for now
 
@@ -21,7 +22,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const res = await getProductPageData(slug, locale as CountryCode);
+	const res = await getProductPageData(slug, locale);
 	const variantId = res?.geins.products?.[0]?.productId;
 
 	if (!res) return notFound();
@@ -38,12 +39,14 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 		shipping,
 	} = res;
 
+	const currencyCode = geins.products?.[0]?.unitPrice?.currency?.code ?? GEINS_MARKET_CURRENCY;
+
 	return (
 		<>
 			<Intro product={product} drawings={drawings} />
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
-			<ShopInfo product={product} shipping={shipping} currencyCode={geins.i18n.currencyCode} />
+			<ShopInfo product={product} shipping={shipping} currencyCode={currencyCode} />
 			<Shop product={product} geins={geins} variantId={variantId} shipping={shipping} />
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (

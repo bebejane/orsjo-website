@@ -11,17 +11,24 @@ import { Link } from '@/i18n/routing';
 type Props = {
 	product: ProductPageDataProps['product'];
 	shipping: ShippingQuery['shipping'];
-	currencyCode: CurrencyCode;
+	currencyCode: string;
 };
 
 export default function ShopInfo({ product, shipping, currencyCode }: Props) {
 	if (!product) return null;
 
 	const deliverTerms =
-		shipping?.deliveryTerms.find(({ isoCode }) => isoCode === currencyCode)?.text ?? shipping?.deliveryTermsOther;
+		shipping?.deliveryTerms.find(({ isoCode }) => isoCode === currencyCode)?.text ??
+		shipping?.deliveryTermsOther;
 
 	return (
-		<Section name='Shipping' className={s.shopinfo} bgColor='--white' fadeColor={'#ffffff'} bottom={true}>
+		<Section
+			name='Shipping'
+			className={s.shopinfo}
+			bgColor='--white'
+			fadeColor={'#ffffff'}
+			bottom={true}
+		>
 			<div className='small'>
 				{shipping?.deliveryDays.map(({ time, text }, idx) => (
 					<p key={idx}>
@@ -39,6 +46,6 @@ export default function ShopInfo({ product, shipping, currencyCode }: Props) {
 					</Link>
 				</p>
 			</div>
-		</Section >
+		</Section>
 	);
 }

@@ -48,16 +48,17 @@ export default async function geinsQuery<TResult = any, TVariables = Record<stri
 	const opt = { ...defaultOptions, ...(options ?? {}) };
 	const queryId = (query.definitions?.[0] as any).name?.value as string;
 	const vars = options?.variables ? { ...options.variables } : {};
+	const variables = { ...vars, marketId: opt.marketId || GEINS_MARKET_ID, channelId: '1' };
 	const dedupeOptions: DedupeOptions = {
 		body: JSON.stringify({
 			query: print(query),
-			variables: { ...vars, marketId: opt.marketId ?? GEINS_MARKET_ID },
+			variables,
 		}) as string,
 		...opt,
 		queryId,
 	};
 
-	options?.logs && console.log(queryId, options?.variables);
+	options?.logs && console.log(queryId, variables);
 	const { data } = await dedupedFetch({ ...dedupeOptions, tags: [] });
 	return { ...data };
 }

@@ -26,8 +26,8 @@ export interface CartState {
 	createCart: (country: string) => void;
 	setCart: (cart: Cart) => Promise<Cart>;
 	addToCart: (item: CartItemInputType, country: string) => Promise<Cart>;
-	removeFromCart: (itemId: string, skuId: number) => Promise<Cart>;
-	updateQuantity: (skuId: string, quantity: number, country: string) => Promise<Cart>;
+	removeFromCart: (skuId: number) => Promise<Cart>;
+	updateQuantity: (skuId: string, quantity: number, marketId: string) => Promise<Cart>;
 	clearError: () => void;
 	setMarketId: (id: string) => void;
 }
@@ -95,7 +95,7 @@ const useCart = create<CartState>((set, get) => ({
 			return addToCart as Cart;
 		});
 	},
-	removeFromCart: async (itemId: string, skuId: number) => {
+	removeFromCart: async (skuId: number) => {
 		return get().update(null, async (cart) => {
 			const { updateCartItem } = await geinsQuery(UpdateCartItemDocument, {
 				revalidate: 0,
@@ -111,7 +111,7 @@ const useCart = create<CartState>((set, get) => ({
 			return updateCartItem as Cart;
 		});
 	},
-	updateQuantity: async (skuId: string, quantity: number, country: string) => {
+	updateQuantity: async (skuId: string, quantity: number, marketId: string) => {
 		return get().update(skuId, async (cart) => {
 			const { updateCartItem } = await geinsQuery(UpdateCartItemDocument, {
 				revalidate: 0,
@@ -121,7 +121,7 @@ const useCart = create<CartState>((set, get) => ({
 						id: skuId,
 						quantity,
 					},
-					marketId: get().marketId,
+					marketId: marketId ?? get().marketId,
 				},
 			});
 			return updateCartItem;

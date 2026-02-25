@@ -134,6 +134,7 @@ export function ProductThumbnail({
 	showMarkAsNew,
 	lazyload,
 }: ProductThumbnailProps) {
+	console.log(geinsVariant);
 	return (
 		<Thumbnail
 			slug={`/products/${product.slug}`}

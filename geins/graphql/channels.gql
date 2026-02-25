@@ -11,6 +11,7 @@ query AllGeinsChannels {
 		}
 		markets {
 			id
+			defaultLanguageId
 			country {
 				name
 				code

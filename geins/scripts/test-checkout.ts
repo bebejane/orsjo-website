@@ -43,7 +43,7 @@ async function main() {
 			privacy: `${siteUrl}/support/privacy-policy`,
 		},
 		branding: {
-			title: 'Örsjo',
+			title: 'Orsjo -- Checkout',
 			icon: `${siteUrl}/images/logo.svg`,
 			logo: `${siteUrl}/images/logo.svg`,
 			styles: {

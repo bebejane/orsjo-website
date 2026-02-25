@@ -27,10 +27,6 @@ export type ProductPageDataProps = {
 		products: ProductType[];
 		accessories: ProductType[];
 		lightsources: ProductType[];
-		i18n: {
-			countryCode: CountryCode;
-			currencyCode: CurrencyCode;
-		};
 	};
 	product: ProductQuery['product'];
 	relatedProducts: AllRelatedProductsQuery['allProducts'];
@@ -44,7 +40,7 @@ export type ProductPageDataProps = {
 
 export const getProductPageData = async (
 	slug: string,
-	countryCode: CountryCode,
+	marketId: string,
 ): Promise<ProductPageDataProps | null> => {
 	const { product } = await apiQuery(ProductDocument, {
 		variables: { slug },
@@ -71,9 +67,9 @@ export const getProductPageData = async (
 			apiQuery(ShippingDocument),
 		]);
 
-	const products = await geins.getProductsByCategory(slug);
-	const accessories = await geins.getProductsByCategory('accessory');
-	const lightsources = await geins.getProductsByCategory('lightsource');
+	const products = await geins.getProductsByCategory(slug, marketId);
+	const accessories = await geins.getProductsByCategory('accessory', marketId);
+	const lightsources = await geins.getProductsByCategory('lightsource', marketId);
 
 	const articleNumbers = product.models
 		.map((m) => [
@@ -122,18 +118,12 @@ export const getProductPageData = async (
 			a.designer?.id === product.designer?.id ? 1 : -1,
 	};
 
-	const currencyCode = 'SEK' as CurrencyCode;
-
 	return {
 		product,
 		geins: {
 			products: products,
 			accessories: geinsAccessories,
 			lightsources: geinsLightsources,
-			i18n: {
-				countryCode,
-				currencyCode,
-			},
 		},
 		relatedProducts: allProducts
 			.filter((p) => p.id !== product.id)

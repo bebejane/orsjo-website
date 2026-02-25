@@ -27,7 +27,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 		createCart,
 		removeFromCart,
 		updateQuantity,
-		updateBuyerIdentity,
+		setMarketId,
 		updating,
 		updatingId,
 		cartError,
@@ -38,7 +38,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 			state.createCart,
 			state.removeFromCart,
 			state.updateQuantity,
-			state.updateBuyerIdentity,
+			state.setMarketId,
 			state.updating,
 			state.updatingId,
 			state.error,
@@ -48,7 +48,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	const [showCart, setShowCart] = useStore(
 		useShallow((state) => [state.showCart, state.setShowCart]),
 	);
-	const country = useLocale();
+	const locale = useLocale();
 	const pathname = usePathname();
 	const [error, setError] = useState<Error | string | null | undefined>(null);
 	const isEmpty = cart && cart?.items?.length ? false : true;
@@ -65,27 +65,26 @@ export default function Cart({ markets, shipping }: CartProps) {
 	useClickAway(ref, () => setShowCart(false));
 
 	useEffect(() => {
-		if (!cart) createCart(country);
+		if (!cart) createCart(locale);
 	}, [cart, createCart]);
 
 	useEffect(() => {
 		try {
-			createCart(country);
+			createCart(locale);
 		} catch (err) {
 			setError(err as Error);
 		}
 	}, [pathname]);
 
 	useEffect(() => {
-		if (cart && country) {
+		if (cart && locale) {
 			try {
-				//@ts-ignore
-				updateBuyerIdentity({ countryCode: country.toUpperCase() });
+				setMarketId(locale);
 			} catch (err) {
 				setError(err as Error);
 			}
 		}
-	}, [country]);
+	}, [locale]);
 
 	useEffect(() => {
 		setShowCart(false);
@@ -143,7 +142,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 										<div className={cn(s.quantity, 'small')} aria-label='Quantity'>
 											<button
 												className={cn(s.minus)}
-												onClick={() => updateQuantity(id, quantity - 1, country)}
+												onClick={() => updateQuantity(id, quantity - 1, locale)}
 												disabled={quantity === 1}
 											>
 												<span>–</span>
@@ -151,7 +150,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 											<span>{quantity}</span>
 											<button
 												className={s.plus}
-												onClick={() => updateQuantity(id, quantity + 1, country)}
+												onClick={() => updateQuantity(id, quantity + 1, locale)}
 											>
 												<span>+</span>
 											</button>
@@ -166,7 +165,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 										<div>
 											<button
 												className={cn(s.remove, 'small')}
-												onClick={() => skuId && removeFromCart(id, skuId)}
+												onClick={() => skuId && removeFromCart(skuId)}
 											>
 												Remove
 											</button>
@@ -179,7 +178,12 @@ export default function Cart({ markets, shipping }: CartProps) {
 
 					<div className={s.total}>
 						<div className='medium'>Total</div>
-						<div className={cn('medium', s.price)}>{formatGeinsPrice(0, 'SEK')}</div>
+						<div className={cn('medium', s.price)}>
+							{formatGeinsPrice(
+								cart?.summary?.total?.sellingPriceIncVat ?? 0,
+								cart?.summary?.total?.currency?.code,
+							)}
+						</div>
 					</div>
 					<div className={s.currency}>
 						<CountrySelector markets={markets} className={s.form} />

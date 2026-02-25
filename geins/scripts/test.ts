@@ -12,9 +12,9 @@ import {
 } from '@/geins/graphql';
 import { sync, resetAll, resyncAll, syncProductStatus } from '@/geins/sync';
 
-const resync = async () => {
+const resync = async (reset = false) => {
 	console.time('sync');
-	await resetAll();
+	if (reset) await resetAll();
 	await resyncAll();
 	console.timeEnd('sync');
 };
@@ -29,14 +29,19 @@ const main = async () => {
 	try {
 		//await resync();
 		//await resyncAll();
-		console.log(arg);
+
+		//await resync(false);
 		//await resync();
 		//const data = await merchant.getProductsByCategory(arg);
-		const data = await mgmt.getMarkets();
+		//const data = await mgmt.getMarkets();
+		//const data = await merchant.getAllProducts(arg ?? 'se');
+		//console.log(data.products[0]?.unitPrice);
+		const paymentTypes = await mgmt.getPaymentMethods();
+
 		//await sync(lampId);
 		//const data = await mgmt.getPaymentMethods();
-		console.log(JSON.stringify(data, null, 2));
-		console.log(data?.length);
+		//console.log(JSON.stringify(data, null, 2));
+		//console.log(data?.length);
 	} catch (error) {
 		console.log(error);
 	}

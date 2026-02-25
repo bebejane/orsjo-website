@@ -231,6 +231,12 @@ export async function getPaymentMethods() {
 	return c;
 }
 
+export async function getShippingOptions() {
+	const c = await request('/Shipping/Query', 'POST', {});
+	console.log(c);
+	return c.ShippingOptions;
+}
+
 export const generateThumbnailUrl = (url: string | undefined | null): string | null | undefined => {
 	if (!url) url = 'https://www.datocms-assets.com/62617/1771852945-no-product-image.png';
 	const u = new URL(url);

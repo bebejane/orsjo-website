@@ -16,6 +16,7 @@ import { AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/[locale]/products/utils';
 import { Modal } from 'next-dato-utils/components';
 import useIsDesktop from '@/lib/hooks/useIsDesktop';
+import { useLocale } from 'next-intl';
 
 type Props = {
 	product: ProductPageDataProps['product'];
@@ -36,7 +37,8 @@ type Addon = {
 };
 
 export default function ProductShop({ product, geins, variantId, shipping }: Props) {
-	const countryCode = geins.i18n.countryCode;
+	const locale = useLocale();
+	const currencyCode = geins.products?.[0]?.unitPrice?.currency?.code;
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const allAddons = getAllAddons(product, geins);
 	const isDesktop = useIsDesktop();
@@ -179,7 +181,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 		variants
 			.filter(({ skuId }) => skuId !== undefined)
 			.reverse()
-			.forEach((item) => addToCart(item, countryCode));
+			.forEach((item) => addToCart(item, locale));
 
 		setShowCart(true);
 		resetAll();
@@ -202,7 +204,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 						{addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
 					</h3>
 					<span key={totalPrice} className={s.price}>
-						{formatGeinsPrice(totalPrice, geins.i18n.currencyCode)}
+						{formatGeinsPrice(totalPrice, currencyCode)}
 					</span>
 				</header>
 
@@ -365,7 +367,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 													<strong>{name}</strong>
 												</span>
 												<span className={s.price}>
-													{formatGeinsPrice(price, geins.i18n.currencyCode, quantity)}
+													{formatGeinsPrice(price, currencyCode, quantity)}
 												</span>
 											</div>
 										</li>
