@@ -1,4 +1,4 @@
-import { GEINS_CHANNEL_ID } from '@/geins/constants';
+import { GEINS_CHANNEL_ID, GEINS_MARKET_ID } from '@/geins/constants';
 import { GeinsCore } from '@geins/core';
 import { GeinsOMS } from '@geins/oms';
 import type { GenerateCheckoutTokenOptions, GeinsSettings } from '@geins/types';
@@ -9,11 +9,14 @@ export const dynamic = 'force-dynamic';
 
 export const GET = async (req: Request) => {
 	try {
-		const cartId = new URL(req.url).searchParams.get('cart_id') as string;
+		const searchParams = new URL(req.url).searchParams;
+		const cartId = searchParams.get('cart_id') ?? undefined;
+		const marketId = searchParams.get('market_id') ?? undefined;
+		const locale = searchParams.get('locale') ?? undefined;
 
 		if (!cartId) throw new Error('No cart id');
 
-		const url = await createCheckoutUrl(cartId);
+		const url = await createCheckoutUrl(cartId, marketId, locale);
 		console.log(url);
 		const response = NextResponse.redirect(url);
 		return response;
@@ -27,15 +30,19 @@ export const GET = async (req: Request) => {
 	}
 };
 
-async function createCheckoutUrl(cartId?: string): Promise<string> {
+async function createCheckoutUrl(
+	cartId?: string,
+	market = GEINS_MARKET_ID,
+	locale = 'sv-SE',
+): Promise<string> {
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 	const geinsSettings: GeinsSettings = {
 		apiKey: process.env.GEINS_MERCHANT_API_KEY!,
-		accountName: 'orsjo',
 		channel: String(GEINS_CHANNEL_ID),
-		market: 'se',
+		accountName: 'orsjo',
+		market,
+		locale,
 		tld: 'com',
-		locale: 'sv-SE',
 	};
 
 	const geinsCore = new GeinsCore(geinsSettings);

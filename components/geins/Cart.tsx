@@ -190,6 +190,8 @@ export default function Cart({ markets, shipping }: CartProps) {
 					</div>
 					<form action={`/api/geins/checkout`} method='GET'>
 						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
+						<input type='hidden' name='market_id' value={locale} />
+						<input type='hidden' name='locale' value={locale} />
 						<div className={cn(s.terms, 'medium')}>
 							<Checkbox
 								name='terms'
