@@ -1,5 +1,5 @@
 import { GEINS_CHANNEL_ID } from '@/geins/constants';
-import { GeinsCore, GeinsLogLevel } from '@geins/core';
+import { GeinsCore } from '@geins/core';
 import { GeinsOMS } from '@geins/oms';
 import type { GenerateCheckoutTokenOptions, GeinsSettings } from '@geins/types';
 import * as mgmt from '@/geins/mgmt-api';
@@ -65,7 +65,7 @@ async function createCheckoutUrl(cartId?: string): Promise<string> {
 			privacy: `${siteUrl}/support/privacy-policy`,
 		},
 		branding: {
-			title: 'Orsjo Checkout',
+			title: 'Orsjo Belysning Checkout',
 			logo: `${siteUrl}/images/logo.svg`,
 			styles: {
 				logoSize: '2.5rem',
