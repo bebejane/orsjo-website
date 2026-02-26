@@ -25,6 +25,7 @@
 		"@datocms/cma-client-node": "^5.3.0",
 		"@geins/core": "^0.6.1",
 		"@geins/oms": "^0.6.1",
+		"@mux/mux-player-react": "^3.11.4",
 		"@react-email/components": "0.0.38",
 		"@react-email/preview-server": "^5.2.8",
 		"@sentry/nextjs": "^10.40.0",
