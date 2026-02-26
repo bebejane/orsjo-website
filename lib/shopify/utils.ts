@@ -4,7 +4,9 @@ import { LocalizationDocument } from '@/lib/shopify/graphql';
 
 export const getShopifyId = (id: string): number => {
 	const shopifyId = Buffer.from(id).toString('base64') as string;
-	return shopifyId.includes('/') ? parseInt(shopifyId.split('/').pop()?.split('?')[0] as string) : parseInt(shopifyId);
+	return shopifyId.includes('/')
+		? parseInt(shopifyId.split('/').pop()?.split('?')[0] as string)
+		: parseInt(shopifyId);
 };
 
 export const parseGid = (id: string): string => {
@@ -24,9 +26,10 @@ export const formatShopifyPrice = (money: MoneyV2, quantity = 1): string => {
 
 	//const price = priceWithVAT(money);
 
-	return `${new Intl.NumberFormat('sv-SE', { style: 'decimal', currency: money.currencyCode }).format(
-		money.amount * quantity
-	)} ${money.currencyCode}`;
+	return `${new Intl.NumberFormat('sv-SE', {
+		style: 'decimal',
+		currency: money.currencyCode,
+	}).format(money.amount * quantity)} ${money.currencyCode}`;
 };
 
 export const priceWithVAT = (money: MoneyV2): MoneyV2 => {

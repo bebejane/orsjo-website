@@ -88,7 +88,9 @@ export async function generateStaticParams() {
 	return paths;
 }
 
-export async function generateMetadata({ params }: PageProps<'/[locale]/products/[product]'>): Promise<Metadata> {
+export async function generateMetadata({
+	params,
+}: PageProps<'/[locale]/products/[product]'>): Promise<Metadata> {
 	const { product: slug } = await params;
 	const { product } = await apiQuery(ProductDocument, {
 		variables: { slug },

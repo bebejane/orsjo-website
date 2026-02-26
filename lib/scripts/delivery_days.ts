@@ -25,7 +25,7 @@ const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, 
 		environment,
 	});
 
-	const variants = await readFile('./Leveranstid per produkt.xlsx');
+	const variants = await readFile('./docs/Leveranstid per produkt.xlsx');
 	variants.forEach((variant, idx) => {
 		const product = allProducts.find((p) =>
 			p.models.some((m) =>
@@ -94,11 +94,11 @@ async function readFile(
 	const variants: { articleNo: string; days: 'short' | 'medium' | 'long' }[] = [];
 	return new Promise((resolve, reject) => {
 		var workBookReader = new XlsxStreamReader();
-		workBookReader.on('error', (err) => reject(err));
-		workBookReader.on('worksheet', (workSheetReader) => {
+		workBookReader.on('error', (err: any) => reject(err));
+		workBookReader.on('worksheet', (workSheetReader: any) => {
 			if (workSheetReader.id > 1) return workSheetReader.skip(); // we only want first sheet
 
-			workSheetReader.on('row', (row) => {
+			workSheetReader.on('row', (row: any) => {
 				if (!row.values[2] || !row.values[4]) return;
 				const days = parseInt(row.values[4]) === 5 ? 'short' : parseInt(row.values[4]) === 30 ? 'medium' : 'long';
 				variants.push({

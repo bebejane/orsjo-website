@@ -1,5 +1,13 @@
 import s from './Layout.module.scss';
-import { Sidebar, Footer, FullscreenGallery, MenuDesktop, MenuMobile, CookieConsent, Underlay } from '@/components';
+import {
+	Sidebar,
+	Footer,
+	FullscreenGallery,
+	MenuDesktop,
+	MenuMobile,
+	CookieConsent,
+	Underlay,
+} from '@/components';
 import { PageProvider } from '@/lib/context/page-provider';
 import { type MenuItem } from '@/lib/menu';
 import Cart from '@/components/shopify/Cart';
@@ -26,7 +34,7 @@ export default function Layout({ children, menu, localization, shipping }: Layou
 					<Underlay />
 					<FullscreenGallery />
 				</div>
-				<Cart localization={localization} shipping={shipping} />
+				{/* <Cart localization={localization} shipping={shipping} /> */}
 				<Footer menu={menu} />
 				<CookieConsent />
 				<PageTransition />

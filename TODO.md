@@ -15,3 +15,10 @@
 
 - rewite orsjo-catalogue
 - monorepo eller api route
+
+# Reanble shop
+
+- prebuild script
+- getLocalization
+- /products
+- /products/[product]
