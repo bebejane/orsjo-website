@@ -122,6 +122,7 @@
 			flex-direction: column;
 			width: 48%;
 			margin-right: 4%;
+			filter: grayscale(1);
 
 			@include mq($until: tablet) {
 				@include resetLastColumn(2);

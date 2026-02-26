@@ -25,7 +25,7 @@ export default async function About({ params }: PageProps<'/[locale]/about'>) {
 				<div className={s.hero}>
 					<VideoPlayer className={s.heroImage} data={video as FileField} />
 					<div className={s.header}>
-						<h1>
+						<h1 className="big">
 							<TextReveal block={true}>{title}</TextReveal>
 						</h1>
 					</div>

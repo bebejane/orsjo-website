@@ -45,7 +45,7 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 			<Section type='full' className={s.designer}>
 				<header>
 					<div className={s.artist} key={designer.id}>
-						<h1>
+						<h1 className="big">
 							<TextReveal block={true}>{designer.name}</TextReveal>
 						</h1>
 						<p className='large'>{designer.description}</p>

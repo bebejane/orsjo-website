@@ -26,7 +26,7 @@ export default async function Sustainability({ params }: PageProps<'/[locale]/ab
 				<div className={s.hero}>
 					{image.responsiveImage && <Image data={image.responsiveImage} className={s.heroImage} objectFit='cover' />}
 					<div className={s.header}>
-						<h1>
+						<h1 className="big">
 							<TextReveal block={true}>{title}</TextReveal>
 						</h1>
 					</div>

@@ -89,11 +89,11 @@ export default function ProductIntro({ product, drawings }: Props) {
 					)}
 					<div className={cn(s.overlay, s.show)}>
 						<div className={s.text}>
-							<h1 className={s.title}>
+							<h1 className={cn("big", s.title)}>
 								<TextReveal>{product.title}</TextReveal>
 							</h1>
-							<h1 className={s.designer}>
-								<TextReveal block={true}>by {formatDesignerName(product.designer?.name as string)}</TextReveal>
+							<h1 className={cn("big", s.designer)}>
+								< TextReveal block={true} > by {formatDesignerName(product.designer?.name as string)}</TextReveal>
 							</h1>
 							<h3 className={s.type}>
 								<TextReveal>{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}</TextReveal>
@@ -105,8 +105,8 @@ export default function ProductIntro({ product, drawings }: Props) {
 							</div>
 						)}
 					</div>
-				</div>
-			</Section>
+				</div >
+			</Section >
 			<Section className={s.description}>{product.description && <Markdown content={product.description} />}</Section>
 			<Section>
 				{product.productGallery.map((block, idx) => (

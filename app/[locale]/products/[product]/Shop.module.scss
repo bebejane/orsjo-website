@@ -90,6 +90,11 @@
 			animation: blink 0.5s steps(2, start) forwards;
 			white-space: nowrap;
 
+			@include mq($until: desktop) {
+				font-size: 0.7rem;
+				margin-top: -0.4em;
+			}
+
 			@keyframes blink {
 				0% {
 					opacity: 0.5;
@@ -228,11 +233,15 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			width: 100%;
+			padding-right: 1em;
 			strong {
 				padding-left: 0.25em;
 				color: var(--black);
 				overflow: hidden;
 				text-overflow: ellipsis;
+			}
+			@include mq($until: desktop) {
+				padding-left: 1em;
 			}
 		}
 		.delivery {
@@ -272,6 +281,9 @@
 			height: 100%;
 			width: var(--thumb-size);
 			background-color: rgba(255, 255, 255, 0.8);
+			@include mq($until: desktop) {
+				display: none;
+			}
 			@include mq($from: desktop) {
 				opacity: 0;
 			}
@@ -402,11 +414,11 @@
 			height: 2rem;
 			line-height: 0;
 			padding-bottom: 1em;
-			font-size: 0.55rem;
+			font-size: 11px;
 
 			@include mq($from: desktop) {
 				height: 1.5rem;
-				font-size: 0.45rem;
+				font-size: 0.45rem !important;
 			}
 
 			&:hover {

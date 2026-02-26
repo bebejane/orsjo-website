@@ -43,7 +43,7 @@ export default function BespokeHeader({ bespoke }: BespokeProps) {
 					style={!isMobile ? imageStyle : undefined}
 				/>
 			)}
-			<h1>
+			<h1 className='big'>
 				<TextReveal block={true}>Custom-Made Lighting</TextReveal>
 			</h1>
 		</Section>
