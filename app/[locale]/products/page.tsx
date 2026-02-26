@@ -13,8 +13,6 @@ import { setRequestLocale } from 'next-intl/server';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 import * as geins from '@/geins/merchant-api';
-import { AllGeinsChannelsDocument } from '@/geins/graphql';
-import geinsQuery from '@/geins/geins-query';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -40,7 +38,7 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 			apiQuery(AllProductCategoriesDocument, { all: true }),
 			geins.getProducts(locale),
 		]);
-	console.log(allGeinsProducts, locale);
+
 	return (
 		<>
 			{productStart?.featured.map((data, idx) => (

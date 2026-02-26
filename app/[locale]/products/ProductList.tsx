@@ -1,6 +1,5 @@
 'use client';
 
-import { findCheapestVariant } from '@/app/[locale]/products/utils';
 import s from './ProductList.module.scss';
 import { ProductThumbnail, Section } from '@/components';
 import { useStore, useShallow } from '@/lib/store';
