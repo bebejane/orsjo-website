@@ -33,7 +33,9 @@ export default async function Manuals({ params }: PageProps<'/[locale]/support/m
 				<h1 className='topMargin'>{manual.title}</h1>
 				<p>{manual.intro}</p>
 			</Section>
-			<ManualList products={allProducts.filter(({ mountingInstructions }) => mountingInstructions)} />
+			<div className={s.list}>
+				<ManualList products={allProducts.filter(({ mountingInstructions }) => mountingInstructions)} />
+			</div>
 		</>
 	);
 }

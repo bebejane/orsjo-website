@@ -93,7 +93,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 								<TextReveal>{product.title}</TextReveal>
 							</h1>
 							<h1 className={cn("big", s.designer)}>
-								< TextReveal block={true} > by {formatDesignerName(product.designer?.name as string)}</TextReveal>
+								< TextReveal block={true} >by {formatDesignerName(product.designer?.name as string)}</TextReveal>
 							</h1>
 							<h3 className={s.type}>
 								<TextReveal>{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}</TextReveal>
