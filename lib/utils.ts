@@ -50,7 +50,7 @@ export const getAllCurrencyRates = async (): Promise<CurrencyRate[]> => {
 	return currencies;
 };
 
-export const getCurrencyRateByISO = async (currencyCode: CurrencyCode): Promise<CurrencyRate> => {
+export const getCurrencyRateByISO = async (currencyCode: string): Promise<CurrencyRate> => {
 	const allCurrencies = await getAllCurrencyRates();
 	const currency = allCurrencies.find((c) => c.isoCode === currencyCode);
 	if (!currency) throw new Error(`Currency ${currencyCode} not found`);
@@ -69,7 +69,7 @@ export const getCurrencyRateByLocale = async (locale: SiteLocale): Promise<Curre
 
 export const getPriceWithRatesAndTaxes = async (
 	price: number,
-	currencyCode: CurrencyCode,
+	currencyCode: string,
 ): Promise<number> => {
 	const c = await getCurrencyRateByISO(currencyCode);
 	return convertPriceWithRatesAndTaxes(price, c);

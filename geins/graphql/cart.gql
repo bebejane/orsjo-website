@@ -25,7 +25,7 @@ fragment CartFragment on CartType {
 	id
 	summary {
 		total {
-			sellingPriceIncVat
+			sellingPriceExVat
 			currency {
 				name
 				symbol
@@ -34,7 +34,7 @@ fragment CartFragment on CartType {
 			}
 		}
 		subTotal {
-			sellingPriceIncVat
+			sellingPriceExVat
 			currency {
 				name
 				symbol
@@ -51,12 +51,13 @@ fragment CartFragment on CartType {
 			...ProductFragment
 		}
 		totalPrice {
-			sellingPriceIncVat
+			sellingPriceExVat
 			regularPriceIncVatFormatted
 			sellingPriceExVat
 		}
 		unitPrice {
-			sellingPriceIncVat
+			sellingPriceExVat
+			sellingPriceExVat
 			currency {
 				name
 				symbol
