@@ -127,12 +127,12 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 			selectedGeinsVariant?.productId,
 		].filter(Boolean) as number[];
 
-		const modelPrice = parseFloat(selectedGeinsVariant?.unitPrice?.sellingPriceIncVat ?? '0');
+		const modelPrice = parseFloat(selectedGeinsVariant?.unitPrice?.sellingPriceExVat ?? '0');
 		const addonsPrice = variantsIds.reduce((acc, id) => {
 			const accessory = geins.accessories.find((p) => p?.productId === id);
 			const lightsource = geins.lightsources.find((p) => p?.productId === id);
-			const lightsourcePrice = parseFloat(accessory?.unitPrice?.sellingPriceIncVat ?? '0');
-			const accessoryPrice = parseFloat(lightsource?.unitPrice?.sellingPriceIncVat ?? '0');
+			const lightsourcePrice = parseFloat(accessory?.unitPrice?.sellingPriceExVat ?? '0');
+			const accessoryPrice = parseFloat(lightsource?.unitPrice?.sellingPriceExVat ?? '0');
 			return acc + accessoryPrice + lightsourcePrice;
 		}, 0);
 
@@ -158,7 +158,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 		handleAddToCart(true);
 	}
 
-	function handleAddToCart(withoutLightsource?: boolean) {
+	async function handleAddToCart(withoutLightsource?: boolean) {
 		if (!selectedGeinsVariant || !selectedModel) return;
 
 		const noLightsourceIncluded =
@@ -176,12 +176,14 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 				quantity: 1,
 			},
 			...addons.map((a) => ({ skuId: a.variantId, quantity: a.quantity })),
-		];
-
-		variants
+		]
 			.filter(({ skuId }) => skuId !== undefined)
-			.reverse()
-			.forEach((item) => addToCart(item, locale));
+			.reverse();
+
+		for (const variant of variants) {
+			addToCart(variant, locale);
+			await new Promise((resolve) => setTimeout(resolve, 300));
+		}
 
 		setShowCart(true);
 		resetAll();
@@ -264,7 +266,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 												)}
 												<span className={s.price}>
 													{formatGeinsPrice(
-														geinsVariant?.unitPrice?.sellingPriceIncVat,
+														geinsVariant?.unitPrice?.sellingPriceExVat,
 														geinsVariant?.unitPrice?.currency?.code,
 													)}
 												</span>{' '}

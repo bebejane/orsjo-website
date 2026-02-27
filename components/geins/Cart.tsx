@@ -94,7 +94,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 		//setError(new Error('Error message from useEffect. Blah blah blah.'));
 	}, [showCart]);
 
-	console.log('cart', cart);
+	cart && console.log('cart', cart);
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
@@ -159,7 +159,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 
 									<div className={s.amount}>
 										<div className={cn(s.price, 'small')} aria-label={'Total'}>
-											{formatGeinsPrice(unitPrice?.sellingPriceIncVat, unitPrice?.currency?.code)}
+											{formatGeinsPrice(unitPrice?.sellingPriceExVat, unitPrice?.currency?.code)}
 										</div>
 										<div className='small gray'>{deliveryDays}</div>
 										<div>
@@ -180,7 +180,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 						<div className='medium'>Total</div>
 						<div className={cn('medium', s.price)}>
 							{formatGeinsPrice(
-								cart?.summary?.total?.sellingPriceIncVat ?? 0,
+								cart?.summary?.subTotal?.sellingPriceExVat ?? 0,
 								cart?.summary?.total?.currency?.code,
 							)}
 						</div>

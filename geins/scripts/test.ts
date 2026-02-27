@@ -11,6 +11,7 @@ import {
 	GeinsProductsByCategoryDocument,
 } from '@/geins/graphql';
 import { sync, resetAll, resyncAll, syncProductStatus } from '@/geins/sync';
+import { convertPriceWithRatesAndTaxes, getAllCurrencyRates } from '@/lib/utils';
 
 const resync = async (reset = false) => {
 	console.time('sync');
@@ -27,8 +28,16 @@ const main = async () => {
 	const arg = process.argv[2];
 
 	try {
+		await sync(lampId);
 		//await resync();
-		await resyncAll();
+		//await resyncAll();
+		// const allCurrencies = await getAllCurrencyRates();
+		// const se = allCurrencies.find((c) => c.isoCode === 'SEK');
+		// const price = 97864;
+
+		// console.log(se);
+		// console.log(price);
+		// console.log(convertPriceWithRatesAndTaxes(price, se));
 
 		//await resync(false);
 		//await resync();
@@ -91,4 +100,3 @@ export function encodeJWT(payload: Record<string, unknown>, secretKey?: string):
 }
 
 main();
-//syncAll();
