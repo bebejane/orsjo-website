@@ -13,7 +13,7 @@ import { useClickAway } from 'react-use';
 import { Checkbox } from '@/components/common/Checkbox';
 import { Link } from '@/i18n/routing';
 import CartError from '@/components/geins/CartError';
-import { formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
+import { createCheckoutUrl, formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
 import { GEINS_DELIVERY_PARAMETER_ID } from '@/geins/constants';
 
 export type CartProps = {
@@ -93,8 +93,11 @@ export default function Cart({ markets, shipping }: CartProps) {
 	useEffect(() => {
 		//setError(new Error('Error message from useEffect. Blah blah blah.'));
 	}, [showCart]);
-
+	const checkoutUrl = `/api/geins/checkout`;
+	const checkoutUrl2 = createCheckoutUrl(cart?.id, locale);
 	cart && console.log('cart', cart);
+	console.log(checkoutUrl2);
+
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
@@ -188,7 +191,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 					<div className={s.currency}>
 						<CountrySelector markets={markets} className={s.form} />
 					</div>
-					<form action={`/api/geins/checkout`} method='GET'>
+					<form action={checkoutUrl} method='GET'>
 						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
 						<input type='hidden' name='market_id' value={locale} />
 						<input type='hidden' name='locale' value={locale} />

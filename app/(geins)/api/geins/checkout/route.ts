@@ -73,6 +73,7 @@ async function createCheckoutUrl(
 		branding: {
 			title: 'Orsjo Belysning Checkout',
 			logo: `${siteUrl}/images/logo.svg`,
+			icon: `${siteUrl}/images/logo.png`,
 			styles: {
 				logoSize: '2.5rem',
 				radius: '5px',
@@ -81,7 +82,7 @@ async function createCheckoutUrl(
 			},
 		},
 	};
-	//console.log(checkoutTokenOptions);
+	console.log(checkoutTokenOptions);
 	const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
 	return url;

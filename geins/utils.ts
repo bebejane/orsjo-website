@@ -1,7 +1,7 @@
 import client from '@/lib/client';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
-import { GEINS_CHANNEL_ID, GEINS_MARKET_CURRENCY } from '@/geins/constants';
+import { GEINS_CHANNEL_ID, GEINS_MARKET_CURRENCY, GEINS_MARKET_ID } from '@/geins/constants';
 import { GeinsLogLevel, GeinsSettings, GenerateCheckoutTokenOptions } from '@geins/types';
 
 export const itemTypeId = async (type: string) =>
@@ -51,39 +51,49 @@ export const getProductImageUrl = (product: ProductType): string | undefined => 
 	return imageUrl;
 };
 
-export function createCheckoutUrl(cartId?: string): string {
-	if (!cartId) return '';
+export function createCheckoutUrl(
+	cartId?: string | null,
+	market = GEINS_MARKET_ID,
+	locale = 'sv-SE',
+): string {
+	if (!cartId) return 'https://checkout.geins.services/v0/checkout';
+	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 	const geinsSettings: GeinsSettings = {
 		apiKey: process.env.GEINS_MERCHANT_API_KEY!,
-		accountName: 'orsjo',
 		channel: String(GEINS_CHANNEL_ID),
-		market: 'se',
+		accountName: 'orsjo',
+		market,
+		locale,
 		tld: 'com',
-		locale: 'sv-SE',
-		logLevel: 'DEBUG' as GeinsLogLevel,
 	};
+
+	//const paymentTypes = await mgmt.getPaymentMethods();
+	//const shippingOptions = await mgmt.getShippingOptions();
+	// const availablePaymentMethodIds = paymentTypes.map((p: any) => p.PaymentId);
+	// const selectedPaymentMethodId = availablePaymentMethodIds?.[0] ?? 0;
+	// const availableShippingMethodIds = shippingOptions.map((p: any) => p.Id);
+	// const selectedShippingMethodId = availableShippingMethodIds?.[0] ?? 0;
 
 	const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
 		geinsSettings,
-		cartId: cartId,
+		cartId: cartId as string,
 		copyCart: true,
 		customerType: 'PERSON' as CustomerType.PERSON,
+		availablePaymentMethodIds: [23, 24, 25, 18],
 		selectedPaymentMethodId: 23,
-		selectedShippingMethodId: 0,
-		isCartEditable: true,
-		availablePaymentMethodIds: [23],
 		availableShippingMethodIds: [],
+		selectedShippingMethodId: 0,
+		isCartEditable: false,
 		redirectUrls: {
-			success: `${process.env.NEXT_PUBLIC_SITE_URL}`,
-			cancel: `${process.env.NEXT_PUBLIC_SITE_URL}`,
-			continue: `${process.env.NEXT_PUBLIC_SITE_URL}/products`,
-			terms: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
-			privacy: `${process.env.NEXT_PUBLIC_SITE_URL}/support/privacy-policy`,
+			success: `${siteUrl}`,
+			cancel: `${siteUrl}/products`,
+			continue: `${siteUrl}/products`,
+			terms: `${siteUrl}/support/terms-conditions`,
+			privacy: `${siteUrl}/support/privacy-policy`,
 		},
 		branding: {
-			title: 'Orsjo',
-			//icon: `${process.env.NEXT_PUBLIC_SITE_URL}/images/logo.svg`,
-			logo: `${process.env.NEXT_PUBLIC_SITE_URL}/images/logo.svg`,
+			title: 'Orsjo Belysning Checkout',
+			logo: `${siteUrl}/images/logo.svg`,
 			styles: {
 				logoSize: '2.5rem',
 				radius: '5px',
@@ -92,7 +102,7 @@ export function createCheckoutUrl(cartId?: string): string {
 			},
 		},
 	};
-
+	//console.log(checkoutTokenOptions);
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
@@ -106,7 +116,9 @@ export function createCheckoutUrl(cartId?: string): string {
 	const encodedHeader = base64UrlEncode(JSON.stringify(header));
 	const encodedPayload = base64UrlEncode(JSON.stringify(checkoutTokenOptions));
 	const token = `${encodedHeader}.${encodedPayload}`;
+	//const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
+	console.log(checkoutTokenOptions);
 	console.log(url);
 	return url;
 }

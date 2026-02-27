@@ -28,9 +28,9 @@ const main = async () => {
 	const arg = process.argv[2];
 
 	try {
-		await sync(lampId);
+		//await sync(lampId);
 		//await resync();
-		//await resyncAll();
+		await resyncAll(151);
 		// const allCurrencies = await getAllCurrencyRates();
 		// const se = allCurrencies.find((c) => c.isoCode === 'SEK');
 		// const price = 97864;
