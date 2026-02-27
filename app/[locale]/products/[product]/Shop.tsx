@@ -176,9 +176,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 				quantity: 1,
 			},
 			...addons.map((a) => ({ skuId: a.variantId, quantity: a.quantity })),
-		]
-			.filter(({ skuId }) => skuId !== undefined)
-			.reverse();
+		].filter(({ skuId }) => skuId !== undefined);
 
 		for (const variant of variants) {
 			addToCart(variant, locale);

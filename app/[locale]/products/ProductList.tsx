@@ -9,6 +9,7 @@ export type ProductsByCategory = {
 	products: ProductRecord[];
 	name?: string | null | undefined;
 	namePlural?: string | null | undefined;
+	position: number;
 };
 
 export type ProductListProps = {
@@ -24,15 +25,19 @@ export default function ProductList({
 }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: { [index: string]: ProductsByCategory } = useMemo(() => ({}), []);
-	productCategories.forEach(({ id, name, namePlural }) => {
-		productsByCategory[id] = {
-			name,
-			namePlural,
-			products: allProducts.filter(({ categories }) =>
-				categories?.find((c) => c.name === name),
-			) as ProductRecord[],
-		};
-	});
+
+	productCategories
+		.sort((a, b) => (a.name === 'Accessory' ? 1 : -1))
+		.forEach(({ id, name, namePlural, position }) => {
+			productsByCategory[id] = {
+				position,
+				name,
+				namePlural,
+				products: allProducts.filter(({ categories }) =>
+					categories?.find((c) => c.name === name),
+				) as ProductRecord[],
+			};
+		});
 
 	const [productsByCategorySearch, setProductsByCategorySearch] = useState<
 		{ [index: string]: ProductsByCategory } | undefined
@@ -89,6 +94,8 @@ export default function ProductList({
 	return (
 		<>
 			{Object.keys(items)
+				.filter((name) => items[name].products.length)
+				.sort((a, b) => (items[a].position > items[b].position ? 1 : -1))
 				.map((name) => items[name])
 				.map(({ products, namePlural }: ProductsByCategory, idx: number) => {
 					return (
