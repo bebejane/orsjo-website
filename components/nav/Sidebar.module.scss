@@ -190,11 +190,11 @@
 			.arrow {
 				display: inline;
 				transition: transform 0.3s ease;
-				transform: rotate(0deg);
-				margin-left: 0.1rem;
+				transform: rotate(90deg);
+				margin-left: 0.2rem;
 
 				&.open {
-					transform: rotate(90deg);
+					transform: rotate(-90deg);
 				}
 			}
 		}

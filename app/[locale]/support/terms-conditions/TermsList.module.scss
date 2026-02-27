@@ -29,7 +29,9 @@
 				p {
 					padding-top: 0.5em !important;
 					margin: 0;
-					padding-right: 20%;
+					@include mq($from: desktop) {
+						padding-right: 20%;
+					}
 					&:last-child {
 						padding-bottom: 0.5em;
 					}
