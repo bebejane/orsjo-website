@@ -36,7 +36,8 @@ async function createCheckoutUrl(
 ): Promise<string> {
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 	const geinsSettings: GeinsSettings = {
-		apiKey: process.env.GEINS_MERCHANT_API_KEY!,
+		environment: 'prod',
+		apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
 		channel: String(GEINS_CHANNEL_ID),
 		accountName: 'orsjo',
 		market,
@@ -85,5 +86,6 @@ async function createCheckoutUrl(
 	console.log(checkoutTokenOptions);
 	const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
+	console.log(url);
 	return url;
 }

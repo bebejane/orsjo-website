@@ -2,7 +2,12 @@ import client from '@/lib/client';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import { GEINS_CHANNEL_ID, GEINS_MARKET_CURRENCY, GEINS_MARKET_ID } from '@/geins/constants';
-import { GeinsLogLevel, GeinsSettings, GenerateCheckoutTokenOptions } from '@geins/types';
+import {
+	GeinsCustomerType,
+	GeinsLogLevel,
+	GeinsSettings,
+	GenerateCheckoutTokenOptions,
+} from '@geins/types';
 
 export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
@@ -59,11 +64,12 @@ export function createCheckoutUrl(
 	if (!cartId) return 'https://checkout.geins.services/v0/checkout';
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 	const geinsSettings: GeinsSettings = {
-		apiKey: process.env.GEINS_MERCHANT_API_KEY!,
+		environment: 'prod',
+		apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
 		channel: String(GEINS_CHANNEL_ID),
 		accountName: 'orsjo',
 		market,
-		locale,
+		locale: market,
 		tld: 'com',
 	};
 
@@ -74,35 +80,36 @@ export function createCheckoutUrl(
 	// const availableShippingMethodIds = shippingOptions.map((p: any) => p.Id);
 	// const selectedShippingMethodId = availableShippingMethodIds?.[0] ?? 0;
 
-	const checkoutTokenOptions: GenerateCheckoutTokenOptions = {
-		geinsSettings,
+	const checkoutTokenOptions: any = {
 		cartId: cartId as string,
-		copyCart: true,
-		customerType: 'PERSON' as CustomerType.PERSON,
-		availablePaymentMethodIds: [23, 24, 25, 18],
-		selectedPaymentMethodId: 23,
-		availableShippingMethodIds: [],
-		selectedShippingMethodId: 0,
-		isCartEditable: false,
-		redirectUrls: {
-			success: `${siteUrl}`,
-			cancel: `${siteUrl}/products`,
-			continue: `${siteUrl}/products`,
-			terms: `${siteUrl}/support/terms-conditions`,
-			privacy: `${siteUrl}/support/privacy-policy`,
-		},
-		branding: {
-			title: 'Orsjo Belysning Checkout',
-			logo: `${siteUrl}/images/logo.svg`,
-			styles: {
-				logoSize: '2.5rem',
-				radius: '5px',
-				accent: '#ffcc00',
-				accentForeground: '#000000',
+		checkoutSettings: {
+			copyCart: true,
+			customerType: 'PERSON' as CustomerType.PERSON,
+			availablePaymentMethodIds: [23, 24, 25, 18],
+			selectedPaymentMethodId: 23,
+			availableShippingMethodIds: [],
+			selectedShippingMethodId: 0,
+			isCartEditable: false,
+			redirectUrls: {
+				success: `${siteUrl}`,
+				cancel: `${siteUrl}/products`,
+				continue: `${siteUrl}/products`,
+				terms: `${siteUrl}/support/terms-conditions`,
+				privacy: `${siteUrl}/support/privacy-policy`,
+			},
+			branding: {
+				title: 'Orsjo Belysning Checkout',
+				logo: `${siteUrl}/images/logo.svg`,
+				styles: {
+					logoSize: '2.5rem',
+					radius: '5px',
+					accent: '#ffcc00',
+					accentForeground: '#000000',
+				},
 			},
 		},
+		geinsSettings,
 	};
-	//console.log(checkoutTokenOptions);
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
@@ -116,10 +123,7 @@ export function createCheckoutUrl(
 	const encodedHeader = base64UrlEncode(JSON.stringify(header));
 	const encodedPayload = base64UrlEncode(JSON.stringify(checkoutTokenOptions));
 	const token = `${encodedHeader}.${encodedPayload}`;
-	//const token = await geinsOMS.createCheckoutToken(checkoutTokenOptions);
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
-	console.log(checkoutTokenOptions);
-	console.log(url);
 	return url;
 }
 

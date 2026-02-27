@@ -10,8 +10,7 @@ import {
 } from '@/components';
 import { PageProvider } from '@/lib/context/page-provider';
 import { type MenuItem } from '@/lib/menu';
-import type { Market } from '@/geins/utils';
-import Cart from '@/components/geins/Cart';
+import Cart from '@/components/common/Cart';
 import PageTransition from '@/components/layout/PageTransition';
 
 export type LayoutProps = {

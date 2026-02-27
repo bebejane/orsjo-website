@@ -13,7 +13,7 @@ import { waitForElement } from '@/lib/utils';
 import { Logo, SiteSearch } from '@/components';
 import { usePathname } from 'next/navigation';
 import useCart from '@/geins/hooks/useCart';
-import CountrySelector from '@/components/geins/CountrySelector';
+import CountrySelector from '@/components/common/CountrySelector';
 
 export type MenuDesktopProps = {
 	menu: Menu;

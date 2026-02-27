@@ -12,7 +12,7 @@ import useStore from '@/lib/store';
 import { useClickAway } from 'react-use';
 import { Checkbox } from '@/components/common/Checkbox';
 import { Link } from '@/i18n/routing';
-import CartError from '@/components/geins/CartError';
+import CartError from './CartError';
 import { createCheckoutUrl, formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
 import { GEINS_DELIVERY_PARAMETER_ID } from '@/geins/constants';
 
@@ -56,6 +56,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 	const checkboxRef = useRef<HTMLInputElement>(null);
+	const checkoutUrl = createCheckoutUrl(cart?.id, locale);
 
 	function handleCloseError() {
 		if (cartError) clearError();
@@ -93,10 +94,8 @@ export default function Cart({ markets, shipping }: CartProps) {
 	useEffect(() => {
 		//setError(new Error('Error message from useEffect. Blah blah blah.'));
 	}, [showCart]);
-	const checkoutUrl = `/api/geins/checkout`;
-	const checkoutUrl2 = createCheckoutUrl(cart?.id, locale);
+
 	cart && console.log('cart', cart);
-	console.log(checkoutUrl2);
 
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
