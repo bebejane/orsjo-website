@@ -30,7 +30,9 @@ const main = async () => {
 	try {
 		//await sync(lampId);
 		//await resync();
-		await resyncAll(151);
+		const p = await merchant.getProduct('andromeda');
+		console.log(p);
+		//await resyncAll(151);
 		// const allCurrencies = await getAllCurrencyRates();
 		// const se = allCurrencies.find((c) => c.isoCode === 'SEK');
 		// const price = 97864;
