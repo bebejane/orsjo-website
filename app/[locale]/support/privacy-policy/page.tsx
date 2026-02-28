@@ -7,14 +7,16 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Section } from '@/components';
 import { Metadata } from 'next';
-import { StructuredContent } from 'next-dato-utils/components';
+import { DraftMode, StructuredContent } from 'next-dato-utils/components';
 
-export default async function PrivacyPolicy({ params }: PageProps<'/[locale]/support/privacy-policy'>) {
+export default async function PrivacyPolicy({
+	params,
+}: PageProps<'/[locale]/support/privacy-policy'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { privacyPolicy } = await apiQuery(PrivacyPolicyDocument);
+	const { privacyPolicy, draftUrl } = await apiQuery(PrivacyPolicyDocument);
 	if (!privacyPolicy) return notFound();
 
 	return (
@@ -30,13 +32,18 @@ export default async function PrivacyPolicy({ params }: PageProps<'/[locale]/sup
 							<div className={s.header}>
 								<h2 className={s.title}>{title}</h2>
 							</div>
-							<div className="medium">
+							<div
+								className='medium'
+								data-datocms-content-group={true}
+								data-datocms-content-link-source={JSON.stringify(content)}
+							>
 								<StructuredContent className={cn(s.text, 'medium')} content={content} />
 							</div>
 						</li>
 					))}
 				</ul>
 			</Section>
+			<DraftMode url={draftUrl} path='/support/privacy-policy' />
 		</>
 	);
 }

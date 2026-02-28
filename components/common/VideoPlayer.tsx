@@ -11,7 +11,11 @@ export type VideoPlayerProps = { data: FileField; className?: string };
 
 const videoHasAudio = (video: any) => {
 	if (!video) return false;
-	return video.mozHasAudio || Boolean(video.webkitAudioDecodedByteCount) || Boolean(video.audioTracks?.length);
+	return (
+		video.mozHasAudio ||
+		Boolean(video.webkitAudioDecodedByteCount) ||
+		Boolean(video.audioTracks?.length)
+	);
 };
 
 export default function VideoPlayer({ data, className }: VideoPlayerProps) {
@@ -27,7 +31,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 			videoRef.current = node;
 			inViewRef(node);
 		},
-		[inViewRef]
+		[inViewRef],
 	);
 
 	const handleMute = (e: React.MouseEvent) => {
@@ -49,7 +53,9 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	}, [inView]);
 
 	useEffect(() => {
-		videoRef.current?.addEventListener('loadeddata', () => setHasAudio(videoHasAudio(videoRef.current)));
+		videoRef.current?.addEventListener('loadeddata', () =>
+			setHasAudio(videoHasAudio(videoRef.current)),
+		);
 		setHasAudio(videoHasAudio(videoRef.current));
 	}, [active]);
 

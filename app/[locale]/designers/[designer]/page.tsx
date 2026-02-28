@@ -13,13 +13,14 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
 
 export default async function Designer({ params }: PageProps<'/[locale]/designers/[designer]'>) {
 	const { locale, designer: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { designer } = await apiQuery(DesignerDocument, {
+	const { designer, draftUrl } = await apiQuery(DesignerDocument, {
 		variables: { slug },
 	});
 
@@ -37,15 +38,18 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 	]);
 
 	const designers = allDesigners
-		.filter(({ id }) => allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id))
+		.filter(({ id }) =>
+			allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id),
+		)
 		.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
+	console.log(designer);
 	return (
 		<>
 			<Section type='full' className={s.designer}>
 				<header>
 					<div className={s.artist} key={designer.id}>
-						<h1 className="big">
+						<h1 className='big'>
 							<TextReveal block={true}>{designer.name}</TextReveal>
 						</h1>
 						<p className='large'>{designer.description}</p>
@@ -91,6 +95,7 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 					</div>
 				</Section>
 			}
+			<DraftMode url={draftUrl} path={`/designers/${slug}`} />
 		</>
 	);
 }
@@ -103,7 +108,9 @@ export async function generateStaticParams() {
 	return paths;
 }
 
-export async function generateMetadata({ params }: PageProps<'/[locale]/designers/[designer]'>): Promise<Metadata> {
+export async function generateMetadata({
+	params,
+}: PageProps<'/[locale]/designers/[designer]'>): Promise<Metadata> {
 	const { designer: slug } = await params;
 	const { designer } = await apiQuery(DesignerDocument, {
 		variables: { slug },

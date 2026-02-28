@@ -14,6 +14,7 @@ import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
 import { GEINS_MARKET_CURRENCY } from '@/geins/constants';
+import { DraftMode } from 'next-dato-utils/components';
 
 //export const dynamic = 'force-dynamic'; // disable for now
 
@@ -37,6 +38,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 		specsCols,
 		files,
 		shipping,
+		draftUrls,
 	} = res;
 
 	const currencyCode = geins.products?.[0]?.unitPrice?.currency?.code ?? GEINS_MARKET_CURRENCY;
@@ -77,6 +79,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 					/>
 				)}
 			</Section>
+			<DraftMode url={draftUrls} path={`/products/${slug}`} />
 		</>
 	);
 }

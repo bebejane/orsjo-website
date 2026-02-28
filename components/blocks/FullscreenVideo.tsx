@@ -14,22 +14,26 @@ export default function FullscreenVideo({
 	const ref = useRef(null);
 
 	return (
-		<section className={s.fullScreenVideo} ref={ref}>
-			{link ? (
-				<Link href={link} passHref={true}>
+		<section ref={ref} className={s.fullScreenVideo} data-datocms-content-link-group>
+			<div data-datocms-content-link-source={JSON.stringify(video)}>
+				{link ? (
+					<Link href={link} passHref={true}>
+						<VideoPlayer data={video} />
+					</Link>
+				) : (
 					<VideoPlayer data={video} />
-				</Link>
-			) : (
-				<VideoPlayer data={video} />
-			)}
+				)}
+			</div>
 			<div className={s.textWrap}>
 				<div className={s.text}>
 					<div>
-						<h1 className='start'>{text}</h1>
+						<h1 className='start' data-datocms-content-link-boundary>
+							{text}
+						</h1>
 					</div>
 					<div className={s.link}>
 						{link && linkText && (
-							<Link href={link} passHref={true}>
+							<Link href={link} passHref={true} data-datocms-content-link-boundary>
 								<span className='medium white'>
 									<ArrowLink hoverRef={ref} inverted={true}>
 										{linkText}

@@ -36,6 +36,7 @@ export type ProductPageDataProps = {
 	specsCols: SpecCol[];
 	files: ProductDownload[];
 	shipping: ShippingQuery['shipping'];
+	draftUrls: (string | null)[];
 };
 
 export const getProductPageData = async (
@@ -48,25 +49,35 @@ export const getProductPageData = async (
 
 	if (!product) return null;
 
-	const [{ allProducts }, { allProducts: allProductCategories }, { allProjects }, { shipping }] =
-		await Promise.all([
-			apiQuery(AllRelatedProductsDocument, {
-				all: true,
-				variables: { designerId: product.designer?.id, familyId: product.family.id },
-				tags: ['shipping', 'accessory', 'lightsource'],
-			}),
-			apiQuery(AllProductsByCategoryDocument, {
-				variables: { categoryId: product.categories[0]?.id },
-				tags: ['shipping', 'accessory', 'lightsource'],
-				all: true,
-			}),
-			apiQuery(AllRelatedProjectsForProductDocument, {
-				all: true,
-				variables: { productId: product.id },
-			}),
-			apiQuery(ShippingDocument),
-		]);
+	const [
+		{ allProducts, draftUrl },
+		{ allProducts: allProductCategories, draftUrl: categoriesDraftUrl },
+		{ allProjects, draftUrl: projectsDraftUrl },
+		{ shipping, draftUrl: shippingDraftUrl },
+	] = await Promise.all([
+		apiQuery(AllRelatedProductsDocument, {
+			all: true,
+			variables: { designerId: product.designer?.id, familyId: product.family.id },
+			tags: ['shipping', 'accessory', 'lightsource'],
+		}),
+		apiQuery(AllProductsByCategoryDocument, {
+			variables: { categoryId: product.categories[0]?.id },
+			tags: ['shipping', 'accessory', 'lightsource'],
+			all: true,
+		}),
+		apiQuery(AllRelatedProjectsForProductDocument, {
+			all: true,
+			variables: { productId: product.id },
+		}),
+		apiQuery(ShippingDocument),
+	]);
 
+	const draftUrls: (string | null)[] = [
+		draftUrl,
+		categoriesDraftUrl,
+		projectsDraftUrl,
+		shippingDraftUrl,
+	].filter(Boolean);
 	const products = await geins.getProductsByCategory(slug, marketId);
 	const accessories = await geins.getProductsByCategory('accessory', marketId);
 	const lightsources = await geins.getProductsByCategory('lightsource', marketId);
@@ -138,5 +149,6 @@ export const getProductPageData = async (
 		drawings,
 		specsCols,
 		shipping,
+		draftUrls,
 	};
 };

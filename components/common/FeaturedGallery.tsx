@@ -72,7 +72,7 @@ export default function FeaturedGallery({
 					/>
 				</div>
 			)}
-			<div className={s.gallery}>
+			<div className={s.gallery} data-datocms-content-link-group>
 				<SwiperReact
 					modules={[Mousewheel]}
 					id={`${id}-swiper-wrap`}

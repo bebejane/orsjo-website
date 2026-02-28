@@ -51,7 +51,7 @@ export default function Thumbnail({
 
 	const content = (
 		<>
-			<figure>
+			<figure data-datocms-content-link-boundary>
 				{image.responsiveImage && (
 					<Image
 						data={image.responsiveImage}

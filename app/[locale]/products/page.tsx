@@ -13,6 +13,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 import * as geins from '@/geins/merchant-api';
+import { DraftMode } from 'next-dato-utils/components';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -31,15 +32,24 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const [{ productStart }, { allProducts }, { allProductCategories }, allGeinsProducts] =
-		await Promise.all([
-			apiQuery(ProductStartDocument),
-			apiQuery(AllProductsLightDocument, { all: true }),
-			apiQuery(AllProductCategoriesDocument, { all: true }),
-			geins.getProducts(locale),
-		]);
+	const [
+		{ productStart, draftUrl: productStartDraftUrl },
+		{ allProducts, draftUrl: productsDraftUrl },
+		{ allProductCategories, draftUrl: categoriesDraftUrl },
+		allGeinsProducts,
+	] = await Promise.all([
+		apiQuery(ProductStartDocument),
+		apiQuery(AllProductsLightDocument, { all: true }),
+		apiQuery(AllProductCategoriesDocument, { all: true }),
+		geins.getProducts(locale),
+	]);
 
-	console.log(productStart);
+	const draftUrls: (string | null)[] = [
+		productStartDraftUrl,
+		productsDraftUrl,
+		categoriesDraftUrl,
+	].filter(Boolean);
+
 	return (
 		<>
 			{productStart?.featured.map((data, idx) => (
@@ -70,6 +80,7 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 				allProducts={allProducts}
 				geinsProducts={allGeinsProducts as ProductType[]}
 			/>
+			<DraftMode url={draftUrls} path='/products' />
 		</>
 	);
 }

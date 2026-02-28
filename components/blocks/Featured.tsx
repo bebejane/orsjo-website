@@ -10,7 +10,12 @@ export default function Featured({ data: { headline, items: products, id } }: Fe
 
 	return (
 		<div className={cn(s.featured, inverted && s.inverted)}>
-			<FeaturedGallery items={products as ProductRecord[]} headline={headline} id={id} theme='dark' />
+			<FeaturedGallery
+				items={products as ProductRecord[]}
+				headline={headline}
+				id={id}
+				theme='dark'
+			/>
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import s from './page.module.scss';
 import { BespokeDocument } from '@/graphql';
 import Link from '@/components/nav/Link';
-import { Markdown } from 'next-dato-utils/components';
+import { DraftMode, Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
@@ -16,7 +16,7 @@ export default async function Bespoke({ params }: PageProps<'/[locale]/professio
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { bespoke } = await apiQuery(BespokeDocument);
+	const { bespoke, draftUrl } = await apiQuery(BespokeDocument);
 	if (!bespoke) notFound();
 
 	return (
@@ -39,6 +39,7 @@ export default async function Bespoke({ params }: PageProps<'/[locale]/professio
 					</Link>
 				</div>
 			</Section>
+			<DraftMode url={draftUrl} path='/professionals/bespoke' />
 		</>
 	);
 }

@@ -1,6 +1,6 @@
 import s from './page.module.scss';
 import { AllColorsAndMaterialsDocument } from '@/graphql';
-import { Markdown } from 'next-dato-utils/components';
+import { DraftMode, Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
@@ -16,9 +16,9 @@ export default async function ColorsAndMaterials({
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro } = await apiQuery(
+	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro, draftUrl } = await apiQuery(
 		AllColorsAndMaterialsDocument,
-		{ all: true }
+		{ all: true },
 	);
 
 	if (!colorMaterialIntro) notFound();
@@ -29,7 +29,11 @@ export default async function ColorsAndMaterials({
 				<h1 className='topMargin'>Colors & Materials</h1>
 				<Markdown className={s.intro} content={intro} />
 			</Section>
-			<ColorsAndMaterialsList colorMaterials={allColorMaterials} colorMaterialTypes={allColorMaterialTypes} />
+			<ColorsAndMaterialsList
+				colorMaterials={allColorMaterials}
+				colorMaterialTypes={allColorMaterialTypes}
+			/>
+			<DraftMode url={draftUrl} path='/professionals/colors-and-materials' />
 		</>
 	);
 }

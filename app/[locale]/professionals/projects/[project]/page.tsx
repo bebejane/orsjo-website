@@ -1,6 +1,11 @@
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, BespokeThumbnailDocument } from '@/graphql';
+import {
+	ProjectDocument,
+	AllProjectsDocument,
+	AllRelatedProjectsDocument,
+	BespokeThumbnailDocument,
+} from '@/graphql';
 import { Section, FeaturedGallery } from '@/components';
 import ProjectHeader from './ProjectHeader';
 import { locales } from '@/i18n/routing';
@@ -9,26 +14,38 @@ import { setRequestLocale } from 'next-intl/server';
 import ProjectGallery from './ProjectGallery';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
 
 export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>;
 
-export default async function Project({ params }: PageProps<'/[locale]/professionals/projects/[project]'>) {
+export default async function Project({
+	params,
+}: PageProps<'/[locale]/professionals/projects/[project]'>) {
 	const { locale, project: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { project } = await apiQuery(ProjectDocument, {
+	const { project, draftUrl } = await apiQuery(ProjectDocument, {
 		variables: { slug },
 	});
 
 	if (!project) return notFound();
 
-	const [{ bespokeThumbnail }, { allProjects: allRelatedProjects }] = await Promise.all([
+	const [
+		{ bespokeThumbnail, draftUrl: bespokeThumbnailDraftUrl },
+		{ allProjects: allRelatedProjects, draftUrl: relatedProjectsDraftUrl },
+	] = await Promise.all([
 		apiQuery(BespokeThumbnailDocument),
 		apiQuery(AllRelatedProjectsDocument, {
 			variables: { projectType: project.projectType.id },
 		}),
 	]);
+
+	const draftUrls: (string | null)[] = [
+		draftUrl,
+		bespokeThumbnailDraftUrl,
+		relatedProjectsDraftUrl,
+	];
 
 	const relatedProjects = allRelatedProjects
 		.filter((p) => p.id !== project.id)
@@ -84,6 +101,7 @@ export default async function Project({ params }: PageProps<'/[locale]/professio
 					)}
 				</Section>
 			)}
+			<DraftMode url={draftUrls} path={`/professionals/projects/${slug}`} />
 		</>
 	);
 }

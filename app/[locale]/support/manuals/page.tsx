@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import ManualList from '@/app/[locale]/support/manuals/ManualList';
 import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
 
 export type ManualsProps = {
 	products: ProductRecord[];
@@ -18,7 +19,7 @@ export default async function Manuals({ params }: PageProps<'/[locale]/support/m
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const [{ manual }, { allProducts }] = await Promise.all([
+	const [{ manual, draftUrl }, { allProducts, draftUrl: productsDraftUrl }] = await Promise.all([
 		apiQuery(ManualsIntroDocument),
 		apiQuery(AllProductManualsDocument, {
 			all: true,
@@ -34,8 +35,11 @@ export default async function Manuals({ params }: PageProps<'/[locale]/support/m
 				<p>{manual.intro}</p>
 			</Section>
 			<div className={s.list}>
-				<ManualList products={allProducts.filter(({ mountingInstructions }) => mountingInstructions)} />
+				<ManualList
+					products={allProducts.filter(({ mountingInstructions }) => mountingInstructions)}
+				/>
 			</div>
+			<DraftMode url={[draftUrl, productsDraftUrl]} path='/support/manuals' />
 		</>
 	);
 }

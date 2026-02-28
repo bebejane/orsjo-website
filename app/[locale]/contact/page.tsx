@@ -9,7 +9,7 @@ import {
 } from '@/graphql';
 import { Section, TextReveal } from '@/components';
 import { Image } from 'react-datocms';
-import { Markdown } from 'next-dato-utils/components';
+import { DraftMode, Markdown } from 'next-dato-utils/components';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
@@ -28,7 +28,13 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const [{ contact }, { allResellers }, { allStaffs }, { allShowrooms }, { allDistributors }] = await Promise.all([
+	const [
+		{ contact, draftUrl },
+		{ allResellers, draftUrl: resellerDraftUrl },
+		{ allStaffs, draftUrl: staffDraftUrl },
+		{ allShowrooms, draftUrl: showroomDraftUrl },
+		{ allDistributors, draftUrl: distributorDraftUrl },
+	] = await Promise.all([
 		apiQuery(ContactDocument),
 		apiQuery(AllResellersDocument, { all: true }),
 		apiQuery(AllStaffsDocument, { all: true }),
@@ -38,9 +44,18 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 
 	if (!contact) return notFound();
 
+	const draftUrls: (string | null)[] = [
+		draftUrl,
+		resellerDraftUrl,
+		staffDraftUrl,
+		showroomDraftUrl,
+		distributorDraftUrl,
+	].filter(Boolean);
+
 	const resellesByCountry: ResellersByCountry = {};
 	allResellers.forEach((r, i) => {
-		if (!resellesByCountry[r.country.id]) resellesByCountry[r.country.id] = { resellers: [], country: r.country.name };
+		if (!resellesByCountry[r.country.id])
+			resellesByCountry[r.country.id] = { resellers: [], country: r.country.name };
 		resellesByCountry[r.country.id].resellers.push(r);
 	});
 
@@ -71,7 +86,7 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 						</Link>
 					</div>
 				</div>
-				<div className={s.imageWrap}>
+				<div className={s.imageWrap} data-datocms-content-link-boundary={true}>
 					{contact?.image.responsiveImage && (
 						<Image data={contact.image.responsiveImage} className={s.image} priority={true} />
 					)}
@@ -84,7 +99,9 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 				<div className={s.staff}>
 					{allStaffs.map(({ id, name, role, phone, email, image }, idx) => (
 						<div id={id} key={idx} className={s.employee}>
-							<div className={s.image}>{image?.responsiveImage && <Image data={image.responsiveImage} />}</div>
+							<div className={s.image}>
+								{image?.responsiveImage && <Image data={image.responsiveImage} />}
+							</div>
 							<div className={s.name}>
 								<p className='medium white noMargin'>{name}</p>
 							</div>
@@ -113,14 +130,23 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 						<li key={idx} className={s.showroom}>
 							<div className={s.left}>
 								{image?.responsiveImage && (
-									<Image data={image.responsiveImage} className={s.image} layout={'responsive'} objectFit={'contain'} />
+									<Image
+										data={image.responsiveImage}
+										className={s.image}
+										layout={'responsive'}
+										objectFit={'contain'}
+									/>
 								)}
 							</div>
 							<div className={s.right}>
 								<div className='medium'>
 									<p className='red'>{city}</p>
 									<Markdown className={s.text} content={address} />
-									{additional && <Markdown className={s.text} content={additional} />}
+									{additional && (
+										<div data-datocms-content-link-group>
+											<Markdown className={s.text} content={additional} />
+										</div>
+									)}
 								</div>
 							</div>
 						</li>
@@ -130,54 +156,56 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 			<Section name='Agents & Distributors' className={s.distributorSection} bgColor='--beige'>
 				<h1 className='white bottomMargin'>Agents & Distributors</h1>
 				<div className={s.distributors}>
-					{allDistributors.map(({ name, address, city, country, email, phone, postalCode, contactName, url }, idx) => (
-						<div key={idx} className={s.distributor}>
-							<p className='medium'>
-								<span className='white'>{country.name}</span>
-								<br />
-								{name}
-								<br />
+					{allDistributors.map(
+						({ name, address, city, country, email, phone, postalCode, contactName, url }, idx) => (
+							<div key={idx} className={s.distributor}>
+								<p className='medium'>
+									<span className='white'>{country.name}</span>
+									<br />
+									{name}
+									<br />
 
-								{address && (
-									<>
-										{address}
-										<br />
-									</>
-								)}
-								{postalCode && (
-									<>
-										{postalCode}
-										<br />
-									</>
-								)}
-								{city && (
-									<>
-										{city}
-										<br />
-									</>
-								)}
-								{contactName && (
-									<>
-										{contactName}
-										<br />
-									</>
-								)}
-								{phone && (
-									<>
-										{phone}
-										<br />
-									</>
-								)}
-								{email && (
-									<>
-										<a href={`mailto:${email}`}>{email}</a>
-										<br />
-									</>
-								)}
-								{url && <a href={url}>{url.replace('https://', '')}</a>}
-							</p>
-						</div>
-					))}
+									{address && (
+										<>
+											{address}
+											<br />
+										</>
+									)}
+									{postalCode && (
+										<>
+											{postalCode}
+											<br />
+										</>
+									)}
+									{city && (
+										<>
+											{city}
+											<br />
+										</>
+									)}
+									{contactName && (
+										<>
+											{contactName}
+											<br />
+										</>
+									)}
+									{phone && (
+										<>
+											{phone}
+											<br />
+										</>
+									)}
+									{email && (
+										<>
+											<a href={`mailto:${email}`}>{email}</a>
+											<br />
+										</>
+									)}
+									{url && <a href={url}>{url.replace('https://', '')}</a>}
+								</p>
+							</div>
+						),
+					)}
 				</div>
 			</Section>
 			<Section name='Retailers' data-dark='1' className={s.resellerSection} bgColor='--black'>
@@ -223,6 +251,7 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 					})}
 				</div>
 			</Section>
+			<DraftMode url={draftUrls} path='/contact' />
 		</>
 	);
 }

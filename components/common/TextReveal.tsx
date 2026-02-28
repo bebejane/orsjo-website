@@ -8,6 +8,7 @@ import { styleVariables } from '@/lib/utils';
 import React, { Children } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import Balancer from 'react-wrap-balancer';
+import { decodeStega } from 'react-datocms';
 
 type Props = {
 	children: React.ReactNode | undefined;
@@ -33,7 +34,7 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 	return (
 		<>
 			{text?.split('\n').map((p, key) => (
-				<p key={key} className={s.paragraph}>
+				<p key={key} className={s.paragraph} datocms-content-link-source={children}>
 					<Balancer>
 						{p.split(' ').map((word, widx) => (
 							<span key={widx} className={cn(s.word, block && s.block)}>
@@ -58,8 +59,9 @@ function childrenToText(children: React.ReactNode | undefined): string {
 			return [c];
 		}
 		if (React.isValidElement(c) && (c as React.ReactElement<any>).props.children) {
-			return Children.toArray((c as React.ReactElement<any>).props.children).map((c2: React.ReactNode) =>
-				typeof c2 === 'string' ? c2 : React.isValidElement(c2) && c2.type === 'br' ? '\n' : ''
+			return Children.toArray((c as React.ReactElement<any>).props.children).map(
+				(c2: React.ReactNode) =>
+					typeof c2 === 'string' ? c2 : React.isValidElement(c2) && c2.type === 'br' ? '\n' : '',
 			);
 		}
 		return [];

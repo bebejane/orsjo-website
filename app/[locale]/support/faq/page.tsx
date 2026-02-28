@@ -7,13 +7,14 @@ import { setRequestLocale } from 'next-intl/server';
 import { Section } from '@/components';
 import FaqList from '@/app/[locale]/support/faq/FaqList';
 import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
 
 export default async function Faqs({ params }: PageProps<'/[locale]/support/faq'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { faqs, faqStart } = await apiQuery(FaqStartDocument);
+	const { faqs, faqStart, draftUrl } = await apiQuery(FaqStartDocument);
 	if (!faqs || !faqStart) return notFound();
 
 	return (
@@ -23,6 +24,7 @@ export default async function Faqs({ params }: PageProps<'/[locale]/support/faq'
 				<p>{faqStart.intro}</p>
 			</Section>
 			<FaqList faqs={faqs} />
+			<DraftMode url={draftUrl} path='/support/faq' />
 		</>
 	);
 }

@@ -20,7 +20,9 @@ type Props = {
 
 export default function ProductIntro({ product, drawings }: Props) {
 	const [imageLoaded, setImageLoaded] = useState(false);
-	const [setGallery, setGalleryId] = useStore(useShallow((state) => [state.setGallery, state.setGalleryId]));
+	const [setGallery, setGalleryId] = useStore(
+		useShallow((state) => [state.setGallery, state.setGalleryId]),
+	);
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const [list, setList] = useState({ specifications: false, downloads: false });
@@ -30,7 +32,9 @@ export default function ProductIntro({ product, drawings }: Props) {
 		const imgs = product?.image
 			? [product.image, ...(product?.productGallery || [])]
 			: [...(product?.productGallery || [])];
-		return dedupeImages([...imgs.map((block) => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]);
+		return dedupeImages([
+			...imgs.map((block) => recordImages(block)).reduce((acc, curr) => acc.concat(curr), []),
+		]);
 	}, [product]);
 
 	const handleGalleryClick = (type: string, id: string) => {
@@ -89,14 +93,18 @@ export default function ProductIntro({ product, drawings }: Props) {
 					)}
 					<div className={cn(s.overlay, s.show)}>
 						<div className={s.text}>
-							<h1 className={cn("big", s.title)}>
+							<h1 className={cn('big', s.title)}>
 								<TextReveal>{product.title}</TextReveal>
 							</h1>
-							<h1 className={cn("big", s.designer)}>
-								< TextReveal block={true} >by {formatDesignerName(product.designer?.name as string)}</TextReveal>
+							<h1 className={cn('big', s.designer)}>
+								<TextReveal block={true}>
+									by {formatDesignerName(product.designer?.name as string)}
+								</TextReveal>
 							</h1>
 							<h3 className={s.type}>
-								<TextReveal>{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}</TextReveal>
+								<TextReveal>
+									{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}
+								</TextReveal>
 							</h3>
 						</div>
 						{product.upcycled && (
@@ -105,12 +113,23 @@ export default function ProductIntro({ product, drawings }: Props) {
 							</div>
 						)}
 					</div>
-				</div >
-			</Section >
-			<Section className={s.description}>{product.description && <Markdown content={product.description} />}</Section>
+				</div>
+			</Section>
+			<Section className={s.description}>
+				{product.description && (
+					<div data-datocms-content-link-group>
+						<Markdown content={product.description} />
+					</div>
+				)}
+			</Section>
 			<Section>
 				{product.productGallery.map((block, idx) => (
-					<Block key={idx} data={block} onClick={(id: string) => handleGalleryClick('product', id)} first={idx === 0} />
+					<Block
+						key={idx}
+						data={block}
+						onClick={(id: string) => handleGalleryClick('product', id)}
+						first={idx === 0}
+					/>
 				))}
 			</Section>
 		</>

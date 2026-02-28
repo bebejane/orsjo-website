@@ -29,11 +29,13 @@
 		padding-left: var(--outer-margin);
 		padding-right: var(--outer-margin);
 		width: 100%;
+		pointer-events: none;
 
 		.text {
 			flex: 0 0 100%;
 			padding-left: spanGridWithGutter(4);
 			padding-right: 20%;
+			pointer-events: all;
 
 			.link {
 				font-weight: bold;

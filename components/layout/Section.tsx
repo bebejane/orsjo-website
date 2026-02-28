@@ -7,16 +7,18 @@ import { sectionId } from '@/lib/utils';
 import { useInView } from 'react-intersection-observer';
 
 export type SectionProps = {
-	children?: React.ReactNode;
-	className?: string;
-	type?: string;
-	name?: string | null | undefined;
-	id?: string;
-	top?: boolean;
-	bottom?: boolean;
-	bgColor?: string;
-	disableSidebar?: boolean;
-	fadeColor?: string;
+	'children'?: React.ReactNode;
+	'className'?: string;
+	'type'?: string;
+	'name'?: string | null | undefined;
+	'id'?: string;
+	'top'?: boolean;
+	'bottom'?: boolean;
+	'bgColor'?: string;
+	'disableSidebar'?: boolean;
+	'fadeColor'?: string;
+	'data-datocms-content-link-group'?: string | boolean;
+	'data-datocms-content-link-boundary'?: string | boolean;
 };
 
 export default function Section({
@@ -28,8 +30,10 @@ export default function Section({
 	top,
 	bottom,
 	bgColor,
-	fadeColor: _fadeColor,
+	'fadeColor': _fadeColor,
 	disableSidebar = false,
+	'data-datocms-content-link-group': dataDatocmsContentLinkGroup,
+	'data-datocms-content-link-boundary': dataDatocmsContentLinkBoundary,
 }: SectionProps) {
 	const color = bgColor?.startsWith('--') ? `var(${bgColor})` : bgColor ? bgColor : undefined;
 	const fadeColor = _fadeColor?.startsWith('--') ? `var(${_fadeColor})` : (_fadeColor ?? undefined);
@@ -43,6 +47,8 @@ export default function Section({
 			data-top={top}
 			data-bottom={bottom}
 			ref={ref}
+			data-datocms-content-link-group={dataDatocmsContentLinkGroup}
+			data-datocms-content-link-boundary={dataDatocmsContentLinkBoundary}
 			{...sectionId(!disableSidebar ? name : undefined, id)}
 		>
 			<div className={cn(s.wrap, className)}>{children}</div>
