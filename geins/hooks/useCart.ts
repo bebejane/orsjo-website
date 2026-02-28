@@ -61,8 +61,6 @@ const useCart = create<CartState>((set, get) => ({
 			});
 			cart = getCart;
 		}
-
-		console.log(cart);
 		if (!cart) throw new Error('Cart not found');
 
 		return get().setCart(cart as Cart);

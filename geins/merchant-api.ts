@@ -106,7 +106,6 @@ export async function getLightsources(marketId: string): Promise<ProductType[]> 
 
 export async function getMarketId(locale: string): Promise<string> {
 	const { channels } = await geinsQuery(AllGeinsChannelsDocument);
-	console.log(channels);
 	const marketId = channels?.[0]?.markets?.find(
 		(m) => m?.country?.code.toLowerCase() === locale.toLowerCase(),
 	)?.id;

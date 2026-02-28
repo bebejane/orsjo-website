@@ -4,16 +4,14 @@ import { StartDocument } from '@/graphql';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import geinsQuery from '@/geins/geins-query';
-import { AllGeinsProductsDocument } from '@/geins/graphql';
 import { DraftMode } from 'next-dato-utils/components';
 
 export default async function Home({ params }: PageProps<'/[locale]'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
-	const { start, draftUrl } = await apiQuery(StartDocument);
 
+	const { start, draftUrl } = await apiQuery(StartDocument);
 	if (!start) return notFound();
 
 	return (
