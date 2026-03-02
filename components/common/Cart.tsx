@@ -14,7 +14,7 @@ import { Checkbox } from '@/components/common/Checkbox';
 import { Link } from '@/i18n/routing';
 import CartError from './CartError';
 import { createCheckoutUrl, formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
-import { GEINS_DELIVERY_PARAMETER_ID } from '@/geins/constants';
+import { GEINS_DELIVERY_PARAMETER_NAME, GEINS_GENERAL_PARAMETER_GROUP_ID } from '@/geins/constants';
 
 export type CartProps = {
 	markets: MarketType[];
@@ -115,9 +115,10 @@ export default function Cart({ markets, shipping }: CartProps) {
 							const { id, quantity, product, unitPrice } = item;
 							const skuId = product?.skus?.[0]?.skuId;
 							const articleNo = product?.skus?.[0]?.articleNumber;
-							const deliveryDaysType = product?.parameterGroups?.find(
-								(p) => p?.parameterGroupId === GEINS_DELIVERY_PARAMETER_ID,
-							)?.parameters?.[0]?.value;
+							const deliveryDaysType = product?.parameterGroups
+								?.find((p) => p?.parameterGroupId === GEINS_GENERAL_PARAMETER_GROUP_ID)
+								?.parameters?.find((p) => p?.name === GEINS_DELIVERY_PARAMETER_NAME)?.value;
+
 							const deliveryDays =
 								shipping?.deliveryDays.find(({ time }) => time === deliveryDaysType)?.textShort ??
 								'';
