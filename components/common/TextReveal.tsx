@@ -8,7 +8,6 @@ import { styleVariables } from '@/lib/utils';
 import React, { Children } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import Balancer from 'react-wrap-balancer';
-import { decodeStega } from 'react-datocms';
 
 type Props = {
 	children: React.ReactNode | undefined;
@@ -25,7 +24,6 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 
 	useEffect(() => {
 		if (isMobile) return setChars(text.length);
-
 		const r = Math.min(1, scrolledPosition / (viewportHeight / (speed * 10)));
 		const chars = text.length - Math.ceil(text.length * r);
 		setChars(chars);
@@ -34,7 +32,7 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 	return (
 		<>
 			{text?.split('\n').map((p, key) => (
-				<p key={key} className={s.paragraph} datocms-content-link-source={children}>
+				<p key={key} className={s.paragraph} data-datocms-content-link-source={children}>
 					<Balancer>
 						{p.split(' ').map((word, widx) => (
 							<span key={widx} className={cn(s.word, block && s.block)}>
