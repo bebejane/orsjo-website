@@ -49,7 +49,7 @@ const nextConfig: NextConfig = {
 				headers: [
 					{
 						key: 'Content-Security-Policy',
-						value: `frame-ancestors 'self' https://plugins-cdn.datocms.com/ ${process.env.NEXT_PUBLIC_DATOCMS_BASE_EDITING_URL} ${process.env.NEXT_PUBLIC_DATOCMS_SITE_URL}`,
+						value: `frame-ancestors 'self' https://plugins-cdn.datocms.com/ ${process.env.NEXT_PUBLIC_DATOCMS_BASE_EDITING_URL} ${process.env.NEXT_PUBLIC_SITE_URL}`,
 					},
 				],
 			},
