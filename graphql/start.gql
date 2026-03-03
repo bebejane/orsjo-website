@@ -3,6 +3,7 @@ query Start {
 		content {
 			__typename
 			... on FeaturedStartRecord {
+				_editingUrl
 				id
 				headline
 				items {
@@ -16,6 +17,7 @@ query Start {
 				}
 			}
 			... on FullscreenMediaBlockRecord {
+				_editingUrl
 				id
 				headline
 				subHeadline

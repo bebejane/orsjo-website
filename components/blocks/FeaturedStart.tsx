@@ -8,13 +8,14 @@ import { usePage } from '@/lib/context/page-provider';
 
 export type ImageGalleryProps = { data: FeaturedRecord; fadeColor?: number[] };
 
-export default function FeaturedStart({ data: { headline, items, id } }: ImageGalleryProps) {
+export default function FeaturedStart({ data }: ImageGalleryProps) {
 	const { inverted } = usePage();
+	const { headline, items, id } = data;
 	const isProducts = items[0].__typename === 'ProductRecord';
 
 	return (
 		<div className={cn(s.featuredStart, inverted && s.inverted)}>
-			<div className={s.wrapper}>
+			<div className={s.wrapper} data-datocms-content-link-group>
 				<div className={s.header}>
 					<h1 className={s.headline}>{headline}</h1>
 				</div>

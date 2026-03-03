@@ -60,7 +60,10 @@ export default function FeaturedGallery({
 	}, [isMobile, numSlides]);
 
 	return (
-		<div className={cn(s.featuredGallery, (inverted || _inverted) && s.inverted)}>
+		<div
+			className={cn(s.featuredGallery, (inverted || _inverted) && s.inverted)}
+			data-datocms-content-link-boundary
+		>
 			{headline && arrowAlign === 'top' && (
 				<div className={s.header}>
 					<h1 className={s.headline}>{headline}</h1>
@@ -72,7 +75,7 @@ export default function FeaturedGallery({
 					/>
 				</div>
 			)}
-			<div className={s.gallery} data-datocms-content-link-group>
+			<div className={s.gallery}>
 				<SwiperReact
 					modules={[Mousewheel]}
 					id={`${id}-swiper-wrap`}
