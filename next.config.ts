@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import { NextConfig } from 'next';
-import { withSentryConfig } from '@sentry/nextjs';
 import path from 'path';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { withSentryConfig } from '@sentry/nextjs';
 
 const withNextIntl = createNextIntlPlugin();
 
