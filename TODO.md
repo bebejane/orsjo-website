@@ -2,7 +2,6 @@
 
 - addToCart multiple
 - CartError
-- loading indicator checkout button
 - country selector hidden
 
 # Site

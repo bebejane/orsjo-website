@@ -5,6 +5,7 @@ import s from './FeaturedStart.module.scss';
 import cn from 'classnames';
 import { FeaturedGallery } from '@/components';
 import { usePage } from '@/lib/context/page-provider';
+import { stripStega, decodeStega } from '@datocms/content-link';
 
 export type ImageGalleryProps = { data: FeaturedRecord; fadeColor?: number[] };
 
