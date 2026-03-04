@@ -16,11 +16,11 @@ export default function FeaturedStart({ data }: FeaturedStartProps) {
 
 	return (
 		<div className={cn(s.featuredStart, inverted && s.inverted)}>
-			<div className={s.wrapper} data-datocms-content-link-url={data._editingUrl}>
+			<div className={s.wrapper}>
 				<div className={s.header} data-datocms-content-link-boundary>
 					<h1 className={s.headline}>{headline}</h1>
 				</div>
-				<div className={s.gallery} data-datocms-content-link-boundary>
+				<div className={s.gallery} data-datocms-content-link-group>
 					<FeaturedGallery
 						id={id}
 						arrowAlign='middle'

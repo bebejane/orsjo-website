@@ -60,10 +60,7 @@ export default function FeaturedGallery({
 	}, [isMobile, numSlides]);
 
 	return (
-		<div
-			className={cn(s.featuredGallery, (inverted || _inverted) && s.inverted)}
-			data-datocms-content-link-boundary
-		>
+		<div className={cn(s.featuredGallery, (inverted || _inverted) && s.inverted)}>
 			{headline && arrowAlign === 'top' && (
 				<div className={s.header}>
 					<h1 className={s.headline}>{headline}</h1>

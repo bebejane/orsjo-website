@@ -24,6 +24,7 @@ export type ThumbnailProps = {
 	theme?: 'dark' | 'light' | 'mid';
 	type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material' | 'professional';
 	showMarkAsNew?: boolean;
+	editingUrl?: Maybe<string> | undefined;
 };
 
 export default function Thumbnail({
@@ -42,6 +43,7 @@ export default function Thumbnail({
 	theme = 'light',
 	type = 'product',
 	showMarkAsNew = true,
+	editingUrl,
 }: ThumbnailProps) {
 	const [hovering, setHovering] = useState(false);
 	const isTouch =
@@ -51,7 +53,7 @@ export default function Thumbnail({
 
 	const content = (
 		<>
-			<figure data-datocms-content-link-boundary>
+			<figure>
 				{image.responsiveImage && (
 					<Image
 						data={image.responsiveImage}
@@ -79,7 +81,7 @@ export default function Thumbnail({
 					</div>
 				)}
 			</figure>
-			<figcaption>
+			<figcaption data-datocms-content-link-boundary>
 				<span className={s.title}>
 					{title} <span className={s.subtitle}>{subtitle}</span>
 				</span>
@@ -94,6 +96,8 @@ export default function Thumbnail({
 			onMouseEnter={handleMouseOver}
 			onMouseLeave={handleMouseOver}
 			onClick={onClick}
+			data-datocms-content-link-group
+			data-datocms-content-link-url={editingUrl}
 		>
 			{slug ? (
 				<Link href={slug} className={s.wrap}>
@@ -118,6 +122,7 @@ export type BaseThumbnailProps = {
 	theme: 'dark' | 'light' | 'mid';
 	showMarkAsNew?: boolean;
 	lazyload?: boolean;
+	editingUrl?: string;
 };
 
 export type ProductThumbnailProps = BaseThumbnailProps & {
@@ -133,6 +138,7 @@ export function ProductThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: ProductThumbnailProps) {
 	return (
 		<Thumbnail
@@ -153,6 +159,7 @@ export function ProductThumbnail({
 			type='product'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+			editingUrl={product._editingUrl}
 		/>
 	);
 }
@@ -168,6 +175,7 @@ export function ProjectThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: ProjectThumbnailProps) {
 	return (
 		<Thumbnail
@@ -182,6 +190,7 @@ export function ProjectThumbnail({
 			type='project'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+			editingUrl={project._editingUrl}
 		/>
 	);
 }
@@ -197,6 +206,7 @@ export function ProfessionalThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: ProfessionalThumbnailProps) {
 	return (
 		<Thumbnail
@@ -211,6 +221,7 @@ export function ProfessionalThumbnail({
 			type='professional'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+			editingUrl={professional._editingUrl}
 		/>
 	);
 }
@@ -237,6 +248,7 @@ export function DesignerThumbnail({
 			type='designer'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+			editingUrl={designer._editingUrl}
 		/>
 	);
 }
@@ -251,6 +263,7 @@ export function NewsThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: NewsThumbnailProps) {
 	return (
 		<Thumbnail
@@ -277,6 +290,7 @@ export function StaffThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: StaffThumbnailProps) {
 	return (
 		<Thumbnail

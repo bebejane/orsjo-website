@@ -30,10 +30,8 @@ export default function Section({
 	top,
 	bottom,
 	bgColor,
-	'fadeColor': _fadeColor,
+	fadeColor: _fadeColor,
 	disableSidebar = false,
-	'data-datocms-content-link-group': dataDatocmsContentLinkGroup,
-	'data-datocms-content-link-boundary': dataDatocmsContentLinkBoundary,
 }: SectionProps) {
 	const color = bgColor?.startsWith('--') ? `var(${bgColor})` : bgColor ? bgColor : undefined;
 	const fadeColor = _fadeColor?.startsWith('--') ? `var(${_fadeColor})` : (_fadeColor ?? undefined);
@@ -47,8 +45,8 @@ export default function Section({
 			data-top={top}
 			data-bottom={bottom}
 			ref={ref}
-			data-datocms-content-link-group={dataDatocmsContentLinkGroup}
-			data-datocms-content-link-boundary={dataDatocmsContentLinkBoundary}
+			//data-datocms-content-link-group={dataDatocmsContentLinkGroup}
+			//data-datocms-content-link-boundary={dataDatocmsContentLinkBoundary}
 			{...sectionId(!disableSidebar ? name : undefined, id)}
 		>
 			<div className={cn(s.wrap, className)}>{children}</div>

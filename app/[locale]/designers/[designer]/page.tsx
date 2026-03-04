@@ -65,7 +65,7 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 				</header>
 			</Section>
 			<Section type='margin' className={s.products} bgColor='--mid-gray'>
-				<h1>
+				<h1 data-datocms-content-link-url={designer._editingUrl}>
 					Products by <br />
 					{designer.name}
 				</h1>

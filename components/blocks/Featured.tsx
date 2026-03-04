@@ -7,7 +7,7 @@ export type FeaturedProps = { data: FeaturedRecord };
 
 export default function Featured({ data: { headline, items: products, id } }: FeaturedProps) {
 	const { inverted } = usePage();
-	console.log('related');
+
 	return (
 		<div className={cn(s.featured, inverted && s.inverted)}>
 			<FeaturedGallery

@@ -138,6 +138,7 @@ query AllColorsAndMaterials($first: IntType = 100, $skip: IntType = 0) {
 
 fragment ProjectFragment on ProjectRecord {
 	__typename
+	_editingUrl
 	id
 	location
 	title
@@ -222,6 +223,7 @@ fragment ProjectFragment on ProjectRecord {
 
 fragment ProjectLightFragment on ProjectRecord {
 	__typename
+	_editingUrl
 	id
 	location
 	title

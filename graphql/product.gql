@@ -183,6 +183,10 @@ query AllProductsByCategory($categoryId: ItemId, $first: IntType = 100, $skip: I
 
 fragment ProductFragment on ProductRecord {
 	__typename
+	_seoMetaTags {
+		...SEOFragment
+	}
+	_editingUrl
 	id
 	title
 	description(markdown: false)
@@ -367,13 +371,11 @@ fragment ProductFragment on ProductRecord {
 		name
 	}
 	note(markdown: false)
-	_seoMetaTags {
-		...SEOFragment
-	}
 }
 
 fragment ProductLightFragment on ProductRecord {
 	__typename
+	_editingUrl
 	id
 	title
 	slug

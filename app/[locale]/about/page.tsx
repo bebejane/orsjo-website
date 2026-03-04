@@ -8,6 +8,7 @@ import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
+import { stripStega } from '@datocms/content-link';
 
 export default async function About({ params }: PageProps<'/[locale]/about'>) {
 	const { locale } = await params;
@@ -18,7 +19,7 @@ export default async function About({ params }: PageProps<'/[locale]/about'>) {
 	if (!about) return notFound();
 
 	const { title, intro, sections, video } = about;
-
+	console.log(intro);
 	return (
 		<>
 			<Section className={s.about} type='full'>
@@ -32,7 +33,13 @@ export default async function About({ params }: PageProps<'/[locale]/about'>) {
 				</div>
 			</Section>
 			<Section className={s.intro} type='margin'>
-				<Markdown className={s.text} content={intro} />
+				<div
+					className={s.left}
+					data-datocms-content-link-group
+					data-datocms-content-link-source={intro}
+				>
+					<Markdown className={s.text} content={intro} />
+				</div>
 			</Section>
 			<Section className={s.blocks} type='full'>
 				{sections.map(({ text, video }, idx) => (
@@ -42,7 +49,7 @@ export default async function About({ params }: PageProps<'/[locale]/about'>) {
 							data-datocms-content-group
 							data-datocms-content-link-source={text}
 						>
-							<Markdown className={cn(s.text, 'large')} content={text} />
+							<Markdown className={cn(s.text, 'large')} content={stripStega(text)} />
 						</div>
 						<div className={s.right} data-datocms-content-link-source={video.video?.alt}>
 							<VideoPlayer className={s.video} data={video as FileField} />

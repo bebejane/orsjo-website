@@ -41,7 +41,11 @@ export default async function Sustainability({
 			</Section>
 			<Section className={s.blocks} type='full'>
 				{steps.map(({ text, title, media, fullWidthImage }, idx) => (
-					<div className={cn(s.block, fullWidthImage && s.fullWidth)} key={idx}>
+					<div
+						key={idx}
+						className={cn(s.block, fullWidthImage && s.fullWidth)}
+						data-datocms-content-link-source={fullWidthImage && media.responsiveImage?.alt}
+					>
 						<div className={s.left}>
 							<div className={s.header}>
 								<h2>{title}</h2>

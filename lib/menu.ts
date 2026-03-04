@@ -2,6 +2,7 @@ import { sortSwedish } from 'next-dato-utils/utils';
 import { apiQuery } from 'next-dato-utils/api';
 import { MenuDocument } from '@/graphql';
 import { sectionId } from '@/lib/utils';
+import { stripStega } from '@datocms/content-link';
 
 export type MenuSection =
 	| 'home'
@@ -298,7 +299,10 @@ const base: Menu = [
 ];
 
 export const buildMenu = async () => {
-	const { allDesigners, allProductCategories, allProducts, allProjects } = await apiQuery(MenuDocument, { all: true });
+	const { allDesigners, allProductCategories, allProducts, allProjects } = await apiQuery(
+		MenuDocument,
+		{ all: true },
+	);
 
 	const footerMaxLength = 8;
 
@@ -371,7 +375,7 @@ export const buildMenu = async () => {
 
 	const menu = base.map((item) => transformMenuItem(item)) as Menu;
 
-	return menu;
+	return stripStega(menu);
 };
 
 export const findMenuItem = (pathname: string, menu: MenuItem[]): MenuItem | null => {
@@ -379,11 +383,19 @@ export const findMenuItem = (pathname: string, menu: MenuItem[]): MenuItem | nul
 		return items.map((m) => [m, ...(m.sub ? flattenMenu(m.sub) : [])]).flat();
 	}
 
-	const item = flattenMenu(menu).reduce((acc: MenuItem | null, item: MenuItem | null) => {
+	let item = flattenMenu(menu).reduce((acc: MenuItem | null, item: MenuItem | null) => {
 		if (acc) return acc;
 		if (item?.slug === pathname) return item;
 		return null;
 	}, null);
+
+	if (!item) {
+		item = flattenMenu(menu).reduce((acc: MenuItem | null, item: MenuItem | null) => {
+			if (acc) return acc;
+			if (item?.slug === pathname.slice(0, pathname.lastIndexOf('/'))) return item;
+			return null;
+		}, null);
+	}
 
 	return item;
 };

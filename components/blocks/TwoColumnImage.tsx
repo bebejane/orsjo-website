@@ -11,7 +11,7 @@ export default function TwoColumnImage({
 	onClick,
 }: TwoColumnImageBlockProps) {
 	return (
-		<div className={s.twoColumnImage}>
+		<div className={s.twoColumnImage} data-datocms-content-link-source={firstImage.url}>
 			<figure onClick={() => onClick?.(firstImage.id)} data-image-zoom={firstImage.id}>
 				{firstImage.responsiveImage && (
 					<Image
