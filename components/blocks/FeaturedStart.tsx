@@ -7,20 +7,21 @@ import { FeaturedGallery } from '@/components';
 import { usePage } from '@/lib/context/page-provider';
 import { stripStega, decodeStega } from '@datocms/content-link';
 
-export type ImageGalleryProps = { data: FeaturedRecord; fadeColor?: number[] };
+export type FeaturedStartProps = { data: FeaturedRecord; fadeColor?: number[] };
 
-export default function FeaturedStart({ data }: ImageGalleryProps) {
+export default function FeaturedStart({ data }: FeaturedStartProps) {
+	console.log(data);
 	const { inverted } = usePage();
-	const { headline, items, id } = data;
+	const { headline, items, id } = stripStega(data);
 	const isProducts = items[0].__typename === 'ProductRecord';
 
 	return (
 		<div className={cn(s.featuredStart, inverted && s.inverted)}>
-			<div className={s.wrapper} data-datocms-content-link-group>
-				<div className={s.header}>
+			<div className={s.wrapper} data-datocms-content-link-url={data._editingUrl}>
+				<div className={s.header} data-datocms-content-link-boundary>
 					<h1 className={s.headline}>{headline}</h1>
 				</div>
-				<div className={s.gallery}>
+				<div className={s.gallery} data-datocms-content-link-boundary>
 					<FeaturedGallery
 						id={id}
 						arrowAlign='middle'

@@ -8,11 +8,14 @@ query Start {
 				headline
 				items {
 					__typename
+
 					... on ProductRecord {
 						...ProductLightFragment
+						_editingUrl
 					}
 					... on ProjectRecord {
 						...ProjectLightFragment
+						_editingUrl
 					}
 				}
 			}

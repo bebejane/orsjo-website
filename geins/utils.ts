@@ -83,7 +83,7 @@ export function createCheckoutUrl(
 	const checkoutTokenOptions: any = {
 		cartId: cartId as string,
 		checkoutSettings: {
-			copyCart: true,
+			copyCart: false,
 			customerType: 'PERSON' as CustomerType.PERSON,
 			availablePaymentMethodIds: [23, 24, 25, 18],
 			selectedPaymentMethodId: 23,
@@ -91,7 +91,7 @@ export function createCheckoutUrl(
 			selectedShippingMethodId: 0,
 			isCartEditable: false,
 			redirectUrls: {
-				success: `${siteUrl}`,
+				success: `${siteUrl}/thank-you`,
 				cancel: `${siteUrl}/products`,
 				continue: `${siteUrl}/products`,
 				terms: `${siteUrl}/support/terms-conditions`,
