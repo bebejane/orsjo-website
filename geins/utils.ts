@@ -2,12 +2,6 @@ import client from '@/lib/client';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import { GEINS_CHANNEL_ID, GEINS_MARKET_CURRENCY, GEINS_MARKET_ID } from '@/geins/constants';
-import {
-	GeinsCustomerType,
-	GeinsLogLevel,
-	GeinsSettings,
-	GenerateCheckoutTokenOptions,
-} from '@geins/types';
 
 export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
@@ -63,23 +57,6 @@ export function createCheckoutUrl(
 ): string {
 	if (!cartId) return 'https://checkout.geins.services/v0/checkout';
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
-	const geinsSettings: GeinsSettings = {
-		environment: 'prod',
-		apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
-		channel: String(GEINS_CHANNEL_ID),
-		accountName: 'orsjo',
-		market,
-		locale: market,
-		tld: 'com',
-	};
-
-	//const paymentTypes = await mgmt.getPaymentMethods();
-	//const shippingOptions = await mgmt.getShippingOptions();
-	// const availablePaymentMethodIds = paymentTypes.map((p: any) => p.PaymentId);
-	// const selectedPaymentMethodId = availablePaymentMethodIds?.[0] ?? 0;
-	// const availableShippingMethodIds = shippingOptions.map((p: any) => p.Id);
-	// const selectedShippingMethodId = availableShippingMethodIds?.[0] ?? 0;
-
 	const checkoutTokenOptions: any = {
 		cartId: cartId as string,
 		checkoutSettings: {
@@ -108,19 +85,26 @@ export function createCheckoutUrl(
 				},
 			},
 		},
-		geinsSettings,
+		geinsSettings: {
+			environment: 'prod',
+			apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
+			channel: String(GEINS_CHANNEL_ID),
+			accountName: 'orsjo',
+			market,
+			locale: market,
+			tld: 'com',
+		},
 	};
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
-	// JWT header
-	const header = {
-		alg: 'none',
-		typ: 'JWT',
-	};
-
 	// Encode header and payload
-	const encodedHeader = base64UrlEncode(JSON.stringify(header));
+	const encodedHeader = base64UrlEncode(
+		JSON.stringify({
+			alg: 'none',
+			typ: 'JWT',
+		}),
+	);
 	const encodedPayload = base64UrlEncode(JSON.stringify(checkoutTokenOptions));
 	const token = `${encodedHeader}.${encodedPayload}`;
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
