@@ -1,20 +1,53 @@
-mutation PlaceOrder(
-	$cartId: String!
-	$checkout: CheckoutInputType!
+query OrderPublic(
+	$publicOrderId: Guid!
 	$channelId: String
 	$languageId: String
 	$marketId: String
 ) {
-	placeOrder(
-		cartId: $cartId
-		checkout: $checkout
+	getOrderPublic(
+		publicOrderId: $publicOrderId
 		channelId: $channelId
 		languageId: $languageId
 		marketId: $marketId
 	) {
-		orderId
-		publicId
-		redirectUrl
+		id
+		billingAddress {
+			firstName
+			lastName
+			addressLine1
+			addressLine2
+			addressLine3
+			zip
+			city
+			country
+			state
+		}
+		shippingAddress {
+			firstName
+			lastName
+			addressLine1
+			addressLine2
+			addressLine3
+			zip
+			city
+			country
+			state
+		}
+		orderTotal {
+			sellingPriceIncVat
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
+		}
+		desiredDeliveryDate
+		message
 		status
+		cart {
+			...CartFragment
+		}
+		createdAt
 	}
 }

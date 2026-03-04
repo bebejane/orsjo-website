@@ -4,14 +4,13 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import * as geins from '@/geins/merchant-api';
 import OrderInfo from '@/app/[locale]/thank-you/OrderInfo';
+//import OrderInfo from '@/app/[locale]/thank-you/OrderInfo';
 
 export const dynamic = 'force-dynamic';
 
-export default async function ThankYou({ params }: PageProps<'/[locale]/thank-you'>) {
-	const { locale } = await params;
-
-	if (!locales.includes(locale as any)) notFound();
-	setRequestLocale(locale);
+export default async function ThankYou({ params, searchParams }: PageProps<'/[locale]/thank-you'>) {
+	const query = await searchParams;
+	console.log(query);
 
 	return (
 		<div className={s.page}>
@@ -26,11 +25,6 @@ export default async function ThankYou({ params }: PageProps<'/[locale]/thank-yo
 					</a>
 					.
 				</p>
-				<center>
-					<p>
-						<Link href='/'>Go to home</Link>
-					</p>
-				</center>
 				<OrderInfo />
 			</div>
 		</div>

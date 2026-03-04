@@ -33,7 +33,7 @@ declare module '*/checkout.gql' {
 declare module '*/order.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const PlaceOrder: DocumentNode;
+  export const OrderPublic: DocumentNode;
 
   export default defaultDocument;
 }
