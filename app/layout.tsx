@@ -10,6 +10,7 @@ import { setRequestLocale } from 'next-intl/server';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import * as Sentry from '@sentry/nextjs';
+import { DraftModeContentLink } from 'next-dato-utils/components';
 
 export const dynamic = 'force-static';
 
@@ -34,6 +35,7 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 						{children}
 					</Layout>
 				</NextIntlClientProvider>
+				<DraftModeContentLink />
 			</body>
 		</html>
 	);
