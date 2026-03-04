@@ -10,7 +10,6 @@ import { stripStega, decodeStega } from '@datocms/content-link';
 export type FeaturedStartProps = { data: FeaturedRecord; fadeColor?: number[] };
 
 export default function FeaturedStart({ data }: FeaturedStartProps) {
-	console.log(data);
 	const { inverted } = usePage();
 	const { headline, items, id } = stripStega(data);
 	const isProducts = items[0].__typename === 'ProductRecord';
