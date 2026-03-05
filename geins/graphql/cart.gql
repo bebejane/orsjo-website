@@ -21,6 +21,12 @@ mutation ClearCart($id: String!, $marketId: String = "1") {
 	}
 }
 
+mutation CompletCart($id: String!) {
+	completeCart(id: $id) {
+		...CartFragment
+	}
+}
+
 fragment CartFragment on CartType {
 	id
 	summary {
@@ -68,4 +74,5 @@ fragment CartFragment on CartType {
 		quantity
 		groupKey
 	}
+	isCompleted
 }

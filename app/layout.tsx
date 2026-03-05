@@ -12,7 +12,7 @@ import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import * as Sentry from '@sentry/nextjs';
 import { DraftModeContentLink } from 'next-dato-utils/components';
 
-export const dynamic = 'force-static';
+//export const dynamic = 'force-static';
 
 export default async function RootLayout({ children, params, modals }: LayoutProps<'/'>) {
 	const { locale } = await (params as any);
