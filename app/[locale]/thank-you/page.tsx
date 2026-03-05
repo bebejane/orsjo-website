@@ -1,5 +1,5 @@
 import s from './page.module.scss';
-import { Link, locales } from '@/i18n/routing';
+import { Link } from '@/i18n/routing';
 import geinsQuery from '@/geins/geins-query';
 import { CartDocument, CompletCartDocument } from '@/geins/graphql';
 
@@ -46,11 +46,7 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 				<p>Your order has been placed and is being processed.</p>
 				<p>
 					You will receive an email with your order details shortly. If you have any questions,
-					please contact us at{' '}
-					<a href={`mailto:${process.env.POSTMARK_FROM_EMAIL}`}>
-						{process.env.POSTMARK_FROM_EMAIL}
-					</a>
-					.
+					please contact us at <a href={`mailto:order@orsjo.com`}>order@orsjo.com</a>.
 				</p>
 				<p>
 					<Link href={'/products'}>
