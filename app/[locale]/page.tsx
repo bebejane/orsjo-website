@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { DraftMode } from 'next-dato-utils/components';
 
+export const dynamic = 'force-static';
+
 export default async function Home({ params }: PageProps<'/[locale]'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();

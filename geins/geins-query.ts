@@ -25,7 +25,7 @@ export type DefaultApiQueryOptions = ApiQueryOptions & {
 
 const defaultOptions: DefaultApiQueryOptions = {
 	variables: undefined,
-	revalidate: 0,
+	revalidate: process.env.REVALIDATE_TIME ? parseInt(process.env.REVALIDATE_TIME) : 0,
 	tags: undefined,
 	logs: false,
 	all: false,
@@ -99,9 +99,9 @@ const dedupedFetch = async (options: DedupeOptions) => {
 	const responseBody = await response.json();
 
 	if (!response.ok) {
-		console.error(`${response.status} ${response.statusText}`);
+		console.log(`GeinsQuery error: ${response.status} ${response.statusText}`);
 		try {
-			console.error(JSON.stringify(response, null, 2));
+			console.log(JSON.stringify(response, null, 2));
 		} catch (e) {}
 
 		Sentry.captureException(new Error(`geins-query: ${response.status}: ${response.statusText}`));
@@ -109,7 +109,7 @@ const dedupedFetch = async (options: DedupeOptions) => {
 	}
 
 	if (responseBody.errors) {
-		console.error(responseBody.errors);
+		console.log('GeinsQuery error', responseBody.errors);
 		const message = responseBody.errors
 			.map(({ message }: { message: string }) => message)
 			.join('. ');

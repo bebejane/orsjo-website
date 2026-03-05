@@ -27,6 +27,8 @@ export type ProductsStartProps = {
 	productCategories: ProductCategoryRecord[];
 };
 
+export const dynamic = 'force-static';
+
 export default async function Products({ params }: PageProps<'/[locale]/products'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
