@@ -2,6 +2,7 @@ import client from '@/lib/client';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import { GEINS_CHANNEL_ID, GEINS_MARKET_CURRENCY, GEINS_MARKET_ID } from '@/geins/constants';
+import { GeinsSettings } from '@geins/types';
 
 export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
@@ -93,7 +94,7 @@ export function createCheckoutUrl(
 			market,
 			locale: market,
 			tld: 'com',
-		},
+		} as GeinsSettings,
 	};
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
