@@ -51,7 +51,7 @@ export const getProductImageUrl = (product: ProductType): string | undefined => 
 	return imageUrl;
 };
 
-export function createCheckoutUrl(cartId?: string | null, locale = 'sv-SE'): string {
+export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string {
 	if (!cartId) return 'https://checkout.geins.services/v0/checkout';
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 	const checkoutTokenOptions: any = {
@@ -87,6 +87,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'sv-SE'): str
 			apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
 			channel: String(GEINS_CHANNEL_ID),
 			accountName: 'orsjo',
+			market: locale,
 			locale,
 			tld: 'com',
 		} as GeinsSettings,
