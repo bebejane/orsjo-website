@@ -81,6 +81,14 @@ const nextConfig: NextConfig = {
 			},
 		];
 	},
+	async rewrites() {
+		return [
+			{
+				source: '/mail/:path*',
+				destination: '/images/email/:path*',
+			},
+		];
+	},
 };
 
 export default withNextIntl(nextConfig);
