@@ -1,9 +1,5 @@
 import s from './page.module.scss';
 import { Link, locales } from '@/i18n/routing';
-import { notFound } from 'next/navigation';
-import { setRequestLocale } from 'next-intl/server';
-import * as geins from '@/geins/merchant-api';
-import OrderInfo from './OrderInfo';
 import geinsQuery from '@/geins/geins-query';
 import { CartDocument, CompletCartDocument } from '@/geins/graphql';
 
@@ -11,16 +7,13 @@ export const dynamic = 'auto';
 
 export default async function ThankYou({ searchParams }: PageProps<'/[locale]/thank-you'>) {
 	const params = await searchParams;
-	console.log(params);
 	const cartId = params['geins-cart'] as string;
-	const publicOrderId = params['geins-uid'] as string;
-	const paymentMethodId = params['geins-pm'] as string;
-	const paymentMethod = params['geins-pt'] as string;
+
 	let error = null;
 	let cart = null;
 
 	try {
-		if (!cartId || !publicOrderId) throw 'Cart id or public order id not found';
+		if (!cartId) throw 'Invalid request';
 		else cart = (await geinsQuery(CartDocument, { variables: { id: cartId } })).getCart;
 
 		if (!cart?.isCompleted)
@@ -59,7 +52,11 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 					</a>
 					.
 				</p>
-				<OrderInfo publicOrderId={publicOrderId} />
+				<p>
+					<Link href={'/products'}>
+						<button>Continue shopping</button>
+					</Link>
+				</p>
 			</div>
 		</div>
 	);
