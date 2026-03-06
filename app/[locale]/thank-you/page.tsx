@@ -2,6 +2,7 @@ import s from './page.module.scss';
 import { Link } from '@/i18n/routing';
 import geinsQuery from '@/geins/geins-query';
 import { CartDocument, CheckoutDocument, CompletCartDocument } from '@/geins/graphql';
+import { Section } from '@/components';
 
 export const dynamic = 'auto';
 
@@ -37,7 +38,7 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 	}
 
 	return (
-		<div className={s.page}>
+		<Section className={s.page} top={true}>
 			<div className={s.wrap}>
 				{!error ? (
 					<>
@@ -58,6 +59,6 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 					</>
 				)}
 			</div>
-		</div>
+		</Section>
 	);
 }
