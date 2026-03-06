@@ -1,5 +1,5 @@
-query Checkout($orderId: String!, $cartId: String, $paymentType: PaymentType = STANDARD) {
-	checkout(id: $orderId, cartId: $cartId, paymentType: $paymentType) {
+query Checkout($id: String!, $cartId: String, $paymentType: PaymentType = STANDARD) {
+	checkout(id: $id, cartId: $cartId, paymentType: $paymentType) {
 		order {
 			orderId
 			currency

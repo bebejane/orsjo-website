@@ -2472,7 +2472,7 @@ type AllGeinsChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 type AllGeinsChannelsQuery = { __typename?: 'GeinsMerchantApiQuery', channels?: Array<{ __typename?: 'ChannelType', id: string, name: string, type: string, defaultLanguageId: string, languages?: Array<{ __typename?: 'LanguageType', id: string, name: string, code: string } | null> | null, markets?: Array<{ __typename?: 'MarketType', id: string, defaultLanguageId: string, country?: { __typename?: 'CountryType', name: string, code: string } | null, currency?: { __typename?: 'CurrencyType', name: string, symbol: string, code: string, rate: any } | null } | null> | null } | null> | null };
 
 type CheckoutQueryVariables = Exact<{
-  orderId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
   cartId?: InputMaybe<Scalars['String']['input']>;
   paymentType?: InputMaybe<PaymentType>;
 }>;
