@@ -2,6 +2,7 @@ import client from '@/lib/client';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import { GEINS_CHANNEL_ID, GEINS_MARKET_CURRENCY, GEINS_MARKET_ID } from '@/geins/constants';
+import { GeinsSettings } from '@geins/types';
 
 export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
@@ -50,11 +51,7 @@ export const getProductImageUrl = (product: ProductType): string | undefined => 
 	return imageUrl;
 };
 
-export function createCheckoutUrl(
-	cartId?: string | null,
-	market = GEINS_MARKET_ID,
-	locale = 'sv-SE',
-): string {
+export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string {
 	if (!cartId) return 'https://checkout.geins.services/v0/checkout';
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 	const checkoutTokenOptions: any = {
@@ -90,10 +87,10 @@ export function createCheckoutUrl(
 			apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
 			channel: String(GEINS_CHANNEL_ID),
 			accountName: 'orsjo',
-			market,
-			locale: market,
+			market: locale,
+			locale,
 			tld: 'com',
-		},
+		} as GeinsSettings,
 	};
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');

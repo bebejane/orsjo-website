@@ -51,6 +51,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	const locale = useLocale();
 	const pathname = usePathname();
 	const [error, setError] = useState<Error | string | null | undefined>(null);
+	const [submitting, setSubmitting] = useState(false);
 	const isEmpty = cart && cart?.items?.length ? false : true;
 	const loading = !cart || updating;
 	const [terms, setTerms] = useState(false);
@@ -191,7 +192,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 					<div className={s.currency}>
 						<CountrySelector markets={markets} className={s.form} />
 					</div>
-					<form action={checkoutUrl} method='GET'>
+					<form action={checkoutUrl} method='GET' onSubmit={() => setSubmitting(true)}>
 						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
 						<input type='hidden' name='market_id' value={locale} />
 						<input type='hidden' name='locale' value={locale} />
@@ -211,13 +212,14 @@ export default function Cart({ markets, shipping }: CartProps) {
 						<button
 							className={cn(s.checkout, !terms || (!cart && s.disabled), 'full')}
 							type='submit'
+							disabled={submitting}
 							onClick={(e) => {
 								if (terms) return true;
 								e.preventDefault();
 								checkboxRef.current?.focus();
 							}}
 						>
-							Checkout & pay
+							{!submitting ? 'Checkout & pay' : <Loader className={s.loader} invert={false} />}
 						</button>
 					</form>
 				</>
