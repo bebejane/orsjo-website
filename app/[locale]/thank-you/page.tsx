@@ -31,7 +31,7 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 		checkout = (await geinsQuery(CheckoutDocument, { variables: { id: checkoutId } }))
 			.checkout as CheckoutDataType;
 
-		console.log(checkout);
+		console.log({ checkout });
 	} catch (e) {
 		error = typeof e === 'string' ? e : (e as Error).message;
 	}
