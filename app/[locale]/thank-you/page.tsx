@@ -49,9 +49,7 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 					please contact us at <a href={`mailto:order@orsjo.com`}>order@orsjo.com</a>.
 				</p>
 				<p>
-					<Link href={'/products'}>
-						<button>Continue shopping</button>
-					</Link>
+					<Link href={'/products'}>Continue shopping</Link>
 				</p>
 			</div>
 		</div>
