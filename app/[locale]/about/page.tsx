@@ -19,7 +19,7 @@ export default async function About({ params }: PageProps<'/[locale]/about'>) {
 	if (!about) return notFound();
 
 	const { title, intro, sections, video } = about;
-	console.log(intro);
+
 	return (
 		<>
 			<Section className={s.about} type='full'>

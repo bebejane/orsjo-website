@@ -10,26 +10,29 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 	const params = await searchParams;
 	const cartId = params['geins-cart'] as string;
 	const checkoutId = params['geins-uid'] as string;
-	console.log({ cartId, checkoutId });
+	const paymentType = params['geins-pt'] as PaymentType;
+	const paymentTypeId = params['geins-pm'] as string;
+
 	let error: string | null = null;
 	let cart: CartType | null = null;
 	let checkout: CheckoutDataType | null = null;
 
 	try {
-		if (!cartId) throw 'Invalid request';
-		else cart = (await geinsQuery(CartDocument, { variables: { id: cartId } })).getCart as CartType;
+		if (!cartId) throw 'Invalid request, no cartId';
 
-		if (!cart?.isCompleted)
+		cart = (await geinsQuery(CartDocument, { variables: { id: cartId } })).getCart as CartType;
+
+		if (!cart) throw `Cart not found with id: ${cartId}`;
+
+		if (!cart.isCompleted)
 			cart = (
 				await geinsQuery(CompletCartDocument, {
 					variables: { id: cartId },
 				})
 			).completeCart as CartType;
 
-		if (!cart) throw 'Cart not found with id: ' + cartId;
-
-		console.log({ checkoutId });
-		checkout = (await geinsQuery(CheckoutDocument, { variables: { id: checkoutId } }))
+		console.log({ checkoutId, paymentType, paymentTypeId });
+		checkout = (await geinsQuery(CheckoutDocument, { variables: { id: checkoutId, paymentType } }))
 			.checkout as CheckoutDataType;
 
 		console.log({ checkout });
