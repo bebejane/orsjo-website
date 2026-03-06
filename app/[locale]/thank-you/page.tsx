@@ -27,6 +27,7 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 
 		if (!cart) throw 'Cart not found with id: ' + cartId;
 
+		console.log({ checkoutId });
 		checkout = (await geinsQuery(CheckoutDocument, { variables: { id: checkoutId } }))
 			.checkout as CheckoutDataType;
 
