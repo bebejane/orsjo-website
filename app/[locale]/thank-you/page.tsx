@@ -9,8 +9,8 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 	const params = await searchParams;
 	const cartId = params['geins-cart'] as string;
 	const checkoutId = params['geins-uid'] as string;
-
-	let error = null;
+	console.log({ cartId, checkoutId });
+	let error: string | null = null;
 	let cart: CartType | null = null;
 	let checkout: CheckoutDataType | null = null;
 
@@ -36,29 +36,27 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 		error = typeof e === 'string' ? e : (e as Error).message;
 	}
 
-	if (error) {
-		return (
-			<div className={s.page}>
-				<div className={s.wrap}>
-					<h1>Error</h1>
-					<p>{error}</p>
-				</div>
-			</div>
-		);
-	}
-
 	return (
 		<div className={s.page}>
 			<div className={s.wrap}>
-				<h1>Thank you for your order!</h1>
-				<p>Your order has been placed and is being processed.</p>
-				<p>
-					You will receive an email with your order details shortly. If you have any questions,
-					please contact us at <a href={`mailto:order@orsjo.com`}>order@orsjo.com</a>.
-				</p>
-				<p>
-					<Link href={'/products'}>Continue shopping</Link>
-				</p>
+				{!error ? (
+					<>
+						<h1>Thank you for your order!</h1>
+						<p>Your order has been placed and is being processed.</p>
+						<p>
+							You will receive an email with your order details shortly. If you have any questions,
+							please contact us at <a href={`mailto:order@orsjo.com`}>order@orsjo.com</a>.
+						</p>
+						<p>
+							<Link href={'/products'}>Continue shopping</Link>
+						</p>
+					</>
+				) : (
+					<>
+						<h1>Error</h1>
+						<p>{error}</p>
+					</>
+				)}
 			</div>
 		</div>
 	);
