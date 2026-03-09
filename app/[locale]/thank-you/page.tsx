@@ -18,9 +18,8 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 	let checkout: CheckoutDataType | null = null;
 
 	try {
-		if (!cartId) throw 'Invalid request, no cartId';
-
-		cart = (await geinsQuery(CartDocument, { variables: { id: cartId } })).getCart as CartType;
+		if (cartId)
+			cart = (await geinsQuery(CartDocument, { variables: { id: cartId } })).getCart as CartType;
 
 		//if (!cart) throw `Cart not found with id: ${cartId}`;
 
