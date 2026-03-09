@@ -46,7 +46,7 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 			<div className={s.wrap}>
 				{!error ? (
 					<>
-						<h1>Thank you for your order!</h1>
+						<h1 className="big">Thank you for your order!</h1>
 						<p>Your order has been placed and is being processed.</p>
 						<p>
 							You will receive an email with your order details shortly. If you have any questions,
