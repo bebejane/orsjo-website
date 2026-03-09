@@ -4,6 +4,7 @@ import s from './ArrowLink.module.scss';
 import cn from 'classnames';
 import Arrow from '@/public/images/arrow.svg';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export type ArrowLinkProps = {
 	title?: string;
@@ -23,10 +24,15 @@ export default function ArrowLink({
 	reversed = false,
 }: ArrowLinkProps) {
 	const [hover, setHover] = useState(false);
+	const router = useRouter();
 
 	function handleHover(e: MouseEvent | React.MouseEvent<HTMLSpanElement>) {
 		const type = e.type;
 		setHover(['mousemove', 'mouseenter'].includes(type));
+	}
+
+	function handleClick(e: React.MouseEvent<HTMLDivElement>) {
+		if (!hoverRef && href) router.push(href);
 	}
 
 	useEffect(() => {
@@ -45,10 +51,16 @@ export default function ArrowLink({
 		};
 	}, [hoverRef]);
 
-	const className = cn(s.arrowLink, 'medium', inverted && s.inverted, reversed && s.reversed, hover && s.hover);
+	const className = cn(
+		s.arrowLink,
+		'medium',
+		inverted && s.inverted,
+		reversed && s.reversed,
+		hover && s.hover,
+	);
 
 	return (
-		<div className={className}>
+		<div className={className} onClick={handleClick}>
 			<span onMouseEnter={handleHover} onMouseLeave={handleHover}>
 				<Arrow className={s.arrow} />
 				{title || children}
