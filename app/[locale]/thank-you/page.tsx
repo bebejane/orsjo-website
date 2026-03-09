@@ -22,20 +22,21 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 
 		cart = (await geinsQuery(CartDocument, { variables: { id: cartId } })).getCart as CartType;
 
-		if (!cart) throw `Cart not found with id: ${cartId}`;
+		//if (!cart) throw `Cart not found with id: ${cartId}`;
 
-		if (!cart.isCompleted)
+		if (cart && !cart.isCompleted)
 			cart = (
 				await geinsQuery(CompletCartDocument, {
 					variables: { id: cartId },
 				})
 			).completeCart as CartType;
 
-		console.log({ checkoutId, paymentType, paymentTypeId });
-		checkout = (await geinsQuery(CheckoutDocument, { variables: { id: checkoutId, paymentType } }))
-			.checkout as CheckoutDataType;
+		// console.log({ checkoutId, paymentType, paymentTypeId });
 
-		console.log({ checkout });
+		// checkout = (await geinsQuery(CheckoutDocument, { variables: { id: checkoutId, paymentType } }))
+		// 	.checkout as CheckoutDataType;
+
+		// console.log({ checkout });
 	} catch (e) {
 		error = typeof e === 'string' ? e : (e as Error).message;
 	}
