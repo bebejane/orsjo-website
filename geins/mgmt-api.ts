@@ -222,7 +222,6 @@ export async function updateStock(
 		Id: string;
 		Stock: number;
 		StockSellable: number;
-		StockStatic: number;
 		StockType: number;
 	}[],
 ) {
