@@ -33,6 +33,9 @@
 			}
 			.value {
 				width: 100%;
+				&.invert {
+					color: var(--white);
+				}
 			}
 
 			.arrow {

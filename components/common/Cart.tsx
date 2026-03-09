@@ -190,7 +190,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 						</div>
 					</div>
 					<div className={s.currency}>
-						<CountrySelector markets={markets} className={s.form} />
+						<CountrySelector markets={markets} invert={true} />
 					</div>
 					<form action={checkoutUrl} method='GET' onSubmit={() => setSubmitting(true)}>
 						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
