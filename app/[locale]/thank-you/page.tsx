@@ -3,7 +3,7 @@ import { Link } from '@/i18n/routing';
 import geinsQuery from '@/geins/geins-query';
 import { CartDocument, CheckoutDocument, CompletCartDocument } from '@/geins/graphql';
 import { Section } from '@/components';
-import ArrowLink from '@/components';
+import { ArrowLink } from '@/components';
 
 export const dynamic = 'auto';
 
@@ -46,13 +46,13 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 			<div className={s.wrap}>
 				{!error ? (
 					<>
-						<h1>Thank you for your order!</h1>
+						<h1 className="big">Thank you for your order!</h1>
 						<p>Your order has been placed and is being processed.</p>
 						<p>
 							You will receive an email with your order details shortly. If you have any questions,
 							please contact us at <a href={`mailto:order@orsjo.com`}>order@orsjo.com</a>.
 						</p>
-						<ArrowLink hoverRef={'/products'} inverted={true}>
+						<ArrowLink hoverRef={'/products'} inverted={false}>
 							Continue shopping
 						</ArrowLink>
 					</>
