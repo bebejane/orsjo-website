@@ -256,7 +256,6 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 			ProductId: updatedProduct.ProductId,
 			Currency: c.isoCode,
 		}));
-		console.log(priceListPrices);
 
 		await mgmt.updateStock([
 			{
