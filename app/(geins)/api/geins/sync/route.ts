@@ -7,10 +7,11 @@ export const POST = async (req: Request) => {
 	return basicAuth(req, async (req) => {
 		const data = await req.json();
 		if (!data?.entity) return new Response('ok', { status: 422 });
+		console.log(data);
 		const entity = data.entity as any;
 		const {
 			meta: { status },
-		} = data as any;
+		} = entity as any;
 		const { id } = entity;
 		const slug = entity.attributes.slug;
 
