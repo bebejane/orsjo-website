@@ -2,7 +2,7 @@ import client from '@/lib/client';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import { GEINS_CHANNEL_ID, GEINS_MARKET_CURRENCY, GEINS_MARKET_ID } from '@/geins/constants';
-import { GeinsSettings } from '@geins/types';
+import { CheckoutSettings, GeinsSettings } from '@geins/types';
 
 export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
@@ -81,7 +81,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string
 					accentForeground: '#000000',
 				},
 			},
-		},
+		} as CheckoutSettings,
 		geinsSettings: {
 			environment: 'prod',
 			apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
