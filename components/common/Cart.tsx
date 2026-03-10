@@ -95,6 +95,14 @@ export default function Cart({ markets, shipping }: CartProps) {
 	}, [pathname]);
 
 	useEffect(() => {
+		const handleBeforeUnload = () => {
+			setSubmitting(false);
+		};
+		window.addEventListener('unload', handleBeforeUnload);
+		return () => window.removeEventListener('unload', handleBeforeUnload);
+	}, []);
+
+	useEffect(() => {
 		//setError(new Error('Error message from useEffect. Blah blah blah.'));
 	}, [showCart]);
 
