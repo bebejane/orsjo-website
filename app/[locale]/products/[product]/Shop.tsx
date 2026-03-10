@@ -127,12 +127,12 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 			selectedGeinsVariant?.productId,
 		].filter(Boolean) as number[];
 
-		const modelPrice = parseFloat(selectedGeinsVariant?.unitPrice?.sellingPriceExVat ?? '0');
+		const modelPrice = parseFloat(selectedGeinsVariant?.unitPrice?.sellingPriceIncVat ?? '0');
 		const addonsPrice = variantsIds.reduce((acc, id) => {
 			const accessory = geins.accessories.find((p) => p?.productId === id);
 			const lightsource = geins.lightsources.find((p) => p?.productId === id);
-			const lightsourcePrice = parseFloat(accessory?.unitPrice?.sellingPriceExVat ?? '0');
-			const accessoryPrice = parseFloat(lightsource?.unitPrice?.sellingPriceExVat ?? '0');
+			const lightsourcePrice = parseFloat(accessory?.unitPrice?.sellingPriceIncVat ?? '0');
+			const accessoryPrice = parseFloat(lightsource?.unitPrice?.sellingPriceIncVat ?? '0');
 			return acc + accessoryPrice + lightsourcePrice;
 		}, 0);
 
@@ -264,7 +264,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 												)}
 												<span className={s.price}>
 													{formatGeinsPrice(
-														geinsVariant?.unitPrice?.sellingPriceExVat,
+														geinsVariant?.unitPrice?.sellingPriceIncVat,
 														geinsVariant?.unitPrice?.currency?.code,
 													)}
 												</span>{' '}
