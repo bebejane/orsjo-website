@@ -29,10 +29,18 @@ mutation CompletCart($id: String!) {
 
 fragment CartFragment on CartType {
 	id
+	isCompleted
+	freeShipping
+
 	summary {
+		shipping {
+			feeIncVat
+			feeExVat
+		}
 		total {
 			sellingPriceExVat
 			sellingPriceIncVat
+			vat
 			currency {
 				name
 				symbol
@@ -43,6 +51,7 @@ fragment CartFragment on CartType {
 		subTotal {
 			sellingPriceExVat
 			sellingPriceIncVat
+			vat
 			currency {
 				name
 				symbol
@@ -61,8 +70,7 @@ fragment CartFragment on CartType {
 		totalPrice {
 			sellingPriceExVat
 			sellingPriceIncVat
-			regularPriceIncVatFormatted
-			sellingPriceExVat
+			vat
 		}
 		unitPrice {
 			sellingPriceExVat
@@ -77,5 +85,4 @@ fragment CartFragment on CartType {
 		quantity
 		groupKey
 	}
-	isCompleted
 }

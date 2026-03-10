@@ -13,8 +13,9 @@ import s from './CountrySelector.module.scss';
 import cn from 'classnames';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
-import { useRef } from 'react';
+import { startTransition, useRef } from 'react';
 import { usePage } from '@/lib/context/page-provider';
+import { sleep } from 'next-dato-utils/utils';
 
 type CountrySelectProps = {
 	className?: string;
@@ -36,18 +37,21 @@ export default function CountrySelector({
 	const formRef = useRef<HTMLFormElement>(null);
 	const popupRef = useRef<HTMLDivElement>(null);
 
-	const handleChange = (val: Key | null) => {
+	const handleChange = async (val: Key | null) => {
 		if (!val) return;
-		const newCountryCode = val.toString().toLowerCase();
-		console.log(pathname.replace(`/${locale}`, '/'), newCountryCode);
-		router.replace(pathname.replace(`/${locale}`, '/'), { locale: newCountryCode });
-		router.refresh();
+		const newLocale = val.toString().toLowerCase();
+		console.log('set locale', newLocale);
+		startTransition(() => {
+			router.replace(pathname, { locale: newLocale });
+			router.refresh();
+		});
 	};
 
 	const selectedCountry = markets.find(
 		(c) => c.country?.code.toLowerCase() === locale.toLowerCase(),
 	);
 
+	console.log(locale);
 	return (
 		<form
 			className={cn(s.form, className)}

@@ -30,7 +30,7 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 		<html lang='en-US'>
 			<body id='root'>
 				{modals}
-				<NextIntlClientProvider key={locale}>
+				<NextIntlClientProvider>
 					<Layout menu={menu} markets={markets} shipping={shipping}>
 						{children}
 					</Layout>

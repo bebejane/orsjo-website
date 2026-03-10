@@ -58,6 +58,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	const ref = useRef<HTMLDivElement>(null);
 	const checkboxRef = useRef<HTMLInputElement>(null);
 	const checkoutUrl = createCheckoutUrl(cart?.id, locale);
+	const summary = cart?.summary;
 
 	function handleCloseError() {
 		if (cartError) clearError();
@@ -81,6 +82,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	useEffect(() => {
 		if (cart && locale) {
 			try {
+				console.log('set market id', locale);
 				setMarketId(locale);
 			} catch (err) {
 				setError(err as Error);
@@ -97,7 +99,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	}, [showCart]);
 
 	cart && console.log('cart', cart);
-
+	console.log('locale cart', locale);
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
@@ -180,15 +182,35 @@ export default function Cart({ markets, shipping }: CartProps) {
 						})}
 					</ul>
 
+					<div className={s.subtotal}>
+						<div className='medium'>Shipping & handling</div>
+						<div className={cn('medium', s.price)}>
+							{cart?.freeShipping
+								? 'Free'
+								: formatGeinsPrice(
+										summary?.shipping?.feeIncVat ?? 0,
+										summary?.total?.currency?.code,
+									)}
+						</div>
+					</div>
+
+					<div className={s.subtotal}>
+						<div className='medium'>VAT</div>
+						<div className={cn('medium', s.price)}>
+							{formatGeinsPrice(summary?.total?.vat ?? 0, summary?.total?.currency?.code)}
+						</div>
+					</div>
+
 					<div className={s.total}>
 						<div className='medium'>Total</div>
 						<div className={cn('medium', s.price)}>
 							{formatGeinsPrice(
-								cart?.summary?.subTotal?.sellingPriceIncVat ?? 0,
+								cart?.summary?.total?.sellingPriceIncVat ?? 0,
 								cart?.summary?.total?.currency?.code,
 							)}
 						</div>
 					</div>
+
 					<div className={s.currency}>
 						<CountrySelector markets={markets} invert={true} />
 					</div>

@@ -196,17 +196,25 @@
 		}
 	}
 
-	.total {
+	.total,
+	.subtotal {
 		display: flex;
 		flex-direction: row;
 		align-items: flex-end;
-		flex: 1 1 auto;
+		flex: 0 1 auto;
 		margin-top: 0.5em;
 		margin-bottom: 0.5em;
 
 		div:first-child {
 			flex: 1 1 auto;
 		}
+	}
+
+	.subtotal {
+		flex: 0 0;
+		margin-top: 0.2em;
+		margin-bottom: 0em;
+		color: var(--beige);
 	}
 
 	.extra {
