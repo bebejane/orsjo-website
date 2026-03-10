@@ -185,7 +185,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 					<div className={s.subtotal}>
 						<div className='medium'>Shipping & handling</div>
 						<div className={cn('medium', s.price)}>
-							{cart?.freeShipping
+							{summary?.shipping?.feeIncVat === 0
 								? 'Free'
 								: formatGeinsPrice(
 										summary?.shipping?.feeIncVat ?? 0,
