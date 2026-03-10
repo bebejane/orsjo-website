@@ -218,7 +218,12 @@ export async function addProductToVariantGroup(id: string, productId: string) {
 }
 
 export async function updateStock(
-	stock: { Id: string; Stock: number; StockSellable: number; StockType: number }[],
+	stock: {
+		Id: string;
+		Stock: number;
+		StockSellable: number;
+		StockType: number;
+	}[],
 ) {
 	const c = await request(`/Product/Stock`, 'PUT', stock);
 	return c.Resource;

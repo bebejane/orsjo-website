@@ -20,9 +20,14 @@ type CountrySelectProps = {
 	className?: string;
 	markets: MarketType[];
 	currency?: boolean;
+	invert?: boolean;
 };
 
-export default function CountrySelector({ className, markets }: CountrySelectProps) {
+export default function CountrySelector({
+	className,
+	markets,
+	invert = false,
+}: CountrySelectProps) {
 	const pathname = usePathname();
 	const router = useRouter();
 	const locale = useLocale();
@@ -59,7 +64,7 @@ export default function CountrySelector({ className, markets }: CountrySelectPro
 				aria-label='Select country'
 			>
 				<Button className={cn(s.button, inverted && s.inverted)} ref={buttonRef}>
-					<SelectValue className={s.value} key={locale}>
+					<SelectValue className={cn(s.value, invert && s.invert)} key={locale}>
 						{selectedCountry?.currency?.code}
 					</SelectValue>
 					<span aria-hidden='true' className={cn(s.arrow, 'symbol')}>
