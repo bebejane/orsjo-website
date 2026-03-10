@@ -26,7 +26,6 @@ export async function getAllProducts(marketId?: string): Promise<{
 	let res = await geinsQuery(AllGeinsProductsDocument, {
 		variables: { skip, take },
 		marketId,
-		logs: true,
 	});
 
 	let count = res?.products?.count ?? 0;
@@ -42,7 +41,6 @@ export async function getAllProducts(marketId?: string): Promise<{
 		res = await geinsQuery(AllGeinsProductsDocument, {
 			variables: { skip, take },
 			marketId,
-			logs: true,
 		});
 	}
 	const accessories = all.filter((p) => p?.categories?.find((c) => c?.alias === 'accessory'));
@@ -71,7 +69,6 @@ export async function getProductsByCategory(
 	let res = await geinsQuery(GeinsProductsByCategoryDocument, {
 		variables: { skip, take, categoryAlias },
 		marketId,
-		logs: true,
 	});
 
 	let count = res?.products?.count ?? 0;
@@ -87,7 +84,6 @@ export async function getProductsByCategory(
 		res = await geinsQuery(GeinsProductsByCategoryDocument, {
 			variables: { skip, take, categoryAlias },
 			marketId,
-			logs: true,
 		});
 	}
 

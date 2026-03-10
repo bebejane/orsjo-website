@@ -99,7 +99,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	}, [showCart]);
 
 	cart && console.log('cart', cart);
-	console.log('locale cart', locale);
+
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>

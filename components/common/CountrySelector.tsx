@@ -51,7 +51,6 @@ export default function CountrySelector({
 		(c) => c.country?.code.toLowerCase() === locale.toLowerCase(),
 	);
 
-	console.log(locale);
 	return (
 		<form
 			className={cn(s.form, className)}
