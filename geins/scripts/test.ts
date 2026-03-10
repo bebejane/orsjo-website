@@ -28,8 +28,8 @@ const main = async () => {
 	const arg = process.argv[2];
 
 	try {
-		await sync(lampId);
-		//await resync();
+		//await sync(lampId);
+		await resync(true);
 		//const p = await merchant.getProduct('andromeda');
 		//console.log(p);
 		//await resyncAll(151);
