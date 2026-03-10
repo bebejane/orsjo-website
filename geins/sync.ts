@@ -260,7 +260,7 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 		await mgmt.updateStock([
 			{
 				Id: updatedProductItem.ItemId as string,
-				Stock: 1,
+				Stock: 100,
 				StockSellable: 1000,
 				StockType: 2,
 			},
