@@ -25,7 +25,7 @@ export interface CartState {
 	clearCart: () => void;
 	createCart: (country: string) => void;
 	setCart: (cart: Cart) => Promise<Cart>;
-	addToCart: (item: CartItemInputType, country: string) => Promise<Cart>;
+	addToCart: (items: CartItemInputType[], country: string) => Promise<Cart>;
 	removeFromCart: (skuId: number) => Promise<Cart>;
 	updateQuantity: (skuId: string, quantity: number, marketId: string) => Promise<Cart>;
 	clearError: () => void;
@@ -80,16 +80,23 @@ const useCart = create<CartState>((set, get) => ({
 		set((state) => ({ cart }));
 		return cart;
 	},
-	addToCart: async (item: CartItemInputType, country: string) => {
+	addToCart: async (items: CartItemInputType[], country: string) => {
 		return get().update(null, async (cart) => {
-			const { addToCart } = await geinsQuery(AddToCartDocument, {
-				revalidate: 0,
-				variables: {
-					id: cart?.id ?? '',
-					item,
-					marketId: get().marketId,
-				},
-			});
+			let addToCart: Cart = null;
+			const id = cart?.id ?? '';
+			const marketId = get().marketId;
+			for (const item of items) {
+				addToCart = (
+					await geinsQuery(AddToCartDocument, {
+						revalidate: 0,
+						variables: {
+							id,
+							item,
+							marketId,
+						},
+					})
+				).addToCart;
+			}
 			return addToCart as Cart;
 		});
 	},

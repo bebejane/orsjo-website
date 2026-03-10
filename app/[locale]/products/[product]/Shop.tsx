@@ -149,7 +149,10 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 		const addon = allAddons.find((a) => a.id === id);
 		if (!addon) throw new Error('Invalid addon id: ' + id);
 		if (addons.find((a) => a.id === id)) setAddons((addons) => addons.filter((a) => a.id !== id));
-		else setAddons((addons) => [...addons, addon]);
+		else {
+			setAddons((addons) => [...addons, addon]);
+			setShowAddons(false);
+		}
 		setOpen(false);
 	}
 
@@ -178,11 +181,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 			...addons.map((a) => ({ skuId: a.variantId, quantity: a.quantity })),
 		].filter(({ skuId }) => skuId !== undefined);
 
-		for (const variant of variants) {
-			addToCart(variant, locale);
-			await new Promise((resolve) => setTimeout(resolve, 300));
-		}
-
+		await addToCart(variants, locale);
 		setShowCart(true);
 		resetAll();
 	}
