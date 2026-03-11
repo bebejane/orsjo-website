@@ -191,8 +191,8 @@ export default function Cart({ markets, shipping }: CartProps) {
 						})}
 					</ul>
 					<div className={s.subtotal}>
-						<div className='medium gray'>Shipping & handling</div>
-						<div className={cn('medium gray', s.price)}>
+						<div className='small gray'>Shipping & handling</div>
+						<div className={cn('small gray', s.price)}>
 							{summary?.shipping?.feeIncVat === 0
 								? 'Free'
 								: formatGeinsPrice(summary?.shipping?.feeIncVat ?? 0, summary?.total?.currency)}
@@ -200,8 +200,8 @@ export default function Cart({ markets, shipping }: CartProps) {
 					</div>
 
 					<div className={s.subtotal}>
-						<div className='medium gray'>VAT</div>
-						<div className={cn('medium gray', s.price)}>
+						<div className='small gray'>VAT</div>
+						<div className={cn('small gray', s.price)}>
 							{formatGeinsPrice(summary?.total?.vat ?? 0, summary?.total?.currency)}
 						</div>
 					</div>
