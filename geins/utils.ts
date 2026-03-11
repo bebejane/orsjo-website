@@ -12,7 +12,7 @@ export const formatGeinsPrice = (
 	currency?: CurrencyType | null,
 	quantity = 1,
 ): string => {
-	if (!price) return '';
+	if (!price || !currency) return '';
 
 	return `${new Intl.NumberFormat('sv-SE', {
 		style: 'currency',

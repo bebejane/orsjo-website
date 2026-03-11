@@ -31,7 +31,6 @@ fragment CartFragment on CartType {
 	id
 	isCompleted
 	freeShipping
-
 	summary {
 		shipping {
 			feeIncVat
