@@ -10,5 +10,11 @@ export default function Loader({
 	loading?: boolean;
 	className?: string;
 }) {
-	return <div className={cn(s.loader, className)} />;
+	return (
+		<div className={cn(s.loader, invert && s.invert)}>
+			<span />
+			<span />
+			<span />
+		</div>
+	);
 }

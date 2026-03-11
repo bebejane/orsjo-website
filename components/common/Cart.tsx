@@ -51,7 +51,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	const locale = useLocale();
 	const pathname = usePathname();
 	const [error, setError] = useState<Error | string | null | undefined>(null);
-	const [submitting, setSubmitting] = useState(false);
+	const [submitting, setSubmitting] = useState(true);
 	const isEmpty = cart && cart?.items?.length ? false : true;
 	const loading = !cart || updating;
 	const [terms, setTerms] = useState(false);
@@ -108,7 +108,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 				</button>
 			</header>
 			{isEmpty ? (
-				<div className={s.empty}>{loading ? <Loader /> : 'Your cart is empty'}</div>
+				<div className={s.empty}>{loading ? <Loader invert={true} /> : 'Your cart is empty'}</div>
 			) : (
 				<>
 					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
@@ -246,7 +246,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 								checkboxRef.current?.focus();
 							}}
 						>
-							{!submitting ? 'Checkout & pay' : <Loader className={s.loader} invert={false} />}
+							{!submitting ? 'Checkout & pay' : <Loader className={s.loader} invert={true} />}
 						</button>
 					</form>
 				</>
