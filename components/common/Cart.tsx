@@ -51,7 +51,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	const locale = useLocale();
 	const pathname = usePathname();
 	const [error, setError] = useState<Error | string | null | undefined>(null);
-	const [submitting, setSubmitting] = useState(false);
+	const [submitting, setSubmitting] = useState(true);
 	const isEmpty = cart && cart?.items?.length ? false : true;
 	const loading = !cart || updating;
 	const [terms, setTerms] = useState(false);

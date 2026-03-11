@@ -1,11 +1,32 @@
 .loader {
-	width: 70px;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0.5rem;
+	height: 0.5rem;
+	background-color: #fff;
+	position: relative;
+	animation: flash 0.7s ease-out infinite alternate;
+}
 
-	@include mq($until: tablet) {
-		width: 45px;
+@keyframes flash {
+	0% {
+		background-color: var(--black);
+		box-shadow:
+			1rem 0 var(--black),
+			-1rem 0 #fff;
 	}
-
-	&.invert {
-		filter: invert(1);
+	50% {
+		background-color: var(--white);
+		box-shadow:
+			1rem 0 var(--black),
+			-1rem 0 var(--black);
+	}
+	100% {
+		background-color: var(--black);
+		box-shadow:
+			1rem 0 #fff,
+			-1rem 0 var(--black);
 	}
 }

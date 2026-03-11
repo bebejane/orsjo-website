@@ -10,7 +10,5 @@ export default function Loader({
 	loading?: boolean;
 	className?: string;
 }) {
-	return (
-		<img className={cn(s.loader, className)} src={`/images/loader${invert ? '_black' : ''}.gif`} />
-	);
+	return <div className={cn(s.loader, className)} />;
 }
