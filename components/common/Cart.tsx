@@ -181,13 +181,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 							);
 						})}
 					</ul>
-
-					<div className={s.currency}>
-						<div className='medium gray'>Currency</div>
-
-						<CountrySelector markets={markets} invert={true} />
-					</div>
-
 					<div className={s.subtotal}>
 						<div className='medium gray'>Shipping & handling</div>
 						<div className={cn('medium gray', s.price)}>

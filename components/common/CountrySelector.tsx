@@ -103,7 +103,7 @@ export default function CountrySelector({
 											s.selected,
 									)}
 								>
-									{country?.name} <span className='small'>{currency?.code}</span>
+									{country?.name}
 								</ListBoxItem>
 							))}
 					</ListBox>
