@@ -186,21 +186,27 @@ export default function Cart({ markets, shipping }: CartProps) {
 						})}
 					</ul>
 
+					<div className={s.currency}>
+						<div className='medium gray'>Currency</div>
+
+						<CountrySelector markets={markets} invert={true} />
+					</div>
+
 					<div className={s.subtotal}>
-						<div className='medium'>Shipping & handling</div>
-						<div className={cn('medium', s.price)}>
+						<div className='medium gray'>Shipping & handling</div>
+						<div className={cn('medium gray', s.price)}>
 							{summary?.shipping?.feeIncVat === 0
 								? 'Free'
 								: formatGeinsPrice(
-										summary?.shipping?.feeIncVat ?? 0,
-										summary?.total?.currency?.code,
-									)}
+									summary?.shipping?.feeIncVat ?? 0,
+									summary?.total?.currency?.code,
+								)}
 						</div>
 					</div>
 
 					<div className={s.subtotal}>
-						<div className='medium'>VAT</div>
-						<div className={cn('medium', s.price)}>
+						<div className='medium gray'>VAT</div>
+						<div className={cn('medium gray', s.price)}>
 							{formatGeinsPrice(summary?.total?.vat ?? 0, summary?.total?.currency?.code)}
 						</div>
 					</div>
@@ -213,10 +219,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 								cart?.summary?.total?.currency?.code,
 							)}
 						</div>
-					</div>
-
-					<div className={s.currency}>
-						<CountrySelector markets={markets} invert={true} />
 					</div>
 					<form action={checkoutUrl} method='GET' onSubmit={() => setSubmitting(true)}>
 						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
