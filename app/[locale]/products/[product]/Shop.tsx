@@ -10,7 +10,7 @@ import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
-import { generateProductTitle, parseProductModelName, deliveryDaysText } from '@/lib/utils';
+import { generateProductTitle, parseProductModelName } from '@/lib/utils';
 import { RiCheckFill } from 'react-icons/ri';
 import { AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/[locale]/products/utils';
@@ -63,7 +63,6 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 	const selectedGeinsVariant = geins.products?.find(
 		(v) => v.articleNumber && v.articleNumber === selected?.articleNo.trim(),
 	);
-
 	const [modal, setModal] = useState<'show' | 'hide' | 'dismiss'>('hide');
 	const { width, height } = useWindowSize();
 	const { scrolledPosition, viewportHeight, documentHeight } = useScrollInfo();
@@ -203,7 +202,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 						{addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
 					</h3>
 					<span key={totalPrice} className={s.price}>
-						{formatGeinsPrice(totalPrice, currencyCode)}
+						{formatGeinsPrice(totalPrice, cart?.summary?.total?.currency)}
 					</span>
 				</header>
 
@@ -264,7 +263,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 												<span className={s.price}>
 													{formatGeinsPrice(
 														geinsVariant?.unitPrice?.sellingPriceIncVat,
-														geinsVariant?.unitPrice?.currency?.code,
+														geinsVariant?.unitPrice?.currency,
 													)}
 												</span>{' '}
 											</div>
@@ -366,7 +365,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 													<strong>{name}</strong>
 												</span>
 												<span className={s.price}>
-													{formatGeinsPrice(price, currencyCode, quantity)}
+													{formatGeinsPrice(price, cart?.summary?.total?.currency, quantity)}
 												</span>
 											</div>
 										</li>

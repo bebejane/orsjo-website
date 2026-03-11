@@ -91,10 +91,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 	}, [locale]);
 
 	useEffect(() => {
-		//setShowCart(false);
-	}, [pathname]);
-
-	useEffect(() => {
 		const handleBeforeUnload = () => {
 			setSubmitting(false);
 		};
@@ -169,7 +165,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 
 									<div className={s.amount}>
 										<div className={cn(s.price, 'small')} aria-label={'Total'}>
-											{formatGeinsPrice(unitPrice?.sellingPriceIncVat, unitPrice?.currency?.code)}
+											{formatGeinsPrice(unitPrice?.sellingPriceIncVat, unitPrice?.currency)}
 										</div>
 										<div className='small gray'>{deliveryDays}</div>
 										<div>
@@ -197,17 +193,14 @@ export default function Cart({ markets, shipping }: CartProps) {
 						<div className={cn('medium gray', s.price)}>
 							{summary?.shipping?.feeIncVat === 0
 								? 'Free'
-								: formatGeinsPrice(
-										summary?.shipping?.feeIncVat ?? 0,
-										summary?.total?.currency?.code,
-									)}
+								: formatGeinsPrice(summary?.shipping?.feeIncVat ?? 0, summary?.total?.currency)}
 						</div>
 					</div>
 
 					<div className={s.subtotal}>
 						<div className='medium gray'>VAT</div>
 						<div className={cn('medium gray', s.price)}>
-							{formatGeinsPrice(summary?.total?.vat ?? 0, summary?.total?.currency?.code)}
+							{formatGeinsPrice(summary?.total?.vat ?? 0, summary?.total?.currency)}
 						</div>
 					</div>
 
@@ -216,7 +209,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 						<div className={cn('medium', s.price)}>
 							{formatGeinsPrice(
 								cart?.summary?.total?.sellingPriceIncVat ?? 0,
-								cart?.summary?.total?.currency?.code,
+								cart?.summary?.total?.currency,
 							)}
 						</div>
 					</div>
