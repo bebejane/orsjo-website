@@ -91,7 +91,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 	}, [locale]);
 
 	useEffect(() => {
-		setShowCart(false);
+		//setShowCart(false);
 	}, [pathname]);
 
 	useEffect(() => {
@@ -198,9 +198,9 @@ export default function Cart({ markets, shipping }: CartProps) {
 							{summary?.shipping?.feeIncVat === 0
 								? 'Free'
 								: formatGeinsPrice(
-									summary?.shipping?.feeIncVat ?? 0,
-									summary?.total?.currency?.code,
-								)}
+										summary?.shipping?.feeIncVat ?? 0,
+										summary?.total?.currency?.code,
+									)}
 						</div>
 					</div>
 
