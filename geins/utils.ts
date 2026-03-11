@@ -15,10 +15,11 @@ export const formatGeinsPrice = (
 	if (!price) return '';
 
 	return `${new Intl.NumberFormat('sv-SE', {
-		style: 'decimal',
+		style: 'currency',
 		maximumFractionDigits: 0,
 		currency: currency?.code,
-	}).format(price * quantity)}${currency?.symbol ?? ''}`;
+		compactDisplay: 'short',
+	}).format(price * quantity)}`;
 };
 
 export const getChannel = async (): Promise<
