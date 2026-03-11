@@ -1,5 +1,11 @@
 .form {
 	display: inline;
+	&.invert {
+		color: var(--white-menu);
+		.arrow {
+			color: var(--white-menu);
+		}
+	}
 
 	label {
 		display: inline;
@@ -28,9 +34,6 @@
 			font-size: 0.65rem;
 			padding: 0;
 
-			&.inverted {
-				color: var(--white-menu);
-			}
 			.value {
 				width: 100%;
 				&.invert {
@@ -39,7 +42,6 @@
 			}
 
 			.arrow {
-				//font-size: 0.65em;
 				margin-left: 0.5em;
 				transform: rotate(90deg);
 			}

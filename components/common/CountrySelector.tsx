@@ -15,7 +15,6 @@ import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { startTransition, useRef } from 'react';
 import { usePage } from '@/lib/context/page-provider';
-import { sleep } from 'next-dato-utils/utils';
 
 type CountrySelectProps = {
 	className?: string;
@@ -40,7 +39,6 @@ export default function CountrySelector({
 	const handleChange = async (val: Key | null) => {
 		if (!val) return;
 		const newLocale = val.toString().toLowerCase();
-		console.log('set locale', newLocale);
 		startTransition(() => {
 			router.replace(pathname, { locale: newLocale });
 			router.refresh();
@@ -53,12 +51,10 @@ export default function CountrySelector({
 
 	return (
 		<form
-			className={cn(s.form, className)}
-			onSubmit={(e) => {
-				e.preventDefault();
-			}}
+			className={cn(s.form, className, invert && s.invert)}
 			ref={formRef}
 			aria-label={'Select country'}
+			onSubmit={(e) => e.preventDefault()}
 		>
 			<Select
 				className={cn('small', s.select)}

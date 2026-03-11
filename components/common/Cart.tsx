@@ -65,7 +65,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 		if (error) setError(null);
 	}
 
-	useClickAway(ref, () => setShowCart(false));
+	useClickAway(ref, () => setShowCart(false), ['mousedown']);
 
 	useEffect(() => {
 		if (!cart) createCart(locale);
