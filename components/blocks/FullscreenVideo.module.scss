@@ -48,13 +48,13 @@
 	}
 
 	@include mq($until: tablet) {
-		//min-height: auto;
-		height: 50vh;
+		min-height: 60vh;
+
+		video {
+			min-height: 60vh;
+		}
 
 		.textWrap {
-			//position: relative;
-			//margin-top: var(--small-margin);
-			//bottom: 0;
 			.text {
 				padding: 0;
 			}

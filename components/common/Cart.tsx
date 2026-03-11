@@ -82,7 +82,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 	useEffect(() => {
 		if (cart && locale) {
 			try {
-				console.log('set market id', locale);
 				setMarketId(locale);
 			} catch (err) {
 				setError(err as Error);
@@ -98,7 +97,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 		return () => window.removeEventListener('unload', handleBeforeUnload);
 	}, []);
 
-	cart && console.log('cart', cart);
+	//cart && console.log('cart', cart);
 
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
@@ -118,6 +117,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 							const { id, quantity, product, unitPrice } = item;
 							const skuId = product?.skus?.[0]?.skuId;
 							const articleNo = product?.skus?.[0]?.articleNumber;
+							const category = product?.categories?.[0]?.alias;
 							const deliveryDaysType = product?.parameterGroups
 								?.find((p) => p?.parameterGroupId === GEINS_GENERAL_PARAMETER_GROUP_ID)
 								?.parameters?.find((p) => p?.name === GEINS_DELIVERY_PARAMETER_NAME)?.value;
@@ -135,7 +135,16 @@ export default function Cart({ markets, shipping }: CartProps) {
 									aria-labelledby={id}
 								>
 									<figure className={s.thumb}>
-										<Link href={`/products/${slug}?v=${id}`} onClick={() => setShowCart(false)}>
+										<Link
+											href={`/products/${slug}?v=${id}`}
+											onClick={(e) => {
+												if (category === 'lightsource') {
+													e.preventDefault();
+													return;
+												}
+												setShowCart(false);
+											}}
+										>
 											{imageUrl && <img role='icon' src={imageUrl} alt={''} />}
 										</Link>
 									</figure>
