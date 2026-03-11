@@ -15,7 +15,7 @@ export default function FeaturedStart({ data }: FeaturedStartProps) {
 	const isProducts = items[0].__typename === 'ProductRecord';
 
 	return (
-		<div className={cn(s.featuredStart, inverted && s.inverted)}>
+		<section className={cn(s.featuredStart, inverted && s.inverted)} data-double-margin={true}>
 			<div className={s.wrapper}>
 				<div className={s.header} data-datocms-content-link-boundary>
 					<h1 className={s.headline}>{headline}</h1>
@@ -31,6 +31,6 @@ export default function FeaturedStart({ data }: FeaturedStartProps) {
 					/>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 }

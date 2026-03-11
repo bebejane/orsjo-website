@@ -1,7 +1,6 @@
 'use client';
 
 import s from './FullscreenVideo.module.scss';
-import React from 'react';
 import { VideoPlayer, ArrowLink } from '@/components';
 import Link from '@/components/nav/Link';
 import { useRef } from 'react';

@@ -205,6 +205,10 @@ button {
 	}
 }
 
+article > [data-double-margin='true'] + [data-double-margin='true'] {
+	padding-top: 0 !important;
+}
+
 input,
 ::placeholder {
 	font-family: var(--headline-font);
