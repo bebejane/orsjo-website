@@ -97,7 +97,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 		return () => window.removeEventListener('unload', handleBeforeUnload);
 	}, []);
 
-	//cart && console.log('cart', cart);
+	cart && console.log('cart', cart);
 
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
