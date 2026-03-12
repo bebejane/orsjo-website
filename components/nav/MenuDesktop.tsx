@@ -167,7 +167,12 @@ export default function MenuDesktop({ menu, markets }: MenuDesktopProps) {
 						</li>
 					))}
 					<li className={s.country}>
-						<CountrySelector currency={true} markets={markets} className={s.selector} />
+						<CountrySelector
+							currency={true}
+							markets={markets}
+							className={s.selector}
+							invert={inverted}
+						/>
 					</li>
 					<li className={cn(s.cart, !isEmpty && s.filled)} onClick={() => setShowCart(true)}>
 						<img src={`/images/cart${!isEmpty ? '-filled' : ''}.svg`} />

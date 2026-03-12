@@ -11,6 +11,10 @@ export default function Loader({
 	className?: string;
 }) {
 	return (
-		<img className={cn(s.loader, className)} src={`/images/loader${invert ? '_black' : ''}.gif`} />
+		<div className={cn(s.loader, invert && s.invert)}>
+			<span />
+			<span />
+			<span />
+		</div>
 	);
 }

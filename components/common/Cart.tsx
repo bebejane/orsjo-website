@@ -97,7 +97,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 		return () => window.removeEventListener('unload', handleBeforeUnload);
 	}, []);
 
-	//cart && console.log('cart', cart);
+	cart && console.log('cart', cart);
 
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
@@ -108,7 +108,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 				</button>
 			</header>
 			{isEmpty ? (
-				<div className={s.empty}>{loading ? <Loader /> : 'Your cart is empty'}</div>
+				<div className={s.empty}>{loading ? <Loader invert={true} /> : 'Your cart is empty'}</div>
 			) : (
 				<>
 					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
@@ -246,7 +246,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 								checkboxRef.current?.focus();
 							}}
 						>
-							{!submitting ? 'Checkout & pay' : <Loader className={s.loader} invert={false} />}
+							{!submitting ? 'Checkout & pay' : <Loader className={s.loader} invert={true} />}
 						</button>
 					</form>
 				</>

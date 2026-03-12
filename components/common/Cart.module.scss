@@ -49,15 +49,16 @@
 	}
 
 	.currency {
-		@include mq($from: desktop) {
-			display: none;
-		}
-		padding-bottom: 0.35rem;
 		display: flex;
+		padding-bottom: 0.35rem;
 		justify-content: space-between;
 
 		button {
 			font-size: 14px !important;
+		}
+
+		@include mq($from: desktop) {
+			display: none;
 		}
 	}
 
