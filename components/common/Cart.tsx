@@ -191,7 +191,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 						})}
 					</ul>
 					<div className={s.currency}>
-						<div className='medium gray'>Currency</div>
+						<div className='small gray'>Currency</div>
 						<CountrySelector markets={markets} invert={true} />
 					</div>
 					<div className={s.subtotal}>
