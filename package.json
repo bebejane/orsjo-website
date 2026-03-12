@@ -16,6 +16,7 @@
 		"codegen:website": "graphql-codegen --config graphql.config.ts --project datocms --verbose",
 		"codegen:geins": "graphql-codegen --config graphql.config.ts --project geins --verbose",
 		"codegen:datocms": "datocms schema:generate ./types/datocms-cma.ts",
+		"codegen:datocms:dev": "datocms schema:generate -e=dev ./types/datocms-cma.ts",
 		"geins:sync": "tsx lib/geins/scripts/sync-item.ts",
 		"geins:sync-all": "tsx lib/geins/scripts/sync-all.ts"
 	},

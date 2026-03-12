@@ -272,9 +272,9 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 
 export const syncProductStatus = async (
 	slug: string,
-	status: 'draft' | 'published' | 'update',
+	status: 'draft' | 'published' | 'updated',
 ): Promise<any[]> => {
-	if (!['draft', 'published', 'update'].includes(status))
+	if (!['draft', 'published', 'updated'].includes(status))
 		throw new Error('Invalid status: ' + status);
 
 	const active = status !== 'draft';

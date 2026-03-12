@@ -1,4 +1,4 @@
-import { ItemTypeDefinition } from '@datocms/cma-client';
+import type { ItemTypeDefinition } from '@datocms/cma-client';
 type EnvironmentSettings = {
   locales: 'en' | 'sv' | 'no' | 'da' | 'en-GB';
 };
@@ -1027,36 +1027,6 @@ export type Start = ItemTypeDefinition<
     };
   }
 >;
-export type Currency = ItemTypeDefinition<
-  EnvironmentSettings,
-  'XvpmvBqzR9-ogxmiWRp4lA',
-  {
-    iso_code: {
-      type: 'string';
-      localized: true;
-    };
-    symbol: {
-      type: 'string';
-      localized: true;
-    };
-    surcharge: {
-      type: 'float';
-      localized: true;
-    };
-    rate: {
-      type: 'float';
-      localized: true;
-    };
-    rate_deduction: {
-      type: 'float';
-      localized: true;
-    };
-    vat_rate: {
-      type: 'float';
-      localized: true;
-    };
-  }
->;
 export type TermStart = ItemTypeDefinition<
   EnvironmentSettings,
   'aEtvaDzBSmOO5dNfhcSrlg',
@@ -1206,6 +1176,36 @@ export type Contact = ItemTypeDefinition<
     };
   }
 >;
+export type Currency = ItemTypeDefinition<
+  EnvironmentSettings,
+  'XvpmvBqzR9-ogxmiWRp4lA',
+  {
+    iso_code: {
+      type: 'string';
+      localized: true;
+    };
+    symbol: {
+      type: 'string';
+      localized: true;
+    };
+    surcharge: {
+      type: 'float';
+      localized: true;
+    };
+    rate: {
+      type: 'float';
+      localized: true;
+    };
+    rate_deduction: {
+      type: 'float';
+      localized: true;
+    };
+    vat_rate: {
+      type: 'float';
+      localized: true;
+    };
+  }
+>;
 export type AnyBlock =
   | PolicyItem
   | Lightsource
@@ -1269,7 +1269,6 @@ export type AnyModel =
   | ColorMaterialIntro
   | ProductStart
   | Start
-  | Currency
   | TermStart
   | ProjectStart
   | FaqStart
@@ -1278,5 +1277,6 @@ export type AnyModel =
   | DownloadsStart
   | Sustainability
   | Bespoke
-  | Contact;
+  | Contact
+  | Currency;
 export type AnyBlockOrModel = AnyBlock | AnyModel;
