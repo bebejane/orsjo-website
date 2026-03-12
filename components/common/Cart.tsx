@@ -211,8 +211,8 @@ export default function Cart({ markets, shipping }: CartProps) {
 					</div>
 
 					<div className={s.total}>
-						<div className='medium'>Total</div>
-						<div className={cn('medium', s.price)}>
+						<div className='small'>Total</div>
+						<div className={cn('small', s.price)}>
 							{formatGeinsPrice(
 								cart?.summary?.total?.sellingPriceIncVat ?? 0,
 								cart?.summary?.total?.currency,
