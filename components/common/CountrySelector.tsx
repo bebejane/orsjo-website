@@ -13,7 +13,7 @@ import s from './CountrySelector.module.scss';
 import cn from 'classnames';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
-import { startTransition, useRef } from 'react';
+import { startTransition, useOptimistic, useRef } from 'react';
 import { usePage } from '@/lib/context/page-provider';
 
 type CountrySelectProps = {
@@ -31,6 +31,7 @@ export default function CountrySelector({
 	const pathname = usePathname();
 	const router = useRouter();
 	const locale = useLocale();
+	const [optimisticLocale, setOptimisticLocale] = useOptimistic(locale);
 	const { inverted } = usePage();
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const formRef = useRef<HTMLFormElement>(null);
@@ -40,13 +41,14 @@ export default function CountrySelector({
 		if (!val) return;
 		const newLocale = val.toString().toLowerCase();
 		startTransition(() => {
+			setOptimisticLocale(newLocale);
 			router.replace(pathname, { locale: newLocale });
 			router.refresh();
 		});
 	};
 
 	const selectedCountry = markets.find(
-		(c) => c.country?.code.toLowerCase() === locale.toLowerCase(),
+		(c) => c.country?.code.toLowerCase() === optimisticLocale.toLowerCase(),
 	);
 
 	return (
