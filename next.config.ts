@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
 	logging: false,
 	devIndicators: false,
 	reactStrictMode: false,
+	experimental: {
+		prefetchInlining: true,
+	},
 	turbopack: {
 		rules: {
 			'*.svg': {
