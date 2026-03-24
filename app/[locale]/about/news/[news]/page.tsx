@@ -11,7 +11,7 @@ import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
-import { buildMetadata } from '@/app/layout';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function NewsPage({ params }: PageProps<'/[locale]/about/news/[news]'>) {
 	const { locale, news: slug } = await params;

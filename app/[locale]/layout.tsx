@@ -35,7 +35,6 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 						{children}
 					</Layout>
 				</NextIntlClientProvider>
-				<DraftModeContentLink />
 			</body>
 		</html>
 	);
