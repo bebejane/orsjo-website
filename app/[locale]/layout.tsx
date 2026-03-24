@@ -10,7 +10,6 @@ import { setRequestLocale } from 'next-intl/server';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import * as Sentry from '@sentry/nextjs';
-import * as geins from '@/geins/merchant-api';
 import { DraftModeContentLink } from 'next-dato-utils/components';
 
 export const dynamic = 'force-static';
@@ -30,8 +29,8 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 	return (
 		<html lang='en-US'>
 			<body id='root'>
+				{modals}
 				<NextIntlClientProvider>
-					{modals}
 					<Layout menu={menu} markets={markets} shipping={shipping} marketId={locale}>
 						{children}
 					</Layout>

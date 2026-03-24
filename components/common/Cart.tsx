@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react';
 import { default as useCart, useShallow } from '@/geins/hooks/useCart';
 import CountrySelector from './CountrySelector';
 import Loader from '@/components/common/Loader';
-import { usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import useStore from '@/lib/store';
 import { useClickAway } from 'react-use';
@@ -63,7 +62,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 		if (error) setError(null);
 	}
 
-	useClickAway(ref, () => setShowCart(false), ['mousedown']);
+	useClickAway(ref, (e) => setShowCart(false), ['mousedown']);
 
 	useEffect(() => {
 		try {

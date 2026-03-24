@@ -2,52 +2,19 @@ import '@/styles/index.scss';
 import { apiQuery } from 'next-dato-utils/api';
 import { GlobalDocument, ShippingDocument } from '@/graphql';
 import { Metadata } from 'next';
-import Layout from '@/components/layout/Layout';
-import { buildMenu } from '@/lib/menu';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
-import { NextIntlClientProvider } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
-import geinsQuery from '@/geins/geins-query';
-import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import * as Sentry from '@sentry/nextjs';
-import * as geins from '@/geins/merchant-api';
 import { DraftModeContentLink } from 'next-dato-utils/components';
 
 export const dynamic = 'force-static';
 
-export default async function RootLayout({ children, params, modals }: LayoutProps<'/[locale]'>) {
-	const { locale } = await (params as any);
-	setRequestLocale(locale);
-
-	const [menu, channels, { shipping }] = await Promise.all([
-		buildMenu(),
-		geinsQuery(AllGeinsChannelsDocument),
-		apiQuery(ShippingDocument),
-	]);
-
-	const markets = channels.channels?.map((c) => c?.markets ?? []).flat() as any[];
-
+export default async function RootLayout({ children }: LayoutProps<'/'>) {
 	return (
-		<html lang='en-US'>
-			<body id='root'>
-				{modals}
-				<NextIntlClientProvider>
-					<Layout menu={menu} markets={markets} shipping={shipping} marketId={locale}>
-						{children}
-					</Layout>
-				</NextIntlClientProvider>
-				<DraftModeContentLink />
-			</body>
-		</html>
+		<>
+			{children}
+			<DraftModeContentLink />
+		</>
 	);
-}
-
-export async function generateStaticParams() {
-	const channels = await geinsQuery(AllGeinsChannelsDocument);
-	const markets = channels.channels?.map((c) => c?.markets ?? []).flat() as any[];
-	return markets.map((market) => ({
-		country: market?.country?.code,
-	}));
 }
 
 export async function generateMetadata(props: LayoutProps<'/'>): Promise<Metadata> {
