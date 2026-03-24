@@ -10,7 +10,7 @@ import Specifications from './Specifications';
 import Downloads from './Downloads';
 import Shop from './Shop';
 import { Metadata } from 'next';
-import { buildMetadata } from '@/app/[locale]/layout';
+import { buildMetadata } from '@/app/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
 import { GEINS_MARKET_CURRENCY } from '@/geins/constants';

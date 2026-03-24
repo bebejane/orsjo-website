@@ -14,6 +14,20 @@
     }
   },
   {
+    "id": "NO|NOK",
+    "defaultLanguageId": "sv-SE",
+    "country": {
+      "name": "Norway",
+      "code": "NO"
+    },
+    "currency": {
+      "name": "Norsk Krone",
+      "symbol": "kr",
+      "code": "NOK",
+      "rate": 1
+    }
+  },
+  {
     "id": "GB|GBP",
     "defaultLanguageId": "sv-SE",
     "country": {
@@ -24,6 +38,20 @@
       "name": "British Pound",
       "symbol": "£",
       "code": "GBP",
+      "rate": 1
+    }
+  },
+  {
+    "id": "DK|DKK",
+    "defaultLanguageId": "sv-SE",
+    "country": {
+      "name": "Denmark",
+      "code": "DK"
+    },
+    "currency": {
+      "name": "Dansk Krone",
+      "symbol": "kr",
+      "code": "DKK",
       "rate": 1
     }
   },
@@ -374,34 +402,6 @@
       "name": "Euro",
       "symbol": "€",
       "code": "EUR",
-      "rate": 1
-    }
-  },
-  {
-    "id": "NO|NOK",
-    "defaultLanguageId": "sv-SE",
-    "country": {
-      "name": "Norway",
-      "code": "NO"
-    },
-    "currency": {
-      "name": "Norsk Krone",
-      "symbol": "kr",
-      "code": "NOK",
-      "rate": 1
-    }
-  },
-  {
-    "id": "DK|DKK",
-    "defaultLanguageId": "sv-SE",
-    "country": {
-      "name": "Denmark",
-      "code": "DK"
-    },
-    "currency": {
-      "name": "Dansk Krone",
-      "symbol": "kr",
-      "code": "DKK",
       "rate": 1
     }
   }

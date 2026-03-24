@@ -30,8 +30,8 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 	return (
 		<html lang='en-US'>
 			<body id='root'>
+				{modals}
 				<NextIntlClientProvider>
-					{modals}
 					<Layout menu={menu} markets={markets} shipping={shipping} marketId={locale}>
 						{children}
 					</Layout>
@@ -46,7 +46,7 @@ export async function generateStaticParams() {
 	const channels = await geinsQuery(AllGeinsChannelsDocument);
 	const markets = channels.channels?.map((c) => c?.markets ?? []).flat() as any[];
 	return markets.map((market) => ({
-		locale: market?.country?.code?.toLowerCase(),
+		country: market?.country?.code,
 	}));
 }
 

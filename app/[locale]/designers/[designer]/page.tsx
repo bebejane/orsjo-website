@@ -11,7 +11,7 @@ import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '@/compon
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import { buildMetadata } from '@/app/[locale]/layout';
+import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 import { DraftMode } from 'next-dato-utils/components';
 
