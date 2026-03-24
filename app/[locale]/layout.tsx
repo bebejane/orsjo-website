@@ -10,11 +10,12 @@ import { setRequestLocale } from 'next-intl/server';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import * as Sentry from '@sentry/nextjs';
+import * as geins from '@/geins/merchant-api';
 import { DraftModeContentLink } from 'next-dato-utils/components';
 
 export const dynamic = 'force-static';
 
-export default async function RootLayout({ children, params, modals }: LayoutProps<'/'>) {
+export default async function RootLayout({ children, params, modals }: LayoutProps<'/[locale]'>) {
 	const { locale } = await (params as any);
 	setRequestLocale(locale);
 
@@ -31,7 +32,7 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 			<body id='root'>
 				{modals}
 				<NextIntlClientProvider>
-					<Layout menu={menu} markets={markets} shipping={shipping}>
+					<Layout menu={menu} markets={markets} shipping={shipping} marketId={locale}>
 						{children}
 					</Layout>
 				</NextIntlClientProvider>

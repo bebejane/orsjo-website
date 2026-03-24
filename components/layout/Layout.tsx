@@ -17,10 +17,11 @@ export type LayoutProps = {
 	children: React.ReactNode;
 	menu: MenuItem[];
 	markets: MarketType[];
+	marketId: string;
 	shipping: ShippingQuery['shipping'];
 };
 
-export default function Layout({ children, menu, markets, shipping }: LayoutProps) {
+export default function Layout({ children, menu, markets, shipping, marketId }: LayoutProps) {
 	return (
 		<>
 			<PageProvider menu={menu}>
@@ -34,7 +35,7 @@ export default function Layout({ children, menu, markets, shipping }: LayoutProp
 					<Underlay />
 					<FullscreenGallery />
 				</div>
-				<Cart markets={markets} shipping={shipping} />
+				<Cart markets={markets} shipping={shipping} marketId={marketId} />
 				<Footer menu={menu} />
 				<CookieConsent />
 				<PageTransition />

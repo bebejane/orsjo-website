@@ -10,7 +10,7 @@ import Specifications from './Specifications';
 import Downloads from './Downloads';
 import Shop from './Shop';
 import { Metadata } from 'next';
-import { buildMetadata } from '@/app/layout';
+import { buildMetadata } from '@/app/[locale]/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
 import { GEINS_MARKET_CURRENCY } from '@/geins/constants';
@@ -29,6 +29,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 	if (!res) return notFound();
 
 	const {
+		marketId,
 		geins,
 		product,
 		relatedProducts,
@@ -49,7 +50,13 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
 			<ShopInfo product={product} shipping={shipping} currencyCode={currencyCode} />
-			<Shop product={product} geins={geins} variantId={variantId} shipping={shipping} />
+			<Shop
+				product={product}
+				geins={geins}
+				variantId={variantId}
+				shipping={shipping}
+				marketId={marketId}
+			/>
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery

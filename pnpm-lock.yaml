@@ -98,6 +98,9 @@ importers:
       react-aria-components:
         specifier: ^1.10.0
         version: 1.13.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      react-balance-text:
+        specifier: ^2.0.1
+        version: 2.0.1(react@19.2.3)
       react-datocms:
         specifier: ^8.0.0
         version: 8.0.0(@mux/mux-player-react@3.11.4(@types/react-dom@19.2.2(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(graphql@16.13.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -4194,6 +4197,9 @@ packages:
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
+  balance-text@3.3.1:
+    resolution: {integrity: sha512-tpnHvo1w0rJ5rbu+jZKf7NLKKg6XZ6eAwREP/9jEDJ+ZTBi6jQFqn/UGARL3/oqD8SgQbyTwBXBjhKDdTgoPRw==}
+
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
@@ -6589,6 +6595,12 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
       react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+
+  react-balance-text@2.0.1:
+    resolution: {integrity: sha512-AyhX0GchhK6xcPEzvsLPAgbM8dcUA6xkrWEYJtyg3voDRYW/QLPlCFgHU3r3sdTaZu0UztsOdJa8BemScd8llQ==}
+    engines: {npm: ^3.0.0}
+    peerDependencies:
+      react: ^0.14.7 || ^15.0.0 || ^16.0.0-0
 
   react-datocms@8.0.0:
     resolution: {integrity: sha512-NgfvvyebtP8BCqDV3cbgc/C6dwSco0tp2WF+M3SPz2p+gbcxLe5mAVgORA5EwGrjB2tlZGY/bZZW9c1VkveBDQ==}
@@ -12504,6 +12516,8 @@ snapshots:
 
   bail@2.0.2: {}
 
+  balance-text@3.3.1: {}
+
   balanced-match@1.0.2: {}
 
   balanced-match@4.0.4: {}
@@ -15426,6 +15440,11 @@ snapshots:
       '@react-types/shared': 3.32.1(react@19.2.3)
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
+
+  react-balance-text@2.0.1(react@19.2.3):
+    dependencies:
+      balance-text: 3.3.1
+      react: 19.2.3
 
   react-datocms@8.0.0(@mux/mux-player-react@3.11.4(@types/react-dom@19.2.2(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(graphql@16.13.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:

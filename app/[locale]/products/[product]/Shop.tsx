@@ -19,6 +19,7 @@ import useIsDesktop from '@/lib/hooks/useIsDesktop';
 import { useLocale } from 'next-intl';
 
 type Props = {
+	marketId: string;
 	product: ProductPageDataProps['product'];
 	geins: ProductPageDataProps['geins'];
 	variantId?: number;
@@ -36,9 +37,7 @@ type Addon = {
 	quantity: number;
 };
 
-export default function ProductShop({ product, geins, variantId, shipping }: Props) {
-	const locale = useLocale();
-	const currencyCode = geins.products?.[0]?.unitPrice?.currency?.code;
+export default function ProductShop({ product, geins, variantId, shipping, marketId }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
 	const allAddons = getAllAddons(product, geins);
 	const isDesktop = useIsDesktop();
@@ -180,7 +179,7 @@ export default function ProductShop({ product, geins, variantId, shipping }: Pro
 			...addons.map((a) => ({ skuId: a.variantId, quantity: a.quantity })),
 		].filter(({ skuId }) => skuId !== undefined);
 
-		await addToCart(variants, locale);
+		await addToCart(variants, marketId);
 		setShowCart(true);
 		resetAll();
 	}

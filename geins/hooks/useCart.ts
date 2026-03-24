@@ -20,16 +20,14 @@ export interface CartState {
 	updating: boolean;
 	updatingId: string | null;
 	error: string | undefined;
-	marketId: string;
 	update: (id: string | null, fn: (cart: Cart | undefined) => Promise<Cart>) => Promise<Cart>;
 	clearCart: () => void;
-	createCart: (country: string) => void;
+	createCart: (marketId: string) => void;
 	setCart: (cart: Cart) => Promise<Cart>;
-	addToCart: (items: CartItemInputType[], country: string) => Promise<Cart>;
+	addToCart: (items: CartItemInputType[], maarketId: string) => Promise<Cart>;
 	removeFromCart: (skuId: number) => Promise<Cart>;
 	updateQuantity: (skuId: string, quantity: number, marketId: string) => Promise<Cart>;
 	clearError: () => void;
-	setMarketId: (id: string) => void;
 }
 
 const useCart = create<CartState>((set, get) => ({
@@ -37,18 +35,14 @@ const useCart = create<CartState>((set, get) => ({
 	updating: false,
 	updatingId: null,
 	error: undefined,
-	marketId: GEINS_MARKET_ID,
-	createCart: async (marketId?: string) => {
+	createCart: async (marketId: string) => {
 		const id = await getCookie('cart', cartCookieOptions);
 		let cart: Cart | null = null;
-
-		marketId = marketId ?? get().marketId;
 
 		if (id) {
 			const res = await geinsQuery(CartDocument, {
 				revalidate: 0,
-				variables: { id },
-				marketId: marketId ?? get().marketId,
+				variables: { id, marketId },
 			});
 			cart = res.getCart ?? null;
 		}
@@ -56,35 +50,17 @@ const useCart = create<CartState>((set, get) => ({
 		if (!cart) {
 			const { getCart } = await geinsQuery(CartDocument, {
 				revalidate: 0,
-				marketId: get().marketId,
-				variables: { id: null },
+				variables: { id: null, marketId },
 			});
 			cart = getCart;
 		}
 		if (!cart) throw new Error('Cart not found');
-
 		return get().setCart(cart as Cart);
 	},
-	clearCart: async () => {
-		const cartId = get().cart?.id;
-		if (!cartId) return;
-		set((state) => ({ cart: undefined }));
-		deleteCookie('cart', cartCookieOptions);
-		await geinsQuery(ClearCartDocument, {
-			revalidate: 0,
-			variables: { id: cartId, marketId: get().marketId },
-		});
-	},
-	setCart: async (cart: Cart) => {
-		setCookie('cart', cart?.id, cartCookieOptions);
-		set((state) => ({ cart }));
-		return cart;
-	},
-	addToCart: async (items: CartItemInputType[], country: string) => {
+	addToCart: async (items: CartItemInputType[], marketId: string) => {
 		return get().update(null, async (cart) => {
 			let addToCart: Cart = null;
 			const id = cart?.id ?? '';
-			const marketId = get().marketId;
 			for (const item of items) {
 				addToCart = (
 					await geinsQuery(AddToCartDocument, {
@@ -110,13 +86,12 @@ const useCart = create<CartState>((set, get) => ({
 						skuId,
 						quantity: 0,
 					},
-					marketId: get().marketId,
 				},
 			});
 			return updateCartItem as Cart;
 		});
 	},
-	updateQuantity: async (skuId: string, quantity: number, marketId: string) => {
+	updateQuantity: async (skuId: string, quantity: number) => {
 		return get().update(skuId, async (cart) => {
 			const { updateCartItem } = await geinsQuery(UpdateCartItemDocument, {
 				revalidate: 0,
@@ -126,20 +101,30 @@ const useCart = create<CartState>((set, get) => ({
 						id: skuId,
 						quantity,
 					},
-					marketId: marketId ?? get().marketId,
 				},
 			});
 			return updateCartItem;
 		});
 	},
+	clearCart: async () => {
+		const cartId = get().cart?.id;
+		if (!cartId) return;
+
+		deleteCookie('cart', cartCookieOptions);
+		set((state) => ({ cart: undefined }));
+		await geinsQuery(ClearCartDocument, {
+			revalidate: 0,
+			variables: { id: cartId },
+		});
+	},
+	setCart: async (cart: Cart) => {
+		setCookie('cart', cart?.id, cartCookieOptions);
+		set((state) => ({ cart }));
+		return cart;
+	},
 	clearError: () => {
 		set(() => ({ error: undefined }));
 	},
-	setMarketId: (id: string) => {
-		set(() => ({ marketId: id }));
-		get().createCart(id);
-	},
-
 	update: async (id, fn) => {
 		set((state) => ({ updating: true, updatingId: id ?? null, error: undefined }));
 		return fn(get().cart)

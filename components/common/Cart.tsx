@@ -17,17 +17,17 @@ import { createCheckoutUrl, formatGeinsPrice, getProductImageUrl } from '@/geins
 import { GEINS_DELIVERY_PARAMETER_NAME, GEINS_GENERAL_PARAMETER_GROUP_ID } from '@/geins/constants';
 
 export type CartProps = {
+	marketId: string;
 	markets: MarketType[];
 	shipping: ShippingQuery['shipping'];
 };
 
-export default function Cart({ markets, shipping }: CartProps) {
+export default function Cart({ markets, shipping, marketId }: CartProps) {
 	const [
 		cart,
 		createCart,
 		removeFromCart,
 		updateQuantity,
-		setMarketId,
 		updating,
 		updatingId,
 		cartError,
@@ -38,7 +38,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 			state.createCart,
 			state.removeFromCart,
 			state.updateQuantity,
-			state.setMarketId,
 			state.updating,
 			state.updatingId,
 			state.error,
@@ -49,7 +48,6 @@ export default function Cart({ markets, shipping }: CartProps) {
 		useShallow((state) => [state.showCart, state.setShowCart]),
 	);
 	const locale = useLocale();
-	const pathname = usePathname();
 	const [error, setError] = useState<Error | string | null | undefined>(null);
 	const [submitting, setSubmitting] = useState(false);
 	const isEmpty = cart && cart?.items?.length ? false : true;
@@ -68,26 +66,12 @@ export default function Cart({ markets, shipping }: CartProps) {
 	useClickAway(ref, () => setShowCart(false), ['mousedown']);
 
 	useEffect(() => {
-		if (!cart) createCart(locale);
-	}, [cart, createCart]);
-
-	useEffect(() => {
 		try {
-			createCart(locale);
+			createCart(marketId);
 		} catch (err) {
 			setError(err as Error);
 		}
-	}, [pathname]);
-
-	useEffect(() => {
-		if (cart && locale) {
-			try {
-				setMarketId(locale);
-			} catch (err) {
-				setError(err as Error);
-			}
-		}
-	}, [locale]);
+	}, [marketId, locale]);
 
 	useEffect(() => {
 		const handleBeforeUnload = () => {
@@ -97,8 +81,7 @@ export default function Cart({ markets, shipping }: CartProps) {
 		return () => window.removeEventListener('unload', handleBeforeUnload);
 	}, []);
 
-	cart && console.log('cart', cart);
-
+	//console.log(cart);
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>

@@ -1,8 +1,8 @@
 import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import type { DocumentNode } from 'graphql';
 import { print } from 'graphql/language/printer';
-import * as Sentry from '@sentry/nextjs';
 import { GEINS_MARKET_ID } from '@/geins/constants';
+import * as Sentry from '@sentry/nextjs';
 
 export type ApiQueryOptions<V = void> = {
 	variables?: V;
@@ -48,7 +48,7 @@ export default async function geinsQuery<TResult = any, TVariables = Record<stri
 	const opt = { ...defaultOptions, ...(options ?? {}) };
 	const queryId = (query.definitions?.[0] as any).name?.value as string;
 	const vars = options?.variables ? { ...options.variables } : {};
-	const variables = { ...vars, marketId: opt.marketId || GEINS_MARKET_ID, channelId: '1' };
+	const variables = { ...vars } as Record<string, string>;
 	const dedupeOptions: DedupeOptions = {
 		body: JSON.stringify({
 			query: print(query),
@@ -58,7 +58,7 @@ export default async function geinsQuery<TResult = any, TVariables = Record<stri
 		queryId,
 	};
 
-	options?.logs && console.log(queryId, variables);
+	opt?.logs && console.log(queryId, variables);
 	const { data } = await dedupedFetch({ ...dedupeOptions, tags: [] });
 	return { ...data };
 }

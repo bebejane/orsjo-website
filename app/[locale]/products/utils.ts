@@ -23,6 +23,7 @@ export type SpecCol = {
 };
 
 export type ProductPageDataProps = {
+	marketId: string;
 	geins: {
 		products: ProductType[];
 		accessories: ProductType[];
@@ -41,7 +42,7 @@ export type ProductPageDataProps = {
 
 export const getProductPageData = async (
 	slug: string,
-	marketId: string,
+	locale: string,
 ): Promise<ProductPageDataProps | null> => {
 	const { product } = await apiQuery(ProductDocument, {
 		variables: { slug },
@@ -49,6 +50,7 @@ export const getProductPageData = async (
 
 	if (!product) return null;
 
+	const marketId = locale;
 	const [
 		{ allProducts, draftUrl },
 		{ allProducts: allProductCategories, draftUrl: categoriesDraftUrl },
@@ -78,9 +80,12 @@ export const getProductPageData = async (
 		projectsDraftUrl,
 		shippingDraftUrl,
 	].filter(Boolean);
-	const products = await geins.getProductsByCategory(slug, marketId);
-	const accessories = await geins.getProductsByCategory('accessory', marketId);
-	const lightsources = await geins.getProductsByCategory('lightsource', marketId);
+
+	const [products, accessories, lightsources] = await Promise.all([
+		geins.getProductsByCategory(slug, marketId),
+		geins.getProductsByCategory('accessory', marketId),
+		geins.getProductsByCategory('lightsource', marketId),
+	]);
 
 	const articleNumbers = product.models
 		.map((m) => [
@@ -130,6 +135,7 @@ export const getProductPageData = async (
 	};
 
 	return {
+		marketId,
 		product,
 		geins: {
 			products: products,

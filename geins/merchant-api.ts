@@ -4,8 +4,9 @@ import {
 	AllGeinsProductsDocument,
 	GeinsProductsByCategoryDocument,
 } from '@/geins/graphql';
+import { defaultLocale } from '@/i18n/routing';
 
-export async function getProduct(slug: string, marketId?: string): Promise<ProductType[]> {
+export async function getProduct(slug: string, marketId: string): Promise<ProductType[]> {
 	const { products } = await geinsQuery(GeinsProductsByCategoryDocument, {
 		variables: { categoryAlias: slug, marketId },
 	});
@@ -13,7 +14,7 @@ export async function getProduct(slug: string, marketId?: string): Promise<Produ
 	return (products?.products as ProductType[]) ?? [];
 }
 
-export async function getAllProducts(marketId?: string): Promise<{
+export async function getAllProducts(marketId: string): Promise<{
 	products: ProductType[];
 	lightsources: ProductType[];
 	accessories: ProductType[];
@@ -24,8 +25,7 @@ export async function getAllProducts(marketId?: string): Promise<{
 	let take = 200;
 
 	let res = await geinsQuery(AllGeinsProductsDocument, {
-		variables: { skip, take },
-		marketId,
+		variables: { skip, take, marketId },
 	});
 
 	let count = res?.products?.count ?? 0;
@@ -39,7 +39,7 @@ export async function getAllProducts(marketId?: string): Promise<{
 		if (skip >= count) break;
 
 		res = await geinsQuery(AllGeinsProductsDocument, {
-			variables: { skip, take },
+			variables: { skip, take, marketId },
 			marketId,
 		});
 	}
@@ -67,8 +67,7 @@ export async function getProductsByCategory(
 	let take = 200;
 
 	let res = await geinsQuery(GeinsProductsByCategoryDocument, {
-		variables: { skip, take, categoryAlias },
-		marketId,
+		variables: { skip, take, categoryAlias, marketId },
 	});
 
 	let count = res?.products?.count ?? 0;
@@ -82,8 +81,7 @@ export async function getProductsByCategory(
 		if (skip >= count) break;
 
 		res = await geinsQuery(GeinsProductsByCategoryDocument, {
-			variables: { skip, take, categoryAlias },
-			marketId,
+			variables: { skip, take, categoryAlias, marketId },
 		});
 	}
 
@@ -100,11 +98,12 @@ export async function getLightsources(marketId: string): Promise<ProductType[]> 
 	return lightsources;
 }
 
-export async function getMarketId(locale: string): Promise<string> {
+export async function getMarketId(locale: string = defaultLocale): Promise<string> {
 	const { channels } = await geinsQuery(AllGeinsChannelsDocument);
 	const marketId = channels?.[0]?.markets?.find(
 		(m) => m?.country?.code.toLowerCase() === locale.toLowerCase(),
 	)?.id;
+
 	if (!marketId) throw new Error('Invalid market locale: ' + locale);
 	return marketId;
 }
