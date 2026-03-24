@@ -44,9 +44,10 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 export async function generateStaticParams() {
 	const channels = await geinsQuery(AllGeinsChannelsDocument);
 	const markets = channels.channels?.map((c) => c?.markets ?? []).flat() as any[];
-	return markets.map((market) => ({
+	const locales = markets.map((market) => ({
 		locale: market?.country?.code?.toLowerCase(),
 	}));
+	return locales;
 }
 
 export async function generateMetadata(props: LayoutProps<'/'>): Promise<Metadata> {

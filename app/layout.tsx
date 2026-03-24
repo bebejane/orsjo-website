@@ -1,20 +1,14 @@
 import '@/styles/index.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { GlobalDocument, ShippingDocument } from '@/graphql';
+import { GlobalDocument } from '@/graphql';
 import { Metadata } from 'next';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import * as Sentry from '@sentry/nextjs';
-import { DraftModeContentLink } from 'next-dato-utils/components';
 
 export const dynamic = 'force-static';
 
 export default async function RootLayout({ children }: LayoutProps<'/'>) {
-	return (
-		<>
-			{children}
-			<DraftModeContentLink />
-		</>
-	);
+	return <>{children}</>;
 }
 
 export async function generateMetadata(props: LayoutProps<'/'>): Promise<Metadata> {
