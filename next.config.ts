@@ -16,14 +16,14 @@ const nextConfig: NextConfig = {
 			@use "@/styles/mixin" as *;
   	`,
 	},
-	typescript: {
-		ignoreBuildErrors: true,
-	},
 	logging: false,
 	devIndicators: false,
 	reactStrictMode: false,
 	experimental: {
 		prefetchInlining: true,
+	},
+	typescript: {
+		ignoreBuildErrors: true,
 	},
 	turbopack: {
 		rules: {
