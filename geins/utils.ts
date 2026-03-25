@@ -66,11 +66,11 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string
 			selectedShippingMethodId: 0,
 			isCartEditable: false,
 			redirectUrls: {
-				success: `${siteUrl}/thank-you`,
-				cancel: `${siteUrl}/products`,
-				continue: `${siteUrl}/products`,
-				terms: `${siteUrl}/support/terms-conditions`,
-				privacy: `${siteUrl}/support/privacy-policy`,
+				success: `${siteUrl}/${locale}}/thank-you`,
+				cancel: `${siteUrl}/${locale}}/products`,
+				continue: `${siteUrl}/${locale}}/products`,
+				terms: `${siteUrl}/${locale}}/support/terms-conditions`,
+				privacy: `${siteUrl}/${locale}}/support/privacy-policy`,
 			},
 			branding: {
 				title: 'Orsjo Belysning Checkout',
@@ -89,10 +89,11 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string
 			channel: String(GEINS_CHANNEL_ID),
 			accountName: 'orsjo',
 			market: locale,
-			locale,
+			locale: 'en-US',
 			tld: 'com',
 		} as GeinsSettings,
 	};
+
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
