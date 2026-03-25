@@ -52,9 +52,9 @@ export const getProductImageUrl = (product: ProductType): string | undefined => 
 	return imageUrl;
 };
 
-export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string {
+export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl?: string): string {
 	if (!cartId) return 'https://checkout.geins.services/v0/checkout';
-	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
+	const siteUrl = baseUrl ?? process.env.NEXT_PUBLIC_SITE_URL!;
 	const checkoutTokenOptions: any = {
 		cartId: cartId as string,
 		checkoutSettings: {
@@ -66,11 +66,11 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string
 			selectedShippingMethodId: 0,
 			isCartEditable: false,
 			redirectUrls: {
-				success: `${siteUrl}/${locale}}/thank-you`,
-				cancel: `${siteUrl}/${locale}}/products`,
-				continue: `${siteUrl}/${locale}}/products`,
-				terms: `${siteUrl}/${locale}}/support/terms-conditions`,
-				privacy: `${siteUrl}/${locale}}/support/privacy-policy`,
+				success: `${siteUrl}/${locale}/thank-you`,
+				cancel: `${siteUrl}/${locale}/products`,
+				continue: `${siteUrl}/${locale}/products`,
+				terms: `${siteUrl}/${locale}/support/terms-conditions`,
+				privacy: `${siteUrl}/${locale}/support/privacy-policy`,
 			},
 			branding: {
 				title: 'Orsjo Belysning Checkout',
@@ -89,7 +89,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string
 			channel: String(GEINS_CHANNEL_ID),
 			accountName: 'orsjo',
 			market: locale,
-			locale: 'sv-SE',
+			locale,
 			tld: 'com',
 		} as GeinsSettings,
 	};

@@ -81,6 +81,13 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 	}, []);
 
 	cart && console.log(cart);
+	// console.log(
+	// 	createCheckoutUrl(
+	// 		'"e1ca7ae1-8c62-4a58-99f9-a61f57a17c5c"',
+	// 		locale,
+	// 		'https://orsjo-geins.vercel.app',
+	// 	),
+	// );
 
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
