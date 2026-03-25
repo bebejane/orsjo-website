@@ -89,11 +89,10 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string
 			channel: String(GEINS_CHANNEL_ID),
 			accountName: 'orsjo',
 			market: locale,
-			locale: 'en-US',
+			locale: 'sv-SE',
 			tld: 'com',
 		} as GeinsSettings,
 	};
-
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
