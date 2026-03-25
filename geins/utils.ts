@@ -58,7 +58,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 	const checkoutTokenOptions: any = {
 		cartId: cartId as string,
 		checkoutSettings: {
-			copyCart: false,
+			copyCart: true,
 			customerType: 'PERSON' as CustomerType.PERSON,
 			availablePaymentMethodIds: [23, 24, 25, 18],
 			selectedPaymentMethodId: 23,
@@ -86,13 +86,16 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 		geinsSettings: {
 			environment: 'prod',
 			apiKey: process.env.NEXT_PUBLIC_GEINS_MERCHANT_API_KEY!,
-			channel: String(GEINS_CHANNEL_ID),
+			channel: `${String(GEINS_CHANNEL_ID)}`,
 			accountName: 'orsjo',
 			market: locale,
-			locale,
+			locale: locale === 'se' ? 'sv-SE' : 'en-US',
 			tld: 'com',
 		} as GeinsSettings,
 	};
+
+	console.log(checkoutTokenOptions);
+
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 

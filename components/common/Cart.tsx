@@ -54,7 +54,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 	const checkboxRef = useRef<HTMLInputElement>(null);
-	const checkoutUrl = createCheckoutUrl(cart?.id, locale);
+	const checkoutUrl = createCheckoutUrl(cart?.id, locale, 'https://orsjo-geins.vercel.app');
 	const summary = cart?.summary;
 
 	function handleCloseError() {
@@ -79,15 +79,6 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 		window.addEventListener('unload', handleBeforeUnload);
 		return () => window.removeEventListener('unload', handleBeforeUnload);
 	}, []);
-
-	cart && console.log(cart);
-	// console.log(
-	// 	createCheckoutUrl(
-	// 		'"e1ca7ae1-8c62-4a58-99f9-a61f57a17c5c"',
-	// 		locale,
-	// 		'https://orsjo-geins.vercel.app',
-	// 	),
-	// );
 
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
