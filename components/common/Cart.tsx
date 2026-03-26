@@ -54,7 +54,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 	const [terms, setTerms] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 	const checkboxRef = useRef<HTMLInputElement>(null);
-	const checkoutUrl = createCheckoutUrl(cart?.id, locale, 'https://orsjo-geins.vercel.app');
+	const checkoutUrl = createCheckoutUrl(cart?.id, locale);
 	const summary = cart?.summary;
 
 	function handleCloseError() {

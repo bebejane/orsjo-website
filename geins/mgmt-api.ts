@@ -1,3 +1,5 @@
+import { Market } from '@/geins/mgmt-api.types';
+
 export async function request(
 	path: string,
 	method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' = 'GET',
@@ -183,7 +185,7 @@ export async function updatePriceListPrices(price: any[]) {
 	return c;
 }
 
-export async function getMarkets() {
+export async function getMarkets(): Promise<Market[]> {
 	const c = await request('/Market/List', 'GET');
 	return c;
 }

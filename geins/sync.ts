@@ -18,6 +18,8 @@ import {
 	GEINS_SLUG_PARAMETER_ID,
 } from '@/geins/constants';
 
+import { Market } from '@/geins/mgmt-api.types';
+
 type ProductData = {
 	apiKey: string;
 	slug: string;
@@ -181,7 +183,7 @@ export const sync = async (itemId: string): Promise<void> => {
 	}
 };
 
-export async function updateProduct(itemId: string, p: ProductData[], markets: any) {
+export async function updateProduct(itemId: string, p: ProductData[], markets: Market[]) {
 	let categoryId = p[0].categoryId;
 	const categorySlug =
 		p[0].apiKey === 'product'
@@ -206,12 +208,10 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: a
 		const product = {
 			ProductId: productId,
 			ArticleNumber: articleNo,
-			Names: [
-				{
-					LanguageCode: 'sv',
-					Content: name,
-				},
-			],
+			Names: markets.map(({ Language }) => ({
+				LanguageCode: Language,
+				Content: name,
+			})),
 			Active: true,
 			BrandId: 1,
 			CategoryIds: [categoryId],

@@ -272,6 +272,7 @@
 			width: 100%;
 			background-color: var(--white);
 			color: var(--black);
+			min-height: 2rem;
 			&:hover {
 				color: var(--black) !important;
 			}

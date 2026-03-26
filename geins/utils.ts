@@ -89,12 +89,10 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 			channel: `${String(GEINS_CHANNEL_ID)}`,
 			accountName: 'orsjo',
 			market: locale,
-			locale: locale === 'se' ? 'sv-SE' : 'en-US',
+			locale,
 			tld: 'com',
 		} as GeinsSettings,
 	};
-
-	console.log(checkoutTokenOptions);
 
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
@@ -109,6 +107,8 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 	const encodedPayload = base64UrlEncode(JSON.stringify(checkoutTokenOptions));
 	const token = `${encodedHeader}.${encodedPayload}`;
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
+	console.log(checkoutTokenOptions);
+	console.log(url);
 	return url;
 }
 
