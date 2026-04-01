@@ -100,7 +100,7 @@
 						justify-content: center;
 						border: none;
 						right: 13px;
-						top: 4px;
+						top: 6px;
 						height: 30px;
 						width: 30px;
 						z-index: 2;
@@ -108,6 +108,7 @@
 						cursor: pointer;
 						visibility: hidden;
 						background-color: transparent;
+						padding: 0;
 
 						&.show {
 							visibility: visible;
