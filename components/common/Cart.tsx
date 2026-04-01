@@ -171,6 +171,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 							);
 						})}
 					</ul>
+					<div className={s.fade}></div>
 					<div className={s.currency}>
 						<div className='small gray'>Currency</div>
 						<CountrySelector markets={markets} invert={true} />

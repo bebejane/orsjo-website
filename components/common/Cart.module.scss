@@ -32,6 +32,7 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: baseline;
+		padding-bottom: 1rem;
 
 		h1 {
 			padding-bottom: 0;
@@ -48,9 +49,19 @@
 		}
 	}
 
+	.fade {
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, var(--black) 75%);
+		height: 1.2rem;
+		margin-top: -2rem;
+	}
+
 	.currency {
 		display: flex;
 		justify-content: space-between;
+
+		@include mq($until: desktop) {
+			padding-top: 0.5rem;
+		}
 
 		button {
 			@include mq($until: desktop) {
@@ -75,7 +86,7 @@
 		margin-bottom: 1rem;
 
 		@include mq($from: desktop) {
-			padding-top: 0.5rem;
+			//margin-top: -1em;
 		}
 
 		&::-webkit-scrollbar {
@@ -96,6 +107,14 @@
 			margin-top: 1em;
 			border-top: 1px solid var(--white);
 			padding-top: 1em;
+
+			&:first-of-type {
+				margin-top: 0;
+			}
+
+			&:last-of-type {
+				margin-bottom: 1rem;
+			}
 
 			&.updating {
 				opacity: 0.5;
