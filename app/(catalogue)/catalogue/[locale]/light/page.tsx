@@ -12,13 +12,14 @@ export default async function CatalogueLightPage({
 	const currency = await getCurrencyRateByLocale(locale as SiteLocale);
 
 	const { allProducts } = await apiQuery(AllProductsDocument, {
+		all: true,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 
 	return (
 		<div className={s.container}>
 			<CatalogueLight
-				products={sortProductsByCategory(allProducts.filter((p) => p.models.length === 1))}
+				products={sortProductsByCategory(allProducts)}
 				withLightsource={false}
 				locale={locale}
 				currency={currency}

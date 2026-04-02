@@ -17,6 +17,7 @@ export default async function CatalogueLightWrapper({
 	const { locale } = await (params as any);
 	const currency = await getCurrencyRateByLocale(locale as SiteLocale);
 	const { allProducts } = await apiQuery(AllProductsDocument, {
+		all: true,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 

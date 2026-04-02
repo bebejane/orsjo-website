@@ -14,6 +14,7 @@ export default async function CatalogueLightWithTaxPage({
 	const { locale } = await (params as any);
 	const currency = await getCurrencyRateByLocale(locale as SiteLocale);
 	const { allProducts } = await apiQuery(AllProductsDocument, {
+		all: true,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 
