@@ -1,21 +1,23 @@
 import '@/styles/index.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { GlobalDocument, ShippingDocument } from '@/graphql';
+import { ShippingDocument, SiteDocument } from '@/graphql';
 import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import { buildMenu } from '@/lib/menu';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
-import { NextIntlClientProvider } from 'next-intl';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import * as Sentry from '@sentry/nextjs';
-import { DraftModeContentLink } from 'next-dato-utils/components';
+import { locales } from '@/i18n/routing';
+import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-static';
 
 export default async function RootLayout({ children, params, modals }: LayoutProps<'/[locale]'>) {
 	const { locale } = await (params as any);
+	if (!hasLocale(locales, locale)) return notFound();
 	setRequestLocale(locale);
 
 	const [menu, channels, { shipping }] = await Promise.all([
@@ -51,9 +53,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: LayoutProps<'/'>): Promise<Metadata> {
 	const {
-		site: { globalSeo, faviconMetaTags },
-	} = await apiQuery(GlobalDocument, {
-		variables: {},
+		_site: { globalSeo, faviconMetaTags },
+	} = await apiQuery(SiteDocument, {
 		revalidate: 60 * 60,
 	});
 

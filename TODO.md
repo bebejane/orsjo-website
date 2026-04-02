@@ -1,9 +1,6 @@
-# Cart
+# Pdf generator
 
-- addToCart multiple
-- CartError
-- country selector hidden
-
-# Site
-
-- Change country homepage bug
+- Full with cover
+- product webhook
+- admin snyggaupp
+- upload pdf

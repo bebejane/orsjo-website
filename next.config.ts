@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
 	devIndicators: false,
 	reactStrictMode: false,
 	experimental: {
-		prefetchInlining: true,
+		//authInterrupts: true,
 	},
 	typescript: {
 		ignoreBuildErrors: true,

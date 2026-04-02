@@ -8,6 +8,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { Section } from '@/components';
 import { Metadata } from 'next';
 import { DraftMode, StructuredContent } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function PrivacyPolicy({
 	params,
@@ -49,7 +50,9 @@ export default async function PrivacyPolicy({
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Privacy Policy',
-	};
+		description: 'Privacy Policy at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/support/privacy-policy`,
+	});
 }

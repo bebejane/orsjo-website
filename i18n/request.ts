@@ -6,18 +6,8 @@ import { Locale } from 'next-intl';
 export default getRequestConfig(async ({ requestLocale }) => {
 	const locale = (await requestLocale) ?? (routing.defaultLocale as Locale);
 	if (!routing.locales.includes(locale as any)) notFound();
-	const allMessages: any = (await import(`./messages.json`)).default;
-	const messages: any = {};
-
-	Object.keys(allMessages).forEach((section) => {
-		messages[section] = {};
-		Object.keys(allMessages[section]).forEach((key) => {
-			messages[section][key] = allMessages[section][key][locale];
-		});
-	});
-
 	return {
 		locale,
-		messages,
+		messages: {},
 	};
 });

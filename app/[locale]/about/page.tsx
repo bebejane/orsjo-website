@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
 import { stripStega } from '@datocms/content-link';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function About({ params }: PageProps<'/[locale]/about'>) {
 	const { locale } = await params;
@@ -63,7 +64,9 @@ export default async function About({ params }: PageProps<'/[locale]/about'>) {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
-		title: 'About Us',
-	};
+	return buildMetadata({
+		title: 'About',
+		description: 'About Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about`,
+	});
 }

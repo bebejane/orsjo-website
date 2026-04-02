@@ -7,6 +7,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { Section } from '@/components';
 import { Metadata } from 'next';
 import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function PressPage({ params }: PageProps<'/[locale]/about/press'>) {
 	const { locale } = await params;
@@ -31,7 +32,9 @@ export default async function PressPage({ params }: PageProps<'/[locale]/about/p
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Press',
-	};
+		description: 'Press at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/press`,
+	});
 }

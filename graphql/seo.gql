@@ -5,6 +5,7 @@ query SiteSEO {
 }
 
 fragment SiteFragment on Site {
+	locales
 	faviconMetaTags {
 		attributes
 		content

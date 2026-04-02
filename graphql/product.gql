@@ -194,6 +194,7 @@ fragment ProductFragment on ProductRecord {
 	additionalInformation
 	markAsNew
 	upcycled
+	hideInPricelist
 	image {
 		...ImageFragment
 	}

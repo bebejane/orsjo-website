@@ -9,6 +9,7 @@ import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function Sustainability({
 	params,
@@ -73,7 +74,9 @@ export default async function Sustainability({
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Sustainability',
-	};
+		description: 'Sustainability at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/sustainability`,
+	});
 }

@@ -10,6 +10,7 @@ import { setRequestLocale } from 'next-intl/server';
 import BespokeHeader from './BespokeHeader';
 import { Metadata } from 'next';
 import BespokeProjects from './BespokeProjects';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function Bespoke({ params }: PageProps<'/[locale]/professionals/bespoke'>) {
 	const { locale } = await params;
@@ -45,7 +46,9 @@ export default async function Bespoke({ params }: PageProps<'/[locale]/professio
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Bespoke',
-	};
+		description: 'Bespoke at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/professionals/bespoke`,
+	});
 }

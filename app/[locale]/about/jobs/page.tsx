@@ -7,6 +7,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { DraftMode, Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';
 import { Metadata } from 'next';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function Jobs({ params }: PageProps<'/[locale]/about/jobs'>) {
 	const { locale } = await params;
@@ -42,7 +43,9 @@ export default async function Jobs({ params }: PageProps<'/[locale]/about/jobs'>
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return await buildMetadata({
 		title: 'Jobs',
-	};
+		description: 'Jobs at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/jobs`,
+	});
 }

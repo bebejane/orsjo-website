@@ -26,6 +26,9 @@
       "@/*": [
         "./*"
       ],
+      "@/catalogue/*": [
+        "./app/(catalogue)/*"
+      ],
       "datocms.config": [
         "./datocms.config.ts"
       ]
