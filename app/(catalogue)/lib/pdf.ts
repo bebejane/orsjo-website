@@ -9,19 +9,18 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 		const browser = await getBrowser();
 		page = await browser.newPage();
 
-		// await page.authenticate({
-		// 	username: process.env.BASIC_AUTH_USER,
-		// 	password: process.env.BASIC_AUTH_PASSWORD,
-		// });
+		await page.authenticate({
+			username: process.env.BASIC_AUTH_USER!,
+			password: process.env.BASIC_AUTH_PASSWORD!,
+		});
 
 		console.log('generate pdf from: ', url);
-		const res = await page.goto(`${url}`, { timeout: 60 * 1000, waitUntil: 'networkidle0' });
+		const res = await page.goto(url, { timeout: 60 * 1000, waitUntil: 'networkidle0' });
 
 		if (res?.status() !== 200)
 			throw new Error(`Internal server error. HTTP status: ${res?.status()}`);
 
 		const buffer = await page.pdf({
-			//path: filePath,
 			format: 'A4',
 			printBackground: true,
 			preferCSSPageSize: true,
