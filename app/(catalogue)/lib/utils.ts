@@ -1,8 +1,6 @@
 import { AllCurrenciesDocument, CurrencyDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 
-const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms));
-
 export type CurrencyRate = {
 	isoCode: string;
 	symbol: string;
@@ -85,6 +83,7 @@ const priceIncLight = (
 	lightsources
 		.filter((l) => !l.optional && !l.included)
 		.forEach((l) => (price += l.lightsource.price * (l.amount ? l.amount : 0)));
+	console.log(price, prodPrice);
 	return formatPrice(price, locale, currency);
 };
 
@@ -105,6 +104,4 @@ const toLanguageLocale = (locale: string): SiteLocale => {
 	else return 'en' as SiteLocale;
 };
 
-const isServer = typeof window === 'undefined';
-
-export { sleep, isServer, priceIncLight, sortProductsByCategory, toLanguageLocale };
+export { priceIncLight, sortProductsByCategory, toLanguageLocale };

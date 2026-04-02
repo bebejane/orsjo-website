@@ -2,8 +2,8 @@
 
 import s from './ProductRow.module.scss';
 import cn from 'classnames';
-import { CurrencyRate, formatPrice, priceIncLight } from '@/catalogue/lib/utils';
 import React from 'react';
+import { CurrencyRate, formatPrice, priceIncLight } from '@/catalogue/lib/utils';
 import { useDictionary } from '@/app/(catalogue)/lib/context/dictionary';
 
 type ProductRowProps = {
@@ -20,10 +20,6 @@ export default function ProductRow({
 	currency,
 }: ProductRowProps) {
 	const t = useDictionary('Catalogue');
-	const drawings = product.models
-		.map((m) => ({ drawing: m.drawing, name: m.name }))
-		.filter((d) => d.drawing);
-
 	const rows = product.models.map((m, idxm) => {
 		const lightsources = m.lightsources.filter(({ included }) => !included);
 		return m.variants.map((v, idx) => {

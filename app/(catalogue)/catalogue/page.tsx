@@ -1,4 +1,3 @@
-import { toLanguageLocale } from '@/app/(catalogue)/lib/utils';
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument, SiteDocument } from '@/graphql';

@@ -1,6 +1,7 @@
 import { Page } from 'puppeteer-core';
 import { getBrowser } from './puppeteer';
-import client from '@/lib/client';
+import { PDFDocument } from 'pdf-lib';
+import fs from 'fs';
 
 export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 	let page: Page | null = null;
@@ -38,6 +39,23 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 		if (page) await page.close();
 		throw err;
 	}
+}
+
+export async function merge(paths: string[], buffer: Uint8Array<ArrayBuffer>) {
+	const mergedPdf = await PDFDocument.create();
+
+	for (const path of paths) {
+		const pdfBytes = fs.readFileSync(path);
+		const pdf = await PDFDocument.load(pdfBytes);
+		const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+		copiedPages.forEach((page) => mergedPdf.addPage(page));
+	}
+
+	const main = await PDFDocument.load(buffer);
+	const copy = await mergedPdf.copyPages(main, main.getPageIndices());
+	copy.forEach((page) => mergedPdf.addPage(page));
+	const mergedPdfBytes = await mergedPdf.save();
+	return Buffer.from(mergedPdfBytes);
 }
 
 // type UploadOptions = {
