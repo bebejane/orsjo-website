@@ -8,6 +8,7 @@ import { Section } from '@/components';
 import FaqList from '@/app/[locale]/support/faq/FaqList';
 import { Metadata } from 'next';
 import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function Faqs({ params }: PageProps<'/[locale]/support/faq'>) {
 	const { locale } = await params;
@@ -30,7 +31,9 @@ export default async function Faqs({ params }: PageProps<'/[locale]/support/faq'
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'FAQ',
-	};
+		description: 'FAQ at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/support/faq`,
+	});
 }

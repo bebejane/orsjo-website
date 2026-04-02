@@ -4,6 +4,8 @@ import geinsQuery from '@/geins/geins-query';
 import { CartDocument, CheckoutDocument, CompletCartDocument } from '@/geins/graphql';
 import { Section } from '@/components';
 import { ArrowLink } from '@/components';
+import { buildMetadata } from '@/app/[locale]/layout';
+import { Metadata } from 'next';
 
 export const dynamic = 'auto';
 
@@ -46,7 +48,7 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 			<div className={s.wrap}>
 				{!error ? (
 					<>
-						<h1 className="big">Thank you for your order!</h1>
+						<h1 className='big'>Thank you for your order!</h1>
 						<p>Your order has been placed and is being processed.</p>
 						<p>
 							You will receive an email with your order details shortly. If you have any questions,
@@ -65,4 +67,12 @@ export default async function ThankYou({ searchParams }: PageProps<'/[locale]/th
 			</div>
 		</Section>
 	);
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	return buildMetadata({
+		title: 'Thank you',
+		description: 'Thank you for your order at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/thank-you`,
+	});
 }

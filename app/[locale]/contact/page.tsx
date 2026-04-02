@@ -15,6 +15,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 type ResellersByCountry = {
 	[country: string]: {
@@ -257,7 +258,9 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Contact',
-	};
+		description: 'Contact us at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/contact`,
+	});
 }

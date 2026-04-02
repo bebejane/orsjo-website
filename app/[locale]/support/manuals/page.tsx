@@ -8,6 +8,7 @@ import { setRequestLocale } from 'next-intl/server';
 import ManualList from '@/app/[locale]/support/manuals/ManualList';
 import { Metadata } from 'next';
 import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export type ManualsProps = {
 	products: ProductRecord[];
@@ -45,7 +46,9 @@ export default async function Manuals({ params }: PageProps<'/[locale]/support/m
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Manuals',
-	};
+		description: 'Manuals at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/support/manuals`,
+	});
 }

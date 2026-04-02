@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import ColorsAndMaterialsList from './ColorsMaterialsList';
 import { Metadata } from 'next';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function ColorsAndMaterials({
 	params,
@@ -39,7 +40,9 @@ export default async function ColorsAndMaterials({
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Colors & Materials',
-	};
+		description: 'Colors & Materials at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/professionals/colors-and-materials`,
+	});
 }

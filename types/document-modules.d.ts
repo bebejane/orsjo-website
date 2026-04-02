@@ -138,24 +138,6 @@ declare module '*/VideoFragment.gql' {
 }
     
 
-declare module '*/global.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const Global: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/intl.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const Intl: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/lightsource.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -248,6 +230,15 @@ declare module '*/shipping.gql' {
 }
     
 
+declare module '*/site.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Site: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/sitemap.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -285,6 +276,15 @@ declare module '*/terms.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const TermsStart: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/translations.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllTranslations: DocumentNode;
 
   export default defaultDocument;
 }

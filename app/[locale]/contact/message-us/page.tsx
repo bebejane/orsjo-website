@@ -10,6 +10,7 @@ import ContactForm from './ContactForm';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function ContactModalPage({
 	params,
@@ -49,7 +50,9 @@ export default async function ContactModalPage({
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
-		title: 'Contact - Message Us',
-	};
+	return buildMetadata({
+		title: 'Contact us',
+		description: 'Contact us at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/contact/message-us`,
+	});
 }

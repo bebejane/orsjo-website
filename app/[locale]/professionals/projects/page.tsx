@@ -7,6 +7,8 @@ import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
+import { buffer } from 'stream/consumers';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function Professionals({
 	params,
@@ -66,7 +68,9 @@ export default async function Professionals({
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Projects',
-	};
+		description: 'Projects at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/professionals/projects`,
+	});
 }
