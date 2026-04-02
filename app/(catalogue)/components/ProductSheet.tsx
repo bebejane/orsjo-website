@@ -1,8 +1,8 @@
 'use client';
 
 import s from './ProductSheet.module.scss';
-import { convertPrice, CurrencyRate, formatPrice } from '@/catalogue/lib/utils';
 import cn from 'classnames';
+import { CurrencyRate, formatPrice } from '@/catalogue/lib/utils';
 import Page from './Page';
 import { Markdown } from 'next-dato-utils/components';
 import { useDictionary } from '@/app/(catalogue)/lib/context/dictionary';
@@ -54,7 +54,11 @@ export default function ProductSheet({
 						</div>
 						<div className={s.productText}>
 							<h1 className={s.title}>{product.title}</h1>
-							<Markdown truncate={400} className={s.description} content={product.description} />
+							<Markdown
+								truncate={400}
+								className={s.description}
+								content={product.description ?? ''}
+							/>
 						</div>
 					</div>
 					<div className={s.colors}>
@@ -139,6 +143,7 @@ const parseSpecifications = (product: AllProductsQuery['allProducts'][number], t
 	product.models
 		.map((m) => m.lightsources.map((l) => ({ ...l, modelName: m.name?.name })))
 		.forEach((l) => allLightsources.push.apply(allLightsources, l));
+
 	let lightsources: (LightsourcePick & { modelName: string })[] = allLightsources
 		.filter((obj, index, arr) => arr.map((mapObj) => mapObj.id).indexOf(obj.id) === index)
 		.map(({ amount, included, lightsource, modelName }) => ({
@@ -148,6 +153,7 @@ const parseSpecifications = (product: AllProductsQuery['allProducts'][number], t
 			id: lightsource.id,
 			modelName,
 		}));
+
 	lightsources = lightsources.filter(
 		(obj, index, arr) => arr.map((mapObj) => mapObj.id).indexOf(obj.id) === index,
 	);
@@ -201,7 +207,7 @@ const parseSpecifications = (product: AllProductsQuery['allProducts'][number], t
 				.map(({ key, value, linebreaks }, idx) => (
 					<tr key={idx}>
 						<td>{t(key)}</td>
-						<td>{linebreaks ? <Markdown content={value} /> : value}</td>
+						<td>{linebreaks && value ? <Markdown content={value} /> : value}</td>
 					</tr>
 				))}
 		</>

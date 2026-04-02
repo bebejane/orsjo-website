@@ -11,7 +11,7 @@ export async function GET(req: Request, { params }: RouteContext<'/catalogue/[lo
 	const title = `Örsjo prislista - Full (${locale.toUpperCase()})`;
 	const buffer = await generate(url);
 	const coverPathname = `${catalogueRoot}/lib/covers/catalogue-cover-page-${locale}.pdf`;
-	console.log(coverPathname);
+	console.log({ coverPathname });
 	const pdf = await merge([coverPathname], buffer);
 
 	return new Response(pdf, {

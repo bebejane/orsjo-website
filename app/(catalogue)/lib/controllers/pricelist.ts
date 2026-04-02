@@ -8,7 +8,7 @@ export type Article = { articleNo: string; name: string; price: number };
 export type ProductUpdatesResponse = {
 	notFound: Article[];
 	updates: ProductUpdate;
-	errors: { product: ProductRecord; error: unknown }[];
+	errors: { product: ProductRecord; error: string }[];
 };
 
 type ProductRecord = ItemInNestedResponse<Product>;
@@ -76,7 +76,7 @@ export async function generate(articles: Article[]): Promise<ProductUpdatesRespo
 	)[];
 
 	const notFound: Article[] = [];
-	const errors: { product: ProductRecord; error: unknown }[] = [];
+	const errors: { product: ProductRecord; error: string }[] = [];
 	const updates: ProductUpdate = {};
 
 	for (let i = 0; i < articles.length; i++) {
@@ -158,7 +158,7 @@ export async function generate(articles: Article[]): Promise<ProductUpdatesRespo
 
 export async function update(
 	updates: ProductUpdate,
-): Promise<{ updated: ProductRecord[]; errors: { product: ProductRecord; error: unknown }[] }> {
+): Promise<{ updated: ProductRecord[]; errors: { product: ProductRecord; error: string }[] }> {
 	const itemTypes = await client.itemTypes.list();
 	const variantBlockId = itemTypes.filter((t) => t.api_key === 'variant')[0].id;
 	const modelBlockId = itemTypes.filter((t) => t.api_key === 'product_model')[0].id;
@@ -169,7 +169,7 @@ export async function update(
 
 	const productIds = Object.keys(updates) as (keyof typeof updates)[];
 	const updated: ProductRecord[] = [];
-	const errors: { product: ProductRecord; error: unknown }[] = [];
+	const errors: { product: ProductRecord; error: string }[] = [];
 
 	for (let i = 0; i < productIds.length; i++) {
 		const productId = productIds[i];
@@ -226,8 +226,12 @@ export async function update(
 
 			updated.push(product as ProductRecord);
 		} catch (err) {
-			console.log('ERROR', err);
-			errors.push({ product: product as ProductRecord, error: err });
+			const error =
+				typeof err === 'string' ? err : err instanceof Error ? err.message : (err as string);
+			errors.push({
+				product: product as ProductRecord,
+				error,
+			});
 		}
 	}
 
