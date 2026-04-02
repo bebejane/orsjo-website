@@ -386,17 +386,6 @@ export const batchPromises = async (
 	return Promise.all(results);
 };
 
-export function slugify(text: string) {
-	return text
-		.toString()
-		.toLowerCase()
-		.replace(/\s+/g, '-') // Replace spaces with -
-		.replace(/[^\w\-]+/g, '') // Remove all non-word chars
-		.replace(/\-\-+/g, '-') // Replace multiple - with single -
-		.replace(/^-+/, '') // Trim - from start of text
-		.replace(/-+$/, ''); // Trim - from end of text
-}
-
 export function dedupeByKey<T>(array: T[], key: string) {
 	return array.reduce((acc, item) => {
 		const existingItem = acc.find((i) => i[key as keyof T] === item[key as keyof T]);
