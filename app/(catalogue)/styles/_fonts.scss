@@ -7,6 +7,14 @@
 }
 
 @font-face {
+	font-family: 'IndivisibleBold';
+	src: url('/fonts/Indivisible-Bold.otf');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
 	font-family: 'IndivisibleRegular';
 	src: url('/fonts/IndivisibleWebRegular.woff2');
 	font-weight: normal;
