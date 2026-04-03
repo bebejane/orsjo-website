@@ -16,7 +16,6 @@ import { AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/[locale]/products/utils';
 import { Modal } from 'next-dato-utils/components';
 import useIsDesktop from '@/lib/hooks/useIsDesktop';
-import { useLocale } from 'next-intl';
 
 type Props = {
 	marketId: string;
@@ -276,7 +275,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 
 				<hr className={cn(!open && s.hide)} />
 
-				<div className={cn(s.variant, (open || showAddons) && s.open)}>
+				<div id='variant' className={cn(s.variant, (open || showAddons) && s.open)}>
 					<div
 						className={s.row}
 						title={`${selectedModel?.name?.name ?? ''} ${[selected.color?.name, selected.material?.name, selected.feature?.name].filter(Boolean).join(', ')}`}
@@ -308,18 +307,18 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
 					</div>
 
-					{addons.map(({ id, name, variantId, imageUrl }, idx) => {
+					{addons.map(({ id, name, variantId, imageUrl }) => {
 						return (
 							<div
-								key={idx}
+								key={id}
+								id={id}
+								onClick={() => setAddons((addons) => addons.filter((a) => a.id !== id))}
+								title={name}
 								className={cn(
 									s.row,
 									s.addon,
 									addons.find((a) => a.variantId === variantId) && s.selected,
 								)}
-								id={id}
-								onClick={() => setAddons((addons) => addons.filter((a) => a.id !== id))}
-								title={name}
 							>
 								<div className={s.plusminus}>
 									<AiOutlineClose size={16} />
@@ -336,7 +335,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 
 				<hr />
 
-				<div id={'addons'} className={cn(s.addons)} key={selectedGeinsVariant?.productId}>
+				<div id={'addons'} className={cn(s.addons)}>
 					<input type='hidden' name='model' value={selectedGeinsVariant?.productId} />
 					<AnimateHeight height={!showAddons || allAddons.length === 0 ? 0 : 'auto'} duration={400}>
 						<ul>
@@ -376,7 +375,11 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 
 				<div className={s.buttons}>
 					<AnimateHeight
-						height={(!showAddonsButton && !open) || selectedModelAddons.length === 0 ? 0 : 'auto'}
+						height={
+							(!showAddonsButton && !open && isDesktop) || selectedModelAddons.length === 0
+								? 0
+								: 'auto'
+						}
 						duration={200}
 					>
 						<button

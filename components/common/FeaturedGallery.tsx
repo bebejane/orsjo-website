@@ -5,7 +5,7 @@ import s from './FeaturedGallery.module.scss';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
-import { Mousewheel } from 'swiper/modules';
+import { Mousewheel, FreeMode } from 'swiper/modules';
 import type { Swiper } from 'swiper';
 import {
 	ProfessionalThumbnail,
@@ -74,14 +74,14 @@ export default function FeaturedGallery({
 			)}
 			<div className={s.gallery}>
 				<SwiperReact
-					modules={[Mousewheel]}
+					modules={[Mousewheel, FreeMode]}
 					id={`${id}-swiper-wrap`}
 					loop={!isShortSlide}
 					noSwiping={false}
 					direction={'horizontal'}
 					mousewheel={{
 						forceToAxis: true,
-						releaseOnEdges: true,
+						releaseOnEdges: false,
 						invert: false,
 						sensitivity: 1,
 					}}
@@ -89,8 +89,8 @@ export default function FeaturedGallery({
 						enabled: true,
 						momentum: true,
 						sticky: false,
+						momentumRatio: 0.5,
 					}}
-					simulateTouch={!isShortSlide}
 					slidesPerView={'auto'}
 					spaceBetween={spaceBetween}
 					initialSlide={index}

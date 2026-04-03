@@ -6,6 +6,7 @@ import { Image } from 'react-datocms';
 import Link from '@/components/nav/Link';
 import { useState } from 'react';
 import { formatGeinsPrice } from '@/geins/utils';
+import useIsDesktop from '@/lib/hooks/useIsDesktop';
 
 export type ThumbnailProps = {
 	slug?: string;
@@ -46,10 +47,11 @@ export default function Thumbnail({
 	editingUrl,
 }: ThumbnailProps) {
 	const [hovering, setHovering] = useState(false);
-	const isTouch =
-		typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
-	const handleMouseOver = ({ type }: React.MouseEvent<HTMLElement>) =>
-		!isTouch && setHovering(type === 'mouseenter');
+	const isDesktop = useIsDesktop();
+
+	const handleMouseOver = ({ type }: React.MouseEvent<HTMLElement>) => {
+		isDesktop && setHovering(type === 'mouseenter');
+	};
 
 	const content = (
 		<>
@@ -64,7 +66,7 @@ export default function Thumbnail({
 						objectFit={objectFit as any}
 					/>
 				)}
-				{imageHover && !isTouch && imageHover.responsiveImage && (
+				{imageHover && isDesktop && imageHover.responsiveImage && (
 					<div className={cn(s.imageHover, hovering && s.show)}>
 						<Image
 							data={imageHover.responsiveImage}

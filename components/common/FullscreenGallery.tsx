@@ -18,12 +18,12 @@ export default function FullscreenGallery() {
 	const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
 	const [initLoaded, setInitLoaded] = useState(false);
 	const { images, index = -1, padImagesWithTitle } = gallery ?? {};
-	const show = gallery?.index !== undefined && index > -1;
+	const show = gallery && gallery?.index !== null && gallery.index > -1;
 	const isSingleSlide = images?.length === 1;
-	const isHidden = !images || !show || !gallery?.index;
+	const isHidden = !images || !show || gallery?.index === null;
 
 	function handleClose() {
-		setGallery({ images: gallery?.images ?? [], index: undefined });
+		setGallery({ images: gallery?.images ?? [], index: null });
 	}
 
 	useEffect(() => {
@@ -31,7 +31,7 @@ export default function FullscreenGallery() {
 	}, [realIndex, images, setTitle]);
 
 	useEffect(() => {
-		setRealIndex(index);
+		setRealIndex(index ?? 0);
 	}, [index]);
 
 	useEffect(() => {
@@ -64,7 +64,7 @@ export default function FullscreenGallery() {
 					spaceBetween={500}
 					simulateTouch={!isSingleSlide}
 					slidesPerView={1}
-					initialSlide={index}
+					initialSlide={index ?? 0}
 					onSlideChange={({ realIndex }) => setRealIndex(realIndex)}
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
 					onTouchEnd={() => {}}

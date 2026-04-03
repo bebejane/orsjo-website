@@ -222,6 +222,8 @@
 			img {
 				height: var(--thumb-size);
 				width: var(--thumb-size);
+				min-height: var(--thumb-size);
+				min-width: var(--thumb-size);
 				object-fit: cover;
 			}
 		}
@@ -330,14 +332,10 @@
 					opacity: 0;
 				}
 			}
-			&.addon > .thumb {
-				opacity: 0;
-			}
-			.check {
-				//display: flex;
-				//width: 2.7rem;
-				&.checked {
-					//opacity: 0;
+			@include mq($from: desktop) {
+				.thumb {
+					opacity: 0;
+					//background-color: pink;
 				}
 			}
 		}
@@ -386,9 +384,11 @@
 			width: 100%;
 			cursor: pointer;
 			border: 0 !important;
-			&:hover {
-				background-color: var(--black);
-				color: var(--white);
+			@include mq($from: desktop) {
+				&:hover {
+					background-color: var(--black);
+					color: var(--white);
+				}
 			}
 		}
 		button.toggle {
@@ -407,7 +407,6 @@
 
 			@include mq($from: desktop) {
 				border-top: 0;
-
 				height: 1.8rem;
 			}
 		}
@@ -421,11 +420,10 @@
 			@include mq($from: desktop) {
 				height: 1.5rem;
 				font-size: 0.45rem !important;
-			}
-
-			&:hover {
-				background-color: var(--light-gray);
-				color: var(--black);
+				&:hover {
+					background-color: var(--light-gray);
+					color: var(--black);
+				}
 			}
 		}
 	}

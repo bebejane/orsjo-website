@@ -65,7 +65,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 	}, []);
 
 	useEffect(() => {
-		setGallery({ images, padImagesWithTitle: true });
+		setGallery({ images, padImagesWithTitle: true, index: null });
 	}, [images, setGallery]);
 
 	useEffect(() => {
