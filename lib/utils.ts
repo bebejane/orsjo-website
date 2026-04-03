@@ -250,7 +250,7 @@ export type ProductRecordWithPdfFiles = ProductRecord & {
 };
 
 export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[] => {
-	const { pdfFiles, mountingInstructions, bimLink, bimFile, lightFile } = product;
+	const { pdfFiles, mountingInstructions, bimFile, lightFile } = product;
 
 	const files = [
 		{
@@ -280,12 +280,6 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
 			label: 'Light file',
 			type: 'zip',
 			download: true,
-		},
-		{
-			href: bimLink,
-			label: 'Download at BIM Objects',
-			type: 'cad',
-			download: false,
 		},
 		{
 			href: bimFile?.url,

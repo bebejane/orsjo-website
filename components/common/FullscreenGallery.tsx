@@ -3,7 +3,6 @@
 import 'swiper/css';
 import s from './FullscreenGallery.module.scss';
 import cn from 'classnames';
-import React from 'react';
 import { Image } from 'react-datocms';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef, useEffect } from 'react';
@@ -11,7 +10,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Loader } from '@/components';
 import useStore, { useShallow } from '@/lib/store';
 
-export default function Gallery() {
+export default function FullscreenGallery() {
 	const [gallery, setGallery] = useStore(useShallow((state) => [state.gallery, state.setGallery]));
 	const swiperRef = useRef<SwiperType | null>(null);
 	const [realIndex, setRealIndex] = useState(0);
@@ -21,10 +20,10 @@ export default function Gallery() {
 	const { images, index = -1, padImagesWithTitle } = gallery ?? {};
 	const show = gallery?.index !== undefined && index > -1;
 	const isSingleSlide = images?.length === 1;
-	const isHidden = !images || !show;
+	const isHidden = !images || !show || !gallery?.index;
 
 	function handleClose() {
-		setGallery({ images: [], index: -1 });
+		setGallery({ images: gallery?.images ?? [], index: undefined });
 	}
 
 	useEffect(() => {
@@ -71,7 +70,10 @@ export default function Gallery() {
 					onTouchEnd={() => {}}
 				>
 					{images.map((image, idx) => (
-						<SwiperSlide key={idx} className={cn(s.slide, padImagesWithTitle && image.title && s.padded)}>
+						<SwiperSlide
+							key={idx}
+							className={cn(s.slide, padImagesWithTitle && image.title && s.padded)}
+						>
 							{image.responsiveImage ? (
 								<Image
 									imgClassName={s.image}
