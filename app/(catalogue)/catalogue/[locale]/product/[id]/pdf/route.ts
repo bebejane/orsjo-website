@@ -1,4 +1,4 @@
-import { generate } from '@/app/(catalogue)/lib/pdf';
+import { generate } from '@/catalogue/lib/controllers/pdf';
 import { ProductByIdDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 
