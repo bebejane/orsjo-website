@@ -1,6 +1,6 @@
 import { client } from '@/lib/client';
 import { NextRequest, NextResponse } from 'next/server';
-import { generate } from '@/app/(catalogue)/lib/pdf';
+import { generate } from '@/catalogue/lib/controllers/pdf';
 
 export async function POST(req: NextRequest) {
 	const body = await req.json();

@@ -73,7 +73,7 @@ export const formatPrice = (price: number, locale: SiteLocale, c: CurrencyRate) 
 	return `${nf.format(convertPrice(price, c))} ${c.symbol}`;
 };
 
-const priceIncLight = (
+export const priceIncLight = (
 	prodPrice: number,
 	lightsources: LightsourceRecord[],
 	locale: SiteLocale,
@@ -87,7 +87,7 @@ const priceIncLight = (
 	return formatPrice(price, locale, currency);
 };
 
-const sortProductsByCategory = (products: AllProductsQuery['allProducts']) => {
+export const sortProductsByCategory = (products: AllProductsQuery['allProducts']) => {
 	const sortedProducts = [...products]
 		.sort((a, b) => {
 			if (a.family?.id === b.family?.id)
@@ -98,10 +98,8 @@ const sortProductsByCategory = (products: AllProductsQuery['allProducts']) => {
 	return sortedProducts;
 };
 
-const toLanguageLocale = (locale: string): SiteLocale => {
+export const toLanguageLocale = (locale: string): SiteLocale => {
 	if (['sv', 'no'].includes(locale)) return 'sv' as SiteLocale;
 	else if (['en', 'da', 'en_GB'].includes(locale)) return 'en' as SiteLocale;
 	else return 'en' as SiteLocale;
 };
-
-export { priceIncLight, sortProductsByCategory, toLanguageLocale };

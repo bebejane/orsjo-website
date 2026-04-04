@@ -1,7 +1,7 @@
 import { Browser, LaunchOptions, Page, PuppeteerNode } from 'puppeteer-core';
 
-const CHROMIUM_PACK_URL = process.env.NEXXT_PUBLIC_SITE_URL
-	? `https://${process.env.NEXXT_PUBLIC_SITE_URL}/chromium-pack.tar`
+const CHROMIUM_PACK_URL = process.env.NEXT_PUBLIC_SITE_URL
+	? `${process.env.NEXT_PUBLIC_SITE_URL}/chromium-pack.tar`
 	: 'https://github.com/gabenunez/puppeteer-on-vercel/raw/refs/heads/main/example/chromium-dont-use-in-prod.tar';
 
 // Cache the Chromium executable path to avoid re-downloading on subsequent requests

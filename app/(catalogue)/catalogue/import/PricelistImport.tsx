@@ -4,7 +4,7 @@ import s from './PricelistImport.module.scss';
 import { ProductUpdatesResponse } from '@/app/(catalogue)/lib/controllers/pricelist';
 import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import PricelistUpdateList from '@/app/(catalogue)/catalogue/pricelist/PricelistUpdateList';
+import PricelistUpdateList from '@/app/(catalogue)/catalogue/import/PricelistUpdateList';
 
 export default function PricelistImport({
 	parse,

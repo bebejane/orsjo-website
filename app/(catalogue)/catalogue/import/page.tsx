@@ -2,14 +2,9 @@
 
 import s from './page.module.scss';
 import PricelistImport from './PricelistImport';
-import {
-	Article,
-	ProductUpdatesResponse,
-	parse,
-	generate,
-} from '@/catalogue/lib/controllers/pricelist';
+import { ProductUpdatesResponse, parse, generate } from '@/catalogue/lib/controllers/pricelist';
 
-export default async function PricelistPage({ params }: PageProps<'/catalogue/pricelist'>) {
+export default async function PricelistPage({ params }: PageProps<'/catalogue/import'>) {
 	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
 		'use server';
 		const buffer = Buffer.from(file);

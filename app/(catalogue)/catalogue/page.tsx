@@ -1,29 +1,7 @@
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument, SiteDocument } from '@/graphql';
-
-const pricelists = [
-	{
-		label: 'Full',
-		path: 'full',
-	},
-	{
-		label: 'Enkel',
-		path: 'light',
-	},
-	{
-		label: 'Enkel (inkl. moms)',
-		path: 'light-with-tax',
-	},
-	{
-		label: 'Ink. ljuskälla',
-		path: 'with-lightsource',
-	},
-	{
-		label: 'Utan priser',
-		path: 'noprice',
-	},
-];
+import { pricelists } from '@/catalogue/lib/pricelists';
 
 export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>) {
 	const { allProducts } = await apiQuery(AllProductsDocument, {
@@ -64,15 +42,11 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 				</li>
 			</ul>
 			<br />
+			<br />
 
+			<h2>Produkter</h2>
 			<table className={s.products}>
 				<tbody>
-					<tr>
-						<th>Produkter</th>
-						{locales.map((locale, idx) => (
-							<th key={idx}>{locale}</th>
-						))}
-					</tr>
 					{allProducts.map((p, idx) => (
 						<tr key={p.id}>
 							<td>
