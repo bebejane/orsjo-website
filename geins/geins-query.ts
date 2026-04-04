@@ -1,7 +1,6 @@
 import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import type { DocumentNode } from 'graphql';
 import { print } from 'graphql/language/printer';
-import { GEINS_MARKET_ID } from '@/geins/constants';
 import * as Sentry from '@sentry/nextjs';
 
 export type ApiQueryOptions<V = void> = {

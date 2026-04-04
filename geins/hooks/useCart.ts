@@ -11,7 +11,6 @@ import {
 	ClearCartDocument,
 	UpdateCartItemDocument,
 } from '../graphql';
-import { GEINS_MARKET_ID } from '@/geins/constants';
 
 type Cart = CartQuery['getCart'] | undefined;
 

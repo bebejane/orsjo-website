@@ -3,23 +3,18 @@
 import s from './ProductRow.module.scss';
 import cn from 'classnames';
 import React from 'react';
-import { CurrencyRate, formatPrice, priceIncLight } from '@/catalogue/lib/utils';
-import { useDictionary } from '@/app/(catalogue)/lib/context/dictionary';
+import { formatPriceWithCurrency, formatPriceWithLightsources } from '@/lib/currency';
+import { useDictionary, useCatalogue } from '@/catalogue/lib/context/catalogue';
 
 type ProductRowProps = {
 	product: AllProductsQuery['allProducts'][number];
 	withLightsource: boolean;
-	locale: SiteLocale;
-	currency: CurrencyRate;
 };
 
-export default function ProductRow({
-	product,
-	withLightsource,
-	locale,
-	currency,
-}: ProductRowProps) {
+export default function ProductRow({ product, withLightsource }: ProductRowProps) {
 	const t = useDictionary('Catalogue');
+	const { currency, locale } = useCatalogue();
+
 	const rows = product.models.map((m, idxm) => {
 		const lightsources = m.lightsources.filter(({ included }) => !included);
 		return m.variants.map((v, idx) => {
@@ -55,8 +50,12 @@ export default function ProductRow({
 						</td>
 						<td>
 							{withLightsource
-								? priceIncLight(v.price, lightsources as LightsourceRecord[], locale, currency)
-								: formatPrice(v.price, locale, currency)}
+								? formatPriceWithLightsources(
+										v.price,
+										lightsources as LightsourceRecord[],
+										currency,
+									)
+								: formatPriceWithCurrency(v.price, currency)}
 						</td>
 					</tr>
 					{m.variants.length === idx + 1 &&
@@ -71,7 +70,7 @@ export default function ProductRow({
 									<td>
 										{withLightsource
 											? 'Inkluderad'
-											: formatPrice(lightsource.price, locale, currency)}
+											: formatPriceWithCurrency(lightsource.price, currency)}
 									</td>
 								</tr>
 							))}
@@ -82,7 +81,7 @@ export default function ProductRow({
 								<tr key={`acc-${idx}-${idxv}-${idxm}`}>
 									<td>{accessory?.articleNo || '---'}</td>
 									<td>{accessory?.name}</td>
-									<td>{formatPrice(accessory?.price, locale, currency)}</td>
+									<td>{formatPriceWithCurrency(accessory?.price, currency)}</td>
 								</tr>
 							))}
 					{idx + 1 === m.variants.length && (

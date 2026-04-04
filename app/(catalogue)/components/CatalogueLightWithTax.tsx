@@ -1,20 +1,15 @@
-import { CurrencyRate } from '@/catalogue/lib/utils';
 import ProductRow from './ProductRow';
 
 type CatalogueLightWithTaxProps = {
 	products: AllProductsQuery['allProducts'];
 	withLightsource: boolean;
-	locale: SiteLocale;
 	taxRate: number;
-	currency: CurrencyRate;
 };
 
 export default function CatalogueLightWithTax({
 	products,
 	withLightsource,
-	locale,
 	taxRate,
-	currency,
 }: CatalogueLightWithTaxProps) {
 	return (
 		<>
@@ -29,8 +24,6 @@ export default function CatalogueLightWithTax({
 						})),
 					}}
 					withLightsource={withLightsource}
-					locale={locale}
-					currency={currency}
 				/>
 			))}
 		</>

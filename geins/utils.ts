@@ -1,7 +1,7 @@
 import client from '@/lib/client';
 import geinsQuery from '@/geins/geins-query';
 import { AllGeinsChannelsDocument } from '@/geins/graphql';
-import { GEINS_CHANNEL_ID, GEINS_MARKET_CURRENCY, GEINS_MARKET_ID } from '@/geins/constants';
+import { GEINS_CHANNEL_ID } from '@/geins/constants';
 import { CheckoutSettings, GeinsSettings } from '@geins/types';
 
 export const itemTypeId = async (type: string) =>
@@ -107,8 +107,6 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 	const encodedPayload = base64UrlEncode(JSON.stringify(checkoutTokenOptions));
 	const token = `${encodedHeader}.${encodedPayload}`;
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
-	console.log(checkoutTokenOptions);
-	console.log(url);
 	return url;
 }
 

@@ -1,6 +1,7 @@
-import { AllTranslationsDocument, SiteDocument } from '@/graphql';
-import { DictionaryProvider } from '@/app/(catalogue)/lib/context/dictionary';
+import { AllTranslationsDocument } from '@/graphql';
+import { CatalogueProvider } from '@/catalogue/lib/context/catalogue';
 import { apiQuery } from 'next-dato-utils/api';
+import { getCurrencyRateByLocale } from '@/lib/currency';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,9 +25,11 @@ export default async function CatalogueLayout({
 				});
 		});
 
+	const currency = await getCurrencyRateByLocale(locale as SiteLocale);
+
 	return (
-		<DictionaryProvider locale={locale} messages={messages}>
+		<CatalogueProvider locale={locale} messages={messages} currency={currency}>
 			{children}
-		</DictionaryProvider>
+		</CatalogueProvider>
 	);
 }

@@ -3,6 +3,9 @@ import { readSheet } from 'read-excel-file/node';
 import { ItemInNestedResponse } from '@datocms/cma-client/dist/types/generated/ApiTypes';
 import { Product, ProductAccessory, ProductLightsource, Variant } from '@/types/datocms-cma';
 import { client } from '@/lib/client';
+import { apiQuery } from 'next-dato-utils/api';
+import { AllProductsDocument } from '@/graphql';
+import { convertPriceWithRate, getCurrencyRateByLocale } from '@/lib/currency';
 
 export type Article = { articleNo: string; name: string; price: number };
 export type ProductUpdatesResponse = {
@@ -61,6 +64,23 @@ export async function parse(file: Buffer | string): Promise<Article[]> {
 
 export async function generate(articles: Article[]): Promise<ProductUpdatesResponse> {
 	console.log('Generate updates:', articles.length);
+
+	async function getAllRecords<T extends ItemTypeDefinition>(
+		itemType: string,
+	): Promise<ItemInNestedResponse<T>[]> {
+		const items: ItemInNestedResponse<T>[] = [];
+
+		for await (const record of client.items.listPagedIterator({
+			filter: { type: itemType },
+			perPage: 500,
+			version: 'published',
+			nested: true,
+		})) {
+			items.push(record as ItemInNestedResponse<T>);
+		}
+
+		return items;
+	}
 
 	const [productRecords, lightsources, variants, accessories] = await Promise.all([
 		getAllRecords<Product>('product'),
@@ -238,19 +258,63 @@ export async function update(
 	return { updated, errors };
 }
 
-async function getAllRecords<T extends ItemTypeDefinition>(
-	itemType: string,
-): Promise<ItemInNestedResponse<T>[]> {
-	const items: ItemInNestedResponse<T>[] = [];
+export async function csv(locale: SiteLocale): Promise<string> {
+	const hideIncluded = true; //searchParams.get('hideincluded');
+	if (!locale) throw new Error('Locale not found');
 
-	for await (const record of client.items.listPagedIterator({
-		filter: { type: itemType },
-		perPage: 500,
-		version: 'published',
-		nested: true,
-	})) {
-		items.push(record as ItemInNestedResponse<T>);
+	const { allProducts } = await apiQuery(AllProductsDocument, {
+		all: true,
+		variables: { locale },
+	});
+
+	const currency = await getCurrencyRateByLocale(locale);
+	if (!currency) throw new Error(`Currency not found: ${locale}`);
+
+	const rows: string[][] = [];
+
+	for (const product of allProducts) {
+		if (product.hideInPricelist) continue;
+		rows.push([
+			'',
+			`${product.family.name?.trim()}${product.categories.length > 0 ? ` - ${product.categories.map((c) => c.name?.trim()).join(' · ')}` : ''}`,
+			'',
+		]);
+
+		for (const model of product.models) {
+			model.name?.name && rows.push(['', `="${model.name.name.trim()}"`, '']);
+			for (const variant of model.variants) {
+				rows.push([
+					`="${variant.articleNo}"`,
+					[variant.color?.name, variant.material?.name, variant.feature?.name]
+						.filter(Boolean)
+						.join(', '),
+					convertPriceWithRate(variant.price, currency).toFixed(0),
+				]);
+			}
+			for (const lightsources of model.lightsources) {
+				const { lightsource, optional, included } = lightsources;
+				const includedWithoutPrice = hideIncluded && included;
+
+				if (!included) {
+					rows.push([
+						`="${lightsource?.articleNo}"`,
+						`${lightsource?.name}${includedWithoutPrice ? ` (included)` : ''}`,
+						includedWithoutPrice
+							? ''
+							: convertPriceWithRate(lightsource?.price, currency).toFixed(0),
+					]);
+				}
+			}
+			for (const accessories of model.accessories)
+				rows.push([
+					`="${accessories.accessory?.articleNo}"`,
+					accessories.accessory?.name ?? '',
+					convertPriceWithRate(accessories.accessory?.price, currency).toFixed(0),
+				]);
+			rows.push(['', '', '']);
+		}
 	}
 
-	return items;
+	const csv = `\ufeff${rows.map((r) => r.map((r) => r.trim()).join(';')).join('\n')}`;
+	return csv;
 }

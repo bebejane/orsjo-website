@@ -4,7 +4,7 @@ import s from './ProductGrid.module.scss';
 import cn from 'classnames';
 import Page from './Page';
 import { chunkArray } from 'next-dato-utils/utils';
-import { useDictionary } from '@/app/(catalogue)/lib/context/dictionary';
+import { useDictionary } from '@/catalogue/lib/context/catalogue';
 
 const rows = 5;
 const cols = 5;

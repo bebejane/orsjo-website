@@ -10,7 +10,7 @@ import {
 } from '@/graphql';
 import * as mgmt from '@/geins/mgmt-api';
 import { generateProductTitle } from '@/lib/utils';
-import { convertPriceWithRatesAndTaxes, getAllCurrencyRates, CurrencyRate } from '@/lib/utils';
+import { convertPriceWithRate, getAllCurrencyRates, CurrencyRate } from '@/lib/currency';
 import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
 import {
 	GEINS_CHANNEL_ID,
@@ -19,6 +19,7 @@ import {
 } from '@/geins/constants';
 
 import { Market } from '@/geins/mgmt-api.types';
+import { chunkArray } from 'next-dato-utils/utils';
 
 type ProductData = {
 	apiKey: string;
@@ -248,15 +249,6 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: M
 				: mgmt.updateProductImage(updatedProduct.ProductId, image, fileName));
 		}
 
-		const allCurrencies = await getAllCurrencyRates();
-		const PriceListId = 1000000;
-		const priceListPrices = allCurrencies.map((c) => ({
-			PriceListId,
-			Price: convertPriceWithRatesAndTaxes(price, c),
-			ProductId: updatedProduct.ProductId,
-			Currency: c.isoCode,
-		}));
-
 		await mgmt.updateStock([
 			{
 				Id: updatedProductItem.ItemId as string,
@@ -266,9 +258,24 @@ export async function updateProduct(itemId: string, p: ProductData[], markets: M
 			},
 		]);
 
-		await mgmt.updatePriceListPrices(priceListPrices);
+		await syncProductsPrices([{ ProductId: updatedProduct.ProductId, price }]);
 	}
 }
+
+export const syncProductsPrices = async (products: { ProductId: number; price: number }[]) => {
+	const allCurrencies = await getAllCurrencyRates();
+	const priceListPrices = [];
+	for (const { ProductId, price } of products) {
+		priceListPrices.push(
+			...allCurrencies.map((c) => ({
+				Price: convertPriceWithRate(price, c),
+				ProductId: ProductId,
+				Currency: c.isoCode,
+			})),
+		);
+	}
+	return await mgmt.updatePriceListPrices(priceListPrices);
+};
 
 export const syncProductStatus = async (
 	slug: string,
@@ -292,6 +299,64 @@ export const syncProductStatus = async (
 	}
 
 	return _products;
+};
+
+export const resyncAllProductPrices = async () => {
+	console.log('resyncing all product prices...');
+	const now = Date.now();
+	const [{ allProducts }, { allProductLightsources }, { allProductAccessories }, products] =
+		await Promise.all([
+			apiQuery(AllProductsDocument, {
+				all: true,
+				variables: { first: 500, skip: 0 },
+				revalidate: 0,
+			}),
+			apiQuery(AllProductLightsourcesDocument, {
+				all: true,
+				revalidate: 0,
+				variables: { first: 500, skip: 0 },
+			}),
+			apiQuery(AllProductAccessoriesDocument, {
+				all: true,
+				revalidate: 0,
+				variables: { first: 500, skip: 0 },
+			}),
+			mgmt.getProducts(),
+		]);
+
+	const articles: { articleNo: string; price: number }[] = [];
+	allProducts.forEach(({ models }) =>
+		models.forEach(({ variants }) =>
+			variants.forEach((v) => articles.push({ articleNo: v.articleNo, price: v.price })),
+		),
+	);
+	allProductLightsources.forEach(({ articleNo, price }) => articles.push({ articleNo, price }));
+	allProductAccessories.forEach(({ articleNo, price }) => articles.push({ articleNo, price }));
+
+	const prices: { ProductId: number; price: number }[] = [];
+	const skipped: { articleNo: string; price: number }[] = [];
+
+	for (const product of products) {
+		const article = articles.find(({ articleNo }) => product.ArticleNumber === articleNo);
+		const price = article?.price;
+		const ProductId = product.ProductId;
+
+		if (typeof price === 'undefined' || !ProductId || !article) {
+			article && skipped.push(article);
+			continue;
+		}
+		prices.push({ ProductId, price });
+	}
+
+	const chunks = chunkArray(prices, 100);
+	const response = [];
+
+	for (const chunk of chunks) {
+		const r = await syncProductsPrices(chunk);
+		response.push(r);
+	}
+
+	return { skipped, response, duration: Date.now() - now };
 };
 
 export const resetAll = async () => {

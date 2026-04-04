@@ -1,12 +1,9 @@
 import s from './page.module.scss';
 import CatalogueLightWithTax from '@/catalogue/components/CatalogueLightWithTax';
 import { apiQuery } from 'next-dato-utils/api';
-import {
-	getCurrencyRateByLocale,
-	sortProductsByCategory,
-	toLanguageLocale,
-} from '@/catalogue/lib/utils';
+import { getCurrencyRateByLocale } from '@/lib/currency';
 import { AllProductsDocument } from '@/graphql';
+import { toLanguageLocale, sortProductsByCategory } from '@/catalogue/lib/utils';
 
 export default async function CatalogueLightWithTaxPage({
 	params,
@@ -23,9 +20,7 @@ export default async function CatalogueLightWithTaxPage({
 			<CatalogueLightWithTax
 				products={sortProductsByCategory(allProducts)}
 				withLightsource={false}
-				locale={locale}
 				taxRate={1.25}
-				currency={currency}
 			/>
 		</div>
 	);

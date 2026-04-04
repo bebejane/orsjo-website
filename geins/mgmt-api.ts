@@ -1,4 +1,4 @@
-import { Market } from '@/geins/mgmt-api.types';
+import { Market, PricelistPrice, Product } from '@/geins/mgmt-api.types';
 
 export async function request(
 	path: string,
@@ -39,7 +39,7 @@ export async function updateProduct(product: any) {
 	return p?.Resource;
 }
 
-export async function removeProduct(id: string) {
+export async function removeProduct(id: number) {
 	const p = await request(`/Product/${id}`, 'DELETE');
 	return p;
 }
@@ -50,7 +50,7 @@ export async function getProduct(id: number) {
 	return p;
 }
 
-export async function getProducts() {
+export async function getProducts(): Promise<Product[]> {
 	const p = await request('/Product/Query?include=Prices,Urls', 'POST', {});
 	return p?.Resource;
 }
@@ -180,8 +180,13 @@ export async function deletePriceList(id: string) {
 	return c;
 }
 
-export async function updatePriceListPrices(price: any[]) {
-	const c = await request(`/PriceList/Price`, 'PUT', price);
+export async function updatePriceListPrices(prices: Omit<PricelistPrice, 'PriceListId'>[]) {
+	// const c = await request(`/PriceList/Price`, 'PUT', { ...price, PriceListId: 1000000 });
+	const c = await request(
+		`/PriceList/Price`,
+		'PUT',
+		prices.map((p) => ({ ...p, PriceListId: 1000000 })),
+	);
 	return c;
 }
 

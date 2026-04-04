@@ -2,36 +2,28 @@
 
 import s from './ProductSheet.module.scss';
 import cn from 'classnames';
-import { CurrencyRate, formatPrice } from '@/catalogue/lib/utils';
 import Page from './Page';
 import { Markdown } from 'next-dato-utils/components';
-import { useDictionary } from '@/app/(catalogue)/lib/context/dictionary';
+import { useDictionary, useCatalogue } from '@/catalogue/lib/context/catalogue';
+import { CurrencyRate, formatPriceWithCurrency } from '@/lib/currency';
 import React from 'react';
 
 const ReactDOMServer = await import('react-dom/server');
 
 type ProductSheetProps = {
 	product: AllProductsQuery['allProducts'][number];
-	locale: SiteLocale;
-	pageNo?: number;
 	withPrice?: boolean;
-	currency: CurrencyRate;
 };
 
-export default function ProductSheet({
-	product,
-	locale,
-	pageNo,
-	withPrice = false,
-	currency,
-}: ProductSheetProps) {
+export default function ProductSheet({ product, withPrice = false }: ProductSheetProps) {
 	const t = useDictionary('Catalogue');
+	const { currency, locale } = useCatalogue();
 
 	const maxArticlePriceRows = 13;
 	const articlePriceSmallStyleCount = 26;
 
 	const specificationsRows = parseSpecifications(product, t);
-	const articlePriceRows = parseArticlePrices(product, locale, currency, t, withPrice);
+	const articlePriceRows = parseArticlePrices(product, currency, t, withPrice);
 	const articlePriceRowCount = ReactDOMServer.renderToString(articlePriceRows).split('<tr>').length;
 	const isArticlePriceSeparatePage = articlePriceRowCount > maxArticlePriceRows;
 	const drawings = product.models
@@ -136,7 +128,7 @@ export default function ProductSheet({
 	);
 }
 
-const parseSpecifications = (product: AllProductsQuery['allProducts'][number], t: any) => {
+function parseSpecifications(product: AllProductsQuery['allProducts'][number], t: any) {
 	type LightsourcePick = { id: string; amount?: number; name: string; included: boolean };
 
 	let allLightsources: (LightsourceRecord & { modelName: string })[] = [];
@@ -212,15 +204,14 @@ const parseSpecifications = (product: AllProductsQuery['allProducts'][number], t
 				))}
 		</>
 	);
-};
+}
 
-const parseArticlePrices = (
+function parseArticlePrices(
 	product: AllProductsQuery['allProducts'][number],
-	locale: SiteLocale,
 	currency: CurrencyRate,
 	t: any,
 	withPrice: boolean = true,
-) => {
+) {
 	const rows = (
 		<React.Fragment key={product.slug}>
 			<tr>
@@ -245,7 +236,7 @@ const parseArticlePrices = (
 								{[v.material?.name, v.color?.name, v.feature?.name].filter((el) => el).join(', ')}
 							</td>
 							<td className={cn(!withPrice && s.hide)}>
-								{withPrice && formatPrice(v.price, locale, currency)}
+								{withPrice && formatPriceWithCurrency(v.price, currency)}
 							</td>
 						</tr>
 						{m.variants.length == idx + 1 &&
@@ -259,7 +250,7 @@ const parseArticlePrices = (
 										</span>
 									</td>
 									<td className={cn(!withPrice && s.hide)}>
-										{withPrice && formatPrice(lightsource.price, locale, currency)}
+										{withPrice && formatPriceWithCurrency(lightsource.price, currency)}
 									</td>
 								</tr>
 							))}
@@ -271,7 +262,7 @@ const parseArticlePrices = (
 										<td>{accessory?.articleNo ?? '---'}</td>
 										<td>{accessory?.name}</td>
 										<td className={cn(!withPrice && s.hide)}>
-											{withPrice && formatPrice(accessory?.price, locale, currency)}
+											{withPrice && formatPriceWithCurrency(accessory?.price, currency)}
 										</td>
 									</tr>
 								))}
@@ -286,4 +277,4 @@ const parseArticlePrices = (
 		</React.Fragment>
 	);
 	return rows;
-};
+}

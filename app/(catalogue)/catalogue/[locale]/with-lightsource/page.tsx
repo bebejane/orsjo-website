@@ -1,12 +1,9 @@
 import s from './page.module.scss';
 import CatalogueLight from '@/catalogue/components/CatalogueLight';
 import { apiQuery } from 'next-dato-utils/api';
-import {
-	getCurrencyRateByLocale,
-	sortProductsByCategory,
-	toLanguageLocale,
-} from '@/catalogue/lib/utils';
+import { sortProductsByCategory, toLanguageLocale } from '@/catalogue/lib/utils';
 import { AllProductsDocument } from '@/graphql';
+import { getCurrencyRateByLocale } from '@/lib/currency';
 
 const hardWiredModelNameId = '107174981';
 const fixedMountingId = '107174756';
@@ -39,7 +36,6 @@ export default async function CatalogueLightWrapper({
 				products={sortProductsByCategory(filteredProducts)}
 				withLightsource={true}
 				locale={locale}
-				currency={currency}
 			/>
 		</div>
 	);
