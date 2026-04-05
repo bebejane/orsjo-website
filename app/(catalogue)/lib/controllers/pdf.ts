@@ -15,8 +15,9 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 	let page: Page | null = null;
 
 	try {
-		const browser = await getBrowser();
 		console.time(`generate pdf: ${url}`);
+
+		const browser = await getBrowser();
 		page = await browser.newPage();
 		await page.authenticate({
 			username: process.env.BASIC_AUTH_USER!,
@@ -103,30 +104,34 @@ export async function upload(
 	fs.unlinkSync(localPath);
 
 	if (uploadId) {
+		console.log('existing upload', uploadId);
 		upload = await client.uploads.update(
 			uploadId,
 			{ path: upload.path },
 			{ replace_strategy: 'keep_url' },
 		);
-	}
+	} else {
+		console.log('new upload');
+		const pdfFile: Record<string, Record<'upload_id', string> | null> = {
+			[locale]: { upload_id: upload.id },
+		};
 
-	const pdfFile: Record<string, Record<'upload_id', string> | null> = {
-		[locale]: { upload_id: upload.id },
-	};
+		locales
+			.filter((l) => l !== locale)
+			.forEach((l) => {
+				pdfFile[l] = item.pdf_file?.[l]?.upload_id
+					? { upload_id: item.pdf_file[l].upload_id }
+					: null;
+			});
 
-	locales
-		.filter((l) => l !== locale)
-		.forEach((l) => {
-			pdfFile[l] = item.pdf_file?.[l]?.upload_id ? { upload_id: item.pdf_file[l].upload_id } : null;
+		if (!pdfFile) throw new Error('pdf_file not found');
+
+		await client.items.update(item.id, {
+			pdf_file: pdfFile,
 		});
 
-	if (!pdfFile) throw new Error('pdf_file not found');
-
-	await client.items.update(item.id, {
-		pdf_file: pdfFile,
-	});
-
-	if (item.meta.status === 'published') await client.items.publish(item.id);
+		if (item.meta.status === 'published') await client.items.publish(item.id);
+	}
 	console.timeEnd(`upload pdf: ${title}`);
 	return upload;
 }
