@@ -1,4 +1,23 @@
-import { Market, PricelistPrice, Product } from '@/geins/mgmt-api.types';
+import {
+	Market,
+	PricelistPrice,
+	Product,
+	ProductCreateInput,
+	ProductUpdateInput,
+	ProductItemCreateInput,
+	ProductItemUpdateInput,
+	Category,
+	VariantGroup,
+	VariantGroupCreateInput,
+	VariantGroupUpdateInput,
+	StockUpdate,
+	PaymentMethod,
+	ShippingOption,
+	PriceList,
+	PriceListCreateInput,
+	PriceListUpdateInput,
+	Brand,
+} from '@/geins/mgmt-api.types';
 
 export async function request(
 	path: string,
@@ -28,13 +47,13 @@ export async function request(
 	return data;
 }
 
-export async function createProduct(product: any) {
+export async function createProduct(product: ProductCreateInput): Promise<Product> {
 	console.log('create product');
 	const p = await request('/Product?include=Items,Images', 'POST', product);
 	return p?.Resource;
 }
 
-export async function updateProduct(product: any) {
+export async function updateProduct(product: ProductUpdateInput): Promise<Product> {
 	const p = await request(`/Product/${product.ProductId}?include=Items,Images`, 'PUT', product);
 	return p?.Resource;
 }
@@ -56,7 +75,6 @@ export async function getProducts(): Promise<Product[]> {
 }
 
 export async function getProductsBySlug(slug: string) {
-	const facet = `p_2_2_${slug}`;
 	const c = await getCategories();
 	const CategoryIds = c
 		.filter((c: any) => c.Names[0].Content === slug)
@@ -99,12 +117,12 @@ export async function updateProductImage(productId: number, url: string, name?: 
 	return c;
 }
 
-export async function createProductItem(item: any) {
+export async function createProductItem(item: ProductItemCreateInput) {
 	const c = await request(`/Product/${item.ProductId}/Item`, 'POST', item);
 	return c.Resource;
 }
 
-export async function updateProductItem(item: any) {
+export async function updateProductItem(item: ProductItemUpdateInput) {
 	const c = await request(`/Product/Item/${item.ItemId}`, 'PUT', item);
 	return c.Resource;
 }
@@ -127,12 +145,12 @@ export async function updateProductParameterValue(
 	return c.Resource;
 }
 
-export async function getCategories() {
+export async function getCategories(): Promise<Category[]> {
 	const c = await request('/Category/Query', 'POST');
 	return c;
 }
 
-export async function createCategory(name: string, title: string) {
+export async function createCategory(name: string, title: string): Promise<Category> {
 	const c = await request('/Category', 'POST', {
 		Names: [{ LanguageCode: 'sv', Content: name }],
 		Meta: { Titles: [{ LanguageCode: 'sv', Content: title }] },
@@ -141,7 +159,7 @@ export async function createCategory(name: string, title: string) {
 	return c.Resource;
 }
 
-export async function updateCategory(id: number, name: string, title: string) {
+export async function updateCategory(id: number, name: string, title: string): Promise<Category> {
 	const c = await request(`/Category/${id}`, 'PUT', {
 		Names: [{ LanguageCode: 'sv', Content: name }],
 		Meta: { Titles: [{ LanguageCode: 'sv', Content: title }] },
@@ -155,22 +173,22 @@ export async function deleteCategory(id: string) {
 	return c;
 }
 
-export async function getBrands() {
+export async function getBrands(): Promise<Brand[]> {
 	const c = await request('/Brand/Query', 'POST');
 	return c;
 }
 
-export async function getPriceLists() {
+export async function getPriceLists(): Promise<PriceList[]> {
 	const c = await request('/PriceList/List', 'GET');
 	return c;
 }
 
-export async function createPriceList(pricelist: any) {
+export async function createPriceList(pricelist: PriceListCreateInput) {
 	const c = await request('/PriceList', 'POST', pricelist);
 	return c;
 }
 
-export async function updatePriceList(id: string, pricelist: any) {
+export async function updatePriceList(id: string, pricelist: PriceListUpdateInput) {
 	const c = await request(`/PriceList/${id}`, 'PUT', pricelist);
 	return c;
 }
@@ -195,55 +213,54 @@ export async function getMarkets(): Promise<Market[]> {
 	return c;
 }
 
-export async function getVariantGroup(id: number) {
+export async function getVariantGroup(id: number): Promise<VariantGroup> {
 	const c = await request(`/VariantGroup/${id}`, 'GET');
 	return c.Resource;
 }
-export async function getVariantGroupProducts(id: number) {
+export async function getVariantGroupProducts(id: number): Promise<Product[]> {
 	const c = await request(`/VariantGroup/${id}?include=Products`, 'GET');
 	return c.Resource.Products;
 }
 
-export async function createVariantGroup(group: any) {
+export async function createVariantGroup(group: VariantGroupCreateInput): Promise<VariantGroup> {
 	const c = await request('/VariantGroup', 'POST', group);
 	return c.Resource;
 }
 
-export async function updateVariantGroups(id: string, group: any) {
+export async function updateVariantGroups(
+	id: string,
+	group: VariantGroupUpdateInput,
+): Promise<VariantGroup> {
 	const c = await request(`/VariantGroup/${id}`, 'PUT', group);
 	return c.Resource;
 }
 
-export async function deleteVariantGroups(id: string) {
+export async function deleteVariantGroups(id: string): Promise<void> {
 	const c = await request(`/VariantGroup/${id}`, 'DELETE');
 	return c.Resource;
 }
 
-export async function addProductToVariantGroup(id: string, productId: string) {
+export async function addProductToVariantGroup(
+	id: string,
+	productId: string,
+): Promise<VariantGroup> {
 	const c = await request(`/VariantGroup/${id}/${productId}`, 'PUT');
 	return c.Resource;
 }
 
-export async function updateStock(
-	stock: {
-		Id: string;
-		Stock: number;
-		StockSellable: number;
-		StockType: number;
-	}[],
-) {
+export async function updateStock(stock: StockUpdate[]): Promise<void> {
 	const c = await request(`/Product/Stock`, 'PUT', stock);
 	return c.Resource;
 }
 
-export async function getPaymentMethods() {
+export async function getPaymentMethods(): Promise<PaymentMethod[]> {
 	const c = await request('/Payment/Query', 'POST', {
 		SiteId: 1,
 	});
 	return c;
 }
 
-export async function getShippingOptions() {
+export async function getShippingOptions(): Promise<ShippingOption[]> {
 	const c = await request('/Shipping/Query', 'POST', {});
 	console.log(c);
 	return c.ShippingOptions;
