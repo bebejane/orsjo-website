@@ -5,7 +5,7 @@ import { Product, ProductCategory } from '@/types/datocms-cma';
 import { getBrowser } from '@/app/(catalogue)/lib/puppeteer';
 import { basicAuth } from 'next-dato-utils/route-handlers';
 
-export const maxDuration = 1200;
+export const maxDuration = 800;
 
 export async function POST(req: NextRequest) {
 	return basicAuth(req, async (req) => {
