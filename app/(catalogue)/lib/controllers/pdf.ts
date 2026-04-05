@@ -16,15 +16,14 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 
 	try {
 		const browser = await getBrowser();
+		console.time(`generate pdf: ${url}`);
 		page = await browser.newPage();
-
 		await page.authenticate({
 			username: process.env.BASIC_AUTH_USER!,
 			password: process.env.BASIC_AUTH_PASSWORD!,
 		});
 
-		console.log('generate pdf from: ', url);
-		const res = await page.goto(url, { timeout: 60 * 1000, waitUntil: 'networkidle0' });
+		const res = await page.goto(url, { timeout: 60 * 1000, waitUntil: 'domcontentloaded' });
 
 		if (res?.status() !== 200)
 			throw new Error(`Internal server error. HTTP status: ${res?.status()}`);
@@ -46,6 +45,8 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 		console.log('ERROR', 'generate pdf error', err);
 		if (page) await page.close();
 		throw err;
+	} finally {
+		console.timeEnd(`generate pdf: ${url}`);
 	}
 }
 
@@ -77,6 +78,7 @@ export async function upload(
 	buffer: Uint8Array<ArrayBuffer>,
 	{ title, locale: _locale, tags }: UploadOptions,
 ): Promise<Upload> {
+	console.time(`upload pdf: ${title}`);
 	let item = await client.items.find<Product>(id, { version: 'current' });
 	if (!item) throw new Error('Item not found');
 
@@ -86,23 +88,27 @@ export async function upload(
 	) as EnvironmentSettings['locales'];
 	if (!locale) throw new Error('Locale not found');
 
-	const defaultFieldMetadata = { [locale]: { alt: title, title, tags, customData: {} } };
+	const defaultFieldMetadata = { [locale]: { alt: title, title, custom_data: {} } };
 	const uploadId = item.pdf_file[locale]?.upload_id;
+	const localPath = `/tmp/${title}.pdf`;
 
-	const localPath = `/tmp/${uploadId}`;
 	fs.writeFileSync(localPath, buffer);
 
 	let upload = await client.uploads.createFromLocalFile({
 		localPath,
 		default_field_metadata: defaultFieldMetadata,
+		tags: ['product-pdf'],
 	});
 
-	if (uploadId)
+	fs.unlinkSync(localPath);
+
+	if (uploadId) {
 		upload = await client.uploads.update(
 			uploadId,
-			{ path: localPath },
+			{ path: upload.path },
 			{ replace_strategy: 'keep_url' },
 		);
+	}
 
 	const pdfFile: Record<string, Record<'upload_id', string> | null> = {
 		[locale]: { upload_id: upload.id },
@@ -121,5 +127,6 @@ export async function upload(
 	});
 
 	if (item.meta.status === 'published') await client.items.publish(item.id);
+	console.timeEnd(`upload pdf: ${title}`);
 	return upload;
 }

@@ -10,18 +10,27 @@ let downloadPromise: Promise<string> | null = null;
 let browser: Browser | null = null;
 
 export async function getBrowser(): Promise<Browser> {
-	if (browser) return browser;
+	if (browser && browser.connected) return browser;
 
+	console.time('getBrowser');
 	const isVercel = !!process.env.VERCEL_ENV;
 	let puppeteer: PuppeteerNode;
 	let launchOptions: LaunchOptions = {
 		headless: true,
+		defaultViewport: null,
 		args: [
 			'--no-sandbox',
 			'--disable-setuid-sandbox',
 			'--disable-dev-shm-usage',
+			'--disable-accelerated-2d-canvas',
 			'--no-first-run',
 			'--no-zygote',
+			'--disable-gpu',
+			'--disable-extensions',
+			'--disable-plugins',
+			'--disable-software-rasterizer',
+			'--disable-web-security',
+			'--js-flags=--max-old-space-size=0 --expose-gc',
 		],
 	};
 
@@ -40,6 +49,7 @@ export async function getBrowser(): Promise<Browser> {
 	}
 
 	browser = await puppeteer.launch(launchOptions);
+	console.timeEnd('getBrowser');
 	return browser;
 }
 
