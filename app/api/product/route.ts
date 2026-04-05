@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
 	const body = await req.json();
 	const { entity } = body;
 
-	if (!entity)
-		return NextResponse.json({ success: false, message: 'Invalid request' }, { status: 400 });
+	//if (!entity)
+	return NextResponse.json({ success: false, message: 'Invalid request' }, { status: 400 });
 
 	try {
 		const productIds = [];
