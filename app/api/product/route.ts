@@ -4,7 +4,7 @@ import { generate, upload } from '@/catalogue/lib/controllers/pdf';
 import { Product, ProductCategory } from '@/types/datocms-cma';
 import { getBrowser } from '@/app/(catalogue)/lib/puppeteer';
 
-export const maxDuration = 60 * 3;
+export const maxDuration = 180;
 
 export async function POST(req: NextRequest) {
 	const body = await req.json();
