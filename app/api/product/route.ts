@@ -118,6 +118,6 @@ async function run(productIds: string[]) {
 		}
 	}
 
-	products.forEach(({ slug }) => revalidatePath(`/[locale]/products/product/${slug}`));
+	products.forEach(({ slug }) => revalidatePath(`/[locale]/products/product/${slug}`, 'page'));
 	console.log('done in:', Date.now() - now);
 }
