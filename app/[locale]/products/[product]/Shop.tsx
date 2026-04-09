@@ -201,7 +201,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 						{addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
 					</h3>
 					<span key={totalPrice} className={s.price}>
-						{formatGeinsPrice(totalPrice, cart?.summary?.total?.currency)}
+						{formatGeinsPrice(totalPrice, marketId, cart?.summary?.total?.currency)}
 					</span>
 				</header>
 
@@ -262,6 +262,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 												<span className={s.price}>
 													{formatGeinsPrice(
 														geinsVariant?.unitPrice?.sellingPriceIncVat,
+														marketId,
 														geinsVariant?.unitPrice?.currency,
 													)}
 												</span>{' '}
@@ -364,7 +365,12 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 													<strong>{name}</strong>
 												</span>
 												<span className={s.price}>
-													{formatGeinsPrice(price, cart?.summary?.total?.currency, quantity)}
+													{formatGeinsPrice(
+														price,
+														marketId,
+														cart?.summary?.total?.currency,
+														quantity,
+													)}
 												</span>
 											</div>
 										</li>

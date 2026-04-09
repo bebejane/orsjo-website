@@ -64,7 +64,7 @@ export async function removeProduct(id: number) {
 }
 
 export async function getProduct(id: number) {
-	const p = await request(`/Product/${id}?include=Prices`);
+	const p = await request(`/Product/${id}?include=Prices,Names`);
 	console.log('product', p);
 	return p;
 }

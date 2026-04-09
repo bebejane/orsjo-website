@@ -79,7 +79,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 		window.addEventListener('unload', handleBeforeUnload);
 		return () => window.removeEventListener('unload', handleBeforeUnload);
 	}, []);
-
+	console.log(cart);
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>
@@ -155,7 +155,11 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 
 									<div className={s.amount}>
 										<div className={cn(s.price, 'small')} aria-label={'Total'}>
-											{formatGeinsPrice(unitPrice?.sellingPriceIncVat, unitPrice?.currency)}
+											{formatGeinsPrice(
+												unitPrice?.sellingPriceIncVat,
+												marketId,
+												unitPrice?.currency,
+											)}
 										</div>
 										<div className='small gray'>{deliveryDays}</div>
 										<div>
@@ -181,14 +185,18 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 						<div className={cn('small gray', s.price)}>
 							{summary?.shipping?.feeIncVat === 0
 								? 'Free'
-								: formatGeinsPrice(summary?.shipping?.feeIncVat ?? 0, summary?.total?.currency)}
+								: formatGeinsPrice(
+										summary?.shipping?.feeIncVat ?? 0,
+										marketId,
+										summary?.total?.currency,
+									)}
 						</div>
 					</div>
 
 					<div className={s.subtotal}>
 						<div className='small gray'>VAT</div>
 						<div className={cn('small gray', s.price)}>
-							{formatGeinsPrice(summary?.total?.vat ?? 0, summary?.total?.currency)}
+							{formatGeinsPrice(summary?.total?.vat ?? 0, marketId, summary?.total?.currency)}
 						</div>
 					</div>
 
@@ -197,6 +205,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 						<div className={cn('small', s.price)}>
 							{formatGeinsPrice(
 								cart?.summary?.total?.sellingPriceIncVat ?? 0,
+								marketId,
 								cart?.summary?.total?.currency,
 							)}
 						</div>

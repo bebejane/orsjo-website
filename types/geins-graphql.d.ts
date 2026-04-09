@@ -13,6 +13,7 @@ type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
+  DateTimeOffset: { input: any; output: any; }
   Decimal: { input: any; output: any; }
   Guid: { input: any; output: any; }
   Long: { input: any; output: any; }
@@ -264,6 +265,55 @@ type CartItemType = {
   unitPrice?: Maybe<PriceType>;
 };
 
+/** Type containing quotation information for a cart */
+type CartQuotationType = {
+  __typename?: 'CartQuotationType';
+  /** The billing address for the quotation */
+  billingAddress?: Maybe<QuotationAddressType>;
+  /** The channel identifier */
+  channelId?: Maybe<Scalars['String']['output']>;
+  /** The company associated with the quotation */
+  company?: Maybe<QuotationCompanyType>;
+  /** The date and time when the quotation was created */
+  createdAt: Scalars['DateTimeOffset']['output'];
+  /** The currency code for the quotation */
+  currency?: Maybe<Scalars['String']['output']>;
+  /** The customer associated with the quotation */
+  customer?: Maybe<QuotationCustomerType>;
+  /** The discount applied to the quotation */
+  discount?: Maybe<QuotationDiscountType>;
+  /** The market identifier */
+  marketId?: Maybe<Scalars['String']['output']>;
+  /** The date and time when the quotation was last modified */
+  modifiedAt: Scalars['DateTimeOffset']['output'];
+  /** The name of the quotation */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The order identifier if the quotation has been finalized */
+  orderId?: Maybe<Scalars['String']['output']>;
+  /** The owner of the quotation */
+  owner?: Maybe<QuotationOwnerType>;
+  /** The unique quotation number */
+  quotationNumber?: Maybe<Scalars['String']['output']>;
+  /** The settings for the quotation */
+  settings?: Maybe<QuotationSettingsType>;
+  /** The shipping address for the quotation */
+  shippingAddress?: Maybe<QuotationAddressType>;
+  /** The current status of the quotation */
+  status?: Maybe<QuotationStatus>;
+  /** The suggested shipping fee for the quotation */
+  suggestedShippingFee?: Maybe<Scalars['Decimal']['output']>;
+  /** The terms of the quotation */
+  terms?: Maybe<QuotationTermsType>;
+  /** The date and time from which the quotation is valid */
+  validFrom?: Maybe<Scalars['DateTimeOffset']['output']>;
+  /** The valid payment methods for the quotation */
+  validPaymentMethods?: Maybe<Array<Maybe<QuotationPaymentMethodType>>>;
+  /** The valid shipping methods for the quotation */
+  validShippingMethods?: Maybe<Array<Maybe<QuotationShippingMethodType>>>;
+  /** The date and time until which the quotation is valid */
+  validTo?: Maybe<Scalars['DateTimeOffset']['output']>;
+};
+
 /** Type containing cart summary information */
 type CartSummaryType = {
   __typename?: 'CartSummaryType';
@@ -298,14 +348,20 @@ type CartType = {
   freeShipping: Scalars['Boolean']['output'];
   /** The cart ID */
   id?: Maybe<Scalars['String']['output']>;
-  /** If true, the cart can not be modified further */
+  /** If true, this cart cannot proceed to checkout */
+  isBlockedFromCheckout: Scalars['Boolean']['output'];
+  /** If true, the cart cannot be modified further */
   isCompleted: Scalars['Boolean']['output'];
+  /** If true, the cart cannot be modified or cloned */
+  isLocked: Scalars['Boolean']['output'];
   /** The cart items */
   items?: Maybe<Array<Maybe<CartItemType>>>;
   /** Cart merchant data */
   merchantData?: Maybe<Scalars['String']['output']>;
   /** Cart promo code */
   promoCode?: Maybe<Scalars['String']['output']>;
+  /** The quotation associated with this cart */
+  quotation?: Maybe<CartQuotationType>;
   /** The cart summary */
   summary?: Maybe<CartSummaryType>;
 };
@@ -804,6 +860,8 @@ type FilterValueType = {
 
 type GeinsMerchantApiMutation = {
   __typename?: 'GeinsMerchantApiMutation';
+  /** Accept a quotation. */
+  acceptQuotation?: Maybe<Scalars['Boolean']['output']>;
   addPackageToCart?: Maybe<CartType>;
   addToCart?: Maybe<CartType>;
   /** Clears all items in the cart */
@@ -815,9 +873,13 @@ type GeinsMerchantApiMutation = {
   completeCart?: Maybe<CartType>;
   createOrUpdateCheckout?: Maybe<CheckoutType>;
   deleteUser?: Maybe<Scalars['Boolean']['output']>;
+  /** Finalize a quotation and place an order for it. */
+  finalizeQuotation?: Maybe<Scalars['Boolean']['output']>;
   monitorProductAvailability?: Maybe<Scalars['Boolean']['output']>;
   placeOrder?: Maybe<PlaceOrderResponseType>;
   postProductReview?: Maybe<Scalars['Boolean']['output']>;
+  /** Reject a quotation. */
+  rejectQuotation?: Maybe<Scalars['Boolean']['output']>;
   requestPasswordReset?: Maybe<Scalars['Boolean']['output']>;
   /** Set custom merchant data on the cart */
   setCartMerchantData?: Maybe<CartType>;
@@ -830,6 +892,14 @@ type GeinsMerchantApiMutation = {
   /** Update the cart item */
   updateCartItem?: Maybe<CartType>;
   updateUser?: Maybe<UserType>;
+};
+
+
+type GeinsMerchantApiMutationacceptQuotationArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  quotationId: Scalars['Guid']['input'];
 };
 
 
@@ -904,6 +974,14 @@ type GeinsMerchantApiMutationdeleteUserArgs = {
 };
 
 
+type GeinsMerchantApiMutationfinalizeQuotationArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  quotationId: Scalars['Guid']['input'];
+};
+
+
 type GeinsMerchantApiMutationmonitorProductAvailabilityArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
@@ -930,6 +1008,14 @@ type GeinsMerchantApiMutationpostProductReviewArgs = {
   languageId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
   rating?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+type GeinsMerchantApiMutationrejectQuotationArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  quotationId: Scalars['Guid']['input'];
 };
 
 
@@ -1040,10 +1126,14 @@ type GeinsMerchantApiQuery = {
   getOrderPublic?: Maybe<OrderType>;
   /** Get orders for the current user */
   getOrders?: Maybe<Array<Maybe<OrderType>>>;
+  /** Get a quotation cart with the specified quotation ID. */
+  getQuotationCart?: Maybe<CartType>;
   /** Get the current user */
   getUser?: Maybe<UserType>;
   /** Gets information about the specified list page. */
   listPageInfo?: Maybe<PageInfoType>;
+  /** List all quotation carts for the current user. */
+  listQuotationCarts?: Maybe<Array<Maybe<CartType>>>;
   /** Gets a product with the specified ID. Use either alias or productId. If both are provided, productId will be used. */
   product?: Maybe<ProductType>;
   /** Gets all products according to the values provided. */
@@ -1173,6 +1263,14 @@ type GeinsMerchantApiQuerygetOrdersArgs = {
 };
 
 
+type GeinsMerchantApiQuerygetQuotationCartArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  quotationId: Scalars['Guid']['input'];
+};
+
+
 type GeinsMerchantApiQuerygetUserArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   languageId?: InputMaybe<Scalars['String']['input']>;
@@ -1186,6 +1284,13 @@ type GeinsMerchantApiQuerylistPageInfoArgs = {
   languageId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiQuerylistQuotationCartsArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -2045,6 +2150,146 @@ type ProductsResultType = {
   filters?: Maybe<FilterCollectionType>;
   /** Results returned by the query */
   products?: Maybe<Array<Maybe<ProductType>>>;
+};
+
+/** Type containing quotation address information */
+type QuotationAddressType = {
+  __typename?: 'QuotationAddressType';
+  /** The address identifier */
+  addressId?: Maybe<Scalars['String']['output']>;
+  /** The first address line */
+  addressLine1?: Maybe<Scalars['String']['output']>;
+  /** The second address line */
+  addressLine2?: Maybe<Scalars['String']['output']>;
+  /** The third address line */
+  addressLine3?: Maybe<Scalars['String']['output']>;
+  /** The care-of field */
+  careOf?: Maybe<Scalars['String']['output']>;
+  /** The city */
+  city?: Maybe<Scalars['String']['output']>;
+  /** The company name */
+  company?: Maybe<Scalars['String']['output']>;
+  /** The country */
+  country?: Maybe<Scalars['String']['output']>;
+  /** The email address */
+  email?: Maybe<Scalars['String']['output']>;
+  /** The first name */
+  firstName?: Maybe<Scalars['String']['output']>;
+  /** The last name */
+  lastName?: Maybe<Scalars['String']['output']>;
+  /** The phone number */
+  phone?: Maybe<Scalars['String']['output']>;
+  /** The region or state */
+  region?: Maybe<Scalars['String']['output']>;
+  /** The date and time when the address data was captured */
+  snapshotAt?: Maybe<Scalars['DateTimeOffset']['output']>;
+  /** The postal/zip code */
+  zip?: Maybe<Scalars['String']['output']>;
+};
+
+/** Type containing quotation company information */
+type QuotationCompanyType = {
+  __typename?: 'QuotationCompanyType';
+  /** The company identifier */
+  companyId?: Maybe<Scalars['String']['output']>;
+  /** The company name */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The date and time when the company data was captured */
+  snapshotAt?: Maybe<Scalars['DateTimeOffset']['output']>;
+  /** The company VAT number */
+  vatNumber?: Maybe<Scalars['String']['output']>;
+};
+
+/** Type containing quotation customer information */
+type QuotationCustomerType = {
+  __typename?: 'QuotationCustomerType';
+  /** The date and time when the customer approved the quotation */
+  approvedAt?: Maybe<Scalars['DateTimeOffset']['output']>;
+  /** The customer identifier */
+  customerId?: Maybe<Scalars['String']['output']>;
+  /** The customer's first name */
+  firstName?: Maybe<Scalars['String']['output']>;
+  /** The internal customer identifier */
+  internalCustomerId?: Maybe<Scalars['Int']['output']>;
+  /** The customer's last name */
+  lastName?: Maybe<Scalars['String']['output']>;
+  /** The customer's phone number */
+  phone?: Maybe<Scalars['String']['output']>;
+  /** The date and time when the customer rejected the quotation */
+  rejectedAt?: Maybe<Scalars['DateTimeOffset']['output']>;
+  /** The date and time when the customer data was captured */
+  snapshotAt?: Maybe<Scalars['DateTimeOffset']['output']>;
+};
+
+/** Type containing quotation discount information */
+type QuotationDiscountType = {
+  __typename?: 'QuotationDiscountType';
+  /** The discount type */
+  type?: Maybe<Scalars['String']['output']>;
+  /** The discount value */
+  value: Scalars['Decimal']['output'];
+};
+
+/** Type containing quotation owner information */
+type QuotationOwnerType = {
+  __typename?: 'QuotationOwnerType';
+  /** The owner's first name */
+  firstName?: Maybe<Scalars['String']['output']>;
+  /** The owner's last name */
+  lastName?: Maybe<Scalars['String']['output']>;
+  /** The owner identifier */
+  ownerId?: Maybe<Scalars['String']['output']>;
+  /** The owner's phone number */
+  phone?: Maybe<Scalars['String']['output']>;
+  /** The date and time when the owner data was captured */
+  snapshotAt?: Maybe<Scalars['DateTimeOffset']['output']>;
+};
+
+/** Type containing quotation payment method information */
+type QuotationPaymentMethodType = {
+  __typename?: 'QuotationPaymentMethodType';
+  /** The payment method name */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The payment fee */
+  paymentFee?: Maybe<Scalars['Decimal']['output']>;
+  /** The payment method identifier */
+  paymentId?: Maybe<Scalars['String']['output']>;
+};
+
+/** Type containing quotation settings information */
+type QuotationSettingsType = {
+  __typename?: 'QuotationSettingsType';
+  /** Whether the quotation requires owner confirmation before being able to be finalized */
+  requireConfirmation: Scalars['Boolean']['output'];
+};
+
+/** Type containing quotation shipping method information */
+type QuotationShippingMethodType = {
+  __typename?: 'QuotationShippingMethodType';
+  /** The shipping method name */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The shipping fee */
+  shippingFee?: Maybe<Scalars['Decimal']['output']>;
+  /** The shipping method identifier */
+  shippingId?: Maybe<Scalars['String']['output']>;
+};
+
+enum QuotationStatus {
+  ACCEPTED = 'ACCEPTED',
+  CANCELED = 'CANCELED',
+  CONFIRMED = 'CONFIRMED',
+  DRAFT = 'DRAFT',
+  EXPIRED = 'EXPIRED',
+  FINALIZED = 'FINALIZED',
+  PENDING = 'PENDING',
+  REJECTED = 'REJECTED'
+}
+
+/** Type containing quotation terms information */
+type QuotationTermsType = {
+  __typename?: 'QuotationTermsType';
+  /** The terms text */
+  text?: Maybe<Scalars['String']['output']>;
 };
 
 /** Type containing product rating information */

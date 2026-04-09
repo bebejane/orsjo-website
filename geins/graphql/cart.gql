@@ -71,6 +71,7 @@ fragment CartFragment on CartType {
 			sellingPriceIncVat
 			regularPriceIncVat
 			vat
+
 			currency {
 				name
 				symbol

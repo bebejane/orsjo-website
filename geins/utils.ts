@@ -9,12 +9,13 @@ export const itemTypeId = async (type: string) =>
 
 export const formatGeinsPrice = (
 	price: number,
+	market: string,
 	currency?: CurrencyType | null,
 	quantity = 1,
 ): string => {
 	if (!price || !currency) return '';
 
-	return `${new Intl.NumberFormat('sv-SE', {
+	return `${new Intl.NumberFormat(market, {
 		style: 'currency',
 		maximumFractionDigits: 0,
 		currency: currency?.code,
@@ -65,7 +66,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 			selectedPaymentMethodId: 23,
 			availableShippingMethodIds: [],
 			selectedShippingMethodId: 0,
-			isCartEditable: true,
+			isCartEditable: false,
 			redirectUrls: {
 				success: `${siteUrl}/${locale}/thank-you`,
 				cancel: `${siteUrl}/${locale}/products`,
@@ -94,6 +95,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 			tld: 'com',
 		} as GeinsSettings,
 	};
+	console.log(checkoutTokenOptions.geinsSettings);
 
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
@@ -108,7 +110,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 	const encodedPayload = base64UrlEncode(JSON.stringify(checkoutTokenOptions));
 	const token = `${encodedHeader}.${encodedPayload}`;
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
-	//	console.log(url);
+	console.log(url);
 	return url;
 }
 
