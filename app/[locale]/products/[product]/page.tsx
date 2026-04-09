@@ -25,6 +25,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 
 	const res = await getProductPageData(slug, locale);
 	const variantId = res?.geins.products?.[0]?.productId;
+	console.log(res);
 
 	if (!res) return notFound();
 

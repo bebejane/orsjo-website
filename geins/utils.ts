@@ -62,7 +62,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 		checkoutSettings: {
 			copyCart: true,
 			customerType: 'PERSON' as CustomerType.PERSON,
-			availablePaymentMethodIds: [23],
+			availablePaymentMethodIds: [23, 24, 25, 18],
 			selectedPaymentMethodId: 23,
 			availableShippingMethodIds: [],
 			selectedShippingMethodId: 0,

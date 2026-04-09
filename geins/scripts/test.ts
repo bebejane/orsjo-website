@@ -32,8 +32,9 @@ const main = async () => {
 		//await resync(true);
 		const p = await mgmt.getProduct(8338);
 		const markets = await mgmt.getMarkets();
+		const paaymentTypes = await mgmt.getPaymentMethods();
 		//console.log(JSON.stringify(markets, null, 2));
-		console.log(JSON.stringify(p, null, 2));
+		console.log(JSON.stringify(paaymentTypes, null, 2));
 
 		//console.log(p);
 		//await resyncAll(151);
