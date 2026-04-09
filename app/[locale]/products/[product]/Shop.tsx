@@ -3,14 +3,14 @@
 import s from './Shop.module.scss';
 import cn from 'classnames';
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { formatShopifyPrice, parseGid } from '@/lib/shopify/utils';
+import { formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
 import { useWindowSize } from 'usehooks-ts';
-import useCart, { useShallow } from '@/lib/shopify/hooks/useCart';
+import useCart, { useShallow } from '@/geins/hooks/useCart';
 import useStore from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
 import AnimateHeight from 'react-animate-height';
-import { generateProductTitle, parseProductModelName, deliveryDaysText } from '@/lib/utils';
+import { generateProductTitle, parseProductModelName } from '@/lib/utils';
 import { RiCheckFill } from 'react-icons/ri';
 import { AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/[locale]/products/utils';
@@ -18,9 +18,10 @@ import { Modal } from 'next-dato-utils/components';
 import useIsDesktop from '@/lib/hooks/useIsDesktop';
 
 type Props = {
+	marketId: string;
 	product: ProductPageDataProps['product'];
-	shopify: ProductPageDataProps['shopify'];
-	variantId?: string;
+	geins: ProductPageDataProps['geins'];
+	variantId?: number;
 	shipping: ShippingQuery['shipping'];
 };
 
@@ -28,20 +29,21 @@ type Addon = {
 	__typename: string;
 	id: string;
 	modelId: string;
-	variantId: string;
+	variantId: number;
 	name: string;
-	price?: MoneyV2;
+	price: number;
 	imageUrl?: string;
 	quantity: number;
 };
 
-export default function ProductShop({ product, shopify, variantId, shipping }: Props) {
+export default function ProductShop({ product, geins, variantId, shipping, marketId }: Props) {
 	const allVariants = product?.models.map(({ variants }) => variants).flat() ?? [];
-	const allAddons = getAllAddons(product, shopify);
-
+	const allAddons = getAllAddons(product, geins);
 	const isDesktop = useIsDesktop();
 	const [desktopStyles, setDesktopStyles] = useState<CSSProperties>({});
-	const [addToCart, updating, error] = useCart(useShallow((state) => [state.addToCart, state.updating, state.error]));
+	const [cart, addToCart, updating, error] = useCart(
+		useShallow((state) => [state.cart, state.addToCart, state.updating, state.error]),
+	);
 	const [setShowCart] = useStore(useShallow((state) => [state.setShowCart]));
 	const [hide, setHide] = useState<boolean>(false);
 	const [wasHidden, setWasHidden] = useState<boolean>(false);
@@ -51,13 +53,14 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 	const [addons, setAddons] = useState<Addon[]>([]);
 	const [showAddonsButton, setShowAddonsButton] = useState(false);
 	const [selected, setSelected] = useState<any | null>(null);
-	const [totalPrice, setTotalPrice] = useState<MoneyV2>({ amount: 0, currencyCode: shopify.i18n.currencyCode });
-	const selectedModel = product?.models.find(({ variants }) => variants.find((v) => v.id === selected?.id));
+	const [totalPrice, setTotalPrice] = useState<number>(0);
+	const selectedModel = product?.models.find(({ variants }) =>
+		variants.find((v) => v.id === selected?.id),
+	);
 	const selectedModelAddons = allAddons.filter((a) => a.modelId === selectedModel?.id);
-	const selectedShopifyVariant = shopify.product?.variants.edges.find(
-		(v) => v.node.sku && v.node.sku === selected?.articleNo.trim()
-	)?.node;
-
+	const selectedGeinsVariant = geins.products?.find(
+		(v) => v.articleNumber && v.articleNumber === selected?.articleNo.trim(),
+	);
 	const [modal, setModal] = useState<'show' | 'hide' | 'dismiss'>('hide');
 	const { width, height } = useWindowSize();
 	const { scrolledPosition, viewportHeight, documentHeight } = useScrollInfo();
@@ -66,9 +69,11 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 	useEffect(() => {
 		if (!variantId) return setSelected(allVariants?.[0] ?? null);
 
-		const shopifyVariant = shopify.product?.variants.edges.find((v) => parseGid(v.node.id) === variantId)?.node;
-		if (shopifyVariant) {
-			setSelected(allVariants.find((v) => v.articleNo?.trim() === shopifyVariant?.sku) ?? null);
+		const geinsVariant = geins.products?.find((v) => v.productId === variantId);
+		if (geinsVariant) {
+			setSelected(
+				allVariants.find((v) => v.articleNo?.trim() === geinsVariant?.articleNumber) ?? null,
+			);
 			setHide(false);
 		}
 	}, [variantId]);
@@ -80,7 +85,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 	useEffect(() => {
 		updateTotalPrice();
 		setAddons([]);
-	}, [selectedShopifyVariant]);
+	}, [selectedGeinsVariant]);
 
 	useEffect(() => {
 		updateTotalPrice();
@@ -95,7 +100,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 		setHide(
 			(hide) =>
 				(!wasHidden && scrolledPosition === 0) ||
-				scrolledPosition + viewportHeight > (section?.offsetTop || documentHeight - viewportHeight)
+				scrolledPosition + viewportHeight > (section?.offsetTop || documentHeight - viewportHeight),
 		);
 	}, [width, height, scrolledPosition, documentHeight, viewportHeight, wasHidden]);
 
@@ -114,20 +119,21 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 	}
 
 	function updateTotalPrice() {
-		const variantsIds: string[] = [...addons.map((a) => a.variantId), selectedShopifyVariant?.id].filter(
-			Boolean
-		) as string[];
+		const variantsIds: number[] = [
+			...addons.map((a) => a.variantId),
+			selectedGeinsVariant?.productId,
+		].filter(Boolean) as number[];
 
-		const modelPrice = parseFloat(selectedShopifyVariant?.price.amount ?? '0');
+		const modelPrice = parseFloat(selectedGeinsVariant?.unitPrice?.sellingPriceIncVat ?? '0');
 		const addonsPrice = variantsIds.reduce((acc, id) => {
-			const accessory = shopify.accessories.find((p) => p?.variants.edges[0].node.id === id);
-			const lightsource = shopify.lightsources.find((p) => p?.variants.edges[0].node.id === id);
-			const lightsourcePrice = parseFloat(accessory?.variants.edges[0].node.price.amount ?? '0');
-			const accessoryPrice = parseFloat(lightsource?.variants.edges[0].node.price.amount ?? '0');
+			const accessory = geins.accessories.find((p) => p?.productId === id);
+			const lightsource = geins.lightsources.find((p) => p?.productId === id);
+			const lightsourcePrice = parseFloat(accessory?.unitPrice?.sellingPriceIncVat ?? '0');
+			const accessoryPrice = parseFloat(lightsource?.unitPrice?.sellingPriceIncVat ?? '0');
 			return acc + accessoryPrice + lightsourcePrice;
 		}, 0);
 
-		setTotalPrice({ amount: addonsPrice + modelPrice, currencyCode: shopify.i18n.currencyCode });
+		setTotalPrice(addonsPrice + modelPrice);
 	}
 
 	function handleToggleOpen(e: React.MouseEvent<HTMLElement>) {
@@ -140,12 +146,20 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 		const addon = allAddons.find((a) => a.id === id);
 		if (!addon) throw new Error('Invalid addon id: ' + id);
 		if (addons.find((a) => a.id === id)) setAddons((addons) => addons.filter((a) => a.id !== id));
-		else setAddons((addons) => [...addons, addon]);
+		else {
+			setAddons((addons) => [...addons, addon]);
+			setShowAddons(false);
+		}
 		setOpen(false);
 	}
 
-	function handleAddToCart(withoutLightsource?: boolean) {
-		if (!selectedShopifyVariant || !selectedModel) return;
+	function handleAddToCartWithoutLightsource() {
+		setModal('dismiss');
+		handleAddToCart(true);
+	}
+
+	async function handleAddToCart(withoutLightsource?: boolean) {
+		if (!selectedGeinsVariant || !selectedModel) return;
 
 		const noLightsourceIncluded =
 			selectedModel.lightsources.length && !selectedModel.lightsources.find((l) => l.included);
@@ -156,25 +170,17 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 			return;
 		}
 
-		const variants: { id: string; quantity: number }[] = [
-			{ id: selectedShopifyVariant.id, quantity: 1 },
-			...addons.map((a) => ({ id: a.variantId, quantity: a.quantity })),
-		];
+		const variants: CartItemInputType[] = [
+			{
+				skuId: selectedGeinsVariant?.skus?.[0]?.skuId ?? null,
+				quantity: 1,
+			},
+			...addons.map((a) => ({ skuId: a.variantId, quantity: a.quantity })),
+		].filter(({ skuId }) => skuId !== undefined);
 
-		addToCart(
-			variants.reverse().map(({ id, quantity }) => ({
-				merchandiseId: id,
-				quantity,
-			})),
-			shopify.i18n.countryCode
-		);
+		await addToCart(variants, marketId);
 		setShowCart(true);
 		resetAll();
-	}
-
-	function handleAddToCartWithoutLightsource() {
-		setModal('dismiss');
-		handleAddToCart(true);
 	}
 
 	if (!product || !selected || !selectedModel) return null;
@@ -190,10 +196,11 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 			>
 				<header>
 					<h3>
-						Shop {product.title} {addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
+						Shop {product.title}{' '}
+						{addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
 					</h3>
-					<span key={totalPrice.amount} className={s.price}>
-						{formatShopifyPrice(totalPrice as MoneyV2)}
+					<span key={totalPrice} className={s.price}>
+						{formatGeinsPrice(totalPrice, cart?.summary?.total?.currency)}
 					</span>
 				</header>
 
@@ -205,19 +212,25 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 							<ul className={cn(s.variants)} key={model.id}>
 								{model.variants.map((variant) => {
 									const { id, articleNo } = variant;
-									const shopifyVariant = shopify.product?.variants.edges.find(
-										(v) => articleNo && v.node.sku === articleNo
-									)?.node;
+									const geinsVariant = geins.products?.find(
+										(v) => articleNo && v.articleNumber === articleNo,
+									);
 
 									const title = generateProductTitle(product as ProductRecord, variant.id);
 									const { name, description } = parseProductModelName(
 										model as ProductModelRecord,
-										variant as VariantRecord
+										variant as VariantRecord,
 									);
 
 									let deliveryDays;
-									if (variant.deliveryDays && ['short', 'medium', 'long'].includes(variant.deliveryDays))
-										deliveryDays = shipping?.deliveryDays.find(({ time }) => time === variant.deliveryDays)?.text ?? '';
+
+									if (
+										variant.deliveryDays &&
+										['short', 'medium', 'long'].includes(variant.deliveryDays)
+									)
+										deliveryDays =
+											shipping?.deliveryDays.find(({ time }) => time === variant.deliveryDays)
+												?.text ?? '';
 
 									return (
 										<li
@@ -232,15 +245,25 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 										>
 											<div className={s.row}>
 												<div className={s.thumb}>
-													{shopifyVariant?.image && <img src={shopifyVariant?.image.url} />}
+													{getProductImageUrl(geinsVariant as ProductType) && (
+														<img src={getProductImageUrl(geinsVariant as ProductType)} />
+													)}
 												</div>
 												<span className={s.name}>
 													<strong>{name}</strong> {description}
 												</span>
 												{variant.deliveryDays && (
-													<div className={cn(s.delivery, s[variant.deliveryDays])} title={deliveryDays} />
+													<div
+														className={cn(s.delivery, s[variant.deliveryDays])}
+														title={deliveryDays}
+													/>
 												)}
-												<span className={s.price}>{formatShopifyPrice(shopifyVariant?.price as MoneyV2)}</span>{' '}
+												<span className={s.price}>
+													{formatGeinsPrice(
+														geinsVariant?.unitPrice?.sellingPriceIncVat,
+														geinsVariant?.unitPrice?.currency,
+													)}
+												</span>{' '}
 											</div>
 										</li>
 									);
@@ -252,34 +275,50 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 
 				<hr className={cn(!open && s.hide)} />
 
-				<div className={cn(s.variant, (open || showAddons) && s.open)}>
+				<div id='variant' className={cn(s.variant, (open || showAddons) && s.open)}>
 					<div
 						className={s.row}
 						title={`${selectedModel?.name?.name ?? ''} ${[selected.color?.name, selected.material?.name, selected.feature?.name].filter(Boolean).join(', ')}`}
 						onClick={handleToggleOpen}
 					>
 						<div className={s.thumb}>
-							{selectedShopifyVariant?.image && <img src={selectedShopifyVariant?.image.url} />}
+							{getProductImageUrl(selectedGeinsVariant as ProductType) && (
+								<img src={getProductImageUrl(selectedGeinsVariant as ProductType)} />
+							)}
 						</div>
 						<span className={s.name}>
 							<strong>
-								{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).name}
+								{
+									parseProductModelName(
+										selectedModel as ProductModelRecord,
+										selected as VariantRecord,
+									).name
+								}
 							</strong>
 							&nbsp;
-							{parseProductModelName(selectedModel as ProductModelRecord, selected as VariantRecord).description}
+							{
+								parseProductModelName(
+									selectedModel as ProductModelRecord,
+									selected as VariantRecord,
+								).description
+							}
 						</span>
 						<span className={s.price}></span>
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
 					</div>
 
-					{addons.map(({ id, name, variantId, imageUrl }, idx) => {
+					{addons.map(({ id, name, variantId, imageUrl }) => {
 						return (
 							<div
-								key={idx}
-								className={cn(s.row, s.addon, addons.find((a) => a.variantId === variantId) && s.selected)}
+								key={id}
 								id={id}
 								onClick={() => setAddons((addons) => addons.filter((a) => a.id !== id))}
 								title={name}
+								className={cn(
+									s.row,
+									s.addon,
+									addons.find((a) => a.variantId === variantId) && s.selected,
+								)}
 							>
 								<div className={s.plusminus}>
 									<AiOutlineClose size={16} />
@@ -296,8 +335,8 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 
 				<hr />
 
-				<div id={'addons'} className={cn(s.addons)} key={selectedShopifyVariant?.id}>
-					<input type='hidden' name='model' value={selectedShopifyVariant?.id} />
+				<div id={'addons'} className={cn(s.addons)}>
+					<input type='hidden' name='model' value={selectedGeinsVariant?.productId} />
 					<AnimateHeight height={!showAddons || allAddons.length === 0 ? 0 : 'auto'} duration={400}>
 						<ul>
 							{selectedModelAddons
@@ -310,7 +349,7 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 												className={cn(
 													s.row,
 													s.addon,
-													addons.find((a) => isSelected && s.selected)
+													addons.find((a) => isSelected && s.selected),
 												)}
 											>
 												<div className={cn(s.plusminus, isSelected && s.hide)}>
@@ -323,7 +362,9 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 												<span className={s.name}>
 													<strong>{name}</strong>
 												</span>
-												<span className={s.price}>{formatShopifyPrice(price as MoneyV2, quantity)}</span>
+												<span className={s.price}>
+													{formatGeinsPrice(price, cart?.summary?.total?.currency, quantity)}
+												</span>
 											</div>
 										</li>
 									);
@@ -334,7 +375,11 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 
 				<div className={s.buttons}>
 					<AnimateHeight
-						height={(!showAddonsButton && !open) || selectedModelAddons.length === 0 ? 0 : 'auto'}
+						height={
+							(!showAddonsButton && !open && isDesktop) || selectedModelAddons.length === 0
+								? 0
+								: 'auto'
+						}
 						duration={200}
 					>
 						<button
@@ -347,12 +392,20 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 							Accessories {!showAddons ? '+' : '–'}
 						</button>
 					</AnimateHeight>
-					<button id='add-to-cart-button' onClick={() => handleAddToCart(false)} className={s.addToCart}>
+					<button
+						id='add-to-cart-button'
+						onClick={() => handleAddToCart(false)}
+						className={s.addToCart}
+					>
 						Add to cart
 					</button>
 				</div>
 				<div className={s.expand}>
-					<button type='button' className={cn(s.toggle, s.expand)} onClick={() => setExpanded(!expanded)}>
+					<button
+						type='button'
+						className={cn(s.toggle, s.expand)}
+						onClick={() => setExpanded(!expanded)}
+					>
 						{expanded ? <GoChevronLeft size={16} /> : <GoChevronRight size={16} />}
 					</button>
 				</div>
@@ -390,20 +443,25 @@ export default function ProductShop({ product, shopify, variantId, shipping }: P
 	);
 }
 
-function getAllAddons(product: ProductPageDataProps['product'], shopify: ProductPageDataProps['shopify']): Addon[] {
+function getAllAddons(
+	product: ProductPageDataProps['product'],
+	geins: ProductPageDataProps['geins'],
+): Addon[] {
 	return product?.models
 		.map(({ id: modelId, accessories, lightsources }) => [
 			...accessories.map(({ __typename, id, accessory }) => ({
 				__typename,
 				id,
 				modelId,
-				variantId: shopify.accessories.find((p) => p?.variants.edges[0].node.sku === accessory?.articleNo)?.variants
-					.edges[0].node.id,
+				variantId: geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo)
+					?.skus?.[0]?.skuId,
 				name: `1 x ${accessory?.name}`,
-				price: shopify.accessories.find((p) => p?.variants.edges[0].node.sku === accessory?.articleNo)?.variants
-					.edges[0].node.price,
-				imageUrl: shopify.accessories.find((p) => p?.variants.edges[0].node.sku === accessory?.articleNo)?.variants
-					.edges[0].node.image?.url,
+				price: geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo)?.unitPrice
+					?.regularPriceIncVat,
+				imageUrl: getProductImageUrl(
+					geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo) as ProductType,
+				),
+
 				quantity: 1,
 			})),
 			...lightsources
@@ -412,13 +470,16 @@ function getAllAddons(product: ProductPageDataProps['product'], shopify: Product
 					__typename,
 					id,
 					modelId,
-					variantId: shopify.lightsources.find((p) => p?.variants.edges[0].node.sku === lightsource?.articleNo)
-						?.variants.edges[0].node.id,
+					variantId: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
+						?.skus?.[0]?.skuId,
 					name: `${amount} x ${lightsource?.name}`,
-					price: shopify.lightsources.find((p) => p?.variants.edges[0].node.sku === lightsource?.articleNo)?.variants
-						.edges[0].node.price,
-					imageUrl: shopify.lightsources.find((p) => p?.variants.edges[0].node.sku === lightsource?.articleNo)?.variants
-						.edges[0].node.image?.url,
+					price: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
+						?.unitPrice?.regularPriceIncVat,
+					imageUrl: getProductImageUrl(
+						geins.lightsources.find(
+							(p) => p?.articleNumber === lightsource?.articleNo,
+						) as ProductType,
+					),
 					quantity: amount,
 				})),
 		])

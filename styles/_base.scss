@@ -60,10 +60,6 @@
 	--z-page-transition: 10000;
 }
 
-/*********************
-GENERAL STYLES
-*********************/
-
 body {
 	width: 100%;
 	color: var(--black);
@@ -203,6 +199,10 @@ button {
 			transform: scale(1.04);
 		}
 	}
+}
+
+article > [data-double-margin='true'] + [data-double-margin='true'] {
+	padding-top: 0 !important;
 }
 
 input,

@@ -108,7 +108,7 @@ export default function SiteSearch({ show, onClose, query: queryAsProp, onChange
 				<input
 					ref={ref}
 					autoFocus={true}
-					placeholder='Search...'
+					placeholder='Type to search our website'
 					autoComplete={'off'}
 					autoCorrect={'off'}
 					type='text'

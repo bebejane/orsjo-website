@@ -6,13 +6,17 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import NewsList from './NewsList';
 import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function News({ params }: PageProps<'/[locale]/about/news'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { allNews } = await apiQuery(AllNewsDocument, { variables: { first: 5, skip: 0 } });
+	const { allNews, draftUrl } = await apiQuery(AllNewsDocument, {
+		variables: { first: 5, skip: 0 },
+	});
 
 	return (
 		<>
@@ -20,12 +24,15 @@ export default async function News({ params }: PageProps<'/[locale]/about/news'>
 				<h1 className='bottomMargin topMargin white'>News</h1>
 			</Section>
 			<NewsList allNews={allNews} />
+			<DraftMode url={draftUrl} path='/news' />
 		</>
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'News',
-	};
+		description: 'News at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/news`,
+	});
 }

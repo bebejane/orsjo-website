@@ -17,15 +17,16 @@ export default function Sidebar() {
 	const path = usePathname();
 	const pathname = path.includes('#') ? path.substring(0, path.indexOf('#')) : path;
 	const backRef = useRef(null);
-	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore(
-		useShallow((state) => [
-			state.currentSection,
-			state.setCurrentSection,
-			state.invertSidebar,
-			state.searchProducts,
-			state.setSearchProducts,
-		])
-	);
+	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] =
+		useStore(
+			useShallow((state) => [
+				state.currentSection,
+				state.setCurrentSection,
+				state.invertSidebar,
+				state.searchProducts,
+				state.setSearchProducts,
+			]),
+		);
 	const [setInvertMenu] = useStore(useShallow((state) => [state.setInvertMenu]));
 	const [inverted, setInverted] = useState(_inverted || invertSidebar);
 	const [sections, setSections] = useState<{ title: string | undefined; id: string }[]>([]);
@@ -47,7 +48,9 @@ export default function Sidebar() {
 
 	const updateSections = () => {
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]');
-		const sections = items.length ? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id })) : [];
+		const sections = items.length
+			? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id }))
+			: [];
 		setSections(sections);
 	};
 
@@ -64,12 +67,23 @@ export default function Sidebar() {
 		if (!sections.length) return;
 
 		const calcPos = (el: HTMLElement) =>
-			Math.abs(scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop)) + el.offsetTop;
+			Math.abs(
+				scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop),
+			) + el.offsetTop;
 
 		const { id } = sections.sort((a, b) => (calcPos(a) > calcPos(b) ? 1 : -1))[0];
 
 		setCurrentSection(id);
-	}, [isScrolling, scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, _inverted]);
+	}, [
+		isScrolling,
+		scrolledPosition,
+		documentHeight,
+		setCurrentSection,
+		setInverted,
+		setInvertMenu,
+		layout,
+		_inverted,
+	]);
 
 	useEffect(() => {
 		if (!currentSection || !innerWidth) return;

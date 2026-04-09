@@ -1,7 +1,8 @@
+import 'dotenv/config';
 import { NextConfig } from 'next';
-import { withSentryConfig } from '@sentry/nextjs';
 import path from 'path';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { withSentryConfig } from '@sentry/nextjs';
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -15,15 +16,11 @@ const nextConfig: NextConfig = {
 			@use "@/styles/mixin" as *;
   	`,
 	},
+	devIndicators: false,
+	reactStrictMode: false,
 	typescript: {
 		ignoreBuildErrors: true,
 	},
-	eslint: {
-		ignoreDuringBuilds: true,
-	},
-	logging: false,
-	devIndicators: false,
-	reactStrictMode: false,
 	turbopack: {
 		rules: {
 			'*.svg': {
@@ -46,6 +43,15 @@ const nextConfig: NextConfig = {
 	},
 	async headers() {
 		return [
+			{
+				source: '/:path*',
+				headers: [
+					{
+						key: 'Content-Security-Policy',
+						value: `frame-ancestors 'self' https://plugins-cdn.datocms.com/ ${process.env.NEXT_PUBLIC_DATOCMS_BASE_EDITING_URL} ${process.env.NEXT_PUBLIC_SITE_URL}`,
+					},
+				],
+			},
 			{
 				source: '/api/web-previews',
 				headers: [
@@ -74,10 +80,18 @@ const nextConfig: NextConfig = {
 			},
 		];
 	},
+	async rewrites() {
+		return [
+			{
+				source: '/mail/:path*',
+				destination: '/images/email/:path*',
+			},
+		];
+	},
 };
 
-//export default withNextIntl(nextConfig);
-
+export default withNextIntl(nextConfig);
+/*
 export default withSentryConfig(withNextIntl(nextConfig), {
 	// For all available options, see:
 	// https://www.npmjs.com/package/@sentry/webpack-plugin#options
@@ -110,3 +124,4 @@ export default withSentryConfig(withNextIntl(nextConfig), {
 	// https://vercel.com/docs/cron-jobs
 	automaticVercelMonitors: true,
 });
+*/

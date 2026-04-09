@@ -11,11 +11,11 @@ import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from '@/components/nav/Link';
-import { useCart } from '@/lib/shopify';
+import useCart from '@/geins/hooks/useCart';
 
 export type MenuMobileProps = {
 	menu: MenuItem[];
-	localization: LocalizationQuery['localization'];
+	markets: MarketType[];
 };
 
 export default function MenuMobile({ menu }: MenuMobileProps) {
@@ -35,9 +35,10 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 			state.transitioning,
 			state.setShowCart,
 			state.isMounted,
-		])
+		]),
 	);
 
+	const isEmpty = !cart?.items?.length || cart?.items?.length === 0;
 	const sub = menu.find((item) => item.section === selected?.section)?.sub;
 	const subHeader = selected ? menu.find((i) => i.section === selected?.section)?.title : null;
 
@@ -99,20 +100,26 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 				/>
 			</div>
 			<div
-				className={cn(s.cart, cart?.totalQuantity && s.filled, (showMenuMobile || inverted) && s.invert)}
+				className={cn(s.cart, !isEmpty && s.filled, (showMenuMobile || inverted) && s.invert)}
 				onClick={() => setShowCart(true)}
 			>
-				<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
+				<img src={`/images/cart${!isEmpty ? '-filled' : ''}.svg`} />
 			</div>
 			<nav className={cn(s.mobileMenu, showMenuMobile ? s.open : s.hide)}>
 				<nav className={s.main}>
 					<ul className={s.nav}>
 						{menu.slice(1).map((item, idx) => (
-							<li data-slug={item.slug} key={idx} className={cn(selected?.slug === item.slug && s.active)}>
+							<li
+								data-slug={item.slug}
+								key={idx}
+								className={cn(selected?.slug === item.slug && s.active)}
+							>
 								{item.index ? (
 									<Link href={item.slug}>{item.title}</Link>
 								) : (
-									<span onClick={() => setSelected(selected?.section === item.section ? null : item)}>
+									<span
+										onClick={() => setSelected(selected?.section === item.section ? null : item)}
+									>
 										{item.title}
 									</span>
 								)}

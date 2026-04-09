@@ -5,20 +5,20 @@ import { apiQuery } from 'next-dato-utils/api';
 import { Image } from 'react-datocms';
 import { Section } from '@/components';
 import Link from '@/components/nav/Link';
-import { Markdown } from 'next-dato-utils/components';
+import { DraftMode, Markdown } from 'next-dato-utils/components';
 import { format } from 'date-fns';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
-import { buildMetadata } from '@/app/layout';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function NewsPage({ params }: PageProps<'/[locale]/about/news/[news]'>) {
 	const { locale, news: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { news } = await apiQuery(NewsDocument, {
+	const { news, draftUrl } = await apiQuery(NewsDocument, {
 		variables: { slug },
 	});
 	if (!news) return notFound();
@@ -46,6 +46,7 @@ export default async function NewsPage({ params }: PageProps<'/[locale]/about/ne
 					<button>View all news</button>
 				</Link>
 			</Section>
+			<DraftMode url={draftUrl} path={`/about/news/${slug}`} />
 		</>
 	);
 }
@@ -55,7 +56,9 @@ export async function generateStaticParams() {
 	return paths;
 }
 
-export async function generateMetadata({ params }: PageProps<'/[locale]/about/news/[news]'>): Promise<Metadata> {
+export async function generateMetadata({
+	params,
+}: PageProps<'/[locale]/about/news/[news]'>): Promise<Metadata> {
 	const { news: slug } = await params;
 	const { news } = await apiQuery(NewsDocument, {
 		variables: { slug },

@@ -2,20 +2,23 @@ import s from './page.module.scss';
 import { SustainabilityDocument } from '@/graphql';
 import cn from 'classnames';
 import { Image } from 'react-datocms';
-import { Markdown } from 'next-dato-utils/components';
+import { DraftMode, Markdown } from 'next-dato-utils/components';
 import { Section, TextReveal, VideoPlayer } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
+import { buildMetadata } from '@/app/[locale]/layout';
 
-export default async function Sustainability({ params }: PageProps<'/[locale]/about/sustainability'>) {
+export default async function Sustainability({
+	params,
+}: PageProps<'/[locale]/about/sustainability'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { sustainability } = await apiQuery(SustainabilityDocument);
+	const { sustainability, draftUrl } = await apiQuery(SustainabilityDocument);
 	if (!sustainability) return notFound();
 
 	const { title, intro, steps, image } = sustainability;
@@ -24,9 +27,11 @@ export default async function Sustainability({ params }: PageProps<'/[locale]/ab
 		<>
 			<Section className={s.sustainability} type='full'>
 				<div className={s.hero}>
-					{image.responsiveImage && <Image data={image.responsiveImage} className={s.heroImage} objectFit='cover' />}
+					{image.responsiveImage && (
+						<Image data={image.responsiveImage} className={s.heroImage} objectFit='cover' />
+					)}
 					<div className={s.header}>
-						<h1>
+						<h1 className='big'>
 							<TextReveal block={true}>{title}</TextReveal>
 						</h1>
 					</div>
@@ -37,7 +42,11 @@ export default async function Sustainability({ params }: PageProps<'/[locale]/ab
 			</Section>
 			<Section className={s.blocks} type='full'>
 				{steps.map(({ text, title, media, fullWidthImage }, idx) => (
-					<div className={cn(s.block, fullWidthImage && s.fullWidth)} key={idx}>
+					<div
+						key={idx}
+						className={cn(s.block, fullWidthImage && s.fullWidth)}
+						data-datocms-content-link-source={fullWidthImage && media.responsiveImage?.alt}
+					>
 						<div className={s.left}>
 							<div className={s.header}>
 								<h2>{title}</h2>
@@ -49,18 +58,25 @@ export default async function Sustainability({ params }: PageProps<'/[locale]/ab
 							{media.video ? (
 								<VideoPlayer className={s.video} data={media as FileField} />
 							) : media.responsiveImage ? (
-								<Image data={media.responsiveImage} className={s.image} intersectionMargin={`0px 0px 2000px 0px`} />
+								<Image
+									data={media.responsiveImage}
+									className={s.image}
+									intersectionMargin={`0px 0px 2000px 0px`}
+								/>
 							) : null}
 						</div>
 					</div>
 				))}
 			</Section>
+			<DraftMode url={draftUrl} path='/about/sustainability' />
 		</>
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Sustainability',
-	};
+		description: 'Sustainability at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/sustainability`,
+	});
 }

@@ -1,0 +1,107 @@
+query Cart($id: String, $marketId: String) {
+	getCart(id: $id, marketId: $marketId) {
+		...CartFragment
+	}
+}
+
+mutation AddToCart($id: String!, $item: CartItemInputType!, $marketId: String) {
+	addToCart(id: $id, item: $item, marketId: $marketId) {
+		...CartFragment
+	}
+}
+mutation UpdateCartItem($id: String!, $item: CartItemInputType!, $marketId: String) {
+	updateCartItem(id: $id, item: $item, marketId: $marketId) {
+		...CartFragment
+	}
+}
+
+mutation ClearCart($id: String!, $marketId: String) {
+	clearCart(id: $id, marketId: $marketId) {
+		...CartFragment
+	}
+}
+
+mutation CompletCart($id: String!) {
+	completeCart(id: $id) {
+		...CartFragment
+	}
+}
+mutation SetCartMerchantData(
+	$cartId: String!
+	$merchantData: String!
+	$channelId: String
+	$languageId: String
+	$marketId: String
+) {
+	setCartMerchantData(
+		id: $cartId
+		merchantData: $merchantData
+		channelId: $channelId
+		languageId: $languageId
+		marketId: $marketId
+	) {
+		...CartFragment
+	}
+}
+
+fragment CartFragment on CartType {
+	id
+	isCompleted
+	freeShipping
+	merchantData
+	summary {
+		shipping {
+			feeIncVat
+			feeExVat
+		}
+		total {
+			sellingPriceExVat
+			sellingPriceIncVat
+			regularPriceIncVat
+			vat
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
+		}
+		subTotal {
+			sellingPriceExVat
+			sellingPriceIncVat
+			regularPriceIncVat
+			vat
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
+		}
+	}
+	items {
+		__typename
+		id
+		skuId
+		product {
+			...ProductFragment
+		}
+		totalPrice {
+			sellingPriceExVat
+			sellingPriceIncVat
+			vat
+		}
+		unitPrice {
+			sellingPriceExVat
+			sellingPriceIncVat
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
+		}
+		quantity
+		groupKey
+	}
+}

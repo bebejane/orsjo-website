@@ -5,7 +5,7 @@ import s from './FeaturedGallery.module.scss';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
-import { Mousewheel } from 'swiper/modules';
+import { Mousewheel, FreeMode } from 'swiper/modules';
 import type { Swiper } from 'swiper';
 import {
 	ProfessionalThumbnail,
@@ -19,14 +19,13 @@ import { useEffect, useRef, useState } from 'react';
 import { usePage } from '@/lib/context/page-provider';
 import { useMediaQuery } from 'usehooks-ts';
 
-export type ProductRecordWithShopifyData = ProductRecord & { shopify: ProductVariant };
+export type ProductRecordWithGeinsData = ProductRecord & { geins?: ProductType };
 
 export type FeaturedGalleryProps = {
 	products?: ProductRecord[];
 	projects?: ProjectRecord[];
 	designers?: DesignerRecord[];
-	items: ProductRecordWithShopifyData[] | ProjectRecord[] | DesignerRecord[] | ProductRecord[];
-	shopifyItems?: Product[];
+	items: ProductRecordWithGeinsData[] | ProjectRecord[] | DesignerRecord[] | ProductRecord[];
 	headline?: string;
 	id: string;
 	bgColor?: string;
@@ -51,7 +50,6 @@ export default function FeaturedGallery({
 	const swiperRef = useRef<Swiper | null>(null);
 	const [index, setIndex] = useState(0);
 	const [isShortSlide, setIsShortSlide] = useState(false);
-	const [spaceBetween, setSpaceBetween] = useState(0);
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const numSlides = items.length;
 
@@ -75,14 +73,14 @@ export default function FeaturedGallery({
 			)}
 			<div className={s.gallery}>
 				<SwiperReact
-					modules={[Mousewheel]}
+					modules={[Mousewheel, FreeMode]}
 					id={`${id}-swiper-wrap`}
 					loop={!isShortSlide}
 					noSwiping={false}
 					direction={'horizontal'}
 					mousewheel={{
 						forceToAxis: true,
-						releaseOnEdges: true,
+						releaseOnEdges: false,
 						invert: false,
 						sensitivity: 1,
 					}}
@@ -90,10 +88,10 @@ export default function FeaturedGallery({
 						enabled: true,
 						momentum: true,
 						sticky: false,
+						momentumRatio: 0.5,
 					}}
-					simulateTouch={!isShortSlide}
 					slidesPerView={'auto'}
-					spaceBetween={spaceBetween}
+					spaceBetween={0}
 					initialSlide={index}
 					className={cn(s.swiper, isShortSlide && s.short)}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
@@ -108,7 +106,7 @@ export default function FeaturedGallery({
 									product={item as ProductRecord}
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
-									shopifyVariant={item.shopify}
+									geinsVariant={item.geins}
 									lazyload={false}
 									className={s.thumbnail}
 								/>

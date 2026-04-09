@@ -7,15 +7,13 @@ import {
 } from '@/graphql';
 import { FeaturedGallery, Section } from '@/components';
 import ProductList from './ProductList';
-import shopifyQuery from '@/lib/shopify/shopify-query';
-import { AllShopifyProductsDocument, ShopifyProductsByQueryDocument } from '@/lib/shopify/graphql';
-import { ProductRecordWithShopifyData } from '@/components/common/FeaturedGallery';
-import { findCheapestVariant } from './utils';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import { buildMetadata } from '@/app/layout';
+import { buildMetadata } from '@/app/[locale]/layout';
 import { Metadata } from 'next';
+import * as geins from '@/geins/merchant-api';
+import { DraftMode } from 'next-dato-utils/components';
 
 export type ProductsByCategory = {
 	products: ProductRecord[];
@@ -29,37 +27,31 @@ export type ProductsStartProps = {
 	productCategories: ProductCategoryRecord[];
 };
 
+export const dynamic = 'force-static';
+
 export default async function Products({ params }: PageProps<'/[locale]/products'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
 	const [
-		{ productStart },
-		{ allProducts },
-		{ allProductCategories },
-		{ products: allShopifyProducts },
+		{ productStart, draftUrl: productStartDraftUrl },
+		{ allProducts, draftUrl: productsDraftUrl },
+		{ allProductCategories, draftUrl: categoriesDraftUrl },
+		allGeinsProducts,
 	] = await Promise.all([
 		apiQuery(ProductStartDocument),
 		apiQuery(AllProductsLightDocument, { all: true }),
 		apiQuery(AllProductCategoriesDocument, { all: true }),
-		shopifyQuery(AllShopifyProductsDocument, { country: locale, all: true }),
+		geins.getProducts(locale),
 	]);
 
-	/*
-	const skus = allProducts
-		.map(({ models }) => models.map(({ variants }) => variants.map(({ articleNo }) => articleNo).flat()).flat())
-		.flat();
+	const draftUrls: (string | null)[] = [
+		productStartDraftUrl,
+		productsDraftUrl,
+		categoriesDraftUrl,
+	].filter(Boolean);
 
-	const query = skus.map((sku) => `sku:${sku}`).join(' OR ');
-
-	const { products: variants } = await shopifyQuery(
-		ShopifyProductsByQueryDocument,
-		{
-			variables: { query },
-		}
-	);
-*/
 	return (
 		<>
 			{productStart?.featured.map((data, idx) => (
@@ -76,22 +68,21 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 						headline={data.headline}
 						theme='light'
 						showMarkAsNew={data.showMarkAsNew}
-						items={
-							data.items.map((product) => ({
-								...product,
-								shopify: allShopifyProducts.edges.find(
-									(v) => v.node.handle === (product as ProductRecord).slug
-								)?.node.selectedOrFirstAvailableVariant as ProductVariant,
-							})) as ProductRecordWithShopifyData[]
-						}
+						items={data.items.map((product) => ({
+							...(product as ProductRecord),
+							geins: allGeinsProducts.find((p) =>
+								p?.categories?.find((c) => c?.alias === (product as ProductRecord).slug),
+							),
+						}))}
 					/>
 				</Section>
 			))}
 			<ProductList
 				productCategories={allProductCategories}
 				allProducts={allProducts}
-				shopifyProducts={allShopifyProducts}
+				geinsProducts={allGeinsProducts as ProductType[]}
 			/>
+			<DraftMode url={draftUrls} path='/products' />
 		</>
 	);
 }

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useStore, useShallow } from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { useMediaQuery } from 'usehooks-ts';
+import cn from 'classnames';
 
 export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>;
 
@@ -17,14 +18,16 @@ export type ProjectProps = {
 };
 
 export default function ProjectHeader({ project, bespokeThumbnail }: ProjectProps) {
-	const [setGallery, setGalleryId] = useStore(useShallow((state) => [state.setGallery, state.setGalleryId]));
+	const [setGallery, setGalleryId] = useStore(
+		useShallow((state) => [state.setGallery, state.setGalleryId]),
+	);
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
 	const [imageStyle, setImageStyle] = useState({});
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const viewportScrollRatio = 1 - (viewportHeight - scrolledPosition) / viewportHeight;
 
 	useEffect(() => {
-		setGallery({ images: galleryImages(project as ProjectRecord) });
+		setGallery({ images: galleryImages(project as ProjectRecord), index: null });
 	}, [setGallery, project]);
 
 	useEffect(() => {
@@ -39,7 +42,7 @@ export default function ProjectHeader({ project, bespokeThumbnail }: ProjectProp
 	return (
 		<Section className={s.intro} name='Presentation' top={true}>
 			<div className={s.wrap} onClick={() => setGalleryId(project.image?.id)}>
-				<h1 className={s.title}>
+				<h1 className={cn('big', s.title)}>
 					<TextReveal block={true}>{project.title}</TextReveal>
 				</h1>
 				<h1 className={s.location}>

@@ -90,6 +90,11 @@
 			animation: blink 0.5s steps(2, start) forwards;
 			white-space: nowrap;
 
+			@include mq($until: desktop) {
+				font-size: 0.7rem;
+				margin-top: -0.4em;
+			}
+
 			@keyframes blink {
 				0% {
 					opacity: 0.5;
@@ -179,7 +184,7 @@
 	}
 
 	.row {
-		--thumb-size: 1.3rem;
+		--thumb-size: 2rem;
 		position: relative;
 		display: flex;
 		flex-direction: row;
@@ -192,6 +197,8 @@
 		cursor: pointer;
 
 		@include mq($from: desktop) {
+			--thumb-size: 1.3rem;
+
 			height: 1.7rem;
 			padding: 0.5em;
 			font-size: 0.5em;
@@ -215,6 +222,8 @@
 			img {
 				height: var(--thumb-size);
 				width: var(--thumb-size);
+				min-height: var(--thumb-size);
+				min-width: var(--thumb-size);
 				object-fit: cover;
 			}
 		}
@@ -228,11 +237,15 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			width: 100%;
+			padding-right: 1em;
 			strong {
 				padding-left: 0.25em;
 				color: var(--black);
 				overflow: hidden;
 				text-overflow: ellipsis;
+			}
+			@include mq($until: desktop) {
+				padding-left: 1em;
 			}
 		}
 		.delivery {
@@ -272,6 +285,9 @@
 			height: 100%;
 			width: var(--thumb-size);
 			background-color: rgba(255, 255, 255, 0.8);
+			@include mq($until: desktop) {
+				display: none;
+			}
 			@include mq($from: desktop) {
 				opacity: 0;
 			}
@@ -316,14 +332,10 @@
 					opacity: 0;
 				}
 			}
-			&.addon > .thumb {
-				opacity: 0;
-			}
-			.check {
-				//display: flex;
-				//width: 2.7rem;
-				&.checked {
-					//opacity: 0;
+			@include mq($from: desktop) {
+				.thumb {
+					opacity: 0;
+					//background-color: pink;
 				}
 			}
 		}
@@ -372,9 +384,11 @@
 			width: 100%;
 			cursor: pointer;
 			border: 0 !important;
-			&:hover {
-				background-color: var(--black);
-				color: var(--white);
+			@include mq($from: desktop) {
+				&:hover {
+					background-color: var(--black);
+					color: var(--white);
+				}
 			}
 		}
 		button.toggle {
@@ -393,7 +407,6 @@
 
 			@include mq($from: desktop) {
 				border-top: 0;
-
 				height: 1.8rem;
 			}
 		}
@@ -402,16 +415,15 @@
 			height: 2rem;
 			line-height: 0;
 			padding-bottom: 1em;
-			font-size: 0.55rem;
+			font-size: 11px;
 
 			@include mq($from: desktop) {
 				height: 1.5rem;
-				font-size: 0.45rem;
-			}
-
-			&:hover {
-				background-color: var(--light-gray);
-				color: var(--black);
+				font-size: 0.45rem !important;
+				&:hover {
+					background-color: var(--light-gray);
+					color: var(--black);
+				}
 			}
 		}
 	}

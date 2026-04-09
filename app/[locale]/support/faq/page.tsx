@@ -7,13 +7,15 @@ import { setRequestLocale } from 'next-intl/server';
 import { Section } from '@/components';
 import FaqList from '@/app/[locale]/support/faq/FaqList';
 import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function Faqs({ params }: PageProps<'/[locale]/support/faq'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { faqs, faqStart } = await apiQuery(FaqStartDocument);
+	const { faqs, faqStart, draftUrl } = await apiQuery(FaqStartDocument);
 	if (!faqs || !faqStart) return notFound();
 
 	return (
@@ -23,12 +25,15 @@ export default async function Faqs({ params }: PageProps<'/[locale]/support/faq'
 				<p>{faqStart.intro}</p>
 			</Section>
 			<FaqList faqs={faqs} />
+			<DraftMode url={draftUrl} path='/support/faq' />
 		</>
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'FAQ',
-	};
+		description: 'FAQ at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/support/faq`,
+	});
 }
