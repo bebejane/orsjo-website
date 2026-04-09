@@ -211,10 +211,13 @@ export async function updateProduct(p: ProductData[], markets: Market[]) {
 		const product = {
 			ProductId: productId,
 			ArticleNumber: articleNo,
-			Names: markets.map(({ Language }) => ({
-				LanguageCode: Language,
-				Content: name,
-			})),
+			Names: markets
+				.map(({ Languages }) => Languages)
+				.flat()
+				.map(({ Code }) => ({
+					LanguageCode: Code,
+					Content: name,
+				})),
 			Active: true,
 			BrandId: 1,
 			CategoryIds: [categoryId],
@@ -227,6 +230,7 @@ export async function updateProduct(p: ProductData[], markets: Market[]) {
 			Name: description.length > 50 ? description.slice(0, 47) + '...' : description,
 		};
 
+		console.log(product);
 		const updatedProduct = await (!product.ProductId
 			? mgmt.createProduct(product)
 			: mgmt.updateProduct(product));

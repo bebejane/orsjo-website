@@ -70,6 +70,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 		if (!variantId) return setSelected(allVariants?.[0] ?? null);
 
 		const geinsVariant = geins.products?.find((v) => v.productId === variantId);
+
 		if (geinsVariant) {
 			setSelected(
 				allVariants.find((v) => v.articleNo?.trim() === geinsVariant?.articleNumber) ?? null,
