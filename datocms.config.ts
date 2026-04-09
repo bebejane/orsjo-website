@@ -1,4 +1,8 @@
-import { DatoCmsConfig, getItemReferenceRoutes, getUploadReferenceRoutes } from 'next-dato-utils/config';
+import {
+	DatoCmsConfig,
+	getItemReferenceRoutes,
+	getUploadReferenceRoutes,
+} from 'next-dato-utils/config';
 import { MetadataRoute } from 'next';
 import { defaultLocale, locales } from '@/i18n/routing';
 import { SitemapDocument } from '@/graphql';
@@ -53,7 +57,11 @@ export default {
 		product_mounting: async ({ id }) => getItemReferenceRoutes(id),
 		product_socket: async ({ id }) => getItemReferenceRoutes(id),
 		product_start: async ({ id }) => ['/se/products'],
-		project: async ({ slug }) => [`/se/professionals/projects/${slug}`, `/se/professionals/projects`, `/se/`],
+		project: async ({ slug }) => [
+			`/se/professionals/projects/${slug}`,
+			`/se/professionals/projects`,
+			`/se/`,
+		],
 		project_start: async () => ['/se/professionals/projects'],
 		project_type: async () => ['/se/professionals/projects'],
 		reseller: async () => ['/se/contact'],
@@ -66,7 +74,6 @@ export default {
 	},
 	sitemap: async () => {
 		const { allProducts, allDesigners, allProjects, allNews } = await apiQuery(SitemapDocument, {
-			revalidate: 60 * 60,
 			all: true,
 		});
 
