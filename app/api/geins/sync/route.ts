@@ -1,5 +1,8 @@
 import { sync, syncProductStatus } from '@/geins/sync';
+import client from '@/lib/client';
+import { Product } from '@/types/datocms-cma';
 import { basicAuth } from 'next-dato-utils/route-handlers';
+import { waitUntil } from '@vercel/functions';
 
 export const POST = async (req: Request) => {
 	return basicAuth(req, async (req) => {
@@ -14,9 +17,22 @@ export const POST = async (req: Request) => {
 		const slug = entity.attributes.slug;
 
 		try {
-			console.log('syncing:', id, status);
-			const item = await sync(id);
-			await syncProductStatus(entity.attributes.slug, status);
+			const item = await client.items.find<Product>(id);
+
+			if (!item) throw new Error(`No item with id ${id} found`);
+
+			waitUntil(
+				new Promise(async (resolve) => {
+					const res = await sync(item.id);
+					if (item.slug) await syncProductStatus(item.slug, status);
+					resolve(res);
+				})
+					.then((res) => {
+						console.log(res);
+						return res;
+					})
+					.catch((e) => console.error(e)),
+			);
 
 			return new Response(
 				JSON.stringify({
