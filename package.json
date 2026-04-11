@@ -32,7 +32,7 @@
     "@mux/mux-player-react": "^3.11.4",
     "@react-email/components": "0.0.38",
     "@react-email/preview-server": "^5.2.8",
-    "@sentry/nextjs": "^10.40.0",
+    "@sentry/nextjs": "^10.48.0",
     "@sparticuz/chromium-min": "^143.0.4",
     "@svgr/webpack": "^8.1.0",
     "@types/react": "^19.2.14",
