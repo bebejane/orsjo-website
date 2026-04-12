@@ -293,6 +293,24 @@
 			}
 		}
 
+		&:has(.plusminus) {
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.015);
+				.plusminus {
+					opacity: 1;
+					&.hide {
+						opacity: 0;
+					}
+				}
+
+				@include mq($from: desktop) {
+					.thumb {
+						opacity: 0;
+					}
+				}
+			}
+		}
+
 		.check {
 			display: flex;
 			align-items: center;
@@ -320,22 +338,6 @@
 					path {
 						color: var(--black);
 					}
-				}
-			}
-		}
-
-		&:hover {
-			background-color: rgba(0, 0, 0, 0.015);
-			.plusminus {
-				opacity: 1;
-				&.hide {
-					opacity: 0;
-				}
-			}
-			@include mq($from: desktop) {
-				.thumb {
-					opacity: 0;
-					//background-color: pink;
 				}
 			}
 		}

@@ -245,6 +245,9 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 											}}
 										>
 											<div className={s.row}>
+												<div className={s.plusminus}>
+													<AiOutlinePlus size={16} />
+												</div>
 												<div className={s.thumb}>
 													{getProductImageUrl(geinsVariant as ProductType) && (
 														<img src={getProductImageUrl(geinsVariant as ProductType)} />
