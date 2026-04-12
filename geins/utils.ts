@@ -53,7 +53,7 @@ export const getProductImageUrl = (product: ProductType): string | undefined => 
 	return imageUrl;
 };
 
-export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl?: string): string {
+export function createCheckoutUrl(cartId?: string | null, locale = 'se'): string {
 	if (!cartId) return 'https://checkout.geins.services/v0/checkout';
 	const siteUrl = 'https://www.orsjo.com';
 
@@ -95,7 +95,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 			tld: 'com',
 		} as GeinsSettings,
 	};
-	console.log(checkoutTokenOptions.geinsSettings);
+	//console.log(checkoutTokenOptions.geinsSettings);
 
 	const base64UrlEncode = (data: string): string =>
 		btoa(data).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
@@ -110,7 +110,7 @@ export function createCheckoutUrl(cartId?: string | null, locale = 'se', baseUrl
 	const encodedPayload = base64UrlEncode(JSON.stringify(checkoutTokenOptions));
 	const token = `${encodedHeader}.${encodedPayload}`;
 	const url = `https://checkout.geins.services/v0/checkout/${token}`;
-	console.log(url);
+
 	return url;
 }
 

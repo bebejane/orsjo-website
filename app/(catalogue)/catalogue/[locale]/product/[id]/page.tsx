@@ -1,7 +1,6 @@
 import s from './page.module.scss';
 import ProductSheet from '@/catalogue/components/ProductSheet';
 import { ProductByIdDocument } from '@/graphql';
-import { getCurrencyRateByLocale } from '@/lib/currency';
 import { apiQuery } from 'next-dato-utils/api';
 
 export default async function ProductCataloguePage({

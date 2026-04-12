@@ -79,7 +79,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 		window.addEventListener('unload', handleBeforeUnload);
 		return () => window.removeEventListener('unload', handleBeforeUnload);
 	}, []);
-	console.log(cart);
+
 	return (
 		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
 			<header>

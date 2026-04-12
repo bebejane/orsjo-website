@@ -184,7 +184,6 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 		resetAll();
 	}
 
-	console.log({ product, selected, selectedModel });
 	if (!product || !selected || !selectedModel) return null;
 
 	return (

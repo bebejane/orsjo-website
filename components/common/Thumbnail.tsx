@@ -130,7 +130,7 @@ export type BaseThumbnailProps = {
 export type ProductThumbnailProps = BaseThumbnailProps & {
 	product: ProductRecord;
 	geinsVariant?: ProductType;
-	marketId: string;
+	marketId?: string;
 };
 
 export function ProductThumbnail({
@@ -151,11 +151,15 @@ export function ProductThumbnail({
 			imageHover={product.environmentImage}
 			title={product.title}
 			subtitle={product.designer?.name ? product.designer.name : undefined}
-			price={formatGeinsPrice(
-				geinsVariant?.unitPrice?.sellingPriceIncVat,
-				marketId,
-				geinsVariant?.unitPrice?.currency,
-			)}
+			price={
+				geinsVariant && marketId
+					? formatGeinsPrice(
+							geinsVariant?.unitPrice?.sellingPriceIncVat,
+							marketId,
+							geinsVariant?.unitPrice?.currency,
+						)
+					: undefined
+			}
 			className={className}
 			inverted={inverted}
 			theme={theme}

@@ -3,7 +3,6 @@ import CatalogueLight from '@/catalogue/components/CatalogueLight';
 import { apiQuery } from 'next-dato-utils/api';
 import { sortProductsByCategory, toLanguageLocale } from '@/catalogue/lib/utils';
 import { AllProductsDocument } from '@/graphql';
-import { getCurrencyRateByLocale } from '@/lib/currency';
 
 const hardWiredModelNameId = '107174981';
 const fixedMountingId = '107174756';

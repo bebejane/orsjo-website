@@ -1,6 +1,6 @@
 import s from './page.module.scss';
 import { AllProductsLightDocument, ProductDocument } from '@/graphql';
-import { FeaturedGallery, Section } from '@/components';
+import { FeaturedGallery, Section, ProductJsonLd } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
@@ -43,9 +43,16 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 	} = res;
 
 	const currencyCode = geins.products?.[0]?.unitPrice?.currency?.code ?? GEINS_MARKET_CURRENCY;
+	const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? '';
 
 	return (
 		<>
+			<ProductJsonLd
+				product={product}
+				geinsProduct={geins.products?.[0] ?? null}
+				currency={currencyCode}
+				baseUrl={baseUrl}
+			/>
 			<Intro product={product} drawings={drawings} />
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
