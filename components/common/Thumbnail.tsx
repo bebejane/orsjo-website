@@ -56,7 +56,7 @@ export default function Thumbnail({
 	const content = (
 		<>
 			<figure>
-				{image.responsiveImage && (
+				{image?.responsiveImage && (
 					<Image
 						data={image.responsiveImage}
 						className={s.image}
@@ -66,7 +66,7 @@ export default function Thumbnail({
 						objectFit={objectFit as any}
 					/>
 				)}
-				{imageHover && isDesktop && imageHover.responsiveImage && (
+				{imageHover && isDesktop && imageHover?.responsiveImage && (
 					<div className={cn(s.imageHover, hovering && s.show)}>
 						<Image
 							data={imageHover.responsiveImage}
