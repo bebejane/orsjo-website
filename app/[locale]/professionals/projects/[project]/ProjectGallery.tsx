@@ -25,7 +25,7 @@ export default function ProjectGallery({ project }: ProjectGalleryProps) {
 			});
 		});
 
-		setGallery({ images: dedupeImages(images) });
+		setGallery({ images: dedupeImages(images), index: 0 });
 	}, [project]);
 
 	return (

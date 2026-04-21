@@ -97,11 +97,13 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 	}, [hide]);
 
 	useEffect(() => {
-		const section = document.querySelector<HTMLElement>(`footer`);
+		const lastSection = document.querySelector<HTMLElement>(`section:last-of-type`);
+
 		setHide(
 			(hide) =>
 				(!wasHidden && scrolledPosition === 0) ||
-				scrolledPosition + viewportHeight > (section?.offsetTop || documentHeight - viewportHeight),
+				scrolledPosition + viewportHeight >
+					(lastSection?.offsetTop || documentHeight - viewportHeight),
 		);
 	}, [width, height, scrolledPosition, documentHeight, viewportHeight, wasHidden]);
 
