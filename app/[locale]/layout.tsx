@@ -12,6 +12,7 @@ import { AllGeinsChannelsDocument } from '@/geins/graphql';
 import * as Sentry from '@sentry/nextjs';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
+import { DraftModeContentLink } from 'next-dato-utils/components';
 
 export const dynamic = 'force-static';
 
@@ -31,6 +32,7 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 	return (
 		<html lang='en-US'>
 			<body id='root'>
+				<DraftModeContentLink />
 				{modals}
 				<NextIntlClientProvider>
 					<Layout menu={menu} markets={markets} shipping={shipping} marketId={locale}>
