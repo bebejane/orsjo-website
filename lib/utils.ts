@@ -135,7 +135,7 @@ export const dedupeImages = (images: FileField[]): FileField[] => {
 export const siteSearch = async (q: string | undefined | null) => {
 	if (!q) return {};
 
-	const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN as string });
+	const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN as string });
 	const itemTypes = await client.itemTypes.list();
 	const search = (
 		await client.items.list({
