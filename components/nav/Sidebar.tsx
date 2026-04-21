@@ -104,7 +104,7 @@ export default function Sidebar() {
 	useEffect(() => {
 		if (section) return;
 		const footer = document.getElementById('footer');
-		setMaxHeight(`calc(100vh - ${footer?.clientHeight}px`);
+		//setMaxHeight(`calc(100vh - ${footer?.clientHeight}px`);
 	}, [section, setMaxHeight]);
 
 	useEffect(() => {
