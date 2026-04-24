@@ -16,12 +16,14 @@ export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
 	productCategories: AllProductCategoriesQuery['allProductCategories'];
 	geinsProducts: ProductType[];
+	marketId: string;
 };
 
 export default function ProductList({
 	productCategories,
 	allProducts,
 	geinsProducts,
+	marketId,
 }: ProductListProps) {
 	const searchProducts = useStore(useShallow((state) => state.searchProducts));
 	const productsByCategory: { [index: string]: ProductsByCategory } = useMemo(() => ({}), []);
@@ -112,6 +114,7 @@ export default function ProductList({
 										<ProductThumbnail
 											product={product}
 											theme='light'
+											marketId={marketId}
 											geinsVariant={geinsProducts?.find((v) =>
 												v?.categories?.find((c) => c?.alias === product.slug),
 											)}

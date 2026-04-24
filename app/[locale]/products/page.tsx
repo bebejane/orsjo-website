@@ -68,6 +68,7 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 						headline={data.headline}
 						theme='light'
 						showMarkAsNew={data.showMarkAsNew}
+						marketId={locale}
 						items={data.items.map((product) => ({
 							...(product as ProductRecord),
 							geins: allGeinsProducts.find((p) =>
@@ -81,6 +82,7 @@ export default async function Products({ params }: PageProps<'/[locale]/products
 				productCategories={allProductCategories}
 				allProducts={allProducts}
 				geinsProducts={allGeinsProducts as ProductType[]}
+				marketId={locale}
 			/>
 			<DraftMode url={draftUrls} path='/products' />
 		</>

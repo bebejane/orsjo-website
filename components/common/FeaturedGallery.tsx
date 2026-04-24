@@ -34,6 +34,7 @@ export type FeaturedGalleryProps = {
 	inverted?: boolean;
 	fadeColor?: string;
 	showMarkAsNew?: boolean;
+	marketId?: string;
 };
 
 export default function FeaturedGallery({
@@ -45,6 +46,7 @@ export default function FeaturedGallery({
 	arrowAlign = 'top',
 	inverted: _inverted = false,
 	showMarkAsNew = true,
+	marketId,
 }: FeaturedGalleryProps) {
 	const { inverted } = usePage();
 	const swiperRef = useRef<Swiper | null>(null);
@@ -107,6 +109,7 @@ export default function FeaturedGallery({
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
 									geinsVariant={item.geins}
+									marketId={marketId}
 									lazyload={false}
 									className={s.thumbnail}
 								/>
