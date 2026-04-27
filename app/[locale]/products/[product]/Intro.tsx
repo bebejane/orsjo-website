@@ -93,7 +93,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 					)}
 					<div className={cn(s.overlay, s.show)}>
 						<div className={s.text}>
-							<h1 className={cn('big', s.title)}>
+							<h1 className={cn('big', s.title, "notranslate")} translate="no">
 								<TextReveal>{product.title}</TextReveal>
 							</h1>
 							<h1 className={cn('big', s.designer)}>

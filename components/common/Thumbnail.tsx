@@ -84,7 +84,7 @@ export default function Thumbnail({
 				)}
 			</figure>
 			<figcaption data-datocms-content-link-boundary>
-				<span className={s.title}>
+				<span className={cn("notranslate", s.title)} translate="no">
 					{title} <span className={s.subtitle}>{subtitle}</span>
 				</span>
 				{price !== undefined && <span className={s.price}>{price}</span>}
@@ -154,10 +154,10 @@ export function ProductThumbnail({
 			price={
 				geinsVariant && marketId
 					? formatGeinsPrice(
-							geinsVariant?.unitPrice?.sellingPriceIncVat,
-							marketId,
-							geinsVariant?.unitPrice?.currency,
-						)
+						geinsVariant?.unitPrice?.sellingPriceIncVat,
+						marketId,
+						geinsVariant?.unitPrice?.currency,
+					)
 					: undefined
 			}
 			className={className}

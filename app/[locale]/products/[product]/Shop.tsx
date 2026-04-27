@@ -103,7 +103,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 			(hide) =>
 				(!wasHidden && scrolledPosition === 0) ||
 				scrolledPosition + viewportHeight >
-					(lastSection?.offsetTop || documentHeight - viewportHeight),
+				(lastSection?.offsetTop || documentHeight - viewportHeight),
 		);
 	}, [width, height, scrolledPosition, documentHeight, viewportHeight, wasHidden]);
 
@@ -198,7 +198,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 				onMouseLeave={() => !showAddons && setShowAddonsButton(false)}
 			>
 				<header>
-					<h3>
+					<h3 className="notranslate" translate="no">
 						Shop {product.title}{' '}
 						{addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
 					</h3>

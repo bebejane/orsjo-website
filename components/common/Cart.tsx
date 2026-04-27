@@ -131,7 +131,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 									</figure>
 
 									<div className={s.details}>
-										<div className='small' id={id}>
+										<div className='small notranslate' id={id} translate="no">
 											{product?.name}
 										</div>
 										<div className={cn(s.descStock, 'small gray')}>{articleNo}</div>
@@ -186,10 +186,10 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 							{summary?.shipping?.feeIncVat === 0
 								? 'Free'
 								: formatGeinsPrice(
-										summary?.shipping?.feeIncVat ?? 0,
-										marketId,
-										summary?.total?.currency,
-									)}
+									summary?.shipping?.feeIncVat ?? 0,
+									marketId,
+									summary?.total?.currency,
+								)}
 						</div>
 					</div>
 
