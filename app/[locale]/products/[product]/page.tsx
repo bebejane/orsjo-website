@@ -1,8 +1,7 @@
 import s from './page.module.scss';
 import { AllProductsLightDocument, ProductDocument } from '@/graphql';
-import { FeaturedGallery, Section } from '@/components';
+import { FeaturedGallery, Section, ProductJsonLd } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
-import React from 'react';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
@@ -11,10 +10,11 @@ import Specifications from './Specifications';
 import Downloads from './Downloads';
 import Shop from './Shop';
 import { Metadata } from 'next';
-import { buildMetadata } from '@/app/layout';
+import { buildMetadata } from '@/app/[locale]/layout';
 import { getProductPageData } from '../utils';
 import ShopInfo from '@/app/[locale]/products/[product]/ShopInfo';
-import { parseGid } from '@/lib/shopify/utils';
+import { GEINS_MARKET_CURRENCY } from '@/geins/constants';
+import { DraftMode } from 'next-dato-utils/components';
 
 //export const dynamic = 'force-dynamic'; // disable for now
 
@@ -23,15 +23,14 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const res = await getProductPageData(slug, locale as CountryCode);
-	//const { v } = searchParams ? await searchParams : {}; // disable for now
-	const id = res?.shopify.product?.selectedOrFirstAvailableVariant?.id;
-	const v = id ? parseGid(id) : undefined;
+	const res = await getProductPageData(slug, locale);
+	const variantId = res?.geins.products?.[0]?.productId;
 
 	if (!res) return notFound();
 
 	const {
-		shopify,
+		marketId,
+		geins,
 		product,
 		relatedProducts,
 		relatedProjects,
@@ -40,15 +39,31 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 		specsCols,
 		files,
 		shipping,
+		draftUrls,
 	} = res;
+
+	const currencyCode = geins.products?.[0]?.unitPrice?.currency?.code ?? GEINS_MARKET_CURRENCY;
+	const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? '';
 
 	return (
 		<>
+			<ProductJsonLd
+				product={product}
+				geinsProduct={geins.products?.[0] ?? null}
+				currency={currencyCode}
+				baseUrl={baseUrl}
+			/>
 			<Intro product={product} drawings={drawings} />
 			<Specifications product={product} drawings={drawings} specsCols={specsCols} />
 			<Downloads files={files} />
-			<ShopInfo product={product} shipping={shipping} currencyCode={shopify.i18n.currencyCode} />
-			<Shop product={product} shopify={shopify} variantId={v} shipping={shipping} />
+			<ShopInfo product={product} shipping={shipping} currencyCode={currencyCode} />
+			<Shop
+				product={product}
+				geins={geins}
+				variantId={variantId}
+				shipping={shipping}
+				marketId={marketId}
+			/>
 			<Section name='Related' className={s.related} bgColor='--mid-gray' fadeColor={'#ffffff'}>
 				{relatedProducts.length > 0 && (
 					<FeaturedGallery
@@ -78,6 +93,7 @@ export default async function Product({ params }: PageProps<'/[locale]/products/
 					/>
 				)}
 			</Section>
+			<DraftMode url={draftUrls} path={`/products/${slug}`} />
 		</>
 	);
 }

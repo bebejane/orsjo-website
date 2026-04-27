@@ -5,7 +5,8 @@ import cn from 'classnames';
 import { Image } from 'react-datocms';
 import Link from '@/components/nav/Link';
 import { useState } from 'react';
-import { formatShopifyPrice } from '@/lib/shopify/utils';
+import { formatGeinsPrice } from '@/geins/utils';
+import useIsDesktop from '@/lib/hooks/useIsDesktop';
 
 export type ThumbnailProps = {
 	slug?: string;
@@ -24,6 +25,7 @@ export type ThumbnailProps = {
 	theme?: 'dark' | 'light' | 'mid';
 	type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material' | 'professional';
 	showMarkAsNew?: boolean;
+	editingUrl?: Maybe<string> | undefined;
 };
 
 export default function Thumbnail({
@@ -42,15 +44,19 @@ export default function Thumbnail({
 	theme = 'light',
 	type = 'product',
 	showMarkAsNew = true,
+	editingUrl,
 }: ThumbnailProps) {
 	const [hovering, setHovering] = useState(false);
-	const isTouch = typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
-	const handleMouseOver = ({ type }: React.MouseEvent<HTMLElement>) => !isTouch && setHovering(type === 'mouseenter');
+	const isDesktop = useIsDesktop();
+
+	const handleMouseOver = ({ type }: React.MouseEvent<HTMLElement>) => {
+		isDesktop && setHovering(type === 'mouseenter');
+	};
 
 	const content = (
 		<>
 			<figure>
-				{image.responsiveImage && (
+				{image?.responsiveImage && (
 					<Image
 						data={image.responsiveImage}
 						className={s.image}
@@ -60,7 +66,7 @@ export default function Thumbnail({
 						objectFit={objectFit as any}
 					/>
 				)}
-				{imageHover && !isTouch && imageHover.responsiveImage && (
+				{imageHover && isDesktop && imageHover?.responsiveImage && (
 					<div className={cn(s.imageHover, hovering && s.show)}>
 						<Image
 							data={imageHover.responsiveImage}
@@ -77,7 +83,7 @@ export default function Thumbnail({
 					</div>
 				)}
 			</figure>
-			<figcaption>
+			<figcaption data-datocms-content-link-boundary>
 				<span className={s.title}>
 					{title} <span className={s.subtitle}>{subtitle}</span>
 				</span>
@@ -92,6 +98,8 @@ export default function Thumbnail({
 			onMouseEnter={handleMouseOver}
 			onMouseLeave={handleMouseOver}
 			onClick={onClick}
+			data-datocms-content-link-group
+			data-datocms-content-link-url={editingUrl}
 		>
 			{slug ? (
 				<Link href={slug} className={s.wrap}>
@@ -116,21 +124,25 @@ export type BaseThumbnailProps = {
 	theme: 'dark' | 'light' | 'mid';
 	showMarkAsNew?: boolean;
 	lazyload?: boolean;
+	editingUrl?: string;
 };
 
 export type ProductThumbnailProps = BaseThumbnailProps & {
 	product: ProductRecord;
-	shopifyVariant?: ProductVariant | undefined;
+	geinsVariant?: ProductType;
+	marketId?: string;
 };
 
 export function ProductThumbnail({
 	product,
-	shopifyVariant,
+	geinsVariant,
+	marketId,
 	inverted,
 	theme = 'dark',
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: ProductThumbnailProps) {
 	return (
 		<Thumbnail
@@ -139,7 +151,15 @@ export function ProductThumbnail({
 			imageHover={product.environmentImage}
 			title={product.title}
 			subtitle={product.designer?.name ? product.designer.name : undefined}
-			price={formatShopifyPrice(shopifyVariant?.price as MoneyV2)}
+			price={
+				geinsVariant && marketId
+					? formatGeinsPrice(
+							geinsVariant?.unitPrice?.sellingPriceIncVat,
+							marketId,
+							geinsVariant?.unitPrice?.currency,
+						)
+					: undefined
+			}
 			className={className}
 			inverted={inverted}
 			theme={theme}
@@ -148,6 +168,7 @@ export function ProductThumbnail({
 			type='product'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+			editingUrl={product._editingUrl}
 		/>
 	);
 }
@@ -163,6 +184,7 @@ export function ProjectThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: ProjectThumbnailProps) {
 	return (
 		<Thumbnail
@@ -177,6 +199,7 @@ export function ProjectThumbnail({
 			type='project'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+			editingUrl={project._editingUrl}
 		/>
 	);
 }
@@ -192,6 +215,7 @@ export function ProfessionalThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: ProfessionalThumbnailProps) {
 	return (
 		<Thumbnail
@@ -206,6 +230,7 @@ export function ProfessionalThumbnail({
 			type='professional'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+			editingUrl={professional._editingUrl}
 		/>
 	);
 }
@@ -232,6 +257,7 @@ export function DesignerThumbnail({
 			type='designer'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+			editingUrl={designer._editingUrl}
 		/>
 	);
 }
@@ -246,6 +272,7 @@ export function NewsThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: NewsThumbnailProps) {
 	return (
 		<Thumbnail
@@ -272,6 +299,7 @@ export function StaffThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+	editingUrl,
 }: StaffThumbnailProps) {
 	return (
 		<Thumbnail

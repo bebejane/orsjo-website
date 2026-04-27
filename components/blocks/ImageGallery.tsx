@@ -19,7 +19,7 @@ export default function ImageGallery({ data: { gallery }, onClick }: ImageGaller
 						<Image
 							imgClassName={s.image}
 							data={image.responsiveImage}
-							objectFit='cover'
+							objectFit='contain'
 							intersectionMargin={`0px 0px 200% 0px`}
 						/>
 					)}

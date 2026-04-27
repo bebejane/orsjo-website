@@ -1,16 +1,10 @@
 import 'dotenv/config';
 import fs from 'fs';
-import shopifyQuery from '@/lib/shopify/shopify-query';
-import { LocalizationDocument } from '@/lib/shopify/graphql';
+import geinsQuery from '@/geins/geins-query';
+import { AllGeinsChannelsDocument } from '@/geins/graphql';
 
 (async () => {
-	const { localization } = await shopifyQuery<LocalizationQuery, LocalizationQueryVariables>(
-		LocalizationDocument,
-		{
-			variables: { language: 'EN' as LanguageCode },
-			country: 'US',
-		}
-	);
-	const localizationJson = JSON.stringify(localization, null, 2);
-	fs.writeFileSync('./localization.json', localizationJson);
+	const channels = await geinsQuery(AllGeinsChannelsDocument);
+	const markets = channels.channels?.map((c) => c?.markets ?? []).flat() as any[];
+	fs.writeFileSync('./markets.json', JSON.stringify(markets, null, 2));
 })();

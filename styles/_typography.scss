@@ -44,6 +44,16 @@ h1 {
 		padding-bottom: 0.2em;
 		padding-top: 0.2em;
 	}
+
+	&.big {
+		@include mq($until: tablet) {
+			font-size: 2rem !important;
+		}
+
+		font-size: 3rem;
+		font-family: var(--body-font);
+		line-height: 1em;
+	}
 }
 
 //Big h1, see mixins

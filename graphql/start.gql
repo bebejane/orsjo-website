@@ -3,19 +3,24 @@ query Start {
 		content {
 			__typename
 			... on FeaturedStartRecord {
+				_editingUrl
 				id
 				headline
 				items {
 					__typename
+
 					... on ProductRecord {
 						...ProductLightFragment
+						_editingUrl
 					}
 					... on ProjectRecord {
 						...ProjectLightFragment
+						_editingUrl
 					}
 				}
 			}
 			... on FullscreenMediaBlockRecord {
+				_editingUrl
 				id
 				headline
 				subHeadline

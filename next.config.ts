@@ -1,7 +1,8 @@
+import 'dotenv/config';
 import { NextConfig } from 'next';
-import { withSentryConfig } from '@sentry/nextjs';
 import path from 'path';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { withSentryConfig } from '@sentry/nextjs';
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -15,15 +16,11 @@ const nextConfig: NextConfig = {
 			@use "@/styles/mixin" as *;
   	`,
 	},
+	devIndicators: false,
+	reactStrictMode: false,
 	typescript: {
 		ignoreBuildErrors: true,
 	},
-	eslint: {
-		ignoreDuringBuilds: true,
-	},
-	logging: false,
-	devIndicators: false,
-	reactStrictMode: false,
 	turbopack: {
 		rules: {
 			'*.svg': {
@@ -46,6 +43,15 @@ const nextConfig: NextConfig = {
 	},
 	async headers() {
 		return [
+			{
+				source: '/:path*',
+				headers: [
+					{
+						key: 'Content-Security-Policy',
+						value: `frame-ancestors 'self' https://plugins-cdn.datocms.com/ ${process.env.NEXT_PUBLIC_DATOCMS_BASE_EDITING_URL} ${process.env.NEXT_PUBLIC_SITE_URL}`,
+					},
+				],
+			},
 			{
 				source: '/api/web-previews',
 				headers: [
@@ -71,6 +77,14 @@ const nextConfig: NextConfig = {
 							'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
 					},
 				],
+			},
+		];
+	},
+	async rewrites() {
+		return [
+			{
+				source: '/mail/:path*',
+				destination: '/images/email/:path*',
 			},
 		];
 	},
@@ -100,13 +114,4 @@ export default withSentryConfig(withNextIntl(nextConfig), {
 	// side errors will fail.
 	tunnelRoute: '/monitoring',
 	telemetry: false,
-
-	// Automatically tree-shake Sentry logger statements to reduce bundle size
-	disableLogger: true,
-
-	// Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
-	// See the following for more information:
-	// https://docs.sentry.io/product/crons/
-	// https://vercel.com/docs/cron-jobs
-	automaticVercelMonitors: true,
 });

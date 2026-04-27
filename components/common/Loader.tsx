@@ -1,4 +1,5 @@
 import s from './Loader.module.scss';
+import cn from 'classnames';
 
 export default function Loader({
 	invert = false,
@@ -9,5 +10,11 @@ export default function Loader({
 	loading?: boolean;
 	className?: string;
 }) {
-	return <img className={s.loader} src={`/images/loader${invert ? '_black' : ''}.gif`} />;
+	return (
+		<div className={cn(s.loader, invert && s.invert)}>
+			<span />
+			<span />
+			<span />
+		</div>
+	);
 }

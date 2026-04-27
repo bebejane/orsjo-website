@@ -7,13 +7,15 @@ import { setRequestLocale } from 'next-intl/server';
 import { Section } from '@/components';
 import TermList from '@/app/[locale]/support/terms-conditions/TermsList';
 import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function Terms({ params }: PageProps<'/[locale]/support/terms-conditions'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { allTerms, termStart } = await apiQuery(TermsStartDocument);
+	const { allTerms, termStart, draftUrl } = await apiQuery(TermsStartDocument);
 	if (!allTerms || !termStart) return notFound();
 
 	return (
@@ -23,12 +25,15 @@ export default async function Terms({ params }: PageProps<'/[locale]/support/ter
 				<p>{termStart.intro}</p>
 			</Section>
 			<TermList terms={allTerms} />
+			<DraftMode url={draftUrl} path='/support/terms-conditions' />
 		</>
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Terms & Conditions',
-	};
+		description: 'Terms & Conditions at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/support/terms-conditions`,
+	});
 }

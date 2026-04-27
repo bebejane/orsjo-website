@@ -34,6 +34,7 @@
 				height: 100%;
 				transition: opacity 0s ease;
 				z-index: 2;
+				pointer-events: none;
 
 				&.show {
 					opacity: 1;
@@ -77,6 +78,7 @@
 
 				.subtitle {
 					transition: color 0.2s ease;
+					padding-left: 0.5em;
 				}
 			}
 		}

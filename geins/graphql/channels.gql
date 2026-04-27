@@ -1,0 +1,32 @@
+query AllGeinsChannels {
+	channels {
+		id
+		name
+		type
+		defaultLanguageId
+		languages {
+			id
+			name
+			code
+		}
+		markets {
+			id
+			defaultLanguageId
+			country {
+				name
+				code
+			}
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
+		}
+		languages {
+			id
+			name
+			code
+		}
+	}
+}

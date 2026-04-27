@@ -89,7 +89,7 @@
 						z-index: 1;
 
 						&:focus {
-							background-color: var(--mid-gray);
+							background-color: var(--white-real);
 						}
 					}
 
@@ -100,7 +100,7 @@
 						justify-content: center;
 						border: none;
 						right: 13px;
-						top: 4px;
+						top: 6px;
 						height: 30px;
 						width: 30px;
 						z-index: 2;
@@ -108,6 +108,7 @@
 						cursor: pointer;
 						visibility: hidden;
 						background-color: transparent;
+						padding: 0;
 
 						&.show {
 							visibility: visible;
@@ -129,6 +130,8 @@
 		padding-bottom: var(--outer-margin);
 		cursor: pointer;
 		align-items: flex-end;
+
+		height: 100%;
 
 		&.product {
 			align-items: flex-start;
@@ -190,11 +193,11 @@
 			.arrow {
 				display: inline;
 				transition: transform 0.3s ease;
-				transform: rotate(0deg);
-				margin-left: 0.1rem;
+				transform: rotate(90deg);
+				margin-left: 0.2rem;
 
 				&.open {
-					transform: rotate(90deg);
+					transform: rotate(-90deg);
 				}
 			}
 		}

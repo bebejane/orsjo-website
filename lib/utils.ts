@@ -18,73 +18,10 @@ export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeou
 
 type Locale = 'en' | 'sv' | 'no' | 'dk' | 'en-GB';
 
-export type CurrencyRate = {
-	isoCode: string;
-	symbol: string;
-	rate: number;
-	rateDeduction: number;
-	surcharge: number;
-	vatRate: number;
-};
-
-export const getAllCurrencyRates = async (): Promise<CurrencyRate[]> => {
-	const { currency } = await apiQuery(AllCurrenciesDocument, {
-		revalidate: 60,
-	});
-
-	if (!currency) throw new Error('Currency not found');
-
-	const currencies: CurrencyRate[] = [];
-
-	for (const { value, locale } of currency.isoCode ?? []) {
-		currencies.push({
-			isoCode: value ?? '',
-			symbol: currency.symbol?.find(({ locale: l }) => l === locale)?.value ?? '',
-			rate: currency.rate?.find(({ locale: l }) => l === locale)?.value ?? 0,
-			rateDeduction: currency.rateDeduction?.find(({ locale: l }) => l === locale)?.value ?? 0,
-			surcharge: currency.surcharge?.find(({ locale: l }) => l === locale)?.value ?? 0,
-			vatRate: currency.vatRate?.find(({ locale: l }) => l === locale)?.value ?? 0,
-		});
-	}
-
-	return currencies;
-};
-
-export const getCurrencyRateByISO = async (currencyCode: CurrencyCode): Promise<CurrencyRate> => {
-	const allCurrencies = await getAllCurrencyRates();
-	const currency = allCurrencies.find((c) => c.isoCode === currencyCode);
-	if (!currency) throw new Error(`Currency ${currencyCode} not found`);
-	return currency as CurrencyRate;
-};
-
-export const getCurrencyRateByLocale = async (locale: SiteLocale): Promise<CurrencyRate> => {
-	const { currency } = await apiQuery(CurrencyDocument, {
-		revalidate: 60,
-		variables: { locale },
-	});
-
-	if (!currency) throw new Error('Currency not found');
-	return currency as CurrencyRate;
-};
-
-export const getPriceWithRatesAndTaxes = async (price: number, currencyCode: CurrencyCode): Promise<number> => {
-	const c = await getCurrencyRateByISO(currencyCode);
-	return convertPriceWithRatesAndTaxes(price, c);
-};
-
-export const convertPriceWithRatesAndTaxes = (price: number, c: CurrencyRate) => {
-	return Math.ceil(((price * c.surcharge) / (c.rate * c.rateDeduction)) * (1 + c.vatRate));
-};
-
-export const formatPrice = async (price: number, locale: SiteLocale) => {
-	const c = await getCurrencyRateByLocale(locale);
-	const nf = new Intl.NumberFormat(`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`);
-	return `${nf.format(Math.ceil(price))} ${c.symbol}`;
-};
-
 export const sortProductsByCategory = (products: ProductRecord[]) => {
 	const sortedProducts = [...products].sort((a, b) => {
-		if (a.family?.id === b.family?.id) return a.categories[0].position < b.categories[0].position ? -1 : 1;
+		if (a.family?.id === b.family?.id)
+			return a.categories[0].position < b.categories[0].position ? -1 : 1;
 		else return 0;
 	});
 	return sortedProducts;
@@ -112,7 +49,13 @@ export const chunkArray = (array: any[], chunkSize: number) => {
 };
 
 export const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => {
-	type LightsourcePick = { id: string; amount?: number; name: string; included: boolean; modelName: string };
+	type LightsourcePick = {
+		id: string;
+		amount?: number;
+		name: string;
+		included: boolean;
+		modelName: string;
+	};
 
 	let allLightsources: (LightsourceRecord & { modelName: string })[] = [];
 
@@ -135,7 +78,8 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 		designer: product.designer?.name,
 		electricalData: product.electricalData.map((el) => el.name).join(', '),
 		additionalInformation: product.additionalInformation
-			? product.additionalInformation + (product.dimmable?.name ? `. ${product.dimmable?.name}` : '')
+			? product.additionalInformation +
+				(product.dimmable?.name ? `. ${product.dimmable?.name}` : '')
 			: undefined,
 		dimmable: product.dimmable?.name,
 		connection: product.connection?.name,
@@ -143,7 +87,7 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 		lightsource: lightsources
 			.map(
 				({ included, name, modelName }) =>
-					`${lightsources.length && product.models.length > 1 && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`
+					`${lightsources.length && product.models.length > 1 && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`,
 			)
 			.join(', '),
 		socket: product.sockets.map((el) => el.name).join(', '),
@@ -162,9 +106,17 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 	return specs;
 };
 
-export const recordImages = (obj: any, exclude: string[] = [], images: FileField[] = []): FileField[] => {
+export const recordImages = (
+	obj: any,
+	exclude: string[] = [],
+	images: FileField[] = [],
+): FileField[] => {
 	Object.keys(obj).forEach((key) => {
-		if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video') && !exclude.includes(key))
+		if (
+			obj[key]?.responsiveImage !== undefined &&
+			!obj[key]?.mimeType.includes('video') &&
+			!exclude.includes(key)
+		)
 			images.push({ ...obj[key], _key: key });
 
 		if (typeof obj[key] === 'object' && obj[key] !== null) recordImages(obj[key], exclude, images);
@@ -183,7 +135,7 @@ export const dedupeImages = (images: FileField[]): FileField[] => {
 export const siteSearch = async (q: string | undefined | null) => {
 	if (!q) return {};
 
-	const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN as string });
+	const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN as string });
 	const itemTypes = await client.itemTypes.list();
 	const search = (
 		await client.items.list({
@@ -229,7 +181,7 @@ export type ProductRecordWithPdfFiles = ProductRecord & {
 };
 
 export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[] => {
-	const { pdfFiles, mountingInstructions, bimLink, bimFile, lightFile } = product;
+	const { pdfFiles, mountingInstructions, bimFile, lightFile } = product;
 
 	const files = [
 		{
@@ -259,12 +211,6 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
 			label: 'Light file',
 			type: 'zip',
 			download: true,
-		},
-		{
-			href: bimLink,
-			label: 'Download at BIM Objects',
-			type: 'cad',
-			download: false,
 		},
 		{
 			href: bimFile?.url,
@@ -304,7 +250,7 @@ export const pxToInt = (px: string): number => {
 
 export const styleVariables: { [key: string]: number | string } = Object.keys(scssExports).reduce(
 	(acc, key) => ({ ...acc, [key]: scssExports[key as keyof typeof scssExports] }),
-	{} as { [key: string]: number | string }
+	{} as { [key: string]: number | string },
 );
 
 export const waitForElement = async (id: string, ms: number): Promise<HTMLElement | null> => {
@@ -339,7 +285,7 @@ export const batchPromises = async (
 	tasks: any[],
 	concurrency: number,
 	timeout?: number,
-	callback?: (index: number) => void
+	callback?: (index: number) => void,
 ) => {
 	const results: any[] = [];
 	const executing = new Set();
@@ -365,17 +311,6 @@ export const batchPromises = async (
 	return Promise.all(results);
 };
 
-export function slugify(text: string) {
-	return text
-		.toString()
-		.toLowerCase()
-		.replace(/\s+/g, '-') // Replace spaces with -
-		.replace(/[^\w\-]+/g, '') // Remove all non-word chars
-		.replace(/\-\-+/g, '-') // Replace multiple - with single -
-		.replace(/^-+/, '') // Trim - from start of text
-		.replace(/-+$/, ''); // Trim - from end of text
-}
-
 export function dedupeByKey<T>(array: T[], key: string) {
 	return array.reduce((acc, item) => {
 		const existingItem = acc.find((i) => i[key as keyof T] === item[key as keyof T]);
@@ -393,7 +328,8 @@ export const formatProductColor = (color?: string | null | undefined) => {
 
 export const parseProductModelName = (model?: ProductModelRecord, variant?: VariantRecord) => {
 	if (!model || !variant) return {};
-	const name = model.name?.name ?? (formatProductColor(variant.color?.name) || variant.material?.name);
+	const name =
+		model.name?.name ?? (formatProductColor(variant.color?.name) || variant.material?.name);
 	const description = [
 		model.name?.name ? formatProductColor(variant?.color?.name) : null,
 		model.name?.name || variant?.color?.name ? variant?.material?.name : null,

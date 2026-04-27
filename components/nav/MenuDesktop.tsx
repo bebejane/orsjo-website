@@ -3,7 +3,7 @@
 import s from './MenuDesktop.module.scss';
 import cn from 'classnames';
 import Link from '@/components/nav/Link';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, CSSProperties } from 'react';
 import { useStore, useShallow } from '@/lib/store';
 import { usePage } from '@/lib/context/page-provider';
 import { useWindowSize } from 'rooks';
@@ -12,15 +12,15 @@ import type { Menu } from '@/lib/menu';
 import { waitForElement } from '@/lib/utils';
 import { Logo, SiteSearch } from '@/components';
 import { usePathname } from 'next/navigation';
-import useCart from '@/lib/shopify/hooks/useCart';
-import CountrySelector from '@/components/shopify/CountrySelector';
+import useCart from '@/geins/hooks/useCart';
+import CountrySelector from '@/components/common/CountrySelector';
 
 export type MenuDesktopProps = {
 	menu: Menu;
-	localization: LocalizationQuery['localization'];
+	markets: MarketType[];
 };
 
-export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
+export default function MenuDesktop({ menu, markets }: MenuDesktopProps) {
 	const ref = useRef(null);
 	const pathname = usePathname();
 	const [
@@ -42,7 +42,7 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 			state.invertMenu,
 			state.transitioning,
 			state.setShowCart,
-		])
+		]),
 	);
 
 	const [selected, setSelected] = useState<string | null>(null);
@@ -52,8 +52,10 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 	const { layout, inverted, color } = usePage();
 	const { innerWidth } = useWindowSize();
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo();
+	const [menuClasses, setMenuClasses] = useState<any[]>([]);
 	const [cart] = useCart(useShallow((state) => [state.cart]));
 	const isInverted = inverted || invertMenu || showMenuMobile;
+	const isEmpty = !cart?.items?.length || cart?.items?.length === 0;
 
 	const resetSelected = useCallback(() => {
 		if (transitioning) return;
@@ -63,6 +65,7 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 	useEffect(() => {
 		resetSelected();
 	}, [pathname]);
+
 	useEffect(() => {
 		// Hide menu if was closed on scroll
 		if (!showMenu) resetSelected();
@@ -74,15 +77,7 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 		if (hashChanging) return setShowMenu(false);
 
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop);
-	}, [
-		transitioning,
-		scrolledPosition,
-		isPageBottom,
-		isPageTop,
-		isScrolledUp,
-		setShowMenu,
-		hashChanging,
-	]);
+	}, [transitioning, hashChanging, scrolledPosition, isPageBottom, isPageTop, isScrolledUp]);
 
 	useEffect(() => {
 		// Hide menu when scrolling to hash
@@ -130,13 +125,10 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 		setShowSubMenu(selected && showMenu ? true : false);
 	}, [selected, showMenu, setShowSubMenu]);
 
-	const menuStyles = cn(
-		s.desktopMenu,
-		selected && s.open,
-		!showMenu && s.hide,
-		s[layout],
-		isInverted && s.inverted
-	);
+	useEffect(() => {
+		setMenuClasses([selected && s.open, !showMenu && s.hide, s[layout], isInverted && s.inverted]);
+	}, [selected, showMenu, isInverted, layout]);
+
 	const sub = selected ? menu.find((i) => i.slug === selected)?.sub : [];
 
 	if (!menu) return null;
@@ -144,7 +136,7 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 	return (
 		<>
 			<Logo inverted={isInverted} />
-			<nav id={'menu'} ref={ref} className={menuStyles}>
+			<nav id={'menu'} ref={ref} className={cn(s.desktopMenu, ...menuClasses)}>
 				<ul className={s.nav}>
 					{menu.slice(1).map(({ title, slug, index }, idx) => (
 						<li
@@ -165,12 +157,17 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 							{!index && <span className={cn(s.arrow, slug == selected && s.active)}>›</span>}
 						</li>
 					))}
-					{/* <li className={s.country}>
-						<CountrySelector currency={true} localization={localization} className={s.selector} />
+					<li className={s.country}>
+						<CountrySelector
+							currency={true}
+							markets={markets}
+							className={s.selector}
+							invert={inverted}
+						/>
 					</li>
-					<li className={cn(s.cart, cart?.totalQuantity && s.filled)} onClick={() => setShowCart(true)}>
-						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
-					</li> */}
+					<li className={cn(s.cart, !isEmpty && s.filled)} onClick={() => setShowCart(true)}>
+						<img src={`/images/cart${!isEmpty ? '-filled' : ''}.svg`} />
+					</li>
 					<li className={s.searchIcon} onClick={() => setShowSearch(true)}>
 						<img src={'/images/search.svg'} />
 					</li>

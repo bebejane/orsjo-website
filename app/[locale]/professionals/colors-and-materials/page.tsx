@@ -1,6 +1,6 @@
 import s from './page.module.scss';
 import { AllColorsAndMaterialsDocument } from '@/graphql';
-import { Markdown } from 'next-dato-utils/components';
+import { DraftMode, Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import ColorsAndMaterialsList from './ColorsMaterialsList';
 import { Metadata } from 'next';
+import { buildMetadata } from '@/app/[locale]/layout';
 
 export default async function ColorsAndMaterials({
 	params,
@@ -16,9 +17,9 @@ export default async function ColorsAndMaterials({
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro } = await apiQuery(
+	const { allColorMaterialTypes, allColorMaterials, colorMaterialIntro, draftUrl } = await apiQuery(
 		AllColorsAndMaterialsDocument,
-		{ all: true }
+		{ all: true },
 	);
 
 	if (!colorMaterialIntro) notFound();
@@ -29,13 +30,19 @@ export default async function ColorsAndMaterials({
 				<h1 className='topMargin'>Colors & Materials</h1>
 				<Markdown className={s.intro} content={intro} />
 			</Section>
-			<ColorsAndMaterialsList colorMaterials={allColorMaterials} colorMaterialTypes={allColorMaterialTypes} />
+			<ColorsAndMaterialsList
+				colorMaterials={allColorMaterials}
+				colorMaterialTypes={allColorMaterialTypes}
+			/>
+			<DraftMode url={draftUrl} path='/professionals/colors-and-materials' />
 		</>
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	return {
+	return buildMetadata({
 		title: 'Colors & Materials',
-	};
+		description: 'Colors & Materials at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/professionals/colors-and-materials`,
+	});
 }

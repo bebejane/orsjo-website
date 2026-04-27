@@ -1,0 +1,250 @@
+'use client';
+
+import s from './Cart.module.scss';
+import cn from 'classnames';
+import { useEffect, useRef, useState } from 'react';
+import { default as useCart, useShallow } from '@/geins/hooks/useCart';
+import CountrySelector from './CountrySelector';
+import Loader from '@/components/common/Loader';
+import { useLocale } from 'next-intl';
+import useStore from '@/lib/store';
+import { useClickAway } from 'react-use';
+import { Checkbox } from '@/components/common/Checkbox';
+import { Link } from '@/i18n/routing';
+import CartError from './CartError';
+import { createCheckoutUrl, formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
+import { GEINS_DELIVERY_PARAMETER_NAME, GEINS_GENERAL_PARAMETER_GROUP_ID } from '@/geins/constants';
+
+export type CartProps = {
+	marketId: string;
+	markets: MarketType[];
+	shipping: ShippingQuery['shipping'];
+};
+
+export default function Cart({ markets, shipping, marketId }: CartProps) {
+	const [
+		cart,
+		createCart,
+		removeFromCart,
+		updateQuantity,
+		updating,
+		updatingId,
+		cartError,
+		clearError,
+	] = useCart(
+		useShallow((state) => [
+			state.cart,
+			state.createCart,
+			state.removeFromCart,
+			state.updateQuantity,
+			state.updating,
+			state.updatingId,
+			state.error,
+			state.clearError,
+		]),
+	);
+	const [showCart, setShowCart] = useStore(
+		useShallow((state) => [state.showCart, state.setShowCart]),
+	);
+	const locale = useLocale();
+	const [error, setError] = useState<Error | string | null | undefined>(null);
+	const [submitting, setSubmitting] = useState(false);
+	const isEmpty = cart && cart?.items?.length ? false : true;
+	const loading = !cart || updating;
+	const [terms, setTerms] = useState(false);
+	const ref = useRef<HTMLDivElement>(null);
+	const checkboxRef = useRef<HTMLInputElement>(null);
+	const checkoutUrl = createCheckoutUrl(cart?.id, locale);
+	const summary = cart?.summary;
+
+	function handleCloseError() {
+		if (cartError) clearError();
+		if (error) setError(null);
+	}
+
+	useClickAway(ref, (e) => setShowCart(false), ['mousedown']);
+
+	useEffect(() => {
+		try {
+			createCart(marketId);
+		} catch (err) {
+			setError(err as Error);
+		}
+	}, [marketId, locale]);
+
+	useEffect(() => {
+		const handleBeforeUnload = () => {
+			setSubmitting(false);
+		};
+		window.addEventListener('unload', handleBeforeUnload);
+		return () => window.removeEventListener('unload', handleBeforeUnload);
+	}, []);
+
+	return (
+		<div id='cart' className={cn(s.cart, showCart && s.show, updating && s.updating)} ref={ref}>
+			<header>
+				<h1>Cart</h1>
+				<button aria-label='Close cart' className={s.close} onClick={() => setShowCart(false)}>
+					<img src='/images/close.svg' alt='Close' />
+				</button>
+			</header>
+			{isEmpty ? (
+				<div className={s.empty}>{loading ? <Loader invert={true} /> : 'Your cart is empty'}</div>
+			) : (
+				<>
+					<ul className={cn(s.items, 'medium')} aria-label='Cart items'>
+						{cart?.items?.map((item, idx) => {
+							if (!item) return null;
+							const { id, quantity, product, unitPrice } = item;
+							const skuId = product?.skus?.[0]?.skuId;
+							const articleNo = product?.skus?.[0]?.articleNumber;
+							const category = product?.categories?.[0]?.alias;
+							const deliveryDaysType = product?.parameterGroups
+								?.find((p) => p?.parameterGroupId === GEINS_GENERAL_PARAMETER_GROUP_ID)
+								?.parameters?.find((p) => p?.name === GEINS_DELIVERY_PARAMETER_NAME)?.value;
+
+							const deliveryDays =
+								shipping?.deliveryDays.find(({ time }) => time === deliveryDaysType)?.textShort ??
+								'';
+							const slug = product?.categories?.[0]?.alias;
+							const imageUrl = getProductImageUrl(product as ProductType);
+
+							return (
+								<li
+									key={idx}
+									className={cn(updatingId === item.id && s.updating)}
+									aria-labelledby={id}
+								>
+									<figure className={s.thumb}>
+										<Link
+											href={`/products/${slug}?v=${id}`}
+											onClick={(e) => {
+												if (category === 'lightsource') {
+													e.preventDefault();
+													return;
+												}
+												setShowCart(false);
+											}}
+										>
+											{imageUrl && <img role='icon' src={imageUrl} alt={''} />}
+										</Link>
+									</figure>
+
+									<div className={s.details}>
+										<div className='small' id={id}>
+											{product?.name}
+										</div>
+										<div className={cn(s.descStock, 'small gray')}>{articleNo}</div>
+										<div className={cn(s.quantity, 'small')} aria-label='Quantity'>
+											<button
+												className={cn(s.minus)}
+												onClick={() => updateQuantity(id, quantity - 1, locale)}
+												disabled={quantity === 1}
+											>
+												<span>–</span>
+											</button>
+											<span>{quantity}</span>
+											<button
+												className={s.plus}
+												onClick={() => updateQuantity(id, quantity + 1, locale)}
+											>
+												<span>+</span>
+											</button>
+										</div>
+									</div>
+
+									<div className={s.amount}>
+										<div className={cn(s.price, 'small')} aria-label={'Total'}>
+											{formatGeinsPrice(
+												unitPrice?.sellingPriceIncVat,
+												marketId,
+												unitPrice?.currency,
+											)}
+										</div>
+										<div className='small gray'>{deliveryDays}</div>
+										<div>
+											<button
+												className={cn(s.remove, 'small')}
+												onClick={() => skuId && removeFromCart(skuId)}
+											>
+												Remove
+											</button>
+										</div>
+									</div>
+								</li>
+							);
+						})}
+					</ul>
+					<div className={s.fade}></div>
+					<div className={s.currency}>
+						<div className='small gray'>Currency</div>
+						<CountrySelector markets={markets} invert={true} />
+					</div>
+					<div className={s.subtotal}>
+						<div className='small gray'>Shipping & handling</div>
+						<div className={cn('small gray', s.price)}>
+							{summary?.shipping?.feeIncVat === 0
+								? 'Free'
+								: formatGeinsPrice(
+										summary?.shipping?.feeIncVat ?? 0,
+										marketId,
+										summary?.total?.currency,
+									)}
+						</div>
+					</div>
+
+					<div className={s.subtotal}>
+						<div className='small gray'>VAT</div>
+						<div className={cn('small gray', s.price)}>
+							{formatGeinsPrice(summary?.total?.vat ?? 0, marketId, summary?.total?.currency)}
+						</div>
+					</div>
+
+					<div className={s.total}>
+						<div className='small'>Total</div>
+						<div className={cn('small', s.price)}>
+							{formatGeinsPrice(
+								cart?.summary?.total?.sellingPriceIncVat ?? 0,
+								marketId,
+								cart?.summary?.total?.currency,
+							)}
+						</div>
+					</div>
+					<form action={checkoutUrl} method='GET' onSubmit={() => setSubmitting(true)}>
+						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
+						<input type='hidden' name='market_id' value={locale} />
+						<input type='hidden' name='locale' value={locale} />
+						<div className={cn(s.terms, 'medium')}>
+							<Checkbox
+								name='terms'
+								onChange={(checked) => setTerms(checked)}
+								inputRef={checkboxRef}
+								className={s.checkbox}
+							/>
+							<span className='small'>
+								I accept the <Link href='/support/terms-conditions'>terms & conditions</Link> and I
+								have read and understood the{' '}
+								<Link href='/support/privacy-policy'>privacy policy</Link>.
+							</span>
+						</div>
+						<button
+							className={cn(s.checkout, !terms || (!cart && s.disabled), 'full')}
+							type='submit'
+							disabled={submitting}
+							onClick={(e) => {
+								if (terms) return true;
+								e.preventDefault();
+								checkboxRef.current?.focus();
+							}}
+						>
+							{!submitting ? 'Checkout & pay' : <Loader className={s.loader} invert={true} />}
+						</button>
+					</form>
+				</>
+			)}
+			{(error ?? cartError) && (
+				<CartError error={error ?? cartError} closeLabel='Close' onClose={handleCloseError} />
+			)}
+		</div>
+	);
+}

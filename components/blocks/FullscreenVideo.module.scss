@@ -29,11 +29,13 @@
 		padding-left: var(--outer-margin);
 		padding-right: var(--outer-margin);
 		width: 100%;
+		pointer-events: none;
 
 		.text {
 			flex: 0 0 100%;
 			padding-left: spanGridWithGutter(4);
 			padding-right: 20%;
+			pointer-events: none;
 
 			.link {
 				font-weight: bold;
@@ -46,13 +48,13 @@
 	}
 
 	@include mq($until: tablet) {
-		//min-height: auto;
-		height: 50vh;
+		min-height: 60vh;
+
+		video {
+			min-height: 60vh;
+		}
 
 		.textWrap {
-			//position: relative;
-			//margin-top: var(--small-margin);
-			//bottom: 0;
 			.text {
 				padding: 0;
 			}

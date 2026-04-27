@@ -1,6 +1,8 @@
 import Link from '@/components//nav/Link';
 import s from './not-found.module.scss';
 
+export const dynamic = 'force-dynamic';
+
 export default function NotFound() {
 	return (
 		<div className={s.container}>

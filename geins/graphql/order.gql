@@ -1,0 +1,53 @@
+query OrderPublic(
+	$publicOrderId: Guid!
+	$channelId: String
+	$languageId: String
+	$marketId: String
+) {
+	getOrderPublic(
+		publicOrderId: $publicOrderId
+		channelId: $channelId
+		languageId: $languageId
+		marketId: $marketId
+	) {
+		id
+		billingAddress {
+			firstName
+			lastName
+			addressLine1
+			addressLine2
+			addressLine3
+			zip
+			city
+			country
+			state
+		}
+		shippingAddress {
+			firstName
+			lastName
+			addressLine1
+			addressLine2
+			addressLine3
+			zip
+			city
+			country
+			state
+		}
+		orderTotal {
+			sellingPriceIncVat
+			currency {
+				name
+				symbol
+				code
+				rate
+			}
+		}
+		desiredDeliveryDate
+		message
+		status
+		cart {
+			...CartFragment
+		}
+		createdAt
+	}
+}

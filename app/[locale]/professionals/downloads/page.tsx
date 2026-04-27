@@ -1,7 +1,11 @@
 import s from './page.module.scss';
-import { AllProductDownloadsDocument, AllCataloguesDocument, DownloadsStartDocument } from '@/graphql';
+import {
+	AllProductDownloadsDocument,
+	AllCataloguesDocument,
+	DownloadsStartDocument,
+} from '@/graphql';
 import { Image } from 'react-datocms';
-import { Markdown } from 'next-dato-utils/components';
+import { DraftMode, Markdown } from 'next-dato-utils/components';
 import { Section, Icon } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
@@ -10,12 +14,18 @@ import { setRequestLocale } from 'next-intl/server';
 import DownloadsList from './DownloadsList';
 import { Metadata } from 'next';
 
-export default async function Downloads({ params }: PageProps<'/[locale]/professionals/downloads'>) {
+export default async function Downloads({
+	params,
+}: PageProps<'/[locale]/professionals/downloads'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
-	const [{ downloadsStart }, { allProducts }, { allCatalogues }] = await Promise.all([
+	const [
+		{ downloadsStart, draftUrl },
+		{ allProducts, draftUrl: productsDraftUrl },
+		{ allCatalogues, draftUrl: cataloguesDraftUrl },
+	] = await Promise.all([
 		apiQuery(DownloadsStartDocument),
 		apiQuery(AllProductDownloadsDocument, {
 			all: true,
@@ -24,6 +34,9 @@ export default async function Downloads({ params }: PageProps<'/[locale]/profess
 			all: true,
 		}),
 	]);
+	const draftUrls: (string | null)[] = [draftUrl, productsDraftUrl, cataloguesDraftUrl].filter(
+		Boolean,
+	);
 
 	if (!downloadsStart) notFound();
 
@@ -51,7 +64,11 @@ export default async function Downloads({ params }: PageProps<'/[locale]/profess
 						</tr>
 						{allCatalogues.map(({ id, title, thumbnail, pdf }) => (
 							<tr key={id}>
-								<td>{thumbnail.responsiveImage && <Image data={thumbnail.responsiveImage} className={s.image} />}</td>
+								<td>
+									{thumbnail.responsiveImage && (
+										<Image data={thumbnail.responsiveImage} className={s.image} />
+									)}
+								</td>
 								<td>
 									<a href={`${pdf.url}?dl=${title}.pdf`} download target='_new'>
 										<Icon label={title} />
@@ -63,6 +80,7 @@ export default async function Downloads({ params }: PageProps<'/[locale]/profess
 					</tbody>
 				</table>
 			</Section>
+			<DraftMode url={draftUrls} path='/professionals/downloads' />
 		</>
 	);
 }

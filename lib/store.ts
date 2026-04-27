@@ -9,7 +9,7 @@ export type SectionId = {
 
 export type GalleryProps = {
 	images: FileField[];
-	index?: number;
+	index: null | number;
 	padImagesWithTitle?: boolean;
 };
 
@@ -86,17 +86,13 @@ const useStore = create<StoreState>((set) => ({
 		})),
 	setGallery: (gallery: GalleryProps) =>
 		set((state) => ({
-			gallery: {
-				images: gallery.images,
-				index: gallery.index !== undefined ? gallery.index : undefined,
-				padImagesWithTitle: gallery.padImagesWithTitle || false,
-			},
+			gallery,
 		})),
 	setGalleryId: (id: string) =>
 		set((state) => ({
 			gallery: {
 				...state.gallery,
-				index: state.gallery?.images?.findIndex((i) => i.id === id) ?? state.gallery?.index,
+				index: state.gallery?.images?.findIndex((i) => i.id === id) ?? state.gallery?.index ?? null,
 			} as GalleryProps,
 		})),
 	setTransitioning: (transitioning) =>
