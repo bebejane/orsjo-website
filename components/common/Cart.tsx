@@ -14,6 +14,8 @@ import { Link } from '@/i18n/routing';
 import CartError from './CartError';
 import { createCheckoutUrl, formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
 import { GEINS_DELIVERY_PARAMETER_NAME, GEINS_GENERAL_PARAMETER_GROUP_ID } from '@/geins/constants';
+import ReactPixel from 'react-facebook-pixel';
+import { pixelPurchase } from '@/components/common/PixelTracker';
 
 export type CartProps = {
 	marketId: string;
@@ -131,7 +133,7 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 									</figure>
 
 									<div className={s.details}>
-										<div className='small notranslate' id={id} translate="no">
+										<div className='small notranslate' id={id} translate='no'>
 											{product?.name}
 										</div>
 										<div className={cn(s.descStock, 'small gray')}>{articleNo}</div>
@@ -186,10 +188,10 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 							{summary?.shipping?.feeIncVat === 0
 								? 'Free'
 								: formatGeinsPrice(
-									summary?.shipping?.feeIncVat ?? 0,
-									marketId,
-									summary?.total?.currency,
-								)}
+										summary?.shipping?.feeIncVat ?? 0,
+										marketId,
+										summary?.total?.currency,
+									)}
 						</div>
 					</div>
 
@@ -210,7 +212,13 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 							)}
 						</div>
 					</div>
-					<form action={checkoutUrl} method='GET' onSubmit={() => setSubmitting(true)}>
+					<form
+						action={checkoutUrl}
+						method='GET'
+						onSubmit={() => {
+							setSubmitting(true);
+						}}
+					>
 						<input type='hidden' name='cart_id' value={cart?.id ?? ''} />
 						<input type='hidden' name='market_id' value={locale} />
 						<input type='hidden' name='locale' value={locale} />
@@ -232,9 +240,14 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 							type='submit'
 							disabled={submitting}
 							onClick={(e) => {
-								if (terms) return true;
-								e.preventDefault();
-								checkboxRef.current?.focus();
+								if (!terms) {
+									e.preventDefault();
+									checkboxRef.current?.focus();
+									return false;
+								}
+
+								pixelPurchase(cart);
+								return true;
 							}}
 						>
 							{!submitting ? 'Checkout & pay' : <Loader className={s.loader} invert={true} />}

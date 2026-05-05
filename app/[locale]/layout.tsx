@@ -13,6 +13,7 @@ import * as Sentry from '@sentry/nextjs';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { DraftModeContentLink } from 'next-dato-utils/components';
+import { PixelTracker } from '@/components/common/PixelTracker';
 
 export const dynamic = 'force-static';
 
@@ -33,6 +34,7 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 		<html lang='en-US'>
 			<body id='root'>
 				<DraftModeContentLink />
+				<PixelTracker />
 				{modals}
 				<NextIntlClientProvider>
 					<Layout menu={menu} markets={markets} shipping={shipping} marketId={locale}>

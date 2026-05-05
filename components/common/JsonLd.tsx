@@ -53,9 +53,5 @@ export function ProductJsonLd({ product, geinsProduct, currency, baseUrl }: Prod
 		url,
 	};
 
-	if (process.env.NODE_ENV === 'development') {
-		console.log('JSON-LD:', JSON.stringify(jsonLd, null, 2));
-	}
-
 	return <JsonLd data={jsonLd} />;
 }
