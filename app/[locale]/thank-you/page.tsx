@@ -1,7 +1,6 @@
 import s from './page.module.scss';
-import { Link } from '@/i18n/routing';
 import geinsQuery from '@/geins/geins-query';
-import { CartDocument, CheckoutDocument, CompletCartDocument } from '@/geins/graphql';
+import { CartDocument, CompletCartDocument } from '@/geins/graphql';
 import { Section } from '@/components';
 import { ArrowLink } from '@/components';
 import { buildMetadata } from '@/app/[locale]/layout';
