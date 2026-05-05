@@ -41,7 +41,7 @@ export const pixelAddToCart = async (cart: CartQuery['getCart']) => {
 	if (!ReactPixel) return;
 	ReactPixel.track('AddToCart', {
 		currency: cart?.summary?.total?.currency,
-		total: cart?.summary?.total?.sellingPriceIncVat,
+		value: cart?.summary?.total?.sellingPriceIncVat,
 		shipping: cart?.summary?.shipping?.feeIncVat,
 		vat: cart?.summary?.total?.vat,
 	});
@@ -51,7 +51,7 @@ export const pixelPurchase = async (cart: CartQuery['getCart']) => {
 	if (!ReactPixel) return;
 	ReactPixel.track('Purchase', {
 		currency: cart?.summary?.total?.currency,
-		total: cart?.summary?.total?.sellingPriceIncVat,
+		value: cart?.summary?.total?.sellingPriceIncVat,
 		shipping: cart?.summary?.shipping?.feeIncVat,
 		vat: cart?.summary?.total?.vat,
 	});
