@@ -14,7 +14,6 @@ import { Link } from '@/i18n/routing';
 import CartError from './CartError';
 import { createCheckoutUrl, formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
 import { GEINS_DELIVERY_PARAMETER_NAME, GEINS_GENERAL_PARAMETER_GROUP_ID } from '@/geins/constants';
-import ReactPixel from 'react-facebook-pixel';
 import { pixelPurchase } from '@/components/common/PixelTracker';
 
 export type CartProps = {

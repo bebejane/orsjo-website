@@ -5,7 +5,6 @@ import { useShallow } from 'zustand/react/shallow';
 import geinsQuery from '../geins-query';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { cartCookieOptions } from '../utils';
-import ReactPixel from 'react-facebook-pixel';
 
 import {
 	CartDocument,
