@@ -14,6 +14,7 @@ import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { DraftModeContentLink } from 'next-dato-utils/components';
 import { PixelTracker } from '@/components/common/PixelTracker';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const dynamic = 'force-static';
 
@@ -35,6 +36,7 @@ export default async function RootLayout({ children, params, modals }: LayoutPro
 			<body id='root'>
 				<DraftModeContentLink />
 				<PixelTracker />
+				<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
 				{modals}
 				<NextIntlClientProvider>
 					<Layout menu={menu} markets={markets} shipping={shipping} marketId={locale}>
