@@ -28,7 +28,7 @@ export default function CatalogueLightWithTax({
 							})),
 							accessories: m.accessories.map((a) => ({
 								...a,
-								accessory: { ...a.accessory, price: a.accessory?.price ?? 0 * taxRate } as any,
+								accessory: { ...a.accessory, price: a.accessory?.price * taxRate } as any,
 							})),
 						})),
 					}}
