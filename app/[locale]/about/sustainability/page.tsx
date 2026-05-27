@@ -10,6 +10,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/[locale]/layout';
+import Link from 'next/link';
 
 export default async function Sustainability({
 	params,
@@ -65,8 +66,13 @@ export default async function Sustainability({
 								/>
 							) : null}
 						</div>
+
 					</div>
 				))}
+				<Link href="https://www.datocms-assets.com/62617/1779863133-sustainabilityreport.pdf">
+					<div className={s.report}><span className="medium">Download report</span></div>
+				</Link>
+
 			</Section>
 			<DraftMode url={draftUrl} path='/about/sustainability' />
 		</>
