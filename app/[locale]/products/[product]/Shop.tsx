@@ -103,7 +103,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 			(hide) =>
 				(!wasHidden && scrolledPosition === 0) ||
 				scrolledPosition + viewportHeight >
-				(lastSection?.offsetTop || documentHeight - viewportHeight),
+					(lastSection?.offsetTop || documentHeight - viewportHeight),
 		);
 	}, [width, height, scrolledPosition, documentHeight, viewportHeight, wasHidden]);
 
@@ -198,7 +198,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 				onMouseLeave={() => !showAddons && setShowAddonsButton(false)}
 			>
 				<header>
-					<h3 className="notranslate" translate="no">
+					<h3 className='notranslate' translate='no'>
 						Shop {product.title}{' '}
 						{addons.length > 0 && <span className={s.addons}>+ {addons.length}</span>}
 					</h3>
@@ -314,7 +314,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 						<button className={cn(s.dropdown, open && s.open)}>❯</button>
 					</div>
 
-					{addons.map(({ id, name, variantId, imageUrl }) => {
+					{addons.map(({ id, name, variantId, price, imageUrl }) => {
 						return (
 							<div
 								key={id}
@@ -469,7 +469,7 @@ function getAllAddons(
 					?.skus?.[0]?.skuId,
 				name: `1 x ${accessory?.name}`,
 				price: geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo)?.unitPrice
-					?.regularPriceIncVat,
+					?.sellingPriceIncVat,
 				imageUrl: getProductImageUrl(
 					geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo) as ProductType,
 				),
@@ -486,7 +486,7 @@ function getAllAddons(
 						?.skus?.[0]?.skuId,
 					name: `${amount} x ${lightsource?.name}`,
 					price: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
-						?.unitPrice?.regularPriceIncVat,
+						?.unitPrice?.sellingPriceIncVat,
 					imageUrl: getProductImageUrl(
 						geins.lightsources.find(
 							(p) => p?.articleNumber === lightsource?.articleNo,

@@ -13,6 +13,8 @@ const scssExports = {
 	'wide': '1441px',
 	'nav-break': '1200px',
 };
+export const GDPR_CONSENT_COOKIES = 'gdpr_consent_cookies';
+export const PIXEL_ID = '2301419313601629';
 export const isServer = typeof window === 'undefined';
 export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms));
 
