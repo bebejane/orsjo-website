@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
 			'datocms.config': './datocms.config.ts',
 		},
 	},
+	experimental: {
+		workerThreads: false,
+		cpus: 1,
+	},
 	webpack(config) {
 		config.module.rules.push({
 			test: /\.svg$/i,
