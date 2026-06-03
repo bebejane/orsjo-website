@@ -15,6 +15,7 @@ import CartError from './CartError';
 import { createCheckoutUrl, formatGeinsPrice, getProductImageUrl } from '@/geins/utils';
 import { GEINS_DELIVERY_PARAMETER_NAME, GEINS_GENERAL_PARAMETER_GROUP_ID } from '@/geins/constants';
 import { pixelPurchase } from '@/components/common/PixelTracker';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 export type CartProps = {
 	marketId: string;
@@ -244,8 +245,12 @@ export default function Cart({ markets, shipping, marketId }: CartProps) {
 									checkboxRef.current?.focus();
 									return false;
 								}
-
 								pixelPurchase(cart);
+								sendGTMEvent({
+									event: 'begin_checkout',
+									currency: cart?.summary?.total?.currency?.code,
+									value: cart?.summary?.total?.sellingPriceIncVat,
+								});
 								return true;
 							}}
 						>

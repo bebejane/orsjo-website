@@ -16,6 +16,7 @@ import { AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
 import { ProductPageDataProps } from '@/app/[locale]/products/utils';
 import { Modal } from 'next-dato-utils/components';
 import useIsDesktop from '@/lib/hooks/useIsDesktop';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 type Props = {
 	marketId: string;
@@ -78,6 +79,14 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 			setHide(false);
 		}
 	}, [variantId]);
+
+	useEffect(() => {
+		sendGTMEvent({
+			event: 'view_item',
+			currency: cart?.summary?.total?.currency?.code,
+			value: product?.title,
+		});
+	}, []);
 
 	useEffect(() => {
 		setOpen(false);

@@ -5,6 +5,7 @@ import { useShallow } from 'zustand/react/shallow';
 import geinsQuery from '../geins-query';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { cartCookieOptions } from '../utils';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 import {
 	CartDocument,
@@ -75,6 +76,15 @@ const useCart = create<CartState>((set, get) => ({
 				).addToCart;
 				pixelAddToCart(addToCart);
 			}
+			sendGTMEvent({
+				event: 'add_to_cart',
+				currency: addToCart?.summary?.total?.currency?.code,
+				value: items.map((item) => ({
+					skuId: item.skuId,
+					quantity: item.quantity,
+					name: addToCart?.items?.find((i) => i?.skuId === item.skuId)?.product?.name,
+				})),
+			});
 
 			return addToCart as Cart;
 		});
