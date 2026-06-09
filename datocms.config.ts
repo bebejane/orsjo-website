@@ -185,6 +185,7 @@ export default {
 			'/support/faq',
 			'/support/manuals',
 			'/support/terms-conditions',
+			'/support/cancel-purchase',
 			'/support/privacy-policy',
 			'/contact',
 		].map((p) => ({
