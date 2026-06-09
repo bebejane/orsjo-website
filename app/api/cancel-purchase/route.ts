@@ -1,4 +1,4 @@
-import { sendCancelPurchaseEmail } from '@/lib/email';
+import { sendCancelPurchaseEmail, sendCancelPurchaseReplyEmail } from '@/lib/email';
 import { CancelPurchaseFormSchema } from '@/lib/schemas';
 import { sendPostmarkEmail } from 'next-dato-utils/utils';
 import { z, ZodError } from 'zod';
@@ -16,13 +16,13 @@ export async function POST(req: Request) {
 			});
 		}
 
-		await sendPostmarkEmail({
-			subject: `Order cancellation: #${order_number}`,
-			text: `${message}\n\nOrder no: ${order_number}\n${email}`,
-			to: process.env.POSTMARK_FROM_EMAIL as string,
+		await sendCancelPurchaseEmail({
+			email,
+			orderNo: order_number,
+			message,
 		});
 
-		await sendCancelPurchaseEmail({
+		await sendCancelPurchaseReplyEmail({
 			email,
 			orderNo: order_number,
 		});

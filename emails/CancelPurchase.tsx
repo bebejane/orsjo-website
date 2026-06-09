@@ -8,33 +8,31 @@ import Divider from './components/Divider';
 import { spacing, fontSize } from './components/theme';
 import React from 'react';
 
-export type CancelPurchaseReplyProps = { text: string; orderNo: string };
+export type CancelPurchaseProps = { email: string; orderNo: string; message: string };
 
-const CancelPurchaseReply = ({ text, orderNo }: CancelPurchaseReplyProps) => (
-	<BaseLayout width={600} preview='Thanks for contacting us.'>
+const CancelPurchase = ({ email, orderNo, message }: CancelPurchaseProps) => (
+	<BaseLayout width={600} preview='Order cancellation'>
 		<Header title='Örsjö Belysning' openInBrowser={false} />
 		<Section style={{ paddingLeft: spacing.s7, paddingRight: spacing.s7 }}>
 			<Row>
 				<Column>
 					<Heading style={{ fontSize: fontSize.lg }}>Order cancellation: #{orderNo}</Heading>
 					<Text style={{ paddingTop: spacing.s7 }}>
-						{text.split('\n').map((line, idx) => (
+						Order no: {orderNo}
+						<br />
+						Email: {email}
+						<br />
+						<br />
+						Message:
+						<br />
+						{message.split('\n').map((line, idx) => (
 							<React.Fragment key={idx}>
 								{line}
 								<br />
 								<br />
 							</React.Fragment>
 						))}
-						<br />
 					</Text>
-				</Column>
-			</Row>
-		</Section>
-
-		<Section style={{ paddingLeft: spacing.s7, paddingRight: spacing.s7 }}>
-			<Row>
-				<Column>
-					<Divider />
 				</Column>
 			</Row>
 		</Section>
@@ -43,6 +41,6 @@ const CancelPurchaseReply = ({ text, orderNo }: CancelPurchaseReplyProps) => (
 	</BaseLayout>
 );
 
-export default CancelPurchaseReply;
+export default CancelPurchase;
 
-CancelPurchaseReply.PreviewProps = {};
+CancelPurchase.PreviewProps = {};

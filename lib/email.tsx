@@ -4,6 +4,7 @@ import ContactAutoReply from '@/emails/ContactAutoReply';
 import CancelPurchaseReply from '@/emails/CancelPurchaseReply';
 import { CancelPurchaseDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
+import CancelPurchase from '@/emails/CancelPurchase';
 
 export async function sendContactAutoReplyEmail({
 	email,
@@ -22,6 +23,27 @@ export async function sendContactAutoReplyEmail({
 }
 
 export async function sendCancelPurchaseEmail({
+	email,
+	orderNo,
+	message,
+}: {
+	email: string;
+	orderNo: string;
+	message: string;
+}): Promise<void> {
+	if (!email) throw new Error('sendCancelPurchaseEmail: Email not provided');
+
+	return sendEmail({
+		html: await render(<CancelPurchase email={email} orderNo={orderNo} message={message} />),
+		text: await render(<CancelPurchase email={email} orderNo={orderNo} message={message} />, {
+			plainText: true,
+		}),
+		subject: `Order cancellation: #${orderNo}`,
+		to: email,
+	});
+}
+
+export async function sendCancelPurchaseReplyEmail({
 	email,
 	orderNo,
 }: {
