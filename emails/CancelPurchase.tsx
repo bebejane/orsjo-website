@@ -29,7 +29,6 @@ const CancelPurchase = ({ email, orderNo, message }: CancelPurchaseProps) => (
 							<React.Fragment key={idx}>
 								{line}
 								<br />
-								<br />
 							</React.Fragment>
 						))}
 					</Text>
