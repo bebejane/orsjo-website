@@ -19,12 +19,6 @@ const CancelPurchaseReply = ({ text, orderNo }: CancelPurchaseReplyProps) => (
 					<Text style={{ paddingTop: spacing.s7 }}>
 						{text}
 						<br />
-						<br />
-						Hälsningar,
-						<br />
-						Örsjö Belysning AB
-						<br />
-						<br />
 					</Text>
 				</Column>
 			</Row>
@@ -38,23 +32,6 @@ const CancelPurchaseReply = ({ text, orderNo }: CancelPurchaseReplyProps) => (
 			</Row>
 		</Section>
 
-		<Section style={{ paddingLeft: spacing.s7, paddingRight: spacing.s7 }}>
-			<Row>
-				<Column>
-					<Heading style={{ fontSize: fontSize.lg }}>Thank you for your message!</Heading>
-					<Text style={{ paddingTop: spacing.s7 }}>
-						We will get back to you as soon as possible.
-						<br />
-						<br />
-						Regards
-						<br />
-						Örsjö Belysning AB
-						<br />
-						<br />
-					</Text>
-				</Column>
-			</Row>
-		</Section>
 		<Footer />
 	</BaseLayout>
 );

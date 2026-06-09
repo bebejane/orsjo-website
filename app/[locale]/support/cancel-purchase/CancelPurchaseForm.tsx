@@ -99,7 +99,7 @@ export default function CancelPurchaseForm({ eMailText }: Props) {
 					<label htmlFor='message' className='medium'>
 						Message
 					</label>
-					<textarea id='message' defaultValue={initialState.message} {...register('message')} />
+					<textarea className="medium" id='message' defaultValue={initialState.message} {...register('message')} />
 					{errors('message')}
 				</div>
 				<button type='submit'>Send cancellation request</button>
@@ -115,7 +115,7 @@ export default function CancelPurchaseForm({ eMailText }: Props) {
 					<Loader invert={true} />
 				</div>
 			)}
-			{success && <div className={s.success}>Thank you for your message!</div>}
+			{success && <div className={s.success}><h1>Thank you. A confirmation has been sent to your email address.</h1></div>}
 		</div>
 	);
 }
