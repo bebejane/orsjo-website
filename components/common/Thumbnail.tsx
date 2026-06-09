@@ -5,7 +5,12 @@ import cn from 'classnames';
 import { Image } from 'react-datocms';
 import Link from '@/components/nav/Link';
 import { useState } from 'react';
+<<<<<<< HEAD
 import { formatShopifyPrice } from '@/lib/shopify/utils';
+=======
+import { formatGeinsPrice } from '@/geins/utils';
+import useIsDesktop from '@/lib/hooks/useIsDesktop';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export type ThumbnailProps = {
 	slug?: string;
@@ -24,6 +29,10 @@ export type ThumbnailProps = {
 	theme?: 'dark' | 'light' | 'mid';
 	type?: 'product' | 'project' | 'designer' | 'news' | 'staff' | 'material' | 'professional';
 	showMarkAsNew?: boolean;
+<<<<<<< HEAD
+=======
+	editingUrl?: Maybe<string> | undefined;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export default function Thumbnail({
@@ -42,6 +51,7 @@ export default function Thumbnail({
 	theme = 'light',
 	type = 'product',
 	showMarkAsNew = true,
+<<<<<<< HEAD
 }: ThumbnailProps) {
 	const [hovering, setHovering] = useState(false);
 	const isTouch = typeof window !== 'undefined' && matchMedia('(hover: none), (pointer: coarse)').matches;
@@ -101,6 +111,73 @@ export default function Thumbnail({
 				<div className={s.wrap}>{content}</div>
 			)}
 
+=======
+	editingUrl,
+}: ThumbnailProps) {
+	const [hovering, setHovering] = useState(false);
+	const isDesktop = useIsDesktop();
+
+	const handleMouseOver = ({ type }: React.MouseEvent<HTMLElement>) => {
+		isDesktop && setHovering(type === 'mouseenter');
+	};
+
+	const content = (
+		<>
+			<figure>
+				{image?.responsiveImage && (
+					<Image
+						data={image.responsiveImage}
+						className={s.image}
+						layout={'fill'}
+						fadeInDuration={100}
+						intersectionMargin={`0px 0px 200% 0px`}
+						objectFit={objectFit as any}
+					/>
+				)}
+				{imageHover && isDesktop && imageHover?.responsiveImage && (
+					<div className={cn(s.imageHover, hovering && s.show)}>
+						<Image
+							data={imageHover.responsiveImage}
+							className={s.image}
+							layout={'fill'}
+							intersectionMargin={`0px 0px 200% 0px`}
+							objectFit={'cover'}
+						/>
+					</div>
+				)}
+				{upcycled && (
+					<div className={s.upcycled}>
+						<img src='/images/upcycled.svg' />
+					</div>
+				)}
+			</figure>
+			<figcaption data-datocms-content-link-boundary>
+				<span className={cn("notranslate", s.title)} translate="no">
+					{title} <span className={s.subtitle}>{subtitle}</span>
+				</span>
+				{price !== undefined && <span className={s.price}>{price}</span>}
+			</figcaption>
+		</>
+	);
+
+	return (
+		<div
+			className={cn(s.thumbnail, className, inverted && s.inverted, s[theme], s[type])}
+			onMouseEnter={handleMouseOver}
+			onMouseLeave={handleMouseOver}
+			onClick={onClick}
+			data-datocms-content-link-group
+			data-datocms-content-link-url={editingUrl}
+		>
+			{slug ? (
+				<Link href={slug} className={s.wrap}>
+					{content}
+				</Link>
+			) : (
+				<div className={s.wrap}>{content}</div>
+			)}
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			{markAsNew && showMarkAsNew && (
 				<div className={cn(s.markAsNew)}>
 					<span>New</span>
@@ -116,21 +193,39 @@ export type BaseThumbnailProps = {
 	theme: 'dark' | 'light' | 'mid';
 	showMarkAsNew?: boolean;
 	lazyload?: boolean;
+<<<<<<< HEAD
+=======
+	editingUrl?: string;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export type ProductThumbnailProps = BaseThumbnailProps & {
 	product: ProductRecord;
+<<<<<<< HEAD
 	shopifyVariant?: ProductVariant | undefined;
+=======
+	geinsVariant?: ProductType;
+	marketId?: string;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export function ProductThumbnail({
 	product,
+<<<<<<< HEAD
 	shopifyVariant,
+=======
+	geinsVariant,
+	marketId,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	inverted,
 	theme = 'dark',
 	className,
 	showMarkAsNew,
 	lazyload,
+<<<<<<< HEAD
+=======
+	editingUrl,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }: ProductThumbnailProps) {
 	return (
 		<Thumbnail
@@ -139,7 +234,19 @@ export function ProductThumbnail({
 			imageHover={product.environmentImage}
 			title={product.title}
 			subtitle={product.designer?.name ? product.designer.name : undefined}
+<<<<<<< HEAD
 			price={formatShopifyPrice(shopifyVariant?.price as MoneyV2)}
+=======
+			price={
+				geinsVariant && marketId
+					? formatGeinsPrice(
+						geinsVariant?.unitPrice?.sellingPriceIncVat,
+						marketId,
+						geinsVariant?.unitPrice?.currency,
+					)
+					: undefined
+			}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			className={className}
 			inverted={inverted}
 			theme={theme}
@@ -148,6 +255,10 @@ export function ProductThumbnail({
 			type='product'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+<<<<<<< HEAD
+=======
+			editingUrl={product._editingUrl}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		/>
 	);
 }
@@ -163,6 +274,10 @@ export function ProjectThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+<<<<<<< HEAD
+=======
+	editingUrl,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }: ProjectThumbnailProps) {
 	return (
 		<Thumbnail
@@ -177,6 +292,10 @@ export function ProjectThumbnail({
 			type='project'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+<<<<<<< HEAD
+=======
+			editingUrl={project._editingUrl}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		/>
 	);
 }
@@ -192,6 +311,10 @@ export function ProfessionalThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+<<<<<<< HEAD
+=======
+	editingUrl,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }: ProfessionalThumbnailProps) {
 	return (
 		<Thumbnail
@@ -206,6 +329,10 @@ export function ProfessionalThumbnail({
 			type='professional'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+<<<<<<< HEAD
+=======
+			editingUrl={professional._editingUrl}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		/>
 	);
 }
@@ -232,6 +359,10 @@ export function DesignerThumbnail({
 			type='designer'
 			lazyload={lazyload}
 			showMarkAsNew={showMarkAsNew}
+<<<<<<< HEAD
+=======
+			editingUrl={designer._editingUrl}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		/>
 	);
 }
@@ -246,6 +377,10 @@ export function NewsThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+<<<<<<< HEAD
+=======
+	editingUrl,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }: NewsThumbnailProps) {
 	return (
 		<Thumbnail
@@ -272,6 +407,10 @@ export function StaffThumbnail({
 	className,
 	showMarkAsNew,
 	lazyload,
+<<<<<<< HEAD
+=======
+	editingUrl,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }: StaffThumbnailProps) {
 	return (
 		<Thumbnail

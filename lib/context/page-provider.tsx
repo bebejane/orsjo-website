@@ -1,7 +1,11 @@
 'use client';
 
 import { useContext, createContext, useEffect } from 'react';
+<<<<<<< HEAD
 import { findMenuItem, Menu, MenuItem, MenuSection } from '@/lib/menu';
+=======
+import { findMenuItem, Menu, MenuItem } from '@/lib/menu';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import { usePathname } from '@/i18n/routing';
 
 export type UsePageProps = MenuItem;
@@ -26,7 +30,10 @@ const initialState: MenuItem = {
 export const PageContext = createContext(initialState);
 
 function handlePageChange(page: MenuItem) {
+<<<<<<< HEAD
 	console.log('set page');
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	document.getElementById('layout')?.style.setProperty('background-color', `var(--${page.color})`);
 	document.getElementById('content')?.setAttribute('data-type', page.layout);
 }

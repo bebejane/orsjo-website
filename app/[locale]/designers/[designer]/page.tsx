@@ -11,15 +11,25 @@ import { ProductThumbnail, Section, FeaturedGallery, TextReveal } from '@/compon
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
+<<<<<<< HEAD
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
+=======
+import { buildMetadata } from '@/app/[locale]/layout';
+import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export default async function Designer({ params }: PageProps<'/[locale]/designers/[designer]'>) {
 	const { locale, designer: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+<<<<<<< HEAD
 	const { designer } = await apiQuery(DesignerDocument, {
+=======
+	const { designer, draftUrl } = await apiQuery(DesignerDocument, {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		variables: { slug },
 	});
 
@@ -37,7 +47,13 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 	]);
 
 	const designers = allDesigners
+<<<<<<< HEAD
 		.filter(({ id }) => allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id))
+=======
+		.filter(({ id }) =>
+			allProducts.find((p) => p.designer?.id === id && p.designer?.id !== designer.id),
+		)
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
 	return (
@@ -45,7 +61,11 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 			<Section type='full' className={s.designer}>
 				<header>
 					<div className={s.artist} key={designer.id}>
+<<<<<<< HEAD
 						<h1>
+=======
+						<h1 className='big'>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 							<TextReveal block={true}>{designer.name}</TextReveal>
 						</h1>
 						<p className='large'>{designer.description}</p>
@@ -62,7 +82,11 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 				</header>
 			</Section>
 			<Section type='margin' className={s.products} bgColor='--mid-gray'>
+<<<<<<< HEAD
 				<h1>
+=======
+				<h1 data-datocms-content-link-url={designer._editingUrl}>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					Products by <br />
 					{designer.name}
 				</h1>
@@ -77,6 +101,7 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 				</div>
 			</Section>
 
+<<<<<<< HEAD
 			{
 				<Section type='margin' className={s.otherDesigners} bgColor='--green'>
 					<h1>Other designers</h1>
@@ -91,6 +116,22 @@ export default async function Designer({ params }: PageProps<'/[locale]/designer
 					</div>
 				</Section>
 			}
+=======
+			<Section type='margin' className={s.otherDesigners} bgColor='--green'>
+				<h1>Other designers</h1>
+				<div className={s.gallery}>
+					<FeaturedGallery
+						id='all-designers'
+						items={designers as DesignerRecord[]}
+						theme='light'
+						arrowAlign='middle'
+						fadeColor={'--green'}
+					/>
+				</div>
+			</Section>
+
+			<DraftMode url={draftUrl} path={`/designers/${slug}`} />
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		</>
 	);
 }
@@ -103,7 +144,13 @@ export async function generateStaticParams() {
 	return paths;
 }
 
+<<<<<<< HEAD
 export async function generateMetadata({ params }: PageProps<'/[locale]/designers/[designer]'>): Promise<Metadata> {
+=======
+export async function generateMetadata({
+	params,
+}: PageProps<'/[locale]/designers/[designer]'>): Promise<Metadata> {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const { designer: slug } = await params;
 	const { designer } = await apiQuery(DesignerDocument, {
 		variables: { slug },

@@ -6,12 +6,18 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Section } from '@/components';
 import { Metadata } from 'next';
+<<<<<<< HEAD
+=======
+import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export default async function PressPage({ params }: PageProps<'/[locale]/about/press'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+<<<<<<< HEAD
 	const { allPresses } = await apiQuery(AllPressDocument, { all: true });
 
 	return (
@@ -23,11 +29,35 @@ export default async function PressPage({ params }: PageProps<'/[locale]/about/p
 				</a>
 			))}
 		</Section>
+=======
+	const { allPresses, draftUrl } = await apiQuery(AllPressDocument, { all: true });
+
+	return (
+		<>
+			<Section className={s.press} top={true} name='Introduction'>
+				<h1>Press</h1>
+				{allPresses.map(({ title, url }, idx) => (
+					<a key={idx} href={url}>
+						{title}
+					</a>
+				))}
+			</Section>
+			<DraftMode url={draftUrl} path='/about/press' />
+		</>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
+<<<<<<< HEAD
 	return {
 		title: 'Press',
 	};
+=======
+	return buildMetadata({
+		title: 'Press',
+		description: 'Press at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/press`,
+	});
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }

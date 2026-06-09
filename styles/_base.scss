@@ -60,10 +60,13 @@
 	--z-page-transition: 10000;
 }
 
+<<<<<<< HEAD
 /*********************
 GENERAL STYLES
 *********************/
 
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 body {
 	width: 100%;
 	color: var(--black);
@@ -205,6 +208,13 @@ button {
 	}
 }
 
+<<<<<<< HEAD
+=======
+article > [data-double-margin='true'] + [data-double-margin='true'] {
+	padding-top: 0 !important;
+}
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 input,
 ::placeholder {
 	font-family: var(--headline-font);

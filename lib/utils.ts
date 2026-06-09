@@ -13,10 +13,16 @@ const scssExports = {
 	'wide': '1441px',
 	'nav-break': '1200px',
 };
+<<<<<<< HEAD
+=======
+export const GDPR_CONSENT_COOKIES = 'gdpr_consent_cookies';
+export const PIXEL_ID = '2301419313601629';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 export const isServer = typeof window === 'undefined';
 export const sleep = (ms: number) => new Promise((resolve, refject) => setTimeout(resolve, ms));
 
 type Locale = 'en' | 'sv' | 'no' | 'dk' | 'en-GB';
+<<<<<<< HEAD
 
 export type CurrencyRate = {
 	isoCode: string;
@@ -85,6 +91,13 @@ export const formatPrice = async (price: number, locale: SiteLocale) => {
 export const sortProductsByCategory = (products: ProductRecord[]) => {
 	const sortedProducts = [...products].sort((a, b) => {
 		if (a.family?.id === b.family?.id) return a.categories[0].position < b.categories[0].position ? -1 : 1;
+=======
+
+export const sortProductsByCategory = (products: ProductRecord[]) => {
+	const sortedProducts = [...products].sort((a, b) => {
+		if (a.family?.id === b.family?.id)
+			return a.categories[0].position < b.categories[0].position ? -1 : 1;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		else return 0;
 	});
 	return sortedProducts;
@@ -112,7 +125,17 @@ export const chunkArray = (array: any[], chunkSize: number) => {
 };
 
 export const parseSpecifications = (product: ProductRecord, locale: Locale, t: any) => {
+<<<<<<< HEAD
 	type LightsourcePick = { id: string; amount?: number; name: string; included: boolean; modelName: string };
+=======
+	type LightsourcePick = {
+		id: string;
+		amount?: number;
+		name: string;
+		included: boolean;
+		modelName: string;
+	};
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	let allLightsources: (LightsourceRecord & { modelName: string })[] = [];
 
@@ -135,7 +158,12 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 		designer: product.designer?.name,
 		electricalData: product.electricalData.map((el) => el.name).join(', '),
 		additionalInformation: product.additionalInformation
+<<<<<<< HEAD
 			? product.additionalInformation + (product.dimmable?.name ? `. ${product.dimmable?.name}` : '')
+=======
+			? product.additionalInformation +
+				(product.dimmable?.name ? `. ${product.dimmable?.name}` : '')
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			: undefined,
 		dimmable: product.dimmable?.name,
 		connection: product.connection?.name,
@@ -143,7 +171,11 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 		lightsource: lightsources
 			.map(
 				({ included, name, modelName }) =>
+<<<<<<< HEAD
 					`${lightsources.length && product.models.length > 1 && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`
+=======
+					`${lightsources.length && product.models.length > 1 && modelName ? `${modelName}: ` : ''}${name} ${included ? `(${t ? t('included') : 'included'})` : ''}`,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			)
 			.join(', '),
 		socket: product.sockets.map((el) => el.name).join(', '),
@@ -162,9 +194,23 @@ export const parseSpecifications = (product: ProductRecord, locale: Locale, t: a
 	return specs;
 };
 
+<<<<<<< HEAD
 export const recordImages = (obj: any, exclude: string[] = [], images: FileField[] = []): FileField[] => {
 	Object.keys(obj).forEach((key) => {
 		if (obj[key]?.responsiveImage !== undefined && !obj[key]?.mimeType.includes('video') && !exclude.includes(key))
+=======
+export const recordImages = (
+	obj: any,
+	exclude: string[] = [],
+	images: FileField[] = [],
+): FileField[] => {
+	Object.keys(obj).forEach((key) => {
+		if (
+			obj[key]?.responsiveImage !== undefined &&
+			!obj[key]?.mimeType.includes('video') &&
+			!exclude.includes(key)
+		)
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			images.push({ ...obj[key], _key: key });
 
 		if (typeof obj[key] === 'object' && obj[key] !== null) recordImages(obj[key], exclude, images);
@@ -183,7 +229,11 @@ export const dedupeImages = (images: FileField[]): FileField[] => {
 export const siteSearch = async (q: string | undefined | null) => {
 	if (!q) return {};
 
+<<<<<<< HEAD
 	const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_SITESEARCH_API_TOKEN as string });
+=======
+	const client = buildClient({ apiToken: process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN as string });
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const itemTypes = await client.itemTypes.list();
 	const search = (
 		await client.items.list({
@@ -229,7 +279,11 @@ export type ProductRecordWithPdfFiles = ProductRecord & {
 };
 
 export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDownload[] => {
+<<<<<<< HEAD
 	const { pdfFiles, mountingInstructions, bimLink, bimFile, lightFile } = product;
+=======
+	const { pdfFiles, mountingInstructions, bimFile, lightFile } = product;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	const files = [
 		{
@@ -261,12 +315,15 @@ export const productDownloads = (product: ProductRecordWithPdfFiles): ProductDow
 			download: true,
 		},
 		{
+<<<<<<< HEAD
 			href: bimLink,
 			label: 'Download at BIM Objects',
 			type: 'cad',
 			download: false,
 		},
 		{
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			href: bimFile?.url,
 			label: 'Download CAD files',
 			type: 'cad',
@@ -304,7 +361,11 @@ export const pxToInt = (px: string): number => {
 
 export const styleVariables: { [key: string]: number | string } = Object.keys(scssExports).reduce(
 	(acc, key) => ({ ...acc, [key]: scssExports[key as keyof typeof scssExports] }),
+<<<<<<< HEAD
 	{} as { [key: string]: number | string }
+=======
+	{} as { [key: string]: number | string },
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 );
 
 export const waitForElement = async (id: string, ms: number): Promise<HTMLElement | null> => {
@@ -339,7 +400,11 @@ export const batchPromises = async (
 	tasks: any[],
 	concurrency: number,
 	timeout?: number,
+<<<<<<< HEAD
 	callback?: (index: number) => void
+=======
+	callback?: (index: number) => void,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 ) => {
 	const results: any[] = [];
 	const executing = new Set();
@@ -365,6 +430,7 @@ export const batchPromises = async (
 	return Promise.all(results);
 };
 
+<<<<<<< HEAD
 export function slugify(text: string) {
 	return text
 		.toString()
@@ -376,6 +442,8 @@ export function slugify(text: string) {
 		.replace(/-+$/, ''); // Trim - from end of text
 }
 
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 export function dedupeByKey<T>(array: T[], key: string) {
 	return array.reduce((acc, item) => {
 		const existingItem = acc.find((i) => i[key as keyof T] === item[key as keyof T]);
@@ -393,7 +461,12 @@ export const formatProductColor = (color?: string | null | undefined) => {
 
 export const parseProductModelName = (model?: ProductModelRecord, variant?: VariantRecord) => {
 	if (!model || !variant) return {};
+<<<<<<< HEAD
 	const name = model.name?.name ?? (formatProductColor(variant.color?.name) || variant.material?.name);
+=======
+	const name =
+		model.name?.name ?? (formatProductColor(variant.color?.name) || variant.material?.name);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const description = [
 		model.name?.name ? formatProductColor(variant?.color?.name) : null,
 		model.name?.name || variant?.color?.name ? variant?.material?.name : null,

@@ -17,6 +17,7 @@ export default function Sidebar() {
 	const path = usePathname();
 	const pathname = path.includes('#') ? path.substring(0, path.indexOf('#')) : path;
 	const backRef = useRef(null);
+<<<<<<< HEAD
 	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] = useStore(
 		useShallow((state) => [
 			state.currentSection,
@@ -26,6 +27,18 @@ export default function Sidebar() {
 			state.setSearchProducts,
 		])
 	);
+=======
+	const [currentSection, setCurrentSection, invertSidebar, searchProducts, setSearchProducts] =
+		useStore(
+			useShallow((state) => [
+				state.currentSection,
+				state.setCurrentSection,
+				state.invertSidebar,
+				state.searchProducts,
+				state.setSearchProducts,
+			]),
+		);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const [setInvertMenu] = useStore(useShallow((state) => [state.setInvertMenu]));
 	const [inverted, setInverted] = useState(_inverted || invertSidebar);
 	const [sections, setSections] = useState<{ title: string | undefined; id: string }[]>([]);
@@ -47,7 +60,13 @@ export default function Sidebar() {
 
 	const updateSections = () => {
 		const items = document.querySelectorAll<HTMLElement>('section[data-section-id]');
+<<<<<<< HEAD
 		const sections = items.length ? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id })) : [];
+=======
+		const sections = items.length
+			? Array.from(items).map((s) => ({ title: s.dataset.sectionTitle, id: s.id }))
+			: [];
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		setSections(sections);
 	};
 
@@ -64,12 +83,31 @@ export default function Sidebar() {
 		if (!sections.length) return;
 
 		const calcPos = (el: HTMLElement) =>
+<<<<<<< HEAD
 			Math.abs(scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop)) + el.offsetTop;
+=======
+			Math.abs(
+				scrolledPosition - el.offsetTop + parseInt(getComputedStyle(el, null).scrollMarginTop),
+			) + el.offsetTop;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 		const { id } = sections.sort((a, b) => (calcPos(a) > calcPos(b) ? 1 : -1))[0];
 
 		setCurrentSection(id);
+<<<<<<< HEAD
 	}, [isScrolling, scrolledPosition, documentHeight, setCurrentSection, setInverted, setInvertMenu, layout, _inverted]);
+=======
+	}, [
+		isScrolling,
+		scrolledPosition,
+		documentHeight,
+		setCurrentSection,
+		setInverted,
+		setInvertMenu,
+		layout,
+		_inverted,
+	]);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	useEffect(() => {
 		if (!currentSection || !innerWidth) return;
@@ -89,8 +127,13 @@ export default function Sidebar() {
 
 	useEffect(() => {
 		if (section) return;
+<<<<<<< HEAD
 		const footer = document.getElementById('footer');
 		setMaxHeight(`calc(100vh - ${footer?.clientHeight}px`);
+=======
+		//const footer = document.getElementById('footer');
+		//setMaxHeight(`calc(100vh - ${footer?.clientHeight}px`);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	}, [section, setMaxHeight]);
 
 	useEffect(() => {

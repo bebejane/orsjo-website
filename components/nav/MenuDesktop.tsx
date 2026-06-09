@@ -3,7 +3,11 @@
 import s from './MenuDesktop.module.scss';
 import cn from 'classnames';
 import Link from '@/components/nav/Link';
+<<<<<<< HEAD
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+=======
+import React, { useState, useRef, useEffect, useCallback, CSSProperties } from 'react';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import { useStore, useShallow } from '@/lib/store';
 import { usePage } from '@/lib/context/page-provider';
 import { useWindowSize } from 'rooks';
@@ -12,6 +16,7 @@ import type { Menu } from '@/lib/menu';
 import { waitForElement } from '@/lib/utils';
 import { Logo, SiteSearch } from '@/components';
 import { usePathname } from 'next/navigation';
+<<<<<<< HEAD
 import useCart from '@/lib/shopify/hooks/useCart';
 import CountrySelector from '@/components/shopify/CountrySelector';
 
@@ -36,6 +41,40 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 				state.setShowCart,
 			])
 		);
+=======
+import useCart from '@/geins/hooks/useCart';
+import CountrySelector from '@/components/common/CountrySelector';
+
+export type MenuDesktopProps = {
+	menu: Menu;
+	markets: MarketType[];
+};
+
+export default function MenuDesktop({ menu, markets }: MenuDesktopProps) {
+	const ref = useRef(null);
+	const pathname = usePathname();
+	const [
+		showMenu,
+		showSubMenu,
+		setShowSubMenu,
+		showMenuMobile,
+		setShowMenu,
+		invertMenu,
+		transitioning,
+		setShowCart,
+	] = useStore(
+		useShallow((state) => [
+			state.showMenu,
+			state.showSubMenu,
+			state.setShowSubMenu,
+			state.showMenuMobile,
+			state.setShowMenu,
+			state.invertMenu,
+			state.transitioning,
+			state.setShowCart,
+		]),
+	);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	const [selected, setSelected] = useState<string | null>(null);
 	const [hashChanging, setHashChanging] = useState(false);
@@ -44,8 +83,15 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 	const { layout, inverted, color } = usePage();
 	const { innerWidth } = useWindowSize();
 	const { isPageBottom, isPageTop, isScrolledUp, scrolledPosition } = useScrollInfo();
+<<<<<<< HEAD
 	const [cart] = useCart(useShallow((state) => [state.cart]));
 	const isInverted = inverted || invertMenu || showMenuMobile;
+=======
+	const [menuClasses, setMenuClasses] = useState<any[]>([]);
+	const [cart] = useCart(useShallow((state) => [state.cart]));
+	const isInverted = inverted || invertMenu || showMenuMobile;
+	const isEmpty = !cart?.items?.length || cart?.items?.length === 0;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	const resetSelected = useCallback(() => {
 		if (transitioning) return;
@@ -55,6 +101,7 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 	useEffect(() => {
 		resetSelected();
 	}, [pathname]);
+<<<<<<< HEAD
 	useEffect(() => {
 		// Hide menu if was closed on scroll
 		if (!showMenu) resetSelected();
@@ -68,6 +115,22 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop);
 	}, [transitioning, scrolledPosition, isPageBottom, isPageTop, isScrolledUp, setShowMenu, hashChanging]);
 
+=======
+
+	useEffect(() => {
+		// Hide menu if was closed on scroll
+		if (!showMenu) resetSelected();
+	}, [showMenu, resetSelected]);
+
+	useEffect(() => {
+		// Toggle menu bar on scroll
+		if (transitioning) return;
+		if (hashChanging) return setShowMenu(false);
+
+		setShowMenu((isScrolledUp && !isPageBottom) || isPageTop);
+	}, [transitioning, hashChanging, scrolledPosition, isPageBottom, isPageTop, isScrolledUp]);
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	useEffect(() => {
 		// Hide menu when scrolling to hash
 		const handleHashChange = async (e: HashChangeEvent) => {
@@ -114,7 +177,14 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 		setShowSubMenu(selected && showMenu ? true : false);
 	}, [selected, showMenu, setShowSubMenu]);
 
+<<<<<<< HEAD
 	const menuStyles = cn(s.desktopMenu, selected && s.open, !showMenu && s.hide, s[layout], isInverted && s.inverted);
+=======
+	useEffect(() => {
+		setMenuClasses([selected && s.open, !showMenu && s.hide, s[layout], isInverted && s.inverted]);
+	}, [selected, showMenu, isInverted, layout]);
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const sub = selected ? menu.find((i) => i.slug === selected)?.sub : [];
 
 	if (!menu) return null;
@@ -122,7 +192,11 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 	return (
 		<>
 			<Logo inverted={isInverted} />
+<<<<<<< HEAD
 			<nav id={'menu'} ref={ref} className={menuStyles}>
+=======
+			<nav id={'menu'} ref={ref} className={cn(s.desktopMenu, ...menuClasses)}>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				<ul className={s.nav}>
 					{menu.slice(1).map(({ title, slug, index }, idx) => (
 						<li
@@ -144,10 +218,22 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 						</li>
 					))}
 					<li className={s.country}>
+<<<<<<< HEAD
 						<CountrySelector currency={true} localization={localization} className={s.selector} />
 					</li>
 					<li className={cn(s.cart, cart?.totalQuantity && s.filled)} onClick={() => setShowCart(true)}>
 						<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
+=======
+						<CountrySelector
+							currency={true}
+							markets={markets}
+							className={s.selector}
+							invert={inverted}
+						/>
+					</li>
+					<li className={cn(s.cart, !isEmpty && s.filled)} onClick={() => setShowCart(true)}>
+						<img src={`/images/cart${!isEmpty ? '-filled' : ''}.svg`} />
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					</li>
 					<li className={s.searchIcon} onClick={() => setShowSearch(true)}>
 						<img src={'/images/search.svg'} />
@@ -157,7 +243,14 @@ export default function MenuDesktop({ menu, localization }: MenuDesktopProps) {
 
 			<div
 				className={cn(s.sub, showSubMenu && s.show)}
+<<<<<<< HEAD
 				style={{ width: `calc(100% - ${menuMargin.position}px)`, backgroundColor: `var(--${color})` }}
+=======
+				style={{
+					width: `calc(100% - ${menuMargin.position}px)`,
+					backgroundColor: `var(--${color})`,
+				}}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				onMouseLeave={resetSelected}
 			>
 				<div

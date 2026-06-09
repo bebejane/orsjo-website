@@ -29,7 +29,13 @@
 				p {
 					padding-top: 0.5em !important;
 					margin: 0;
+<<<<<<< HEAD
 					padding-right: 20%;
+=======
+					@include mq($from: desktop) {
+						padding-right: 20%;
+					}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					&:last-child {
 						padding-bottom: 0.5em;
 					}

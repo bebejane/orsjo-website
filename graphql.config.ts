@@ -1,14 +1,22 @@
+<<<<<<< HEAD
 import "dotenv/config"
 import type { IGraphQLConfig } from 'graphql-config'
 
 const shopifyStorefrontApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/api/${process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION}/graphql.json`;
 const shopifyAdminApiEndpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE}.myshopify.com/admin/api/${process.env.SHOPIFY_ADMIN_API_VERSION}/graphql.json`;
+=======
+import 'dotenv/config';
+import type { IGraphQLConfig } from 'graphql-config';
+
+const geinsApiEndpoint = 'https://merchantapi.geins.io/graphql';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 const defaultConfig = {
 	dedupeOperationSuffix: true,
 	dedupeFragments: true,
 	pureMagicComment: false,
 	exportFragmentSpreadSubTypes: true,
+<<<<<<< HEAD
 	namingConvention: "keep",
 	skipDocumentsValidation: false,
 }
@@ -128,3 +136,89 @@ const config: IGraphQLConfig = {
 	}
 }
 export default config;
+=======
+	namingConvention: 'keep',
+	skipDocumentsValidation: false,
+};
+
+const datocms = {
+	schema: {
+		'https://graphql.datocms.com': {
+			headers: {
+				'Authorization': process.env.DATOCMS_API_TOKEN as string,
+				'X-Environment': process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT as string,
+				'X-Exclude-Invalid': 'true',
+			},
+		},
+	},
+	documents: ['graphql/**/*.gql'],
+	extensions: {
+		endpoints: {
+			default: {
+				url: 'https://graphql.datocms.com',
+				headers: {
+					'Authorization': process.env.DATOCMS_API_TOKEN as string,
+					'X-Exclude-Invalid': 'true',
+				},
+			},
+		},
+		codegen: {
+			overwrite: true,
+			generates: {
+				'types/datocms.d.ts': {
+					plugins: ['typescript', 'typescript-operations'],
+					config: { ...defaultConfig, noExport: true },
+				},
+				'graphql/index.ts': {
+					plugins: ['typed-document-node'],
+					config: { ...defaultConfig },
+				},
+				'types/document-modules.d.ts': {
+					plugins: ['typescript-graphql-files-modules'],
+					config: { ...defaultConfig },
+				},
+			},
+		},
+	},
+};
+
+const geins = {
+	schema: {
+		'https://merchantapi.geins.io/graphql': {
+			headers: {
+				'Accept': 'application/json',
+				'X-ApiKey': process.env.GEINS_MERCHANT_API_KEY as string,
+				'Content-Type': 'application/json',
+			},
+		},
+	},
+	documents: ['geins/graphql/**/*.gql'],
+	extensions: {
+		codegen: {
+			overwrite: true,
+			generates: {
+				'types/geins-graphql.d.ts': {
+					plugins: ['typescript', 'typescript-operations'],
+					config: { ...defaultConfig, noExport: true },
+				},
+				'geins/graphql/index.ts': {
+					plugins: ['typed-document-node'],
+					config: { ...defaultConfig },
+				},
+				'types/document-modules-geins.d.ts': {
+					plugins: ['typescript-graphql-files-modules'],
+					config: { ...defaultConfig },
+				},
+			},
+		},
+	},
+};
+
+const config: IGraphQLConfig = {
+	projects: {
+		//geins,
+		datocms,
+	},
+};
+export default config;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7

@@ -37,7 +37,12 @@ const Link: FC<LinkProp & HTMLProps<HTMLAnchorElement>> = ({ transition = true, 
 		}
 
 		await sleep(isSameBase ? 300 : 500);
+<<<<<<< HEAD
 		router.push(props.href, { locale });
+=======
+		window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+		router.push(props.href, { locale, scroll: true });
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	};
 
 	return (

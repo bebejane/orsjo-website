@@ -16,7 +16,11 @@ export default function Text({ data: { text } }: TextBlockProps) {
 	const { inverted } = usePage();
 
 	return (
+<<<<<<< HEAD
 		<div className={cn(s.text, inverted && s.inverted)}>
+=======
+		<div className={cn(s.text, inverted && s.inverted)} data-datocms-content-link-group>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			<StructuredText
 				data={text}
 				renderInlineRecord={({ record }) => {
@@ -67,10 +71,17 @@ export default function Text({ data: { text } }: TextBlockProps) {
 							return null;
 					}
 				}}
+<<<<<<< HEAD
 				renderText={(text) => {
 					// Replace nbsp
 					return text?.replace(/\s/g, ' ');
 				}}
+=======
+				// renderText={(text) => {
+				// 	// Replace nbsp
+				// 	//return text?.replace(/\s/g, ' ');
+				// }}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			/>
 		</div>
 	);

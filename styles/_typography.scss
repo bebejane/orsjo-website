@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @use 'mediaqueries' as *;
+=======
+@use "mediaqueries" as *;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 body,
 html {
@@ -44,6 +48,19 @@ h1 {
 		padding-bottom: 0.2em;
 		padding-top: 0.2em;
 	}
+<<<<<<< HEAD
+=======
+
+	&.big {
+		@include mq($until: tablet) {
+			font-size: 2rem !important;
+		}
+
+		font-size: 3rem;
+		font-family: var(--body-font);
+		line-height: 1em;
+	}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }
 
 //Big h1, see mixins
@@ -81,6 +98,7 @@ nav,
 .medium,
 .medium p,
 button,
+<<<<<<< HEAD
 span.medium {
 	font-size: 14px;
 
@@ -89,6 +107,17 @@ span.medium {
 	}
 
 	font-family: 'IndivisibleMedium';
+=======
+span.medium,
+.medium ul li p {
+	font-size: 14px;
+
+	@include mq($from: tablet) {
+		font-size: 0.65rem !important;
+	}
+
+	font-family: "IndivisibleMedium";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	font-weight: normal;
 	line-height: var(--body-line-height);
 }
@@ -96,13 +125,21 @@ span.medium {
 p.large,
 .large p {
 	@include mq($from: tablet) {
+<<<<<<< HEAD
 		font-family: 'IndivisibleMedium';
+=======
+		font-family: "IndivisibleMedium";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		font-size: 0.65rem;
 	}
 
 	@media screen and (min-height: 700px) {
 		font-size: 0.87rem;
+<<<<<<< HEAD
 		font-family: 'Indivisible';
+=======
+		font-family: "Indivisible";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	}
 }
 
@@ -126,7 +163,11 @@ footer ul {
 
 	line-height: 1.4;
 	font-weight: normal;
+<<<<<<< HEAD
 	font-family: 'IndivisibleMedium';
+=======
+	font-family: "IndivisibleMedium";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }
 
 .very-small,
@@ -136,7 +177,11 @@ button.very-small {
 
 .icon {
 	font-size: 0.5rem;
+<<<<<<< HEAD
 	font-family: 'IndivisibleMedium';
+=======
+	font-family: "IndivisibleMedium";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }
 
 .bodyWeight {

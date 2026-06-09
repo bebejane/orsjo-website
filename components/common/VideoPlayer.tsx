@@ -11,7 +11,15 @@ export type VideoPlayerProps = { data: FileField; className?: string };
 
 const videoHasAudio = (video: any) => {
 	if (!video) return false;
+<<<<<<< HEAD
 	return video.mozHasAudio || Boolean(video.webkitAudioDecodedByteCount) || Boolean(video.audioTracks?.length);
+=======
+	return (
+		video.mozHasAudio ||
+		Boolean(video.webkitAudioDecodedByteCount) ||
+		Boolean(video.audioTracks?.length)
+	);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export default function VideoPlayer({ data, className }: VideoPlayerProps) {
@@ -27,7 +35,11 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 			videoRef.current = node;
 			inViewRef(node);
 		},
+<<<<<<< HEAD
 		[inViewRef]
+=======
+		[inViewRef],
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	);
 
 	const handleMute = (e: React.MouseEvent) => {
@@ -49,7 +61,13 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	}, [inView]);
 
 	useEffect(() => {
+<<<<<<< HEAD
 		videoRef.current?.addEventListener('loadeddata', () => setHasAudio(videoHasAudio(videoRef.current)));
+=======
+		videoRef.current?.addEventListener('loadeddata', () =>
+			setHasAudio(videoHasAudio(videoRef.current)),
+		);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		setHasAudio(videoHasAudio(videoRef.current));
 	}, [active]);
 

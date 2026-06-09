@@ -19,6 +19,10 @@ export { default as FullscreenGallery } from './common/FullscreenGallery';
 export { default as Icon } from './common/Icon';
 export { default as Loader } from './common/Loader';
 export { default as Logo } from './common/Logo';
+<<<<<<< HEAD
+=======
+export { default as JsonLd, ProductJsonLd } from './common/JsonLd';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 export { SectionListItem } from './common/SectionListItem';
 export { default as SiteSearch } from './common/SiteSearch';
 export { default as TextReveal } from './common/TextReveal';

@@ -29,11 +29,19 @@
 		padding-left: var(--outer-margin);
 		padding-right: var(--outer-margin);
 		width: 100%;
+<<<<<<< HEAD
+=======
+		pointer-events: none;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 		.text {
 			flex: 0 0 100%;
 			padding-left: spanGridWithGutter(4);
 			padding-right: 20%;
+<<<<<<< HEAD
+=======
+			pointer-events: none;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 			.link {
 				font-weight: bold;
@@ -46,6 +54,7 @@
 	}
 
 	@include mq($until: tablet) {
+<<<<<<< HEAD
 		//min-height: auto;
 		height: 50vh;
 
@@ -53,6 +62,15 @@
 			//position: relative;
 			//margin-top: var(--small-margin);
 			//bottom: 0;
+=======
+		min-height: 60vh;
+
+		video {
+			min-height: 60vh;
+		}
+
+		.textWrap {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			.text {
 				padding: 0;
 			}

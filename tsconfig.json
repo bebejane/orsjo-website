@@ -15,7 +15,11 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+<<<<<<< HEAD
     "jsx": "preserve",
+=======
+    "jsx": "react-jsx",
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
     "incremental": true,
     "plugins": [
       {
@@ -26,6 +30,12 @@
       "@/*": [
         "./*"
       ],
+<<<<<<< HEAD
+=======
+      "@/catalogue/*": [
+        "./app/(catalogue)/*"
+      ],
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
       "datocms.config": [
         "./datocms.config.ts"
       ]
@@ -35,7 +45,12 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+<<<<<<< HEAD
     ".next/types/**/*.ts"
+=======
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
   ],
   "exclude": [
     "node_modules"

@@ -9,7 +9,11 @@ export type SectionId = {
 
 export type GalleryProps = {
 	images: FileField[];
+<<<<<<< HEAD
 	index?: number;
+=======
+	index: null | number;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	padImagesWithTitle?: boolean;
 };
 
@@ -86,17 +90,25 @@ const useStore = create<StoreState>((set) => ({
 		})),
 	setGallery: (gallery: GalleryProps) =>
 		set((state) => ({
+<<<<<<< HEAD
 			gallery: {
 				images: gallery.images,
 				index: gallery.index !== undefined ? gallery.index : undefined,
 				padImagesWithTitle: gallery.padImagesWithTitle || false,
 			},
+=======
+			gallery,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		})),
 	setGalleryId: (id: string) =>
 		set((state) => ({
 			gallery: {
 				...state.gallery,
+<<<<<<< HEAD
 				index: state.gallery?.images?.findIndex((i) => i.id === id) ?? state.gallery?.index,
+=======
+				index: state.gallery?.images?.findIndex((i) => i.id === id) ?? state.gallery?.index ?? null,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			} as GalleryProps,
 		})),
 	setTransitioning: (transitioning) =>

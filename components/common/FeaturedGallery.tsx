@@ -5,7 +5,11 @@ import s from './FeaturedGallery.module.scss';
 import { styleVariables } from '@/lib/utils';
 import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
+<<<<<<< HEAD
 import { Mousewheel } from 'swiper/modules';
+=======
+import { Mousewheel, FreeMode } from 'swiper/modules';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import type { Swiper } from 'swiper';
 import {
 	ProfessionalThumbnail,
@@ -19,14 +23,22 @@ import { useEffect, useRef, useState } from 'react';
 import { usePage } from '@/lib/context/page-provider';
 import { useMediaQuery } from 'usehooks-ts';
 
+<<<<<<< HEAD
 export type ProductRecordWithShopifyData = ProductRecord & { shopify: ProductVariant };
+=======
+export type ProductRecordWithGeinsData = ProductRecord & { geins?: ProductType };
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export type FeaturedGalleryProps = {
 	products?: ProductRecord[];
 	projects?: ProjectRecord[];
 	designers?: DesignerRecord[];
+<<<<<<< HEAD
 	items: ProductRecordWithShopifyData[] | ProjectRecord[] | DesignerRecord[] | ProductRecord[];
 	shopifyItems?: Product[];
+=======
+	items: ProductRecordWithGeinsData[] | ProjectRecord[] | DesignerRecord[] | ProductRecord[];
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	headline?: string;
 	id: string;
 	bgColor?: string;
@@ -35,6 +47,10 @@ export type FeaturedGalleryProps = {
 	inverted?: boolean;
 	fadeColor?: string;
 	showMarkAsNew?: boolean;
+<<<<<<< HEAD
+=======
+	marketId?: string;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export default function FeaturedGallery({
@@ -46,12 +62,19 @@ export default function FeaturedGallery({
 	arrowAlign = 'top',
 	inverted: _inverted = false,
 	showMarkAsNew = true,
+<<<<<<< HEAD
+=======
+	marketId,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }: FeaturedGalleryProps) {
 	const { inverted } = usePage();
 	const swiperRef = useRef<Swiper | null>(null);
 	const [index, setIndex] = useState(0);
 	const [isShortSlide, setIsShortSlide] = useState(false);
+<<<<<<< HEAD
 	const [spaceBetween, setSpaceBetween] = useState(0);
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const numSlides = items.length;
 
@@ -75,14 +98,22 @@ export default function FeaturedGallery({
 			)}
 			<div className={s.gallery}>
 				<SwiperReact
+<<<<<<< HEAD
 					modules={[Mousewheel]}
+=======
+					modules={[Mousewheel, FreeMode]}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					id={`${id}-swiper-wrap`}
 					loop={!isShortSlide}
 					noSwiping={false}
 					direction={'horizontal'}
 					mousewheel={{
 						forceToAxis: true,
+<<<<<<< HEAD
 						releaseOnEdges: true,
+=======
+						releaseOnEdges: false,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 						invert: false,
 						sensitivity: 1,
 					}}
@@ -90,10 +121,15 @@ export default function FeaturedGallery({
 						enabled: true,
 						momentum: true,
 						sticky: false,
+<<<<<<< HEAD
 					}}
 					simulateTouch={!isShortSlide}
+=======
+						momentumRatio: 0.5,
+					}}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					slidesPerView={'auto'}
-					spaceBetween={spaceBetween}
+					spaceBetween={0}
 					initialSlide={index}
 					className={cn(s.swiper, isShortSlide && s.short)}
 					onSlideChange={({ realIndex }) => setIndex(realIndex)}
@@ -108,7 +144,12 @@ export default function FeaturedGallery({
 									product={item as ProductRecord}
 									theme={theme}
 									showMarkAsNew={showMarkAsNew}
+<<<<<<< HEAD
 									shopifyVariant={item.shopify}
+=======
+									geinsVariant={item.geins}
+									marketId={marketId}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 									lazyload={false}
 									className={s.thumbnail}
 								/>

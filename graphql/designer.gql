@@ -5,7 +5,17 @@ query Designer($slug: String, $locale: SiteLocale = en) {
 }
 
 query AllDesigners($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+<<<<<<< HEAD
 	allDesigners(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
+=======
+	allDesigners(
+		first: $first
+		skip: $skip
+		orderBy: [name_ASC]
+		locale: $locale
+		fallbackLocales: [sv, en]
+	) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		...DesignerLightFragment
 	}
 	_allDesignersMeta(locale: $locale, fallbackLocales: [sv, en]) {
@@ -15,6 +25,10 @@ query AllDesigners($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocal
 
 fragment DesignerFragment on DesignerRecord {
 	__typename
+<<<<<<< HEAD
+=======
+	_editingUrl
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	id
 	name
 	image {
@@ -29,6 +43,10 @@ fragment DesignerFragment on DesignerRecord {
 
 fragment DesignerLightFragment on DesignerRecord {
 	__typename
+<<<<<<< HEAD
+=======
+	_editingUrl
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	id
 	name
 	image {

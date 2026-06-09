@@ -17,6 +17,13 @@
 		list-style: none;
 		border-top: 1px solid var(--white);
 
+<<<<<<< HEAD
+=======
+		h2 {
+			padding: 0;
+		}
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		> li {
 			display: flex;
 			position: relative;
@@ -31,13 +38,21 @@
 				display: block;
 			}
 			p {
+<<<<<<< HEAD
 				font-size: var(--body-font-size);
 				font-family: var(--body-font);
+=======
+				font-family: var(--headline-font);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				padding-top: 0.5em !important;
 				margin: 0;
 				padding-right: 20%;
 				&:last-child {
+<<<<<<< HEAD
 					padding-bottom: 0.5em;
+=======
+					//padding-bottom: 0.5em;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				}
 			}
 

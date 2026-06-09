@@ -60,6 +60,10 @@ query AllNews($first: IntType = 5, $skip: IntType = 0) {
 
 fragment NewsFragment on NewsRecord {
 	__typename
+<<<<<<< HEAD
+=======
+	_editingUrl
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	id
 	image {
 		...ImageFragment
@@ -86,6 +90,10 @@ query Job($id: ItemId) {
 
 query AllJobs($first: IntType = 100, $skip: IntType = 0) {
 	allJobs(first: $first, skip: $skip) {
+<<<<<<< HEAD
+=======
+		_editingUrl
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		id
 		summary(markdown: false)
 		text(markdown: false)
@@ -106,6 +114,10 @@ query Press($id: ItemId) {
 
 query AllPress($first: IntType = 100, $skip: IntType = 0) {
 	allPresses(first: $first, skip: $skip) {
+<<<<<<< HEAD
+=======
+		_editingUrl
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		id
 		title
 		url

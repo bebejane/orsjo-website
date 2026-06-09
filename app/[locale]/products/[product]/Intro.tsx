@@ -20,7 +20,13 @@ type Props = {
 
 export default function ProductIntro({ product, drawings }: Props) {
 	const [imageLoaded, setImageLoaded] = useState(false);
+<<<<<<< HEAD
 	const [setGallery, setGalleryId] = useStore(useShallow((state) => [state.setGallery, state.setGalleryId]));
+=======
+	const [setGallery, setGalleryId] = useStore(
+		useShallow((state) => [state.setGallery, state.setGalleryId]),
+	);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
 	const isMobile = useMediaQuery(`(max-width: ${styleVariables.tablet}px)`);
 	const [list, setList] = useState({ specifications: false, downloads: false });
@@ -30,7 +36,13 @@ export default function ProductIntro({ product, drawings }: Props) {
 		const imgs = product?.image
 			? [product.image, ...(product?.productGallery || [])]
 			: [...(product?.productGallery || [])];
+<<<<<<< HEAD
 		return dedupeImages([...imgs.map((block) => recordImages(block)).reduce((acc, curr) => acc.concat(curr), [])]);
+=======
+		return dedupeImages([
+			...imgs.map((block) => recordImages(block)).reduce((acc, curr) => acc.concat(curr), []),
+		]);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	}, [product]);
 
 	const handleGalleryClick = (type: string, id: string) => {
@@ -61,7 +73,11 @@ export default function ProductIntro({ product, drawings }: Props) {
 	}, []);
 
 	useEffect(() => {
+<<<<<<< HEAD
 		setGallery({ images, padImagesWithTitle: true });
+=======
+		setGallery({ images, padImagesWithTitle: true, index: null });
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	}, [images, setGallery]);
 
 	useEffect(() => {
@@ -89,6 +105,7 @@ export default function ProductIntro({ product, drawings }: Props) {
 					)}
 					<div className={cn(s.overlay, s.show)}>
 						<div className={s.text}>
+<<<<<<< HEAD
 							<h1 className={s.title}>
 								<TextReveal>{product.title}</TextReveal>
 							</h1>
@@ -97,6 +114,20 @@ export default function ProductIntro({ product, drawings }: Props) {
 							</h1>
 							<h3 className={s.type}>
 								<TextReveal>{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}</TextReveal>
+=======
+							<h1 className={cn('big', s.title, "notranslate")} translate="no">
+								<TextReveal>{product.title}</TextReveal>
+							</h1>
+							<h1 className={cn('big', s.designer)}>
+								<TextReveal block={true}>
+									by {formatDesignerName(product.designer?.name as string)}
+								</TextReveal>
+							</h1>
+							<h3 className={s.type}>
+								<TextReveal>
+									{product.categories.map(({ name }, idx) => name).join(isMobile ? '\n' : ', ')}
+								</TextReveal>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 							</h3>
 						</div>
 						{product.upcycled && (
@@ -107,10 +138,28 @@ export default function ProductIntro({ product, drawings }: Props) {
 					</div>
 				</div>
 			</Section>
+<<<<<<< HEAD
 			<Section className={s.description}>{product.description && <Markdown content={product.description} />}</Section>
 			<Section>
 				{product.productGallery.map((block, idx) => (
 					<Block key={idx} data={block} onClick={(id: string) => handleGalleryClick('product', id)} first={idx === 0} />
+=======
+			<Section className={s.description}>
+				{product.description && (
+					<div data-datocms-content-link-group>
+						<Markdown content={product.description} />
+					</div>
+				)}
+			</Section>
+			<Section>
+				{product.productGallery.map((block, idx) => (
+					<Block
+						key={idx}
+						data={block}
+						onClick={(id: string) => handleGalleryClick('product', id)}
+						first={idx === 0}
+					/>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				))}
 			</Section>
 		</>

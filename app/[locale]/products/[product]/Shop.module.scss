@@ -90,6 +90,14 @@
 			animation: blink 0.5s steps(2, start) forwards;
 			white-space: nowrap;
 
+<<<<<<< HEAD
+=======
+			@include mq($until: desktop) {
+				font-size: 0.7rem;
+				margin-top: -0.4em;
+			}
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			@keyframes blink {
 				0% {
 					opacity: 0.5;
@@ -179,7 +187,11 @@
 	}
 
 	.row {
+<<<<<<< HEAD
 		--thumb-size: 1.3rem;
+=======
+		--thumb-size: 2rem;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		position: relative;
 		display: flex;
 		flex-direction: row;
@@ -192,6 +204,11 @@
 		cursor: pointer;
 
 		@include mq($from: desktop) {
+<<<<<<< HEAD
+=======
+			--thumb-size: 1.3rem;
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			height: 1.7rem;
 			padding: 0.5em;
 			font-size: 0.5em;
@@ -215,6 +232,11 @@
 			img {
 				height: var(--thumb-size);
 				width: var(--thumb-size);
+<<<<<<< HEAD
+=======
+				min-height: var(--thumb-size);
+				min-width: var(--thumb-size);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				object-fit: cover;
 			}
 		}
@@ -228,12 +250,22 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			width: 100%;
+<<<<<<< HEAD
+=======
+			padding-right: 1em;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			strong {
 				padding-left: 0.25em;
 				color: var(--black);
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
+<<<<<<< HEAD
+=======
+			@include mq($until: desktop) {
+				padding-left: 1em;
+			}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		}
 		.delivery {
 			display: inline-block;
@@ -272,11 +304,38 @@
 			height: 100%;
 			width: var(--thumb-size);
 			background-color: rgba(255, 255, 255, 0.8);
+<<<<<<< HEAD
+=======
+			@include mq($until: desktop) {
+				display: none;
+			}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			@include mq($from: desktop) {
 				opacity: 0;
 			}
 		}
 
+<<<<<<< HEAD
+=======
+		&:has(.plusminus) {
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.015);
+				.plusminus {
+					opacity: 1;
+					&.hide {
+						opacity: 0;
+					}
+				}
+
+				@include mq($from: desktop) {
+					.thumb {
+						opacity: 0;
+					}
+				}
+			}
+		}
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		.check {
 			display: flex;
 			align-items: center;
@@ -308,6 +367,7 @@
 			}
 		}
 
+<<<<<<< HEAD
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.015);
 			.plusminus {
@@ -328,6 +388,8 @@
 			}
 		}
 
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		button {
 			height: 1.7rem;
 
@@ -372,9 +434,17 @@
 			width: 100%;
 			cursor: pointer;
 			border: 0 !important;
+<<<<<<< HEAD
 			&:hover {
 				background-color: var(--black);
 				color: var(--white);
+=======
+			@include mq($from: desktop) {
+				&:hover {
+					background-color: var(--black);
+					color: var(--white);
+				}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			}
 		}
 		button.toggle {
@@ -393,7 +463,10 @@
 
 			@include mq($from: desktop) {
 				border-top: 0;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				height: 1.8rem;
 			}
 		}
@@ -402,6 +475,7 @@
 			height: 2rem;
 			line-height: 0;
 			padding-bottom: 1em;
+<<<<<<< HEAD
 			font-size: 0.55rem;
 
 			@include mq($from: desktop) {
@@ -412,6 +486,17 @@
 			&:hover {
 				background-color: var(--light-gray);
 				color: var(--black);
+=======
+			font-size: 11px;
+
+			@include mq($from: desktop) {
+				height: 1.5rem;
+				font-size: 0.45rem !important;
+				&:hover {
+					background-color: var(--light-gray);
+					color: var(--black);
+				}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			}
 		}
 	}

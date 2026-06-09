@@ -1,0 +1,29 @@
+<<<<<<< HEAD:graphql/intl.gql
+query Intl($locale: SiteLocale = en, $fallbackLocales: [SiteLocale!] = [en], $first: IntType = 100, $skip: IntType = 0) {
+	messages: allTranslations(locale: $locale, fallbackLocales: $fallbackLocales, first: $first, skip: $skip, orderBy: [value_ASC]) {
+=======
+query AllTranslations(
+	$locale: SiteLocale = en
+	$fallbackLocales: [SiteLocale!] = [en]
+	$first: IntType = 100
+	$skip: IntType = 0
+) {
+	allTranslations(
+		locale: $locale
+		fallbackLocales: $fallbackLocales
+		first: $first
+		skip: $skip
+		orderBy: [value_ASC]
+	) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7:graphql/translations.gql
+		key
+		value
+		page
+	}
+<<<<<<< HEAD:graphql/intl.gql
+=======
+	_allTranslationsMeta(locale: $locale, fallbackLocales: $fallbackLocales) {
+		count
+	}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7:graphql/translations.gql
+}

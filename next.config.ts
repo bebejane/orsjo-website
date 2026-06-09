@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 import { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
 import path from 'path';
 import createNextIntlPlugin from 'next-intl/plugin';
+=======
+import 'dotenv/config';
+import { NextConfig } from 'next';
+import path from 'path';
+import createNextIntlPlugin from 'next-intl/plugin';
+import { withSentryConfig } from '@sentry/nextjs';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -15,6 +23,7 @@ const nextConfig: NextConfig = {
 			@use "@/styles/mixin" as *;
   	`,
 	},
+<<<<<<< HEAD
 	typescript: {
 		ignoreBuildErrors: true,
 	},
@@ -24,6 +33,13 @@ const nextConfig: NextConfig = {
 	logging: false,
 	devIndicators: false,
 	reactStrictMode: false,
+=======
+	devIndicators: false,
+	reactStrictMode: false,
+	typescript: {
+		ignoreBuildErrors: true,
+	},
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	turbopack: {
 		rules: {
 			'*.svg': {
@@ -35,6 +51,13 @@ const nextConfig: NextConfig = {
 			'datocms.config': './datocms.config.ts',
 		},
 	},
+<<<<<<< HEAD
+=======
+	experimental: {
+		workerThreads: false,
+		cpus: 1,
+	},
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	webpack(config) {
 		config.module.rules.push({
 			test: /\.svg$/i,
@@ -47,6 +70,18 @@ const nextConfig: NextConfig = {
 	async headers() {
 		return [
 			{
+<<<<<<< HEAD
+=======
+				source: '/:path*',
+				headers: [
+					{
+						key: 'Content-Security-Policy',
+						value: `frame-ancestors 'self' https://plugins-cdn.datocms.com/ ${process.env.NEXT_PUBLIC_DATOCMS_BASE_EDITING_URL} ${process.env.NEXT_PUBLIC_SITE_URL}`,
+					},
+				],
+			},
+			{
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				source: '/api/web-previews',
 				headers: [
 					{ key: 'Access-Control-Allow-Credentials', value: 'true' },
@@ -74,11 +109,26 @@ const nextConfig: NextConfig = {
 			},
 		];
 	},
+<<<<<<< HEAD
 };
 
 export default withNextIntl(nextConfig);
 
 /*
+=======
+	async rewrites() {
+		return [
+			{
+				source: '/mail/:path*',
+				destination: '/images/email/:path*',
+			},
+		];
+	},
+};
+
+//export default withNextIntl(nextConfig);
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 export default withSentryConfig(withNextIntl(nextConfig), {
 	// For all available options, see:
 	// https://www.npmjs.com/package/@sentry/webpack-plugin#options
@@ -101,6 +151,7 @@ export default withSentryConfig(withNextIntl(nextConfig), {
 	// side errors will fail.
 	tunnelRoute: '/monitoring',
 	telemetry: false,
+<<<<<<< HEAD
 
 	// Automatically tree-shake Sentry logger statements to reduce bundle size
 	disableLogger: true,
@@ -112,3 +163,6 @@ export default withSentryConfig(withNextIntl(nextConfig), {
 	automaticVercelMonitors: true,
 });
 */
+=======
+});
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7

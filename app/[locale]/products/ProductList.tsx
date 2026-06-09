@@ -1,6 +1,9 @@
 'use client';
 
+<<<<<<< HEAD
 import { findCheapestVariant } from '@/app/[locale]/products/utils';
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import s from './ProductList.module.scss';
 import { ProductThumbnail, Section } from '@/components';
 import { useStore, useShallow } from '@/lib/store';
@@ -10,11 +13,16 @@ export type ProductsByCategory = {
 	products: ProductRecord[];
 	name?: string | null | undefined;
 	namePlural?: string | null | undefined;
+<<<<<<< HEAD
+=======
+	position: number;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export type ProductListProps = {
 	allProducts: AllProductsLightQuery['allProducts'];
 	productCategories: AllProductCategoriesQuery['allProductCategories'];
+<<<<<<< HEAD
 	shopifyProducts: AllShopifyProductsQuery['products'];
 };
 
@@ -28,6 +36,33 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 			products: allProducts.filter(({ categories }) => categories?.find((c) => c.name === name)) as ProductRecord[],
 		};
 	});
+=======
+	geinsProducts: ProductType[];
+	marketId: string;
+};
+
+export default function ProductList({
+	productCategories,
+	allProducts,
+	geinsProducts,
+	marketId,
+}: ProductListProps) {
+	const searchProducts = useStore(useShallow((state) => state.searchProducts));
+	const productsByCategory: { [index: string]: ProductsByCategory } = useMemo(() => ({}), []);
+
+	productCategories
+		.sort((a, b) => (a.name === 'Accessory' ? 1 : -1))
+		.forEach(({ id, name, namePlural, position }) => {
+			productsByCategory[id] = {
+				position,
+				name,
+				namePlural,
+				products: allProducts.filter(({ categories }) =>
+					categories?.find((c) => c.name === name),
+				) as ProductRecord[],
+			};
+		});
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	const [productsByCategorySearch, setProductsByCategorySearch] = useState<
 		{ [index: string]: ProductsByCategory } | undefined
@@ -43,7 +78,12 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 				.filter(({ categories }) => categories?.some((c) => c.id === k))
 				.filter(
 					({ title, designer }) =>
+<<<<<<< HEAD
 						searchString(searchProducts, title) || searchString(searchProducts, designer?.name ?? '')
+=======
+						searchString(searchProducts, title) ||
+						searchString(searchProducts, designer?.name ?? ''),
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				);
 			const category = productCategories.find((c) => c.id === k);
 
@@ -67,7 +107,12 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 		});
 	}, [searchProducts]);
 
+<<<<<<< HEAD
 	const isEmptySearch = productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0;
+=======
+	const isEmptySearch =
+		productsByCategorySearch && Object.keys(productsByCategorySearch).length === 0;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	if (isEmptySearch) {
 		return (
@@ -82,10 +127,24 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 	return (
 		<>
 			{Object.keys(items)
+<<<<<<< HEAD
 				.map((name) => items[name])
 				.map(({ products, namePlural }: ProductsByCategory, idx: number) => {
 					return (
 						<Section className={s.products} key={idx} name={namePlural} top={productsByCategorySearch && idx === 0}>
+=======
+				.filter((name) => items[name].products.length)
+				.sort((a, b) => (items[a].position > items[b].position ? 1 : -1))
+				.map((name) => items[name])
+				.map(({ products, namePlural }: ProductsByCategory, idx: number) => {
+					return (
+						<Section
+							className={s.products}
+							key={idx}
+							name={namePlural}
+							top={productsByCategorySearch && idx === 0}
+						>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 							<h1>{namePlural}</h1>
 							<ul>
 								{products?.map((product, idx) => (
@@ -93,10 +152,17 @@ export default function ProductList({ productCategories, allProducts, shopifyPro
 										<ProductThumbnail
 											product={product}
 											theme='light'
+<<<<<<< HEAD
 											shopifyVariant={
 												shopifyProducts.edges.find((v) => v.node.handle === product.slug)?.node
 													.selectedOrFirstAvailableVariant as ProductVariant
 											}
+=======
+											marketId={marketId}
+											geinsVariant={geinsProducts?.find((v) =>
+												v?.categories?.find((c) => c?.alias === product.slug),
+											)}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 										/>
 									</li>
 								))}

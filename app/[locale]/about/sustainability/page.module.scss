@@ -185,4 +185,42 @@
 			}
 		}
 	}
+<<<<<<< HEAD
+=======
+
+	.report {
+		width: 5rem;
+		height: 5rem;
+		background-color: var(--white);
+		color: var(--black);
+		border-radius: 50%;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 10;
+		margin-left: var(--outer-margin);
+
+		@include mq($from: desktop) {
+			position: absolute;
+			bottom: 4rem;
+			left: 0;
+		}
+
+		@include mq($until: desktop) {
+			margin-left: calc(50% - 2.5rem);
+			margin-top: -1rem;
+		}
+
+		span {
+			padding-top: 0.25em;
+			line-height: 1.25 !important;
+		}
+
+		&:hover {
+			background-color: var(--copper);
+			cursor: pointer;
+		}
+	}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }

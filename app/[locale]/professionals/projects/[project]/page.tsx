@@ -1,35 +1,76 @@
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
+<<<<<<< HEAD
 import { ProjectDocument, AllProjectsDocument, AllRelatedProjectsDocument, BespokeThumbnailDocument } from '@/graphql';
+=======
+import {
+	ProjectDocument,
+	AllProjectsDocument,
+	AllRelatedProjectsDocument,
+	BespokeThumbnailDocument,
+} from '@/graphql';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import { Section, FeaturedGallery } from '@/components';
 import ProjectHeader from './ProjectHeader';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import ProjectGallery from './ProjectGallery';
+<<<<<<< HEAD
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 
 export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>;
 
 export default async function Project({ params }: PageProps<'/[locale]/professionals/projects/[project]'>) {
+=======
+import { buildMetadata } from '@/app/[locale]/layout';
+import { Metadata } from 'next';
+import { DraftMode } from 'next-dato-utils/components';
+
+export type BespokeThumbnailRecord = Pick<BespokeRecord, 'thumbnail' | 'secondaryThumbnail'>;
+
+export default async function Project({
+	params,
+}: PageProps<'/[locale]/professionals/projects/[project]'>) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const { locale, project: slug } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+<<<<<<< HEAD
 	const { project } = await apiQuery(ProjectDocument, {
+=======
+	const { project, draftUrl } = await apiQuery(ProjectDocument, {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		variables: { slug },
 	});
 
 	if (!project) return notFound();
 
+<<<<<<< HEAD
 	const [{ bespokeThumbnail }, { allProjects: allRelatedProjects }] = await Promise.all([
+=======
+	const [
+		{ bespokeThumbnail, draftUrl: bespokeThumbnailDraftUrl },
+		{ allProjects: allRelatedProjects, draftUrl: relatedProjectsDraftUrl },
+	] = await Promise.all([
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		apiQuery(BespokeThumbnailDocument),
 		apiQuery(AllRelatedProjectsDocument, {
 			variables: { projectType: project.projectType.id },
 		}),
 	]);
 
+<<<<<<< HEAD
+=======
+	const draftUrls: (string | null)[] = [
+		draftUrl,
+		bespokeThumbnailDraftUrl,
+		relatedProjectsDraftUrl,
+	];
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const relatedProjects = allRelatedProjects
 		.filter((p) => p.id !== project.id)
 		.sort((a, b) => (Math.random() > 0.5 ? 1 : -1));
@@ -84,6 +125,10 @@ export default async function Project({ params }: PageProps<'/[locale]/professio
 					)}
 				</Section>
 			)}
+<<<<<<< HEAD
+=======
+			<DraftMode url={draftUrls} path={`/professionals/projects/${slug}`} />
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		</>
 	);
 }

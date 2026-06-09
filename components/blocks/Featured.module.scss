@@ -4,6 +4,13 @@
   flex-direction: column;
   max-width: 100%;
 
+<<<<<<< HEAD
+=======
+  & + & {
+    margin-top: -4rem;
+  }
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
   &.inverted {
     color: var(--white);
 
@@ -11,7 +18,11 @@
       color: var(--white);
     }
 
+<<<<<<< HEAD
     .gallery>.fade {
+=======
+    .gallery > .fade {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
       background: rgb(0, 0, 0);
       background: linear-gradient(-90deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%, rgb(0, 0, 0) 100%);
     }
@@ -22,12 +33,19 @@
     flex-direction: row;
     align-items: center;
     padding-bottom: 1em;
+<<<<<<< HEAD
     padding-top: .5em;
 
     .headline {
       flex: 1 1 100%;
       padding: 0;
+=======
+    padding-top: 0.5em;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
+    .headline {
+      flex: 1 1 100%;
+      padding: 0;
     }
 
     .next {
@@ -47,7 +65,11 @@
       .arrow {
         width: 12px;
         height: 12px;
+<<<<<<< HEAD
         transition: transform .3s;
+=======
+        transition: transform 0.3s;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
         &.end {
           transform: rotate(-180deg);
@@ -66,7 +88,12 @@
       flex: 1 1 auto;
       height: 100%;
 
+<<<<<<< HEAD
       .image {}
+=======
+      .image {
+      }
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
     }
 
     .fade {
@@ -76,7 +103,16 @@
       height: 100%;
       min-width: 50px;
       background: rgb(255, 255, 255);
+<<<<<<< HEAD
       background: linear-gradient(-90deg, rgba(255, 255, 255, 1) 0%, rgba(9, 9, 121, 0) 100%, rgba(255, 255, 255, 1) 100%);
+=======
+      background: linear-gradient(
+        -90deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(9, 9, 121, 0) 100%,
+        rgba(255, 255, 255, 1) 100%
+      );
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
       z-index: 2;
 
       &.hide {

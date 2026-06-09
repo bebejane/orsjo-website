@@ -1,0 +1,62 @@
+$pageWidth: 210mm;
+$pageHeight: 297mm;
+$padding: 20mm;
+
+section.page {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  background-color: #fff;
+  padding: 0;
+  height: $pageHeight;
+  width: $pageWidth;
+  max-width: $pageWidth;
+  max-height: $pageHeight;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  page-break-after: always;
+
+  &:last-of-type {
+    page-break-after: avoid;
+  }
+
+  &.autoHeight {
+    height: auto;
+    max-height: none;
+  }
+
+  h1 {
+    text-transform: capitalize;
+    font-size: 46pt !important;
+    line-height: 1;
+  }
+
+  h2 {
+    text-transform: capitalize;
+    font-size: 32px;
+    text-align: center;
+    padding-bottom: 1em;
+  }
+
+  h3 {
+    letter-spacing: 1px;
+    font-size: 16px;
+  }
+
+  span {
+    text-transform: Capitalize;
+    font-size: 10pt;
+    line-height: 1;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  p.small {
+    font-size: 15px;
+  }
+}

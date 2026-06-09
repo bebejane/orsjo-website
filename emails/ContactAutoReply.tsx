@@ -20,7 +20,17 @@ const ContactAutoReply = ({ name }: ContactAutoReplyProps) => (
 						Vi återkommer med svar så snart vi har möjlighet.
 						<br />
 						Du hittar de vanligaste frågorna kring våra produkter med svar på vår{' '}
+<<<<<<< HEAD
 						<a href='https://www.orsjo.com/support/faq' style={{ color: '#FFF', textDecoration: 'underline', textDecorationColor: '#FFF' }}>FAQ-sida</a>.
+=======
+						<a
+							href='https://www.orsjo.com/support/faq'
+							style={{ color: '#FFF', textDecoration: 'underline', textDecorationColor: '#FFF' }}
+						>
+							FAQ-sida
+						</a>
+						.
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 						<br />
 						<br />
 						Hälsningar

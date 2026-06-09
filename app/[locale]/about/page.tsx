@@ -1,20 +1,33 @@
 import s from './page.module.scss';
 import cn from 'classnames';
 import { AboutDocument } from '@/graphql';
+<<<<<<< HEAD
 import { Markdown } from 'next-dato-utils/components';
+=======
+import { DraftMode, Markdown } from 'next-dato-utils/components';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import { Section, VideoPlayer, TextReveal } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
+<<<<<<< HEAD
+=======
+import { stripStega } from '@datocms/content-link';
+import { buildMetadata } from '@/app/[locale]/layout';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export default async function About({ params }: PageProps<'/[locale]/about'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+<<<<<<< HEAD
 	const { about } = await apiQuery(AboutDocument);
+=======
+	const { about, draftUrl } = await apiQuery(AboutDocument);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	if (!about) return notFound();
 
 	const { title, intro, sections, video } = about;
@@ -25,33 +38,70 @@ export default async function About({ params }: PageProps<'/[locale]/about'>) {
 				<div className={s.hero}>
 					<VideoPlayer className={s.heroImage} data={video as FileField} />
 					<div className={s.header}>
+<<<<<<< HEAD
 						<h1>
+=======
+						<h1 className='big'>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 							<TextReveal block={true}>{title}</TextReveal>
 						</h1>
 					</div>
 				</div>
 			</Section>
 			<Section className={s.intro} type='margin'>
+<<<<<<< HEAD
 				<Markdown className={s.text} content={intro} />
+=======
+				<div
+					className={s.left}
+					data-datocms-content-link-group
+					data-datocms-content-link-source={intro}
+				>
+					<Markdown className={s.text} content={intro} />
+				</div>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			</Section>
 			<Section className={s.blocks} type='full'>
 				{sections.map(({ text, video }, idx) => (
 					<div className={s.block} key={idx}>
+<<<<<<< HEAD
 						<div className={s.left}>
 							<Markdown className={cn(s.text, 'large')} content={text} />
 						</div>
 						<div className={s.right}>
+=======
+						<div
+							className={s.left}
+							data-datocms-content-group
+							data-datocms-content-link-source={text}
+						>
+							<Markdown className={cn(s.text, 'large')} content={stripStega(text)} />
+						</div>
+						<div className={s.right} data-datocms-content-link-source={video.video?.alt}>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 							<VideoPlayer className={s.video} data={video as FileField} />
 						</div>
 					</div>
 				))}
 			</Section>
+<<<<<<< HEAD
+=======
+			<DraftMode url={draftUrl} path='/about' />
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		</>
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
+<<<<<<< HEAD
 	return {
 		title: 'About Us',
 	};
+=======
+	return buildMetadata({
+		title: 'About',
+		description: 'About Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about`,
+	});
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }

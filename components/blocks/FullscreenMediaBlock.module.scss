@@ -21,7 +21,11 @@
 		left: 0;
 		padding-left: var(--outer-margin);
 		padding-right: var(--outer-margin);
+<<<<<<< HEAD
 		z-index: 2;
+=======
+		z-index: 100;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		display: flex;
 		align-items: flex-end;
 	}
@@ -31,7 +35,12 @@
 		display: flex;
 		flex-direction: column;
 		color: var(--white);
+<<<<<<< HEAD
 		z-index: 100;
+=======
+		z-index: 2;
+		pointer-events: none;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 		@include mq($from: tablet) {
 			padding-left: spanGridWithGutter(4);

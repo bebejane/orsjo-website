@@ -1,4 +1,5 @@
 'use client';
+<<<<<<< HEAD
 
 import s from './CookieConsent.module.scss';
 import cn from 'classnames';
@@ -6,6 +7,14 @@ import { useEffect, useState } from 'react';
 import { setCookie, deleteCookie, getCookie } from 'cookies-next';
 
 const GDPR_CONSENT_COOKIES = 'gdpr_consent_cookies';
+=======
+
+import s from './CookieConsent.module.scss';
+import cn from 'classnames';
+import { useEffect, useState } from 'react';
+import { setCookie, deleteCookie, getCookie } from 'cookies-next';
+import { GDPR_CONSENT_COOKIES } from '@/lib/utils';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export default function CookieConsent() {
 	const [show, setShow] = useState(false);

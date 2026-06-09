@@ -9,12 +9,20 @@ import {
 } from '@/graphql';
 import { Section, TextReveal } from '@/components';
 import { Image } from 'react-datocms';
+<<<<<<< HEAD
 import { Markdown } from 'next-dato-utils/components';
+=======
+import { DraftMode, Markdown } from 'next-dato-utils/components';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
 import Link from 'next/link';
+<<<<<<< HEAD
+=======
+import { buildMetadata } from '@/app/[locale]/layout';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 type ResellersByCountry = {
 	[country: string]: {
@@ -28,7 +36,17 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+<<<<<<< HEAD
 	const [{ contact }, { allResellers }, { allStaffs }, { allShowrooms }, { allDistributors }] = await Promise.all([
+=======
+	const [
+		{ contact, draftUrl },
+		{ allResellers, draftUrl: resellerDraftUrl },
+		{ allStaffs, draftUrl: staffDraftUrl },
+		{ allShowrooms, draftUrl: showroomDraftUrl },
+		{ allDistributors, draftUrl: distributorDraftUrl },
+	] = await Promise.all([
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		apiQuery(ContactDocument),
 		apiQuery(AllResellersDocument, { all: true }),
 		apiQuery(AllStaffsDocument, { all: true }),
@@ -38,9 +56,24 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 
 	if (!contact) return notFound();
 
+<<<<<<< HEAD
 	const resellesByCountry: ResellersByCountry = {};
 	allResellers.forEach((r, i) => {
 		if (!resellesByCountry[r.country.id]) resellesByCountry[r.country.id] = { resellers: [], country: r.country.name };
+=======
+	const draftUrls: (string | null)[] = [
+		draftUrl,
+		resellerDraftUrl,
+		staffDraftUrl,
+		showroomDraftUrl,
+		distributorDraftUrl,
+	].filter(Boolean);
+
+	const resellesByCountry: ResellersByCountry = {};
+	allResellers.forEach((r, i) => {
+		if (!resellesByCountry[r.country.id])
+			resellesByCountry[r.country.id] = { resellers: [], country: r.country.name };
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		resellesByCountry[r.country.id].resellers.push(r);
 	});
 
@@ -71,7 +104,11 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 						</Link>
 					</div>
 				</div>
+<<<<<<< HEAD
 				<div className={s.imageWrap}>
+=======
+				<div className={s.imageWrap} data-datocms-content-link-boundary={true}>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					{contact?.image.responsiveImage && (
 						<Image data={contact.image.responsiveImage} className={s.image} priority={true} />
 					)}
@@ -84,7 +121,13 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 				<div className={s.staff}>
 					{allStaffs.map(({ id, name, role, phone, email, image }, idx) => (
 						<div id={id} key={idx} className={s.employee}>
+<<<<<<< HEAD
 							<div className={s.image}>{image?.responsiveImage && <Image data={image.responsiveImage} />}</div>
+=======
+							<div className={s.image}>
+								{image?.responsiveImage && <Image data={image.responsiveImage} />}
+							</div>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 							<div className={s.name}>
 								<p className='medium white noMargin'>{name}</p>
 							</div>
@@ -113,14 +156,31 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 						<li key={idx} className={s.showroom}>
 							<div className={s.left}>
 								{image?.responsiveImage && (
+<<<<<<< HEAD
 									<Image data={image.responsiveImage} className={s.image} layout={'responsive'} objectFit={'contain'} />
+=======
+									<Image
+										data={image.responsiveImage}
+										className={s.image}
+										layout={'responsive'}
+										objectFit={'contain'}
+									/>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 								)}
 							</div>
 							<div className={s.right}>
 								<div className='medium'>
 									<p className='red'>{city}</p>
 									<Markdown className={s.text} content={address} />
+<<<<<<< HEAD
 									{additional && <Markdown className={s.text} content={additional} />}
+=======
+									{additional && (
+										<div data-datocms-content-link-group>
+											<Markdown className={s.text} content={additional} />
+										</div>
+									)}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 								</div>
 							</div>
 						</li>
@@ -130,6 +190,7 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 			<Section name='Agents & Distributors' className={s.distributorSection} bgColor='--beige'>
 				<h1 className='white bottomMargin'>Agents & Distributors</h1>
 				<div className={s.distributors}>
+<<<<<<< HEAD
 					{allDistributors.map(({ name, address, city, country, email, phone, postalCode, contactName, url }, idx) => (
 						<div key={idx} className={s.distributor}>
 							<p className='medium'>
@@ -178,6 +239,58 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 							</p>
 						</div>
 					))}
+=======
+					{allDistributors.map(
+						({ name, address, city, country, email, phone, postalCode, contactName, url }, idx) => (
+							<div key={idx} className={s.distributor}>
+								<p className='medium'>
+									<span className='white'>{country.name}</span>
+									<br />
+									{name}
+									<br />
+
+									{address && (
+										<>
+											{address}
+											<br />
+										</>
+									)}
+									{postalCode && (
+										<>
+											{postalCode}
+											<br />
+										</>
+									)}
+									{city && (
+										<>
+											{city}
+											<br />
+										</>
+									)}
+									{contactName && (
+										<>
+											{contactName}
+											<br />
+										</>
+									)}
+									{phone && (
+										<>
+											{phone}
+											<br />
+										</>
+									)}
+									{email && (
+										<>
+											<a href={`mailto:${email}`}>{email}</a>
+											<br />
+										</>
+									)}
+									{url && <a href={url}>{url.replace('https://', '')}</a>}
+								</p>
+							</div>
+						),
+					)}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				</div>
 			</Section>
 			<Section name='Retailers' data-dark='1' className={s.resellerSection} bgColor='--black'>
@@ -223,12 +336,24 @@ export default async function Contact({ params }: PageProps<'/[locale]/contact'>
 					})}
 				</div>
 			</Section>
+<<<<<<< HEAD
+=======
+			<DraftMode url={draftUrls} path='/contact' />
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		</>
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
+<<<<<<< HEAD
 	return {
 		title: 'Contact',
 	};
+=======
+	return buildMetadata({
+		title: 'Contact',
+		description: 'Contact us at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/contact`,
+	});
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }

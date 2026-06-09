@@ -13,7 +13,15 @@ export default function FullscreenMediaBlock({
 }: LayoutProps) {
 	const { __typename } = linkRecord;
 	const path =
+<<<<<<< HEAD
 		__typename === 'DesignerRecord' ? 'designer' : linkRecord.__typename === 'AboutRecord' ? 'about' : 'products';
+=======
+		__typename === 'DesignerRecord'
+			? 'designer'
+			: linkRecord.__typename === 'AboutRecord'
+				? 'about'
+				: 'products';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	//@ts-ignore
 	const slug = `${path}/${linkRecord.__typename !== 'AboutRecord' ? linkRecord.slug : ''}`;

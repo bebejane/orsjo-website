@@ -20,6 +20,10 @@ query AllProductAccessories($first: IntType = 250, $skip: IntType = 0) {
 
 fragment ProductAccessoryFragment on ProductAccessoryRecord {
 	__typename
+<<<<<<< HEAD
+=======
+	_editingUrl
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	id
 	name
 	articleNo

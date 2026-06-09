@@ -24,6 +24,7 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 
 	useEffect(() => {
 		if (isMobile) return setChars(text.length);
+<<<<<<< HEAD
 
 		const r = Math.min(1, scrolledPosition / (viewportHeight / (speed * 10)));
 		const chars = text.length - Math.ceil(text.length * r);
@@ -49,6 +50,30 @@ export default function TextReveal({ children = undefined, speed = 0.5, block = 
 				</p>
 			))}
 		</>
+=======
+		const r = Math.min(1, scrolledPosition / (viewportHeight / (speed * 10)));
+		const chars = text.length - Math.ceil(text.length * r);
+		setChars(chars);
+	}, [scrolledPosition, viewportHeight, setChars, text, speed, isMobile]);
+
+	return (
+		<Balancer>
+			{text?.split('\n').map((p, key) => (
+				<p key={'p-' + key} className={s.paragraph} data-datocms-content-link-source={text}>
+					{p.split(' ').map((word, widx) => (
+						<span key={widx} className={cn(s.word, block && s.block)}>
+							{word.split('').map((c, idx) => (
+								<span key={`${idx}-${widx}`} className={cn(s.letter, ++count > chars && s.hide)}>
+									{c === '\n' ? <br /> : c}
+								</span>
+							))}
+							{widx < text.split(' ').length - 1 ? <>&nbsp;</> : undefined}
+						</span>
+					))}
+				</p>
+			))}
+		</Balancer>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	);
 }
 
@@ -58,8 +83,14 @@ function childrenToText(children: React.ReactNode | undefined): string {
 			return [c];
 		}
 		if (React.isValidElement(c) && (c as React.ReactElement<any>).props.children) {
+<<<<<<< HEAD
 			return Children.toArray((c as React.ReactElement<any>).props.children).map((c2: React.ReactNode) =>
 				typeof c2 === 'string' ? c2 : React.isValidElement(c2) && c2.type === 'br' ? '\n' : ''
+=======
+			return Children.toArray((c as React.ReactElement<any>).props.children).map(
+				(c2: React.ReactNode) =>
+					typeof c2 === 'string' ? c2 : React.isValidElement(c2) && c2.type === 'br' ? '\n' : '',
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			);
 		}
 		return [];

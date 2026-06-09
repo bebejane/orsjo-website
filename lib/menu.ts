@@ -2,6 +2,10 @@ import { sortSwedish } from 'next-dato-utils/utils';
 import { apiQuery } from 'next-dato-utils/api';
 import { MenuDocument } from '@/graphql';
 import { sectionId } from '@/lib/utils';
+<<<<<<< HEAD
+=======
+import { stripStega } from '@datocms/content-link';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export type MenuSection =
 	| 'home'
@@ -211,6 +215,19 @@ const base: Menu = [
 			},
 			{
 				parent: 'support',
+<<<<<<< HEAD
+=======
+				title: 'Cancel Purchase',
+				slug: '/support/cancel-purchase',
+				layout: 'normal',
+				inverted: true,
+				color: 'copper',
+				sidebar: true,
+				footerLine: false,
+			},
+			{
+				parent: 'support',
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				title: 'Privacy Policy',
 				slug: '/support/privacy-policy',
 				layout: 'normal',
@@ -298,7 +315,14 @@ const base: Menu = [
 ];
 
 export const buildMenu = async () => {
+<<<<<<< HEAD
 	const { allDesigners, allProductCategories, allProducts, allProjects } = await apiQuery(MenuDocument, { all: true });
+=======
+	const { allDesigners, allProductCategories, allProducts, allProjects } = await apiQuery(
+		MenuDocument,
+		{ all: true },
+	);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	const footerMaxLength = 8;
 
@@ -371,7 +395,11 @@ export const buildMenu = async () => {
 
 	const menu = base.map((item) => transformMenuItem(item)) as Menu;
 
+<<<<<<< HEAD
 	return menu;
+=======
+	return stripStega(menu);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export const findMenuItem = (pathname: string, menu: MenuItem[]): MenuItem | null => {
@@ -379,11 +407,26 @@ export const findMenuItem = (pathname: string, menu: MenuItem[]): MenuItem | nul
 		return items.map((m) => [m, ...(m.sub ? flattenMenu(m.sub) : [])]).flat();
 	}
 
+<<<<<<< HEAD
 	const item = flattenMenu(menu).reduce((acc: MenuItem | null, item: MenuItem | null) => {
+=======
+	let item = flattenMenu(menu).reduce((acc: MenuItem | null, item: MenuItem | null) => {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		if (acc) return acc;
 		if (item?.slug === pathname) return item;
 		return null;
 	}, null);
 
+<<<<<<< HEAD
+=======
+	if (!item) {
+		item = flattenMenu(menu).reduce((acc: MenuItem | null, item: MenuItem | null) => {
+			if (acc) return acc;
+			if (item?.slug === pathname.slice(0, pathname.lastIndexOf('/'))) return item;
+			return null;
+		}, null);
+	}
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	return item;
 };

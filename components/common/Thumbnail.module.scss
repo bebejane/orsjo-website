@@ -34,6 +34,10 @@
 				height: 100%;
 				transition: opacity 0s ease;
 				z-index: 2;
+<<<<<<< HEAD
+=======
+				pointer-events: none;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 				&.show {
 					opacity: 1;
@@ -77,6 +81,10 @@
 
 				.subtitle {
 					transition: color 0.2s ease;
+<<<<<<< HEAD
+=======
+					padding-left: 0.5em;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				}
 			}
 		}

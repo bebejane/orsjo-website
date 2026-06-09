@@ -17,5 +17,6 @@ fragment VideoFragment on FileField {
 		streamingUrl
 		framerate
 		duration
+		alt
 	}
 }

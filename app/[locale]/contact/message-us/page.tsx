@@ -9,17 +9,31 @@ import { setRequestLocale } from 'next-intl/server';
 import ContactForm from './ContactForm';
 import { Metadata } from 'next';
 import Link from 'next/link';
+<<<<<<< HEAD
 
 export default async function ContactModalPage({ params }: PageProps<'/[locale]/contact/message-us'>) {
+=======
+import { DraftMode } from 'next-dato-utils/components';
+import { buildMetadata } from '@/app/[locale]/layout';
+
+export default async function ContactModalPage({
+	params,
+}: PageProps<'/[locale]/contact/message-us'>) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+<<<<<<< HEAD
 	const { contact } = await apiQuery(ContactDocument);
+=======
+	const { contact, draftUrl } = await apiQuery(ContactDocument);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	if (!contact) return notFound();
 
 	return (
+<<<<<<< HEAD
 		<div className={cn(s.contact, s.show)}>
 			<div className={s.wrap}>
 				<h1>Contact us</h1>
@@ -41,11 +55,43 @@ export default async function ContactModalPage({ params }: PageProps<'/[locale]/
 				×
 			</Link>
 		</div>
+=======
+		<>
+			<div className={cn(s.contact, s.show)}>
+				<div className={s.wrap}>
+					<h1>Contact us</h1>
+					<div className={s.text}>
+						<p className='medium'>
+							Vi har samlat de vanligastefrågorna med svar på vår{' '}
+							<a href='https://www.orsjo.com/support/faq'>FAQ-sida.</a>
+						</p>
+						<p className='medium'>
+							We&apos;ve collected the most common questions on our{' '}
+							<a href='https://www.orsjo.com/support/faq'>FAQ page.</a>
+						</p>
+					</div>
+					<ContactForm contactFormMessage={contact.contactFormMessage} />
+				</div>
+				<Link href='/contact' className={s.close} prefetch={true} replace={true}>
+					×
+				</Link>
+			</div>
+			<DraftMode url={draftUrl} path='/contact/message-us' />
+		</>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
+<<<<<<< HEAD
 	return {
 		title: 'Contact - Message Us',
 	};
+=======
+	return buildMetadata({
+		title: 'Contact us',
+		description: 'Contact us at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/contact/message-us`,
+	});
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }

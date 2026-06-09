@@ -1,0 +1,24 @@
+query AllProductFamilies($first: IntType = 250, $skip: IntType = 0) {
+	allProductFamilies(first: $first, skip: $skip, orderBy: [name_ASC]) {
+		id
+		name
+		slug
+		_allReferencingProducts {
+			...ProductLightFragment
+		}
+	}
+	pagination: _allProductFamiliesMeta {
+		count
+	}
+}
+
+query AllProductsByFamily($slug: String) {
+	productFamily(filter: { slug: { eq: $slug } }) {
+		id
+		name
+		slug
+		_allReferencingProducts {
+			...ProductLightFragment
+		}
+	}
+}

@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 @use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
 @use 'sass:string';
 @use 'sass:math';
+=======
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
+@use "sass:math";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 //@use 'functions' as *;
 
 /// Base font size on the `<body>` element
@@ -40,7 +48,11 @@ $mq-breakpoints: (
 	tablet: 740px,
 	desktop: 980px,
 	wide: 1441px,
+<<<<<<< HEAD
 	nav-break: 1200px,
+=======
+	nav-break: 1300px
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 ) !default;
 
 /// Static breakpoint (for fixed-width layouts)
@@ -178,7 +190,11 @@ $mq-media-type: all !default;
 ) {
 	$min-width: 0;
 	$max-width: 0;
+<<<<<<< HEAD
 	$media-query: '';
+=======
+	$media-query: "";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	// From: this breakpoint (inclusive)
 	@if $from {
@@ -213,6 +229,7 @@ $mq-media-type: all !default;
 	// Responsive support is enabled, output rules inside @media queries
 	@else {
 		@if $min-width !=0 {
+<<<<<<< HEAD
 			$media-query: '#{$media-query} and (min-width: #{$min-width})';
 		}
 
@@ -227,6 +244,22 @@ $mq-media-type: all !default;
 		// Remove unnecessary media query prefix 'all and '
 		@if ($media-type == 'all' and $media-query != '') {
 			$media-type: '';
+=======
+			$media-query: "#{$media-query} and (min-width: #{$min-width})";
+		}
+
+		@if $max-width !=0 {
+			$media-query: "#{$media-query} and (max-width: #{$max-width})";
+		}
+
+		@if $and {
+			$media-query: "#{$media-query} and #{$and}";
+		}
+
+		// Remove unnecessary media query prefix 'all and '
+		@if ($media-type == "all" and $media-query != "") {
+			$media-type: "";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			$media-query: string.slice(string.unquote($media-query), 6);
 		}
 
@@ -248,7 +281,11 @@ $mq-media-type: all !default;
 ///  @include mq(tvscreen) {}
 @mixin mq-add-breakpoint($name, $width) {
 	$new-breakpoint: (
+<<<<<<< HEAD
 		$name: $width,
+=======
+		$name: $width
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	);
 	$mq-breakpoints: map.merge($mq-breakpoints, $new-breakpoint) !global;
 }
@@ -287,7 +324,11 @@ $mq-media-type: all !default;
 			$width: mq-get-breakpoint-width($show-breakpoint, $breakpoints);
 
 			@include mq($show-breakpoint, $breakpoints: $breakpoints) {
+<<<<<<< HEAD
 				content: '#{$show-breakpoint} ≥ #{$width} (#{mq-px2em($width)})';
+=======
+				content: "#{$show-breakpoint} ≥ #{$width} (#{mq-px2em($width)})";
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			}
 		}
 	}

@@ -11,11 +11,19 @@ import type { MenuItem } from '@/lib/menu';
 import social from '@/lib/social';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from '@/components/nav/Link';
+<<<<<<< HEAD
 import { useCart } from '@/lib/shopify';
 
 export type MenuMobileProps = {
 	menu: MenuItem[];
 	localization: LocalizationQuery['localization'];
+=======
+import useCart from '@/geins/hooks/useCart';
+
+export type MenuMobileProps = {
+	menu: MenuItem[];
+	markets: MarketType[];
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export default function MenuMobile({ menu }: MenuMobileProps) {
@@ -35,9 +43,16 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 			state.transitioning,
 			state.setShowCart,
 			state.isMounted,
+<<<<<<< HEAD
 		])
 	);
 
+=======
+		]),
+	);
+
+	const isEmpty = !cart?.items?.length || cart?.items?.length === 0;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const sub = menu.find((item) => item.section === selected?.section)?.sub;
 	const subHeader = selected ? menu.find((i) => i.section === selected?.section)?.title : null;
 
@@ -99,20 +114,41 @@ export default function MenuMobile({ menu }: MenuMobileProps) {
 				/>
 			</div>
 			<div
+<<<<<<< HEAD
 				className={cn(s.cart, cart?.totalQuantity && s.filled, (showMenuMobile || inverted) && s.invert)}
 				onClick={() => setShowCart(true)}
 			>
 				<img src={`/images/cart${cart?.totalQuantity ? '-filled' : ''}.svg`} />
+=======
+				className={cn(s.cart, !isEmpty && s.filled, (showMenuMobile || inverted) && s.invert)}
+				onClick={() => setShowCart(true)}
+			>
+				<img src={`/images/cart${!isEmpty ? '-filled' : ''}.svg`} />
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			</div>
 			<nav className={cn(s.mobileMenu, showMenuMobile ? s.open : s.hide)}>
 				<nav className={s.main}>
 					<ul className={s.nav}>
 						{menu.slice(1).map((item, idx) => (
+<<<<<<< HEAD
 							<li data-slug={item.slug} key={idx} className={cn(selected?.slug === item.slug && s.active)}>
 								{item.index ? (
 									<Link href={item.slug}>{item.title}</Link>
 								) : (
 									<span onClick={() => setSelected(selected?.section === item.section ? null : item)}>
+=======
+							<li
+								data-slug={item.slug}
+								key={idx}
+								className={cn(selected?.slug === item.slug && s.active)}
+							>
+								{item.index ? (
+									<Link href={item.slug}>{item.title}</Link>
+								) : (
+									<span
+										onClick={() => setSelected(selected?.section === item.section ? null : item)}
+									>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 										{item.title}
 									</span>
 								)}

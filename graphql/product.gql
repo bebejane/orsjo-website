@@ -19,7 +19,25 @@ query Product($slug: String, $locale: SiteLocale = en) {
 }
 query ProductById($id: ItemId, $locale: SiteLocale = en) {
 	product(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
+<<<<<<< HEAD
+=======
 		...ProductFragment
+	}
+}
+
+query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+	allProducts(
+		locale: $locale
+		first: $first
+		skip: $skip
+		orderBy: [title_ASC]
+		fallbackLocales: [sv, en]
+	) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
+		...ProductFragment
+	}
+	_allProductsMeta {
+		count
 	}
 }
 
@@ -33,7 +51,17 @@ query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntTyp
 }
 
 query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
+<<<<<<< HEAD
 	allProducts(first: $first, skip: $skip, orderBy: [title_ASC], locale: $locale, fallbackLocales: [sv, en]) {
+=======
+	allProducts(
+		first: $first
+		skip: $skip
+		orderBy: [title_ASC]
+		locale: $locale
+		fallbackLocales: [sv, en]
+	) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		...ProductLightFragment
 	}
 	_allProductsMeta {
@@ -42,7 +70,17 @@ query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteL
 }
 
 query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+<<<<<<< HEAD
 	allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
+=======
+	allProducts(
+		locale: $locale
+		first: $first
+		skip: $skip
+		orderBy: [title_ASC]
+		fallbackLocales: [sv, en]
+	) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		id
 		title
 		family {
@@ -64,7 +102,17 @@ query AllProductManuals($locale: SiteLocale = en, $first: IntType = 100, $skip: 
 }
 
 query AllProductDownloads($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+<<<<<<< HEAD
 	allProducts(locale: $locale, first: $first, skip: $skip, orderBy: [title_ASC], fallbackLocales: [sv, en]) {
+=======
+	allProducts(
+		locale: $locale
+		first: $first
+		skip: $skip
+		orderBy: [title_ASC]
+		fallbackLocales: [sv, en]
+	) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		id
 		image {
 			...ImageThumbnailFragment
@@ -119,7 +167,16 @@ query AllProductsByDesigner($id: ItemId, $first: IntType = 100, $skip: IntType =
 	}
 }
 
+<<<<<<< HEAD
 query AllRelatedProducts($designerId: ItemId, $familyId: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+=======
+query AllRelatedProducts(
+	$designerId: ItemId
+	$familyId: ItemId
+	$first: IntType = 100
+	$skip: IntType = 0
+) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	allProducts(
 		first: $first
 		skip: $skip
@@ -127,7 +184,13 @@ query AllRelatedProducts($designerId: ItemId, $familyId: ItemId, $first: IntType
 	) {
 		...ProductLightFragment
 	}
+<<<<<<< HEAD
 	_allProductsMeta(filter: { OR: [{ designer: { eq: $designerId } }, { family: { eq: $familyId } }] }) {
+=======
+	_allProductsMeta(
+		filter: { OR: [{ designer: { eq: $designerId } }, { family: { eq: $familyId } }] }
+	) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		count
 	}
 }
@@ -152,6 +215,13 @@ query AllProductsByCategory($categoryId: ItemId, $first: IntType = 100, $skip: I
 
 fragment ProductFragment on ProductRecord {
 	__typename
+<<<<<<< HEAD
+=======
+	_seoMetaTags {
+		...SEOFragment
+	}
+	_editingUrl
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	id
 	title
 	description(markdown: false)
@@ -159,6 +229,10 @@ fragment ProductFragment on ProductRecord {
 	additionalInformation
 	markAsNew
 	upcycled
+<<<<<<< HEAD
+=======
+	hideInPricelist
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	image {
 		...ImageFragment
 	}
@@ -336,13 +410,20 @@ fragment ProductFragment on ProductRecord {
 		name
 	}
 	note(markdown: false)
+<<<<<<< HEAD
 	_seoMetaTags {
 		...SEOFragment
 	}
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }
 
 fragment ProductLightFragment on ProductRecord {
 	__typename
+<<<<<<< HEAD
+=======
+	_editingUrl
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	id
 	title
 	slug
@@ -368,9 +449,15 @@ fragment ProductLightFragment on ProductRecord {
 			id
 			articleNo
 			price
+<<<<<<< HEAD
 		}
 	}
 
+=======
+			deliveryDays
+		}
+	}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	designer {
 		id
 		name

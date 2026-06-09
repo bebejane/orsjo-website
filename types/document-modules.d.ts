@@ -29,6 +29,18 @@ export const ProductAccessoryFragment: DocumentNode;
 }
     
 
+<<<<<<< HEAD
+=======
+declare module '*/cancel-purchase.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const CancelPurchase: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 declare module '*/contact.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -69,6 +81,19 @@ declare module '*/designer.gql' {
 export const AllDesigners: DocumentNode;
 export const DesignerFragment: DocumentNode;
 export const DesignerLightFragment: DocumentNode;
+<<<<<<< HEAD
+=======
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/family.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllProductFamilies: DocumentNode;
+export const AllProductsByFamily: DocumentNode;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
   export default defaultDocument;
 }
@@ -128,19 +153,13 @@ declare module '*/VideoFragment.gql' {
 }
     
 
-declare module '*/global.gql' {
+declare module '*/lightsource.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const Global: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/intl.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const Intl: DocumentNode;
+  export const ProductLightsource: DocumentNode;
+export const ProductLightsourceById: DocumentNode;
+export const AllProductLightsources: DocumentNode;
+export const ProductLightsourceFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -238,6 +257,18 @@ declare module '*/shipping.gql' {
 }
     
 
+<<<<<<< HEAD
+=======
+declare module '*/site.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Site: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 declare module '*/sitemap.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -275,6 +306,18 @@ declare module '*/terms.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const TermsStart: DocumentNode;
+<<<<<<< HEAD
+=======
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/translations.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllTranslations: DocumentNode;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
   export default defaultDocument;
 }

@@ -25,7 +25,11 @@ export default function ImageLink({
 
 	return (
 		<section className={s.imageLink}>
+<<<<<<< HEAD
 			<Link href={firstLink ?? '/'} ref={refOne} passHref={true}>
+=======
+			<Link href={firstLink ?? '/'} ref={refOne} passHref={true} data-datocms-content-link-group>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				<figure>
 					{firstImage?.responsiveImage && (
 						<Image
@@ -46,10 +50,22 @@ export default function ImageLink({
 					</figcaption>
 				</figure>
 			</Link>
+<<<<<<< HEAD
 			<Link href={secondLink ?? '/'} ref={refTwo} passHref={true}>
 				<figure>
 					{secondImage?.responsiveImage && (
 						<Image className={s.image} data={secondImage?.responsiveImage} layout='fill' objectFit='cover' />
+=======
+			<Link href={secondLink ?? '/'} ref={refTwo} passHref={true} data-datocms-content-link-group>
+				<figure>
+					{secondImage?.responsiveImage && (
+						<Image
+							className={s.image}
+							data={secondImage?.responsiveImage}
+							layout='fill'
+							objectFit='cover'
+						/>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					)}
 
 					<figcaption>

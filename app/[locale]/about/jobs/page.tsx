@@ -4,16 +4,27 @@ import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
+<<<<<<< HEAD
 import { Markdown } from 'next-dato-utils/components';
 import { Section } from '@/components';
 import { Metadata } from 'next';
+=======
+import { DraftMode, Markdown } from 'next-dato-utils/components';
+import { Section } from '@/components';
+import { Metadata } from 'next';
+import { buildMetadata } from '@/app/[locale]/layout';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export default async function Jobs({ params }: PageProps<'/[locale]/about/jobs'>) {
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+<<<<<<< HEAD
 	const { allJobs } = await apiQuery(AllJobsDocument, { all: true });
+=======
+	const { allJobs, draftUrl } = await apiQuery(AllJobsDocument, { all: true });
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	return (
 		<>
@@ -25,7 +36,13 @@ export default async function Jobs({ params }: PageProps<'/[locale]/about/jobs'>
 				<Section key={id} className={s.jobs} name={title} bottom={idx === allJobs.length - 1}>
 					<h1 className='copper'>{title}</h1>
 					<Markdown className={s.summary} content={summary} />
+<<<<<<< HEAD
 					<Markdown className={s.text} content={text} />
+=======
+					<div data-datocms-content-link-source={text}>
+						<Markdown className={s.text} content={text} />
+					</div>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 				</Section>
 			))}
 
@@ -34,12 +51,24 @@ export default async function Jobs({ params }: PageProps<'/[locale]/about/jobs'>
 					<p className={s.nojobs}>We don&apos;t have any job offers at the moment.</p>
 				</Section>
 			)}
+<<<<<<< HEAD
+=======
+			<DraftMode url={draftUrl} path='/about/jobs' />
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		</>
 	);
 }
 
 export async function generateMetadata(): Promise<Metadata> {
+<<<<<<< HEAD
 	return {
 		title: 'Jobs',
 	};
+=======
+	return await buildMetadata({
+		title: 'Jobs',
+		description: 'Jobs at Orsjo',
+		url: `${process.env.NEXT_PUBLIC_SITE_URL}/about/jobs`,
+	});
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 }

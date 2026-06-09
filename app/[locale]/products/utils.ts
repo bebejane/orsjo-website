@@ -5,6 +5,7 @@ import {
 	AllRelatedProjectsForProductDocument,
 	ShippingDocument,
 } from '@/graphql';
+<<<<<<< HEAD
 import { parseSpecifications, ProductDownload, productDownloads, ProductRecordWithPdfFiles } from '@/lib/utils';
 import { apiQuery } from 'next-dato-utils/api';
 import { firstBy } from 'thenby';
@@ -25,6 +26,17 @@ export function findCheapestVariant(
 		return parseFloat(variant.node.price.amount) > parseFloat(acc.price.amount) ? variant.node : acc;
 	}, undefined);
 }
+=======
+import {
+	parseSpecifications,
+	ProductDownload,
+	productDownloads,
+	ProductRecordWithPdfFiles,
+} from '@/lib/utils';
+import { apiQuery } from 'next-dato-utils/api';
+import { firstBy } from 'thenby';
+import * as geins from '@/geins/merchant-api';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 export type SpecCol = {
 	label: string;
@@ -34,6 +46,7 @@ export type SpecCol = {
 };
 
 export type ProductPageDataProps = {
+<<<<<<< HEAD
 	shopify: {
 		product: ShopifyProductQuery['product'];
 		accessories: ShopifyProductsByQuery['products']['edges'][0]['node'][];
@@ -42,6 +55,13 @@ export type ProductPageDataProps = {
 			countryCode: CountryCode;
 			currencyCode: CurrencyCode;
 		};
+=======
+	marketId: string;
+	geins: {
+		products: ProductType[];
+		accessories: ProductType[];
+		lightsources: ProductType[];
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	};
 	product: ProductQuery['product'];
 	relatedProducts: AllRelatedProductsQuery['allProducts'];
@@ -51,11 +71,19 @@ export type ProductPageDataProps = {
 	specsCols: SpecCol[];
 	files: ProductDownload[];
 	shipping: ShippingQuery['shipping'];
+<<<<<<< HEAD
+=======
+	draftUrls: (string | null)[];
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 };
 
 export const getProductPageData = async (
 	slug: string,
+<<<<<<< HEAD
 	countryCode: CountryCode
+=======
+	locale: string,
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 ): Promise<ProductPageDataProps | null> => {
 	const { product } = await apiQuery(ProductDocument, {
 		variables: { slug },
@@ -63,7 +91,17 @@ export const getProductPageData = async (
 
 	if (!product) return null;
 
+<<<<<<< HEAD
 	const [{ allProducts }, { allProducts: allProductCategories }, { allProjects }, { shipping }] = await Promise.all([
+=======
+	const marketId = locale;
+	const [
+		{ allProducts, draftUrl },
+		{ allProducts: allProductCategories, draftUrl: categoriesDraftUrl },
+		{ allProjects, draftUrl: projectsDraftUrl },
+		{ shipping, draftUrl: shippingDraftUrl },
+	] = await Promise.all([
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		apiQuery(AllRelatedProductsDocument, {
 			all: true,
 			variables: { designerId: product.designer?.id, familyId: product.family.id },
@@ -81,6 +119,7 @@ export const getProductPageData = async (
 		apiQuery(ShippingDocument),
 	]);
 
+<<<<<<< HEAD
 	const { product: shopifyProduct } = await shopifyQuery(ShopifyProductDocument, {
 		variables: { handle: product.slug },
 		country: countryCode,
@@ -102,6 +141,35 @@ export const getProductPageData = async (
 	});
 	const shopifyAccessories = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('accessory'));
 	const shopifyLightsources = products.edges.map(({ node }) => node).filter((p) => p.tags.includes('lightsource'));
+=======
+	const draftUrls: (string | null)[] = [
+		draftUrl,
+		categoriesDraftUrl,
+		projectsDraftUrl,
+		shippingDraftUrl,
+	].filter(Boolean);
+
+	const [products, accessories, lightsources] = await Promise.all([
+		geins.getProductsByCategory(slug, marketId),
+		geins.getProductsByCategory('accessory', marketId),
+		geins.getProductsByCategory('lightsource', marketId),
+	]);
+
+	const articleNumbers = product.models
+		.map((m) => [
+			...m.accessories.map((a) => a.accessory?.articleNo),
+			...m.lightsources.map((l) => l.lightsource.articleNo),
+		])
+		.flat()
+		.filter(Boolean) as string[];
+
+	const geinsLightsources = lightsources.filter(
+		(a) => a.articleNumber && articleNumbers.includes(a.articleNumber),
+	);
+	const geinsAccessories = accessories.filter(
+		(a) => a.articleNumber && articleNumbers.includes(a.articleNumber),
+	);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [
@@ -118,12 +186,19 @@ export const getProductPageData = async (
 	const files = productDownloads(product as ProductRecordWithPdfFiles);
 	const drawings: FileField[] = [];
 
+<<<<<<< HEAD
 	product.models.forEach((m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null } as FileField));
+=======
+	product.models.forEach(
+		(m) => m.drawing && drawings.push({ ...m.drawing, title: m.name?.name || null } as FileField),
+	);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	const sort = {
 		byFamily: (a: ProductRecord, b: ProductRecord) => (a.family.id === b.family.id ? 0 : 1),
 		byTitle: (a: ProductRecord, b: ProductRecord) => (a.title > b.title ? 1 : -1),
 		byCategory: (a: ProductRecord, b: ProductRecord) =>
+<<<<<<< HEAD
 			a.categories.map((el) => el.id).find((id) => product.categories.map((el) => el.id).includes[id]) ? 1 : -1,
 		byDesigner: (a: ProductRecord, b: ProductRecord) => (a.designer?.id === product.designer?.id ? 1 : -1),
 	};
@@ -144,12 +219,39 @@ export const getProductPageData = async (
 		relatedProducts: allProducts.filter((p) => p.id !== product.id).sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
 		productsByCategory: allProductCategories
 			.filter((p) => p.id !== product.id)
+=======
+			a.categories
+				.map((el) => el.id)
+				.find((id: string) => product?.categories?.map((el) => el.id).includes(id))
+				? 1
+				: -1,
+		byDesigner: (a: ProductRecord, b: ProductRecord) =>
+			a.designer?.id === product.designer?.id ? 1 : -1,
+	};
+
+	return {
+		marketId,
+		product,
+		geins: {
+			products: products,
+			accessories: geinsAccessories,
+			lightsources: geinsLightsources,
+		},
+		relatedProducts: allProducts
+			.filter((p) => p.id !== product.id)
+			//@ts-ignore
+			.sort(firstBy(sort.byFamily).thenBy(sort.byTitle)),
+		productsByCategory: allProductCategories
+			.filter((p) => p.id !== product.id)
+			//@ts-ignore
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 			.sort(firstBy(sort.byDesigner).thenBy(sort.byCategory)),
 		relatedProjects: allProjects,
 		files,
 		drawings,
 		specsCols,
 		shipping,
+<<<<<<< HEAD
 	};
 };
 
@@ -165,3 +267,8 @@ export async function getShopifyProductsBySku(
 	});
 	return products.edges.map(({ node }) => node);
 }
+=======
+		draftUrls,
+	};
+};
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7

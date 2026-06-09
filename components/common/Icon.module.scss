@@ -5,6 +5,12 @@
 	justify-content: center;
 	flex: 1 1 auto;
 	color: var(--black);
+<<<<<<< HEAD
+=======
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	&.disabled {
 		opacity: 0.5;
@@ -58,7 +64,10 @@
 
 		&.label {
 			flex: 0 1 auto;
+<<<<<<< HEAD
 			white-space: pre;
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		}
 	}
 

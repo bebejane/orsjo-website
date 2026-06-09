@@ -1,0 +1,99 @@
+query AllGeinsProducts($skip: Int = 0, $take: Int = 200, $marketId: String = "1") {
+	products(skip: $skip, take: $take, marketId: $marketId, filter: { sort: ALPHABETICAL }) {
+		count
+		products {
+			...ProductFragment
+		}
+	}
+}
+
+query GeinsProductsByCategory(
+	$skip: Int = 0
+	$take: Int = 200
+	$categoryAlias: String
+	$marketId: String = "1"
+) {
+	products(skip: $skip, take: $take, marketId: $marketId, categoryAlias: $categoryAlias) {
+		count
+		products {
+			...ProductFragment
+		}
+	}
+}
+
+query GeinsProductByArticleNo($articleNumbers: [String!], $marketId: String = "1") {
+	products(marketId: $marketId, filter: { articleNumbers: $articleNumbers }) {
+		count
+		products {
+			...ProductFragment
+		}
+	}
+}
+
+fragment ProductFragment on ProductType {
+	productId
+	name
+	articleNumber
+	categoryId
+	canonicalUrl
+	type
+	skus {
+		skuId
+		weight
+		productId
+		articleNumber
+		externalId
+		gtin
+		name
+		stock {
+			totalStock
+			inStock
+			oversellable
+			static
+		}
+		dimensions {
+			length
+			width
+			height
+		}
+		shelf
+		incoming
+	}
+	brand {
+		brandId
+	}
+	categories {
+		categoryId
+		name
+		alias
+		description
+	}
+	unitPrice {
+		sellingPriceExVat
+		sellingPriceIncVat
+		currency {
+			name
+			symbol
+			code
+			rate
+		}
+		vatFormatted
+	}
+	productImages {
+		fileName
+		tags
+	}
+	parameterGroups {
+		parameterGroupId
+		parameters {
+			parameterValueId
+			facetId
+			identifier
+			facetId
+			parameterValueId
+			type
+			name
+			value
+		}
+	}
+}

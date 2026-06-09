@@ -3,19 +3,27 @@ query Start {
 		content {
 			__typename
 			... on FeaturedStartRecord {
+				_editingUrl
 				id
 				headline
 				items {
 					__typename
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					... on ProductRecord {
 						...ProductLightFragment
+						_editingUrl
 					}
 					... on ProjectRecord {
 						...ProjectLightFragment
+						_editingUrl
 					}
 				}
 			}
 			... on FullscreenMediaBlockRecord {
+				_editingUrl
 				id
 				headline
 				subHeadline

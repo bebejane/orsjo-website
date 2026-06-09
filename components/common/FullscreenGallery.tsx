@@ -3,7 +3,10 @@
 import 'swiper/css';
 import s from './FullscreenGallery.module.scss';
 import cn from 'classnames';
+<<<<<<< HEAD
 import React from 'react';
+=======
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import { Image } from 'react-datocms';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef, useEffect } from 'react';
@@ -11,7 +14,11 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Loader } from '@/components';
 import useStore, { useShallow } from '@/lib/store';
 
+<<<<<<< HEAD
 export default function Gallery() {
+=======
+export default function FullscreenGallery() {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const [gallery, setGallery] = useStore(useShallow((state) => [state.gallery, state.setGallery]));
 	const swiperRef = useRef<SwiperType | null>(null);
 	const [realIndex, setRealIndex] = useState(0);
@@ -19,12 +26,21 @@ export default function Gallery() {
 	const [loaded, setLoaded] = useState<{ [key: string]: boolean }>({});
 	const [initLoaded, setInitLoaded] = useState(false);
 	const { images, index = -1, padImagesWithTitle } = gallery ?? {};
+<<<<<<< HEAD
 	const show = gallery?.index !== undefined && index > -1;
 	const isSingleSlide = images?.length === 1;
 	const isHidden = !images || !show;
 
 	function handleClose() {
 		setGallery({ images: [], index: -1 });
+=======
+	const show = gallery && gallery?.index !== null && gallery.index > -1;
+	const isSingleSlide = images?.length === 1;
+	const isHidden = !images || !show || gallery?.index === null;
+
+	function handleClose() {
+		setGallery({ images: gallery?.images ?? [], index: null });
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	}
 
 	useEffect(() => {
@@ -32,7 +48,11 @@ export default function Gallery() {
 	}, [realIndex, images, setTitle]);
 
 	useEffect(() => {
+<<<<<<< HEAD
 		setRealIndex(index);
+=======
+		setRealIndex(index ?? 0);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	}, [index]);
 
 	useEffect(() => {
@@ -65,13 +85,24 @@ export default function Gallery() {
 					spaceBetween={500}
 					simulateTouch={!isSingleSlide}
 					slidesPerView={1}
+<<<<<<< HEAD
 					initialSlide={index}
+=======
+					initialSlide={index ?? 0}
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 					onSlideChange={({ realIndex }) => setRealIndex(realIndex)}
 					onSwiper={(swiper) => (swiperRef.current = swiper)}
 					onTouchEnd={() => {}}
 				>
 					{images.map((image, idx) => (
+<<<<<<< HEAD
 						<SwiperSlide key={idx} className={cn(s.slide, padImagesWithTitle && image.title && s.padded)}>
+=======
+						<SwiperSlide
+							key={idx}
+							className={cn(s.slide, padImagesWithTitle && image.title && s.padded)}
+						>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 							{image.responsiveImage ? (
 								<Image
 									imgClassName={s.image}

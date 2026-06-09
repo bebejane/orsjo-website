@@ -1,7 +1,17 @@
 import s from './page.module.scss';
+<<<<<<< HEAD
 import { AllProductDownloadsDocument, AllCataloguesDocument, DownloadsStartDocument } from '@/graphql';
 import { Image } from 'react-datocms';
 import { Markdown } from 'next-dato-utils/components';
+=======
+import {
+	AllProductDownloadsDocument,
+	AllCataloguesDocument,
+	DownloadsStartDocument,
+} from '@/graphql';
+import { Image } from 'react-datocms';
+import { DraftMode, Markdown } from 'next-dato-utils/components';
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 import { Section, Icon } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { locales } from '@/i18n/routing';
@@ -10,12 +20,26 @@ import { setRequestLocale } from 'next-intl/server';
 import DownloadsList from './DownloadsList';
 import { Metadata } from 'next';
 
+<<<<<<< HEAD
 export default async function Downloads({ params }: PageProps<'/[locale]/professionals/downloads'>) {
+=======
+export default async function Downloads({
+	params,
+}: PageProps<'/[locale]/professionals/downloads'>) {
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 	const { locale } = await params;
 	if (!locales.includes(locale as any)) notFound();
 	setRequestLocale(locale);
 
+<<<<<<< HEAD
 	const [{ downloadsStart }, { allProducts }, { allCatalogues }] = await Promise.all([
+=======
+	const [
+		{ downloadsStart, draftUrl },
+		{ allProducts, draftUrl: productsDraftUrl },
+		{ allCatalogues, draftUrl: cataloguesDraftUrl },
+	] = await Promise.all([
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		apiQuery(DownloadsStartDocument),
 		apiQuery(AllProductDownloadsDocument, {
 			all: true,
@@ -24,6 +48,12 @@ export default async function Downloads({ params }: PageProps<'/[locale]/profess
 			all: true,
 		}),
 	]);
+<<<<<<< HEAD
+=======
+	const draftUrls: (string | null)[] = [draftUrl, productsDraftUrl, cataloguesDraftUrl].filter(
+		Boolean,
+	);
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 
 	if (!downloadsStart) notFound();
 
@@ -51,7 +81,15 @@ export default async function Downloads({ params }: PageProps<'/[locale]/profess
 						</tr>
 						{allCatalogues.map(({ id, title, thumbnail, pdf }) => (
 							<tr key={id}>
+<<<<<<< HEAD
 								<td>{thumbnail.responsiveImage && <Image data={thumbnail.responsiveImage} className={s.image} />}</td>
+=======
+								<td>
+									{thumbnail.responsiveImage && (
+										<Image data={thumbnail.responsiveImage} className={s.image} />
+									)}
+								</td>
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 								<td>
 									<a href={`${pdf.url}?dl=${title}.pdf`} download target='_new'>
 										<Icon label={title} />
@@ -63,6 +101,10 @@ export default async function Downloads({ params }: PageProps<'/[locale]/profess
 					</tbody>
 				</table>
 			</Section>
+<<<<<<< HEAD
+=======
+			<DraftMode url={draftUrls} path='/professionals/downloads' />
+>>>>>>> 5acb511a452fe5e15c58b47464f67aa540e02ec7
 		</>
 	);
 }
