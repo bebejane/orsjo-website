@@ -82,6 +82,8 @@ export function getRoute(item: any, locale?: string | null): string {
 			return '/about/sustainability';
 		case 'shipping':
 			return '/products';
+		case 'cancel_purchase':
+			return '/support/cancel-purchase';
 	}
 	throw new Error(`Unknown api key: ${apiKey}`);
 }
@@ -95,6 +97,7 @@ export default {
 	routes: {
 		about: async (_item, locale) => [`/${locale}/about`],
 		bespoke: async (_item, locale) => [`/${locale}/professionals/bespoke`],
+		cancel_purchase: async (_item, locale) => [`/${locale}/support/cancel-purchase`],
 		catalogue: async (_item, locale) => [`/${locale}/professionals/downloads`],
 		color_material: async (_item, locale) => [`/${locale}/professionals/colors-and-materials`],
 		color_material_intro: async (_item, locale) => [

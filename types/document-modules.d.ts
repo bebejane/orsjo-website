@@ -29,6 +29,15 @@ export const ProductAccessoryFragment: DocumentNode;
 }
     
 
+declare module '*/cancel-purchase.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const CancelPurchase: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/contact.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

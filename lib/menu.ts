@@ -212,6 +212,16 @@ const base: Menu = [
 			},
 			{
 				parent: 'support',
+				title: 'Cancel Purchase',
+				slug: '/support/cancel-purchase',
+				layout: 'normal',
+				inverted: true,
+				color: 'copper',
+				sidebar: true,
+				footerLine: false,
+			},
+			{
+				parent: 'support',
 				title: 'Privacy Policy',
 				slug: '/support/privacy-policy',
 				layout: 'normal',
