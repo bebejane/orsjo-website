@@ -22,9 +22,14 @@ const CancelPurchaseReply = ({ text, orderNo }: CancelPurchaseReplyProps) => (
 							<React.Fragment key={idx}>
 								{line}
 								<br />
-								<br />
 							</React.Fragment>
 						))}
+						<br />
+						<br />
+						Hälsningar,
+						<br />
+						Örsjö Belysning AB
+						<br />
 						<br />
 					</Text>
 				</Column>
