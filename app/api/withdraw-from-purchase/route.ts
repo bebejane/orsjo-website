@@ -1,7 +1,6 @@
 import { sendWithdrawFromPurchaseEmail, sendWithdrawFromPurchaseReplyEmail } from '@/lib/email';
 import { WithdrawFromPurchaseFormSchema } from '@/lib/schemas';
-import { sendPostmarkEmail } from 'next-dato-utils/utils';
-import { z, ZodError } from 'zod';
+import { ZodError } from 'zod';
 import { isbot } from 'isbot';
 
 export async function POST(req: Request) {
