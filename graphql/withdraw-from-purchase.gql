@@ -1,0 +1,8 @@
+query WithdrawFromPurchase {
+	withdrawFromPurchase {
+		id
+		title
+		intro
+		eMailText
+	}
+}

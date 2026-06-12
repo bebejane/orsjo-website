@@ -4,13 +4,12 @@ import Heading from './components/Heading';
 import Footer from './components/Footer';
 import BaseLayout from './components/BaseLayout';
 import Text from './components/Text';
-import Divider from './components/Divider';
 import { spacing, fontSize } from './components/theme';
 import React from 'react';
 
-export type CancelPurchaseReplyProps = { text: string; orderNo: string };
+export type WithdrawFromPurchaseReplyProps = { text: string; orderNo: string };
 
-const CancelPurchaseReply = ({ text, orderNo }: CancelPurchaseReplyProps) => (
+const WithdrawFromPurchaseReply = ({ text, orderNo }: WithdrawFromPurchaseReplyProps) => (
 	<BaseLayout width={600} preview='Thanks for contacting us.'>
 		<Header title='Örsjö Belysning' openInBrowser={false} />
 		<Section style={{ paddingLeft: spacing.s7, paddingRight: spacing.s7 }}>
@@ -65,6 +64,6 @@ const CancelPurchaseReply = ({ text, orderNo }: CancelPurchaseReplyProps) => (
 	</BaseLayout>
 );
 
-export default CancelPurchaseReply;
+export default WithdrawFromPurchaseReply;
 
-CancelPurchaseReply.PreviewProps = {};
+WithdrawFromPurchaseReply.PreviewProps = {};

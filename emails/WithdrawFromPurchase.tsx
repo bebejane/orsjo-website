@@ -8,9 +8,9 @@ import Divider from './components/Divider';
 import { spacing, fontSize } from './components/theme';
 import React from 'react';
 
-export type CancelPurchaseProps = { email: string; orderNo: string; message: string };
+export type WithdrawFromPurchaseProps = { email: string; orderNo: string; message: string };
 
-const CancelPurchase = ({ email, orderNo, message }: CancelPurchaseProps) => (
+const WithdrawFromPurchase = ({ email, orderNo, message }: WithdrawFromPurchaseProps) => (
 	<BaseLayout width={600} preview='Order cancellation'>
 		<Header title='Örsjö Belysning' openInBrowser={false} />
 		<Section style={{ paddingLeft: spacing.s7, paddingRight: spacing.s7 }}>
@@ -40,6 +40,6 @@ const CancelPurchase = ({ email, orderNo, message }: CancelPurchaseProps) => (
 	</BaseLayout>
 );
 
-export default CancelPurchase;
+export default WithdrawFromPurchase;
 
-CancelPurchase.PreviewProps = {};
+WithdrawFromPurchase.PreviewProps = {};

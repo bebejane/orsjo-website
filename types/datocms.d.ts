@@ -216,48 +216,6 @@ type BooleanFilter = {
   eq?: InputMaybe<Scalars['BooleanType']['input']>;
 };
 
-/** Record of type Cancel purchase (cancel_purchase) */
-type CancelPurchaseRecord = RecordInterface & {
-  __typename?: 'CancelPurchaseRecord';
-  _createdAt: Scalars['DateTime']['output'];
-  /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']['output']>;
-  _firstPublishedAt: Scalars['DateTime']['output'];
-  _isValid: Scalars['BooleanType']['output'];
-  _modelApiKey: Scalars['String']['output'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
-  _publishedAt: Scalars['DateTime']['output'];
-  /** Generates SEO and Social card meta tags to be used in your frontend */
-  _seoMetaTags: Array<Tag>;
-  _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
-  _updatedAt: Scalars['DateTime']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  eMailText: Scalars['String']['output'];
-  id: Scalars['ItemId']['output'];
-  intro: Scalars['String']['output'];
-  title: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-
-/** Record of type Cancel purchase (cancel_purchase) */
-type CancelPurchaseRecord_seoMetaTagsArgs = {
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-/** Record of type Cancel purchase (cancel_purchase) */
-type CancelPurchaseRecordeMailTextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Record of type Cancel purchase (cancel_purchase) */
-type CancelPurchaseRecordintroArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
 type CatalogueModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<CatalogueModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CatalogueModelFilter>>>;
@@ -6013,8 +5971,6 @@ type Query = {
   allUploads: Array<FileField>;
   /** Returns the single instance record */
   bespoke?: Maybe<BespokeRecord>;
-  /** Returns the single instance record */
-  cancelPurchase?: Maybe<CancelPurchaseRecord>;
   /** Returns a specific record */
   catalogue?: Maybe<CatalogueRecord>;
   /** Returns a specific record */
@@ -6113,6 +6069,8 @@ type Query = {
   translation?: Maybe<TranslationRecord>;
   /** Returns a specific asset */
   upload?: Maybe<FileField>;
+  /** Returns the single instance record */
+  withdrawFromPurchase?: Maybe<WithdrawFromPurchaseRecord>;
 };
 
 
@@ -6783,13 +6741,6 @@ type QuerybespokeArgs = {
 
 
 /** The query root for this schema */
-type QuerycancelPurchaseArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-/** The query root for this schema */
 type QuerycatalogueArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<CatalogueModelFilter>;
@@ -7197,6 +7148,13 @@ type QueryuploadArgs = {
   filter?: InputMaybe<UploadFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerywithdrawFromPurchaseArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 type RecordInterface = {
@@ -8654,6 +8612,48 @@ type VideoRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+/** Record of type Withdraw from purchase  (withdraw_from_purchase) */
+type WithdrawFromPurchaseRecord = RecordInterface & {
+  __typename?: 'WithdrawFromPurchaseRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  eMailText: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
+  intro: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Withdraw from purchase  (withdraw_from_purchase) */
+type WithdrawFromPurchaseRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Withdraw from purchase  (withdraw_from_purchase) */
+type WithdrawFromPurchaseRecordeMailTextArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Record of type Withdraw from purchase  (withdraw_from_purchase) */
+type WithdrawFromPurchaseRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 type focalPoint = {
   __typename?: 'focalPoint';
   x: Scalars['FloatType']['output'];
@@ -8745,11 +8745,6 @@ type AllProductAccessoriesQueryVariables = Exact<{
 type AllProductAccessoriesQuery = { __typename?: 'Query', allProductAccessories: Array<{ __typename: 'ProductAccessoryRecord', _editingUrl?: string | null, id: any, name?: string | null, articleNo: string, price?: any | null, deliveryDays?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null }>, _allProductAccessoriesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type ProductAccessoryFragment = { __typename: 'ProductAccessoryRecord', _editingUrl?: string | null, id: any, name?: string | null, articleNo: string, price?: any | null, deliveryDays?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, base64?: string | null, sizes: string } | null } | null };
-
-type CancelPurchaseQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type CancelPurchaseQuery = { __typename?: 'Query', cancelPurchase?: { __typename?: 'CancelPurchaseRecord', id: any, title: string, intro: string, eMailText: string } | null };
 
 type ShowroomQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -9333,3 +9328,8 @@ type AllTranslationsQueryVariables = Exact<{
 
 
 type AllTranslationsQuery = { __typename?: 'Query', allTranslations: Array<{ __typename?: 'TranslationRecord', key: string, value?: string | null, page: string }>, _allTranslationsMeta: { __typename?: 'CollectionMetadata', count: any } };
+
+type WithdrawFromPurchaseQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type WithdrawFromPurchaseQuery = { __typename?: 'Query', withdrawFromPurchase?: { __typename?: 'WithdrawFromPurchaseRecord', id: any, title: string, intro: string, eMailText: string } | null };
