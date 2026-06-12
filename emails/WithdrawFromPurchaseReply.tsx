@@ -6,6 +6,7 @@ import BaseLayout from './components/BaseLayout';
 import Text from './components/Text';
 import { spacing, fontSize } from './components/theme';
 import React from 'react';
+import Divider from '@/emails/components/Divider';
 
 export type WithdrawFromPurchaseReplyProps = { text: string; orderNo: string };
 

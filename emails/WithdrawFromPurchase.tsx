@@ -4,7 +4,6 @@ import Heading from './components/Heading';
 import Footer from './components/Footer';
 import BaseLayout from './components/BaseLayout';
 import Text from './components/Text';
-import Divider from './components/Divider';
 import { spacing, fontSize } from './components/theme';
 import React from 'react';
 
