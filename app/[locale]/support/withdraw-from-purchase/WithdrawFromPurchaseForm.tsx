@@ -1,18 +1,17 @@
 'use client';
 
-import s from './CancelPurchaseForm.module.scss';
+import s from './WithdrawFromPurchaseForm.module.scss';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Markdown } from 'next-dato-utils/components';
 import { Loader } from '@/components';
 import z, { ZodError } from 'zod';
 import { useState } from 'react';
-import { CancelPurchaseFormSchema } from '@/lib/schemas';
+import { WithdrawFromPurchaseFormSchema } from '@/lib/schemas';
 
 export type Props = {
 	eMailText: string;
 };
 
-type CancelPurchaseFormInputs = z.infer<typeof CancelPurchaseFormSchema>;
+type WithdrawFromPurchaseFormInputs = z.infer<typeof WithdrawFromPurchaseFormSchema>;
 
 const initialState: any = {
 	order_number: '',
@@ -21,22 +20,22 @@ const initialState: any = {
 	message: '',
 };
 
-export default function CancelPurchaseForm({ eMailText }: Props) {
-	const { register, handleSubmit } = useForm<CancelPurchaseFormInputs>();
+export default function WithdrawFromPurchaseForm({ eMailText }: Props) {
+	const { register, handleSubmit } = useForm<WithdrawFromPurchaseFormInputs>();
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [invalid, setInvalid] = useState<ZodError<CancelPurchaseFormInputs> | null>(null);
+	const [invalid, setInvalid] = useState<ZodError<WithdrawFromPurchaseFormInputs> | null>(null);
 
-	const onSubmit: SubmitHandler<CancelPurchaseFormInputs> = async (data) => {
+	const onSubmit: SubmitHandler<WithdrawFromPurchaseFormInputs> = async (data) => {
 		try {
 			setLoading(true);
 			setSuccess(false);
 			setError(null);
 			setInvalid(null);
 
-			const body = CancelPurchaseFormSchema.parse(data);
-			const res = await fetch('/api/cancel-purchase', {
+			const body = WithdrawFromPurchaseFormSchema.parse(data);
+			const res = await fetch('/api/withdraw-from-purchase', {
 				method: 'POST',
 				body: JSON.stringify(body),
 				headers: {
@@ -99,7 +98,12 @@ export default function CancelPurchaseForm({ eMailText }: Props) {
 					<label htmlFor='message' className='medium'>
 						Message
 					</label>
-					<textarea className="medium" id='message' defaultValue={initialState.message} {...register('message')} />
+					<textarea
+						className='medium'
+						id='message'
+						defaultValue={initialState.message}
+						{...register('message')}
+					/>
 					{errors('message')}
 				</div>
 				<button type='submit'>Send cancellation request</button>
@@ -115,7 +119,11 @@ export default function CancelPurchaseForm({ eMailText }: Props) {
 					<Loader invert={true} />
 				</div>
 			)}
-			{success && <div className={s.success}><h1>Thank you. A confirmation has been sent to your email address.</h1></div>}
+			{success && (
+				<div className={s.success}>
+					<h1>Thank you. A confirmation has been sent to your email address.</h1>
+				</div>
+			)}
 		</div>
 	);
 }

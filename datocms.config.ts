@@ -82,8 +82,8 @@ export function getRoute(item: any, locale?: string | null): string {
 			return '/about/sustainability';
 		case 'shipping':
 			return '/products';
-		case 'cancel_purchase':
-			return '/support/cancel-purchase';
+		case 'withdraw_from_purchase':
+			return '/support/withdraw-from-purchase';
 	}
 	throw new Error(`Unknown api key: ${apiKey}`);
 }
@@ -97,7 +97,6 @@ export default {
 	routes: {
 		about: async (_item, locale) => [`/${locale}/about`],
 		bespoke: async (_item, locale) => [`/${locale}/professionals/bespoke`],
-		cancel_purchase: async (_item, locale) => [`/${locale}/support/cancel-purchase`],
 		catalogue: async (_item, locale) => [`/${locale}/professionals/downloads`],
 		color_material: async (_item, locale) => [`/${locale}/professionals/colors-and-materials`],
 		color_material_intro: async (_item, locale) => [
@@ -154,6 +153,7 @@ export default {
 		start: async (_item, locale) => [`/${locale}`],
 		sustainability: async (_item, locale) => [`/${locale}/about/sustainability`],
 		shipping: async (_item, locale) => [`/${locale}/products`],
+		withdraw_from_purchase: async (_item, locale) => [`/${locale}/support/withdraw-from-purchase`],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
 	sitemap: async () => {
@@ -185,7 +185,7 @@ export default {
 			'/support/faq',
 			'/support/manuals',
 			'/support/terms-conditions',
-			'/support/cancel-purchase',
+			'/support/withdraw-from-purchase',
 			'/support/privacy-policy',
 			'/contact',
 		].map((p) => ({

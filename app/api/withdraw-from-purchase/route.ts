@@ -1,5 +1,5 @@
-import { sendCancelPurchaseEmail, sendCancelPurchaseReplyEmail } from '@/lib/email';
-import { CancelPurchaseFormSchema } from '@/lib/schemas';
+import { sendWithdrawFromPurchaseEmail, sendWithdrawFromPurchaseReplyEmail } from '@/lib/email';
+import { WithdrawFromPurchaseFormSchema } from '@/lib/schemas';
 import { sendPostmarkEmail } from 'next-dato-utils/utils';
 import { z, ZodError } from 'zod';
 import { isbot } from 'isbot';
@@ -7,7 +7,8 @@ import { isbot } from 'isbot';
 export async function POST(req: Request) {
 	try {
 		const data = await req.json();
-		const { order_number, email, confirm_email, message } = CancelPurchaseFormSchema.parse(data);
+		const { order_number, email, confirm_email, message } =
+			WithdrawFromPurchaseFormSchema.parse(data);
 
 		if (isbot(req.headers.get('User-Agent')) || (confirm_email && confirm_email?.length > 0)) {
 			console.log('cancel-purchase form', 'bot detected');
@@ -16,14 +17,13 @@ export async function POST(req: Request) {
 			});
 		}
 
-		await sendCancelPurchaseEmail({
-			//email: process.env.POSTMARK_FROM_EMAIL as string,
-			email,
+		await sendWithdrawFromPurchaseEmail({
+			email: process.env.POSTMARK_FROM_EMAIL as string,
 			orderNo: order_number,
 			message,
 		});
 
-		await sendCancelPurchaseReplyEmail({
+		await sendWithdrawFromPurchaseReplyEmail({
 			email,
 			orderNo: order_number,
 		});
