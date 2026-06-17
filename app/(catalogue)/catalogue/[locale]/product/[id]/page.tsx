@@ -8,7 +8,7 @@ export default async function ProductCataloguePage({
 }: PageProps<'/catalogue/[locale]/product/[id]'>) {
 	const { id, locale } = await (params as any);
 	const { product } = await apiQuery(ProductByIdDocument, {
-		variables: { id },
+		variables: { id, locale },
 	});
 
 	if (!product) return { notFound: true };
