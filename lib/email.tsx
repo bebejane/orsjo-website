@@ -29,7 +29,7 @@ export async function sendWithdrawFromPurchaseEmail({
 }: {
 	email: string;
 	orderNo: string;
-	message: string;
+	message?: string;
 }): Promise<void> {
 	if (!email) throw new Error('sendWithdrawFromPurchaseEmail: Email not provided');
 

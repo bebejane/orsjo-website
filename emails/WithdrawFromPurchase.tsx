@@ -7,7 +7,7 @@ import Text from './components/Text';
 import { spacing, fontSize } from './components/theme';
 import React from 'react';
 
-export type WithdrawFromPurchaseProps = { email: string; orderNo: string; message: string };
+export type WithdrawFromPurchaseProps = { email: string; orderNo: string; message?: string };
 
 const WithdrawFromPurchase = ({ email, orderNo, message }: WithdrawFromPurchaseProps) => (
 	<BaseLayout width={600} preview='Order cancellation'>
@@ -24,7 +24,7 @@ const WithdrawFromPurchase = ({ email, orderNo, message }: WithdrawFromPurchaseP
 						<br />
 						Message:
 						<br />
-						{message.split('\n').map((line, idx) => (
+						{message?.split('\n').map((line, idx) => (
 							<React.Fragment key={idx}>
 								{line}
 								<br />
