@@ -26,10 +26,6 @@ const CancelPurchaseReply = ({ text, orderNo }: CancelPurchaseReplyProps) => (
 						))}
 						<br />
 						<br />
-						Hälsningar,
-						<br />
-						Örsjö Belysning AB
-						<br />
 						<br />
 					</Text>
 				</Column>
