@@ -24,7 +24,7 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 			password: process.env.BASIC_AUTH_PASSWORD!,
 		});
 
-		const res = await page.goto(url, { timeout: 60 * 1000, waitUntil: 'domcontentloaded' });
+		const res = await page.goto(url, { timeout: 60 * 1000, waitUntil: 'networkidle2' });
 
 		if (res?.status() !== 200)
 			throw new Error(`Internal server error. HTTP status: ${res?.status()}`);
@@ -104,7 +104,6 @@ export async function upload(
 	fs.unlinkSync(localPath);
 
 	if (uploadId) {
-		console.log('existing upload', uploadId);
 		upload = await client.uploads.update(
 			uploadId,
 			{ path: upload.path },

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { client } from '@/lib/client';
 import { generate, upload } from '@/catalogue/lib/controllers/pdf';
 import { Product, ProductCategory } from '@/types/datocms-cma';
@@ -54,8 +55,9 @@ async function main() {
 		}
 	}
 
-	products.forEach(({ slug }) => revalidatePath(`/[locale]/products/product/${slug}`, 'page'));
+	//products.forEach(({ slug }) => revalidatePath(`/[locale]/products/product/${slug}`, 'page'));
 	console.log('done in:', Date.now() - now);
+	process.exit(1);
 }
 
 main();
