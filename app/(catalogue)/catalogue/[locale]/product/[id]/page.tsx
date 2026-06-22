@@ -1,3 +1,4 @@
+import { toLanguageLocale } from '@/app/(catalogue)/lib/utils';
 import s from './page.module.scss';
 import ProductSheet from '@/catalogue/components/ProductSheet';
 import { ProductByIdDocument } from '@/graphql';
@@ -8,7 +9,7 @@ export default async function ProductCataloguePage({
 }: PageProps<'/catalogue/[locale]/product/[id]'>) {
 	const { id, locale } = await (params as any);
 	const { product } = await apiQuery(ProductByIdDocument, {
-		variables: { id, locale },
+		variables: { id, locale: toLanguageLocale(locale) },
 	});
 
 	if (!product) return { notFound: true };

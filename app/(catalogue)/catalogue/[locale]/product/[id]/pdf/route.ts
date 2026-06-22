@@ -1,3 +1,4 @@
+import { toLanguageLocale } from '@/app/(catalogue)/lib/utils';
 import { generate } from '@/catalogue/lib/controllers/pdf';
 import { ProductByIdDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
@@ -9,7 +10,7 @@ export async function GET(
 	const { locale, id } = await params;
 	const url = req.url.split('/').slice(0, -1).join('/');
 	const { product } = await apiQuery(ProductByIdDocument, {
-		variables: { id },
+		variables: { id, locale: toLanguageLocale(locale) },
 	});
 	const title = `${product?.title} (${locale.toUpperCase()})`;
 	return new Response(await generate(url), {
