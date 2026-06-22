@@ -26,10 +26,6 @@ const WithdrawFromPurchaseReply = ({ text, orderNo }: WithdrawFromPurchaseReplyP
 						))}
 						<br />
 						<br />
-						Hälsningar,
-						<br />
-						Örsjö Belysning AB
-						<br />
 						<br />
 					</Text>
 				</Column>
