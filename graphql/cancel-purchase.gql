@@ -1,8 +1,0 @@
-query CancelPurchase {
-	cancelPurchase {
-		id
-		title
-		intro
-		eMailText
-	}
-}

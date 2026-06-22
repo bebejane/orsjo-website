@@ -212,8 +212,8 @@ const base: Menu = [
 			},
 			{
 				parent: 'support',
-				title: 'Cancel Purchase',
-				slug: '/support/cancel-purchase',
+				title: 'Withdraw From Purchase',
+				slug: '/support/withdraw-from-purchase',
 				layout: 'normal',
 				inverted: true,
 				color: 'copper',
