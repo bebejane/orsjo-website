@@ -1,21 +1,27 @@
-@use 'mediaqueries' as *;
+@use "mediaqueries" as *;
+
+body,
+p {
+	font-variation-settings: "wght" 450;
+	font-family: var(--headline-font) !important;
+}
 
 h1,
 h2 {
 	line-height: 1;
 	font-family: var(--headline-font);
 	text-transform: uppercase;
-	font-variation-settings: 'wght' 700;
-	font-weight: normal;
+	font-variation-settings: "wght" 300;
+	//font-weight: normal;
 }
 
 h1 {
 	text-align: center;
-	font-feature-settings: 'ss01' 1;
+	font-feature-settings: "ss01" 1;
 	font-size: 26px;
 
 	&.sub {
-		font-variation-settings: 'wght' 300;
+		font-variation-settings: "wght" 300;
 		font-size: 4.2vw;
 	}
 }
@@ -23,23 +29,23 @@ h1 {
 h2,
 article h1 {
 	font-size: 20px;
-	font-feature-settings: 'ss00' 1;
-	font-variation-settings: 'wght' 600;
+	font-feature-settings: "ss00" 1;
+	font-variation-settings: "wght" 300;
 
 	&.sub {
-		font-variation-settings: 'wght' 300;
+		font-variation-settings: "wght" 300;
 	}
 }
 
 article h1 {
-	font-variation-settings: 'wght' 500;
+	font-variation-settings: "wght" 200;
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
 }
 
 article h2 {
 	font-size: 18px;
-	font-variation-settings: 'wght' 500;
+	font-variation-settings: "wght" 200;
 	text-align: left !important;
 }
 
@@ -47,6 +53,7 @@ h3 {
 	text-transform: uppercase;
 	font-family: var(--body-font);
 	font-weight: normal;
+	font-family: var(--headline-font);
 }
 
 p {
@@ -65,7 +72,7 @@ p {
 
 	&.summary,
 	&.summary p {
-		font-variation-settings: 'wght' 300;
+		font-variation-settings: "wght" 300;
 		font-size: 18px;
 		line-height: 1.25;
 
@@ -79,14 +86,14 @@ p {
 		color: var(--black) !important;
 		border-bottom: 2px solid black;
 		&:hover {
-			font-variation-settings: 'wght' 600;
+			font-variation-settings: "wght" 600;
 		}
 	}
 
 	strong {
 		font-family: var(--headline-font);
 		font-weight: normal;
-		font-variation-settings: 'wght' 400;
+		font-variation-settings: "wght" 400;
 	}
 }
 
