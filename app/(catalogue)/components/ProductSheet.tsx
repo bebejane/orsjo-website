@@ -17,18 +17,13 @@ export default function ProductSheet({ product, withPrice = false }: ProductShee
 	const t = useDictionary('Catalogue');
 	const { currency, locale } = useCatalogue();
 
-	const maxArticlePriceRows = 13;
+	const maxArticlePriceRows = 12;
 	const articlePriceSmallStyleCount = 26;
 
 	const specificationsRows = parseSpecifications(product, t);
-	const articlePriceRows = parseArticlePrices(product, currency, t, withPrice);
-	const articlePriceRowCount = Children.toArray(articlePriceRows).reduce<number>(
-		(acc, el) =>
-			acc + (el ? (el as React.ReactElement<HTMLTableRowElement>).props.children.length : 0),
-		0,
-	);
+	const { rows, count } = parseArticlePrices(product, currency, t, withPrice);
 
-	const isArticlePriceSeparatePage = articlePriceRowCount > maxArticlePriceRows;
+	const isArticlePriceSeparatePage = count > maxArticlePriceRows;
 	const drawings = product.models
 		.map((m) => ({ drawing: m.drawing, name: m.name?.name }))
 		.filter((d) => d.drawing);
@@ -90,7 +85,7 @@ export default function ProductSheet({ product, withPrice = false }: ProductShee
 					</table>
 					{!isArticlePriceSeparatePage && (
 						<table className={s.priceTable}>
-							<tbody>{articlePriceRows}</tbody>
+							<tbody>{rows}</tbody>
 						</table>
 					)}
 				</section>
@@ -98,13 +93,8 @@ export default function ProductSheet({ product, withPrice = false }: ProductShee
 			{isArticlePriceSeparatePage && ( // Separate page when too many rows
 				<Page>
 					<section className={cn(s.specPage)}>
-						<table
-							className={cn(
-								articlePriceRowCount > articlePriceSmallStyleCount && s.small,
-								s.priceTable,
-							)}
-						>
-							<tbody>{articlePriceRows}</tbody>
+						<table className={cn(count > articlePriceSmallStyleCount && s.small, s.priceTable)}>
+							<tbody>{rows}</tbody>
 						</table>
 					</section>
 				</Page>
@@ -215,6 +205,7 @@ function parseArticlePrices(
 	t: any,
 	withPrice: boolean = true,
 ) {
+	let count = 0;
 	const rows = (
 		<React.Fragment key={product.slug}>
 			<tr>
@@ -224,6 +215,9 @@ function parseArticlePrices(
 			</tr>
 			{product.models.map((m) => {
 				const lightsources = m.lightsources.map((l) => l).filter(({ included }) => !included);
+				count +=
+					m.variants.length + lightsources.length + m.accessories.filter((a) => a.accessory).length;
+
 				return m.variants.map((v, idx) => (
 					<React.Fragment key={v.id}>
 						{product.models.length > 1 && idx == 0 && (
@@ -279,5 +273,5 @@ function parseArticlePrices(
 			})}
 		</React.Fragment>
 	);
-	return rows;
+	return { rows, count };
 }
