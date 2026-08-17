@@ -20,8 +20,12 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 							<li key={idx}>
 								<span>{article.articleNo}</span>
 								<span>{article.name}</span>
+<<<<<<< HEAD:app/(catalogue)/components/PricelistUpdateList.tsx
 								<span>{article.price}:-</span>
 								<span>{article.description}</span>
+=======
+								<span>{article.price}</span>
+>>>>>>> 08570c58 (p):app/(catalogue)/catalogue/import/PricelistUpdateList.tsx
 							</li>
 						))}
 					</ul>
@@ -33,12 +37,19 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 					<ul className={s.updates}>
 						{Object.keys(updates).map((productId, idx) => (
 							<li key={idx}>
+<<<<<<< HEAD:app/(catalogue)/components/PricelistUpdateList.tsx
+=======
+								{/* <h3>{updates[productId].product.title}</h3> */}
+>>>>>>> 08570c58 (p):app/(catalogue)/catalogue/import/PricelistUpdateList.tsx
 								{updates[productId].variants.length > 0 && (
 									<ul>
 										{updates[productId].variants.map((variant, idx) => (
 											<li key={idx}>
 												<span>{variant.article_no}</span>
+<<<<<<< HEAD:app/(catalogue)/components/PricelistUpdateList.tsx
 												<span>{updates[productId].product.title}</span>
+=======
+>>>>>>> 08570c58 (p):app/(catalogue)/catalogue/import/PricelistUpdateList.tsx
 												<span>{variant.price}:-</span>
 											</li>
 										))}

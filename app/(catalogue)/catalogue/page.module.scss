@@ -2,6 +2,7 @@
 	padding: 1rem;
 	display: flex;
 	flex-direction: row;
+<<<<<<< HEAD
 
 	.download {
 		flex: 0 0 300px;
@@ -19,12 +20,25 @@
 			padding-top: 0.5em;
 		}
 	}
+=======
+>>>>>>> 08570c58 (p)
 
+	.download {
+		flex: 0 0 300px;
+	}
+	.update {
+		flex: 1 0 auto;
+		padding-left: 2rem;
+	}
 	ul {
 		list-style: none;
 	}
 
 	h3 {
+<<<<<<< HEAD
+=======
+		font-weight: bold;
+>>>>>>> 08570c58 (p)
 		margin-right: 1em;
 	}
 	header {

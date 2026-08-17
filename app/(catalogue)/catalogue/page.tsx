@@ -6,7 +6,11 @@ import { ZipPricelists } from '@/catalogue/components/ZipPricelists';
 import { getAllCurrencyRates } from '@/lib/currency';
 import DownloadPricelist from '@/app/(catalogue)/components/DownloadPricelist';
 import { ProductUpdatesResponse, parse, generate } from '@/catalogue/lib/controllers/pricelist';
+<<<<<<< HEAD
 import PricelistImport from '../components/PricelistImport';
+=======
+import PricelistImport from '@/app/(catalogue)/catalogue/import/PricelistImport';
+>>>>>>> 08570c58 (p)
 
 export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>) {
 	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
@@ -14,7 +18,11 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 		const buffer = Buffer.from(file);
 		const articles = await parse(buffer);
 		const updates = await generate(articles);
+<<<<<<< HEAD
 
+=======
+		//console.log(articles);
+>>>>>>> 08570c58 (p)
 		return updates;
 	};
 	const [
@@ -37,11 +45,16 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 									title={pricelist.label}
 									paths={locales.map((locale) => ({
 										path: `/catalogue/${locale}/${pricelist.path}/pdf`,
+<<<<<<< HEAD
 										filename: `Örsjo pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+=======
+										filename: `Örsjo prislista - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+>>>>>>> 08570c58 (p)
 									}))}
 								/>
 							</header>
 							<ul>
+<<<<<<< HEAD
 								{currencies
 									.sort((a, b) => a.isoCode.localeCompare(b.isoCode))
 									.map(({ isoCode, locale }) => (
@@ -53,6 +66,17 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 											/>
 										</li>
 									))}
+=======
+								{locales.map((locale, idx) => (
+									<li key={locale}>
+										<DownloadPricelist
+											href={`/catalogue/${locale}/${pricelist.path}/pdf`}
+											label={locale}
+											extension='pdf'
+										/>
+									</li>
+								))}
+>>>>>>> 08570c58 (p)
 							</ul>
 						</li>
 					))}
@@ -63,11 +87,16 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 								title={`Csv`}
 								paths={locales.map((locale) => ({
 									path: `/catalogue/${locale}/csv`,
+<<<<<<< HEAD
 									filename: `Örsjo pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
+=======
+									filename: `Örsjo prislista - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
+>>>>>>> 08570c58 (p)
 								}))}
 							/>
 						</header>
 						<ul>
+<<<<<<< HEAD
 							{currencies
 								.sort((a, b) => a.isoCode.localeCompare(b.isoCode))
 								.map(({ isoCode, locale }) => (
@@ -79,6 +108,17 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 										/>
 									</li>
 								))}
+=======
+							{locales.map((locale, idx) => (
+								<li key={locale}>
+									<DownloadPricelist
+										href={`/catalogue/${locale}/csv`}
+										label={locale}
+										extension='csv'
+									/>
+								</li>
+							))}
+>>>>>>> 08570c58 (p)
 						</ul>
 					</li>
 				</ul>
