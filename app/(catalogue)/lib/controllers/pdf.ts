@@ -68,6 +68,20 @@ export async function merge(paths: string[], buffer: Uint8Array<ArrayBuffer>) {
 	return Buffer.from(mergedPdfBytes);
 }
 
+export async function mergeUrl(url: string, buffer: Uint8Array<ArrayBuffer>) {
+	const mergedPdf = await PDFDocument.create();
+	const pdfBytes = await (await fetch(url)).arrayBuffer();
+	const pdf = await PDFDocument.load(pdfBytes);
+	const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+	copiedPages.forEach((page) => mergedPdf.addPage(page));
+
+	const main = await PDFDocument.load(buffer);
+	const copy = await mergedPdf.copyPages(main, main.getPageIndices());
+	copy.forEach((page) => mergedPdf.addPage(page));
+	const mergedPdfBytes = await mergedPdf.save();
+	return Buffer.from(mergedPdfBytes);
+}
+
 type UploadOptions = {
 	title: string;
 	locale: SiteLocale;

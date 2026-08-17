@@ -8,7 +8,7 @@ export async function GET(req: Request, { params }: RouteContext<'/catalogue/[lo
 	const { locale } = await params;
 	const date = format(new Date(), 'yyyy-MM-dd');
 	const currency = await getCurrencyRateByLocale(locale);
-	const title = `Örsjo Pricelist - ${date} - (${currency.isoCode}).csv`;
+	const title = `Örsjo Pricelist (${currency.isoCode}) - ${date}.csv`;
 	const encodedTitle = encodeURIComponent(title);
 	const csv = await pricelistController.csv(locale as SiteLocale);
 	return new Response(csv, {
@@ -16,7 +16,7 @@ export async function GET(req: Request, { params }: RouteContext<'/catalogue/[lo
 		headers: {
 			'content-type': 'text/csv',
 			'content-encoding': 'utf-8',
-			'content-disposition': `attachment; filename="pricelist_csv.pdf"; filename*=UTF-8''${encodedTitle}.pdf`,
+			'content-disposition': `attachment; filename="pricelist_csv.pdf"; filename*=UTF-8''${encodedTitle}`,
 		},
 	});
 }

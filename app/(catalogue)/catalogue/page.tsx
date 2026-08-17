@@ -5,8 +5,18 @@ import { pricelists } from '@/catalogue/lib/pricelists';
 import { ZipPricelists } from '@/catalogue/components/ZipPricelists';
 import { getAllCurrencyRates } from '@/lib/currency';
 import DownloadPricelist from '@/app/(catalogue)/components/DownloadPricelist';
+import { ProductUpdatesResponse, parse, generate } from '@/catalogue/lib/controllers/pricelist';
+import PricelistImport from '@/app/(catalogue)/catalogue/import/PricelistImport';
 
 export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>) {
+	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
+		'use server';
+		const buffer = Buffer.from(file);
+		const articles = await parse(buffer);
+		const updates = await generate(articles);
+		//console.log(articles);
+		return updates;
+	};
 	const [
 		{ allProducts },
 		{
@@ -21,17 +31,42 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 
 	return (
 		<div className={s.container}>
-			<h2>Download pricelists</h2>
-			<ul className={s.pricelists}>
-				{pricelists.map((pricelist, idx) => (
-					<li key={pricelist.path}>
+			<div className={s.download}>
+				<h2>Download pricelists</h2>
+				<ul className={s.pricelists}>
+					{pricelists.map((pricelist, idx) => (
+						<li key={pricelist.path}>
+							<header>
+								<h3>{pricelist.label}</h3>
+								<ZipPricelists
+									title={pricelist.label}
+									paths={locales.map((locale) => ({
+										path: `/catalogue/${locale}/${pricelist.path}/pdf`,
+										filename: `Örsjo prislista - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+									}))}
+								/>
+							</header>
+							<ul>
+								{locales.map((locale, idx) => (
+									<li key={locale}>
+										<DownloadPricelist
+											href={`/catalogue/${locale}/${pricelist.path}/pdf`}
+											label={locale}
+											extension='pdf'
+										/>
+									</li>
+								))}
+							</ul>
+						</li>
+					))}
+					<li>
 						<header>
-							<h3>{pricelist.label}</h3>
+							<h3>Csv</h3>
 							<ZipPricelists
-								title={pricelist.label}
+								title={`Csv`}
 								paths={locales.map((locale) => ({
-									path: `/catalogue/${locale}/${pricelist.path}/pdf`,
-									filename: `Örsjo prislista - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+									path: `/catalogue/${locale}/csv`,
+									filename: `Örsjo prislista - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
 								}))}
 							/>
 						</header>
@@ -39,41 +74,22 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 							{locales.map((locale, idx) => (
 								<li key={locale}>
 									<DownloadPricelist
-										href={`/catalogue/${locale}/${pricelist.path}/pdf`}
+										href={`/catalogue/${locale}/csv`}
 										label={locale}
-										extension='pdf'
+										extension='csv'
 									/>
 								</li>
 							))}
 						</ul>
 					</li>
-				))}
-				<li>
-					<header>
-						<h3>Csv</h3>
-						<ZipPricelists
-							title={`Csv`}
-							paths={locales.map((locale) => ({
-								path: `/catalogue/${locale}/csv`,
-								filename: `Örsjo prislista - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
-							}))}
-						/>
-					</header>
-					<ul>
-						{locales.map((locale, idx) => (
-							<li key={locale}>
-								<DownloadPricelist
-									href={`/catalogue/${locale}/csv`}
-									label={locale}
-									extension='csv'
-								/>
-							</li>
-						))}
-					</ul>
-				</li>
-			</ul>
-			<br />
-			<br />
+				</ul>
+				<br />
+				<br />
+			</div>
+			<div className={s.update}>
+				<h2>Update pricelist</h2>
+				<PricelistImport parse={parsePricelist} />
+			</div>
 		</div>
 	);
 }

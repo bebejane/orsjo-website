@@ -1556,6 +1556,12 @@ type FileFieldMultiLocaleField = {
   value?: Maybe<FileField>;
 };
 
+type FileFieldNonNullMultiLocaleField = {
+  __typename?: 'FileFieldNonNullMultiLocaleField';
+  locale?: Maybe<SiteLocale>;
+  value: FileField;
+};
+
 /** Specifies how to filter Single-file/image fields */
 type FileFilter = {
   /** Search for records with an exact match. The specified value must be an Upload ID */
@@ -3844,10 +3850,27 @@ type ManualRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+enum MuxThumbnailFitMode {
+  crop = 'crop',
+  pad = 'pad',
+  preserve = 'preserve',
+  smartcrop = 'smartcrop',
+  stretch = 'stretch'
+}
+
 enum MuxThumbnailFormatType {
   gif = 'gif',
   jpg = 'jpg',
   png = 'png'
+}
+
+enum MuxThumbnailRotation {
+  /** Rotate 90° clockwise */
+  ROTATE_90 = 'ROTATE_90',
+  /** Rotate 180° clockwise */
+  ROTATE_180 = 'ROTATE_180',
+  /** Rotate 270° clockwise */
+  ROTATE_270 = 'ROTATE_270'
 }
 
 /** Block of type News item (news_item) */
@@ -4104,6 +4127,65 @@ type PressRecord = RecordInterface & {
 
 /** Record of type Press (press) */
 type PressRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Record of type Pricelist (covers) (pricelist_cover) */
+type PricelistCoverRecord = RecordInterface & {
+  __typename?: 'PricelistCoverRecord';
+  _allCoverExclTaxLocales?: Maybe<Array<FileFieldMultiLocaleField>>;
+  _allCoverLocales?: Maybe<Array<FileFieldNonNullMultiLocaleField>>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  cover: FileField;
+  coverExclTax?: Maybe<FileField>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Pricelist (covers) (pricelist_cover) */
+type PricelistCoverRecord_allCoverExclTaxLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Pricelist (covers) (pricelist_cover) */
+type PricelistCoverRecord_allCoverLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Pricelist (covers) (pricelist_cover) */
+type PricelistCoverRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Pricelist (covers) (pricelist_cover) */
+type PricelistCoverRecordcoverArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Pricelist (covers) (pricelist_cover) */
+type PricelistCoverRecordcoverExclTaxArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -6008,6 +6090,8 @@ type Query = {
   /** Returns a specific record */
   press?: Maybe<PressRecord>;
   /** Returns the single instance record */
+  pricelistCover?: Maybe<PricelistCoverRecord>;
+  /** Returns the single instance record */
   privacyPolicy?: Maybe<PrivacyPolicyRecord>;
   /** Returns a specific record */
   product?: Maybe<ProductRecord>;
@@ -6885,6 +6969,13 @@ type QuerypressArgs = {
   filter?: InputMaybe<PressModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<PressModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerypricelistCoverArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -8488,6 +8579,8 @@ type UploadVideoField = {
   mp4Url?: Maybe<Scalars['String']['output']>;
   muxAssetId: Scalars['String']['output'];
   muxPlaybackId: Scalars['String']['output'];
+  /** Default poster frame, in seconds into the video. Resolves to the record-level field override when present, otherwise the upload-level default. `null` means Mux's default (middle of the video). */
+  posterTime?: Maybe<Scalars['Float']['output']>;
   streamingUrl: Scalars['String']['output'];
   thumbhash?: Maybe<Scalars['String']['output']>;
   thumbnailUrl: Scalars['String']['output'];
@@ -8517,7 +8610,14 @@ type UploadVideoFieldmp4UrlArgs = {
 
 
 type UploadVideoFieldthumbnailUrlArgs = {
+  fitMode?: InputMaybe<MuxThumbnailFitMode>;
+  flipH?: InputMaybe<Scalars['Boolean']['input']>;
+  flipV?: InputMaybe<Scalars['Boolean']['input']>;
   format?: InputMaybe<MuxThumbnailFormatType>;
+  height?: InputMaybe<Scalars['Int']['input']>;
+  rotate?: InputMaybe<MuxThumbnailRotation>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -8919,6 +9019,13 @@ type MenuQueryVariables = Exact<{
 
 
 type MenuQuery = { __typename?: 'Query', allDesigners: Array<{ __typename?: 'DesignerRecord', id: any, slug: string, name?: string | null }>, _allDesignersMeta: { __typename?: 'CollectionMetadata', count: any }, allProducts: Array<{ __typename?: 'ProductRecord', id: any, title: string, slug: string, categories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, designer?: { __typename?: 'DesignerRecord', id: any } | null }>, _allProductsMeta: { __typename?: 'CollectionMetadata', count: any }, allProductCategories: Array<{ __typename?: 'ProductCategoryRecord', id: any, name?: string | null, namePlural?: string | null }>, _allProductCategoriesMeta: { __typename?: 'CollectionMetadata', count: any }, allProjects: Array<{ __typename?: 'ProjectRecord', id: any, title: string, slug: string }>, _allProjectsMeta: { __typename?: 'CollectionMetadata', count: any } };
+
+type PricelistCoverQueryVariables = Exact<{
+  locale: SiteLocale;
+}>;
+
+
+type PricelistCoverQuery = { __typename?: 'Query', pricelistCover?: { __typename?: 'PricelistCoverRecord', id: any, cover: { __typename?: 'FileField', id: any, url: string } } | null };
 
 type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 

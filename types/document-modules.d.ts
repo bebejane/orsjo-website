@@ -159,6 +159,15 @@ declare module '*/menu.gql' {
 }
     
 
+declare module '*/pricelist-cover.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const PricelistCover: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/product.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

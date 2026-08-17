@@ -1,0 +1,9 @@
+query PricelistCover($locale: SiteLocale!) {
+	pricelistCover(locale: $locale) {
+		id
+		cover {
+			id
+			url
+		}
+	}
+}

@@ -2,48 +2,69 @@ import type { ItemTypeDefinition } from '@datocms/cma-client';
 type EnvironmentSettings = {
   locales: 'en' | 'sv' | 'no' | 'da' | 'en-GB';
 };
-export type PrivacyPolicy = ItemTypeDefinition<
+export type Currency = ItemTypeDefinition<
   EnvironmentSettings,
-  'ILTLuHlSTYOxmJRX2vu-ug',
+  'XvpmvBqzR9-ogxmiWRp4lA',
+  {
+    iso_code: {
+      type: 'string';
+      localized: true;
+    };
+    symbol: {
+      type: 'string';
+      localized: true;
+    };
+    surcharge: {
+      type: 'float';
+      localized: true;
+    };
+    rate: {
+      type: 'float';
+      localized: true;
+    };
+    rate_deduction: {
+      type: 'float';
+      localized: true;
+    };
+    vat_rate: {
+      type: 'float';
+      localized: true;
+    };
+  }
+>;
+export type Term = ItemTypeDefinition<
+  EnvironmentSettings,
+  'FXlY1YXYQXCnlE6YrQ2K9w',
+  {
+    title: {
+      type: 'string';
+    };
+    text: {
+      type: 'structured_text';
+    };
+    category: {
+      type: 'link';
+    };
+  }
+>;
+export type TermCategory = ItemTypeDefinition<
+  EnvironmentSettings,
+  'EFtwhOeaRRC1ZPgMYSmk3Q',
+  {
+    title: {
+      type: 'string';
+    };
+  }
+>;
+export type TermStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  'aEtvaDzBSmOO5dNfhcSrlg',
   {
     title: {
       type: 'string';
     };
     intro: {
-      type: 'string';
-    };
-    policies: {
-      type: 'rich_text';
-      blocks: PolicyItem;
-    };
-  }
->;
-export type PolicyItem = ItemTypeDefinition<
-  EnvironmentSettings,
-  'Lb7Tyb33R8Gg9BCoPNlh7Q',
-  {
-    title: {
-      type: 'string';
-    };
-    content: {
-      type: 'structured_text';
-    };
-  }
->;
-export type Shipping = ItemTypeDefinition<
-  EnvironmentSettings,
-  'RR7Vst1VRQuLYzJs9n6uZg',
-  {
-    delivery_days: {
-      type: 'rich_text';
-      blocks: DeliveryTime;
-    };
-    delivery_terms: {
-      type: 'rich_text';
-      blocks: DeliveryTerm;
-    };
-    delivery_terms_other: {
-      type: 'string';
+      type: 'text';
     };
   }
 >;
@@ -306,21 +327,6 @@ export type Social = ItemTypeDefinition<
     };
   }
 >;
-export type DeliveryTime = ItemTypeDefinition<
-  EnvironmentSettings,
-  'IPuZ-SmgQb6d2NyNn3dDYA',
-  {
-    time: {
-      type: 'string';
-    };
-    text: {
-      type: 'string';
-    };
-    text_short: {
-      type: 'string';
-    };
-  }
->;
 export type Variant = ItemTypeDefinition<
   EnvironmentSettings,
   '1801308',
@@ -354,39 +360,27 @@ export type Variant = ItemTypeDefinition<
     };
   }
 >;
-export type DeliveryTerm = ItemTypeDefinition<
+export type News = ItemTypeDefinition<
   EnvironmentSettings,
-  'MpT9ez-DTdmZphlxNcx89w',
-  {
-    iso_code: {
-      type: 'string';
-    };
-    text: {
-      type: 'string';
-    };
-  }
->;
-export type Term = ItemTypeDefinition<
-  EnvironmentSettings,
-  'FXlY1YXYQXCnlE6YrQ2K9w',
+  '1995930',
   {
     title: {
       type: 'string';
     };
     text: {
-      type: 'structured_text';
+      type: 'text';
     };
-    category: {
-      type: 'link';
+    image: {
+      type: 'file';
     };
-  }
->;
-export type TermCategory = ItemTypeDefinition<
-  EnvironmentSettings,
-  'EFtwhOeaRRC1ZPgMYSmk3Q',
-  {
-    title: {
+    link_text: {
       type: 'string';
+    };
+    link: {
+      type: 'string';
+    };
+    slug: {
+      type: 'slug';
     };
   }
 >;
@@ -540,50 +534,6 @@ export type Press = ItemTypeDefinition<
     };
   }
 >;
-export type ProductElectrical = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801303',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type ProductDimmable = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801305',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type News = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995930',
-  {
-    title: {
-      type: 'string';
-    };
-    text: {
-      type: 'text';
-    };
-    image: {
-      type: 'file';
-    };
-    link_text: {
-      type: 'string';
-    };
-    link: {
-      type: 'string';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
 export type Staff = ItemTypeDefinition<
   EnvironmentSettings,
   '1990321',
@@ -662,6 +612,126 @@ export type ColorMaterial = ItemTypeDefinition<
     };
   }
 >;
+export type ProductElectrical = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801303',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export type ProductDimmable = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801305',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export type Product = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801291',
+  {
+    categories: {
+      type: 'links';
+    };
+    models: {
+      type: 'rich_text';
+      blocks: ProductModel;
+    };
+    hide_in_pricelist: {
+      type: 'boolean';
+    };
+    image: {
+      type: 'file';
+    };
+    light_file: {
+      type: 'file';
+    };
+    title: {
+      type: 'string';
+    };
+    color_images: {
+      type: 'gallery';
+    };
+    mounting_instructions: {
+      type: 'file';
+    };
+    environment_image: {
+      type: 'file';
+    };
+    family: {
+      type: 'link';
+    };
+    bim_file: {
+      type: 'file';
+    };
+    product_gallery: {
+      type: 'rich_text';
+      blocks: FullwidthImage | TwoColumnImage | Text | Video | ImageGallery;
+    };
+    pdf_file: {
+      type: 'file';
+      localized: true;
+    };
+    designer: {
+      type: 'link';
+    };
+    mark_as_new: {
+      type: 'boolean';
+    };
+    upcycled: {
+      type: 'boolean';
+    };
+    bim_link: {
+      type: 'string';
+    };
+    additional_information: {
+      type: 'string';
+      localized: true;
+    };
+    note: {
+      type: 'text';
+      localized: true;
+    };
+    description: {
+      type: 'text';
+      localized: true;
+    };
+    electrical_data: {
+      type: 'links';
+    };
+    sockets: {
+      type: 'links';
+    };
+    dimmable: {
+      type: 'link';
+    };
+    connection: {
+      type: 'link';
+    };
+    mounting: {
+      type: 'link';
+    };
+    slug: {
+      type: 'slug';
+    };
+  }
+>;
+export type ProductModelName = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801298',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
 export type ProductAccessory = ItemTypeDefinition<
   EnvironmentSettings,
   'ZU6qDmJWRnGkIqsGWmJa2A',
@@ -684,50 +754,6 @@ export type ProductAccessory = ItemTypeDefinition<
     };
     slug: {
       type: 'slug';
-    };
-  }
->;
-export type Project = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995922',
-  {
-    image: {
-      type: 'file';
-    };
-    secondary_image: {
-      type: 'file';
-    };
-    title: {
-      type: 'string';
-    };
-    location: {
-      type: 'string';
-    };
-    project_type: {
-      type: 'link';
-    };
-    bespoke: {
-      type: 'boolean';
-    };
-    gallery: {
-      type: 'rich_text';
-      blocks: FullwidthImage | ImageGallery | TwoColumnImage | Text | Video;
-    };
-    related_products: {
-      type: 'links';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
-export type ProductModelName = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801298',
-  {
-    name: {
-      type: 'string';
-      localized: true;
     };
   }
 >;
@@ -859,90 +885,34 @@ export type ProductColor = ItemTypeDefinition<
     };
   }
 >;
-export type Product = ItemTypeDefinition<
+export type Project = ItemTypeDefinition<
   EnvironmentSettings,
-  '1801291',
+  '1995922',
   {
-    hide_in_pricelist: {
-      type: 'boolean';
-    };
-    light_file: {
-      type: 'file';
-    };
     image: {
       type: 'file';
     };
-    models: {
-      type: 'rich_text';
-      blocks: ProductModel;
-    };
-    categories: {
-      type: 'links';
-    };
-    environment_image: {
+    secondary_image: {
       type: 'file';
-    };
-    color_images: {
-      type: 'gallery';
     };
     title: {
       type: 'string';
     };
-    mounting_instructions: {
-      type: 'file';
+    location: {
+      type: 'string';
     };
-    family: {
+    project_type: {
       type: 'link';
     };
-    designer: {
-      type: 'link';
-    };
-    bim_file: {
-      type: 'file';
-    };
-    mark_as_new: {
+    bespoke: {
       type: 'boolean';
     };
-    pdf_file: {
-      type: 'file';
-      localized: true;
-    };
-    product_gallery: {
+    gallery: {
       type: 'rich_text';
-      blocks: FullwidthImage | TwoColumnImage | Text | Video | ImageGallery;
+      blocks: FullwidthImage | ImageGallery | TwoColumnImage | Text | Video;
     };
-    upcycled: {
-      type: 'boolean';
-    };
-    additional_information: {
-      type: 'string';
-      localized: true;
-    };
-    bim_link: {
-      type: 'string';
-    };
-    note: {
-      type: 'text';
-      localized: true;
-    };
-    description: {
-      type: 'text';
-      localized: true;
-    };
-    electrical_data: {
+    related_products: {
       type: 'links';
-    };
-    sockets: {
-      type: 'links';
-    };
-    dimmable: {
-      type: 'link';
-    };
-    connection: {
-      type: 'link';
-    };
-    mounting: {
-      type: 'link';
     };
     slug: {
       type: 'slug';
@@ -974,6 +944,18 @@ export type ProductLightsource = ItemTypeDefinition<
     };
   }
 >;
+export type ProjectStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996015',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+  }
+>;
 export type About = ItemTypeDefinition<
   EnvironmentSettings,
   '1996033',
@@ -997,55 +979,6 @@ export type ColorMaterialIntro = ItemTypeDefinition<
   EnvironmentSettings,
   '2011967',
   {
-    intro: {
-      type: 'text';
-    };
-  }
->;
-export type ProductStart = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996014',
-  {
-    featured: {
-      type: 'rich_text';
-      blocks: Featured;
-    };
-  }
->;
-export type Start = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995907',
-  {
-    content: {
-      type: 'rich_text';
-      blocks:
-        | FullscreenMediaBlock
-        | ImageLink
-        | FullscreenVideo
-        | NewsItem
-        | FeaturedStart;
-    };
-  }
->;
-export type TermStart = ItemTypeDefinition<
-  EnvironmentSettings,
-  'aEtvaDzBSmOO5dNfhcSrlg',
-  {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-  }
->;
-export type ProjectStart = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996015',
-  {
-    title: {
-      type: 'string';
-    };
     intro: {
       type: 'text';
     };
@@ -1075,30 +1008,6 @@ export type Manual = ItemTypeDefinition<
     };
   }
 >;
-export type FactoryVisit = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996019',
-  {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-  }
->;
-export type DownloadsStart = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996018',
-  {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-  }
->;
 export type Sustainability = ItemTypeDefinition<
   EnvironmentSettings,
   '1996030',
@@ -1115,6 +1024,31 @@ export type Sustainability = ItemTypeDefinition<
     steps: {
       type: 'rich_text';
       blocks: SustainabilityStep;
+    };
+  }
+>;
+export type ProductStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996014',
+  {
+    featured: {
+      type: 'rich_text';
+      blocks: Featured;
+    };
+  }
+>;
+export type Start = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995907',
+  {
+    content: {
+      type: 'rich_text';
+      blocks:
+        | FullscreenMediaBlock
+        | ImageLink
+        | FullscreenVideo
+        | NewsItem
+        | FeaturedStart;
     };
   }
 >;
@@ -1143,6 +1077,30 @@ export type Bespoke = ItemTypeDefinition<
     };
     image: {
       type: 'file';
+    };
+  }
+>;
+export type FactoryVisit = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996019',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+  }
+>;
+export type DownloadsStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996018',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
     };
   }
 >;
@@ -1176,38 +1134,108 @@ export type Contact = ItemTypeDefinition<
     };
   }
 >;
-export type Currency = ItemTypeDefinition<
+export type PrivacyPolicy = ItemTypeDefinition<
   EnvironmentSettings,
-  'XvpmvBqzR9-ogxmiWRp4lA',
+  'ILTLuHlSTYOxmJRX2vu-ug',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'string';
+    };
+    policies: {
+      type: 'rich_text';
+      blocks: PolicyItem;
+    };
+  }
+>;
+export type PolicyItem = ItemTypeDefinition<
+  EnvironmentSettings,
+  'Lb7Tyb33R8Gg9BCoPNlh7Q',
+  {
+    title: {
+      type: 'string';
+    };
+    content: {
+      type: 'structured_text';
+    };
+  }
+>;
+export type Shipping = ItemTypeDefinition<
+  EnvironmentSettings,
+  'RR7Vst1VRQuLYzJs9n6uZg',
+  {
+    delivery_days: {
+      type: 'rich_text';
+      blocks: DeliveryTime;
+    };
+    delivery_terms: {
+      type: 'rich_text';
+      blocks: DeliveryTerm;
+    };
+    delivery_terms_other: {
+      type: 'string';
+    };
+  }
+>;
+export type DeliveryTime = ItemTypeDefinition<
+  EnvironmentSettings,
+  'IPuZ-SmgQb6d2NyNn3dDYA',
+  {
+    time: {
+      type: 'string';
+    };
+    text: {
+      type: 'string';
+    };
+    text_short: {
+      type: 'string';
+    };
+  }
+>;
+export type DeliveryTerm = ItemTypeDefinition<
+  EnvironmentSettings,
+  'MpT9ez-DTdmZphlxNcx89w',
   {
     iso_code: {
       type: 'string';
-      localized: true;
     };
-    symbol: {
+    text: {
       type: 'string';
+    };
+  }
+>;
+export type WithdrawFromPurchase = ItemTypeDefinition<
+  EnvironmentSettings,
+  'Z-GQKCaFSGS6jrUPuBCDLA',
+  {
+    e_mail_text: {
+      type: 'text';
+    };
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+  }
+>;
+export type PricelistCover = ItemTypeDefinition<
+  EnvironmentSettings,
+  'Qxs8cA40RZGrdQp_bmFCZw',
+  {
+    cover: {
+      type: 'file';
       localized: true;
     };
-    surcharge: {
-      type: 'float';
-      localized: true;
-    };
-    rate: {
-      type: 'float';
-      localized: true;
-    };
-    rate_deduction: {
-      type: 'float';
-      localized: true;
-    };
-    vat_rate: {
-      type: 'float';
+    cover_excl_tax: {
+      type: 'file';
       localized: true;
     };
   }
 >;
 export type AnyBlock =
-  | PolicyItem
   | Lightsource
   | ProductModel
   | Accessory
@@ -1225,15 +1253,17 @@ export type AnyBlock =
   | NewsItem
   | SustainabilityStep
   | FeaturedStart
-  | DeliveryTime
   | Variant
+  | PolicyItem
+  | DeliveryTime
   | DeliveryTerm;
 export type AnyModel =
-  | PrivacyPolicy
-  | Shipping
-  | Social
+  | Currency
   | Term
   | TermCategory
+  | TermStart
+  | Social
+  | News
   | Translation
   | ProductFeature
   | ProductCategory
@@ -1245,16 +1275,15 @@ export type AnyModel =
   | FaqCategory
   | Job
   | Press
-  | ProductElectrical
-  | ProductDimmable
-  | News
   | Staff
   | Showroom
   | Catalogue
   | ColorMaterial
-  | ProductAccessory
-  | Project
+  | ProductElectrical
+  | ProductDimmable
+  | Product
   | ProductModelName
+  | ProductAccessory
   | Designer
   | Reseller
   | ProductConnection
@@ -1263,20 +1292,22 @@ export type AnyModel =
   | ProductFamily
   | Distributor
   | ProductColor
-  | Product
+  | Project
   | ProductLightsource
+  | ProjectStart
   | About
   | ColorMaterialIntro
-  | ProductStart
-  | Start
-  | TermStart
-  | ProjectStart
   | FaqStart
   | Manual
+  | Sustainability
+  | ProductStart
+  | Start
+  | Bespoke
   | FactoryVisit
   | DownloadsStart
-  | Sustainability
-  | Bespoke
   | Contact
-  | Currency;
+  | PrivacyPolicy
+  | Shipping
+  | WithdrawFromPurchase
+  | PricelistCover;
 export type AnyBlockOrModel = AnyBlock | AnyModel;

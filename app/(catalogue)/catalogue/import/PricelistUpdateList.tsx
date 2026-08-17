@@ -14,11 +14,13 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 		<div className={s.container}>
 			{notFound?.length > 0 && (
 				<>
-					<h2>Not found</h2>
+					<h3>Not found</h3>
 					<ul className={s.notfound}>
 						{notFound.map((article, idx) => (
 							<li key={idx}>
-								{article.articleNo} - {article.name}
+								<span>{article.articleNo}</span>
+								<span>{article.name}</span>
+								<span>{article.price}</span>
 							</li>
 						))}
 					</ul>
@@ -26,17 +28,17 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 			)}
 			{Object.keys(updates).length > 0 && (
 				<>
-					<h2>Updates</h2>
+					<h3>Updates</h3>
 					<ul className={s.updates}>
 						{Object.keys(updates).map((productId, idx) => (
 							<li key={idx}>
-								<h3>{updates[productId].product.title}</h3>
+								{/* <h3>{updates[productId].product.title}</h3> */}
 								{updates[productId].variants.length > 0 && (
 									<ul>
 										{updates[productId].variants.map((variant, idx) => (
 											<li key={idx}>
 												<span>{variant.article_no}</span>
-												<span>{variant.price} :-</span>
+												<span>{variant.price}:-</span>
 											</li>
 										))}
 									</ul>
