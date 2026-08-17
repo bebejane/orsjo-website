@@ -128,6 +128,8 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 			<div className={s.update}>
 				<h2>Update pricelist</h2>
 				<PricelistImport parse={parsePricelist} />
+				<p className="small">Note! You need to upload an Excel file (.xlsx) where column A is article no and D price in SEK.
+				</p>
 			</div>
 		</div>
 	);

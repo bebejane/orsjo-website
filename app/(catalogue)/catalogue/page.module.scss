@@ -29,16 +29,29 @@
 	.update {
 		flex: 1 0 auto;
 		padding-left: 2rem;
+
+		h2 {
+			border-bottom: 1px solid black;
+			padding-bottom: 0.75em;
+		}
+
+		p {
+			padding-top: 0.5em;
+		}
 	}
+
 	ul {
 		list-style: none;
 	}
 
 	h3 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		font-weight: bold;
 >>>>>>> 08570c58 (p)
+=======
+>>>>>>> 0b2e1846 (Fix)
 		margin-right: 1em;
 	}
 	header {
