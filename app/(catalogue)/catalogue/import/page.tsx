@@ -10,6 +10,7 @@ export default async function PricelistPage({ params }: PageProps<'/catalogue/im
 		const buffer = Buffer.from(file);
 		const articles = await parse(buffer);
 		const updates = await generate(articles);
+		//console.log(articles);
 		return updates;
 	};
 

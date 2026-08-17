@@ -2,7 +2,6 @@
 
 import s from './PricelistUpdateList.module.scss';
 import { ProductUpdatesResponse } from '@/app/(catalogue)/lib/controllers/pricelist';
-import { formatPrice } from '@/catalogue/lib/utils';
 
 type PricelistUpdateListProps = {
 	data: ProductUpdatesResponse;
@@ -10,7 +9,7 @@ type PricelistUpdateListProps = {
 
 export default function PricelistUpdateList({ data }: PricelistUpdateListProps) {
 	const { notFound, updates, errors } = data;
-
+	console.log(updates);
 	return (
 		<div className={s.container}>
 			{notFound?.length > 0 && (
