@@ -9,7 +9,7 @@ type PricelistUpdateListProps = {
 
 export default function PricelistUpdateList({ data }: PricelistUpdateListProps) {
 	const { notFound, updates, errors } = data;
-	console.log(updates);
+	console.log(notFound);
 	return (
 		<div className={s.container}>
 			{notFound?.length > 0 && (
@@ -18,9 +18,10 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 					<ul className={s.notfound}>
 						{notFound.map((article, idx) => (
 							<li key={idx}>
-								<span>{article.articleNo}</span>
 								<span>{article.name}</span>
-								<span>{article.price}</span>
+								<span>{article.articleNo}</span>
+								<span>{article.price}:-</span>
+								<span>{article.description}</span>
 							</li>
 						))}
 					</ul>
@@ -32,11 +33,11 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 					<ul className={s.updates}>
 						{Object.keys(updates).map((productId, idx) => (
 							<li key={idx}>
-								{/* <h3>{updates[productId].product.title}</h3> */}
 								{updates[productId].variants.length > 0 && (
 									<ul>
 										{updates[productId].variants.map((variant, idx) => (
 											<li key={idx}>
+												<span>{updates[productId].product.title}</span>
 												<span>{variant.article_no}</span>
 												<span>{variant.price}:-</span>
 											</li>

@@ -8,7 +8,12 @@ import { AllProductsDocument } from '@/graphql';
 import { convertPriceWithRate, getCurrencyRateByLocale } from '@/lib/currency';
 import { toLanguageLocale } from '@/app/(catalogue)/lib/utils';
 
-export type Article = { articleNo: string; name: string; price: number };
+export type Article = {
+	articleNo: string;
+	description: string;
+	name: string | null;
+	price: number;
+};
 export type ProductUpdatesResponse = {
 	notFound: Article[];
 	updates: ProductUpdate;
@@ -31,17 +36,29 @@ type ProductUpdate = Record<
 	}
 >;
 
-const ROW_INDEX = { articleNo: 0, name: 1, price: 2 };
+const ROW_INDEX = { articleNo: 0, description: 1, price: 2 };
 
 export async function parse(file: Buffer | string): Promise<Article[]> {
 	const rows = await readSheet(file);
 	const articles: Article[] = [];
+	let name: string | null = null;
 	for (const row of rows) {
-		if (!row[ROW_INDEX.articleNo] || !row[ROW_INDEX.name] || !row[ROW_INDEX.price]) continue;
+		if (
+			typeof row[ROW_INDEX.description] === 'string' &&
+			!row[ROW_INDEX.articleNo] &&
+			!row[ROW_INDEX.price]
+		) {
+			name = (row[ROW_INDEX.description] as string)?.split('\n')[0] ?? null;
+			continue;
+		}
+
+		if (!row[ROW_INDEX.articleNo] || !row[ROW_INDEX.description] || !row[ROW_INDEX.price]) continue;
 
 		const article: Article = {
-			name: row[ROW_INDEX.name] as string,
+			name,
+			description: row[ROW_INDEX.description] as string,
 			articleNo: ('' + row[ROW_INDEX.articleNo]).trim().toUpperCase(),
+
 			price: Number(
 				Math.round(
 					typeof row[ROW_INDEX.price] === 'string'
@@ -53,7 +70,7 @@ export async function parse(file: Buffer | string): Promise<Article[]> {
 
 		if (typeof article.price !== 'number') continue;
 		if (typeof article.articleNo !== 'string') continue;
-		if (typeof article.name !== 'string') continue;
+		if (typeof article.description !== 'string') continue;
 
 		articles.push(article);
 	}

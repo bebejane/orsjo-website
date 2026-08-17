@@ -7,8 +7,18 @@
 		li {
 			display: flex;
 			flex-direction: row;
-			span:nth-child(1) {
-				flex: 0 0 200px;
+			span {
+				white-space: nowrap;
+				margin-right: 1rem;
+				&:nth-child(1) {
+					flex: 0 0 300px;
+				}
+				&:nth-child(2) {
+					flex: 0 0 200px;
+				}
+				&:nth-child(3) {
+					flex: 0 0 50px;
+				}
 			}
 		}
 	}
