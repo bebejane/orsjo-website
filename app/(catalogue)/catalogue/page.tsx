@@ -20,7 +20,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 
 	return (
 		<div className={s.container}>
-			<h2>Prislistor</h2>
+			<h2>Download pricelists</h2>
 			<ul className={s.pricelists}>
 				{pricelists.map((pricelist, idx) => (
 					<li key={pricelist.path}>
@@ -37,9 +37,9 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 						<ul>
 							{locales.map((locale, idx) => (
 								<li key={locale}>
-									<span>{locale}</span>
-									<a href={`/catalogue/${locale}/${pricelist.path}`}>HTML</a>
 									<a href={`/catalogue/${locale}/${pricelist.path}/pdf`} download>
+
+										<span>{locale}</span>
 										PDF
 									</a>
 								</li>
@@ -61,8 +61,8 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 					<ul>
 						{locales.map((locale, idx) => (
 							<li key={locale}>
-								<span>{locale}</span>
 								<a href={`/catalogue/${locale}/csv`} download>
+									<span>{locale}</span>
 									CSV
 								</a>
 							</li>
@@ -73,27 +73,6 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 			<br />
 			<br />
 
-			<h2>Produkter</h2>
-			<table className={s.products}>
-				<tbody>
-					{allProducts.map((p, idx) => (
-						<tr key={p.id}>
-							<td>
-								{p.title} ({p.categories.map((c) => c.name).join(', ')})
-							</td>
-							{locales.map((locale, idx) => (
-								<td key={locale}>
-									<a href={`/catalogue/${locale}/product/${p.id}`}>HTML</a>
-									&nbsp;&nbsp;
-									<a href={`/catalogue/${locale}/product/${p.id}/pdf`} download>
-										PDF
-									</a>
-								</td>
-							))}
-						</tr>
-					))}
-				</tbody>
-			</table>
 		</div>
 	);
 }
