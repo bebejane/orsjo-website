@@ -31,7 +31,7 @@ type ProductUpdate = Record<
 	}
 >;
 
-const ROW_INDEX = { articleNo: 1, name: 2, price: 3 };
+const ROW_INDEX = { articleNo: 0, name: 1, price: 2 };
 
 export async function parse(file: Buffer | string): Promise<Article[]> {
 	const rows = await readSheet(file);
