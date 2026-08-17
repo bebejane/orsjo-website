@@ -33,6 +33,10 @@
 		padding-right: 0.75em;
 		padding-top: 0.35em;
 		cursor: pointer;
+		&:hover {
+			background-color: black;
+			color: white;
+		}
 	}
 
 	.pricelists {
