@@ -11,19 +11,19 @@ export const pricelists: Pricelist[] = [
 		cover: true,
 	},
 	{
-		label: 'Enkel',
+		label: 'Light',
 		path: 'light',
 	},
 	{
-		label: 'Enkel (inkl. moms)',
+		label: 'Light (inc. vat)',
 		path: 'light-with-tax',
 	},
 	{
-		label: 'Ink. ljuskälla',
+		label: 'Inc. lightsource',
 		path: 'with-lightsource',
 	},
 	{
-		label: 'Utan priser',
+		label: 'Without prices',
 		path: 'noprice',
 	},
 ];

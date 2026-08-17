@@ -1,4 +1,5 @@
 'use client';
+import DotLoader from '@/app/(catalogue)/components/DotLoader';
 import s from './ZipPricelists.module.scss';
 import cn from 'classnames';
 import { downloadZip } from 'client-zip';
@@ -44,9 +45,7 @@ export function ZipPricelists({ title, paths }: ZipPricelistsProps) {
 
 	return (
 		<>
-			<a className={cn(s.button, loading && s.loading)} onClick={createZip}>
-				ZIP
-			</a>
+			<a onClick={createZip}>{loading ? <DotLoader /> : 'zip'}</a>
 			{error && <p className={s.error}>{error}</p>}
 		</>
 	);

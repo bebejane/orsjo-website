@@ -4,6 +4,7 @@ import { AllProductsDocument, SiteDocument } from '@/graphql';
 import { pricelists } from '@/catalogue/lib/pricelists';
 import { ZipPricelists } from '@/catalogue/components/ZipPricelists';
 import { getAllCurrencyRates } from '@/lib/currency';
+import DownloadPricelist from '@/app/(catalogue)/components/DownloadPricelist';
 
 export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>) {
 	const [
@@ -37,11 +38,11 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 						<ul>
 							{locales.map((locale, idx) => (
 								<li key={locale}>
-									<a href={`/catalogue/${locale}/${pricelist.path}/pdf`} download>
-
-										<span>{locale}</span>
-										PDF
-									</a>
+									<DownloadPricelist
+										href={`/catalogue/${locale}/${pricelist.path}/pdf`}
+										label={locale}
+										extension='pdf'
+									/>
 								</li>
 							))}
 						</ul>
@@ -61,10 +62,11 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 					<ul>
 						{locales.map((locale, idx) => (
 							<li key={locale}>
-								<a href={`/catalogue/${locale}/csv`} download>
-									<span>{locale}</span>
-									CSV
-								</a>
+								<DownloadPricelist
+									href={`/catalogue/${locale}/csv`}
+									label={locale}
+									extension='csv'
+								/>
 							</li>
 						))}
 					</ul>
@@ -72,7 +74,6 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 			</ul>
 			<br />
 			<br />
-
 		</div>
 	);
 }

@@ -20,17 +20,17 @@ export async function GET(req: Request, { params }: RouteContext<'/catalogue/[lo
 
 	if (pricelist.cover) {
 		const coverPathname = `${catalogueRoot}/lib/covers/${locale}.pdf`;
-		//console.log({ coverPathname });
 		data = await merge([coverPathname], data);
 	}
 	const currency = await getCurrencyRateByLocale(locale);
-	const title = `Örsjo prislista - ${pricelist.label} (${currency.isoCode})`;
+	const title = `Örsjo pricelist - ${pricelist.label} (${currency.isoCode})`;
+	const encodedTitle = encodeURIComponent(title);
 
 	return new Response(data, {
 		status: 200,
 		headers: {
 			'content-type': 'application/pdf',
-			'content-disposition': `attachment; filename="${title}.pdf"`,
+			'content-disposition': `attachment; filename="pricelist.pdf"; filename*=UTF-8''${encodedTitle}.pdf`,
 		},
 	});
 }
