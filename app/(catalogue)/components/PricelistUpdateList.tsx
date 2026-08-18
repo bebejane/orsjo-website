@@ -18,6 +18,7 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 					<ul className={s.notfound}>
 						{notFound.map((article, idx) => (
 							<li key={idx}>
+<<<<<<< HEAD
 								<span>{article.name}</span>
 <<<<<<< HEAD:app/(catalogue)/components/PricelistUpdateList.tsx
 <<<<<<< HEAD:app/(catalogue)/components/PricelistUpdateList.tsx
@@ -27,7 +28,10 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 								<span>{article.price}</span>
 >>>>>>> 08570c58 (p):app/(catalogue)/catalogue/import/PricelistUpdateList.tsx
 =======
+=======
+>>>>>>> 21d1e546 (ups)
 								<span>{article.articleNo}</span>
+								<span>{article.name}</span>
 								<span>{article.price}:-</span>
 								<span>{article.description}</span>
 >>>>>>> 1457a438 (names):app/(catalogue)/catalogue/import/PricelistUpdateList.tsx
@@ -53,12 +57,15 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 									<ul>
 										{updates[productId].variants.map((variant, idx) => (
 											<li key={idx}>
-												<span>{updates[productId].product.title}</span>
 												<span>{variant.article_no}</span>
+<<<<<<< HEAD
 <<<<<<< HEAD:app/(catalogue)/components/PricelistUpdateList.tsx
 												<span>{updates[productId].product.title}</span>
 =======
 >>>>>>> 08570c58 (p):app/(catalogue)/catalogue/import/PricelistUpdateList.tsx
+=======
+												<span>{updates[productId].product.title}</span>
+>>>>>>> 21d1e546 (ups)
 												<span>{variant.price}:-</span>
 											</li>
 										))}

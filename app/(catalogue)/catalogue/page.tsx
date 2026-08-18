@@ -7,10 +7,14 @@ import { getAllCurrencyRates } from '@/lib/currency';
 import DownloadPricelist from '@/app/(catalogue)/components/DownloadPricelist';
 import { ProductUpdatesResponse, parse, generate } from '@/catalogue/lib/controllers/pricelist';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import PricelistImport from '../components/PricelistImport';
 =======
 import PricelistImport from '@/app/(catalogue)/catalogue/import/PricelistImport';
 >>>>>>> 08570c58 (p)
+=======
+import PricelistImport from '../components/PricelistImport';
+>>>>>>> 21d1e546 (ups)
 
 export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>) {
 	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
@@ -19,10 +23,14 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 		const articles = await parse(buffer);
 		const updates = await generate(articles);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 		//console.log(articles);
 >>>>>>> 08570c58 (p)
+=======
+
+>>>>>>> 21d1e546 (ups)
 		return updates;
 	};
 	const [
@@ -46,15 +54,22 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 									paths={locales.map((locale) => ({
 										path: `/catalogue/${locale}/${pricelist.path}/pdf`,
 <<<<<<< HEAD
+<<<<<<< HEAD
 										filename: `Örsjo pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
 =======
 										filename: `Örsjo prislista - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
 >>>>>>> 08570c58 (p)
+=======
+										filename: `Örsjo pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+>>>>>>> 21d1e546 (ups)
 									}))}
 								/>
 							</header>
 							<ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 21d1e546 (ups)
 								{currencies
 									.sort((a, b) => a.isoCode.localeCompare(b.isoCode))
 									.map(({ isoCode, locale }) => (
@@ -66,6 +81,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 											/>
 										</li>
 									))}
+<<<<<<< HEAD
 =======
 								{locales.map((locale, idx) => (
 									<li key={locale}>
@@ -77,6 +93,8 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 									</li>
 								))}
 >>>>>>> 08570c58 (p)
+=======
+>>>>>>> 21d1e546 (ups)
 							</ul>
 						</li>
 					))}
@@ -88,15 +106,22 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 								paths={locales.map((locale) => ({
 									path: `/catalogue/${locale}/csv`,
 <<<<<<< HEAD
+<<<<<<< HEAD
 									filename: `Örsjo pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
 =======
 									filename: `Örsjo prislista - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
 >>>>>>> 08570c58 (p)
+=======
+									filename: `Örsjo pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
+>>>>>>> 21d1e546 (ups)
 								}))}
 							/>
 						</header>
 						<ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 21d1e546 (ups)
 							{currencies
 								.sort((a, b) => a.isoCode.localeCompare(b.isoCode))
 								.map(({ isoCode, locale }) => (
@@ -108,6 +133,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 										/>
 									</li>
 								))}
+<<<<<<< HEAD
 =======
 							{locales.map((locale, idx) => (
 								<li key={locale}>
@@ -119,6 +145,8 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 								</li>
 							))}
 >>>>>>> 08570c58 (p)
+=======
+>>>>>>> 21d1e546 (ups)
 						</ul>
 					</li>
 				</ul>
@@ -128,8 +156,6 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 			<div className={s.update}>
 				<h2>Update pricelist</h2>
 				<PricelistImport parse={parsePricelist} />
-				<p className="small">Note! You need to upload an Excel file (.xlsx) where column A is article no and D price in SEK.
-				</p>
 			</div>
 		</div>
 	);
