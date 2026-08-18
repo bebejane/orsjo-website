@@ -24,7 +24,7 @@ export function Plugin({}: PluginPageProps) {
 	useEffect(() => {
 		if (connecting.current || !isIFrame) return;
 		connecting.current = true;
-		//console.log('connect KKV plugin');
+		console.log('connect Örsjö plugin');
 		connect({
 			renderConfigScreen(ctx) {
 				render(<ConfigScreen ctx={ctx} />);
@@ -43,7 +43,7 @@ export function Plugin({}: PluginPageProps) {
 				return [
 					{
 						label: `Pricelist ${isDev ? '(dev)' : ''}`,
-						icon: '',
+						icon: 'archive',
 						pointsTo: {
 							pageId: 'pricelist',
 						},
