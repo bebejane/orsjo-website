@@ -18,8 +18,8 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 					<ul className={s.notfound}>
 						{notFound.map((article, idx) => (
 							<li key={idx}>
-								<span>{article.name}</span>
 								<span>{article.articleNo}</span>
+								<span>{article.name}</span>
 								<span>{article.price}:-</span>
 								<span>{article.description}</span>
 							</li>
@@ -37,8 +37,8 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 									<ul>
 										{updates[productId].variants.map((variant, idx) => (
 											<li key={idx}>
-												<span>{updates[productId].product.title}</span>
 												<span>{variant.article_no}</span>
+												<span>{updates[productId].product.title}</span>
 												<span>{variant.price}:-</span>
 											</li>
 										))}

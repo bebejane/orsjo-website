@@ -30,7 +30,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 								title={pricelist.label}
 								paths={locales.map((locale) => ({
 									path: `/catalogue/${locale}/${pricelist.path}/pdf`,
-									filename: `Örsjo prislista - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+									filename: `Örsjo pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
 								}))}
 							/>
 						</header>
@@ -54,7 +54,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 							title={`Csv`}
 							paths={locales.map((locale) => ({
 								path: `/catalogue/${locale}/csv`,
-								filename: `Örsjo prislista - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
+								filename: `Örsjo pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
 							}))}
 						/>
 					</header>

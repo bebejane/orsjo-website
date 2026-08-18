@@ -3,7 +3,8 @@ import { routing } from '@/i18n/routing';
 import createMiddleware from 'next-intl/middleware';
 
 export default async function proxy(req: NextRequest) {
-	const isCatalogueRoute = req.nextUrl.pathname.startsWith('/catalogue');
+	const pathname = req.nextUrl.pathname;
+	const isCatalogueRoute = pathname.startsWith('/catalogue') && pathname !== '/catqlogue';
 
 	if (!isCatalogueRoute) {
 		const handleI18nRouting = createMiddleware(routing);

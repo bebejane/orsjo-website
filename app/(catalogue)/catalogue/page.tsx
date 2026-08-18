@@ -1,12 +1,12 @@
 import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { AllProductsDocument, SiteDocument } from '@/graphql';
+import { SiteDocument } from '@/graphql';
 import { pricelists } from '@/catalogue/lib/pricelists';
 import { ZipPricelists } from '@/catalogue/components/ZipPricelists';
 import { getAllCurrencyRates } from '@/lib/currency';
 import DownloadPricelist from '@/app/(catalogue)/components/DownloadPricelist';
 import { ProductUpdatesResponse, parse, generate } from '@/catalogue/lib/controllers/pricelist';
-import PricelistImport from '@/app/(catalogue)/catalogue/import/PricelistImport';
+import PricelistImport from '../components/PricelistImport';
 
 export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>) {
 	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
@@ -14,20 +14,15 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 		const buffer = Buffer.from(file);
 		const articles = await parse(buffer);
 		const updates = await generate(articles);
-		//console.log(articles);
+
 		return updates;
 	};
 	const [
-		{ allProducts },
 		{
 			_site: { locales },
 		},
 		currencies,
-	] = await Promise.all([
-		apiQuery(AllProductsDocument, { all: true }),
-		apiQuery(SiteDocument),
-		getAllCurrencyRates(),
-	]);
+	] = await Promise.all([apiQuery(SiteDocument), getAllCurrencyRates()]);
 
 	return (
 		<div className={s.container}>
@@ -42,20 +37,22 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 									title={pricelist.label}
 									paths={locales.map((locale) => ({
 										path: `/catalogue/${locale}/${pricelist.path}/pdf`,
-										filename: `Örsjo prislista - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+										filename: `Örsjo pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
 									}))}
 								/>
 							</header>
 							<ul>
-								{locales.map((locale, idx) => (
-									<li key={locale}>
-										<DownloadPricelist
-											href={`/catalogue/${locale}/${pricelist.path}/pdf`}
-											label={locale}
-											extension='pdf'
-										/>
-									</li>
-								))}
+								{currencies
+									.sort((a, b) => a.isoCode.localeCompare(b.isoCode))
+									.map(({ isoCode, locale }) => (
+										<li key={isoCode}>
+											<DownloadPricelist
+												href={`/catalogue/${locale}/${pricelist.path}/pdf`}
+												label={isoCode}
+												extension='pdf'
+											/>
+										</li>
+									))}
 							</ul>
 						</li>
 					))}
@@ -66,20 +63,22 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 								title={`Csv`}
 								paths={locales.map((locale) => ({
 									path: `/catalogue/${locale}/csv`,
-									filename: `Örsjo prislista - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
+									filename: `Örsjo pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
 								}))}
 							/>
 						</header>
 						<ul>
-							{locales.map((locale, idx) => (
-								<li key={locale}>
-									<DownloadPricelist
-										href={`/catalogue/${locale}/csv`}
-										label={locale}
-										extension='csv'
-									/>
-								</li>
-							))}
+							{currencies
+								.sort((a, b) => a.isoCode.localeCompare(b.isoCode))
+								.map(({ isoCode, locale }) => (
+									<li key={isoCode}>
+										<DownloadPricelist
+											href={`/catalogue/${locale}/csv`}
+											label={isoCode}
+											extension='csv'
+										/>
+									</li>
+								))}
 						</ul>
 					</li>
 				</ul>
@@ -89,8 +88,6 @@ export default async function CatalogueAdmin({ params }: PageProps<'/catalogue'>
 			<div className={s.update}>
 				<h2>Update pricelist</h2>
 				<PricelistImport parse={parsePricelist} />
-				<p className="small">Note! You need to upload an Excel file (.xlsx) where column A is article no and D price in SEK.
-				</p>
 			</div>
 		</div>
 	);

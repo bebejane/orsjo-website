@@ -2,9 +2,8 @@
 
 import s from './PricelistImport.module.scss';
 import { ProductUpdatesResponse } from '@/app/(catalogue)/lib/controllers/pricelist';
-import { useCallback, useEffect, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import PricelistUpdateList from '@/app/(catalogue)/catalogue/import/PricelistUpdateList';
+import { useEffect, useState } from 'react';
+import PricelistUpdateList from './PricelistUpdateList';
 
 export default function PricelistImport({
 	parse,
@@ -58,13 +57,18 @@ export default function PricelistImport({
 			});
 	}, [buffer]);
 
-	if (updates) return <PricelistUpdateList data={updates} />;
+	//if (updates) return <PricelistUpdateList data={updates} />;
 
 	return (
-		<button className={s.container}>
-			<input type='file' onChange={handleChange} />
-			{parsing && <p>Uploading...</p>}
+		<>
+			<input className={s.file} type='file' onChange={handleChange} />
+			<p className='small'>
+				Note! You need to upload an Excel file (.xlsx) where column A is article no and D price in
+				SEK.
+			</p>
 			{error && <pre>{error}</pre>}
-		</button>
+			{parsing && <p>Uploading...</p>}
+			{updates && <PricelistUpdateList data={updates} />}
+		</>
 	);
 }
