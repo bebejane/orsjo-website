@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import { client } from '@/lib/client';
-import { generate, upload } from '@/catalogue/lib/controllers/pdf';
+import { generate, upload } from '@/pricelist/lib/controllers/pdf';
 import { Product, ProductCategory } from '@/types/datocms-cma';
-import { getBrowser } from '@/app/(catalogue)/lib/puppeteer';
+import { getBrowser } from '@/pricelist/lib/puppeteer';
 import { revalidatePath } from 'next/cache';
 
 async function main() {
@@ -34,7 +34,7 @@ async function main() {
 				const id = product.id;
 				const c = categories.filter(({ id }) => product.categories.includes(id));
 				const title = `${product.title} - ${c.map(({ name }) => (locale === 'en' ? name.en : name.sv)).join(' · ')} (${locale})`;
-				const url = `${process.env.NEXT_PUBLIC_SITE_URL}/catalogue/${locale.replace('-', '_')}/product/${id}`;
+				const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pricelist/${locale.replace('-', '_')}/product/${id}`;
 				console.log('Generating:', title);
 				return {
 					id,

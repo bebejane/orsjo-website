@@ -2,9 +2,27 @@ import { NextRequest, NextResponse } from 'next/server';
 import { routing } from '@/i18n/routing';
 import createMiddleware from 'next-intl/middleware';
 
+const COOKIE_NAME = 'pricelist_auth';
+
+async function hashPassword(password: string): Promise<string> {
+	const data = new TextEncoder().encode(password);
+	const secret = new TextEncoder().encode(process.env.CATALOGUE_PASSWORD!);
+	const key = await crypto.subtle.importKey(
+		'raw',
+		secret,
+		{ name: 'HMAC', hash: 'SHA-256' },
+		false,
+		['sign'],
+	);
+	const signature = await crypto.subtle.sign('HMAC', key, data);
+	return Array.from(new Uint8Array(signature))
+		.map((b) => b.toString(16).padStart(2, '0'))
+		.join('');
+}
+
 export default async function proxy(req: NextRequest) {
 	const pathname = req.nextUrl.pathname;
-	const isCatalogueRoute = pathname.startsWith('/catalogue') && pathname !== '/catqlogue';
+	const isCatalogueRoute = pathname.startsWith('/pricelist');
 
 	if (!isCatalogueRoute) {
 		const handleI18nRouting = createMiddleware(routing);
@@ -12,25 +30,21 @@ export default async function proxy(req: NextRequest) {
 		return response;
 	}
 
-	const { headers } = req;
-	const basicAuth = headers.get('authorization');
-
-	let isAuthorized = false;
-
-	if (basicAuth) {
-		const auth = basicAuth.split(' ')[1];
-		const [user, pwd] = Buffer.from(auth, 'base64').toString().split(':');
-		isAuthorized = user === process.env.BASIC_AUTH_USER && pwd === process.env.BASIC_AUTH_PASSWORD;
+	if (pathname === '/pricelist/login') {
+		return NextResponse.next();
 	}
 
-	if (!isAuthorized) {
-		return new NextResponse('unauthorized', {
-			status: 401,
-			headers: {
-				'WWW-Authenticate': `Basic relm="private"`,
-			},
-		});
-	} else return NextResponse.next();
+	const token = req.cookies.get(COOKIE_NAME)?.value;
+	if (!token) {
+		return NextResponse.redirect(new URL('/pricelist/login', req.url));
+	}
+
+	const expected = await hashPassword(process.env.CATALOGUE_PASSWORD!);
+	if (token !== expected) {
+		return NextResponse.redirect(new URL('/pricelist/login', req.url));
+	}
+
+	return NextResponse.next();
 }
 
 export const config = {

@@ -45,6 +45,8 @@
 		"client-zip": "^2.5.0",
 		"cookies-next": "^5.1.0",
 		"date-fns": "^4.1.0",
+		"datocms-plugin-sdk": "^2.2.6",
+		"datocms-react-ui": "^2.2.6",
 		"datocms-structured-text-utils": "^5.1.7",
 		"dotenv": "^17.3.1",
 		"google": "link:@next/third-parties/google",
