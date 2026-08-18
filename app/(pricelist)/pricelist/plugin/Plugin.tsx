@@ -5,7 +5,7 @@ import { connect } from 'datocms-plugin-sdk';
 import { createRoot, Root } from 'react-dom/client';
 import { useEffect } from 'react';
 import { ConfigScreen } from './ConfigScreen';
-import { IFrame } from '@/app/(datocms)/plugin/IFrame';
+import { IFrame } from './IFrame';
 
 type PluginPageProps = {};
 

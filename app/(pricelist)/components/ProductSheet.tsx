@@ -6,7 +6,7 @@ import Page from './Page';
 import { Markdown } from 'next-dato-utils/components';
 import { useDictionary, usePricelist } from '@/pricelist/lib/context/pricelist';
 import { CurrencyRate, formatPriceWithCurrency } from '@/lib/currency';
-import React, { Children, isValidElement } from 'react';
+import React from 'react';
 
 type ProductSheetProps = {
 	product: AllProductsQuery['allProducts'][number];
@@ -125,10 +125,12 @@ function parseSpecifications(product: AllProductsQuery['allProducts'][number], t
 	type LightsourcePick = { id: string; amount?: number; name: string; included: boolean };
 
 	let allLightsources: (LightsourceRecord & { modelName: string })[] = [];
+
 	product.models
 		.map((m) => m.lightsources.map((l) => ({ ...l, modelName: m.name?.name })))
+		//@ts-ignore
 		.forEach((l) => allLightsources.push.apply(allLightsources, l));
-
+	//@ts-ignore
 	let lightsources: (LightsourcePick & { modelName: string })[] = allLightsources
 		.filter((obj, index, arr) => arr.map((mapObj) => mapObj.id).indexOf(obj.id) === index)
 		.map(({ amount, included, lightsource, modelName }) => ({

@@ -30,7 +30,7 @@ export default async function proxy(req: NextRequest) {
 		return response;
 	}
 
-	if (pathname === '/pricelist/login') {
+	if (pathname === '/pricelist/login' || pathname === '/pricelist/plugin') {
 		return NextResponse.next();
 	}
 
