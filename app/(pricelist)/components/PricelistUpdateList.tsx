@@ -1,20 +1,45 @@
 'use client';
 
+import { useState } from 'react';
 import s from './PricelistUpdateList.module.scss';
-import { ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
+import { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
+import DotLoader from '@/app/(pricelist)/components/DotLoader';
 
 type PricelistUpdateListProps = {
 	data: ProductUpdatesResponse;
+	update: (updates: ProductUpdate) => Promise<number>;
 };
 
-export default function PricelistUpdateList({ data }: PricelistUpdateListProps) {
+export default function PricelistUpdateList({ data, update }: PricelistUpdateListProps) {
 	const { notFound, updates, errors } = data;
-	console.log(notFound);
+	const noArticles = Object.keys(updates).reduce((acc, productId) => {
+		const product = updates[productId];
+		acc += product.variants.length + product.lightsources.length + product.accessories.length;
+		return acc;
+	}, 0);
+
+	const [updating, setUpdating] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+
+	async function handleUpdate() {
+		setUpdating(true);
+		setError(null);
+		try {
+			const result = await update(updates);
+			setUpdating(false);
+			console.log(result);
+		} catch (err) {
+			setError(typeof err === 'string' ? err : err instanceof Error ? err.message : null);
+		} finally {
+			setUpdating(false);
+		}
+	}
+
 	return (
 		<div className={s.container}>
 			{notFound?.length > 0 && (
 				<>
-					<h3>Not found</h3>
+					<h3>{notFound?.length} articles not found</h3>
 					<ul className={s.notfound}>
 						{notFound.map((article, idx) => (
 							<li key={idx}>
@@ -27,10 +52,14 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 					</ul>
 				</>
 			)}
-			{Object.keys(updates).length > 0 && (
+			{noArticles > 0 && (
+				//!notFound?.length && noArticles > 0 && (
 				<>
-					<h3>Updates</h3>
-					<ul className={s.updates}>
+					<h3>Found {noArticles} articles</h3>
+					<button onClick={handleUpdate} disabled={updating}>
+						{updating ? <DotLoader message={'Update pricelist'} /> : 'Update pricelist'}
+					</button>
+					{/* <ul className={s.updates}>
 						{Object.keys(updates).map((productId, idx) => (
 							<li key={idx}>
 								{updates[productId].variants.length > 0 && (
@@ -46,7 +75,7 @@ export default function PricelistUpdateList({ data }: PricelistUpdateListProps) 
 								)}
 							</li>
 						))}
-					</ul>
+					</ul> */}
 				</>
 			)}
 			{errors.length > 0 && (

@@ -1,14 +1,16 @@
 'use client';
 
 import s from './PricelistImport.module.scss';
-import { ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
+import { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
 import { useEffect, useState } from 'react';
 import PricelistUpdateList from './PricelistUpdateList';
 
 export default function PricelistImport({
 	parse,
+	update,
 }: {
 	parse: (buffer: ArrayBuffer) => Promise<ProductUpdatesResponse>;
+	update: (updates: ProductUpdate) => Promise<number>;
 }) {
 	const [file, setFile] = useState<File | null>(null);
 	const [buffer, setBuffer] = useState<ArrayBuffer | null>(null);
@@ -68,7 +70,7 @@ export default function PricelistImport({
 			</p>
 			{error && <pre>{error}</pre>}
 			{parsing && <p>Uploading...</p>}
-			{updates && <PricelistUpdateList data={updates} />}
+			{updates && <PricelistUpdateList data={updates} update={update} />}
 		</>
 	);
 }

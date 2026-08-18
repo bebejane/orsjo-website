@@ -5,8 +5,15 @@ import { pricelists } from '@/pricelist/lib/pricelists';
 import { ZipPricelists } from '@/pricelist/components/ZipPricelists';
 import { getAllCurrencyRates } from '@/lib/currency';
 import DownloadPricelist from '@/pricelist/components/DownloadPricelist';
-import { ProductUpdatesResponse, parse, generate } from '@/pricelist/lib/controllers/pricelist';
+import {
+	ProductUpdatesResponse,
+	parse,
+	generate,
+	update,
+	ProductUpdate,
+} from '@/pricelist/lib/controllers/pricelist';
 import PricelistImport from '../components/PricelistImport';
+import { sleep } from 'next-dato-utils/utils';
 
 export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>) {
 	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
@@ -17,6 +24,13 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 
 		return updates;
 	};
+	const updatePricelist = async (updates: ProductUpdate): Promise<number> => {
+		'use server';
+		console.log(updates);
+		await sleep(3000);
+		return 0;
+	};
+
 	const [
 		{
 			_site: { locales },
@@ -87,7 +101,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 			</div>
 			<div className={s.update}>
 				<h2>Update pricelist</h2>
-				<PricelistImport parse={parsePricelist} />
+				<PricelistImport parse={parsePricelist} update={updatePricelist} />
 			</div>
 		</div>
 	);

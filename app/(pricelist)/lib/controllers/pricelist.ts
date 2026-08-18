@@ -20,12 +20,7 @@ export type ProductUpdatesResponse = {
 	errors: { product: ProductRecord; error: string }[];
 };
 
-type ProductRecord = ItemInNestedResponse<Product>;
-type LightsourceRecord = ItemInNestedResponse<ProductLightsource>;
-type VariantRecord = ItemInNestedResponse<Variant>;
-type AccessoryRecord = ItemInNestedResponse<ProductAccessory>;
-type ModelBlock = any;
-type ProductUpdate = Record<
+export type ProductUpdate = Record<
 	string,
 	{
 		product: ProductRecord;
@@ -35,6 +30,12 @@ type ProductUpdate = Record<
 		articles: number;
 	}
 >;
+
+type ProductRecord = ItemInNestedResponse<Product>;
+type LightsourceRecord = ItemInNestedResponse<ProductLightsource>;
+type VariantRecord = ItemInNestedResponse<Variant>;
+type AccessoryRecord = ItemInNestedResponse<ProductAccessory>;
+type ModelBlock = any;
 
 const ROW_INDEX = { articleNo: 0, description: 1, price: 2 };
 
@@ -257,11 +258,8 @@ export async function update(
 			),
 		};
 		try {
-			if (product.meta.status === 'published') {
-				await client.items.update(productId, query);
-				await client.items.publish(productId);
-			} else await client.items.update(productId, query);
-
+			await client.items.update(productId, query);
+			if (product.meta.status === 'published') await client.items.publish(productId);
 			updated.push(product as ProductRecord);
 		} catch (err) {
 			const error =
