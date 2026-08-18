@@ -31,10 +31,11 @@ export async function loginAction(_prev: { error: string } | null, formData: For
 
 	const token = await hashPassword(password);
 	const cookieStore = await cookies();
+	const isProduction = process.env.NODE_ENV === 'production';
 	cookieStore.set(COOKIE_NAME, token, {
 		httpOnly: true,
-		secure: process.env.NODE_ENV === 'production',
-		sameSite: 'lax',
+		secure: isProduction,
+		sameSite: isProduction ? 'none' : 'lax',
 		path: '/',
 		maxAge: MAX_AGE,
 	});
