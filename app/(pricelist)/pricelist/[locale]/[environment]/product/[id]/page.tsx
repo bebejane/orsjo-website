@@ -6,9 +6,10 @@ import { apiQuery } from 'next-dato-utils/api';
 
 export default async function ProductCataloguePage({
 	params,
-}: PageProps<'/pricelist/[locale]/product/[id]'>) {
-	const { id, locale } = await (params as any);
+}: PageProps<'/pricelist/[locale]/[environment]/product/[id]'>) {
+	const { id, locale, environment } = await (params as any);
 	const { product } = await apiQuery(ProductByIdDocument, {
+		environment,
 		variables: { id, locale: toLanguageLocale(locale) },
 	});
 

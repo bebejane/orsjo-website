@@ -47,36 +47,17 @@ export default function PricelistUpdateList({ data, update }: PricelistUpdateLis
 								<span>{article.name}</span>
 								<span>{article.description}</span>
 								<span>{article.price}:-</span>
-
 							</li>
 						))}
 					</ul>
 				</>
 			)}
 			{noArticles > 0 && (
-				//!notFound?.length && noArticles > 0 && (
 				<>
 					<h3>Found {noArticles} articles</h3>
 					<button onClick={handleUpdate} disabled={updating}>
 						{updating ? <DotLoader message={'Update pricelist'} /> : 'Update pricelist'}
 					</button>
-					{/* <ul className={s.updates}>
-						{Object.keys(updates).map((productId, idx) => (
-							<li key={idx}>
-								{updates[productId].variants.length > 0 && (
-									<ul>
-										{updates[productId].variants.map((variant, idx) => (
-											<li key={idx}>
-												<span>{variant.article_no}</span>
-												<span>{updates[productId].product.title}</span>
-												<span>{variant.price}:-</span>
-											</li>
-										))}
-									</ul>
-								)}
-							</li>
-						))}
-					</ul> */}
 				</>
 			)}
 			{errors.length > 0 && (

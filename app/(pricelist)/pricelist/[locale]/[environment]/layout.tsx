@@ -9,9 +9,10 @@ export const dynamic = 'force-dynamic';
 export default async function CatalogueLayout({
 	children,
 	params,
-}: LayoutProps<'/pricelist/[locale]'>) {
-	const { locale } = await (params as any);
+}: LayoutProps<'/pricelist/[locale]/[environment]'>) {
+	const { locale, environment } = await (params as any);
 	const { allTranslations } = await apiQuery(AllTranslationsDocument, {
+		environment,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 

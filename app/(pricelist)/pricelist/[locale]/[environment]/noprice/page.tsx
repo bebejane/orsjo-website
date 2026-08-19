@@ -6,10 +6,11 @@ import { AllProductsDocument } from '@/graphql';
 
 export default async function CatalogueNoPricePage({
 	params,
-}: PageProps<'/pricelist/[locale]/noprice'>) {
-	const { locale } = await (params as any);
+}: PageProps<'/pricelist/[locale]/[environment]/noprice'>) {
+	const { locale, environment } = await (params as any);
 	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
+		environment,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 

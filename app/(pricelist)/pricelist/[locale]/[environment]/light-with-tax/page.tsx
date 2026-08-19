@@ -7,11 +7,12 @@ import { toLanguageLocale, sortProductsByCategory } from '@/pricelist/lib/utils'
 
 export default async function CatalogueLightWithTaxPage({
 	params,
-}: PageProps<'/pricelist/[locale]/light-with-tax'>) {
-	const { locale } = await (params as any);
+}: PageProps<'/pricelist/[locale]/[environment]/light-with-tax'>) {
+	const { locale, environment } = await (params as any);
 	const currency = await getCurrencyRateByLocale(locale as SiteLocale);
 	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
+		environment,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 
