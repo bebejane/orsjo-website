@@ -14,6 +14,7 @@ export type Article = {
 	name: string | null;
 	price: number;
 };
+
 export type ProductUpdatesResponse = {
 	notFound: Article[];
 	updates: ProductUpdate;
@@ -275,7 +276,7 @@ export async function update(
 }
 
 export async function csv(locale: SiteLocale): Promise<string> {
-	const hideIncluded = true; //searchParams.get('hideincluded');
+	const hideIncluded = true;
 	if (!locale) throw new Error('Locale not found');
 
 	const { allProducts } = await apiQuery(AllProductsDocument, {
