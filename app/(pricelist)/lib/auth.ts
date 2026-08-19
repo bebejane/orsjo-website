@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 
 const COOKIE_NAME = 'pricelist_auth';
 
-async function hashPassword(password: string): Promise<string> {
+export async function hashPassword(password: string): Promise<string> {
 	const data = new TextEncoder().encode(password);
 	const secret = new TextEncoder().encode(process.env.CATALOGUE_PASSWORD!);
 	const key = await crypto.subtle.importKey(

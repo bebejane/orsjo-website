@@ -2,30 +2,15 @@ import fs from 'fs';
 import { Page } from 'puppeteer-core';
 import { getBrowser } from '../puppeteer';
 import { PDFDocument } from 'pdf-lib';
-import { Upload } from '@datocms/cma-client/dist/types/generated/ApiTypes';
+import { Upload } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 import { buildClient } from '@datocms/cma-client-node';
 import { EnvironmentSettings, Product } from '@/types/datocms-cma';
+import { hashPassword } from '@/app/(pricelist)/lib/auth';
 
 const client = buildClient({
 	apiToken: process.env.DATOCMS_API_TOKEN as string,
 	environment: process.env.DATOCMS_ENVIRONMENT as string,
 });
-
-async function hashPassword(password: string): Promise<string> {
-	const data = new TextEncoder().encode(password);
-	const secret = new TextEncoder().encode(process.env.CATALOGUE_PASSWORD!);
-	const key = await crypto.subtle.importKey(
-		'raw',
-		secret,
-		{ name: 'HMAC', hash: 'SHA-256' },
-		false,
-		['sign'],
-	);
-	const signature = await crypto.subtle.sign('HMAC', key, data);
-	return Array.from(new Uint8Array(signature))
-		.map((b) => b.toString(16).padStart(2, '0'))
-		.join('');
-}
 
 export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 	let page: Page | null = null;

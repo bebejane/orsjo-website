@@ -4,6 +4,7 @@ import s from './PricelistImport.module.scss';
 import { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
 import { useEffect, useState } from 'react';
 import PricelistUpdateList from './PricelistUpdateList';
+import DotLoader from '@/app/(pricelist)/components/DotLoader';
 
 export default function PricelistImport({
 	parse,
@@ -68,8 +69,8 @@ export default function PricelistImport({
 				Note! You need to upload an Excel file (.xlsx) where column A is article no and D price in
 				SEK.
 			</p>
-			{error && <pre>{error}</pre>}
-			{parsing && <p>Uploading...</p>}
+			{error && <span className={s.error}>{error}</span>}
+			{parsing && <DotLoader message={'Reading file and generating environment'} />}
 			{updates && <PricelistUpdateList data={updates} update={update} />}
 		</>
 	);

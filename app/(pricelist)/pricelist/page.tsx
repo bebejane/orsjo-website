@@ -24,6 +24,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 
 		return updates;
 	};
+
 	const updatePricelist = async (updates: ProductUpdate): Promise<number> => {
 		'use server';
 		console.log(updates);

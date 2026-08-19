@@ -1,12 +1,17 @@
 import { buildBlockRecord, ItemTypeDefinition } from '@datocms/cma-client-browser';
 import { readSheet } from 'read-excel-file/node';
-import { ItemInNestedResponse } from '@datocms/cma-client/dist/types/generated/ApiTypes';
 import { Product, ProductAccessory, ProductLightsource, Variant } from '@/types/datocms-cma';
-import { client } from '@/lib/client';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument } from '@/graphql';
 import { convertPriceWithRate, getCurrencyRateByLocale } from '@/lib/currency';
 import { toLanguageLocale } from '@/pricelist/lib/utils';
+import { buildClient } from '@datocms/cma-client';
+import {
+	Environment,
+	ItemInNestedResponse,
+} from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
+
+export const DRAFT_ENVIRONMENT = 'pricelist';
 
 export type Article = {
 	articleNo: string;
@@ -54,13 +59,17 @@ export async function parse(file: Buffer | string): Promise<Article[]> {
 			continue;
 		}
 
-		if (!row[ROW_INDEX.articleNo] || !row[ROW_INDEX.description] || !row[ROW_INDEX.price]) continue;
+		if (
+			!row[ROW_INDEX.articleNo] ||
+			!row[ROW_INDEX.description] ||
+			isNaN(row[ROW_INDEX.price] as number)
+		)
+			continue;
 
 		const article: Article = {
 			name,
 			description: row[ROW_INDEX.description] as string,
 			articleNo: ('' + row[ROW_INDEX.articleNo]).trim().toUpperCase(),
-
 			price: Number(
 				Math.round(
 					typeof row[ROW_INDEX.price] === 'string'
@@ -82,8 +91,18 @@ export async function parse(file: Buffer | string): Promise<Article[]> {
 	return articles;
 }
 
-export async function generate(articles: Article[]): Promise<ProductUpdatesResponse> {
+export async function generate(
+	articles: Article[],
+	environment = DRAFT_ENVIRONMENT,
+): Promise<ProductUpdatesResponse> {
 	console.log('Generate updates:', articles.length);
+
+	await initDraftEnvironment();
+
+	const client = buildClient({
+		apiToken: process.env.DATOCMS_API_TOKEN as string,
+		environment,
+	});
 
 	async function getAllRecords<T extends ItemTypeDefinition>(
 		itemType: string,
@@ -198,7 +217,14 @@ export async function generate(articles: Article[]): Promise<ProductUpdatesRespo
 
 export async function update(
 	updates: ProductUpdate,
+	environment = DRAFT_ENVIRONMENT,
 ): Promise<{ updated: ProductRecord[]; errors: { product: ProductRecord; error: string }[] }> {
+	console.time('update pricelist');
+	const client = buildClient({
+		apiToken: process.env.DATOCMS_API_TOKEN as string,
+		environment,
+	});
+
 	const itemTypes = await client.itemTypes.list();
 	const variantBlockId = itemTypes.filter((t) => t.api_key === 'variant')[0].id;
 	const modelBlockId = itemTypes.filter((t) => t.api_key === 'product_model')[0].id;
@@ -272,15 +298,17 @@ export async function update(
 		}
 	}
 
+	console.timeEnd('update pricelist');
 	return { updated, errors };
 }
 
-export async function csv(locale: SiteLocale): Promise<string> {
+export async function csv(locale: SiteLocale, environment = DRAFT_ENVIRONMENT): Promise<string> {
 	const hideIncluded = true;
 	if (!locale) throw new Error('Locale not found');
 
 	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
+		environment,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 
@@ -334,4 +362,28 @@ export async function csv(locale: SiteLocale): Promise<string> {
 
 	const csv = `\ufeff${rows.map((r) => r.map((r) => r.trim()).join(';')).join('\n')}`;
 	return csv;
+}
+
+export async function initDraftEnvironment(): Promise<Environment> {
+	console.time('draft');
+	const client = buildClient({
+		apiToken: process.env.DATOCMS_API_TOKEN as string,
+	});
+	const environments = await client.environments.list();
+	if (environments.find((e) => e.id === DRAFT_ENVIRONMENT)) {
+		await client.environments.destroy(DRAFT_ENVIRONMENT);
+	}
+	const environment = await client.environments.fork(
+		process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT as string,
+		{
+			id: DRAFT_ENVIRONMENT,
+		},
+		{
+			immediate_return: false,
+			fast: true,
+			force: true,
+		},
+	);
+	console.timeEnd('draft');
+	return environment;
 }
