@@ -13,20 +13,20 @@
 			span {
 				white-space: nowrap;
 				margin-right: 1rem;
+
 				&:nth-child(1) {
-					flex: 0 0 200px;
+					flex: 0 0 15ch;
 				}
 				&:nth-child(2) {
-					flex: 0 0 200px;
+					flex: 0 0 30ch;
 				}
 				&:nth-child(3) {
-					flex: 0 0 50px;
+					flex: 0 0 30ch;
 				}
 			}
 		}
 	}
 	.notfound {
-		color: red;
 	}
 }
 
