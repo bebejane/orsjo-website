@@ -11,7 +11,7 @@ import {
 import * as mgmt from '@/geins/mgmt-api';
 import { generateProductTitle } from '@/lib/utils';
 import { convertPriceWithRate, getAllCurrencyRates } from '@/lib/currency';
-import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
+import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 import {
 	GEINS_CHANNEL_ID,
 	GEINS_DELIVERY_PARAMETER_ID,

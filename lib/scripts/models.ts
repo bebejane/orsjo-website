@@ -7,7 +7,7 @@ import {
 import { apiQuery } from 'next-dato-utils/api';
 import { buildClient, ApiError, buildBlockRecord } from '@datocms/cma-client';
 import { Product, ProductModel, Variant } from '@/types/datocms-cma';
-import { Item, ItemInNestedResponse } from '@datocms/cma-client/dist/types/generated/ApiTypes';
+import { Item, ItemInNestedResponse } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 
 const environment = 'dev';
 const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, environment });
