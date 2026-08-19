@@ -5,11 +5,12 @@ import { apiQuery } from 'next-dato-utils/api';
 
 export async function GET(
 	req: Request,
-	{ params }: RouteContext<'/pricelist/[locale]/product/[id]/pdf'>,
+	{ params }: RouteContext<'/pricelist/[locale]/[environment]/product/[id]/pdf'>,
 ) {
-	const { locale, id } = await params;
+	const { locale, id, environment } = await params;
 	const url = req.url.split('/').slice(0, -1).join('/');
 	const { product } = await apiQuery(ProductByIdDocument, {
+		environment,
 		variables: { id, locale: toLanguageLocale(locale) },
 	});
 	const title = `${product?.title} (${locale.toUpperCase()})`;

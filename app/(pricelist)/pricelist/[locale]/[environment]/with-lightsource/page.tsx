@@ -9,10 +9,11 @@ const fixedMountingId = '107174756';
 
 export default async function CatalogueLightWrapper({
 	params,
-}: PageProps<'/pricelist/[locale]/with-lightsource'>) {
-	const { locale } = await (params as any);
+}: PageProps<'/pricelist/[locale]/[environment]/with-lightsource'>) {
+	const { locale, environment } = await (params as any);
 	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
+		environment,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 

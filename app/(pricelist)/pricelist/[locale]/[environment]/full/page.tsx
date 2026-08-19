@@ -4,10 +4,13 @@ import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument } from '@/graphql';
 import { toLanguageLocale } from '@/pricelist/lib/utils';
 
-export default async function CataloguePage({ params }: PageProps<'/pricelist/[locale]/full'>) {
-	const { locale } = await (params as any);
+export default async function CataloguePage({
+	params,
+}: PageProps<'/pricelist/[locale]/[environment]/full'>) {
+	const { locale, environment } = await (params as any);
 	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
+		environment,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 

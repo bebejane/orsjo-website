@@ -11,8 +11,11 @@ export const maxDuration = 120;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const catalogueRoot = join(dirname(__dirname), '../..');
 
-export async function GET(req: Request, { params }: RouteContext<'/pricelist/[locale]/[...pdf]'>) {
-	const { locale, pdf } = await params;
+export async function GET(
+	req: Request,
+	{ params }: RouteContext<'/pricelist/[locale]/[environment]/[...pdf]'>,
+) {
+	const { locale, environment, pdf } = await params;
 	const pricelist = pricelists.find((p) => p.path === pdf[0]);
 	const url = req.url.split('/').slice(0, -1).join('/');
 
@@ -22,6 +25,7 @@ export async function GET(req: Request, { params }: RouteContext<'/pricelist/[lo
 
 	if (pricelist.cover) {
 		const cover = await apiQuery(PricelistCoverDocument, {
+			environment,
 			variables: { locale: locale as SiteLocale },
 		});
 		const url = cover.pricelistCover?.cover?.url;

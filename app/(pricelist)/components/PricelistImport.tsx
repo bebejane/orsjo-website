@@ -26,13 +26,14 @@ export default function PricelistImport({
 		setError(null);
 		setLoading(true);
 		setFile(file);
+
 		const reader = new FileReader();
 		reader.onabort = () => {
-			setError('file reading was aborted');
+			setError('File reading was aborted');
 			setLoading(false);
 		};
 		reader.onerror = (e) => {
-			setError('file reading has failed');
+			setError('File reading has failed');
 			setLoading(false);
 		};
 		reader.onload = () => {
@@ -59,8 +60,6 @@ export default function PricelistImport({
 				setParsing(false);
 			});
 	}, [buffer]);
-
-	//if (updates) return <PricelistUpdateList data={updates} />;
 
 	return (
 		<>

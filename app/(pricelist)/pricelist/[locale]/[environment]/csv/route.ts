@@ -4,13 +4,17 @@ import { format } from 'date-fns';
 
 export const maxDuration = 60;
 
-export async function GET(req: Request, { params }: RouteContext<'/pricelist/[locale]/csv'>) {
-	const { locale } = await params;
+export async function GET(
+	req: Request,
+	{ params }: RouteContext<'/pricelist/[locale]/[environment]/csv'>,
+) {
+	const { locale, environment } = await params;
 	const date = format(new Date(), 'yyyy-MM-dd');
 	const currency = await getCurrencyRateByLocale(locale);
 	const title = `Örsjo Pricelist (${currency.isoCode}) - ${date}.csv`;
 	const encodedTitle = encodeURIComponent(title);
-	const csv = await pricelistController.csv(locale as SiteLocale);
+	const csv = await pricelistController.csv(locale as SiteLocale, environment);
+
 	return new Response(csv, {
 		status: 200,
 		headers: {

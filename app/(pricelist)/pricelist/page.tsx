@@ -9,13 +9,14 @@ import {
 	ProductUpdatesResponse,
 	parse,
 	generate,
-	update,
 	ProductUpdate,
 } from '@/pricelist/lib/controllers/pricelist';
 import PricelistImport from '../components/PricelistImport';
 import { sleep } from 'next-dato-utils/utils';
 
-export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>) {
+export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>) {
+	const environment = 'main';
+
 	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
 		'use server';
 		const buffer = Buffer.from(file);
@@ -27,6 +28,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 
 	const updatePricelist = async (updates: ProductUpdate): Promise<number> => {
 		'use server';
+		console.log('update prices');
 		console.log(updates);
 		await sleep(3000);
 		return 0;
@@ -51,7 +53,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 								<ZipPricelists
 									title={pricelist.label}
 									paths={locales.map((locale) => ({
-										path: `/pricelist/${locale}/${pricelist.path}/pdf`,
+										path: `/pricelist/${locale}/${environment}/${pricelist.path}/pdf`,
 										filename: `Örsjö Pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
 									}))}
 								/>
@@ -62,7 +64,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 									.map(({ isoCode, locale }) => (
 										<li key={isoCode}>
 											<DownloadPricelist
-												href={`/pricelist/${locale}/${pricelist.path}/pdf`}
+												href={`/pricelist/${locale}/${environment}/${pricelist.path}/pdf`}
 												label={isoCode}
 												extension='pdf'
 											/>
@@ -77,7 +79,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 							<ZipPricelists
 								title={`Csv`}
 								paths={locales.map((locale) => ({
-									path: `/pricelist/${locale}/csv`,
+									path: `/pricelist/${locale}/${environment}/csv`,
 									filename: `Örsjö Pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
 								}))}
 							/>
@@ -88,7 +90,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 								.map(({ isoCode, locale }) => (
 									<li key={isoCode}>
 										<DownloadPricelist
-											href={`/pricelist/${locale}/csv`}
+											href={`/pricelist/${locale}/${environment}/csv`}
 											label={isoCode}
 											extension='csv'
 										/>
