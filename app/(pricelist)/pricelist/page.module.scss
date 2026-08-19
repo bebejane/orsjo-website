@@ -3,6 +3,36 @@
 	display: flex;
 	flex-direction: row;
 
+	h2 {
+		font-family: var(--headline-font) !important;
+		font-variation-settings: "wght" 450;
+		font-weight: normal;
+	}
+
+	button {
+		padding: 1em;
+		border: 0px;
+		cursor: pointer;
+
+		&:hover {
+			background-color: black;
+			color: white;
+		}
+	}
+
+	input {
+		&::file-selector-button {
+			padding: 1em;
+			border: 0px;
+			margin-right: 1em;
+			&:hover {
+				background-color: black;
+				color: white;
+				cursor: pointer;
+			}
+		}
+	}
+
 	.download {
 		flex: 0 0 300px;
 	}
@@ -13,6 +43,9 @@
 		h2 {
 			border-bottom: 1px solid black;
 			padding-bottom: 0.75em;
+			font-family: var(--headline-font) !important;
+			font-variation-settings: "wght" 450;
+			font-weight: normal;
 		}
 
 		p {

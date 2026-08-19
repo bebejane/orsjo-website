@@ -45,8 +45,9 @@ export default function PricelistUpdateList({ data, update }: PricelistUpdateLis
 							<li key={idx}>
 								<span>{article.articleNo}</span>
 								<span>{article.name}</span>
-								<span>{article.price}:-</span>
 								<span>{article.description}</span>
+								<span>{article.price}:-</span>
+
 							</li>
 						))}
 					</ul>
