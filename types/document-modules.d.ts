@@ -159,10 +159,10 @@ declare module '*/menu.gql' {
 }
     
 
-declare module '*/pricelist-cover.gql' {
+declare module '*/pricelist.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const PricelistCover: DocumentNode;
+  export const Pricelist: DocumentNode;
 
   export default defaultDocument;
 }

@@ -1,0 +1,18 @@
+query Pricelist($locale: SiteLocale!) {
+	pricelist(locale: $locale) {
+		id
+		cover {
+			id
+			url
+		}
+		coverExclTax {
+			id
+			url
+		}
+		currentPricelist {
+			id
+			filename
+			url
+		}
+	}
+}
