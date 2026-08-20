@@ -9,13 +9,13 @@ import {
 	ProductUpdatesResponse,
 	parse,
 	generate,
+	update,
 	ProductUpdate,
 } from '@/pricelist/lib/controllers/pricelist';
 import PricelistImport from '../components/PricelistImport';
-import { sleep } from 'next-dato-utils/utils';
 
 export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>) {
-	const environment = 'main';
+	const environment = 'pricelist';
 
 	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
 		'use server';
@@ -26,12 +26,12 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 		return updates;
 	};
 
-	const updatePricelist = async (updates: ProductUpdate): Promise<number> => {
+	const updatePricelist = async (updates: ProductUpdate): Promise<ReturnType<typeof update>> => {
 		'use server';
 		console.log('update prices');
 		console.log(updates);
-		await sleep(3000);
-		return 0;
+		const res = await update(updates, 'pricelist');
+		return res;
 	};
 
 	const [
