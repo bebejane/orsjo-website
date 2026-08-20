@@ -8,6 +8,7 @@ import DownloadPricelist from '@/pricelist/components/DownloadPricelist';
 import { ProductUpdatesResponse, ProductUpdate } from '@/pricelist/lib/controllers/pricelist';
 import PricelistImport from '../components/PricelistImport';
 import * as pricelistController from '@/pricelist/lib/controllers/pricelist';
+import { format } from 'date-fns';
 
 const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
 	'use server';
@@ -82,7 +83,7 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 						<header>
 							<h3>Csv</h3>
 							<ZipPricelists
-								title={`Csv`}
+								title={`Örsjö Pricelist - CSV - ${format(new Date(), 'yyyy-mm-dd')}`}
 								paths={locales.map((locale) => ({
 									path: `/pricelist/${locale}/${environment}/csv`,
 									filename: `Örsjö Pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,

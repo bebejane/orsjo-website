@@ -1,7 +1,7 @@
 'use client';
+
 import DotLoader from '@/pricelist/components/DotLoader';
 import s from './ZipPricelists.module.scss';
-import cn from 'classnames';
 import { downloadZip } from 'client-zip';
 import React, { useState } from 'react';
 
