@@ -9,11 +9,12 @@ import DotLoader from '@/app/(pricelist)/components/DotLoader';
 export default function PricelistImport({
 	parse,
 	update,
+	current,
 }: {
 	parse: (buffer: ArrayBuffer) => Promise<ProductUpdatesResponse>;
 	update: (updates: ProductUpdate) => Promise<any>;
+	current: { buffer: ArrayBuffer; filename: string } | null;
 }) {
-	const [file, setFile] = useState<File | null>(null);
 	const [buffer, setBuffer] = useState<ArrayBuffer | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
@@ -25,7 +26,6 @@ export default function PricelistImport({
 		if (!file) return;
 		setError(null);
 		setLoading(true);
-		setFile(file);
 
 		const reader = new FileReader();
 		reader.onabort = () => {
@@ -44,21 +44,22 @@ export default function PricelistImport({
 		reader.readAsArrayBuffer(file);
 	}
 
+	async function updateFile(buffer: ArrayBuffer) {
+		try {
+			setParsing(true);
+			setUpdates(null);
+			const updates = await parse(buffer);
+			setUpdates(updates);
+		} catch (err) {
+			setError(err instanceof Error ? err.message : (err as string));
+		} finally {
+			setParsing(false);
+		}
+	}
+
 	useEffect(() => {
 		if (!buffer) return;
-
-		setParsing(true);
-		setUpdates(null);
-		parse(buffer)
-			.then((updates) => {
-				setUpdates(updates);
-			})
-			.catch((err) => {
-				setError(err?.message ?? err);
-			})
-			.finally(() => {
-				setParsing(false);
-			});
+		updateFile(buffer);
 	}, [buffer]);
 
 	return (

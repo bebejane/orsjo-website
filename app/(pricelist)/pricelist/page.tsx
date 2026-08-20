@@ -5,41 +5,46 @@ import { pricelists } from '@/pricelist/lib/pricelists';
 import { ZipPricelists } from '@/pricelist/components/ZipPricelists';
 import { getAllCurrencyRates } from '@/lib/currency';
 import DownloadPricelist from '@/pricelist/components/DownloadPricelist';
-import {
-	ProductUpdatesResponse,
-	parse,
-	generate,
-	update,
-	ProductUpdate,
-} from '@/pricelist/lib/controllers/pricelist';
+import { ProductUpdatesResponse, ProductUpdate } from '@/pricelist/lib/controllers/pricelist';
 import PricelistImport from '../components/PricelistImport';
+import * as pricelistController from '@/pricelist/lib/controllers/pricelist';
+
+const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
+	'use server';
+	const buffer = Buffer.from(file);
+	const articles = await pricelistController.parse(buffer);
+	const updates = await pricelistController.generate(articles);
+	return updates;
+};
+
+const updatePricelist = async (
+	updates: ProductUpdate,
+): Promise<ReturnType<typeof pricelistController.update>> => {
+	'use server';
+	console.log('update prices');
+	console.log(updates);
+	const res = await pricelistController.update(updates, 'pricelist');
+	return res;
+};
 
 export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>) {
-	const environment = 'pricelist';
-
-	const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
-		'use server';
-		const buffer = Buffer.from(file);
-		const articles = await parse(buffer);
-		const updates = await generate(articles);
-
-		return updates;
-	};
-
-	const updatePricelist = async (updates: ProductUpdate): Promise<ReturnType<typeof update>> => {
-		'use server';
-		console.log('update prices');
-		console.log(updates);
-		const res = await update(updates, 'pricelist');
-		return res;
-	};
-
 	const [
 		{
 			_site: { locales },
 		},
+		currentPricelist,
+		draftEnvironment,
 		currencies,
-	] = await Promise.all([apiQuery(SiteDocument), getAllCurrencyRates()]);
+	] = await Promise.all([
+		apiQuery(SiteDocument),
+		pricelistController.currentPricelist(),
+		pricelistController.draftEnvironment(),
+		getAllCurrencyRates(),
+	]);
+	console.log(currentPricelist);
+	console.log(draftEnvironment);
+	const environment = 'pricelist'; //draftEnvironment?.id ?? 'main';
+	//console.log({ environment });
 
 	return (
 		<div className={s.container}>
@@ -104,7 +109,11 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 			</div>
 			<div className={s.update}>
 				<h2>Update pricelist</h2>
-				<PricelistImport parse={parsePricelist} update={updatePricelist} />
+				<PricelistImport
+					parse={parsePricelist}
+					update={updatePricelist}
+					current={currentPricelist}
+				/>
 			</div>
 		</div>
 	);

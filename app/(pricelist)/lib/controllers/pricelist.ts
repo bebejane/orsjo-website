@@ -2,7 +2,7 @@ import { buildBlockRecord, ItemTypeDefinition } from '@datocms/cma-client-browse
 import { readSheet } from 'read-excel-file/node';
 import { Product, ProductAccessory, ProductLightsource, Variant } from '@/types/datocms-cma';
 import { apiQuery } from 'next-dato-utils/api';
-import { AllProductsDocument } from '@/graphql';
+import { AllProductsDocument, PricelistDocument } from '@/graphql';
 import { convertPriceWithRate, getCurrencyRateByLocale } from '@/lib/currency';
 import { toLanguageLocale } from '@/pricelist/lib/utils';
 import { buildClient } from '@datocms/cma-client';
@@ -365,6 +365,14 @@ export async function csv(locale: SiteLocale, environment = DRAFT_ENVIRONMENT): 
 	return csv;
 }
 
+export async function draftEnvironment(): Promise<Environment | null> {
+	const client = buildClient({
+		apiToken: process.env.DATOCMS_API_TOKEN as string,
+	});
+	const environments = await client.environments.list();
+	return environments.find((e) => e.id === DRAFT_ENVIRONMENT) ?? null;
+}
+
 export async function initDraftEnvironment(): Promise<Environment> {
 	console.time('draft');
 	const client = buildClient({
@@ -387,4 +395,22 @@ export async function initDraftEnvironment(): Promise<Environment> {
 	);
 	console.timeEnd('draft');
 	return environment;
+}
+
+export async function currentPricelist(): Promise<{
+	buffer: ArrayBuffer;
+	filename: string;
+} | null> {
+	const { pricelist } = await apiQuery(PricelistDocument, {
+		variables: { locale: 'en' as SiteLocale },
+	});
+	if (!pricelist?.currentPricelist) return null;
+	const { url } = pricelist.currentPricelist;
+	const response = await fetch(url);
+	if (!response.ok) return null;
+
+	return {
+		buffer: await response.arrayBuffer(),
+		filename: pricelist.currentPricelist.filename,
+	};
 }
