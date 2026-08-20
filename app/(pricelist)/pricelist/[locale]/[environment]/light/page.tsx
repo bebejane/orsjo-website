@@ -12,8 +12,9 @@ export default async function CatalogueLightPage({
 		all: true,
 		environment,
 		variables: { locale: toLanguageLocale(locale) },
+		revalidate: 0,
 	});
-
+	console.log(environment, locale);
 	return (
 		<div className={s.container}>
 			<CatalogueLight

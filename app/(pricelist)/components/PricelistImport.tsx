@@ -11,7 +11,7 @@ export default function PricelistImport({
 	update,
 }: {
 	parse: (buffer: ArrayBuffer) => Promise<ProductUpdatesResponse>;
-	update: (updates: ProductUpdate) => Promise<number>;
+	update: (updates: ProductUpdate) => Promise<any>;
 }) {
 	const [file, setFile] = useState<File | null>(null);
 	const [buffer, setBuffer] = useState<ArrayBuffer | null>(null);
@@ -63,12 +63,12 @@ export default function PricelistImport({
 
 	return (
 		<>
-			<input className={s.file} type='file' onChange={handleChange} />
+			<input className={s.file} type='file' onChange={handleChange} accept='.xlsx' />
 			<p className='small'>
 				Note! You need to upload an Excel file (.xlsx) where column A is article no and D price in
 				SEK.
 			</p>
-			{error && <span className={s.error}>{error}</span>}
+			{error && <div className={s.error}>{error}</div>}
 			{parsing && <DotLoader message={'Reading file and generating environment'} />}
 			{updates && <PricelistUpdateList data={updates} update={update} />}
 		</>

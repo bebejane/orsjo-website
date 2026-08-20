@@ -43,7 +43,7 @@ type VariantRecord = ItemInNestedResponse<Variant>;
 type AccessoryRecord = ItemInNestedResponse<ProductAccessory>;
 type ModelBlock = any;
 
-const ROW_INDEX = { articleNo: 0, description: 1, price: 2 };
+const ROW_INDEX = { articleNo: 0, description: 1, price: 3 };
 
 export async function parse(file: Buffer | string): Promise<Article[]> {
 	const rows = await readSheet(file);
@@ -220,6 +220,7 @@ export async function update(
 	environment = DRAFT_ENVIRONMENT,
 ): Promise<{ updated: ProductRecord[]; errors: { product: ProductRecord; error: string }[] }> {
 	console.time('update pricelist');
+
 	const client = buildClient({
 		apiToken: process.env.DATOCMS_API_TOKEN as string,
 		environment,
