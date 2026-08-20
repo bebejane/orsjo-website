@@ -3,7 +3,7 @@ import { generate, merge, mergeUrl } from '@/pricelist/lib/controllers/pdf';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { getCurrencyRateByLocale } from '@/lib/currency';
-import { PricelistCoverDocument } from '@/graphql';
+import { PricelistDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 
 export const maxDuration = 120;
@@ -24,11 +24,11 @@ export async function GET(
 	let data = await generate(url);
 
 	if (pricelist.cover) {
-		const cover = await apiQuery(PricelistCoverDocument, {
+		const cover = await apiQuery(PricelistDocument, {
 			environment,
 			variables: { locale: locale as SiteLocale },
 		});
-		const url = cover.pricelistCover?.cover?.url;
+		const url = cover.pricelist?.cover?.url;
 		if (!url) throw new Error('cover not found');
 		data = await mergeUrl(url, data);
 	}
