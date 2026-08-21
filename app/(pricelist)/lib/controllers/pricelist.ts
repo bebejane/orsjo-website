@@ -5,7 +5,9 @@ import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument, PricelistDocument } from '@/graphql';
 import { convertPriceWithRate, getCurrencyRateByLocale } from '@/lib/currency';
 import { toLanguageLocale } from '@/pricelist/lib/utils';
-import { buildClient } from '@datocms/cma-client';
+import { buildClient } from '@datocms/cma-client-node';
+
+import fs from 'fs';
 import {
 	Environment,
 	ItemInNestedResponse,
@@ -401,16 +403,40 @@ export async function currentPricelist(): Promise<{
 	buffer: ArrayBuffer;
 	filename: string;
 } | null> {
-	const { pricelist } = await apiQuery(PricelistDocument, {
+	const { pricelist, pricelistFile } = await apiQuery(PricelistDocument, {
+		environment: 'main',
 		variables: { locale: 'en' as SiteLocale },
 	});
-	if (!pricelist?.currentPricelist) return null;
-	const { url } = pricelist.currentPricelist;
+	console.log(pricelist);
+	if (!pricelistFile?.currentPricelist) return null;
+	const { url } = pricelistFile.currentPricelist;
 	const response = await fetch(url);
 	if (!response.ok) return null;
 
 	return {
 		buffer: await response.arrayBuffer(),
-		filename: pricelist.currentPricelist.filename,
+		filename: pricelistFile.currentPricelist.filename,
 	};
+}
+
+export async function updateCurrentPricelistFile(
+	buffer: Buffer<ArrayBuffer>,
+	filename: string,
+): Promise<void> {
+	const client = buildClient({
+		apiToken: process.env.DATOCMS_API_TOKEN as string,
+	});
+	const current = (await client.items.list({ type: 'pricelist', version: 'published' }))?.[0];
+	if (!current) throw new Error('Current pricelist not found');
+
+	const localPath = `/tmp/${filename}`;
+	fs.writeFileSync(localPath, buffer, 'binary');
+
+	const upload = await client.uploads.createFromLocalFile({
+		localPath,
+	});
+	console.log(current);
+	await client.items.update(current.id, {
+		current_pricelist: { upload_id: upload.id },
+	});
 }

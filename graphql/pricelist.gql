@@ -15,4 +15,11 @@ query Pricelist($locale: SiteLocale!) {
 			url
 		}
 	}
+	pricelistFile: pricelist {
+		currentPricelist {
+			id
+			filename
+			url
+		}
+	}
 }
