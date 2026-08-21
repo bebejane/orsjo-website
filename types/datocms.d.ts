@@ -9026,7 +9026,7 @@ type PricelistQueryVariables = Exact<{
 }>;
 
 
-type PricelistQuery = { __typename?: 'Query', pricelist?: { __typename?: 'PricelistRecord', id: any, cover: { __typename?: 'FileField', id: any, url: string }, coverExclTax?: { __typename?: 'FileField', id: any, url: string } | null, currentPricelist?: { __typename?: 'FileField', id: any, filename: string, url: string } | null } | null };
+type PricelistQuery = { __typename?: 'Query', pricelist?: { __typename?: 'PricelistRecord', id: any, cover: { __typename?: 'FileField', id: any, url: string }, coverExclTax?: { __typename?: 'FileField', id: any, url: string } | null, currentPricelist?: { __typename?: 'FileField', id: any, filename: string, url: string } | null } | null, pricelistFile?: { __typename?: 'PricelistRecord', currentPricelist?: { __typename?: 'FileField', id: any, filename: string, url: string } | null } | null };
 
 type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 

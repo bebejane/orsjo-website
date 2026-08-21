@@ -10,10 +10,14 @@ import PricelistImport from '../components/PricelistImport';
 import * as pricelistController from '@/pricelist/lib/controllers/pricelist';
 import { format } from 'date-fns';
 
-const parsePricelist = async (file: ArrayBuffer): Promise<ProductUpdatesResponse> => {
+const parsePricelist = async (
+	file: ArrayBuffer,
+	filename: string,
+): Promise<ProductUpdatesResponse> => {
 	'use server';
 	const buffer = Buffer.from(file);
 	const articles = await pricelistController.parse(buffer);
+	await pricelistController.updateCurrentPricelistFile(buffer, filename);
 	const updates = await pricelistController.generate(articles);
 	return updates;
 };
@@ -44,8 +48,8 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 	]);
 	console.log(currentPricelist);
 	console.log(draftEnvironment);
-	const environment = 'pricelist'; //draftEnvironment?.id ?? 'main';
-	//console.log({ environment });
+	const environment = draftEnvironment?.id ?? 'dev';
+	console.log({ environment });
 
 	return (
 		<div className={s.container}>
