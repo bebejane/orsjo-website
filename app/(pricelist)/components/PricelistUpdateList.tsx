@@ -20,13 +20,16 @@ export default function PricelistUpdateList({ data, update }: PricelistUpdateLis
 
 	const [updating, setUpdating] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const [success, setSuccess] = useState(false);
 
 	async function handleUpdate() {
 		setUpdating(true);
 		setError(null);
+		setSuccess(false);
 		try {
 			const result = await update(updates);
 			setUpdating(false);
+			setSuccess(true);
 			console.log(result);
 		} catch (err) {
 			setError(typeof err === 'string' ? err : err instanceof Error ? err.message : null);
@@ -35,9 +38,22 @@ export default function PricelistUpdateList({ data, update }: PricelistUpdateLis
 		}
 	}
 
+	if (success) return <div className={s.container}>Pricelist updated!</div>;
+
 	return (
 		<div className={s.container}>
-			{notFound?.length > 0 && (
+			{noArticles > 0 && (
+				<>
+					{updating ? (
+						<DotLoader message={`Updating ${noArticles} articles (this may take a few minutes)`} />
+					) : (
+						<button onClick={handleUpdate} disabled={updating}>
+							Update {noArticles} articles
+						</button>
+					)}
+				</>
+			)}
+			{notFound?.length > 0 && !updating && (
 				<>
 					<h3>{notFound?.length} articles not found</h3>
 					<ul className={s.notfound}>
@@ -50,14 +66,6 @@ export default function PricelistUpdateList({ data, update }: PricelistUpdateLis
 							</li>
 						))}
 					</ul>
-				</>
-			)}
-			{noArticles > 0 && (
-				<>
-					<h3>Found {noArticles} articles</h3>
-					<button onClick={handleUpdate} disabled={updating}>
-						{updating ? <DotLoader message={'Update pricelist'} /> : 'Update pricelist'}
-					</button>
 				</>
 			)}
 			{errors.length > 0 && (
@@ -73,6 +81,7 @@ export default function PricelistUpdateList({ data, update }: PricelistUpdateLis
 					</ul>
 				</>
 			)}
+			{error && <div className={s.error}>{error}</div>}
 		</div>
 	);
 }

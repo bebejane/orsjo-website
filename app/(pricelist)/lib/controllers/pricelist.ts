@@ -405,6 +405,7 @@ export async function currentPricelist(): Promise<{
 } | null> {
 	const { pricelist, pricelistFile } = await apiQuery(PricelistDocument, {
 		environment: 'main',
+		revalidate: 0,
 		variables: { locale: 'en' as SiteLocale },
 	});
 	console.log(pricelist);

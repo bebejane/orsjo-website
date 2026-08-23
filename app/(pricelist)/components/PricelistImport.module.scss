@@ -1,16 +1,31 @@
-.upload {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+.file {
+	.current,
+	.new {
+		margin-top: 1em;
+	}
+
+	.note {
+		color: gray;
+	}
+	.apply {
+		display: flex;
+		flex-direction: row;
+		button {
+			margin-right: 0.5em;
+		}
+	}
 	button {
-		all: unset;
-		margin-left: 0.5rem;
 		cursor: pointer;
+		&[disabled] {
+			cursor: not-allowed;
+			pointer-events: none;
+			opacity: 0.97;
+		}
 	}
 }
-.file {
-	margin-top: 1rem;
-	width: 100%;
+
+.generate {
+	padding-top: 1em;
 }
 
 .error {

@@ -10,29 +10,34 @@ import PricelistImport from '../components/PricelistImport';
 import * as pricelistController from '@/pricelist/lib/controllers/pricelist';
 import { format } from 'date-fns';
 
-const parsePricelist = async (
-	file: ArrayBuffer,
-	filename: string,
-): Promise<ProductUpdatesResponse> => {
-	'use server';
-	const buffer = Buffer.from(file);
-	const articles = await pricelistController.parse(buffer);
-	await pricelistController.updateCurrentPricelistFile(buffer, filename);
-	const updates = await pricelistController.generate(articles);
-	return updates;
-};
-
-const updatePricelist = async (
-	updates: ProductUpdate,
-): Promise<ReturnType<typeof pricelistController.update>> => {
-	'use server';
-	console.log('update prices');
-	console.log(updates);
-	const res = await pricelistController.update(updates, 'pricelist');
-	return res;
-};
-
 export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>) {
+	async function uploadPricelist(file: ArrayBuffer, filename: string): Promise<void> {
+		'use server';
+		const buffer = Buffer.from(file);
+		await pricelistController.updateCurrentPricelistFile(buffer, filename);
+	}
+
+	async function parsePricelist(
+		file: ArrayBuffer,
+		filename: string,
+	): Promise<ProductUpdatesResponse> {
+		'use server';
+		const buffer = Buffer.from(file);
+		const articles = await pricelistController.parse(buffer);
+		const updates = await pricelistController.generate(articles);
+		return updates;
+	}
+
+	async function updatePricelist(
+		updates: ProductUpdate,
+	): Promise<ReturnType<typeof pricelistController.update>> {
+		'use server';
+		console.log('update prices');
+		console.log(updates);
+		const res = await pricelistController.update(updates, 'pricelist');
+		return res;
+	}
+
 	const [
 		{
 			_site: { locales },
@@ -46,8 +51,7 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 		pricelistController.draftEnvironment(),
 		getAllCurrencyRates(),
 	]);
-	console.log(currentPricelist);
-	console.log(draftEnvironment);
+
 	const environment = draftEnvironment?.id ?? 'dev';
 	console.log({ environment });
 
@@ -115,6 +119,8 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 			<div className={s.update}>
 				<h2>Update pricelist</h2>
 				<PricelistImport
+					key={currentPricelist?.filename}
+					upload={uploadPricelist}
 					parse={parsePricelist}
 					update={updatePricelist}
 					current={currentPricelist}
