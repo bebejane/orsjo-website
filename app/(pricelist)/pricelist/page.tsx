@@ -10,7 +10,7 @@ import PricelistImport from '../components/PricelistImport';
 import * as pricelistController from '@/pricelist/lib/controllers/pricelist';
 import { format } from 'date-fns';
 
-export const maxDuration = 60 * 5;
+export const maxDuration = 300;
 
 export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>) {
 	async function uploadPricelist(file: ArrayBuffer, filename: string): Promise<void> {
