@@ -1,6 +1,12 @@
 import { buildBlockRecord, ItemTypeDefinition } from '@datocms/cma-client-browser';
 import { readSheet } from 'read-excel-file/node';
-import { Product, ProductAccessory, ProductLightsource, Variant } from '@/types/datocms-cma';
+import {
+	Pricelist,
+	Product,
+	ProductAccessory,
+	ProductLightsource,
+	Variant,
+} from '@/types/datocms-cma';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument, PricelistDocument } from '@/graphql';
 import { convertPriceWithRate, getCurrencyRateByLocale } from '@/lib/currency';
@@ -436,8 +442,8 @@ export async function updateCurrentPricelistFile(
 	const upload = await client.uploads.createFromLocalFile({
 		localPath,
 	});
-	console.log(current);
-	await client.items.update(current.id, {
+	console.log(current.id, upload.id);
+	await client.items.update<Pricelist>(current.id, {
 		current_pricelist: { upload_id: upload.id },
 	});
 }

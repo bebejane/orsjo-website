@@ -1221,7 +1221,7 @@ export type WithdrawFromPurchase = ItemTypeDefinition<
     };
   }
 >;
-export type PricelistCover = ItemTypeDefinition<
+export type Pricelist = ItemTypeDefinition<
   EnvironmentSettings,
   'Qxs8cA40RZGrdQp_bmFCZw',
   {
@@ -1232,6 +1232,9 @@ export type PricelistCover = ItemTypeDefinition<
     cover_excl_tax: {
       type: 'file';
       localized: true;
+    };
+    current_pricelist: {
+      type: 'file';
     };
   }
 >;
@@ -1309,5 +1312,5 @@ export type AnyModel =
   | PrivacyPolicy
   | Shipping
   | WithdrawFromPurchase
-  | PricelistCover;
+  | Pricelist;
 export type AnyBlockOrModel = AnyBlock | AnyModel;

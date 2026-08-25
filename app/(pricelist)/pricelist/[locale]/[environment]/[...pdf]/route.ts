@@ -23,15 +23,14 @@ export async function GET(
 
 	let data = await generate(url);
 
-	if (pricelist.cover) {
-		const cover = await apiQuery(PricelistDocument, {
-			environment,
-			variables: { locale: locale as SiteLocale },
-		});
-		const url = cover.pricelist?.cover?.url;
-		if (!url) throw new Error('cover not found');
-		data = await mergeUrl(url, data);
-	}
+	const cover = await apiQuery(PricelistDocument, {
+		environment,
+		variables: { locale: locale as SiteLocale },
+	});
+	const coverUrl = cover.pricelist?.cover?.url;
+	if (!coverUrl) throw new Error('cover not found');
+	data = await mergeUrl(coverUrl, data);
+
 	const currency = await getCurrencyRateByLocale(locale);
 	const title = `Örsjo Pricelist (${currency.isoCode}) - ${pricelist.label}`;
 	const encodedTitle = encodeURIComponent(title);
