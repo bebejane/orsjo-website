@@ -27,7 +27,7 @@ export async function GET(
 		environment,
 		variables: { locale: locale as SiteLocale },
 	});
-	const coverUrl = cover.pricelist?.cover?.url;
+	const coverUrl = !pricelist.vat ? cover.pricelist?.cover?.url : cover.pricelist?.coverIncVat?.url;
 	if (!coverUrl) throw new Error('cover not found');
 	data = await mergeUrl(coverUrl, data);
 

@@ -1,14 +1,13 @@
 export type Pricelist = {
 	label: string;
 	path: string;
-	cover?: boolean;
+	vat?: boolean;
 };
 
 export const pricelists: Pricelist[] = [
 	{
 		label: 'Full',
 		path: 'full',
-		cover: true,
 	},
 	{
 		label: 'Light',
@@ -17,6 +16,7 @@ export const pricelists: Pricelist[] = [
 	{
 		label: 'Light (inc. vat)',
 		path: 'light-with-tax',
+		vat: true,
 	},
 	{
 		label: 'Inc. lightsource',

@@ -5,7 +5,7 @@ query Pricelist($locale: SiteLocale!) {
 			id
 			url
 		}
-		coverExclTax {
+		coverIncVat {
 			id
 			url
 		}

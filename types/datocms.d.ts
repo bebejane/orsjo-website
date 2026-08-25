@@ -4133,7 +4133,7 @@ type PressRecord_seoMetaTagsArgs = {
 /** Record of type Pricelist (pricelist) */
 type PricelistRecord = RecordInterface & {
   __typename?: 'PricelistRecord';
-  _allCoverExclTaxLocales?: Maybe<Array<FileFieldMultiLocaleField>>;
+  _allCoverIncVatLocales?: Maybe<Array<FileFieldMultiLocaleField>>;
   _allCoverLocales?: Maybe<Array<FileFieldNonNullMultiLocaleField>>;
   _createdAt: Scalars['DateTime']['output'];
   /** Editing URL */
@@ -4149,7 +4149,7 @@ type PricelistRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
   _updatedAt: Scalars['DateTime']['output'];
   cover: FileField;
-  coverExclTax?: Maybe<FileField>;
+  coverIncVat?: Maybe<FileField>;
   createdAt: Scalars['DateTime']['output'];
   currentPricelist?: Maybe<FileField>;
   id: Scalars['ItemId']['output'];
@@ -4158,7 +4158,7 @@ type PricelistRecord = RecordInterface & {
 
 
 /** Record of type Pricelist (pricelist) */
-type PricelistRecord_allCoverExclTaxLocalesArgs = {
+type PricelistRecord_allCoverIncVatLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4185,7 +4185,7 @@ type PricelistRecordcoverArgs = {
 
 
 /** Record of type Pricelist (pricelist) */
-type PricelistRecordcoverExclTaxArgs = {
+type PricelistRecordcoverIncVatArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -9026,7 +9026,7 @@ type PricelistQueryVariables = Exact<{
 }>;
 
 
-type PricelistQuery = { __typename?: 'Query', pricelist?: { __typename?: 'PricelistRecord', id: any, cover: { __typename?: 'FileField', id: any, url: string }, coverExclTax?: { __typename?: 'FileField', id: any, url: string } | null, currentPricelist?: { __typename?: 'FileField', id: any, filename: string, url: string } | null } | null, pricelistFile?: { __typename?: 'PricelistRecord', currentPricelist?: { __typename?: 'FileField', id: any, filename: string, url: string } | null } | null };
+type PricelistQuery = { __typename?: 'Query', pricelist?: { __typename?: 'PricelistRecord', id: any, cover: { __typename?: 'FileField', id: any, url: string }, coverIncVat?: { __typename?: 'FileField', id: any, url: string } | null, currentPricelist?: { __typename?: 'FileField', id: any, filename: string, url: string } | null } | null, pricelistFile?: { __typename?: 'PricelistRecord', currentPricelist?: { __typename?: 'FileField', id: any, filename: string, url: string } | null } | null };
 
 type ProductStartQueryVariables = Exact<{ [key: string]: never; }>;
 
