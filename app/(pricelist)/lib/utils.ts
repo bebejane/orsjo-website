@@ -5,7 +5,9 @@ export const sortProductsByCategory = (products: AllProductsQuery['allProducts']
 				return a.categories[0].position < b.categories[0].position ? -1 : 1;
 			else return 0;
 		})
-		.sort((a, b) => (a.title > b.title ? 1 : -1));
+
+		.sort((a, b) => (a.title > b.title ? 1 : -1))
+		.sort((a, b) => a.family.name.localeCompare(b.family.name));
 	return sortedProducts;
 };
 

@@ -6,6 +6,8 @@ import { ZipPricelists } from '@/pricelist/components/ZipPricelists';
 import { getAllCurrencyRates } from '@/lib/currency';
 
 export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>) {
+	const environment = process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT;
+
 	const [
 		{ allProducts },
 		{
@@ -29,7 +31,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 							<ZipPricelists
 								title={pricelist.label}
 								paths={locales.map((locale) => ({
-									path: `/pricelist/${locale}/${pricelist.path}/pdf`,
+									path: `/pricelist/${locale}/${environment}/${pricelist.path}/pdf`,
 									filename: `Örsjö Pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
 								}))}
 							/>
@@ -38,8 +40,8 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 							{locales.map((locale, idx) => (
 								<li key={locale}>
 									<span>{locale}</span>
-									<a href={`/pricelist/${locale}/${pricelist.path}`}>HTML</a>
-									<a href={`/pricelist/${locale}/${pricelist.path}/pdf`} download>
+									<a href={`/pricelist/${locale}/${environment}/${pricelist.path}`}>HTML</a>
+									<a href={`/pricelist/${locale}/${environment}/${pricelist.path}/pdf`} download>
 										PDF
 									</a>
 								</li>
@@ -53,7 +55,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 						<ZipPricelists
 							title={`Csv`}
 							paths={locales.map((locale) => ({
-								path: `/pricelist/${locale}/csv`,
+								path: `/pricelist/${locale}/${environment}/csv`,
 								filename: `Örsjö Pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
 							}))}
 						/>
@@ -62,7 +64,7 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 						{locales.map((locale, idx) => (
 							<li key={locale}>
 								<span>{locale}</span>
-								<a href={`/pricelist/${locale}/csv`} download>
+								<a href={`/pricelist/${locale}/${environment}/csv`} download>
 									CSV
 								</a>
 							</li>
@@ -83,9 +85,9 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 							</td>
 							{locales.map((locale, idx) => (
 								<td key={locale}>
-									<a href={`/pricelist/${locale}/product/${p.id}`}>HTML</a>
+									<a href={`/pricelist/${locale}/${environment}/product/${p.id}`}>HTML</a>
 									&nbsp;&nbsp;
-									<a href={`/pricelist/${locale}/product/${p.id}/pdf`} download>
+									<a href={`/pricelist/${locale}/${environment}/product/${p.id}/pdf`} download>
 										PDF
 									</a>
 								</td>

@@ -2,7 +2,7 @@ import s from './page.module.scss';
 import Catalogue from '@/pricelist/components/Catalogue';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument } from '@/graphql';
-import { toLanguageLocale } from '@/pricelist/lib/utils';
+import { toLanguageLocale, sortProductsByCategory } from '@/pricelist/lib/utils';
 
 export default async function CataloguePage({
 	params,
@@ -16,7 +16,7 @@ export default async function CataloguePage({
 
 	return (
 		<div className={s.container}>
-			<Catalogue products={allProducts} locale={locale} />
+			<Catalogue products={sortProductsByCategory(allProducts)} locale={locale} />
 		</div>
 	);
 }

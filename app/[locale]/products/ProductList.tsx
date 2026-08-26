@@ -35,9 +35,9 @@ export default function ProductList({
 				position,
 				name,
 				namePlural,
-				products: allProducts.filter(({ categories }) =>
-					categories?.find((c) => c.name === name),
-				) as ProductRecord[],
+				products: allProducts
+					.filter(({ categories }) => categories?.find((c) => c.name === name))
+					.sort((a, b) => a.family.name.localeCompare(b.family.name)) as ProductRecord[],
 			};
 		});
 

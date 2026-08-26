@@ -20,7 +20,13 @@ query Distributor($id: ItemId, $locale: SiteLocale = en) {
 }
 
 query AllDistributors($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	allDistributors(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
+	allDistributors(
+		first: $first
+		skip: $skip
+		orderBy: [name_ASC]
+		locale: $locale
+		fallbackLocales: [sv, en]
+	) {
 		...DistributorFragment
 	}
 	_allDistributorsMeta(locale: $locale, fallbackLocales: [sv, en]) {
@@ -49,7 +55,13 @@ query Reseller($id: ItemId, $locale: SiteLocale = en) {
 }
 
 query AllResellers($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
-	allResellers(first: $first, skip: $skip, orderBy: [name_ASC], locale: $locale, fallbackLocales: [sv, en]) {
+	allResellers(
+		first: $first
+		skip: $skip
+		orderBy: [name_ASC]
+		locale: $locale
+		fallbackLocales: [sv, en]
+	) {
 		...ResellerFragment
 	}
 	_allResellersMeta(locale: $locale, fallbackLocales: [sv, en]) {
@@ -64,7 +76,13 @@ query Staff($id: ItemId, $locale: SiteLocale = en) {
 }
 
 query AllStaffs($first: IntType = 100, $skip: IntType = 0, $id: ItemId, $locale: SiteLocale = en) {
-	allStaffs(first: $first, skip: $skip, locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
+	allStaffs(
+		first: $first
+		skip: $skip
+		locale: $locale
+		fallbackLocales: [sv, en]
+		filter: { id: { eq: $id } }
+	) {
 		...StaffFragment
 	}
 	_allStaffsMeta(locale: $locale, fallbackLocales: [sv, en], filter: { id: { eq: $id } }) {
