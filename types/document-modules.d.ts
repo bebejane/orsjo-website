@@ -175,6 +175,7 @@ declare module '*/product.gql' {
 export const Product: DocumentNode;
 export const ProductById: DocumentNode;
 export const AllProducts: DocumentNode;
+export const AllPricelistProducts: DocumentNode;
 export const AllProductsLight: DocumentNode;
 export const AllProductManuals: DocumentNode;
 export const AllProductDownloads: DocumentNode;

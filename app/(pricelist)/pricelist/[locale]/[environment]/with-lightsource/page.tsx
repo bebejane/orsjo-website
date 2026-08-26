@@ -2,7 +2,7 @@ import s from './page.module.scss';
 import CatalogueLight from '@/pricelist/components/CatalogueLight';
 import { apiQuery } from 'next-dato-utils/api';
 import { sortProductsByCategory, toLanguageLocale } from '@/pricelist/lib/utils';
-import { AllProductsDocument } from '@/graphql';
+import { AllPricelistProductsDocument } from '@/graphql';
 
 const hardWiredModelNameId = '107174981';
 const fixedMountingId = '107174756';
@@ -11,7 +11,7 @@ export default async function CatalogueLightWrapper({
 	params,
 }: PageProps<'/pricelist/[locale]/[environment]/with-lightsource'>) {
 	const { locale, environment } = await (params as any);
-	const { allProducts } = await apiQuery(AllProductsDocument, {
+	const { allProducts } = await apiQuery(AllPricelistProductsDocument, {
 		all: true,
 		environment,
 		variables: { locale: toLanguageLocale(locale) },

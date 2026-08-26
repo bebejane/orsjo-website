@@ -2,13 +2,13 @@ import s from './page.module.scss';
 import { toLanguageLocale, sortProductsByCategory } from '@/pricelist/lib/utils';
 import CatalogueLight from '@/pricelist/components/CatalogueLight';
 import { apiQuery } from 'next-dato-utils/api';
-import { AllProductsDocument } from '@/graphql';
+import { AllPricelistProductsDocument } from '@/graphql';
 
 export default async function CatalogueLightPage({
 	params,
 }: PageProps<'/pricelist/[locale]/[environment]/light'>) {
 	const { locale, environment } = await (params as any);
-	const { allProducts } = await apiQuery(AllProductsDocument, {
+	const { allProducts } = await apiQuery(AllPricelistProductsDocument, {
 		all: true,
 		environment,
 		variables: { locale: toLanguageLocale(locale) },

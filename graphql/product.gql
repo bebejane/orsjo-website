@@ -38,6 +38,22 @@ query AllProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntTyp
 	}
 }
 
+query AllPricelistProducts($locale: SiteLocale = en, $first: IntType = 100, $skip: IntType = 0) {
+	allProducts(
+		locale: $locale
+		first: $first
+		skip: $skip
+		orderBy: [title_ASC]
+		fallbackLocales: [sv, en]
+		filter: { hideInPricelist: { eq: false } }
+	) {
+		...ProductFragment
+	}
+	_allProductsMeta(filter: { hideInPricelist: { eq: false } }) {
+		count
+	}
+}
+
 query AllProductsLight($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale = en) {
 	allProducts(
 		first: $first
