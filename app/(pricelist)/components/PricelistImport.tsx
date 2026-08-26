@@ -3,11 +3,10 @@
 import s from './PricelistImport.module.scss';
 import cn from 'classnames';
 import { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PricelistUpdateList from './PricelistUpdateList';
 import DotLoader from '@/app/(pricelist)/components/DotLoader';
 import { useRouter } from 'next/navigation';
-import { sleep } from 'next-dato-utils/utils';
 
 export default function PricelistImport({
 	upload,
@@ -20,7 +19,6 @@ export default function PricelistImport({
 	update: (updates: ProductUpdate) => Promise<any>;
 	current: { buffer: ArrayBuffer; filename: string } | null;
 }) {
-	const [uploadNew, setUploadNew] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [parsing, setParsing] = useState(false);
 	const [uploading, setUploading] = useState(false);
@@ -49,6 +47,7 @@ export default function PricelistImport({
 			setError(null);
 			const updates = await parse(current.buffer, current.filename);
 			setUpdates(updates);
+			console.log(updates);
 		} catch (err) {
 			setError(err instanceof Error ? err.message : (err as string));
 		} finally {
@@ -96,7 +95,7 @@ export default function PricelistImport({
 							<button onClick={parseFile} disabled={parsing}>
 								Apply to draft
 							</button>
-							<button disabled={parsing}>Apply to primary</button>
+							<button disabled={true}>Apply to primary</button>
 						</div>
 					</div>
 				)}

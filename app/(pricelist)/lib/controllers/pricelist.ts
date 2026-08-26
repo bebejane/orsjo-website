@@ -40,7 +40,7 @@ export type ProductUpdate = Record<
 		product: ProductRecord;
 		variants: { id: string; price: number; article_no: string | null }[];
 		lightsources: { id: string; price: number }[];
-		accessories: { id: string; price: number; article_no: string | null }[];
+		accessories: { id: string; price: number }[];
 		articles: number;
 	}
 >;
@@ -163,9 +163,10 @@ export async function generate(
 				const product = productRecords[x];
 				const variantUpdates: { id: string; price: number; article_no: string | null }[] = [];
 				const lightsourceUpdates: { id: string; price: number }[] = [];
-				const accessoryUpdates: { id: string; price: number; article_no: string | null }[] = [];
+				const accessoryUpdates: { id: string; price: number }[] = [];
+				const models = product.models as ModelBlock[];
 
-				(product.models as ModelBlock[] | undefined)?.filter((m: ModelBlock) =>
+				models?.filter((m: ModelBlock) =>
 					m.attributes.variants
 						?.filter((v: { id: string }) => v.id === objectId)
 						.forEach(
@@ -175,7 +176,7 @@ export async function generate(
 							}) => variantUpdates.push({ ...v.attributes, id: v.id, price: articles[i].price }),
 						),
 				);
-				(product.models as ModelBlock[] | undefined)?.filter((m: ModelBlock) =>
+				models?.filter((m: ModelBlock) =>
 					m.attributes.lightsources
 						?.filter(
 							(l: { attributes: { lightsource: string } }) => l.attributes.lightsource === objectId,
@@ -187,14 +188,17 @@ export async function generate(
 							}),
 						),
 				);
-				(product.models as ModelBlock[] | undefined)?.filter((m: ModelBlock) =>
+				models?.filter((m: ModelBlock) =>
 					m.attributes.accessories
-						?.filter((a: { id: string }) => a.id === objectId)
-						.forEach(
-							(a: {
-								id: string;
-								attributes: { article_no: string | null; price: number | null };
-							}) => accessoryUpdates.push({ ...a.attributes, id: a.id, price: articles[i].price }),
+						?.filter(
+							(a: { attributes: Record<string, unknown>; id: string }) =>
+								a.attributes.accessory === objectId,
+						)
+						.forEach((a: { attributes: Record<string, unknown>; id: string }) =>
+							accessoryUpdates.push({
+								id: a.attributes.accessory as string,
+								price: articles[i].price,
+							}),
 						),
 				);
 
@@ -258,6 +262,12 @@ export async function update(
 				await client.items.update(id, { price: parseFloat(String(price)) });
 			}
 		}
+		if (accessories.length) {
+			for (let x = 0; x < accessories.length; x++) {
+				const { id, price } = accessories[x];
+				await client.items.update(id, { price: parseFloat(String(price)) });
+			}
+		}
 		const product = await client.items.find(productId, { version: 'published', nested: true });
 
 		const query = {
@@ -276,9 +286,6 @@ export async function update(
 						buildBlockRecord({
 							item_type: { type: 'item_type', id: accessoryBlockId },
 							...a.attributes,
-							price:
-								accessories.find((el) => el.article_no === a.attributes.article_no)?.price ||
-								a.attributes.price,
 						}),
 					),
 					variants: model.attributes.variants.map((v: ModelBlock) =>
