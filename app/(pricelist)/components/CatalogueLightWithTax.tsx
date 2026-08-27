@@ -17,6 +17,7 @@ export default function CatalogueLightWithTax({
 				<ProductRow
 					key={rowIdx}
 					withLightsource={withLightsource}
+					withVat={true}
 					product={{
 						...product,
 						models: product.models.map((m) => ({

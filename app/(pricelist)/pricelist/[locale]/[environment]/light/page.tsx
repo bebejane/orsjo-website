@@ -8,6 +8,7 @@ export default async function CatalogueLightPage({
 	params,
 }: PageProps<'/pricelist/[locale]/[environment]/light'>) {
 	const { locale, environment } = await (params as any);
+
 	const { allProducts } = await apiQuery(AllPricelistProductsDocument, {
 		all: true,
 		environment,

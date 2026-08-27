@@ -9,9 +9,10 @@ import { useDictionary, usePricelist } from '@/pricelist/lib/context/pricelist';
 type ProductRowProps = {
 	product: AllProductsQuery['allProducts'][number];
 	withLightsource: boolean;
+	withVat?: boolean;
 };
 
-export default function ProductRow({ product, withLightsource }: ProductRowProps) {
+export default function ProductRow({ product, withLightsource, withVat }: ProductRowProps) {
 	const t = useDictionary('Catalogue');
 	const { currency, locale } = usePricelist();
 
@@ -54,8 +55,9 @@ export default function ProductRow({ product, withLightsource }: ProductRowProps
 										v.price,
 										lightsources as LightsourceRecord[],
 										currency,
+										withVat,
 									)
-								: formatPriceWithCurrency(v.price, currency)}
+								: formatPriceWithCurrency(v.price, currency, withVat)}
 						</td>
 					</tr>
 					{m.variants.length === idx + 1 &&
@@ -70,7 +72,7 @@ export default function ProductRow({ product, withLightsource }: ProductRowProps
 									<td>
 										{withLightsource
 											? 'Inkluderad'
-											: formatPriceWithCurrency(lightsource.price, currency)}
+											: formatPriceWithCurrency(lightsource.price, currency, withVat)}
 									</td>
 								</tr>
 							))}
@@ -81,7 +83,7 @@ export default function ProductRow({ product, withLightsource }: ProductRowProps
 								<tr key={`acc-${idx}-${idxv}-${idxm}`}>
 									<td>{accessory?.articleNo || '---'}</td>
 									<td>{accessory?.name}</td>
-									<td>{formatPriceWithCurrency(accessory?.price, currency)}</td>
+									<td>{formatPriceWithCurrency(accessory?.price, currency, withVat)}</td>
 								</tr>
 							))}
 					{idx + 1 === m.variants.length && (

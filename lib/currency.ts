@@ -71,37 +71,46 @@ export const convertPriceWithRate = (price: number, c: CurrencyRate) => {
 
 export const convertPriceWithRatesAndTaxes = (price: number, c: CurrencyRate) => {
 	if (price === 0) return 0;
-	return Math.ceil((price * c.surcharge) / (c.rate * c.rateDeduction));
+	return Math.ceil(((price * c.surcharge) / (c.rate * c.rateDeduction)) * c.vatRate);
 };
 
 export const formatPrice = async (price: number, _locale: SiteLocale) => {
 	const c = await getCurrencyRateByLocale(_locale);
 	const locale = formatLocale(_locale);
+
 	const nf = new Intl.NumberFormat(
 		`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`,
 	);
 	return `${nf.format(Math.ceil(price))} ${c.symbol}`;
 };
 
-export const formatPriceWithCurrency = async (price: number, currency: CurrencyRate) => {
+export const formatPriceWithCurrency = async (
+	price: number,
+	currency: CurrencyRate,
+	vat?: boolean,
+) => {
 	const locale = formatLocale(currency.locale);
+	const convertedPrice = vat
+		? convertPriceWithRatesAndTaxes(price, currency)
+		: convertPriceWithRate(price, currency);
 	const nf = new Intl.NumberFormat(
 		`${!locale.includes('-') ? `${locale}-${locale.toUpperCase()}` : locale}`,
 	);
-	return `${nf.format(Math.ceil(price))} ${currency.symbol}`;
+	return `${nf.format(Math.ceil(convertedPrice))} ${currency.symbol}`;
 };
 
 export async function formatPriceWithLightsources(
 	prodPrice: number,
 	lightsources: LightsourceRecord[],
 	currency: CurrencyRate,
+	vat?: boolean,
 ) {
 	let price = prodPrice;
 	lightsources
 		.filter((l) => !l.optional && !l.included)
 		.forEach((l) => (price += l.lightsource.price * (l.amount ? l.amount : 0)));
 
-	return formatPriceWithCurrency(price, currency);
+	return formatPriceWithCurrency(price, currency, vat);
 }
 
 export function formatLocale(locale: SiteLocale) {
