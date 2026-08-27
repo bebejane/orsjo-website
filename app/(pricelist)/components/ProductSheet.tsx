@@ -30,9 +30,9 @@ export default function ProductSheet({ product, withPrice = false }: ProductShee
 
 	return (
 		<>
-			<a id={product.slug}></a>
+			{/* <a id={product.slug}></a> */}
 			<Page>
-				<div className={cn(s.frontPage)}>
+				<div id={product.slug} className={cn(s.frontPage)}>
 					<a href='#home' className={s.logo}>
 						Ö
 					</a>

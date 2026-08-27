@@ -50,5 +50,6 @@ export const useDictionary = (key: string) => {
 	if (!context) {
 		throw new Error('useDictionary must be used within a PricelistProvider');
 	}
+
 	return (prop: string) => context.messages[key][prop];
 };

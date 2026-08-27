@@ -21,7 +21,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
 					<a id='home'></a>
 					<header>
 						<h1>{t('products')}</h1>
-						<p>{t('tip')}</p>
+						{/* <p>{t('tip')}</p> */}
 					</header>
 					{products.slice(0, (rows - 1) * cols).map(({ image, title, slug }, idx) => (
 						<a key={idx} className={s.product} href={`#${slug}`}>
