@@ -29,7 +29,7 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 			path: '/',
 		});
 
-		const res = await page.goto(url, { timeout: 60 * 1000, waitUntil: 'networkidle2' });
+		const res = await page.goto(url, { timeout: 120 * 1000, waitUntil: 'networkidle0' });
 
 		if (res?.status() !== 200)
 			throw new Error(`Internal server error. HTTP status: ${res?.status()}`);
