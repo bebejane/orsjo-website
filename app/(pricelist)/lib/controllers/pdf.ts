@@ -6,6 +6,7 @@ import { Upload } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 import { buildClient } from '@datocms/cma-client-node';
 import { EnvironmentSettings, Product } from '@/types/datocms-cma';
 import { hashPassword } from '@/app/(pricelist)/lib/auth';
+import { sleep } from 'next-dato-utils/utils';
 
 const client = buildClient({
 	apiToken: process.env.DATOCMS_API_TOKEN as string,
@@ -29,7 +30,9 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 			path: '/',
 		});
 
-		const res = await page.goto(url, { timeout: 120 * 1000, waitUntil: 'networkidle0' });
+		const res = await page.goto(url, { timeout: 120 * 1000, waitUntil: 'networkidle2' });
+
+		await sleep(5000);
 
 		if (res?.status() !== 200)
 			throw new Error(`Internal server error. HTTP status: ${res?.status()}`);
