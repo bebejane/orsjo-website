@@ -30,7 +30,7 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 			path: '/',
 		});
 
-		const res = await page.goto(url, { timeout: 120 * 1000, waitUntil: 'networkidle2' });
+		const res = await page.goto(url, { timeout: 120 * 1000, waitUntil: 'networkidle0' });
 
 		await sleep(5000);
 
