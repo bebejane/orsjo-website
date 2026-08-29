@@ -17,26 +17,19 @@ export default function DownloadPricelist({ href, label, extension }: DownloadPr
 		setIsLoading(true);
 		try {
 			const href = e.currentTarget.getAttribute('href')!;
+			//const href = 'https://kyvt2fwpvm40sa2v.public.blob.vercel-storage.com/%C3%96rsjo%20Pricelist%20%28NOK%29%20-%20Light.pdf?download=1'
 
-			const response = await fetch(href);
-			const disposition = response.headers.get('content-disposition');
-			var filename = 'pricelist.pdf';
-			if (disposition) {
-				const filenameStar = /filename\*\s*=\s*UTF-8''([^\s;]+)/i.exec(disposition);
-				if (filenameStar?.[1]) {
-					filename = decodeURIComponent(filenameStar[1]);
-				} else {
-					const filenameMatch = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
-					if (filenameMatch?.[1]) {
-						filename = filenameMatch[1].replace(/['"]/g, '');
-					}
-				}
-			}
+			let response = await fetch(href);
+			if (!response.ok) throw new Error('Invalid request');
+			const { url, filename } = await response.json();
+			console.log(url);
+			response = await fetch(url);
+			if (!response.ok) throw new Error('Invalid request');
 
 			const blob = await response.blob();
-			var url = window.URL.createObjectURL(blob);
+			var blobUrl = window.URL.createObjectURL(blob);
 			var a = document.createElement('a');
-			a.href = url;
+			a.href = blobUrl;
 			a.download = filename;
 			document.body.appendChild(a);
 			a.click();

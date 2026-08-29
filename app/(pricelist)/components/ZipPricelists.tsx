@@ -23,10 +23,14 @@ export function ZipPricelists({ title, paths }: ZipPricelistsProps) {
 		setError(null);
 		try {
 			const files = await Promise.all(
-				paths.map(async ({ path, filename }) => ({
-					input: await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}${path}`),
-					name: filename,
-				})),
+				paths.map(async ({ path }) => {
+					const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}${path}`);
+					const { url, filename } = await res.json();
+					return {
+						input: await fetch(url),
+						name: filename,
+					};
+				}),
 			);
 
 			const blob = await downloadZip(files).blob();

@@ -1,15 +1,11 @@
 import { pricelists } from '@/pricelist/lib/pricelists';
 import { generate, merge, mergeUrl } from '@/pricelist/lib/controllers/pdf';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
 import { getCurrencyRateByLocale } from '@/lib/currency';
 import { PricelistDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
+import { put } from '@vercel/blob';
 
 export const maxDuration = 120;
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const catalogueRoot = join(dirname(__dirname), '../..');
 
 export async function GET(
 	req: Request,
@@ -33,13 +29,12 @@ export async function GET(
 
 	const currency = await getCurrencyRateByLocale(locale);
 	const title = `Örsjo Pricelist (${currency.isoCode}) - ${pricelist.label}`;
-	const encodedTitle = encodeURIComponent(title);
-
-	return new Response(data, {
-		status: 200,
-		headers: {
-			'content-type': 'application/pdf',
-			'content-disposition': `attachment; filename="pricelist.pdf"; filename*=UTF-8''${encodedTitle}.pdf`,
-		},
+	console.time('upload blob');
+	const blob = await put(`${title}.pdf`, Buffer.from(data), {
+		access: 'public',
+		allowOverwrite: true,
 	});
+	console.timeEnd('upload blob');
+	console.log(blob.downloadUrl);
+	return Response.json({ url: blob.downloadUrl, filename: `${title}.pdf` });
 }
