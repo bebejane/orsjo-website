@@ -17,8 +17,6 @@ export default function DownloadPricelist({ href, label, extension }: DownloadPr
 		setIsLoading(true);
 		try {
 			const href = e.currentTarget.getAttribute('href')!;
-			//const href = 'https://kyvt2fwpvm40sa2v.public.blob.vercel-storage.com/%C3%96rsjo%20Pricelist%20%28NOK%29%20-%20Light.pdf?download=1'
-
 			let response = await fetch(href);
 			if (!response.ok) throw new Error('Invalid request');
 			const { url, filename } = await response.json();
