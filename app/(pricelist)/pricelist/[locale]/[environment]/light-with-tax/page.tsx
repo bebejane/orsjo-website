@@ -21,7 +21,6 @@ export default async function CatalogueLightWithTaxPage({
 			<CatalogueLightWithTax
 				products={sortProductsByCategory(allProducts)}
 				withLightsource={false}
-				taxRate={1.25}
 			/>
 		</div>
 	);
