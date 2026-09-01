@@ -23,9 +23,13 @@ export async function GET(
 		environment,
 		variables: { locale: locale as SiteLocale },
 	});
+
 	const coverUrl = !pricelist.vat ? cover.pricelist?.cover?.url : cover.pricelist?.coverIncVat?.url;
-	if (!coverUrl) throw new Error('cover not found');
-	data = await mergeUrl(coverUrl, data);
+	if (coverUrl) {
+		data = await mergeUrl(coverUrl, data);
+	} else {
+		console.warn('no cover found');
+	}
 
 	const currency = await getCurrencyRateByLocale(locale);
 	const title = `Örsjo Pricelist (${currency.isoCode}) - ${pricelist.label}`;
@@ -33,7 +37,9 @@ export async function GET(
 	const blob = await put(`${title}.pdf`, Buffer.from(data), {
 		access: 'public',
 		allowOverwrite: true,
+		addRandomSuffix: true,
 	});
+
 	console.timeEnd('upload blob');
 	console.log(blob.downloadUrl);
 	return Response.json({ url: blob.downloadUrl, filename: `${title}.pdf` });

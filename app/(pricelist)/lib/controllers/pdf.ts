@@ -32,7 +32,7 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 
 		const res = await page.goto(url, { timeout: 120 * 1000, waitUntil: 'networkidle0' });
 
-		await sleep(5000);
+		//await sleep(5000);
 
 		if (res?.status() !== 200)
 			throw new Error(`Internal server error. HTTP status: ${res?.status()}`);
@@ -76,58 +76,19 @@ export async function merge(paths: string[], buffer: Uint8Array<ArrayBuffer>) {
 	return Buffer.from(mergedPdfBytes);
 }
 
-function getLinksPDFName(): PDFName {
-	return PDFName.of('Dests');
-}
-function copyLinks(sources: PDFDocument[], target: PDFDocument) {
-	const targetLinksDict = PDFDict.withContext(target.context);
-	const LINKS_PDF_NAME = getLinksPDFName();
-	let currentTargetPage = 0;
-	for (const source of sources) {
-		const { mapping, targetPage } = mapSourceToTargetPages(source, target, currentTargetPage);
-		currentTargetPage = targetPage;
-
-		const links = source.context.lookupMaybe(source.catalog.get(LINKS_PDF_NAME), PDFDict);
-		if (links !== null) {
-			links?.entries().forEach(([destName, destValue]) => {
-				const currentRef = (destValue as PDFArray).get(0) as PDFRef;
-				(destValue as PDFArray).set(0, mapping[currentRef.tag]);
-				targetLinksDict.set(destName, destValue);
-			});
-		}
-	}
-
-	const destinationDestsRef = target.context.register(targetLinksDict);
-	target.catalog.set(LINKS_PDF_NAME, destinationDestsRef);
-}
-
-function mapSourceToTargetPages(
-	source: PDFDocument,
-	target: PDFDocument,
-	startingTargetPage: number,
-): { mapping: Record<string, PDFRef>; targetPage: number } {
-	const result: Record<string, PDFRef> = {};
-	const targetPages = target.getPages();
-	let currentTargetPage = startingTargetPage;
-	const sourcePages = source.getPages();
-
-	for (let i = 0; i < sourcePages.length; i++) {
-		result[sourcePages[i].ref.tag] = targetPages[currentTargetPage]?.ref;
-		currentTargetPage++;
-	}
-
-	return { mapping: result, targetPage: currentTargetPage };
-}
-
 export async function mergeUrl(url: string, buffer: Uint8Array<ArrayBuffer>) {
-	const output = await PDFDocument.create();
-	const mergedPdf = await PDFDocument.load(buffer); // keep generated pricelist as base → anchors intact
+	const mergedPdf = await PDFDocument.create();
 	const pdfBytes = await (await fetch(url)).arrayBuffer();
-	const cover = await PDFDocument.load(pdfBytes);
-	const coverPages = await mergedPdf.copyPages(cover, cover.getPageIndices());
-	coverPages.reverse().forEach((page) => mergedPdf.insertPage(0, page)); // prepend cover
-	copyLinks([cover, mergedPdf], output);
-	return Buffer.from(await output.save());
+	const pdf = await PDFDocument.load(pdfBytes);
+	const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+	copiedPages.forEach((page) => mergedPdf.addPage(page));
+
+	const main = await PDFDocument.load(buffer);
+	const copy = await mergedPdf.copyPages(main, main.getPageIndices());
+	copy.forEach((page) => mergedPdf.addPage(page));
+	const mergedPdfBytes = await mergedPdf.save();
+
+	return Buffer.from(mergedPdfBytes);
 }
 
 type UploadOptions = {
