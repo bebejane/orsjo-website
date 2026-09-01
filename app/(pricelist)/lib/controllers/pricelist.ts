@@ -321,10 +321,11 @@ export async function update(
 export async function csv(locale: SiteLocale, environment = DRAFT_ENVIRONMENT): Promise<string> {
 	const hideIncluded = true;
 	if (!locale) throw new Error('Locale not found');
-
+	console.log(environment);
 	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
 		environment,
+		revalidate: 0,
 		variables: { locale: toLanguageLocale(locale) },
 	});
 

@@ -18,6 +18,7 @@ export async function GET(
 	const blob = await put(filename, Buffer.from(csv), {
 		access: 'public',
 		allowOverwrite: true,
+		addRandomSuffix: true,
 	});
 	return Response.json({ url: blob.downloadUrl, filename });
 }
