@@ -9,7 +9,11 @@ import {
 } from '@/types/datocms-cma';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument, PricelistDocument } from '@/graphql';
-import { convertPriceWithRate, getCurrencyRateByLocale } from '@/lib/currency';
+import {
+	convertPriceWithRate,
+	convertPriceWithRatesAndTaxes,
+	getCurrencyRateByLocale,
+} from '@/lib/currency';
 import { toLanguageLocale } from '@/pricelist/lib/utils';
 import { buildClient } from '@datocms/cma-client-node';
 
@@ -318,10 +322,14 @@ export async function update(
 	return { updated, errors };
 }
 
-export async function csv(locale: SiteLocale, environment = DRAFT_ENVIRONMENT): Promise<string> {
+export async function csv(
+	locale: SiteLocale,
+	environment = DRAFT_ENVIRONMENT,
+	vat = false,
+): Promise<string> {
 	const hideIncluded = true;
 	if (!locale) throw new Error('Locale not found');
-	console.log(environment);
+
 	const { allProducts } = await apiQuery(AllProductsDocument, {
 		all: true,
 		environment,
@@ -350,7 +358,9 @@ export async function csv(locale: SiteLocale, environment = DRAFT_ENVIRONMENT): 
 					[variant.color?.name, variant.material?.name, variant.feature?.name]
 						.filter(Boolean)
 						.join(', '),
-					convertPriceWithRate(variant.price, currency).toFixed(0),
+					vat
+						? convertPriceWithRatesAndTaxes(variant.price, currency).toFixed(0)
+						: convertPriceWithRate(variant.price, currency).toFixed(0),
 				]);
 			}
 			for (const lightsources of model.lightsources) {
@@ -363,7 +373,9 @@ export async function csv(locale: SiteLocale, environment = DRAFT_ENVIRONMENT): 
 						`${lightsource?.name}${includedWithoutPrice ? ` (included)` : ''}`,
 						includedWithoutPrice
 							? ''
-							: convertPriceWithRate(lightsource?.price, currency).toFixed(0),
+							: vat
+								? convertPriceWithRatesAndTaxes(lightsource?.price, currency).toFixed(0)
+								: convertPriceWithRate(lightsource?.price, currency).toFixed(0),
 					]);
 				}
 			}
@@ -371,7 +383,9 @@ export async function csv(locale: SiteLocale, environment = DRAFT_ENVIRONMENT): 
 				rows.push([
 					`="${accessories.accessory?.articleNo}"`,
 					accessories.accessory?.name ?? '',
-					convertPriceWithRate(accessories.accessory?.price, currency).toFixed(0),
+					vat
+						? convertPriceWithRatesAndTaxes(accessories.accessory?.price, currency).toFixed(0)
+						: convertPriceWithRate(accessories.accessory?.price, currency).toFixed(0),
 				]);
 			rows.push(['', '', '']);
 		}

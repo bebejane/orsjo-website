@@ -71,7 +71,6 @@ export const convertPriceWithRate = (price: number, c: CurrencyRate) => {
 
 export const convertPriceWithRatesAndTaxes = (price: number, c: CurrencyRate) => {
 	if (price === 0) return 0;
-	console.log(c);
 	return Math.ceil(((price * c.surcharge) / (c.rate * c.rateDeduction)) * (c.vatRate + 1));
 };
 

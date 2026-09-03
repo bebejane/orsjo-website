@@ -1,5 +1,5 @@
 import { pricelists } from '@/pricelist/lib/pricelists';
-import { generate, merge, mergeUrl } from '@/pricelist/lib/controllers/pdf';
+import { generate, mergeUrl } from '@/pricelist/lib/controllers/pdf';
 import { getCurrencyRateByLocale } from '@/lib/currency';
 import { PricelistDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
@@ -9,14 +9,14 @@ export const maxDuration = 120;
 
 export async function GET(
 	req: Request,
-	{ params }: RouteContext<'/pricelist/[locale]/[environment]/[...pdf]'>,
+	{ params }: RouteContext<'/pricelist/[locale]/[environment]/download/pdf/[...pdf]'>,
 ) {
 	const { locale, environment, pdf } = await params;
 	const pricelist = pricelists.find((p) => p.path === pdf[0]);
-	const url = req.url.split('/').slice(0, -1).join('/');
 
 	if (!pricelist) return new Response('Not found', { status: 404 });
 
+	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pricelist/${locale}/${environment}/${pricelist.path}`;
 	let data = await generate(url);
 
 	const cover = await apiQuery(PricelistDocument, {

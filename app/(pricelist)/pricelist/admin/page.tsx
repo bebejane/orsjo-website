@@ -24,15 +24,15 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 		<div className={s.container}>
 			<h2>Prislistor</h2>
 			<ul className={s.pricelists}>
-				{pricelists.map((pricelist, idx) => (
-					<li key={pricelist.path}>
+				{pricelists.map(({ path, label, format, vat }, idx) => (
+					<li key={path}>
 						<header>
-							<h3>{pricelist.label}</h3>
+							<h3>{label}</h3>
 							<ZipPricelists
-								title={pricelist.label}
+								title={label}
 								paths={locales.map((locale) => ({
-									path: `/pricelist/${locale}/${environment}/${pricelist.path}/pdf`,
-									filename: `Örsjö Pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+									path: `/pricelist/${locale}/${environment}/download/${format}/${path}`,
+									filename: `Örsjö Pricelist - ${label} (${currencies.find((c) => c.locale === locale)?.isoCode}).${format}`,
 								}))}
 							/>
 						</header>
@@ -40,37 +40,20 @@ export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>
 							{locales.map((locale, idx) => (
 								<li key={locale}>
 									<span>{locale}</span>
-									<a href={`/pricelist/${locale}/${environment}/${pricelist.path}`}>HTML</a>
-									<a href={`/pricelist/${locale}/${environment}/${pricelist.path}/pdf`} download>
-										PDF
+									{format === 'pdf' && (
+										<a href={`/pricelist/${locale}/${environment}/${path}`}>HTML</a>
+									)}
+									<a
+										href={`/pricelist/${locale}/${environment}/download/${format}/${path}`}
+										download
+									>
+										{format.toUpperCase()}
 									</a>
 								</li>
 							))}
 						</ul>
 					</li>
 				))}
-				<li>
-					<header>
-						<h3>Csv</h3>
-						<ZipPricelists
-							title={`Csv`}
-							paths={locales.map((locale) => ({
-								path: `/pricelist/${locale}/${environment}/csv`,
-								filename: `Örsjö Pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
-							}))}
-						/>
-					</header>
-					<ul>
-						{locales.map((locale, idx) => (
-							<li key={locale}>
-								<span>{locale}</span>
-								<a href={`/pricelist/${locale}/${environment}/csv`} download>
-									CSV
-								</a>
-							</li>
-						))}
-					</ul>
-				</li>
 			</ul>
 			<br />
 			<br />

@@ -62,15 +62,15 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 			<div className={s.download}>
 				<h2>Download pricelists</h2>
 				<ul className={s.pricelists}>
-					{pricelists.map((pricelist, idx) => (
-						<li key={pricelist.path}>
+					{pricelists.map(({ path, label, format, vat }, idx) => (
+						<li key={path}>
 							<header>
-								<h3>{pricelist.label}</h3>
+								<h3>{label}</h3>
 								<ZipPricelists
-									title={pricelist.label}
+									title={label}
 									paths={locales.map((locale) => ({
-										path: `/pricelist/${locale}/${environment}/${pricelist.path}/pdf`,
-										filename: `Örsjö Pricelist - ${pricelist.label} (${currencies.find((c) => c.locale === locale)?.isoCode}).pdf`,
+										path: `/pricelist/${locale}/${environment}/download/${format}/${path}`,
+										filename: `Örsjö Pricelist - ${label} (${currencies.find((c) => c.locale === locale)?.isoCode}).${format}`,
 									}))}
 								/>
 							</header>
@@ -80,40 +80,15 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 									.map(({ isoCode, locale }) => (
 										<li key={isoCode}>
 											<DownloadPricelist
-												href={`/pricelist/${locale}/${environment}/${pricelist.path}/pdf`}
+												href={`/pricelist/${locale}/${environment}/download/${format}/${path}`}
 												label={isoCode}
-												extension='pdf'
+												extension={format}
 											/>
 										</li>
 									))}
 							</ul>
 						</li>
 					))}
-					<li>
-						<header>
-							<h3>Csv</h3>
-							<ZipPricelists
-								title={`Örsjö Pricelist - CSV - ${format(new Date(), 'yyyy-mm-dd')}`}
-								paths={locales.map((locale) => ({
-									path: `/pricelist/${locale}/${environment}/csv`,
-									filename: `Örsjö Pricelist - Csv - (${currencies.find((c) => c.locale === locale)?.isoCode}).csv`,
-								}))}
-							/>
-						</header>
-						<ul>
-							{currencies
-								.sort((a, b) => a.isoCode.localeCompare(b.isoCode))
-								.map(({ isoCode, locale }) => (
-									<li key={isoCode}>
-										<DownloadPricelist
-											href={`/pricelist/${locale}/${environment}/csv`}
-											label={isoCode}
-											extension='csv'
-										/>
-									</li>
-								))}
-						</ul>
-					</li>
 				</ul>
 				<br />
 				<br />
