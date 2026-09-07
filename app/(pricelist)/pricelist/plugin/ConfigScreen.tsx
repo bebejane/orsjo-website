@@ -2,6 +2,7 @@
 
 import { RenderConfigScreenCtx } from 'datocms-plugin-sdk';
 import { Canvas, SwitchField } from 'datocms-react-ui';
+import 'datocms-react-ui/styles.css';
 
 type PropTypes = {
 	ctx: RenderConfigScreenCtx;
