@@ -17,7 +17,7 @@ export function Plugin({}: PluginPageProps) {
 
 	function render(component: React.ReactNode) {
 		rootElement = rootElement ?? document.getElementById('root');
-		root = root ?? createRoot(rootElement as HTMLElement);
+		if (!root) root = createRoot(rootElement as HTMLElement);
 		root?.render(<React.StrictMode>{component}</React.StrictMode>);
 	}
 
@@ -30,6 +30,7 @@ export function Plugin({}: PluginPageProps) {
 				render(<ConfigScreen ctx={ctx} />);
 			},
 			renderPage(pageId, ctx) {
+				console.log('renderPage', ctx.plugin.attributes.parameters?.enabled);
 				if (ctx.plugin.attributes.parameters?.enabled === false) return;
 				switch (pageId) {
 					case 'pricelist':
@@ -37,6 +38,7 @@ export function Plugin({}: PluginPageProps) {
 				}
 			},
 			mainNavigationTabs(ctx) {
+				console.log('mainNavigationTabs', ctx.plugin.attributes.parameters?.enabled);
 				if (ctx.plugin.attributes.parameters?.enabled === false) return [];
 				const isDev = process.env.NODE_ENV === 'development';
 

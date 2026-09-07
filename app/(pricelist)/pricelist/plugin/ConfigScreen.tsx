@@ -1,7 +1,7 @@
 'use client';
 
 import { RenderConfigScreenCtx } from 'datocms-plugin-sdk';
-import { Canvas, SwitchField } from 'datocms-react-ui';
+import { Canvas, ContextInspector, SwitchField } from 'datocms-react-ui';
 import 'datocms-react-ui/styles.css';
 
 type PropTypes = {
@@ -25,6 +25,7 @@ export function ConfigScreen({ ctx }: PropTypes) {
 				label='Enable plugin'
 				value={enabled}
 			/>
+			<ContextInspector />
 		</Canvas>
 	);
 }
