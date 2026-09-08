@@ -44,7 +44,10 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 	useEffect(() => {
 		if (!videoRef.current) return console.log('no video ref');
 
-		if (active) videoRef.current.play().catch((err) => {});
+		if (active)
+			videoRef.current.play().catch((err) => {
+				console.log(err);
+			});
 		else videoRef.current.pause();
 	}, [active, videoRef]);
 
@@ -63,7 +66,7 @@ export default function VideoPlayer({ data, className }: VideoPlayerProps) {
 		<div className={s.container} style={{ width: '100%', height: '100%', position: 'relative' }}>
 			<video
 				className={cn(s.video, className)}
-				src={data.video?.streamingUrl}
+				src={data.video?.mp4Url ?? ''}
 				ref={setRefs}
 				playsInline={true}
 				muted={true}
