@@ -5,7 +5,7 @@ import { ApiError, buildBlockRecord, buildClient } from '@datocms/cma-client';
  * Migrates the product model tree from inline `variant` blocks to standalone
  * `product_variant` records.
  *
- *   1. deletes the `variants` sandbox environment (if it exists)
+ *   1. deletes the `dev` sandbox environment (if it exists)
  *   2. forks the primary environment into a fresh `variants` sandbox
  *   3. creates a `product_variant` model copying every field of the `variant` block
  *   4. renames `product_model.variants` (Modular Content) -> `variants_legacy`
@@ -17,7 +17,7 @@ import { ApiError, buildBlockRecord, buildClient } from '@datocms/cma-client';
  * Run with: pnpm exec tsx lib/scripts/variants_migration.ts
  */
 
-const ENV = 'variants';
+const ENV = 'dev';
 const PRODUCT_TYPE = 'product';
 const PRODUCT_MODEL_API_KEY = 'product_model';
 const VARIANT_BLOCK_API_KEY = 'variant';
@@ -219,9 +219,7 @@ async function migrateContent(
 		let dirty = false;
 
 		for (const modelBlock of modelBlocks) {
-			const legacy = modelBlock.attributes[LEGACY_FIELD_API_KEY] as
-				| NestedBlock[]
-				| undefined;
+			const legacy = modelBlock.attributes[LEGACY_FIELD_API_KEY] as NestedBlock[] | undefined;
 
 			if (!legacy?.length) {
 				modelsPayload.push(modelBlock.id);
@@ -330,9 +328,7 @@ async function main(): Promise<void> {
 
 	const elapsed = ((Date.now() - started) / 1000).toFixed(1);
 	console.log(`\nDone in ${elapsed}s — environment "${ENV}" is ready for review.`);
-	console.log(
-		'The `variant` block model is now unused and can be destroyed manually if desired.',
-	);
+	console.log('The `variant` block model is now unused and can be destroyed manually if desired.');
 }
 
 if (process.env.SKIP !== '1') {
