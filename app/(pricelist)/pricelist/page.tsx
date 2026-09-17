@@ -8,7 +8,6 @@ import DownloadPricelist from '@/pricelist/components/DownloadPricelist';
 import { ProductUpdatesResponse, ProductUpdate } from '@/pricelist/lib/controllers/pricelist';
 import PricelistImport from '../components/PricelistImport';
 import * as pricelistController from '@/pricelist/lib/controllers/pricelist';
-import { format } from 'date-fns';
 
 export const maxDuration = 300;
 
