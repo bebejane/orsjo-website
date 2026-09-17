@@ -1,7 +1,241 @@
 import type { ItemTypeDefinition } from '@datocms/cma-client';
+
 type EnvironmentSettings = {
   locales: 'en' | 'sv' | 'no' | 'da' | 'en-GB';
 };
+
+export type About = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996033',
+  {
+    title: {
+      type: 'text';
+    };
+    intro: {
+      type: 'text';
+    };
+    video: {
+      type: 'file';
+    };
+    sections: {
+      type: 'rich_text';
+      blocks: AboutSection;
+    };
+  }
+>;
+export const About = {
+  ID: '1996033',
+  REF: { type: 'item_type', id: '1996033' },
+} as const;
+
+export type AboutSection = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996034',
+  {
+    text: {
+      type: 'text';
+    };
+    video: {
+      type: 'file';
+    };
+  }
+>;
+export const AboutSection = {
+  ID: '1996034',
+  REF: { type: 'item_type', id: '1996034' },
+} as const;
+
+export type Accessory = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801309',
+  {
+    accessory: {
+      type: 'link';
+    };
+  }
+>;
+export const Accessory = {
+  ID: '1801309',
+  REF: { type: 'item_type', id: '1801309' },
+} as const;
+
+export type Bespoke = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996016',
+  {
+    thumbnail: {
+      type: 'file';
+    };
+    secondary_thumbnail: {
+      type: 'file';
+    };
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+    outro: {
+      type: 'text';
+    };
+    examples: {
+      type: 'rich_text';
+      blocks: BespokeProject;
+    };
+    image: {
+      type: 'file';
+    };
+  }
+>;
+export const Bespoke = {
+  ID: '1996016',
+  REF: { type: 'item_type', id: '1996016' },
+} as const;
+
+export type BespokeProject = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996017',
+  {
+    summary: {
+      type: 'text';
+    };
+    project: {
+      type: 'link';
+    };
+  }
+>;
+export const BespokeProject = {
+  ID: '1996017',
+  REF: { type: 'item_type', id: '1996017' },
+} as const;
+
+export type Catalogue = ItemTypeDefinition<
+  EnvironmentSettings,
+  '2010205',
+  {
+    pdf: {
+      type: 'file';
+    };
+    thumbnail: {
+      type: 'file';
+    };
+    title: {
+      type: 'string';
+    };
+  }
+>;
+export const Catalogue = {
+  ID: '2010205',
+  REF: { type: 'item_type', id: '2010205' },
+} as const;
+
+export type ColorMaterial = ItemTypeDefinition<
+  EnvironmentSettings,
+  '2011957',
+  {
+    image: {
+      type: 'file';
+    };
+    description: {
+      type: 'string';
+    };
+    category: {
+      type: 'link';
+    };
+    position: {
+      type: 'integer';
+    };
+  }
+>;
+export const ColorMaterial = {
+  ID: '2011957',
+  REF: { type: 'item_type', id: '2011957' },
+} as const;
+
+export type ColorMaterialIntro = ItemTypeDefinition<
+  EnvironmentSettings,
+  '2011967',
+  {
+    intro: {
+      type: 'text';
+    };
+  }
+>;
+export const ColorMaterialIntro = {
+  ID: '2011967',
+  REF: { type: 'item_type', id: '2011967' },
+} as const;
+
+export type ColorMaterialType = ItemTypeDefinition<
+  EnvironmentSettings,
+  '2011958',
+  {
+    category: {
+      type: 'string';
+    };
+    category_plural: {
+      type: 'string';
+    };
+    position: {
+      type: 'integer';
+    };
+  }
+>;
+export const ColorMaterialType = {
+  ID: '2011958',
+  REF: { type: 'item_type', id: '2011958' },
+} as const;
+
+export type Contact = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996025',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+    address: {
+      type: 'text';
+    };
+    phone: {
+      type: 'string';
+    };
+    email: {
+      type: 'string';
+    };
+    showroom_intro: {
+      type: 'text';
+    };
+    contact_form_message: {
+      type: 'text';
+    };
+    image: {
+      type: 'file';
+    };
+  }
+>;
+export const Contact = {
+  ID: '1996025',
+  REF: { type: 'item_type', id: '1996025' },
+} as const;
+
+export type Country = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1990287',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export const Country = {
+  ID: '1990287',
+  REF: { type: 'item_type', id: '1990287' },
+} as const;
+
 export type Currency = ItemTypeDefinition<
   EnvironmentSettings,
   'XvpmvBqzR9-ogxmiWRp4lA',
@@ -32,731 +266,48 @@ export type Currency = ItemTypeDefinition<
     };
   }
 >;
-export type Term = ItemTypeDefinition<
+export const Currency = {
+  ID: 'XvpmvBqzR9-ogxmiWRp4lA',
+  REF: { type: 'item_type', id: 'XvpmvBqzR9-ogxmiWRp4lA' },
+} as const;
+
+export type DeliveryTerm = ItemTypeDefinition<
   EnvironmentSettings,
-  'FXlY1YXYQXCnlE6YrQ2K9w',
+  'MpT9ez-DTdmZphlxNcx89w',
   {
-    title: {
+    iso_code: {
       type: 'string';
     };
     text: {
-      type: 'structured_text';
-    };
-    category: {
-      type: 'link';
-    };
-  }
->;
-export type TermCategory = ItemTypeDefinition<
-  EnvironmentSettings,
-  'EFtwhOeaRRC1ZPgMYSmk3Q',
-  {
-    title: {
       type: 'string';
     };
   }
 >;
-export type TermStart = ItemTypeDefinition<
+export const DeliveryTerm = {
+  ID: 'MpT9ez-DTdmZphlxNcx89w',
+  REF: { type: 'item_type', id: 'MpT9ez-DTdmZphlxNcx89w' },
+} as const;
+
+export type DeliveryTime = ItemTypeDefinition<
   EnvironmentSettings,
-  'aEtvaDzBSmOO5dNfhcSrlg',
+  'IPuZ-SmgQb6d2NyNn3dDYA',
   {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-  }
->;
-export type Lightsource = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801306',
-  {
-    lightsource: {
-      type: 'link';
-    };
-    amount: {
-      type: 'integer';
-    };
-    included: {
-      type: 'boolean';
-    };
-    optional: {
-      type: 'boolean';
-    };
-  }
->;
-export type ProductModel = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801307',
-  {
-    name: {
-      type: 'link';
-    };
-    variants: {
-      type: 'rich_text';
-      blocks: Variant;
-    };
-    drawing: {
-      type: 'file';
-    };
-    lightsources: {
-      type: 'rich_text';
-      blocks: Lightsource;
-    };
-    accessories: {
-      type: 'rich_text';
-      blocks: Accessory;
-    };
-  }
->;
-export type Accessory = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801309',
-  {
-    accessory: {
-      type: 'link';
-    };
-  }
->;
-export type FullwidthImage = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995883',
-  {
-    image: {
-      type: 'file';
-    };
-  }
->;
-export type TwoColumnImage = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995884',
-  {
-    first_image: {
-      type: 'file';
-    };
-    last_image: {
-      type: 'file';
-    };
-  }
->;
-export type Text = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995885',
-  {
-    text: {
-      type: 'structured_text';
-      inline_blocks: Designer | Product | Project;
-    };
-  }
->;
-export type Video = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995887',
-  {
-    video: {
-      type: 'file';
-    };
-  }
->;
-export type ImageGallery = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995888',
-  {
-    gallery: {
-      type: 'gallery';
-    };
-  }
->;
-export type FullscreenMediaBlock = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995908',
-  {
-    sub_headline: {
-      type: 'string';
-    };
-    headline: {
-      type: 'string';
-    };
-    media: {
-      type: 'file';
-    };
-    link_record: {
-      type: 'link';
-    };
-    read_more: {
-      type: 'string';
-    };
-    make_darker: {
-      type: 'boolean';
-    };
-  }
->;
-export type Featured = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995909',
-  {
-    headline: {
-      type: 'string';
-    };
-    items: {
-      type: 'links';
-    };
-    show_mark_as_new: {
-      type: 'boolean';
-    };
-  }
->;
-export type ImageLink = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995913',
-  {
-    first_image: {
-      type: 'file';
-    };
-    first_headline: {
-      type: 'string';
-    };
-    first_link_text: {
-      type: 'string';
-    };
-    first_link: {
-      type: 'string';
-    };
-    second_image: {
-      type: 'file';
-    };
-    second_headline: {
-      type: 'string';
-    };
-    second_link_text: {
-      type: 'string';
-    };
-    second_link: {
-      type: 'string';
-    };
-  }
->;
-export type FullscreenVideo = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995914',
-  {
-    video: {
-      type: 'file';
-    };
-    text: {
-      type: 'text';
-    };
-    link_text: {
-      type: 'string';
-    };
-    link: {
-      type: 'string';
-    };
-  }
->;
-export type BespokeProject = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996017',
-  {
-    summary: {
-      type: 'text';
-    };
-    project: {
-      type: 'link';
-    };
-  }
->;
-export type AboutSection = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996034',
-  {
-    text: {
-      type: 'text';
-    };
-    video: {
-      type: 'file';
-    };
-  }
->;
-export type NewsItem = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2000409',
-  {
-    news: {
-      type: 'link';
-    };
-  }
->;
-export type SustainabilityStep = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2000787',
-  {
-    title: {
+    time: {
       type: 'string';
     };
     text: {
-      type: 'text';
-    };
-    media: {
-      type: 'file';
-    };
-    full_width_image: {
-      type: 'boolean';
-    };
-  }
->;
-export type FeaturedStart = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2001048',
-  {
-    headline: {
       type: 'string';
     };
-    items: {
-      type: 'links';
-    };
-  }
->;
-export type Social = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2022630',
-  {
-    instagram: {
-      type: 'json';
-    };
-  }
->;
-export type Variant = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801308',
-  {
-    article_no: {
-      type: 'string';
-    };
-    color: {
-      type: 'link';
-    };
-    material: {
-      type: 'link';
-    };
-    feature: {
-      type: 'link';
-    };
-    weight: {
-      type: 'float';
-    };
-    volume: {
-      type: 'float';
-    };
-    price: {
-      type: 'float';
-    };
-    delivery_days: {
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-  }
->;
-export type News = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995930',
-  {
-    title: {
-      type: 'string';
-    };
-    text: {
-      type: 'text';
-    };
-    image: {
-      type: 'file';
-    };
-    link_text: {
-      type: 'string';
-    };
-    link: {
-      type: 'string';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
-export type Translation = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801300',
-  {
-    page: {
-      type: 'string';
-    };
-    value: {
-      type: 'string';
-      localized: true;
-    };
-    key: {
+    text_short: {
       type: 'string';
     };
   }
 >;
-export type ProductFeature = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801299',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type ProductCategory = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801301',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-    name_plural: {
-      type: 'string';
-      localized: true;
-    };
-    description: {
-      type: 'text';
-      localized: true;
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type ProductSocket = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801304',
-  {
-    name: {
-      type: 'string';
-    };
-  }
->;
-export type ProjectType = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995924',
-  {
-    title: {
-      type: 'string';
-    };
-    title_plural: {
-      type: 'string';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type Faq = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995928',
-  {
-    question: {
-      type: 'string';
-    };
-    answer: {
-      type: 'text';
-    };
-    category: {
-      type: 'link';
-    };
-  }
->;
-export type Country = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1990287',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type ColorMaterialType = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2011958',
-  {
-    category: {
-      type: 'string';
-    };
-    category_plural: {
-      type: 'string';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type FaqCategory = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995929',
-  {
-    title: {
-      type: 'string';
-    };
-  }
->;
-export type Job = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995931',
-  {
-    title: {
-      type: 'string';
-    };
-    summary: {
-      type: 'text';
-    };
-    text: {
-      type: 'text';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
-export type Press = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996306',
-  {
-    title: {
-      type: 'string';
-    };
-    url: {
-      type: 'string';
-    };
-  }
->;
-export type Staff = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1990321',
-  {
-    image: {
-      type: 'file';
-    };
-    name: {
-      type: 'string';
-    };
-    role: {
-      type: 'string';
-    };
-    phone: {
-      type: 'string';
-    };
-    email: {
-      type: 'string';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type Showroom = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996028',
-  {
-    city: {
-      type: 'string';
-    };
-    address: {
-      type: 'text';
-    };
-    additional: {
-      type: 'text';
-    };
-    image: {
-      type: 'file';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type Catalogue = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2010205',
-  {
-    pdf: {
-      type: 'file';
-    };
-    thumbnail: {
-      type: 'file';
-    };
-    title: {
-      type: 'string';
-    };
-  }
->;
-export type ColorMaterial = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2011957',
-  {
-    image: {
-      type: 'file';
-    };
-    description: {
-      type: 'string';
-    };
-    category: {
-      type: 'link';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type ProductElectrical = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801303',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type ProductDimmable = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801305',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type Product = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801291',
-  {
-    categories: {
-      type: 'links';
-    };
-    models: {
-      type: 'rich_text';
-      blocks: ProductModel;
-    };
-    hide_in_pricelist: {
-      type: 'boolean';
-    };
-    image: {
-      type: 'file';
-    };
-    light_file: {
-      type: 'file';
-    };
-    title: {
-      type: 'string';
-    };
-    color_images: {
-      type: 'gallery';
-    };
-    mounting_instructions: {
-      type: 'file';
-    };
-    environment_image: {
-      type: 'file';
-    };
-    family: {
-      type: 'link';
-    };
-    bim_file: {
-      type: 'file';
-    };
-    product_gallery: {
-      type: 'rich_text';
-      blocks: FullwidthImage | TwoColumnImage | Text | Video | ImageGallery;
-    };
-    pdf_file: {
-      type: 'file';
-      localized: true;
-    };
-    designer: {
-      type: 'link';
-    };
-    mark_as_new: {
-      type: 'boolean';
-    };
-    upcycled: {
-      type: 'boolean';
-    };
-    bim_link: {
-      type: 'string';
-    };
-    additional_information: {
-      type: 'string';
-      localized: true;
-    };
-    note: {
-      type: 'text';
-      localized: true;
-    };
-    description: {
-      type: 'text';
-      localized: true;
-    };
-    electrical_data: {
-      type: 'links';
-    };
-    sockets: {
-      type: 'links';
-    };
-    dimmable: {
-      type: 'link';
-    };
-    connection: {
-      type: 'link';
-    };
-    mounting: {
-      type: 'link';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
-export type ProductModelName = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801298',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type ProductAccessory = ItemTypeDefinition<
-  EnvironmentSettings,
-  'ZU6qDmJWRnGkIqsGWmJa2A',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-    article_no: {
-      type: 'string';
-    };
-    price: {
-      type: 'integer';
-    };
-    delivery_days: {
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
+export const DeliveryTime = {
+  ID: 'IPuZ-SmgQb6d2NyNn3dDYA',
+  REF: { type: 'item_type', id: 'IPuZ-SmgQb6d2NyNn3dDYA' },
+} as const;
+
 export type Designer = ItemTypeDefinition<
   EnvironmentSettings,
   '1801302',
@@ -776,72 +327,11 @@ export type Designer = ItemTypeDefinition<
     };
   }
 >;
-export type Reseller = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1990290',
-  {
-    name: {
-      type: 'string';
-    };
-    address: {
-      type: 'text';
-    };
-    postal_code: {
-      type: 'string';
-    };
-    city: {
-      type: 'string';
-    };
-    country: {
-      type: 'link';
-    };
-    url: {
-      type: 'string';
-    };
-  }
->;
-export type ProductConnection = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801297',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type ProductMaterial = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801295',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type ProductMounting = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801293',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-  }
->;
-export type ProductFamily = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801294',
-  {
-    name: {
-      type: 'string';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
+export const Designer = {
+  ID: '1801302',
+  REF: { type: 'item_type', id: '1801302' },
+} as const;
+
 export type Distributor = ItemTypeDefinition<
   EnvironmentSettings,
   '1990316',
@@ -875,6 +365,588 @@ export type Distributor = ItemTypeDefinition<
     };
   }
 >;
+export const Distributor = {
+  ID: '1990316',
+  REF: { type: 'item_type', id: '1990316' },
+} as const;
+
+export type DownloadsStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996018',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+  }
+>;
+export const DownloadsStart = {
+  ID: '1996018',
+  REF: { type: 'item_type', id: '1996018' },
+} as const;
+
+export type FactoryVisit = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996019',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+  }
+>;
+export const FactoryVisit = {
+  ID: '1996019',
+  REF: { type: 'item_type', id: '1996019' },
+} as const;
+
+export type Faq = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995928',
+  {
+    question: {
+      type: 'string';
+    };
+    answer: {
+      type: 'text';
+    };
+    category: {
+      type: 'link';
+    };
+  }
+>;
+export const Faq = {
+  ID: '1995928',
+  REF: { type: 'item_type', id: '1995928' },
+} as const;
+
+export type FaqCategory = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995929',
+  {
+    title: {
+      type: 'string';
+    };
+  }
+>;
+export const FaqCategory = {
+  ID: '1995929',
+  REF: { type: 'item_type', id: '1995929' },
+} as const;
+
+export type FaqStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996031',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+  }
+>;
+export const FaqStart = {
+  ID: '1996031',
+  REF: { type: 'item_type', id: '1996031' },
+} as const;
+
+export type Featured = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995909',
+  {
+    headline: {
+      type: 'string';
+    };
+    items: {
+      type: 'links';
+    };
+    show_mark_as_new: {
+      type: 'boolean';
+    };
+  }
+>;
+export const Featured = {
+  ID: '1995909',
+  REF: { type: 'item_type', id: '1995909' },
+} as const;
+
+export type FeaturedStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  '2001048',
+  {
+    headline: {
+      type: 'string';
+    };
+    items: {
+      type: 'links';
+    };
+  }
+>;
+export const FeaturedStart = {
+  ID: '2001048',
+  REF: { type: 'item_type', id: '2001048' },
+} as const;
+
+export type FullscreenMediaBlock = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995908',
+  {
+    sub_headline: {
+      type: 'string';
+    };
+    headline: {
+      type: 'string';
+    };
+    media: {
+      type: 'file';
+    };
+    link_record: {
+      type: 'link';
+    };
+    read_more: {
+      type: 'string';
+    };
+    make_darker: {
+      type: 'boolean';
+    };
+  }
+>;
+export const FullscreenMediaBlock = {
+  ID: '1995908',
+  REF: { type: 'item_type', id: '1995908' },
+} as const;
+
+export type FullscreenVideo = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995914',
+  {
+    video: {
+      type: 'file';
+    };
+    text: {
+      type: 'text';
+    };
+    link_text: {
+      type: 'string';
+    };
+    link: {
+      type: 'string';
+    };
+  }
+>;
+export const FullscreenVideo = {
+  ID: '1995914',
+  REF: { type: 'item_type', id: '1995914' },
+} as const;
+
+export type FullwidthImage = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995883',
+  {
+    image: {
+      type: 'file';
+    };
+  }
+>;
+export const FullwidthImage = {
+  ID: '1995883',
+  REF: { type: 'item_type', id: '1995883' },
+} as const;
+
+export type ImageGallery = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995888',
+  {
+    gallery: {
+      type: 'gallery';
+    };
+  }
+>;
+export const ImageGallery = {
+  ID: '1995888',
+  REF: { type: 'item_type', id: '1995888' },
+} as const;
+
+export type ImageLink = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995913',
+  {
+    first_image: {
+      type: 'file';
+    };
+    first_headline: {
+      type: 'string';
+    };
+    first_link_text: {
+      type: 'string';
+    };
+    first_link: {
+      type: 'string';
+    };
+    second_image: {
+      type: 'file';
+    };
+    second_headline: {
+      type: 'string';
+    };
+    second_link_text: {
+      type: 'string';
+    };
+    second_link: {
+      type: 'string';
+    };
+  }
+>;
+export const ImageLink = {
+  ID: '1995913',
+  REF: { type: 'item_type', id: '1995913' },
+} as const;
+
+export type Job = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995931',
+  {
+    title: {
+      type: 'string';
+    };
+    summary: {
+      type: 'text';
+    };
+    text: {
+      type: 'text';
+    };
+    slug: {
+      type: 'slug';
+    };
+  }
+>;
+export const Job = {
+  ID: '1995931',
+  REF: { type: 'item_type', id: '1995931' },
+} as const;
+
+export type Lightsource = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801306',
+  {
+    lightsource: {
+      type: 'link';
+    };
+    amount: {
+      type: 'integer';
+    };
+    included: {
+      type: 'boolean';
+    };
+    optional: {
+      type: 'boolean';
+    };
+  }
+>;
+export const Lightsource = {
+  ID: '1801306',
+  REF: { type: 'item_type', id: '1801306' },
+} as const;
+
+export type Manual = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996032',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'text';
+    };
+  }
+>;
+export const Manual = {
+  ID: '1996032',
+  REF: { type: 'item_type', id: '1996032' },
+} as const;
+
+export type News = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995930',
+  {
+    title: {
+      type: 'string';
+    };
+    text: {
+      type: 'text';
+    };
+    image: {
+      type: 'file';
+    };
+    link_text: {
+      type: 'string';
+    };
+    link: {
+      type: 'string';
+    };
+    slug: {
+      type: 'slug';
+    };
+  }
+>;
+export const News = {
+  ID: '1995930',
+  REF: { type: 'item_type', id: '1995930' },
+} as const;
+
+export type NewsItem = ItemTypeDefinition<
+  EnvironmentSettings,
+  '2000409',
+  {
+    news: {
+      type: 'link';
+    };
+  }
+>;
+export const NewsItem = {
+  ID: '2000409',
+  REF: { type: 'item_type', id: '2000409' },
+} as const;
+
+export type PolicyItem = ItemTypeDefinition<
+  EnvironmentSettings,
+  'Lb7Tyb33R8Gg9BCoPNlh7Q',
+  {
+    title: {
+      type: 'string';
+    };
+    content: {
+      type: 'structured_text';
+    };
+  }
+>;
+export const PolicyItem = {
+  ID: 'Lb7Tyb33R8Gg9BCoPNlh7Q',
+  REF: { type: 'item_type', id: 'Lb7Tyb33R8Gg9BCoPNlh7Q' },
+} as const;
+
+export type Press = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996306',
+  {
+    title: {
+      type: 'string';
+    };
+    url: {
+      type: 'string';
+    };
+  }
+>;
+export const Press = {
+  ID: '1996306',
+  REF: { type: 'item_type', id: '1996306' },
+} as const;
+
+export type Pricelist = ItemTypeDefinition<
+  EnvironmentSettings,
+  'Qxs8cA40RZGrdQp_bmFCZw',
+  {
+    cover: {
+      type: 'file';
+      localized: true;
+    };
+    cover_inc_vat: {
+      type: 'file';
+      localized: true;
+    };
+    current_pricelist: {
+      type: 'file';
+    };
+    warranty: {
+      type: 'file';
+    };
+    terms: {
+      type: 'file';
+    };
+  }
+>;
+export const Pricelist = {
+  ID: 'Qxs8cA40RZGrdQp_bmFCZw',
+  REF: { type: 'item_type', id: 'Qxs8cA40RZGrdQp_bmFCZw' },
+} as const;
+
+export type PrivacyPolicy = ItemTypeDefinition<
+  EnvironmentSettings,
+  'ILTLuHlSTYOxmJRX2vu-ug',
+  {
+    title: {
+      type: 'string';
+    };
+    intro: {
+      type: 'string';
+    };
+    policies: {
+      type: 'rich_text';
+      blocks: PolicyItem;
+    };
+  }
+>;
+export const PrivacyPolicy = {
+  ID: 'ILTLuHlSTYOxmJRX2vu-ug',
+  REF: { type: 'item_type', id: 'ILTLuHlSTYOxmJRX2vu-ug' },
+} as const;
+
+export type Product = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801291',
+  {
+    categories: {
+      type: 'links';
+    };
+    hide_in_pricelist: {
+      type: 'boolean';
+    };
+    image: {
+      type: 'file';
+    };
+    light_file: {
+      type: 'file';
+    };
+    models: {
+      type: 'rich_text';
+      blocks: ProductModel;
+    };
+    color_images: {
+      type: 'gallery';
+    };
+    environment_image: {
+      type: 'file';
+    };
+    family: {
+      type: 'link';
+    };
+    mounting_instructions: {
+      type: 'file';
+    };
+    title: {
+      type: 'string';
+    };
+    bim_file: {
+      type: 'file';
+    };
+    designer: {
+      type: 'link';
+    };
+    mark_as_new: {
+      type: 'boolean';
+    };
+    pdf_file: {
+      type: 'file';
+      localized: true;
+    };
+    product_gallery: {
+      type: 'rich_text';
+      blocks: FullwidthImage | TwoColumnImage | Text | Video | ImageGallery;
+    };
+    additional_information: {
+      type: 'string';
+      localized: true;
+    };
+    bim_link: {
+      type: 'string';
+    };
+    upcycled: {
+      type: 'boolean';
+    };
+    description: {
+      type: 'text';
+      localized: true;
+    };
+    note: {
+      type: 'text';
+      localized: true;
+    };
+    electrical_data: {
+      type: 'links';
+    };
+    sockets: {
+      type: 'links';
+    };
+    dimmable: {
+      type: 'link';
+    };
+    connection: {
+      type: 'link';
+    };
+    mounting: {
+      type: 'link';
+    };
+    slug: {
+      type: 'slug';
+    };
+  }
+>;
+export const Product = {
+  ID: '1801291',
+  REF: { type: 'item_type', id: '1801291' },
+} as const;
+
+export type ProductAccessory = ItemTypeDefinition<
+  EnvironmentSettings,
+  'ZU6qDmJWRnGkIqsGWmJa2A',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+    article_no: {
+      type: 'string';
+    };
+    price: {
+      type: 'integer';
+    };
+    delivery_days: {
+      type: 'string';
+    };
+    image: {
+      type: 'file';
+    };
+    slug: {
+      type: 'slug';
+    };
+  }
+>;
+export const ProductAccessory = {
+  ID: 'ZU6qDmJWRnGkIqsGWmJa2A',
+  REF: { type: 'item_type', id: 'ZU6qDmJWRnGkIqsGWmJa2A' },
+} as const;
+
+export type ProductCategory = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801301',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+    name_plural: {
+      type: 'string';
+      localized: true;
+    };
+    description: {
+      type: 'text';
+      localized: true;
+    };
+    position: {
+      type: 'integer';
+    };
+  }
+>;
+export const ProductCategory = {
+  ID: '1801301',
+  REF: { type: 'item_type', id: '1801301' },
+} as const;
+
 export type ProductColor = ItemTypeDefinition<
   EnvironmentSettings,
   '1801296',
@@ -885,6 +957,261 @@ export type ProductColor = ItemTypeDefinition<
     };
   }
 >;
+export const ProductColor = {
+  ID: '1801296',
+  REF: { type: 'item_type', id: '1801296' },
+} as const;
+
+export type ProductConnection = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801297',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export const ProductConnection = {
+  ID: '1801297',
+  REF: { type: 'item_type', id: '1801297' },
+} as const;
+
+export type ProductDimmable = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801305',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export const ProductDimmable = {
+  ID: '1801305',
+  REF: { type: 'item_type', id: '1801305' },
+} as const;
+
+export type ProductElectrical = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801303',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export const ProductElectrical = {
+  ID: '1801303',
+  REF: { type: 'item_type', id: '1801303' },
+} as const;
+
+export type ProductFamily = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801294',
+  {
+    name: {
+      type: 'string';
+    };
+    slug: {
+      type: 'slug';
+    };
+  }
+>;
+export const ProductFamily = {
+  ID: '1801294',
+  REF: { type: 'item_type', id: '1801294' },
+} as const;
+
+export type ProductFeature = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801299',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export const ProductFeature = {
+  ID: '1801299',
+  REF: { type: 'item_type', id: '1801299' },
+} as const;
+
+export type ProductLightsource = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801292',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+    article_no: {
+      type: 'string';
+    };
+    price: {
+      type: 'float';
+    };
+    delivery_days: {
+      type: 'string';
+    };
+    image: {
+      type: 'file';
+    };
+    eprel: {
+      type: 'string';
+    };
+    slug: {
+      type: 'slug';
+    };
+  }
+>;
+export const ProductLightsource = {
+  ID: '1801292',
+  REF: { type: 'item_type', id: '1801292' },
+} as const;
+
+export type ProductMaterial = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801295',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export const ProductMaterial = {
+  ID: '1801295',
+  REF: { type: 'item_type', id: '1801295' },
+} as const;
+
+export type ProductModel = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801307',
+  {
+    name: {
+      type: 'link';
+    };
+    drawing: {
+      type: 'file';
+    };
+    lightsources: {
+      type: 'rich_text';
+      blocks: Lightsource;
+    };
+    accessories: {
+      type: 'rich_text';
+      blocks: Accessory;
+    };
+    variants: {
+      type: 'links';
+    };
+  }
+>;
+export const ProductModel = {
+  ID: '1801307',
+  REF: { type: 'item_type', id: '1801307' },
+} as const;
+
+export type ProductModelName = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801298',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export const ProductModelName = {
+  ID: '1801298',
+  REF: { type: 'item_type', id: '1801298' },
+} as const;
+
+export type ProductMounting = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801293',
+  {
+    name: {
+      type: 'string';
+      localized: true;
+    };
+  }
+>;
+export const ProductMounting = {
+  ID: '1801293',
+  REF: { type: 'item_type', id: '1801293' },
+} as const;
+
+export type ProductSocket = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801304',
+  {
+    name: {
+      type: 'string';
+    };
+  }
+>;
+export const ProductSocket = {
+  ID: '1801304',
+  REF: { type: 'item_type', id: '1801304' },
+} as const;
+
+export type ProductStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996014',
+  {
+    featured: {
+      type: 'rich_text';
+      blocks: Featured;
+    };
+  }
+>;
+export const ProductStart = {
+  ID: '1996014',
+  REF: { type: 'item_type', id: '1996014' },
+} as const;
+
+export type ProductVariant = ItemTypeDefinition<
+  EnvironmentSettings,
+  'W4alwfW8Saewj53qP_tz4A',
+  {
+    article_no: {
+      type: 'string';
+    };
+    color: {
+      type: 'link';
+    };
+    material: {
+      type: 'link';
+    };
+    feature: {
+      type: 'link';
+    };
+    weight: {
+      type: 'float';
+    };
+    volume: {
+      type: 'float';
+    };
+    price: {
+      type: 'float';
+    };
+    delivery_days: {
+      type: 'string';
+    };
+    image: {
+      type: 'file';
+    };
+  }
+>;
+export const ProductVariant = {
+  ID: 'W4alwfW8Saewj53qP_tz4A',
+  REF: { type: 'item_type', id: 'W4alwfW8Saewj53qP_tz4A' },
+} as const;
+
 export type Project = ItemTypeDefinition<
   EnvironmentSettings,
   '1995922',
@@ -919,31 +1246,11 @@ export type Project = ItemTypeDefinition<
     };
   }
 >;
-export type ProductLightsource = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801292',
-  {
-    name: {
-      type: 'string';
-      localized: true;
-    };
-    article_no: {
-      type: 'string';
-    };
-    price: {
-      type: 'float';
-    };
-    delivery_days: {
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
+export const Project = {
+  ID: '1995922',
+  REF: { type: 'item_type', id: '1995922' },
+} as const;
+
 export type ProjectStart = ItemTypeDefinition<
   EnvironmentSettings,
   '1996015',
@@ -956,58 +1263,171 @@ export type ProjectStart = ItemTypeDefinition<
     };
   }
 >;
-export type About = ItemTypeDefinition<
+export const ProjectStart = {
+  ID: '1996015',
+  REF: { type: 'item_type', id: '1996015' },
+} as const;
+
+export type ProjectType = ItemTypeDefinition<
   EnvironmentSettings,
-  '1996033',
+  '1995924',
   {
     title: {
+      type: 'string';
+    };
+    title_plural: {
+      type: 'string';
+    };
+    position: {
+      type: 'integer';
+    };
+  }
+>;
+export const ProjectType = {
+  ID: '1995924',
+  REF: { type: 'item_type', id: '1995924' },
+} as const;
+
+export type Reseller = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1990290',
+  {
+    name: {
+      type: 'string';
+    };
+    address: {
       type: 'text';
     };
-    intro: {
+    postal_code: {
+      type: 'string';
+    };
+    city: {
+      type: 'string';
+    };
+    country: {
+      type: 'link';
+    };
+    url: {
+      type: 'string';
+    };
+  }
+>;
+export const Reseller = {
+  ID: '1990290',
+  REF: { type: 'item_type', id: '1990290' },
+} as const;
+
+export type Shipping = ItemTypeDefinition<
+  EnvironmentSettings,
+  'RR7Vst1VRQuLYzJs9n6uZg',
+  {
+    delivery_days: {
+      type: 'rich_text';
+      blocks: DeliveryTime;
+    };
+    delivery_terms: {
+      type: 'rich_text';
+      blocks: DeliveryTerm;
+    };
+    delivery_terms_other: {
+      type: 'string';
+    };
+  }
+>;
+export const Shipping = {
+  ID: 'RR7Vst1VRQuLYzJs9n6uZg',
+  REF: { type: 'item_type', id: 'RR7Vst1VRQuLYzJs9n6uZg' },
+} as const;
+
+export type Showroom = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1996028',
+  {
+    city: {
+      type: 'string';
+    };
+    address: {
       type: 'text';
     };
-    video: {
+    additional: {
+      type: 'text';
+    };
+    image: {
       type: 'file';
     };
-    sections: {
+    position: {
+      type: 'integer';
+    };
+  }
+>;
+export const Showroom = {
+  ID: '1996028',
+  REF: { type: 'item_type', id: '1996028' },
+} as const;
+
+export type Social = ItemTypeDefinition<
+  EnvironmentSettings,
+  '2022630',
+  {
+    instagram: {
+      type: 'json';
+    };
+  }
+>;
+export const Social = {
+  ID: '2022630',
+  REF: { type: 'item_type', id: '2022630' },
+} as const;
+
+export type Staff = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1990321',
+  {
+    image: {
+      type: 'file';
+    };
+    name: {
+      type: 'string';
+    };
+    role: {
+      type: 'string';
+    };
+    phone: {
+      type: 'string';
+    };
+    email: {
+      type: 'string';
+    };
+    position: {
+      type: 'integer';
+    };
+  }
+>;
+export const Staff = {
+  ID: '1990321',
+  REF: { type: 'item_type', id: '1990321' },
+} as const;
+
+export type Start = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995907',
+  {
+    content: {
       type: 'rich_text';
-      blocks: AboutSection;
+      blocks:
+        | FullscreenMediaBlock
+        | ImageLink
+        | FullscreenVideo
+        | NewsItem
+        | FeaturedStart;
     };
   }
 >;
-export type ColorMaterialIntro = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2011967',
-  {
-    intro: {
-      type: 'text';
-    };
-  }
->;
-export type FaqStart = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996031',
-  {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-  }
->;
-export type Manual = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996032',
-  {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-  }
->;
+export const Start = {
+  ID: '1995907',
+  REF: { type: 'item_type', id: '1995907' },
+} as const;
+
 export type Sustainability = ItemTypeDefinition<
   EnvironmentSettings,
   '1996030',
@@ -1027,62 +1447,71 @@ export type Sustainability = ItemTypeDefinition<
     };
   }
 >;
-export type ProductStart = ItemTypeDefinition<
+export const Sustainability = {
+  ID: '1996030',
+  REF: { type: 'item_type', id: '1996030' },
+} as const;
+
+export type SustainabilityStep = ItemTypeDefinition<
   EnvironmentSettings,
-  '1996014',
+  '2000787',
   {
-    featured: {
-      type: 'rich_text';
-      blocks: Featured;
+    title: {
+      type: 'string';
     };
-  }
->;
-export type Start = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995907',
-  {
-    content: {
-      type: 'rich_text';
-      blocks:
-        | FullscreenMediaBlock
-        | ImageLink
-        | FullscreenVideo
-        | NewsItem
-        | FeaturedStart;
+    text: {
+      type: 'text';
     };
-  }
->;
-export type Bespoke = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996016',
-  {
-    thumbnail: {
+    media: {
       type: 'file';
     };
-    secondary_thumbnail: {
-      type: 'file';
-    };
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-    outro: {
-      type: 'text';
-    };
-    examples: {
-      type: 'rich_text';
-      blocks: BespokeProject;
-    };
-    image: {
-      type: 'file';
+    full_width_image: {
+      type: 'boolean';
     };
   }
 >;
-export type FactoryVisit = ItemTypeDefinition<
+export const SustainabilityStep = {
+  ID: '2000787',
+  REF: { type: 'item_type', id: '2000787' },
+} as const;
+
+export type Term = ItemTypeDefinition<
   EnvironmentSettings,
-  '1996019',
+  'FXlY1YXYQXCnlE6YrQ2K9w',
+  {
+    title: {
+      type: 'string';
+    };
+    text: {
+      type: 'structured_text';
+    };
+    category: {
+      type: 'link';
+    };
+  }
+>;
+export const Term = {
+  ID: 'FXlY1YXYQXCnlE6YrQ2K9w',
+  REF: { type: 'item_type', id: 'FXlY1YXYQXCnlE6YrQ2K9w' },
+} as const;
+
+export type TermCategory = ItemTypeDefinition<
+  EnvironmentSettings,
+  'EFtwhOeaRRC1ZPgMYSmk3Q',
+  {
+    title: {
+      type: 'string';
+    };
+  }
+>;
+export const TermCategory = {
+  ID: 'EFtwhOeaRRC1ZPgMYSmk3Q',
+  REF: { type: 'item_type', id: 'EFtwhOeaRRC1ZPgMYSmk3Q' },
+} as const;
+
+export type TermStart = ItemTypeDefinition<
+  EnvironmentSettings,
+  'aEtvaDzBSmOO5dNfhcSrlg',
   {
     title: {
       type: 'string';
@@ -1092,120 +1521,115 @@ export type FactoryVisit = ItemTypeDefinition<
     };
   }
 >;
-export type DownloadsStart = ItemTypeDefinition<
+export const TermStart = {
+  ID: 'aEtvaDzBSmOO5dNfhcSrlg',
+  REF: { type: 'item_type', id: 'aEtvaDzBSmOO5dNfhcSrlg' },
+} as const;
+
+export type Text = ItemTypeDefinition<
   EnvironmentSettings,
-  '1996018',
+  '1995885',
   {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-  }
->;
-export type Contact = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1996025',
-  {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-    address: {
-      type: 'text';
-    };
-    phone: {
-      type: 'string';
-    };
-    email: {
-      type: 'string';
-    };
-    showroom_intro: {
-      type: 'text';
-    };
-    contact_form_message: {
-      type: 'text';
-    };
-    image: {
-      type: 'file';
-    };
-  }
->;
-export type PrivacyPolicy = ItemTypeDefinition<
-  EnvironmentSettings,
-  'ILTLuHlSTYOxmJRX2vu-ug',
-  {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'string';
-    };
-    policies: {
-      type: 'rich_text';
-      blocks: PolicyItem;
-    };
-  }
->;
-export type PolicyItem = ItemTypeDefinition<
-  EnvironmentSettings,
-  'Lb7Tyb33R8Gg9BCoPNlh7Q',
-  {
-    title: {
-      type: 'string';
-    };
-    content: {
+    text: {
       type: 'structured_text';
     };
   }
 >;
-export type Shipping = ItemTypeDefinition<
+export const Text = {
+  ID: '1995885',
+  REF: { type: 'item_type', id: '1995885' },
+} as const;
+
+export type Translation = ItemTypeDefinition<
   EnvironmentSettings,
-  'RR7Vst1VRQuLYzJs9n6uZg',
+  '1801300',
   {
+    page: {
+      type: 'string';
+    };
+    value: {
+      type: 'string';
+      localized: true;
+    };
+    key: {
+      type: 'string';
+    };
+  }
+>;
+export const Translation = {
+  ID: '1801300',
+  REF: { type: 'item_type', id: '1801300' },
+} as const;
+
+export type TwoColumnImage = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995884',
+  {
+    first_image: {
+      type: 'file';
+    };
+    last_image: {
+      type: 'file';
+    };
+  }
+>;
+export const TwoColumnImage = {
+  ID: '1995884',
+  REF: { type: 'item_type', id: '1995884' },
+} as const;
+
+export type Variant = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1801308',
+  {
+    article_no: {
+      type: 'string';
+    };
+    color: {
+      type: 'link';
+    };
+    material: {
+      type: 'link';
+    };
+    feature: {
+      type: 'link';
+    };
+    weight: {
+      type: 'float';
+    };
+    volume: {
+      type: 'float';
+    };
+    price: {
+      type: 'float';
+    };
     delivery_days: {
-      type: 'rich_text';
-      blocks: DeliveryTime;
-    };
-    delivery_terms: {
-      type: 'rich_text';
-      blocks: DeliveryTerm;
-    };
-    delivery_terms_other: {
       type: 'string';
+    };
+    image: {
+      type: 'file';
     };
   }
 >;
-export type DeliveryTime = ItemTypeDefinition<
+export const Variant = {
+  ID: '1801308',
+  REF: { type: 'item_type', id: '1801308' },
+} as const;
+
+export type Video = ItemTypeDefinition<
   EnvironmentSettings,
-  'IPuZ-SmgQb6d2NyNn3dDYA',
+  '1995887',
   {
-    time: {
-      type: 'string';
-    };
-    text: {
-      type: 'string';
-    };
-    text_short: {
-      type: 'string';
+    video: {
+      type: 'file';
     };
   }
 >;
-export type DeliveryTerm = ItemTypeDefinition<
-  EnvironmentSettings,
-  'MpT9ez-DTdmZphlxNcx89w',
-  {
-    iso_code: {
-      type: 'string';
-    };
-    text: {
-      type: 'string';
-    };
-  }
->;
+export const Video = {
+  ID: '1995887',
+  REF: { type: 'item_type', id: '1995887' },
+} as const;
+
 export type WithdrawFromPurchase = ItemTypeDefinition<
   EnvironmentSettings,
   'Z-GQKCaFSGS6jrUPuBCDLA',
@@ -1221,96 +1645,85 @@ export type WithdrawFromPurchase = ItemTypeDefinition<
     };
   }
 >;
-export type Pricelist = ItemTypeDefinition<
-  EnvironmentSettings,
-  'Qxs8cA40RZGrdQp_bmFCZw',
-  {
-    cover: {
-      type: 'file';
-      localized: true;
-    };
-    cover_excl_tax: {
-      type: 'file';
-      localized: true;
-    };
-    current_pricelist: {
-      type: 'file';
-    };
-  }
->;
+export const WithdrawFromPurchase = {
+  ID: 'Z-GQKCaFSGS6jrUPuBCDLA',
+  REF: { type: 'item_type', id: 'Z-GQKCaFSGS6jrUPuBCDLA' },
+} as const;
+
 export type AnyBlock =
-  | Lightsource
-  | ProductModel
-  | Accessory
-  | FullwidthImage
-  | TwoColumnImage
-  | Text
-  | Video
-  | ImageGallery
-  | FullscreenMediaBlock
-  | Featured
-  | ImageLink
-  | FullscreenVideo
-  | BespokeProject
   | AboutSection
-  | NewsItem
-  | SustainabilityStep
-  | FeaturedStart
-  | Variant
-  | PolicyItem
+  | Accessory
+  | BespokeProject
+  | DeliveryTerm
   | DeliveryTime
-  | DeliveryTerm;
+  | Featured
+  | FeaturedStart
+  | FullscreenMediaBlock
+  | FullscreenVideo
+  | FullwidthImage
+  | ImageGallery
+  | ImageLink
+  | Lightsource
+  | NewsItem
+  | PolicyItem
+  | ProductModel
+  | SustainabilityStep
+  | Text
+  | TwoColumnImage
+  | Variant
+  | Video;
 export type AnyModel =
+  | About
+  | Bespoke
+  | Catalogue
+  | ColorMaterial
+  | ColorMaterialIntro
+  | ColorMaterialType
+  | Contact
+  | Country
   | Currency
+  | Designer
+  | Distributor
+  | DownloadsStart
+  | FactoryVisit
+  | Faq
+  | FaqCategory
+  | FaqStart
+  | Job
+  | Manual
+  | News
+  | Press
+  | Pricelist
+  | PrivacyPolicy
+  | Product
+  | ProductAccessory
+  | ProductCategory
+  | ProductColor
+  | ProductConnection
+  | ProductDimmable
+  | ProductElectrical
+  | ProductFamily
+  | ProductFeature
+  | ProductLightsource
+  | ProductMaterial
+  | ProductModelName
+  | ProductMounting
+  | ProductSocket
+  | ProductStart
+  | ProductVariant
+  | Project
+  | ProjectStart
+  | ProjectType
+  | Reseller
+  | Shipping
+  | Showroom
+  | Social
+  | Staff
+  | Start
+  | Sustainability
   | Term
   | TermCategory
   | TermStart
-  | Social
-  | News
   | Translation
-  | ProductFeature
-  | ProductCategory
-  | ProductSocket
-  | ProjectType
-  | Faq
-  | Country
-  | ColorMaterialType
-  | FaqCategory
-  | Job
-  | Press
-  | Staff
-  | Showroom
-  | Catalogue
-  | ColorMaterial
-  | ProductElectrical
-  | ProductDimmable
-  | Product
-  | ProductModelName
-  | ProductAccessory
-  | Designer
-  | Reseller
-  | ProductConnection
-  | ProductMaterial
-  | ProductMounting
-  | ProductFamily
-  | Distributor
-  | ProductColor
-  | Project
-  | ProductLightsource
-  | ProjectStart
-  | About
-  | ColorMaterialIntro
-  | FaqStart
-  | Manual
-  | Sustainability
-  | ProductStart
-  | Start
-  | Bespoke
-  | FactoryVisit
-  | DownloadsStart
-  | Contact
-  | PrivacyPolicy
-  | Shipping
-  | WithdrawFromPurchase
-  | Pricelist;
+  | WithdrawFromPurchase;
 export type AnyBlockOrModel = AnyBlock | AnyModel;

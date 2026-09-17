@@ -328,7 +328,7 @@ export const formatProductColor = (color?: string | null | undefined) => {
 	return color ?? '';
 };
 
-export const parseProductModelName = (model?: ProductModelRecord, variant?: VariantRecord) => {
+export const parseProductModelName = (model?: ProductModelRecord, variant?: ProductVariantRecord) => {
 	if (!model || !variant) return {};
 	const name =
 		model.name?.name ?? (formatProductColor(variant.color?.name) || variant.material?.name);

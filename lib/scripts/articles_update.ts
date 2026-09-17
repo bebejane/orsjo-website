@@ -1,11 +1,16 @@
 import 'dotenv/config';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
+import { ApiError, buildBlockRecord, buildClient } from '@datocms/cma-client';
+import type { ItemTypeDefinition } from '@datocms/cma-client';
+import type { Item, ItemInNestedResponse } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 import {
-	buildBlockRecord,
-	buildClient,
-	ApiError,
-} from '@datocms/cma-client';
+	Product,
+	ProductAccessory,
+	ProductLightsource,
+	ProductModel,
+	ProductVariant,
+} from '@/types/datocms-cma';
 
 const require = createRequire(import.meta.url);
 const XLSX = require('xlsx') as {
@@ -20,40 +25,36 @@ const XLSX = require('xlsx') as {
 		) => T[];
 	};
 };
-import type {
-	Product,
-	ProductAccessory,
-	ProductLightsource,
-	ProductModel,
-	Variant,
-} from '@/types/datocms-cma';
-import type { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 
 const ENV = 'dev';
 const XLSX_PATH = 'articles_update.xlsx';
 
 // Item type ids (from types/datocms-cma.d.ts)
-const PRODUCT_TYPE = '1801291';
-const PRODUCT_MODEL_TYPE = '1801307'; // block inside product.models
-const VARIANT_TYPE = '1801308'; // block inside model.variants
-const PRODUCT_LIGHTSOURCE_TYPE = '1801292';
-const PRODUCT_ACCESSORY_TYPE = 'ZU6qDmJWRnGkIqsGWmJa2A';
+const PRODUCT_TYPE = Product.ID;
+const PRODUCT_MODEL_TYPE = ProductModel.ID; // block inside product.models
+const PRODUCT_VARIANT_TYPE = ProductVariant.ID; // record linked by product_model.variants
+const PRODUCT_LIGHTSOURCE_TYPE = ProductLightsource.ID;
+const PRODUCT_ACCESSORY_TYPE = ProductAccessory.ID;
 
-type ExtendedVariant = Variant & { attributes: { ean?: string; article_no?: string } };
-type ExtendedModel = ProductModel & {
-	attributes: { variants?: string[]; [k: string]: unknown };
+type SheetRow = Partial<
+	Record<
+		| 'Varumärke'
+		| 'Leverantör'
+		| 'Leverantörens artikelnr'
+		| 'Produktnamn'
+		| 'Produkttyp'
+		| 'Basfärg (ex röd, blå)'
+		| string,
+		string | number | null
+	>
+>;
+
+type VariantRecord = ItemInNestedResponse<ProductVariant>;
+
+type NestedBlock = {
+	id: string;
+	attributes: Record<string, unknown>;
 };
-
-type SheetRow = Partial<Record<
-	| 'Varumärke'
-	| 'Leverantör'
-	| 'Leverantörens artikelnr'
-	| 'Produktnamn'
-	| 'Produkttyp'
-	| 'Basfärg (ex röd, blå)'
-	| string,
-	string | number | null
->>;
 
 /* ------------------------------------------------------------------ */
 /* Sanitization                                                        */
@@ -106,8 +107,6 @@ function toLocalized(
 	const en = EN_TRANSLATIONS[sv.toLowerCase()] ?? sv;
 	return { sv, en, no: sv, da: sv, 'en-GB': en };
 }
-
-const toBlockLocalized = sanitizeText;
 
 function toFloat(value: string | number | null | undefined): number | null {
 	if (value === null || value === undefined || value === '') return null;
@@ -167,7 +166,7 @@ function rowToData(row: SheetRow): RowData {
 			dimmer_included: toBool(row['Dimmer inkl. (ja/nej)']),
 		},
 		// per-article values: dimensions etc. vary between variants of a model,
-		// so they live on the Variant block for 1:1 correspondence with the xlsx
+		// so they live on the product_variant record for 1:1 correspondence with the xlsx
 		variant: {
 			dimension_length: toFloat(row['Produktlängd (cm)']),
 			dimension_width: toFloat(row['Produktbredd (cm)']),
@@ -204,8 +203,7 @@ const VARIANT_FIELDS: FieldDef[] = [
 		label: 'EAN',
 		api_key: 'ean',
 		field_type: 'string',
-		// note: `unique` validator is not applicable inside a modular block;
-		// `required` would also fail because legacy variants have no EAN values
+		// note: `required` would fail because legacy variants have no EAN values
 	},
 ];
 
@@ -263,7 +261,8 @@ const MODEL_FIELDS: FieldDef[] = [
 	},
 ];
 
-// variant-varying values live on the Variant block for per-article correspondence
+// variant-varying values live on the product_variant record
+// for per-article correspondence
 const VARIANT_LITERAL_FIELDS: FieldDef[] = [
 	{ label: 'Produktlängd (cm)', api_key: 'dimension_length', field_type: 'float' },
 	{ label: 'Produktbredd (cm)', api_key: 'dimension_width', field_type: 'float' },
@@ -314,26 +313,23 @@ const LIGHTSOURCE_FIELDS: FieldDef[] = [
 async function prepareEnvironment(): Promise<ReturnType<typeof buildClient>> {
 	const base = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string });
 	const environments = await base.environments.list();
-	const target = environments.find((e) => e.id === ENV);
-	if (target) {
-		if (target.meta.primary) throw new Error(`${ENV} is the primary environment`);
-		console.log(`Deleting existing environment "${ENV}"…`);
-		await base.environments.destroy(target.id);
+
+	const existing = environments.find((e) => e.id === ENV);
+	if (existing) {
+		if (existing.meta.primary) throw new Error(`${ENV} is the primary environment`);
+		console.log(`Reusing existing environment "${ENV}"…`);
+		return buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, environment: ENV });
 	}
+
 	const primary = environments.find((e) => e.meta.primary);
 	if (!primary) throw new Error('No primary environment found');
 	console.log(`Forking "${primary.id}" into "${ENV}"…`);
 	const forked = await base.environments.fork(primary.id, { id: ENV });
 	console.log(`Environment "${forked.id}" created`);
-	return buildClient({
-		apiToken: process.env.DATOCMS_API_TOKEN as string,
-		environment: ENV,
-	});
+	return buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, environment: ENV });
 }
 
-type CreateFieldBody = Parameters<
-	ReturnType<typeof buildClient>['fields']['create']
->[1];
+type CreateFieldBody = Parameters<ReturnType<typeof buildClient>['fields']['create']>[1];
 
 // Fields downgraded from localized when the platform rejects them
 const downgradedLocalized = new Set<string>();
@@ -350,7 +346,7 @@ async function createField(
 		localized,
 		validators: def.validators,
 		hint: def.hint,
-	});
+	} as CreateFieldBody);
 	for (let attemptLocalized = def.localized === true; ; attemptLocalized = false) {
 		try {
 			await client.fields.create(itemTypeId, makeBody(attemptLocalized));
@@ -394,7 +390,6 @@ async function republishIfPublished(
 		const item = await client.items.find(id, { version: 'published' });
 		if (item) await client.items.publish(id);
 	} catch (err) {
-		// Blocks without independent publish status live under their parent
 		if (!(err instanceof ApiError)) throw err;
 	}
 }
@@ -408,12 +403,25 @@ export async function testParse(): Promise<RowData[]> {
 }
 
 // listPagedIterator exposes fields at top level, find(nested) returns raw
-// items (article_no inside .attributes) — support both shapes
+// records (article_no inside .attributes) — support both shapes
 function articleOf(item: {
 	article_no?: string | null;
 	attributes?: { article_no?: string | null };
 }): string {
 	return String(item.article_no ?? item.attributes?.article_no ?? '');
+}
+
+async function listAll<T extends ItemTypeDefinition>(
+	client: ReturnType<typeof buildClient>,
+	type: string,
+): Promise<Item<T>[]> {
+	const items: Item<T>[] = [];
+	for await (const item of client.items.listPagedIterator<T>({
+		version: 'current',
+		filter: { type },
+	}))
+		items.push(item);
+	return items;
 }
 
 async function main(): Promise<void> {
@@ -425,28 +433,16 @@ async function main(): Promise<void> {
 	const client = await prepareEnvironment();
 
 	console.log('Ensuring schema fields…');
-	for (const def of VARIANT_FIELDS) await createField(client, VARIANT_TYPE, def);
+	for (const def of VARIANT_FIELDS) await createField(client, PRODUCT_VARIANT_TYPE, def);
 	for (const def of VARIANT_LITERAL_FIELDS)
-		await createField(client, VARIANT_TYPE, def);
+		await createField(client, PRODUCT_VARIANT_TYPE, def);
 	for (const def of MODEL_FIELDS) await createField(client, PRODUCT_MODEL_TYPE, def);
 	for (const def of LIGHTSOURCE_FIELDS)
 		await createField(client, PRODUCT_LIGHTSOURCE_TYPE, def);
 
 	/* ---------------- Lightsource + accessory lookup ---------------- */
 
-	const lightsources: Item<ProductLightsource>[] = [];
-	for await (const item of client.items.listPagedIterator<ProductLightsource>({
-		version: 'current',
-		filter: { type: PRODUCT_LIGHTSOURCE_TYPE },
-	}))
-		lightsources.push(item);
-
-	const accessories: Item<ProductAccessory>[] = [];
-	for await (const item of client.items.listPagedIterator<ProductAccessory>({
-		version: 'current',
-		filter: { type: PRODUCT_ACCESSORY_TYPE },
-	}))
-		accessories.push(item);
+	const lightsources = await listAll<ProductLightsource>(client, PRODUCT_LIGHTSOURCE_TYPE);
 
 	let updatedLightsources = 0;
 	for (const item of lightsources) {
@@ -459,6 +455,7 @@ async function main(): Promise<void> {
 	}
 	console.log(`Updated ${updatedLightsources} product_lightsource records`);
 
+	const accessories = await listAll<ProductAccessory>(client, PRODUCT_ACCESSORY_TYPE);
 	const matchedAccessories = accessories.filter((item) =>
 		byArticle.has((item.article_no ?? '').toUpperCase()),
 	);
@@ -466,107 +463,107 @@ async function main(): Promise<void> {
 
 	/* ---------------- Products → models → variants ------------------ */
 
-	const products: Item<Product>[] = [];
-	for await (const item of client.items.listPagedIterator<Product>({
-		version: 'current',
-		filter: { type: PRODUCT_TYPE },
-	}))
-		products.push(item);
+	const itemTypes = await client.itemTypes.list();
+	const modelBlockId = itemTypes.find((t) => t.api_key === 'product_model')!.id;
+	const lightsourceBlockId = itemTypes.find((t) => t.api_key === 'lightsource')!.id;
+	const accessoryBlockId = itemTypes.find((t) => t.api_key === 'accessory')!.id;
+
+	const products = await listAll<Product>(client, PRODUCT_TYPE);
 
 	let updatedModels = 0;
 	let updatedVariants = 0;
-	// Nested blocks (model + variants) cannot be PUT directly — they must be
-	// updated through their parent product item, using buildBlockRecord payloads
+
+	// Variant values (EAN + dims/cable) live on product_variant records and are
+	// updated directly. Model-level values still live on the ProductModel block,
+	// which is updated through its parent product item using buildBlockRecord.
 	for (const product of products) {
+		const item = await client.items.find<Product>(product.id, { nested: true });
+		const models = (item.models ?? []) as unknown as NestedBlock[];
+
+		const modelsPayload: unknown[] = [];
 		let productDirty = false;
+		let modelAttrWrites = 0;
 
-		for (const modelId of product.models ?? []) {
-			let model: ProductModel | undefined;
-			try {
-				model = await client.items.find<ProductModel>(modelId, {
-					nested: true,
-				});
-			} catch (err) {
-				// stale/dangling block references in product.models → skip
-				if (!(err instanceof ApiError) || !err.findError('NOT_FOUND')) {
-					throw err;
+		for (const model of models) {
+			const variantIds = (model.attributes.variants ?? []) as string[];
+
+			const variantRecords: VariantRecord[] = [];
+			for (const id of variantIds) {
+				try {
+					variantRecords.push(await client.items.find<ProductVariant>(id, { nested: true }));
+				} catch (err) {
+					// stale/dangling links in product_model.variants → skip
+					if (!(err instanceof ApiError) || !err.findError('NOT_FOUND')) {
+						throw err;
+					}
 				}
 			}
-			if (!model) continue;
 
-			type VariantRaw = {
-				type: string;
-				id: string;
-				attributes: { article_no?: string; ean?: string } & Record<
-					string,
-					unknown
-				>;
-			};
-			const variantItems = (model.variants ?? []) as VariantRaw[];
-
-			// EAN + per-article values live on the variant
-			const variantRecords = variantItems.map((v) => {
+			const matched = variantRecords.flatMap((v) => {
 				const row = byArticle.get(articleOf(v).toUpperCase());
-				return {
-					v,
-					row,
-					newEan: row?.ean ?? v.attributes.ean ?? '',
-				};
+				return row ? [{ v, row }] : [];
 			});
-			const touchedVariants = variantRecords.filter((b) => b.row);
 
+			// EAN + per-article values live on the product_variant record
+			for (const { v, row } of matched) {
+				const ean = (row.ean ?? (v as VariantRecord & { ean?: string }).ean ?? '') as string;
+				await client.items.update(v.id, { ...row.variant, ean } as never);
+				await republishIfPublished(client, v.id);
+				updatedVariants++;
+			}
+
+			const modelRow = matched[0]?.row;
 			const modelAttrs: Record<string, unknown> = {};
-			const modelRow = variantRecords
-				.map((b) => b.row)
-				.filter((r): r is RowData => Boolean(r))[0];
 			if (modelRow) {
-				for (const [k, v] of Object.entries(modelRow.model)) {
-					if (v === null || v === undefined) continue;
-				modelAttrs[k] =
-					typeof v === 'object' && downgradedLocalized.has(k)
-						? (v as { sv?: string }).sv
-						: v;
+				for (const [k, val] of Object.entries(modelRow.model)) {
+					if (val === null || val === undefined) continue;
+					modelAttrs[k] =
+						typeof val === 'object' && downgradedLocalized.has(k)
+							? (val as { sv?: string }).sv
+							: val;
 				}
 			}
+			if (Object.keys(modelAttrs).length) modelAttrWrites++;
 
-			if (!touchedVariants.length && !Object.keys(modelAttrs).length) continue;
+			// Rebuild every model block (variants links are passed through unchanged)
+			modelsPayload.push(
+				buildBlockRecord({
+					item_type: { type: 'item_type', id: modelBlockId },
+					id: model.id,
+					name: model.attributes.name,
+					drawing: model.attributes.drawing,
+					lightsources: ((model.attributes.lightsources ?? []) as NestedBlock[]).map((l: NestedBlock) =>
+						buildBlockRecord({
+							item_type: { type: 'item_type', id: lightsourceBlockId },
+							id: l.id,
+							...l.attributes,
+						}),
+					),
+					accessories: ((model.attributes.accessories ?? []) as NestedBlock[]).map((a: NestedBlock) =>
+						buildBlockRecord({
+							item_type: { type: 'item_type', id: accessoryBlockId },
+							id: a.id,
+							...a.attributes,
+						}),
+					),
+					variants: model.attributes.variants,
+					...modelAttrs,
+				} as never),
+			);
 
-			const modelRecord = buildBlockRecord<ProductModel>({
-				id: String(model.id),
-				__itemTypeId: PRODUCT_MODEL_TYPE,
-				...modelAttrs,
-				variants: variantRecords.map((b) =>
-					buildBlockRecord<Variant>({
-						id: b.v.id,
-						__itemTypeId: VARIANT_TYPE,
-						...b.v.attributes,
-						...b.row?.variant,
-						ean: b.newEan,
-					}),
-				),
-			});
-
-			try {
-				await client.items.rawUpdate(product.id, {
-					data: {
-						type: 'item',
-						id: product.id,
-						attributes: { models: [modelRecord] },
-					},
-				});
-				if (Object.keys(modelAttrs).length) updatedModels++;
-				updatedVariants += touchedVariants.length;
-				productDirty = true;
-			} catch (err) {
-				console.error(
-					`  ! failed updating models of product ${product.id}:`,
-					err,
-				);
-				throw err;
-			}
+			if (matched.length || Object.keys(modelAttrs).length) productDirty = true;
 		}
 
-		if (productDirty) await republishIfPublished(client, product.id);
+		if (!productDirty) continue;
+
+		try {
+			await client.items.update(product.id, { models: modelsPayload } as never);
+			await republishIfPublished(client, product.id);
+			updatedModels += modelAttrWrites;
+		} catch (err) {
+			console.error(`  ! failed updating models of product ${product.id}:`, err);
+			throw err;
+		}
 	}
 	console.log(`Updated ${updatedModels} models / ${updatedVariants} variants (EAN + dims/cable values)`);
 

@@ -1,97 +1,83 @@
-import { AllProductsDocument, AllProductLightsourcesDocument, AllProductAccessoriesDocument } from '@/graphql';
+import {
+	AllProductsDocument,
+	AllProductLightsourcesDocument,
+	AllProductAccessoriesDocument,
+} from '@/graphql';
 import fs from 'fs';
 //@ts-expect-error
 import XlsxStreamReader from 'xlsx-stream-reader';
 import 'dotenv/config';
 import { apiQuery } from 'next-dato-utils/api';
-import { buildClient, ApiError, buildBlockRecord } from '@datocms/cma-client';
+import { buildClient, ApiError } from '@datocms/cma-client';
+import { ProductAccessory, ProductLightsource, ProductVariant } from '@/types/datocms-cma';
 
-const environment = 'main';
-const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, environment });
+const ENV = 'dev';
+const XLSX_PATH = './docs/Leveranstid per produkt.xlsx';
+const client = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, environment: ENV });
+
+type DeliveryDays = 'short' | 'medium' | 'long';
 
 (async () => {
 	console.time('delivery days');
-	const { allProducts } = await apiQuery(AllProductsDocument, {
-		all: true,
-		environment,
-		includeDrafts: true,
-	});
-	const { allProductLightsources } = await apiQuery(AllProductLightsourcesDocument, {
-		all: true,
-		environment,
-	});
-	const { allProductAccessories } = await apiQuery(AllProductAccessoriesDocument, {
-		all: true,
-		environment,
-	});
+	const allProducts: AllProductsQuery['allProducts'] = (
+		await apiQuery(AllProductsDocument, { all: true, includeDrafts: true })
+	).allProducts;
+	const allProductLightsources: AllProductLightsourcesQuery['allProductLightsources'] = (
+		await apiQuery(AllProductLightsourcesDocument, { all: true, includeDrafts: true })
+	).allProductLightsources;
+	const allProductAccessories: AllProductAccessoriesQuery['allProductAccessories'] = (
+		await apiQuery(AllProductAccessoriesDocument, { all: true, includeDrafts: true })
+	).allProductAccessories;
 
-	const variants = await readFile('./docs/Leveranstid per produkt.xlsx');
-	variants.forEach((variant, idx) => {
-		const product = allProducts.find((p) =>
-			p.models.some((m) =>
-				m.variants.find((v) => {
-					return v.articleNo?.trim() === variant.articleNo;
-				})
-			)
-		);
-		const accessory = allProductAccessories.find((p) => p.articleNo.trim() === variant.articleNo);
-		const lightsources = allProductLightsources.find((p) => p.articleNo.trim() === variant.articleNo);
-		variants[idx].item = product || accessory || lightsources;
-	});
-	try {
-		const missing: any[] = [];
-		for (const variant of variants) {
-			if (!variant.item) {
-				missing.push(variant);
-				continue;
+	const rows = await readFile(XLSX_PATH);
+	const missing: string[] = [];
+
+	for (const row of rows) {
+		const variant = allProducts
+			.flatMap((p) => p.models)
+			.flatMap((m) => m.variants)
+			.find((v) => v.articleNo?.trim() === row.articleNo);
+		const accessory = allProductAccessories.find((a) => a.articleNo.trim() === row.articleNo);
+		const lightsource = allProductLightsources.find((l) => l.articleNo.trim() === row.articleNo);
+
+		try {
+			if (variant) {
+				await client.items.update<ProductVariant>(variant.id, { delivery_days: row.days });
+				await republishIfPublished(variant.id);
+				console.log(`product_variant: ${row.articleNo} → ${row.days}`);
+			} else if (accessory) {
+				await client.items.update<ProductAccessory>(accessory.id, { delivery_days: row.days });
+				await republishIfPublished(accessory.id);
+				console.log(`product_accessory: ${row.articleNo} → ${row.days}`);
+			} else if (lightsource) {
+				await client.items.update<ProductLightsource>(lightsource.id, { delivery_days: row.days });
+				await republishIfPublished(lightsource.id);
+				console.log(`product_lightsource: ${row.articleNo} → ${row.days}`);
+			} else {
+				missing.push(row.articleNo);
 			}
-			const item: any = await client.items.find(variant.item.id, { nested: true });
-			let data: any = null;
-
-			switch (variant.item.__typename) {
-				case 'ProductAccessoryRecord':
-					data = { delivery_days: variant.days };
-					break;
-				case 'ProductLightsourceRecord':
-					data = { delivery_days: variant.days };
-					break;
-				case 'ProductRecord':
-					data = {
-						...item.attributes,
-						models: item.models.map((m: any) => ({
-							...m,
-							attributes: {
-								...m.attributes,
-								variants: m.attributes.variants?.map((v: any) => ({
-									...v,
-									attributes: {
-										...v.attributes,
-										delivery_days:
-											v.attributes.article_no === variant.articleNo ? variant.days : v.attributes.delivery_days,
-									},
-								})),
-							},
-						})),
-					};
-
-					break;
-			}
-			console.log(`${variant.item.__typename}: ${variant.articleNo}`);
-			await client.items.update(item.id, data);
-			if (item.meta.status === 'published') await client.items.publish(item.id);
+		} catch (err) {
+			const e = err as ApiError;
+			console.error(`! ${row.articleNo}:`, e.message ?? err);
+			missing.push(row.articleNo);
 		}
-		console.log('Missing', missing);
-	} catch (err) {
-		const e = err as ApiError;
-		console.log(e.message, e.cause);
 	}
+
+	console.log('Missing', missing);
 	console.timeEnd('delivery days');
 })();
 
-async function readFile(
-	filePath: string
-): Promise<{ articleNo: string; days: 'short' | 'medium' | 'long'; item?: any }[]> {
-	const variants: { articleNo: string; days: 'short' | 'medium' | 'long' }[] = [];
+async function republishIfPublished(id: string): Promise<void> {
+	try {
+		const item = await client.items.find(id, { version: 'published' });
+		if (item) await client.items.publish(id);
+	} catch (err) {
+		if (!(err instanceof ApiError)) throw err;
+	}
+}
+
+async function readFile(filePath: string): Promise<{ articleNo: string; days: DeliveryDays }[]> {
+	const variants: { articleNo: string; days: DeliveryDays }[] = [];
 	return new Promise((resolve, reject) => {
 		var workBookReader = new XlsxStreamReader();
 		workBookReader.on('error', (err: any) => reject(err));

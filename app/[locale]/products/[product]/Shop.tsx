@@ -231,7 +231,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 									const title = generateProductTitle(product as ProductRecord, variant.id);
 									const { name, description } = parseProductModelName(
 										model as ProductModelRecord,
-										variant as VariantRecord,
+										variant as ProductVariantRecord,
 									);
 
 									let deliveryDays;
@@ -307,7 +307,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 								{
 									parseProductModelName(
 										selectedModel as ProductModelRecord,
-										selected as VariantRecord,
+										selected as ProductVariantRecord,
 									).name
 								}
 							</strong>
@@ -315,7 +315,7 @@ export default function ProductShop({ product, geins, variantId, shipping, marke
 							{
 								parseProductModelName(
 									selectedModel as ProductModelRecord,
-									selected as VariantRecord,
+									selected as ProductVariantRecord,
 								).description
 							}
 						</span>
