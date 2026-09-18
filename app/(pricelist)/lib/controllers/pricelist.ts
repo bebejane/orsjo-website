@@ -5,7 +5,7 @@ import {
 	Product,
 	ProductAccessory,
 	ProductLightsource,
-	Variant,
+	ProductVariant,
 } from '@/types/datocms-cma';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument, PricelistDocument } from '@/graphql';
@@ -51,7 +51,7 @@ export type ProductUpdate = Record<
 
 type ProductRecord = ItemInNestedResponse<Product>;
 type LightsourceRecord = ItemInNestedResponse<ProductLightsource>;
-type VariantRecord = ItemInNestedResponse<Variant>;
+type ProductVariantRecord = ItemInNestedResponse<ProductVariant>;
 type AccessoryRecord = ItemInNestedResponse<ProductAccessory>;
 type ModelBlock = any;
 
@@ -136,13 +136,13 @@ export async function generate(
 	const [productRecords, lightsources, variants, accessories] = await Promise.all([
 		getAllRecords<Product>('product'),
 		getAllRecords<ProductLightsource>('product_lightsource'),
-		getAllRecords<Variant>('variant'),
+		getAllRecords<ProductVariant>('product_variant'),
 		getAllRecords<ProductAccessory>('product_accessory'),
 	]);
 
 	const all = [...lightsources, ...variants, ...accessories] as (
 		| LightsourceRecord
-		| VariantRecord
+		| ProductVariantRecord
 		| AccessoryRecord
 	)[];
 
@@ -170,16 +170,15 @@ export async function generate(
 				const accessoryUpdates: { id: string; price: number }[] = [];
 				const models = product.models as ModelBlock[];
 
-				models?.filter((m: ModelBlock) =>
-					m.attributes.variants
-						?.filter((v: { id: string }) => v.id === objectId)
-						.forEach(
-							(v: {
-								id: string;
-								attributes: { article_no: string | null; price: number | null };
-							}) => variantUpdates.push({ ...v.attributes, id: v.id, price: articles[i].price }),
-						),
-				);
+				models?.forEach((m: ModelBlock) => {
+					if (!m.attributes.variants?.includes(objectId)) return;
+					if (variantUpdates.find((v) => v.id === objectId)) return;
+					variantUpdates.push({
+						id: objectId,
+						article_no: items[y].article_no ?? null,
+						price: articles[i].price,
+					});
+				});
 				models?.filter((m: ModelBlock) =>
 					m.attributes.lightsources
 						?.filter(
@@ -243,7 +242,6 @@ export async function update(
 	});
 
 	const itemTypes = await client.itemTypes.list();
-	const variantBlockId = itemTypes.filter((t) => t.api_key === 'variant')[0].id;
 	const modelBlockId = itemTypes.filter((t) => t.api_key === 'product_model')[0].id;
 	const lightsourceBlockId = itemTypes.filter((t) => t.api_key === 'lightsource')[0].id;
 	const accessoryBlockId = itemTypes.filter((t) => t.api_key === 'accessory')[0].id;
@@ -272,6 +270,12 @@ export async function update(
 				await client.items.update(id, { price: parseFloat(String(price)) });
 			}
 		}
+		if (variants.length) {
+			for (let x = 0; x < variants.length; x++) {
+				const { id, price } = variants[x];
+				await client.items.update(id, { price: parseFloat(String(price)) });
+			}
+		}
 		const product = await client.items.find(productId, { version: 'published', nested: true });
 
 		const query = {
@@ -292,15 +296,7 @@ export async function update(
 							...a.attributes,
 						}),
 					),
-					variants: model.attributes.variants.map((v: ModelBlock) =>
-						buildBlockRecord({
-							item_type: { type: 'item_type', id: variantBlockId },
-							...v.attributes,
-							price:
-								variants.find((el) => el.article_no === v.attributes.article_no)?.price ||
-								v.attributes.price,
-						}),
-					),
+					variants: model.attributes.variants,
 				}),
 			),
 		};
