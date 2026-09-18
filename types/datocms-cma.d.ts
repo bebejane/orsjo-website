@@ -1097,6 +1097,9 @@ export type ProductModel = ItemTypeDefinition<
     drawing: {
       type: 'file';
     };
+    variants: {
+      type: 'links';
+    };
     lightsources: {
       type: 'rich_text';
       blocks: Lightsource;
@@ -1104,9 +1107,6 @@ export type ProductModel = ItemTypeDefinition<
     accessories: {
       type: 'rich_text';
       blocks: Accessory;
-    };
-    variants: {
-      type: 'links';
     };
   }
 >;
@@ -1176,7 +1176,7 @@ export const ProductStart = {
 
 export type ProductVariant = ItemTypeDefinition<
   EnvironmentSettings,
-  'W4alwfW8Saewj53qP_tz4A',
+  'OMyMb5W4S2iyX6FONqm2eg',
   {
     article_no: {
       type: 'string';
@@ -1208,8 +1208,8 @@ export type ProductVariant = ItemTypeDefinition<
   }
 >;
 export const ProductVariant = {
-  ID: 'W4alwfW8Saewj53qP_tz4A',
-  REF: { type: 'item_type', id: 'W4alwfW8Saewj53qP_tz4A' },
+  ID: 'OMyMb5W4S2iyX6FONqm2eg',
+  REF: { type: 'item_type', id: 'OMyMb5W4S2iyX6FONqm2eg' },
 } as const;
 
 export type Project = ItemTypeDefinition<
@@ -1578,44 +1578,6 @@ export const TwoColumnImage = {
   REF: { type: 'item_type', id: '1995884' },
 } as const;
 
-export type Variant = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801308',
-  {
-    article_no: {
-      type: 'string';
-    };
-    color: {
-      type: 'link';
-    };
-    material: {
-      type: 'link';
-    };
-    feature: {
-      type: 'link';
-    };
-    weight: {
-      type: 'float';
-    };
-    volume: {
-      type: 'float';
-    };
-    price: {
-      type: 'float';
-    };
-    delivery_days: {
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-  }
->;
-export const Variant = {
-  ID: '1801308',
-  REF: { type: 'item_type', id: '1801308' },
-} as const;
-
 export type Video = ItemTypeDefinition<
   EnvironmentSettings,
   '1995887',
@@ -1670,7 +1632,6 @@ export type AnyBlock =
   | SustainabilityStep
   | Text
   | TwoColumnImage
-  | Variant
   | Video;
 export type AnyModel =
   | About

@@ -22,6 +22,7 @@
 		"geins:sync-all": "tsx geins/scripts/sync-all.ts",
 		"generate-product-pdfs": "tsx lib/scripts/generate-product-pdfs.ts",
 		"articles:update": "tsx lib/scripts/articles_update.ts",
+		"articles:summary": "tsx lib/scripts/articles_split_summary.ts",
 		"variants:migration": "tsx lib/scripts/variants_migration.ts"
 	},
 	"dependencies": {

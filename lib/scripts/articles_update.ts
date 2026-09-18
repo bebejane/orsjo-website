@@ -7,12 +7,13 @@ import type {
 	Item,
 	ItemInNestedResponse,
 } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
-import type {
+import {
 	Product,
 	ProductAccessory,
 	ProductLightsource,
+	ProductModel,
 	ProductVariant,
-} from '@/types/datocms-cma';
+} from '../../types/datocms-cma.d';
 
 const require = createRequire(import.meta.url);
 const XLSX = require('xlsx') as {
@@ -29,13 +30,11 @@ const ENV = 'dev';
 const XLSX_PATH = 'articles_update.xlsx';
 
 // Item type ids (from types/datocms-cma.d.ts)
-// item type ids — duplicated from types/datocms-cma.d.ts since runtime
-// `.ID` constants in a .d.ts module cannot be imported
-const PRODUCT_TYPE = '1801291';
-const PRODUCT_MODEL_TYPE = '1801307'; // block inside product.models
-const PRODUCT_VARIANT_TYPE = 'W4alwfW8Saewj53qP_tz4A'; // product_variant record
-const PRODUCT_LIGHTSOURCE_TYPE = '1801292';
-const PRODUCT_ACCESSORY_TYPE = 'ZU6qDmJWRnGkIqsGWmJa2A';
+const PRODUCT_TYPE = Product.ID;
+const PRODUCT_MODEL_TYPE = ProductModel.ID; // block inside product.models
+const PRODUCT_VARIANT_TYPE = ProductVariant.ID; // record linked by product_model.variants
+const PRODUCT_LIGHTSOURCE_TYPE = ProductLightsource.ID;
+const PRODUCT_ACCESSORY_TYPE = ProductAccessory.ID;
 
 type SheetRow = Partial<
 	Record<
@@ -69,6 +68,9 @@ function sanitizeText(value: string | number | null | undefined): string | null 
 	// never touch values containing digits (article numbers like "36124-30S-000")
 	if (!/\d/.test(s) && s === s.toUpperCase() && s.length > 3) s = s.toLowerCase();
 	return s.charAt(0).toUpperCase() + s.slice(1);
+}
+function sanitizeUrl(value: string | number | null | undefined): string | null {
+	return sanitizeText(value)?.toLowerCase() ?? null;
 }
 
 type Locales = 'sv' | 'en' | 'no' | 'da' | 'en-GB';
@@ -110,6 +112,16 @@ function toLocalized(
 }
 
 function toFloat(value: string | number | null | undefined): number | null {
+	if (value === null || value === undefined || value === '') return null;
+	const n = Number(
+		String(value)
+			.replace(',', '.')
+			.replace(/[^\d.-]/g, ''),
+	);
+	return Number.isNaN(n) ? null : n;
+}
+
+function toInt(value: string | number | null | undefined): number | null {
 	if (value === null || value === undefined || value === '') return null;
 	const n = Number(
 		String(value)
@@ -171,19 +183,17 @@ function rowToData(row: SheetRow): RowData {
 		// per-article values: dimensions etc. vary between variants of a model,
 		// so they live on the product_variant record for 1:1 correspondence with the xlsx
 		variant: {
-			dimension_length: toFloat(row['Produktlängd (cm)']),
-			dimension_width: toFloat(row['Produktbredd (cm)']),
-			dimension_height: toFloat(row['Produkthöjd (cm)']),
-			dimension_depth: toFloat(row['Produktdjup (cm)']),
-			dimensions_diameter: toFloat(row['Produktens diameter (cm)']),
+			length: toFloat(row['Produktlängd (cm)']),
+			width: toFloat(row['Produktbredd (cm)']),
+			height: toFloat(row['Produkthöjd (cm)']),
+			depth: toFloat(row['Produktdjup (cm)']),
+			diameter: toFloat(row['Produktens diameter (cm)']),
 			lampshade_height: toFloat(row['Lampskärm höjd (cm)']),
 			ceiling_rose_included: toBool(row['Takkopp ingår (om taklampa)']),
 			lampshade_included: toBool(row['Ingår lampupphängning']),
 			cable_length: sanitizeText(row['Sladdlängd (m)']),
 		},
-		lightsource: {
-			eprel_url: sanitizeText(row['Eprel-länk']),
-		},
+		lightsource: {},
 		accessory: {},
 	};
 }
@@ -195,7 +205,7 @@ function rowToData(row: SheetRow): RowData {
 type FieldDef = {
 	label: string;
 	api_key: string;
-	field_type: 'string' | 'float' | 'boolean';
+	field_type: 'string' | 'float' | 'boolean' | 'integer';
 	localized?: boolean;
 	validators?: Record<string, unknown>;
 	hint?: string;
@@ -205,7 +215,7 @@ const VARIANT_FIELDS: FieldDef[] = [
 	{
 		label: 'EAN',
 		api_key: 'ean',
-		field_type: 'string',
+		field_type: 'integer',
 		// note: `required` would fail because legacy variants have no EAN values
 	},
 ];
@@ -267,13 +277,13 @@ const MODEL_FIELDS: FieldDef[] = [
 // variant-varying values live on the product_variant record
 // for per-article correspondence
 const VARIANT_LITERAL_FIELDS: FieldDef[] = [
-	{ label: 'Produktlängd (cm)', api_key: 'dimension_length', field_type: 'float' },
-	{ label: 'Produktbredd (cm)', api_key: 'dimension_width', field_type: 'float' },
-	{ label: 'Produkthöjd (cm)', api_key: 'dimension_height', field_type: 'float' },
-	{ label: 'Produktdjup (cm)', api_key: 'dimension_depth', field_type: 'float' },
+	{ label: 'Längd (cm)', api_key: 'length', field_type: 'float' },
+	{ label: 'Bredd (cm)', api_key: 'width', field_type: 'float' },
+	{ label: 'Höjd (cm)', api_key: 'height', field_type: 'float' },
+	{ label: 'Djup (cm)', api_key: 'depth', field_type: 'float' },
 	{
-		label: 'Produktens diameter (cm)',
-		api_key: 'dimensions_diameter',
+		label: 'Diameter (cm)',
+		api_key: 'diameter',
 		field_type: 'float',
 	},
 	{
@@ -299,15 +309,8 @@ const VARIANT_LITERAL_FIELDS: FieldDef[] = [
 	},
 ];
 
-const LIGHTSOURCE_FIELDS: FieldDef[] = [
-	{
-		label: 'Eprel-länk',
-		api_key: 'eprel_url',
-		field_type: 'string',
-		validators: { format: { predefined_pattern: 'url' } },
-		hint: 'Eprel link',
-	},
-];
+const LIGHTSOURCE_FIELDS: FieldDef[] = [];
+const ACCESSORY_FIELDS: FieldDef[] = [];
 
 /* ------------------------------------------------------------------ */
 /* Environment + schema                                                */
@@ -365,26 +368,7 @@ async function createField(
 			}
 			return;
 		} catch (err) {
-			const isTakeKey =
-				err instanceof ApiError &&
-				(err.findError('TAKE_FIELD_API_KEY') ||
-					err.errors.some(
-						(e) =>
-							e.attributes.code === 'INVALID_FIELD' &&
-							(e.attributes.details as { field?: string } | undefined)?.field === 'api_key' &&
-							(e.attributes.details as { code?: string } | undefined)?.code ===
-								'VALIDATION_UNIQUENESS',
-					));
-			if (isTakeKey) {
-				// check the existing field's localized setting so value payloads match
-				if (def.localized) {
-					try {
-						const existing = await client.fields.find(`${itemTypeId}/${def.api_key}`);
-						if (!existing.localized) downgradedLocalized.add(def.api_key);
-					} catch (_) {
-						downgradedLocalized.add(def.api_key);
-					}
-				}
+			if (err instanceof ApiError && err.findError('TAKE_FIELD_API_KEY')) {
 				console.log(`  · field ${def.api_key} already exists on ${itemTypeId} (upsert)`);
 				return;
 			}
@@ -462,6 +446,7 @@ async function main(): Promise<void> {
 	for (const def of VARIANT_LITERAL_FIELDS) await createField(client, PRODUCT_VARIANT_TYPE, def);
 	for (const def of MODEL_FIELDS) await createField(client, PRODUCT_MODEL_TYPE, def);
 	for (const def of LIGHTSOURCE_FIELDS) await createField(client, PRODUCT_LIGHTSOURCE_TYPE, def);
+	for (const def of ACCESSORY_FIELDS) await createField(client, PRODUCT_ACCESSORY_TYPE, def);
 
 	/* ---------------- Lightsource + accessory lookup ---------------- */
 
@@ -530,9 +515,14 @@ async function main(): Promise<void> {
 			// EAN + per-article values live on the product_variant record
 			for (const { v, row } of matched) {
 				const ean = (row.ean ?? (v as VariantRecord & { ean?: string }).ean ?? '') as string;
-				await client.items.update(v.id, { ...row.variant, ean } as never);
-				await republishIfPublished(client, v.id);
-				updatedVariants++;
+				try {
+					await client.items.update(v.id, { ...row.variant, ean } as never);
+					await republishIfPublished(client, v.id);
+					updatedVariants++;
+				} catch (err) {
+					console.log('failed to update variant', v.id, row.variant, ean);
+					throw err;
+				}
 			}
 
 			const modelRow = matched[0]?.row;
@@ -589,6 +579,7 @@ async function main(): Promise<void> {
 			console.error(`  ! failed updating models of product ${product.id}:`, err);
 			throw err;
 		}
+		process.stdout.write('.');
 	}
 	console.log(
 		`Updated ${updatedModels} models / ${updatedVariants} variants (EAN + dims/cable values)`,
