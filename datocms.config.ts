@@ -70,6 +70,7 @@ export function getRoute(item: any, locale?: string | null): string {
 		case 'product_mounting':
 		case 'product_socket':
 		case 'product_start':
+		case 'product_variant':
 			return '/products';
 		case 'project':
 			return `/professionals/projects/${slug}`;
@@ -126,6 +127,7 @@ export default {
 			`/${locale}/products`,
 			`/${locale}`,
 		],
+		product_variant: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_accessory: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_category: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_color: async ({ id }, locale) => getItemReferenceRoutes(id),

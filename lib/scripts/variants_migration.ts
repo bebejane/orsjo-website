@@ -101,7 +101,7 @@ async function ensureProductVariantModel(
 			name: NEW_MODEL_NAME,
 			api_key: NEW_MODEL_API_KEY,
 			singleton: false,
-			draft_mode_active: true,
+			draft_mode_active: false,
 			draft_saving_active: false,
 		});
 	} else {

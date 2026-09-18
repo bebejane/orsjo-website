@@ -3,12 +3,14 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import { ApiError, buildBlockRecord, buildClient } from '@datocms/cma-client';
 import type { ItemTypeDefinition } from '@datocms/cma-client';
-import type { Item, ItemInNestedResponse } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
-import {
+import type {
+	Item,
+	ItemInNestedResponse,
+} from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
+import type {
 	Product,
 	ProductAccessory,
 	ProductLightsource,
-	ProductModel,
 	ProductVariant,
 } from '@/types/datocms-cma';
 
@@ -19,10 +21,7 @@ const XLSX = require('xlsx') as {
 		Sheets: Record<string, unknown>;
 	};
 	utils: {
-		sheet_to_json: <T>(
-			ws: unknown,
-			opts: { range: number; defval: null; raw: boolean },
-		) => T[];
+		sheet_to_json: <T>(ws: unknown, opts: { range: number; defval: null; raw: boolean }) => T[];
 	};
 };
 
@@ -30,11 +29,13 @@ const ENV = 'dev';
 const XLSX_PATH = 'articles_update.xlsx';
 
 // Item type ids (from types/datocms-cma.d.ts)
-const PRODUCT_TYPE = Product.ID;
-const PRODUCT_MODEL_TYPE = ProductModel.ID; // block inside product.models
-const PRODUCT_VARIANT_TYPE = ProductVariant.ID; // record linked by product_model.variants
-const PRODUCT_LIGHTSOURCE_TYPE = ProductLightsource.ID;
-const PRODUCT_ACCESSORY_TYPE = ProductAccessory.ID;
+// item type ids — duplicated from types/datocms-cma.d.ts since runtime
+// `.ID` constants in a .d.ts module cannot be imported
+const PRODUCT_TYPE = '1801291';
+const PRODUCT_MODEL_TYPE = '1801307'; // block inside product.models
+const PRODUCT_VARIANT_TYPE = 'W4alwfW8Saewj53qP_tz4A'; // product_variant record
+const PRODUCT_LIGHTSOURCE_TYPE = '1801292';
+const PRODUCT_ACCESSORY_TYPE = 'ZU6qDmJWRnGkIqsGWmJa2A';
 
 type SheetRow = Partial<
 	Record<
@@ -105,17 +106,23 @@ function toLocalized(
 	const sv = sanitizeText(value);
 	if (!sv) return null;
 	const en = EN_TRANSLATIONS[sv.toLowerCase()] ?? sv;
-	return { sv, en, no: sv, da: sv, 'en-GB': en };
+	return { sv, en, 'no': sv, 'da': sv, 'en-GB': en };
 }
 
 function toFloat(value: string | number | null | undefined): number | null {
 	if (value === null || value === undefined || value === '') return null;
-	const n = Number(String(value).replace(',', '.').replace(/[^\d.-]/g, ''));
+	const n = Number(
+		String(value)
+			.replace(',', '.')
+			.replace(/[^\d.-]/g, ''),
+	);
 	return Number.isNaN(n) ? null : n;
 }
 
 function toBool(value: string | number | null | undefined): boolean {
-	const s = String(value ?? '').trim().toLowerCase();
+	const s = String(value ?? '')
+		.trim()
+		.toLowerCase();
 	return /^(ja|yes|true|1|x)$/.test(s);
 }
 
@@ -152,12 +159,8 @@ function rowToData(row: SheetRow): RowData {
 		article_no,
 		ean,
 		model: {
-			lightsource_exchangeable: toBool(
-				row['Är ljuskällan utbytbar? (om ljuskälla ingår)'],
-			),
-			lightsource_type: toLocalized(
-				row['Typ av ljuskälla (om ljuskälla ingår)'],
-			),
+			lightsource_exchangeable: toBool(row['Är ljuskällan utbytbar? (om ljuskälla ingår)']),
+			lightsource_type: toLocalized(row['Typ av ljuskälla (om ljuskälla ingår)']),
 			ceiling_rose_color: toLocalized(row['Takkopp färg']),
 			lamp_switch: sanitizeText(row['Brytare var (på sladden/på armaturen/nej)']),
 			cable_color: toLocalized(row['Sladdfärg']),
@@ -313,20 +316,21 @@ const LIGHTSOURCE_FIELDS: FieldDef[] = [
 async function prepareEnvironment(): Promise<ReturnType<typeof buildClient>> {
 	const base = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string });
 	const environments = await base.environments.list();
-
-	const existing = environments.find((e) => e.id === ENV);
-	if (existing) {
-		if (existing.meta.primary) throw new Error(`${ENV} is the primary environment`);
-		console.log(`Reusing existing environment "${ENV}"…`);
-		return buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, environment: ENV });
+	const target = environments.find((e) => e.id === ENV);
+	if (target) {
+		if (target.meta.primary) throw new Error(`${ENV} is the primary environment`);
+		console.log(`Deleting existing environment "${ENV}"…`);
+		await base.environments.destroy(target.id);
 	}
-
 	const primary = environments.find((e) => e.meta.primary);
 	if (!primary) throw new Error('No primary environment found');
 	console.log(`Forking "${primary.id}" into "${ENV}"…`);
 	const forked = await base.environments.fork(primary.id, { id: ENV });
 	console.log(`Environment "${forked.id}" created`);
-	return buildClient({ apiToken: process.env.DATOCMS_API_TOKEN as string, environment: ENV });
+	return buildClient({
+		apiToken: process.env.DATOCMS_API_TOKEN as string,
+		environment: ENV,
+	});
 }
 
 type CreateFieldBody = Parameters<ReturnType<typeof buildClient>['fields']['create']>[1];
@@ -339,26 +343,48 @@ async function createField(
 	itemTypeId: string,
 	def: FieldDef,
 ): Promise<void> {
-	const makeBody = (localized: boolean): CreateFieldBody => ({
-		label: def.label,
-		field_type: def.field_type,
-		api_key: def.api_key,
-		localized,
-		validators: def.validators,
-		hint: def.hint,
-	} as CreateFieldBody);
+	const makeBody = (localized: boolean): CreateFieldBody =>
+		({
+			label: def.label,
+			field_type: def.field_type,
+			api_key: def.api_key,
+			localized,
+			validators: def.validators,
+			hint: def.hint,
+		}) as CreateFieldBody;
 	for (let attemptLocalized = def.localized === true; ; attemptLocalized = false) {
 		try {
 			await client.fields.create(itemTypeId, makeBody(attemptLocalized));
 			if (def.localized && !attemptLocalized) {
 				downgradedLocalized.add(def.api_key);
-				console.log(`  + field ${def.api_key} on ${itemTypeId} (localized not allowed here → non-localized)`);
+				console.log(
+					`  + field ${def.api_key} on ${itemTypeId} (localized not allowed here → non-localized)`,
+				);
 			} else {
 				console.log(`  + field ${def.api_key} on ${itemTypeId}`);
 			}
 			return;
 		} catch (err) {
-			if (err instanceof ApiError && err.findError('TAKE_FIELD_API_KEY')) {
+			const isTakeKey =
+				err instanceof ApiError &&
+				(err.findError('TAKE_FIELD_API_KEY') ||
+					err.errors.some(
+						(e) =>
+							e.attributes.code === 'INVALID_FIELD' &&
+							(e.attributes.details as { field?: string } | undefined)?.field === 'api_key' &&
+							(e.attributes.details as { code?: string } | undefined)?.code ===
+								'VALIDATION_UNIQUENESS',
+					));
+			if (isTakeKey) {
+				// check the existing field's localized setting so value payloads match
+				if (def.localized) {
+					try {
+						const existing = await client.fields.find(`${itemTypeId}/${def.api_key}`);
+						if (!existing.localized) downgradedLocalized.add(def.api_key);
+					} catch (_) {
+						downgradedLocalized.add(def.api_key);
+					}
+				}
 				console.log(`  · field ${def.api_key} already exists on ${itemTypeId} (upsert)`);
 				return;
 			}
@@ -368,8 +394,7 @@ async function createField(
 				err.errors.some(
 					(e) =>
 						e.attributes.code === 'INVALID_FIELD' &&
-						(e.attributes.details as { field?: string } | undefined)?.field ===
-							'localized',
+						(e.attributes.details as { field?: string } | undefined)?.field === 'localized',
 				);
 			if (isLocalizedRejection) continue;
 			console.error(`  ! failed creating field ${def.api_key} on ${itemTypeId}:`, err);
@@ -434,11 +459,9 @@ async function main(): Promise<void> {
 
 	console.log('Ensuring schema fields…');
 	for (const def of VARIANT_FIELDS) await createField(client, PRODUCT_VARIANT_TYPE, def);
-	for (const def of VARIANT_LITERAL_FIELDS)
-		await createField(client, PRODUCT_VARIANT_TYPE, def);
+	for (const def of VARIANT_LITERAL_FIELDS) await createField(client, PRODUCT_VARIANT_TYPE, def);
 	for (const def of MODEL_FIELDS) await createField(client, PRODUCT_MODEL_TYPE, def);
-	for (const def of LIGHTSOURCE_FIELDS)
-		await createField(client, PRODUCT_LIGHTSOURCE_TYPE, def);
+	for (const def of LIGHTSOURCE_FIELDS) await createField(client, PRODUCT_LIGHTSOURCE_TYPE, def);
 
 	/* ---------------- Lightsource + accessory lookup ---------------- */
 
@@ -532,19 +555,21 @@ async function main(): Promise<void> {
 					id: model.id,
 					name: model.attributes.name,
 					drawing: model.attributes.drawing,
-					lightsources: ((model.attributes.lightsources ?? []) as NestedBlock[]).map((l: NestedBlock) =>
-						buildBlockRecord({
-							item_type: { type: 'item_type', id: lightsourceBlockId },
-							id: l.id,
-							...l.attributes,
-						}),
+					lightsources: ((model.attributes.lightsources ?? []) as NestedBlock[]).map(
+						(l: NestedBlock) =>
+							buildBlockRecord({
+								item_type: { type: 'item_type', id: lightsourceBlockId },
+								id: l.id,
+								...l.attributes,
+							}),
 					),
-					accessories: ((model.attributes.accessories ?? []) as NestedBlock[]).map((a: NestedBlock) =>
-						buildBlockRecord({
-							item_type: { type: 'item_type', id: accessoryBlockId },
-							id: a.id,
-							...a.attributes,
-						}),
+					accessories: ((model.attributes.accessories ?? []) as NestedBlock[]).map(
+						(a: NestedBlock) =>
+							buildBlockRecord({
+								item_type: { type: 'item_type', id: accessoryBlockId },
+								id: a.id,
+								...a.attributes,
+							}),
 					),
 					variants: model.attributes.variants,
 					...modelAttrs,
@@ -565,7 +590,9 @@ async function main(): Promise<void> {
 			throw err;
 		}
 	}
-	console.log(`Updated ${updatedModels} models / ${updatedVariants} variants (EAN + dims/cable values)`);
+	console.log(
+		`Updated ${updatedModels} models / ${updatedVariants} variants (EAN + dims/cable values)`,
+	);
 
 	console.log('Done — run it again safely (idempotent upserts).');
 }
