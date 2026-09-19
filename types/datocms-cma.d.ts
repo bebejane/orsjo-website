@@ -1108,6 +1108,30 @@ export type ProductModel = ItemTypeDefinition<
       type: 'rich_text';
       blocks: Accessory;
     };
+    lightsource_exchangeable: {
+      type: 'boolean';
+    };
+    lightsource_type: {
+      type: 'string';
+    };
+    ceiling_rose_color: {
+      type: 'string';
+    };
+    lamp_switch: {
+      type: 'string';
+    };
+    cable_color: {
+      type: 'string';
+    };
+    cable_type: {
+      type: 'string';
+    };
+    dimmable: {
+      type: 'boolean';
+    };
+    dimmer_included: {
+      type: 'boolean';
+    };
   }
 >;
 export const ProductModel = {
@@ -1204,6 +1228,36 @@ export type ProductVariant = ItemTypeDefinition<
     };
     image: {
       type: 'file';
+    };
+    ean: {
+      type: 'integer';
+    };
+    length: {
+      type: 'float';
+    };
+    width: {
+      type: 'float';
+    };
+    height: {
+      type: 'float';
+    };
+    depth: {
+      type: 'float';
+    };
+    diameter: {
+      type: 'float';
+    };
+    lampshade_height: {
+      type: 'float';
+    };
+    ceiling_rose_included: {
+      type: 'boolean';
+    };
+    lampshade_included: {
+      type: 'boolean';
+    };
+    cable_length: {
+      type: 'string';
     };
   }
 >;

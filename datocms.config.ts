@@ -9,7 +9,7 @@ import { defaultLocale, locales } from '@/i18n/routing';
 import { SitemapDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 
-export function getRoute(item: any, locale?: string | null): string {
+export async function getRoute(item: any, locale?: string | null): Promise<string> {
 	const apiKey = getItemApiKey(item);
 	if (!apiKey) throw new Error('No api key found');
 	const { slug } = item;
@@ -70,8 +70,11 @@ export function getRoute(item: any, locale?: string | null): string {
 		case 'product_mounting':
 		case 'product_socket':
 		case 'product_start':
-		case 'product_variant':
 			return '/products';
+		case 'product_variant':
+			const routes = await getItemReferenceRoutes(item.id);
+			if (!routes.length) return '/products';
+			return routes[0];
 		case 'project':
 			return `/professionals/projects/${slug}`;
 		case 'project_start':
@@ -94,7 +97,9 @@ export default {
 		defaultLocale,
 		locales,
 	},
-	route: async (item, locale) => getRoute(item, locale),
+	route: async (item, locale) => {
+		return getRoute(item, locale);
+	},
 	routes: {
 		about: async (_item, locale) => [`/${locale}/about`],
 		bespoke: async (_item, locale) => [`/${locale}/professionals/bespoke`],

@@ -1,13 +1,21 @@
 'use client';
 
 import React from 'react';
-import { connect } from 'datocms-plugin-sdk';
+import { BuildItemPresentationInfoCtx, connect } from 'datocms-plugin-sdk';
 import { createRoot, Root } from 'react-dom/client';
 import { useEffect } from 'react';
 import { ConfigScreen } from './ConfigScreen';
 import { IFrame } from './IFrame';
+import { ProductVariant } from '@/types/datocms-cma';
+import { Item } from '@datocms/cma-client/dist/types/generated/RawApiTypes.js';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 type PluginPageProps = {};
+
+function isProductVariantRecord(item: Item, ctx: BuildItemPresentationInfoCtx): boolean {
+	return ctx.itemTypes[item.relationships.item_type.data.id]?.attributes.api_key === 'product';
+}
 
 export function Plugin({}: PluginPageProps) {
 	const isIFrame = typeof window !== 'undefined' && window.self !== window.top;
@@ -17,6 +25,10 @@ export function Plugin({}: PluginPageProps) {
 
 	function render(component: React.ReactNode) {
 		rootElement = rootElement ?? document.getElementById('root');
+		if (!rootElement) {
+			console.warn('rootElement is null');
+			return;
+		}
 		if (!root) root = createRoot(rootElement as HTMLElement);
 		root?.render(<React.StrictMode>{component}</React.StrictMode>);
 	}
@@ -24,34 +36,38 @@ export function Plugin({}: PluginPageProps) {
 	useEffect(() => {
 		if (connecting.current || !isIFrame) return;
 		connecting.current = true;
-		console.log('connect Örsjö plugin');
+		console.log('connecting Örsjö plugin...');
 		connect({
 			renderConfigScreen(ctx) {
 				render(<ConfigScreen ctx={ctx} />);
 			},
 			renderPage(pageId, ctx) {
-				console.log('renderPage', ctx.plugin.attributes.parameters?.enabled);
-				if (ctx.plugin.attributes.parameters?.enabled === false) return;
 				switch (pageId) {
 					case 'pricelist':
 						return render(<IFrame ctx={ctx} src={'/pricelist'} />);
 				}
 			},
-			mainNavigationTabs(ctx) {
-				console.log('mainNavigationTabs', ctx.plugin.attributes.parameters?.enabled);
-				if (ctx.plugin.attributes.parameters?.enabled === false) return [];
-				const isDev = process.env.NODE_ENV === 'development';
-
+			contentAreaSidebarItems(ctx) {
 				return [
 					{
 						label: `Pricelist ${isDev ? '(dev)' : ''}`,
-						icon: 'archive',
+						icon: 'list',
 						pointsTo: {
 							pageId: 'pricelist',
 						},
-						placement: ['after', 'media'],
+						placement: ['after', 'menuItems'],
 					},
 				];
+			},
+			async buildItemPresentationInfo(item, ctx) {
+				if (!isProductVariantRecord(item, ctx)) return;
+				const { attributes: variant } = item as typeof item & {
+					attributes: Item<ProductVariant>['attributes'];
+				};
+				console.log(variant);
+				return {
+					title: `${variant.article_no}`,
+				};
 			},
 		})
 			.then((res) => {
@@ -66,5 +82,5 @@ export function Plugin({}: PluginPageProps) {
 			});
 	}, []);
 
-	return null;
+	return <div id='root' />;
 }

@@ -22,19 +22,21 @@ async function hashPassword(password: string): Promise<string> {
 
 export default async function proxy(req: NextRequest) {
 	const pathname = req.nextUrl.pathname;
-	const isCatalogueRoute = pathname.startsWith('/pricelist');
+	console.log(pathname);
+	if (pathname === '/pricelist/login' || pathname === '/plugin') {
+		return NextResponse.next();
+	}
 
-	if (!isCatalogueRoute) {
+	const isPricelistRoute = pathname.startsWith('/pricelist');
+
+	if (!isPricelistRoute) {
 		const handleI18nRouting = createMiddleware(routing);
 		const response = handleI18nRouting(req);
 		return response;
 	}
 
-	if (pathname === '/pricelist/login' || pathname === '/pricelist/plugin') {
-		return NextResponse.next();
-	}
-
 	const token = req.cookies.get(COOKIE_NAME)?.value;
+
 	if (!token) {
 		return NextResponse.redirect(new URL('/pricelist/login', req.url));
 	}
