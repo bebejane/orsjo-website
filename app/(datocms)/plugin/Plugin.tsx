@@ -6,15 +6,16 @@ import { createRoot, Root } from 'react-dom/client';
 import { useEffect } from 'react';
 import { ConfigScreen } from './ConfigScreen';
 import { IFrame } from './IFrame';
-import { ProductVariant } from '@/types/datocms-cma';
+import { Product, ProductMdm, ProductVariant } from '@/types/datocms-cma';
 import { Item } from '@datocms/cma-client/dist/types/generated/RawApiTypes.js';
+import { client } from '@/lib/client';
 
 const isDev = process.env.NODE_ENV === 'development';
 
 type PluginPageProps = {};
 
-function isProductVariantRecord(item: Item, ctx: BuildItemPresentationInfoCtx): boolean {
-	return ctx.itemTypes[item.relationships.item_type.data.id]?.attributes.api_key === 'product';
+function isRecordOf(item: Item, ctx: BuildItemPresentationInfoCtx, apiKey: string): boolean {
+	return ctx.itemTypes[item.relationships.item_type.data.id]?.attributes.api_key === apiKey;
 }
 
 export function Plugin({}: PluginPageProps) {
@@ -60,14 +61,29 @@ export function Plugin({}: PluginPageProps) {
 				];
 			},
 			async buildItemPresentationInfo(item, ctx) {
-				if (!isProductVariantRecord(item, ctx)) return;
-				const { attributes: variant } = item as typeof item & {
-					attributes: Item<ProductVariant>['attributes'];
-				};
-				console.log(variant);
-				return {
-					title: `${variant.article_no}`,
-				};
+				// if (isRecordOf(item, ctx, 'product')) {
+				// 	const { attributes: variant } = item as typeof item & {
+				// 		attributes: Item<ProductVariant>['attributes'];
+				// 	};
+
+				// 	return {
+				// 		title: `${variant.article_no}`,
+				// 	};
+				// }
+
+				if (isRecordOf(item, ctx, 'product_mdm')) {
+					const { attributes: mdm, id } = item as typeof item & {
+						attributes: Item<ProductMdm>['attributes'];
+					};
+
+					const product = (await client.items.references<Product>(id))?.[0];
+
+					return {
+						title: `${product?.title ?? id} (master data)`,
+					};
+				}
+
+				return;
 			},
 		})
 			.then((res) => {

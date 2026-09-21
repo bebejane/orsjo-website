@@ -1087,6 +1087,73 @@ export const ProductMaterial = {
   REF: { type: 'item_type', id: '1801295' },
 } as const;
 
+export type ProductMdm = ItemTypeDefinition<
+  EnvironmentSettings,
+  'PXOVw3q7Q4WSGpw_SpjzMg',
+  {
+    length: {
+      type: 'float';
+    };
+    width: {
+      type: 'float';
+    };
+    height: {
+      type: 'float';
+    };
+    depth: {
+      type: 'float';
+    };
+    diameter: {
+      type: 'float';
+    };
+    lampshade_height: {
+      type: 'float';
+    };
+    cable_length: {
+      type: 'string';
+    };
+    lightsource_type: {
+      type: 'string';
+      localized: true;
+    };
+    ceiling_rose_color: {
+      type: 'string';
+      localized: true;
+    };
+    lamp_switch: {
+      type: 'string';
+      localized: true;
+    };
+    cable_color: {
+      type: 'string';
+      localized: true;
+    };
+    cable_type: {
+      type: 'string';
+      localized: true;
+    };
+    dimmable: {
+      type: 'boolean';
+    };
+    dimmer_included: {
+      type: 'boolean';
+    };
+    lightsource_exchangeable: {
+      type: 'boolean';
+    };
+    ceiling_rose_included: {
+      type: 'boolean';
+    };
+    lampshade_included: {
+      type: 'boolean';
+    };
+  }
+>;
+export const ProductMdm = {
+  ID: 'PXOVw3q7Q4WSGpw_SpjzMg',
+  REF: { type: 'item_type', id: 'PXOVw3q7Q4WSGpw_SpjzMg' },
+} as const;
+
 export type ProductModel = ItemTypeDefinition<
   EnvironmentSettings,
   '1801307',
@@ -1108,29 +1175,8 @@ export type ProductModel = ItemTypeDefinition<
       type: 'rich_text';
       blocks: Accessory;
     };
-    lightsource_exchangeable: {
-      type: 'boolean';
-    };
-    lightsource_type: {
-      type: 'string';
-    };
-    ceiling_rose_color: {
-      type: 'string';
-    };
-    lamp_switch: {
-      type: 'string';
-    };
-    cable_color: {
-      type: 'string';
-    };
-    cable_type: {
-      type: 'string';
-    };
-    dimmable: {
-      type: 'boolean';
-    };
-    dimmer_included: {
-      type: 'boolean';
+    master_data: {
+      type: 'link';
     };
   }
 >;
@@ -1231,33 +1277,6 @@ export type ProductVariant = ItemTypeDefinition<
     };
     ean: {
       type: 'integer';
-    };
-    length: {
-      type: 'float';
-    };
-    width: {
-      type: 'float';
-    };
-    height: {
-      type: 'float';
-    };
-    depth: {
-      type: 'float';
-    };
-    diameter: {
-      type: 'float';
-    };
-    lampshade_height: {
-      type: 'float';
-    };
-    ceiling_rose_included: {
-      type: 'boolean';
-    };
-    lampshade_included: {
-      type: 'boolean';
-    };
-    cable_length: {
-      type: 'string';
     };
   }
 >;
@@ -1721,6 +1740,7 @@ export type AnyModel =
   | ProductFeature
   | ProductLightsource
   | ProductMaterial
+  | ProductMdm
   | ProductModelName
   | ProductMounting
   | ProductSocket

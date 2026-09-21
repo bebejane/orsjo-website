@@ -72,6 +72,7 @@ export async function getRoute(item: any, locale?: string | null): Promise<strin
 		case 'product_start':
 			return '/products';
 		case 'product_variant':
+		case 'product_mdm':
 			const routes = await getItemReferenceRoutes(item.id);
 			if (!routes.length) return '/products';
 			return routes[0];
@@ -133,6 +134,7 @@ export default {
 			`/${locale}`,
 		],
 		product_variant: async ({ id }, locale) => getItemReferenceRoutes(id),
+		product_mdm: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_accessory: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_category: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_color: async ({ id }, locale) => getItemReferenceRoutes(id),
@@ -161,7 +163,7 @@ export default {
 		sustainability: async (_item, locale) => [`/${locale}/about/sustainability`],
 		shipping: async (_item, locale) => [`/${locale}/products`],
 		withdraw_from_purchase: async (_item, locale) => [`/${locale}/support/withdraw-from-purchase`],
-		upload: async ({ id }) => getUploadReferenceRoutes(id),
+		upload: async ({ id }) => getUploadReferenceRoutes(id, locales),
 	},
 	sitemap: async () => {
 		const { allProducts, allDesigners, allProjects, allNews } = await apiQuery(SitemapDocument, {

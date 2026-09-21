@@ -185,6 +185,7 @@ export const AllRelatedProducts: DocumentNode;
 export const AllRelatedProjectsForProduct: DocumentNode;
 export const AllProductsByCategory: DocumentNode;
 export const ProductFragment: DocumentNode;
+export const ProductMasterDataFragment: DocumentNode;
 export const ProductLightFragment: DocumentNode;
 
   export default defaultDocument;
