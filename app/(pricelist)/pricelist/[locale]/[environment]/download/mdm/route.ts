@@ -1,6 +1,5 @@
-import { apiQuery } from 'next-dato-utils/api';
+import * as mdmController from '@/pricelist/lib/controllers/mdm';
 import { put } from '@vercel/blob';
-import { AllProductsDocument } from '@/graphql';
 
 export const maxDuration = 120;
 
@@ -9,8 +8,17 @@ export async function GET(
 	{ params }: RouteContext<'/pricelist/[locale]/[environment]/download/mdm'>,
 ) {
 	const { locale, environment } = await params;
-	const { allProducts } = await apiQuery(AllProductsDocument, {
-		all: true,
-		environment,
+
+	const { buffer, filename } = await mdmController.generate(locale as SiteLocale, environment);
+
+	const blob = await put(filename, buffer, {
+		access: 'public',
+		allowOverwrite: true,
+		addRandomSuffix: true,
+		// Bypass OIDC (which Vercel Blob rejects for the local "development"
+		// environment) by pinning the read-write token when one is configured.
+		...(process.env.BLOB_READ_WRITE_TOKEN ? { token: process.env.BLOB_READ_WRITE_TOKEN } : {}),
 	});
+
+	return Response.json({ url: blob.downloadUrl, filename });
 }

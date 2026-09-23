@@ -88,6 +88,31 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 							</ul>
 						</li>
 					))}
+					<li key='mdm'>
+						<header>
+							<h3>MDM (articles_update)</h3>
+							<ZipPricelists
+								title='MDM'
+								paths={locales.map((locale) => ({
+									path: `/pricelist/${locale}/${environment}/download/mdm`,
+									filename: `articles_update (${currencies.find((c) => c.locale === locale)?.isoCode}).xlsx`,
+								}))}
+							/>
+						</header>
+						<ul>
+							{currencies
+								.sort((a, b) => a.isoCode.localeCompare(b.isoCode))
+								.map(({ isoCode, locale }) => (
+									<li key={isoCode}>
+										<DownloadPricelist
+											href={`/pricelist/${locale}/dev/download/mdm`}
+											label={isoCode}
+											extension='xlsx'
+										/>
+									</li>
+								))}
+						</ul>
+					</li>
 				</ul>
 				<br />
 				<br />

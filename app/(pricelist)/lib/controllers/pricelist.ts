@@ -16,7 +16,6 @@ import {
 } from '@/lib/currency';
 import { toLanguageLocale } from '@/pricelist/lib/utils';
 import { buildClient } from '@datocms/cma-client-node';
-
 import fs from 'fs';
 import {
 	Environment,

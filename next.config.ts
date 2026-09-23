@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
 	},
 	devIndicators: false,
 	reactStrictMode: false,
+	serverExternalPackages: ['exceljs'],
 	typescript: {
 		ignoreBuildErrors: true,
 	},

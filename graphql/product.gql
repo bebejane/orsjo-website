@@ -342,6 +342,7 @@ fragment ProductFragment on ProductRecord {
 				name
 			}
 			articleNo
+			ean
 			deliveryDays
 			image {
 				...ImageFragment
