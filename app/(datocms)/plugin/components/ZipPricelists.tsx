@@ -1,9 +1,10 @@
 'use client';
 
-import DotLoader from '@/pricelist/components/DotLoader';
 import s from './ZipPricelists.module.scss';
 import { downloadZip } from 'client-zip';
-import React, { useState } from 'react';
+import { Button, FieldError, Spinner } from 'datocms-react-ui';
+import { useState } from 'react';
+import { MdFileDownload } from 'react-icons/md';
 
 type ZipPricelistsProps = {
 	title: string;
@@ -17,8 +18,7 @@ export function ZipPricelists({ title, paths }: ZipPricelistsProps) {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	async function createZip(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
-		e.preventDefault();
+	async function createZip() {
 		setLoading(true);
 		setError(null);
 		try {
@@ -48,9 +48,18 @@ export function ZipPricelists({ title, paths }: ZipPricelistsProps) {
 	}
 
 	return (
-		<>
-			<a onClick={createZip}>{loading ? <DotLoader /> : 'zip'}</a>
-			{error && <p className={s.error}>{error}</p>}
-		</>
+		<div className={s.row}>
+			<Button
+				buttonType='muted'
+				buttonSize='xs'
+				disabled={loading}
+				onClick={createZip}
+				fullWidth={true}
+				leftIcon={!loading ? <MdFileDownload /> : <Spinner size={16} />}
+			>
+				Zip
+			</Button>
+			{error && <FieldError>{error}</FieldError>}
+		</div>
 	);
 }

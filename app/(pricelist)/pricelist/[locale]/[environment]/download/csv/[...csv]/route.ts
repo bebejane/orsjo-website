@@ -22,6 +22,7 @@ export async function GET(
 		access: 'public',
 		allowOverwrite: true,
 		addRandomSuffix: true,
+		token: process.env.BLOB_READ_WRITE_TOKEN!,
 	});
 	return Response.json({ url: blob.downloadUrl, filename });
 }

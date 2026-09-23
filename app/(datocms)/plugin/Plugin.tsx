@@ -4,8 +4,9 @@ import React from 'react';
 import { BuildItemPresentationInfoCtx, connect } from 'datocms-plugin-sdk';
 import { createRoot, Root } from 'react-dom/client';
 import { useEffect } from 'react';
+import { Canvas } from 'datocms-react-ui';
 import { ConfigScreen } from './ConfigScreen';
-import { IFrame } from './IFrame';
+import { PricelistAdmin } from './PricelistAdmin';
 import { Product, ProductMdm, ProductVariant } from '@/types/datocms-cma';
 import { Item } from '@datocms/cma-client/dist/types/generated/RawApiTypes.js';
 import { client } from '@/lib/client';
@@ -45,7 +46,11 @@ export function Plugin({}: PluginPageProps) {
 			renderPage(pageId, ctx) {
 				switch (pageId) {
 					case 'pricelist':
-						return render(<IFrame ctx={ctx} src={'/pricelist'} />);
+						return render(
+							<Canvas ctx={ctx}>
+								<PricelistAdmin accessToken={ctx.currentUserAccessToken} />
+							</Canvas>,
+						);
 				}
 			},
 			contentAreaSidebarItems(ctx) {

@@ -1,26 +1,25 @@
 'use client';
 
-import DotLoader from '@/pricelist/components/DotLoader';
-import { Pricelist } from '@/pricelist/lib/pricelists';
+import s from './DownloadPricelist.module.scss';
+import { Button, Spinner } from 'datocms-react-ui';
 import { useState } from 'react';
+import { MdFileDownload } from 'react-icons/md';
 
 type DownloadPricelistProps = {
 	href: string;
 	label: string;
 	extension: string;
 };
+
 export default function DownloadPricelist({ href, label, extension }: DownloadPricelistProps) {
 	const [isLoading, setIsLoading] = useState(false);
-	async function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
-		e.preventDefault();
-		e.stopPropagation();
+
+	async function handleClick() {
 		setIsLoading(true);
 		try {
-			const href = e.currentTarget.getAttribute('href')!;
 			let response = await fetch(href);
 			if (!response.ok) throw new Error('Invalid request');
 			const { url, filename } = await response.json();
-			console.log(url);
 			response = await fetch(url);
 			if (!response.ok) throw new Error('Invalid request');
 
@@ -34,19 +33,23 @@ export default function DownloadPricelist({ href, label, extension }: DownloadPr
 			a.remove();
 		} catch (err) {
 			console.log(err);
+		} finally {
+			setIsLoading(false);
 		}
-		setIsLoading(false);
 	}
+
 	return (
-		<a href={href} onClick={handleClick}>
-			<span>{label}</span>
-			{isLoading ? (
-				<div>
-					<DotLoader />
-				</div>
-			) : (
-				<>{extension}</>
-			)}
-		</a>
+		<div className={s.row}>
+			<Button
+				buttonType='muted'
+				buttonSize='xs'
+				disabled={isLoading}
+				onClick={handleClick}
+				fullWidth={true}
+				leftIcon={!isLoading ? <MdFileDownload /> : <Spinner size={16} />}
+			>
+				{label} · {extension.toUpperCase()}
+			</Button>
+		</div>
 	);
 }

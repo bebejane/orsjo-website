@@ -1,0 +1,32 @@
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: calc(var(--spacing-l) * 2);
+	align-items: flex-start;
+	padding: var(--spacing-l);
+	padding-top: var(--spacing-m);
+}
+
+.column {
+	flex: 0 1 auto;
+	min-width: 200px;
+}
+
+.downloadList {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-l);
+}
+
+.pricelistTitle {
+	margin: 0;
+	margin-bottom: var(--spacing-xs);
+}
+
+.currencyLinks {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--spacing-xs);
+	margin-top: var(--spacing-s);
+}

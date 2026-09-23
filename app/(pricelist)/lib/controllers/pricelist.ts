@@ -24,6 +24,21 @@ import {
 
 export const DRAFT_ENVIRONMENT = 'pricelist';
 
+function cmaClient(token?: string, environment?: string) {
+	return buildClient({
+		apiToken: token ?? (process.env.DATOCMS_API_TOKEN as string),
+		environment,
+	});
+}
+
+export async function verifyAccessToken(token: string): Promise<void> {
+	if (!token)
+		throw new Error(
+			'Access token missing. Is the plugin granted the "current user access token" permission?',
+		);
+	await cmaClient(token).site.find();
+}
+
 export type Article = {
 	articleNo: string;
 	description: string;
@@ -105,15 +120,13 @@ export async function parse(file: Buffer | string): Promise<Article[]> {
 export async function generate(
 	articles: Article[],
 	environment = DRAFT_ENVIRONMENT,
+	token?: string,
 ): Promise<ProductUpdatesResponse> {
 	console.log('Generate updates:', articles.length);
 
-	await initDraftEnvironment();
+	await initDraftEnvironment(token);
 
-	const client = buildClient({
-		apiToken: process.env.DATOCMS_API_TOKEN as string,
-		environment,
-	});
+	const client = cmaClient(token, environment);
 
 	async function getAllRecords<T extends ItemTypeDefinition>(
 		itemType: string,
@@ -232,13 +245,11 @@ export async function generate(
 export async function update(
 	updates: ProductUpdate,
 	environment = DRAFT_ENVIRONMENT,
+	token?: string,
 ): Promise<{ updated: ProductRecord[]; errors: { product: ProductRecord; error: string }[] }> {
 	console.time('update pricelist');
 
-	const client = buildClient({
-		apiToken: process.env.DATOCMS_API_TOKEN as string,
-		environment,
-	});
+	const client = cmaClient(token, environment);
 
 	const itemTypes = await client.itemTypes.list();
 	const modelBlockId = itemTypes.filter((t) => t.api_key === 'product_model')[0].id;
@@ -390,19 +401,15 @@ export async function csv(
 	return csv;
 }
 
-export async function draftEnvironment(): Promise<Environment | null> {
-	const client = buildClient({
-		apiToken: process.env.DATOCMS_API_TOKEN as string,
-	});
+export async function draftEnvironment(token?: string): Promise<Environment | null> {
+	const client = cmaClient(token);
 	const environments = await client.environments.list();
 	return environments.find((e) => e.id === DRAFT_ENVIRONMENT) ?? null;
 }
 
-export async function initDraftEnvironment(): Promise<Environment> {
+export async function initDraftEnvironment(token?: string): Promise<Environment> {
 	console.time('draft');
-	const client = buildClient({
-		apiToken: process.env.DATOCMS_API_TOKEN as string,
-	});
+	const client = cmaClient(token);
 	const environments = await client.environments.list();
 	if (environments.find((e) => e.id === DRAFT_ENVIRONMENT)) {
 		await client.environments.destroy(DRAFT_ENVIRONMENT);
@@ -446,10 +453,9 @@ export async function currentPricelist(): Promise<{
 export async function updateCurrentPricelistFile(
 	buffer: Buffer<ArrayBuffer>,
 	filename: string,
+	token?: string,
 ): Promise<void> {
-	const client = buildClient({
-		apiToken: process.env.DATOCMS_API_TOKEN as string,
-	});
+	const client = cmaClient(token);
 	const current = (await client.items.list({ type: 'pricelist', version: 'published' }))?.[0];
 	if (!current) throw new Error('Current pricelist not found');
 
