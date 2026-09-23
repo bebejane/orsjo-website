@@ -1,6 +1,7 @@
 'use client';
 
 import s from './PricelistAdmin.module.scss';
+import cn from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
 import { Section, Spinner, FieldError } from 'datocms-react-ui';
 import { pricelists } from '@/pricelist/lib/pricelists';
@@ -58,6 +59,18 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 	return (
 		<div className={s.container}>
 			<div className={s.column}>
+				<Section title='Update pricelist'>
+					<PricelistImport
+						key={currentPricelist?.filename}
+						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
+						parse={(buffer, filename) => parsePricelist(token, buffer, filename)}
+						update={(updates: ProductUpdate) => updatePricelist(token, updates)}
+						current={currentPricelist}
+						refresh={load}
+					/>
+				</Section>
+			</div>
+			<div className={cn(s.column, s.downloads)}>
 				<Section title='Download pricelists'>
 					<div className={s.downloadList}>
 						{pricelists.map(({ path, label, format }) => (
@@ -103,18 +116,6 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 							</div>
 						</div>
 					</div>
-				</Section>
-			</div>
-			<div className={s.column}>
-				<Section title='Update pricelist'>
-					<PricelistImport
-						key={currentPricelist?.filename}
-						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
-						parse={(buffer, filename) => parsePricelist(token, buffer, filename)}
-						update={(updates: ProductUpdate) => updatePricelist(token, updates)}
-						current={currentPricelist}
-						refresh={load}
-					/>
 				</Section>
 			</div>
 		</div>

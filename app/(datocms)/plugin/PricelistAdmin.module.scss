@@ -1,7 +1,7 @@
 .container {
 	display: flex;
 	flex-wrap: wrap;
-	gap: calc(var(--spacing-l) * 2);
+	gap: calc(var(--spacing-m) * 2);
 	align-items: flex-start;
 	padding: var(--spacing-l);
 	padding-top: var(--spacing-m);
@@ -10,12 +10,16 @@
 .column {
 	flex: 0 1 auto;
 	min-width: 200px;
+	&.downloads {
+		max-width: 50%;
+	}
 }
 
 .downloadList {
 	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-l);
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: var(--spacing-m);
 }
 
 .pricelistTitle {
