@@ -90,12 +90,12 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 					))}
 					<li key='mdm'>
 						<header>
-							<h3>MDM (articles_update)</h3>
+							<h3>Master data</h3>
 							<ZipPricelists
-								title='MDM'
+								title='Master data'
 								paths={locales.map((locale) => ({
 									path: `/pricelist/${locale}/${environment}/download/mdm`,
-									filename: `articles_update (${currencies.find((c) => c.locale === locale)?.isoCode}).xlsx`,
+									filename: `Master data (${currencies.find((c) => c.locale === locale)?.isoCode}).xlsx`,
 								}))}
 							/>
 						</header>
@@ -105,7 +105,7 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 								.map(({ isoCode, locale }) => (
 									<li key={isoCode}>
 										<DownloadPricelist
-											href={`/pricelist/${locale}/dev/download/mdm`}
+											href={`/pricelist/${locale}/${environment}/download/mdm`}
 											label={isoCode}
 											extension='xlsx'
 										/>

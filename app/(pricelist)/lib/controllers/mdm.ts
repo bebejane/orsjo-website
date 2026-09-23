@@ -224,6 +224,6 @@ export async function generate(
 	if (!rows.length) throw new Error('No variants found');
 
 	const date = new Date().toISOString().slice(0, 10);
-	const filename = `articles_update (${currency.isoCode}) - ${date}.xlsx`;
+	const filename = `Master data (${currency.isoCode}) - ${date}.xlsx`;
 	return { buffer: await mdmWorkbook(rows), filename };
 }
