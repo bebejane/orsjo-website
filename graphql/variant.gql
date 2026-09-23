@@ -1,0 +1,10 @@
+query AllProductVariants($first: IntType, $skip: IntType) {
+	allProductVariants(first: $first, skip: $skip) {
+		id
+		ean
+		articleNo
+	}
+	_allProductVariantsMeta {
+		count
+	}
+}

@@ -9810,6 +9810,14 @@ type AllTranslationsQueryVariables = Exact<{
 
 type AllTranslationsQuery = { __typename?: 'Query', allTranslations: Array<{ __typename?: 'TranslationRecord', key: string, value?: string | null, page: string }>, _allTranslationsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
+type AllProductVariantsQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+}>;
+
+
+type AllProductVariantsQuery = { __typename?: 'Query', allProductVariants: Array<{ __typename?: 'ProductVariantRecord', id: any, ean?: any | null, articleNo: string }>, _allProductVariantsMeta: { __typename?: 'CollectionMetadata', count: any } };
+
 type WithdrawFromPurchaseQueryVariables = Exact<{ [key: string]: never; }>;
 
 

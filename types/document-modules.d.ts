@@ -301,6 +301,15 @@ declare module '*/translations.gql' {
 }
     
 
+declare module '*/variant.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllProductVariants: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/withdraw-from-purchase.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
