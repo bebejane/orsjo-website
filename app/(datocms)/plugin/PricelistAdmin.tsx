@@ -59,7 +59,7 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 	return (
 		<div className={s.container}>
 			<div className={s.column}>
-				<Section title='Update pricelist'>
+				<Section title='Update pricelist' headerClassName={s.header}>
 					<PricelistImport
 						key={currentPricelist?.filename}
 						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
@@ -71,7 +71,7 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 				</Section>
 			</div>
 			<div className={cn(s.column, s.downloads)}>
-				<Section title='Download pricelists'>
+				<Section title='Download pricelists' headerClassName={s.header}>
 					<div className={s.downloadList}>
 						{pricelists.map(({ path, label, format }) => (
 							<div key={path}>

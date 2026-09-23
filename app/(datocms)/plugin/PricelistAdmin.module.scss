@@ -6,12 +6,17 @@
 	padding: var(--spacing-l);
 	padding-top: var(--spacing-m);
 }
-
+.header {
+	margin-top: 0.3em;
+}
 .column {
 	flex: 0 1 auto;
 	min-width: 200px;
 	&.downloads {
+		border-left: 1px solid var(--color--border);
+		padding-left: var(--spacing-l);
 		max-width: 50%;
+		min-height: 100vh;
 	}
 }
 
