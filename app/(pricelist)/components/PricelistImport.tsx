@@ -94,9 +94,9 @@ export default function PricelistImport({
 						{current.filename}
 						<div className={s.apply}>
 							<button onClick={parseFile} disabled={parsing}>
-								Apply to draft
+								Apply to pricelist
 							</button>
-							<button disabled={parsing}>Apply to primary</button>
+							<button disabled={parsing}>Apply to webshop</button>
 						</div>
 					</div>
 				)}

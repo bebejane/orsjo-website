@@ -119,7 +119,7 @@ export default async function PricelistAdmin({ params }: PageProps<'/pricelist'>
 				<br />
 			</div>
 			<div className={s.update}>
-				<h2>Update pricelist</h2>
+				<h2>Update prices</h2>
 				<PricelistImport
 					key={currentPricelist?.filename}
 					upload={uploadPricelist}
