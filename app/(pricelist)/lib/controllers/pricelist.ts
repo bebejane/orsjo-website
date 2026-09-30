@@ -64,6 +64,12 @@ export type ProductUpdate = Record<
 	}
 >;
 
+export type UpdateProgress = {
+	current: number;
+	total: number;
+	productId: string;
+};
+
 type ProductRecord = ItemInNestedResponse<Product>;
 type LightsourceRecord = ItemInNestedResponse<ProductLightsource>;
 type ProductVariantRecord = ItemInNestedResponse<ProductVariant>;
@@ -247,6 +253,7 @@ export async function update(
 	updates: ProductUpdate,
 	environment = DRAFT_ENVIRONMENT,
 	token?: string,
+	onProgress?: (progress: UpdateProgress) => void,
 ): Promise<{ updated: ProductRecord[]; errors: { product: ProductRecord; error: string }[] }> {
 	console.time('update pricelist');
 
@@ -263,29 +270,37 @@ export async function update(
 	const updated: ProductRecord[] = [];
 	const errors: { product: ProductRecord; error: string }[] = [];
 
+	const total = productIds.reduce(
+		(sum, productId) =>
+			sum +
+			updates[productId].lightsources.length +
+			updates[productId].accessories.length +
+			updates[productId].variants.length,
+		0,
+	);
+	let current = 0;
+	onProgress?.({ current, total, productId: productIds[0] ?? '' });
+
 	for (let i = 0; i < productIds.length; i++) {
 		const productId = productIds[i];
 		const { accessories, lightsources, variants } = updates[productId];
 
 		console.log(`${i + 1}/${productIds.length}`, productId);
 
-		if (lightsources.length) {
-			for (let x = 0; x < lightsources.length; x++) {
-				const { id, price } = lightsources[x];
-				await client.items.update(id, { price: parseFloat(String(price)) });
-			}
+		for (const { id, price } of lightsources) {
+			await client.items.update(id, { price: parseFloat(String(price)) });
+			current++;
+			onProgress?.({ current, total, productId });
 		}
-		if (accessories.length) {
-			for (let x = 0; x < accessories.length; x++) {
-				const { id, price } = accessories[x];
-				await client.items.update(id, { price: parseFloat(String(price)) });
-			}
+		for (const { id, price } of accessories) {
+			await client.items.update(id, { price: parseFloat(String(price)) });
+			current++;
+			onProgress?.({ current, total, productId });
 		}
-		if (variants.length) {
-			for (let x = 0; x < variants.length; x++) {
-				const { id, price } = variants[x];
-				await client.items.update(id, { price: parseFloat(String(price)) });
-			}
+		for (const { id, price } of variants) {
+			await client.items.update(id, { price: parseFloat(String(price)) });
+			current++;
+			onProgress?.({ current, total, productId });
 		}
 		const product = await client.items.find(productId, { version: 'published', nested: true });
 

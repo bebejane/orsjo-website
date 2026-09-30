@@ -1,7 +1,7 @@
 'use client';
 
 import s from './PricelistImport.module.scss';
-import type { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
+import type { ProductUpdate, ProductUpdatesResponse, UpdateProgress } from '@/pricelist/lib/controllers/pricelist';
 import { useState } from 'react';
 import PricelistUpdateList from './PricelistUpdateList';
 import { Button, FieldError, FieldWrapper, Spinner } from 'datocms-react-ui';
@@ -18,7 +18,7 @@ export default function PricelistImport({
 }: {
 	upload: (buffer: ArrayBuffer, filename: string) => Promise<void>;
 	parse: (buffer: ArrayBuffer, filename: string) => Promise<ProductUpdatesResponse>;
-	update: (updates: ProductUpdate) => Promise<any>;
+	update: (updates: ProductUpdate, onProgress?: (progress: UpdateProgress) => void) => Promise<any>;
 	current: { buffer: ArrayBuffer; filename: string } | null;
 	refresh?: () => void;
 	environment: { label: string; value: string };
@@ -27,6 +27,7 @@ export default function PricelistImport({
 	const [error, setError] = useState<string | null>(null);
 	const [parsing, setParsing] = useState(false);
 	const [uploading, setUploading] = useState(false);
+	const [updating, setUpdating] = useState(false);
 	const [updates, setUpdates] = useState<ProductUpdatesResponse | null>(null);
 
 	async function uploadFile(buffer: ArrayBuffer, filename: string) {
@@ -60,7 +61,7 @@ export default function PricelistImport({
 		}
 	}
 
-	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function onChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const file = e.target.files?.[0];
 		if (!file) return;
 		setError(null);
@@ -79,6 +80,10 @@ export default function PricelistImport({
 		reader.readAsArrayBuffer(file);
 	}
 
+	function onChooseFile() {
+		document.getElementById('pricelist-file-input')?.click();
+	}
+
 	return (
 		<div className={s.container}>
 			<FieldWrapper
@@ -86,7 +91,23 @@ export default function PricelistImport({
 				label='Upload new pricelist (.xlsx)'
 				hint='Column A must be the article number and column D the price in SEK.'
 			>
-				<input id='pricelist-file-input' type='file' accept='.xlsx' onChange={handleChange} />
+				<input
+					id='pricelist-file-input'
+					type='file'
+					accept='.xlsx'
+					onChange={onChange}
+					className={s.file}
+				/>
+				<div>
+					<Button
+						buttonSize='xs'
+						buttonType='primary'
+						disabled={uploading || parsing || updating}
+						onClick={onChooseFile}
+					>
+						Choose file...
+					</Button>
+				</div>
 				{uploading && (
 					<div className={s.status}>
 						<Spinner size={16} />
@@ -96,22 +117,37 @@ export default function PricelistImport({
 			</FieldWrapper>
 			{current?.filename && !uploading && (
 				<div className={s.currentFile}>
-					<span>Current file: {current.filename}</span>
+					<span>
+						<b>Current file</b>
+					</span>
+
+					{current.filename}
 					<div className={s.buttonRow}>
-						<Button buttonSize='xs' buttonType='primary' onClick={parseFile} disabled={parsing}>
+						<Button
+							buttonSize='xs'
+							buttonType='primary'
+							onClick={parseFile}
+							disabled={parsing || updating}
+						>
 							Apply to: {environment.label}
 						</Button>
 					</div>
 					{parsing && (
 						<div className={s.status}>
-							<Spinner size={16} />
+							<Spinner size={20} />
 							<span>Parsing pricelist</span>
 						</div>
 					)}
 				</div>
 			)}
 			{updates && (
-				<PricelistUpdateList data={updates} update={update} ctx={ctx} environment={environment} />
+				<PricelistUpdateList
+					data={updates}
+					update={update}
+					ctx={ctx}
+					environment={environment}
+					onUpdating={setUpdating}
+				/>
 			)}
 			{error && <FieldError>{error}</FieldError>}
 		</div>

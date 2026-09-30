@@ -5,17 +5,78 @@
 }
 
 .status {
-	display: flex;
-	align-items: center;
+	//display: flex;
+	//align-items: center;
 	gap: var(--spacing-s);
 	margin-top: var(--spacing-m);
 	font-size: var(--font-size-l);
+
+	.success {
+		font-weight: bold;
+		font-size: var(--font-size-xl);
+		//color: var(--color--ink-success);
+	}
 }
 .update {
 	margin-top: var(--spacing-m);
 }
+
+.progress {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--spacing-xs);
+	flex: 1 1 auto;
+	margin-top: var(--spacing-m);
+	margin-bottom: var(--spacing-m);
+}
+
+.progressTrack {
+	width: 100%;
+	min-width: 200px;
+	height: 8px;
+
+	overflow: hidden;
+	background: var(--color--progress--track);
+}
+
+.progressFill {
+	height: 100%;
+	background: var(--color--progress--fill);
+	transition: width 0.3s ease;
+}
+
+.progressLabel {
+	font-variant-numeric: tabular-nums;
+	font-size: var(--font-size-s);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	span {
+		display: inline-block;
+		&:first-child {
+			flex: 1 1 auto;
+		}
+	}
+}
 .list {
-	list-style: none;
+	display: table;
 	margin: 0;
 	padding: 0;
+	border-collapse: collapse;
+
+	tr {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	th,
+	td {
+		text-align: left;
+		padding: var(--spacing-s);
+		&:first-child {
+			padding-left: 0;
+		}
+	}
 }

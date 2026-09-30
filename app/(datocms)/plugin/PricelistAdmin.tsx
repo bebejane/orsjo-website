@@ -8,8 +8,9 @@ import { DRAFT_ENVIRONMENT, pricelists } from '@/pricelist/lib/pricelists';
 import { ZipPricelists } from './components/ZipPricelists';
 import DownloadPricelist from './components/DownloadPricelist';
 import PricelistImport from './components/PricelistImport';
-import type { ProductUpdate } from '@/pricelist/lib/controllers/pricelist';
-import { getAdminData, parsePricelist, updatePricelist, uploadPricelist } from './actions';
+import type { ProductUpdate, UpdateProgress } from '@/pricelist/lib/controllers/pricelist';
+import { getAdminData, parsePricelist, uploadPricelist } from './actions';
+import { streamUpdate } from './lib/streamUpdate';
 import { RenderPageCtx } from 'datocms-plugin-sdk';
 
 type AdminData = Awaited<ReturnType<typeof getAdminData>>;
@@ -83,9 +84,10 @@ export function PricelistAdmin({ accessToken, ctx }: { accessToken?: string; ctx
 						ctx={ctx}
 						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
 						parse={(buffer) => parsePricelist(token, buffer, environment.value)}
-						update={async (updates: ProductUpdate) => {
-							return updatePricelist(token, updates, environment.value);
-						}}
+						update={(
+							updates: ProductUpdate,
+							onProgress?: (progress: UpdateProgress) => void,
+						) => streamUpdate(token, environment.value, updates, onProgress)}
 						current={currentPricelist}
 						refresh={load}
 					/>

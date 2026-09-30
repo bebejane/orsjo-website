@@ -4,6 +4,9 @@
 	gap: var(--spacing-m);
 }
 
+.file {
+	display: none;
+}
 .status {
 	display: flex;
 	align-items: center;

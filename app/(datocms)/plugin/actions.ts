@@ -5,7 +5,6 @@ import { SiteDocument } from '@/graphql';
 import { getAllCurrencyRates } from '@/lib/currency';
 import {
 	DRAFT_ENVIRONMENT,
-	ProductUpdate,
 	ProductUpdatesResponse,
 	verifyAccessToken,
 } from '@/pricelist/lib/controllers/pricelist';
@@ -53,13 +52,4 @@ export async function parsePricelist(
 	const buffer = Buffer.from(file);
 	const articles = await pricelistController.parse(buffer);
 	return pricelistController.generate(articles, environment, token);
-}
-
-export async function updatePricelist(
-	token: string,
-	updates: ProductUpdate,
-	environment = DRAFT_ENVIRONMENT,
-): Promise<Awaited<ReturnType<typeof pricelistController.update>>> {
-	await verifyAccessToken(token);
-	return pricelistController.update(updates, environment, token);
 }
