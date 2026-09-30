@@ -408,7 +408,6 @@ export async function draftEnvironment(token?: string): Promise<Environment | nu
 }
 
 export async function initDraftEnvironment(token?: string): Promise<Environment> {
-	console.time('draft');
 	const client = cmaClient(token);
 	const environments = await client.environments.list();
 	if (environments.find((e) => e.id === DRAFT_ENVIRONMENT)) {

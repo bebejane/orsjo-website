@@ -58,18 +58,6 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 
 	return (
 		<div className={s.container}>
-			<div className={s.column}>
-				<Section title='Update pricelist' headerClassName={s.header}>
-					<PricelistImport
-						key={currentPricelist?.filename}
-						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
-						parse={(buffer, filename) => parsePricelist(token, buffer, filename)}
-						update={(updates: ProductUpdate) => updatePricelist(token, updates)}
-						current={currentPricelist}
-						refresh={load}
-					/>
-				</Section>
-			</div>
 			<div className={cn(s.column, s.downloads)}>
 				<Section title='Download pricelists' headerClassName={s.header}>
 					<div className={s.downloadList}>
@@ -116,6 +104,18 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 							</div>
 						</div>
 					</div>
+				</Section>
+			</div>
+			<div className={s.column}>
+				<Section title='Update pricelist' headerClassName={s.header}>
+					<PricelistImport
+						key={currentPricelist?.filename}
+						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
+						parse={(buffer, filename) => parsePricelist(token, buffer, filename)}
+						update={(updates: ProductUpdate) => updatePricelist(token, updates)}
+						current={currentPricelist}
+						refresh={load}
+					/>
 				</Section>
 			</div>
 		</div>

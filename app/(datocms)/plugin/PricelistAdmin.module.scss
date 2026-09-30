@@ -4,17 +4,19 @@
 	gap: calc(var(--spacing-m) * 2);
 	align-items: flex-start;
 	padding: var(--spacing-l);
-	padding-top: var(--spacing-m);
+	padding-top: 0;
 }
 .header {
-	margin-top: 0.3em;
+	height: 60px;
+	display: flex;
+	align-items: center;
 }
 .column {
 	flex: 0 1 auto;
 	min-width: 200px;
 	&.downloads {
-		border-left: 1px solid var(--color--border);
-		padding-left: var(--spacing-l);
+		border-right: 1px solid var(--color--border);
+		padding-right: var(--spacing-l);
 		max-width: 50%;
 		min-height: 100vh;
 	}
