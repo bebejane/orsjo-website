@@ -185,6 +185,7 @@ export const AllRelatedProducts: DocumentNode;
 export const AllRelatedProjectsForProduct: DocumentNode;
 export const AllProductsByCategory: DocumentNode;
 export const ProductFragment: DocumentNode;
+export const ProductMasterDataFragment: DocumentNode;
 export const ProductLightFragment: DocumentNode;
 
   export default defaultDocument;
@@ -295,6 +296,15 @@ declare module '*/translations.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const AllTranslations: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/variant.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllProductVariants: DocumentNode;
 
   export default defaultDocument;
 }

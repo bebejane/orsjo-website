@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import s from './PricelistUpdateList.module.scss';
+import { useState } from 'react';
 import { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
-import DotLoader from '@/app/(pricelist)/components/DotLoader';
+import { Button, FieldError, Spinner } from 'datocms-react-ui';
 
 type PricelistUpdateListProps = {
 	data: ProductUpdatesResponse;
@@ -38,50 +38,46 @@ export default function PricelistUpdateList({ data, update }: PricelistUpdateLis
 		}
 	}
 
-	if (success) return <div className={s.container}>Pricelist updated!</div>;
+	if (success) return <div>Pricelist updated!</div>;
 
 	return (
 		<div className={s.container}>
-			{noArticles > 0 && (
-				<>
-					{updating ? (
-						<DotLoader message={`Updating ${noArticles} articles (this may take a few minutes)`} />
-					) : (
-						<button onClick={handleUpdate} disabled={updating}>
-							Update {noArticles} articles
-						</button>
-					)}
-				</>
-			)}
+			{noArticles > 0 &&
+				(updating ? (
+					<div className={s.status}>
+						<Spinner size={16} />
+						<span>Updating {noArticles} articles (this may take a few minutes)</span>
+					</div>
+				) : (
+					<Button buttonType='primary' onClick={handleUpdate}>
+						Update {noArticles} articles
+					</Button>
+				))}
 			{notFound?.length > 0 && !updating && (
-				<>
+				<div>
 					<h3>{notFound?.length} articles not found</h3>
-					<ul className={s.notfound}>
+					<ul className={s.list}>
 						{notFound.map((article, idx) => (
 							<li key={idx}>
-								<span>{article.articleNo}</span>
-								<span>{article.name}</span>
-								<span>{article.description}</span>
-								<span>{article.price}:-</span>
+								{article.articleNo} — {article.name} — {article.description} — {article.price}:-
 							</li>
 						))}
 					</ul>
-				</>
+				</div>
 			)}
 			{errors.length > 0 && (
-				<>
+				<div>
 					<h2>Errors</h2>
-					<ul className={s.errors}>
+					<ul className={s.list}>
 						{errors.map(({ product, error }, idx) => (
 							<li key={idx}>
-								<span>{product.title}</span>
-								<span className={s.error}>{error}</span>
+								<strong>{product.title}</strong> <FieldError>{error}</FieldError>
 							</li>
 						))}
 					</ul>
-				</>
+				</div>
 			)}
-			{error && <div className={s.error}>{error}</div>}
+			{error && <FieldError>{error}</FieldError>}
 		</div>
 	);
 }

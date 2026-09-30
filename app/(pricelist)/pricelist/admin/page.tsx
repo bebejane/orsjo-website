@@ -2,7 +2,7 @@ import s from './page.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
 import { AllProductsDocument, SiteDocument } from '@/graphql';
 import { pricelists } from '@/pricelist/lib/pricelists';
-import { ZipPricelists } from '@/pricelist/components/ZipPricelists';
+import { ZipPricelists } from '@/app/(datocms)/plugin/components/ZipPricelists';
 import { getAllCurrencyRates } from '@/lib/currency';
 
 export default async function CatalogueAdmin({ params }: PageProps<'/pricelist'>) {

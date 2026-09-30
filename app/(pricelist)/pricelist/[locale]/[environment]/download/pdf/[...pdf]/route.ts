@@ -33,14 +33,12 @@ export async function GET(
 
 	const currency = await getCurrencyRateByLocale(locale);
 	const title = `Örsjo Pricelist (${currency.isoCode}) - ${pricelist.label}`;
-	console.time('upload blob');
 	const blob = await put(`${title}.pdf`, Buffer.from(data), {
 		access: 'public',
 		allowOverwrite: true,
 		addRandomSuffix: true,
+		token: process.env.BLOB_READ_WRITE_TOKEN!,
 	});
 
-	console.timeEnd('upload blob');
-	console.log(blob.downloadUrl);
 	return Response.json({ url: blob.downloadUrl, filename: `${title}.pdf` });
 }

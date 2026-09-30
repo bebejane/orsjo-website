@@ -7,6 +7,49 @@ import { CheckoutSettings, GeinsSettings } from '@geins/types';
 export const itemTypeId = async (type: string) =>
 	(await client.itemTypes.list()).find((t) => t.api_key === type)?.id as string;
 
+/**
+ * Market ids are country codes (e.g. 'se', 'gb', 'dk'). They are NOT valid
+ * BCP-47 locales: 'se' is Northern Sami, and 'gb'/'dk'/'at'/… are not languages
+ * at all. Passing them to Intl makes each JS engine pick its own fallback
+ * (Node formats 'se' as "13 000 Skr", Chrome falls back to "SEK 13,000"),
+ * which causes React hydration mismatches on the server-rendered price.
+ * Map every market to a real locale so server and browser always agree.
+ */
+export const MARKET_LOCALES: Record<string, string> = {
+	se: 'sv-SE',
+	no: 'nb-NO',
+	gb: 'en-GB',
+	dk: 'da-DK',
+	de: 'de-DE',
+	at: 'de-AT',
+	be: 'nl-BE',
+	bg: 'bg-BG',
+	hr: 'hr-HR',
+	cy: 'el-CY',
+	cz: 'cs-CZ',
+	ee: 'et-EE',
+	fi: 'fi-FI',
+	fr: 'fr-FR',
+	gr: 'el-GR',
+	hu: 'hu-HU',
+	ie: 'en-IE',
+	it: 'it-IT',
+	lv: 'lv-LV',
+	lt: 'lt-LT',
+	lu: 'fr-LU',
+	mt: 'mt-MT',
+	nl: 'nl-NL',
+	pl: 'pl-PL',
+	pt: 'pt-PT',
+	ro: 'ro-RO',
+	sk: 'sk-SK',
+	si: 'sl-SI',
+	es: 'es-ES',
+};
+
+export const marketLocale = (market: string): string =>
+	MARKET_LOCALES[market?.toLowerCase()] ?? market;
+
 export const formatGeinsPrice = (
 	price: number,
 	market: string,
@@ -15,7 +58,7 @@ export const formatGeinsPrice = (
 ): string => {
 	if (!price || !currency) return '';
 
-	return `${new Intl.NumberFormat(market, {
+	return `${new Intl.NumberFormat(marketLocale(market), {
 		style: 'currency',
 		maximumFractionDigits: 0,
 		currency: currency?.code,

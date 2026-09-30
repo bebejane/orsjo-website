@@ -7,12 +7,13 @@ import type {
 	Item,
 	ItemInNestedResponse,
 } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
-import type {
+import {
 	Product,
 	ProductAccessory,
 	ProductLightsource,
+	ProductModel,
 	ProductVariant,
-} from '@/types/datocms-cma';
+} from '../../types/datocms-cma.d';
 
 const require = createRequire(import.meta.url);
 const XLSX = require('xlsx') as {
@@ -29,13 +30,12 @@ const ENV = 'dev';
 const XLSX_PATH = 'articles_update.xlsx';
 
 // Item type ids (from types/datocms-cma.d.ts)
-// item type ids — duplicated from types/datocms-cma.d.ts since runtime
-// `.ID` constants in a .d.ts module cannot be imported
-const PRODUCT_TYPE = '1801291';
-const PRODUCT_MODEL_TYPE = '1801307'; // block inside product.models
-const PRODUCT_VARIANT_TYPE = 'W4alwfW8Saewj53qP_tz4A'; // product_variant record
-const PRODUCT_LIGHTSOURCE_TYPE = '1801292';
-const PRODUCT_ACCESSORY_TYPE = 'ZU6qDmJWRnGkIqsGWmJa2A';
+const PRODUCT_TYPE = Product.ID;
+const PRODUCT_MODEL_TYPE = ProductModel.ID; // block inside product.models
+const PRODUCT_MASTER_DATA_KEY = 'product_mdm';
+const PRODUCT_VARIANT_TYPE = ProductVariant.ID; // record linked by product_model.variants
+const PRODUCT_LIGHTSOURCE_TYPE = ProductLightsource.ID;
+const PRODUCT_ACCESSORY_TYPE = ProductAccessory.ID;
 
 type SheetRow = Partial<
 	Record<
@@ -70,34 +70,42 @@ function sanitizeText(value: string | number | null | undefined): string | null 
 	if (!/\d/.test(s) && s === s.toUpperCase() && s.length > 3) s = s.toLowerCase();
 	return s.charAt(0).toUpperCase() + s.slice(1);
 }
+function sanitizeUrl(value: string | number | null | undefined): string | null {
+	return sanitizeText(value)?.toLowerCase() ?? null;
+}
 
 type Locales = 'sv' | 'en' | 'no' | 'da' | 'en-GB';
 
 const EN_TRANSLATIONS: Record<string, string> = {
-	svart: 'Black',
-	vit: 'White',
-	grå: 'Grey',
-	mörkgrå: 'Dark grey',
-	ljusgrå: 'Light grey',
-	röd: 'Red',
-	blå: 'Blue',
-	grön: 'Green',
-	gul: 'Yellow',
-	orange: 'Orange',
-	brun: 'Brown',
-	beige: 'Beige',
-	mässing: 'Brass',
-	krom: 'Chrome',
-	nickel: 'Nickel',
-	koppar: 'Copper',
-	silver: 'Silver',
-	varmgrå: 'Warm grey',
-	tallgrön: 'Pine green',
-	olivgrön: 'Olive green',
-	ljusblå: 'Light blue',
-	textil: 'Textile',
-	plast: 'Plastic',
-	transparent: 'Transparent',
+	'svart': 'Black',
+	'vit': 'White',
+	'grå': 'Grey',
+	'mörkgrå': 'Dark grey',
+	'ljusgrå': 'Light grey',
+	'röd': 'Red',
+	'blå': 'Blue',
+	'grön': 'Green',
+	'gul': 'Yellow',
+	'orange': 'Orange',
+	'brun': 'Brown',
+	'beige': 'Beige',
+	'mässing': 'Brass',
+	'krom': 'Chrome',
+	'nickel': 'Nickel',
+	'koppar': 'Copper',
+	'silver': 'Silver',
+	'varmgrå': 'Warm grey',
+	'tallgrön': 'Pine green',
+	'olivgrön': 'Olive green',
+	'ljusblå': 'Light blue',
+	'textil': 'Textile',
+	'plast': 'Plastic',
+	'transparent': 'Transparent',
+	// lamp_switch
+	'på sladden': 'On the cord',
+	'på sladd': 'On the cord',
+	'på armaturen': 'On the luminaire',
+	'ja': 'Yes',
 };
 
 function toLocalized(
@@ -110,6 +118,16 @@ function toLocalized(
 }
 
 function toFloat(value: string | number | null | undefined): number | null {
+	if (value === null || value === undefined || value === '') return null;
+	const n = Number(
+		String(value)
+			.replace(',', '.')
+			.replace(/[^\d.-]/g, ''),
+	);
+	return Number.isNaN(n) ? null : n;
+}
+
+function toInt(value: string | number | null | undefined): number | null {
 	if (value === null || value === undefined || value === '') return null;
 	const n = Number(
 		String(value)
@@ -146,7 +164,9 @@ function parseXlsx(): SheetRow[] {
 type RowData = {
 	article_no: string;
 	ean: string | null;
-	model: Record<string, unknown>;
+	// one product_master_data record per product model —
+	// model-level values + dims from the first matched article row
+	master_data: Record<string, unknown>;
 	variant: Record<string, unknown>;
 	lightsource: Record<string, unknown>;
 	accessory: Record<string, unknown>;
@@ -158,32 +178,27 @@ function rowToData(row: SheetRow): RowData {
 	return {
 		article_no,
 		ean,
-		model: {
+		master_data: {
 			lightsource_exchangeable: toBool(row['Är ljuskällan utbytbar? (om ljuskälla ingår)']),
 			lightsource_type: toLocalized(row['Typ av ljuskälla (om ljuskälla ingår)']),
 			ceiling_rose_color: toLocalized(row['Takkopp färg']),
-			lamp_switch: sanitizeText(row['Brytare var (på sladden/på armaturen/nej)']),
+			lamp_switch: toLocalized(row['Brytare var (på sladden/på armaturen/nej)']),
 			cable_color: toLocalized(row['Sladdfärg']),
 			cable_type: toLocalized(row['Typ av sladd (textil/plast)']),
 			dimmable: toBool(row['Dimbar (ja/nej)']),
 			dimmer_included: toBool(row['Dimmer inkl. (ja/nej)']),
-		},
-		// per-article values: dimensions etc. vary between variants of a model,
-		// so they live on the product_variant record for 1:1 correspondence with the xlsx
-		variant: {
-			dimension_length: toFloat(row['Produktlängd (cm)']),
-			dimension_width: toFloat(row['Produktbredd (cm)']),
-			dimension_height: toFloat(row['Produkthöjd (cm)']),
-			dimension_depth: toFloat(row['Produktdjup (cm)']),
-			dimensions_diameter: toFloat(row['Produktens diameter (cm)']),
+			length: toFloat(row['Produktlängd (cm)']),
+			width: toFloat(row['Produktbredd (cm)']),
+			height: toFloat(row['Produkthöjd (cm)']),
+			depth: toFloat(row['Produktdjup (cm)']),
+			diameter: toFloat(row['Produktens diameter (cm)']),
 			lampshade_height: toFloat(row['Lampskärm höjd (cm)']),
 			ceiling_rose_included: toBool(row['Takkopp ingår (om taklampa)']),
 			lampshade_included: toBool(row['Ingår lampupphängning']),
 			cable_length: sanitizeText(row['Sladdlängd (m)']),
 		},
-		lightsource: {
-			eprel_url: sanitizeText(row['Eprel-länk']),
-		},
+		variant: {},
+		lightsource: {},
 		accessory: {},
 	};
 }
@@ -195,7 +210,7 @@ function rowToData(row: SheetRow): RowData {
 type FieldDef = {
 	label: string;
 	api_key: string;
-	field_type: 'string' | 'float' | 'boolean';
+	field_type: 'string' | 'float' | 'boolean' | 'integer';
 	localized?: boolean;
 	validators?: Record<string, unknown>;
 	hint?: string;
@@ -205,109 +220,115 @@ const VARIANT_FIELDS: FieldDef[] = [
 	{
 		label: 'EAN',
 		api_key: 'ean',
-		field_type: 'string',
+		field_type: 'integer',
 		// note: `required` would fail because legacy variants have no EAN values
 	},
 ];
 
-// product.model → the ProductModel block; localized string fields are
-// attempted as localized:true with automatic downgrade to non-localized
-// (modular blocks reject localized fields on this project)
-const MODEL_FIELDS: FieldDef[] = [
+// product_master_data record — linked (single_item) from the product_model block.
+// Localized string fields are allowed here because it is a standalone model.
+const MASTER_DATA_FIELDS: FieldDef[] = [
+	{ label: 'Length (cm)', api_key: 'length', field_type: 'float' },
+	{ label: 'Width (cm)', api_key: 'width', field_type: 'float' },
+	{ label: 'Height (cm)', api_key: 'height', field_type: 'float' },
+	{ label: 'Depth (cm)', api_key: 'depth', field_type: 'float' },
 	{
-		label: 'Är ljuskällan utbytbar? (om ljuskälla ingår)',
-		api_key: 'lightsource_exchangeable',
-		field_type: 'boolean',
+		label: 'Diameter (cm)',
+		api_key: 'diameter',
+		field_type: 'float',
 	},
 	{
-		label: 'Typ av ljuskälla (om ljuskälla ingår)',
+		label: 'Lampshade height (cm)',
+		api_key: 'lampshade_height',
+		field_type: 'float',
+	},
+	{
+		label: 'Cable length (m)',
+		api_key: 'cable_length',
+		field_type: 'string',
+	},
+	{
+		label: 'Lightsource type (if lightsource included)',
 		api_key: 'lightsource_type',
 		field_type: 'string',
 		localized: true,
 	},
 	{
-		label: 'Takkopp färg',
+		label: 'Ceiling rose color',
 		api_key: 'ceiling_rose_color',
 		field_type: 'string',
 		localized: true,
-		hint: 'Ceiling rose color',
 	},
 	{
-		label: 'Brytare var (på sladden/på armaturen/nej)',
+		label: 'Switch location (on the cord / on the fixture / none)',
 		api_key: 'lamp_switch',
 		field_type: 'string',
-		hint: 'Switch location (on the cord / on the fixture / none)',
+		localized: true,
 	},
 	{
-		label: 'Sladdfärg',
+		label: 'Cable color',
 		api_key: 'cable_color',
 		field_type: 'string',
 		localized: true,
-		hint: 'Cable color',
 	},
 	{
-		label: 'Typ av sladd (textil/plast)',
+		label: 'Cable type (textile/plastic)',
 		api_key: 'cable_type',
 		field_type: 'string',
 		localized: true,
-		hint: 'Cable type (textile/plastic)',
 	},
+
 	{
-		label: 'Dimbar (ja/nej)',
+		label: 'Dimmable (yes/no)',
 		api_key: 'dimmable',
 		field_type: 'boolean',
 	},
 	{
-		label: 'Dimmer inkl. (ja/nej)',
+		label: 'Dimmer included (yes/no)',
 		api_key: 'dimmer_included',
 		field_type: 'boolean',
 	},
-];
-
-// variant-varying values live on the product_variant record
-// for per-article correspondence
-const VARIANT_LITERAL_FIELDS: FieldDef[] = [
-	{ label: 'Produktlängd (cm)', api_key: 'dimension_length', field_type: 'float' },
-	{ label: 'Produktbredd (cm)', api_key: 'dimension_width', field_type: 'float' },
-	{ label: 'Produkthöjd (cm)', api_key: 'dimension_height', field_type: 'float' },
-	{ label: 'Produktdjup (cm)', api_key: 'dimension_depth', field_type: 'float' },
 	{
-		label: 'Produktens diameter (cm)',
-		api_key: 'dimensions_diameter',
-		field_type: 'float',
+		label: 'Lightsource replaceable (if lightsource included)',
+		api_key: 'lightsource_exchangeable',
+		field_type: 'boolean',
 	},
 	{
-		label: 'Lampskärm höjd (cm)',
-		api_key: 'lampshade_height',
-		field_type: 'float',
-	},
-	{
-		label: 'Takkopp ingår (om taklampa)',
+		label: 'Ceiling rose included (if ceiling lamp)',
 		api_key: 'ceiling_rose_included',
 		field_type: 'boolean',
 	},
 	{
-		label: 'Ingår lampupphängning',
+		label: 'Lamp suspension included',
 		api_key: 'lampshade_included',
 		field_type: 'boolean',
 	},
-	{
-		label: 'Sladdlängd (m)',
-		api_key: 'cable_length',
-		field_type: 'string',
-		hint: 'Cable length (m)',
-	},
 ];
 
-const LIGHTSOURCE_FIELDS: FieldDef[] = [
-	{
-		label: 'Eprel-länk',
-		api_key: 'eprel_url',
-		field_type: 'string',
-		validators: { format: { predefined_pattern: 'url' } },
-		hint: 'Eprel link',
-	},
+// api keys on other models that were superseded by product_master_data
+const LEGACY_MODEL_FIELD_KEYS = [
+	'lightsource_exchangeable',
+	'lightsource_type',
+	'ceiling_rose_color',
+	'lamp_switch',
+	'cable_color',
+	'cable_type',
+	'dimmable',
+	'dimmer_included',
 ];
+const LEGACY_VARIANT_FIELD_KEYS = [
+	'length',
+	'width',
+	'height',
+	'depth',
+	'diameter',
+	'lampshade_height',
+	'ceiling_rose_included',
+	'lampshade_included',
+	'cable_length',
+];
+const LIGHTSOURCE_FIELDS: FieldDef[] = [];
+const ACCESSORY_FIELDS: FieldDef[] = [];
 
 /* ------------------------------------------------------------------ */
 /* Environment + schema                                                */
@@ -336,8 +357,6 @@ async function prepareEnvironment(): Promise<ReturnType<typeof buildClient>> {
 type CreateFieldBody = Parameters<ReturnType<typeof buildClient>['fields']['create']>[1];
 
 // Fields downgraded from localized when the platform rejects them
-const downgradedLocalized = new Set<string>();
-
 async function createField(
 	client: ReturnType<typeof buildClient>,
 	itemTypeId: string,
@@ -356,7 +375,6 @@ async function createField(
 		try {
 			await client.fields.create(itemTypeId, makeBody(attemptLocalized));
 			if (def.localized && !attemptLocalized) {
-				downgradedLocalized.add(def.api_key);
 				console.log(
 					`  + field ${def.api_key} on ${itemTypeId} (localized not allowed here → non-localized)`,
 				);
@@ -365,26 +383,7 @@ async function createField(
 			}
 			return;
 		} catch (err) {
-			const isTakeKey =
-				err instanceof ApiError &&
-				(err.findError('TAKE_FIELD_API_KEY') ||
-					err.errors.some(
-						(e) =>
-							e.attributes.code === 'INVALID_FIELD' &&
-							(e.attributes.details as { field?: string } | undefined)?.field === 'api_key' &&
-							(e.attributes.details as { code?: string } | undefined)?.code ===
-								'VALIDATION_UNIQUENESS',
-					));
-			if (isTakeKey) {
-				// check the existing field's localized setting so value payloads match
-				if (def.localized) {
-					try {
-						const existing = await client.fields.find(`${itemTypeId}/${def.api_key}`);
-						if (!existing.localized) downgradedLocalized.add(def.api_key);
-					} catch (_) {
-						downgradedLocalized.add(def.api_key);
-					}
-				}
+			if (err instanceof ApiError && err.findError('TAKE_FIELD_API_KEY')) {
 				console.log(`  · field ${def.api_key} already exists on ${itemTypeId} (upsert)`);
 				return;
 			}
@@ -401,6 +400,80 @@ async function createField(
 			throw err;
 		}
 	}
+}
+
+/* ------------------------------------------------------------------ */
+/* product_master_data schema                                          */
+/* ------------------------------------------------------------------ */
+
+type ItemTypeRecord = {
+	id: string;
+	api_key: string;
+};
+
+type Client = ReturnType<typeof buildClient>;
+
+async function ensureMasterDataModel(client: Client): Promise<ItemTypeRecord> {
+	const itemTypes = await client.itemTypes.list();
+	let itemType = itemTypes.find((t) => t.api_key === PRODUCT_MASTER_DATA_KEY);
+	if (!itemType) {
+		console.log(`Creating item type "${PRODUCT_MASTER_DATA_KEY}"…`);
+		itemType = await client.itemTypes.create({
+			name: 'Product master data',
+			api_key: PRODUCT_MASTER_DATA_KEY,
+			singleton: false,
+			draft_mode_active: false,
+			draft_saving_active: false,
+		} as never);
+		console.log(`  + item type ${PRODUCT_MASTER_DATA_KEY}`);
+	}
+	return { id: itemType.id, api_key: itemType.api_key };
+}
+
+async function addMasterDataLinkField(
+	client: Client,
+	productModelId: string,
+	masterDataId: string,
+): Promise<void> {
+	const existing = await client.fields.list(productModelId);
+	if (existing.some((f) => f.api_key === 'master_data')) {
+		console.log('  · product_model.master_data link already exists');
+		return;
+	}
+	await client.fields.create(productModelId, {
+		label: 'Master data',
+		api_key: 'master_data',
+		field_type: 'link',
+		validators: { item_item_type: { item_types: [masterDataId] } },
+	} as CreateFieldBody);
+	console.log('  + product_model.master_data link field');
+}
+
+async function destroyLegacyFields(
+	client: Client,
+	itemTypeId: string,
+	apiKeys: string[],
+): Promise<void> {
+	const existing = await client.fields.list(itemTypeId);
+	for (const apiKey of apiKeys) {
+		const field = existing.find((f) => f.api_key === apiKey);
+		if (!field) continue;
+		try {
+			await client.fields.destroy(field.id);
+			console.log(`  - removed legacy field ${apiKey} on ${itemTypeId}`);
+		} catch (err) {
+			console.log(`  · could not remove legacy field ${apiKey}:`, (err as Error).message);
+		}
+	}
+}
+
+// link values come back either as string ids (nested) or objects with an id
+function linkIdOf(value: unknown): string | undefined {
+	if (typeof value === 'string') return value;
+	if (value && typeof value === 'object' && 'id' in (value as Record<string, unknown>)) {
+		return String((value as { id: string }).id);
+	}
+	return undefined;
 }
 
 /* ------------------------------------------------------------------ */
@@ -458,10 +531,14 @@ async function main(): Promise<void> {
 	const client = await prepareEnvironment();
 
 	console.log('Ensuring schema fields…');
+	const masterDataModel = await ensureMasterDataModel(client);
+	for (const def of MASTER_DATA_FIELDS) await createField(client, masterDataModel.id, def);
+	await addMasterDataLinkField(client, PRODUCT_MODEL_TYPE, masterDataModel.id);
+	await destroyLegacyFields(client, PRODUCT_MODEL_TYPE, LEGACY_MODEL_FIELD_KEYS);
+	await destroyLegacyFields(client, PRODUCT_VARIANT_TYPE, LEGACY_VARIANT_FIELD_KEYS);
 	for (const def of VARIANT_FIELDS) await createField(client, PRODUCT_VARIANT_TYPE, def);
-	for (const def of VARIANT_LITERAL_FIELDS) await createField(client, PRODUCT_VARIANT_TYPE, def);
-	for (const def of MODEL_FIELDS) await createField(client, PRODUCT_MODEL_TYPE, def);
 	for (const def of LIGHTSOURCE_FIELDS) await createField(client, PRODUCT_LIGHTSOURCE_TYPE, def);
+	for (const def of ACCESSORY_FIELDS) await createField(client, PRODUCT_ACCESSORY_TYPE, def);
 
 	/* ---------------- Lightsource + accessory lookup ---------------- */
 
@@ -493,19 +570,28 @@ async function main(): Promise<void> {
 
 	const products = await listAll<Product>(client, PRODUCT_TYPE);
 
+	// one product_master_data record per model, identified by the first
+	// matched article row; reuse existing records (idempotent re-runs)
+	const masterDataByKey = new Map<string, string>();
+	for (const record of await listAll<ItemTypeDefinition>(client, masterDataModel.id)) {
+		const key = articleOf(record as any).toUpperCase();
+		if (key) masterDataByKey.set(key, record.id);
+	}
+
 	let updatedModels = 0;
 	let updatedVariants = 0;
 
-	// Variant values (EAN + dims/cable) live on product_variant records and are
-	// updated directly. Model-level values still live on the ProductModel block,
-	// which is updated through its parent product item using buildBlockRecord.
+	// EAN lives on product_variant records. Model-level values + dims live on
+	// a product_master_data record linked from the product_model block, which
+	// is rewritten through its parent product item using buildBlockRecord.
 	for (const product of products) {
 		const item = await client.items.find<Product>(product.id, { nested: true });
 		const models = (item.models ?? []) as unknown as NestedBlock[];
+		const wasPublished = product.meta?.status === 'published';
 
 		const modelsPayload: unknown[] = [];
 		let productDirty = false;
-		let modelAttrWrites = 0;
+		let masterDataWrites = 0;
 
 		for (const model of models) {
 			const variantIds = (model.attributes.variants ?? []) as string[];
@@ -527,26 +613,62 @@ async function main(): Promise<void> {
 				return row ? [{ v, row }] : [];
 			});
 
-			// EAN + per-article values live on the product_variant record
+			// EAN lives on the product_variant record
 			for (const { v, row } of matched) {
 				const ean = (row.ean ?? (v as VariantRecord & { ean?: string }).ean ?? '') as string;
-				await client.items.update(v.id, { ...row.variant, ean } as never);
-				await republishIfPublished(client, v.id);
-				updatedVariants++;
-			}
-
-			const modelRow = matched[0]?.row;
-			const modelAttrs: Record<string, unknown> = {};
-			if (modelRow) {
-				for (const [k, val] of Object.entries(modelRow.model)) {
-					if (val === null || val === undefined) continue;
-					modelAttrs[k] =
-						typeof val === 'object' && downgradedLocalized.has(k)
-							? (val as { sv?: string }).sv
-							: val;
+				try {
+					await client.items.update(v.id, { ...row.variant, ean } as never);
+					await republishIfPublished(client, v.id);
+					updatedVariants++;
+				} catch (err) {
+					console.log('failed to update variant', v.id, row.variant, ean);
+					throw err;
 				}
 			}
-			if (Object.keys(modelAttrs).length) modelAttrWrites++;
+
+			// Create or update the product_master_data record for this model
+			// (first matched article row wins), then link it from the block
+			let masterDataId: string | undefined;
+			const modelRow = matched[0]?.row;
+			if (modelRow) {
+				const key = modelRow.article_no.toUpperCase();
+				const attrs: Record<string, unknown> = {};
+				for (const [k, val] of Object.entries(modelRow.master_data)) {
+					if (val === null || val === undefined) continue;
+					attrs[k] = val;
+				}
+				const existingId = masterDataByKey.get(key);
+				try {
+					if (existingId) {
+						await client.items.update(existingId, attrs as never);
+						await republishIfPublished(client, existingId);
+						masterDataId = existingId;
+					} else {
+						// on create, localized fields must be provided as a
+						// hash containing every locale (null values inside are ok)
+						const nullLocalized = Object.fromEntries(
+							['sv', 'en', 'no', 'da', 'en-GB'].map((l) => [l, null]),
+						);
+						for (const def of MASTER_DATA_FIELDS) {
+							if (def.api_key in attrs) continue;
+							attrs[def.api_key] = def.localized ? nullLocalized : null;
+						}
+						const created = await client.items.create({
+							item_type: { type: 'item_type', id: masterDataModel.id },
+							...attrs,
+						} as never);
+						if (wasPublished) await client.items.publish(created.id);
+						masterDataByKey.set(key, created.id);
+						masterDataId = created.id;
+					}
+				} catch (err) {
+					console.error(`  ! failed writing master data for article ${key}:`, err);
+					console.log(attrs);
+					throw err;
+				}
+			}
+			const currentMasterDataId = linkIdOf(model.attributes.master_data);
+			if (masterDataId) masterDataWrites++;
 
 			// Rebuild every model block (variants links are passed through unchanged)
 			modelsPayload.push(
@@ -555,6 +677,7 @@ async function main(): Promise<void> {
 					id: model.id,
 					name: model.attributes.name,
 					drawing: model.attributes.drawing,
+					master_data: masterDataId ?? currentMasterDataId,
 					lightsources: ((model.attributes.lightsources ?? []) as NestedBlock[]).map(
 						(l: NestedBlock) =>
 							buildBlockRecord({
@@ -572,11 +695,10 @@ async function main(): Promise<void> {
 							}),
 					),
 					variants: model.attributes.variants,
-					...modelAttrs,
 				} as never),
 			);
 
-			if (matched.length || Object.keys(modelAttrs).length) productDirty = true;
+			if (matched.length || masterDataId) productDirty = true;
 		}
 
 		if (!productDirty) continue;
@@ -584,15 +706,14 @@ async function main(): Promise<void> {
 		try {
 			await client.items.update(product.id, { models: modelsPayload } as never);
 			await republishIfPublished(client, product.id);
-			updatedModels += modelAttrWrites;
+			updatedModels += masterDataWrites;
 		} catch (err) {
 			console.error(`  ! failed updating models of product ${product.id}:`, err);
 			throw err;
 		}
+		process.stdout.write('.');
 	}
-	console.log(
-		`Updated ${updatedModels} models / ${updatedVariants} variants (EAN + dims/cable values)`,
-	);
+	console.log(`Updated ${updatedModels} models / ${updatedVariants} variants / master data linked`);
 
 	console.log('Done — run it again safely (idempotent upserts).');
 }
@@ -600,6 +721,7 @@ async function main(): Promise<void> {
 if (process.env.SKIP !== '1') {
 	main().catch((err) => {
 		console.error(err);
+		err.errors && console.log(JSON.stringify(err.errors, null, 2));
 		process.exitCode = 1;
 	});
 }

@@ -1115,6 +1115,39 @@ export const FileFragmentDoc = {
 		},
 	],
 } as unknown as DocumentNode<FileFragment, unknown>;
+export const ProductMasterDataFragmentDoc = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode<ProductMasterDataFragment, unknown>;
 export const ProductLightsourceFragmentDoc = {
 	kind: 'Document',
 	definitions: [
@@ -1133,6 +1166,7 @@ export const ProductLightsourceFragmentDoc = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -1708,6 +1742,19 @@ export const ProductFragmentDoc = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -1748,6 +1795,7 @@ export const ProductFragmentDoc = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -2118,6 +2166,34 @@ export const ProductFragmentDoc = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ProductLightsourceFragment' },
 			typeCondition: {
 				kind: 'NamedType',
@@ -2131,6 +2207,7 @@ export const ProductFragmentDoc = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -2594,6 +2671,34 @@ export const ProjectFragmentDoc = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ImageThumbnailFragment' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'FileField' } },
 			selectionSet: {
@@ -2671,6 +2776,7 @@ export const ProjectFragmentDoc = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -3108,6 +3214,19 @@ export const ProjectFragmentDoc = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -3148,6 +3267,7 @@ export const ProjectFragmentDoc = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -7640,6 +7760,7 @@ export const ProductLightsourceDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -7795,6 +7916,7 @@ export const ProductLightsourceByIdDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -7952,6 +8074,7 @@ export const AllProductLightsourcesDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -8674,6 +8797,34 @@ export const ProductDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ImageThumbnailFragment' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'FileField' } },
 			selectionSet: {
@@ -8751,6 +8902,7 @@ export const ProductDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -9188,6 +9340,19 @@ export const ProductDocument = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -9228,6 +9393,7 @@ export const ProductDocument = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -9613,6 +9779,34 @@ export const ProductByIdDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ImageThumbnailFragment' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'FileField' } },
 			selectionSet: {
@@ -9690,6 +9884,7 @@ export const ProductByIdDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -10127,6 +10322,19 @@ export const ProductByIdDocument = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -10167,6 +10375,7 @@ export const ProductByIdDocument = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -10559,6 +10768,34 @@ export const AllProductsDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ImageThumbnailFragment' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'FileField' } },
 			selectionSet: {
@@ -10636,6 +10873,7 @@ export const AllProductsDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -11073,6 +11311,19 @@ export const AllProductsDocument = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -11113,6 +11364,7 @@ export const AllProductsDocument = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -11553,6 +11805,34 @@ export const AllPricelistProductsDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ImageThumbnailFragment' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'FileField' } },
 			selectionSet: {
@@ -11630,6 +11910,7 @@ export const AllPricelistProductsDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -12067,6 +12348,19 @@ export const AllPricelistProductsDocument = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -12107,6 +12401,7 @@ export const AllPricelistProductsDocument = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -14312,6 +14607,34 @@ export const ProjectDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ImageThumbnailFragment' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'FileField' } },
 			selectionSet: {
@@ -14389,6 +14712,7 @@ export const ProjectDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -14826,6 +15150,19 @@ export const ProjectDocument = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -14866,6 +15203,7 @@ export const ProjectDocument = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -16098,6 +16436,34 @@ export const BespokeDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ImageThumbnailFragment' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'FileField' } },
 			selectionSet: {
@@ -16175,6 +16541,7 @@ export const BespokeDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -16612,6 +16979,19 @@ export const BespokeDocument = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -16652,6 +17032,7 @@ export const BespokeDocument = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -19529,6 +19910,34 @@ export const StartDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'ProductMdmRecord' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceExchangeable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lightsourceType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampSwitch' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableColor' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableType' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmable' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'dimmerIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'length' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'width' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'height' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'depth' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'diameter' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeHeight' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ceilingRoseIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'lampshadeIncluded' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'cableLength' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
 			name: { kind: 'Name', value: 'ProductLightsourceFragment' },
 			typeCondition: {
 				kind: 'NamedType',
@@ -19542,6 +19951,7 @@ export const StartDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'eprel' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'price' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 					{
@@ -20181,6 +20591,19 @@ export const StartDocument = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'masterData' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'FragmentSpread',
+												name: { kind: 'Name', value: 'ProductMasterDataFragment' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'variants' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -20221,6 +20644,7 @@ export const StartDocument = {
 												},
 											},
 											{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'deliveryDays' } },
 											{
 												kind: 'Field',
@@ -21059,6 +21483,65 @@ export const AllTranslationsDocument = {
 		},
 	],
 } as unknown as DocumentNode<AllTranslationsQuery, AllTranslationsQueryVariables>;
+export const AllProductVariantsDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'AllProductVariants' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
+					type: { kind: 'NamedType', name: { kind: 'Name', value: 'IntType' } },
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'skip' } },
+					type: { kind: 'NamedType', name: { kind: 'Name', value: 'IntType' } },
+				},
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'allProductVariants' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'first' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'skip' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'skip' } },
+							},
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'ean' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'articleNo' } },
+							],
+						},
+					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: '_allProductVariantsMeta' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [{ kind: 'Field', name: { kind: 'Name', value: 'count' } }],
+						},
+					},
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode<AllProductVariantsQuery, AllProductVariantsQueryVariables>;
 export const WithdrawFromPurchaseDocument = {
 	kind: 'Document',
 	definitions: [

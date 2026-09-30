@@ -321,6 +321,9 @@ fragment ProductFragment on ProductRecord {
 			id
 			name
 		}
+		masterData {
+			...ProductMasterDataFragment
+		}
 		variants {
 			id
 			color {
@@ -339,6 +342,7 @@ fragment ProductFragment on ProductRecord {
 				name
 			}
 			articleNo
+			ean
 			deliveryDays
 			image {
 				...ImageFragment
@@ -388,6 +392,27 @@ fragment ProductFragment on ProductRecord {
 		name
 	}
 	note(markdown: false)
+}
+
+fragment ProductMasterDataFragment on ProductMdmRecord {
+	id
+	lightsourceExchangeable
+	lightsourceType
+	ceilingRoseColor
+	lampSwitch
+	cableColor
+	cableType
+	dimmable
+	dimmerIncluded
+	length
+	width
+	height
+	depth
+	diameter
+	lampshadeHeight
+	ceilingRoseIncluded
+	lampshadeIncluded
+	cableLength
 }
 
 fragment ProductLightFragment on ProductRecord {

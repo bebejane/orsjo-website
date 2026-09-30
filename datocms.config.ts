@@ -9,7 +9,7 @@ import { defaultLocale, locales } from '@/i18n/routing';
 import { SitemapDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 
-export function getRoute(item: any, locale?: string | null): string {
+export async function getRoute(item: any, locale?: string | null): Promise<string> {
 	const apiKey = getItemApiKey(item);
 	if (!apiKey) throw new Error('No api key found');
 	const { slug } = item;
@@ -72,6 +72,11 @@ export function getRoute(item: any, locale?: string | null): string {
 		case 'product_start':
 		case 'product_variant':
 			return '/products';
+		case 'product_variant':
+		case 'product_mdm':
+			const routes = await getItemReferenceRoutes(item.id);
+			if (!routes.length) return '/products';
+			return routes[0];
 		case 'project':
 			return `/professionals/projects/${slug}`;
 		case 'project_start':
@@ -94,7 +99,9 @@ export default {
 		defaultLocale,
 		locales,
 	},
-	route: async (item, locale) => getRoute(item, locale),
+	route: async (item, locale) => {
+		return getRoute(item, locale);
+	},
 	routes: {
 		about: async (_item, locale) => [`/${locale}/about`],
 		bespoke: async (_item, locale) => [`/${locale}/professionals/bespoke`],
@@ -128,6 +135,7 @@ export default {
 			`/${locale}`,
 		],
 		product_variant: async ({ id }, locale) => getItemReferenceRoutes(id),
+		product_mdm: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_accessory: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_category: async ({ id }, locale) => getItemReferenceRoutes(id),
 		product_color: async ({ id }, locale) => getItemReferenceRoutes(id),
@@ -156,7 +164,7 @@ export default {
 		sustainability: async (_item, locale) => [`/${locale}/about/sustainability`],
 		shipping: async (_item, locale) => [`/${locale}/products`],
 		withdraw_from_purchase: async (_item, locale) => [`/${locale}/support/withdraw-from-purchase`],
-		upload: async ({ id }) => getUploadReferenceRoutes(id),
+		upload: async ({ id }) => getUploadReferenceRoutes(id, locales),
 	},
 	sitemap: async () => {
 		const { allProducts, allDesigners, allProjects, allNews } = await apiQuery(SitemapDocument, {

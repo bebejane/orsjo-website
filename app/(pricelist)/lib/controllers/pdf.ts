@@ -5,7 +5,6 @@ import { PDFArray, PDFDict, PDFDocument, PDFName, PDFRef } from 'pdf-lib';
 import { Upload } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 import { buildClient } from '@datocms/cma-client-node';
 import { EnvironmentSettings, Product } from '@/types/datocms-cma';
-import { hashPassword } from '@/app/(pricelist)/lib/auth';
 import { sleep } from 'next-dato-utils/utils';
 
 const client = buildClient({
@@ -21,14 +20,6 @@ export async function generate(url: string): Promise<Uint8Array<ArrayBuffer>> {
 
 		const browser = await getBrowser();
 		page = await browser.newPage();
-		const token = await hashPassword(process.env.CATALOGUE_PASSWORD!);
-
-		await browser.setCookie({
-			name: 'pricelist_auth',
-			value: token,
-			domain: new URL(url).hostname,
-			path: '/',
-		});
 
 		const res = await page.goto(url, { timeout: 120 * 1000, waitUntil: 'networkidle0' });
 

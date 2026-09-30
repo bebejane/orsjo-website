@@ -1087,6 +1087,76 @@ export const ProductMaterial = {
   REF: { type: 'item_type', id: '1801295' },
 } as const;
 
+<<<<<<< HEAD
+=======
+export type ProductMdm = ItemTypeDefinition<
+  EnvironmentSettings,
+  'PXOVw3q7Q4WSGpw_SpjzMg',
+  {
+    length: {
+      type: 'float';
+    };
+    width: {
+      type: 'float';
+    };
+    height: {
+      type: 'float';
+    };
+    depth: {
+      type: 'float';
+    };
+    diameter: {
+      type: 'float';
+    };
+    lampshade_height: {
+      type: 'float';
+    };
+    cable_length: {
+      type: 'string';
+    };
+    lightsource_type: {
+      type: 'string';
+      localized: true;
+    };
+    ceiling_rose_color: {
+      type: 'string';
+      localized: true;
+    };
+    lamp_switch: {
+      type: 'string';
+      localized: true;
+    };
+    cable_color: {
+      type: 'string';
+      localized: true;
+    };
+    cable_type: {
+      type: 'string';
+      localized: true;
+    };
+    dimmable: {
+      type: 'boolean';
+    };
+    dimmer_included: {
+      type: 'boolean';
+    };
+    lightsource_exchangeable: {
+      type: 'boolean';
+    };
+    ceiling_rose_included: {
+      type: 'boolean';
+    };
+    lampshade_included: {
+      type: 'boolean';
+    };
+  }
+>;
+export const ProductMdm = {
+  ID: 'PXOVw3q7Q4WSGpw_SpjzMg',
+  REF: { type: 'item_type', id: 'PXOVw3q7Q4WSGpw_SpjzMg' },
+} as const;
+
+>>>>>>> migration
 export type ProductModel = ItemTypeDefinition<
   EnvironmentSettings,
   '1801307',
@@ -1097,6 +1167,12 @@ export type ProductModel = ItemTypeDefinition<
     drawing: {
       type: 'file';
     };
+<<<<<<< HEAD
+=======
+    variants: {
+      type: 'links';
+    };
+>>>>>>> migration
     lightsources: {
       type: 'rich_text';
       blocks: Lightsource;
@@ -1105,8 +1181,13 @@ export type ProductModel = ItemTypeDefinition<
       type: 'rich_text';
       blocks: Accessory;
     };
+<<<<<<< HEAD
     variants: {
       type: 'links';
+=======
+    master_data: {
+      type: 'link';
+>>>>>>> migration
     };
   }
 >;
@@ -1176,7 +1257,11 @@ export const ProductStart = {
 
 export type ProductVariant = ItemTypeDefinition<
   EnvironmentSettings,
+<<<<<<< HEAD
   'W4alwfW8Saewj53qP_tz4A',
+=======
+  'OMyMb5W4S2iyX6FONqm2eg',
+>>>>>>> migration
   {
     article_no: {
       type: 'string';
@@ -1205,11 +1290,22 @@ export type ProductVariant = ItemTypeDefinition<
     image: {
       type: 'file';
     };
+<<<<<<< HEAD
   }
 >;
 export const ProductVariant = {
   ID: 'W4alwfW8Saewj53qP_tz4A',
   REF: { type: 'item_type', id: 'W4alwfW8Saewj53qP_tz4A' },
+=======
+    ean: {
+      type: 'integer';
+    };
+  }
+>;
+export const ProductVariant = {
+  ID: 'OMyMb5W4S2iyX6FONqm2eg',
+  REF: { type: 'item_type', id: 'OMyMb5W4S2iyX6FONqm2eg' },
+>>>>>>> migration
 } as const;
 
 export type Project = ItemTypeDefinition<
@@ -1552,6 +1648,7 @@ export type Translation = ItemTypeDefinition<
       localized: true;
     };
     key: {
+<<<<<<< HEAD
       type: 'string';
     };
   }
@@ -1604,6 +1701,8 @@ export type Variant = ItemTypeDefinition<
       type: 'float';
     };
     delivery_days: {
+=======
+>>>>>>> migration
       type: 'string';
     };
     image: {
@@ -1611,6 +1710,7 @@ export type Variant = ItemTypeDefinition<
     };
   }
 >;
+<<<<<<< HEAD
 export const Variant = {
   ID: '1801308',
   REF: { type: 'item_type', id: '1801308' },
@@ -1620,6 +1720,34 @@ export type Video = ItemTypeDefinition<
   EnvironmentSettings,
   '1995887',
   {
+=======
+export const Translation = {
+  ID: '1801300',
+  REF: { type: 'item_type', id: '1801300' },
+} as const;
+
+export type TwoColumnImage = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995884',
+  {
+    first_image: {
+      type: 'file';
+    };
+    last_image: {
+      type: 'file';
+    };
+  }
+>;
+export const TwoColumnImage = {
+  ID: '1995884',
+  REF: { type: 'item_type', id: '1995884' },
+} as const;
+
+export type Video = ItemTypeDefinition<
+  EnvironmentSettings,
+  '1995887',
+  {
+>>>>>>> migration
     video: {
       type: 'file';
     };
@@ -1670,7 +1798,10 @@ export type AnyBlock =
   | SustainabilityStep
   | Text
   | TwoColumnImage
+<<<<<<< HEAD
   | Variant
+=======
+>>>>>>> migration
   | Video;
 export type AnyModel =
   | About
@@ -1706,6 +1837,10 @@ export type AnyModel =
   | ProductFeature
   | ProductLightsource
   | ProductMaterial
+<<<<<<< HEAD
+=======
+  | ProductMdm
+>>>>>>> migration
   | ProductModelName
   | ProductMounting
   | ProductSocket
