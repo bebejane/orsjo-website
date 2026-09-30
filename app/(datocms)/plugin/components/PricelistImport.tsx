@@ -1,7 +1,11 @@
 'use client';
 
 import s from './PricelistImport.module.scss';
-import type { ProductUpdate, ProductUpdatesResponse, UpdateProgress } from '@/pricelist/lib/controllers/pricelist';
+import type {
+	ProductUpdate,
+	ProductUpdatesResponse,
+	UpdateProgress,
+} from '@/pricelist/lib/controllers/pricelist';
 import { useState } from 'react';
 import PricelistUpdateList from './PricelistUpdateList';
 import { Button, FieldError, FieldWrapper, Spinner } from 'datocms-react-ui';
@@ -135,7 +139,7 @@ export default function PricelistImport({
 					{parsing && (
 						<div className={s.status}>
 							<Spinner size={20} />
-							<span>Parsing pricelist</span>
+							<span>Copying data and parsing pricelist</span>
 						</div>
 					)}
 				</div>
@@ -149,7 +153,7 @@ export default function PricelistImport({
 					onUpdating={setUpdating}
 				/>
 			)}
-			{error && <FieldError>{error}</FieldError>}
+			{error && <div className={s.error}>{error}</div>}
 		</div>
 	);
 }

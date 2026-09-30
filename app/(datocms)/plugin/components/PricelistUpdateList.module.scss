@@ -7,13 +7,14 @@
 .status {
 	//display: flex;
 	//align-items: center;
-	gap: var(--spacing-s);
+	gap: var(--spacing-xs);
 	margin-top: var(--spacing-m);
 	font-size: var(--font-size-l);
 
 	.success {
 		font-weight: bold;
 		font-size: var(--font-size-xl);
+		//margin-top: var(--spacing-xl);
 		//color: var(--color--ink-success);
 	}
 }
@@ -53,6 +54,7 @@
 	flex-direction: row;
 	align-items: center;
 	width: 100%;
+
 	span {
 		display: inline-block;
 		&:first-child {
@@ -79,4 +81,9 @@
 			padding-left: 0;
 		}
 	}
+}
+
+.error {
+	color: var(--color--ink-danger);
+	font-size: var(--font-size-l);
 }

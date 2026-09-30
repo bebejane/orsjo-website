@@ -54,7 +54,7 @@ export function PricelistAdmin({ accessToken, ctx }: { accessToken?: string; ctx
 	if (error || !data) {
 		return (
 			<Section title='Pricelist'>
-				<FieldError>{error ?? 'No data'}</FieldError>
+				<div className={s.error}>{error ?? 'No data'}</div>
 			</Section>
 		);
 	}
@@ -84,10 +84,9 @@ export function PricelistAdmin({ accessToken, ctx }: { accessToken?: string; ctx
 						ctx={ctx}
 						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
 						parse={(buffer) => parsePricelist(token, buffer, environment.value)}
-						update={(
-							updates: ProductUpdate,
-							onProgress?: (progress: UpdateProgress) => void,
-						) => streamUpdate(token, environment.value, updates, onProgress)}
+						update={(updates: ProductUpdate, onProgress?: (progress: UpdateProgress) => void) =>
+							streamUpdate(token, environment.value, updates, onProgress)
+						}
 						current={currentPricelist}
 						refresh={load}
 					/>

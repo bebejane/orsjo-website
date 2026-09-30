@@ -85,7 +85,7 @@ export default function PricelistUpdateList({
 			{noArticles > 0 && (
 				<>
 					<div className={s.update}>
-						<Button buttonType='primary' onClick={handleUpdate} disabled={updating}>
+						<Button buttonType='primary' buttonSize='xs' onClick={handleUpdate} disabled={updating}>
 							Update {noArticles} articles
 						</Button>
 					</div>
@@ -141,7 +141,7 @@ export default function PricelistUpdateList({
 					</table>
 				</div>
 			)}
-			{error && <FieldError>{error}</FieldError>}
+			{error && <div className={s.error}>{error}</div>}
 			{notFound?.length > 0 && !updating && !success && (
 				<div>
 					<h3>{notFound?.length} articles not found!</h3>
