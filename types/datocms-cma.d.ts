@@ -1087,11 +1087,9 @@ export const ProductMaterial = {
   REF: { type: 'item_type', id: '1801295' },
 } as const;
 
-<<<<<<< HEAD
-=======
 export type ProductMdm = ItemTypeDefinition<
   EnvironmentSettings,
-  'PXOVw3q7Q4WSGpw_SpjzMg',
+  'bqZQaf8wQgSqc0d0-CF8UA',
   {
     length: {
       type: 'float';
@@ -1152,11 +1150,10 @@ export type ProductMdm = ItemTypeDefinition<
   }
 >;
 export const ProductMdm = {
-  ID: 'PXOVw3q7Q4WSGpw_SpjzMg',
-  REF: { type: 'item_type', id: 'PXOVw3q7Q4WSGpw_SpjzMg' },
+  ID: 'bqZQaf8wQgSqc0d0-CF8UA',
+  REF: { type: 'item_type', id: 'bqZQaf8wQgSqc0d0-CF8UA' },
 } as const;
 
->>>>>>> migration
 export type ProductModel = ItemTypeDefinition<
   EnvironmentSettings,
   '1801307',
@@ -1167,12 +1164,9 @@ export type ProductModel = ItemTypeDefinition<
     drawing: {
       type: 'file';
     };
-<<<<<<< HEAD
-=======
     variants: {
       type: 'links';
     };
->>>>>>> migration
     lightsources: {
       type: 'rich_text';
       blocks: Lightsource;
@@ -1181,13 +1175,8 @@ export type ProductModel = ItemTypeDefinition<
       type: 'rich_text';
       blocks: Accessory;
     };
-<<<<<<< HEAD
-    variants: {
-      type: 'links';
-=======
     master_data: {
       type: 'link';
->>>>>>> migration
     };
   }
 >;
@@ -1257,11 +1246,7 @@ export const ProductStart = {
 
 export type ProductVariant = ItemTypeDefinition<
   EnvironmentSettings,
-<<<<<<< HEAD
-  'W4alwfW8Saewj53qP_tz4A',
-=======
   'OMyMb5W4S2iyX6FONqm2eg',
->>>>>>> migration
   {
     article_no: {
       type: 'string';
@@ -1290,13 +1275,6 @@ export type ProductVariant = ItemTypeDefinition<
     image: {
       type: 'file';
     };
-<<<<<<< HEAD
-  }
->;
-export const ProductVariant = {
-  ID: 'W4alwfW8Saewj53qP_tz4A',
-  REF: { type: 'item_type', id: 'W4alwfW8Saewj53qP_tz4A' },
-=======
     ean: {
       type: 'integer';
     };
@@ -1305,7 +1283,6 @@ export const ProductVariant = {
 export const ProductVariant = {
   ID: 'OMyMb5W4S2iyX6FONqm2eg',
   REF: { type: 'item_type', id: 'OMyMb5W4S2iyX6FONqm2eg' },
->>>>>>> migration
 } as const;
 
 export type Project = ItemTypeDefinition<
@@ -1648,7 +1625,6 @@ export type Translation = ItemTypeDefinition<
       localized: true;
     };
     key: {
-<<<<<<< HEAD
       type: 'string';
     };
   }
@@ -1675,79 +1651,10 @@ export const TwoColumnImage = {
   REF: { type: 'item_type', id: '1995884' },
 } as const;
 
-export type Variant = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1801308',
-  {
-    article_no: {
-      type: 'string';
-    };
-    color: {
-      type: 'link';
-    };
-    material: {
-      type: 'link';
-    };
-    feature: {
-      type: 'link';
-    };
-    weight: {
-      type: 'float';
-    };
-    volume: {
-      type: 'float';
-    };
-    price: {
-      type: 'float';
-    };
-    delivery_days: {
-=======
->>>>>>> migration
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-  }
->;
-<<<<<<< HEAD
-export const Variant = {
-  ID: '1801308',
-  REF: { type: 'item_type', id: '1801308' },
-} as const;
-
 export type Video = ItemTypeDefinition<
   EnvironmentSettings,
   '1995887',
   {
-=======
-export const Translation = {
-  ID: '1801300',
-  REF: { type: 'item_type', id: '1801300' },
-} as const;
-
-export type TwoColumnImage = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995884',
-  {
-    first_image: {
-      type: 'file';
-    };
-    last_image: {
-      type: 'file';
-    };
-  }
->;
-export const TwoColumnImage = {
-  ID: '1995884',
-  REF: { type: 'item_type', id: '1995884' },
-} as const;
-
-export type Video = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1995887',
-  {
->>>>>>> migration
     video: {
       type: 'file';
     };
@@ -1798,10 +1705,6 @@ export type AnyBlock =
   | SustainabilityStep
   | Text
   | TwoColumnImage
-<<<<<<< HEAD
-  | Variant
-=======
->>>>>>> migration
   | Video;
 export type AnyModel =
   | About
@@ -1837,10 +1740,7 @@ export type AnyModel =
   | ProductFeature
   | ProductLightsource
   | ProductMaterial
-<<<<<<< HEAD
-=======
   | ProductMdm
->>>>>>> migration
   | ProductModelName
   | ProductMounting
   | ProductSocket

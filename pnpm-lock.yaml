@@ -37,11 +37,7 @@ importers:
         version: 3.13.3(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@next/third-parties':
         specifier: ^16.2.6
-<<<<<<< HEAD
-        version: 16.3.5(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)
-=======
         version: 16.3.5(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)
->>>>>>> migration
       '@react-email/components':
         specifier: 0.0.38
         version: 0.0.38(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -50,11 +46,7 @@ importers:
         version: 5.2.10(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
       '@sentry/nextjs':
         specifier: ^10.48.0
-<<<<<<< HEAD
-        version: 10.74.0(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.11.0(@opentelemetry/api@1.9.1))(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)(supports-color@8.1.1)(webpack@5.111.0(@swc/core@1.16.2(@swc/helpers@0.5.23))(csso@5.0.5)(esbuild@0.28.2)(postcss@8.5.23)(sharp@0.35.4(@types/node@22.20.3))(svgo@3.3.5))
-=======
         version: 10.74.0(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.11.0(@opentelemetry/api@1.9.1))(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)(supports-color@8.1.1)(webpack@5.111.0(@swc/core@1.16.2(@swc/helpers@0.5.23))(csso@5.0.5)(esbuild@0.28.2)(postcss@8.5.23)(sharp@0.35.4(@types/node@22.20.3))(svgo@3.3.5))
->>>>>>> migration
       '@sparticuz/chromium-min':
         specifier: ^143.0.4
         version: 143.0.4(debug@4.4.3(supports-color@8.1.1))
@@ -84,11 +76,7 @@ importers:
         version: 2.5.1
       cookies-next:
         specifier: ^5.1.0
-<<<<<<< HEAD
-        version: 5.1.0(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)
-=======
         version: 5.1.0(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)
->>>>>>> migration
       date-fns:
         specifier: ^4.1.0
         version: 4.4.0
@@ -104,12 +92,9 @@ importers:
       dotenv:
         specifier: ^17.3.1
         version: 17.4.2
-<<<<<<< HEAD
-=======
       exceljs:
         specifier: ^4.4.0
         version: 4.4.0
->>>>>>> migration
       google:
         specifier: link:@next/third-parties/google
         version: link:@next/third-parties/google
@@ -123,19 +108,6 @@ importers:
         specifier: ^5.1.35
         version: 5.2.2
       next:
-<<<<<<< HEAD
-        specifier: ^16.2.3
-        version: 16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
-      next-dato-utils:
-        specifier: github:bebejane/next-dato-utils
-        version: https://codeload.github.com/bebejane/next-dato-utils/tar.gz/9c63978959ba278f9cc4a818fd91a59e4e7add05(@datocms/cda-client@0.3.2(graphql@16.14.2))(@datocms/cma-client-browser@5.8.0)(@datocms/cma-client-node@5.8.0)(@datocms/cma-client@5.8.1)(@datocms/content-link@0.3.23)(@types/react@19.3.0)(@vercel/functions@3.9.8(@aws-sdk/credential-provider-web-identity@3.972.77)(ws@8.21.3))(datocms-structured-text-utils@5.1.16)(graphql@16.14.2)(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(postmark@4.0.7(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1))(react-datocms@8.1.2(@mux/mux-player-react@3.13.3(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(graphql@16.14.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)(sharp@0.35.4(@types/node@22.20.3))(supports-color@8.1.1)(zod@3.25.76)
-      next-intl:
-        specifier: ^4.8.3
-        version: 4.14.5(@swc/helpers@0.5.23)(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)
-      nextjs-google-analytics:
-        specifier: ^2.3.7
-        version: 2.3.7(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)
-=======
         specifier: ^16.3.6
         version: 16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
       next-dato-utils:
@@ -147,7 +119,6 @@ importers:
       nextjs-google-analytics:
         specifier: ^2.3.7
         version: 2.3.7(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)
->>>>>>> migration
       pdf-lib:
         specifier: ^1.17.1
         version: 1.17.1
@@ -973,19 +944,6 @@ packages:
   '@datocms/cda-client@0.3.2':
     resolution: {integrity: sha512-4lxe00OsUyc9sq9kBhT4RTFwTZoRnlPChIrYRwv1aR+Sd3UhPfKPaxknM9uRi8ntqwPAb5A28zaF8z7ahASBVg==}
 
-<<<<<<< HEAD
-  '@datocms/cma-client-browser@5.8.0':
-    resolution: {integrity: sha512-jaDxCDh27oIcTcHUJpfprF/bn0bcIUWqEPD/mOhlxBt5t3iT2R4E5FPaoL6gC8+CQCNR1CyD27epYx8Mnkrd0Q==}
-
-  '@datocms/cma-client-node@5.8.0':
-    resolution: {integrity: sha512-UgRijdoAtyTQ4ZD7vWQEXvR9UkYJaWBdVDqFaeNoZEPs+qQi3NNCQc8AU0of4kN4k4GeNFEm5f8zYgr/MC1erA==}
-
-  '@datocms/cma-client@5.8.1':
-    resolution: {integrity: sha512-Fp23UGKRupbU36yW4d2ZdVK3cMB7plK7liU5tGGw6L/3Wclp88pv+s/QYcmw/YXZeyBa4KyGabTPl52ilOl4Nw==}
-
-  '@datocms/cma-client@6.3.0':
-    resolution: {integrity: sha512-+Nk/7DnkDv8m6I1qMOSbNJNo1U8MJZCO0IjD+R1n8Ts89t8SUVEcqh6Tvl/kSu7lwHyyA0xPwp/TrjGa97UvMw==}
-=======
   '@datocms/cma-client-browser@6.1.0':
     resolution: {integrity: sha512-P5uBYGB99dE17bG3xcy8P5otYKA4L67+OLPu/u0zk6X09WezI9y+uLY76eFPkzqLpxw64el6XpLV07derM8cyQ==}
 
@@ -997,18 +955,11 @@ packages:
 
   '@datocms/cma-client@6.4.0':
     resolution: {integrity: sha512-bxjmNpCC13rZyhQfeBzfIOO5rxFYx+jbrjNMMVsn7UqN6CGtZ2KWs6y8Tp0VPWorzHDJJDNe2kQOkm5lI8wOUw==}
->>>>>>> migration
 
   '@datocms/content-link@0.3.23':
     resolution: {integrity: sha512-a/r7mbKpKaTaWMAYmn4+ZT8jHLvlMGqCCrX1j7KNnlpoYsuLy36LyUb0YBoYzSbzQe54GTBBxVlcoLbX777ZPw==}
     engines: {node: '>=18'}
 
-<<<<<<< HEAD
-  '@datocms/rest-client-utils@5.8.0':
-    resolution: {integrity: sha512-/aqAsC/xp1Eg7CUQatARqUbKm7b1YOyMgm57iTZREKectOinsC9H54Q2x2sfB3iNq9N5VpUwEADDNzblmXSDpA==}
-
-=======
->>>>>>> migration
   '@datocms/rest-client-utils@6.1.4':
     resolution: {integrity: sha512-i7TdL2ydjlmgLtXSnsdmjXCmvMWd+YEyu1COQO4StwdL3JxKWNa1zzMbSK3X3p4mzNAdDuOhLIxIJh/2S0eR2Q==}
 
@@ -1592,15 +1543,12 @@ packages:
     resolution: {integrity: sha512-ZAoA40rNMPwSm+AeHpCq8STiNAwzWLJuP8Xv4CHIc9wv/PSuExjMrmjfYNj682vW0OOiZ1HKxzvjQr9XZIisQA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-<<<<<<< HEAD
-=======
   '@fast-csv/format@4.3.5':
     resolution: {integrity: sha512-8iRn6QF3I8Ak78lNAa+Gdl5MJJBM5vRHivFtMRUWINdevNo00K7OXxS2PshawLKTejVwieIlPmK5YlLu6w4u8A==}
 
   '@fast-csv/parse@4.3.6':
     resolution: {integrity: sha512-uRsLYksqpbDmWaSmzvJcuApSEe38+6NQZBUsuAyMZKqHxH0g1wcJgsKUvN3WC8tewaqFjBMMGrkHmC+T7k8LvA==}
 
->>>>>>> migration
   '@fastify/busboy@3.2.2':
     resolution: {integrity: sha512-yXSS27qPExaXeuLvMRMXOLtpipzfQYNjG3FkunDWKGfMYjKuhFXko9CVzqxm8jcF+lmtS9Fd89QNdh9XDjnbNg==}
 
@@ -2474,13 +2422,8 @@ packages:
   '@next/env@16.1.7':
     resolution: {integrity: sha512-rJJbIdJB/RQr2F1nylZr/PJzamvNNhfr3brdKP6s/GW850jbtR70QlSfFselvIBbcPUOlQwBakexjFzqLzF6pg==}
 
-<<<<<<< HEAD
-  '@next/env@16.3.5':
-    resolution: {integrity: sha512-NWEXVDMqoEo0ktmU6u0sE2Vg0LOcsD7NnOTJNo3/fEaTfsg+F1bMIxuDmQbda4e3yTIQwVdUREF2yIuMOusKtg==}
-=======
   '@next/env@16.3.6':
     resolution: {integrity: sha512-x9Vblze1EbtltQYnNH38xCPWU3TVfBd1eXqA3+w9+BTpedkkdNpAaltXlGQ/nsc1+E0mVTNrtcbX3GoO09zeLQ==}
->>>>>>> migration
 
   '@next/eslint-plugin-next@15.3.1':
     resolution: {integrity: sha512-oEs4dsfM6iyER3jTzMm4kDSbrQJq8wZw5fmT6fg2V3SMo+kgG+cShzLfEV20senZzv8VF+puNLheiGPlBGsv2A==}
@@ -2491,13 +2434,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-<<<<<<< HEAD
-  '@next/swc-darwin-arm64@16.3.5':
-    resolution: {integrity: sha512-pMmGgETfKvElucLHtVaeiMRbp2zUbvKx7b1yGko0liBz3cw1mKSggWN/Rp/wPz8z+E1O82u3r4L1Co+ZS5hokQ==}
-=======
   '@next/swc-darwin-arm64@16.3.6':
     resolution: {integrity: sha512-E/7GEqaUkt8mk/T8v9lAnrhzR06kdq1ZBkC12F8tAMkdIadwNp3H1KqHynDHrpcTlGCUdq/qu6vUL2aYVyYBdw==}
->>>>>>> migration
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -2508,13 +2446,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-<<<<<<< HEAD
-  '@next/swc-darwin-x64@16.3.5':
-    resolution: {integrity: sha512-76VaGYvf6HPa5/w12yLkE3dXTn9AfdEviI79oEL3aZoAmRLc9rWitjWqyjViVysK/ht/y9YKzFkBrUdi/wGkow==}
-=======
   '@next/swc-darwin-x64@16.3.6':
     resolution: {integrity: sha512-yBE893/nDWTlaiBD1p+qgt7NUen4U5R6FXyH0s67Npq1S3E0cVSef1WIXC2xBRgQvwAvJq6DnS6Y6PrY0cy4Ew==}
->>>>>>> migration
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -2526,13 +2459,8 @@ packages:
     os: [linux]
     libc: [glibc]
 
-<<<<<<< HEAD
-  '@next/swc-linux-arm64-gnu@16.3.5':
-    resolution: {integrity: sha512-zKDELJ5jSQMHeO/hmXUQsAzagX4bQD4OiMi3pQ5FbUj+yK506oLVHnKA2YXMlbg1EHHqJYtyePOgByIDXD1lqw==}
-=======
   '@next/swc-linux-arm64-gnu@16.3.6':
     resolution: {integrity: sha512-KJDpjBqBPYlvkivmyrp+Qys6k/7ksbqGQvRVc6ZEGfR+cjQxx+nUkJaWmNZJsmoOrqYNbaXByF8wa0lBwDhB3Q==}
->>>>>>> migration
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -2545,13 +2473,8 @@ packages:
     os: [linux]
     libc: [musl]
 
-<<<<<<< HEAD
-  '@next/swc-linux-arm64-musl@16.3.5':
-    resolution: {integrity: sha512-7Vql0pgzCoHagv6+FNOZoqmJqA52c6zeVbhtS/47qFozO1MSx4ms7x7GHiciY8R5CDsSMKMQjJEryoJLcsBIbA==}
-=======
   '@next/swc-linux-arm64-musl@16.3.6':
     resolution: {integrity: sha512-mqNg2K+hvWskSRb/QM+Ix412DvBsuSF0XV+frTSw5vmoucNnIlynFwKYew8D01bfATErMOM7Bujrf0BA5DRKFA==}
->>>>>>> migration
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -2564,13 +2487,8 @@ packages:
     os: [linux]
     libc: [glibc]
 
-<<<<<<< HEAD
-  '@next/swc-linux-x64-gnu@16.3.5':
-    resolution: {integrity: sha512-NH/xzehyHEFWE2nlcZon7TB/0+H4shfWCi7S1zka815XCOhJDYZhoeJtOYy0dh0WVRWACVXSyGNFFytoMxUhRg==}
-=======
   '@next/swc-linux-x64-gnu@16.3.6':
     resolution: {integrity: sha512-nFncBNGAYouRHjRVaITs9beZRfhX4ssVwpnvPIAbkZVH6LtGoAVlH4bJ8Cnf9SOo9bsXgPFer/GdHtEE3JNOkw==}
->>>>>>> migration
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -2583,13 +2501,8 @@ packages:
     os: [linux]
     libc: [musl]
 
-<<<<<<< HEAD
-  '@next/swc-linux-x64-musl@16.3.5':
-    resolution: {integrity: sha512-lV4+EhWMfS8jcC+EH2nn/Cm5cn6XsgbE07bU9tMH8fCo0tNAqhyzi1b5wQ/Tn6NGFTvKDY65w3ZH95EjwBRAnQ==}
-=======
   '@next/swc-linux-x64-musl@16.3.6':
     resolution: {integrity: sha512-5Mf3cHDGR/Iz0ng2Bj3zUR3p5QS9YK3Hn2QiAfavFmyF48zwThAjpFoiTKNIcOHLYS4zEk+gzyJ/9deQ2ZB8yQ==}
->>>>>>> migration
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -2601,13 +2514,8 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-<<<<<<< HEAD
-  '@next/swc-win32-arm64-msvc@16.3.5':
-    resolution: {integrity: sha512-/wKzAREX2RF++MhicjDbg8tGn2AiBIM0+EFeTFKoUEUbW5D6amCJehd5Z5G1H5/gxNdgnwoXMcHz24H/c2tGkQ==}
-=======
   '@next/swc-win32-arm64-msvc@16.3.6':
     resolution: {integrity: sha512-0jkJy0C2kbrJWTk4YLa3xk80pVBpx8FCHJym7CnUfDAXe/FWv5qT7SQJbR0KuemyxaEDlEx5WT4VQJoTW+/9Qw==}
->>>>>>> migration
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -2618,13 +2526,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-<<<<<<< HEAD
-  '@next/swc-win32-x64-msvc@16.3.5':
-    resolution: {integrity: sha512-LNdCHzgLFc+UeqMS84LzXPaeBRKyqDN9OMyFAr1OrB0XrNw78IRrEVtZvvA7245W/HsaoeVOQX9jPjPk8jojwA==}
-=======
   '@next/swc-win32-x64-msvc@16.3.6':
     resolution: {integrity: sha512-/YXjI1e5OXcZ7YpxRwgP/1jAV/SBKTzeVKqN2mk7mLpcICsyn3Gl5+dIfDTJp70M0ccMhyMMRso4v6mPDCGepg==}
->>>>>>> migration
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -3524,12 +3427,9 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-<<<<<<< HEAD
-=======
   '@types/node@14.18.63':
     resolution: {integrity: sha512-fAtCfv4jJg+ExtXhvCkCqUKZ+4ok/JQk01qDKhL5BDDoS3AxKXhV5/MAVUZyQnSEd2GT92fkgZl0pz0Q0AzcIQ==}
 
->>>>>>> migration
   '@types/node@22.20.3':
     resolution: {integrity: sha512-DZmzkmwHzXrLPAXPyKNDzlIwMMUZCVacoD25ywdy5YTKGbOx/2ld+Q38Im2zJ0vBuZP5Prd3VZutKZyXwkOS8A==}
 
@@ -4144,12 +4044,9 @@ packages:
 
   bare-url@2.5.4:
     resolution: {integrity: sha512-Gxa7UVWBr0/edU1b+TJhn/AZvMQUj9OGspvYsaTYQrAbZA4BOTZGL3LiZxvD+CeMlDH4juwD84+eTAp/bLYW5g==}
-<<<<<<< HEAD
-=======
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
->>>>>>> migration
 
   base64id@2.0.0:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
@@ -4197,12 +4094,9 @@ packages:
   brace-expansion@1.1.21:
     resolution: {integrity: sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==}
 
-<<<<<<< HEAD
-=======
   brace-expansion@2.1.7:
     resolution: {integrity: sha512-uZbew1NqdmPDTMJ8ah1y+b+9QEJrfkXFk3RcTQw3X0jW/xRUvFKsg1CfQdSYGdTbXZWExtU3J3ccxtnfw1Fi0g==}
 
->>>>>>> migration
   brace-expansion@5.0.12:
     resolution: {integrity: sha512-YovQ3rzhaLMIrDjNDMkNS01tea93qhEhG5xy8f6+R0l+dw3Ki+5sCoIoI942iuLZTHWogWktgwVDhU09iNEimQ==}
     engines: {node: 20 || >=22}
@@ -4541,13 +4435,10 @@ packages:
     engines: {node: '>=0.8'}
     hasBin: true
 
-<<<<<<< HEAD
-=======
   crc32-stream@4.0.3:
     resolution: {integrity: sha512-NT7w2JVU7DFroFdYkeq8cywxrgjPHWkdX1wjpRQXPX5Asews3tA+Ght6lddQO5Mkumffp3X7GEqku3epj2toIw==}
     engines: {node: '>= 10'}
 
->>>>>>> migration
   cross-inspect@1.0.1:
     resolution: {integrity: sha512-Pcw1JTvZLSJH83iiGWt6fRcT+BjZlCDRVwYLbUcHzv/CRpB7r0MlSrGbIyQvVSNyGnbt7G4AXuyCiDR3POvZ1A==}
     engines: {node: '>=16.0.0'}
@@ -5216,12 +5107,9 @@ packages:
     resolution: {integrity: sha512-Rx/WycZ60HOaqLKAi6cHRKKI7zxWbJ31MhntmtwMoaTeF7XFH9hhBp8vITaMidfljRQ6eYWCKkaTK+ykVJHP2A==}
     engines: {node: '>= 0.8'}
 
-<<<<<<< HEAD
-=======
   fs-constants@1.0.0:
     resolution: {integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==}
 
->>>>>>> migration
   fs-extra@11.3.1:
     resolution: {integrity: sha512-eXvGGwZ5CL17ZSwHWd3bbgk7UUpF6IFHtP57NYYakPvHOs8GDgDe5KJI36jIJzDkJ6eJjuzRA8eBQb6SkKue0g==}
     engines: {node: '>=14.14'}
@@ -5470,12 +5358,9 @@ packages:
 
   icu-minify@4.14.5:
     resolution: {integrity: sha512-5RQ5fP5inR+VZRTR4KwYBzy217ua4E9lxBT+zFHZcJv0dTOtRs9xXECSIWMQHAfmd0Hq2RXSSP2Gmyw/oQQY6A==}
-<<<<<<< HEAD
-=======
 
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
->>>>>>> migration
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -5485,12 +5370,9 @@ packages:
     resolution: {integrity: sha512-brTTsvFRt5C1gGHtPst/281UjPD5t9fBqbgoMPlVWy11ZLTPfu7HxK4ZYqO9H7o/yC9rSTCI85EaQ4OoY12qYw==}
     engines: {node: '>= 4'}
 
-<<<<<<< HEAD
-=======
   immediate@3.0.6:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
 
->>>>>>> migration
   immutable@5.1.9:
     resolution: {integrity: sha512-m8nVez3rwrgmWxtLMt1ZYXB2Lv7OKYn/disyxAlSDYAlKSlFoPPfIAmAM/M5xqL4m4C/wAPw7S2/CNaUii1Hxg==}
 
@@ -6386,13 +6268,8 @@ packages:
       sass:
         optional: true
 
-<<<<<<< HEAD
-  next@16.3.5:
-    resolution: {integrity: sha512-MdtsTgzyfCPRLC6uJ1mN8ao7lyJ4BB0U6Inhnx3gta1UcCIdHK3yxLG0E8OWQteWD8/Q0qb8A5o7wJaL8M9y2w==}
-=======
   next@16.3.6:
     resolution: {integrity: sha512-L+otWM/aQbYTx98aZhgEoMb4bZAXx1YVW4UMA/vuCyCoWG5HJyZUili8QAkqzrcC+5///tsz3s0M+SlyB5bLMw==}
->>>>>>> migration
     engines: {node: '>=20.9.0'}
     hasBin: true
     peerDependencies:
@@ -7128,11 +7005,6 @@ packages:
     resolution: {integrity: sha512-42tBVwLWnaQvW5zc4HbZrTuWccECCZfBi92FDuwtqxasH+JbPB3/FOKb1m222K42R4WxuxzzMsTswfzgtSu64Q==}
     engines: {node: '>=11.0.0'}
 
-<<<<<<< HEAD
-  scheduler@0.28.0:
-    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
-
-=======
   saxes@5.0.1:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}
     engines: {node: '>=10'}
@@ -7140,7 +7012,6 @@ packages:
   scheduler@0.28.0:
     resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
 
->>>>>>> migration
   schema-utils@4.5.0:
     resolution: {integrity: sha512-zJlMCZ0cAR5p/Y4oVpRoqioDMJcGxaXRrQ/4rP4WyR84vc5z/DolXdbvXeDpTwbtocDFr2rhPqHPErDCUtz2kA==}
     engines: {node: '>= 10.13.0'}
@@ -7513,13 +7384,10 @@ packages:
   tar-fs@3.1.3:
     resolution: {integrity: sha512-/hU4AXnIdZu+Gvl1pk0oI5f5HxWsCJRtY2aFaJdk9VvyL48DWU6iU5WAIPG+wIi1YvWA6eTJvIviP/tMAZZNwQ==}
 
-<<<<<<< HEAD
-=======
   tar-stream@2.2.0:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
     engines: {node: '>=6'}
 
->>>>>>> migration
   tar-stream@3.2.1:
     resolution: {integrity: sha512-nqsEO8zLZJvrOMdEwkA0QdCLFbetHMn95Zqu4fKwX+hkaTWJPZZOrxx/PwtxoK0MMGQmBQNRW3CPs8IFYQz4cQ==}
 
@@ -7939,12 +7807,9 @@ packages:
     resolution: {integrity: sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==}
     engines: {node: '>=0.8'}
     hasBin: true
-<<<<<<< HEAD
-=======
 
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
->>>>>>> migration
 
   y18n@4.0.3:
     resolution: {integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==}
@@ -9020,27 +8885,6 @@ snapshots:
     transitivePeerDependencies:
       - graphql
 
-<<<<<<< HEAD
-  '@datocms/cma-client-browser@5.8.0':
-    dependencies:
-      '@datocms/cma-client': 5.8.1
-      '@datocms/rest-client-utils': 5.8.0
-
-  '@datocms/cma-client-node@5.8.0':
-    dependencies:
-      '@datocms/cma-client': 5.8.1
-      '@datocms/rest-client-utils': 5.8.0
-      mime-types: 2.1.35
-      tmp-promise: 3.0.3
-
-  '@datocms/cma-client@5.8.1':
-    dependencies:
-      '@datocms/rest-client-utils': 5.8.0
-      datocms-structured-text-utils: 5.1.16
-      uuid: 11.1.1
-
-  '@datocms/cma-client@6.3.0':
-=======
   '@datocms/cma-client-browser@6.1.0':
     dependencies:
       '@datocms/cma-client': 6.4.0
@@ -9060,7 +8904,6 @@ snapshots:
       uuid: 11.1.1
 
   '@datocms/cma-client@6.4.0':
->>>>>>> migration
     dependencies:
       '@datocms/rest-client-utils': 6.1.4
       datocms-structured-text-utils: 6.0.1
@@ -9068,13 +8911,6 @@ snapshots:
 
   '@datocms/content-link@0.3.23': {}
 
-<<<<<<< HEAD
-  '@datocms/rest-client-utils@5.8.0':
-    dependencies:
-      async-scheduler: 1.4.4
-
-=======
->>>>>>> migration
   '@datocms/rest-client-utils@6.1.4':
     dependencies:
       async-scheduler: 1.4.4
@@ -9470,8 +9306,6 @@ snapshots:
       '@eslint/core': 0.13.0
       levn: 0.4.1
 
-<<<<<<< HEAD
-=======
   '@fast-csv/format@4.3.5':
     dependencies:
       '@types/node': 14.18.63
@@ -9491,7 +9325,6 @@ snapshots:
       lodash.isundefined: 3.0.1
       lodash.uniq: 4.5.0
 
->>>>>>> migration
   '@fastify/busboy@3.2.2': {}
 
   '@floating-ui/core@1.8.0':
@@ -10447,11 +10280,7 @@ snapshots:
 
   '@next/env@16.1.7': {}
 
-<<<<<<< HEAD
-  '@next/env@16.3.5': {}
-=======
   '@next/env@16.3.6': {}
->>>>>>> migration
 
   '@next/eslint-plugin-next@15.3.1':
     dependencies:
@@ -10460,91 +10289,54 @@ snapshots:
   '@next/swc-darwin-arm64@16.1.7':
     optional: true
 
-<<<<<<< HEAD
-  '@next/swc-darwin-arm64@16.3.5':
-=======
   '@next/swc-darwin-arm64@16.3.6':
->>>>>>> migration
     optional: true
 
   '@next/swc-darwin-x64@16.1.7':
     optional: true
 
-<<<<<<< HEAD
-  '@next/swc-darwin-x64@16.3.5':
-=======
   '@next/swc-darwin-x64@16.3.6':
->>>>>>> migration
     optional: true
 
   '@next/swc-linux-arm64-gnu@16.1.7':
     optional: true
 
-<<<<<<< HEAD
-  '@next/swc-linux-arm64-gnu@16.3.5':
-=======
   '@next/swc-linux-arm64-gnu@16.3.6':
->>>>>>> migration
     optional: true
 
   '@next/swc-linux-arm64-musl@16.1.7':
     optional: true
 
-<<<<<<< HEAD
-  '@next/swc-linux-arm64-musl@16.3.5':
-=======
   '@next/swc-linux-arm64-musl@16.3.6':
->>>>>>> migration
     optional: true
 
   '@next/swc-linux-x64-gnu@16.1.7':
     optional: true
 
-<<<<<<< HEAD
-  '@next/swc-linux-x64-gnu@16.3.5':
-=======
   '@next/swc-linux-x64-gnu@16.3.6':
->>>>>>> migration
     optional: true
 
   '@next/swc-linux-x64-musl@16.1.7':
     optional: true
 
-<<<<<<< HEAD
-  '@next/swc-linux-x64-musl@16.3.5':
-=======
   '@next/swc-linux-x64-musl@16.3.6':
->>>>>>> migration
     optional: true
 
   '@next/swc-win32-arm64-msvc@16.1.7':
     optional: true
 
-<<<<<<< HEAD
-  '@next/swc-win32-arm64-msvc@16.3.5':
-=======
   '@next/swc-win32-arm64-msvc@16.3.6':
->>>>>>> migration
     optional: true
 
   '@next/swc-win32-x64-msvc@16.1.7':
     optional: true
 
-<<<<<<< HEAD
-  '@next/swc-win32-x64-msvc@16.3.5':
-    optional: true
-
-  '@next/third-parties@16.3.5(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)':
-    dependencies:
-      next: 16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
-=======
   '@next/swc-win32-x64-msvc@16.3.6':
     optional: true
 
   '@next/third-parties@16.3.5(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)':
     dependencies:
       next: 16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
->>>>>>> migration
       react: 19.3.0
       third-party-capital: 1.0.20
 
@@ -11021,11 +10813,7 @@ snapshots:
     dependencies:
       '@sentry/core': 10.74.0
 
-<<<<<<< HEAD
-  '@sentry/nextjs@10.74.0(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.11.0(@opentelemetry/api@1.9.1))(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)(supports-color@8.1.1)(webpack@5.111.0(@swc/core@1.16.2(@swc/helpers@0.5.23))(csso@5.0.5)(esbuild@0.28.2)(postcss@8.5.23)(sharp@0.35.4(@types/node@22.20.3))(svgo@3.3.5))':
-=======
   '@sentry/nextjs@10.74.0(@opentelemetry/core@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.11.0(@opentelemetry/api@1.9.1))(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0)(supports-color@8.1.1)(webpack@5.111.0(@swc/core@1.16.2(@swc/helpers@0.5.23))(csso@5.0.5)(esbuild@0.28.2)(postcss@8.5.23)(sharp@0.35.4(@types/node@22.20.3))(svgo@3.3.5))':
->>>>>>> migration
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@rollup/plugin-commonjs': 28.0.1(rollup@4.63.3)
@@ -11039,11 +10827,7 @@ snapshots:
       '@sentry/server-utils': 10.74.0
       '@sentry/vercel-edge': 10.74.0
       '@sentry/webpack-plugin': 5.4.0(rollup@4.63.3)(supports-color@8.1.1)(webpack@5.111.0(@swc/core@1.16.2(@swc/helpers@0.5.23))(csso@5.0.5)(esbuild@0.28.2)(postcss@8.5.23)(sharp@0.35.4(@types/node@22.20.3))(svgo@3.3.5))
-<<<<<<< HEAD
-      next: 16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
-=======
       next: 16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
->>>>>>> migration
       rollup: 4.63.3
       stacktrace-parser: 0.1.11
     transitivePeerDependencies:
@@ -11385,11 +11169,8 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-<<<<<<< HEAD
-=======
   '@types/node@14.18.63': {}
 
->>>>>>> migration
   '@types/node@22.20.3':
     dependencies:
       undici-types: 6.21.0
@@ -12052,11 +11833,8 @@ snapshots:
   bare-url@2.5.4:
     dependencies:
       bare-path: 3.1.2
-<<<<<<< HEAD
-=======
 
   base64-js@1.5.1: {}
->>>>>>> migration
 
   base64id@2.0.0: {}
 
@@ -12106,13 +11884,10 @@ snapshots:
       balanced-match: 1.0.2
       concat-map: 0.0.1
 
-<<<<<<< HEAD
-=======
   brace-expansion@2.1.7:
     dependencies:
       balanced-match: 1.0.2
 
->>>>>>> migration
   brace-expansion@5.0.12:
     dependencies:
       balanced-match: 4.0.4
@@ -12417,17 +12192,10 @@ snapshots:
 
   cookie@1.1.1: {}
 
-<<<<<<< HEAD
-  cookies-next@5.1.0(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0):
-    dependencies:
-      cookie: 1.1.1
-      next: 16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
-=======
   cookies-next@5.1.0(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0):
     dependencies:
       cookie: 1.1.1
       next: 16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
->>>>>>> migration
       react: 19.3.0
 
   copy-to-clipboard@3.3.3:
@@ -12472,14 +12240,11 @@ snapshots:
       typescript: 6.0.3
 
   crc-32@1.2.2: {}
-<<<<<<< HEAD
-=======
 
   crc32-stream@4.0.3:
     dependencies:
       crc-32: 1.2.2
       readable-stream: 3.6.2
->>>>>>> migration
 
   cross-inspect@1.0.1:
     dependencies:
@@ -13223,8 +12988,6 @@ snapshots:
   eventsource@3.0.7:
     dependencies:
       eventsource-parser: 3.1.1
-<<<<<<< HEAD
-=======
 
   exceljs@4.4.0:
     dependencies:
@@ -13237,7 +13000,6 @@ snapshots:
       tmp: 0.2.7
       unzipper: 0.10.14
       uuid: 8.3.2
->>>>>>> migration
 
   execa@5.1.1:
     dependencies:
@@ -13427,11 +13189,8 @@ snapshots:
 
   fresh@2.0.0: {}
 
-<<<<<<< HEAD
-=======
   fs-constants@1.0.0: {}
 
->>>>>>> migration
   fs-extra@11.3.1:
     dependencies:
       graceful-fs: 4.2.11
@@ -13726,21 +13485,15 @@ snapshots:
   icu-minify@4.14.5:
     dependencies:
       '@formatjs/icu-messageformat-parser': 3.5.19
-<<<<<<< HEAD
-=======
 
   ieee754@1.2.1: {}
->>>>>>> migration
 
   ignore@5.3.2: {}
 
   ignore@7.0.9: {}
 
-<<<<<<< HEAD
-=======
   immediate@3.0.6: {}
 
->>>>>>> migration
   immutable@5.1.9: {}
 
   import-fresh@3.3.1:
@@ -14125,8 +13878,6 @@ snapshots:
 
   lodash.defaults@4.2.0: {}
 
-<<<<<<< HEAD
-=======
   lodash.difference@4.5.0: {}
 
   lodash.escaperegexp@4.1.2: {}
@@ -14149,7 +13900,6 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
->>>>>>> migration
   lodash.throttle@4.1.1: {}
 
   lodash.truncate@4.4.2: {}
@@ -14627,13 +14377,10 @@ snapshots:
   minimatch@3.1.5:
     dependencies:
       brace-expansion: 1.1.21
-<<<<<<< HEAD
-=======
 
   minimatch@5.1.9:
     dependencies:
       brace-expansion: 2.1.7
->>>>>>> migration
 
   minimist@1.2.8: {}
 
@@ -14695,21 +14442,12 @@ snapshots:
 
   netmask@2.1.1: {}
 
-<<<<<<< HEAD
-  ? next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/9c63978959ba278f9cc4a818fd91a59e4e7add05(@datocms/cda-client@0.3.2(graphql@16.14.2))(@datocms/cma-client-browser@5.8.0)(@datocms/cma-client-node@5.8.0)(@datocms/cma-client@5.8.1)(@datocms/content-link@0.3.23)(@types/react@19.3.0)(@vercel/functions@3.9.8(@aws-sdk/credential-provider-web-identity@3.972.77)(ws@8.21.3))(datocms-structured-text-utils@5.1.16)(graphql@16.14.2)(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(postmark@4.0.7(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1))(react-datocms@8.1.2(@mux/mux-player-react@3.13.3(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(graphql@16.14.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)(sharp@0.35.4(@types/node@22.20.3))(supports-color@8.1.1)(zod@3.25.76)
-  : dependencies:
-      '@datocms/cda-client': 0.3.2(graphql@16.14.2)
-      '@datocms/cma-client': 5.8.1
-      '@datocms/cma-client-browser': 5.8.0
-      '@datocms/cma-client-node': 5.8.0
-=======
   ? next-dato-utils@https://codeload.github.com/bebejane/next-dato-utils/tar.gz/9c63978959ba278f9cc4a818fd91a59e4e7add05(@datocms/cda-client@0.3.2(graphql@16.14.2))(@datocms/cma-client-browser@6.1.0)(@datocms/cma-client-node@6.1.3)(@datocms/cma-client@6.4.0)(@datocms/content-link@0.3.23)(@types/react@19.3.0)(@vercel/functions@3.9.8(@aws-sdk/credential-provider-web-identity@3.972.77)(ws@8.21.3))(datocms-structured-text-utils@5.1.16)(graphql@16.14.2)(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(postmark@4.0.7(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1))(react-datocms@8.1.2(@mux/mux-player-react@3.13.3(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(graphql@16.14.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)(sharp@0.35.4(@types/node@22.20.3))(supports-color@8.1.1)(zod@3.25.76)
   : dependencies:
       '@datocms/cda-client': 0.3.2(graphql@16.14.2)
       '@datocms/cma-client': 6.4.0
       '@datocms/cma-client-browser': 6.1.0
       '@datocms/cma-client-node': 6.1.3
->>>>>>> migration
       '@datocms/content-link': 0.3.23
       '@opentelemetry/api': 1.9.1
       '@vercel/functions': 3.9.8(@aws-sdk/credential-provider-web-identity@3.972.77)(ws@8.21.3)
@@ -14720,11 +14458,7 @@ snapshots:
       get-tsconfig: 4.14.3
       graphql: 16.14.2
       ico-utils: 0.1.5
-<<<<<<< HEAD
-      next: 16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
-=======
       next: 16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
->>>>>>> migration
       pluralize: 8.0.0
       postmark: 4.0.7(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       prettier: 3.9.7
@@ -14745,11 +14479,7 @@ snapshots:
 
   next-intl-swc-plugin-extractor@4.14.5: {}
 
-<<<<<<< HEAD
-  next-intl@4.14.5(@swc/helpers@0.5.23)(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0):
-=======
   next-intl@4.14.5(@swc/helpers@0.5.23)(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0):
->>>>>>> migration
     dependencies:
       '@eloqnt/config': 0.1.0
       '@eloqnt/format-json': 0.1.0
@@ -14759,11 +14489,7 @@ snapshots:
       '@swc/core': 1.16.2(@swc/helpers@0.5.23)
       icu-minify: 4.14.5
       negotiator: 1.1.0
-<<<<<<< HEAD
-      next: 16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
-=======
       next: 16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
->>>>>>> migration
       next-intl-swc-plugin-extractor: 4.14.5
       react: 19.3.0
       use-intl: 4.14.5(react@19.3.0)
@@ -14796,15 +14522,9 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-<<<<<<< HEAD
-  next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1):
-    dependencies:
-      '@next/env': 16.3.5
-=======
   next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1):
     dependencies:
       '@next/env': 16.3.6
->>>>>>> migration
       '@swc/helpers': 0.5.23
       baseline-browser-mapping: 2.11.24
       caniuse-lite: 1.0.30001810
@@ -14813,16 +14533,6 @@ snapshots:
       react-dom: 19.3.0(react@19.3.0)
       styled-jsx: 5.1.6(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.0)
     optionalDependencies:
-<<<<<<< HEAD
-      '@next/swc-darwin-arm64': 16.3.5
-      '@next/swc-darwin-x64': 16.3.5
-      '@next/swc-linux-arm64-gnu': 16.3.5
-      '@next/swc-linux-arm64-musl': 16.3.5
-      '@next/swc-linux-x64-gnu': 16.3.5
-      '@next/swc-linux-x64-musl': 16.3.5
-      '@next/swc-win32-arm64-msvc': 16.3.5
-      '@next/swc-win32-x64-msvc': 16.3.5
-=======
       '@next/swc-darwin-arm64': 16.3.6
       '@next/swc-darwin-x64': 16.3.6
       '@next/swc-linux-arm64-gnu': 16.3.6
@@ -14831,7 +14541,6 @@ snapshots:
       '@next/swc-linux-x64-musl': 16.3.6
       '@next/swc-win32-arm64-msvc': 16.3.6
       '@next/swc-win32-x64-msvc': 16.3.6
->>>>>>> migration
       '@opentelemetry/api': 1.9.1
       sass: 1.104.1
       sharp: 0.35.4(@types/node@22.20.3)
@@ -14840,15 +14549,9 @@ snapshots:
       - '@types/node'
       - babel-plugin-macros
 
-<<<<<<< HEAD
-  nextjs-google-analytics@2.3.7(next@16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0):
-    dependencies:
-      next: 16.3.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
-=======
   nextjs-google-analytics@2.3.7(next@16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1))(react@19.3.0):
     dependencies:
       next: 16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(sass@1.104.1)
->>>>>>> migration
       react: 19.3.0
     optionalDependencies:
       fsevents: 2.3.3
@@ -15761,17 +15464,12 @@ snapshots:
 
   sax@1.6.1: {}
 
-<<<<<<< HEAD
-  scheduler@0.28.0: {}
-
-=======
   saxes@5.0.1:
     dependencies:
       xmlchars: 2.2.0
 
   scheduler@0.28.0: {}
 
->>>>>>> migration
   schema-utils@4.5.0:
     dependencies:
       '@types/json-schema': 7.0.15
@@ -16284,10 +15982,6 @@ snapshots:
       - bare-buffer
       - react-native-b4a
 
-<<<<<<< HEAD
-  tar-stream@3.2.1:
-    dependencies:
-=======
   tar-stream@2.2.0:
     dependencies:
       bl: 4.1.0
@@ -16298,7 +15992,6 @@ snapshots:
 
   tar-stream@3.2.1:
     dependencies:
->>>>>>> migration
       b4a: 1.9.0
       bare-fs: 4.8.1
       fast-fifo: 1.3.2
@@ -16809,11 +16502,8 @@ snapshots:
       ssf: 0.11.2
       wmf: 1.0.2
       word: 0.3.0
-<<<<<<< HEAD
-=======
 
   xmlchars@2.2.0: {}
->>>>>>> migration
 
   y18n@4.0.3: {}
 
