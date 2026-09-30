@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { Canvas } from 'datocms-react-ui';
 import { ConfigScreen } from './ConfigScreen';
 import { PricelistAdmin } from './PricelistAdmin';
-import { Product, ProductMdm, ProductVariant } from '@/types/datocms-cma';
+import { Product, ProductMdm } from '@/types/datocms-cma';
 import { Item } from '@datocms/cma-client/dist/types/generated/RawApiTypes.js';
 import { client } from '@/lib/client';
 
@@ -48,7 +48,7 @@ export function Plugin({}: PluginPageProps) {
 					case 'pricelist':
 						return render(
 							<Canvas ctx={ctx}>
-								<PricelistAdmin accessToken={ctx.currentUserAccessToken} />
+								<PricelistAdmin accessToken={ctx.currentUserAccessToken} ctx={ctx} />
 							</Canvas>,
 						);
 				}

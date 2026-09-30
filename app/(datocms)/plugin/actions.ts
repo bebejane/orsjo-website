@@ -47,18 +47,19 @@ export async function uploadPricelist(
 export async function parsePricelist(
 	token: string,
 	file: ArrayBuffer,
-	filename: string,
+	environment = DRAFT_ENVIRONMENT,
 ): Promise<ProductUpdatesResponse> {
 	await verifyAccessToken(token);
 	const buffer = Buffer.from(file);
 	const articles = await pricelistController.parse(buffer);
-	return pricelistController.generate(articles, DRAFT_ENVIRONMENT, token);
+	return pricelistController.generate(articles, environment, token);
 }
 
 export async function updatePricelist(
 	token: string,
 	updates: ProductUpdate,
+	environment = DRAFT_ENVIRONMENT,
 ): Promise<Awaited<ReturnType<typeof pricelistController.update>>> {
 	await verifyAccessToken(token);
-	return pricelistController.update(updates, DRAFT_ENVIRONMENT, token);
+	return pricelistController.update(updates, environment, token);
 }

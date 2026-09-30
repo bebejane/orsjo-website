@@ -34,8 +34,8 @@ const nextConfig: NextConfig = {
 		},
 	},
 	experimental: {
-		workerThreads: false,
-		cpus: 1,
+		//workerThreads: false,
+		//cpus: 1,
 	},
 	webpack(config) {
 		config.module.rules.push({

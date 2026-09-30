@@ -5,6 +5,8 @@ export type Pricelist = {
 	format: 'pdf' | 'csv';
 };
 
+export const DRAFT_ENVIRONMENT = 'pricelist';
+
 export const pricelists: Pricelist[] = [
 	{
 		label: 'Full',

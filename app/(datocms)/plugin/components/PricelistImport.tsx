@@ -1,10 +1,11 @@
 'use client';
 
 import s from './PricelistImport.module.scss';
-import { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
+import type { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
 import { useState } from 'react';
 import PricelistUpdateList from './PricelistUpdateList';
 import { Button, FieldError, FieldWrapper, Spinner } from 'datocms-react-ui';
+import { RenderPageCtx } from 'datocms-plugin-sdk';
 
 export default function PricelistImport({
 	upload,
@@ -12,12 +13,16 @@ export default function PricelistImport({
 	update,
 	current,
 	refresh,
+	environment,
+	ctx,
 }: {
 	upload: (buffer: ArrayBuffer, filename: string) => Promise<void>;
 	parse: (buffer: ArrayBuffer, filename: string) => Promise<ProductUpdatesResponse>;
 	update: (updates: ProductUpdate) => Promise<any>;
 	current: { buffer: ArrayBuffer; filename: string } | null;
 	refresh?: () => void;
+	environment: { label: string; value: string };
+	ctx: RenderPageCtx;
 }) {
 	const [error, setError] = useState<string | null>(null);
 	const [parsing, setParsing] = useState(false);
@@ -41,6 +46,7 @@ export default function PricelistImport({
 	async function parseFile() {
 		try {
 			if (!current) return;
+
 			setParsing(true);
 			setUpdates(null);
 			setError(null);
@@ -93,10 +99,7 @@ export default function PricelistImport({
 					<span>Current file: {current.filename}</span>
 					<div className={s.buttonRow}>
 						<Button buttonSize='xs' buttonType='primary' onClick={parseFile} disabled={parsing}>
-							Apply to draft
-						</Button>
-						<Button buttonSize='xs' disabled>
-							Apply to primary
+							Apply to: {environment.label}
 						</Button>
 					</div>
 					{parsing && (
@@ -107,7 +110,7 @@ export default function PricelistImport({
 					)}
 				</div>
 			)}
-			{updates && <PricelistUpdateList data={updates} update={update} />}
+			{updates && <PricelistUpdateList data={updates} update={update} ctx={ctx} />}
 			{error && <FieldError>{error}</FieldError>}
 		</div>
 	);

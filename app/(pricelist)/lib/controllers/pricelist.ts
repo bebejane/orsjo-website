@@ -22,8 +22,9 @@ import {
 	ItemInNestedResponse,
 } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 
-export const DRAFT_ENVIRONMENT = 'pricelist';
+import { DRAFT_ENVIRONMENT } from '@/pricelist/lib/pricelists';
 
+export { DRAFT_ENVIRONMENT };
 function cmaClient(token?: string, environment?: string) {
 	return buildClient({
 		apiToken: token ?? (process.env.DATOCMS_API_TOKEN as string),
@@ -256,7 +257,7 @@ export async function update(
 	const lightsourceBlockId = itemTypes.filter((t) => t.api_key === 'lightsource')[0].id;
 	const accessoryBlockId = itemTypes.filter((t) => t.api_key === 'accessory')[0].id;
 
-	console.log(`Updating ${Object.keys(updates).length} products...`);
+	console.log(`Updating ${Object.keys(updates).length} products in ${environment}...`);
 
 	const productIds = Object.keys(updates) as (keyof typeof updates)[];
 	const updated: ProductRecord[] = [];
@@ -432,12 +433,12 @@ export async function currentPricelist(): Promise<{
 	buffer: ArrayBuffer;
 	filename: string;
 } | null> {
-	const { pricelist, pricelistFile } = await apiQuery(PricelistDocument, {
+	const { pricelistFile } = await apiQuery(PricelistDocument, {
 		environment: 'main',
 		revalidate: 0,
 		variables: { locale: 'en' as SiteLocale },
 	});
-	console.log(pricelist);
+
 	if (!pricelistFile?.currentPricelist) return null;
 	const { url } = pricelistFile.currentPricelist;
 	const response = await fetch(url);
@@ -464,7 +465,7 @@ export async function updateCurrentPricelistFile(
 	const upload = await client.uploads.createFromLocalFile({
 		localPath,
 	});
-	console.log(current.id, upload.id);
+
 	await client.items.update<Pricelist>(current.id, {
 		current_pricelist: { upload_id: upload.id },
 	});

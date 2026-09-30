@@ -3,21 +3,27 @@
 import s from './PricelistAdmin.module.scss';
 import cn from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
-import { Section, Spinner, FieldError } from 'datocms-react-ui';
-import { pricelists } from '@/pricelist/lib/pricelists';
+import { Section, Spinner, FieldError, SelectField } from 'datocms-react-ui';
+import { DRAFT_ENVIRONMENT, pricelists } from '@/pricelist/lib/pricelists';
 import { ZipPricelists } from './components/ZipPricelists';
 import DownloadPricelist from './components/DownloadPricelist';
 import PricelistImport from './components/PricelistImport';
-import { ProductUpdate } from '@/pricelist/lib/controllers/pricelist';
+import type { ProductUpdate } from '@/pricelist/lib/controllers/pricelist';
 import { getAdminData, parsePricelist, updatePricelist, uploadPricelist } from './actions';
+import { RenderPageCtx } from 'datocms-plugin-sdk';
 
 type AdminData = Awaited<ReturnType<typeof getAdminData>>;
 
-export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
+export function PricelistAdmin({ accessToken, ctx }: { accessToken?: string; ctx: RenderPageCtx }) {
+	const environments = [
+		{ label: 'Draft', value: DRAFT_ENVIRONMENT },
+		{ label: 'Main', value: 'main' },
+	];
+
 	const [data, setData] = useState<AdminData | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(true);
-
+	const [environment, setEnvironment] = useState<{ label: string; value: string }>(environments[0]);
 	const token = accessToken ?? '';
 
 	const load = useCallback(async () => {
@@ -52,12 +58,23 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 		);
 	}
 
-	const { locales, currencies, currentPricelist, draftEnvironment } = data;
-	const environment = draftEnvironment?.id ?? 'dev';
+	const { locales, currencies, currentPricelist } = data;
 	const sortedCurrencies = [...currencies].sort((a, b) => a.isoCode.localeCompare(b.isoCode));
 
 	return (
 		<div className={s.container}>
+			<Section title='Select environment' headerClassName={s.header}>
+				<SelectField
+					name='environment'
+					id='environment'
+					label='Environment'
+					value={environment}
+					selectInputProps={{
+						options: environments,
+					}}
+					onChange={(newValue) => setEnvironment(newValue as { label: string; value: string })}
+				/>
+			</Section>
 			<div className={cn(s.column, s.downloads)}>
 				<Section title='Download pricelists' headerClassName={s.header}>
 					<div className={s.downloadList}>
@@ -67,7 +84,7 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 								<ZipPricelists
 									title={label}
 									paths={locales.map((locale) => ({
-										path: `/pricelist/${locale}/${environment}/download/${format}/${path}`,
+										path: `/pricelist/${locale}/${environment.value}/download/${format}/${path}`,
 										filename: `Örsjö Pricelist - ${label} (${currencies.find((c) => c.locale === locale)?.isoCode}).${format}`,
 									}))}
 								/>
@@ -75,7 +92,7 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 									{sortedCurrencies.map(({ isoCode, locale }) => (
 										<DownloadPricelist
 											key={isoCode}
-											href={`/pricelist/${locale}/${environment}/download/${format}/${path}`}
+											href={`/pricelist/${locale}/${environment.value}/download/${format}/${path}`}
 											label={isoCode}
 											extension={format}
 										/>
@@ -88,7 +105,7 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 							<ZipPricelists
 								title='Örsjö Belysning - Master data'
 								paths={locales.map((locale) => ({
-									path: `/pricelist/${locale}/${environment}/download/mdm`,
+									path: `/pricelist/${locale}/${environment.value}/download/mdm`,
 									filename: `Master data (${currencies.find((c) => c.locale === locale)?.isoCode}).xlsx`,
 								}))}
 							/>
@@ -96,7 +113,7 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 								{sortedCurrencies.map(({ isoCode, locale }) => (
 									<DownloadPricelist
 										key={isoCode}
-										href={`/pricelist/${locale}/${environment}/download/mdm`}
+										href={`/pricelist/${locale}/${environment.value}/download/mdm`}
 										label={isoCode}
 										extension='xlsx'
 									/>
@@ -110,9 +127,13 @@ export function PricelistAdmin({ accessToken }: { accessToken?: string }) {
 				<Section title='Update pricelist' headerClassName={s.header}>
 					<PricelistImport
 						key={currentPricelist?.filename}
+						environment={environment}
+						ctx={ctx}
 						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
-						parse={(buffer, filename) => parsePricelist(token, buffer, filename)}
-						update={(updates: ProductUpdate) => updatePricelist(token, updates)}
+						parse={(buffer) => parsePricelist(token, buffer, environment.value)}
+						update={async (updates: ProductUpdate) => {
+							return updatePricelist(token, updates, environment.value);
+						}}
 						current={currentPricelist}
 						refresh={load}
 					/>

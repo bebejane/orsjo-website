@@ -2,15 +2,17 @@
 
 import s from './PricelistUpdateList.module.scss';
 import { useState } from 'react';
-import { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
+import type { ProductUpdate, ProductUpdatesResponse } from '@/pricelist/lib/controllers/pricelist';
 import { Button, FieldError, Spinner } from 'datocms-react-ui';
+import { RenderPageCtx } from 'datocms-plugin-sdk';
 
 type PricelistUpdateListProps = {
 	data: ProductUpdatesResponse;
 	update: (updates: ProductUpdate) => Promise<number>;
+	ctx: RenderPageCtx;
 };
 
-export default function PricelistUpdateList({ data, update }: PricelistUpdateListProps) {
+export default function PricelistUpdateList({ data, update, ctx }: PricelistUpdateListProps) {
 	const { notFound, updates, errors } = data;
 	const noArticles = Object.keys(updates).reduce((acc, productId) => {
 		const product = updates[productId];
@@ -23,14 +25,33 @@ export default function PricelistUpdateList({ data, update }: PricelistUpdateLis
 	const [success, setSuccess] = useState(false);
 
 	async function handleUpdate() {
+		const res = await ctx.openConfirm({
+			title: 'Uppdatera artiklar',
+			content: `Är du säker på att du vill uppdatera alla artiklar?`,
+			cancel: {
+				label: 'Avbryt',
+				intent: 'negative',
+				value: 'cancel',
+			},
+			choices: [
+				{
+					label: 'Uppdatera',
+					value: 'confirm',
+					intent: 'positive',
+				},
+			],
+		});
+
+		if (res !== 'confirm') return null;
+
 		setUpdating(true);
 		setError(null);
 		setSuccess(false);
 		try {
 			const result = await update(updates);
-			setUpdating(false);
-			setSuccess(true);
-			console.log(result);
+			if (result) {
+				setSuccess(true);
+			}
 		} catch (err) {
 			setError(typeof err === 'string' ? err : err instanceof Error ? err.message : null);
 		} finally {
