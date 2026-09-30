@@ -44,9 +44,9 @@ export function PricelistAdmin({ accessToken, ctx }: { accessToken?: string; ctx
 
 	if (loading) {
 		return (
-			<Section title='Pricelist'>
+			<div className={s.loading}>
 				<Spinner placement='centered' />
-			</Section>
+			</div>
 		);
 	}
 
@@ -67,7 +67,7 @@ export function PricelistAdmin({ accessToken, ctx }: { accessToken?: string; ctx
 				<SelectField
 					name='environment'
 					id='environment'
-					label='Environment'
+					label=''
 					value={environment}
 					selectInputProps={{
 						options: environments,
@@ -75,8 +75,27 @@ export function PricelistAdmin({ accessToken, ctx }: { accessToken?: string; ctx
 					onChange={(newValue) => setEnvironment(newValue as { label: string; value: string })}
 				/>
 			</Section>
+			<div className={s.column}>
+				<Section title='Update pricelist' headerClassName={s.header}>
+					<PricelistImport
+						key={currentPricelist?.filename}
+						environment={environment}
+						ctx={ctx}
+						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
+						parse={(buffer) => parsePricelist(token, buffer, environment.value)}
+						update={async (updates: ProductUpdate) => {
+							return updatePricelist(token, updates, environment.value);
+						}}
+						current={currentPricelist}
+						refresh={load}
+					/>
+				</Section>
+			</div>
 			<div className={cn(s.column, s.downloads)}>
-				<Section title='Download pricelists' headerClassName={s.header}>
+				<Section
+					title={`Download pricelists (${environment.label.toLowerCase()})`}
+					headerClassName={s.header}
+				>
 					<div className={s.downloadList}>
 						{pricelists.map(({ path, label, format }) => (
 							<div key={path}>
@@ -121,22 +140,6 @@ export function PricelistAdmin({ accessToken, ctx }: { accessToken?: string; ctx
 							</div>
 						</div>
 					</div>
-				</Section>
-			</div>
-			<div className={s.column}>
-				<Section title='Update pricelist' headerClassName={s.header}>
-					<PricelistImport
-						key={currentPricelist?.filename}
-						environment={environment}
-						ctx={ctx}
-						upload={(buffer, filename) => uploadPricelist(token, buffer, filename)}
-						parse={(buffer) => parsePricelist(token, buffer, environment.value)}
-						update={async (updates: ProductUpdate) => {
-							return updatePricelist(token, updates, environment.value);
-						}}
-						current={currentPricelist}
-						refresh={load}
-					/>
 				</Section>
 			</div>
 		</div>

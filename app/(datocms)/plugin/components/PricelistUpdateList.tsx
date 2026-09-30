@@ -10,9 +10,15 @@ type PricelistUpdateListProps = {
 	data: ProductUpdatesResponse;
 	update: (updates: ProductUpdate) => Promise<number>;
 	ctx: RenderPageCtx;
+	environment: { label: string; value: string };
 };
 
-export default function PricelistUpdateList({ data, update, ctx }: PricelistUpdateListProps) {
+export default function PricelistUpdateList({
+	data,
+	update,
+	ctx,
+	environment,
+}: PricelistUpdateListProps) {
 	const { notFound, updates, errors } = data;
 	const noArticles = Object.keys(updates).reduce((acc, productId) => {
 		const product = updates[productId];
@@ -26,16 +32,16 @@ export default function PricelistUpdateList({ data, update, ctx }: PricelistUpda
 
 	async function handleUpdate() {
 		const res = await ctx.openConfirm({
-			title: 'Uppdatera artiklar',
-			content: `Är du säker på att du vill uppdatera alla artiklar?`,
+			title: 'Update articles',
+			content: `Are you sure you want to update ${noArticles} articles on environment: ${environment.label}?`,
 			cancel: {
-				label: 'Avbryt',
+				label: 'Cancel',
 				intent: 'negative',
 				value: 'cancel',
 			},
 			choices: [
 				{
-					label: 'Uppdatera',
+					label: 'Update',
 					value: 'confirm',
 					intent: 'positive',
 				},
@@ -59,20 +65,27 @@ export default function PricelistUpdateList({ data, update, ctx }: PricelistUpda
 		}
 	}
 
-	if (success) return <div>Pricelist updated!</div>;
+	if (success)
+		return (
+			<div className={s.status}>
+				<span>Done!. Updated {noArticles} articles</span>
+			</div>
+		);
 
 	return (
 		<div className={s.container}>
 			{noArticles > 0 &&
 				(updating ? (
 					<div className={s.status}>
-						<Spinner size={16} />
+						<Spinner size={20} />
 						<span>Updating {noArticles} articles (this may take a few minutes)</span>
 					</div>
 				) : (
-					<Button buttonType='primary' onClick={handleUpdate}>
-						Update {noArticles} articles
-					</Button>
+					<div className={s.update}>
+						<Button buttonType='primary' onClick={handleUpdate}>
+							Update {noArticles} articles
+						</Button>
+					</div>
 				))}
 			{notFound?.length > 0 && !updating && (
 				<div>

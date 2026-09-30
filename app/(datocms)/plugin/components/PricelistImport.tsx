@@ -110,7 +110,9 @@ export default function PricelistImport({
 					)}
 				</div>
 			)}
-			{updates && <PricelistUpdateList data={updates} update={update} ctx={ctx} />}
+			{updates && (
+				<PricelistUpdateList data={updates} update={update} ctx={ctx} environment={environment} />
+			)}
 			{error && <FieldError>{error}</FieldError>}
 		</div>
 	);

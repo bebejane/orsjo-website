@@ -8,6 +8,8 @@
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-m);
+	margin-top: var(--spacing-m);
+	font-size: var(--font-size-l);
 }
 
 .currentFile {

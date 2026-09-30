@@ -8,8 +8,12 @@
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-s);
+	margin-top: var(--spacing-m);
+	font-size: var(--font-size-l);
 }
-
+.update {
+	margin-top: var(--spacing-m);
+}
 .list {
 	list-style: none;
 	margin: 0;
