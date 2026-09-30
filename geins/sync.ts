@@ -20,6 +20,7 @@ import {
 
 import { Market } from '@/geins/mgmt-api.types';
 import { chunkArray } from 'next-dato-utils/utils';
+import { Product } from '@/types/datocms-cma';
 
 type ProductData = {
 	apiKey: string;
@@ -46,9 +47,18 @@ export const sync = async (itemId: string): Promise<Item> => {
 		}
 
 		const itemTypes = await client.itemTypes.list();
-		const apiKey = itemTypes.find(({ id }) => id === item.item_type.id)?.api_key;
+		let apiKey = itemTypes.find(({ id }) => id === item.item_type.id)?.api_key;
 		const markets = await mgmt.getMarkets();
 		const categories = await mgmt.getCategories();
+
+		if (apiKey === 'product_variant') {
+			const products = await client.items.references<Product>(itemId);
+			if (!products.length) throw new Error('Product variant not linked to product: ' + itemId);
+			item = products[0];
+			itemId = item.id;
+			apiKey = 'product';
+		}
+
 		const categorySlug =
 			apiKey === 'product'
 				? item.slug
