@@ -259,7 +259,10 @@ export async function updateProduct(p: ProductData[], markets: Market[]) {
 			: mgmt.updateProductItem({ ...productItem, ItemId: updatedProduct.Items[0].ItemId }));
 
 		if (image) {
-			const fileName = updatedProduct.Images?.[0]?.Url?.split('/').pop()?.split('?')[0];
+			const currentFileName = updatedProduct.Images?.[0]?.Url?.split('/').pop()?.split('?')[0];
+			const imageFileName = image.split('/').pop()?.split('?')[0];
+			const fileName = currentFileName || imageFileName;
+
 			await (!updatedProduct.Images?.length
 				? mgmt.createProductImage(updatedProduct.ProductId, image, fileName)
 				: mgmt.updateProductImage(updatedProduct.ProductId, image, fileName));

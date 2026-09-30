@@ -93,6 +93,7 @@ export const getProductImageUrl = (product: ProductType): string | undefined => 
 	const imageUrl = productImages[0]?.fileName
 		? `https://orsjo.commerce.services/product/raw/${productImages[0].fileName}`
 		: undefined;
+
 	return imageUrl;
 };
 
