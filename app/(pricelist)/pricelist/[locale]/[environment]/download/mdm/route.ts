@@ -1,5 +1,5 @@
 import * as mdmController from '@/pricelist/lib/controllers/mdm';
-import { put } from '@vercel/blob';
+import { uploadFileBlob } from '@/pricelist/lib/blob';
 
 export const maxDuration = 120;
 
@@ -11,16 +11,7 @@ export async function GET(
 
 	const { buffer, filename } = await mdmController.generate(locale as SiteLocale, environment);
 
-	const blob = await put(filename, buffer, {
-		access: 'public',
-		allowOverwrite: true,
-		addRandomSuffix: true,
-		// On Vercel the SDK authenticates automatically; only pin the token
-		// locally/self-hosted (Vercel Blob rejects OIDC in the dev environment).
-		...(process.env.BLOB_READ_WRITE_TOKEN && !process.env.VERCEL
-			? { token: process.env.BLOB_READ_WRITE_TOKEN }
-			: {}),
-	});
+	const { url, filename: blobFilename } = await uploadFileBlob(filename, buffer);
 
-	return Response.json({ url: blob.downloadUrl, filename });
+	return Response.json({ url, filename: blobFilename });
 }

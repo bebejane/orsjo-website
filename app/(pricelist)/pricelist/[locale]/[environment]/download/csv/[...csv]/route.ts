@@ -1,7 +1,7 @@
 import * as pricelistController from '@/pricelist/lib/controllers/pricelist';
 import { getCurrencyRateByLocale } from '@/lib/currency';
 import { format } from 'date-fns';
-import { put } from '@vercel/blob';
+import { uploadFileBlob } from '@/pricelist/lib/blob';
 import { pricelists } from '@/app/(pricelist)/lib/pricelists';
 
 export const maxDuration = 60;
@@ -18,15 +18,6 @@ export async function GET(
 	const filename = `Örsjo Pricelist (${currency.isoCode}) - ${date}${pricelist.vat ? ' (incl. vat)' : ''}.csv`;
 	const csvData = await pricelistController.csv(locale as SiteLocale, environment, pricelist.vat);
 
-	const blob = await put(filename, Buffer.from(csvData), {
-		access: 'public',
-		allowOverwrite: true,
-		addRandomSuffix: true,
-		// On Vercel the SDK authenticates automatically; only pin the token
-		// locally/self-hosted (Vercel Blob rejects OIDC in the dev environment).
-		...(process.env.BLOB_READ_WRITE_TOKEN && !process.env.VERCEL
-			? { token: process.env.BLOB_READ_WRITE_TOKEN }
-			: {}),
-	});
-	return Response.json({ url: blob.downloadUrl, filename });
+	const { url, filename: blobFilename } = await uploadFileBlob(filename, Buffer.from(csvData));
+	return Response.json({ url, filename: blobFilename });
 }

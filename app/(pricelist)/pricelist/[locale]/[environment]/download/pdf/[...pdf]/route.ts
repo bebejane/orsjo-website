@@ -3,7 +3,7 @@ import { generate, mergeUrl } from '@/pricelist/lib/controllers/pdf';
 import { getCurrencyRateByLocale } from '@/lib/currency';
 import { PricelistDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
-import { put } from '@vercel/blob';
+import { uploadFileBlob } from '@/pricelist/lib/blob';
 
 export const maxDuration = 120;
 
@@ -16,8 +16,9 @@ export async function GET(
 
 	if (!pricelist) return new Response('Not found', { status: 404 });
 
-	const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pricelist/${locale}/${environment}/${pricelist.path}`;
-	let data = await generate(url);
+	let data = await generate(
+		`${process.env.NEXT_PUBLIC_SITE_URL}/pricelist/${locale}/${environment}/${pricelist.path}`,
+	);
 
 	const cover = await apiQuery(PricelistDocument, {
 		environment,
@@ -33,16 +34,7 @@ export async function GET(
 
 	const currency = await getCurrencyRateByLocale(locale);
 	const title = `Örsjo Pricelist (${currency.isoCode}) - ${pricelist.label}`;
-	const blob = await put(`${title}.pdf`, Buffer.from(data), {
-		access: 'public',
-		allowOverwrite: true,
-		addRandomSuffix: true,
-		// On Vercel the SDK authenticates automatically; only pin the token
-		// locally/self-hosted (Vercel Blob rejects OIDC in the dev environment).
-		...(process.env.BLOB_READ_WRITE_TOKEN && !process.env.VERCEL
-			? { token: process.env.BLOB_READ_WRITE_TOKEN }
-			: {}),
-	});
+	const { url, filename } = await uploadFileBlob(`${title}.pdf`, Buffer.from(data));
 
-	return Response.json({ url: blob.downloadUrl, filename: `${title}.pdf` });
+	return Response.json({ url, filename });
 }
