@@ -22,7 +22,11 @@ export async function GET(
 		access: 'public',
 		allowOverwrite: true,
 		addRandomSuffix: true,
-		token: process.env.BLOB_READ_WRITE_TOKEN!,
+		// On Vercel the SDK authenticates automatically; only pin the token
+		// locally/self-hosted (Vercel Blob rejects OIDC in the dev environment).
+		...(process.env.BLOB_READ_WRITE_TOKEN && !process.env.VERCEL
+			? { token: process.env.BLOB_READ_WRITE_TOKEN }
+			: {}),
 	});
 	return Response.json({ url: blob.downloadUrl, filename });
 }
