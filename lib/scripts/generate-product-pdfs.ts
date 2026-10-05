@@ -3,7 +3,6 @@ import { client } from '@/lib/client';
 import { generate, upload } from '@/pricelist/lib/controllers/pdf';
 import { Product, ProductCategory } from '@/types/datocms-cma';
 import { getBrowser } from '@/pricelist/lib/puppeteer';
-import { revalidatePath } from 'next/cache';
 
 async function main() {
 	const [products, categories] = await Promise.all([
@@ -11,11 +10,19 @@ async function main() {
 			filter: {
 				type: 'product',
 			},
+			page: {
+				limit: 500,
+				offset: 0,
+			},
 			version: 'published',
 		}),
 		client.items.list<ProductCategory>({
 			filter: {
 				type: 'product_category',
+			},
+			page: {
+				limit: 500,
+				offset: 0,
 			},
 			version: 'published',
 		}),
@@ -34,7 +41,7 @@ async function main() {
 				const id = product.id;
 				const c = categories.filter(({ id }) => product.categories.includes(id));
 				const title = `${product.title} - ${c.map(({ name }) => (locale === 'en' ? name.en : name.sv)).join(' · ')} (${locale})`;
-				const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pricelist/${locale.replace('-', '_')}/product/${id}`;
+				const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pricelist/${locale.replace('-', '_')}/${process.env.DATOCMS_ENVIRONMENT}/product/${id}`;
 				console.log('Generating:', title);
 				return {
 					id,

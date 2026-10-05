@@ -98,7 +98,7 @@ async function run(productIds: string[]) {
 				const id = product.id;
 				const c = categories.filter(({ id }) => product.categories.includes(id));
 				const title = `${product.title} - ${c.map(({ name }) => (locale === 'en' ? name.en : name.sv)).join(' · ')} (${locale})`;
-				const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pricelist/${locale.replace('-', '_')}/product/${id}`;
+				const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pricelist/${locale.replace('-', '_')}/${process.env.DATOCMS_ENVIRONMENT}/product/${id}`;
 				return {
 					id,
 					buffer: await generate(url),

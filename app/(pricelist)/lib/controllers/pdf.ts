@@ -94,6 +94,8 @@ export async function upload(
 	{ title, locale: _locale, tags }: UploadOptions,
 ): Promise<Upload> {
 	console.time(`upload pdf: ${title}`);
+	console.log(`upload pdf: ${title}`);
+
 	let item = await client.items.find<Product>(id, { version: 'current' });
 	if (!item) throw new Error('Item not found');
 
@@ -103,7 +105,11 @@ export async function upload(
 	) as EnvironmentSettings['locales'];
 	if (!locale) throw new Error('Locale not found');
 
-	const defaultFieldMetadata = { [locale]: { alt: title, title, custom_data: {} } };
+	const defaultFieldMetadata = {
+		alt: { [locale]: title },
+		title: { [locale]: title },
+		custom_data: {},
+	};
 	const uploadId = item.pdf_file[locale]?.upload_id;
 	const localPath = `/tmp/${title}.pdf`;
 

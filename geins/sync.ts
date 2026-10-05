@@ -240,7 +240,6 @@ export async function updateProduct(p: ProductData[], markets: Market[]) {
 			Name: description.length > 50 ? description.slice(0, 47) + '...' : description,
 		};
 
-		console.log(product);
 		const updatedProduct = await (!product.ProductId
 			? mgmt.createProduct(product)
 			: mgmt.updateProduct(product));
