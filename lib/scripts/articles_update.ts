@@ -362,6 +362,13 @@ async function createField(
 	itemTypeId: string,
 	def: FieldDef,
 ): Promise<void> {
+	// The forked environment may already contain the field (primary is already
+	// migrated), so skip anything that exists on the model by api_key.
+	const existing = await client.fields.list(itemTypeId);
+	if (existing.some((f) => f.api_key === def.api_key)) {
+		console.log(`  · field ${def.api_key} already exists on ${itemTypeId} (skip)`);
+		return;
+	}
 	const makeBody = (localized: boolean): CreateFieldBody =>
 		({
 			label: def.label,
@@ -384,6 +391,14 @@ async function createField(
 			return;
 		} catch (err) {
 			if (err instanceof ApiError && err.findError('TAKE_FIELD_API_KEY')) {
+				console.log(`  · field ${def.api_key} already exists on ${itemTypeId} (upsert)`);
+				return;
+			}
+			// Duplicate api_key/label → the field already exists
+			if (
+				err instanceof ApiError &&
+				err.findError('INVALID_FIELD', { code: 'VALIDATION_UNIQUENESS', field: 'api_key' })
+			) {
 				console.log(`  · field ${def.api_key} already exists on ${itemTypeId} (upsert)`);
 				return;
 			}

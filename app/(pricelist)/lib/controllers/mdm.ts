@@ -33,7 +33,7 @@ const MDM_HEADERS = [
 	'Serienamn',
 	'Partistorlek',
 	'Ledtid',
-	'Prislista 2025 SEK exkl moms',
+	'Utpris exkl. moms (SEK)',
 	'Valutakod',
 	'Utpris inkl. moms (SEK)',
 	'URL till frilagd produktbild',
@@ -139,7 +139,7 @@ function mdmRow(
 			.filter(Boolean)
 			.join(', '), // Sockel
 		anyIncluded ? 'Ja' : 'Nej', // Ljuskälla ingår
-		mdmBool(masterData?.lightsourceExchangeable), // Är ljuskällan utbytbar?
+		anyIncluded ? mdmBool(masterData?.lightsourceExchangeable) : '', // Är ljuskällan utbytbar? (endast om ljuskälla ingår)
 		eprel ?? '', // Eprel-länk
 		mdmDimmable(product.dimmable?.name), // Dimbar ljuskälla ingår
 		includedLightsource?.name ?? masterData?.lightsourceType ?? '', // Typ av ljuskälla
