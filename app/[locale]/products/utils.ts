@@ -102,6 +102,9 @@ export const getProductPageData = async (
 		(a) => a.articleNumber && articleNumbers.includes(a.articleNumber),
 	);
 
+	//geinsLightsources.forEach((l) => console.log(l.skus));
+	//console.log(geinsLightsources);
+	//console.log(geinsLightsources.length, geinsAccessories.length, articleNumbers);
 	const specs = parseSpecifications(product as any, 'en', null);
 	const specsCols = [
 		{ label: 'Designer', value: specs.designer, slug: `/designers/${product.designer?.slug}` },

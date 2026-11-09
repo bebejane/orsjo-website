@@ -12,10 +12,12 @@ type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  CpqValue: { input: any; output: any; }
   DateTime: { input: any; output: any; }
   DateTimeOffset: { input: any; output: any; }
   Decimal: { input: any; output: any; }
   Guid: { input: any; output: any; }
+  JSON: { input: any; output: any; }
   Long: { input: any; output: any; }
 };
 
@@ -38,6 +40,8 @@ type AddressInputType = {
 
 type AddressType = {
   __typename?: 'AddressType';
+  /** The ID of the address. */
+  addressId: Scalars['String']['output'];
   /** The first line of the address. */
   addressLine1: Scalars['String']['output'];
   /** The second line of the address. */
@@ -231,6 +235,7 @@ type CartGroupInputType = {
 };
 
 type CartItemInputType = {
+  configurationId?: InputMaybe<Scalars['String']['input']>;
   groupKey?: InputMaybe<Scalars['ID']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   message?: InputMaybe<Scalars['String']['input']>;
@@ -243,6 +248,10 @@ type CartItemType = {
   __typename?: 'CartItemType';
   /** Campaign */
   campaign?: Maybe<CampaignType>;
+  /** What configurationId names, as it was committed. Null on an unconfigured cart item, and on a configured one added before the configuration was copied onto cart items. On an order it is filled in by getOrder and getOrderPublic only, and is null there where cpq could not answer. getOrders and getCompanyOrders always answer null. */
+  configuration?: Maybe<CpqCartItemConfigurationType>;
+  /** The committed cpq configuration this cart item is */
+  configurationId?: Maybe<Scalars['String']['output']>;
   /** The key of the group that this cart item belong to */
   groupKey?: Maybe<Scalars['ID']['output']>;
   /** Cart item Id */
@@ -282,18 +291,26 @@ type CartQuotationType = {
   customer?: Maybe<QuotationCustomerType>;
   /** The discount applied to the quotation */
   discount?: Maybe<QuotationDiscountType>;
+  /** The quotation's link to an external system, such as an ERP. Null when the quotation is managed in Geins only */
+  externalReference?: Maybe<QuotationExternalReferenceType>;
   /** The market identifier */
   marketId?: Maybe<Scalars['String']['output']>;
   /** The date and time when the quotation was last modified */
   modifiedAt: Scalars['DateTimeOffset']['output'];
   /** The name of the quotation */
   name?: Maybe<Scalars['String']['output']>;
+  /** The details the order gets when the quotation is finalized. The request fills them and the seller can change them, and checkout cannot. Null on a request sent before this field was added, and on a quotation the seller started without them */
+  orderDetails?: Maybe<QuotationOrderDetailsType>;
   /** The order identifier if the quotation has been finalized */
   orderId?: Maybe<Scalars['String']['output']>;
+  /** The public id of the quotation's order, the id getOrderPublic takes. Null until the order is linked, which for a quotation whose order an external system creates happens on a later sync. Also null on a quotation finalized before this field was added, and when no order id reservation was found at finalize */
+  orderPublicId?: Maybe<Scalars['Guid']['output']>;
   /** The owner of the quotation */
   owner?: Maybe<QuotationOwnerType>;
   /** The unique quotation number */
   quotationNumber?: Maybe<Scalars['String']['output']>;
+  /** What the buyer sent with the quotation request. Null when the seller started the quotation, on a copy of a quotation, and on a request sent before this field was added */
+  request?: Maybe<QuotationRequestType>;
   /** The settings for the quotation */
   settings?: Maybe<QuotationSettingsType>;
   /** The shipping address for the quotation */
@@ -405,6 +422,8 @@ type CategoryType = {
 /** Type containing all information about the channel-type */
 type ChannelType = {
   __typename?: 'ChannelType';
+  /** The account's asset library host, with no trailing slash. */
+  assetHost?: Maybe<Scalars['String']['output']>;
   /** Default language ID used if no other is specified, or an invalid is supplied. */
   defaultLanguageId: Scalars['String']['output'];
   /** Default market ID used if no other is specified, or an invalid is supplied. */
@@ -448,13 +467,17 @@ type CheckoutDataType = {
 type CheckoutInputType = {
   /** The consents accepted by the customer. */
   acceptedConsents?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** The billing address for the order. */
+  /** The billing address for the order. Not applicable on company checkouts. */
   billingAddress?: InputMaybe<AddressInputType>;
+  /** The ID of the billing address to choose. Currently only applicable on company checkouts. */
+  billingAddressId?: InputMaybe<Scalars['String']['input']>;
   /** The URLs for the checkout process. These are optional and if not supplied, default values configured in the respective integration to the payment provider will be used. Placeholders that can be used in the URLs: {geins.cartid} - the cart id, {payment.uid} - the unique payment identifier (external order id). Note that some payment providers do not support this and others only accept https. */
   checkoutUrls?: InputMaybe<CheckoutUrlsInputType>;
+  /** An optional customer-supplied reference number for the order. Use this field to include your own internal order number, PO number, or tracking identifier. The value is not validated or required to be unique. A quotation cart's order takes it from the quotation, so a different value is refused there and the same one passes. */
+  customerOrderNumber?: InputMaybe<Scalars['String']['input']>;
   /** The type of customer. */
   customerType?: InputMaybe<CustomerType>;
-  /** The desired delivery date for the order. */
+  /** The desired delivery date for the order. A quotation cart's order takes it from the quotation, so a different value is refused there and the same one passes. */
   desiredDeliveryDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** The email address of the customer. */
   email?: InputMaybe<Scalars['String']['input']>;
@@ -462,18 +485,22 @@ type CheckoutInputType = {
   externalShippingFee?: InputMaybe<Scalars['Decimal']['input']>;
   /** The external ID of the shipping method. */
   externalShippingId?: InputMaybe<Scalars['String']['input']>;
+  /** An optional text usually used to mark the goods. The value may be included on the shipment so it can be printed on packaging, labels, or other markings that follow the goods. A quotation cart's order takes it from the quotation, so a different value is refused there and the same one passes. */
+  goodsLabel?: InputMaybe<Scalars['String']['input']>;
   /** The identity number of the customer. */
   identityNumber?: InputMaybe<Scalars['String']['input']>;
   /** Additional data from the merchant. */
   merchantData?: InputMaybe<Scalars['String']['input']>;
-  /** A message from the customer. */
+  /** A message from the customer. On a quotation cart it is stored for the order that finalizeQuotation creates. Leaving it out keeps the stored message, an empty one clears it, and more than 2000 characters is refused. A quotation linked to a Monitor quote gets its order from Monitor, which does not receive the message. */
   message?: InputMaybe<Scalars['String']['input']>;
   /** The ID of the payment method. */
   paymentId?: InputMaybe<Scalars['Int']['input']>;
   /** The pickup point for the order. */
   pickupPoint?: InputMaybe<Scalars['String']['input']>;
-  /** The shipping address for the order. */
+  /** The shipping address for the order. Not applicable on company checkouts. */
   shippingAddress?: InputMaybe<AddressInputType>;
+  /** The ID of the shipping address to choose. Currently only applicable on company checkouts. */
+  shippingAddressId?: InputMaybe<Scalars['String']['input']>;
   /** The ID of the shipping method. */
   shippingId?: InputMaybe<Scalars['Int']['input']>;
   /** When set to true, the submitted ShippingId will be set on the order regardless of it being available in the list of shipping options. */
@@ -579,6 +606,8 @@ type CheckoutOrderType = {
   customerGroupId: Scalars['Int']['output'];
   /** Customer ID */
   customerId: Scalars['Int']['output'];
+  /** An optional customer-supplied reference number for the order. Use this field to include your own internal order number, PO number, or tracking identifier. The value is not validated or required to be unique. */
+  customerOrderNumber?: Maybe<Scalars['String']['output']>;
   /** Customer Type ID */
   customerTypeId: Scalars['Int']['output'];
   /** Desired Delivery Date */
@@ -601,6 +630,8 @@ type CheckoutOrderType = {
   firstName?: Maybe<Scalars['String']['output']>;
   /** Gender */
   gender: GenderType;
+  /** An optional text usually used to mark the goods. The value may be included on the shipment so it can be printed on packaging, labels, or other markings that follow the goods. */
+  goodsLabel?: Maybe<Scalars['String']['output']>;
   /** IP Address */
   ipAddress?: Maybe<Scalars['String']['output']>;
   /** Represents the total sum of the prices for all order rows, excluding VAT */
@@ -680,18 +711,38 @@ enum CheckoutStatus {
   OK = 'OK'
 }
 
+/** Represents the current state of a checkout session. */
 type CheckoutType = {
   __typename?: 'CheckoutType';
+  /** The selected billing address. */
   billingAddress?: Maybe<AddressType>;
+  /** List of predefined billing addresses. */
+  billingAddresses?: Maybe<Array<Maybe<AddressType>>>;
+  /** The cart associated with this checkout. */
   cart?: Maybe<CartType>;
+  /** The current status of the checkout. */
   checkoutStatus?: Maybe<CheckoutStatus>;
   /** @deprecated The consent module is not supported any more. */
   consents?: Maybe<Array<Maybe<ConsentType>>>;
+  /** An optional customer-supplied reference number for the order. */
+  customerOrderNumber?: Maybe<Scalars['String']['output']>;
+  /** The customer's email address. */
   email?: Maybe<Scalars['String']['output']>;
+  /** An optional text usually used to mark the goods. */
+  goodsLabel?: Maybe<Scalars['String']['output']>;
+  /** The customer's identity number. */
   identityNumber?: Maybe<Scalars['String']['output']>;
+  /** The message from the customer. On an ordinary cart, the message this call sent, which is not stored. On a quotation cart, the message stored for the order, also when this call sent none. */
+  message?: Maybe<Scalars['String']['output']>;
+  /** Available payment options for the checkout. */
   paymentOptions?: Maybe<Array<Maybe<PaymentOptionType>>>;
+  /** The selected shipping address. */
   shippingAddress?: Maybe<AddressType>;
+  /** List of predefined shipping addresses. */
+  shippingAddresses?: Maybe<Array<Maybe<AddressType>>>;
+  /** Serialized shipping data provided by the shipping provider. */
   shippingData?: Maybe<Scalars['String']['output']>;
+  /** Available shipping options for the checkout. */
   shippingOptions?: Maybe<Array<Maybe<ShippingOptionType>>>;
 };
 
@@ -702,6 +753,85 @@ type CheckoutUrlsInputType = {
   redirectUrl?: InputMaybe<Scalars['String']['input']>;
   /** The absolute URL to the Terms page. */
   termsPageUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Type containing company address information */
+type CompanyAddressType = {
+  __typename?: 'CompanyAddressType';
+  /** The address identifier */
+  addressId: Scalars['String']['output'];
+  /** The first address line */
+  addressLine1?: Maybe<Scalars['String']['output']>;
+  /** The second address line */
+  addressLine2?: Maybe<Scalars['String']['output']>;
+  /** The third address line */
+  addressLine3?: Maybe<Scalars['String']['output']>;
+  /** An optional address reference identifier */
+  addressReferenceId?: Maybe<Scalars['String']['output']>;
+  /** The address type, can be 'billing', 'shipping', or 'billingandshipping' */
+  addressType?: Maybe<Scalars['String']['output']>;
+  /** The care of information */
+  careOf?: Maybe<Scalars['String']['output']>;
+  /** The city */
+  city?: Maybe<Scalars['String']['output']>;
+  /** The company name */
+  company?: Maybe<Scalars['String']['output']>;
+  /** The id of the company that the address belongs to */
+  companyId?: Maybe<Scalars['String']['output']>;
+  /** The country code */
+  country?: Maybe<Scalars['String']['output']>;
+  /** The email address */
+  email?: Maybe<Scalars['String']['output']>;
+  /** The first name */
+  firstName?: Maybe<Scalars['String']['output']>;
+  /** The last name */
+  lastName?: Maybe<Scalars['String']['output']>;
+  /** The phone number */
+  phone?: Maybe<Scalars['String']['output']>;
+  /** The region */
+  region?: Maybe<Scalars['String']['output']>;
+  /** The zip code */
+  zip?: Maybe<Scalars['String']['output']>;
+};
+
+/** Type containing buyer information */
+type CompanyBuyerType = {
+  __typename?: 'CompanyBuyerType';
+  /** Whether the buyer is active */
+  active: Scalars['Boolean']['output'];
+  /** The id of the company that the buyer belongs to */
+  companyId?: Maybe<Scalars['String']['output']>;
+  /** The first name */
+  firstName?: Maybe<Scalars['String']['output']>;
+  /** The unique identifier for the buyer */
+  id: Scalars['String']['output'];
+  /** The internal integer ID for the buyer */
+  internalId: Scalars['Int']['output'];
+  /** The last name */
+  lastName?: Maybe<Scalars['String']['output']>;
+  /** The phone number */
+  phone?: Maybe<Scalars['String']['output']>;
+  /** Whether the buyer is restricted to dedicated price lists */
+  restrictToDedicatedPriceLists: Scalars['Boolean']['output'];
+};
+
+/** Type containing company information */
+type CompanyType = {
+  __typename?: 'CompanyType';
+  /** The addresses of the company */
+  addresses?: Maybe<Array<Maybe<CompanyAddressType>>>;
+  /** The buyers associated with the company */
+  buyers?: Maybe<Array<Maybe<CompanyBuyerType>>>;
+  /** Whether the company is exempt from VAT */
+  exVat: Scalars['Boolean']['output'];
+  /** The unique identifier for the company */
+  id: Scalars['String']['output'];
+  /** Whether the company is limited to assigned pricelists */
+  limitedProductAccess: Scalars['Boolean']['output'];
+  /** The name of the company */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The VAT number */
+  vatNumber?: Maybe<Scalars['String']['output']>;
 };
 
 type ConsentType = {
@@ -720,6 +850,472 @@ type CountryType = {
   code: Scalars['String']['output'];
   /** Name */
   name: Scalars['String']['output'];
+};
+
+/** The committed configuration a cart item is. On a cart it was copied onto the item when its configuration id was set, and reading it makes no call to cpq. On a single order it is read from cpq with the order. */
+type CpqCartItemConfigurationType = {
+  __typename?: 'CpqCartItemConfigurationType';
+  /** The article number of the configured product */
+  articleNumber?: Maybe<Scalars['String']['output']>;
+  /** The committed configuration's id, the same as the cart item's configurationId. Null on an order, whose items carry no configurationId either, so that a reorder cannot reuse a price that is no longer quotable. */
+  committedConfigurationId?: Maybe<Scalars['String']['output']>;
+  /** The discount the ERP applied at commit, in percent */
+  discountPercent?: Maybe<Scalars['Decimal']['output']>;
+  /** The same selections as 'summary', structured by section. Null on a configuration committed before cpq recorded the structure. */
+  sections?: Maybe<Array<Maybe<CpqCommittedSectionType>>>;
+  /** The selections as one line each, in the language the configuration was committed in */
+  summary?: Maybe<Array<Maybe<CpqCommittedConfigurationLineType>>>;
+  /** The weight of one configured product, in the ERP's own unit */
+  weightPerUnit?: Maybe<Scalars['Decimal']['output']>;
+};
+
+/** One line of a committed configuration's human-readable summary */
+type CpqCommittedConfigurationLineType = {
+  __typename?: 'CpqCommittedConfigurationLineType';
+  /** What was chosen, in the requested language */
+  label?: Maybe<Scalars['String']['output']>;
+  /** The choice, in the requested language */
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+/** A configuration frozen at the price it was committed at. A cart line carries the committed id and not the session id, because carts outlive sessions. */
+type CpqCommittedConfigurationType = {
+  __typename?: 'CpqCommittedConfigurationType';
+  /** The article number of the configured product */
+  articleNumber?: Maybe<Scalars['String']['output']>;
+  /** The id to pass as a cart item's configurationId when adding the configured product to a cart */
+  committedConfigurationId: Scalars['String']['output'];
+  /** The session this was committed from */
+  configurationId?: Maybe<Scalars['String']['output']>;
+  /** The discount the ERP applied, in percent */
+  discountPercent?: Maybe<Scalars['Decimal']['output']>;
+  /** How many of the configured product were committed */
+  quantity: Scalars['Decimal']['output'];
+  /** The selections in a form a cart line can show without re-reading the configuration */
+  summary?: Maybe<Array<Maybe<CpqCommittedConfigurationLineType>>>;
+  /** The frozen price of one configured product. cpq reports net only, so the inc-VAT side is worked out here from the article's VAT rate in this market, and equals the net where no Geins product carries one. */
+  unitPrice?: Maybe<PriceType>;
+  /** The weight of one configured product, in the ERP's own unit */
+  weightPerUnit?: Maybe<Scalars['Decimal']['output']>;
+};
+
+/** An option group of a committed configuration, holding only its selected options */
+type CpqCommittedOptionGroupType = {
+  __typename?: 'CpqCommittedOptionGroupType';
+  /** The provider's own code for the group */
+  code?: Maybe<Scalars['String']['output']>;
+  /** The option group id */
+  id?: Maybe<Scalars['String']['output']>;
+  /** The option group name, in the language the configuration was committed in */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The groups nested in this one that hold a selection */
+  optionGroups?: Maybe<Array<Maybe<CpqCommittedOptionGroupType>>>;
+  /** The options selected in this group. Empty where only a nested group holds a selection. */
+  options?: Maybe<Array<Maybe<CpqCommittedOptionType>>>;
+  /** Orders this group against every other member of the same parent, its sibling groups and, where the parent is a section, that section's variables and nested sections. Sort those on sortIndex, nulls last, and render them in that order. Null on every member means no order was reported, so keep the order the lists arrive in. */
+  sortIndex?: Maybe<Scalars['Int']['output']>;
+};
+
+/** An option the shopper had selected when the configuration was committed */
+type CpqCommittedOptionType = {
+  __typename?: 'CpqCommittedOptionType';
+  /** The article number of the product this option adds, when it maps to one */
+  articleNumber?: Maybe<Scalars['String']['output']>;
+  /** The discount already reflected in 'unitPrice', in percent */
+  discountPercent?: Maybe<Scalars['Decimal']['output']>;
+  /** The option id */
+  id?: Maybe<Scalars['String']['output']>;
+  /** Distinguishes repeated copies of the same option within one group */
+  instanceId?: Maybe<Scalars['String']['output']>;
+  /** The option's name as the summary shows it, in the language the configuration was committed in. Never empty. */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The Geins product the article number names today, read with the cart in one batch for all its items and with no call to cpq. Null when no active product in the market carries it, which is ordinary: an ERP part number is not always a sellable article. Also null on every option of the cart when the product read failed, in which case the cart's items are still answered. It is read in the request's market, which a caller passing its own marketId can make differ from the one the cart item was priced in. Its unitPrice is today's catalogue price with campaigns, price lists and customer prices applied, not what the option cost at commit, which is this option's 'unitPrice'. */
+  product?: Maybe<ProductType>;
+  /** How many of the option were selected */
+  quantity: Scalars['Decimal']['output'];
+  /** What one of the option cost at commit, with its own discount already taken off. cpq froze it net, so the inc-VAT side is worked out from the cart item's own VAT rate. Option prices need not add up to the cart item's price, which comes from the frozen total and the customer's agreement. */
+  unitPrice?: Maybe<PriceType>;
+};
+
+/** A section of a committed configuration, holding only what the shopper saw and chose */
+type CpqCommittedSectionType = {
+  __typename?: 'CpqCommittedSectionType';
+  /** The section id */
+  id?: Maybe<Scalars['String']['output']>;
+  /** The section name, in the language the configuration was committed in */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The option groups in this section holding a selected option, directly or in a nested group */
+  optionGroups?: Maybe<Array<Maybe<CpqCommittedOptionGroupType>>>;
+  /** The sections nested in this one that are not empty */
+  sections?: Maybe<Array<Maybe<CpqCommittedSectionType>>>;
+  /** Orders this section against every other member of the same parent, its sibling sections, variables and option groups alike. Sort those on sortIndex, nulls last, and render them in that order. Null on every member means no order was reported, so keep the order the lists arrive in. */
+  sortIndex?: Maybe<Scalars['Int']['output']>;
+  /** The variables in this section that carry a value */
+  variables?: Maybe<Array<Maybe<CpqCommittedVariableType>>>;
+};
+
+/** A variable of a committed configuration and the value it was committed with */
+type CpqCommittedVariableType = {
+  __typename?: 'CpqCommittedVariableType';
+  /** How many decimals a number is written with. Null for any other value type. */
+  decimals?: Maybe<Scalars['Int']['output']>;
+  /** The variable id */
+  id?: Maybe<Scalars['String']['output']>;
+  /** The variable name, in the language the configuration was committed in */
+  name?: Maybe<Scalars['String']['output']>;
+  /** Orders this variable against every other member of the same section, its sibling variables, the option groups and the nested sections alike. Sort those on sortIndex, nulls last, and render them in that order. Null on every member means no order was reported, so keep the order the lists arrive in. */
+  sortIndex?: Maybe<Scalars['Int']['output']>;
+  /** The unit the value is measured in, such as 'mm' */
+  unit?: Maybe<Scalars['String']['output']>;
+  /** The value in invariant culture and without the unit: a number with exactly 'decimals' decimals, a date as yyyy-MM-dd, and a boolean as true or false */
+  value?: Maybe<Scalars['String']['output']>;
+  /** The type 'value' is written in */
+  valueType: CpqVariableValueType;
+};
+
+/** One change to apply to a configuration. Which fields carry meaning depends on the type: a variable change reads variableId and value, an option change reads optionId, instanceId, selected, quantity and lock, and a quantity change reads only quantity. */
+type CpqConfigurationChangeInputType = {
+  /** Which copy of the option to act on, for an option change */
+  instanceId?: InputMaybe<Scalars['String']['input']>;
+  /** Whether to pin the option against later rule cascades, for an option change. 'NONE' leaves an existing pin alone, which is also what omitting it does. */
+  lock?: InputMaybe<CpqOptionLock>;
+  /** The option to act on, for an option change */
+  optionId?: InputMaybe<Scalars['String']['input']>;
+  /** On an option change the option's quantity; on a quantity change how many of the configured product are being ordered */
+  quantity?: InputMaybe<Scalars['Decimal']['input']>;
+  /** Whether to select or deselect the option, for an option change */
+  selected?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Which part of the configuration the change acts on */
+  type: CpqConfigurationChangeType;
+  /** The value to set, for a variable change */
+  value?: InputMaybe<Scalars['CpqValue']['input']>;
+  /** The variable to set, for a variable change */
+  variableId?: InputMaybe<Scalars['String']['input']>;
+};
+
+enum CpqConfigurationChangeType {
+  OPTION = 'OPTION',
+  QUANTITY = 'QUANTITY',
+  VARIABLE = 'VARIABLE'
+}
+
+/** The expiry a renewed configuration session now answers until */
+type CpqConfigurationRenewalType = {
+  __typename?: 'CpqConfigurationRenewalType';
+  /** When the session stops answering, after the renewal */
+  expiresAt: Scalars['DateTimeOffset']['output'];
+};
+
+/** A live product configuration session. Every call that touches it answers the whole re-evaluated state, so replace what is held rather than merging into it. */
+type CpqConfigurationType = {
+  __typename?: 'CpqConfigurationType';
+  /** The article number of the product being configured */
+  articleNumber?: Maybe<Scalars['String']['output']>;
+  /** The session id. Every later call on this configuration takes it. */
+  configurationId: Scalars['String']['output'];
+  /** The discount the ERP applied, in percent */
+  discountPercent?: Maybe<Scalars['Decimal']['output']>;
+  /** When the session stops answering and the shopper has to start a new one. Push it out with renewConfiguration. */
+  expiresAt: Scalars['DateTimeOffset']['output'];
+  /** 'true' when the configuration is complete enough to be committed and ordered */
+  isValid: Scalars['Boolean']['output'];
+  /** Messages about the configuration as a whole */
+  messages?: Maybe<Array<Maybe<CpqMessageType>>>;
+  /** How many of the configured product are being ordered */
+  quantity: Scalars['Decimal']['output'];
+  /** The configuration's top level sections */
+  sections?: Maybe<Array<Maybe<CpqSectionType>>>;
+  /** The provider template this configuration was opened from */
+  templateId?: Maybe<Scalars['String']['output']>;
+  /** The version of the provider template this configuration was opened from */
+  templateVersion?: Maybe<Scalars['String']['output']>;
+  /** What one configured product costs according to the ERP. cpq reports net only, so the inc-VAT side is worked out here from the article's VAT rate in this market, and equals the net where no Geins product carries one. 'regularPrice' and 'isDiscounted' reconstruct 'discountPercent'. */
+  unitPrice?: Maybe<PriceType>;
+  /** The weight of one configured product, in the ERP's own unit */
+  weightPerUnit?: Maybe<Scalars['Decimal']['output']>;
+};
+
+/** How much a message matters to the shopper */
+enum CpqMessageSeverity {
+  /** Keeps the configuration from being valid */
+  ERROR = 'ERROR',
+  /** Explains something without demanding action */
+  INFO = 'INFO',
+  /** A severity added to cpq after this API was built, or none at all */
+  UNKNOWN = 'UNKNOWN',
+  /** Flags something the shopper should look at, without blocking the configuration */
+  WARNING = 'WARNING'
+}
+
+/** Something the provider wants the shopper to know about the element carrying it */
+type CpqMessageType = {
+  __typename?: 'CpqMessageType';
+  /** How much the message matters */
+  severity: CpqMessageSeverity;
+  /** The message, in the requested language */
+  text?: Maybe<Scalars['String']['output']>;
+};
+
+/** A set of options the shopper chooses from, which may itself hold further groups */
+type CpqOptionGroupType = {
+  __typename?: 'CpqOptionGroupType';
+  /** 'false' when the shopper's other choices rule this group out */
+  available: Scalars['Boolean']['output'];
+  /** The provider's own code for the group */
+  code?: Maybe<Scalars['String']['output']>;
+  /** The option group description, in the requested language */
+  description?: Maybe<Scalars['String']['output']>;
+  /** The option group id */
+  id?: Maybe<Scalars['String']['output']>;
+  /** The highest quantity an option in this group takes */
+  maxQuantity?: Maybe<Scalars['Decimal']['output']>;
+  /** How many options may be selected at once. One means the group is single-select. */
+  maxSelections?: Maybe<Scalars['Int']['output']>;
+  /** Messages about this option group */
+  messages?: Maybe<Array<Maybe<CpqMessageType>>>;
+  /** The lowest quantity an option in this group takes */
+  minQuantity?: Maybe<Scalars['Decimal']['output']>;
+  /** How many options have to be selected */
+  minSelections?: Maybe<Scalars['Int']['output']>;
+  /** The option group name, in the requested language */
+  name?: Maybe<Scalars['String']['output']>;
+  /** Option groups nested in this one */
+  optionGroups?: Maybe<Array<Maybe<CpqOptionGroupType>>>;
+  /** The options in this group */
+  options?: Maybe<Array<Maybe<CpqOptionType>>>;
+  /** 'true' when the shopper may set an option's quantity in this group */
+  quantityEditable: Scalars['Boolean']['output'];
+  /** Orders this group against every other member of the same parent, its sibling groups and, where the parent is a section, that section's variables and nested sections. Sort those on sortIndex, nulls last, and render them in that order. Null on every member means no order was reported, so keep the order the lists arrive in. */
+  sortIndex?: Maybe<Scalars['Int']['output']>;
+};
+
+enum CpqOptionLock {
+  LOCK = 'LOCK',
+  NONE = 'NONE',
+  UNLOCK = 'UNLOCK'
+}
+
+/** One selectable row in an option group */
+type CpqOptionType = {
+  __typename?: 'CpqOptionType';
+  /** The article number of the product this option adds */
+  articleNumber?: Maybe<Scalars['String']['output']>;
+  /** 'false' when the shopper's other choices rule this option out */
+  available: Scalars['Boolean']['output'];
+  /** The quantity the option takes when it is selected without one */
+  defaultQuantity: Scalars['Decimal']['output'];
+  /** The option description, in the requested language. This is not the part description 'name' can fall back to. */
+  description?: Maybe<Scalars['String']['output']>;
+  /** The discount the ERP applied to this option, in percent */
+  discountPercent?: Maybe<Scalars['Decimal']['output']>;
+  /** The option id */
+  id?: Maybe<Scalars['String']['output']>;
+  /** Distinguishes repeated copies of the same option within one group */
+  instanceId?: Maybe<Scalars['String']['output']>;
+  /** The highest quantity this option takes */
+  maxQuantity?: Maybe<Scalars['Decimal']['output']>;
+  /** Messages about this option */
+  messages?: Maybe<Array<Maybe<CpqMessageType>>>;
+  /** The lowest quantity this option takes */
+  minQuantity?: Maybe<Scalars['Decimal']['output']>;
+  /** The ERP's name for this option, in the requested language: the merchant's own label for the row inside this configuration where there is one, and the description of the part this option adds otherwise. An option is a row inside the ERP's configuration, so the ERP names it, and under Monitor, where a part description is mandatory, it is filled for every option whose part is in the register. That is a different lookup from 'product', which resolves the same article number against the Geins catalogue, so an option commonly carries a name with no product beside it. A storefront wanting its own name, images or copy overrides from 'product'; the two disagreeing is ordinary rather than a defect. Empty means the ERP filled neither, and null means a cpq that predates the rename and is still answering 'providerLabel', which is every build until cpq is deployed rather than merely merged. */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The Geins product the article number names, resolved in this same call. Null when no active product in the market carries it, which is ordinary: an ERP part number is not always a sellable article. Its unitPrice is the catalogue price with campaigns, price lists and customer prices applied, which is not what a CPQ account charges for the option. */
+  product?: Maybe<ProductType>;
+  /** How many of this option are selected */
+  quantity: Scalars['Decimal']['output'];
+  /** 'true' when the option's selection is fixed and a change to it is refused. A lock the caller set does not make an option read-only: the caller can still change or unlock it. Always 'false' under Monitor. */
+  readOnly: Scalars['Boolean']['output'];
+  /** 'true' when the option is currently selected */
+  selected: Scalars['Boolean']['output'];
+  /** Why the option is selected or deselected the way it is */
+  selectionSource: CpqSelectionSource;
+  /** What one of this option costs according to the ERP, and what the cart is charged for it. cpq reports net only, so the inc-VAT side is worked out here from the configured article's VAT rate in this market, not this option's own product's, because the configured product is invoiced as one line. It equals the net where the configured article carries no rate. This is not product.unitPrice. */
+  unitPrice?: Maybe<PriceType>;
+};
+
+/** A part of a configuration, holding variables, option groups and further sections */
+type CpqSectionType = {
+  __typename?: 'CpqSectionType';
+  /** The section description, in the requested language */
+  description?: Maybe<Scalars['String']['output']>;
+  /** The section id */
+  id?: Maybe<Scalars['String']['output']>;
+  /** Messages about this section */
+  messages?: Maybe<Array<Maybe<CpqMessageType>>>;
+  /** The section name, in the requested language */
+  name?: Maybe<Scalars['String']['output']>;
+  /** Option groups in this section */
+  optionGroups?: Maybe<Array<Maybe<CpqOptionGroupType>>>;
+  /** Sections nested in this one */
+  sections?: Maybe<Array<Maybe<CpqSectionType>>>;
+  /** Orders this section against every other member of the same parent, its sibling sections, variables and option groups alike. Sort those on sortIndex, nulls last, and render them in that order. Null on every member means no order was reported, so keep the order the lists arrive in. */
+  sortIndex?: Maybe<Scalars['Int']['output']>;
+  /** Variables in this section */
+  variables?: Maybe<Array<Maybe<CpqVariableType>>>;
+  /** 'false' when the shopper's other choices rule this section out */
+  visible: Scalars['Boolean']['output'];
+};
+
+/** Why an option is selected or deselected, or a variable available, the way it is */
+enum CpqSelectionSource {
+  /** Set by a rule on the option group rather than on the option itself */
+  GROUP_RULE = 'GROUP_RULE',
+  /** Set when the configuration was created, and not touched since */
+  INITIAL = 'INITIAL',
+  /** Fixed for the lifetime of the configuration. The shopper cannot change it. */
+  LOCKED = 'LOCKED',
+  /** Set by the shopper */
+  MANUAL = 'MANUAL',
+  /** No selection state reported, which is the resting state of an untouched unselected option */
+  NONE = 'NONE',
+  /** Deselected by a rule the ERP evaluated */
+  RULE_DESELECTED = 'RULE_DESELECTED',
+  /** Selected by a rule the ERP evaluated */
+  RULE_SELECTED = 'RULE_SELECTED',
+  /** Fixed while the shopper's other choices hold, and changeable again once they change */
+  TEMPORARILY_LOCKED = 'TEMPORARILY_LOCKED',
+  /** A source the ERP reported that neither cpq nor this API has a name for, or none at all */
+  UNKNOWN = 'UNKNOWN'
+}
+
+/** Where a variable's current value came from */
+enum CpqValueSource {
+  /** A default the ERP fell back to because nothing else supplied a value */
+  FALLBACK = 'FALLBACK',
+  /** Computed by a formula the ERP evaluated */
+  FORMULA = 'FORMULA',
+  /** Set when the configuration was created, and not touched since */
+  INITIAL = 'INITIAL',
+  /** Taken from another variable this one is linked to */
+  LINKED = 'LINKED',
+  /** Entered by the shopper */
+  MANUAL = 'MANUAL',
+  /** A source the ERP reported that neither cpq nor this API has a name for, or none at all */
+  UNKNOWN = 'UNKNOWN'
+}
+
+/** A single value the shopper sets, such as a measurement or a free-text engraving */
+type CpqVariableType = {
+  __typename?: 'CpqVariableType';
+  /** 'false' when the shopper's other choices rule this variable out */
+  available: Scalars['Boolean']['output'];
+  /** How many decimals a numeric value carries */
+  decimals?: Maybe<Scalars['Int']['output']>;
+  /** The value the variable takes when nothing sets it */
+  defaultValue?: Maybe<Scalars['CpqValue']['output']>;
+  /** The variable description, in the requested language */
+  description?: Maybe<Scalars['String']['output']>;
+  /** The variable id */
+  id?: Maybe<Scalars['String']['output']>;
+  /** The highest value a numeric variable takes */
+  max?: Maybe<Scalars['Decimal']['output']>;
+  /** Messages about this variable */
+  messages?: Maybe<Array<Maybe<CpqMessageType>>>;
+  /** The lowest value a numeric variable takes */
+  min?: Maybe<Scalars['Decimal']['output']>;
+  /** The variable name, in the requested language */
+  name?: Maybe<Scalars['String']['output']>;
+  /** 'true' when the ERP sets the value itself, from a formula or another element it follows, and a change to it is refused. A read-only variable that is required and has no value is waiting on the inputs it is computed from, not on the shopper. */
+  readOnly: Scalars['Boolean']['output'];
+  /** 'true' when the configuration is not valid until this variable holds a value */
+  required: Scalars['Boolean']['output'];
+  /** Why the variable is available the way it is */
+  selectionSource: CpqSelectionSource;
+  /** Orders this variable against every other member of the same section, its sibling variables, the option groups and the nested sections alike. Sort those on sortIndex, nulls last, and render them in that order. Null on every member means no order was reported, so keep the order the lists arrive in. */
+  sortIndex?: Maybe<Scalars['Int']['output']>;
+  /** The increment the value has to land on between the minimum and the maximum */
+  step?: Maybe<Scalars['Decimal']['output']>;
+  /** The unit the value is measured in, such as 'mm' */
+  unit?: Maybe<Scalars['String']['output']>;
+  /** The value the variable currently holds */
+  value?: Maybe<Scalars['CpqValue']['output']>;
+  /** Where the current value came from. Whether it can be changed is 'readOnly'. */
+  valueSource: CpqValueSource;
+  /** The type value and defaultValue carry */
+  valueType: CpqVariableValueType;
+};
+
+/** The type a variable's value and default value carry */
+enum CpqVariableValueType {
+  /** True or false */
+  BOOLEAN = 'BOOLEAN',
+  /** A date */
+  DATE = 'DATE',
+  /** A number, bounded by the variable's min, max and step */
+  NUMBER = 'NUMBER',
+  /** Free text */
+  STRING = 'STRING',
+  /** A type added to cpq after this API was built. Read the value as the JSON it arrives as. */
+  UNKNOWN = 'UNKNOWN'
+}
+
+/** Fields for creating a new company address. */
+type CreateCompanyAddressInputType = {
+  /** The primary address line. */
+  addressLine1: Scalars['String']['input'];
+  /** The second address line. */
+  addressLine2?: InputMaybe<Scalars['String']['input']>;
+  /** The third address line. */
+  addressLine3?: InputMaybe<Scalars['String']['input']>;
+  /** The address type. Valid values: 'billing', 'shipping', or 'billingandshipping'. */
+  addressType: Scalars['String']['input'];
+  /** The care-of information. */
+  careOf?: InputMaybe<Scalars['String']['input']>;
+  /** The city. */
+  city: Scalars['String']['input'];
+  /** The company name for this address. */
+  company?: InputMaybe<Scalars['String']['input']>;
+  /** The 2-character ISO 3166-1 alpha-2 country code (e.g. 'SE'). */
+  country: Scalars['String']['input'];
+  /** The email address of the address contact. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** The first name of the address contact. */
+  firstName: Scalars['String']['input'];
+  /** The last name of the address contact. */
+  lastName: Scalars['String']['input'];
+  /** The phone number of the address contact. */
+  phone?: InputMaybe<Scalars['String']['input']>;
+  /** The region or state. */
+  region?: InputMaybe<Scalars['String']['input']>;
+  /** The zip or postal code. */
+  zip: Scalars['String']['input'];
+};
+
+/** Fields for creating a new company buyer. */
+type CreateCompanyBuyerInputType = {
+  /** Whether the buyer is active. Defaults to true if not specified. */
+  active?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The first name of the buyer. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** The buyer's email address, used as their unique identifier and login. */
+  id: Scalars['String']['input'];
+  /** The last name of the buyer. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /** The phone number of the buyer. */
+  phone?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Fields for requesting a quotation on an existing cart. The channel and market come from the query arguments, not from these fields. */
+type CreateQuotationRequestInputType = {
+  /** The ID of the cart to request a quotation for. The cart is copied; the source cart is left untouched. */
+  cartId: Scalars['String']['input'];
+  /** A comment to the seller, stored as a message on the quotation. The latest comment is also returned as quotation.request.comment. */
+  comment?: InputMaybe<Scalars['String']['input']>;
+  /** An optional customer-supplied reference number for the order. Use this field to include your own internal order number, PO number, or tracking identifier. The value is not required to be unique. It holds at most 30 characters, and a blank value is refused. */
+  customerOrderNumber?: InputMaybe<Scalars['String']['input']>;
+  /** The buyer's own reference for this request. A purchase order number goes in customerOrderNumber. */
+  customerReference?: InputMaybe<Scalars['String']['input']>;
+  /** The delivery date the buyer wishes for. */
+  desiredDeliveryDate?: InputMaybe<Scalars['DateTimeOffset']['input']>;
+  /** When true the request starts as a draft (REQUEST_DRAFT) and is not sent to the seller until releaseQuotationRequest. When false or omitted it is sent to the seller at once (REQUESTED). */
+  draft?: InputMaybe<Scalars['Boolean']['input']>;
+  /** An optional text usually used to mark the goods. The value may be included on the shipment so it can be printed on packaging, labels, or other markings that follow the goods. */
+  goodsLabel?: InputMaybe<Scalars['String']['input']>;
+  /** A name for the quotation. A name is generated from the buyer when omitted. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The validity date the buyer wishes for. A wish only, it does not set the quotation's validTo. */
+  requestedValidTo?: InputMaybe<Scalars['DateTimeOffset']['input']>;
 };
 
 /** Type containing all information about the currency-type */
@@ -758,6 +1354,7 @@ enum DiscountType {
   EXTERNAL = 'EXTERNAL',
   NONE = 'NONE',
   PRICE_CAMPAIGN = 'PRICE_CAMPAIGN',
+  PRICE_LIST = 'PRICE_LIST',
   SALE_PRICE = 'SALE_PRICE'
 }
 
@@ -864,14 +1461,40 @@ type GeinsMerchantApiMutation = {
   acceptQuotation?: Maybe<Scalars['Boolean']['output']>;
   addPackageToCart?: Maybe<CartType>;
   addToCart?: Maybe<CartType>;
+  /** Applies a batch of changes to a configuration and returns the whole re-evaluated state. The whole batch succeeds or none of it does, and the answer replaces what is held rather than patching it. */
+  applyConfigurationChanges?: Maybe<CpqConfigurationType>;
+  /** Assign an existing user as a buyer to the current user's company. */
+  assignCompanyBuyer?: Maybe<Scalars['Boolean']['output']>;
   /** Clears all items in the cart */
   clearCart?: Maybe<CartType>;
   /** Clones the cart */
   cloneCart?: Maybe<CartType>;
+  /** Freezes a configuration at its current price and returns the committed id, which is what a cart item's configurationId carries. */
+  commitConfiguration?: Maybe<CpqCommittedConfigurationType>;
   commitReset?: Maybe<Scalars['Boolean']['output']>;
   /** Marks the cart as completed, and makes it read-only */
   completeCart?: Maybe<CartType>;
+  /** Create a new address for the current user's company. */
+  createCompanyAddress?: Maybe<Scalars['Boolean']['output']>;
+  /** Create a new buyer for the current user's company. */
+  createCompanyBuyer?: Maybe<Scalars['Boolean']['output']>;
+  /** Opens a product configuration session and returns its first evaluated state. The session settles its customer and its currency here and no later call moves them. */
+  createConfiguration?: Maybe<CpqConfigurationType>;
   createOrUpdateCheckout?: Maybe<CheckoutType>;
+  /** Send a message to the seller on a quotation, or reply to a message in its thread. */
+  createQuotationMessage?: Maybe<QuotationMessage>;
+  /** Request a quotation for an existing cart. The cart is copied, so the shopper's cart is left untouched. */
+  createQuotationRequest?: Maybe<CartType>;
+  /** Delete an address from the current user's company. */
+  deleteCompanyAddress?: Maybe<Scalars['Boolean']['output']>;
+  /** Remove a buyer from the current user's company. */
+  deleteCompanyBuyer?: Maybe<Scalars['Boolean']['output']>;
+  /** Abandons a configuration session. Reading it afterwards answers a 'ConfigurationGone' error. */
+  deleteConfiguration?: Maybe<Scalars['Boolean']['output']>;
+  /** Delete one of your own messages on a quotation. Only a message whose editable is true can be deleted. */
+  deleteQuotationMessage?: Maybe<Scalars['Boolean']['output']>;
+  /** Delete a draft quotation request (REQUEST_DRAFT). A request the seller has received is withdrawn with rejectQuotation instead. */
+  deleteQuotationRequest?: Maybe<Scalars['Boolean']['output']>;
   deleteUser?: Maybe<Scalars['Boolean']['output']>;
   /** Finalize a quotation and place an order for it. */
   finalizeQuotation?: Maybe<Scalars['Boolean']['output']>;
@@ -880,6 +1503,12 @@ type GeinsMerchantApiMutation = {
   postProductReview?: Maybe<Scalars['Boolean']['output']>;
   /** Reject a quotation. */
   rejectQuotation?: Maybe<Scalars['Boolean']['output']>;
+  /** Release a draft quotation request to the seller. The quotation moves from REQUEST_DRAFT to REQUESTED. */
+  releaseQuotationRequest?: Maybe<CartType>;
+  /** Pushes out a configuration session's expiry and reports the new one. */
+  renewConfiguration?: Maybe<CpqConfigurationRenewalType>;
+  /** Opens a cart item's committed configuration again as a session to edit, at the item's quantity and at today's price. Commit the session and pass the new committed id to updateCartItem to put it on the item. Until then the item keeps the configuration it has. */
+  reopenCartItemConfiguration?: Maybe<CpqConfigurationType>;
   requestPasswordReset?: Maybe<Scalars['Boolean']['output']>;
   /** Set custom merchant data on the cart */
   setCartMerchantData?: Maybe<CartType>;
@@ -891,6 +1520,16 @@ type GeinsMerchantApiMutation = {
   updateCartGroup?: Maybe<CartType>;
   /** Update the cart item */
   updateCartItem?: Maybe<CartType>;
+  /** Update company information for the current user's company. */
+  updateCompany?: Maybe<Scalars['Boolean']['output']>;
+  /** Update an existing address for the current user's company. */
+  updateCompanyAddress?: Maybe<Scalars['Boolean']['output']>;
+  /** Update an existing buyer for the current user's company. */
+  updateCompanyBuyer?: Maybe<Scalars['Boolean']['output']>;
+  /** Change the text of one of your own messages on a quotation. Only a message whose editable is true can be changed. */
+  updateQuotationMessage?: Maybe<QuotationMessage>;
+  /** Edit a draft quotation request (REQUEST_DRAFT). A field left out is left as it is, and items, when given, replace every line. */
+  updateQuotationRequest?: Maybe<CartType>;
   updateUser?: Maybe<UserType>;
 };
 
@@ -899,6 +1538,7 @@ type GeinsMerchantApiMutationacceptQuotationArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   languageId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
+  message?: InputMaybe<Scalars['String']['input']>;
   quotationId: Scalars['Guid']['input'];
 };
 
@@ -924,6 +1564,23 @@ type GeinsMerchantApiMutationaddToCartArgs = {
 };
 
 
+type GeinsMerchantApiMutationapplyConfigurationChangesArgs = {
+  changes: Array<CpqConfigurationChangeInputType>;
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  configurationId: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationassignCompanyBuyerArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 type GeinsMerchantApiMutationclearCartArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
@@ -938,6 +1595,14 @@ type GeinsMerchantApiMutationcloneCartArgs = {
   languageId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
   resetPromotions?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+type GeinsMerchantApiMutationcommitConfigurationArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  configurationId: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -958,12 +1623,97 @@ type GeinsMerchantApiMutationcompleteCartArgs = {
 };
 
 
+type GeinsMerchantApiMutationcreateCompanyAddressArgs = {
+  address: CreateCompanyAddressInputType;
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationcreateCompanyBuyerArgs = {
+  buyer: CreateCompanyBuyerInputType;
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationcreateConfigurationArgs = {
+  articleNumber?: InputMaybe<Scalars['String']['input']>;
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  productId?: InputMaybe<Scalars['Int']['input']>;
+  quantity: Scalars['Decimal']['input'];
+};
+
+
 type GeinsMerchantApiMutationcreateOrUpdateCheckoutArgs = {
   cartId: Scalars['String']['input'];
   channelId?: InputMaybe<Scalars['String']['input']>;
   checkout?: InputMaybe<CheckoutInputType>;
   languageId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationcreateQuotationMessageArgs = {
+  answerRef?: InputMaybe<Scalars['Guid']['input']>;
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  message: Scalars['String']['input'];
+  quotationId: Scalars['Guid']['input'];
+};
+
+
+type GeinsMerchantApiMutationcreateQuotationRequestArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  request: CreateQuotationRequestInputType;
+};
+
+
+type GeinsMerchantApiMutationdeleteCompanyAddressArgs = {
+  addressId: Scalars['String']['input'];
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationdeleteCompanyBuyerArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationdeleteConfigurationArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  configurationId: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationdeleteQuotationMessageArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  messageId: Scalars['Guid']['input'];
+  quotationId: Scalars['Guid']['input'];
+};
+
+
+type GeinsMerchantApiMutationdeleteQuotationRequestArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  quotationId: Scalars['Guid']['input'];
 };
 
 
@@ -1015,7 +1765,34 @@ type GeinsMerchantApiMutationrejectQuotationArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   languageId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
+  message?: InputMaybe<Scalars['String']['input']>;
   quotationId: Scalars['Guid']['input'];
+};
+
+
+type GeinsMerchantApiMutationreleaseQuotationRequestArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  message?: InputMaybe<Scalars['String']['input']>;
+  quotationId: Scalars['Guid']['input'];
+};
+
+
+type GeinsMerchantApiMutationrenewConfigurationArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  configurationId: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationreopenCartItemConfigurationArgs = {
+  cartId: Scalars['String']['input'];
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  itemId: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1083,6 +1860,51 @@ type GeinsMerchantApiMutationupdateCartItemArgs = {
 };
 
 
+type GeinsMerchantApiMutationupdateCompanyArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  company: UpdateCompanyInputType;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationupdateCompanyAddressArgs = {
+  address: UpdateCompanyAddressInputType;
+  addressId: Scalars['String']['input'];
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationupdateCompanyBuyerArgs = {
+  buyer: UpdateCompanyBuyerInputType;
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiMutationupdateQuotationMessageArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  message: Scalars['String']['input'];
+  messageId: Scalars['Guid']['input'];
+  quotationId: Scalars['Guid']['input'];
+};
+
+
+type GeinsMerchantApiMutationupdateQuotationRequestArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  quotationId: Scalars['Guid']['input'];
+  request: UpdateQuotationRequestInputType;
+};
+
+
 type GeinsMerchantApiMutationupdateUserArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   languageId?: InputMaybe<Scalars['String']['input']>;
@@ -1118,21 +1940,31 @@ type GeinsMerchantApiQuery = {
    * @deprecated Use Checkout instead
    */
   getCheckoutAndOrder?: Maybe<CheckoutAndOrderType>;
+  /** Gets company info for the current user. */
+  getCompany?: Maybe<CompanyType>;
+  /** Get orders for the company of the current user */
+  getCompanyOrders?: Maybe<Array<Maybe<OrderType>>>;
+  /** Gets a live product configuration session in full. A session that has run out answers a 'ConfigurationGone' error, which is not the same as an id that never existed. */
+  getConfiguration?: Maybe<CpqConfigurationType>;
   /** Get a menu */
   getMenuAtLocation?: Maybe<MenuType>;
   /** Get a specific order with details */
   getOrder?: Maybe<OrderType>;
+  /** Get a URL that opens a file linked to one of the current user's orders */
+  getOrderAssetUrl?: Maybe<OrderAssetUrlType>;
   /** Get a specific order with details via public id */
   getOrderPublic?: Maybe<OrderType>;
   /** Get orders for the current user */
   getOrders?: Maybe<Array<Maybe<OrderType>>>;
   /** Get a quotation cart with the specified quotation ID. */
   getQuotationCart?: Maybe<CartType>;
+  /** Get the messages between the current user and the seller on a quotation, oldest first. */
+  getQuotationMessages?: Maybe<Array<Maybe<QuotationMessage>>>;
   /** Get the current user */
   getUser?: Maybe<UserType>;
   /** Gets information about the specified list page. */
   listPageInfo?: Maybe<PageInfoType>;
-  /** List all quotation carts for the current user. */
+  /** List the current user's quotation carts. Without arguments every quotation is listed, in no set order. With a status, skip or take the list is newest first. */
   listQuotationCarts?: Maybe<Array<Maybe<CartType>>>;
   /** Gets a product with the specified ID. Use either alias or productId. If both are provided, productId will be used. */
   product?: Maybe<ProductType>;
@@ -1231,6 +2063,28 @@ type GeinsMerchantApiQuerygetCheckoutAndOrderArgs = {
 };
 
 
+type GeinsMerchantApiQuerygetCompanyArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiQuerygetCompanyOrdersArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+type GeinsMerchantApiQuerygetConfigurationArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  configurationId: Scalars['String']['input'];
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 type GeinsMerchantApiQuerygetMenuAtLocationArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   customerGroupId?: InputMaybe<Scalars['Int']['input']>;
@@ -1241,6 +2095,15 @@ type GeinsMerchantApiQuerygetMenuAtLocationArgs = {
 
 
 type GeinsMerchantApiQuerygetOrderArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  orderId: Scalars['Int']['input'];
+};
+
+
+type GeinsMerchantApiQuerygetOrderAssetUrlArgs = {
+  assetId: Scalars['ID']['input'];
   channelId?: InputMaybe<Scalars['String']['input']>;
   languageId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
@@ -1271,6 +2134,14 @@ type GeinsMerchantApiQuerygetQuotationCartArgs = {
 };
 
 
+type GeinsMerchantApiQuerygetQuotationMessagesArgs = {
+  channelId?: InputMaybe<Scalars['String']['input']>;
+  languageId?: InputMaybe<Scalars['String']['input']>;
+  marketId?: InputMaybe<Scalars['String']['input']>;
+  quotationId: Scalars['Guid']['input'];
+};
+
+
 type GeinsMerchantApiQuerygetUserArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   languageId?: InputMaybe<Scalars['String']['input']>;
@@ -1291,6 +2162,9 @@ type GeinsMerchantApiQuerylistQuotationCartsArgs = {
   channelId?: InputMaybe<Scalars['String']['input']>;
   languageId?: InputMaybe<Scalars['String']['input']>;
   marketId?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  statuses?: InputMaybe<Array<QuotationStatus>>;
+  take?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1559,26 +2433,71 @@ type OptionType = {
   sortOrder: Scalars['Int']['output'];
 };
 
+/** A file from the asset library linked to the order */
+type OrderAssetType = {
+  __typename?: 'OrderAssetType';
+  /** The alt text in every language it has. */
+  altText?: Maybe<Array<ProductAssetTextType>>;
+  /** The description in every language it has. */
+  description?: Maybe<Array<ProductAssetTextType>>;
+  /** The asset ID. */
+  id: Scalars['ID']['output'];
+  /** When the file was linked to the order. */
+  linkedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** The asset type, such as 'pdf' or 'image'. */
+  mediaType?: Maybe<Scalars['String']['output']>;
+  /** The asset name. */
+  name: Scalars['String']['output'];
+  /** Whether the file's URL expires. */
+  private: Scalars['Boolean']['output'];
+  /** The file size in bytes. */
+  sizeBytes: Scalars['Long']['output'];
+  /** Tags on the asset. */
+  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+/** A URL that opens a file linked to an order */
+type OrderAssetUrlType = {
+  __typename?: 'OrderAssetUrlType';
+  /** When the URL stops working, or null when it does not expire. */
+  expiresAt?: Maybe<Scalars['DateTime']['output']>;
+  /** The URL, which for a private file carries a token that must not be stored or shared. */
+  url: Scalars['String']['output'];
+};
+
 type OrderType = {
   __typename?: 'OrderType';
+  /** The files linked to the order, or null for an order read by its public ID. */
+  assets?: Maybe<Array<OrderAssetType>>;
   billingAddress?: Maybe<AddressType>;
   cart?: Maybe<CartType>;
   completedAt?: Maybe<Scalars['DateTime']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   currency?: Maybe<Scalars['String']['output']>;
+  customerEmail?: Maybe<Scalars['String']['output']>;
   customerId?: Maybe<Scalars['Int']['output']>;
+  /** An optional customer-supplied reference number for the order. */
+  customerOrderNumber?: Maybe<Scalars['String']['output']>;
   desiredDeliveryDate?: Maybe<Scalars['DateTime']['output']>;
   discount?: Maybe<PriceType>;
   /** The amount taken from account balance */
   fromBalance: Scalars['Decimal']['output'];
   /** The amount taken from account balance. Formatted as a currency string. */
   fromBalanceFormatted?: Maybe<Scalars['String']['output']>;
+  /** An optional text usually used to mark the goods. */
+  goodsLabel?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   message?: Maybe<Scalars['String']['output']>;
+  /** Order metadata as a JSON object. MerchantData holds the value set via SetCartMerchantData or the checkout's merchantData. A value that is a JSON object or array is returned nested; any other value is returned as a string. */
+  metaData?: Maybe<Scalars['JSON']['output']>;
   orderTotal?: Maybe<PriceType>;
   paymentDetails?: Maybe<Array<Maybe<PaymentDetailsType>>>;
   paymentFee?: Maybe<PriceType>;
   publicId: Scalars['ID']['output'];
+  /** The ID of the quotation the order was finalized from, or null for an order that did not come from one. */
+  quotationId?: Maybe<Scalars['Guid']['output']>;
+  /** The number of the quotation the order was finalized from, or null for an order that did not come from one. */
+  quotationNumber?: Maybe<Scalars['String']['output']>;
   refunds?: Maybe<Array<Maybe<RefundType>>>;
   shippingAddress?: Maybe<AddressType>;
   shippingDetails?: Maybe<Array<Maybe<ShippingDetailType>>>;
@@ -1635,6 +2554,8 @@ type PageInfoType = {
   secondaryDescription?: Maybe<Scalars['String']['output']>;
   /** Page sub-categories */
   subCategories?: Maybe<Array<Maybe<CategoryType>>>;
+  /** Kind of page: category, brand, page (a CMS page), discountCampaign, frontpage, sale or parameterValue. The values match the menu item type where the menu has one. Null when the kind is unknown. More values may be added, so treat an unknown value like null. */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 /** Type for filtering widgets */
@@ -1707,6 +2628,8 @@ type PageWidgetImageType = {
   largestSize?: Maybe<PageWidgetImageSizeType>;
   /** Image sizes */
   sizes?: Maybe<Array<Maybe<PageWidgetImageSizeType>>>;
+  /** The asset library URL of the image, if any. */
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 /** Type containing CMS page information */
@@ -1800,7 +2723,9 @@ type ParameterType = {
 };
 
 enum PaymentCheckout {
+  BRIQPAY = 'BRIQPAY',
   EXTERNAL = 'EXTERNAL',
+  /** @deprecated Use Briqpay instead */
   GEINS_PAY = 'GEINS_PAY',
   STANDARD = 'STANDARD'
 }
@@ -1859,7 +2784,12 @@ type PaymentOptionType = {
 enum PaymentType {
   /** Avarda */
   AVARDA = 'AVARDA',
-  /** GeinsPay */
+  /** Briqpay */
+  BRIQPAY = 'BRIQPAY',
+  /**
+   * GeinsPay
+   * @deprecated Use Briqpay instead
+   */
   GEINS_PAY = 'GEINS_PAY',
   /** Klarna */
   KLARNA = 'KLARNA',
@@ -1976,6 +2906,38 @@ type PriceType = {
   vatFormatted?: Maybe<Scalars['String']['output']>;
 };
 
+/** A text in one language */
+type ProductAssetTextType = {
+  __typename?: 'ProductAssetTextType';
+  /** The 2-letter ISO 639-1 language code, or null when the asset library holds the text without a language. */
+  language?: Maybe<Scalars['String']['output']>;
+  /** The text. */
+  value: Scalars['String']['output'];
+};
+
+/** An asset from the asset library linked to the product as an image or a file */
+type ProductAssetType = {
+  __typename?: 'ProductAssetType';
+  /** The alt text in every language it has. */
+  altText?: Maybe<Array<ProductAssetTextType>>;
+  /** The description in every language it has. */
+  description?: Maybe<Array<ProductAssetTextType>>;
+  /** The asset ID. */
+  id: Scalars['ID']['output'];
+  /** How the asset is linked to the product: 'productimage' or 'productfile'. */
+  linkType: Scalars['String']['output'];
+  /** The asset type, such as 'image', 'svg', 'pdf' or 'doc'. */
+  mediaType: Scalars['String']['output'];
+  /** The asset name. */
+  name: Scalars['String']['output'];
+  /** The file size in bytes. */
+  sizeBytes: Scalars['Long']['output'];
+  /** Tags on the asset. */
+  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The URL of the asset. */
+  url?: Maybe<Scalars['String']['output']>;
+};
+
 /** Type containing all information about a product image */
 type ProductImageType = {
   __typename?: 'ProductImageType';
@@ -1983,6 +2945,8 @@ type ProductImageType = {
   fileName: Scalars['String']['output'];
   /** Custom tags associated with the product image. */
   tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The asset library URL of the product image, if any. */
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 /** Type containing meta data for the package selection that a cart item was added from */
@@ -2074,6 +3038,8 @@ type ProductType = {
   alternativeUrls?: Maybe<Array<Maybe<AlternativeUrlType>>>;
   /** The product article number */
   articleNumber?: Maybe<Scalars['String']['output']>;
+  /** Images and files from the asset library linked to the product, oldest link first */
+  assets?: Maybe<Array<Maybe<ProductAssetType>>>;
   /** Product brand information */
   brand?: Maybe<BrandType>;
   /** Breadcrumbs */
@@ -2090,7 +3056,7 @@ type ProductType = {
   dimensions?: Maybe<DimensionsType>;
   /** Product discount campaigns */
   discountCampaigns?: Maybe<Array<Maybe<CampaignRuleType>>>;
-  /** Type of discount price: None, SalePrice, PriceCampaign or External */
+  /** Type of discount price: None when the price is not discounted, SalePrice, PriceCampaign, External, or PriceList when a customer's (non-forced, non-dedicated) price list undercuts the price */
   discountType?: Maybe<DiscountType>;
   /** The date on which the product was first available (yyyy-mm-dd) */
   firstAvailableOn?: Maybe<Scalars['String']['output']>;
@@ -2129,7 +3095,7 @@ type ProductType = {
   texts?: Maybe<ProductTextsType>;
   /** Product stock information */
   totalStock?: Maybe<StockType>;
-  /** The product type. Either 'product' or 'package' */
+  /** The product type. One of 'product', 'package' or 'configurable' */
   type?: Maybe<Scalars['String']['output']>;
   /** Product price information */
   unitPrice?: Maybe<PriceType>;
@@ -2230,6 +3196,65 @@ type QuotationDiscountType = {
   value: Scalars['Decimal']['output'];
 };
 
+/** Type containing the link between a quotation and the external system that manages it */
+type QuotationExternalReferenceType = {
+  __typename?: 'QuotationExternalReferenceType';
+  /** The quotation's number in the external system */
+  number?: Maybe<Scalars['String']['output']>;
+  /** The number of the order the external system created from the quotation */
+  orderNumber?: Maybe<Scalars['String']['output']>;
+  /** The external system, such as monitor-erp */
+  system?: Maybe<Scalars['String']['output']>;
+};
+
+/** A message between the buyer and the seller on a quotation */
+type QuotationMessage = {
+  __typename?: 'QuotationMessage';
+  /** The ID of the message this one replies to, or null */
+  answerRef?: Maybe<Scalars['Guid']['output']>;
+  /** The name of the person who wrote the message */
+  authorName?: Maybe<Scalars['String']['output']>;
+  /** Whether the buyer may still edit or delete the message. True only for the buyer's own message sent with createQuotationMessage, until the seller replies to it */
+  editable: Scalars['Boolean']['output'];
+  /** The message ID */
+  id: Scalars['Guid']['output'];
+  /** The text of the message */
+  message?: Maybe<Scalars['String']['output']>;
+  /** Key and value pairs attached to the message, such as the status change a message was sent with */
+  tags?: Maybe<Array<Maybe<QuotationMessageTagType>>>;
+  /** When the message was written */
+  timestamp: Scalars['DateTimeOffset']['output'];
+  /** TO_CUSTOMER for a message from the seller, FROM_CUSTOMER for one from the buyer */
+  type: QuotationMessageType;
+};
+
+/** A key and value pair attached to a quotation message */
+type QuotationMessageTagType = {
+  __typename?: 'QuotationMessageTagType';
+  /** The tag key */
+  key?: Maybe<Scalars['String']['output']>;
+  /** The tag value */
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+enum QuotationMessageType {
+  FROM_CUSTOMER = 'FROM_CUSTOMER',
+  TO_CUSTOMER = 'TO_CUSTOMER'
+}
+
+/** Type containing the details a quotation's order gets. A field that is not set is null */
+type QuotationOrderDetailsType = {
+  __typename?: 'QuotationOrderDetailsType';
+  /** The customer-supplied reference number the order gets, such as a PO number */
+  customerOrderNumber?: Maybe<Scalars['String']['output']>;
+  /** The buyer's own reference. It does not reach the order */
+  customerReference?: Maybe<Scalars['String']['output']>;
+  /** The desired delivery date the order gets. The buyer's request sets it and the seller can change it */
+  desiredDeliveryDate?: Maybe<Scalars['DateTimeOffset']['output']>;
+  /** An optional text usually used to mark the goods. The value may be included on the shipment so it can be printed on packaging, labels, or other markings that follow the goods */
+  goodsLabel?: Maybe<Scalars['String']['output']>;
+};
+
 /** Type containing quotation owner information */
 type QuotationOwnerType = {
   __typename?: 'QuotationOwnerType';
@@ -2248,12 +3273,45 @@ type QuotationOwnerType = {
 /** Type containing quotation payment method information */
 type QuotationPaymentMethodType = {
   __typename?: 'QuotationPaymentMethodType';
+  /** The payment method name to show the buyer, such as Faktura, as stored when the seller last set the quotation's payment methods. A later rename shows only after they are set again. Null when it was blank then, or when they were set before display names were stored */
+  displayName?: Maybe<Scalars['String']['output']>;
   /** The payment method name */
   name?: Maybe<Scalars['String']['output']>;
   /** The payment fee */
   paymentFee?: Maybe<Scalars['Decimal']['output']>;
   /** The payment method identifier */
   paymentId?: Maybe<Scalars['String']['output']>;
+};
+
+/** A line of a draft quotation request. */
+type QuotationRequestItemInputType = {
+  /** The committed configuration the line is. A configuration the quotation does not hold yet, or one at a new quantity, is read from cpq and becomes a new line. */
+  configurationId?: InputMaybe<Scalars['String']['input']>;
+  /** The id of the quotation cart line this item keeps, as the quotation cart returned it. A line keeps its id across the buyer's edits. An id that is not a line of this quotation is refused with the error code QuotationLineNotFound, and usually means the seller or the ERP changed the lines since the quotation was read, so read it again. Once any item without a configurationId has an id, such an item without one is a new line, so an existing line sent without its id is removed and added again as a new line. When none has one, the quotation service pairs the items with the lines of the same SKU in cart order. A configured line is matched by its configurationId instead, and an id on it is ignored. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The buyer's message on the line. */
+  message?: InputMaybe<Scalars['String']['input']>;
+  /** The quantity of the line. */
+  quantity: Scalars['Int']['input'];
+  /** The SKU ID of the product. */
+  skuId: Scalars['Int']['input'];
+};
+
+/** Type containing what the buyer sent with a quotation request. A field the buyer did not send is null */
+type QuotationRequestType = {
+  __typename?: 'QuotationRequestType';
+  /** The buyer's latest comment to the seller */
+  comment?: Maybe<Scalars['String']['output']>;
+  /** An optional customer-supplied reference number for the order, such as a PO number. It holds at most 30 characters */
+  customerOrderNumber?: Maybe<Scalars['String']['output']>;
+  /** The buyer's own reference for this request */
+  customerReference?: Maybe<Scalars['String']['output']>;
+  /** The delivery date the buyer wishes for */
+  desiredDeliveryDate?: Maybe<Scalars['DateTimeOffset']['output']>;
+  /** An optional text usually used to mark the goods. The value may be included on the shipment so it can be printed on packaging, labels, or other markings that follow the goods */
+  goodsLabel?: Maybe<Scalars['String']['output']>;
+  /** The validity date the buyer wishes for. A wish only, it does not set the quotation's validTo */
+  requestedValidTo?: Maybe<Scalars['DateTimeOffset']['output']>;
 };
 
 /** Type containing quotation settings information */
@@ -2282,7 +3340,9 @@ enum QuotationStatus {
   EXPIRED = 'EXPIRED',
   FINALIZED = 'FINALIZED',
   PENDING = 'PENDING',
-  REJECTED = 'REJECTED'
+  REJECTED = 'REJECTED',
+  REQUESTED = 'REQUESTED',
+  REQUEST_DRAFT = 'REQUEST_DRAFT'
 }
 
 /** Type containing quotation terms information */
@@ -2495,6 +3555,78 @@ type StockType = {
   totalStock: Scalars['Int']['output'];
 };
 
+/** Fields for updating an existing company address. Only provided fields will be updated. */
+type UpdateCompanyAddressInputType = {
+  /** The primary address line. */
+  addressLine1?: InputMaybe<Scalars['String']['input']>;
+  /** The second address line. */
+  addressLine2?: InputMaybe<Scalars['String']['input']>;
+  /** The third address line. */
+  addressLine3?: InputMaybe<Scalars['String']['input']>;
+  /** The address type. Valid values: 'billing', 'shipping', or 'billingandshipping'. */
+  addressType?: InputMaybe<Scalars['String']['input']>;
+  /** The care-of information. */
+  careOf?: InputMaybe<Scalars['String']['input']>;
+  /** The city. */
+  city?: InputMaybe<Scalars['String']['input']>;
+  /** The company name for this address. */
+  company?: InputMaybe<Scalars['String']['input']>;
+  /** The 2-character ISO 3166-1 alpha-2 country code (e.g. 'SE'). */
+  country?: InputMaybe<Scalars['String']['input']>;
+  /** The email address of the address contact. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** The first name of the address contact. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** The last name of the address contact. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /** The phone number of the address contact. */
+  phone?: InputMaybe<Scalars['String']['input']>;
+  /** The region or state. */
+  region?: InputMaybe<Scalars['String']['input']>;
+  /** The zip or postal code. */
+  zip?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Fields for updating an existing company buyer. Only provided fields will be updated. */
+type UpdateCompanyBuyerInputType = {
+  /** Whether the buyer is active. */
+  active?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The first name of the buyer. */
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  /** A new email/identifier for the buyer. If different from the current username, the buyer will be reassigned. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** The last name of the buyer. */
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  /** The phone number of the buyer. */
+  phone?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Fields for updating company information. Only provided fields will be updated. */
+type UpdateCompanyInputType = {
+  /** The name of the company. */
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Changes to a draft quotation request. A field left out is left as it is. */
+type UpdateQuotationRequestInputType = {
+  /** A comment to the seller, stored as a new message on the quotation. The latest comment is also returned as quotation.request.comment. */
+  comment?: InputMaybe<Scalars['String']['input']>;
+  /** An optional customer-supplied reference number for the order. Use this field to include your own internal order number, PO number, or tracking identifier. The value is not required to be unique. It holds at most 30 characters. Leaving it out keeps the stored value, and a blank value is refused, so an order number cannot be cleared once set. */
+  customerOrderNumber?: InputMaybe<Scalars['String']['input']>;
+  /** The buyer's own reference for this request. A purchase order number goes in customerOrderNumber. Leaving it out keeps the stored value, and a blank value is refused, so a reference cannot be cleared once set. */
+  customerReference?: InputMaybe<Scalars['String']['input']>;
+  /** The delivery date the buyer wishes for. */
+  desiredDeliveryDate?: InputMaybe<Scalars['DateTimeOffset']['input']>;
+  /** An optional text usually used to mark the goods. The value may be included on the shipment so it can be printed on packaging, labels, or other markings that follow the goods. Leaving it out keeps the stored value, and a blank value is refused, so a goods label cannot be cleared once set. */
+  goodsLabel?: InputMaybe<Scalars['String']['input']>;
+  /** The lines of the request. When given, they replace every line, so send each line to keep. */
+  items?: InputMaybe<Array<QuotationRequestItemInputType>>;
+  /** A new name for the quotation. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The validity date the buyer wishes for. A wish only, it does not set the quotation's validTo. */
+  requestedValidTo?: InputMaybe<Scalars['DateTimeOffset']['input']>;
+};
+
 type UrlHistoryType = {
   __typename?: 'UrlHistoryType';
   newUrl: Scalars['String']['output'];
@@ -2507,6 +3639,14 @@ type UserBalanceType = {
   /** User balance amount. Formatted as a currency string. */
   amountFormatted?: Maybe<Scalars['String']['output']>;
   currency: Scalars['String']['output'];
+};
+
+type UserChannelType = {
+  __typename?: 'UserChannelType';
+  /** Markets the user is allowed to use */
+  availableMarkets?: Maybe<Array<Maybe<MarketType>>>;
+  /** The ID of the channel. */
+  channelId: Scalars['String']['output'];
 };
 
 type UserInputType = {
@@ -2523,6 +3663,8 @@ type UserType = {
   __typename?: 'UserType';
   /** The address of the user. */
   address?: Maybe<AddressType>;
+  /** Channels the user is allowed to use */
+  availableChannels?: Maybe<Array<Maybe<UserChannelType>>>;
   /**
    * Account balance
    * @deprecated Use Balances instead
@@ -2590,6 +3732,10 @@ type VariantDimensionType = {
   label?: Maybe<Scalars['String']['output']>;
   /** The level of this variant dimension */
   level: Scalars['Int']['output'];
+  /** The dimension name in the requested language, or the default name when it has no translation */
+  localizedDimension: Scalars['String']['output'];
+  /** Dimension label in the requested language, or the default label when it has no translation */
+  localizedLabel?: Maybe<Scalars['String']['output']>;
   /** Dimension type. e.g. 'product' if it leads to a different product, otherwise 'selection' */
   type: Scalars['String']['output'];
   /** Dimension value */
@@ -2630,6 +3776,10 @@ type VariantType = {
   label?: Maybe<Scalars['String']['output']>;
   /** Level of this variant. Lower value is a more accurate selection */
   level: Scalars['Int']['output'];
+  /** Variant dimension in the requested language, or the default dimension when it has no translation */
+  localizedDimension: Scalars['String']['output'];
+  /** Variant label in the requested language, or the default label when it has no translation */
+  localizedLabel?: Maybe<Scalars['String']['output']>;
   /** Variant name */
   name?: Maybe<Scalars['String']['output']>;
   /** The primary image used for the product. Only available for the 'product'-level */
@@ -2655,6 +3805,8 @@ type VariantValueType = {
   __typename?: 'VariantValueType';
   /** Label */
   label: Scalars['String']['output'];
+  /** Label in the requested language, or the default label when it has no translation */
+  localizedLabel: Scalars['String']['output'];
   /** Value */
   value: Scalars['String']['output'];
 };
@@ -2664,8 +3816,13 @@ type VatGroupType = {
   __typename?: 'VatGroupType';
   /** VAT amount */
   amount: Scalars['Decimal']['output'];
-  /** VAT rate */
+  /**
+   * VAT rate in whole percent
+   * @deprecated Use ratePercentage, which holds a fractional rate such as 25.5.
+   */
   rate: Scalars['Int']['output'];
+  /** VAT rate in percent, such as 25 or 25.5 */
+  ratePercentage: Scalars['Decimal']['output'];
 };
 
 type CartQueryVariables = Exact<{
@@ -2764,6 +3921,13 @@ type GeinsProductsByCategoryQueryVariables = Exact<{
 
 
 type GeinsProductsByCategoryQuery = { __typename?: 'GeinsMerchantApiQuery', products?: { __typename?: 'ProductsResultType', count: any, products?: Array<{ __typename?: 'ProductType', productId: number, name?: string | null, articleNumber?: string | null, categoryId: number, canonicalUrl?: string | null, type?: string | null, skus?: Array<{ __typename?: 'SkuType', skuId: number, weight: number, productId: number, articleNumber: string, externalId?: string | null, gtin?: string | null, name?: string | null, shelf?: string | null, incoming?: any | null, stock?: { __typename?: 'StockType', totalStock: number, inStock: number, oversellable: number, static?: number | null } | null, dimensions?: { __typename?: 'DimensionsType', length: number, width: number, height: number } | null } | null> | null, brand?: { __typename?: 'BrandType', brandId: number } | null, categories?: Array<{ __typename?: 'CategoryType', categoryId: number, name: string, alias?: string | null, description?: string | null } | null> | null, unitPrice?: { __typename?: 'PriceType', sellingPriceExVat: any, sellingPriceIncVat: any, vatFormatted?: string | null, currency?: { __typename?: 'CurrencyType', name: string, symbol: string, code: string, rate: any } | null } | null, productImages?: Array<{ __typename?: 'ProductImageType', fileName: string, tags?: Array<string | null> | null } | null> | null, parameterGroups?: Array<{ __typename?: 'ParameterGroupType', parameterGroupId?: number | null, parameters?: Array<{ __typename?: 'ParameterType', parameterValueId?: number | null, facetId?: string | null, identifier?: string | null, type?: string | null, name?: string | null, value?: string | null } | null> | null } | null> | null } | null> | null } | null };
+
+type GeinsCategoriesQueryVariables = Exact<{
+  marketId?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+type GeinsCategoriesQuery = { __typename?: 'GeinsMerchantApiQuery', categories?: Array<{ __typename?: 'CategoryType', categoryId: number, name: string, alias?: string | null } | null> | null };
 
 type GeinsProductByArticleNoQueryVariables = Exact<{
   articleNumbers?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;

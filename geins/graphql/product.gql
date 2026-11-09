@@ -21,6 +21,14 @@ query GeinsProductsByCategory(
 	}
 }
 
+query GeinsCategories($marketId: String = "1") {
+	categories(marketId: $marketId) {
+		categoryId
+		name
+		alias
+	}
+}
+
 query GeinsProductByArticleNo($articleNumbers: [String!], $marketId: String = "1") {
 	products(marketId: $marketId, filter: { articleNumbers: $articleNumbers }) {
 		count

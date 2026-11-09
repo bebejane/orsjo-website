@@ -87,7 +87,7 @@ const geins = {
 
 const config: IGraphQLConfig = {
 	projects: {
-		//geins,
+		geins,
 		datocms,
 	},
 };

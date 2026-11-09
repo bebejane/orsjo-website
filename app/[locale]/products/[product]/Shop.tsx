@@ -482,7 +482,6 @@ function getAllAddons(
 				imageUrl: getProductImageUrl(
 					geins.accessories.find((p) => p?.articleNumber === accessory?.articleNo) as ProductType,
 				),
-
 				quantity: 1,
 			})),
 			...lightsources
