@@ -492,7 +492,7 @@ function getAllAddons(
 					modelId,
 					variantId: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
 						?.skus?.[0]?.skuId,
-					name: `${amount} x ${lightsource?.name}`,
+					name: `${amount ?? 1} x ${lightsource?.name}`,
 					price: geins.lightsources.find((p) => p?.articleNumber === lightsource?.articleNo)
 						?.unitPrice?.sellingPriceIncVat,
 					imageUrl: getProductImageUrl(
